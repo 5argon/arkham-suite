@@ -1,5 +1,5 @@
 {
-	"name": "@5argon/arkham-starter-sveltekit",
+	"name": "@5argon/arkham-starter",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",

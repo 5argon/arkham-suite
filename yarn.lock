@@ -36,9 +36,55 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@5argon/arkham-life-site@workspace:life":
+"@5argon/arkham-life-ui@workspace:*, @5argon/arkham-life-ui@workspace:ui":
   version: 0.0.0-use.local
-  resolution: "@5argon/arkham-life-site@workspace:life"
+  resolution: "@5argon/arkham-life-ui@workspace:ui"
+  dependencies:
+    "@5argon/arkham-icon": "workspace:*"
+    "@5argon/arkham-string": "workspace:*"
+    "@floating-ui/dom": "npm:^1.7.5"
+    "@inlang/paraglide-js": "npm:^2.10.0"
+    "@sveltejs/adapter-auto": "npm:^7.0.1"
+    "@sveltejs/kit": "npm:^2.50.2"
+    "@sveltejs/vite-plugin-svelte": "npm:^6.2.4"
+    "@tailwindcss/aspect-ratio": "npm:^0.4.2"
+    "@tailwindcss/container-queries": "npm:^0.1.1"
+    "@tailwindcss/forms": "npm:^0.5.11"
+    "@tailwindcss/typography": "npm:^0.5.19"
+    "@tailwindcss/vite": "npm:^4.1.18"
+    "@types/color": "npm:^4.2.0"
+    "@types/dompurify": "npm:^3.2.0"
+    "@types/eslint": "npm:^9.6.1"
+    autoprefixer: "npm:^10.4.24"
+    clsx: "npm:^2.1.1"
+    color: "npm:^5.0.3"
+    dompurify: "npm:^3.3.1"
+    eslint: "npm:^9.39.2"
+    eslint-config-prettier: "npm:^10.1.8"
+    eslint-plugin-svelte: "npm:^3.14.0"
+    fuse.js: "npm:^7.1.0"
+    globals: "npm:^17.3.0"
+    marked: "npm:^17.0.2"
+    mdsvex: "npm:^0.12.6"
+    postcss: "npm:^8.5.6"
+    prettier: "npm:^3.8.1"
+    prettier-plugin-svelte: "npm:^3.4.1"
+    prettier-plugin-tailwindcss: "npm:^0.7.2"
+    svelte: "npm:^5.49.2"
+    svelte-check: "npm:^4.3.6"
+    tailwindcss: "npm:^4.1.18"
+    typescript: "npm:^5.9.3"
+    typescript-eslint: "npm:^8.54.0"
+    vite: "npm:^7.3.1"
+  peerDependencies:
+    "@5argon/arkham-kohaku": "workspace:*"
+    svelte: ^5.49.2
+  languageName: unknown
+  linkType: soft
+
+"@5argon/arkham-life@workspace:life":
+  version: 0.0.0-use.local
+  resolution: "@5argon/arkham-life@workspace:life"
   dependencies:
     "@5argon/arkham-life-ui": "workspace:*"
     "@5argon/arkham-string": "workspace:*"
@@ -88,55 +134,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@5argon/arkham-life-ui@workspace:*, @5argon/arkham-life-ui@workspace:ui":
+"@5argon/arkham-starter@workspace:starter":
   version: 0.0.0-use.local
-  resolution: "@5argon/arkham-life-ui@workspace:ui"
-  dependencies:
-    "@5argon/arkham-icon": "workspace:*"
-    "@5argon/arkham-string": "workspace:*"
-    "@floating-ui/dom": "npm:^1.7.5"
-    "@inlang/paraglide-js": "npm:^2.10.0"
-    "@sveltejs/adapter-auto": "npm:^7.0.1"
-    "@sveltejs/kit": "npm:^2.50.2"
-    "@sveltejs/vite-plugin-svelte": "npm:^6.2.4"
-    "@tailwindcss/aspect-ratio": "npm:^0.4.2"
-    "@tailwindcss/container-queries": "npm:^0.1.1"
-    "@tailwindcss/forms": "npm:^0.5.11"
-    "@tailwindcss/typography": "npm:^0.5.19"
-    "@tailwindcss/vite": "npm:^4.1.18"
-    "@types/color": "npm:^4.2.0"
-    "@types/dompurify": "npm:^3.2.0"
-    "@types/eslint": "npm:^9.6.1"
-    autoprefixer: "npm:^10.4.24"
-    clsx: "npm:^2.1.1"
-    color: "npm:^5.0.3"
-    dompurify: "npm:^3.3.1"
-    eslint: "npm:^9.39.2"
-    eslint-config-prettier: "npm:^10.1.8"
-    eslint-plugin-svelte: "npm:^3.14.0"
-    fuse.js: "npm:^7.1.0"
-    globals: "npm:^17.3.0"
-    marked: "npm:^17.0.2"
-    mdsvex: "npm:^0.12.6"
-    postcss: "npm:^8.5.6"
-    prettier: "npm:^3.8.1"
-    prettier-plugin-svelte: "npm:^3.4.1"
-    prettier-plugin-tailwindcss: "npm:^0.7.2"
-    svelte: "npm:^5.49.2"
-    svelte-check: "npm:^4.3.6"
-    tailwindcss: "npm:^4.1.18"
-    typescript: "npm:^5.9.3"
-    typescript-eslint: "npm:^8.54.0"
-    vite: "npm:^7.3.1"
-  peerDependencies:
-    "@5argon/arkham-kohaku": "workspace:*"
-    svelte: ^5.49.2
-  languageName: unknown
-  linkType: soft
-
-"@5argon/arkham-starter-sveltekit@workspace:starter":
-  version: 0.0.0-use.local
-  resolution: "@5argon/arkham-starter-sveltekit@workspace:starter"
+  resolution: "@5argon/arkham-starter@workspace:starter"
   dependencies:
     "@5argon/arkham-kohaku": "workspace:*"
     "@5argon/arkham-life-ui": "workspace:*"
