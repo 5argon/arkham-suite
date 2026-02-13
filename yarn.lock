@@ -207,6 +207,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@5argon/cards-db@workspace:cards-json":
+  version: 0.0.0-use.local
+  resolution: "@5argon/cards-db@workspace:cards-json"
+  languageName: unknown
+  linkType: soft
+
 "@acemir/cssom@npm:^0.9.31":
   version: 0.9.31
   resolution: "@acemir/cssom@npm:0.9.31"

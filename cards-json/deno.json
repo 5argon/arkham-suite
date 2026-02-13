@@ -1,0 +1,18 @@
+{
+  "imports": {
+    "@std/path": "jsr:@std/path@^0.224.0",
+    "@std/fs": "jsr:@std/fs@^0.224.0",
+    "@jsquash/avif": "npm:@jsquash/avif@^2.1.1",
+    "@jsquash/jpeg": "npm:@jsquash/jpeg@^1.6.0",
+    "@jsquash/png": "npm:@jsquash/png@^3.1.1",
+    "@jsquash/webp": "npm:@jsquash/webp@^1.5.0",
+    "@deno/canvas": "https://deno.land/x/canvas@v1.4.2/mod.ts",
+    "@imagemagick/deno": "https://deno.land/x/imagemagick_deno@0.0.31/mod.ts"
+  },
+  "tasks": {
+    "merge-pack": "deno run --allow-read --allow-write ./scripts/pack.ts",
+    "download": "deno run --allow-read --allow-write --allow-net ./scripts/download.ts",
+    "patch": "deno run --allow-read --allow-write --allow-net ./scripts/patch.ts",
+    "process": "deno run --allow-read --allow-write --allow-net ./scripts/process.ts"
+  }
+}

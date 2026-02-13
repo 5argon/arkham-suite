@@ -1,0 +1,11 @@
+{
+  "name": "@5argon/cards-db",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "merge-pack": "deno run --allow-read --allow-write ./scripts/pack.ts",
+    "download": "deno run --allow-read --allow-write --allow-net ./scripts/download.ts",
+    "patch": "deno run --allow-read --allow-write --allow-net ./scripts/patch.ts",
+    "process": "deno run --allow-read --allow-write --allow-net ./scripts/process.ts"
+  }
+}

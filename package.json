@@ -12,7 +12,8 @@
         "kohaku",
         "string",
         "starter",
-        "icon"
+        "icon",
+        "cards-json"
     ],
     "packageManager": "yarn@4.12.0",
     "devDependencies": {

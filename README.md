@@ -7,9 +7,10 @@ This is a monorepo for https://arkham-starter.com (already online) and https://a
 - `/starter` : `@5argon/arkham-starter`
 - `/life` : `@5argon/arkham-life`
 
-## SvelteKit Helper Package
+## Helper Packages
 
 - `/ui` : `@5argon/arkham-life-ui` : UI pieces intended to be shared between my two sites. Running SvelteKit dev on this package also works as a Storybook-like component development sandbox.
+- `/cards-json` : `@5argon/cards-json` : Toolings to prepare `cards.json` which is a database of all cards in the game.
 
 ## Modular Packages
 
