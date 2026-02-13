@@ -1,0 +1,496 @@
+[
+	{
+		"site": "Fantasy Flight Games",
+		"url": "https://www.fantasyflightgames.com/en/news/2023/8/4/a-feast-of-hemlock/",
+		"name": "A Feast of Hemlock",
+		"date": "2023-08-04"
+	},
+	{
+		"site": "Mythos Busters",
+		"url": "https://www.youtube.com/watch?v=9UnZ17i_XDs",
+		"name": "Look What I Found in The Feast of Hemlock Vale!",
+		"date": "2023-11-01",
+		"cards": ["10009"]
+	},
+	{
+		"site": "Bradley Galbraith",
+		"url": "https://www.youtube.com/watch?v=F_RwmWG5ky0",
+		"name": "Arkham Horror: Feast of Hemlock Vale Preview Season & Card Discussion",
+		"date": "2023-11-08"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=Co7Y-FgyZvI",
+		"name": "We have some The Feast of Hemlock Vale spoilers for all of you! (ARKHAM HORROR: THE CARD GAME)",
+		"date": "2023-12-12",
+		"cards": ["10004", "10050", "10130"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/masking-up-for-hemlock-vale/",
+		"name": "Masking up for Hemlock Vale",
+		"date": "2024-01-12",
+		"cards": ["10023", "10043", "10067", "10084", "10111"]
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=ZjUwCp9ioBQ",
+		"name": "Five Hemlock Vale Cards I'm Excited About! (Arkham Horror Discussion)",
+		"date": "2024-01-29",
+		"cards": ["10019", "10050", "10078", "10097", "10123"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/investigator-expansion-review-the-feast-of-hemlock-vale/",
+		"name": "Investigator Expansion Review: The Feast of Hemlock Vale",
+		"date": "2024-02-01"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=DQPUCffLiyM",
+		"name": "Eric Chats About More The Feast of Hemlock Vale Player Cards | ARKHAM HORROR: THE CARD GAME",
+		"date": "2024-02-04"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=6FH3HmpyDK8",
+		"name": "I check out ALL the GUARDIAN Player Cards from THE FEAST OF HEMLOCK VALE | Arkham Horror",
+		"date": "2024-02-06"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=ZXAucV5XkMk",
+		"name": "I check out ALL the SEEKER Player Cards from THE FEAST OF HEMLOCK VALE | Arkham Horror",
+		"date": "2024-02-10"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=LKHITvZUGcc",
+		"name": "I check out ALL the ROGUE Player Cards from THE FEAST OF HEMLOCK VALE | Arkham Horror",
+		"date": "2024-02-11"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=NY8pBtMBvd8",
+		"name": "I check out ALL the MYSTIC Player Cards from THE FEAST OF HEMLOCK VALE | Arkham Horror",
+		"date": "2024-02-17"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=59tbz4uupHY",
+		"name": "I check out ALL the SURVIVOR & NEUTRAL Player Cards from THE FEAST OF HEMLOCK VALE | Arkham Horror",
+		"date": "2024-02-18"
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=vFEyqZVObYM",
+		"name": "The Masks of Hemlock Vale (Arkham Horror Game Discussion)",
+		"date": "2024-02-25",
+		"cards": ["10023", "10043", "10067", "10084", "10111"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/the-feast-of-hemlock-vale-hatchet-and-token-of-faith/",
+		"name": "The Feast of Hemlock Vale: Hatchet and Token of Faith",
+		"cards": ["10117", "10126"]
+	},
+	{
+		"site": "Bradley Galbraith",
+		"url": "https://www.youtube.com/watch?v=G3BGMr_gJLU",
+		"name": "Arkham LCG Preview Cards - Blursed Past & Hopeful Future",
+		"cards": ["10029", "10104"]
+	},
+	{
+		"site": "Drawn To The Flame",
+		"url": "https://drawntotheflame.podbean.com/e/episode-299-visions-of-futures-past-xxv/",
+		"name": "Episode 299: Visions of Futures Past XXV",
+		"cards": ["10022"]
+	},
+	{
+		"site": "Drawn To The Flame",
+		"url": "https://drawntotheflame.podbean.com/e/episode-302-visions-of-futures-past-xxvi/",
+		"name": "Episode 302: Visions of Futures Past XXVI",
+		"cards": ["10012"]
+	},
+	{
+		"site": "Great Old Ones Gaming",
+		"url": "https://www.thegreatoldonesgaming.com/home/2023/12/24/arkham-files-episode-33-part-1-feast-of-hemlock-vale-spoilers",
+		"name": "Arkham Files Episode #33: Feast of Hemlock Vale Spoilers - Part 1",
+		"cards": ["10025", "10026", "10109", "10118"]
+	},
+	{
+		"site": "Great Old Ones Gaming",
+		"url": "https://www.thegreatoldonesgaming.com/home/2023/12/28/arkham-files-episode-34-feast-of-hemlock-vale-spoilers-part-2-hank-samson",
+		"name": "Arkham Files Episode #34: Feast of Hemlock Vale Spoilers Part 2- Hank Samson",
+		"cards": ["10015"]
+	},
+	{
+		"site": "Northern Lights Over Arkham",
+		"url": "https://www.youtube.com/watch?v=9NtuWJ07zvM",
+		"name": "Arkham Horror LCG The Feast Of Hemlock Vale Spoiler Season Player Card Reveal",
+		"cards": ["10057", "10081"]
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=rtsaoqcFg8o",
+		"name": "Birthday party becomes SURPRISE party for Stephen with an Arkham LCG Hemlock Vale card reveal!",
+		"cards": ["10056"]
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=DsehCZ1os7k",
+		"name": "Drew finds a SHOCKING Arkham LCG Hemlock Vale preview card in the wrong game?!",
+		"cards": ["10066"]
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=RKAi3wCPy_c",
+		"name": "Kyle gets BLINDSIDED with an Arkham LCG Hemlock Vale preview card!!",
+		"cards": ["10094"]
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=kZVYzHHK6p0",
+		"name": "A Preview of A Card From Hemlock Vale! (Arkham Horror Card Preview)",
+		"cards": ["10023", "10049"]
+	},
+	{
+		"site": "r/arkhamhorrorlcg",
+		"url": "https://www.reddit.com/r/arkhamhorrorlcg/comments/17fg7g0/rahlcgs_hemlock_vale_preview_card_for_week_of/",
+		"name": "r/AHLCG's Hemlock Vale preview card for Week of Horror: Accursed",
+		"cards": ["10095"]
+	},
+	{
+		"site": "r/arkhamhorrorlcg",
+		"url": "https://www.reddit.com/r/arkhamhorrorlcg/comments/192jhh4/rahlcgs_next_hemlock_vale_preview_card_fox_mask/",
+		"name": "r/AHLCG's next Hemlock Vale preview card: Fox Mask",
+		"cards": ["10067"]
+	},
+	{
+		"site": "Strength in Numbers",
+		"url": "https://strengthinnumbersarkham.wordpress.com/2023/11/05/the-power-of-parley-hemlock-vale-card-preview/",
+		"name": "THE POWER OF PARLEY! (HEMLOCK VALE CARD PREVIEW)",
+		"cards": ["10070", "10128"]
+	},
+	{
+		"site": "The Card Game Cooperative",
+		"url": "https://tcgcoop.design.blog/2023/11/11/surveillance-team-10-speak-to-the-dead-and-blackmail-file/",
+		"name": "Surveillance Team 10 - Speak to the Dead and Blackmail File",
+		"cards": ["10064", "10091"]
+	},
+	{
+		"site": "Until the End of Time",
+		"url": "https://www.youtube.com/watch?v=q8P8VXrL0Fs",
+		"name": "Voice of the Messenger - Official Hemlock Vale Previews",
+		"cards": ["10019", "10054"]
+	},
+	{
+		"site": "Rite of Seeking",
+		"url": "https://riteofseeking.com/2023/08/04/ffg-announces-new-expansion-with-more-cards-for-minh-thi-phan/",
+		"name": "FFG Announces New Expansion with More Cards for Minh Thi Phan",
+		"date": "2023-08-04"
+	},
+	{
+		"site": "Rite of Seeking",
+		"url": "https://riteofseeking.com/2023/08/06/is-that-a-clue-on-your-chemistry-set-or-are-you-just-happy-to-see-me/",
+		"name": "Is That A Clue On Your Chemistry Set Or Are You Just Happy To See Me?",
+		"date": "2023-08-06",
+		"cards": ["10004", "10005", "10006", "10007", "10008", "10044"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=VbO2Oua2tLE",
+		"name": "The Feast of Hemlock Vale Spoiler Roundup!! (featuring Black Phillip)",
+		"date": "2023-11-26",
+		"cards": [
+			"10009",
+			"10022",
+			"10046",
+			"10064",
+			"10070",
+			"10071",
+			"10091",
+			"10092",
+			"10095",
+			"10119",
+			"10128",
+			"10132"
+		]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=lhXCtMbbTx0",
+		"name": "The Feast of Hemlock Vale Spoiler Roundup!! (featuring Wilson Richards!)",
+		"date": "2023-12-23",
+		"cards": [
+			"10001",
+			"10012",
+			"10019",
+			"10028",
+			"10029",
+			"10030",
+			"10054",
+			"10056",
+			"10066",
+			"10094",
+			"10104"
+		]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=I5f63kCy1wE",
+		"name": "The Feast of Hemlock Vale Spoiler Roundup!! (featuring Token of Faith 3!)",
+		"date": "2024-01-14",
+		"cards": ["10025", "10026", "10074", "10109", "10117", "10118", "10125", "10126"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=hG_Cgr1MCvs",
+		"name": "Eric Chats About The Feast of Hemlock Vale Player Cards | ARKHAM HORROR: THE CARD GAME",
+		"date": "2024-01-21"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=xmNBjGRHJVo",
+		"name": "The Feast of Hemlock Vale Spoiler Roundup!! (featuring the Masks!!)",
+		"date": "2024-01-28",
+		"cards": [
+			"10015",
+			"10023",
+			"10031",
+			"10043",
+			"10067",
+			"10068",
+			"10078",
+			"10081",
+			"10084",
+			"10108",
+			"10123"
+		]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/top-10-most-game-changing-cards-from-the-feast-of-hemlock-vale/",
+		"name": "Top 10: Most game-changing cards from The Feast of Hemlock Vale",
+		"date": "2024-02-05"
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=N11P0-9ayRY",
+		"name": "Quick Thoughts about ALL of the Hemlock Vale Cards!",
+		"date": "2024-02-12"
+	},
+	{
+		"site": "Arkham Chronicle",
+		"url": "https://www.youtube.com/watch?v=xeMQ8If_6d0",
+		"name": "The Feast of Hemlock Vale NEW Investigators Preview - Arkham Horror The Card Game",
+		"date": "2024-02-16"
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=UOQ5LQ1ajIo",
+		"name": "UNBOXING The Feast of Hemlock Vale Investigator Cards!",
+		"date": "2024-02-17"
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/tools-gold-a-wilson-richards-primer/",
+		"name": "Tool’s Gold – A Wilson Richards Primer",
+		"date": "2024-02-20",
+		"cards": ["10001"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=Tfkskzdg03Q",
+		"name": "Tank Samson Deck Guide (Arkham Horror: The Card Game)",
+		"date": "2024-02-20",
+		"cards": ["10015"]
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=sDVzZ_TZ-i4",
+		"name": "Alessandra's Parley Party! (Arkham Horror LCG Deck Tech)",
+		"date": "2024-02-20",
+		"cards": ["10009"]
+	},
+	{
+		"site": "Strength in Numbers",
+		"url": "https://strengthinnumbersarkham.wordpress.com/2024/02/20/an-introduction-to-kate-winthrop/",
+		"name": "An Introduction to Kate Winthrop",
+		"date": "2024-02-20",
+		"cards": ["10004"]
+	},
+	{
+		"site": "Valentin1331",
+		"url": "https://arkhamdb.com/decklist/view/47001",
+		"name": "Kōhaku, Fifty Shades of Blurse|FHV Intro|Deck Guide",
+		"date": "2024-02-20",
+		"cards": ["10012"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=dAL2uGQYKX4",
+		"name": "The 5 Feast of Hemlock Vale Cards I'm Most Excited For (Arkham Horror: The Card Game)",
+		"date": "2024-02-22",
+		"cards": ["10033", "10084", "10098", "10104", "10123"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=dAL2uGQYKX4",
+		"name": "The 5 Feast of Hemlock Vale Cards I'm Most Excited For (Arkham Horror: The Card Game)",
+		"date": "2024-02-22"
+	},
+	{
+		"site": "Superfeng99",
+		"url": "https://www.youtube.com/watch?v=GGNMwTqWQTg",
+		"name": "Let's Talk Hemlock Vale! | The Feast of Hemlock Vale Card Review",
+		"date": "2024-02-25"
+	},
+	{
+		"site": "Arkham Chronicle",
+		"url": "https://www.youtube.com/watch?v=YeckshMOCDA",
+		"name": "The Feast of Hemlock Vale Investigator Expansion EXPLAINED in less than 2 minutes! Arkham Horror LCG",
+		"date": "2024-02-27"
+	},
+	{
+		"site": "Quick Learner",
+		"url": "https://www.youtube.com/watch?v=JYQP3MCMvAA",
+		"name": "Wilson Richards Deck Retrospective (Arkham Horror LCG Discussion)",
+		"date": "2024-02-27",
+		"cards": ["10001"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=yer8s1f13Nc",
+		"name": "NEW PLAYER DECK FOR WILSON RICHARDS | Arkham Horror: The Card Game",
+		"date": "2024-03-02",
+		"cards": ["10001"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/return-to-tools-gold-a-wilson-richards-primer/",
+		"name": "Return To Tool’s Gold – A Wilson Richards Primer",
+		"date": "2024-03-05",
+		"cards": ["10001"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=HB3Ae3qk0qw",
+		"name": "Eric Chats About Even More The Feast of Hemlock Vale Player Cards! | ARKHAM HORROR: THE CARD GAME",
+		"date": "2024-03-05"
+	},
+	{
+		"site": "Bradley Galbraith",
+		"url": "https://www.youtube.com/watch?v=TCoHA7TOaVU",
+		"name": "HOTTAKES Hemlock Vale Player Cards (some tepid takes but nevertheless)",
+		"date": "2024-03-06"
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=kiKqgwIN_90",
+		"name": "The Feast of Hemlock Vale Rogue: Arkham Horror First Impressions | Optimal Play",
+		"date": "2024-03-06"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=JqjByPLDvw0",
+		"name": "5 Game-Changers From The Feast of Hemlock Vale (ARKHAM HORROR: THE CARD GAME)",
+		"date": "2024-03-07"
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=dl0iMD5qc0g",
+		"name": "The Feast of Hemlock Vale Guardian: Arkham Horror First Impressions | Optimal Play",
+		"date": "2024-03-13"
+	},
+	{
+		"site": "Miskatonic University Radio",
+		"url": "https://miskatonicuniversityradio.blogspot.com/2024/03/miskatonic-university-radio-episode-108.html",
+		"name": "MISKATONIC UNIVERSITY RADIO EPISODE 108: MYSTERIOUS CARDS FROM THE FEAST OF HEMLOCK VALE!",
+		"date": "2024-03-17"
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=iJJvOqIJr5U",
+		"name": "The Feast of Hemlock Vale Seeker: Arkham Horror First Impressions | Optimal Play",
+		"date": "2024-03-19"
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=QBI5mJrFDkU",
+		"name": "The Feast of Hemlock Vale Survivor: Arkham Horror First Impressions | Optimal Play",
+		"date": "2024-03-27"
+	},
+	{
+		"site": "Optimal Play",
+		"url": "https://www.youtube.com/watch?v=CTVSA5JC8ow",
+		"name": "The Feast of Hemlock Vale Mystic: Arkham Horror First Impressions | Optimal Play",
+		"date": "2024-04-02"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=ucW21llt9NI",
+		"name": "The Feast of Hemlock Vale - Guardian - Part 1",
+		"date": "2024-04-25"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=yYwDSbkeP9k",
+		"name": "The Feast of Hemlock Vale - Guardian - Part 2",
+		"date": "2024-05-08"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=NPH7lzDnAxo",
+		"name": "The Feast of Hemlock Vale - Guardian - Part 3",
+		"date": "2024-05-18"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=owDUZBp7u6Q",
+		"name": "The Feast of Hemlock Vale - Guardian - Part 4",
+		"date": "2024-06-01"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=fIzrrzYPwc4",
+		"name": "4 Feast of Hemlock Vale Cards That Surprised Me (ARKHAM HORROR: THE CARD GAME)",
+		"date": "2024-06-06"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=8iq_tYlR5b8",
+		"name": "The Feast of Hemlock Vale - Guardian - Part 5",
+		"date": "2024-06-13"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=liU9ky_JsR4",
+		"name": "The Feast of Hemlock Vale - Seeker - Part 1",
+		"date": "2024-07-06"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=68GY6Ljlov8",
+		"name": "The Feast of Hemlock Vale - Seeker - Part 2",
+		"date": "2024-07-23"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=vfkSV8N1JBs",
+		"name": "The Feast of Hemlock Vale - Seeker - Part 3",
+		"date": "2024-08-08"
+	},
+	{
+		"site": "The Whisperer in Darkness",
+		"url": "https://www.youtube.com/watch?v=EXqrT-8y52Y",
+		"name": "The Feast of Hemlock Vale - Seeker - Part 4",
+		"date": "2024-08-21"
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=_icmkghLI2I",
+		"name": "My 5 Favourite Feast of Hemlock Vale Player Cards (ARKHAM HORROR: THE CARD GAME)",
+		"date": "2024-08-29"
+	}
+]

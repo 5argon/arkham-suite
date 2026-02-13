@@ -1,0 +1,204 @@
+[
+	{
+		"site": "Fantasy Flight Games",
+		"url": "https://www.youtube.com/live/TV0MOEffCiw?feature=shared&t=1117",
+		"name": "Arkham Horror: The Card Game - The Dream-Eaters Campaign Gameplay",
+		"date": "2024-08-30",
+		"spoilerCard": true,
+		"cards": ["11064"]
+	},
+	{
+		"site": "Fantasy Flight Games",
+		"url": "https://www.fantasyflightgames.com/en/news/2024/9/12/the-drowned-city",
+		"name": "The Drowned City",
+		"date": "2024-09-12",
+		"spoilerCard": true,
+		"cards": [
+			"11001",
+			"11002",
+			"11003",
+			"11004",
+			"11007",
+			"11008",
+			"11009",
+			"11010",
+			"11024",
+			"11040",
+			"11072",
+			"11092",
+			"11099",
+			"11106",
+			"11111",
+			"11117"
+		]
+	},
+	{
+		"site": "Fantasy Flight Games",
+		"url": "https://www.fantasyflightgames.com/en/news/2024/9/12/the-drowned-city",
+		"name": "The Drowned City",
+		"date": "2024-09-12"
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/the-drowned-city-spoiler-roundup-1/",
+		"name": "The Drowned City Spoiler Roundup #1",
+		"date": "2024-09-13",
+		"cards": [
+			"11001",
+			"11002",
+			"11003",
+			"11004",
+			"11007",
+			"11008",
+			"11009",
+			"11010",
+			"11024",
+			"11040",
+			"11064",
+			"11072",
+			"11092",
+			"11099",
+			"11106",
+			"11111",
+			"11117"
+		]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=Sa8wio5w_hE",
+		"name": "The new expansion release article dropped, let's dive into THE DROWNED CITY | ARKHAM HORROR",
+		"date": "2024-09-15"
+	},
+	{
+		"site": "Ancient Evils",
+		"name": "A close (and way too early) look at Marion Tavares",
+		"url": "https://derbk.com/ancientevils/a-close-and-way-too-early-look-at-marion-tavares/",
+		"date": "2024-09-21",
+		"cards": ["11001"]
+	},
+	{
+		"site": "BusterCon",
+		"url": "https://mythosbusters.com/bustercon/",
+		"name": "Preview card in Duke's Marion deck",
+		"date": "2024-09-24",
+		"spoilerCard": true,
+		"cards": ["11026"]
+	},
+	{
+		"site": "The Barnaby Files",
+		"url": "https://barnabyfiles.wordpress.com/2024/10/17/analysis-on-the-drowned-city-article-cards-and-what-else-we-have-so-far/",
+		"name": "Analysis on the Drowned City Article cards (and what else we have so far)",
+		"date": "2024-10-17",
+		"cards": [
+			"11001",
+			"11002",
+			"11003",
+			"11004",
+			"11007",
+			"11008",
+			"11009",
+			"11010",
+			"11024",
+			"11026",
+			"11040",
+			"11064",
+			"11072",
+			"11092",
+			"11099",
+			"11106",
+			"11111",
+			"11117"
+		]
+	},
+	{
+		"site": "Fantasy Flight Games",
+		"url": "https://www.youtube.com/watch?v=DNzJzWWZ0MQ",
+		"name": "Week of Horror : The Dream-Quest Eight-Hour Stream",
+		"date": "2024-10-24",
+		"spoilerCard": true,
+		"cards": ["11068a"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/the-drowned-city-spoiler-roundup-2-feat-parallel-mateo/",
+		"name": "The Drowned City Spoiler Roundup #2 (feat. Parallel Mateo)",
+		"date": "2024-10-30",
+		"cards": ["11068a"]
+	},
+	{
+		"site": "Little Geek",
+		"url": "https://www.youtube.com/watch?v=-wN_-83JFwM",
+		"name": "Обзор новых карт сыщиков \"The Drowned City\" | Spoiler season | Arkham Horror | Ужас Аркхэма",
+		"date": "2024-11-21",
+		"spoilerCard": true,
+		"cards": ["11059", "11083"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/the-drowned-city-spoiler-roundup-3/",
+		"name": "The Drowned City Spoiler Roundup #3",
+		"date": "2024-11-23",
+		"cards": ["11059", "11083"]
+	},
+	{
+		"site": "Drawn To The Flame",
+		"url": "https://drawntotheflame.podbean.com/e/episode-333-visions-of-futures-past-xxvii/",
+		"name": "Episode 333: Visions of Futures Past XXVII",
+		"date": "2024-11-28",
+		"spoilerCard": true,
+		"cards": ["11017", "11018", "11019"]
+	},
+	{
+		"site": "Ancient Evils",
+		"url": "https://derbk.com/ancientevils/the-drowned-city-spoiler-roundup-4/",
+		"name": "The Drowned City Spoiler Roundup #4",
+		"date": "2024-11-30",
+		"cards": ["11017", "11018", "11019"]
+	},
+	{
+		"site": "Until the End of Time - Arkham Horror LCG",
+		"url": "https://www.youtube.com/watch?v=lkeAK-c3nys",
+		"name": "Voice of the Messenger - Official The Drowned City Preview",
+		"date": "2024-12-03",
+		"spoilerCard": true,
+		"cards": ["11050"]
+	},
+	{
+		"site": "Mythos Busters Discord",
+		"url": "https://discord.com/channels/225349059689447425/741402402514665563/1313553042376753312",
+		"name": "Card of the Day",
+		"date": "2024-12-04",
+		"spoilerCard": true,
+		"cards": ["11112"]
+	},
+	{
+		"site": "Duke Harrist's Instagram (Fantasy Flight Games)",
+		"url": "https://www.instagram.com/p/DDKa-BJupPR/?igsh=Y2s2MGVkOWN4djVj",
+		"name": "Sneak Preview",
+		"date": "2024-12-05",
+		"spoilerCard": true,
+		"cards": ["11079"]
+	},
+	{
+		"site": "PlayingBoardGames",
+		"url": "https://www.youtube.com/watch?v=4tANXJpnPqI",
+		"name": "5 (Crazy?) Prediction For The Drowned City (Arkham Horror: The Card Game)",
+		"date": "2024-12-05"
+	},
+	{
+		"site": "¡Tengo un plan! (ko-fi.com)",
+		"url": "https://ko-fi.com/post/Forbidden-Sutra-S6S8171VPD",
+		"name": "Forbidden Sutra",
+		"date": "2024-12-06",
+		"spoilerCard": true,
+		"cards": ["11103"]
+	},
+	{
+		"site": "¡Tengo un plan! (x.com)",
+		"url": "https://x.com/TengounplanAH/status/1865471339806724563",
+		"name": "Good Weather",
+		"date": "2024-12-08",
+		"spoilerCard": true,
+		"cards": ["11091"]
+	}
+]

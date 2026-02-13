@@ -1,0 +1,233 @@
+:root {
+	font-family:
+		'Card',
+		'Thai',
+		Arial,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		'Open Sans',
+		'Helvetica Neue',
+		sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	--font-mono: 'Fira Mono', monospace;
+}
+
+main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+button {
+	font-family: 'Card', 'Thai', sans-serif;
+	font-size: 1em;
+}
+
+p {
+	font-size: 1em;
+}
+
+input {
+	font-family:
+		'Card',
+		'Thai',
+		Arial,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		'Open Sans',
+		'Helvetica Neue',
+		sans-serif;
+}
+
+.arkham-icon-font {
+	font-family: 'Ahlcg', serif;
+}
+
+.arkham-text-font {
+	font-family: 'SerifText', serif;
+}
+
+a,
+a:visited {
+	color: inherit;
+}
+
+a:hover,
+a:active {
+	color: rgb(121, 121, 121);
+}
+
+@font-face {
+	font-family: 'Ahlcg';
+	src: url('/font/arkham-icons.otf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Card';
+	src: url('/font/RadioCanada-Regular.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Card';
+	src: url('/font/RadioCanada-Bold.ttf') format('truetype');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'SerifText';
+	src: url('/font/ArnoPro-Regular.otf') format('opentype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'SerifText';
+	src: url('/font/ArnoPro-Bold.otf') format('opentype');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'ArkhamNumber';
+	src: url('/font/Bolton.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Thai';
+	src: url('/font/FCGimmick-Regular.otf') format('opentype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Thai';
+	src: url('/font/FCGimmick-Bold.otf') format('opentype');
+	font-weight: bold;
+}
+
+.font-neutral {
+	color: #5d5d5d;
+}
+
+.font-guardian {
+	color: #2b80c5;
+}
+
+.font-seeker {
+	color: #ec8426;
+}
+
+.font-rogue {
+	color: #107116;
+}
+
+.font-mystic {
+	color: #4c17a1;
+}
+
+.font-survivor {
+	color: #cc3038;
+}
+
+.font-multiclass {
+	color: #818107;
+}
+
+.border-color-neutral {
+	border-color: #a3a3a3;
+}
+
+.border-color-guardian {
+	border-color: #1a4c93;
+}
+
+.border-color-seeker {
+	border-color: #b35b0d;
+}
+
+.border-color-rogue {
+	border-color: #004d05;
+}
+
+.border-color-mystic {
+	border-color: #611db0;
+}
+
+.border-color-survivor {
+	border-color: #cb1c25;
+}
+
+.border-color-multiclass {
+	border-color: #818107;
+}
+
+.text-success {
+	color: green;
+}
+
+.text-error {
+	color: red;
+}
+
+.player-1-bg {
+	background-color: #ff9f9f;
+}
+
+.player-2-bg {
+	background-color: #aee7ff;
+}
+
+.player-3-bg {
+	background-color: #d0f892;
+}
+
+.player-4-bg {
+	background-color: #f8df79;
+}
+
+.player-0-bg {
+	background-color: #e2e2e2;
+}
+
+.background-color-neutral {
+	background-color: #f0f0f0;
+}
+
+.background-color-guardian {
+	background-color: #aee7ff;
+}
+
+.background-color-seeker {
+	background-color: #ffd28a;
+}
+
+.background-color-rogue {
+	background-color: #aaf199;
+}
+
+.background-color-mystic {
+	background-color: #dabaff;
+}
+
+.background-color-survivor {
+	background-color: #ff9f9f;
+}
+
+.limited-tab-hack div:empty {
+	display: none;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message CampaignSwitchProto {
+	repeated Campaign campaigns = 1;
+
+	message Campaign {
+		string name = 1;
+		InputDeck deck_1 = 2;
+		InputDeck deck_2 = 3;
+		InputDeck deck_3 = 4;
+		InputDeck deck_4 = 5;
+	}
+
+	message InputDeck {
+		string id = 1;
+		bool published = 2;
+	}
+}

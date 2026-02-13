@@ -1,0 +1,13 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"card_title": "Card Table",
+	"card_page_title": "arkham-starter.com | Player Card",
+	"card_search_result": "Search Result",
+	"card_search_player_cards": "Search Player Cards",
+	"card_search_campaign_cards": "Search Campaign Cards (SPOILER ALERT!)",
+	"card_filter_mode": "Card Type",
+	"card_filter_player": "Player Cards",
+	"card_filter_campaign": "Campaign Cards",
+	"card_single_mode": "Single Card Mode",
+	"card_smaller": "Smaller"
+}

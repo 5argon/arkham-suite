@@ -1,0 +1,2456 @@
+.ahicon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.ahicon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.ahicon-set {
+  width: 1.1201171875em;
+}
+
+.ahicon-extracurricular_activity {
+  width: 0.923828125em;
+}
+
+.ahicon-the_house_always_wins {
+  width: 0.865234375em;
+}
+
+.ahicon-armitages_fate {
+  width: 0.9267578125em;
+}
+
+.ahicon-the_miskatonic_museum {
+  width: 1.123046875em;
+}
+
+.ahicon-the_essex_county_express {
+  width: 0.62890625em;
+}
+
+.ahicon-blood_on_the_altar {
+  width: 0.9228515625em;
+}
+
+.ahicon-undimensioned_and_unseen {
+  width: 1.0751953125em;
+}
+
+.ahicon-where_doom_awaits {
+  width: 1.0205078125em;
+}
+
+.ahicon-lost_in_time_and_space {
+  width: 1.037109375em;
+}
+
+.ahicon-bad_luck {
+  width: 0.9736328125em;
+}
+
+.ahicon-beast_thralls {
+  width: 0.796875em;
+}
+
+.ahicon-bishops_thralls {
+  width: 1.181640625em;
+}
+
+.ahicon-dunwich {
+  width: 0.8046875em;
+}
+
+.ahicon-hideous_abominations {
+  width: 0.9951171875em;
+}
+
+.ahicon-naomis_crew {
+  width: 0.658203125em;
+}
+
+.ahicon-sorcery {
+  width: 0.962890625em;
+}
+
+.ahicon-the_beyond {
+  width: 1.125em;
+}
+
+.ahicon-whippoorwills {
+  width: 1.205078125em;
+}
+
+.ahicon-return_to_the_dunwich_legacy {
+  width: 1.0625em;
+}
+
+.ahicon-return_to_extracurricular_activities {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_the_house_always_wins {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_the_miskatonic_museum {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_the_essex_county_express {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_blood_on_the_altar {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_undimensioned_and_unseen {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_where_doom_awaits {
+  width: 1.056640625em;
+}
+
+.ahicon-resurgent_evils {
+  width: 1.125em;
+}
+
+.ahicon-erratic_fear {
+  width: 0.7783203125em;
+}
+
+.ahicon-creeping_cold {
+  width: 0.8271484375em;
+}
+
+.ahicon-secret_doors {
+  width: 1.1162109375em;
+}
+
+.ahicon-yog_sothoths_emissaries {
+  width: 1.08203125em;
+}
+
+.ahicon-beyond_the_threshold {
+  width: 1.0400390625em;
+}
+
+.ahicon-ages_unwound {
+  width: 1.0263671875em;
+}
+
+.ahicon-a_night_of_fire {
+  width: 0.9892578125em;
+}
+
+.ahicon-a_world_torn_down_again {
+  width: 1.0234375em;
+}
+
+.ahicon-a_world_torn_down {
+  width: 1.01953125em;
+}
+
+.ahicon-a_year_to_plan {
+  width: 0.9931640625em;
+}
+
+.ahicon-agents_of_aforgomon {
+  width: 0.9990234375em;
+}
+
+.ahicon-missions {
+  width: 1.005859375em;
+}
+
+.ahicon-myriad {
+  width: 1.0166015625em;
+}
+
+.ahicon-night_of_the_ritual {
+  width: 1.0126953125em;
+}
+
+.ahicon-nyctophobia {
+  width: 1.009765625em;
+}
+
+.ahicon-paradox {
+  width: 1.0185546875em;
+}
+
+.ahicon-shifting_reality {
+  width: 0.984375em;
+}
+
+.ahicon-the_myriad_gentleman {
+  width: 0.9501953125em;
+}
+
+.ahicon-thugs {
+  width: 0.9990234375em;
+}
+
+.ahicon-time_runs_out {
+  width: 1.013671875em;
+}
+
+.ahicon-unleashed_chaos {
+  width: 0.9873046875em;
+}
+
+.ahicon-unravelling_years {
+  width: 1.01953125em;
+}
+
+.ahicon-unstuck {
+  width: 1.0126953125em;
+}
+
+.ahicon-zoz {
+  width: 1.015625em;
+}
+
+.ahicon-the_road_to_oz {
+  width: 1.0107421875em;
+}
+
+.ahicon-deep_impact {
+  width: 1.0283203125em;
+}
+
+.ahicon-double_whammy {
+  width: 0.986328125em;
+}
+
+.ahicon-chasing_rainbows {
+  width: 0.99609375em;
+}
+
+.ahicon-misery_loves_company {
+  width: 0.96484375em;
+}
+
+.ahicon-hall_of_the_mountain_king {
+  width: 0.9521484375em;
+}
+
+.ahicon-defense_of_the_realm {
+  width: 0.998046875em;
+}
+
+.ahicon-true_colours {
+  width: 1.01171875em;
+}
+
+.ahicon-alien_vibrance {
+  width: 0.9599609375em;
+}
+
+.ahicon-blighted_land {
+  width: 0.8759765625em;
+}
+
+.ahicon-chromatic_infection {
+  width: 0.970703125em;
+}
+
+.ahicon-companions_of_oz {
+  width: 1.01171875em;
+}
+
+.ahicon-munchkin_country {
+  width: 0.9892578125em;
+}
+
+.ahicon-quadling_country {
+  width: 1.0087890625em;
+}
+
+.ahicon-winkie_country {
+  width: 0.9912109375em;
+}
+
+.ahicon-gillikin_country {
+  width: 1.0087890625em;
+}
+
+.ahicon-ferocious_beasts {
+  width: 0.7822265625em;
+}
+
+.ahicon-horrid_infection {
+  width: 0.9609375em;
+}
+
+.ahicon-nomes {
+  width: 0.98046875em;
+}
+
+.ahicon-princess_of_oz {
+  width: 1.087890625em;
+}
+
+.ahicon-prismatic_evils {
+  width: 0.8779296875em;
+}
+
+.ahicon-spiraling_decay {
+  width: 0.9560546875em;
+}
+
+.ahicon-terror_out_of_space {
+  width: 1.0029296875em;
+}
+
+.ahicon-the_colour_itself {
+  width: 0.9873046875em;
+}
+
+.ahicon-violent_invasion {
+  width: 1.0244140625em;
+}
+
+.ahicon-wicked_witches {
+  width: 1.0224609375em;
+}
+
+.ahicon-fhvp {
+  width: 0.984375em;
+}
+
+.ahicon-the_first_day {
+  width: 0.97265625em;
+}
+
+.ahicon-the_second_day {
+  width: 0.97265625em;
+}
+
+.ahicon-the_final_day {
+  width: 0.97265625em;
+}
+
+.ahicon-agents_of_the_colour {
+  width: 0.98828125em;
+}
+
+.ahicon-blight {
+  width: 1.0166015625em;
+}
+
+.ahicon-fire {
+  width: 0.958984375em;
+}
+
+.ahicon-heirlooms {
+  width: 1.0009765625em;
+}
+
+.ahicon-the_lost_sister {
+  width: 0.9814453125em;
+}
+
+.ahicon-horrors_in_the_rock {
+  width: 1.02734375em;
+}
+
+.ahicon-mutations {
+  width: 1.0029296875em;
+}
+
+.ahicon-refractions {
+  width: 1.0205078125em;
+}
+
+.ahicon-residents {
+  width: 0.9765625em;
+}
+
+.ahicon-the_forest {
+  width: 1.0048828125em;
+}
+
+.ahicon-the_twisted_hollow {
+  width: 1.0068359375em;
+}
+
+.ahicon-the_vale {
+  width: 1.0029296875em;
+}
+
+.ahicon-transfiguration {
+  width: 1.005859375em;
+}
+
+.ahicon-written_in_rock {
+  width: 0.982421875em;
+}
+
+.ahicon-zcf {
+  width: 0.9990234375em;
+}
+
+.ahicon-lost_moorings {
+  width: 0.9375em;
+}
+
+.ahicon-going_twice {
+  width: 0.9921875em;
+}
+
+.ahicon-private_lives {
+  width: 0.9931640625em;
+}
+
+.ahicon-crumbling_masonry {
+  width: 1.0126953125em;
+}
+
+.ahicon-across_dreadful_waters {
+  width: 1.00390625em;
+}
+
+.ahicon-blood_from_stones {
+  width: 1.0048828125em;
+}
+
+.ahicon-pyroclastic_flow {
+  width: 1.0302734375em;
+}
+
+.ahicon-tomb_of_dead_dreams {
+  width: 1.0283203125em;
+}
+
+.ahicon-spawn_of_ryleh {
+  width: 1.009765625em;
+}
+
+.ahicon-shadowy_agents {
+  width: 1.001953125em;
+}
+
+.ahicon-grand_compass {
+  width: 1.0029296875em;
+}
+
+.ahicon-deep_dreams {
+  width: 1.0263671875em;
+}
+
+.ahicon-cult_of_cthulhu {
+  width: 1.0029296875em;
+}
+
+.ahicon-countermeasures {
+  width: 0.986328125em;
+}
+
+.ahicon-awakened_madness {
+  width: 0.99609375em;
+}
+
+.ahicon-architects_of_chaos {
+  width: 0.994140625em;
+}
+
+.ahicon-archaic_evils {
+  width: 0.984375em;
+}
+
+.ahicon-unnatural_stone {
+  width: 0.9921875em;
+}
+
+.ahicon-unfriendly_ports {
+  width: 1.00390625em;
+}
+
+.ahicon-heart_of_darkness {
+  width: 1.0048828125em;
+}
+
+.ahicon-africa_is_watching {
+  width: 0.9931640625em;
+}
+
+.ahicon-to_the_heart_of_the_congo {
+  width: 1.029296875em;
+}
+
+.ahicon-the_avatar_of_darkness {
+  width: 0.9931640625em;
+}
+
+.ahicon-the_darkness {
+  width: 0.9892578125em;
+}
+
+.ahicon-lands_of_the_congo {
+  width: 1.015625em;
+}
+
+.ahicon-cult_of_darkness {
+  width: 0.98828125em;
+}
+
+.ahicon-african_wildlife {
+  width: 0.994140625em;
+}
+
+.ahicon-tsk {
+  width: 1.013671875em;
+}
+
+.ahicon-tskc {
+  width: 0.9892578125em;
+}
+
+.ahicon-scarlet_sorcery {
+  width: 0.9990234375em;
+}
+
+.ahicon-secret_war {
+  width: 0.9990234375em;
+}
+
+.ahicon-shades_of_sorrow {
+  width: 1.0146484375em;
+}
+
+.ahicon-shadow_of_a_doubt {
+  width: 1.0126953125em;
+}
+
+.ahicon-spatial_anomaly {
+  width: 1.0322265625em;
+}
+
+.ahicon-spreading_corruption {
+  width: 1.009765625em;
+}
+
+.ahicon-strange_happenings {
+  width: 0.76171875em;
+}
+
+.ahicon-without_a_trace {
+  width: 1.0146484375em;
+}
+
+.ahicon-sanguine_shadows {
+  width: 1.0107421875em;
+}
+
+.ahicon-riddles_and_rain {
+  width: 1.0185546875em;
+}
+
+.ahicon-red_coterie {
+  width: 1.0087890625em;
+}
+
+.ahicon-outsiders {
+  width: 0.8759765625em;
+}
+
+.ahicon-on_thin_ice {
+  width: 1.0166015625em;
+}
+
+.ahicon-mysteries_abound {
+  width: 0.9775390625em;
+}
+
+.ahicon-globetrotting {
+  width: 0.9833984375em;
+}
+
+.ahicon-dogs_of_war {
+  width: 1.0146484375em;
+}
+
+.ahicon-dealings_in_the_dark {
+  width: 0.8623046875em;
+}
+
+.ahicon-dead_heat {
+  width: 0.9970703125em;
+}
+
+.ahicon-dark_veiling {
+  width: 0.99609375em;
+}
+
+.ahicon-dancing_mad {
+  width: 0.9970703125em;
+}
+
+.ahicon-crimson_conspiracy {
+  width: 0.8642578125em;
+}
+
+.ahicon-congress_of_the_keys {
+  width: 0.9912109375em;
+}
+
+.ahicon-cleanup_crew {
+  width: 0.7412109375em;
+}
+
+.ahicon-agents_of_yuggoth {
+  width: 0.89453125em;
+}
+
+.ahicon-beyond_the_beyond {
+  width: 1.0234375em;
+}
+
+.ahicon-agents_of_the_outside {
+  width: 1.0419921875em;
+}
+
+.ahicon-alexandria {
+  width: 1.01171875em;
+}
+
+.ahicon-anchorage {
+  width: 1.130859375em;
+}
+
+.ahicon-bermuda {
+  width: 1.00390625em;
+}
+
+.ahicon-constantinople {
+  width: 1.0283203125em;
+}
+
+.ahicon-london {
+  width: 1.0078125em;
+}
+
+.ahicon-marrakesh {
+  width: 1.009765625em;
+}
+
+.ahicon-moscow {
+  width: 0.9970703125em;
+}
+
+.ahicon-rio_de_janiero {
+  width: 1.001953125em;
+}
+
+.ahicon-san_francisco {
+  width: 1.01953125em;
+}
+
+.ahicon-sydney {
+  width: 1.2587890625em;
+}
+
+.ahicon-tokyo {
+  width: 1.0966796875em;
+}
+
+.ahicon-stockholm {
+  width: 0.984375em;
+}
+
+.ahicon-lagos {
+  width: 1.0205078125em;
+}
+
+.ahicon-shanghai {
+  width: 1.0029296875em;
+}
+
+.ahicon-buenos_aires {
+  width: 0.98046875em;
+}
+
+.ahicon-havana {
+  width: 1.01953125em;
+}
+
+.ahicon-bombay {
+  width: 1.0302734375em;
+}
+
+.ahicon-hong_kong {
+  width: 1.0185546875em;
+}
+
+.ahicon-kathmandu {
+  width: 1.0205078125em;
+}
+
+.ahicon-rome {
+  width: 1.0048828125em;
+}
+
+.ahicon-tunguska {
+  width: 1.01171875em;
+}
+
+.ahicon-kabul {
+  width: 1.013671875em;
+}
+
+.ahicon-nairobi {
+  width: 1.0126953125em;
+}
+
+.ahicon-perth {
+  width: 0.8642578125em;
+}
+
+.ahicon-quito {
+  width: 0.9794921875em;
+}
+
+.ahicon-reykjavik {
+  width: 1.0107421875em;
+}
+
+.ahicon-san_juan {
+  width: 0.9931640625em;
+}
+
+.ahicon-arkham {
+  width: 1.0166015625em;
+}
+
+.ahicon-cairo {
+  width: 1.0244140625em;
+}
+
+.ahicon-monte_carlo {
+  width: 1.013671875em;
+}
+
+.ahicon-new_orleans {
+  width: 1.005859375em;
+}
+
+.ahicon-venice {
+  width: 1.0107421875em;
+}
+
+.ahicon-ybor_city {
+  width: 0.9951171875em;
+}
+
+.ahicon-bermuda_2 {
+  width: 1.00390625em;
+}
+
+.ahicon-eoe {
+  width: 0.98828125em;
+}
+
+.ahicon-eoe_campaign {
+  width: 1.0302734375em;
+}
+
+.ahicon-ice_and_death {
+  width: 1.0146484375em;
+}
+
+.ahicon-fatal_mirage {
+  width: 1.021484375em;
+}
+
+.ahicon-to_the_forbidden_peaks {
+  width: 0.982421875em;
+}
+
+.ahicon-city_of_the_elder_things {
+  width: 1.0234375em;
+}
+
+.ahicon-the_heart_of_madness {
+  width: 1.015625em;
+}
+
+.ahicon-agents_of_the_unknown {
+  width: 0.99609375em;
+}
+
+.ahicon-creatures_in_the_ice {
+  width: 1.0224609375em;
+}
+
+.ahicon-deadly_weather {
+  width: 1.0146484375em;
+}
+
+.ahicon-elder_things {
+  width: 1.0146484375em;
+}
+
+.ahicon-expedition_team {
+  width: 1.01171875em;
+}
+
+.ahicon-hazards_of_antarctica {
+  width: 1.0048828125em;
+}
+
+.ahicon-left_behind {
+  width: 1.0087890625em;
+}
+
+.ahicon-lost_in_the_night {
+  width: 1.01953125em;
+}
+
+.ahicon-memorials_of_the_lost {
+  width: 0.9970703125em;
+}
+
+.ahicon-miasma {
+  width: 1.01953125em;
+}
+
+.ahicon-nameless_horrors {
+  width: 1.0244140625em;
+}
+
+.ahicon-penguins {
+  width: 0.99609375em;
+}
+
+.ahicon-silence_and_mystery {
+  width: 0.990234375em;
+}
+
+.ahicon-sleeping_nightmares {
+  width: 1.0087890625em;
+}
+
+.ahicon-stirring_in_the_deep {
+  width: 1.0048828125em;
+}
+
+.ahicon-tekeli_li {
+  width: 1.005859375em;
+}
+
+.ahicon-the_crash {
+  width: 1.017578125em;
+}
+
+.ahicon-the_great_seal {
+  width: 1.0283203125em;
+}
+
+.ahicon-shoggoths {
+  width: 1.0009765625em;
+}
+
+.ahicon-intellect {
+  width: 0.9375em;
+}
+
+.ahicon-combat {
+  width: 0.875em;
+}
+
+.ahicon-agility {
+  width: 0.9375em;
+}
+
+.ahicon-wild {
+  width: 0.75em;
+}
+
+.ahicon-skull {
+  width: 0.875em;
+}
+
+.ahicon-cultist {
+  width: 0.875em;
+}
+
+.ahicon-tablet {
+  width: 0.8125em;
+}
+
+.ahicon-elder_thing {
+  width: 0.90625em;
+}
+
+.ahicon-auto_fail {
+  width: 0.9375em;
+}
+
+.ahicon-per_investigator {
+  width: 0.9375em;
+}
+
+.ahicon-weakness {
+  width: 0.875em;
+}
+
+.ahicon-action {
+  width: 0.9375em;
+}
+
+.ahicon-reaction {
+  width: 0.9375em;
+}
+
+.ahicon-free {
+  width: 1.1875em;
+}
+
+.ahicon-bullet {
+  width: 0.875em;
+}
+
+.ahicon-guide_bullet {
+  width: 0.875em;
+}
+
+.ahicon-curse {
+  width: 0.7919921875em;
+}
+
+.ahicon-bless {
+  width: 0.927734375em;
+}
+
+.ahicon-frost {
+  width: 0.9375em;
+}
+
+.ahicon-seal_a {
+  width: 0.51953125em;
+}
+
+.ahicon-seal_b {
+  width: 0.5966796875em;
+}
+
+.ahicon-seal_c {
+  width: 0.625em;
+}
+
+.ahicon-seal_d {
+  width: 0.5830078125em;
+}
+
+.ahicon-seal_e {
+  width: 0.5537109375em;
+}
+
+.ahicon-codex {
+  width: 1.01171875em;
+}
+
+.ahicon-day {
+  width: 0.8671875em;
+}
+
+.ahicon-night {
+  width: 0.7392578125em;
+}
+
+.ahicon-moon {
+  width: 0.98828125em;
+}
+
+.ahicon-berserkers {
+  width: 0.9892578125em;
+}
+
+.ahicon-draugar {
+  width: 0.994140625em;
+}
+
+.ahicon-glacial_mists {
+  width: 0.9970703125em;
+}
+
+.ahicon-golden_circle {
+  width: 1.00390625em;
+}
+
+.ahicon-hudulfolk {
+  width: 1.0087890625em;
+}
+
+.ahicon-lacuna {
+  width: 0.9951171875em;
+}
+
+.ahicon-runic_oaths {
+  width: 1.0126953125em;
+}
+
+.ahicon-the_crown {
+  width: 1.009765625em;
+}
+
+.ahicon-the_warning {
+  width: 1.0234375em;
+}
+
+.ahicon-dodo {
+  width: 1.017578125em;
+}
+
+.ahicon-duchess {
+  width: 1.05078125em;
+}
+
+.ahicon-gryphon_and_mock_turtle {
+  width: 1.25390625em;
+}
+
+.ahicon-humpty_dumpty {
+  width: 0.8896484375em;
+}
+
+.ahicon-lion_and_unicorn {
+  width: 1.2939453125em;
+}
+
+.ahicon-white_queen {
+  width: 0.5439453125em;
+}
+
+.ahicon-chessmen {
+  width: 1.0146484375em;
+}
+
+.ahicon-the_tatterdemalion {
+  width: 1.0302734375em;
+}
+
+.ahicon-electric_nightmare {
+  width: 1.0244140625em;
+}
+
+.ahicon-lost_quantum {
+  width: 0.998046875em;
+}
+
+.ahicon-strange_moons {
+  width: 1.001953125em;
+}
+
+.ahicon-the_machine_in_yellow {
+  width: 1.0087890625em;
+}
+
+.ahicon-anachronism {
+  width: 1.0234375em;
+}
+
+.ahicon-dark_past {
+  width: 1.0107421875em;
+}
+
+.ahicon-deep_space {
+  width: 1.015625em;
+}
+
+.ahicon-starfall {
+  width: 1.0244140625em;
+}
+
+.ahicon-endtimes {
+  width: 0.986328125em;
+}
+
+.ahicon-fragment_of_carcosa {
+  width: 1.0166015625em;
+}
+
+.ahicon-hasturs_gaze {
+  width: 1.0146484375em;
+}
+
+.ahicon-interstellar_predators {
+  width: 0.9775390625em;
+}
+
+.ahicon-the_boogeyman {
+  width: 0.9951171875em;
+}
+
+.ahicon-in_the_shadow_of_earth {
+  width: 1.0009765625em;
+}
+
+.ahicon-call_of_the_plaguebearer {
+  width: 1.005859375em;
+}
+
+.ahicon-late_risers {
+  width: 1.0087890625em;
+}
+
+.ahicon-night_on_the_town {
+  width: 1.005859375em;
+}
+
+.ahicon-dead_by_dawn {
+  width: 1.0107421875em;
+}
+
+.ahicon-mourning_stroll {
+  width: 1.0185546875em;
+}
+
+.ahicon-high_noon_descent {
+  width: 0.9912109375em;
+}
+
+.ahicon-the_afternoon_war {
+  width: 0.998046875em;
+}
+
+.ahicon-death_at_sundown {
+  width: 1.005859375em;
+}
+
+.ahicon-the_midnight_hour {
+  width: 1.01953125em;
+}
+
+.ahicon-agency_survivors {
+  width: 0.99609375em;
+}
+
+.ahicon-agents_of_cthugua {
+  width: 0.998046875em;
+}
+
+.ahicon-fallen_arkham {
+  width: 0.990234375em;
+}
+
+.ahicon-gifts_of_the_plaguebearer {
+  width: 1.0009765625em;
+}
+
+.ahicon-life_and_death {
+  width: 0.98828125em;
+}
+
+.ahicon-tenuous_allies {
+  width: 1.0283203125em;
+}
+
+.ahicon-the_plaguebearers_commands {
+  width: 1.0078125em;
+}
+
+.ahicon-unbound_power {
+  width: 1.00390625em;
+}
+
+.ahicon-token_plus_highlight {
+  width: 1.0185546875em;
+}
+
+.ahicon-token_dismiss_highlight {
+  width: 1.0009765625em;
+}
+
+.ahicon-star {
+  width: 0.6923828125em;
+}
+
+.ahicon-x {
+  width: 0.8173828125em;
+}
+
+.ahicon-num0 {
+  width: 0.84375em;
+}
+
+.ahicon-num1 {
+  width: 0.5em;
+}
+
+.ahicon-num2 {
+  width: 0.75em;
+}
+
+.ahicon-num3 {
+  width: 0.8125em;
+}
+
+.ahicon-num4 {
+  width: 0.8125em;
+}
+
+.ahicon-num5 {
+  width: 0.75em;
+}
+
+.ahicon-num6 {
+  width: 0.75em;
+}
+
+.ahicon-num7 {
+  width: 0.6875em;
+}
+
+.ahicon-num8 {
+  width: 0.75em;
+}
+
+.ahicon-num9 {
+  width: 0.75em;
+}
+
+.ahicon-numNull {
+  width: 0.625em;
+}
+
+.ahicon-tic {
+  width: 0.9892578125em;
+}
+
+.ahicon-fog_over_innsmouth {
+  width: 1.0244140625em;
+}
+
+.ahicon-shattered_memories {
+  width: 1.001953125em;
+}
+
+.ahicon-syzygy {
+  width: 0.9951171875em;
+}
+
+.ahicon-malfunction {
+  width: 1.017578125em;
+}
+
+.ahicon-agents_of_hydra {
+  width: 1.00390625em;
+}
+
+.ahicon-flooded_caves {
+  width: 1.0302734375em;
+}
+
+.ahicon-rising_tide {
+  width: 0.974609375em;
+}
+
+.ahicon-creatures_from_below {
+  width: 1.0126953125em;
+}
+
+.ahicon-grotto_of_despair {
+  width: 0.9990234375em;
+}
+
+.ahicon-agents_of_dagon {
+  width: 0.984375em;
+}
+
+.ahicon-in_too_deep {
+  width: 1.013671875em;
+}
+
+.ahicon-devil_reef {
+  width: 1.021484375em;
+}
+
+.ahicon-horror_in_high_gear {
+  width: 1.005859375em;
+}
+
+.ahicon-lair_of_dagon {
+  width: 1.00390625em;
+}
+
+.ahicon-into_the_maelstrom {
+  width: 1.0078125em;
+}
+
+.ahicon-dream {
+  width: 1.005859375em;
+}
+
+.ahicon-the_search_for_kadath {
+  width: 1.0205078125em;
+}
+
+.ahicon-a_thousand_shapes_of_horror {
+  width: 1.005859375em;
+}
+
+.ahicon-dark_side_of_the_moon {
+  width: 1.013671875em;
+}
+
+.ahicon-point_of_no_return {
+  width: 1.0146484375em;
+}
+
+.ahicon-where_gods_dwell {
+  width: 1.017578125em;
+}
+
+.ahicon-agents_of_nyarlathotep {
+  width: 1.005859375em;
+}
+
+.ahicon-beyond_the_gates_of_sleep {
+  width: 1.0263671875em;
+}
+
+.ahicon-dreamers_curse {
+  width: 0.99609375em;
+}
+
+.ahicon-dreamlands {
+  width: 1.017578125em;
+}
+
+.ahicon-spiders {
+  width: 1.0166015625em;
+}
+
+.ahicon-descent_into_the_pitch {
+  width: 1.005859375em;
+}
+
+.ahicon-terror_of_the_vale {
+  width: 0.9853515625em;
+}
+
+.ahicon-the_circle_undone {
+  width: 1.01953125em;
+}
+
+.ahicon-disappearance_at_the_twilight_estate {
+  width: 1.0087890625em;
+}
+
+.ahicon-at_deaths_doorstep {
+  width: 1.015625em;
+}
+
+.ahicon-for_the_greater_good {
+  width: 1.0263671875em;
+}
+
+.ahicon-union_and_disillusion {
+  width: 1.0302734375em;
+}
+
+.ahicon-in_the_clutches_of_chaos {
+  width: 1.0048828125em;
+}
+
+.ahicon-before_the_black_throne {
+  width: 1.0087890625em;
+}
+
+.ahicon-agents_of_azathoth {
+  width: 1.0048828125em;
+}
+
+.ahicon-anettes_coven {
+  width: 0.9951171875em;
+}
+
+.ahicon-city_of_sins {
+  width: 1.017578125em;
+}
+
+.ahicon-inexorable_fate {
+  width: 1.0126953125em;
+}
+
+.ahicon-realm_of_death {
+  width: 1.013671875em;
+}
+
+.ahicon-silver_twilight_lodge {
+  width: 1.025390625em;
+}
+
+.ahicon-spectral_predators {
+  width: 1.0107421875em;
+}
+
+.ahicon-the_watcher {
+  width: 1.0234375em;
+}
+
+.ahicon-trapped_spirits {
+  width: 1.0078125em;
+}
+
+.ahicon-witchcraft {
+  width: 1.01953125em;
+}
+
+.ahicon-music_of_the_damned {
+  width: 0.9892578125em;
+}
+
+.ahicon-rttcu {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_disappearance_at_the_twilight_estate {
+  width: 1.0068359375em;
+}
+
+.ahicon-return_to_the_witching_hour {
+  width: 1.0068359375em;
+}
+
+.ahicon-return_to_at_deaths_doorstep {
+  width: 1.0068359375em;
+}
+
+.ahicon-return_to_the_secret_name {
+  width: 1.0078125em;
+}
+
+.ahicon-return_to_the_wages_of_sin {
+  width: 1.0068359375em;
+}
+
+.ahicon-return_to_for_the_greater_good {
+  width: 1.0078125em;
+}
+
+.ahicon-return_to_union_and_disillusion {
+  width: 1.0068359375em;
+}
+
+.ahicon-return_to_in_the_clutches_of_chaos {
+  width: 1.0078125em;
+}
+
+.ahicon-return_to_before_the_black_throne {
+  width: 1.0068359375em;
+}
+
+.ahicon-unspeakable_fate {
+  width: 1.0185546875em;
+}
+
+.ahicon-spectral_realm {
+  width: 0.9892578125em;
+}
+
+.ahicon-city_of_the_damned {
+  width: 1.005859375em;
+}
+
+.ahicon-bloodthirsty_spirits {
+  width: 1.0166015625em;
+}
+
+.ahicon-the_untamed_wilds {
+  width: 1.0107421875em;
+}
+
+.ahicon-the_doom_of_eztli {
+  width: 0.95703125em;
+}
+
+.ahicon-threads_of_fate {
+  width: 1.009765625em;
+}
+
+.ahicon-the_boundary_beyond {
+  width: 1.025390625em;
+}
+
+.ahicon-pillars_of_judgement {
+  width: 1.0205078125em;
+}
+
+.ahicon-knyan {
+  width: 1.001953125em;
+}
+
+.ahicon-heart_of_the_elders {
+  width: 0.9951171875em;
+}
+
+.ahicon-the_depths_of_yoth {
+  width: 1.0166015625em;
+}
+
+.ahicon-shattered_aeons {
+  width: 1.005859375em;
+}
+
+.ahicon-turn_back_time {
+  width: 1.009765625em;
+}
+
+.ahicon-yigs_venom {
+  width: 1.0048828125em;
+}
+
+.ahicon-agents_of_yig {
+  width: 1.0185546875em;
+}
+
+.ahicon-deadly_traps {
+  width: 1.013671875em;
+}
+
+.ahicon-expedition {
+  width: 1.0029296875em;
+}
+
+.ahicon-forgotten_ruins {
+  width: 1.0107421875em;
+}
+
+.ahicon-guardians_of_time {
+  width: 1.0263671875em;
+}
+
+.ahicon-pnakotic_brotherhood {
+  width: 1.0234375em;
+}
+
+.ahicon-poison {
+  width: 0.974609375em;
+}
+
+.ahicon-rainforest {
+  width: 1.0146484375em;
+}
+
+.ahicon-serpents {
+  width: 1.0185546875em;
+}
+
+.ahicon-temporal_flux {
+  width: 1.009765625em;
+}
+
+.ahicon-return_to_the_forgotten_age {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_untamed_wilds {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_doom_of_eztli {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_threads_of_fate {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_boundary_beyond {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_pillars_of_judgement {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_knyan {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_heart_of_the_elders {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_city_of_archives {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_depths_of_yoth {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_shattered_aeons {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_turn_back_time {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_rainforest {
+  width: 0.9931640625em;
+}
+
+.ahicon-cult_of_pnakotus {
+  width: 1.017578125em;
+}
+
+.ahicon-doomed_expedition {
+  width: 1.0126953125em;
+}
+
+.ahicon-temporal_hunters {
+  width: 1.0107421875em;
+}
+
+.ahicon-venomous_hate {
+  width: 0.9990234375em;
+}
+
+.ahicon-migo_incursion_2 {
+  width: 0.96875em;
+}
+
+.ahicon-blbe {
+  width: 0.96875em;
+}
+
+.ahicon-novella {
+  width: 1.0166015625em;
+}
+
+.ahicon-blob {
+  width: 1.015625em;
+}
+
+.ahicon-rougerauo2 {
+  width: 1.0166015625em;
+}
+
+.ahicon-the_bayou {
+  width: 1.0166015625em;
+}
+
+.ahicon-curse_of_the_rougarou {
+  width: 1.0576171875em;
+}
+
+.ahicon-carnevale {
+  width: 1.0146484375em;
+}
+
+.ahicon-venice1 {
+  width: 0.6591796875em;
+}
+
+.ahicon-lol {
+  width: 1.0029296875em;
+}
+
+.ahicon-in_the_labyrinths_of_lunacy {
+  width: 1.009765625em;
+}
+
+.ahicon-epic_multiplayer {
+  width: 1.0166015625em;
+}
+
+.ahicon-single_group {
+  width: 0.76171875em;
+}
+
+.ahicon-guardians {
+  width: 0.9716796875em;
+}
+
+.ahicon-abyssal_gifts {
+  width: 1.001953125em;
+}
+
+.ahicon-abyssal_tribute {
+  width: 0.89453125em;
+}
+
+.ahicon-brotherhood_of_the_beast {
+  width: 0.923828125em;
+}
+
+.ahicon-sands_of_egypt {
+  width: 1.0224609375em;
+}
+
+.ahicon-eternal_slumber {
+  width: 1.0185546875em;
+}
+
+.ahicon-nights_usurper {
+  width: 1.0146484375em;
+}
+
+.ahicon-excelsior {
+  width: 1.017578125em;
+}
+
+.ahicon-murder_at_the_excelsior_hotel {
+  width: 1.0107421875em;
+}
+
+.ahicon-alien_interference {
+  width: 1.017578125em;
+}
+
+.ahicon-dark_rituals {
+  width: 1.0029296875em;
+}
+
+.ahicon-excelsior_management {
+  width: 0.7568359375em;
+}
+
+.ahicon-sins_of_the_past {
+  width: 0.9814453125em;
+}
+
+.ahicon-vile_experiments {
+  width: 1.0146484375em;
+}
+
+.ahicon-blob_set {
+  width: 0.9951171875em;
+}
+
+.ahicon-the_blob_that_ate_everything {
+  width: 0.9990234375em;
+}
+
+.ahicon-migo {
+  width: 1.0146484375em;
+}
+
+.ahicon-read_or_die {
+  width: 1.0205078125em;
+}
+
+.ahicon-all_or_nothing {
+  width: 1.0224609375em;
+}
+
+.ahicon-bad_blood {
+  width: 1.00390625em;
+}
+
+.ahicon-by_the_book {
+  width: 0.97265625em;
+}
+
+.ahicon-red_tide_rising {
+  width: 1.0966796875em;
+}
+
+.ahicon-nate {
+  width: 0.990234375em;
+}
+
+.ahicon-harvey {
+  width: 1.0146484375em;
+}
+
+.ahicon-jacqueline {
+  width: 1.009765625em;
+}
+
+.ahicon-winifred {
+  width: 1.0009765625em;
+}
+
+.ahicon-stella {
+  width: 1.0048828125em;
+}
+
+.ahicon-wotog {
+  width: 1.025390625em;
+}
+
+.ahicon-war_of_the_outer_gods {
+  width: 1.0244140625em;
+}
+
+.ahicon-children_of_paradise {
+  width: 1.0087890625em;
+}
+
+.ahicon-assimilating_swarm {
+  width: 1.0029296875em;
+}
+
+.ahicon-death_of_the_stars {
+  width: 1.0185546875em;
+}
+
+.ahicon-barkham_horror {
+  width: 0.998046875em;
+}
+
+.ahicon-meddling {
+  width: 1.0126953125em;
+}
+
+.ahicon-roulette {
+  width: 1.0029296875em;
+}
+
+.ahicon-fortune_and_folly {
+  width: 1.0087890625em;
+}
+
+.ahicon-fortunes_chosen {
+  width: 0.9892578125em;
+}
+
+.ahicon-plan_in_shambles {
+  width: 0.9228515625em;
+}
+
+.ahicon-consternation_on_the_constellation {
+  width: 1.0107421875em;
+}
+
+.ahicon-deep_ones1 {
+  width: 0.9833984375em;
+}
+
+.ahicon-sinking_ship {
+  width: 1.0107421875em;
+}
+
+.ahicon-mtt {
+  width: 0.984375em;
+}
+
+.ahicon-machinations_through_time {
+  width: 0.986328125em;
+}
+
+.ahicon-zez {
+  width: 0.9697265625em;
+}
+
+.ahicon-beta {
+  width: 0.9990234375em;
+}
+
+.ahicon-meteoric_phenomenon {
+  width: 1.013671875em;
+}
+
+.ahicon-inhospitable_locality {
+  width: 1.01171875em;
+}
+
+.ahicon-unnatural_disturbances {
+  width: 1.0068359375em;
+}
+
+.ahicon-made_flesh {
+  width: 1.0048828125em;
+}
+
+.ahicon-lost_cathedral {
+  width: 1.009765625em;
+}
+
+.ahicon-the_fall_of_the_house_of_usher {
+  width: 1.01953125em;
+}
+
+.ahicon-wendigo {
+  width: 1.0078125em;
+}
+
+.ahicon-wendigos_myth {
+  width: 1.0166015625em;
+}
+
+.ahicon-hannihah_valley {
+  width: 1.0166015625em;
+}
+
+.ahicon-fortune {
+  width: 1.0029296875em;
+}
+
+.ahicon-the_black_stone {
+  width: 0.8984375em;
+}
+
+.ahicon-tomes {
+  width: 1.009765625em;
+}
+
+.ahicon-witch_cult {
+  width: 0.9580078125em;
+}
+
+.ahicon-magyar {
+  width: 1.005859375em;
+}
+
+.ahicon-wild_beasts {
+  width: 1.0263671875em;
+}
+
+.ahicon-legendary {
+  width: 1.009765625em;
+}
+
+.ahicon-ancient_hunger {
+  width: 1.0009765625em;
+}
+
+.ahicon-laid_to_rest {
+  width: 1.0009765625em;
+}
+
+.ahicon-zoc {
+  width: 0.994140625em;
+}
+
+.ahicon-rop {
+  width: 1.044921875em;
+}
+
+.ahicon-arkham_incidents {
+  width: 1.0146484375em;
+}
+
+.ahicon-something_big {
+  width: 0.990234375em;
+}
+
+.ahicon-unscrupulous_investments {
+  width: 1.0009765625em;
+}
+
+.ahicon-anything_once {
+  width: 0.9990234375em;
+}
+
+.ahicon-legions_of_fire {
+  width: 0.9931640625em;
+}
+
+.ahicon-depraved_legions {
+  width: 0.9970703125em;
+}
+
+.ahicon-final_annihilation {
+  width: 0.96484375em;
+}
+
+.ahicon-spiraling_inferno {
+  width: 0.8076171875em;
+}
+
+.ahicon-scorched_wasteland {
+  width: 1.2236328125em;
+}
+
+.ahicon-malevolent_ritual {
+  width: 1.0009765625em;
+}
+
+.ahicon-gala {
+  width: 0.9765625em;
+}
+
+.ahicon-onigawa {
+  width: 1.021484375em;
+}
+
+.ahicon-curtain_call {
+  width: 1.1318359375em;
+}
+
+.ahicon-the_last_king {
+  width: 1.037109375em;
+}
+
+.ahicon-echoes_of_the_past {
+  width: 1.0458984375em;
+}
+
+.ahicon-the_unspeakable_oath {
+  width: 1.0888671875em;
+}
+
+.ahicon-the_pallid_mask {
+  width: 1.0087890625em;
+}
+
+.ahicon-black_stars_rise {
+  width: 1.015625em;
+}
+
+.ahicon-the_flood_below {
+  width: 1.1826171875em;
+}
+
+.ahicon-the_vortex_above {
+  width: 1.0625em;
+}
+
+.ahicon-dim_carcosa {
+  width: 1.2666015625em;
+}
+
+.ahicon-cult_of_the_yellow_sign {
+  width: 1.0380859375em;
+}
+
+.ahicon-decay_and_filth {
+  width: 0.9541015625em;
+}
+
+.ahicon-delusions {
+  width: 0.9814453125em;
+}
+
+.ahicon-evil_portents {
+  width: 1.0361328125em;
+}
+
+.ahicon-hasturs_gift {
+  width: 0.93359375em;
+}
+
+.ahicon-hauntings {
+  width: 0.9833984375em;
+}
+
+.ahicon-inhabitants_of_carcosa {
+  width: 1.0625em;
+}
+
+.ahicon-the_stranger {
+  width: 1.0390625em;
+}
+
+.ahicon-delusory_evils {
+  width: 0.923828125em;
+}
+
+.ahicon-neurotic_fear {
+  width: 1.1240234375em;
+}
+
+.ahicon-hasturs_envoys {
+  width: 1.0693359375em;
+}
+
+.ahicon-decaying_reality {
+  width: 0.962890625em;
+}
+
+.ahicon-maddening_delusions {
+  width: 1.216796875em;
+}
+
+.ahicon-ancient_evils {
+  width: 1.0166015625em;
+}
+
+.ahicon-dark_cult {
+  width: 1.0380859375em;
+}
+
+.ahicon-agents_of_yog {
+  width: 1.0302734375em;
+}
+
+.ahicon-agents_of_cthulhu {
+  width: 0.9970703125em;
+}
+
+.ahicon-ghouls {
+  width: 0.97265625em;
+}
+
+.ahicon-chilling_cold {
+  width: 1.0029296875em;
+}
+
+.ahicon-agents_of_hastur {
+  width: 1.001953125em;
+}
+
+.ahicon-agents_of_shub {
+  width: 1.0126953125em;
+}
+
+.ahicon-locked_doors {
+  width: 1.0126953125em;
+}
+
+.ahicon-nightgaunts {
+  width: 1.0048828125em;
+}
+
+.ahicon-rats {
+  width: 1.00390625em;
+}
+
+.ahicon-the_gathering {
+  width: 0.8828125em;
+}
+
+.ahicon-midnight_masks {
+  width: 0.984375em;
+}
+
+.ahicon-cult_of_umordoth {
+  width: 0.953125em;
+}
+
+.ahicon-the_devourer_below {
+  width: 0.998046875em;
+}
+
+.ahicon-ghouls_of_umrdhoth {
+  width: 1.0205078125em;
+}
+
+.ahicon-return_to_the_gathering {
+  width: 1.009765625em;
+}
+
+.ahicon-return_to_the_midnight_masks {
+  width: 1.0205078125em;
+}
+
+.ahicon-return_cult {
+  width: 1.0556640625em;
+}
+
+.ahicon-return_to_the_devourer_below {
+  width: 1.05859375em;
+}
+
+.ahicon-core_2026 {
+  width: 0.9921875em;
+}
+
+.ahicon-parallel {
+  width: 0.990234375em;
+}
+
+.ahicon-tarot_inverted {
+  width: 0.5908203125em;
+}
+
+.ahicon-tarot {
+  width: 0.5908203125em;
+}
+
+.ahicon-accessory_inverted {
+  width: 0.8447265625em;
+}
+
+.ahicon-accessory {
+  width: 0.8447265625em;
+}
+
+.ahicon-ally_inverted {
+  width: 0.857421875em;
+}
+
+.ahicon-ally {
+  width: 0.857421875em;
+}
+
+.ahicon-arcane_x2_inverted {
+  width: 0.904296875em;
+}
+
+.ahicon-arcane_x2 {
+  width: 0.904296875em;
+}
+
+.ahicon-body_inverted {
+  width: 1.1630859375em;
+}
+
+.ahicon-body {
+  width: 1.1630859375em;
+}
+
+.ahicon-hand_inverted {
+  width: 1.1279296875em;
+}
+
+.ahicon-hand {
+  width: 1.1279296875em;
+}
+
+.ahicon-hand_x2_inverted {
+  width: 1.7001953125em;
+}
+
+.ahicon-hand_x2 {
+  width: 1.7001953125em;
+}
+
+.ahicon-head_inverted {
+  width: 1.185546875em;
+}
+
+.ahicon-head {
+  width: 1.185546875em;
+}
+
+.ahicon-health {
+  width: 0.8232421875em;
+}
+
+.ahicon-sanity {
+  width: 1.2138671875em;
+}
+
+.ahicon-sanity_inverted {
+  width: 1.2138671875em;
+}
+
+.ahicon-health_inverted {
+  width: 0.8232421875em;
+}
+
+.ahicon-star-fill {
+  width: 1.0361328125em;
+}
+
+.ahicon-star-outline {
+  width: 1.0361328125em;
+}
+
+.ahicon-star1 {
+  width: 1.0361328125em;
+}
+
+.ahicon-x-fill {
+  width: 1.0361328125em;
+}
+
+.ahicon-x-outline {
+  width: 1.0361328125em;
+}
+
+.ahicon-x1 {
+  width: 1.0361328125em;
+}
+
+.ahicon-seal_e1 {
+  width: 0.5546875em;
+}
+
+.ahicon-seal_d1 {
+  width: 0.583984375em;
+}
+
+.ahicon-seal_c1 {
+  width: 0.625em;
+}
+
+.ahicon-seal_b1 {
+  width: 0.59765625em;
+}
+
+.ahicon-seal_a1 {
+  width: 0.51953125em;
+}
+
+.ahicon-tarot_inverted1 {
+  width: 0.5908203125em;
+}
+
+.ahicon-tarot1 {
+  width: 0.5908203125em;
+}
+
+.ahicon-accessory_inverted1 {
+  width: 0.8447265625em;
+}
+
+.ahicon-accessory1 {
+  width: 0.8447265625em;
+}
+
+.ahicon-ally_inverted1 {
+  width: 0.857421875em;
+}
+
+.ahicon-ally1 {
+  width: 0.857421875em;
+}
+
+.ahicon-arcane_x2_inverted1 {
+  width: 0.904296875em;
+}
+
+.ahicon-arcane_x21 {
+  width: 0.904296875em;
+}
+
+.ahicon-body_inverted1 {
+  width: 1.1630859375em;
+}
+
+.ahicon-body1 {
+  width: 1.1630859375em;
+}
+
+.ahicon-hand_x2_inverted1 {
+  width: 1.7001953125em;
+}
+
+.ahicon-hand_x21 {
+  width: 1.7001953125em;
+}
+
+.ahicon-hand_inverted1 {
+  width: 1.1279296875em;
+}
+
+.ahicon-hand1 {
+  width: 1.1279296875em;
+}
+
+.ahicon-head_inverted1 {
+  width: 1.185546875em;
+}
+
+.ahicon-head1 {
+  width: 1.185546875em;
+}
+
+.ahicon-health1 {
+  width: 0.8232421875em;
+}
+
+.ahicon-sanity1 {
+  width: 1.2138671875em;
+}
+
+.ahicon-sanity_inverted1 {
+  width: 1.2138671875em;
+}
+
+.ahicon-health_inverted1 {
+  width: 0.8232421875em;
+}
+
+.ahicon-star-fill1 {
+  width: 1.0361328125em;
+}
+
+.ahicon-star-outline1 {
+  width: 1.0361328125em;
+}
+
+.ahicon-star2 {
+  width: 1.0361328125em;
+}
+
+.ahicon-x-fill1 {
+  width: 1.0361328125em;
+}
+
+.ahicon-x-outline1 {
+  width: 1.0361328125em;
+}
+
+.ahicon-x2 {
+  width: 1.0361328125em;
+}
+
+.ahicon-free1 {
+  width: 1.125em;
+}
+
+.ahicon-curse1 {
+  width: 0.9794921875em;
+}
+
+.ahicon-bless1 {
+  width: 0.927734375em;
+}
+
+.ahicon-parallel1 {
+  width: 0.990234375em;
+}
+
+.ahicon-codex1 {
+  width: 1.16796875em;
+}
+
+.ahicon-night1 {
+  width: 0.9892578125em;
+}
+
+.ahicon-day1 {
+  width: 0.9921875em;
+}
+
+.ahicon-carcosa {
+  width: 0.9957682291666666em;
+}
+
+.ahicon-return_to_the_path_to_carcosa {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_curtain_call {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_last_king {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_echoes_of_the_past {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_unspeakable_oath {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_phantom_of_truth {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_the_pallid_mask {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_black_stars_rise {
+  width: 0.9931640625em;
+}
+
+.ahicon-return_to_dim_carcosa {
+  width: 0.9931640625em;
+}

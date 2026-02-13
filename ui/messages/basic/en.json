@@ -1,0 +1,6 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"basic_no_card": "No Card",
+	"basic_card_count_singular": "{cardCount} Card",
+	"basic_card_count_plural": "{cardCount} Cards"
+}

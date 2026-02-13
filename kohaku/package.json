@@ -1,0 +1,24 @@
+{
+  "name": "@5argon/arkham-kohaku",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json}\"",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ]
+}

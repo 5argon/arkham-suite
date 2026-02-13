@@ -1,0 +1,23 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"resource_title": "Resources",
+	"resource_page_title": "arkham-starter.com | Resource",
+	"resource_storage_solution_title": "Storage Solution",
+	"resource_storage_solution_description": "Find a way to stock many released cards. This page explains how to integrate with inserts in the market.",
+	"resource_deck_archetypes_title": "Deck Archetypes",
+	"resource_deck_archetypes_description": "Understand the game better by categorizing published decks into archetypes.",
+	"resource_encounter_sets_title": "Encounter Sets",
+	"resource_encounter_sets_description": "The list of encounter sets in the game with information and icons.",
+	"resource_bleed_title": "Bleed",
+	"resource_bleed_description": "Where to get the bleed edge card image. What is bleed and why you want it?",
+	"resource_new_player_title": "New Player",
+	"resource_new_player_description": "Various advice and rules clarifications for new player.",
+	"resource_proxy_maker_title": "Proxy Maker",
+	"resource_proxy_maker_description": "Create your own custom card for the game.",
+	"resource_card_grade_title": "Card Grade",
+	"resource_card_grade_description": "Grade each player card according to various aspects.",
+	"resource_spoiler_mode_title": "Spoiler Mode",
+	"resource_spoiler_mode_description": "How to use spoiler mode to avoid campaign spoilers.",
+	"resource_faq_errata_title": "FAQ Errata",
+	"resource_faq_errata_description": "A page explaining rules and providing links to official FAQ/Errata."
+}

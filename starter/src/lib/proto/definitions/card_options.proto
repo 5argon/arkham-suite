@@ -1,0 +1,10 @@
+syntax = "proto3";
+message CardOptions {
+	bool class_icons = 1;
+	bool color = 2;
+	bool bold = 3;
+	bool link = 4;
+	bool taboo_icon = 5;
+	bool exceptional_icon = 6;
+	bool expansion = 7;
+}

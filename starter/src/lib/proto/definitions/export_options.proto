@@ -1,0 +1,10 @@
+syntax = "proto3";
+import "global_settings.proto";
+import "card_info.proto";
+import "card_options.proto";
+
+message ExportOptions {
+	GlobalSettings global_settings = 1;
+	CardInfo card_info = 2;
+	CardOptions card_options = 3;
+}

@@ -1,0 +1,45 @@
+export enum CardPack {
+  CoreSet,
+  RevisedCoreSet,
+
+  TheDunwichLegacy,
+  ThePathToCarcosa,
+  TheForgottenAge,
+  TheCircleUndone,
+  TheDreamEaters,
+  TheInnsmouthConspiracy,
+  EdgeOfTheEarth,
+  TheScarletKeys,
+  TheFeastOfHemlockVale,
+  TheDrownedCity,
+
+  ReturnToTheNightOfTheZealot,
+  ReturnToTheDunwichLegacy,
+  ReturnToThePathToCarcosa,
+  ReturnToTheForgottenAge,
+  ReturnToTheCircleUndone,
+
+  NathanielCho,
+  HarveyWalters,
+  WinifredHabbamock,
+  JacquelineFine,
+  StellaClark,
+
+  CurseOfTheRougarou,
+  CarnevaleOfHorrors,
+  TheLabyrinthsOfLunacy,
+  GuardiansOfTheAbyss,
+  MurderAtTheExcelsiorHotel,
+  TheBlobThatAteEverything,
+  TheBlobThatAteEverythingElse,
+  WarOfTheOuterGods,
+  MachinationsThroughTime,
+  FortuneAndFolly,
+  TheMidwinterGala,
+
+  ParallelInvestigator,
+  Novella,
+
+  Unknown,
+  RandomBasicWeakness,
+}

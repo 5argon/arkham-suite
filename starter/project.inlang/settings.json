@@ -1,0 +1,33 @@
+{
+	"$schema": "https://inlang.com/schema/project-settings",
+	"modules": [
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-empty-pattern@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-identical-pattern@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-missing-translation@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-without-source@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-valid-js-identifier@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@latest/dist/index.js"
+	],
+	"plugin.inlang.messageFormat": {
+		"pathPattern": [
+			"./messages/common/{languageTag}.json",
+			"./messages/about/{languageTag}.json",
+			"./messages/campaign/{languageTag}.json",
+			"./messages/card/{languageTag}.json",
+			"./messages/deck/{languageTag}.json",
+			"./messages/decklist/{languageTag}.json",
+			"./messages/divider/{languageTag}.json",
+			"./messages/eote/{languageTag}.json",
+			"./messages/errata/{languageTag}.json",
+			"./messages/explore/{languageTag}.json",
+			"./messages/proxy/{languageTag}.json",
+			"./messages/resource/{languageTag}.json",
+			"./messages/starter_decks/{languageTag}.json",
+			"./messages/supply/{languageTag}.json",
+			"./messages/tool/{languageTag}.json"
+		]
+	},
+	"sourceLanguageTag": "en",
+	"languageTags": ["en"]
+}

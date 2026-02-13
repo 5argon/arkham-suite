@@ -1,0 +1,83 @@
+syntax = "proto3";
+import "export_options.proto";
+
+message CardWithQuantity {
+	string card_id = 1;
+	int32 quantity = 2;
+}
+
+message UpgradeExportProto {
+	repeated UpgradeExportRow upgrade_rows = 1;
+	UpgradeExportOptions upgrade_export_options = 2;
+	ExportOptions export_options = 3;
+	string import_deck_url = 4 [deprecated = true];
+	repeated CardWithQuantity cards_main = 5;
+	repeated CardWithQuantity cards_side = 6;
+}
+
+message UpgradeExportRow {
+	string mark = 1;
+	// Turns into just a string.
+	string card_left = 2;
+	// Turns into just a string.
+	string card_right = 3;
+	bool xp_unlocked = 4;
+	bool cumulative_xp_unlocked = 5;
+	int32 xp = 6;
+	int32 cumulative_xp = 7;
+	string divider_text = 8;
+	bool divider = 9;
+	bool right_custom = 10;
+	string right_custom_text = 11;
+	int32 right_custom_choice = 12;
+}
+
+message UpgradeExportOptions {
+	message Arrow{ 
+		string character = 1;
+		bool highlight_upgrade = 2;
+	}
+	message Headers {
+		string cost_header = 1;
+		string total_header = 2;
+	}
+	message Columns {
+		bool mark_column =1;
+		bool xp_column = 2;
+		bool cumulative_column = 3;
+	}
+	message SimpleListOptions {
+		enum BlockStyle{
+			Unknown = 0;
+			A = 1;
+			B = 2;
+			C = 3;
+			D = 4;
+			E = 5;
+			F = 6;
+			G = 7;
+		}
+		BlockStyle block_style = 1;
+	}
+
+	enum UpgradeExportStyle{
+		Unknown = 0;
+		MarkdownArkhamDb = 1;
+		MarkdownArkhamCards = 2;
+		Markdown = 4;
+		Forum = 3;
+	}
+
+	bool simple_list = 1;
+	bool split_divider = 2;
+	string xp_suffix = 3;
+	bool ignore_small = 4;
+	Arrow arrow = 5;
+	Headers headers = 6;
+	Columns columns = 7;
+	SimpleListOptions simple_list_options = 8;
+	bool upgradeUrl = 9;
+	bool show_link = 10;
+	string show_link_text = 11;
+	UpgradeExportStyle upgrade_export_style = 12;
+}

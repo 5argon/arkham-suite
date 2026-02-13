@@ -1,0 +1,957 @@
+[
+	{
+		"items": [
+			"01_Archaic Evils.png",
+			"02_Architects of Chaos.png",
+			"03_Awakened Madness.png",
+			"04_Countermeasures.png",
+			"05_Cult of Cthulhu.png",
+			"06_Deep Dreams.png",
+			"07_Grand Compass.png",
+			"08_Shadowy Agents.png",
+			"09_Spawn of R'lyeh.png",
+			"10_Storm and Sea.png",
+			"11_Unfriendly Ports.png",
+			"12_Unnatural Stone.png",
+			"13_Across Dreadful Waters.png",
+			"14_Blood From Stones.png",
+			"15_Crumbling Masonry.png",
+			"16_Going Twice.png",
+			"17_Lost Moorings.png",
+			"18_Private Lives.png",
+			"19_Pyroclastic Flow.png",
+			"20_Tomb of Dead Dreams.png"
+		],
+		"folder": "Custom - Cyclopean Foundations x20"
+	},
+	{
+		"items": [
+			"01_001-010 (Return to the Night of the Zealot).png",
+			"02_001-010 (Return to the Dunwich Legacy).png",
+			"03_001-010 (Return to the Path to Carcosa).png",
+			"04_001-011 (Return to the Forgotten Age).png",
+			"05_001-013 (Return to the Circle Undone).png"
+		],
+		"folder": "CNR - Return To x5"
+	},
+	{
+		"items": ["01_Basic Weakness.png", "02_Bonded.png", "03_Permanent.png", "04_Proxy.png"],
+		"folder": "Player - Misc x4"
+	},
+	{
+		"items": [
+			"01_Guardian 38.png",
+			"02_Seeker 38.png",
+			"03_Rogue 40.png",
+			"04_Mystic 40.png",
+			"05_Survivor 40.png",
+			"06_Neutral 9.png"
+		],
+		"folder": "CCQ - The Scarlet Keys x6"
+	},
+	{
+		"items": [
+			"01_Guardian 0.png",
+			"02_Guardian 15.png",
+			"03_Multi-Class 0.png",
+			"04_Multi-Class 15.png",
+			"05_Mystic 0.png",
+			"06_Mystic 15.png",
+			"07_Neutral 0.png",
+			"08_Neutral 15.png",
+			"09_Rogue 0.png",
+			"10_Rogue 15.png",
+			"11_Seeker 0.png",
+			"12_Seeker 15.png",
+			"13_Survivor 0.png",
+			"14_Survivor 15.png"
+		],
+		"folder": "Player - Class With Levels x14"
+	},
+	{
+		"items": [
+			"01_Guardian 23.png",
+			"02_Seeker 24.png",
+			"03_Rogue 22.png",
+			"04_Mystic 23.png",
+			"05_Survivor 23.png",
+			"06_Neutral 11.png",
+			"07_Multi-Class 82.png",
+			"08_Multi-Class (Guardian First) 28.png",
+			"09_Multi-Class (Seeker First) 22.png",
+			"10_Multi-Class (Rogue First) 14.png",
+			"11_Multi-Class (Remaining) 18.png"
+		],
+		"folder": "CCQ - Edge of the Earth x11"
+	},
+	{
+		"items": [
+			"01_Cult of Umôrdhoth (new).png",
+			"02_Ghouls of Umôrdhoth.png",
+			"03_The Devourer's Cult.png",
+			"04_Return to The Gathering.png",
+			"05_Return to The Midnight Masks.png",
+			"06_Return to The Devourer Below.png"
+		],
+		"folder": "Campaign - Return to the Night of the Zealot x6"
+	},
+	{
+		"items": ["01_The Gathering.png", "02_The Midnight Masks.png", "03_The Devourer Below.png"],
+		"folder": "Campaign - Night of the Zealot x3"
+	},
+	{
+		"items": [
+			"01_1 Arcane Slot Lv. 0.png",
+			"02_1 Arcane Slot Lv. 1 ~ 5.png",
+			"03_1 Arcane Slot.png",
+			"04_1 Hand Slot Lv. 0.png",
+			"05_1 Hand Slot Lv. 1 ~ 5.png",
+			"06_1 Hand Slot.png",
+			"07_2 Arcane Slots Lv. 0.png",
+			"08_2 Arcane Slots Lv. 1 ~ 5.png",
+			"09_2 Arcane Slots.png",
+			"10_2 Hand Slots Lv. 0.png",
+			"11_2 Hand Slots Lv. 1 ~ 5.png",
+			"12_2 Hand Slots.png",
+			"13_Accessory Slot Lv. 0.png",
+			"14_Accessory Slot Lv. 1 ~ 5.png",
+			"15_Accessory Slot.png",
+			"16_Ally Slot Lv. 0.png",
+			"17_Ally Slot Lv. 1 ~ 5.png",
+			"18_Ally Slot.png",
+			"19_Body Slot Lv. 0.png",
+			"20_Body Slot Lv. 1 ~ 5.png",
+			"21_Body Slot.png",
+			"22_Other Lv. 0.png",
+			"23_Other Lv. 1 ~ 5.png",
+			"24_Other.png",
+			"25_Tarot Slot Lv. 0.png",
+			"26_Tarot Slot Lv. 1 ~ 5.png",
+			"27_Tarot Slot.png"
+		],
+		"folder": "Player - Slot Requirement x27"
+	},
+	{
+		"items": [
+			"01_Bloodthirsty Spirits.png",
+			"02_Chilling Mists.png",
+			"03_City of the Damned.png",
+			"04_Hexcraft.png",
+			"05_Impending Evils.png",
+			"06_Unspeakable Fate.png",
+			"07_Unstable Realm.png",
+			"08_Return to Disappearance at the Twilight Estate.png",
+			"09_Return to The Witching Hour.png",
+			"10_Return to At Death's Doorstep.png",
+			"11_Return to The Secret Name.png",
+			"12_Return to The Wages of Sin.png",
+			"13_Return to For the Greater Good.png",
+			"14_Return to Union and Disillusion.png",
+			"15_Return to In the Clutches of Chaos.png",
+			"16_Return to Before the Black Throne.png"
+		],
+		"folder": "Campaign - Return to the Circle Undone x16"
+	},
+	{
+		"items": [
+			"01_Byakhee.png",
+			"02_Cult of the Yellow Sign.png",
+			"03_Decay & Filth.png",
+			"04_Delusions.png",
+			"05_Evil Portents.png",
+			"06_Hastur's Gift.png",
+			"07_Hauntings.png",
+			"08_Inhabitants of Carcosa.png",
+			"09_The Flood Below.png",
+			"10_The Stranger.png",
+			"11_The Vortex Above.png",
+			"12_Curtain Call.png",
+			"13_The Last King.png",
+			"14_Echoes of the Past.png",
+			"15_The Unspeakable Oath.png",
+			"16_A Phantom of Truth.png",
+			"17_The Pallid Mask.png",
+			"18_Black Stars Rise.png",
+			"19_Dim Carcosa.png"
+		],
+		"folder": "Campaign - The Path to Carcosa x19"
+	},
+	{
+		"items": [
+			"01_Core Set.png",
+			"02_Parallel Investigator.png",
+			"03_Novella.png",
+			"04_The Dunwich Legacy.png",
+			"05_The Path to Carcosa.png",
+			"06_The Forgotten Age.png",
+			"07_The Circle Undone.png",
+			"08_The Dream-Eaters.png",
+			"09_The Innsmouth Conspiracy.png",
+			"10_Edge of the Earth.png",
+			"11_The Scarlet Keys.png"
+		],
+		"folder": "Player - Investigator By Set x11"
+	},
+	{
+		"items": [
+			"01_Agents of Azathoth.png",
+			"02_Anette's Coven.png",
+			"03_City of Sins.png",
+			"04_Inexorable Fate.png",
+			"05_Music of the Damned.png",
+			"06_Realm of Death.png",
+			"07_Secrets of the Universe.png",
+			"08_Silver Twilight Lodge.png",
+			"09_Spectral Predators.png",
+			"10_The Watcher.png",
+			"11_Trapped Spirits.png",
+			"12_Witchcraft.png",
+			"13_Disappearance at the Twilight Estate.png",
+			"14_The Witching Hour.png",
+			"15_At Death's Doorstep.png",
+			"16_The Secret Name.png",
+			"17_The Wages of Sin.png",
+			"18_For the Greater Good.png",
+			"19_Union and Disillusion.png",
+			"20_In the Clutches of Chaos.png",
+			"21_Before the Black Throne.png"
+		],
+		"folder": "Campaign - The Circle Undone x21"
+	},
+	{
+		"items": [
+			"01_Decaying Reality.png",
+			"02_Delusory Evils.png",
+			"03_Hastur's Envoy.png",
+			"04_Maddening Delusions.png",
+			"05_Neurotic Fear.png",
+			"06_Return to Curtain Call.png",
+			"07_Return to The Last King.png",
+			"08_Return to Echoes of the Past.png",
+			"09_Return to The Unspeakable Oath.png",
+			"10_Return to A Phantom of Truth.png",
+			"11_Return to The Pallid Mask.png",
+			"12_Return to Black Stars Rise.png",
+			"13_Return to Dim Carcosa.png"
+		],
+		"folder": "Campaign - Return to the Path to Carcosa x13"
+	},
+	{
+		"items": [
+			"01_Guardian 32.png",
+			"02_Seeker 32.png",
+			"03_Rogue 30.png",
+			"04_Mystic 30.png",
+			"05_Survivor 30.png",
+			"06_Multi-Class 10.png",
+			"07_Neutral 6.png"
+		],
+		"folder": "CCQ - The Circle Undone x7"
+	},
+	{
+		"items": [
+			"01_019-039 (Guardian).png",
+			"02_040-061 (Seeker).png",
+			"03_062-083 (Rogue).png",
+			"04_084-107 (Mystic).png",
+			"05_108-127 (Survivor).png",
+			"06_128-134 (Neutral).png"
+		],
+		"folder": "CNR - The Feast of Hemlock Vale x6"
+	},
+	{
+		"items": [
+			"01_016-036 (The Dunwich Legacy).png",
+			"02_105-117 (The Miskatonic Museum).png",
+			"03_147-158 (The Essex County Express).png",
+			"04_184-194 (Blood on the Altar).png",
+			"05_225-235 (Undimensioned and Unseen).png",
+			"06_260-273 (Where Doom Awaits).png",
+			"07_299-310 (Lost in Time and Space).png"
+		],
+		"folder": "CNR - The Dunwich Legacy x7"
+	},
+	{
+		"items": [
+			"01_Main.png",
+			"02_Encounter.png",
+			"03_Children of Paradise.png",
+			"04_Death of Stars.png",
+			"05_Swarm of Assimilation.png"
+		],
+		"folder": "Standalone - War of the Outer Gods x5"
+	},
+	{
+		"items": ["01_Main.png", "02_Encounter.png", "03_Single Group.png", "04_Epic Multiplayer.png"],
+		"folder": "Standalone - The Labyrinths of Lunacy x4"
+	},
+	{
+		"items": [
+			"01_Customizable.png",
+			"02_Upgrade Sheet.png",
+			"03_Upgrade Sheet - Guardian.png",
+			"04_Upgrade Sheet - Seeker.png",
+			"05_Upgrade Sheet - Rogue.png",
+			"06_Upgrade Sheet - Mystic.png",
+			"07_Upgrade Sheet - Survivor.png",
+			"08_Upgrade Sheet - Neutral.png",
+			"09_Upgrade Sheet - Guardian Seeker.png",
+			"10_Upgrade Sheet - Rogue Mystic.png",
+			"11_Upgrade Sheet - Survivor Neutral.png"
+		],
+		"folder": "Player - Customizable x11"
+	},
+	{
+		"items": [
+			"01_Main.png",
+			"02_Sands of Egypt.png",
+			"03_The Eternal Slumber.png",
+			"04_Brotherhood of the Beast.png",
+			"05_The Night's Usurper.png",
+			"06_Abyssal Gifts.png",
+			"07_Abyssal Tribute.png"
+		],
+		"folder": "Standalone - Guardians of the Abyss x7"
+	},
+	{
+		"items": [
+			"01_017-037 (The Forgotten Age).png",
+			"02_103-112 (Threads of Fate).png",
+			"03_149-160 (The Boundary Beyond).png",
+			"04_192-204 (Heart of the Elders).png",
+			"05_229-236 (The City of Archives).png",
+			"06_265-276 (The Depths of Yoth).png",
+			"07_304-313 (Shattered Aeons).png"
+		],
+		"folder": "CNR - The Forgotten Age x7"
+	},
+	{
+		"items": [
+			"01_Guardian 34.png",
+			"02_Seeker 34.png",
+			"03_Rogue 34.png",
+			"04_Mystic 34.png",
+			"05_Survivor 34.png",
+			"06_Neutral 18.png"
+		],
+		"folder": "CCQ - The Dunwich Legacy x6"
+	},
+	{
+		"items": [
+			"01_Nathaniel Cho 56.png",
+			"02_Harvey Walters 56.png",
+			"03_Winifred Habbamock 56.png",
+			"04_Jacqueline Fine 56.png",
+			"05_Stella Clark 56.png"
+		],
+		"folder": "CCQ - Investigator Starter Decks x5"
+	},
+	{
+		"items": [
+			"01_Guardian 34.png",
+			"02_Seeker 34.png",
+			"03_Rogue 34.png",
+			"04_Mystic 34.png",
+			"05_Survivor 34.png",
+			"06_Neutral 14.png"
+		],
+		"folder": "CCQ - The Path to Carcosa x6"
+	},
+	{
+		"items": [
+			"01_Customizable - With Set Strip.png",
+			"02_Upgrade Sheet - With Set Strip.png",
+			"03_Upgrade Sheet - Guardian - With Set Strip.png",
+			"04_Upgrade Sheet - Seeker - With Set Strip.png",
+			"05_Upgrade Sheet - Rogue - With Set Strip.png",
+			"06_Upgrade Sheet - Mystic - With Set Strip.png",
+			"07_Upgrade Sheet - Survivor - With Set Strip.png",
+			"08_Upgrade Sheet - Neutral - With Set Strip.png",
+			"09_Upgrade Sheet - Guardian Seeker - With Set Strip.png",
+			"10_Upgrade Sheet - Rogue Mystic - With Set Strip.png",
+			"11_Upgrade Sheet - Survivor Neutral - With Set Strip.png"
+		],
+		"folder": "Player - Customizable With Set Strip x11"
+	},
+	{
+		"items": [
+			"01_Anachronism.png",
+			"02_Artificial Intelligence.png",
+			"03_Boogeyman.png",
+			"04_Dark Past.png",
+			"05_Deep Space.png",
+			"06_Endtimes.png",
+			"07_Hastur's Gaze.png",
+			"08_Interstellar Predators.png",
+			"09_Electric Nightmare.png",
+			"10_Fragment of Carcosa.png",
+			"11_In the Shadow of Earth.png",
+			"12_Lost Quantum.png",
+			"13_Starfall.png",
+			"14_Strange Moons.png",
+			"15_The Machine in Yellow.png",
+			"16_The Tatterdemalion.png"
+		],
+		"folder": "Custom - Dark Matter x16"
+	},
+	{
+		"items": [
+			"01_Agents of Dagon.png",
+			"02_Agents of Hydra.png",
+			"03_Creatures of the Deep.png",
+			"04_Flooded Caverns.png",
+			"05_Fog over Innsmouth.png",
+			"06_Malfunction.png",
+			"07_Rising Tide.png",
+			"08_Shattered Memories.png",
+			"09_Syzygy.png",
+			"10_The Locals.png",
+			"11_The Pit of Despair.png",
+			"12_The Vanishing of Elina Harper.png",
+			"13_In Too Deep.png",
+			"14_Devil Reef.png",
+			"15_Horror in High Gear.png",
+			"16_A Light in the Fog.png",
+			"17_The Lair of Dagon.png",
+			"18_Into the Maelstrom.png"
+		],
+		"folder": "Campaign - The Innsmouth Conspiracy x18"
+	},
+	{
+		"items": [
+			"01_Deck 1.png",
+			"02_Deck 2.png",
+			"03_Deck 3.png",
+			"04_Deck 4.png",
+			"05_Empty 1.png",
+			"06_Empty 2.png",
+			"07_Empty 3.png",
+			"08_Side Deck.png"
+		],
+		"folder": "Extra x8"
+	},
+	{
+		"items": [
+			"01_Agents of Cthulhu.png",
+			"02_Agents of Hastur.png",
+			"03_Agents of Shub-Niggurath.png",
+			"04_Agents of Yog-Sothoth.png",
+			"05_Ancient Evils.png",
+			"06_Chilling Cold.png",
+			"07_Cult of Umôrdhoth.png",
+			"08_Dark Cult.png",
+			"09_Ghouls.png",
+			"10_Locked Doors.png",
+			"11_Nightgaunts.png",
+			"12_Rats.png",
+			"13_Striking Fear.png",
+			"14_The Midnight Masks (5 encounter cards).png"
+		],
+		"folder": "Core Set x14"
+	},
+	{
+		"items": [
+			"01_Alice in Arkham.png",
+			"02_Card Guards.png",
+			"03_Cheshire Cat.png",
+			"04_Chessmen.png",
+			"05_Gurathnaka's Shadows.png",
+			"06_Jabberwock.png",
+			"07_Riddles and Games.png",
+			"08_Walrus and Carpenter.png",
+			"09_Warped Reality.png",
+			"10_Wonderland Banes.png",
+			"11_Wonderland Boons.png",
+			"12_A Sea of Troubles.png",
+			"13_Arkham in Wonderland.png",
+			"14_Bleeding Hearts.png",
+			"15_Fool's Mate.png",
+			"16_Lucid Nightmare.png",
+			"17_Sibling Rivalry.png",
+			"18_Tempest in a Teapot.png",
+			"19_Wild Snark Chase.png"
+		],
+		"folder": "Custom - Alice in Wonderland x19"
+	},
+	{
+		"items": [
+			"01_Investigator.png",
+			"02_Guardian.png",
+			"03_Mystic.png",
+			"04_Rogue.png",
+			"05_Seeker.png",
+			"06_Survivor.png"
+		],
+		"folder": "Player - Investigator x6"
+	},
+	{
+		"items": [
+			"01_018-034 (The Dream-Eaters).png",
+			"02_110-118 (The Search for Kadath).png",
+			"03_155-167 (A Thousand Shapes of Horror).png",
+			"04_195-205 (Dark Side of the Moon).png",
+			"05_234-246 (Point of No Return).png",
+			"06_276-285 (Where the Gods Dwell).png",
+			"07_323-332 (Weaver of the Cosmos).png"
+		],
+		"folder": "CNR - The Dream-Eaters x7"
+	},
+	{
+		"items": [
+			"01_The First Day.png",
+			"02_The Second Day.png",
+			"03_The Final Day.png",
+			"04_Agents of the Colour.png",
+			"05_Fate of the Vale.png",
+			"06_Heirlooms.png",
+			"07_Horrors in the Rock.png",
+			"08_Hemlock House.png",
+			"09_Residents.png",
+			"10_The Longest Night.png",
+			"11_The Silent Heath.png",
+			"12_The Twisted Hollow.png",
+			"13_Transfiguration.png",
+			"14_Day of Rest.png",
+			"15_Day of Rain.png",
+			"16_Day of the Feast.png",
+			"17_Blight.png",
+			"18_Fire!.png",
+			"19_Myconids.png",
+			"20_Mutations.png",
+			"21_Refractions.png",
+			"22_The Forest.png",
+			"23_The Lost Sister.png",
+			"24_The Thing in the Depths.png",
+			"25_The Vale.png",
+			"26_Written in Rock.png"
+		],
+		"folder": "Campaign - The Feast of Hemlock Vale x26"
+	},
+	{
+		"items": [
+			"01_Guardian No Text.png",
+			"02_Guardian.png",
+			"03_Multi-Class No Text.png",
+			"04_Multi-Class.png",
+			"05_Mystic No Text.png",
+			"06_Mystic.png",
+			"07_Neutral No Text.png",
+			"08_Neutral.png",
+			"09_Rogue No Text.png",
+			"10_Rogue.png",
+			"11_Seeker No Text.png",
+			"12_Seeker.png",
+			"13_Survivor.png",
+			"14_Survivor No Text.png"
+		],
+		"folder": "Player - Class No Levels x14"
+	},
+	{
+		"items": [
+			"01_Agents of Atlach-Nacha.png",
+			"02_Agents of Nyarlathotep.png",
+			"03_Corsairs.png",
+			"04_Creatures of the Underworld.png",
+			"05_Descent into the Pitch.png",
+			"06_Dreamer's Curse.png",
+			"07_Dreamlands.png",
+			"08_Merging Realities.png",
+			"09_Spiders.png",
+			"10_Terror of the Vale.png",
+			"11_Whispers of Hypnos.png",
+			"12_Zoogs.png",
+			"13_Beyond the Gates of Sleep.png",
+			"14_Waking Nightmare.png",
+			"15_The Search for Kadath.png",
+			"16_A Thousand Shapes of Horror.png",
+			"17_Dark Side of the Moon.png",
+			"18_Point of No Return.png",
+			"19_Where the Gods Dwell.png",
+			"20_Weaver of the Cosmos.png"
+		],
+		"folder": "Campaign - The Dream-Eaters x20"
+	},
+	{
+		"items": [
+			"01_Guardian 14.png",
+			"02_Seeker 14.png",
+			"03_Rogue 14.png",
+			"04_Mystic 14.png",
+			"05_Survivor 14.png",
+			"06_Neutral 26.png",
+			"07_Neutral (Knife, Flashlight, Emergency Cache) 12.png",
+			"08_Neutral (Skills, Others) 14.png"
+		],
+		"folder": "CCQ - Core Set x8"
+	},
+	{
+		"items": [
+			"01_Agents of the Unknown.png",
+			"02_Creatures in the Ice.png",
+			"03_Deadly Weather.png",
+			"04_Elder Things.png",
+			"05_Expedition Team.png",
+			"06_Hazards of Antarctica.png",
+			"07_Left Behind.png",
+			"08_Memorials of the Lost.png",
+			"09_Miasma.png",
+			"10_Nameless Horrors.png",
+			"11_Penguins.png",
+			"12_Shoggoths.png",
+			"13_Silence and Mystery.png",
+			"14_Tekeli-li.png",
+			"15_Ice and Death.png",
+			"16_The Crash.png",
+			"17_Lost in the Night.png",
+			"18_Seeping Nightmares.png",
+			"19_Fatal Mirage.png",
+			"20_To the Forbidden Peaks.png",
+			"21_City of the Elder Things.png",
+			"22_The Heart of Madness.png",
+			"23_The Great Seal.png",
+			"24_Stirring in the Deep.png"
+		],
+		"folder": "Campaign - Edge of the Earth x24"
+	},
+	{
+		"items": [
+			"01_Return to the Night of the Zealot 20.png",
+			"02_Return to the Dunwich Legacy 20.png",
+			"03_Return to the Path to Carcosa 20.png",
+			"04_Return to the Forgotten Age 22.png",
+			"05_Return to the Circle Undone 23.png"
+		],
+		"folder": "CCQ - Return To x5"
+	},
+	{
+		"items": [
+			"01_017-037 (The Innsmouth Conspiracy).png",
+			"02_108-122 (In Too Deep).png",
+			"03_152-162 (Devil Reef).png",
+			"04_189-197 (Horror in High Gear).png",
+			"05_220-230 (A Light in the Fog).png",
+			"06_261-273 (The Lair of Dagon).png",
+			"07_301-310 (Into the Maelstrom).png"
+		],
+		"folder": "CNR - The Innsmouth Conspiracy x7"
+	},
+	{
+		"items": [
+			"01_005-032 (Nathaniel Cho).png",
+			"02_005-033 (Harvey Walters).png",
+			"03_005-032 (Winifred Habbamock).png",
+			"04_005-032 (Jacqueline Fine).png",
+			"05_005-031 (Stella Clark).png"
+		],
+		"folder": "CNR - Investigator Starter Decks x5"
+	},
+	{
+		"items": [
+			"01_Multi-Class.png",
+			"02_Multi-Class No Text.png",
+			"03_Multi-Class 2-Class.png",
+			"04_Multi-Class 3-Class.png",
+			"05_Multi-Class 0.png",
+			"06_Multi-Class 15.png",
+			"07_Multi-Class G M.png",
+			"08_Multi-Class G R.png",
+			"09_Multi-Class G S.png",
+			"10_Multi-Class G V.png",
+			"11_Multi-Class R M.png",
+			"12_Multi-Class R V.png",
+			"13_Multi-Class S M.png",
+			"14_Multi-Class S R.png",
+			"15_Multi-Class S V.png",
+			"16_Multi-Class M V.png"
+		],
+		"folder": "Player - Multi-Class x16"
+	},
+	{
+		"items": ["01_Main.png", "02_Encounter.png", "03_The Bayou.png"],
+		"folder": "Standalone - Curse of the Rougarou x3"
+	},
+	{
+		"items": [
+			"01_021-039 (Guardian).png",
+			"02_040-058 (Seeker).png",
+			"03_059-078 (Rogue).png",
+			"04_079-098 (Mystic).png",
+			"05_099-118 (Survivor).png",
+			"06_119-123 (Neutral).png"
+		],
+		"folder": "CNR - The Scarlet Keys x6"
+	},
+	{
+		"items": ["01_Main.png", "02_Encounter.png"],
+		"folder": "Standalone - Carnevale of Horrors x2"
+	},
+	{
+		"items": [
+			"01_Main.png",
+			"02_Encounter.png",
+			"03_Mi-Go Incursion.png",
+			"04_Single Group.png",
+			"05_Epic Multiplayer.png",
+			"06_Main (Else).png",
+			"07_The Blob That Ate Everything Else.png",
+			"08_Mi-Go Incursion II.png"
+		],
+		"folder": "Standalone - The Blob That Ate Everything x8"
+	},
+	{
+		"items": [
+			"01_Guardian 40.png",
+			"02_Seeker 39.png",
+			"03_Rogue 41.png",
+			"04_Mystic 40.png",
+			"05_Survivor 39.png",
+			"06_Neutral 11.png"
+		],
+		"folder": "CCQ - The Feast of Hemlock Vale x6"
+	},
+	{
+		"items": [
+			"01_Agents of the Outside.png",
+			"02_Agents of Yuggoth.png",
+			"03_Beyond the Beyond.png",
+			"04_Cleanup Crew.png",
+			"05_Crimson Conspiracy.png",
+			"06_Dark Veiling.png",
+			"07_Globetrotting.png",
+			"08_Mysteries Abound.png",
+			"09_Outsiders.png",
+			"10_Red Coterie.png",
+			"11_Scarlet Sorcery.png",
+			"12_Secret War.png",
+			"13_Shadow of a Doubt.png",
+			"14_Spatial Anomaly.png",
+			"15_Spreading Corruption.png",
+			"16_Strange Happenings.png",
+			"17_Congress of the Keys.png",
+			"18_Dancing Mad.png",
+			"19_Dead Heat.png",
+			"20_Dealings in the Dark.png",
+			"21_Dogs of War.png",
+			"22_On Thin Ice.png",
+			"23_Riddles and Rain.png",
+			"24_Sanguine Shadows.png",
+			"25_Shades of Suffering.png",
+			"26_Without a Trace.png"
+		],
+		"folder": "Campaign - The Scarlet Keys x26"
+	},
+	{
+		"items": [
+			"01_Guardian 32.png",
+			"02_Seeker 32.png",
+			"03_Rogue 32.png",
+			"04_Mystic 32.png",
+			"05_Survivor 32.png",
+			"06_Neutral 12.png"
+		],
+		"folder": "CCQ - The Forgotten Age x6"
+	},
+	{
+		"items": [
+			"01_Armitage's Fate.png",
+			"02_Bad Luck.png",
+			"03_Beast Thralls.png",
+			"04_Bishop's Thralls.png",
+			"05_Dunwich.png",
+			"06_Hideous Abominations.png",
+			"07_Naomi's Crew.png",
+			"08_Sorcery.png",
+			"09_The Beyond.png",
+			"10_Whippoorwills.png",
+			"11_Extracurricular Activity.png",
+			"12_The House Always Wins.png",
+			"13_The Miskatonic Museum.png",
+			"14_The Essex County Express.png",
+			"15_Blood on the Altar.png",
+			"16_Undimensioned and Unseen.png",
+			"17_Where Doom Awaits.png",
+			"18_Lost in Time and Space.png"
+		],
+		"folder": "Campaign - The Dunwich Legacy x18"
+	},
+	{
+		"items": [
+			"01_020-039 (The Path to Carcosa).png",
+			"02_106-119 (Echoes of the Past).png",
+			"03_147-158 (The Unspeakable Oath).png",
+			"04_189-199 (A Phantom of Truth).png",
+			"05_228-239 (The Pallid Mask).png",
+			"06_263-273 (Black Stars Rise).png",
+			"07_304-315 (Dim Carcosa).png"
+		],
+		"folder": "CNR - The Path to Carcosa x7"
+	},
+	{
+		"items": [
+			"01_Beyond the Threshold.png",
+			"02_Creeping Cold.png",
+			"03_Erratic Fear.png",
+			"04_Resurgent Evils.png",
+			"05_Secret Doors.png",
+			"06_Yog-Sothoth's Emissaries.png",
+			"07_Return to Extracurricular Activity.png",
+			"08_Return to the House Always Wins.png",
+			"09_Return to the Miskatonic Museum.png",
+			"10_Return to the Essex County Express.png",
+			"11_Return to Blood on the Altar.png",
+			"12_Return to Undimensioned and Unseen.png",
+			"13_Return to Where Doom Awaits.png",
+			"14_Return to Lost in Time and Space.png"
+		],
+		"folder": "Campaign - Return to the Dunwich Legacy x14"
+	},
+	{
+		"items": [
+			"01_Guardian 27.png",
+			"02_Seeker 33.png",
+			"03_Rogue 32.png",
+			"04_Mystic 31.png",
+			"05_Survivor 27.png",
+			"06_Neutral 16.png"
+		],
+		"folder": "CCQ - The Dream-Eaters x6"
+	},
+	{
+		"items": [
+			"01_016-029 (Guardian).png",
+			"02_030-043 (Seeker).png",
+			"03_044-057 (Rogue).png",
+			"04_058-071 (Mystic).png",
+			"05_072-085 (Survivor).png",
+			"06_086-088 (Neutral - Knife, Flashlight, Emergency Cache) 1.png",
+			"07_089-095 (Neutral - Remaining).png",
+			"08_183-195 (Revised Core Set).png"
+		],
+		"folder": "CNR - Core Set x8"
+	},
+	{
+		"items": [
+			"01_020-040 (The Circle Undone).png",
+			"02_109-119 (The Secret Name).png",
+			"03_151-160 (The Wages of Sin).png",
+			"04_186-196 (For the Greater Good).png",
+			"05_229-237 (Union and Disillusion).png",
+			"06_273-283 (In the Clutches of Chaos).png",
+			"07_313-324 (Before the Black Throne).png"
+		],
+		"folder": "CNR - The Circle Undone x7"
+	},
+	{
+		"items": [
+			"01_Main.png",
+			"02_Encounter.png",
+			"03_Fortune's Chosen.png",
+			"04_Plan in Shambles.png"
+		],
+		"folder": "Standalone - Fortune and Folly x4"
+	},
+	{
+		"items": [
+			"01_By the Book.png",
+			"02_Read or Die.png",
+			"03_All or Nothing.png",
+			"04_Bad Blood.png",
+			"05_Red Tide Rising.png",
+			"06_Laid to Rest.png",
+			"07_Relics of the Past.png"
+		],
+		"folder": "Challenge Scenario x7"
+	},
+	{
+		"items": [
+			"01_Cult of Pnakotus.png",
+			"02_Doomed Expedition.png",
+			"03_Return to the Rainforest.png",
+			"04_Temporal Hunters.png",
+			"05_Venomous Hate.png",
+			"06_Return to the Untamed Wild.png",
+			"07_Return to the Doom of Eztli.png",
+			"08_Return to Threads of Fate.png",
+			"09_Return to The Boundary Beyond.png",
+			"10_Return to Heart of the Elders.png",
+			"11_Return to the City of Archives.png",
+			"12_Return to the Depths of Yoth.png",
+			"13_Return to Shattered Aeons.png",
+			"14_Return to Turn Back Time.png"
+		],
+		"folder": "Campaign - Return to the Forgotten Age x14"
+	},
+	{
+		"items": [
+			"01_Main.png",
+			"02_Encounter.png",
+			"03_Alien Interference.png",
+			"04_Dark Rituals.png",
+			"05_Excelsior Management.png",
+			"06_Sins of the Past.png",
+			"07_Vile Experiments.png"
+		],
+		"folder": "Standalone - Murder at the Excelsior Hotel x7"
+	},
+	{
+		"items": [
+			"01_016-029 (Guardian).png",
+			"02_031-045 (Seeker).png",
+			"03_046-058 (Rogue).png",
+			"04_059-070 (Mystic).png",
+			"05_071-082 (Survivor).png",
+			"06_083-103 (Multi-Class - First Half).png",
+			"07_104-124 (Multi-Class - Second Half).png",
+			"08_125-129 (Neutral).png"
+		],
+		"folder": "CNR - Edge of the Earth x8"
+	},
+	{
+		"items": ["01_Main.png", "02_The Meddling of Meowlathotep.png"],
+		"folder": "Standalone - Barkham Horror x2"
+	},
+	{
+		"items": ["01_Main.png", "02_Encounter.png", "03_Single Group.png", "04_Epic Multiplayer.png"],
+		"folder": "Standalone - Machinations Through Time x4"
+	},
+	{
+		"items": [
+			"01_Guardian 32.png",
+			"02_Seeker 32.png",
+			"03_Rogue 32.png",
+			"04_Mystic 32.png",
+			"05_Survivor 32.png",
+			"06_Neutral 60.png",
+			"07_Neutral (Knife, Flashlight, Emergency Cache) 30.png",
+			"08_Neutral (Skills, Others) 30.png"
+		],
+		"folder": "CCQ - Revised Core Set x8"
+	},
+	{
+		"items": [
+			"01_Agents of Yig.png",
+			"02_Deadly Traps.png",
+			"03_Expedition.png",
+			"04_Forgotten Ruins.png",
+			"05_Guardians of Time.png",
+			"06_K'n-yan.png",
+			"07_Pillars of Judgment.png",
+			"08_Pnakotic Brotherhood.png",
+			"09_Poison.png",
+			"10_Rainforest.png",
+			"11_Serpents.png",
+			"12_Temporal Flux.png",
+			"13_Yig's Venom.png",
+			"14_The Untamed Wild.png",
+			"15_The Doom of Eztli.png",
+			"16_Threads of Fate.png",
+			"17_The Boundary Beyond.png",
+			"18_Heart of the Elders.png",
+			"19_The City of Archives.png",
+			"20_The Depths of Yoth.png",
+			"21_Shattered Aeons.png",
+			"22_Turn Back Time.png"
+		],
+		"folder": "Campaign - The Forgotten Age x22"
+	}
+]

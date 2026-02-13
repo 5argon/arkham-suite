@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="06d56c38-9eec-4e0f-8656-20444f39dda5" name="supabase Mapping">
+      <data-sources db="7b9a8f7e-43f1-4fa4-abf9-813e0ca2c348" ddl="85ac39db-c48e-4e26-9ad9-5f1e6b9a45e6" />
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="85ac39db-c48e-4e26-9ad9-5f1e6b9a45e6" />
+          <option name="name" value="supabase (DDL)" />
+          <option name="dbmsName" value="POSTGRES" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$/life/supabase/ddl" />
+            </array>
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>

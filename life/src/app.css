@@ -1,0 +1,165 @@
+@import 'tailwindcss';
+
+@source '../src';
+@source '../../ui/dist';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-primary-50: #f5f8f6;
+	--color-primary-100: #ddeae4;
+	--color-primary-200: #bbd4ca;
+	--color-primary-300: #91b7a9;
+	--color-primary-400: #78a193;
+	--color-primary-500: #507c6e;
+	--color-primary-600: #3e6358;
+	--color-primary-700: #355048;
+	--color-primary-800: #2d423c;
+	--color-primary-900: #283933;
+	--color-primary-950: #141f1d;
+
+	--color-secondary-50: #fdfaed;
+	--color-secondary-100: #f9f1cc;
+	--color-secondary-200: #f4e193;
+	--color-secondary-300: #eecd5b;
+	--color-secondary-400: #e9b936;
+	--color-secondary-500: #e29c1e;
+	--color-secondary-600: #c47617;
+	--color-secondary-700: #a65717;
+	--color-secondary-800: #874419;
+	--color-secondary-900: #6f3818;
+	--color-secondary-950: #401d08;
+
+	--color-guardian-50: #f3f7fc;
+	--color-guardian-100: #e5eef9;
+	--color-guardian-200: #c6ddf1;
+	--color-guardian-300: #94c1e5;
+	--color-guardian-400: #5ca1d6;
+	--color-guardian-500: #3584c2;
+	--color-guardian-600: #2569a4;
+	--color-guardian-700: #1f5485;
+	--color-guardian-800: #1e486e;
+	--color-guardian-900: #1e3d5c;
+	--color-guardian-950: #14283d;
+
+	--color-seeker-50: #fcf8f0;
+	--color-seeker-100: #f7efdd;
+	--color-seeker-200: #eedcba;
+	--color-seeker-300: #e3c38e;
+	--color-seeker-400: #d6a15c;
+	--color-seeker-500: #ce8b41;
+	--color-seeker-600: #c07536;
+	--color-seeker-700: #a05c2e;
+	--color-seeker-800: #804b2c;
+	--color-seeker-900: #683f26;
+	--color-seeker-950: #381e12;
+
+	--color-rogue-50: #f0fbea;
+	--color-rogue-100: #ddf6d1;
+	--color-rogue-200: #bdeea8;
+	--color-rogue-300: #93e175;
+	--color-rogue-400: #7cd65c;
+	--color-rogue-500: #4eb72b;
+	--color-rogue-600: #38921e;
+	--color-rogue-700: #2d6f1c;
+	--color-rogue-800: #28591b;
+	--color-rogue-900: #234c1b;
+	--color-rogue-950: #0f290a;
+
+	--color-mystic-50: #faf5ff;
+	--color-mystic-100: #f2e7ff;
+	--color-mystic-200: #e7d4ff;
+	--color-mystic-300: #d5b2ff;
+	--color-mystic-400: #bb81ff;
+	--color-mystic-500: #a151fb;
+	--color-mystic-600: #8b2eef;
+	--color-mystic-700: #771ed2;
+	--color-mystic-800: #651eab;
+	--color-mystic-900: #4c177d;
+	--color-mystic-950: #370566;
+
+	--color-survivor-50: #fcf4f4;
+	--color-survivor-100: #fae6e6;
+	--color-survivor-200: #f6d2d2;
+	--color-survivor-300: #efb2b2;
+	--color-survivor-400: #e48585;
+	--color-survivor-500: #d65c5c;
+	--color-survivor-600: #c24040;
+	--color-survivor-700: #a23333;
+	--color-survivor-800: #872d2d;
+	--color-survivor-900: #712b2b;
+	--color-survivor-950: #3c1313;
+
+	--color-multiclass-50: #f9f8ed;
+	--color-multiclass-100: #f0edd1;
+	--color-multiclass-200: #dfd79b;
+	--color-multiclass-300: #d2c272;
+	--color-multiclass-400: #c4ab4b;
+	--color-multiclass-500: #b4973e;
+	--color-multiclass-600: #9b7933;
+	--color-multiclass-700: #7c5b2c;
+	--color-multiclass-800: #694b2a;
+	--color-multiclass-900: #5a4029;
+	--color-multiclass-950: #342214;
+
+	--color-neutral-50: #f7f6f5;
+	--color-neutral-100: #ecebe8;
+	--color-neutral-200: #d5d3cd;
+	--color-neutral-300: #bfbcb2;
+	--color-neutral-400: #a49f93;
+	--color-neutral-500: #928a7d;
+	--color-neutral-600: #857c71;
+	--color-neutral-700: #6f675f;
+	--color-neutral-800: #5c5650;
+	--color-neutral-900: #4c4742;
+	--color-neutral-950: #282422;
+}
+
+:root {
+    font-family: 'Main', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+        Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+}
+
+@font-face {
+    font-family: 'Heading';
+    src: url('/font/Meridies Antiqua.otf') format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Main';
+    src: url('/font/AveriaSerif-Light.ttf') format('truetype');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'Main';
+    src: url('/font/AveriaSerif-LightItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Main';
+    src: url('/font/AveriaSerif-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Main';
+    src: url('/font/AveriaSerif-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Main';
+    src: url('/font/AveriaSerif-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArkhamNumber';
+    src: url('/font/Bolton.ttf') format('truetype');
+}

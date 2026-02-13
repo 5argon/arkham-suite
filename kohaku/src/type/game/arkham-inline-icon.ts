@@ -1,0 +1,36 @@
+/**
+ * Union type for inline icons that can appear within Arkham text.
+ * These represent special game symbols that should be rendered as icons.
+ */
+export type ArkhamInlineIcon =
+  | '[reaction]'
+  | '[action]'
+  | '[fast]'
+  | '[elder_sign]'
+  | '[skull]'
+  | '[cultist]'
+  | '[tablet]'
+  | '[elder_thing]'
+  | '[auto_fail]'
+  | '[curse]'
+  | '[bless]'
+  | '[willpower]'
+  | '[intellect]'
+  | '[combat]'
+  | '[agility]'
+  | '[wild]'
+  | '[mystic]'
+  | '[rogue]'
+  | '[seeker]'
+  | '[survivor]'
+  | '[guardian]'
+  | '[neutral]'
+  | '[health]'
+  | '[sanity]'
+  | '[per_investigator]'
+  | '[frost]'
+  | '[seal_a]'
+  | '[seal_b]'
+  | '[seal_c]'
+  | '[seal_d]'
+  | '[seal_e]';

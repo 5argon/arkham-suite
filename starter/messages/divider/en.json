@@ -1,0 +1,22 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"divider_title": "The 3mm Divider",
+	"divider_page_title": "arkham-starter.com | Divider",
+	"divider_language_title": "Language",
+	"divider_language_description": "Multiple languages can be mixed, the result will be sorted based on internal sequence of the system.",
+	"divider_cutting_title": "Cutting",
+	"divider_cutting_description": "Please turn on this option. However if you want to print the dividers without cutting or do not want the light edge caused by the cut line, you can turn it off.",
+	"divider_no_taboo_title": "No taboo",
+	"divider_no_taboo_description": "Completely exclude taboo",
+	"divider_cutting_guide": "Cutting Guide",
+	"divider_format": "Format",
+	"divider_double_side": "Double Sided",
+	"divider_single_side": "Single Sided",
+	"divider_printing_title": "Printing",
+	"divider_printing_short_edge": "Short Edge",
+	"divider_printing_long_edge": "Long Edge",
+	"divider_printing_short_description": "Default. The page should tumble from above side to the bottom side.",
+	"divider_printing_long_description": "The page should tumble from left side to the right side.",
+	"divider_download_title": "Download",
+	"divider_download_button": "Download PDF"
+}

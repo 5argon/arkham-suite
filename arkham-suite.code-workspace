@@ -1,0 +1,34 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "🏠 Root",
+    },
+    {
+      "path": "./icon",
+      "name": "🃏 Icon",
+    },
+    {
+      "path": "./kohaku",
+      "name": "🧠 Kohaku",
+    },
+    {
+      "path": "./string",
+      "name": "🔤 String",
+    },
+    {
+      "path": "./starter",
+      "name": "🟪 Starter",
+    },
+    {
+      "path": "./ui",
+      "name": "📝 UI",
+    },
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true
+    }
+  }
+
+}

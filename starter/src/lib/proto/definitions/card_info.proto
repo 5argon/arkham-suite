@@ -1,0 +1,28 @@
+syntax = "proto3";
+message CardInfo {
+	enum CardInfoType {
+		Unknown = 0;
+		PlayCost = 1;
+		CommitIcon = 2;
+		Traits = 3;
+	}
+
+	message TraitOptions {
+		string highlight = 1;
+	}
+	message CommitOptions {
+		enum CommitIcon {
+			Unknown = 0;
+			Willpower = 1;
+			Intellect = 2;
+			Combat = 3;
+			Agility = 4;
+			Wild = 5;
+		}
+
+		CommitIcon highlight = 1;
+	}
+	repeated CardInfoType card_info_types = 1;
+	TraitOptions trait_options = 2;
+	CommitOptions commit_options = 3;
+}

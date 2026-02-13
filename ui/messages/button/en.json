@@ -1,0 +1,18 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"button_square_grid": "Square Grid",
+	"button_scan_grid": "Scan Grid",
+	"button_line_list": "Line List",
+	"button_enter_checklist_mode": "Enter Checklist Mode",
+	"button_exit_checklist_mode": "Exit Checklist Mode",
+	"button_grouping_sorting": "Grouping and Sorting",
+	"button_reset": "Reset",
+	"button_close": "Close",
+	"button_remove": "Remove",
+	"button_clear_all": "Clear All",
+	"button_add_deck": "Add Deck",
+	"button_cancel": "Cancel",
+	"button_fetch_decks": "Fetch Decks",
+	"button_fetch_deck_singular": "Fetch {count} Deck",
+	"button_fetch_deck_plural": "Fetch {count} Decks"
+}

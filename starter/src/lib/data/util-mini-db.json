@@ -1,0 +1,2126 @@
+[
+	{
+		"index": 0,
+		"setCode": "DWLC",
+		"setName": "The Dunwich Legacy (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "DWLC",
+				"setName": "The Dunwich Legacy (Campaign Expansion)",
+				"hash": "DWLC-A Baleful Welcome",
+				"name": "A Baleful Welcome",
+				"description": "Unlike the Asset / Event / Skill selection version, the effect doesn't resolve completely on revelation but lasts for an entire round. The selected (2 out of 5) cards can be put on the field to remind everyone. Also it is common that one will pick the 1st choice that is obviously not impactful, then having hard time choosing the 2nd one. By giving them these 5 cards, the selection process became more intuitive as they can ponder over 4 remaining cards for the 2nd choice.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "DWLC-A Baleful Welcome-1-A.png",
+						"backName": "DWLC-A Baleful Welcome-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "DWLC-A Baleful Welcome-2-A.png",
+						"backName": "DWLC-A Baleful Welcome-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "DWLC-A Baleful Welcome-3-A.png",
+						"backName": "DWLC-A Baleful Welcome-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "DWLC-A Baleful Welcome-4-A.png",
+						"backName": "DWLC-A Baleful Welcome-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "DWLC-A Baleful Welcome-5-A.png",
+						"backName": "DWLC-A Baleful Welcome-5-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "DWLC",
+				"setName": "The Dunwich Legacy (Campaign Expansion)",
+				"hash": "DWLC-Broken Rails",
+				"name": "Broken Rails",
+				"description": "If you get this card and there are other investigators at your location, paste it on your location so anyone beginning their turn remembers to deduct an action. But if you are alone, you can take the backside that says you lose 1 action to your personal area.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "DWLC-Broken Rails-x2-A.png",
+						"backName": "DWLC-Broken Rails-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "DWLC",
+				"setName": "The Dunwich Legacy (Campaign Expansion)",
+				"hash": "DWLC-Claws of Steam",
+				"name": "Claws of Steam",
+				"description": "Take this card to your personal area to remind that you cannot move.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "DWLC-Claws of Steam-x2-A.png",
+						"backName": "DWLC-Claws of Steam-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "DWLC",
+				"setName": "The Dunwich Legacy (Campaign Expansion)",
+				"hash": "DWLC-Something in the Drinks",
+				"name": "Something in the Drinks",
+				"description": "Due to thin encounter deck it is possible to get multiple of these in one Mythos Phase. Take this card to act/agenda area so players who have had a drink remembers to deduct actions.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "DWLC-Something in the Drinks-x2-A.png",
+						"backName": "DWLC-Something in the Drinks-x2-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 4,
+		"printedQuantity": 11
+	},
+	{
+		"index": 2,
+		"setCode": "PTCC",
+		"setName": "The Path to Carcosa (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "PTCC",
+				"setName": "The Path to Carcosa (Campaign Expansion)",
+				"hash": "PTCC-Courage",
+				"name": "Courage",
+				"description": "Put this over the player card back to make it more like a horror soak. I've had problem of players forgetting they had courage to soak horror, and even someone who picked up Courage after they came back from toilet thinking that it is their hand!",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 4,
+						"frontName": "PTCC-Courage-x4-A.png",
+						"backName": "PTCC-Courage-x4-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "PTCC",
+				"setName": "The Path to Carcosa (Campaign Expansion)",
+				"hash": "PTCC-Crashing Floods",
+				"name": "Crashing Floods",
+				"description": "Indicator for a failed Crashing Floods. Use the backside when you lose 2 actions. (Just flip your investigator card if you loses 3 actions...)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "PTCC-Crashing Floods-x2-A.png",
+						"backName": "PTCC-Crashing Floods-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "PTCC",
+				"setName": "The Path to Carcosa (Campaign Expansion)",
+				"hash": "PTCC-Puppet of Hastur",
+				"name": "Puppet of Hastur",
+				"description": "Stat boost indicator to paste on the enemy if you choose that choice. The back side just have a different name for original version of The Path to Carcosa.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "PTCC-Puppet of Hastur-x2-A.png",
+						"backName": "PTCC-Puppet of Hastur-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "PTCC",
+				"setName": "The Path to Carcosa (Campaign Expansion)",
+				"hash": "PTCC-The King's Edict",
+				"name": "The King's Edict",
+				"description": "Put this card near act/agenda because the effect is game-wide. The card can also be moved to near the Cultist you are fighting with to not forget counting the boost.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "PTCC-The King's Edict-x2-A.png",
+						"backName": "PTCC-The King's Edict-x2-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 4,
+		"printedQuantity": 10
+	},
+	{
+		"index": 3,
+		"setCode": "PTCP",
+		"setName": "The Path to Carcosa (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "PTCP",
+				"setName": "The Path to Carcosa (Investigator Expansion)",
+				"hash": "PTCP-Lola Hayes",
+				"name": "Lola Hayes",
+				"description": "Show your current role with front side. The back side shows inactive roles, you can still see what that is when you are going to switch to it. To represent Neutral role, just flip all roles to the back side.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "PTCP-Lola Hayes-1-A.png",
+						"backName": "PTCP-Lola Hayes-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "PTCP-Lola Hayes-2-A.png",
+						"backName": "PTCP-Lola Hayes-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "PTCP-Lola Hayes-3-A.png",
+						"backName": "PTCP-Lola Hayes-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "PTCP-Lola Hayes-4-A.png",
+						"backName": "PTCP-Lola Hayes-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "PTCP-Lola Hayes-5-A.png",
+						"backName": "PTCP-Lola Hayes-5-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "PTCP",
+				"setName": "The Path to Carcosa (Investigator Expansion)",
+				"hash": "PTCP-Minh Thi Phan",
+				"name": "Minh Thi Phan",
+				"description": "Boolean indicator whether you had used the Wild icon ability for a particular teammate already or not this round. Pick a Seeker one for yourself and others to represent your teammates. When you are going to add a Wild icon to someone, \"commit\" this card together to the commit pile, attaching to that player's committed card. Flip to inactive side and bring it back to your play area after the test ended. There is a ? icon printed on the card so it is a little bit more intuitive to tally stat boost before pulling the chaos token.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "PTCP-Minh Thi Phan-1-A.png",
+						"backName": "PTCP-Minh Thi Phan-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "PTCP-Minh Thi Phan-2-A.png",
+						"backName": "PTCP-Minh Thi Phan-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "PTCP-Minh Thi Phan-3-A.png",
+						"backName": "PTCP-Minh Thi Phan-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "PTCP-Minh Thi Phan-4-A.png",
+						"backName": "PTCP-Minh Thi Phan-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "PTCP-Minh Thi Phan-5-A.png",
+						"backName": "PTCP-Minh Thi Phan-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "PTCP-Minh Thi Phan-6-A.png",
+						"backName": "PTCP-Minh Thi Phan-6-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 2,
+		"printedQuantity": 11
+	},
+	{
+		"index": 4,
+		"setCode": "TFAC",
+		"setName": "The Forgotten Age (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "TFAC",
+				"setName": "The Forgotten Age (Campaign Expansion)",
+				"hash": "TFAC-A Tear in Time",
+				"name": "A Tear in Time",
+				"description": "Your personal indicator of how many actions you choose to lose.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TFAC-A Tear in Time-x2-A.png",
+						"backName": "TFAC-A Tear in Time-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TFAC",
+				"setName": "The Forgotten Age (Campaign Expansion)",
+				"hash": "TFAC-Between Worlds",
+				"name": "Between Worlds",
+				"description": "The treachery turn itself into a location with some printed texts. This mini-card \"prints\" those on the treachery for you when you place it over bottom part of treachery.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TFAC-Between Worlds-x2-A.png",
+						"backName": "TFAC-Between Worlds-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TFAC",
+				"setName": "The Forgotten Age (Campaign Expansion)",
+				"hash": "TFAC-Hand of the Brotherhood",
+				"name": "Hand of the Brotherhood",
+				"description": "Sometimes you forgot that the effect spreads to the enemy's nearby location. If you need help you can paste this card on all affected locations. Back side functions as a boolean to temporarily disable the effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 6,
+						"frontName": "TFAC-Hand of the Brotherhood-x6-A.png",
+						"backName": "TFAC-Hand of the Brotherhood-x6-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TFAC",
+				"setName": "The Forgotten Age (Campaign Expansion)",
+				"hash": "TFAC-The Winged Serpent",
+				"name": "The Winged Serpent",
+				"description": "Long evade indicator for this enemy so you remember to not ready it just yet.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TFAC-The Winged Serpent-A.png",
+						"backName": "TFAC-The Winged Serpent-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 4,
+		"printedQuantity": 11
+	},
+	{
+		"index": 5,
+		"setCode": "TFAP",
+		"setName": "The Forgotten Age (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "TFAP",
+				"setName": "The Forgotten Age (Investigator Expansion)",
+				"hash": "TFAP-Kerosene",
+				"name": "Kerosene",
+				"description": "Usually it is not hard to remember the corpse for Kerosene but I thought it might be cool to actually see the corpse...",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TFAP-Kerosene-A.png",
+						"backName": "TFAP-Kerosene-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TFAP",
+				"setName": "The Forgotten Age (Investigator Expansion)",
+				"hash": "TFAP-Slip Away",
+				"name": "Slip Away",
+				"description": "Long evade indicator. Remove from the enemy at the Upkeep when it is going to ready. The backside is generic and can be use with other long evade effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TFAP-Slip Away-A.png",
+						"backName": "TFAP-Slip Away-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 2,
+		"printedQuantity": 2
+	},
+	{
+		"index": 7,
+		"setCode": "TCUC",
+		"setName": "The Circle Undone (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Abandoned Chapel",
+				"name": "Abandoned Chapel",
+				"description": "Reminders to subtract skill values. Note that this effect could stack. (e.g. Mythos Phase gets you one, then start of Investigation Phase you somehow get it again, then you fail investigation and get it again, etc.) The backside has -2 for poor soul who got wombo combo-ed by the haunt. I recommends 2 copies so you could share the pain or add them up to make -3 or -4.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TCUC-Abandoned Chapel-x2-A.png",
+						"backName": "TCUC-Abandoned Chapel-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Brown Jenkin",
+				"name": "Brown Jenkin",
+				"description": "3 copies because this card is handy to place near/on the Creature enemy that someone is fighting to remind them this effect coming from somewhere else in the map. The back side is greyed out so you could flip it when you exhaust to remove the buff temporarily.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 3,
+						"frontName": "TCUC-Brown Jenkin-x3-A.png",
+						"backName": "TCUC-Brown Jenkin-x3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Diabolic Voices",
+				"name": "Diabolic Voices",
+				"description": "Keep track of Diabolic Voices in the discard pile by placing this card near it, so when you get the next one you don't have to sift through the discard pile and count them. Only one mini-card is required, just hide it away on 0 or 3 count.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-Diabolic Voices-A.png",
+						"backName": "TCUC-Diabolic Voices-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Disquieting Dreams",
+				"name": "Disquieting Dreams",
+				"description": "A reminder to put near the encounter discard pile, so you don't forget to activate Forced on each copies in play on the reshuffle.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-Disquieting Dreams-A.png",
+						"backName": "TCUC-Disquieting Dreams-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Evil Past",
+				"name": "Evil Past",
+				"description": "If a scenario uses City of Sins encounter set, put this card on the bottom of the encounter deck as a reminder to scan the play field whenever the encounter deck became empty. Note that in The Wages of Sin both decks could trigger the empty criteria.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-Evil Past-A.png",
+						"backName": "TCUC-Evil Past-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Extradimensional Visions",
+				"name": "Extradimensional Visions",
+				"description": "The treachery asks you to count the amount of treachery discard pile on Revelation, so the idea is maintaining stacks of 10/20 cards each time you reach that number along the way instead of counting from scratch every time. This mini-card's purpose is to mark a completed stack of size 10/20/30. (You can also make 2 stacks of 10 cards each since there are 2 copies.)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-Extradimensional Visions-1-A.png",
+						"backName": "TCUC-Extradimensional Visions-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TCUC-Extradimensional Visions-2-A.png",
+						"backName": "TCUC-Extradimensional Visions-2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Heretics' Graves",
+				"name": "Heretics' Graves",
+				"description": "This debuff effect lasts all the way to the end of your NEXT turn if you get it inside your turn. Therefore it has a backside without 'next' wording for you to flip to once you finally begin the turn that will get rid of the debuff.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TCUC-Heretics' Graves-x2-A.png",
+						"backName": "TCUC-Heretics' Graves-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Mysteries of the Lodge",
+				"name": "Mysteries of the Lodge",
+				"description": "Place this card on the Cultist that got the doom to remind you of its temporary stat boost this round. Note that while attaching Mysteries of the Lodge itself to the enemy until the end of round is generally OK as a reminder, this campaign do care about state of encounter discard pile sometimes you shouldn't mess with it too much.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TCUC-Mysteries of the Lodge-x2-A.png",
+						"backName": "TCUC-Mysteries of the Lodge-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Nahab",
+				"name": "Nahab",
+				"description": "Nahab's stat has Agenda scaling from 2 different sources (the Agenda card, and her card text) going in the same rate. Therefore 2 mini cards can essentially print computed stats for 4 different agenda. This scenario is mind taxing enough I don't want to do any more math...",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-Nahab-1-A.png",
+						"backName": "TCUC-Nahab-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TCUC-Nahab-2-A.png",
+						"backName": "TCUC-Nahab-2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Priestess of the Coven",
+				"name": "Priestess of the Coven",
+				"description": "If a scenario uses Anette's Coven encounter set, put this card on the bottom of the encounter deck as a reminder to scan the play field whenever the encounter deck became empty. The other 2 cards are for keeping track of the discarded Witch buff. The +3 card also has a greyed out backside to flip to when the encounter discard pile finally resets.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-Priestess of the Coven-1-A.png",
+						"backName": "TCUC-Priestess of the Coven-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TCUC-Priestess of the Coven-2-A.png",
+						"backName": "TCUC-Priestess of the Coven-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TCUC-Priestess of the Coven-3-A.png",
+						"backName": "TCUC-Priestess of the Coven-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-Reanimated Dead",
+				"name": "Reanimated Dead",
+				"description": "There is an ability that summons a token enemy in this scenario using face down card from player's deck as a proxy. Paste this card over it to make the proxy seemingly has printed text.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 3,
+						"frontName": "TCUC-Reanimated Dead-x3-A.png",
+						"backName": "TCUC-Reanimated Dead-x3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-The Secret Name",
+				"name": "The Secret Name",
+				"description": "This text is printed on the Agenda card, but this scenario is so stamina draining that I ended up making mistakes towards the end of it. I'd rather have these enlarged text somewhere near the hoard of enemies I'm trying to kill to easier take them into my turn planning. Agenda card might also be hard to see for fighter players sitting further away, while you can always move this mini-card around.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-The Secret Name-1-A.png",
+						"backName": "TCUC-The Secret Name-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TCUC-The Secret Name-2-A.png",
+						"backName": "TCUC-The Secret Name-2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TCUC",
+				"setName": "The Circle Undone (Campaign Expansion)",
+				"hash": "TCUC-The Spectral Watcher",
+				"name": "The Spectral Watcher",
+				"description": "Show off your hardwork of defeating it by pasting this card on it. Take the card out instead of ready it.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TCUC-The Spectral Watcher-A.png",
+						"backName": "TCUC-The Spectral Watcher-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 13,
+		"printedQuantity": 25
+	},
+	{
+		"index": 8,
+		"setCode": "TDEP",
+		"setName": "The Dream-Eaters (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "TDEP",
+				"setName": "The Dream-Eaters (Investigator Expansion)",
+				"hash": "TDEP-Ethereal Form",
+				"name": "Ethereal Form",
+				"description": "'You are ethereal' indicator.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TDEP-Ethereal Form-A.png",
+						"backName": "TDEP-Ethereal Form-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 1,
+		"printedQuantity": 1
+	},
+	{
+		"index": 9,
+		"setCode": "TDEC",
+		"setName": "The Dream-Eaters (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "TDEC",
+				"setName": "The Dream-Eaters (Campaign Expansion)",
+				"hash": "TDEC-Forced Into Hiding",
+				"name": "Forced Into Hiding",
+				"description": "Lost action indicator.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TDEC-Forced Into Hiding-A.png",
+						"backName": "TDEC-Forced Into Hiding-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TDEC",
+				"setName": "The Dream-Eaters (Campaign Expansion)",
+				"hash": "TDEC-Lit by Death Fire",
+				"name": "Lit by Death Fire",
+				"description": "Lost action indicator.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TDEC-Lit by Death Fire-A.png",
+						"backName": "TDEC-Lit by Death Fire-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TDEC",
+				"setName": "The Dream-Eaters (Campaign Expansion)",
+				"hash": "TDEC-Whispers of Hypnos",
+				"name": "Whispers of Hypnos",
+				"description": "Currently active debuff. Dedicated card for each stats because it is possible to get many in high player count.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TDEC-Whispers of Hypnos-1-A.png",
+						"backName": "TDEC-Whispers of Hypnos-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TDEC-Whispers of Hypnos-2-A.png",
+						"backName": "TDEC-Whispers of Hypnos-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TDEC-Whispers of Hypnos-3-A.png",
+						"backName": "TDEC-Whispers of Hypnos-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "TDEC-Whispers of Hypnos-4-A.png",
+						"backName": "TDEC-Whispers of Hypnos-4-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 3,
+		"printedQuantity": 6
+	},
+	{
+		"index": 11,
+		"setCode": "TICP",
+		"setName": "The Innsmouth Conspiracy (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "TICP",
+				"setName": "The Innsmouth Conspiracy (Investigator Expansion)",
+				"hash": "TICP-Geas",
+				"name": "Geas",
+				"description": "Show your chosen promise.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TICP-Geas-1-A.png",
+						"backName": "TICP-Geas-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TICP-Geas-2-A.png",
+						"backName": "TICP-Geas-2-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 1,
+		"printedQuantity": 2
+	},
+	{
+		"index": 12,
+		"setCode": "EOTEP",
+		"setName": "Edge of the Earth (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "EOTEP",
+				"setName": "Edge of the Earth (Investigator Expansion)",
+				"hash": "EOTEP-Black Market",
+				"name": "Black Market",
+				"description": "You can place this card on the market pile to remind about returning cards on the next investigation phase. Sometimes the table even forgot that this pile is a market pile they can use freely, so a label like this sometimes help.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEP-Black Market-A.png",
+						"backName": "EOTEP-Black Market-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEP",
+				"setName": "Edge of the Earth (Investigator Expansion)",
+				"hash": "EOTEP-Mechanic's Wrench",
+				"name": "Mechanic's Wrench",
+				"description": "Length of wrench's criteria is a little awkward to remember, you can place this card on the enemy if you need help. The backside also has a reminder for Daniela's Elder Sign effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEP-Mechanic's Wrench-A.png",
+						"backName": "EOTEP-Mechanic's Wrench-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEP",
+				"setName": "Edge of the Earth (Investigator Expansion)",
+				"hash": "EOTEP-Nkosi Mabati",
+				"name": "Nkosi Mabati",
+				"description": "Show your sigil choice.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEP-Nkosi Mabati-1-A.png",
+						"backName": "EOTEP-Nkosi Mabati-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "EOTEP-Nkosi Mabati-2-A.png",
+						"backName": "EOTEP-Nkosi Mabati-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "EOTEP-Nkosi Mabati-3-A.png",
+						"backName": "EOTEP-Nkosi Mabati-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEP",
+				"setName": "Edge of the Earth (Investigator Expansion)",
+				"hash": "EOTEP-Prophesiae Profana",
+				"name": "Prophesiae Profana",
+				"description": "Show where your locus is. Can tuck under the location to save space.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEP-Prophesiae Profana-A.png",
+						"backName": "EOTEP-Prophesiae Profana-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEP",
+				"setName": "Edge of the Earth (Investigator Expansion)",
+				"hash": "EOTEP-The Red Clock",
+				"name": "The Red Clock",
+				"description": "The +3 boost for your next tests persists indefinitely even across rounds, if you are planning to not immediately using the boost this card might help seeing that state. The backside supports +4 on the Lv. 5 version. (It is also possible to stack the boost, which you could print 2 of this card but I think it is too unlikely.)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEP-The Red Clock-A.png",
+						"backName": "EOTEP-The Red Clock-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 5,
+		"printedQuantity": 7
+	},
+	{
+		"index": 13,
+		"setCode": "EOTEC",
+		"setName": "Edge of the Earth (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-City of the Elder Things",
+				"name": "City of the Elder Things",
+				"description": "Slide these cards to indicate the key assembling locations. The back side allows it poking from the right side of the card instead.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEC-City of the Elder Things-1-A.png",
+						"backName": "EOTEC-City of the Elder Things-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "EOTEC-City of the Elder Things-2-A.png",
+						"backName": "EOTEC-City of the Elder Things-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "EOTEC-City of the Elder Things-3-A.png",
+						"backName": "EOTEC-City of the Elder Things-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "EOTEC-City of the Elder Things-4-A.png",
+						"backName": "EOTEC-City of the Elder Things-4-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Ice and Death Randomizer",
+				"name": "Ice and Death Randomizer",
+				"description": "These are used to play a custom variant of Ice and Death (Part I) where you randomize which location you get in their same tier (same clue entry cost), and ignore location connection symbols. You can use them to randomly pick the original location card into play. (You now know what it is even before spending clue to enter, like the original Ice and Death.) You can also place the unknown side on the map for the players to walk into, so they don't know what they'd get until they spend clues and move in. The original Ice and Death locations didn't come with unknown backside so you can't do this with just those cards. You need to save the map you got to play Part II and Part III, though. Maybe just take a photo of it. Make sure to completely randomize all remaining locations if you ended Part I without revealing all of them. In regular Ice and Death, these cards can be used to remember (maybe store with the player's deck) Revealed Locations in your campaign log without writing in the log.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-1-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-2-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-3-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-4-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-5-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-6-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-6-B.png"
+					},
+					{
+						"variation": 7,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-7-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-7-B.png"
+					},
+					{
+						"variation": 8,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-8-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-8-B.png"
+					},
+					{
+						"variation": 9,
+						"quantity": 1,
+						"frontName": "EOTEC-Ice and Death Randomizer-9-A.png",
+						"backName": "EOTEC-Ice and Death Randomizer-9-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-James Cookie Fredericks",
+				"name": "James Cookie Fredericks",
+				"description": "Put it on an enemy that got disabled by Cookie. The effect lasts til the end of round so this might be quite useful if you take turns engaging or dragging the disabled enemies around (especially in Resolute version where you could do the disable in someone else's turn). The backside just have different set icon just in case you use Resolute version and want a matching one.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "EOTEC-James Cookie Fredericks-x2-A.png",
+						"backName": "EOTEC-James Cookie Fredericks-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Key Seal Action",
+				"name": "Key Seal Action",
+				"description": "To the Forbidden Peaks and The Heart of Madness has a special action anyone could perform that is stated in the campaign book, instead of something like on Act / Agenda / Story card. Use this to make it more obvious to players. (And remind them what exactly the action does, like how many things you could give or take, or whether you can even take in from other players the first place.)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEC-Key Seal Action-A.png",
+						"backName": "EOTEC-Key Seal Action-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Mist Pylon",
+				"name": "Mist Pylon",
+				"description": "Make it looks more like enemy card template when rule says to treat it as if it is an enemy. When it collapses, you can take this card along with the damage counter to victory display so it is more obvious that other standing pylons still have this mini card on them. It also has a handy reminder which seal it corresponds to, and the backside that enlarge the game-wide benefit text for you if you managed to put a seal on it. (Sorry if this visual is a bit too over-the-top for you, but I forgot to apply the benefits too many times I need it to really kick my eyes amidst the sea of blue cards.)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEC-Mist Pylon-1-A.png",
+						"backName": "EOTEC-Mist Pylon-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "EOTEC-Mist Pylon-2-A.png",
+						"backName": "EOTEC-Mist Pylon-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "EOTEC-Mist Pylon-3-A.png",
+						"backName": "EOTEC-Mist Pylon-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "EOTEC-Mist Pylon-4-A.png",
+						"backName": "EOTEC-Mist Pylon-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "EOTEC-Mist Pylon-5-A.png",
+						"backName": "EOTEC-Mist Pylon-5-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Nightmarish Vapors",
+				"name": "Nightmarish Vapors",
+				"description": "For when someone choose the -2 action Peril option.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "EOTEC-Nightmarish Vapors-x2-A.png",
+						"backName": "EOTEC-Nightmarish Vapors-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Rise of the Elder Things",
+				"name": "Rise of the Elder Things",
+				"description": "The effect temporarily buffs the enemy engaging with you at the moment you draw the treachery. Paste this to all those enemies. Note that the effect persists until the end of round even if you then disengages from them.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "EOTEC-Rise of the Elder Things-x2-A.png",
+						"backName": "EOTEC-Rise of the Elder Things-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Roald Ellsworth",
+				"name": "Roald Ellsworth",
+				"description": "Put it on a treachery that got disabled by Roald. The effect only lasts til the end of turn, you might not really need this one to remember the blanking, but I made it for completeness anyway. The backside just have different set icon just in case you use Resolute version and want a matching one.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "EOTEC-Roald Ellsworth-x2-A.png",
+						"backName": "EOTEC-Roald Ellsworth-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-Supplies",
+				"name": "Supplies",
+				"description": "I think it is a shame that all recoverable supplies in Ice and Death all have artworks ready in To the Forbidden Peaks, though in this scenario you could see just a tiny text on location when you are going to pick them up. I understand that attaching To the Forbidden Peaks asset here 'just for show' would be a mess of ruling. So a custom mini-card like this is perfect to finally see them! You can also pick them up for real when you succeed at the test instead of writing in the campaign log. (Plus you can clearly see which locations has stuff remaining without checking campaign log, in also Part II and Part III.) The backside contains a mini-sized proxy for dropped stuff while playing To the Forbidden Peaks, with reminder text that you need an action to pick each of them up. Players with small table might have trouble moving the asset back to the location with its uses remaining, while that location has tons of attachments, enemies, and investigator mini-cards. You can now instead move the asset to set-aside area and place these proxies on the location instead. When you have the asset on your play area, you can also attach these cards on them to remind other players that they can spend an action to take the asset from you, not just picking up from location.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-1-A.png",
+						"backName": "EOTEC-Supplies-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-2-A.png",
+						"backName": "EOTEC-Supplies-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-3-A.png",
+						"backName": "EOTEC-Supplies-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-4-A.png",
+						"backName": "EOTEC-Supplies-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-5-A.png",
+						"backName": "EOTEC-Supplies-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-6-A.png",
+						"backName": "EOTEC-Supplies-6-B.png"
+					},
+					{
+						"variation": 7,
+						"quantity": 1,
+						"frontName": "EOTEC-Supplies-7-A.png",
+						"backName": "EOTEC-Supplies-7-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-The Heart of Madness-Seal",
+				"name": "The Heart of Madness-Seal",
+				"description": "This scenario's map is epic, but it also cause problem for some players sitting at awkward angle being too far from some locations to read. These essentially just enlarge the text on some key locations that you needs to go. Put them under the location cards with bottom side poking out. The backside has different text rotation so the enlargement is poking out from right side of the location instead.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "EOTEC-The Heart of Madness-Seal-1-A.png",
+						"backName": "EOTEC-The Heart of Madness-Seal-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "EOTEC-The Heart of Madness-Seal-2-A.png",
+						"backName": "EOTEC-The Heart of Madness-Seal-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "EOTEC-The Heart of Madness-Seal-3-A.png",
+						"backName": "EOTEC-The Heart of Madness-Seal-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "EOTEC-The Heart of Madness-Seal-4-A.png",
+						"backName": "EOTEC-The Heart of Madness-Seal-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "EOTEC-The Heart of Madness-Seal-5-A.png",
+						"backName": "EOTEC-The Heart of Madness-Seal-5-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "EOTEC",
+				"setName": "Edge of the Earth (Campaign Expansion)",
+				"hash": "EOTEC-The Nameless Madness",
+				"name": "The Nameless Madness",
+				"description": "I've had some fiddliness and visibility problem playing this scenario before. Printing whopping 15x of these gives you : 1. Horizontal mini-cards which save space and also might stands out more together with other blue enemies. 2. You can flip it to the backside when exhausting it instead of turning it sideways, which cause it to become black and white with red frame, making it more obvious where you could move without taking AoO in all the mess. Text is tiny and are there just for quick reference, you can instead read them more easily on the real card.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 15,
+						"frontName": "EOTEC-The Nameless Madness-x15-A.png",
+						"backName": "EOTEC-The Nameless Madness-x15-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 11,
+		"printedQuantity": 54
+	},
+	{
+		"index": 14,
+		"setCode": "TSKP",
+		"setName": "The Scarlet Keys (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Astral Mirror",
+				"name": "Astral Mirror",
+				"description": "This card isn't too confusing to understand but I think this is quite a cool concept to give it a try... This one card represent your 2 Arcane slots. Print more if you are planning to have 3+ Arcane slots by other means, use the back side to add odd number of slot. If you put down an arcane asset occupying one of the slot, overlay the top corner of that card over both the arcane icon and blue hand icon to represent that your extra hand had disappeared. Inversely, if you are going to play the 3rd Hand asset into your extra hand, overlay the top corner of that card such that it covers just the blue hand icon, but not the arcane icon. Now you can clearly see you still have 2 vacant Arcane slots.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Astral Mirror-A.png",
+						"backName": "TSKP-Astral Mirror-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-At a Crossroads",
+				"name": "At a Crossroads",
+				"description": "If you choose draw 3, you (or the player that draws 3) might have to remember to lose action across long Mythos Phase ahead. This mini-card could help you do that.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-At a Crossroads-A.png",
+						"backName": "TSKP-At a Crossroads-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Carson Sinclair",
+				"name": "Carson Sinclair",
+				"description": "Boolean indicator whether you had helped a particular investigator already or not.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Carson Sinclair-1-A.png",
+						"backName": "TSKP-Carson Sinclair-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Carson Sinclair-2-A.png",
+						"backName": "TSKP-Carson Sinclair-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Carson Sinclair-3-A.png",
+						"backName": "TSKP-Carson Sinclair-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "TSKP-Carson Sinclair-4-A.png",
+						"backName": "TSKP-Carson Sinclair-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "TSKP-Carson Sinclair-5-A.png",
+						"backName": "TSKP-Carson Sinclair-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "TSKP-Carson Sinclair-6-A.png",
+						"backName": "TSKP-Carson Sinclair-6-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Disguise",
+				"name": "Disguise",
+				"description": "Long evade indicator. Remove from the enemy at the Upkeep when it is going to ready. The backside is generic and can be use with other long evade effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Disguise-A.png",
+						"backName": "TSKP-Disguise-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Embezzled Treasure",
+				"name": "Embezzled Treasure",
+				"description": "Remembers extra resources that the player would get when you gathered up to play the next time. The cards should be thrown into that investigator's deck when you clean up the game. (e.g. If they would start the next scenario with +4 resources, then give them a 1 resource card and a 3 resource card.)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Embezzled Treasure-1-A.png",
+						"backName": "TSKP-Embezzled Treasure-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Embezzled Treasure-2-A.png",
+						"backName": "TSKP-Embezzled Treasure-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Embezzled Treasure-3-A.png",
+						"backName": "TSKP-Embezzled Treasure-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Empirical Hypothesis",
+				"name": "Empirical Hypothesis",
+				"description": "Show your current hypothesis. Other than helping you remember it across Mythos Phase, I find it also helpful to not forget deciding a new hypothesis before placing doom.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Empirical Hypothesis-1-A.png",
+						"backName": "TSKP-Empirical Hypothesis-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Empirical Hypothesis-2-A.png",
+						"backName": "TSKP-Empirical Hypothesis-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Empirical Hypothesis-3-A.png",
+						"backName": "TSKP-Empirical Hypothesis-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Guidance",
+				"name": "Guidance",
+				"description": "Give it to the player receiving your guidance so they can tally the stat boost easier in their turn, and remember the extra action. The back side supports Lv. 0 one in The Path to Carcosa Investigator Expansion.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Guidance-A.png",
+						"backName": "TSKP-Guidance-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Hunter's Armor",
+				"name": "Hunter's Armor",
+				"description": "Overwrites soak values to 4 instead of 2 on customization. I find it hard to \"unsee\" the printed 2 when actually I have more than that. It also has variations that modifies slot icons and traits, but those aren't as important as the soak.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Hunter's Armor-1-A.png",
+						"backName": "TSKP-Hunter's Armor-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Hunter's Armor-2-A.png",
+						"backName": "TSKP-Hunter's Armor-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Hunter's Armor-3-A.png",
+						"backName": "TSKP-Hunter's Armor-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Hyperphysical Shotcaster",
+				"name": "Hyperphysical Shotcaster",
+				"description": "Show your current form.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Hyperphysical Shotcaster-1-A.png",
+						"backName": "TSKP-Hyperphysical Shotcaster-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Hyperphysical Shotcaster-2-A.png",
+						"backName": "TSKP-Hyperphysical Shotcaster-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Hyperphysical Shotcaster-3-A.png",
+						"backName": "TSKP-Hyperphysical Shotcaster-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Living Ink",
+				"name": "Living Ink",
+				"description": "If you activate Subtle Depiction, it helps reminds you to not add any boost until the end of round. Flipping it to the greyed out back side at the end of round is also helpful to remind you that you do have the boost in Mythos Phase despite repeatedly activating Subtle Depiction.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Living Ink-A.png",
+						"backName": "TSKP-Living Ink-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Making Preparations",
+				"name": "Making Preparations",
+				"description": "Six possible configurations for this card to remind you across the round. My group often just remember the boosts but forgot that 2 other stats are lowered so I make them red.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Making Preparations-1-A.png",
+						"backName": "TSKP-Making Preparations-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Making Preparations-2-A.png",
+						"backName": "TSKP-Making Preparations-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Making Preparations-3-A.png",
+						"backName": "TSKP-Making Preparations-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Pocket Multi Tool",
+				"name": "Pocket Multi Tool",
+				"description": "Throw it to the commit pile when you decided to boost the test for easier value tally, choosing either +1 or +2 side depending on your customization. If you have Detachable it is also useful for other player to physically grab the boost from you for their own tests.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Pocket Multi Tool-A.png",
+						"backName": "TSKP-Pocket Multi Tool-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Press Pass",
+				"name": "Press Pass",
+				"description": "Remember your extra action gained, especially on clue spending at awkward timing that you need to remember the benefit until you get to take your turn next time.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Press Pass-A.png",
+						"backName": "TSKP-Press Pass-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Runic Axe",
+				"name": "Runic Axe",
+				"description": "I've had a Scriptweaver user who spent 3 minutes declaring verbally and count in their head what effects are going to happen, what minus is going to damage the enemy, what minus is going to get him clue(s) on Elders, how many damages, how many clues, ...Then when they pull the chaos token, they count everything over again! (And sometimes wondering if they forgot replenishing a charge or not.) These cards can be \"committed\" when you attack to represent the inscriptions that you choose to activate with your charges so it gets easier to tally the boosts and extra effects, both before and after token pulling. Ancient Power user can use the back side to represent up to 2x stacking boosts of each inscription.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Runic Axe-1-A.png",
+						"backName": "TSKP-Runic Axe-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Runic Axe-2-A.png",
+						"backName": "TSKP-Runic Axe-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "TSKP-Runic Axe-3-A.png",
+						"backName": "TSKP-Runic Axe-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "TSKP-Runic Axe-4-A.png",
+						"backName": "TSKP-Runic Axe-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "TSKP-Runic Axe-5-A.png",
+						"backName": "TSKP-Runic Axe-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "TSKP-Runic Axe-6-A.png",
+						"backName": "TSKP-Runic Axe-6-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Strings of Curses",
+				"name": "Strings of Curses",
+				"description": "Paste on the enemy you cursed, so it don't get mistakenly damaged next by something like a Dynamite Blast.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Strings of Curses-A.png",
+						"backName": "TSKP-Strings of Curses-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKP",
+				"setName": "The Scarlet Keys (Investigator Expansion)",
+				"hash": "TSKP-Summoned Servitor",
+				"name": "Summoned Servitor",
+				"description": "Overwrites text box of Summoned Servitor when using Armored Carapace or Dominance customization.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "TSKP-Summoned Servitor-1-A.png",
+						"backName": "TSKP-Summoned Servitor-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "TSKP-Summoned Servitor-2-A.png",
+						"backName": "TSKP-Summoned Servitor-2-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 16,
+		"printedQuantity": 37
+	},
+	{
+		"index": 15,
+		"setCode": "TSKC",
+		"setName": "The Scarlet Keys (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "TSKC",
+				"setName": "The Scarlet Keys (Campaign Expansion)",
+				"hash": "TSKC-Alien Frontier",
+				"name": "Alien Frontier",
+				"description": "Slide this card under the location with just the arrow poking out below to remind you of test you have to do when moving in that direction. If the location says test on move up or down, use back side instead and have it poke out of right side of the location card.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TSKC-Alien Frontier-x2-A.png",
+						"backName": "TSKC-Alien Frontier-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKC",
+				"setName": "The Scarlet Keys (Campaign Expansion)",
+				"hash": "TSKC-City of Remnants",
+				"name": "City of Remnants",
+				"description": "The concealed locations have tiny expose punishments printed on it with only one choice relevant. You place these mini-card over their bottom part to enlarge that relevant text for players sitting further away to see more easily.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TSKC-City of Remnants-1-x2-A.png",
+						"backName": "TSKC-City of Remnants-1-x2-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 2,
+						"frontName": "TSKC-City of Remnants-2-x2-A.png",
+						"backName": "TSKC-City of Remnants-2-x2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 2,
+						"frontName": "TSKC-City of Remnants-3-x2-A.png",
+						"backName": "TSKC-City of Remnants-3-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKC",
+				"setName": "The Scarlet Keys (Campaign Expansion)",
+				"hash": "TSKC-Figures in the Dark",
+				"name": "Figures in the Dark",
+				"description": "Indicator for everyone to see if you choose the lose action option.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TSKC-Figures in the Dark-x2-A.png",
+						"backName": "TSKC-Figures in the Dark-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKC",
+				"setName": "The Scarlet Keys (Campaign Expansion)",
+				"hash": "TSKC-Golem",
+				"name": "Golem",
+				"description": "There is an ability that summons a token enemy in this scenario using face down card from player's deck as a proxy. Paste this card over it to make the proxy seemingly has printed text.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 4,
+						"frontName": "TSKC-Golem-x4-A.png",
+						"backName": "TSKC-Golem-x4-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKC",
+				"setName": "The Scarlet Keys (Campaign Expansion)",
+				"hash": "TSKC-In Plain Sight",
+				"name": "In Plain Sight",
+				"description": "Attach to the enemy to remind you of effect that lasts til the end of round, while the actual card gets discarded. (It is sometimes relevant to discard it as it says for example with Darrel player.)",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TSKC-In Plain Sight-x2-A.png",
+						"backName": "TSKC-In Plain Sight-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "TSKC",
+				"setName": "The Scarlet Keys (Campaign Expansion)",
+				"hash": "TSKC-The Shade Reaper",
+				"name": "The Shade Reaper",
+				"description": "Place it on the field each time it shifts to remind everyone of reduced action. Note that there are many different effects that ended up causing it to shift, printing 2x of this is not that unrealistic. Back side has a little different wording.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "TSKC-The Shade Reaper-x2-A.png",
+						"backName": "TSKC-The Shade Reaper-x2-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 6,
+		"printedQuantity": 18
+	},
+	{
+		"index": 16,
+		"setCode": "FHVP",
+		"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+		"items": [
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Bide Your Time",
+				"name": "Bide Your Time",
+				"description": "Remember to claim your 2 actions the next round. The backside has different wording, you could flip it when 'your next turn' finally comes.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-Bide Your Time-A.png",
+						"backName": "FHVP-Bide Your Time-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Blackmail File",
+				"name": "Blackmail File",
+				"description": "This card adds temporary aloof to the pasted enemy.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-Blackmail File-A.png",
+						"backName": "FHVP-Blackmail File-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Confound",
+				"name": "Confound",
+				"description": "Long evade indicator. Remove from the enemy at the Upkeep when it is going to ready. The backside is generic and can be use with other long evade effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-Confound-A.png",
+						"backName": "FHVP-Confound-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Eyes of Valusia",
+				"name": "Eyes of Valusia",
+				"description": "Debuff indicator so other investigators that gangs up on it after you remember to account for it. The backside shows +2 for when the effect is stacked.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-Eyes of Valusia-A.png",
+						"backName": "FHVP-Eyes of Valusia-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Flux Stabilizer",
+				"name": "Flux Stabilizer",
+				"description": "Sometimes you need to move clues way ahead of the test. You can flip these cards to colored side to help you remember those stacking +2 boosts until the test. Flip all of them back after entering a new phase. It is also helpful to pile them up together with committed cards to tally together, flip them back after the test ends. I think 3 copies of this is enough.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 3,
+						"frontName": "FHVP-Flux Stabilizer-x3-A.png",
+						"backName": "FHVP-Flux Stabilizer-x3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-I'll Pay You Back!",
+				"name": "I'll Pay You Back!",
+				"description": "This mini card works like a legally binding debt document that you can give to the player you borrowed resource from, which might be useful when the round is long. Backside has a wording which works the other way around.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-I'll Pay You Back!-A.png",
+						"backName": "FHVP-I'll Pay You Back!-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Ofuda",
+				"name": "Ofuda",
+				"description": "Temporary keyword removal indicator. Since Ofuda is replenish 1 charge, you can also use this card as a charge while no enemy gets the debuff yet by flipping to backside for 0 charge. (It has a greyed out graphic, like it ran out of magical power at the moment.) As a bonus it looks like the Ofuda is really on the enemy's forehead!",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-Ofuda-A.png",
+						"backName": "FHVP-Ofuda-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVP",
+				"setName": "The Feast of Hemlock Vale (Investigator Expansion)",
+				"hash": "FHVP-Stall for Time",
+				"name": "Stall for Time",
+				"description": "Long evade indicator. Remove from the enemy at the Upkeep when it is going to ready. The backside is generic and can be use with other long evade effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVP-Stall for Time-A.png",
+						"backName": "FHVP-Stall for Time-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 8,
+		"printedQuantity": 10
+	},
+	{
+		"index": 17,
+		"setCode": "FHVC",
+		"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+		"items": [
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Chroma Blight",
+				"name": "Chroma Blight",
+				"description": "Place this mini card near the player's deck with 6 resources on it so they don't forget to add brilliance (by moving them from this mini-card to the actual treachery card) when they draw cards for any reason.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "FHVC-Chroma Blight-x2-A.png",
+						"backName": "FHVC-Chroma Blight-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Cochleal Stag",
+				"name": "Cochleal Stag",
+				"description": "Give this card to the first one in player order ending their turn at or near this enemy's location to not forget the effect when Mythos Phase comes. Pass it to the next player after the test if there are more to apply the effect.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVC-Cochleal Stag-A.png",
+						"backName": "FHVC-Cochleal Stag-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Decoy Util",
+				"name": "Decoy Util",
+				"description": "Decoy side is used to mark decoy's lingering effect on the enemy. Note that this is slightly different from those 'long evade' effects from player cards (can't ready for any reason, not just in Upkeep Phase), so having them spelled out might allow you to make some witty plays? I gave you 3 copies of these, and so I put different miscellaneous utilities on the back side of each copy : There are copy of location effect text you could put closer to the player's threat area fighting at that location so they don't forget it. There is also a card you could slide under the bear if you are not used to its ignore list yet.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVC-Decoy Util-1-A.png",
+						"backName": "FHVC-Decoy Util-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "FHVC-Decoy Util-2-A.png",
+						"backName": "FHVC-Decoy Util-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "FHVC-Decoy Util-3-A.png",
+						"backName": "FHVC-Decoy Util-3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Desiccation",
+				"name": "Desiccation",
+				"description": "For big table with awkward angle some players might not notice Desiccation next to the agenda deck. This is a proxy of the card you could place somewhere closer to them, plus you can flip it to greyed out side when it is not active instead of putting it away, so you are more accustomed to check if it is active or not.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVC-Desiccation-A.png",
+						"backName": "FHVC-Desiccation-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Downpour",
+				"name": "Downpour",
+				"description": "Remember how many actions you choose (or forced) to lose.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 2,
+						"frontName": "FHVC-Downpour-x2-A.png",
+						"backName": "FHVC-Downpour-x2-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Empty Space",
+				"name": "Empty Space",
+				"description": "You can use these mini cards instead of real empty space so the grid looks neater and easier to see the columns. Mini card size also help distinguishing it from location card.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 5,
+						"frontName": "FHVC-Empty Space-x5-A.png",
+						"backName": "FHVC-Empty Space-x5-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-Hemlock House",
+				"name": "Hemlock House",
+				"description": "I forgot resolving the predation test several times (or sometimes inversely forgot if I resolved it already or not) so this is a boolean card that both reminds you and you could flip after you have resolved it. It is helpful to place it near the encounter deck, especially if your deck layout has encounter deck further from the agenda card.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "FHVC-Hemlock House-A.png",
+						"backName": "FHVC-Hemlock House-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "FHVC",
+				"setName": "The Feast of Hemlock Vale (Campaign Expansion)",
+				"hash": "FHVC-The Longest Night",
+				"name": "The Longest Night",
+				"description": "Cards you can slide under the enemy to make some of their text box ability more 'visual' and readable from further away / awkward angles. Due to the layout of this scenario, I have provided all kind of orientation variants you can use to poke the card out from any side of the enemy card.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 3,
+						"frontName": "FHVC-The Longest Night-1-x3-A.png",
+						"backName": "FHVC-The Longest Night-1-x3-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 3,
+						"frontName": "FHVC-The Longest Night-2-x3-A.png",
+						"backName": "FHVC-The Longest Night-2-x3-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 3,
+						"frontName": "FHVC-The Longest Night-3-x3-A.png",
+						"backName": "FHVC-The Longest Night-3-x3-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 8,
+		"printedQuantity": 24
+	},
+	{
+		"index": 18,
+		"setCode": "SS",
+		"setName": "Standalone Scenario",
+		"items": [
+			{
+				"setCode": "SS",
+				"setName": "Standalone Scenario",
+				"hash": "SS-Fortune and Folly-Dimensional Duplicator",
+				"name": "Fortune and Folly-Dimensional Duplicator",
+				"description": "There is an ability that summons a token enemy in this scenario using face down card from player's deck as a proxy. Paste this card over it to make the proxy seemingly has printed text.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 3,
+						"frontName": "SS-Fortune and Folly-Dimensional Duplicator-x3-A.png",
+						"backName": "SS-Fortune and Folly-Dimensional Duplicator-x3-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "SS",
+				"setName": "Standalone Scenario",
+				"hash": "SS-Fortune and Folly-Patrol",
+				"name": "Fortune and Folly-Patrol",
+				"description": "Patrol in this scenario is cool but resolving it each Enemy Phase almost felt like it should have been a task for computer program. Make it more obvious which way they are going by sliding this card under the enemy. Enemies here walk in circle, and arrows surrounding this mini-card matches that. Depending on which part of the ring enemy is standing right now, you show a matching arrow on the mini-card. There should be only 1 arrow poking out from under the enemy card at all times. Recommended amount of 6 is still less than theoretical limit, but I think it is enough.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 6,
+						"frontName": "SS-Fortune and Folly-Patrol-x6-A.png",
+						"backName": "SS-Fortune and Folly-Patrol-x6-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "SS",
+				"setName": "Standalone Scenario",
+				"hash": "SS-Midwinter Gala-Achievement",
+				"name": "Midwinter Gala-Achievement",
+				"description": "In competitive mode you can enable achievements that grant bonus points only for the first table that gets it. Therefore if you have these cards, you can physically hand it out to that table and have it also gone from the central achievement pool.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Achievement-1-A.png",
+						"backName": "SS-Midwinter Gala-Achievement-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Achievement-2-A.png",
+						"backName": "SS-Midwinter Gala-Achievement-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Achievement-3-A.png",
+						"backName": "SS-Midwinter Gala-Achievement-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Achievement-4-A.png",
+						"backName": "SS-Midwinter Gala-Achievement-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Achievement-5-A.png",
+						"backName": "SS-Midwinter Gala-Achievement-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Achievement-6-A.png",
+						"backName": "SS-Midwinter Gala-Achievement-6-B.png"
+					}
+				]
+			},
+			{
+				"setCode": "SS",
+				"setName": "Standalone Scenario",
+				"hash": "SS-Midwinter Gala-Task",
+				"name": "Midwinter Gala-Task",
+				"description": "Make each task more visible on the table so you always see what to work towards. You can pick them and add to victory display once you get the points, which makes the remaining tasks more obvious too. Some task has a disabled side on the back that you can flip to when it is no longer possible to get, or currently not getting it.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-1-A.png",
+						"backName": "SS-Midwinter Gala-Task-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-2-A.png",
+						"backName": "SS-Midwinter Gala-Task-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-3-A.png",
+						"backName": "SS-Midwinter Gala-Task-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-4-A.png",
+						"backName": "SS-Midwinter Gala-Task-4-B.png"
+					},
+					{
+						"variation": 5,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-5-A.png",
+						"backName": "SS-Midwinter Gala-Task-5-B.png"
+					},
+					{
+						"variation": 6,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-6-A.png",
+						"backName": "SS-Midwinter Gala-Task-6-B.png"
+					},
+					{
+						"variation": 7,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-7-A.png",
+						"backName": "SS-Midwinter Gala-Task-7-B.png"
+					},
+					{
+						"variation": 8,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-8-A.png",
+						"backName": "SS-Midwinter Gala-Task-8-B.png"
+					},
+					{
+						"variation": 9,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-9-A.png",
+						"backName": "SS-Midwinter Gala-Task-9-B.png"
+					},
+					{
+						"variation": 10,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-10-A.png",
+						"backName": "SS-Midwinter Gala-Task-10-B.png"
+					},
+					{
+						"variation": 11,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-11-A.png",
+						"backName": "SS-Midwinter Gala-Task-11-B.png"
+					},
+					{
+						"variation": 12,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-12-A.png",
+						"backName": "SS-Midwinter Gala-Task-12-B.png"
+					},
+					{
+						"variation": 13,
+						"quantity": 1,
+						"frontName": "SS-Midwinter Gala-Task-13-A.png",
+						"backName": "SS-Midwinter Gala-Task-13-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 4,
+		"printedQuantity": 28
+	},
+	{
+		"index": 19,
+		"setCode": "PAR",
+		"setName": "Parallel Investigator",
+		"items": [
+			{
+				"setCode": "PAR",
+				"setName": "Parallel Investigator",
+				"hash": "PAR-Directive",
+				"name": "Directive",
+				"description": "Helper to count 2 times limit on 3 different kind of Directive. Tuck it under the directive when it is still 0 times. There is also an boolean indicator whether you had discovered a clue or not so you can commit under Seek the Truth.",
+				"members": [
+					{
+						"variation": 1,
+						"quantity": 1,
+						"frontName": "PAR-Directive-1-A.png",
+						"backName": "PAR-Directive-1-B.png"
+					},
+					{
+						"variation": 2,
+						"quantity": 1,
+						"frontName": "PAR-Directive-2-A.png",
+						"backName": "PAR-Directive-2-B.png"
+					},
+					{
+						"variation": 3,
+						"quantity": 1,
+						"frontName": "PAR-Directive-3-A.png",
+						"backName": "PAR-Directive-3-B.png"
+					},
+					{
+						"variation": 4,
+						"quantity": 1,
+						"frontName": "PAR-Directive-4-A.png",
+						"backName": "PAR-Directive-4-B.png"
+					}
+				]
+			}
+		],
+		"itemCount": 1,
+		"printedQuantity": 4
+	}
+]

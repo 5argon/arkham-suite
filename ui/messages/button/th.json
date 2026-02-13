@@ -1,0 +1,11 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"button_square_grid": "กริดสี่เหลี่ยม",
+	"button_scan_grid": "กริดสแกน",
+	"button_line_list": "รายการแบบแถว",
+	"button_enter_checklist_mode": "เข้าสู่โหมดเช็คลิสต์",
+	"button_exit_checklist_mode": "ออกจากโหมดเช็คลิสต์",
+	"button_grouping_sorting": "การจัดกลุ่มและเรียงลำดับ",
+	"button_reset": "รีเซ็ต",
+	"button_close": "ปิด"
+}

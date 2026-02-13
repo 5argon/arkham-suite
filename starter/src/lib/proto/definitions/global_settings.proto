@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message GlobalSettings {
+	enum PipStyle {
+		Unknown = 0;
+		None = 1;
+		Number = 2;
+		Pips = 3;
+		PipsReal = 4;
+	}
+	bool taboo = 1;
+	PipStyle pip_style = 2;
+}

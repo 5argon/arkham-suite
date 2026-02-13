@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+message TeamAssemblerProto {
+	repeated InputDeck input_decks_1 = 1;
+	repeated InputDeck input_decks_2 = 2;
+	repeated InputDeck input_decks_3 = 3;
+	repeated InputDeck input_decks_4 = 4;
+	repeated string current_team = 5;
+	repeated PickedAssembly picked_assembly = 6;
+	repeated UserPatch user_patches = 7;
+	bool advanced = 8;
+
+	message InputDeck {
+		string id = 1;
+		bool published = 2;
+		string comment = 3;
+	}
+
+	message PickedAssembly {
+		repeated Deck decks = 1;
+		message Deck {
+			string id = 1;
+			string rename = 2;
+			repeated string patch_adds = 3;
+			repeated string patch_removes = 4;
+			string comments = 5;
+		}
+	}
+
+	message UserPatch {
+		int32 id = 1;
+		string name = 2;
+		string url = 3;
+	}
+}
