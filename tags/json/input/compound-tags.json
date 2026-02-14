@@ -1,0 +1,142 @@
+[
+  {
+    "name": "spend_resource",
+    "description": "There is a way to spend resource in this card.",
+    "rules": [
+      {
+        "type": "any",
+        "param": ["cost_free_spend_resource", "cost_reaction_spend_resource"]
+      }
+    ]
+  },
+  {
+    "name": "shroud_reduction",
+    "description": "There is a way to reduce the shroud value of a location.",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "shroud_minus_"
+      }
+    ]
+  },
+  {
+    "name": "stat_add_investigate",
+    "description": "",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "stat_add_investigate_"
+      }
+    ]
+  },
+  {
+    "name": "stat_add_combat",
+    "description": "",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "stat_add_combat_"
+      }
+    ]
+  },
+  {
+    "name": "stat_add_willpower",
+    "description": "",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "stat_add_willpower_"
+      }
+    ]
+  },
+  {
+    "name": "stat_add_agility",
+    "description": "",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "stat_add_agility_"
+      }
+    ]
+  },
+  {
+    "name": "stat_base_set",
+    "description": "This card can set your base value for a stat.",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "stat_base_"
+      }
+    ]
+  },
+  {
+    "name": "initiate_test",
+    "description": "This card can initiate a skill test.",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "initiate_test_"
+      }
+    ]
+  },
+  {
+    "name": "additional_slot",
+    "description": "Card grants an additional slot of any type.",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "additional_slot_"
+      }
+    ]
+  },
+  {
+    "name": "clue_tech",
+    "description": "Card provide additional feature on finding clues.",
+    "rules": [
+      {
+        "type": "prefix",
+        "param": "additional_clue"
+      },
+      {
+        "type": "prefix",
+        "param": "discover_clue_connecting_location"
+      },
+      {
+        "type": "prefix",
+        "param": "discover_clue_your_location"
+      },
+      {
+        "type": "prefix",
+        "param": "discover_clue_remote"
+      },
+      {
+        "type": "prefix",
+        "param": "shroud_minus_"
+      },
+      {
+        "type": "any",
+        "param": ["testless_clue"]
+      }
+    ]
+  },
+  {
+    "name": "boost_passive",
+    "description": "Card has any kind of passive boost.",
+    "rules": [
+      {
+        "type": "suffix",
+        "param": "_passive"
+      }
+    ]
+  },
+  {
+    "name": "spawn",
+    "description": "Card that deals with enemy spawning.",
+    "rules": [
+      {
+        "type": "contains",
+        "param": "spawn"
+      }
+    ]
+  }
+]

@@ -207,6 +207,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@5argon/arkham-tags@workspace:tags":
+  version: 0.0.0-use.local
+  resolution: "@5argon/arkham-tags@workspace:tags"
+  dependencies:
+    "@5argon/arkham-kohaku": "workspace:*"
+    "@types/node": "npm:^25.2.3"
+    "@typescript-eslint/eslint-plugin": "npm:^8.55.0"
+    "@typescript-eslint/parser": "npm:^8.55.0"
+    eslint: "npm:^9.39.2"
+    prettier: "npm:^3.8.1"
+    typescript: "npm:^5.9.3"
+  languageName: unknown
+  linkType: soft
+
 "@5argon/cards-db@workspace:cards-json":
   version: 0.0.0-use.local
   resolution: "@5argon/cards-db@workspace:cards-json"

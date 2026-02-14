@@ -1,0 +1,186 @@
+[
+  {
+    "code": "90002",
+    "name": "Daisy's Tote Bag",
+    "text": "Daisy Walker deck only. Advanced.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets.\n[reaction] When you play a [[Tome]] asset during your turn, exhaust Daisy's Tote Bag: That asset gains fast.",
+    "tags": [
+      "deck_restriction",
+      "cost_reaction_exhaust_self",
+      "trait_tome"
+    ]
+  },
+  {
+    "code": "90009",
+    "name": "On the Lam",
+    "text": "\"Skids\" O'Toole deck only. Advanced.\nFast. Play during any [fast] window.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you. At the end of the round, you may disengage from each engaged enemy and move up to 2 locations away.",
+    "tags": [
+      "deck_restriction",
+      "fast_play",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "90018",
+    "name": "Heirloom of Hyperborea",
+    "text": "Agnes Baker deck only. Advanced.\nOnly damage and/or horror from player card effects can be assigned to Heirloom of Hyperborea.\n[reaction] After you play a [[Spell]] card: Draw 1 card.",
+    "tags": [
+      "deck_restriction",
+      "draw_player_1",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "90025",
+    "name": "Directive",
+    "text": "Roland Bank deck only. Permanent.\n<i>Regulation</i> - You cannot fight more than twice each round.\n[fast] During a skill test while investigating, evading, or parleying, exhaust Directive: You get +2 skill value for this test for each enemy engaged with you.",
+    "tags": [
+      "deck_restriction",
+      "engage_with_you"
+    ]
+  },
+  {
+    "code": "90026",
+    "name": "Directive",
+    "text": "Roland Bank deck only. Permanent.\n<i>Regulation</i> - You cannot play more than 2 cards each round.\n[reaction] When you play an [[Insight]] or [[Tactic]] event, exhaust this Directive: That event gains fast.",
+    "tags": [
+      "deck_restriction",
+      "cost_reaction_exhaust_self",
+      "trait_insight",
+      "trait_tactic"
+    ]
+  },
+  {
+    "code": "90027",
+    "name": "Directive",
+    "text": "Roland Bank deck only. Permanent.\n<i>Regulation</i> - You cannot voluntarily assign damage or horror to [[Ally]] assets.\nYou have 1 additional ally slot.",
+    "tags": [
+      "deck_restriction",
+      "trait_ally"
+    ]
+  },
+  {
+    "code": "90028",
+    "name": "Directive",
+    "text": "Roland Bank deck only. Permanent.\n<i>Regulation</i> - When your location has 1 or more clues, you cannot commit cards to skill tests unless you have discovered a clue this round.\n[reaction] After you discover a clue, if an enemy is at your location, exhaust this Directive: Draw 1 card.",
+    "tags": [
+      "deck_restriction",
+      "cost_reaction_exhaust_self",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "90029",
+    "name": "Directive",
+    "text": "Roland Bank deck only. Permanent.\n<i>Regulation</i> - You cannot move more than twice each round.\nYou get +3 sanity.",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "90030",
+    "name": "Roland's .38 Special",
+    "text": "Roland Banks deck only. Advanced. Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack (if there are 1 or more clues on your location, you get +4 [combat], instead). This attack deals +1 damage. If this attack defeats an enemy and there are no clues on your location, place 1 ammo on Roland's .38 Special",
+    "tags": [
+      "deck_restriction",
+      "uses_type_ammo",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_2",
+      "boost_combat_4",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "90038",
+    "name": "Tidal Memento",
+    "text": "Wendy Adams deck only. Permanent.\n[reaction] When an enemy would ready or doom would be placed on it, release a [bless] or [curse] token sealed on that enemy: Cancel that effect.\n[reaction] During a skill test you are performing, when a chaos token would be revealed from the chaos bag: Resolve a [bless] or [curse] token sealed on an enemy instead.",
+    "tags": [
+      "deck_restriction",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "90039",
+    "name": "Wendy's Amulet",
+    "text": "Wendy Adams deck only. Advanced.\nYou may play any event in your discard pile as if it were in your hand.\n<b>Forced</b> - After you play an event or discard an event from play: Place it on the bottom of your deck instead of in your discard pile.",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "90047",
+    "name": "Pete's Guitar",
+    "text": "\"Ashcan\" Pete deck only. Replacement.\n[fast] Exhaust Pete's Guitar: Choose a non-[[Elite]] enemy at your location or a connecting location. Move that enemy once in a direction of your choice. Then, if there are no enemies at your location, either heal 1 horror or gain 1 resource.",
+    "tags": [
+      "deck_restriction",
+      "elite_unusable",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "90050",
+    "name": "Jim's Trumpet",
+    "text": "Jim Culver deck only. Advanced.\n[reaction] When a [skull] or [curse] token is revealed during a skill test you are performing, exhaust Jim's Trumpet: Heal 1 horror from each investigator and [[Ally]] asset at your location or a connecting location.",
+    "tags": [
+      "deck_restriction",
+      "chaos_reveal_token_curse",
+      "chaos_reveal_token_skull",
+      "cost_reaction_exhaust_self",
+      "trait_ally"
+    ]
+  },
+  {
+    "code": "90052",
+    "name": "The Beyond",
+    "text": "Jim Culver deck only. Permanent.\nEach attached spirit loses all printed traits and gains the [[Geist]] trait. When damage/horror would be placed on an attached spirit, it must be placed on Jim Culver, instead.\n<b>Forced</b> – When your turn begins: Attach the top card of the spirit deck to The Beyond, as a spirit. If 4 or more spirits are attached, flip this card and resolve its text.",
+    "tags": [
+      "deck_restriction",
+      "trait_geist"
+    ]
+  },
+  {
+    "code": "90052b",
+    "name": "The Beyond",
+    "text": "<b>Forced</b> – One at a time, choose each non-weakness spirit attached to The Beyond and reveal a random token from the chaos bag. If it is...\n- ... an [elder_sign] token: You may either heal 1 horror, or attach the top card of the spirit deck to The Beyond, as a spirit. <i>(Do not reveal tokens for the spirit you attach after resolving this effect.)</i>\n- ... an [auto_fail] token: Discard this spirit. Take 1 direct damage/horror.\n- ...a [skull] token: Discard this spirit. Heal 1 horror.\n- ...a [cultist], [elder_thing], [tablet], or [curse] token: You must either discard this spirit or take 1 direct damage.\n- ...any other token: Discard this spirit.\nFlip this card back to its asset side.\n<hr><b>Reminder:</b> <i>Spirits attached to The Beyond are in play but only retain their names and text boxes. Spirits do not take up slots and do not have health or sanity values. When a unique spirit is attached to The Beyond, any other asset that shares its name and is already in play is discarded. Spirits are always discarded to the</i> <b>bottom</b> <i>of the spirit deck.</i>",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_curse",
+      "chaos_reveal_token_elder_sign",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "90060",
+    "name": "Zoey's Cross",
+    "text": "Zoey Samaras deck only. Advanced.\n[reaction] After you engage an enemy, exhaust Zoey’s Cross and spend 1 resource: Deal 1 damage to that enemy.\n[fast] Remove 2 [bless] tokens from the chaos bag: Engage an enemy at your location.",
+    "tags": [
+      "deck_restriction",
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "90063",
+    "name": "Trusty Bullwhip",
+    "text": "Fast. Monterey Jack deck only. Advanced.\n[action]: <b>Fight.</b> This attack uses [agility] instead of [combat]. You get +2 skill value for this attack. If this attack succeeds, you may exhaust Trusty Bullwhip to deal +1 damage for this attack and automatically evade the attacked enemy.",
+    "tags": [
+      "deck_restriction",
+      "fast_play",
+      "bold_fight",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "90079",
+    "name": "Search for the Truth",
+    "text": "Rex Murphy deck only. Advanced.\nFor each clue on Rex Murphy (to a maximum of 5) you may either:\n- Draw 1 card.\n- Place that clue on your location and return any card from your discard pile to your hand.",
+    "tags": [
+      "deck_restriction",
+      "draw_player_1"
+    ]
+  }
+]

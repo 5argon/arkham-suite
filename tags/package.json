@@ -1,0 +1,21 @@
+{
+  "name": "@5argon/arkham-tags",
+  "type": "module",
+  "scripts": {
+    "sync": "deno run --allow-read --allow-write ./script/sync.ts",
+    "sync-unions": "deno run --allow-read --allow-write ./script/generate-unions.ts",
+    "build": "tsc -b"
+  },
+  "main": "dist/index.js",
+  "dependencies": {
+    "@5argon/arkham-kohaku": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  }
+}

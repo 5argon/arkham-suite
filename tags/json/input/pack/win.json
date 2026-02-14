@@ -1,0 +1,379 @@
+[
+  {
+    "code": "60302",
+    "name": "Anything You Can Do, Better",
+    "text": "Winifred Habbamock deck only.\nCommit only to a skill test you are performing.",
+    "tags": [
+      "deck_restriction",
+      "test_you_perform"
+    ]
+  },
+  {
+    "code": "60305",
+    "name": "Lockpicks",
+    "text": "[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, discard Lockpicks.",
+    "tags": [
+      "bold_investigate",
+      "cost_action_exhaust_self",
+      "discard_self",
+      "stat_add_agility_for_investigate",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "60306",
+    "name": "Mauser C96",
+    "text": "Uses (5 ammo).\n[action] Exhaust Mauser C96 and spend 1 ammo: <b>Fight.</b> You get +1 [combat] and deal +1 damage for this attack. If you succeed by 2 or more, either ready Mauser C96 or gain 1 resource.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "bold_fight",
+      "boost_combat_1_attack",
+      "cost_action_exhaust_self",
+      "cost_action_spend_ammo",
+      "damage_plus_1",
+      "gain_resource_1",
+      "ready_asset",
+      "result_attack_success",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "60307",
+    "name": "Switchblade",
+    "text": "Fast.\n[action]: <b>Fight.</b> If you succeed by 2 or more, this attack deals +1 damage.",
+    "tags": [
+      "fast_play",
+      "bold_fight",
+      "damage_plus_1",
+      "result_attack_success",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "60308",
+    "name": "Lucky Cigarette Case",
+    "text": "[reaction] After you succeed at a skill test by 2 or more, exhaust Lucky Cigarette Case: Draw 1 card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player_1",
+      "succeed_by_2",
+      "timing_reaction_after_test_success"
+    ]
+  },
+  {
+    "code": "60309",
+    "name": "Lonnie Ritter",
+    "text": "You get +1 [combat].\n[fast] Exhaust Lonnie Ritter and spend 1 resource: Choose an [[Item]] asset controlled by an investigator at your location. Heal 1 damage from that asset and 1 horror from Lonnie Ritter.",
+    "tags": [
+      "fast_play",
+      "boost_combat_1_passive",
+      "cost_fast_exhaust_self",
+      "cost_fast_spend_resource",
+      "heal_damage",
+      "heal_horror_self",
+      "trait_item",
+      "your_location_investigator"
+    ]
+  },
+  {
+    "code": "60310",
+    "name": "Leather Jacket",
+    "text": "Fast.",
+    "tags": [
+      "fast_play",
+      "soak_damage"
+    ]
+  },
+  {
+    "code": "60311",
+    "name": "Streetwise",
+    "text": "[free] Spend 2 resources: You get +2 [intellect] for this skill test.\n[free] Spend 2 resources: You get +2 [agility] for this skill test.",
+    "tags": [
+      "boost_agility_2",
+      "boost_intellect_2",
+      "cost_free_spend_resource",
+      "stat_from_spent_resource",
+      "timing_free_during_skill_test"
+    ]
+  },
+  {
+    "code": "60312",
+    "name": "Cheap Shot",
+    "text": "<b>Fight.</b> Add your [agility] value to your skill value for this attack. If you succeed by 2 or more, automatically evade the attacked enemy.",
+    "tags": [
+      "auto_evade",
+      "bold_fight",
+      "result_attack_success",
+      "stat_add_agility_for_attack",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "60313",
+    "name": "Daring Maneuver",
+    "text": "Fast. Play when you would succeed at a skill test.\nYou get +2 skill value for this test.",
+    "tags": [
+      "fast_play",
+      "timing_fast_would_succeed",
+      "boost_any_2"
+    ]
+  },
+  {
+    "code": "60314",
+    "name": "Slip Away",
+    "text": "<b>Evade.</b> Add your [intellect] to your skill value for this evasion attempt. If you succeed by 2 or more and the evaded enemy is non-[[Elite]], it does not ready during the next upkeep phase.",
+    "tags": [
+      "bold_evade",
+      "elite_unusable",
+      "enemy_does_not_ready",
+      "result_evade_success",
+      "stat_add_intellect_for_evade",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "60315",
+    "name": "Pilfer",
+    "text": "<b>Investigate.</b> This investigation uses [agility] instead of [intellect]. If you succeed, discover 2 additional clues at your location.",
+    "tags": [
+      "additional_clue_2",
+      "bold_investigate",
+      "result_investigate_success",
+      "stat_not_intellect",
+      "stat_use_agility"
+    ]
+  },
+  {
+    "code": "60316",
+    "name": "Sneak By",
+    "text": "<b>Evade.</b> When this action begins, gain 2 resources.",
+    "tags": [
+      "bold_evade",
+      "gain_resource_2",
+      "timing_action_begins"
+    ]
+  },
+  {
+    "code": "60317",
+    "name": "Nimble",
+    "text": "For each point this skill test succeeds by, after it resolves, you may immediately move to a connecting location (to a maximum of 3 times).",
+    "tags": [
+      "move_investigator_self",
+      "result_test_success",
+      "succeed_by"
+    ]
+  },
+  {
+    "code": "60318",
+    "name": "Daredevil",
+    "text": "After you commit Daredevil to a skill test, discard cards from the top of your deck until you discard a [rogue] skill you can commit to this test. Commit it. Shuffle each weakness that was discarded by this effect back into your deck.",
+    "tags": [
+      "discard_deck",
+      "shuffle_player",
+      "skill_icons",
+      "timing_after_commit"
+    ]
+  },
+  {
+    "code": "60319",
+    "name": "Opportunist",
+    "text": "Commit only to a skill test you are performing.\nIf you succeed by 3 or more, return Opportunist to your hand after this test instead of discarding it.",
+    "tags": [
+      "succeed_by_3",
+      "test_you_perform",
+      "to_hand_from_commit"
+    ]
+  },
+  {
+    "code": "60320",
+    "name": "Liquid Courage",
+    "text": "Uses (4 supplies).\n[action] Spend 1 supply: Choose an investigator at your location to heal 1 horror. Then, that investigator tests [willpower] (2). If the test succeeds, they draw 1 card. If the test fails, they heal 1 additional horror and discard 1 card at random from their hand.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_4",
+      "cost_action_spend_supply",
+      "discard_card_random",
+      "draw_player_1",
+      "heal_horror",
+      "initiate_test_willpower_2",
+      "result_test_fail",
+      "result_test_success",
+      "your_location_investigator"
+    ]
+  },
+  {
+    "code": "60321",
+    "name": "Mauser C96",
+    "text": "Uses (5 ammo).\n[action] Exhaust Mauser C96 and spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack. If you succeed by 2 or more, either ready Mauser C96 or gain 1 resource (if you succeed by 4 or more, do both).",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "bold_fight",
+      "boost_combat_2_attack",
+      "cost_action_exhaust_self",
+      "cost_action_spend_ammo",
+      "damage_plus_1",
+      "gain_resource_1",
+      "ready_asset",
+      "result_attack_success",
+      "succeed_by_2",
+      "succeed_by_4"
+    ]
+  },
+  {
+    "code": "60322",
+    "name": "Daring Maneuver",
+    "text": "Fast. Play when you would succeed at a skill test.\nYou get +3 skill value for this test. Draw 1 card.",
+    "tags": [
+      "fast_play",
+      "timing_fast_would_succeed",
+      "boost_any_3",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "60323",
+    "name": "Cheap Shot",
+    "text": "<b>Fight.</b> Add your [agility] value to your skill value for this attack. If you succeed by 1 or more, automatically evade the attacked enemy. If you succeed by 3 or more, return Cheap Shot to your hand at the end of your turn.",
+    "tags": [
+      "auto_evade",
+      "bold_fight",
+      "result_attack_success",
+      "stat_add_agility_for_attack",
+      "succeed_by_1",
+      "succeed_by_3",
+      "to_hand_from_play"
+    ]
+  },
+  {
+    "code": "60324",
+    "name": "Slip Away",
+    "text": "<b>Evade.</b> Add your [intellect] to your skill value for this evasion attempt. If you succeed by 1 or more and the evaded enemy is non-[[Elite]], it does not ready during the next upkeep phase. If you succeed by 3 or more, return Slip Away to your hand at the end of your turn.",
+    "tags": [
+      "bold_evade",
+      "elite_unusable",
+      "enemy_does_not_ready",
+      "result_evade_success",
+      "stat_add_intellect_for_evade",
+      "succeed_by_1",
+      "succeed_by_3",
+      "to_hand_from_play"
+    ]
+  },
+  {
+    "code": "60325",
+    "name": "Manual Dexterity",
+    "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card (2 cards instead if it succeeds by 2 or more).",
+    "tags": [
+      "draw_player_1",
+      "draw_player_2",
+      "max_1_commit",
+      "result_test_success",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "60326",
+    "name": "Lucky Cigarette Case",
+    "text": "[reaction] After you succeed at a skill test by 1 or more, exhaust Lucky Cigarette Case: Search the top X cards of your deck for a card, draw it, and shuffle the remaining cards into your deck. X is the amount you succeeded by.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player",
+      "search_player",
+      "shuffle_player",
+      "succeed_by",
+      "succeed_by_1",
+      "timing_reaction_after_test_success"
+    ]
+  },
+  {
+    "code": "60327",
+    "name": "Sharpshooter",
+    "text": "[reaction] When you use a fight ability on a [[Firearm]] asset, exhaust Sharpshooter: Choose one, or both - \n- This attack uses [agility] instead of [combat]. All modifiers to your [combat] for this attack modify your [agility] instead.\n- Use the attacked enemy's evade value for this attack, instead of their fight value.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "enemy_value_evade",
+      "enemy_value_fight",
+      "stat_not_combat",
+      "stat_use_agility",
+      "timing_reaction_when_fight",
+      "trait_firearm"
+    ]
+  },
+  {
+    "code": "60328",
+    "name": "Pilfer",
+    "text": "<b>Investigate.</b> This investigation uses [agility] instead of [intellect]. If you succeed, discover 2 additional clues at your location. If you succeed by 2 or more, return Pilfer to your hand at the end of your turn.",
+    "tags": [
+      "additional_clue_2",
+      "bold_investigate",
+      "result_investigate_success",
+      "stat_not_intellect",
+      "stat_use_agility",
+      "succeed_by_2",
+      "to_hand_from_play"
+    ]
+  },
+  {
+    "code": "60329",
+    "name": "Backstab",
+    "text": "<b>Fight.</b> This attack uses [agility] instead of [combat]. This attack deals +2 damage. If you succeed by 2 or more, return Backstab to your hand at the end of your turn.",
+    "tags": [
+      "bold_fight",
+      "damage_plus_2",
+      "result_attack_success",
+      "stat_not_combat",
+      "stat_use_agility",
+      "succeed_by_2",
+      "to_hand_from_play"
+    ]
+  },
+  {
+    "code": "60330",
+    "name": "Copycat",
+    "text": "After you commit Copycat to a skill test, search the discard pile of another investigator for a skill you can commit to this test, and commit it. After this test ends, place that card on the bottom of its owner's deck.",
+    "tags": [
+      "another_investigator_discard",
+      "search_discard",
+      "skill_icons",
+      "timing_after_commit",
+      "to_deck_from_commit"
+    ]
+  },
+  {
+    "code": "60331",
+    "name": "Beretta M1918",
+    "text": "Uses (4 ammo).\n[action] Exhaust Beretta M1918 and spend 1 ammo: <b>Fight.</b> You get +4 [combat] and deal +1 damage for this attack. If you succeed by 2 or more, either ready Beretta M1918, or this attack deals an additional +1 damage (if you succeed by 4 or more, do both).",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_4_attack",
+      "cost_action_exhaust_self",
+      "cost_action_spend_ammo",
+      "damage_plus_1",
+      "damage_plus_2",
+      "ready_asset",
+      "result_attack_success",
+      "succeed_by_2",
+      "succeed_by_4"
+    ]
+  },
+  {
+    "code": "60332",
+    "name": "Chuck Fergus",
+    "text": "[reaction] When you play a [[Tactic]] or [[Trick]] event, exhaust Chuck Fergus: Choose two -\n- That event gains fast.\n- That event costs 2 fewer resources to play.\n- You get +2 skill value while performing a skill test during the resolution of that event.",
+    "tags": [
+      "fast_play",
+      "boost_any_2",
+      "cost_reaction_exhaust_self",
+      "discount_2",
+      "reduce_cost",
+      "timing_during_resolution",
+      "timing_reaction_when_play",
+      "trait_tactic",
+      "trait_trick"
+    ]
+  }
+]

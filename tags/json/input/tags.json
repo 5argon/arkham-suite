@@ -1,0 +1,2362 @@
+[
+  {
+    "name": "actions_taken_dependent",
+    "description": ""
+  },
+  {
+    "name": "additional_action_1",
+    "description": "Use when a card let you take additional action. Not when it let you immediately take action."
+  },
+  {
+    "name": "additional_action_2",
+    "description": "Use when a card let you take additional action. Not when it let you immediately take action."
+  },
+  {
+    "name": "additional_action_3",
+    "description": "Use when a card let you take additional action. Not when it let you immediately take action."
+  },
+  {
+    "name": "additional_action_fight",
+    "description": ""
+  },
+  {
+    "name": "additional_attack",
+    "description": ""
+  },
+  {
+    "name": "additional_clue",
+    "description": ""
+  },
+  {
+    "name": "additional_clue_1",
+    "description": "Use for exactly additional clue from the location you are investigating, not when it gets more from other locations."
+  },
+  {
+    "name": "additional_clue_2",
+    "description": "Use for exactly additional clue from the location you are investigating, not when it gets more from other locations."
+  },
+  {
+    "name": "additional_evade",
+    "description": ""
+  },
+  {
+    "name": "additional_slot",
+    "description": ""
+  },
+  {
+    "name": "additional_slot_accessory",
+    "description": ""
+  },
+  {
+    "name": "additional_slot_ally",
+    "description": ""
+  },
+  {
+    "name": "additional_slot_arcane",
+    "description": ""
+  },
+  {
+    "name": "additional_slot_hand",
+    "description": "Provides additional hand slots."
+  },
+  {
+    "name": "another_investigator_discard",
+    "description": ""
+  },
+  {
+    "name": "any_investigator",
+    "description": "Can target anyone's things regardless of location."
+  },
+  {
+    "name": "as_if_you_were_at_location",
+    "description": ""
+  },
+  {
+    "name": "at_end_of_enemy_phase",
+    "description": ""
+  },
+  {
+    "name": "at_end_of_round",
+    "description": ""
+  },
+  {
+    "name": "at_end_of_turn",
+    "description": ""
+  },
+  {
+    "name": "attach_asset",
+    "description": ""
+  },
+  {
+    "name": "attach_enemy",
+    "description": ""
+  },
+  {
+    "name": "attach_location",
+    "description": ""
+  },
+  {
+    "name": "auto_evade",
+    "description": "Some card that provide auto_evade might not be testless_evade, such as Throw the Book at Them"
+  },
+  {
+    "name": "auto_success",
+    "description": "Cause the test to be automatically successful."
+  },
+  {
+    "name": "between_scenarios",
+    "description": "Effect triggers when you are not playing."
+  },
+  {
+    "name": "bold_engage",
+    "description": "Use when bold action designator exists."
+  },
+  {
+    "name": "bold_evade",
+    "description": "Use when bold action designator exists."
+  },
+  {
+    "name": "bold_fight",
+    "description": "Use when bold action designator exists."
+  },
+  {
+    "name": "bold_investigate",
+    "description": "Use when bold action designator exists."
+  },
+  {
+    "name": "bold_move",
+    "description": ""
+  },
+  {
+    "name": "bold_parley",
+    "description": "Use when bold action designator exists."
+  },
+  {
+    "name": "bold_resign",
+    "description": "Use when bold action designator exists."
+  },
+  {
+    "name": "boost_agility_1",
+    "description": ""
+  },
+  {
+    "name": "boost_agility_1_evade",
+    "description": ""
+  },
+  {
+    "name": "boost_agility_1_passive",
+    "description": "Passive boost can be conditioned such as The Black Fan or Dissection Tool."
+  },
+  {
+    "name": "boost_agility_2",
+    "description": ""
+  },
+  {
+    "name": "boost_agility_3",
+    "description": ""
+  },
+  {
+    "name": "boost_agility_3_evade",
+    "description": ""
+  },
+  {
+    "name": "boost_agility_x",
+    "description": ""
+  },
+  {
+    "name": "boost_any",
+    "description": ""
+  },
+  {
+    "name": "boost_any_1",
+    "description": ""
+  },
+  {
+    "name": "boost_any_2",
+    "description": ""
+  },
+  {
+    "name": "boost_any_3",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_1",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_1_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_1_passive",
+    "description": "Passive boost can be conditioned such as The Black Fan or Dissection Tool."
+  },
+  {
+    "name": "boost_combat_2",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_2_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_3",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_3_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_4",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_4_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_5",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_5_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_combat_x",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_1",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_1_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_1_investigate",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_1_passive",
+    "description": "Passive boost can be conditioned such as The Black Fan or Dissection Tool."
+  },
+  {
+    "name": "boost_intellect_2",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_2_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_2_investigate",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_2_passive",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_3",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_5",
+    "description": ""
+  },
+  {
+    "name": "boost_intellect_6",
+    "description": ""
+  },
+  {
+    "name": "boost_passive",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_1",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_1_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_1_passive",
+    "description": "Passive boost can be conditioned such as The Black Fan or Dissection Tool."
+  },
+  {
+    "name": "boost_willpower_2",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_2_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_2_investigate",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_2_passive",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_3",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_3_attack",
+    "description": ""
+  },
+  {
+    "name": "boost_willpower_3_evade",
+    "description": ""
+  },
+  {
+    "name": "bottom_of_deck",
+    "description": "Deal with bottom of any deck."
+  },
+  {
+    "name": "cancel_attack",
+    "description": ""
+  },
+  {
+    "name": "cancel_chaos",
+    "description": ""
+  },
+  {
+    "name": "cancel_damage",
+    "description": ""
+  },
+  {
+    "name": "cancel_encounter_draw",
+    "description": ""
+  },
+  {
+    "name": "cancel_encounter_effect",
+    "description": ""
+  },
+  {
+    "name": "cancel_horror",
+    "description": ""
+  },
+  {
+    "name": "cancel_revelation",
+    "description": ""
+  },
+  {
+    "name": "card_range_1",
+    "description": "Indicates how many cards in searching, revealing, or looking at a deck. (1 means only the top of that deck.)"
+  },
+  {
+    "name": "card_range_3",
+    "description": "Indicates how many cards in searching, revealing, or looking at a deck."
+  },
+  {
+    "name": "card_range_6",
+    "description": "Indicates how many cards in searching, revealing, or looking at a deck."
+  },
+  {
+    "name": "card_range_9",
+    "description": "Indicates how many cards in searching, revealing, or looking at a deck."
+  },
+  {
+    "name": "card_range_deck",
+    "description": ""
+  },
+  {
+    "name": "chaos_do_not_reveal",
+    "description": "Will to Survive, Pnakotic Manuscript, Justify the Means."
+  },
+  {
+    "name": "chaos_ignore_effect",
+    "description": "Usually ignored together with modifer."
+  },
+  {
+    "name": "chaos_ignore_modifier",
+    "description": "Sometimes only modifier is ignored."
+  },
+  {
+    "name": "chaos_modifier",
+    "description": "Sure Gamble, Hit Me!"
+  },
+  {
+    "name": "chaos_resolve_choose",
+    "description": "Grotesque Statue, Olive McBride."
+  },
+  {
+    "name": "chaos_reveal_another_instead",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_before_effect",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_during_effect",
+    "description": "Effect timing related to chaos token revealing."
+  },
+  {
+    "name": "chaos_reveal_manual",
+    "description": "Effect that instruct you to reveal tokens to determine result."
+  },
+  {
+    "name": "chaos_reveal_more",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_auto_fail",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_bless",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_cultist",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_curse",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_elder_sign",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_elder_thing",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_skull",
+    "description": ""
+  },
+  {
+    "name": "chaos_reveal_token_tablet",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_0",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_any",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_auto_fail",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_cultist",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_elder_sign",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_elder_thing",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_skull",
+    "description": ""
+  },
+  {
+    "name": "chaos_seal_token_tablet",
+    "description": ""
+  },
+  {
+    "name": "chaos_treat_as_elder_sign",
+    "description": ""
+  },
+  {
+    "name": "class_survivor",
+    "description": ""
+  },
+  {
+    "name": "clue_dependent",
+    "description": ""
+  },
+  {
+    "name": "clue_drop",
+    "description": ""
+  },
+  {
+    "name": "clue_tech",
+    "description": ""
+  },
+  {
+    "name": "connecting_location_enemy",
+    "description": ""
+  },
+  {
+    "name": "connecting_location_investigator",
+    "description": ""
+  },
+  {
+    "name": "cost_action_discard_from_hand",
+    "description": ""
+  },
+  {
+    "name": "cost_action_discard_self",
+    "description": ""
+  },
+  {
+    "name": "cost_action_exhaust_self",
+    "description": ""
+  },
+  {
+    "name": "cost_action_multiple",
+    "description": "When there are more than one arrow of the action cost."
+  },
+  {
+    "name": "cost_action_spend_ammo",
+    "description": ""
+  },
+  {
+    "name": "cost_action_spend_charge",
+    "description": ""
+  },
+  {
+    "name": "cost_action_spend_resource",
+    "description": ""
+  },
+  {
+    "name": "cost_action_spend_secret",
+    "description": ""
+  },
+  {
+    "name": "cost_action_spend_supply",
+    "description": ""
+  },
+  {
+    "name": "cost_damage_self",
+    "description": ""
+  },
+  {
+    "name": "cost_discard_card",
+    "description": ""
+  },
+  {
+    "name": "cost_fast_discard_self",
+    "description": ""
+  },
+  {
+    "name": "cost_fast_exhaust_self",
+    "description": ""
+  },
+  {
+    "name": "cost_fast_spend_resource",
+    "description": ""
+  },
+  {
+    "name": "cost_free_damage_self",
+    "description": ""
+  },
+  {
+    "name": "cost_free_discard_self",
+    "description": ""
+  },
+  {
+    "name": "cost_free_exhaust_self",
+    "description": ""
+  },
+  {
+    "name": "cost_free_spend_charge",
+    "description": ""
+  },
+  {
+    "name": "cost_free_spend_resource",
+    "description": ""
+  },
+  {
+    "name": "cost_free_spend_secret",
+    "description": ""
+  },
+  {
+    "name": "cost_reaction_damage_self",
+    "description": ""
+  },
+  {
+    "name": "cost_reaction_discard_self",
+    "description": ""
+  },
+  {
+    "name": "cost_reaction_exhaust_self",
+    "description": ""
+  },
+  {
+    "name": "cost_reaction_horror_self",
+    "description": ""
+  },
+  {
+    "name": "cost_reaction_spend_charge",
+    "description": ""
+  },
+  {
+    "name": "cost_reaction_spend_resource",
+    "description": ""
+  },
+  {
+    "name": "current_clue_value",
+    "description": ""
+  },
+  {
+    "name": "current_clue_zero",
+    "description": ""
+  },
+  {
+    "name": "current_horror_more",
+    "description": ""
+  },
+  {
+    "name": "current_resource_zero",
+    "description": "Effect usable when you have zero resource."
+  },
+  {
+    "name": "current_sanity",
+    "description": ""
+  },
+  {
+    "name": "current_sanity_less",
+    "description": ""
+  },
+  {
+    "name": "current_sanity_more",
+    "description": ""
+  },
+  {
+    "name": "customizable",
+    "description": ""
+  },
+  {
+    "name": "damage_limit",
+    "description": ""
+  },
+  {
+    "name": "damage_plus_1",
+    "description": ""
+  },
+  {
+    "name": "damage_plus_2",
+    "description": ""
+  },
+  {
+    "name": "damage_plus_3",
+    "description": ""
+  },
+  {
+    "name": "damage_plus_4",
+    "description": ""
+  },
+  {
+    "name": "damage_plus_5",
+    "description": ""
+  },
+  {
+    "name": "damage_plus_x",
+    "description": ""
+  },
+  {
+    "name": "damage_token_manipulation",
+    "description": ""
+  },
+  {
+    "name": "deal_damage_enemy",
+    "description": "Card can deal damage to enemy."
+  },
+  {
+    "name": "deal_damage_investigator",
+    "description": "Card can deal damage to investigator."
+  },
+  {
+    "name": "deck_restriction",
+    "description": "Indicates the card can only be used in a specific investigator's deck."
+  },
+  {
+    "name": "difficulty_check_higher",
+    "description": ""
+  },
+  {
+    "name": "difficulty_check_higher_2",
+    "description": "Works or not depending on test's difficulty."
+  },
+  {
+    "name": "difficulty_decrease",
+    "description": "Can decrease test difficulty, that is not shroud, evade, and fight."
+  },
+  {
+    "name": "difficulty_decrease_evade_2",
+    "description": ""
+  },
+  {
+    "name": "difficulty_decrease_fight",
+    "description": "Can decrease enemy's fight value."
+  },
+  {
+    "name": "difficulty_decrease_fight_2",
+    "description": ""
+  },
+  {
+    "name": "difficulty_increase",
+    "description": "Can decrease test difficulty, that is not shroud, evade, and fight."
+  },
+  {
+    "name": "discard_card_choose",
+    "description": ""
+  },
+  {
+    "name": "discard_card_random",
+    "description": "Effect discard cards from your hand, randomized."
+  },
+  {
+    "name": "discard_deck",
+    "description": ""
+  },
+  {
+    "name": "discard_self",
+    "description": "Somehow can discard itself."
+  },
+  {
+    "name": "discard_treachery",
+    "description": ""
+  },
+  {
+    "name": "discard_zero_uses",
+    "description": "Discard itself when uses count runs out."
+  },
+  {
+    "name": "discount_1",
+    "description": ""
+  },
+  {
+    "name": "discount_2",
+    "description": "Reduce play cost of other cards."
+  },
+  {
+    "name": "discount_3",
+    "description": ""
+  },
+  {
+    "name": "discount_x",
+    "description": ""
+  },
+  {
+    "name": "discover_clue_any_location",
+    "description": ""
+  },
+  {
+    "name": "discover_clue_connecting_location",
+    "description": ""
+  },
+  {
+    "name": "discover_clue_connecting_location_1",
+    "description": ""
+  },
+  {
+    "name": "discover_clue_your_location",
+    "description": ""
+  },
+  {
+    "name": "discover_clue_your_location_1",
+    "description": ""
+  },
+  {
+    "name": "discover_clue_your_location_2",
+    "description": ""
+  },
+  {
+    "name": "disengage",
+    "description": ""
+  },
+  {
+    "name": "disengage_without_exhaust",
+    "description": ""
+  },
+  {
+    "name": "doom_add",
+    "description": "Card can place doom on something."
+  },
+  {
+    "name": "doom_check",
+    "description": ""
+  },
+  {
+    "name": "doom_remove",
+    "description": "Card can remove doom from something."
+  },
+  {
+    "name": "draw_player",
+    "description": "Draw cards from player's deck."
+  },
+  {
+    "name": "draw_player_1",
+    "description": "Draw cards from player's deck."
+  },
+  {
+    "name": "draw_player_2",
+    "description": "Draw cards from player's deck."
+  },
+  {
+    "name": "draw_player_3",
+    "description": "Draw cards from player's deck."
+  },
+  {
+    "name": "draw_replace_self",
+    "description": ""
+  },
+  {
+    "name": "duration_enemy_phase",
+    "description": ""
+  },
+  {
+    "name": "duration_next",
+    "description": "The effect lasts indefinitely until the next something is performed."
+  },
+  {
+    "name": "duration_next_skill_test_this_phase",
+    "description": ""
+  },
+  {
+    "name": "duration_next_skill_test_this_turn",
+    "description": ""
+  },
+  {
+    "name": "duration_until_end_phase",
+    "description": "Effect duration indicator. \"This phase\" can also be tagged with this I think?"
+  },
+  {
+    "name": "duration_until_end_round",
+    "description": "Effect duration indicator."
+  },
+  {
+    "name": "duration_until_end_turn",
+    "description": "Effect duration indicator."
+  },
+  {
+    "name": "effect_increase",
+    "description": "Double or Nothing, Eldritch Inspiration, Grey's Anatomy (heal). Additional damage has its tag."
+  },
+  {
+    "name": "elite_unusable",
+    "description": "Use only on non-Elite."
+  },
+  {
+    "name": "encounter_draw",
+    "description": ""
+  },
+  {
+    "name": "encounter_revelation",
+    "description": ""
+  },
+  {
+    "name": "end_your_turn",
+    "description": "Cause you to end your turn, like Rite of Seeking or Fated cards."
+  },
+  {
+    "name": "enemy_cannot_attack",
+    "description": "Prevents enemies from attacking."
+  },
+  {
+    "name": "enemy_cannot_engage",
+    "description": ""
+  },
+  {
+    "name": "enemy_does_not_ready",
+    "description": ""
+  },
+  {
+    "name": "enemy_manage_defeat",
+    "description": ""
+  },
+  {
+    "name": "enemy_manage_discard",
+    "description": ""
+  },
+  {
+    "name": "enemy_manage_long_exhaust",
+    "description": "Can manage enemies with prolonged exhaustion."
+  },
+  {
+    "name": "enemy_manage_shuffle",
+    "description": ""
+  },
+  {
+    "name": "enemy_value_damage",
+    "description": "Card that can take advantage of how many damage enemy can deal."
+  },
+  {
+    "name": "enemy_value_evade",
+    "description": ""
+  },
+  {
+    "name": "enemy_value_evade_reduction",
+    "description": ""
+  },
+  {
+    "name": "enemy_value_fight",
+    "description": ""
+  },
+  {
+    "name": "enemy_value_fight_reduction",
+    "description": ""
+  },
+  {
+    "name": "enemy_value_horror",
+    "description": "Card that can take advantage of how many horror enemy can deal."
+  },
+  {
+    "name": "engage_effect",
+    "description": "Grants you engages without you having to perform Engage action."
+  },
+  {
+    "name": "engage_enemy",
+    "description": ""
+  },
+  {
+    "name": "engage_none",
+    "description": "Check if you have no engage."
+  },
+  {
+    "name": "engage_not_with_you",
+    "description": "Effect related to something not engaged with you."
+  },
+  {
+    "name": "engage_related",
+    "description": ""
+  },
+  {
+    "name": "engage_with_another",
+    "description": "Effect related to something engaged with others."
+  },
+  {
+    "name": "engage_with_you",
+    "description": "Effect related to checking something engaged with you. Does not include spawn it engage with you."
+  },
+  {
+    "name": "entered_play_this_turn",
+    "description": ""
+  },
+  {
+    "name": "enters_play",
+    "description": "Most enter play benefit are timing_reaction_enters_play. This is for rare cases like Arcane Initiate."
+  },
+  {
+    "name": "exhaust_enemy",
+    "description": "Card can exhaust an enemy outside of Evade or automatic evade."
+  },
+  {
+    "name": "exhaust_self",
+    "description": ""
+  },
+  {
+    "name": "exhausted_enemy",
+    "description": "Check for exhausted status of enemy."
+  },
+  {
+    "name": "exile",
+    "description": "Card can exile itself somewhere in the text."
+  },
+  {
+    "name": "fail_by",
+    "description": ""
+  },
+  {
+    "name": "fail_by_2_or_less",
+    "description": ""
+  },
+  {
+    "name": "fast_play",
+    "description": "\"Fast.\" on assets and events."
+  },
+  {
+    "name": "gain_aloof",
+    "description": ""
+  },
+  {
+    "name": "gain_resource",
+    "description": "For when amount gained varies."
+  },
+  {
+    "name": "gain_resource_1",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_10",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_2",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_3",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_4",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_5",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_6",
+    "description": ""
+  },
+  {
+    "name": "gain_resource_9",
+    "description": ""
+  },
+  {
+    "name": "gain_retaliate",
+    "description": ""
+  },
+  {
+    "name": "growth",
+    "description": "Related to improving the deck. Gaining XP, providing upgrade / purchase advantage, or like Adaptable / Versatile."
+  },
+  {
+    "name": "hand_check_less",
+    "description": "Card requires less than certain amount of cards in hand, or more effective the less cards you have in hand."
+  },
+  {
+    "name": "hand_check_more",
+    "description": "Card requires more than certain amount of cards in hand, or more effective the more cards you have in hand."
+  },
+  {
+    "name": "hand_size_dependent",
+    "description": ""
+  },
+  {
+    "name": "hand_size_increase",
+    "description": ""
+  },
+  {
+    "name": "heal_both",
+    "description": "Possible to heal both damage and horror at the same time."
+  },
+  {
+    "name": "heal_damage",
+    "description": ""
+  },
+  {
+    "name": "heal_damage_ally",
+    "description": "Can target selected Ally and heal out damage from it."
+  },
+  {
+    "name": "heal_horror",
+    "description": ""
+  },
+  {
+    "name": "heal_horror_ally",
+    "description": "Can target selected Ally and heal out horror from it."
+  },
+  {
+    "name": "heal_horror_self",
+    "description": ""
+  },
+  {
+    "name": "heal_horror_soak",
+    "description": "Could renew itself, cannot heal others."
+  },
+  {
+    "name": "horror_limit",
+    "description": ""
+  },
+  {
+    "name": "ignore_aloof",
+    "description": ""
+  },
+  {
+    "name": "ignore_retaliate",
+    "description": ""
+  },
+  {
+    "name": "immediately_play",
+    "description": "Old Book of Lore 3, Ever Vigilant"
+  },
+  {
+    "name": "initiate_test",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_agility_0",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_agility_1",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_agility_3",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_agility_x",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_combat_1",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_combat_3",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect_0",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect_1",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect_2",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect_3",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect_4",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_intellect_x",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_willpower_0",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_willpower_1",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_willpower_2",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_willpower_3",
+    "description": ""
+  },
+  {
+    "name": "initiate_test_willpower_x",
+    "description": ""
+  },
+  {
+    "name": "instead_of_clue",
+    "description": ""
+  },
+  {
+    "name": "investigate_asset_unlimited",
+    "description": ""
+  },
+  {
+    "name": "investigate_while",
+    "description": ""
+  },
+  {
+    "name": "limit_1_in_play",
+    "description": ""
+  },
+  {
+    "name": "limit_1_per_deck",
+    "description": ""
+  },
+  {
+    "name": "limit_1_per_investigator",
+    "description": ""
+  },
+  {
+    "name": "limit_per_test_1",
+    "description": "Including commit limit, or free trigger limit."
+  },
+  {
+    "name": "limit_per_test_3",
+    "description": "Including commit limit, or free trigger limit."
+  },
+  {
+    "name": "location_clue_exist",
+    "description": ""
+  },
+  {
+    "name": "location_clue_zero",
+    "description": ""
+  },
+  {
+    "name": "location_enemy_zero",
+    "description": ""
+  },
+  {
+    "name": "location_range_2",
+    "description": ""
+  },
+  {
+    "name": "location_range_3",
+    "description": ""
+  },
+  {
+    "name": "location_revealed",
+    "description": ""
+  },
+  {
+    "name": "look_at_encounter",
+    "description": ""
+  },
+  {
+    "name": "look_at_investigator",
+    "description": ""
+  },
+  {
+    "name": "lose_action",
+    "description": ""
+  },
+  {
+    "name": "max_1_commit",
+    "description": ""
+  },
+  {
+    "name": "max_per_game_1",
+    "description": "Max once per game."
+  },
+  {
+    "name": "max_per_game_2",
+    "description": "Max twice per game."
+  },
+  {
+    "name": "move_clue",
+    "description": ""
+  },
+  {
+    "name": "move_damage",
+    "description": ""
+  },
+  {
+    "name": "move_enemy_control",
+    "description": "Alters enemy course of movement."
+  },
+  {
+    "name": "move_enemy_displace",
+    "description": "Move the enemy."
+  },
+  {
+    "name": "move_enemy_to_you",
+    "description": ""
+  },
+  {
+    "name": "move_investigator_any",
+    "description": "Effect can help moving investigators other than card's owner."
+  },
+  {
+    "name": "move_investigator_self",
+    "description": "Effect can move the card's owner."
+  },
+  {
+    "name": "no_resource",
+    "description": ""
+  },
+  {
+    "name": "not_aoo",
+    "description": ""
+  },
+  {
+    "name": "once_per_turn",
+    "description": ""
+  },
+  {
+    "name": "order_encounter",
+    "description": "Can reorder encounter deck."
+  },
+  {
+    "name": "order_investigator",
+    "description": "Can reorder investigator deck."
+  },
+  {
+    "name": "permanent",
+    "description": ""
+  },
+  {
+    "name": "phase_mythos",
+    "description": ""
+  },
+  {
+    "name": "phase_mythos_end",
+    "description": ""
+  },
+  {
+    "name": "phase_upkeep",
+    "description": ""
+  },
+  {
+    "name": "play_from_discard_paying_cost",
+    "description": ""
+  },
+  {
+    "name": "play_from_hand_paying_cost",
+    "description": ""
+  },
+  {
+    "name": "play_only_first_action",
+    "description": ""
+  },
+  {
+    "name": "ready_asset",
+    "description": ""
+  },
+  {
+    "name": "ready_enemy",
+    "description": ""
+  },
+  {
+    "name": "redirect_damage",
+    "description": ""
+  },
+  {
+    "name": "reduce_cost",
+    "description": ""
+  },
+  {
+    "name": "reduce_resource_cost",
+    "description": ""
+  },
+  {
+    "name": "remote_commit",
+    "description": ""
+  },
+  {
+    "name": "remote_discover_clue",
+    "description": ""
+  },
+  {
+    "name": "remote_investigate",
+    "description": ""
+  },
+  {
+    "name": "remote_move",
+    "description": ""
+  },
+  {
+    "name": "researched",
+    "description": ""
+  },
+  {
+    "name": "result_attack_fail",
+    "description": ""
+  },
+  {
+    "name": "result_attack_success",
+    "description": "Vicious Blow"
+  },
+  {
+    "name": "result_evade_success",
+    "description": ""
+  },
+  {
+    "name": "result_investigate_success",
+    "description": ""
+  },
+  {
+    "name": "result_test_fail",
+    "description": "Something special occurs when test fails"
+  },
+  {
+    "name": "result_test_success",
+    "description": "Use other more specific result before this one"
+  },
+  {
+    "name": "retaliate_ignore",
+    "description": ""
+  },
+  {
+    "name": "rfg_self",
+    "description": "Remove self from game."
+  },
+  {
+    "name": "scenario_card",
+    "description": "Card effect mentions scenario card."
+  },
+  {
+    "name": "search_discard",
+    "description": ""
+  },
+  {
+    "name": "search_encounter",
+    "description": ""
+  },
+  {
+    "name": "search_player",
+    "description": "Searches the player's deck."
+  },
+  {
+    "name": "self_play_from_hand",
+    "description": ""
+  },
+  {
+    "name": "shroud_dependent",
+    "description": "Effect varies depending on location's shroud value."
+  },
+  {
+    "name": "shroud_minus_1",
+    "description": ""
+  },
+  {
+    "name": "shroud_minus_2",
+    "description": ""
+  },
+  {
+    "name": "shroud_reduction",
+    "description": ""
+  },
+  {
+    "name": "shuffle_encounter",
+    "description": ""
+  },
+  {
+    "name": "shuffle_player",
+    "description": "Cause player deck to shuffle."
+  },
+  {
+    "name": "skill_another_investigator",
+    "description": "Skill card that cares about another investigator (not you)."
+  },
+  {
+    "name": "skill_benefit_performing",
+    "description": "Test performer gets a benefit other than the commit icon."
+  },
+  {
+    "name": "skill_gains_agility",
+    "description": ""
+  },
+  {
+    "name": "skill_gains_combat",
+    "description": ""
+  },
+  {
+    "name": "skill_gains_wild",
+    "description": ""
+  },
+  {
+    "name": "skill_gains_willpower",
+    "description": ""
+  },
+  {
+    "name": "skill_gains_willpower_wild",
+    "description": "Skill card gains additional commit icons in its effect."
+  },
+  {
+    "name": "skill_icons",
+    "description": ""
+  },
+  {
+    "name": "soak_benefit_damage",
+    "description": "Something happen when you soak using the damage side of that card."
+  },
+  {
+    "name": "soak_benefit_horror",
+    "description": "Something happen when you soak using the horror side of that card."
+  },
+  {
+    "name": "soak_conditional",
+    "description": "There are soaks printed on the card, but card text put some rules over using them."
+  },
+  {
+    "name": "soak_damage",
+    "description": ""
+  },
+  {
+    "name": "spawn",
+    "description": ""
+  },
+  {
+    "name": "spend_action",
+    "description": ""
+  },
+  {
+    "name": "spend_ammo",
+    "description": ""
+  },
+  {
+    "name": "spend_resource",
+    "description": ""
+  },
+  {
+    "name": "spend_secret",
+    "description": ""
+  },
+  {
+    "name": "spend_supply",
+    "description": ""
+  },
+  {
+    "name": "stat_add_agility",
+    "description": ""
+  },
+  {
+    "name": "stat_add_agility_for_attack",
+    "description": ""
+  },
+  {
+    "name": "stat_add_agility_for_investigate",
+    "description": ""
+  },
+  {
+    "name": "stat_add_intellect_for_agility",
+    "description": ""
+  },
+  {
+    "name": "stat_add_intellect_for_combat",
+    "description": ""
+  },
+  {
+    "name": "stat_add_intellect_for_evade",
+    "description": ""
+  },
+  {
+    "name": "stat_add_willpower",
+    "description": "Add this stat to the action type's stat."
+  },
+  {
+    "name": "stat_add_willpower_for_attack",
+    "description": ""
+  },
+  {
+    "name": "stat_add_willpower_for_evade",
+    "description": ""
+  },
+  {
+    "name": "stat_add_willpower_for_investigate",
+    "description": ""
+  },
+  {
+    "name": "stat_base_6",
+    "description": "Card can set base stat to a specific number."
+  },
+  {
+    "name": "stat_base_agility_6",
+    "description": "Card can set base stat to a specific number."
+  },
+  {
+    "name": "stat_base_combat_4",
+    "description": ""
+  },
+  {
+    "name": "stat_base_combat_6",
+    "description": "Card can set base stat to a specific number."
+  },
+  {
+    "name": "stat_base_intellect_4",
+    "description": ""
+  },
+  {
+    "name": "stat_base_set",
+    "description": ""
+  },
+  {
+    "name": "stat_from_spent_resource",
+    "description": "Stat pump cards where you get more the more you spent."
+  },
+  {
+    "name": "stat_not_agility",
+    "description": "Indicate this stat is being replaced and no longer used."
+  },
+  {
+    "name": "stat_not_combat",
+    "description": "Indicate this stat is being replaced and no longer used."
+  },
+  {
+    "name": "stat_not_intellect",
+    "description": "Indicate this stat is being replaced and no longer used."
+  },
+  {
+    "name": "stat_use_agility",
+    "description": "Use this stat instead of something else."
+  },
+  {
+    "name": "stat_use_combat",
+    "description": ""
+  },
+  {
+    "name": "stat_use_intellect",
+    "description": "Use this stat instead of something else."
+  },
+  {
+    "name": "stat_use_willpower",
+    "description": "Use this stat instead of something else."
+  },
+  {
+    "name": "succeed_by",
+    "description": "For dynamic succeed by effect"
+  },
+  {
+    "name": "succeed_by_0",
+    "description": ""
+  },
+  {
+    "name": "succeed_by_1",
+    "description": "Succeed by this amount or more."
+  },
+  {
+    "name": "succeed_by_2",
+    "description": "Succeed by this amount or more."
+  },
+  {
+    "name": "succeed_by_3",
+    "description": "Succeed by this amount or more."
+  },
+  {
+    "name": "succeed_by_4",
+    "description": "Succeed by this amount or more."
+  },
+  {
+    "name": "take_action_now",
+    "description": "Such as Quick Thinking, The Stars Are Right"
+  },
+  {
+    "name": "take_damage",
+    "description": "Card user take damage inside the effect."
+  },
+  {
+    "name": "take_horror",
+    "description": "Card user take horror inside the effect."
+  },
+  {
+    "name": "tank_attack",
+    "description": ""
+  },
+  {
+    "name": "tank_damage",
+    "description": "Tank means redirecting damage that would have been assigned to others to you instead."
+  },
+  {
+    "name": "tank_encounter",
+    "description": ""
+  },
+  {
+    "name": "tank_horror",
+    "description": "Tank means redirecting horror that would have been assigned to others to you instead."
+  },
+  {
+    "name": "target_any_asset",
+    "description": "Card works in general way with any card of type asset. (Card such as Extra Ammunition doesn't count as it is trait locked.)"
+  },
+  {
+    "name": "target_any_card",
+    "description": ""
+  },
+  {
+    "name": "target_any_event",
+    "description": "Card works in general way with any card of type event."
+  },
+  {
+    "name": "target_any_skill",
+    "description": "Card works in general way with any card of type skill."
+  },
+  {
+    "name": "test_you_perform",
+    "description": "Can only use with your tests."
+  },
+  {
+    "name": "testless_clue",
+    "description": "Discover clue without any test."
+  },
+  {
+    "name": "testless_damage",
+    "description": "Deals damage without any test."
+  },
+  {
+    "name": "testless_evade",
+    "description": "Automatically evade without any test."
+  },
+  {
+    "name": "timing_action_begins",
+    "description": ""
+  },
+  {
+    "name": "timing_after_commit",
+    "description": ""
+  },
+  {
+    "name": "timing_during_resolution",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_action",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_draw_encounter",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_enemy_attacks",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_enemy_deal_damage",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_evaded",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_fail",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_location_revealed",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_phase_begin",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_after_phase_end",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_chaos_reveal_after",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_chaos_reveal_when",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_dealt_damage",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_dealt_horror",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_defeat_enemy",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_defeated",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_during_any_turn",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_during_any_window",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_during_skill_test",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_during_your_turn",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_enemy_aoo",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_enemy_attacks",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_enemy_phase_begins",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_spawn_your_location",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_taking_turn",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_when_draw_treachery",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_when_fight",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_when_would_succeed",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_would_fail",
+    "description": ""
+  },
+  {
+    "name": "timing_fast_would_succeed",
+    "description": ""
+  },
+  {
+    "name": "timing_first_action",
+    "description": ""
+  },
+  {
+    "name": "timing_forced_enters_location",
+    "description": ""
+  },
+  {
+    "name": "timing_forced_leaves_play",
+    "description": ""
+  },
+  {
+    "name": "timing_forced_spawn_your_location",
+    "description": ""
+  },
+  {
+    "name": "timing_forced_when_take_damage",
+    "description": ""
+  },
+  {
+    "name": "timing_forced_when_take_horror",
+    "description": ""
+  },
+  {
+    "name": "timing_free_during_skill_test",
+    "description": ""
+  },
+  {
+    "name": "timing_free_taking_turn",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_draw",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_enemy_engages",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_evade",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_investigate_success",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_move",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_play",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_skill_test_begins",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_test_fail",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_test_success",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_after_turn_ends",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_before_opening_hand",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_chaos_reveal_after",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_chaos_reveal_would",
+    "description": "Effect timing related to chaos token revealing."
+  },
+  {
+    "name": "timing_reaction_deal_excess_damage",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_defeat_enemy",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_defeated_horror",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_draw_encounter",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_draw_player",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_enemy_deal_damage",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_enemy_deal_horror",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_enters_play",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_location_revealed",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_spawn_your_location",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_turn_begins",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_when_damage_assigned",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_when_discover_clue",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_when_fight",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_when_play",
+    "description": ""
+  },
+  {
+    "name": "timing_reaction_when_revelation",
+    "description": ""
+  },
+  {
+    "name": "timing_skill_chaos_reveal_after",
+    "description": ""
+  },
+  {
+    "name": "timing_skill_successful",
+    "description": ""
+  },
+  {
+    "name": "to_deck_from_commit",
+    "description": ""
+  },
+  {
+    "name": "to_deck_from_discard",
+    "description": ""
+  },
+  {
+    "name": "to_deck_from_hand",
+    "description": ""
+  },
+  {
+    "name": "to_deck_from_play",
+    "description": "Bring back to deck from play."
+  },
+  {
+    "name": "to_hand_from_commit",
+    "description": "Back from commit limbo to hand."
+  },
+  {
+    "name": "to_hand_from_deck",
+    "description": "Use when it says add to hand instead of \"draw\"."
+  },
+  {
+    "name": "to_hand_from_discard",
+    "description": "Take from discard to hand like Scavenging."
+  },
+  {
+    "name": "to_hand_from_play",
+    "description": "Take back to hand from play like Magnifying Glass 1."
+  },
+  {
+    "name": "to_play_from_deck",
+    "description": "Put into play from deck."
+  },
+  {
+    "name": "to_play_from_discard",
+    "description": "Put into play from discard pile."
+  },
+  {
+    "name": "to_play_from_hand",
+    "description": ""
+  },
+  {
+    "name": "trait_ally",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_armor",
+    "description": ""
+  },
+  {
+    "name": "trait_blessed",
+    "description": ""
+  },
+  {
+    "name": "trait_charm",
+    "description": ""
+  },
+  {
+    "name": "trait_clothing",
+    "description": ""
+  },
+  {
+    "name": "trait_composure",
+    "description": ""
+  },
+  {
+    "name": "trait_covenant",
+    "description": ""
+  },
+  {
+    "name": "trait_creature",
+    "description": ""
+  },
+  {
+    "name": "trait_cursed",
+    "description": ""
+  },
+  {
+    "name": "trait_dilemma",
+    "description": ""
+  },
+  {
+    "name": "trait_favor",
+    "description": ""
+  },
+  {
+    "name": "trait_firearm",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_footwear",
+    "description": ""
+  },
+  {
+    "name": "trait_fortune",
+    "description": ""
+  },
+  {
+    "name": "trait_geist",
+    "description": ""
+  },
+  {
+    "name": "trait_hazard",
+    "description": ""
+  },
+  {
+    "name": "trait_humanoid",
+    "description": ""
+  },
+  {
+    "name": "trait_illicit",
+    "description": ""
+  },
+  {
+    "name": "trait_innate",
+    "description": ""
+  },
+  {
+    "name": "trait_insight",
+    "description": ""
+  },
+  {
+    "name": "trait_item",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_mask",
+    "description": ""
+  },
+  {
+    "name": "trait_melee",
+    "description": ""
+  },
+  {
+    "name": "trait_miskatonic",
+    "description": ""
+  },
+  {
+    "name": "trait_monster",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_practiced",
+    "description": ""
+  },
+  {
+    "name": "trait_ranged",
+    "description": ""
+  },
+  {
+    "name": "trait_relic",
+    "description": ""
+  },
+  {
+    "name": "trait_ritual",
+    "description": ""
+  },
+  {
+    "name": "trait_rot",
+    "description": ""
+  },
+  {
+    "name": "trait_science",
+    "description": ""
+  },
+  {
+    "name": "trait_spell",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_spell_asset",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_spirit",
+    "description": ""
+  },
+  {
+    "name": "trait_supply",
+    "description": ""
+  },
+  {
+    "name": "trait_tactic",
+    "description": ""
+  },
+  {
+    "name": "trait_tarot",
+    "description": ""
+  },
+  {
+    "name": "trait_terror",
+    "description": ""
+  },
+  {
+    "name": "trait_tome",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "trait_tool",
+    "description": ""
+  },
+  {
+    "name": "trait_trick",
+    "description": ""
+  },
+  {
+    "name": "trait_unbroken",
+    "description": ""
+  },
+  {
+    "name": "trait_upgrade",
+    "description": ""
+  },
+  {
+    "name": "trait_weapon",
+    "description": "Card support positively to other cards of this trait."
+  },
+  {
+    "name": "transfer_asset",
+    "description": ""
+  },
+  {
+    "name": "transfer_resource",
+    "description": ""
+  },
+  {
+    "name": "unidentified",
+    "description": "Card with Unidentified subtitle."
+  },
+  {
+    "name": "uses_add_ammo",
+    "description": ""
+  },
+  {
+    "name": "uses_add_charge",
+    "description": ""
+  },
+  {
+    "name": "uses_add_secret",
+    "description": ""
+  },
+  {
+    "name": "uses_add_supply",
+    "description": ""
+  },
+  {
+    "name": "uses_manip_charge_spend",
+    "description": ""
+  },
+  {
+    "name": "uses_manip_charge_to_resource",
+    "description": ""
+  },
+  {
+    "name": "uses_manip_secret_to_resource",
+    "description": ""
+  },
+  {
+    "name": "uses_replenish",
+    "description": "Uses that replenish when a condition is met"
+  },
+  {
+    "name": "uses_starting_0",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_1",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_10",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_2",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_3",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_4",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_5",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_6",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_7",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_8",
+    "description": ""
+  },
+  {
+    "name": "uses_starting_9",
+    "description": ""
+  },
+  {
+    "name": "uses_support_charge",
+    "description": ""
+  },
+  {
+    "name": "uses_type_aether",
+    "description": ""
+  },
+  {
+    "name": "uses_type_ammo",
+    "description": ""
+  },
+  {
+    "name": "uses_type_bounties",
+    "description": ""
+  },
+  {
+    "name": "uses_type_charge",
+    "description": ""
+  },
+  {
+    "name": "uses_type_durability",
+    "description": ""
+  },
+  {
+    "name": "uses_type_evidence",
+    "description": ""
+  },
+  {
+    "name": "uses_type_keys",
+    "description": ""
+  },
+  {
+    "name": "uses_type_leylines",
+    "description": ""
+  },
+  {
+    "name": "uses_type_offerings",
+    "description": ""
+  },
+  {
+    "name": "uses_type_resource",
+    "description": ""
+  },
+  {
+    "name": "uses_type_secret",
+    "description": ""
+  },
+  {
+    "name": "uses_type_supply",
+    "description": ""
+  },
+  {
+    "name": "uses_type_time",
+    "description": ""
+  },
+  {
+    "name": "uses_type_tries",
+    "description": ""
+  },
+  {
+    "name": "when_defeated",
+    "description": ""
+  },
+  {
+    "name": "your_location_ally",
+    "description": "Often indicates teamplay feature."
+  },
+  {
+    "name": "your_location_another_investigator",
+    "description": ""
+  },
+  {
+    "name": "your_location_enemy",
+    "description": "Often let you perform testless / engage-less things. "
+  },
+  {
+    "name": "your_location_investigator",
+    "description": "Often indicates teamplay feature."
+  },
+  {
+    "name": "your_location_skill_test",
+    "description": "Card that detects any skill test occuring at your location."
+  }
+]

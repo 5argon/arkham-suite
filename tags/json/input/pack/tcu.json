@@ -1,0 +1,867 @@
+[
+  {
+    "code": "05007",
+    "name": "Hypnotic Therapy",
+    "text": "Carolyn Fern deck only.\n[action] Exhaust Hypnotic Therapy: Test [intellect] (2). If you succeed, heal 1 horror from an investigator at your location. Then, that investigator may draw 1 card.\n[reaction] After one of your other card effects heals horror from an investigator, exhaust Hypnotic Therapy: That effect heals 1 additional horror.",
+    "tags": [
+      "deck_restriction",
+      "cost_action_exhaust_self",
+      "cost_reaction_exhaust_self",
+      "draw_player_1",
+      "initiate_test_intellect_2"
+    ]
+  },
+  {
+    "code": "05009",
+    "name": "Detective's Colt 1911s",
+    "text": "Joe Diamond deck only. Uses (4 ammo).\nUp to 2 [[Tool]] assets you control do not take up hand slots.\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] and deal +1 damage for this attack. If this attack defeats an enemy, you may move an [[Insight]] event from your discard pile to the bottom of your hunch deck.",
+    "tags": [
+      "deck_restriction",
+      "uses_type_ammo",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_1",
+      "damage_plus_1",
+      "trait_insight",
+      "trait_tool"
+    ]
+  },
+  {
+    "code": "05011",
+    "name": "Family Inheritance",
+    "text": "Permanent. Preston Fairmont deck only.\n[action]: Move all resources from this card to your resource pool.\n<b>Forced</b> - When your turn begins: Place 4 resources <i>(from the token pool)</i> on this card. Resources on this card may be spent as if they were in your resource pool. Discard all resources from this card at the end of your turn.",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "05013",
+    "name": "Twilight Blade",
+    "text": "Diana Stanley deck only.\n[action]: <b>Fight.</b>. You may use [willpower] instead of [combat] for this attack.\nYou may play or commit events and skills beneath Diana Stanley as if they were in your hand. As an additional cost to play or commit a card in this way, exhaust Twilight Blade. You cannot trigger Diana Stanley's [reaction] ability while playing or committing a card in this way.",
+    "tags": [
+      "deck_restriction",
+      "bold_fight"
+    ]
+  },
+  {
+    "code": "05014",
+    "name": "Dark Insight",
+    "text": "Diana Stanley deck only.\nFast. Play when an investigator at your location draws an encounter card or a weakness.\nCancel all of that card's effects and shuffle it back into its deck. <i>(Do not draw a new card to replace it.)</i>",
+    "tags": [
+      "deck_restriction",
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05016",
+    "name": "\"I'm done runnin'!\"",
+    "text": "Rita Young deck only.\nFast. Play only during your turn.\nReady and engage all enemies at your location. For the remainder of your turn, whenever you evade an enemy, instead of exhausting and disengaging from that enemy, you may deal it 1 damage. <i>(All other effects of the successful evasion still apply.)</i>",
+    "tags": [
+      "deck_restriction",
+      "fast_play",
+      "timing_fast_during_your_turn"
+    ]
+  },
+  {
+    "code": "05018",
+    "name": "Mystifying Song",
+    "text": "Marie Lambeau deck only.\nFast. Play when the agenda would advance by reaching its doom threshold.\nUntil the end of the phase, the agenda cannot advance by reaching its doom threshold. Remove Mystifying Song from the game.",
+    "tags": [
+      "deck_restriction",
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05020",
+    "name": "Interrogate",
+    "text": "<b>Parley.</b> Choose a [[Humanoid]] enemy at your location and test [combat] (3). This test gets +X difficulty, where X is the chosen enemy's damage value. If you succeed, discover 1 clue at your location and 1 clue at any other location.",
+    "tags": [
+      "bold_parley",
+      "initiate_test_combat_3",
+      "trait_humanoid"
+    ]
+  },
+  {
+    "code": "05021",
+    "name": "Delay the Inevitable",
+    "text": "Fast. Play only during your turn. Attach to an investigator at your location, under his or her control.\n[reaction] When you are dealt damage and/or horror: Discard Delay the Inevitable and cancel all damage and/or horror just dealt.\n<b>Forced</b> - When the mythos phase ends: You must either spend 2 resources or discard Delay the Inevitable.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn"
+    ]
+  },
+  {
+    "code": "05022",
+    "name": "Steadfast",
+    "text": "While you have 5 or more total remaining health and sanity, Steadfast gains [willpower] [combat] (while you have 10 or more total remaining health and sanity, Steadfast gains [willpower] [willpower] [combat] [combat], instead).",
+    "tags": []
+  },
+  {
+    "code": "05023",
+    "name": "Ace of Swords",
+    "text": "You get +1 [combat].\n[reaction] When the game begins, if Ace of Swords is in your opening hand: Put it into play.",
+    "tags": [
+      "boost_combat_1"
+    ]
+  },
+  {
+    "code": "05024",
+    "name": "Fingerprint Kit",
+    "text": "Uses (3 supplies).\n[action] Exhaust Fingerprint Kit and spend 1 supply: <b>Investigate.</b> You get +1 [intellect] for this investigation. If you succeed, you discover 1 additional clue at your location.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "bold_investigate",
+      "boost_intellect_1",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "05025",
+    "name": "Connect the Dots",
+    "text": "Fast. Play after you discover the last clue at your location.\nDiscover 2 clues at a location with a lower printed shroud value than your location.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05026",
+    "name": "Curiosity",
+    "text": "While you have 4 or more cards in hand, Curiosity gains [willpower] [intellect] (while you have 7 or more cards in hand, Curiosity gains [willpower] [willpower] [intellect] [intellect], instead).",
+    "tags": []
+  },
+  {
+    "code": "05027",
+    "name": "Death • XIII",
+    "text": "You get +1 [intellect].\n[reaction] When the game begins, if Death • XIII is in your opening hand: Put it into play.",
+    "tags": [
+      "boost_intellect_1"
+    ]
+  },
+  {
+    "code": "05028",
+    "name": "Well Connected",
+    "text": "Limit 1 per investigator.\n[fast] Exhaust Well Connected: You get +1 skill value for this skill test for every 5 resources you have.",
+    "tags": [
+      "limit_1_per_investigator"
+    ]
+  },
+  {
+    "code": "05029",
+    "name": "Money Talks",
+    "text": "Fast. Play when you initiate a skill test.\nInstead of the skill type indicated for this test ([willpower], [intellect], [combat], or [agility]), this is a resource skill test. Your base skill value for this test is equal to half the number of resources in your resource pool (rounded down).",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05030",
+    "name": "Cunning",
+    "text": "While you have 5 or more resources, Cunning gains [intellect] [agility] (while you have 10 or more resources, Cunning gains [intellect] [intellect] [agility] [agility], instead).",
+    "tags": []
+  },
+  {
+    "code": "05031",
+    "name": "The Moon • XVIII",
+    "text": "You get +1 [agility].\n[reaction] When the game begins, if The Moon • XVIII is in your opening hand: Put it into play.",
+    "tags": [
+      "boost_agility_1"
+    ]
+  },
+  {
+    "code": "05032",
+    "name": "Deny Existence",
+    "text": "Fast. Play when an encounter card or an enemy attack would cause you to do one of the following (choose one): Discard cards from hand, lose resources, lose actions, take damage, or take horror.\nYou ignore that aspect of the effect. <i>(Each other aspect resolves normally.)</i>",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05033",
+    "name": "Eldritch Inspiration",
+    "text": "Fast. Play when you would resolve an effect on a [mystic] card that triggers \"when,\" \"if,\" or \"after\" a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed.\nEither cancel that effect, or resolve it an additional time.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "05034",
+    "name": "Prophesy",
+    "text": "While there are 3 or more doom in play, Prophesy gains [wild] (while there are 6 or more doom in play, Prophesy gains [wild] [wild], instead).",
+    "tags": []
+  },
+  {
+    "code": "05035",
+    "name": "Four of Cups",
+    "text": "You get +1 [willpower].\n[reaction] When the game begins, if Four of Cups is in your opening hand: Put it into play.",
+    "tags": [
+      "boost_willpower_1"
+    ]
+  },
+  {
+    "code": "05036",
+    "name": "Track Shoes",
+    "text": "Limit 1 [[Footwear]] per investigator.\nYou get +1 [agility].\n[reaction] After you move, but before enemies at your new location engage you, exhaust Track Shoes: Test [agility] (3). If you succeed, move to a connecting location.",
+    "tags": [
+      "boost_agility_1",
+      "cost_reaction_exhaust_self",
+      "initiate_test_agility_3",
+      "trait_footwear"
+    ]
+  },
+  {
+    "code": "05037",
+    "name": "Act of Desperation",
+    "text": "As an additional cost to play Act of Desperation, choose and discard an [[Item]] asset that takes up at least 1 hand slot from your hand or play area.\n<b>Fight.</b> You get +X [combat] and deal +1 damage for this attack, where X is the chosen asset's printed resource cost. If you succeed and that asset was in your play area, gain X resources.",
+    "tags": [
+      "bold_fight",
+      "damage_plus_1",
+      "trait_item"
+    ]
+  },
+  {
+    "code": "05038",
+    "name": "Able Bodied",
+    "text": "While you control 2 or fewer [[Item]] assets, Able Bodied gains [combat] [agility] (while you control 1 or fewer [[Item]] assets, Able Bodied gains [combat] [combat] [agility] [agility], instead).",
+    "tags": [
+      "trait_item"
+    ]
+  },
+  {
+    "code": "05039",
+    "name": "Five of Pentacles",
+    "text": "You get +1 health and +1 sanity.\n[reaction] When the game begins, if Five of Pentacles is in your opening hand: Put it into play.",
+    "tags": []
+  },
+  {
+    "code": "05040",
+    "name": "Ace of Rods",
+    "text": "[fast] During your turn, remove Ace of Rods from the game: You may take an additional action this turn, during which you get +2 to each of your skills.\n[reaction] When the game begins, if Ace of Rods is in your opening hand: Put it into play.",
+    "tags": []
+  },
+  {
+    "code": "05109",
+    "name": "Something Worth Fighting For",
+    "text": "Something Worth Fighting For may be assigned horror dealt to other investigators at your location.",
+    "tags": []
+  },
+  {
+    "code": "05110",
+    "name": "Crack the Case",
+    "text": "Fast. Play after an investigator discovers the last remaining clue at your location.\nInvestigators at that location gain a total of X resources, distributed as you wish. X is that location's shroud value.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05111",
+    "name": "Intel Report",
+    "text": "Discover 1 clue at your location.\n[reaction] When you play Intel Report, increase its cost by 2: Change \"Discover 1 clue\" to \"Discover 2 clues.\"\n[reaction] When you play Intel Report, increase its cost by 2: Change \"at your location\" to \"at a location up to 2 connections away.\"",
+    "tags": []
+  },
+  {
+    "code": "05112",
+    "name": "Sign Magick",
+    "text": "Fast.\nYou have 1 additional arcane slot, which can only be used to hold a [[Spell]] or [[Ritual]] asset.",
+    "tags": [
+      "fast_play",
+      "trait_ritual",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "05113",
+    "name": "Banish",
+    "text": "<b>Evade.</b> Use only on a non-[[Elite]] enemy. This evasion attempt uses [willpower] instead of [agility]. If you succeed, move the enemy just evaded to any location in play. If you succeed and a [skull], [cultist], [tablet], or [elder_thing] symbol was revealed during this evasion attempt, that enemy does not ready during the next upkeep phase.",
+    "tags": [
+      "bold_evade",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "05114",
+    "name": "Meat Cleaver",
+    "text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack (+2 [combat] instead if you have 3 or fewer remaining sanity). If this attack defeats an enemy, you may heal 1 horror. As an additional cost to initiate this ability, you may take 1 horror to have this attack deal +1 damage.",
+    "tags": [
+      "bold_fight",
+      "boost_combat_1",
+      "boost_combat_2",
+      "damage_plus_1",
+      "take_horror"
+    ]
+  },
+  {
+    "code": "05115",
+    "name": ".45 Thompson",
+    "text": "Uses (5 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "05116",
+    "name": "Scroll of Secrets",
+    "text": "Uses (3 secrets).\n[action] Exhaust Scroll of Secrets and spend 1 secret: Look at the bottom card of any investigator's deck or the encounter deck. Then, either discard that card, add it to its owner's hand, place it on the bottom of its deck, or place it on the top of its deck.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "05117",
+    "name": "Tennessee Sour Mash",
+    "text": "Uses (2 supplies).\n[fast] Exhaust Tennessee Sour Mash and spend 1 supply: You get +2 [willpower] for a skill test on a treachery card.\n[action] Discard Tennessee Sour Mash: <b>Fight.</b> You get +3 [combat] for this attack.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_2",
+      "bold_fight",
+      "boost_combat_3",
+      "boost_willpower_2"
+    ]
+  },
+  {
+    "code": "05118",
+    "name": "Enchanted Blade",
+    "text": "Uses (3 charges).\n[action]: <b>Fight.</b> You get +1 [combat] for this attack. As an additional cost to initiate this ability, you may spend 1 charge to empower the blade. If you do, you get +1 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_1",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "05119",
+    "name": "Grisly Totem",
+    "text": "[reaction] After you commit a card to a skill test, exhaust Grisly Totem: That card gains another instance of one of its skill icons of your choice.",
+    "tags": [
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "05151",
+    "name": "Alice Luxley",
+    "text": "You get +1 [intellect].\n[reaction] After you discover a clue, exhaust Alice Luxley: Deal 1 damage to an enemy at your location.",
+    "tags": [
+      "boost_intellect_1",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "05152",
+    "name": "Well-Maintained",
+    "text": "Fast. Play only during your turn.\nAttach to an [[Item]] asset you control. Limit 1 per asset.\n[reaction] After attached asset is discarded: Return it to its owner's hand, along with each other [[Upgrade]] attachment that was attached to it.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "trait_item",
+      "trait_upgrade"
+    ]
+  },
+  {
+    "code": "05153",
+    "name": "Mr. \"Rook\"",
+    "text": "Uses (3 secrets).\n[free] Exhaust Mr. \"Rook\" and spend 1 secret: Search the top 3, 6, or 9 cards of your deck for any card and draw it. If at least 1 weakness is among the searched cards, draw 1 of them, as well. Shuffle your deck.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "05154",
+    "name": "Hawk-Eye Folding Camera",
+    "text": "[reaction] After the last clue is discovered from your location: Place 1 resource <i>(from the token pool)</i> on this card, as evidence. (Limit once per game at each location.)\nWhile Hawk-Eye Folding Camera has ...\n- ... 1 or more evidence, you get +1 [willpower].\n- ... 2 or more evidence, you get +1 [intellect].\n- ... 3 or more evidence, you get +1 sanity.",
+    "tags": [
+      "boost_intellect_1",
+      "boost_willpower_1"
+    ]
+  },
+  {
+    "code": "05155",
+    "name": "Henry Wan",
+    "text": "[action] Exhaust Henry Wan: One at a time, reveal random tokens from the chaos bag until you choose to stop, or until you reveal a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\n- If you chose to stop, for each token revealed via this effect, you may either draw 1 card or gain 1 resource.\n- If you revealed a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, do nothing.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "cost_action_exhaust_self",
+      "draw_player_1",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "05156",
+    "name": "Swift Reflexes",
+    "text": "Fast. Play during any investigator's turn, except during an action.\nImmediately take an action as if it were your turn. This action does not count toward the number of actions you can take each turn.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05157",
+    "name": "Wither",
+    "text": "[action]: <b>Fight.</b> This attack uses [willpower] instead of [combat]. If a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during this attack, the attacked enemy gets -1 fight and -1 evade for the remainder of the turn (to a minimum of 1).",
+    "tags": [
+      "bold_fight",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "05158",
+    "name": "Sixth Sense",
+    "text": "[action]: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. If a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during this test, you may choose a revealed location connected to your location; you are now investigating as if you were at the chosen location instead of your location (you may use either shroud value).",
+    "tags": [
+      "bold_investigate",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "05159",
+    "name": "Drawing Thin",
+    "text": "[reaction] When you initiate a skill test, exhaust Drawing Thin: Increase the difficulty of this skill test by 2. Gain 2 resources or draw 1 card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player_1",
+      "gain_resource_2"
+    ]
+  },
+  {
+    "code": "05160",
+    "name": "Belly of the Beast",
+    "text": "Fast. Play after you successfully evade an enemy by 2 or more.\nDiscover 1 clue at that enemy's location.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05186",
+    "name": ".45 Thompson",
+    "text": "Uses (5 ammo).\nAmmo spent from .45 Thompson is placed in your resource pool, as resources.\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "05187",
+    "name": ".45 Thompson",
+    "text": "Uses (5 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack. If you succeed by at least X, you may spend 1 ammo to deal this attack's damage to another enemy at your location, where X is that enemy's fight value.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "05188",
+    "name": "Scroll of Secrets",
+    "text": "Uses (3 secrets).\n[action] Exhaust Scroll of Secrets and spend 1 secret: Look at the bottom 3 cards of any investigator's deck or the encounter deck. You may discard 1 of those cards. You may add 1 of those cards to its owner's hand. Place the rest of those cards on either the top or bottom of their deck, in any order.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "05189",
+    "name": "Scroll of Secrets",
+    "text": "Uses (4 secrets).\n[action] Exhaust Scroll of Secrets and spend 1 secret: Look at the top or bottom card of any investigator's deck or the encounter deck. Then, either discard that card, add it to its owner's hand, place it on the bottom of its deck, or place it on top of its deck.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "05190",
+    "name": "Tennessee Sour Mash",
+    "text": "Fast. Uses (2 supplies).\n[fast] Exhaust Tennessee Sour Mash and spend 1 supply: You get +3 [willpower] for a skill test on a treachery card.\n[action] Discard Tennessee Sour Mash: <b>Fight.</b> You get +3 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "fast_play",
+      "uses_type_supply",
+      "uses_starting_2",
+      "bold_fight",
+      "boost_combat_3",
+      "boost_willpower_3",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "05191",
+    "name": "Tennessee Sour Mash",
+    "text": "Uses (3 supplies).\n[fast] Exhaust Tennessee Sour Mash and spend 1 supply: You get +2 [willpower] for a skill test on a treachery card.\n[action] Discard Tennessee Sour Mash: <b>Fight.</b> You get +3 [combat] for this attack. If this attack succeeds against a non-[[Elite]] enemy, automatically evade it.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_3",
+      "boost_willpower_2",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "05192",
+    "name": "Enchanted Blade",
+    "text": "Uses (3 charges).\n[action]: <b>Fight.</b> You get +2 [combat] for this attack. If you succeed, you may spend 1 charge to empower the blade, dealing +1 damage for this attack. If the blade is empowered and this attack defeats an enemy, draw 1 card and heal 1 horror.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "05193",
+    "name": "Enchanted Blade",
+    "text": "Uses (4 charges).\n[action]: <b>Fight.</b> You get +2 [combat] for this attack. As an additional cost to use this ability, you may spend up to 2 charges to empower the blade (for each charge spent in this way, you get +1 [combat] and deal +1 damage for this attack).",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_1",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "05194",
+    "name": "Grisly Totem",
+    "text": "[reaction] After you commit a card to a skill test, exhaust Grisly Totem: That card gains another instance of one of its skill icons of your choice. If that skill test is successful, the performing investigator draws 1 card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "05195",
+    "name": "Grisly Totem",
+    "text": "[reaction] After you commit a card to a skill test, exhaust Grisly Totem: That card gains another instance of one of its skill icons of your choice. If that skill test fails, return that card to your hand.",
+    "tags": [
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "05196",
+    "name": "The Council's Coffer",
+    "text": "Uses (1 [per_investigator] locks). If there are no locks on The Council's Coffer, each investigator searches his or her deck or discard pile for any card and immediately plays it at no cost. Exile The Council's Coffer. (Max once per campaign.)\n[action] [action]: Test any skill (5). If you succeed, remove 1 lock. Any investigator at your location may activate this ability.\n<b>Card design by The Council at Arkham Nights 2017.</b>",
+    "tags": [
+      "cost_action_multiple"
+    ]
+  },
+  {
+    "code": "05229",
+    "name": "Warning Shot",
+    "text": "As an additional cost to play Warning Shot, spend 1 ammo from a [[Firearm]] asset you control.\nMove all non-[[Elite]] enemies at your location to a connecting location. This action does not provoke attacks of opportunity.",
+    "tags": [
+      "elite_unusable",
+      "trait_firearm"
+    ]
+  },
+  {
+    "code": "05230",
+    "name": "Telescopic Sight",
+    "text": "Fast. Attach to a [[Firearm]] asset you control that takes up two hand slots. Attached asset cannot be used to attack enemies engaged with you.\n[reaction] When you perform a <b>Fight</b> action using attached asset, if you are engaged with no enemies, exhaust Telecopic Sight: This attack can target a non-[[Elite]] enemy at a connecting location. Ignore the aloof and retaliate keywords for this attack.",
+    "tags": [
+      "fast_play",
+      "cost_reaction_exhaust_self",
+      "elite_unusable",
+      "engage_with_you",
+      "trait_firearm"
+    ]
+  },
+  {
+    "code": "05231",
+    "name": "Knowledge is Power",
+    "text": "Fast. Play only during your turn.\nChoose a [[Tome]] or [[Spell]] asset you control, or reveal a [[Tome]] or [[Spell]] asset from your hand. Resolve an [action] or [free] ability on that asset, ignoring all costs <i>(including its [action] cost, if any)</i>. Then, if that asset was in your hand, you may discard it to draw 1 card.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "draw_player_1",
+      "trait_spell",
+      "trait_tome"
+    ]
+  },
+  {
+    "code": "05232",
+    "name": "Esoteric Atlas",
+    "text": "Uses (4 secrets).\n[action] Spend 1 secret and exhaust Esoteric Atlas: Choose a revealed location that is exactly 2 connections away from your location. Move to that location.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "05233",
+    "name": "Investments",
+    "text": "Uses (0 supplies). Limit 10 supplies on Investments.\n[free] Exhaust Investments: Place 1 supply on it.\n[action] Exhaust and discard Investments: Move all supplies from it to your resource pool, as resources.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_0",
+      "cost_action_exhaust_self",
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "05234",
+    "name": "Decoy",
+    "text": "<b>Evade.</b> Automatically evade a non-[[Elite]] enemy at your location.\n[reaction] When you play Decoy, increase its cost by 2: Change \"a non-[[Elite]] enemy\" to \"up to 2 non-[[Elite]] enemies.\"\n[reaction] When you play Decoy, increase its cost by 2: Change \"at your location\" to \"at a location up to 2 connections away.\"",
+    "tags": [
+      "bold_evade",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "05235",
+    "name": "De Vermis Mysteriis",
+    "text": "[action] Exhaust De Vermis Mysteriis and place 1 doom on it: Play a [[Spell]] or [[Insight]] event from your discard pile, reducing its resource cost by 1. After that event resolves, remove it from the game.",
+    "tags": [
+      "cost_action_exhaust_self",
+      "trait_insight",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "05236",
+    "name": "Guiding Spirit",
+    "text": "You get +1 [intellect].\nNon-direct horror must be assigned to Guiding Spirit before it can be assigned to your investigator card.\n<b>Forced</b> - When Guiding Spirit is defeated by horror: Exile it.",
+    "tags": [
+      "boost_intellect_1"
+    ]
+  },
+  {
+    "code": "05237",
+    "name": "Fortune or Fate",
+    "text": "Fast. Play when doom would be placed on any scenario card.\nMax 1 per game.\nCancel 1 doom just placed on that card. Exile Fortune or Fate.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05273",
+    "name": "Mk 1 Grenades",
+    "text": "Uses (3 supplies). If Mk 1 Grenades has no supplies, discard it.\n[action] Spend 1 supply: <b>Fight.</b> You get +2 [combat] for this attack. If this attack is successful, instead of its standard damage, this attack deals 2 damage to each enemy and each other investigator at the attacked enemy's location <i>(any additional damage is dealt to the attacked enemy).</i>",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_2",
+      "discard_zero_uses"
+    ]
+  },
+  {
+    "code": "05274",
+    "name": "Agency Backup",
+    "text": "Agency Backup may be assigned damage and/or horror dealt to other investigators at your location.\n[free] Exhaust Agency Backup and deal 1 damage to it: Deal 1 damage to an enemy at your location.\n[free] Exhaust Agency Backup and deal 1 horror to it: Discover 1 clue at your location.",
+    "tags": [
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "05275",
+    "name": "Ghastly Revelation",
+    "text": "Discover 3 clues at your location. Give any number of your clues to another investigator, or place any number of your clues on any location. You are defeated and suffer 1 mental trauma. This action does not provoke attacks of opportunity.",
+    "tags": []
+  },
+  {
+    "code": "05276",
+    "name": "Studious",
+    "text": "Permanent.\nYou begin each game with 1 additional card in your opening hand.",
+    "tags": []
+  },
+  {
+    "code": "05277",
+    "name": "Small Favor",
+    "text": "Deal 1 damage to a non-[[Elite]] enemy at your location.\n[reaction] When you play Small Favor, increase its cost by 2: Change \"Deal 1 damage\" to \"Deal 2 damage.\"\n[reaction] When you play Small Favor, increase its cost by 2: Change \"at your location\" to \"at a location up to 2 connections away.\"",
+    "tags": [
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "05278",
+    "name": "Another Day, Another Dollar",
+    "text": "Permanent.\nYou begin each game with 2 additional resources.",
+    "tags": []
+  },
+  {
+    "code": "05279",
+    "name": "Dayana Esperence",
+    "text": "Uses (3 secrets).\n[free]: Attach a non-weakness [[Spell]] event from your hand to Dayana Esperence. Limit 1 event attached to her.\nThe attached event may be played as if it were in your hand. It is not placed in your discard pile after it is played <i>(it remains attached)</i>. As an additional cost to play the attached event, exhaust Dayana Esperence and spend 1 secret.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "05280",
+    "name": "Deny Existence",
+    "text": "Fast. Play when an encounter card or enemy attack would cause you to do one of the following (choose one): Discard cards from hand, lose resources, lose actions, take damage, or take horror.\nYou ignore that aspect of the effect. Then, perform the opposite of that aspect (draw cards, gain resources, gain additional actions, heal damage, or heal horror, respectively).",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05281",
+    "name": "Trial by Fire",
+    "text": "Fast. Play only during your turn.\nChoose one of your skills. Until the end of your turn, set the base value of that skill to 5.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn"
+    ]
+  },
+  {
+    "code": "05282",
+    "name": "Bait and Switch",
+    "text": "Either (choose one):\n- <b>Evade.</b> If you succeed and the enemy is non-[[Elite]], evade the enemy and move it to a connecting location.\n- <b>Evade.</b> Use only on a non-[[Elite]] enemy at a connecting location. If you succeed, evade that enemy and switch locations with it.",
+    "tags": [
+      "bold_evade",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "05283",
+    "name": "Anna Kaslow",
+    "text": "You have 2 additional tarot slots.\n[reaction] When the game begins, if Anna Kaslow is in your opening hand: Put her into play.\n[reaction] After Anna Kaslow enters play: Search your deck for a [[Tarot]] asset and put it into play.",
+    "tags": [
+      "trait_tarot"
+    ]
+  },
+  {
+    "code": "05313",
+    "name": "Hallowed Mirror",
+    "text": "Limit 1 per deck.\n<b>Forced</b> - After Hallowed Mirror enter play: Search your bonded cards for 3 copies of Soothing Melody. Add 1 to your hand and shuffle the other 2 into your deck. When Hallowed Mirror leaves play, find each of those copies of Soothing Melody (<i>even if they are out of play</i>) and set them aside, out of play.",
+    "tags": [
+      "limit_1_per_deck"
+    ]
+  },
+  {
+    "code": "05314",
+    "name": "Soothing Melody",
+    "text": "Bonded (Hallowed Mirror).\nHeal 2 damage or 2 horror (or any combination thereof) from among investigators and/or [[Ally]] assets at your location. Draw 1 card.",
+    "tags": [
+      "draw_player_1",
+      "trait_ally"
+    ]
+  },
+  {
+    "code": "05315",
+    "name": "\"I've had worse…\"",
+    "text": "Fast. Play when you are dealt damage and/or horror.\nCancel up to 2 damage and/or horror just dealt to you. Then, gain that many resources.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "05316",
+    "name": "Occult Lexicon",
+    "text": "Limit 1 per deck.\n<b>Forced</b> - After Occult Lexicon enters play: Search your bonded cards for 3 copies of Blood-Rite. Add 1 to your hand and shuffle the other 2 into your deck. When Occult Lexicon leaves play, find each of those copies of Blood-Rite (even if they are out of play) and set them aside, out of play.",
+    "tags": [
+      "limit_1_per_deck"
+    ]
+  },
+  {
+    "code": "05317",
+    "name": "Blood-Rite",
+    "text": "Bonded (Occult Lexicon).\nDraw 2 cards. Discard up to 2 cards from your hand. For each card thusly discarded, you may either gain 1 resource, or spend 1 resource to deal 1 damage to an enemy at your location. This action does not provoke attacks of opportunity.",
+    "tags": [
+      "draw_player_2",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "05318",
+    "name": "Glimpse the Unthinkable",
+    "text": "Shuffle any number of non-weakness cards from your hand into your deck. Draw cards until you reach your maximum hand-size. Remove Glimpse the Unthinkable from the game.",
+    "tags": []
+  },
+  {
+    "code": "05319",
+    "name": "\"You owe me one!\"",
+    "text": "Look at another investigator's hand. You may play a non-weakness card in that investigator's hand, under your control. If you do, you and that investigator each draw 1 card.",
+    "tags": [
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "05320",
+    "name": "Double, Double",
+    "text": "Exceptional.\n[reaction] After you play an event, exhaust Double, Double: Play that event again as if it were in your hand.",
+    "tags": [
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "05321",
+    "name": "Wither",
+    "text": "[action]: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] for this attack. If a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade for the remainder of the turn (to a minimum of 1).",
+    "tags": [
+      "bold_fight",
+      "boost_willpower_2",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "05322",
+    "name": "Sixth Sense",
+    "text": "[action]: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this investigation. If a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during this test, you may choose a revealed location up to 2 connections away from your current location; you are now investigating as if you were at the chosen location in addition to your location (you may use either shroud value).",
+    "tags": [
+      "bold_investigate",
+      "boost_willpower_2",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "05323",
+    "name": "Lure",
+    "text": "Attach to your location or to a connecting location.\nDuring the enemy phase, each enemy that moves does so along the shortest path toward the attached location, instead of to where it would normally move.\n <b>Forced</b> - While attached, at the end of the round: Discard Lure. ",
+    "tags": []
+  },
+  {
+    "code": "05324",
+    "name": "Eucatastrophe",
+    "text": "Fast. Play when you reveal a chaos token that would reduce your skill value to 0 during a skill test (including the [auto_fail] token).\nCancel that token and treat it as an [elder_sign] token, instead.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_elder_sign"
+    ]
+  }
+]

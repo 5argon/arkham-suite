@@ -1,0 +1,1067 @@
+[
+  {
+    "code": "04006",
+    "name": "Mitch Brown",
+    "text": "Leo Anderson deck only.\nYou have 2 additional ally slots, which can only be used to hold non-unique allies.",
+    "tags": [
+      "deck_restriction",
+      "additional_slot",
+      "additional_slot_ally"
+    ]
+  },
+  {
+    "code": "04008",
+    "name": "Jake Williams",
+    "text": "Ursula Downs deck only.\nThe first move or investigate action you perform each turn does not provoke attacks of opportunity.\n[reaction] After you reveal a location or put a new location into play, exhaust Jake Williams: Draw 1 card.",
+    "tags": [
+      "deck_restriction",
+      "cost_reaction_exhaust_self",
+      "draw_player_1",
+      "location_revealed",
+      "not_aoo"
+    ]
+  },
+  {
+    "code": "04010",
+    "name": "Smuggled Goods",
+    "text": "Finn Edwards deck only.\nPlay only if there are no ready enemies at your location.\nSearch either your discard pile or the top 9 cards of your deck for an [[Illicit]] card and draw it. If you searched your deck, shuffle Smuggled Goods into your deck.",
+    "tags": [
+      "deck_restriction",
+      "search_player",
+      "shuffle_player",
+      "trait_illicit"
+    ]
+  },
+  {
+    "code": "04011",
+    "name": "Finn's Trusty .38",
+    "text": "Finn Edwards deck only. Fast. Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If the attacked enemy is not engaged with you, you deal +1 damage for this attack.",
+    "tags": [
+      "deck_restriction",
+      "fast_play",
+      "uses_type_ammo",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1",
+      "engage_not_with_you"
+    ]
+  },
+  {
+    "code": "04013",
+    "name": "The Codex of Ages",
+    "text": "Father Mateo deck only. Seal ([elder_sign]).\nYou get +1 [willpower] while there is a token sealed here.\n[reaction] When you would reveal a chaos token from the chaos bag, discard The Codex of Ages: Resolve the [elder_sign] token that was sealed here as if it were just revealed from the chaos bag <i>(instead of revealing a token from the chaos bag)</i>.",
+    "tags": [
+      "deck_restriction",
+      "boost_willpower_1",
+      "chaos_reveal_token_elder_sign",
+      "chaos_seal_token_elder_sign",
+      "cost_reaction_discard_self",
+      "timing_reaction_chaos_reveal_would"
+    ]
+  },
+  {
+    "code": "04015",
+    "name": "Until the End of Time",
+    "text": "Calvin Wright deck only.\nDirect damage and direct horror may be assigned to Until the End of Time.",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "04017",
+    "name": "Survival Knife",
+    "text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack.\n[reaction] After an enemy attack deals damage to you during the enemy phase, exhaust Survival Knife: <b>Fight.</b> This attack targets the attacking enemy. You get +2 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "bold_fight",
+      "boost_combat_1",
+      "boost_combat_2",
+      "cost_reaction_exhaust_self",
+      "damage_plus_1",
+      "timing_reaction_enemy_deal_damage"
+    ]
+  },
+  {
+    "code": "04018",
+    "name": "Venturer",
+    "text": "Uses (3 supplies).\n[free] Spend 1 supply and exhaust Venturer: Place 1 supply or ammo on an asset controlled by an investigator at your location.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "cost_fast_exhaust_self",
+      "spend_supply",
+      "uses_add_ammo",
+      "uses_add_supply",
+      "your_location_investigator"
+    ]
+  },
+  {
+    "code": "04019",
+    "name": "Trusted",
+    "text": "Fast. Play only during your turn.\nAttach to an [[Ally]] asset you control.\nAttached asset gets +1 health and +1 sanity.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "attach_asset",
+      "trait_ally"
+    ]
+  },
+  {
+    "code": "04020",
+    "name": "Reliable",
+    "text": "Fast. Play only during your turn.\nAttach to an [[Item]] asset you control.\nWhile resolving a triggered ability on attached asset, you get +1 to each of your skills.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "attach_asset",
+      "boost_agility_1_passive",
+      "boost_agility_1_passive",
+      "boost_combat_1_passive",
+      "boost_willpower_1_passive",
+      "trait_item"
+    ]
+  },
+  {
+    "code": "04021",
+    "name": "Dr. Elli Horowitz",
+    "text": "[reaction] After Dr. Elli Horowitz enters play: Search the top 9 cards of your deck for a [[Relic]] asset and attach it to her. Shuffle your deck.\nEach [[Relic]] asset attached to Dr. Elli Horowitz does not take up any slots <i>(it is still considered to be in play and under your control)</i>.",
+    "tags": [
+      "search_player",
+      "shuffle_player",
+      "timing_reaction_enters_play",
+      "trait_relic"
+    ]
+  },
+  {
+    "code": "04022",
+    "name": "Ancient Stone",
+    "text": "[action]: <b>Investigate.</b> Your location gets +3 shroud for this investigation. If you succeed, discover 1 additional clue at your location, discard Ancient Stone, and record in your Campaign Log that \"you have identified the stone.\" Next to this, in parentheses, record the difficulty of this skill test.",
+    "tags": [
+      "unidentified",
+      "additional_clue_1",
+      "bold_investigate",
+      "discard_self",
+      "shroud_dependent"
+    ]
+  },
+  {
+    "code": "04023",
+    "name": "Tooth of Eztli",
+    "text": "You get +1 [willpower] and +1 [agility] while resolving an ability on a treachery card.\n[reaction] After you succeed at a skill test while resolving an ability on a treachery card, exhaust Tooth of Eztli: Draw 1 card.",
+    "tags": [
+      "boost_agility_1",
+      "boost_willpower_1",
+      "cost_reaction_exhaust_self",
+      "draw_player_1",
+      "result_test_success"
+    ]
+  },
+  {
+    "code": "04024",
+    "name": "Unearth the Ancients",
+    "text": "<b>Investigate.</b> Choose a [seeker] asset in your hand. The difficulty of this skill test is equal to the chosen asset's printed cost. If you succeed, instead of discovering clues, put the chosen asset into play. If that asset has the [[Relic]] trait, draw 1 card.",
+    "tags": [
+      "bold_investigate",
+      "draw_player_1",
+      "instead_of_clue",
+      "to_play_from_hand",
+      "trait_relic"
+    ]
+  },
+  {
+    "code": "04025",
+    "name": "Treasure Hunter",
+    "text": "You get +1 [intellect].\n<b>Forced</b> - At the end of the upkeep phase: You must either pay 1 resource or discard Treasure Hunter.",
+    "tags": [
+      "boost_intellect_1",
+      "discard_self"
+    ]
+  },
+  {
+    "code": "04026",
+    "name": "Decorated Skull",
+    "text": "Uses (0 charges).\n[reaction] After an investigator, [[Ally]] asset, or enemy at your location is defeated: Place 1 resource <i>(from the token bank)</i> on Decorated Skull, as a charge.\n[action] Spend 1 charge: Draw 1 card and gain 1 resource.",
+    "tags": [
+      "timing_fast_defeat_enemy",
+      "uses_type_charge",
+      "uses_starting_0",
+      "draw_player_1",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "04027",
+    "name": "Eavesdrop",
+    "text": "Choose an unengaged enemy at your location. Test [intellect] (X), where X is the evade value of the chosen enemy. If you succeed, discover 2 clues at your location.",
+    "tags": [
+      "discover_clue_your_location_2",
+      "enemy_value_evade",
+      "initiate_test_intellect_x",
+      "your_location_enemy"
+    ]
+  },
+  {
+    "code": "04028",
+    "name": "\"You handle this one!\"",
+    "text": "Fast. Play after you draw a non-peril encounter card, but before resolving that card's effects.\nChoose another investigator. That investigator is considered to have drawn that encounter card instead. Gain 1 resource.",
+    "tags": [
+      "fast_play",
+      "timing_fast_after_draw_encounter",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "04029",
+    "name": "Mists of R'lyeh",
+    "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, after evading the chosen enemy, you may move to a connecting location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, choose and discard a card from your hand.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_4",
+      "bold_evade",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "move_investigator_self",
+      "stat_not_agility",
+      "stat_use_willpower"
+    ]
+  },
+  {
+    "code": "04030",
+    "name": "The Chthonian Stone",
+    "text": "Seal ([skull], [cultist], [tablet], or [elder_thing]).\n<b>Forced</b> - After you reveal an [auto_fail] symbol during a skill test: Return The Chthonian Stone to your hand.",
+    "tags": [
+      "chaos_seal_token_cultist",
+      "chaos_seal_token_elder_thing",
+      "chaos_seal_token_skull",
+      "chaos_seal_token_tablet"
+    ]
+  },
+  {
+    "code": "04031",
+    "name": "Protective Incantation",
+    "text": "Group limit 2 copies of Protective Incantation in play.\nSeal (any except [auto_fail]).\n<b>Forced</b> - At the end of your turn: You must either spend 1 resource or discard Protective Incantation.",
+    "tags": [
+      "chaos_seal_token_cultist",
+      "chaos_seal_token_elder_thing",
+      "chaos_seal_token_skull",
+      "chaos_seal_token_tablet",
+      "discard_self"
+    ]
+  },
+  {
+    "code": "04032",
+    "name": "Dark Prophecy",
+    "text": "Fast. Play when you would reveal a chaos token.\nReveal 5 chaos tokens instead of 1. Choose one of those tokens with a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+    "tags": [
+      "fast_play",
+      "timing_fast_chaos_reveal_when",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "04033",
+    "name": "Improvised Weapon",
+    "text": "You may play Improvised Weapon from your discard pile. If you do, shuffle it into your deck after resolving its effects.\n<b>Fight.</b> The attacked enemy gets -1 fight for this attack. (If you played Improvised Weapon from your discard pile, this attack deals +1 damage.)",
+    "tags": [
+      "bold_fight",
+      "damage_plus_1",
+      "enemy_value_fight_reduction",
+      "play_from_discard_paying_cost",
+      "shuffle_player"
+    ]
+  },
+  {
+    "code": "04034",
+    "name": "Dumb Luck",
+    "text": "Fast. Play after you fail a skill test by 2 or less during an evasion attempt against a non-[[Elite]] enemy.\nPlace that enemy on top of the encounter deck.",
+    "tags": [
+      "fast_play",
+      "elite_unusable",
+      "enemy_manage_shuffle",
+      "timing_reaction_after_test_fail"
+    ]
+  },
+  {
+    "code": "04035",
+    "name": "Yaotl",
+    "text": "[free] Exhaust Yaotl: During this skill test, you get a bonus to each skill equal to the number of matching skill icons on the top card of your discard pile (not counting [wild] icons).\n[free]: Discard the top card of your deck. (Limit once per phase.)",
+    "tags": [
+      "boost_any",
+      "cost_fast_exhaust_self",
+      "discard_deck",
+      "skill_icons",
+      "timing_free_during_skill_test"
+    ]
+  },
+  {
+    "code": "04036",
+    "name": "Last Chance",
+    "text": "Commit only to a skill test with no other cards committed to it. Other cards cannot be committed to this skill test.\nLast Chance loses [wild] for each card in your hand.",
+    "tags": [
+      "skill_icons"
+    ]
+  },
+  {
+    "code": "04037",
+    "name": "Backpack",
+    "text": "[reaction] After Backpack enters play: Search the top 6 cards of your deck for up to 3 non-weakness [[Item]] or [[Supply]] cards, and attach them facedown to Backpack. Shuffle your deck.\nCards attached to Backpack may be played as if they were in your hand. If there are no cards attached to Backpack, discard it.",
+    "tags": [
+      "discard_zero_uses",
+      "search_player",
+      "timing_reaction_after_play",
+      "trait_item",
+      "trait_supply"
+    ]
+  },
+  {
+    "code": "04103",
+    "name": "Scene of the Crime",
+    "text": "Play only as your first action.\nDiscover 1 clue at your location (2 clues instead if there is an enemy at that location). This action does not provoke attacks of opportunity.",
+    "tags": [
+      "discover_clue_your_location_1",
+      "discover_clue_your_location_2",
+      "not_aoo",
+      "your_location_enemy"
+    ]
+  },
+  {
+    "code": "04104",
+    "name": "Marksmanship",
+    "text": "Fast. Play when you activate the <b>Fight</b> ability on a [[Firearm]] or [[Ranged]] asset.\nThis attack can target an enemy at a connecting location. Ignore the aloof and retaliate keywords for this attack. If this attack succeeds against an enemy not engaged with you, the attack deals +1 damage.",
+    "tags": [
+      "fast_play",
+      "connecting_location_enemy",
+      "damage_plus_1",
+      "engage_not_with_you",
+      "ignore_aloof",
+      "ignore_retaliate",
+      "trait_firearm",
+      "trait_ranged"
+    ]
+  },
+  {
+    "code": "04105",
+    "name": "Persuasion",
+    "text": "<b>Parley.</b> Choose a non-weakness [[Humanoid]] enemy at your location and test [intellect] (3). This test gets +X difficulty, where X is that enemy's horror value. If you succeed, shuffle the chosen enemy into the encounter deck. If the chosen enemy is [[Elite]], automatically evade it instead.",
+    "tags": [
+      "bold_parley",
+      "enemy_manage_shuffle",
+      "enemy_value_horror",
+      "initiate_test_intellect_3",
+      "result_evade_success",
+      "trait_humanoid"
+    ]
+  },
+  {
+    "code": "04106",
+    "name": "Shrewd Analysis",
+    "text": "Permanent. Limit 1 per deck.\nAnytime you upgrade a card with the <i>(Unidentified)</i> or <i>(Untranslated)</i> subtitle, you may upgrade a second copy of that card at no experience cost. If you do, the two upgraded versions are chosen at random from among the eligible options. <i>(You must still meet all deckbuilding restrictions.)</i>",
+    "tags": [
+      "limit_1_per_deck"
+    ]
+  },
+  {
+    "code": "04107",
+    "name": "Lucky Cigarette Case",
+    "text": "[reaction] After you succeed at a skill test by 2 or more, exhaust Lucky Cigarette Case: Draw 1 card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player_1",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "04108",
+    "name": "Fence",
+    "text": "[reaction] When you play an [[Illicit]] card during your turn, exhaust Fence: The [[Illicit]] card gains fast. If it was already fast, reduce its cost by 1 instead.",
+    "tags": [
+      "fast_play",
+      "cost_reaction_exhaust_self",
+      "reduce_resource_cost",
+      "trait_illicit"
+    ]
+  },
+  {
+    "code": "04109",
+    "name": "Arcane Research",
+    "text": "Permanent.\nWhen you purchase Arcane Research, suffer 1 mental trauma.\nAfter each scenario of a campaign, reduce the experience cost of the first [[Spell]] card you upgrade before the next scenario by 1.",
+    "tags": [
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "04110",
+    "name": "Counterspell",
+    "text": "Fast. Play when a [skull], [cultist], [tablet], or [elder_thing] chaos token is revealed during a skill test at your location.\nCancel that chaos token. <i>(Do not reveal a new chaos token to replace it.)</i>",
+    "tags": [
+      "fast_play",
+      "timing_fast_chaos_reveal_when",
+      "cancel_chaos",
+      "your_location_skill_test"
+    ]
+  },
+  {
+    "code": "04111",
+    "name": "Perseverance",
+    "text": "Fast. Play when you are assigned damage and/or horror that would defeat you.\nCancel up to 4 of that damage and/or horror.",
+    "tags": [
+      "fast_play",
+      "timing_fast_dealt_damage",
+      "timing_fast_dealt_horror",
+      "timing_fast_defeated",
+      "cancel_damage",
+      "cancel_horror"
+    ]
+  },
+  {
+    "code": "04112",
+    "name": "Stunning Blow",
+    "text": "If this skill test is successful during an attack, automatically evade the attacked enemy.",
+    "tags": [
+      "result_evade_success"
+    ]
+  },
+  {
+    "code": "04149",
+    "name": "Second Wind",
+    "text": "Play only as your first action.\nHeal 1 damage (2 instead if you drew a treachery this round). Then, draw 1 card.",
+    "tags": [
+      "draw_player_1",
+      "heal_damage"
+    ]
+  },
+  {
+    "code": "04150",
+    "name": "Take the Initiative",
+    "text": "Commit only to a skill test you are performing.<br/>Take the Initiative loses [wild] for each action that has been completed by any investigator this phase.",
+    "tags": [
+      "skill_icons"
+    ]
+  },
+  {
+    "code": "04151",
+    "name": "Well Prepared",
+    "text": "[free] Exhaust Well Prepared: Choose an asset you control. You get +X skill value for this skill test, where X is the number of matching skill icons on the chosen asset.",
+    "tags": [
+      "boost_any",
+      "cost_free_exhaust_self",
+      "skill_icons"
+    ]
+  },
+  {
+    "code": "04152",
+    "name": "Truth from Fiction",
+    "text": "Play only if there is a clue on your location.<br/>Place 2 secrets on an asset you control.",
+    "tags": [
+      "location_clue_exist",
+      "uses_add_secret"
+    ]
+  },
+  {
+    "code": "04153",
+    "name": "True Understanding",
+    "text": "Commit only to a skill test from an ability printed on a scenario card.<br/>If this skill test is successful, discover 1 clue at your location.",
+    "tags": [
+      "discover_clue_your_location_1",
+      "result_test_success"
+    ]
+  },
+  {
+    "code": "04154",
+    "name": "Quick Study",
+    "text": "[free] Place 1 of your clues on your location and exhaust Quick Study: You get +3 skill value for this skill test.",
+    "tags": [
+      "boost_any_3",
+      "clue_drop",
+      "cost_fast_exhaust_self",
+      "timing_free_during_skill_test"
+    ]
+  },
+  {
+    "code": "04155",
+    "name": "Hatchet Man",
+    "text": "If this skill test is successful during an evasion attempt, the next time the evaded enemy takes damage this turn, deal it 1 additional damage.",
+    "tags": [
+      "damage_plus_1",
+      "result_test_success"
+    ]
+  },
+  {
+    "code": "04156",
+    "name": "High Roller",
+    "text": "[free] Spend 3 resources and exhaust High Roller: You get +2 skill value for this skill test. If you succeed, gain 3 resources.",
+    "tags": [
+      "boost_any_2",
+      "cost_fast_exhaust_self",
+      "gain_resource_3",
+      "result_test_success",
+      "timing_free_during_skill_test"
+    ]
+  },
+  {
+    "code": "04157",
+    "name": "Enraptured",
+    "text": "If this skill test is successful during an investigation, place 1 charge or secret on an asset you control.",
+    "tags": [
+      "result_test_success",
+      "uses_add_charge"
+    ]
+  },
+  {
+    "code": "04158",
+    "name": "Recall the Future",
+    "text": "[reaction] When a skill test you are performing begins, if Recall the Future is ready, name a chaos token: If the named chaos token is revealed during this skill test, exhaust Recall the Future. Then, you get +2 skill value for this skill test.",
+    "tags": [
+      "boost_any_2",
+      "chaos_reveal_during_effect",
+      "timing_reaction_after_skill_test_begins"
+    ]
+  },
+  {
+    "code": "04159",
+    "name": "Try and Try Again",
+    "text": "Uses (3 tries). If Try and Try Again has no tries, discard it.<br/>[reaction] After a skill test is failed, if a skill card you own is committed to that test, exhaust Try and Try Again and spend 1 try: Return that skill card to your hand.",
+    "tags": [
+      "uses_type_tries",
+      "uses_starting_3",
+      "cost_reaction_exhaust_self",
+      "discard_zero_uses",
+      "timing_reaction_after_test_fail"
+    ]
+  },
+  {
+    "code": "04160",
+    "name": "Cornered",
+    "text": "[free] Discard 1 card from your hand: You get +2 skill value for this skill test. (Limit once per test.)",
+    "tags": [
+      "limit_per_test_1",
+      "boost_any_2",
+      "discard_card_choose",
+      "timing_free_during_skill_test"
+    ]
+  },
+  {
+    "code": "04192",
+    "name": "Intrepid",
+    "text": "If this skill test is successful, add Intrepid to your play area as an asset with the text:\n\"You get +1 [intellect], +1 [combat], and +1 [agility].\n<b>Forced</b> - At the end of the round: Discard Intrepid.\"",
+    "tags": [
+      "boost_agility_1",
+      "boost_combat_1",
+      "boost_intellect_1",
+      "result_test_success"
+    ]
+  },
+  {
+    "code": "04193",
+    "name": "Custom Ammunition",
+    "text": "Fast. Play only during your turn.\nAttach to a [[Firearm]] asset controlled by an investigator at your location. Place 2 ammo on that asset. Limit 1 per asset.\nAttacks performed by attached asset deal +1 damage against [[Monster]] enemies.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "attach_asset",
+      "damage_plus_1",
+      "trait_firearm",
+      "trait_monster",
+      "uses_add_ammo"
+    ]
+  },
+  {
+    "code": "04194",
+    "name": "Otherworldly Compass",
+    "text": "[action] Exhaust Otherworldly Compass: <b>Investigate.</b> Your location gets -X shroud for this investigation. X is the number of revealed locations connected to your location.",
+    "tags": [
+      "bold_investigate",
+      "cost_action_exhaust_self",
+      "shroud_reduction"
+    ]
+  },
+  {
+    "code": "04195",
+    "name": "Expose Weakness",
+    "text": "Fast. Play during any [free] player window.\nChoose an enemy at your location. Test [intellect] (X), where X is that enemy's fight value. If you succeed, treat that enemy's fight value as if it were 0 for the next attack performed against it this phase. Draw 1 card.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_any_window",
+      "draw_player_1",
+      "enemy_value_fight",
+      "enemy_value_fight_reduction",
+      "initiate_test_intellect_x",
+      "your_location_enemy"
+    ]
+  },
+  {
+    "code": "04196",
+    "name": "Lola Santiago",
+    "text": "You get +1 [intellect] and +1 [agility].\n[free] Exhaust Lola Santiago and spend X resources: Discover 1 clue at your location. X is the shroud value of your location.",
+    "tags": [
+      "boost_agility_1_passive",
+      "boost_intellect_1_passive",
+      "cost_action_spend_resource",
+      "cost_free_exhaust_self",
+      "discover_clue_your_location_1",
+      "shroud_dependent"
+    ]
+  },
+  {
+    "code": "04197",
+    "name": "Olive McBride",
+    "text": "[reaction] When you would reveal a chaos token, exhaust Olive McBride: Reveal 3 chaos tokens instead of 1. Choose 2 of those tokens to resolve, and ignore the other.",
+    "tags": [
+      "chaos_reveal_more",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "04198",
+    "name": "Defiance",
+    "text": "Ignore the effects of all [skull], [cultist], [tablet], and [elder_thing] symbols during this test (including their modifiers).",
+    "tags": [
+      "chaos_ignore_effect",
+      "chaos_ignore_modifier"
+    ]
+  },
+  {
+    "code": "04199",
+    "name": "Premonition",
+    "text": "Fast. Play during any [free] player window.\nPut Premonition into play, reveal a random chaos token from the chaos bag, and seal it on Premonition.\n<b>Forced</b> - When a chaos token would be revealed from the chaos bag: Resolve the token sealed here as if it were just revealed from the chaos bag, instead. Then, discard Premonition.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_any_window",
+      "chaos_reveal_during_effect",
+      "chaos_seal_token_any"
+    ]
+  },
+  {
+    "code": "04200",
+    "name": "Live and Learn",
+    "text": "Fast. Play after a skill test you failed ends <i>(after resolving all effects from the failed test)</i>.\nAttempt that test again. You get +2 skill value for this test.",
+    "tags": [
+      "fast_play",
+      "boost_any_2",
+      "timing_reaction_after_test_fail"
+    ]
+  },
+  {
+    "code": "04201",
+    "name": "Take Heart",
+    "text": "Max 1 committed per skill test.\nYou may commit Take Heart to any type of test.\nIf this test fails, the performing investigator draws 2 cards and gains 2 resources.",
+    "tags": [
+      "draw_player_2",
+      "gain_resource_2",
+      "max_1_commit",
+      "result_test_fail"
+    ]
+  },
+  {
+    "code": "04202",
+    "name": "Against All Odds",
+    "text": "Fast. Play when you perform a skill test with a difficulty higher than your base skill value.\nReveal X additional chaos tokens for this skill test. Choose one to resolve and ignore the others. X is the difference between the test's difficulty and your base skill value.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_more",
+      "difficulty_check_higher"
+    ]
+  },
+  {
+    "code": "04203",
+    "name": "Trench Coat",
+    "text": "You get +1 [agility] during evasion attempts.",
+    "tags": [
+      "boost_agility_1_evade"
+    ]
+  },
+  {
+    "code": "04204",
+    "name": "Ornate Bow",
+    "text": "Uses (1 ammo). Limit 1 ammo on Ornate Bow.\n[action] Spend 1 ammo: <b>Fight.</b> This attack uses [agility] instead of [combat]. You get +2 [agility] and deal +2 damage for this attack.\n[action]: You nock another arrow. Place 1 ammo on Ornate Bow.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_1",
+      "bold_fight",
+      "boost_agility_2",
+      "damage_plus_2",
+      "stat_use_agility",
+      "uses_add_ammo"
+    ]
+  },
+  {
+    "code": "04229",
+    "name": "M1918 BAR",
+    "text": "Uses (8 ammo).\n[action] Spend 1-5 ammo: <b>Fight.</b> You get +X [combat] for this attack. Instead of its standard damage, this attack deals X damage. X is the amount of ammo spent as part of this ability's cost.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_8",
+      "bold_fight",
+      "boost_combat_x",
+      "damage_plus_x"
+    ]
+  },
+  {
+    "code": "04230",
+    "name": "Ancient Stone",
+    "text": "Researched. Uses (X secrets). X is the number in parentheses next to \"you have identified the stone.\"\n[reaction] When you draw any number of cards, spend that many secrets: Deal that much damage to an enemy at your location.",
+    "tags": [
+      "uses_type_secret",
+      "cost_reaction_spend_resource",
+      "researched",
+      "testless_damage",
+      "timing_reaction_draw_player"
+    ]
+  },
+  {
+    "code": "04231",
+    "name": "Ancient Stone",
+    "text": "Researched. Uses (X secrets). X is the number in parentheses next to \"you have identified the stone.\"\n[reaction] When you draw any number of cards, spend that many secrets: Heal that much horror from a card at your location.",
+    "tags": [
+      "uses_type_secret",
+      "cost_reaction_spend_resource",
+      "heal_horror",
+      "heal_horror_ally",
+      "researched",
+      "target_any_card",
+      "timing_reaction_draw_player",
+      "your_location_another_investigator"
+    ]
+  },
+  {
+    "code": "04232",
+    "name": "Slip Away",
+    "text": "<b>Evade.</b> Add your [intellect] to your skill value for this evasion attempt. If you succeed by 2 or more and the evaded enemy is non-[[Elite]], it does not ready during the next upkeep phase.",
+    "tags": [
+      "bold_evade",
+      "enemy_does_not_ready",
+      "stat_add_intellect_for_evade",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "04233",
+    "name": "Pay Day",
+    "text": "Gain 1 resource for each action you performed this turn <i>(including this one)</i>. If it is your turn, end your turn.",
+    "tags": [
+      "actions_taken_dependent",
+      "gain_resource"
+    ]
+  },
+  {
+    "code": "04234",
+    "name": "Sacrifice",
+    "text": "Discard a [mystic] asset you control. Then, draw 3 cards or gain 3 resources, or any combination thereof.",
+    "tags": [
+      "draw_player_3",
+      "gain_resource_3"
+    ]
+  },
+  {
+    "code": "04235",
+    "name": "Crystalline Elder Sign",
+    "text": "Seal (+1 or [elder_sign]).\nYou get +1 [willpower], +1 [intellect], +1 [combat], and +1 [agility].",
+    "tags": [
+      "boost_agility_1_passive",
+      "boost_combat_1_passive",
+      "boost_intellect_1_passive",
+      "boost_willpower_1_passive",
+      "chaos_seal_token_elder_sign"
+    ]
+  },
+  {
+    "code": "04236",
+    "name": "On Your Own",
+    "text": "Limit 1 per investigator.\nDiscard On Your Own if you control an asset that takes up an ally slot.\n[reaction] When you play a [survivor] event, exhaust On Your Own: Reduce that event's cost by 2.",
+    "tags": [
+      "limit_1_per_investigator",
+      "cost_reaction_exhaust_self",
+      "reduce_cost",
+      "timing_reaction_when_play"
+    ]
+  },
+  {
+    "code": "04265",
+    "name": "Handcuffs",
+    "text": "[action] If Handcuffs is not attached to an enemy: <b>Evade.</b> Use only on a [[Humanoid]] enemy. This evasion attempt uses [combat] instead of [agility]. If you succeed, attach Handcuffs to the just-evaded enemy.\nIf the attached enemy is non-[[Elite]], it cannot ready and doom cannot be placed on it.",
+    "tags": [
+      "attach_enemy",
+      "bold_evade",
+      "enemy_does_not_ready",
+      "stat_not_agility",
+      "stat_use_combat",
+      "trait_humanoid"
+    ]
+  },
+  {
+    "code": "04266",
+    "name": "Blood Eclipse",
+    "text": "As an additional cost to play Blood Eclipse, take up to 3 damage.\n<b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +1 [willpower] and deal +1 damage for this attack for each damage taken as part of this card's cost.",
+    "tags": [
+      "bold_fight",
+      "boost_willpower_1",
+      "boost_willpower_2",
+      "boost_willpower_3",
+      "cost_damage_self",
+      "damage_plus_1",
+      "damage_plus_2",
+      "damage_plus_3",
+      "stat_not_combat",
+      "stat_use_willpower"
+    ]
+  },
+  {
+    "code": "04267",
+    "name": "Feed the Mind",
+    "text": "Uses (3 secrets).\n[action] Exhaust Feed the Mind and spend 1 secret: Test [intellect] (0). For each point you succeed by, draw 1 card. Then, take 1 horror for each card in your hand in excess of your maximum hand size.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "cost_action_exhaust_self",
+      "draw_player",
+      "initiate_test_intellect_0",
+      "take_horror"
+    ]
+  },
+  {
+    "code": "04268",
+    "name": "Colt Vest Pocket",
+    "text": "Uses (5 ammo).\n[action] Spend 1 ammo: <b>Fight</b>. You get +1 [combat] for this attack. This attack deals +1 damage.\n<b>Forced</b> - At the end of the round: Discard Colt Vest Pocket.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "boost_combat_1",
+      "damage_plus_1",
+      "discard_self"
+    ]
+  },
+  {
+    "code": "04269",
+    "name": "Coup de Grâce",
+    "text": "Deal 1 damage to an enemy at your location. If this effect defeats that enemy, draw 1 card. If it is your turn, end your turn. This action does not provoke attacks of opportunity.",
+    "tags": [
+      "draw_player_1",
+      "not_aoo",
+      "testless_damage"
+    ]
+  },
+  {
+    "code": "04270",
+    "name": "The Skeleton Key",
+    "text": "Exceptional. Fast.\n[action]: If the Skeleton Key is in your play area, attach it to your location. If it is already attached to your location, detach it and return it to your play area instead.\nSet the attached location's shroud value to 1.",
+    "tags": [
+      "fast_play",
+      "attach_location",
+      "shroud_reduction"
+    ]
+  },
+  {
+    "code": "04271",
+    "name": "Mists of R'lyeh",
+    "text": "Uses (5 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. You get +3 [willpower] for this evasion attempt. If you succeed, after evading the chosen enemy, you may move to a connecting location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, choose and discard a card from your hand.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_5",
+      "bold_evade",
+      "boost_willpower_3_evade",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "move_investigator_self",
+      "stat_not_agility",
+      "stat_use_willpower"
+    ]
+  },
+  {
+    "code": "04272",
+    "name": "Winging It",
+    "text": "You may play Winging It from your discard pile. If you do, shuffle it into your deck after resolving its effects.\n<b>Investigate.</b> Your location gets -1 shroud for this investigation. (If you played Winging It from your discard pile, discover 1 additional clue if you succeed.)",
+    "tags": [
+      "additional_clue_1",
+      "bold_investigate",
+      "play_from_discard_paying_cost",
+      "shroud_reduction",
+      "shuffle_player"
+    ]
+  },
+  {
+    "code": "04273",
+    "name": "Old Hunting Rifle",
+    "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight</b>. You get +3 [combat] and deal +2 damage for this attack. If a [skull] or [auto_fail] symbol is revealed during this attack, the rifle jams. (This attack automatically fails. Before you can activate this ability again, you must perform the following ability: \"[action]: You clear the jam.\")",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_3",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_skull",
+      "damage_plus_2"
+    ]
+  },
+  {
+    "code": "04274",
+    "name": "Thermos",
+    "text": "Uses (3 supplies).\n[action] Spend 1 supply, exhaust Thermos: Heal 1 damage from an investigator at your location (2 damage instead if he or she has 2 or more physical trauma).\n[action] Spend 1 supply, exhaust Thermos: Heal 1 horror from an investigator at your location (2 horror instead if he or she has 2 or more mental trauma).",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "cost_action_exhaust_self",
+      "heal_both",
+      "your_location_investigator"
+    ]
+  },
+  {
+    "code": "04275",
+    "name": "Hemispheric Map",
+    "text": "While your current location is connected to at least 2 other locations, you get +1 [willpower] and +1 [intellect].\nWhile your current location is connected to at least 4 other locations, you get an additional +1 [willpower] and +1 [intellect].",
+    "tags": [
+      "boost_intellect_1_passive",
+      "boost_intellect_2_passive",
+      "boost_willpower_1_passive",
+      "boost_willpower_2_passive"
+    ]
+  },
+  {
+    "code": "04276",
+    "name": "Timeworn Brand",
+    "text": "[action] If Timeworn Brand is ready: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack.\n[action] Exhaust Timeworn Brand: <b>Fight.</b> Add your [willpower] to your skill value for this attack. This attack deals +3 damage. If this attack defeats an [[Elite]] enemy, draw 3 cards. (Max once per game.)",
+    "tags": [
+      "bold_fight",
+      "boost_combat_2",
+      "cost_action_exhaust_self",
+      "damage_plus_1",
+      "damage_plus_3",
+      "draw_player_3",
+      "max_per_game_1",
+      "stat_add_willpower_for_attack"
+    ]
+  },
+  {
+    "code": "04304",
+    "name": "Kerosene",
+    "text": "Uses (3 supplies). If Kerosene has no supplies, discard it.\n[action] If an enemy was defeated at this location this round, exhaust Kerosene and spend 1 supply: Heal up to 2 horror from among investigators and [[Ally]] assets at your location.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "cost_action_exhaust_self",
+      "discard_zero_uses",
+      "heal_horror",
+      "heal_horror_ally",
+      "trait_ally",
+      "your_location_ally",
+      "your_location_investigator"
+    ]
+  },
+  {
+    "code": "04305",
+    "name": "Flamethrower",
+    "text": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> The enemy chosen for this attack must be the enemy engaged with you with the highest fight. You get +4 [combat] for this attack. If this attack is successful, instead of its standard damage, you may assign up to 4 damage among enemies engaged with you <i>(any additional damage adds to this total)</i>.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_4",
+      "damage_plus_3",
+      "engage_with_you"
+    ]
+  },
+  {
+    "code": "04306",
+    "name": "Vantage Point",
+    "text": "Fast. Play after a location enters play or is revealed during an investigator's turn.\nUntil the end of the active investigator's turn, that location gets -1 shroud. You may move 1 clue to that location from any other location.",
+    "tags": [
+      "fast_play",
+      "timing_fast_after_location_revealed",
+      "move_clue",
+      "shroud_minus_1"
+    ]
+  },
+  {
+    "code": "04307",
+    "name": "Pnakotic Manuscripts",
+    "text": "Uses (3 secrets).\n[reaction] When an investigator at your location would perform a skill test during a revelation effect, spend 1 secret: Do not reveal chaos tokens for that test.\n[action] Spend 1 secret: Choose an investigator at your location. Do not reveal chaos tokens for the next skill test that investigator performs this round.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "chaos_do_not_reveal",
+      "timing_reaction_when_revelation"
+    ]
+  },
+  {
+    "code": "04308",
+    "name": "Borrowed Time",
+    "text": "Exceptional.\n[action]: Place 1 resource on Borrowed Time, as a click (to a maximum of 3 clicks on Borrowed Time). Does not provoke attacks of opportunity.\n<b>Forced</b> - When your turn begins: Remove all clicks from Borrowed Time. You may take that many additional actions this turn.",
+    "tags": [
+      "additional_action_1",
+      "additional_action_2",
+      "additional_action_3",
+      "not_aoo"
+    ]
+  },
+  {
+    "code": "04309",
+    "name": "All In",
+    "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card for each point you succeeded by, to a maximum of 5. Shuffle each weakness drawn by this effect back into your deck without resolving it.",
+    "tags": [
+      "draw_player",
+      "max_1_commit",
+      "succeed_by"
+    ]
+  },
+  {
+    "code": "04310",
+    "name": "Shards of the Void",
+    "text": "Seal (0). Uses (3 charges).\n[action] Spend 1 charge or release a chaos token sealed here: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. You get +2 [willpower] for this attack for each \"0\" token sealed on Shards of the Void. For each \"0\" token revealed during this attack, seal that token on Shards of the Void and this attack deals 1 additional damage.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_willpower_2_attack",
+      "chaos_seal_token_0",
+      "damage_plus_1",
+      "stat_not_combat",
+      "stat_use_willpower"
+    ]
+  },
+  {
+    "code": "04311",
+    "name": "Seal of the Seventh Sign",
+    "text": "Seal ([auto_fail]). Uses (7 charges). If Seal of the Seventh Sign has no charges, or if it leaves play, remove it from the game.\n<b>Forced</b> - After a [skull], [cultist], [tablet], or [elder_thing] token is revealed during any skill test: Remove 1 charge from Seal of the Seventh Sign.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_7",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "chaos_seal_token_auto_fail",
+      "discard_zero_uses"
+    ]
+  },
+  {
+    "code": "04312",
+    "name": "Impromptu Barrier",
+    "text": "You may play Impromptu Barrier from your discard pile. If you do, shuffle it into your deck after resolving its effects.\n<b>Evade.</b> The chosen enemy gets -1 evade for this evasion attempt. (If you played Impromptu Barrier from your discard pile, you may evade an additional enemy at the same location with evade X or lower. X is the amount you succeed by.)",
+    "tags": [
+      "additional_evade",
+      "bold_evade",
+      "enemy_value_evade_reduction",
+      "play_from_discard_paying_cost"
+    ]
+  },
+  {
+    "code": "04313",
+    "name": "Alter Fate",
+    "text": "Fast. Play during any [free] player window.\nChoose and discard from play a non-weakness treachery that is not attached to an [[Elite]] enemy.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_any_window",
+      "discard_treachery"
+    ]
+  }
+]

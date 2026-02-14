@@ -17,6 +17,10 @@
       "name": "🔤 String",
     },
     {
+      "path": "./tags",
+      "name": "🏷️ Tags",
+    },
+    {
       "path": "./starter",
       "name": "🟪 Starter",
     },
@@ -29,6 +33,6 @@
     "search.exclude": {
       "**/node_modules": true,
     },
-    "deno.enablePaths": ["./cards-json"],
+    "deno.enablePaths": ["./cards-json", "./tags/script"],
   },
 }

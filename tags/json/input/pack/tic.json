@@ -1,0 +1,943 @@
+[
+  {
+    "code": "07006",
+    "name": "Guardian Angel",
+    "text": "Sister Mary deck only.\nGuardian Angel may be assigned damage dealt to other investigators at your location and connecting locations.\n[reaction] When any amount of damage is assigned to Guardian Angel: Add that many [bless] tokens to the chaos bag.",
+    "tags": [
+      "deck_restriction",
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07008",
+    "name": "Obscure Studies",
+    "text": "Amanda Sharpe deck only.\nFast. Play when you initiate a skill test.\nReturn the card beneath Amanda Sharpe to your hand and place Obscure Studies beneath her.",
+    "tags": [
+      "deck_restriction",
+      "fast_play"
+    ]
+  },
+  {
+    "code": "07010",
+    "name": "In the Shadows",
+    "text": "Trish Scarborough deck only.\nFast. Play after your turn begins.\nDisengage from each enemy engaged with you. Until the end of the round, enemies cannot engage you and you cannot deal damage to enemies.",
+    "tags": [
+      "deck_restriction",
+      "fast_play",
+      "engage_with_you"
+    ]
+  },
+  {
+    "code": "07012",
+    "name": "Showmanship",
+    "text": "Dexter Drake deck only.\n[reaction] After an asset enters play under your control: Until the end of the round, you get +2 to each of your skills while resolving a triggered ability on that asset.",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "07014",
+    "name": "Sea Change Harpoon",
+    "text": "Silas Marsh deck only.\n[action]: <b>Fight.</b> You get +1 [combat] for this attack. If you committed 1 or more skills to this skill test, this attack deals +1 damage. When this skill test ends, you may return Sea Change Harpoon to your hand to return all of your committed skill cards to your hand instead of discarding them.",
+    "tags": [
+      "deck_restriction",
+      "bold_fight",
+      "boost_combat_1",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07015",
+    "name": "Silas's Net",
+    "text": "Silas Marsh deck only.\n[action]: <b>Evade.</b> You get +1 [agility] for this evasion attempt. If you succeed and you committed 1 or more skills to this skill test, you may automatically evade another enemy engaged with you. When this skill test ends, you may return Silas's Net to your hand to return all of your committed skill cards to your hand instead of discarding them.",
+    "tags": [
+      "deck_restriction",
+      "bold_evade",
+      "boost_agility_1",
+      "engage_with_you"
+    ]
+  },
+  {
+    "code": "07017",
+    "name": "Book of Psalms",
+    "text": "Uses (4 secrets).\n[action] Spend 1 secret: Heal 1 horror from an investigator at your location. Add 2 [bless] tokens to the chaos bag.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4",
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07018",
+    "name": "Blessed Blade",
+    "text": "[action] If Blessed Blade is ready: <b>Fight.</b> You get +1 [combat] for this attack. If a [bless] or [elder_sign] token is revealed during this attack, this attack deals +1 damage. Before revealing chaos token(s) for this attack, you may exhaust Blessed Blade to add 1 [bless] token to the chaos bag.",
+    "tags": [
+      "bold_fight",
+      "boost_combat_1",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_elder_sign",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07019",
+    "name": "Rite of Sanctification",
+    "text": "Seal (up to 5 [bless]). If Rite of Sanctification has no tokens sealed on it, discard it.\n[reaction] When an investigator at your location plays a card, exhaust Rite of Sanctification and release a chaos token sealed on it: Reduce the cost of that card by 2.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self",
+      "discard_zero_uses"
+    ]
+  },
+  {
+    "code": "07020",
+    "name": "Hand of Fate",
+    "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, add [bless] tokens to the chaos bag equal to the attacking enemy's total combined damage and horror values.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07021",
+    "name": "Cryptographic Cipher",
+    "text": "Uses (3 secrets).\n[fast] Exhaust Cryptographic Cipher and spend 1 secret: <b>Investigate.</b> Your location gets +1 shroud for this investigation.\n[action] Exhaust Cryptographic Cipher and spend 1 secret: <b>Investigate.</b> Your location gets -2 shroud for this investigation.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "bold_investigate",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "07022",
+    "name": "Cryptic Grimoire",
+    "text": "[action]: Add 1 [curse] token to the chaos bag.\n[action] If there are 10 [curse] tokens in the chaos bag, discard Cryptic Grimoire: Record in your Campaign Log that \"you have translated the grimoire.\" Replace 5 [curse] tokens in the chaos bag with 5 [bless] tokens.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07023",
+    "name": "Deep Knowledge",
+    "text": "As an additional cost to play Deep Knowledge, add 2 [curse] tokens to the chaos bag.\nInvestigators at your location draw a combined total of 3 cards <i>(you decide how many cards each investigator draws)</i>.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07024",
+    "name": "Plan of Action",
+    "text": "If this skill test is during or before the first action of this turn, Plan of Action gains [willpower] [agility].\nIf this skill test is between the first and third actions of this turn, draw 1 card if it succeeds.\nIf this skill test is during or after the third action of this turn, Plan of Action gains [combat] [intellect].",
+    "tags": [
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "07025",
+    "name": ".25 Automatic",
+    "text": "Fast. Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> If the attacked enemy is exhausted, you get +2 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "fast_play",
+      "uses_type_ammo",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07026",
+    "name": "Dark Ritual",
+    "text": "Seal (up to 5 [curse]).\n<b>Forced</b> - At the end of the mythos phase: You must either spend 1 resource or discard Dark Ritual.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07027",
+    "name": "Obfuscation",
+    "text": "Fast. Uses (3 charges).\n[reaction] When an enemy makes an attack of opportunity against you, spend 1 charge: Cancel that attack.",
+    "tags": [
+      "fast_play",
+      "uses_type_charge",
+      "uses_starting_3"
+    ]
+  },
+  {
+    "code": "07028",
+    "name": "Faustian Bargain",
+    "text": "As an additional cost to play Faustian Bargain, add 2 [curse] tokens to the chaos bag.\nInvestigators at your location gain a total of 5 resources, distributed as you wish.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07029",
+    "name": "Sword Cane",
+    "text": "Playing Sword Cane does not provoke attacks of opportunity.\n[reaction] After Sword Cane enters play: Immediately trigger its \"[action]\" ability without paying its cost.\n[action] Exhaust Sword Cane: <b>Fight</b>/<b>Evade.</b> You may use your [willpower] in place of your [combat] or [agility] for this attack or evasion attempt.",
+    "tags": [
+      "bold_evade",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "07030",
+    "name": "Tides of Fate",
+    "text": "Fast. Play during any [fast] window, or at the start of the round.\nReplace all [curse] tokens in the chaos bag with an equal number of [bless] tokens. At the end of the round, replace all [bless] tokens in the chaos bag with an equal number of [curse] tokens.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07031",
+    "name": "Ward of Radiance",
+    "text": "Fast. Play when an investigator at your location draws a non-weakness treachery card.\nReveal 5 random chaos tokens from the chaos bag.\nIf a [bless] or [elder_sign] token is revealed, cancel that treachery card's revelation effect.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_elder_sign"
+    ]
+  },
+  {
+    "code": "07032",
+    "name": "Promise of Power",
+    "text": "After you commit Promise of Power to a skill test, add 1 [curse] token to the chaos bag. If you cannot, take 2 horror instead.",
+    "tags": [
+      "chaos_reveal_token_curse",
+      "take_horror"
+    ]
+  },
+  {
+    "code": "07033",
+    "name": "Token of Faith",
+    "text": "[reaction] After a skill test ends in which 1 or more [curse] or [auto_fail] tokens were revealed, exhaust Token of Faith: Add that many [bless] tokens to the chaos bag.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07034",
+    "name": "Keep Faith",
+    "text": "Fast. Play during any [fast] window.\nAdd 4 [bless] tokens to the chaos bag.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07035",
+    "name": "Predestined",
+    "text": "Max 1 committed per skill test.\nYou may commit Predestined to any type of test.\nIf this test fails, either add 2 [bless] tokens to the chaos bag or remove 2 [curse] tokens from the chaos bag.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "07036",
+    "name": "Beloved",
+    "text": "If a [bless] token is revealed during this test, you may remove Beloved from the game to replace that token's effects with the following: \"You automatically succeed. <i>(Do not reveal another token. Return this token to the chaos bag after this test ends)</i>.\"",
+    "tags": [
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07037",
+    "name": "Tempt Fate",
+    "text": "Fast. Play during any [fast] window.\nAdd 3 [curse] tokens to the chaos bag. Then, add 3 [bless] tokens to the chaos bag and draw 1 card.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "07108",
+    "name": "Riot Whistle",
+    "text": "You may take an additional action during your turn, which can only be used to <b>engage</b>.",
+    "tags": []
+  },
+  {
+    "code": "07109",
+    "name": "Righteous Hunt",
+    "text": "<b>Engage.</b> Choose an enemy up to 2 locations away. Move (one location at a time) to that enemy's location, engage it, and add [bless] tokens to the chaos bag equal to that enemy's horror value.",
+    "tags": [
+      "bold_engage",
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07110",
+    "name": "Sacred Covenant",
+    "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] After an investigator at any location performs the \"reveal chaos token\" step of a skill test, exhaust Sacred Covenant: Return any number of [bless] tokens revealed during this test to the chaos bag, ignoring their modifiers for this test.",
+    "tags": [
+      "limit_1_per_deck",
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self",
+      "trait_covenant"
+    ]
+  },
+  {
+    "code": "07111",
+    "name": "Eldritch Sophist",
+    "text": "Uses (3 secrets).\n[fast]: Exhaust Eldritch Sophist: Move 1 secret or charge from an asset you control to another asset controlled by an investigator at your location.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3"
+    ]
+  },
+  {
+    "code": "07112",
+    "name": "Stirring Up Trouble",
+    "text": "As an additional cost to play Stirring Up Trouble, add [curse] tokens to the chaos bag equal to your location's shroud value.\nDiscover 2 clues at your location.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07113",
+    "name": "Blasphemous Covenant",
+    "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] When an investigator at your location reveals a [curse] token during a skill test, exhaust Blasphemous Covenant: Treat that token's modifier as +1 instead of its normal modifier. After this test ends, return that token to the chaos bag.",
+    "tags": [
+      "limit_1_per_deck",
+      "chaos_reveal_token_curse",
+      "cost_reaction_exhaust_self",
+      "trait_covenant"
+    ]
+  },
+  {
+    "code": "07114",
+    "name": "Breaking and Entering",
+    "text": "<b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you succeed by 2 or more, you may automatically evade an enemy at this location. This action does not provoke attacks of opportunity.",
+    "tags": [
+      "bold_investigate",
+      "stat_add_agility_for_investigate",
+      "succeed_by_2"
+    ]
+  },
+  {
+    "code": "07115",
+    "name": "Skeptic",
+    "text": "During this skill test, treat the modifier of each [bless] and each [curse] token as +1 instead of its normal modifier.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07116",
+    "name": "False Covenant",
+    "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] When an investigator at your location reveals a [curse] token during a skill test, exhaust False Covenant: Cancel that chaos token, return it to the token pool, and reveal another token.",
+    "tags": [
+      "limit_1_per_deck",
+      "chaos_reveal_token_curse",
+      "cost_reaction_exhaust_self",
+      "trait_covenant"
+    ]
+  },
+  {
+    "code": "07117",
+    "name": "Armageddon",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. If a [curse] token is revealed during this attack, you may deal 1 damage to an enemy at your location or place 1 charge on Armageddon.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_fight",
+      "chaos_reveal_token_curse",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07118",
+    "name": "Eye of Chaos",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. If you succeed, discover 1 additional clue at this location. If a [curse] token is revealed during this investigation, you may discover 1 clue at a connecting location or place 1 charge on Eye of Chaos.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_investigate",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07119",
+    "name": "Shroud of Shadows",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion uses [willpower] instead of [agility]. If you succeed and the evaded enemy is non-[[Elite]], you may move that enemy to a connecting location. If a [curse] token is revealed during this evasion attempt, you may move to a connecting location or place 1 charge on Shroud of Shadows.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_evade",
+      "chaos_reveal_token_curse",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "07120",
+    "name": "Paradoxical Covenant",
+    "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] After an investigator at your location performs the \"reveal the chaos token\" step of a skill test, if both a [bless] token and a [curse] token were revealed during that test, exhaust Paradoxical Covenant: This test automatically succeeds. <i>(Remove each [bless] and [curse] token revealed from the chaos bag after this test ends.)</i>",
+    "tags": [
+      "limit_1_per_deck",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "cost_reaction_exhaust_self",
+      "trait_covenant"
+    ]
+  },
+  {
+    "code": "07121",
+    "name": "Mariner's Compass",
+    "text": "[action] Exhaust Mariner's Compass: <b>Investigate.</b> If you succeed and have no resources in your resource pool, discover 1 additional clue at your location.\n[fast] During an investigation using Mariner's Compass, spend 1 resource: You get +1 [intellect] for this skill test. (Limit three times per investigation.)",
+    "tags": [
+      "bold_investigate",
+      "boost_intellect_1",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "07122",
+    "name": "Ancient Covenant",
+    "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] When an investigator at your location resolves a [bless] token during a skill test, exhaust Ancient Covenant: Do not reveal another token as part of this [bless] token's effect.",
+    "tags": [
+      "limit_1_per_deck",
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self",
+      "trait_covenant"
+    ]
+  },
+  {
+    "code": "07152",
+    "name": "Keen Eye",
+    "text": "[free] Spend 2 resources: You get +1 [intellect] until the end of the phase.\n[free] Spend 2 resources: You get +1 [combat] until the end of the phase.",
+    "tags": [
+      "boost_combat_1",
+      "boost_intellect_1"
+    ]
+  },
+  {
+    "code": "07153",
+    "name": "Radiant Smite",
+    "text": "<b>Fight.</b> You may use [willpower] instead of [combat] for this attack. When you initiate this attack, search the chaos bag for up to 3 [bless] tokens, and seal them here. For each [bless] token sealed on Radiant Smite, you get +1 skill value and deal +1 damage for this attack. If this attack defeats the attacked enemy, return the sealed tokens to the token pool. Otherwise, release them.",
+    "tags": [
+      "bold_fight",
+      "chaos_reveal_token_bless",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07154",
+    "name": "The Truth Beckons",
+    "text": "Play only if you are not engaged with an enemy.\n<b>Move.</b> Choose an unrevealed location. Move (one location at a time) along the shortest path toward that location, until you enter that location. End this effect if you reveal a location, if an enemy engages you, or if your movement is blocked.",
+    "tags": [
+      "bold_move"
+    ]
+  },
+  {
+    "code": "07155",
+    "name": "Gaze of Ouraxsh",
+    "text": "Reveal 7 random chaos tokens from the chaos bag. Deal a total of 1 damage plus 1 additional damage for each [curse] or [auto_fail] token revealed, divided as you choose among enemies at your location. This action does not provoke attacks of opportunity.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07156",
+    "name": "Priest of Two Faiths",
+    "text": "[reaction] After Priest of Two Faiths enters play: Add 3 [bless] tokens to the chaos bag.\n<b>Forced</b> - At the end of the upkeep phase: You must either add 1 [curse] token to the chaos bag or discard Priest of Two Faiths.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07157",
+    "name": "Under Surveillance",
+    "text": "Attach to your location. Limit 1 per location.\n<b>Forced</b> - After a non-[[Elite]] enemy enters attached location, discard Under Surveillance: Automatically evade that enemy and discover 1 clue at attached location. That enemy does not ready during the next upkeep phase.",
+    "tags": [
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "07158",
+    "name": "Blood Pact",
+    "text": "[free] Add 1 doom to Blood Pact: You get +2 [willpower] for this skill test. (Limit once per test.)\n[free] Add 1 doom to Blood Pact: You get +2 [combat] for this skill test. (Limit once per test.)",
+    "tags": [
+      "boost_combat_2",
+      "boost_willpower_2"
+    ]
+  },
+  {
+    "code": "07159",
+    "name": "Abyssal Tome",
+    "text": "[action] Exhaust Abyssal Tome: <b>Fight.</b> You may use either [intellect] or [willpower] for this attack, instead of [combat]. When you initiate this attack, you may place 1 doom on Abyssal Tome (to a maximum of 3). You get +1 skill value and deal +1 damage for this attack for each doom on Abyssal Tome.",
+    "tags": [
+      "bold_fight",
+      "cost_action_exhaust_self",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07160",
+    "name": "Butterfly Effect",
+    "text": "Fast. Play when a chaos token with a symbol is revealed during a skill test at your location <i>(before resolving its effects)</i>.\nYou or the performing investigator may either commit a card to this skill test, or return a card they committed to this test to their hand.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "07161",
+    "name": "Third Time's a Charm",
+    "text": "Fast. Play when a skill test at your location begins.\nTwice during this test, when an investigator reveals a chaos token, they may cancel it, return it to the chaos bag, and reveal a new chaos token.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "07162",
+    "name": "Manipulate Destiny",
+    "text": "Reveal tokens from the chaos bag until you reveal a [curse], [auto_fail], [bless], or [elder_sign] token. If you revealed...\n- ...a [curse] or [auto_fail] token, deal 2 damage to an enemy at your location.\n- ...a [bless] or [elder_sign] token, heal 2 damage from an investigator or [[Ally]] asset at your location.\nThis action does not provoke attacks of opportunity.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "chaos_reveal_token_elder_sign",
+      "trait_ally"
+    ]
+  },
+  {
+    "code": "07189",
+    "name": "Enchanted Armor",
+    "text": "Play Enchanted Armor under the control of any investigator at your location.\n<b>Forced</b> - After damage and/or horror is placed on Enchanted Armor: The owner of Enchanted Armor tests [willpower] (X), where X is the total amount of damage and horror on it. If the test fails, discard Enchanted Armor and assign the damage and/or horror just placed on it elsewhere.",
+    "tags": []
+  },
+  {
+    "code": "07190",
+    "name": "Blessing of Isis",
+    "text": "[reaction] When a second [bless] token is revealed during a single skill test at your location, exhaust Blessing of Isis: Cancel that token and treat it as if it were a [elder_sign] token instead. Return both of those tokens to the chaos bag after this test ends.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_elder_sign",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07191",
+    "name": "Cryptic Grimoire",
+    "text": "Researched.\n[reaction]: After you resolve 1 or more [curse] tokens during a skill test: Place that many secrets on Cryptic Grimoire.\n[reaction] When you play an [[Insight]] event during your turn, spend 2 secrets: That event gains fast. Reduce its cost by 1.",
+    "tags": [
+      "chaos_reveal_token_curse",
+      "trait_insight"
+    ]
+  },
+  {
+    "code": "07192",
+    "name": "Cryptic Grimoire",
+    "text": "Researched.\n[reaction]: After you resolve 1 or more [curse] tokens during a skill test: Place that many secrets on Cryptic Grimoire.\n[reaction] When you would draw the top card of the encounter deck, spend 5 secrets: Draw a card from your deck instead.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07193",
+    "name": "Ríastrad",
+    "text": "<b>Fight.</b> When you initiate this attack, add up to 3 [curse] tokens to the chaos bag. For each [curse] token added to the chaos bag in this way, you get +1 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "bold_fight",
+      "boost_combat_1",
+      "chaos_reveal_token_curse",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07194",
+    "name": "Tristan Botley",
+    "text": "[reaction] After your turn begins: Choose two skills. Until the start of your next turn, you get +1 to each of those skills.\n[reaction] After any skill test ends in which a total of 3 or more [curse] or [bless] tokens were revealed: Play Tristan Botley from your hand, at no cost.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07195",
+    "name": "Curse of Aeons",
+    "text": "[reaction] When a second [curse] token is revealed during a single skill test at your location, exhaust Curse of Aeons: Cancel that token and treat it as if it were a [skull] token instead. You may choose to remove both of those tokens from the chaos bag after the test ends.",
+    "tags": [
+      "chaos_reveal_token_curse",
+      "chaos_reveal_token_skull",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07196",
+    "name": "Unrelenting",
+    "text": "Max 1 committed per test.\nAfter you commit Unrelenting to a skill test, search the chaos bag for up to 3 non-[auto_fail] chaos tokens of your choice, and seal them on Unrelenting. If all 3 tokens sealed on Unrelenting are \"+1,\", \"0,\" [bless], and/or [elder_sign] tokens, draw 2 cards. Release all tokens sealed here after this test ends.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_elder_sign",
+      "draw_player_2"
+    ]
+  },
+  {
+    "code": "07197",
+    "name": "Signum Crucis",
+    "text": "Commit only to a skill test you are performing, and only if the difficulty of that test is higher than your base skill value.\nAfter you commit Signum Crucis to a skill test, add X [bless] tokens to the chaos bag. X is the difference between the test's difficulty and your base skill value.",
+    "tags": [
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07220",
+    "name": "Holy Rosary",
+    "text": "You get +1 [willpower].\n[reaction] After you succeed at a [willpower] test on a treachery, exhaust Holy Rosary: Add 2 [bless] tokens to the chaos bag.",
+    "tags": [
+      "boost_willpower_1",
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07221",
+    "name": "Shield of Faith",
+    "text": "Seal (up to 5 [bless]). If Shield of Faith has no tokens sealed on it, discard it.\n[reaction] When an enemy attacks an investigator at your location, exhaust Shield of Faith and release a chaos token sealed here: Cancel that attack.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self",
+      "discard_zero_uses"
+    ]
+  },
+  {
+    "code": "07222",
+    "name": "Fey",
+    "text": "If a [curse] token is revealed during this skill test, you may return Fey to your hand when this test ends.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07223",
+    "name": "Guided by the Unseen",
+    "text": "Uses (4 secrets).\n[fast] During a skill test at your location: The performing investigator may search the top 3 cards of their deck for a card that can be committed to this test. You may spend 1 secret to commit that card. Shuffle the performing investigator's deck. (Limit once per test.)",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4"
+    ]
+  },
+  {
+    "code": "07224",
+    "name": "\"Lucky\" Penny",
+    "text": "Exceptional.\n<b>Forced</b> - When you reveal a [bless] or [curse] token during a skill test you are performing: Flip a coin. On a heads, treat that token as a [bless] token. On a tails, treat that token as a [curse] token. If you treat a [bless] token as a [curse] token as a result of this effect, draw 1 card.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "07225",
+    "name": "Eye of the Djinn",
+    "text": "Exceptional.\n[reaction] When you initiate a skill test during your turn, exhaust Eye of the Djinn: Set your base skill value to 5 for this test. If a [bless] token is revealed during this test, ready Eye of the Djinn. If a [curse] token is revealed during this test, you may take an additional action this turn.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07226",
+    "name": "Armageddon",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] and deal +1 damage for this attack. For each [curse] token revealed during this attack, you may deal 1 damage to an enemy at your location or place 1 charge on Armageddon.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_willpower_2",
+      "chaos_reveal_token_curse",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07227",
+    "name": "Eye of Chaos",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed, discover 1 additional clue at this location. For each [curse] token revealed during this investigation, you may discover 1 clue at a connecting location or place 1 charge on Eye of Chaos.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_investigate",
+      "boost_willpower_2",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07228",
+    "name": "Shroud of Shadows",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion uses [willpower] instead of [agility]. You get +2 [willpower] for this test. If you succeed and the evaded enemy is non-[[Elite]], you may move that enemy to a connecting location. For each [curse] token revealed during this evasion attempt, you may move to a connecting location or place 1 charge on Shroud of Shadows.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_evade",
+      "boost_willpower_2",
+      "chaos_reveal_token_curse",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "07229",
+    "name": "Spirit of Humanity",
+    "text": "[fast] Exhaust Spirit of Humanity and take 1 damage and 1 horror: Add 2 [bless] tokens to the chaos bag.\n[fast] Exhaust Spirit of Humanity and add 2 [curse] tokens to the chaos bag: Heal 1 damage and 1 horror.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "take_damage"
+    ]
+  },
+  {
+    "code": "07230",
+    "name": "Harmony Restored",
+    "text": "Search the chaos bag for X [curse] tokens and return them to the token pool. X is the number of [bless] tokens in the chaos bag. Gain 1 resource for each [curse] token removed in this way.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "07261",
+    "name": "Enchant Weapon",
+    "text": "Attach to a [[Weapon]] asset controlled by an investigator at your location. Limit 1 per asset.\nAttached asset gains the [[Relic]] trait and takes up an arcane slot in addition to its other slots.\n[reaction] When you perform a <b>Fight</b> action using attached asset, exhaust this card: Add the owner of this card's [willpower] to your [combat] for this attack. This attack deals +1 damage.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "damage_plus_1",
+      "trait_relic",
+      "trait_weapon"
+    ]
+  },
+  {
+    "code": "07262",
+    "name": "Nephthys",
+    "text": "You get +1 [willpower].\n[reaction] When 1 or more [bless] tokens would be removed from the chaos bag during a skill test: Seal them on Nephthys, instead.\n[free] Exhaust Nephthys: Either release 3 [bless] tokens sealed on her, or return 3 [bless] tokens sealed on her to the token pool to deal 2 damage to an enemy at your location.",
+    "tags": [
+      "boost_willpower_1",
+      "chaos_reveal_token_bless",
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "07263",
+    "name": "The Stygian Eye",
+    "text": "Fast. Play only during your turn.\nReduce the cost to play The Stygian Eye by 1 for each [curse] token in the chaos bag.\nUntil the end of the round, you get +3 to each of your skills.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07264",
+    "name": "Hyperawareness",
+    "text": "Uses (2 resources). Replenish these resources at the start of each round.\n[free] Spend 1 resource from your resource pool or from Hyperawareness: You get +1 [intellect] or +1 [agility] for this skill test.",
+    "tags": [
+      "uses_type_resource",
+      "uses_starting_2",
+      "boost_agility_1",
+      "boost_intellect_1",
+      "uses_replenish"
+    ]
+  },
+  {
+    "code": "07265",
+    "name": "Geas",
+    "text": "Exceptional.\nYou get +1 [willpower], +1 [intellect], +1 [combat], and +1 [agility].\n<b>Forced</b> - After Geas enters play: Make a promise using the following formula - \"I shall not (draw/play/commit) any cards during each of my turns.\" If you break this promise while Geas is in play, discard it and add 10 [curse] tokens to the chaos bag.",
+    "tags": [
+      "boost_agility_1",
+      "boost_combat_1",
+      "boost_intellect_1",
+      "boost_willpower_1",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07266",
+    "name": "Hard Knocks",
+    "text": "Uses (2 resources). Replenish these resources at the start of each round.\n[free] Spend 1 resource from your resource pool or from Hard Knocks: You get +1 [combat] or +1 [agility] for this skill test.",
+    "tags": [
+      "uses_type_resource",
+      "uses_starting_2",
+      "boost_agility_1",
+      "boost_combat_1",
+      "uses_replenish"
+    ]
+  },
+  {
+    "code": "07267",
+    "name": "Ikiaq",
+    "text": "You get +1 [willpower] and +1 [intellect]. You get -1 [willpower] and -1 [intellect] for each weakness beneath Ikiaq.\n[reaction] When an investigator at your location draws a basic weakness, exhaust Ikiaq: Cancel that weakness's effects and place it facedown beneath Ikiaq. Its owner must draw it if Ikiaq leaves play.",
+    "tags": [
+      "boost_intellect_1",
+      "boost_willpower_1",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07268",
+    "name": "Flute of the Outer Gods",
+    "text": "Exceptional. Seal (up to X [curse]).\n[action] Exhaust Flute of the Outer Gods and release 1 [curse] token sealed on it: Choose a non-[[Elite]] enemy at your location. Either move the chosen enemy to a connecting location, or deal its damage to any enemy at its location. This action does not provoke attacks of opportunity.",
+    "tags": [
+      "chaos_reveal_token_curse",
+      "cost_action_exhaust_self",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "07269",
+    "name": "A Watchful Peace",
+    "text": "As an additional cost to play A Watchful Peace, search the chaos bag and/or cards in play for a total of 5 [bless] tokens and return them to the token pool.\nFast. Play when the \"draw encounter cards\" step of the mythos phase would begin. Skip this step of the mythos phase.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07270",
+    "name": "Dig Deep",
+    "text": "Uses (2 resources). Replenish these resources at the start of each round.\n[free] Spend 1 resource from your resource pool or from Dig Deep: You get +1 [willpower] or +1 [agility] for this skill test.",
+    "tags": [
+      "uses_type_resource",
+      "uses_starting_2",
+      "boost_agility_1",
+      "boost_willpower_1",
+      "uses_replenish"
+    ]
+  },
+  {
+    "code": "07271",
+    "name": "Favor of the Moon",
+    "text": "Fast. Seal (up to 3 [curse]). If there are no tokens sealed on Favor of the Moon, discard it.\n[reaction] When you would reveal a chaos token from the chaos bag, exhaust Favor of the Moon: Resolve a token sealed here instead, as if it were just revealed from the chaos bag. Then, gain 1 resource.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_curse",
+      "cost_reaction_exhaust_self",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "07272",
+    "name": "Favor of the Sun",
+    "text": "Fast. Seal (up to 3 [bless]). If there are no tokens sealed on Favor of the Sun, discard it.\n[reaction] When you would reveal a chaos token from the chaos bag, exhaust Favor of the Sun: Resolve a token sealed here instead, as if it were just revealed from the chaos bag.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07273",
+    "name": "Purifying Corruption",
+    "text": "[reaction] When you draw a non-weakness treachery, take 1 damage and 1 horror: Cancel that card's revelation effect and place 1 resource on this card, as corruption. If this card has 3 or more corruption, remove it from the game.\n[fast] Draw the top card of the encounter deck: Either heal 1 damage and 1 horror, or remove 1 corruption from this card.",
+    "tags": [
+      "take_damage"
+    ]
+  },
+  {
+    "code": "07301",
+    "name": "Hallow",
+    "text": "As an additional cost to play Hallow, return a total of 10 [bless] tokens to the token pool from the chaos bag or sealed on cards in play.\nRemove 1 doom from any card in play.",
+    "tags": [
+      "chaos_reveal_token_bless"
+    ]
+  },
+  {
+    "code": "07302",
+    "name": "Holy Spear",
+    "text": "[action]: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack. When you initiate this ability, you may release a [bless] token sealed on Holy Spear.\n[action] Search the chaos bag for 2 [bless] tokens and seal them on Holy Spear: <b>Fight.</b> You get +4 [combat] and deal +2 damage for this attack.",
+    "tags": [
+      "bold_fight",
+      "boost_combat_2",
+      "boost_combat_4",
+      "chaos_reveal_token_bless",
+      "damage_plus_1",
+      "damage_plus_2"
+    ]
+  },
+  {
+    "code": "07303",
+    "name": "Ancestral Knowledge",
+    "text": "Permanent. Exceptional.\nYour deck must include at least 10 skills. Your deck size is increased by 5.\n[reaction] Before drawing your opening hand: Attach 5 random non-weakness skills from your deck facedown to this card.\n[fast] Exhaust Ancestral Knowledge: Draw 1 attached skill.",
+    "tags": []
+  },
+  {
+    "code": "07304",
+    "name": "Ariadne's Twine",
+    "text": "Uses (0 secrets).\nSecrets on Ariadne's Twine can be spent as if they were on any asset controlled by an investigator at your location.\n[free] Exhaust Ariadne's Twine: Move 1 secret from an asset you control to your resource pool, as a resource, or vice versa.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_0",
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "07305",
+    "name": ".25 Automatic",
+    "text": "Fast. Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> If the attacked enemy is exhausted, you get +2 [combat] and deal +1 damage for this attack.\n[reaction] After you evade an enemy at your location: Perform the above <b>Fight</b> ability without spending an action.",
+    "tags": [
+      "fast_play",
+      "uses_type_ammo",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "07306",
+    "name": "Justify the Means",
+    "text": "You may commit Justify the Means to any type of test.\nAs an additional cost to commit Justify the Means to a skill test, add [curse] tokens to the chaos bag equal to this test's difficulty.\nThis test automatically succeeds.",
+    "tags": [
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07307",
+    "name": "Lucky Dice",
+    "text": "Exceptional.\n[reaction] When you reveal a non-[curse], non-[auto_fail] chaos token, add 1 [curse] token to the chaos bag: Ignore the just revealed chaos token and reveal another one to resolve. If that token has a [curse] or [auto_fail] symbol, return Lucky Dice to your hand (cannot be ignored/canceled).",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07308",
+    "name": "Rite of Equilibrium",
+    "text": "Either (choose one):\n- Add X [curse] tokens to the chaos bag to add X [bless] tokens to the chaos bag.\n- Remove X [curse] and X [bless] tokens from the chaos bag to heal X total horror from among cards at your location.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "chaos_reveal_token_curse"
+    ]
+  },
+  {
+    "code": "07309",
+    "name": "Jacob Morrison",
+    "text": "Jacob Morrison does not ready during the upkeep phase.\n[reaction] When you would fail a skill test, exhaust Jacob Morrison: You get +2 skill value for that test.\n[reaction] After a [bless] token is revealed from the chaos bag during a skill test you are performing: Ready Jacob Morrison.",
+    "tags": [
+      "chaos_reveal_token_bless",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "07310",
+    "name": "Shrine of the Moirai",
+    "text": "Attach to your location. Uses (3 offerings).\nAttached location gains: \"[fast] Draw the top card of the encounter deck, exhaust Shrine of the Moirai, and spend 1 offering: Return up to 2 cards with a total combined level of 5 or less from your discard pile to your hand. Any investigator at this location may trigger this ability.\"\n<b>Card design by the Moirai at Arkham Nights 2019.</b>",
+    "tags": [
+      "uses_type_offerings",
+      "uses_starting_3"
+    ]
+  }
+]

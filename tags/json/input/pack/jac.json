@@ -1,0 +1,335 @@
+[
+  {
+    "code": "60402",
+    "name": "Arbiter of Fates",
+    "text": "Jacqueline Fine deck only.\n[reaction] When you use Jacqueline Fine's [reaction] ability, exhaust Arbiter of Fates: This use of her ability does not count towards its limit.",
+    "tags": [
+      "deck_restriction",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "60405",
+    "name": "Ritual Candles",
+    "text": "[reaction] After a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during a test you are performing: You get +1 skill value for this test.",
+    "tags": [
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "60406",
+    "name": "Scrying Mirror",
+    "text": "Uses (4 secrets).\n[reaction] After a skill test at your location begins, exhaust Scrying Mirror and spend 1 secret: Perform the \"reveal chaos token\" step of the test now <i>(before committing cards)</i>, instead of after committing cards.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "60407",
+    "name": "Azure Flame",
+    "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this attack, take 1 damage.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_4",
+      "bold_fight",
+      "chaos_reveal_token_elder_sign",
+      "damage_plus_1",
+      "take_damage"
+    ]
+  },
+  {
+    "code": "60408",
+    "name": "Clairvoyance",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. If you succeed, discover 1 additional clue at this location. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this investigation, take 1 horror.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_investigate",
+      "chaos_reveal_token_elder_sign",
+      "take_horror"
+    ]
+  },
+  {
+    "code": "60409",
+    "name": "Ineffable Truth",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 damage to the evaded enemy. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this evasion attempt, lose 1 resource.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_evade",
+      "chaos_reveal_token_elder_sign"
+    ]
+  },
+  {
+    "code": "60410",
+    "name": "Familiar Spirit",
+    "text": "You have 1 additional arcane slot, which can only be used to hold a [[Spell]] asset.",
+    "tags": [
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "60411",
+    "name": "Crystal Pendulum",
+    "text": "You get +1 [willpower].\n[reaction] After a skill test at your location begins, exhaust Crystal Pendulum: Name a number. If this test succeeds by that number or fails by that number, draw 1 card.",
+    "tags": [
+      "boost_willpower_1",
+      "cost_reaction_exhaust_self",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "60412",
+    "name": "Robes of Endless Night",
+    "text": "[reaction] When you play a [[Spell]] card, exhaust Robes of Endless Night: Reduce the cost of that card by 1.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "60413",
+    "name": "Astral Travel",
+    "text": "<b>Move.</b> Move to any revealed location and reveal a random token from the chaos bag. If you reveal a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, you must discard an [[Item]] or [[Ally]] asset you control (if you cannot, take 1 damage).",
+    "tags": [
+      "bold_move",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "take_damage",
+      "trait_ally",
+      "trait_item"
+    ]
+  },
+  {
+    "code": "60414",
+    "name": "Hypnotic Gaze",
+    "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal the attacking enemy's damage to itself. ",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "60415",
+    "name": "Parallel Fates",
+    "text": "Look at the top 4 cards of the encounter deck. Reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, shuffle those cards into the encounter deck. Otherwise, return them to the top of the encounter deck in any order.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "60416",
+    "name": "Voice of Ra",
+    "text": "Gain 1 resource. Reveal 3 random tokens from the chaos bag. For each [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol revealed, gain an additional 2 resources.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "60417",
+    "name": "Dark Prophecy",
+    "text": "Fast. Play when you would reveal a chaos token.\nReveal 5 chaos tokens instead of 1. Choose one of those tokens with a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "60418",
+    "name": "Defiance",
+    "text": "Before revealing chaos tokens for this test, choose one of the following symbols: ([skull], [cultist], [tablet], or [elder_thing]). Ignore the effects of the chosen symbol during this test (including its modifier).",
+    "tags": [
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "60419",
+    "name": "Prescient",
+    "text": "Max 1 committed per skill test.\nAfter you commit Prescient to a skill test, name \"even,\" \"odd,\" or \"symbol.\" After this test ends, if a chaos token of the named type was revealed during this test, you may return a [[Spell]] card from your discard pile to your hand.",
+    "tags": [
+      "max_1_commit",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "60420",
+    "name": "Eldritch Inspiration",
+    "text": "Fast. Play when you would resolve an effect on a [mystic] card that triggers \"when,\" \"if,\" or \"after\" a chaos token is revealed.\nEither cancel that effect, or resolve it an additional time.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "60421",
+    "name": "Grotesque Statue",
+    "text": "Uses (3 charges). If Grotesque Statue has no charges, discard it.\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 2 chaos tokens instead of 1. Choose one of those tokens to resolve, and ignore the other.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "discard_zero_uses"
+    ]
+  },
+  {
+    "code": "60422",
+    "name": "Robes of Endless Night",
+    "text": "[reaction] When you play a [[Spell]] card, exhaust Robes of Endless Night: Reduce the cost of that card by 1. Playing that card does not provoke attacks of opportunity.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "60423",
+    "name": "Hypnotic Gaze",
+    "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal damage to the attacking enemy equal to its damage or horror.",
+    "tags": [
+      "fast_play",
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "60424",
+    "name": "Guts",
+    "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card (2 cards instead if it succeeds by 2 or more).",
+    "tags": [
+      "draw_player_1",
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "60425",
+    "name": "Azure Flame",
+    "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] and deal +1 damage for this attack. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this attack, take 1 damage.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_willpower_2",
+      "chaos_reveal_token_elder_sign",
+      "damage_plus_1",
+      "take_damage"
+    ]
+  },
+  {
+    "code": "60426",
+    "name": "Clairvoyance",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this investigation. If you succeed, discover 1 additional clue at this location. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this investigation, take 1 horror.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_investigate",
+      "boost_willpower_2",
+      "chaos_reveal_token_elder_sign",
+      "take_horror"
+    ]
+  },
+  {
+    "code": "60427",
+    "name": "Ineffable Truth",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. You get +2 [willpower] for this evasion attempt. If you succeed, deal 1 damage to the evaded enemy. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this evasion attempt, lose 1 resource.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_evade",
+      "boost_willpower_2",
+      "chaos_reveal_token_elder_sign"
+    ]
+  },
+  {
+    "code": "60428",
+    "name": "Arcane Studies",
+    "text": "Uses (2 resources). Replenish these resources at the start of each round.\n[fast] Spend 1 resource from your resource pool or from Arcane Studies: You get +1 [willpower] or +1 [intellect] for this skill test.",
+    "tags": [
+      "uses_type_resource",
+      "uses_starting_2",
+      "boost_intellect_1",
+      "boost_willpower_1",
+      "uses_replenish"
+    ]
+  },
+  {
+    "code": "60429",
+    "name": "Recharge",
+    "text": "Choose a [[Spell]] or [[Relic]] asset controlled by an investigator at your location and reveal a random chaos token from the chaos bag. If you reveal a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, add 1 charge to the chosen asset. Otherwise, add 4 charges to the chosen asset.",
+    "tags": [
+      "chaos_reveal_token_auto_fail",
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet",
+      "trait_relic",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "60430",
+    "name": "Azure Flame",
+    "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +3 [willpower] and deal +2 damage for this attack. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this attack, take 2 damage.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_4",
+      "bold_fight",
+      "boost_willpower_3",
+      "chaos_reveal_token_elder_sign",
+      "damage_plus_2",
+      "take_damage"
+    ]
+  },
+  {
+    "code": "60431",
+    "name": "Clairvoyance",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +3 [willpower] for this investigation. If you succeed, discover 2 additional clues at this location. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this investigation, take 2 horror.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_investigate",
+      "boost_willpower_3",
+      "chaos_reveal_token_elder_sign",
+      "take_horror"
+    ]
+  },
+  {
+    "code": "60432",
+    "name": "Ineffable Truth",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. You get +3 [willpower] for this evasion attempt. If you succeed, deal 2 damage to the evaded enemy. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this evasion attempt, lose 2 resources.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "bold_evade",
+      "boost_willpower_3",
+      "chaos_reveal_token_elder_sign"
+    ]
+  }
+]

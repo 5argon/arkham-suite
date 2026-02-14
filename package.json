@@ -13,7 +13,8 @@
         "string",
         "starter",
         "icon",
-        "cards-json"
+        "cards-json",
+        "tags"
     ],
     "packageManager": "yarn@4.12.0",
     "devDependencies": {

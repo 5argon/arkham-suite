@@ -1,0 +1,749 @@
+[
+  {
+    "code": "06006",
+    "name": "Becky",
+    "text": "Tommy Muldoon deck only. Uses (2 ammo).\nEach resource gained from Tommy Muldoon's [reaction] ability may instead be placed on Becky, as ammo.\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack.",
+    "tags": [
+      "deck_restriction",
+      "uses_type_ammo",
+      "uses_starting_2",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "06008",
+    "name": "Occult Evidence",
+    "text": "Mandy Thompson deck only.\nShuffle Occult Evidence into your deck.\n[reaction] When you search your deck and Occult Evidence is among the searched cards, reveal it: Draw it and discover 1 clue at your location. (Max one [[Research]] ability per search.)",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "06010",
+    "name": "Bounty Contracts",
+    "text": "Permanent. Tony Morgan deck only. Uses (6 bounties).\n[reaction]: After an enemy enters play: Move 1-3 bounties from Bounty Contracts to that enemy, to a maximum of that enemy's health.\n<b>Forced</b> - After you defeat an enemy with 1 or more bounties on it: Move its bounties to your resource pool, as resources.",
+    "tags": [
+      "deck_restriction",
+      "uses_type_bounties",
+      "uses_starting_6"
+    ]
+  },
+  {
+    "code": "06011",
+    "name": "Tony's .38 Long Colt",
+    "text": "Tony Morgan deck only. Uses (3 ammo).\n[reaction]: After you play Tony's .38 Long Colt: Play another Tony's .38 Long Colt from your hand, at no cost.\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for each bounty on the attacked enemy. This attack deals +1 damage. If this attack defeats an enemy with 1 or more bounties on it, place 1 bounty on Bounty Contracts.",
+    "tags": [
+      "deck_restriction",
+      "uses_type_ammo",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_1",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "06013",
+    "name": "Gate Box",
+    "text": "Luke Robinson deck only. Uses (3 charges).\n[fast] Exhaust Gate Box and spend 1 charge: Disengage from each enemy engaged with you, search your bonded cards for Dream-Gate <i>(Wondrous Journey)</i>, put it into play, and move to it.",
+    "tags": [
+      "deck_restriction",
+      "uses_type_charge",
+      "uses_starting_3",
+      "engage_with_you"
+    ]
+  },
+  {
+    "code": "06015a",
+    "name": "Dream-Gate",
+    "text": "Bonded (Gate Box).\nDream-Gate is connected to each other revealed location, and vice versa. Enemies and investigators other than Luke Robinson cannot enter Dream-Gate.\n<b>Forced</b> - At the end of the investigation phase: Set Dream-Gate aside, out of play. (If Luke Robinson is here, move him to any revealed location.)",
+    "tags": []
+  },
+  {
+    "code": "06015b",
+    "name": "Dream-Gate",
+    "text": "Bonded (Detached from Reality).\nEnemies and investigators other than Luke Robinson cannot enter Dream-Gate.\n[reaction] After you successfully investigate Dream-Gate: Flip it.\n<b>Forced</b> - At the end of the investigation phase: Set Dream-Gate aside, out of play. (If Luke Robinson is here, move him to any revealed location, and he takes 2 horror.)",
+    "tags": []
+  },
+  {
+    "code": "06016",
+    "name": "Patrice's Violin",
+    "text": "Patrice Hathaway deck only.\n[fast] Choose and discard 1 card from your hand and exhaust Patrice's Violin: Choose an investigator at your location to either gain 1 resource or draw 1 card.",
+    "tags": [
+      "deck_restriction",
+      "draw_player_1",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "06018",
+    "name": "The Hungering Blade",
+    "text": "Limit 1 per deck. As an additional cost to play this card, you must search your bonded cards for 3 copies of Bloodlust and shuffle them into your deck.\n[action]: <b>Fight.</b> You get +1 [combat] for this attack for each attached copy of Bloodlust. This attack deals +1 damage. If this attack defeats an enemy, place 1 resource on this card <i>(from the token bank)</i>, as an offering.",
+    "tags": [
+      "limit_1_per_deck",
+      "bold_fight",
+      "boost_combat_1",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "06020",
+    "name": "Solemn Vow",
+    "text": "Myriad. Fast.\nPlay Solemn Vow under the control of another investigator at your location.\n[fast] If the owner of Solemn Vow is at your location, exhaust Solemn Vow: Move 1 damage or horror from a card you control to a card that investigator controls.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "06021",
+    "name": "Segment of Onyx",
+    "text": "Myriad. Fast.\n[free] If you have 3 copies of Segment of Onyx in play: Set them aside, out of play. Search your bonded cards for Pendant of the Queen and put it into play.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "06022",
+    "name": "Pendant of the Queen",
+    "text": "Bonded (Segment of Onyx). Uses (3 charges). If this card has no charges, set it aside, out of play, and shuffle 3 set-aside copies of Segment of Onyx into your deck.\n[free] Exhaust Pendant of the Queen and spend 1 charge: Choose a revealed location and select one - move to that location, discover 1 clue at that location, or automatically evade an enemy at that location.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3",
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "06023",
+    "name": "Astounding Revelation",
+    "text": "Myriad.\nAstounding Revelation cannot be played.\n[reaction] When you search your deck and Astounding Revelation is among the searched cards, discard it: Either gain 2 resources or place 1 secret on an asset you control. (Max one [[Research]] ability per search.)",
+    "tags": [
+      "gain_resource_2"
+    ]
+  },
+  {
+    "code": "06024",
+    "name": "Crystallizer of Dreams",
+    "text": "As an additional cost to play this card, you must search your bonded cards for 1 copy of Guardian of the Crystallizer and shuffle it into your deck.\n[reaction] After you play an event: Attach it facedown to Crystallizer of Dreams instead of discarding it (to a maximum of 5 attached events). Attached events may be committed to skill tests as if they were in your hand.",
+    "tags": []
+  },
+  {
+    "code": "06026",
+    "name": "Easy Mark",
+    "text": "Myriad.\nGain 2 resources and draw 1 card.\n[reaction] After you play Easy Mark: Play another Easy Mark from your hand, at no cost.",
+    "tags": [
+      "draw_player_1",
+      "gain_resource_2"
+    ]
+  },
+  {
+    "code": "06027",
+    "name": "Stargazing",
+    "text": "Max twice per game.\nPlay only if there are 10 or more cards in the encounter deck.\nSearch your bonded cards for 1 copy of The Stars Are Right and shuffle it into the top 10 cards of the encounter deck.",
+    "tags": [
+      "max_per_game_2"
+    ]
+  },
+  {
+    "code": "06028",
+    "name": "The Stars Are Right",
+    "text": "Bonded (Stargazing).\n<b>Revelation</b> - Remove The Stars Are Right from the game. Choose an investigator. That investigator draws 1 card, gains 1 resource, and may take an immediate action as if it were their turn (this action does not count toward the number of actions that investigator can take each turn).",
+    "tags": [
+      "draw_player_1",
+      "gain_resource_1"
+    ]
+  },
+  {
+    "code": "06029",
+    "name": "Open Gate",
+    "text": "Myriad. Fast.\nPlay only during your turn.\nAttach to your location. Group limit 3 in play.\nInvestigators may move between any two locations with an attached Open Gate as if the locations were connected.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "06030",
+    "name": "Miss Doyle",
+    "text": "Limit 1 per deck.\n<b>Forced</b> - After Miss Doyle enters play: Search your bonded cards for Hope, Zeal, and Augur. Randomly choose 1 to put into play and shuffle the other 2 into your deck. When Miss Doyle leaves play, find each of those assets (even if they are out of play) and set them aside, out of play.",
+    "tags": [
+      "limit_1_per_deck"
+    ]
+  },
+  {
+    "code": "06031",
+    "name": "Hope",
+    "text": "Bonded (Miss Doyle). Fast.\n<b>Forced</b> - After Hope enters play: Discard Zeal and Augur.\n[action] If Hope is ready, exhaust or discard him: <b>Evade.</b> Attempt to evade with a base [agility] value of 5. (If you discarded Hope, this test is automatically successful. Then, you may shuffle Hope into your deck to put Zeal or Augur into play from your discard pile.)",
+    "tags": [
+      "fast_play",
+      "bold_evade",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "06032",
+    "name": "Zeal",
+    "text": "Bonded (Miss Doyle). Fast.\n<b>Forced</b> - After Zeal enters play: Discard Hope and Augur.\n[action] If Zeal is ready, exhaust or discard her: <b>Fight.</b> Fight with a base [combat] value of 5. (If you discarded Zeal, this test is automatically successful. Then, you may shuffle Zeal into your deck to put Hope or Augur into play from your discard pile.)",
+    "tags": [
+      "fast_play",
+      "bold_fight",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "06033",
+    "name": "Augur",
+    "text": "Bonded (Miss Doyle). Fast.\n<b>Forced</b> - After Augur enters play: Discard Hope and Zeal.\n[action] If Augur is ready, exhaust or discard her: <b>Investigate.</b> Investigate with a base [intellect] value of 5. (If you discarded Augur, this test is automatically successful. Then, you may shuffle Augur into your deck to put Hope or Zeal into play from your discard pile.)",
+    "tags": [
+      "fast_play",
+      "bold_investigate",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "06034",
+    "name": "Fortuitous Discovery",
+    "text": "Myriad.\nX is the number of other copies of Fortuitous Discovery in your discard pile.\n<b>Investigate.</b> You get +X [intellect] for this investigation. If you succeed, discover X additional clues at your location.",
+    "tags": [
+      "bold_investigate"
+    ]
+  },
+  {
+    "code": "06110",
+    "name": "First Watch",
+    "text": "Fast. Play when the \"draw encounter cards\" step of the mythos phase would begin.\nInstead of resolving that step, look at the top X cards of the encounter deck, where X is the number of investigators. Deal those cards among the investigators as you wish, dealing no more than 1 card to each investigator other than yourself. Then, one at a time, each investigator draws the card(s) dealt to them.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "06111",
+    "name": "Daring",
+    "text": "Commit only to a skill test during an attack or evasion attempt against an enemy. That enemy gains retaliate and alert for the duration of this skill test. After this test ends, draw 1 card.",
+    "tags": [
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "06112",
+    "name": "Dream Diary",
+    "text": "[action]: Search your bonded cards for Essence of the Dream and add it to your hand.\n[reaction] After you succeed by 3 or more during a skill test to which Essence of the Dream is committed: Record in your Campaign Log that \"you have interpreted the dreams.\"",
+    "tags": [
+      "succeed_by_3"
+    ]
+  },
+  {
+    "code": "06113",
+    "name": "Essence of the Dream",
+    "text": "Bonded (Dream Diary).\nWhen Essence of the Dream would enter your discard pile or be shuffled into your deck, instead set Essence of the Dream aside, out of play (with your bonded cards).",
+    "tags": []
+  },
+  {
+    "code": "06114",
+    "name": "Followed",
+    "text": "<b>Investigate.</b> Choose an enemy at your location. You get +1 [intellect] for this investigation for each damage on the chosen enemy (to a maximum of +5 [intellect]). If you succeed, discover 1 additional clue at this location. This action does not provoke attacks of opportunity from the chosen enemy.",
+    "tags": [
+      "bold_investigate",
+      "boost_intellect_1",
+      "boost_intellect_5"
+    ]
+  },
+  {
+    "code": "06115",
+    "name": "Momentum",
+    "text": "If this skill test is successful, reduce the difficulty of the next skill test you perform this phase by X, where X is the amount this skill test succeeded by (to a maximum of 3).",
+    "tags": []
+  },
+  {
+    "code": "06116",
+    "name": "Scroll of Prophecies",
+    "text": "Uses (4 secrets).\n[action] Spend 1 secret: Choose an investigator at your location. That investigator draws 3 cards, then discards 1 card from their hand.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4",
+      "draw_player_3"
+    ]
+  },
+  {
+    "code": "06117",
+    "name": "Read the Signs",
+    "text": "<b>Investigate.</b> Add your [willpower] value to your skill value for this investigation. You may ignore any effect or keyword on your location which would trigger during this investigation. If you succeed, discover 1 additional clue at this location.",
+    "tags": [
+      "bold_investigate",
+      "stat_add_willpower_for_investigate"
+    ]
+  },
+  {
+    "code": "06118",
+    "name": "Jessica Hyde",
+    "text": "You get +1 [combat].\nJessica Hyde enters play with 2 damage on her.\n[reaction] After your turn ends: Heal 1 damage from Jessica Hyde.",
+    "tags": [
+      "boost_combat_1"
+    ]
+  },
+  {
+    "code": "06155",
+    "name": "Tetsuo Mori",
+    "text": "Tetsuo Mori may be assigned damage and/or horror dealt to other investigators at your location.\n[reaction] When Tetsuo Mori is defeated: Choose an investigator at your location. That investigator searches either their discard pile or the top 9 cards of their deck for an [[Item]] asset and adds it to their hand. Shuffle their deck if it is searched.",
+    "tags": [
+      "trait_item"
+    ]
+  },
+  {
+    "code": "06156",
+    "name": "\"Fool me once...\"",
+    "text": "Fast. Play when you would discard a treachery card after resolving any of its effects.\nPut \"Fool me once...\" into play in your play area and attach that treachery to it.\n[reaction] When any investigator draws a copy of the attached treachery card, discard \"Fool me once...\": Cancel that card's revelation effect.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "06157",
+    "name": "Self-Sacrifice",
+    "text": "Commit only to a skill test (of any type) being performed by another investigator at your location.\nIf this test fails, you must resolve all effects from the failed test, instead of the performing investigator. Then, either you draw 2 cards, or the performing investigator draws 2 cards.",
+    "tags": [
+      "draw_player_2"
+    ]
+  },
+  {
+    "code": "06158",
+    "name": "Otherworld Codex",
+    "text": "Uses (3 secrets).\n[action] Exhaust Otherworld Codex and spend 1 secret: Search the top 9 cards of the encounter deck and choose a non-[[Elite]] card among them. Discard a copy of the chosen card from play. Shuffle all of the searched cards back into the encounter deck.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3",
+      "cost_action_exhaust_self",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "06159",
+    "name": "Dream-Enhancing Serum",
+    "text": "Only the first copy of each card in your hand counts toward your maximum hand size.\n[reaction] After you draw a copy of a card that is already in your hand, reveal both copies and exhaust Dream-Enhancing Serum: Draw 1 card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "06160",
+    "name": "\"Let God sort them out...\"",
+    "text": "Play only during one of your turns in which you defeated enemies with a total of 6 or more health.\nAdd \"Let God sort them out...\" to the victory display and immediately end your turn. When earning experience during the resolution of this scenario, you earn 1 additional experience.",
+    "tags": []
+  },
+  {
+    "code": "06161",
+    "name": "Swift Reload",
+    "text": "Fast. Play only during your turn.\nChoose a [[Firearm]] asset you control with fewer ammo tokens than its uses (X) value. Place ammo on that asset until it has ammo equal to its uses (X) value.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn",
+      "trait_firearm"
+    ]
+  },
+  {
+    "code": "06162",
+    "name": "Gregory Gry",
+    "text": "Uses (9 resources).\n[reaction] When you initiate a skill test, spend up to 3 resources from Gregory Gry: If this skill test succeeds by at least that amount, gain that many resources.",
+    "tags": [
+      "uses_type_resource",
+      "uses_starting_9"
+    ]
+  },
+  {
+    "code": "06163",
+    "name": "Healing Words",
+    "text": "Uses (3 charges).\n[action] Spend 1 charge: Heal 1 damage from an investigator at your location.",
+    "tags": [
+      "uses_type_charge",
+      "uses_starting_3"
+    ]
+  },
+  {
+    "code": "06164",
+    "name": "Ethereal Form",
+    "text": "<b>Evade.</b> Add your [willpower] value to your skill value for this evasion attempt. If you succeed, disengage from each other enemy engaged with you, and for the remainder of the round, you are ethereal (enemies cannot engage or be engaged with you, and you cannot attack or deal damage to enemies).",
+    "tags": [
+      "bold_evade",
+      "engage_with_you",
+      "stat_add_willpower_for_evade"
+    ]
+  },
+  {
+    "code": "06165",
+    "name": "Scrounge for Supplies",
+    "text": "Choose a level 0 card in your discard pile. Add the chosen card to your hand.",
+    "tags": []
+  },
+  {
+    "code": "06166",
+    "name": "Brute Force",
+    "text": "Max 1 committed per skill test.\nWhile Brute Force is committed during a basic fight action, it gains [combat][combat] and the text: \"If this test is successful by 2 or more, this attack deals +2 damage.\"",
+    "tags": [
+      "damage_plus_2",
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "06167",
+    "name": "Versatile",
+    "text": "Permanent.\nYou get +5 Deck Size.\nYour investigator's Deckbuilding Options gain: \"one other level 0 card from any class ([guardian], [seeker], [rogue], [mystic], or [survivor]).\"",
+    "tags": []
+  },
+  {
+    "code": "06195",
+    "name": ".35 Winchester",
+    "text": "Uses (5 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a +1, 0, or [elder_sign] chaos token is revealed during this attack, this attack deals +2 damage.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_5",
+      "bold_fight",
+      "boost_combat_2",
+      "chaos_reveal_token_elder_sign",
+      "damage_plus_2"
+    ]
+  },
+  {
+    "code": "06196",
+    "name": "Safeguard",
+    "text": "[reaction] During another investigator's turn, exhaust Safeguard: For the remainder of that investigator's turn, as they move from your location to a connecting location, you may move to that location as well.",
+    "tags": [
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "06197",
+    "name": "Practice Makes Perfect",
+    "text": "Fast. Play during a skill test at your location.\nSearch the top 9 cards of your deck for a [[Practiced]] skill and commit it to this skill test, if able. Shuffle the remaining cards back into your deck. After this test ends, if it was successful, add that skill to your hand instead of discarding it.",
+    "tags": [
+      "fast_play",
+      "trait_practiced"
+    ]
+  },
+  {
+    "code": "06198",
+    "name": "Extensive Research",
+    "text": "Reduce the cost to play Extensive Research by 1 for each other card in your hand.\nDiscover 2 clues at your location.",
+    "tags": []
+  },
+  {
+    "code": "06199",
+    "name": "Three Aces",
+    "text": "Myriad.\nIf you commit 3 copies of Three Aces to a skill test, that test automatically succeeds <i>(do not reveal chaos tokens from the chaos bag)</i>. Then draw 3 cards and gain 3 resources (max once per test).",
+    "tags": [
+      "draw_player_3",
+      "gain_resource_3"
+    ]
+  },
+  {
+    "code": "06200",
+    "name": "Burglary",
+    "text": "[action] Exhaust Burglary: <b>Investigate.</b> If you succeed, instead of discovering clues, gain 2 resources, +1 additional resource for each point you succeed by (to a maximum of +3 resources).",
+    "tags": [
+      "bold_investigate",
+      "cost_action_exhaust_self",
+      "gain_resource_2"
+    ]
+  },
+  {
+    "code": "06201",
+    "name": "Spectral Razor",
+    "text": "<b>Fight.</b> Add your [willpower] value to your skill value for this attack. Immediately before this attack, you may engage the attacked enemy. This attack deals +1 damage (+2 damage instead if the enemy is non-[[Elite]]).",
+    "tags": [
+      "bold_fight",
+      "damage_plus_1",
+      "damage_plus_2",
+      "elite_unusable",
+      "stat_add_willpower_for_attack"
+    ]
+  },
+  {
+    "code": "06202",
+    "name": "Word of Command",
+    "text": "Name a [[Spell]] card. Search your deck for 1 copy of the named card and draw it. Shuffle your deck.",
+    "tags": [
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "06203",
+    "name": "Moonstone",
+    "text": "You get +1 [willpower] and +1 [agility].\nYou cannot play or commit Moonstone from your hand.\n[reaction] After you discard Moonstone from your hand: Play it <i>(paying its cost)</i>.",
+    "tags": [
+      "boost_agility_1",
+      "boost_willpower_1"
+    ]
+  },
+  {
+    "code": "06204",
+    "name": "Sharp Vision",
+    "text": "Max 1 committed per skill test.\nWhile Sharp Vision is committed during a basic investigate action, it gains [intellect] [intellect] and the text: \"If this test is successful by 2 or more, discover 1 additional clue at this location.\"",
+    "tags": [
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "06205",
+    "name": "Lucid Dreaming",
+    "text": "Choose a card in your play area or reveal a card in your hand. Search your deck for another copy of that card and draw it. Shuffle your deck.",
+    "tags": []
+  },
+  {
+    "code": "06234",
+    "name": "Heroic Rescue",
+    "text": "Fast. Play when a non-[[Elite]] enemy would attack another investigator at your location or a connecting location.\nMove to that location if you are not already there. Engage that enemy and resolve its attack against you instead. Then, deal it 1 damage.",
+    "tags": [
+      "fast_play",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "06235",
+    "name": "Leadership",
+    "text": "While Leadership is committed to a skill test being performed by another investigator, Leadership gains [willpower] [wild].\nIf this test is successful, gain 2 resources. If Leadership is committed to a skill test being performed by another investigator, that investigator also gains 2 resources.",
+    "tags": [
+      "gain_resource_2"
+    ]
+  },
+  {
+    "code": "06236",
+    "name": "Dream Diary",
+    "text": "Researched.\nWhile you are at a location with at least 4 shroud, your Essence of the Dream gains [wild][wild].\n[reaction] When your turn begins: Search your bonded cards for Essence of the Dream and add it to your hand.",
+    "tags": []
+  },
+  {
+    "code": "06237",
+    "name": "Dream Diary",
+    "text": "Researched.\nWhile you are engaged with an enemy, your Essence of the Dream gains [wild][wild].\n[reaction] When your turn begins: Search your bonded cards for Essence of the Dream and add it to your hand.",
+    "tags": []
+  },
+  {
+    "code": "06238",
+    "name": "Dream Diary",
+    "text": "Researched.\nWhile you have at least 8 cards in hand, your Essence of the Dream gains [wild][wild].\n[reaction] When your turn begins: Search your bonded cards for Essence of the Dream and add it to your hand.",
+    "tags": []
+  },
+  {
+    "code": "06239",
+    "name": "Haste",
+    "text": "Limit 1 per investigator.\n[reaction] After you perform the same type of action twice in a row, exhaust Haste: Take another action of that type again <i>(types include activate, engage, evade, fight, investigate, move, play, resource, and draw)</i>.",
+    "tags": [
+      "limit_1_per_investigator",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "06240",
+    "name": "Daredevil",
+    "text": "After you commit Daredevil to a skill test, reveal cards from the top of your deck until you reveal a [rogue] skill you can commit to this test. Commit it. Shuffle each other revealed card back into your deck.",
+    "tags": []
+  },
+  {
+    "code": "06241",
+    "name": "Empower Self",
+    "text": "Myriad. Limit 1 Empower Self <i>(Stamina)</i> per deck.\nUp to 3 Empower Self cards take up a single arcane slot.\nAnytime a card effect requires you to use [willpower] instead of [combat], you may ignore that aspect of the effect.\n[fast] Exhaust Empower Self: You get +2 [combat] for this test.",
+    "tags": [
+      "limit_1_per_deck",
+      "boost_combat_2"
+    ]
+  },
+  {
+    "code": "06242",
+    "name": "Empower Self",
+    "text": "Myriad. Limit 1 Empower Self <i>(Alacrity)</i> per deck.\nUp to 3 Empower Self cards take up a single arcane slot.\nAnytime a card effect requires you to use [willpower] instead of [agility], you may ignore that aspect of the effect.\n[fast] Exhaust Empower Self: You get +2 [agility] for this test.",
+    "tags": [
+      "limit_1_per_deck",
+      "boost_agility_2"
+    ]
+  },
+  {
+    "code": "06243",
+    "name": "Empower Self",
+    "text": "Myriad. Limit 1 Empower Self <i>(Acuity)</i> per deck.\nUp to 3 Empower Self cards take up a single arcane slot.\nAnytime a card effect requires you to use [willpower] instead of [intellect], you may ignore that aspect of the effect.\n[fast] Exhaust Empower Self: You get +2 [intellect] for this test.",
+    "tags": [
+      "limit_1_per_deck",
+      "boost_intellect_2"
+    ]
+  },
+  {
+    "code": "06244",
+    "name": "Twila Katherine Price",
+    "text": "[reaction] After you spend 1 or more charges from a [[Spell]] asset, exhaust Twila Katherine Price: Place 1 charge on that asset.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "06245",
+    "name": "A Glimmer of Hope",
+    "text": "Myriad.\nA Glimmer of Hope can only be played from your discard pile.\nAdd all copies of A Glimmer of Hope in your discard pile to your hand <i>(including this copy)</i>.",
+    "tags": []
+  },
+  {
+    "code": "06246",
+    "name": "Expeditious Retreat",
+    "text": "Max 1 committed per skill test.\nWhile Expeditious Retreat is committed during a basic evade action, it gains [agility][agility] and the text: \"If this test is successful by 2 or more, you may automatically evade another enemy at your location.\"",
+    "tags": [
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "06276",
+    "name": "Empty Vessel",
+    "text": "Limit 1 per deck. Uses (0 charges).\n[reaction] After you defeat an enemy: Place 1 charge on Empty Vessel.\n[fast] If there are at least 3 charges on Empty Vessel: Search your bonded cards for Wish Eater and swap it with Empty Vessel, moving all charges from Empty Vessel to Wish Eater.",
+    "tags": [
+      "limit_1_per_deck",
+      "uses_type_charge",
+      "uses_starting_0"
+    ]
+  },
+  {
+    "code": "06277",
+    "name": "Wish Eater",
+    "text": "Bonded (Empty Vessel).\n[reaction] When you reveal a [skull], [cultist], [tablet], or [elder_thing] chaos token during a skill test, spend 1 charge: Cancel that token. Heal 1 damage and 1 horror.\n<b>Forced</b> - If Wish Eater has no charges: Search your bonded cards for Empty Vessel and swap it with Wish Eater.",
+    "tags": [
+      "chaos_reveal_token_cultist",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_skull",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "06278",
+    "name": "Surprising Find",
+    "text": "Myriad.\n[reaction] When you search your deck and Surprising Find is among the searched cards: Put it into play in your play area. You must commit it to the next eligible skill test you perform. If that test is successful, draw 1 card. (Max one [[Research]] ability per search.)",
+    "tags": [
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "06279",
+    "name": "Old Book of Lore",
+    "text": "Uses (2 secrets).\n[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of their deck for a card, draws it, and shuffles their deck. Then, you may spend 1 secret to have that investigator immediately play that card, reducing its cost by 2.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_2",
+      "cost_action_exhaust_self"
+    ]
+  },
+  {
+    "code": "06280",
+    "name": "Garrote Wire",
+    "text": "[fast] During your turn, exhaust Garrote Wire: <b>Fight.</b> You get +2 [combat] for this attack. Use only on an enemy with exactly 1 remaining health.",
+    "tags": [
+      "bold_fight",
+      "boost_combat_2"
+    ]
+  },
+  {
+    "code": "06281",
+    "name": "Delilah O'Rourke",
+    "text": "You get +1 [combat] and +1 [agility].\n[fast] Exhaust Delilah O'Rourke and spend X resources: Choose an enemy at your location. Deal 1 damage to the chosen enemy (2 damage instead if that enemy is exhausted). X is the chosen enemy's evade value.",
+    "tags": [
+      "boost_agility_1",
+      "boost_combat_1"
+    ]
+  },
+  {
+    "code": "06282",
+    "name": "Summoned Hound",
+    "text": "As an additional cost to play Summoned Hound, you must search your bonded cards for 1 copy of Unbound Beast and shuffle it into your deck.\n[free] During your turn, except during an action, exhaust Summoned Hound: <b>Fight/Investigate.</b> Either attack with a base [combat] skill of 5, or investigate with a base [intellect] skill of 5.",
+    "tags": [
+      "cost_fast_exhaust_self"
+    ]
+  },
+  {
+    "code": "06284",
+    "name": "Nothing Left to Lose",
+    "text": "If you have fewer than 5 resources, gain resources until you have 5 resources.\nIf you have fewer than 5 cards in your hand, draw cards until you have 5 cards in your hand.\nRemove Nothing Left to Lose from the game.",
+    "tags": []
+  },
+  {
+    "code": "06285",
+    "name": "The Black Cat",
+    "text": "Anytime you reveal a [tablet], [elder_thing], or [elder_sign] symbol during a skill test, you may choose to use the following effects instead of that symbol's normal effects:\n[tablet]: -1. The Black Cat takes 1 direct damage.\n[elder_thing]: -1. The Black Cat takes 1 direct horror.\n[elder_sign]: +5. Heal all damage and horror from The Black Cat.",
+    "tags": [
+      "chaos_reveal_token_elder_sign",
+      "chaos_reveal_token_elder_thing",
+      "chaos_reveal_token_tablet"
+    ]
+  },
+  {
+    "code": "06323",
+    "name": "Spiritual Resolve",
+    "text": "Myriad.\n[fast] Discard a copy of Spiritual Resolve from your hand: Heal all damage and horror from this copy of Spiritual Resolve.",
+    "tags": []
+  },
+  {
+    "code": "06324",
+    "name": "Abigail Foreman",
+    "text": "[fast]: Attach a [[Tome]] asset in your play area to Abigail Foreman, or switch a [[Tome]] asset in your play area with an attached asset. The asset attached to her takes up no hand slots. (Limit 1 attached asset.)\n[reaction] After you resolve an [action] ability on the attached [[Tome]] asset, exhaust Abigail Foreman: Resolve its effects again.",
+    "tags": [
+      "cost_action_exhaust_self",
+      "cost_reaction_exhaust_self",
+      "trait_tome"
+    ]
+  },
+  {
+    "code": "06325",
+    "name": "The Eye of Truth",
+    "text": "If this skill test is on a treachery and the test is successful, add that treachery to the victory display and attach The Eye of Truth to it.\nWhile attached, The Eye of Truth contributes its skill icons to all tests on copies of the attached treachery.",
+    "tags": []
+  },
+  {
+    "code": "06326",
+    "name": "Joey \"The Rat\" Vigil",
+    "text": "[free] Spend 1 resource: Choose an [[Item]] asset from your hand and play it (paying its cost).\n[free] Discard an [[Item]] asset from play: Gain 2 resources.",
+    "tags": [
+      "gain_resource_2",
+      "trait_item"
+    ]
+  },
+  {
+    "code": "06327",
+    "name": "Sawed-Off Shotgun",
+    "text": "Uses (2 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> Instead of its standard damage, this attack deals 1 damage for each point you succeed by (to a minimum of 1, to a maximum of 6). If you fail and would damage another investigator, this attack deals 1 damage for each point you fail by (to a minimum of 1, to a maximum of 6).",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_2",
+      "bold_fight"
+    ]
+  },
+  {
+    "code": "06328",
+    "name": "Mind's Eye",
+    "text": "Myriad. Uses (3 secrets).\n[reaction] When you would test your [intellect], [combat], or [agility], spend 1 secret: Test your [willpower] instead.\n[fast] Discard a copy of Mind's Eye from your hand: Place 2 secrets on this copy of Mind's Eye.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_3"
+    ]
+  },
+  {
+    "code": "06329",
+    "name": "Shining Trapezohedron",
+    "text": "[reaction] When you would pay the cost of a [[Spell]] card, exhaust Shining Trapezohedron: Instead, test [willpower] (X), where X is the card's resource cost. If you succeed, its resource cost is considered paid. If you fail, cancel the playing of that card without paying any of its costs (<i>including its action cost</i>). For the remainder of the round, you cannot play copies of that card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "initiate_test_willpower_x",
+      "trait_spell"
+    ]
+  },
+  {
+    "code": "06330",
+    "name": "Nightmare Bauble",
+    "text": "Limit 1 per deck.\n<b>Forced</b> - After Nightmare Bauble enters play: Search your bonded cards for 3 copies of Dream Parasite and attach them to Nightmare Bauble. When Nightmare Bauble leaves play, set each attached Dream Parasite aside, out of play.\n[reaction] When you reveal an [auto_fail] chaos token, shuffle an attached Dream Parasite into your deck: Cancel that token.",
+    "tags": [
+      "limit_1_per_deck",
+      "chaos_reveal_token_auto_fail"
+    ]
+  },
+  {
+    "code": "06332",
+    "name": "Scavenging",
+    "text": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and either add it to your hand or play it <i>(paying its cost)</i>.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "trait_item"
+    ]
+  }
+]

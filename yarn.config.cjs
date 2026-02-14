@@ -6,6 +6,11 @@ module.exports = {
       '@5argon/arkham-life-ui',
     ];
 
+    const typeScriptPackages = [
+      '@5argon/arkham-kohaku',
+      '@5argon/arkham-tags',
+    ];
+
     const targetVersions = {
       '@eslint/compat': '^2.0.2',
       '@eslint/js': '^9.39.2',
@@ -38,6 +43,25 @@ module.exports = {
       if (!sveltePackages.includes(workspace.pkg.ident)) continue;
 
       for (const [ident, range] of Object.entries(targetVersions)) {
+        for (const dependency of Yarn.dependencies({ workspace, ident })) {
+          dependency.update(range);
+        }
+      }
+    }
+
+    const typeScriptTargetVersions = {
+      '@types/node': '^25.2.3',
+      '@typescript-eslint/eslint-plugin': '^8.55.0',
+      '@typescript-eslint/parser': '^8.55.0',
+      'eslint': '^9.39.2',
+      'prettier': '^3.8.1',
+      'typescript': '^5.9.3',
+    };
+
+    for (const workspace of Yarn.workspaces()) {
+      if (!typeScriptPackages.includes(workspace.pkg.ident)) continue;
+
+      for (const [ident, range] of Object.entries(typeScriptTargetVersions)) {
         for (const dependency of Yarn.dependencies({ workspace, ident })) {
           dependency.update(range);
         }

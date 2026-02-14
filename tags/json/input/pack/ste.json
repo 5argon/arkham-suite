@@ -1,0 +1,249 @@
+[
+  {
+    "code": "60502",
+    "name": "Neither Rain nor Snow",
+    "text": "Stella Clark deck only.\nIf this skill test fails, cancel all effects of the failed test.",
+    "tags": [
+      "deck_restriction"
+    ]
+  },
+  {
+    "code": "60505",
+    "name": ".18 Derringer",
+    "text": "Uses (2 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack. If you fail, place 1 ammo on .18 Derringer.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_2",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "60506",
+    "name": "Grimm's Fairy Tales",
+    "text": "Uses (4 secrets).\n[reaction] After an investigator at your location fails a skill test by 2 or more, exhaust Grimm's Fairy Tales and spend 1 secret: Heal 1 horror from that investigator.",
+    "tags": [
+      "uses_type_secret",
+      "uses_starting_4",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "60507",
+    "name": "Old Keyring",
+    "text": "Uses (2 keys). If there are no keys on Old Keyring, discard it.\n[action]: <b>Investigate.</b> Your location gets -2 shroud for this investigation. If you succeed, remove 1 key from Old Keyring.",
+    "tags": [
+      "uses_type_keys",
+      "uses_starting_2",
+      "bold_investigate"
+    ]
+  },
+  {
+    "code": "60508",
+    "name": "Granny Orne",
+    "text": "You get +1 [willpower].\n[reaction] When an investigator at your location would fail a skill test, exhaust Granny Orne: That investigator fails by either 1 less or 1 more.",
+    "tags": [
+      "boost_willpower_1",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "60509",
+    "name": "Mysterious Raven",
+    "text": "[fast] Discard Mysterious Raven and take 1 horror: Discover 1 clue at your location.",
+    "tags": [
+      "take_horror"
+    ]
+  },
+  {
+    "code": "60510",
+    "name": "Rabbit's Foot",
+    "text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Draw 1 card.",
+    "tags": [
+      "cost_reaction_exhaust_self",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "60511",
+    "name": "Scrapper",
+    "text": "[free] Spend 1 resource: You get +1 [combat] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+    "tags": [
+      "boost_agility_1",
+      "boost_combat_1"
+    ]
+  },
+  {
+    "code": "60512",
+    "name": "Will to Survive",
+    "text": "Fast. Play only during your turn.\nDo not reveal chaos tokens for the next skill test you perform this turn.",
+    "tags": [
+      "fast_play",
+      "timing_fast_during_your_turn"
+    ]
+  },
+  {
+    "code": "60513",
+    "name": "A Test of Will",
+    "text": "Fast. Play when an investigator at your location draws a non-weakness treachery card.\nTest [willpower] (3). If you succeed, cancel that card's revelation effect.",
+    "tags": [
+      "fast_play",
+      "initiate_test_willpower_3"
+    ]
+  },
+  {
+    "code": "60514",
+    "name": "Dumb Luck",
+    "text": "Fast. Play after you fail a skill test by 2 or less during an evasion attempt against a non-[[Elite]] enemy.\nPlace that enemy on top of the encounter deck.",
+    "tags": [
+      "fast_play",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "60515",
+    "name": "Grit Your Teeth",
+    "text": "Fast. Play after you fail a skill test.\nYou get +1 to each of your skills for the remainder of the round.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "60516",
+    "name": "Live and Learn",
+    "text": "Fast. Play after a skill test you failed ends <i>(after resolving all effects from the failed test)</i>.\nAttempt that test again. You get +2 skill value for this test.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "60517",
+    "name": "\"Look what I found!\"",
+    "text": "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "60518",
+    "name": "Oops!",
+    "text": "Fast. Play after you fail a skill test by 2 or less while attacking an enemy engaged with you.\nDeal this attack's damage to a different enemy at your location.",
+    "tags": [
+      "fast_play",
+      "engage_with_you"
+    ]
+  },
+  {
+    "code": "60519",
+    "name": "Take Heart",
+    "text": "Max 1 committed per skill test.\nYou may commit Take Heart to any type of test.\nIf this test fails, the performing investigator draws 2 cards and gains 2 resources.",
+    "tags": [
+      "draw_player_2",
+      "gain_resource_2",
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "60520",
+    "name": "Cherished Keepsake",
+    "text": "<b>Forced</b> - When Cherished Keepsake is defeated by horror: Exile it.",
+    "tags": []
+  },
+  {
+    "code": "60521",
+    "name": "Leather Coat",
+    "text": "<b>Forced</b> - When Leather Coat is defeated by damage: Exile it.",
+    "tags": []
+  },
+  {
+    "code": "60522",
+    "name": ".18 Derringer",
+    "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] and deal +1 damage for this attack. If you fail, place 1 ammo on .18 Derringer and the next time you trigger this ability this round, you get an additional +1 [combat] for that attack.",
+    "tags": [
+      "uses_type_ammo",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_1",
+      "boost_combat_2",
+      "damage_plus_1"
+    ]
+  },
+  {
+    "code": "60523",
+    "name": "A Test of Will",
+    "text": "Fast. Play when an investigator at your location draws a non-weakness treachery card.\nCancel that card's revelation effect. Then, test [willpower] (3). If you fail, exile A Test of Will.",
+    "tags": [
+      "fast_play",
+      "initiate_test_willpower_3"
+    ]
+  },
+  {
+    "code": "60524",
+    "name": "\"Look what I found!\"",
+    "text": "Fast. Play after you fail a skill test by 3 or less while investigating.\nDiscover 2 total clues from among your location and connecting locations.",
+    "tags": [
+      "fast_play"
+    ]
+  },
+  {
+    "code": "60525",
+    "name": "Dumb Luck",
+    "text": "Fast. Play after you fail a skill test by 3 or less during an evasion attempt against a non-[[Elite]] enemy.\nPlace that enemy on the bottom of the encounter deck.",
+    "tags": [
+      "fast_play",
+      "elite_unusable"
+    ]
+  },
+  {
+    "code": "60526",
+    "name": "Unexpected Courage",
+    "text": "Max 1 committed per skill test.\nIf this test fails, return Unexpected Courage to your hand.",
+    "tags": [
+      "max_1_commit"
+    ]
+  },
+  {
+    "code": "60527",
+    "name": "Granny Orne",
+    "text": "You get +1 [willpower] and +1 [intellect].\n[reaction] When an investigator at your location would fail a skill test, exhaust Granny Orne: That investigator either gets +1 skill value or -1 skill value for that test.",
+    "tags": [
+      "boost_intellect_1",
+      "boost_willpower_1",
+      "cost_reaction_exhaust_self"
+    ]
+  },
+  {
+    "code": "60528",
+    "name": "Lucky!",
+    "text": "Fast. Play when an investigator at your location would fail a skill test.\nThey get +3 to their skill value for that test. That investigator draws 1 card.",
+    "tags": [
+      "fast_play",
+      "draw_player_1"
+    ]
+  },
+  {
+    "code": "60529",
+    "name": "Chainsaw",
+    "text": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Fight.</b> You get +2 [combat] and deal +2 damage for this attack. If this attack fails, either place 1 supply on Chainsaw or deal 1 damage to the attacked enemy.",
+    "tags": [
+      "uses_type_supply",
+      "uses_starting_3",
+      "bold_fight",
+      "boost_combat_2",
+      "damage_plus_2"
+    ]
+  },
+  {
+    "code": "60530",
+    "name": "Quick Learner",
+    "text": "Permanent.\nDuring or before your first action of each of your turns, each skill test you perform gets +1 difficulty.\nDuring or after your third action of each of your turns, each skill test you performed gets -1 difficulty.",
+    "tags": []
+  },
+  {
+    "code": "60531",
+    "name": "Déjà Vu",
+    "text": "Permanent.\nIn between two scenarios of a campaign, reduce the experience cost to repurchase up to 3 cards that you exiled during the last scenario by 1 each.",
+    "tags": []
+  }
+]
