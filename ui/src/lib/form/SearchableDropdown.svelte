@@ -88,6 +88,7 @@
 	let searchText = $state('');
 	let showPopup = $state(false);
 	let selectedIndex = $state(0);
+	let isKeyboardNavigation = $state(false);
 	let inputRef = $state<HTMLDivElement>();
 	let popupElement = $state<HTMLDivElement>();
 	let scrollContainer = $state<HTMLDivElement>();
@@ -155,9 +156,9 @@
 		}
 	}
 
-	// Auto-scroll to selected item
+	// Auto-scroll to selected item (only during keyboard navigation)
 	$effect(() => {
-		if (scrollContainer && selectedIndex >= 0 && filteredItems.length > 0) {
+		if (isKeyboardNavigation && scrollContainer && selectedIndex >= 0 && filteredItems.length > 0) {
 			const selectedElement = itemRefs.get(selectedIndex);
 			if (!selectedElement) return;
 
@@ -189,7 +190,10 @@
 			selectedIndex,
 			items: filteredItems,
 			isPopupVisible: showPopup,
-			onIndexChange: (newIndex) => (selectedIndex = newIndex),
+			onIndexChange: (newIndex) => {
+				isKeyboardNavigation = true;
+				selectedIndex = newIndex;
+			},
 			onSelect: handleSelect,
 			onEscape: closePopup,
 		})
@@ -251,7 +255,10 @@
 									'bg-primary-200 dark:bg-primary-700'
 							)}
 							onmousedown={() => handleSelect(item)}
-							onmouseenter={() => (selectedIndex = index)}
+							onmouseenter={() => {
+								isKeyboardNavigation = false;
+								selectedIndex = index;
+							}}
 						>
 							{@render renderItem(item)}
 						</button>
