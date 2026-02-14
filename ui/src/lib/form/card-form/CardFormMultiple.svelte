@@ -13,6 +13,7 @@
 	import type { CardFormFilter } from './types.js';
 	import Button from '../../button/Button.svelte';
 	import { FaIconType } from '../../icon/index.js';
+	import CardMagnifiedModal from '../../card/CardMagnifiedModal.svelte';
 
 	export interface SelectedCardEntry {
 		code: CardCode;
@@ -86,6 +87,11 @@
 		 * Snippet to render additional content after the card line.
 		 */
 		afterCardLine?: Snippet<[SelectedCardEntry, Card]>;
+
+		/**
+		 * Language code for card translations in the magnified modal.
+		 */
+		languageCode?: string;
 	}
 
 	let {
@@ -99,7 +105,8 @@
 		placeholder,
 		allowDuplicates = false,
 		actionButtons = [],
-		afterCardLine
+		afterCardLine,
+		languageCode
 	}: Prop = $props();
 
 	// Create a map for quick lookups
@@ -112,6 +119,10 @@
 		}
 		return selectedCodes.map((code) => ({ code }));
 	});
+
+	// Modal state for magnified card view
+	let magnifiedCard = $state<Card | null>(null);
+	let isModalShowing = $state(false);
 
 	function handleSelect(card: Card) {
 		const newEntry: SelectedCardEntry = { code: card.code };
@@ -151,6 +162,16 @@
 			onSelectionChange([]);
 		}
 	}
+
+	function handleCardClick(card: Card) {
+		magnifiedCard = card;
+		isModalShowing = true;
+	}
+
+	function handleModalClose(): void {
+		isModalShowing = false;
+		magnifiedCard = null;
+	}
 </script>
 
 <div class="flex items-start gap-2">
@@ -183,12 +204,16 @@
 											{/if}
 										{/each}
 									</div>
-									<div class="flex min-w-0 flex-1 gap-2 space-y-1 align-middle">
+									<button
+										type="button"
+										class="flex min-w-0 flex-1 gap-2 space-y-1 align-middle cursor-pointer text-left"
+										onclick={() => handleCardClick(card)}
+									>
 										<CardLine {card} meta={(entry as SelectedCardEntry).meta} />
 										{#if afterCardLine}
 											{@render afterCardLine(entry, card)}
 										{/if}
-									</div>
+									</button>
 								</div>
 							{/if}
 						{/each}
@@ -208,3 +233,10 @@
 		</div>
 	{/if}
 </div>
+
+<CardMagnifiedModal
+	card={magnifiedCard}
+	isShowing={isModalShowing}
+	onClose={handleModalClose}
+	{languageCode}
+/>
