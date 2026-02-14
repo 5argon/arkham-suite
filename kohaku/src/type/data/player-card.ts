@@ -238,6 +238,7 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
         not: ahdbDeckOption.not,
         trait: ahdbDeckOption.trait,
         level: ahdbDeckOption.level,
+        baseLevel: ahdbDeckOption.base_level,
         text: ahdbDeckOption.text,
         tag: ahdbDeckOption.tag,
         limit: ahdbDeckOption.limit,

@@ -7,11 +7,12 @@ export interface AhdbDeckOption {
   not?: boolean;
   trait?: string[];
   level?: { min: number; max: number };
+  base_level?: { min: number; max: number };
   text?: string[];
   tag?: string[];
   limit?: number;
   error?: string;
-  atleast: { factions: number; min: number };
+  atleast?: { factions: number; min: number };
   name?: string;
   id?: string;
   option_select?: AhdbDeckOption[];
@@ -28,10 +29,11 @@ export interface DeckOption {
   not?: boolean;
   trait?: string[];
   level?: { min: number; max: number };
+  baseLevel?: { min: number; max: number };
   text?: string[];
   tag?: string[];
   limit?: number;
-  atLeast: { factions: number; min: number };
+  atLeast?: { factions: number; min: number };
   name?: string;
   id?: string;
   optionSelect?: DeckOption[];

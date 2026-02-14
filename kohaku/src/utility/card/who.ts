@@ -119,14 +119,16 @@ export function doesCardQualifiedDeckOption(
   }
 
   if (opt.level !== undefined) {
+    const min = opt.baseLevel !== undefined ? opt.baseLevel.min : opt.level.min;
+    const max = opt.baseLevel !== undefined ? opt.baseLevel.max : opt.level.max;
     const cardXp = resolveCustomizableLevel(card, withThisMeta);
     if (cardXp === undefined) {
       return 'next';
     }
-    if (cardXp < opt.level.min) {
+    if (cardXp < min) {
       return 'next';
     }
-    if (cardXp > opt.level.max) {
+    if (cardXp > max) {
       return 'next';
     }
   }
@@ -183,7 +185,7 @@ export function doesCardQualifiedDeckOption(
   }
 
   if (opt.permanent !== undefined && opt.permanent === true) {
-    if (card.permanent === false) {
+    if (!card.permanent) {
       return 'next';
     }
   }
