@@ -174,7 +174,7 @@ Line break not allowed.
 			{#if card.exceptional === true}<FaIcon duotone icon={FaIconType.Exceptional} />{/if}
 			{#if card.advanced === true}<FaIcon duotone icon={FaIconType.Advanced} />{/if}
 			{#if card.reward === true}<FaIcon duotone icon={FaIconType.Reward} />{/if}
-			{#if card.bondedCards || card.bondedTo}<FaIcon duotone icon={FaIconType.Bonded} />{/if}
+			{#if card.bondedTo}<FaIcon duotone icon={FaIconType.Bonded} />{/if}
 			{#if card.myriad === true}<FaIcon duotone icon={FaIconType.Myriad} />{/if}
 			{#if card.researched === true}<FaIcon duotone icon={FaIconType.Researched} />{/if}
 			{#if card.fast === true}<FaIcon duotone icon={FaIconType.Fast} />{/if}

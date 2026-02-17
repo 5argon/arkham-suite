@@ -21,20 +21,25 @@ export interface CustomizationText {
 
 export interface DeckRequirements {
   size: number;
-  card: CardCode[];
+  card: Card[];
+  cardCodes: CardCode[];
   random?: SubtypeCode[];
 }
 
 export interface Card {
   advanced?: boolean;
-  alternateOf?: CardCode;
-  alternates?: CardCode[];
+  alternateOf?: Card;
+  alternateOfCardCode?: CardCode;
+  alternates?: Card[];
+  alternatesCardCodes?: CardCode[];
   backFlavor?: string;
   backName?: string;
   backText?: string;
   backImageCode?: CardCode;
-  bondedCards?: CardCode[];
-  bondedTo?: CardCode;
+  bondedCards?: Card[];
+  bondedCardsCardCodes?: CardCode[];
+  bondedTo?: Card;
+  bondedToCardName?: string;
   code: CardCode;
   cost?: Cost;
   customizationChange?: string;
@@ -76,7 +81,7 @@ export interface Card {
   position: number;
   quantity: number;
   researched?: boolean;
-  restrictions?: { investigator: CardCode[]; trait: string[] };
+  restrictions?: { investigator: Card[]; investigatorCardCodes: CardCode[]; trait: string[] };
   reward?: boolean;
   sanity?: number;
   skillAgility?: number;
@@ -205,9 +210,11 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
         }
       }
 
+      // Store codes temporarily; will be resolved to Card[] in CardResolver's second pass
       return {
         size,
-        card: cards,
+        card: [], // Will be populated in CardResolver's second pass
+        cardCodes: cards,
         random: randoms.length > 0 ? randoms : undefined,
       };
     }
@@ -216,17 +223,18 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
     if (ahdbCard.restrictions) {
       // Format: "investigator:CODE1, investigator:CODE2, trait:TRAIT1, trait:TRAIT2"
       const restrictionParts = ahdbCard.restrictions.split(', ');
-      const investigator: CardCode[] = [];
+      const investigatorCodes: CardCode[] = [];
       const trait: string[] = [];
       restrictionParts.forEach((part) => {
         const [key, value] = part.split(':');
         if (key === 'investigator') {
-          investigator.push(value);
+          investigatorCodes.push(value);
         } else if (key === 'trait') {
           trait.push(value);
         }
       });
-      restrictions = { investigator, trait };
+      // Store codes; will be resolved to Card[] in CardResolver's second pass
+      restrictions = { investigator: [], investigatorCardCodes: investigatorCodes, trait };
     }
 
     function convertDeckOptions(ahdbDeckOption: AhdbDeckOption): DeckOption {
@@ -270,13 +278,18 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
       position: ahdbCard.position,
       quantity: ahdbCard.quantity,
       advanced: ahdbCard.text?.includes('Advanced.') ? true : undefined,
-      alternateOf: ahdbCard.alternate_of,
+      alternateOf: undefined, // Populated in CardResolver's 2nd pass
+      alternateOfCardCode: ahdbCard.alternate_of,
+      alternates: undefined, // Populated in CardResolver's 2nd pass
+      alternatesCardCodes: undefined, // Populated in CardResolver's 2nd pass
       backFlavor: ahdbCard.back_flavor,
       backName: ahdbCard.back_name,
       backText: ahdbCard.back_text,
       backImageCode: ahdbCard.double_sided ? ahdbCard.code + 'b' : undefined,
       bondedCards: undefined, // Populated in CardResolver's 2nd pass
-      bondedTo: ahdbCard.bonded_to,
+      bondedCardsCardCodes: undefined, // Populated in CardResolver's 2nd pass
+      bondedTo: undefined, // Populated in CardResolver's 2nd pass
+      bondedToCardName: ahdbCard.bonded_to,
       cost: convertCost(ahdbCard),
       customizationChange: ahdbCard.customization_change,
       customizationOptions: ahdbCard.customization_options?.map((option, index) => {

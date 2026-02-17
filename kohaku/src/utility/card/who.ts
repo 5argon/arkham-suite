@@ -31,8 +31,8 @@ export function doesCardQualifiedDeckOption(
 
     if (cardRestrictions.investigator !== undefined) {
       hasInvestigatorRestriction = true;
-      cardRestrictions.investigator.forEach((k) => {
-        if (k === investigator.code || k === investigator.alternateOf) {
+      cardRestrictions.investigatorCardCodes.forEach((k) => {
+        if (k === investigator.code || k === investigator.alternateOfCardCode) {
           passedInvestigatorRestriction = true;
         }
       });

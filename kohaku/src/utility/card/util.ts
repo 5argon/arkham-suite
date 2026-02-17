@@ -1,13 +1,14 @@
 import { randomBasicWeakness } from '../../type/data/ahdb-card.js';
+import { specialLinkedCards } from '../../type/data/player-card.js';
 import { CardPack } from '../../type/game/card-pack.js';
 import { Card, CardCode, CardResolver, CardType } from '../../type/index.js';
 
 export function isHorizontalCard(card: Card): boolean {
-		return (
-			card.cardType === CardType.Investigator ||
-			card.cardType === CardType.Act ||
-			card.cardType === CardType.Agenda
-		);
+  return (
+    card.cardType === CardType.Investigator ||
+    card.cardType === CardType.Act ||
+    card.cardType === CardType.Agenda
+  );
 }
 
 export function isRandomBasicWeakness(card: Card): boolean {
@@ -18,7 +19,7 @@ export function isRandomBasicWeakness(card: Card): boolean {
  * Calculate the commit power of a card.
  * The commit power is the highest total icon count when committing to any single skill test.
  * Start with wilds and add them to the highest non-wild stat.
- * 
+ *
  * Example: Card with 1 combat, 1 intellect, 2 wilds → Commit power is 3
  * (can commit for either 3 combat or 3 intellect)
  */
@@ -28,7 +29,7 @@ export function getCommitPower(card: Card): number {
   const agility = card.skillAgility ?? 0;
   const intellect = card.skillIntellect ?? 0;
   const willpower = card.skillWillpower ?? 0;
-  
+
   const maxStat = Math.max(combat, agility, intellect, willpower);
   return wilds + maxStat;
 }
@@ -67,10 +68,17 @@ export function uniqueCards(cards: Card[]): Card[] {
 
 /**
  * Find all other cards required to play with the input card.
- * Currently it only means the cards bonded to the input card.
+ * Currently it only means the cards bonded to the input card,
+ * and the weird TFA weaknesses that could upgrades itself.
  */
 export function findLinkedCards(card: Card): CardCode[] {
-  return card.bondedCards ?? [];
+  if (specialLinkedCards[card.code]) {
+    return specialLinkedCards[card.code];
+  }
+  if (card.bondedCardsCardCodes) {
+    return card.bondedCardsCardCodes;
+  }
+  return [];
 }
 
 export function rcoreToCore(cardId: string): string {

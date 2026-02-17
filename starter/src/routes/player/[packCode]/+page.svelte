@@ -28,7 +28,8 @@
 		type Card,
 		type CardCode,
 		type DecodedMeta,
-		productRepackaged
+		productRepackaged,
+		sorter
 	} from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
 
@@ -43,12 +44,7 @@
 		const filtered = allCards.filter(
 			(card) => cardUtils.playerCardsNonCampaignFilter(card) && card.product === product
 		);
-		if (productRepackaged.includes(product)) {
-			filtered.sort(cardUtils.investigatorExpansionSorter);
-		} else {
-			filtered.sort((a, b) => a.position - b.position);
-		}
-		return filtered;
+		return filtered.sort((a, b) => sorter('position', a, b));
 	});
 	const allInvestigatorCards = $derived(
 		allCards.filter(cardUtils.deckbuildingInvestigatorCardsFilter)

@@ -29,36 +29,96 @@ export class CardResolver {
       // First pass: convert all cards
       this.cards = new Map<string, Card>(cards.map((x) => [x.code, ahdbCardToCard(x)]));
 
-      // Second pass: populate bondedCards and duplicates arrays
-      const bondedToMap = new Map<string, string[]>(); // Maps parent code to array of bonded codes
-      const duplicatesMap = new Map<string, string[]>(); // Maps original code to array of duplicate codes
+      // Second pass: populate all Card reference fields using stored CardCode fields
+      // Helper to safely resolve a card code
+      const resolveCode = (code: CardCode): Card | undefined => this.cards.get(code);
+      
+      // Helper to safely resolve a card name to a card
+      const nameToCardMap = new Map<string, Card>();
+      for (const card of this.cards.values()) {
+        nameToCardMap.set(card.name, card);
+      }
+      const resolveName = (name: string): Card | undefined => nameToCardMap.get(name);
 
-      // Collect bonded_to and duplicate_of relationships
-      for (const ahdbCard of cards) {
-        if (ahdbCard.bonded_to) {
-          const parentCode = ahdbCard.bonded_to;
-          if (!bondedToMap.has(parentCode)) {
-            bondedToMap.set(parentCode, []);
+      // Build reverse maps for relationships
+      const bondedToMap = new Map<string, string[]>(); // Maps parent name to array of bonded card codes
+      const duplicatesMap = new Map<string, string[]>(); // Maps original code to array of duplicate codes
+      const alternatesMap = new Map<string, string[]>(); // Maps original code to array of alternate codes
+
+      // Collect relationships from already-converted Card data
+      for (const card of this.cards.values()) {
+        if (card.bondedToCardName) {
+          const parentName = card.bondedToCardName;
+          if (!bondedToMap.has(parentName)) {
+            bondedToMap.set(parentName, []);
           }
-          bondedToMap.get(parentCode)!.push(ahdbCard.code);
+          bondedToMap.get(parentName)!.push(card.code);
         }
 
-        if (ahdbCard.duplicate_of_code) {
-          const originalCode = ahdbCard.duplicate_of_code;
+        if (card.duplicateOf) {
+          const originalCode = card.duplicateOf;
           if (!duplicatesMap.has(originalCode)) {
             duplicatesMap.set(originalCode, []);
           }
-          duplicatesMap.get(originalCode)!.push(ahdbCard.code);
+          duplicatesMap.get(originalCode)!.push(card.code);
+        }
+
+        if (card.alternateOfCardCode) {
+          const originalCode = card.alternateOfCardCode;
+          if (!alternatesMap.has(originalCode)) {
+            alternatesMap.set(originalCode, []);
+          }
+          alternatesMap.get(originalCode)!.push(card.code);
         }
       }
 
-      // Update cards with collected relationships
-      for (const [code, card] of this.cards.entries()) {
-        if (bondedToMap.has(code)) {
-          card.bondedCards = bondedToMap.get(code);
+      // Update cards with collected relationships, converting codes to Card references
+      for (const card of this.cards.values()) {
+        // Populate bondedTo (single card reference) - resolve by name
+        if (card.bondedToCardName) {
+          card.bondedTo = resolveName(card.bondedToCardName);
         }
-        if (duplicatesMap.has(code)) {
-          card.duplicates = duplicatesMap.get(code);
+
+        // Populate bondedCards (array of cards bonded to this card) and bondedCardsCardCodes
+        if (bondedToMap.has(card.name)) {
+          const codes = bondedToMap.get(card.name)!;
+          card.bondedCardsCardCodes = codes;
+          card.bondedCards = codes.map(resolveCode).filter((c): c is Card => c !== undefined);
+        }
+
+        // Populate alternateOf (single card reference)
+        if (card.alternateOfCardCode) {
+          card.alternateOf = resolveCode(card.alternateOfCardCode);
+        }
+
+        // Populate alternates (array of alternate versions) and alternatesCardCodes
+        if (alternatesMap.has(card.code)) {
+          const codes = alternatesMap.get(card.code)!;
+          card.alternatesCardCodes = codes;
+          card.alternates = codes.map(resolveCode).filter((c): c is Card => c !== undefined);
+        }
+
+        // Populate duplicates (array of duplicate cards) - duplicateOf already set by ahdbCardToCard
+        if (duplicatesMap.has(card.code)) {
+          card.duplicates = duplicatesMap.get(card.code)!;
+        }
+
+        // Populate deckRequirements.card (convert codes to Cards)
+        if (card.deckRequirements) {
+          const codes = card.deckRequirements.cardCodes;
+          card.deckRequirements.card = codes.map(resolveCode).filter((c): c is Card => c !== undefined);
+        }
+
+        // Populate sideDeckRequirements.card (convert codes to Cards)
+        if (card.sideDeckRequirements) {
+          const codes = card.sideDeckRequirements.cardCodes;
+          card.sideDeckRequirements.card = codes.map(resolveCode).filter((c): c is Card => c !== undefined);
+        }
+
+        // Populate restrictions.investigator (convert codes to Cards)
+        if (card.restrictions) {
+          const codes = card.restrictions.investigatorCardCodes;
+          card.restrictions.investigator = codes.map(resolveCode).filter((c): c is Card => c !== undefined);
         }
       }
     } else {

@@ -68,17 +68,7 @@
 			// Process main deck
 			deck.mainDeck.forEach((cq) => {
 				const cardCode = cq.card.code;
-				let card = cq.card;
-
-				// Try to resolve the forwarded card code
-				if (cardCode !== cq.card.code) {
-					try {
-						card = cardResolver.resolve(cardCode);
-					} catch {
-						// If forwarding fails, use original
-					}
-				}
-
+				const card = cardResolver.resolve(cardCode);
 				items.push({
 					card: card,
 					quantity: cq.quantity,
@@ -89,15 +79,15 @@
 				// Add linked cards (bonded and customizable upgrades)
 				const linked = findLinkedCardsSpecial(card, cardResolver);
 				linked.forEach((linkedCard) => {
-					const linkedKey = `${linkedCard.code}-linked`;
-					if (!linkedCardCodes.has(linkedKey)) {
-						linkedCardCodes.add(linkedKey);
+					if (!linkedCardCodes.has(linkedCard.code)) {
+						linkedCardCodes.add(linkedCard.code);
 						items.push({
 							card: linkedCard,
 							quantity: linkedCard.cardType === CardType.Upgrade ? 1 : linkedCard.quantity,
 							id: `deck${deckIndex}-linked-${linkedCard.code}`,
 							owner: investigator,
-							labels: [{ text: 'Linked' }]
+							quantityColor: CardClass.Seeker,
+							labels: [{ text: 'Linked', color: CardClass.Seeker }]
 						});
 					}
 				});
@@ -120,28 +110,59 @@
 				items.push({
 					card: card,
 					quantity: cq.quantity,
-					quantityColor: CardClass.Survivor,
 					id: `deck${deckIndex}-side-${card.code}`,
 					owner: investigator,
-					labels: [{ text: 'Side' }]
+					quantityColor: CardClass.Survivor,
+					labels: [{ text: 'Side', color: CardClass.Survivor }]
 				});
 
 				// Add linked cards from side deck
 				const linked = findLinkedCardsSpecial(card, cardResolver);
 				linked.forEach((linkedCard) => {
-					const linkedKey = `${linkedCard.code}-linked-side`;
-					if (!linkedCardCodes.has(linkedKey)) {
-						linkedCardCodes.add(linkedKey);
+					if (!linkedCardCodes.has(linkedCard.code)) {
+						linkedCardCodes.add(linkedCard.code);
 						items.push({
 							card: linkedCard,
-							quantity: linkedCard.quantity,
+							quantity: linkedCard.cardType === CardType.Upgrade ? 1 : linkedCard.quantity,
 							id: `deck${deckIndex}-linked-side-${linkedCard.code}`,
 							owner: investigator,
-							labels: [{ text: 'Linked' }]
+							quantityColor: CardClass.Seeker,
+							labels: [{ text: 'Linked', color: CardClass.Seeker }]
 						});
 					}
 				});
 			});
+
+			if (deck.meta.extraDeck !== undefined) {
+				deck.meta.extraDeck.forEach((cq) => {
+					const cardCode = cq.card.code;
+					const card = cardResolver.resolve(cardCode);
+					items.push({
+						card: card,
+						quantity: cq.quantity,
+						id: `deck${deckIndex}-extra-${card.code}`,
+						owner: investigator,
+						quantityColor: CardClass.Mystic,
+						labels: [{ text: 'Extra', color: CardClass.Mystic }]
+					});
+
+					// Add linked cards from extra deck
+					const linked = findLinkedCardsSpecial(card, cardResolver);
+					linked.forEach((linkedCard) => {
+						if (!linkedCardCodes.has(linkedCard.code)) {
+							linkedCardCodes.add(linkedCard.code);
+							items.push({
+								card: linkedCard,
+								quantity: linkedCard.cardType === CardType.Upgrade ? 1 : linkedCard.quantity,
+								id: `deck${deckIndex}-linked-extra-${linkedCard.code}`,
+								owner: investigator,
+								quantityColor: CardClass.Seeker,
+								labels: [{ text: 'Linked', color: CardClass.Seeker }]
+							});
+						}
+					});
+				});
+			}
 		});
 
 		return items;
@@ -305,7 +326,15 @@
 				</p>
 			{:else}
 				{#key displayMode}
-					<FlexibleCardDisplay cards={displayedCards} defaultViewMode="list" hideIconsView />
+					<FlexibleCardDisplay
+						cards={displayedCards}
+						defaultViewMode="list"
+						hideIconsView
+						defaultSettings={{
+							grouping: ['set'],
+							sortingOrder: ['position']
+						}}
+					/>
 				{/key}
 			{/if}
 		</div>

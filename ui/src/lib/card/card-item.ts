@@ -486,8 +486,8 @@ export function findLinkedCardsSpecial(card: Card, cardResolver: CardResolver): 
 		// This "b" are not card backs, they are new cards
 		// added manually to represent the upgrade sheets for customizable cards.
 		const upgradedCode = card.code + 'b';
-		const upgradedCard = cardResolver.resolve(upgradedCode);
-		linkedCards.push(upgradedCard);
+		const upgradeSheetCard = cardResolver.resolve(upgradedCode);
+		linkedCards.push(upgradeSheetCard);
 	}
 
 	return linkedCards;
