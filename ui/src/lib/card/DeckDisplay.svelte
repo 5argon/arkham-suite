@@ -18,8 +18,9 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	import DeckDisplayList from './DeckDisplayList.svelte';
 	import DeckDisplayGrid from './DeckDisplayGrid.svelte';
 	import DeckDescriptionReader from './DeckDescriptionReader.svelte';
+	import ExportDeckCardRender from './ExportDeckCardRender.svelte';
+	import CardScanFullSmallGridInvestigator from './CardScanFullSmallGridInvestigator.svelte';
 	import type { CardItem, GroupingSortingSettings } from './card-item.js';
-	import CardScanFullSmallGrid from './CardScanFullSmallGrid.svelte';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
 	import FlexibleCardDisplay from './FlexibleCardDisplay.svelte';
 	import Checkbox from '../form/Checkbox.svelte';
@@ -48,14 +49,15 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		toolbar?: boolean;
 	}
 
-	const {
+	let {
 		deck,
 		cardResolver,
 		localizationResolver,
 		languageCode,
 		mode = 'decklist',
-		toolbar = false
-	}: Prop = $props();
+		toolbar = false,
+		showExportView = $bindable(false)
+	}: Prop & { showExportView?: boolean } = $props();
 
 	let advanced = $state(false);
 	let combineCards = $state(false);
@@ -68,23 +70,6 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	});
 	const deckLatestForwarded = $derived(forwardResult.deck);
 	const tabooEffective = $derived(forwardResult.anyChanges);
-
-	const frontInvestigator = $derived(
-		deckLatestForwarded.meta.alternateFront ?? deckLatestForwarded.investigator
-	);
-	const backInvestigator = $derived.by(() => {
-		if (deckLatestForwarded.meta.alternateFront) {
-			// If front is an alt, always show the back regardless of it staying the same or not.
-			return deckLatestForwarded.meta.alternateBack ?? deckLatestForwarded.investigator;
-		} else {
-			// If front is not an alt, back is hidden.
-			return deckLatestForwarded.meta.alternateBack;
-		}
-	});
-
-	const showTwoCards = $derived(
-		backInvestigator !== undefined && backInvestigator.code !== frontInvestigator.code
-	);
 
 	const mainCards = $derived(
 		deckLatestForwarded.mainDeck.map(
@@ -223,20 +208,11 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 			<DeckBanner {cardResolver} {deck} {mode} {localizationResolver} {languageCode} />
 		</div>
 		<div class="flex flex-wrap gap-2">
-			<CardScanFullSmallGrid
-				groups={[
-					{
-						name: '',
-						items:
-							showTwoCards && backInvestigator
-								? [
-										{ card: frontInvestigator, quantity: 1, id: frontInvestigator.code },
-										{ card: backInvestigator, quantity: 1, id: backInvestigator?.code ?? '' }
-									]
-								: [{ card: frontInvestigator, quantity: 1, id: frontInvestigator.code }]
-					}
-				]}
+			<CardScanFullSmallGridInvestigator
+				{deck}
+				{cardResolver}
 				{languageCode}
+				{mode}
 			/>
 		</div>
 		<!-- Show buttons to the hosted site -->
@@ -283,7 +259,23 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	/>
 {/snippet}
 
-{#if showDescriptionReader}
+{#if showExportView}
+	<!-- Export Deck-Card view -->
+	<ExportDeckCardRender
+		{deck}
+		{cardResolver}
+		{mainCards}
+		{sideCards}
+		{linkedCards}
+		{extraCards}
+		meta={deckLatestForwarded.meta}
+		{localizationResolver}
+		{languageCode}
+		onBack={() => {
+			showExportView = false;
+		}}
+	/>
+{:else if showDescriptionReader}
 	<!-- Two-column layout with description reader -->
 	<div class="flex flex-wrap justify-center gap-2">
 		<!-- Left column: Deck list -->
@@ -348,6 +340,12 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 				<Checkbox bind:checked={advanced} label={m.card_advanced()} />
 				{#if advanced}
 					<Checkbox bind:checked={combineCards} label={m.card_combine_cards()} />
+					<Button
+						label="View Deck-Card"
+						onClick={() => {
+							showExportView = true;
+						}}
+					/>
 				{/if}
 			</div>
 		{/if}

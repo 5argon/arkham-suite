@@ -1038,6 +1038,7 @@ export function codeToProduct(packCode: string, encounterCode: string | undefine
     case 'hfa':
     case 'pap':
     case 'aof':
+    case 'enc':
       return Product.ParallelInvestigators;
     case 'hoth':
     case 'books':

@@ -13,7 +13,6 @@ Fixed size vertical card designed to be in a flex.
 	import CardStrip from './CardStrip.svelte';
 	import CardLabel, { type CardLabelProp } from './CardLabel.svelte';
 	import DeckbuildingChoiceDisplay from './DeckbuildingChoiceDisplay.svelte';
-	import { fade } from 'svelte/transition';
 
 	interface Prop {
 		card: Card;

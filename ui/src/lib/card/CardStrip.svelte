@@ -87,9 +87,7 @@ Inline rectangle representing a card. Its height is 1 em.
 				/>
 			</div>
 			<img
-				width={58}
-				height={20}
-				class="object-cover"
+				class="object-cover w-[58px] h-[20px]"
 				src={completePath}
 				alt={card.name}
 				draggable="false"

@@ -499,7 +499,7 @@ export function findLinkedCardsSpecial(card: Card, cardResolver: CardResolver): 
  */
 
 export const deckListMainGrouping: Grouping[] = ['default'];
-export const deckListMainSorting: SortingType[] = ['class', 'slot', 'position'];
+export const deckListMainSorting: SortingType[] = ['slot', 'class', 'position'];
 
 export const deckListSideGrouping: Grouping[] = ['level'];
 export const deckListSideSorting: SortingType[] = ['class', 'position'];

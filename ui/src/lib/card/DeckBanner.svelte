@@ -4,7 +4,6 @@ Block element with fixed height that display some overall information about the 
 -->
 <script lang="ts">
 	import {
-		card,
 		Product,
 		type Card,
 		type Deck,
@@ -17,16 +16,13 @@ Block element with fixed height that display some overall information about the 
 	import clsx from 'clsx';
 	import HealthSanity from './HealthSanity.svelte';
 	import ImageIconCommit from './ImageIconCommit.svelte';
-	import CardSquare from './CardSquare.svelte';
-	import CardStrip from './CardStrip.svelte';
-	import DeckUtilization from './DeckUtilization.svelte';
 	import DeckXpTimeline from './DeckXpTimeline.svelte';
+	import DeckBannerSecondColumn from './DeckBannerSecondColumn.svelte';
 	import * as m from '../paraglide/messages.js';
-	import DeckSpecificInformation, { findLeftSideSplashes } from './DeckSpecificInformation.svelte';
+	import DeckSpecificInformation from './DeckSpecificInformation.svelte';
 	import CardLineHoverTooltip from './CardLineHoverTooltip.svelte';
 	import { createTooltipState } from '../utility/tooltip-state.svelte.js';
 	import { resolve } from '$app/paths';
-	import { calculateDeckXp } from '@5argon/arkham-kohaku/src/utility/deck';
 	import { getCardImagePath } from '../utility/image';
 	interface Prop {
 		/**
@@ -57,6 +53,10 @@ Block element with fixed height that display some overall information about the 
 		 * If true, shows only the deck name and investigator info in a compact format.
 		 */
 		small?: boolean;
+		/**
+		 * If true, hides the colored title bar with deck name.
+		 */
+		hideTitle?: boolean;
 	}
 	const {
 		deck,
@@ -65,7 +65,8 @@ Block element with fixed height that display some overall information about the 
 		mode,
 		onClick,
 		cardResolver,
-		small = false
+		small = false,
+		hideTitle = false
 	}: Prop = $props();
 
 	// Generate unique ID for this component instance to avoid SVG mask ID collisions
@@ -103,15 +104,6 @@ Block element with fixed height that display some overall information about the 
 	);
 
 	const allowSideDeck = $derived(mode === 'decklist' ? true : false);
-	const visibleOnLeftSide = $derived(
-		findLeftSideSplashes(deckLatestForwarded).visibleCards.map((x) => x.code)
-	);
-	const interestingCards = $derived(
-		card.getInterestingCards(deckLatestForwarded, 5, allowSideDeck, visibleOnLeftSide)
-	);
-	const interestingPermanents = $derived(
-		card.getInterestingPermanentCards(deckLatestForwarded, 3, allowSideDeck, visibleOnLeftSide)
-	);
 	const squareBgPath = $derived(getCardImagePath(frontInvestigator.code, 'square'));
 	const tooltip = createTooltipState<Card>();
 </script>
@@ -186,32 +178,33 @@ Block element with fixed height that display some overall information about the 
 		small && 'md:w-auto'
 	)}
 >
-	<div
-		class={clsx(
-			'line-clamp-2 md:line-clamp-1 flex h-12 items-center justify-center px-2 text-center text-left text-xs text-ellipsis text-black md:h-6 md:justify-start md:text-base dark:text-white',
-			bgColorClass,
-			onClick && 'cursor-pointer transition-opacity hover:opacity-80'
-		)}
-		role={onClick && typeof onClick === 'function' ? 'button' : undefined}
-		tabindex={onClick && typeof onClick === 'function' ? 0 : undefined}
-		onclick={onClick && typeof onClick === 'function' ? onClick : undefined}
-		onkeydown={onClick && typeof onClick === 'function'
-			? (e) => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault();
-						onClick();
+	{#if !hideTitle}
+		<div
+			class={clsx(
+				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-left text-xs text-ellipsis text-black md:line-clamp-1 md:h-6 md:justify-start md:text-base dark:text-white',
+				bgColorClass,
+				onClick && 'cursor-pointer transition-opacity hover:opacity-80'
+			)}
+			role={onClick && typeof onClick === 'function' ? 'button' : undefined}
+			tabindex={onClick && typeof onClick === 'function' ? 0 : undefined}
+			onclick={onClick && typeof onClick === 'function' ? onClick : undefined}
+			onkeydown={onClick && typeof onClick === 'function'
+				? (e) => {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							onClick();
+						}
 					}
-				}
-			: undefined}
-	>
-		{#if onClick && typeof onClick === 'string'}
-			<a href={resolve(onClick, {})} class="block w-full">{deckLatestForwarded.name}</a>
-		{:else}
-			{deckLatestForwarded.name}
-		{/if}
-	</div>
+				: undefined}
+		>
+			{#if onClick && typeof onClick === 'string'}
+				<a href={resolve(onClick, {})} class="block w-full">{deckLatestForwarded.name}</a>
+			{:else}
+				{deckLatestForwarded.name}
+			{/if}
+		</div>
+	{/if}
 	{#if !small}
-		{@const deckXp = calculateDeckXp(deckLatestForwarded)}
 		<div class="relative">
 			<div class="absolute">
 				<img
@@ -249,48 +242,12 @@ Block element with fixed height that display some overall information about the 
 					</div>
 				</div>
 				<!-- Second Column -->
-				<div class="flex flex-col items-center gap-1 md:basis-60">
-					<div class="flex items-center">
-						{#if deckXp > 0}
-							<div
-								class="bg-primary-100 text-primary-900 mr-1 flex flex-col items-center justify-center rounded p-1 text-sm"
-							>
-								<span class="text-[0.5rem] leading-none">XP</span><span class="leading-none"
-									>{deckXp}</span
-								>
-							</div>
-						{/if}
-						<DeckUtilization deck={deckLatestForwarded} {allowSideDeck} />
-					</div>
-					<div class="flex justify-center gap-1">
-						{#each interestingCards as card, i (i)}
-							<div
-								class="shrink-0"
-								onmouseenter={(e) => tooltip.show(card, e)}
-								onmouseleave={tooltip.hide}
-								role="button"
-								tabindex="0"
-							>
-								<CardSquare {card} meta={deckLatestForwarded.meta} />
-							</div>
-						{/each}
-					</div>
-					{#if interestingPermanents.length > 0}
-						<div class="flex justify-center gap-1">
-							{#each interestingPermanents as card, i (i)}
-								<div
-									class="shrink-0"
-									onmouseenter={(e) => tooltip.show(card, e)}
-									onmouseleave={tooltip.hide}
-									role="button"
-									tabindex="0"
-								>
-									<CardStrip {card} />
-								</div>
-							{/each}
-						</div>
-					{/if}
-				</div>
+				<DeckBannerSecondColumn
+					deck={deckLatestForwarded}
+					{allowSideDeck}
+					onCardHover={tooltip.show}
+					onCardLeave={tooltip.hide}
+				/>
 			</div>
 		</div>
 		{#if mode !== 'decklist'}
@@ -303,9 +260,7 @@ Block element with fixed height that display some overall information about the 
 		<div class="p-2">
 			<div class="flex justify-center gap-1">
 				{@render investigatorCardLine()}
-				<div>
-					<span>{@render parallelIndicator(isParallelFront, isParallelBack)}</span>
-				</div>
+				{@render parallelIndicator(isParallelFront, isParallelBack)}
 			</div>
 			<div class="flex items-center justify-center gap-2">
 				<span
