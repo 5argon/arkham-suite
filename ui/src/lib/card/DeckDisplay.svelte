@@ -74,7 +74,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	const mainCards = $derived(
 		deckLatestForwarded.mainDeck.map(
 			(cq): CardItem => ({
-				card: card.coreCardToRcoreCard(cq.card, cardResolver),
+				card: cq.card,
 				quantity: cq.quantity
 			})
 		)
@@ -83,7 +83,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	const sideCards = $derived(
 		deckLatestForwarded.sideDeck.map(
 			(cq): CardItem => ({
-				card: card.coreCardToRcoreCard(cq.card, cardResolver),
+				card: cq.card,
 				quantity: cq.quantity
 			})
 		)
@@ -92,7 +92,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	const extraCards: CardItem[] = $derived(
 		deckLatestForwarded.meta.extraDeck?.map(
 			(cq): CardItem => ({
-				card: card.coreCardToRcoreCard(cq.card, cardResolver),
+				card: cq.card,
 				quantity: cq.quantity
 			})
 		) ?? []

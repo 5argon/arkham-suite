@@ -47,16 +47,16 @@
 		"declarations": ["input count", "local countPlural = count: plural"],
 		"selectors": ["countPlural"],
 		"match": {
-			"countPlural=one": "All Card ({count})",
-			"countPlural=other": "All Cards ({count})"
+			"countPlural=one": "All ({count} Card)",
+			"countPlural=other": "All ({count} Cards)"
 		}
 	}],
 	"tool_gather_overlaps_only": [{
 		"declarations": ["input count", "local countPlural = count: plural"],
 		"selectors": ["countPlural"],
 		"match": {
-			"countPlural=one": "Overlap Only ({count})",
-			"countPlural=other": "Overlaps Only ({count})"
+			"countPlural=one": "Overlap Only ({count} Card)",
+			"countPlural=other": "Overlaps Only ({count} Cards)"
 		}
 	}],
 	"tool_campaign_overlaps_title": "Campaign Overlaps",

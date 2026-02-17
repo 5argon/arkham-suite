@@ -372,4 +372,5 @@ export const specialLinkedCards: { [key: string]: string[] } = {
 	'04039': ['04038'], // The Price of Failure -> Dark Pact
 	'53013': ['53014', '53015'], // Offer You Cannot Refuse -> Fine Print, Sell Your Soul
 	'53014': ['53015'], // Fine Print -> Sell Your Soul
+  '89004': ['89005'], // Reality Acid -> Reality Acid reference card
 }

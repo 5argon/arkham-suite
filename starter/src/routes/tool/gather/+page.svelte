@@ -3,6 +3,7 @@
 		BorderedContainer,
 		Button,
 		type CardItem,
+		Checkbox,
 		DeckBanner,
 		DeckDisplay,
 		FaIconType,
@@ -43,6 +44,7 @@
 	let importedDecksNotForwarded = $derived<Deck[]>(preLoadedDecks ?? []);
 	let displayMode = $state<'all' | 'overlaps'>('all');
 	let deckModalDeck = $state<Deck | null>(null);
+	let excludeSideDecks = $state(false);
 	let importedDecks = $derived.by(() => {
 		return importedDecksNotForwarded.map(
 			(deck) => deckUtility.forwardDefault(deck, cardResolver).deck
@@ -57,7 +59,7 @@
 		})
 	);
 
-	// Combine all cards from all decks (always including main and side decks)
+	// Combine all cards from all decks
 	const combinedCardItems = $derived.by(() => {
 		const items: CardItem[] = [];
 		const linkedCardCodes = new SvelteSet<string>(); // Track linked cards we've already added
@@ -93,45 +95,47 @@
 				});
 			});
 
-			// Process side deck
-			deck.sideDeck.forEach((cq) => {
-				const cardCode = cq.card.code;
-				let card = cq.card;
+			// Process side deck (only if not excluded)
+			if (!excludeSideDecks) {
+				deck.sideDeck.forEach((cq) => {
+					const cardCode = cq.card.code;
+					let card = cq.card;
 
-				// Try to resolve the forwarded card code
-				if (cardCode !== cq.card.code) {
-					try {
-						card = cardResolver.resolve(cardCode);
-					} catch {
-						// If forwarding fails, use original
+					// Try to resolve the forwarded card code
+					if (cardCode !== cq.card.code) {
+						try {
+							card = cardResolver.resolve(cardCode);
+						} catch {
+							// If forwarding fails, use original
+						}
 					}
-				}
 
-				items.push({
-					card: card,
-					quantity: cq.quantity,
-					id: `deck${deckIndex}-side-${card.code}`,
-					owner: investigator,
-					quantityColor: CardClass.Survivor,
-					labels: [{ text: 'Side', color: CardClass.Survivor }]
-				});
+					items.push({
+						card: card,
+						quantity: cq.quantity,
+						id: `deck${deckIndex}-side-${card.code}`,
+						owner: investigator,
+						quantityColor: CardClass.Survivor,
+						labels: [{ text: 'Side', color: CardClass.Survivor }]
+					});
 
-				// Add linked cards from side deck
-				const linked = findLinkedCardsSpecial(card, cardResolver);
-				linked.forEach((linkedCard) => {
-					if (!linkedCardCodes.has(linkedCard.code)) {
-						linkedCardCodes.add(linkedCard.code);
-						items.push({
-							card: linkedCard,
-							quantity: linkedCard.cardType === CardType.Upgrade ? 1 : linkedCard.quantity,
-							id: `deck${deckIndex}-linked-side-${linkedCard.code}`,
-							owner: investigator,
-							quantityColor: CardClass.Seeker,
-							labels: [{ text: 'Linked', color: CardClass.Seeker }]
-						});
-					}
+					// Add linked cards from side deck
+					const linked = findLinkedCardsSpecial(card, cardResolver);
+					linked.forEach((linkedCard) => {
+						if (!linkedCardCodes.has(linkedCard.code)) {
+							linkedCardCodes.add(linkedCard.code);
+							items.push({
+								card: linkedCard,
+								quantity: linkedCard.cardType === CardType.Upgrade ? 1 : linkedCard.quantity,
+								id: `deck${deckIndex}-linked-side-${linkedCard.code}`,
+								owner: investigator,
+								quantityColor: CardClass.Seeker,
+								labels: [{ text: 'Linked', color: CardClass.Seeker }]
+							});
+						}
+					});
 				});
-			});
+			}
 
 			if (deck.meta.extraDeck !== undefined) {
 				deck.meta.extraDeck.forEach((cq) => {
@@ -170,7 +174,12 @@
 
 	const decksForOverlapDetection = $derived.by(() => {
 		return importedDecks.map((d) => {
-			return deckUtility.forwardDefault(d, cardResolver).deck;
+			const forwarded = deckUtility.forwardDefault(d, cardResolver).deck;
+			if (excludeSideDecks) {
+				// Create a copy without side deck for overlap detection
+				return { ...forwarded, sideDeck: [] };
+			}
+			return forwarded;
 		});
 	});
 
@@ -212,6 +221,16 @@
 		const overlapCodes = new Set(overlaps.map((ov) => ov.cardCode));
 		return cardItemsWithOverlaps.filter((item) => overlapCodes.has(item.card.code));
 	});
+
+	// Calculate total card count (including quantities)
+	const totalCardCount = $derived(
+		combinedCardItems.reduce((sum, item) => sum + item.quantity, 0)
+	);
+
+	// Calculate overlapping card count (including quantities)
+	const overlappingCardCount = $derived(
+		overlappingCardItems.reduce((sum, item) => sum + item.quantity, 0)
+	);
 
 	function handleImportDecks(decks: Deck[]) {
 		importedDecks = decks;
@@ -309,14 +328,19 @@
 				</div>
 			</BorderedContainer>
 
+			<!-- Exclude Side Decks Checkbox -->
+			<div class="flex justify-center">
+				<Checkbox label="Exclude Side Decks" bind:checked={excludeSideDecks} />
+			</div>
+
 			<!-- Display Mode Tabs -->
 			<Tabs
 				direction="horizontal"
 				activeTabIndex={displayMode === 'all' ? 0 : 1}
 				onTabChange={(index) => (displayMode = index === 0 ? 'all' : 'overlaps')}
 				tabs={[
-					{ label: m.tool_gather_all_cards({ count: combinedCardItems.length }) },
-					{ label: m.tool_gather_overlaps_only({ count: overlaps.length }) }
+					{ label: m.tool_gather_all_cards({ count: totalCardCount }) },
+					{ label: m.tool_gather_overlaps_only({ count: overlappingCardCount }) }
 				]}
 			/>
 			<!-- Card Display -->

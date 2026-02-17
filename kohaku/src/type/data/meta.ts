@@ -316,6 +316,12 @@ export function decodeMeta(metaString: string, cardResolver: CardResolver): Deco
         const cycleCode = x.slice(6);
         return ahdb.cycleCodeToProducts(cycleCode);
       } else {
+        // Card pack can come in the form of UUID now.
+        // If we found it, skip it before it could error in the codeToProduct function.
+        const isUuid = x.length === 36;
+        if (isUuid) {
+          return [];
+        }
         return [ahdb.codeToProduct(x, undefined)];
       }
     });
