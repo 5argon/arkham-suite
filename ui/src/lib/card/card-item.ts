@@ -9,7 +9,9 @@ import {
 	type GroupingType,
 	GroupingKey,
 	type CardItemWrapper,
-	type DecodedMeta
+	type DecodedMeta,
+	type CardResolver,
+	card as cardUtil
 } from '@5argon/arkham-kohaku';
 import * as m from '../paraglide/messages.js';
 import { m as asm, u } from '@5argon/arkham-string';
@@ -431,7 +433,7 @@ export function divideHalf(groupedCards: RecursivelyGroupedCardItem[]): {
 				continue;
 			}
 		}
-		if (!doneWithLeftSide && leftCount + groupCount <= halfCount) {
+		if (!doneWithLeftSide && (leftCount === 0 || leftCount + groupCount <= halfCount)) {
 			left.push(group);
 			leftCount += groupCount;
 		} else {
@@ -452,3 +454,95 @@ export function sortGroupedCards(
 	});
 	return clone;
 }
+
+// ===== Linked Cards Utility (from card-utility.ts) =====
+
+/**
+ * Find all cards linked to this card, including both standard bonded cards and
+ * special UI-specific linked cards (like customizable card upgrade sheets).
+ *
+ * This is specific to the UI package and should not be in kohaku because it includes
+ * non-standard relationships.
+ *
+ * @param card The card to find linked cards for
+ * @param cardResolver Resolver to convert card codes to Card objects
+ * @returns Array of linked Card objects
+ */
+export function findLinkedCardsSpecial(card: Card, cardResolver: CardResolver): Card[] {
+	const linkedCards: Card[] = [];
+
+	// Get standard bonded cards from kohaku
+	const bondedCodes = cardUtil.findLinkedCards(card);
+	for (const code of bondedCodes) {
+		try {
+			linkedCards.push(cardResolver.resolve(code));
+		} catch {
+			// Skip cards that can't be resolved
+		}
+	}
+
+	// Check if card is customizable (contains "Customizable." in text)
+	if (card.customizationOptions !== undefined) {
+		// This "b" are not card backs, they are new cards
+		// added manually to represent the upgrade sheets for customizable cards.
+		const upgradedCode = card.code + 'b';
+		const upgradedCard = cardResolver.resolve(upgradedCode);
+		linkedCards.push(upgradedCard);
+	}
+
+	return linkedCards;
+}
+
+/**
+ * Default grouping and sorting settings for deck displays.
+ * These are shared across DeckDisplayList, DeckDisplayGrid, and DeckDisplay components.
+ */
+
+export const deckListMainGrouping: Grouping[] = ['default'];
+export const deckListMainSorting: SortingType[] = ['class', 'slot', 'position'];
+
+export const deckListSideGrouping: Grouping[] = ['level'];
+export const deckListSideSorting: SortingType[] = ['class', 'position'];
+
+export const deckListLinkedGrouping: Grouping[] = [];
+export const deckListLinkedSorting: SortingType[] = ['class', 'set', 'position'];
+
+// Extra deck uses same as main deck
+export const deckListExtraGrouping: Grouping[] = deckListMainGrouping;
+export const deckListExtraSorting: SortingType[] = deckListMainSorting;
+
+// Grid View Settings
+
+export const deckGridMainSorting: SortingType[] = ['type', 'name', 'level', 'position'];
+export const deckGridSideSorting: SortingType[] = ['level', 'class', 'position'];
+
+// Extra and linked use same as main deck
+export const deckGridExtraSorting: SortingType[] = deckGridMainSorting;
+export const deckGridLinkedSorting: SortingType[] = deckGridMainSorting;
+
+// Advanced View Settings (FlexibleCardDisplay)
+
+export const deckAdvancedCombinedSettings: GroupingSortingSettings = {
+	grouping: ['set'],
+	sortingOrder: ['class', 'position']
+};
+
+export const deckAdvancedMainSettings: GroupingSortingSettings = {
+	grouping: deckListMainGrouping,
+	sortingOrder: deckListMainSorting
+};
+
+export const deckAdvancedSideSettings: GroupingSortingSettings = {
+	grouping: deckListSideGrouping,
+	sortingOrder: deckListSideSorting
+};
+
+export const deckAdvancedLinkedSettings: GroupingSortingSettings = {
+	grouping: deckListLinkedGrouping,
+	sortingOrder: deckListLinkedSorting
+};
+
+export const deckAdvancedExtraSettings: GroupingSortingSettings = {
+	grouping: ['default'],
+	sortingOrder: []
+};

@@ -6,7 +6,15 @@
 		sortRecursivelyGroupedCards,
 		countCards,
 		type CardItem,
-		type Grouping
+		type Grouping,
+		deckListMainGrouping,
+		deckListMainSorting,
+		deckListSideGrouping,
+		deckListSideSorting,
+		deckListLinkedGrouping,
+		deckListLinkedSorting,
+		deckListExtraGrouping,
+		deckListExtraSorting
 	} from './card-item.js';
 	import TableCardList from './TableCardList.svelte';
 	import CardExtraInfo from './CardExtraInfo.svelte';
@@ -29,38 +37,33 @@
 
 	const { mainCards, sideCards, extraCards, linkedCards, meta }: Prop = $props();
 
-	let groupings = $state<Grouping[]>(['default']);
-	let sortingOrder = $state<SortingType[]>(['slot', 'class', 'type', 'name', 'level', 'position']);
-
 	// Main cards - divided in half for two columns
-	const recursiveGroups = $derived(recursivelyGroupCardItems(mainCards, groupings));
+	const recursiveGroups = $derived(recursivelyGroupCardItems(mainCards, deckListMainGrouping));
 	const sorted = $derived(
-		recursiveGroups.map((group) => sortRecursivelyGroupedCards(group, sortingOrder))
+		recursiveGroups.map((group) => sortRecursivelyGroupedCards(group, deckListMainSorting))
 	);
 	const halved = $derived(divideHalf(sorted));
 
-	// Side cards - single column, grouped by default
 	const sideRecursiveGroups = $derived(
-		sideCards ? recursivelyGroupCardItems(sideCards, groupings) : []
+		sideCards ? recursivelyGroupCardItems(sideCards, deckListSideGrouping) : []
 	);
 	const sideSorted = $derived(
-		sideRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, sortingOrder))
+		sideRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, deckListSideSorting))
 	);
 
-	// Extra cards - single column, grouped by default
 	const extraRecursiveGroups = $derived(
-		extraCards ? recursivelyGroupCardItems(extraCards, groupings) : []
+		extraCards ? recursivelyGroupCardItems(extraCards, deckListExtraGrouping) : []
 	);
 	const extraSorted = $derived(
-		extraRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, sortingOrder))
+		extraRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, deckListExtraSorting))
 	);
 
 	// Linked cards - single column, not grouped
 	const linkedRecursiveGroups = $derived(
-		linkedCards ? recursivelyGroupCardItems(linkedCards, []) : []
+		linkedCards ? recursivelyGroupCardItems(linkedCards, deckListLinkedGrouping) : []
 	);
 	const linkedSorted = $derived(
-		linkedRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, sortingOrder))
+		linkedRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, deckListLinkedSorting))
 	);
 
 	const mainCardCount = $derived(countCards(mainCards));
@@ -106,10 +109,20 @@
 		</div>
 		<div class="flex flex-wrap gap-4">
 			<div in:fly|global={{ duration: 150, x: -20, delay: 150 }}>
-				<TableCardList groups={halved.left} afterRenders={[cardDetail]} {meta} onClick={handleCardClick} />
+				<TableCardList
+					groups={halved.left}
+					afterRenders={[cardDetail]}
+					{meta}
+					onClick={handleCardClick}
+				/>
 			</div>
 			<div in:fly|global={{ duration: 150, x: -20, delay: 200 }}>
-				<TableCardList groups={halved.right} afterRenders={[cardDetail]} {meta} onClick={handleCardClick} />
+				<TableCardList
+					groups={halved.right}
+					afterRenders={[cardDetail]}
+					{meta}
+					onClick={handleCardClick}
+				/>
 			</div>
 		</div>
 	</div>
@@ -124,7 +137,12 @@
 				inner
 			/>
 			<div>
-				<TableCardList groups={sideSorted} afterRenders={[cardDetail]} {meta} onClick={handleCardClick} />
+				<TableCardList
+					groups={sideSorted}
+					afterRenders={[cardDetail]}
+					{meta}
+					onClick={handleCardClick}
+				/>
 			</div>
 		</div>
 	{/if}
@@ -139,7 +157,12 @@
 				inner
 			/>
 			<div>
-				<TableCardList groups={extraSorted} afterRenders={[cardDetail]} {meta} onClick={handleCardClick} />
+				<TableCardList
+					groups={extraSorted}
+					afterRenders={[cardDetail]}
+					{meta}
+					onClick={handleCardClick}
+				/>
 			</div>
 		</div>
 	{/if}
@@ -154,14 +177,15 @@
 				inner
 			/>
 			<div>
-				<TableCardList groups={linkedSorted} afterRenders={[cardDetail]} {meta} onClick={handleCardClick} />
+				<TableCardList
+					groups={linkedSorted}
+					afterRenders={[cardDetail]}
+					{meta}
+					onClick={handleCardClick}
+				/>
 			</div>
 		</div>
 	{/if}
 </div>
 
-<CardMagnifiedModal
-	card={magnifiedCard}
-	isShowing={isModalShowing}
-	onClose={handleModalClose}
-/>
+<CardMagnifiedModal card={magnifiedCard} isShowing={isModalShowing} onClose={handleModalClose} />

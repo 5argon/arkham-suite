@@ -23,3 +23,17 @@ export interface ClassSlots {
   class2?: CardClass;
   class3?: CardClass;
 }
+
+export function amountOfClasses(classSlots: ClassSlots | undefined): number {
+  if (classSlots === undefined) {
+    return 0;
+  }
+  let count = 1; // class1 is always present
+  if (classSlots.class2 !== undefined) {
+    count++;
+  }
+  if (classSlots.class3 !== undefined) {
+    count++;
+  }
+  return count;
+}

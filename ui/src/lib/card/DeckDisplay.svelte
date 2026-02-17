@@ -11,24 +11,32 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		card,
 		deck as deckUtility,
 		DeckSource,
-		service
+		service,
+		CardClass
 	} from '@5argon/arkham-kohaku';
 	import DeckBanner from './DeckBanner.svelte';
 	import DeckDisplayList from './DeckDisplayList.svelte';
 	import DeckDisplayGrid from './DeckDisplayGrid.svelte';
 	import DeckDescriptionReader from './DeckDescriptionReader.svelte';
-	import type { CardItem } from './card-item.js';
+	import type { CardItem, GroupingSortingSettings } from './card-item.js';
 	import CardScanFullSmallGrid from './CardScanFullSmallGrid.svelte';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
 	import FlexibleCardDisplay from './FlexibleCardDisplay.svelte';
 	import Checkbox from '../form/Checkbox.svelte';
 	import Button from '../button/Button.svelte';
-	import { findLinkedCardsSpecial } from './card-utility.js';
+	import {
+		findLinkedCardsSpecial,
+		deckAdvancedCombinedSettings,
+		deckAdvancedMainSettings,
+		deckAdvancedSideSettings,
+		deckAdvancedLinkedSettings,
+		deckAdvancedExtraSettings
+	} from './card-item.js';
 	import { SvelteSet } from 'svelte/reactivity';
 	import * as m from '../paraglide/messages.js';
 	import { markdownToPlainText } from './markdown-processor.js';
 	import { FaIconType } from '../icon';
-	import { fly, slide } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
 	interface Prop {
@@ -134,18 +142,43 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	});
 
 	// Labeled versions of cards for combined display
+	// Add unique IDs to prevent duplicate keys when the same card appears in multiple sections
+	const mainCardsLabeled = $derived(
+		mainCards.map((ci, idx): CardItem => ({ ...ci, id: `main-${ci.card.code}-${idx}` }))
+	);
 	const sideCardsLabeled = $derived(
-		sideCards.map((ci): CardItem => ({ ...ci, labels: [{ text: m.card_side() }] }))
+		sideCards.map(
+			(ci, idx): CardItem => ({
+				...ci,
+				id: `side-${ci.card.code}-${idx}`,
+				quantityColor: CardClass.Survivor,
+				labels: [{ text: m.card_side(), color: CardClass.Survivor }]
+			})
+		)
 	);
 	const linkedCardsLabeled = $derived(
-		linkedCards.map((ci): CardItem => ({ ...ci, labels: [{ text: m.card_linked() }] }))
+		linkedCards.map(
+			(ci, idx): CardItem => ({
+				...ci,
+				id: `linked-${ci.card.code}-${idx}`,
+				quantityColor: CardClass.Seeker,
+				labels: [{ text: m.card_linked(), color: CardClass.Seeker }]
+			})
+		)
 	);
 	const extraCardsLabeled = $derived(
-		extraCards.map((ci): CardItem => ({ ...ci, labels: [{ text: m.card_extra() }] }))
+		extraCards.map(
+			(ci, idx): CardItem => ({
+				...ci,
+				id: `extra-${ci.card.code}-${idx}`,
+				quantityColor: CardClass.Mystic,
+				labels: [{ text: m.card_extra(), color: CardClass.Mystic }]
+			})
+		)
 	);
 
 	const allCombinedCards = $derived([
-		...mainCards,
+		...mainCardsLabeled,
 		...sideCardsLabeled,
 		...linkedCardsLabeled,
 		...extraCardsLabeled
@@ -175,13 +208,8 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	);
 </script>
 
-{#snippet flexibleDisplay(cards: CardItem[])}
-	<FlexibleCardDisplay
-		defaultViewMode="list"
-		{cards}
-		{languageCode}
-		defaultSettings={{ grouping: ['default'], sortingOrder: [] }}
-	/>
+{#snippet flexibleDisplay(cards: CardItem[], settings: GroupingSortingSettings)}
+	<FlexibleCardDisplay defaultViewMode="list" {cards} {languageCode} defaultSettings={settings} />
 {/snippet}
 
 {#snippet bannerAndInvestigator()}
@@ -335,24 +363,24 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		{:else if combineCards}
 			<!-- Combined Advanced Display -->
 			<SectionSeparator title="Combined Cards" />
-			{@render flexibleDisplay(allCombinedCards)}
+			{@render flexibleDisplay(allCombinedCards, deckAdvancedCombinedSettings)}
 		{:else}
 			<!-- Separated Advanced Display -->
 			{#if mainCards.length > 0}
 				<SectionSeparator title="Deck" />
-				{@render flexibleDisplay(mainCards)}
+				{@render flexibleDisplay(mainCards, deckAdvancedMainSettings)}
 			{/if}
 			{#if sideCards.length > 0}
 				<SectionSeparator title="Side Deck" />
-				{@render flexibleDisplay(sideCards)}
+				{@render flexibleDisplay(sideCards, deckAdvancedSideSettings)}
 			{/if}
 			{#if linkedCards.length > 0}
 				<SectionSeparator title="Linked Cards" />
-				{@render flexibleDisplay(linkedCards)}
+				{@render flexibleDisplay(linkedCards, deckAdvancedLinkedSettings)}
 			{/if}
 			{#if extraCards.length > 0}
 				<SectionSeparator title="Extra Deck" />
-				{@render flexibleDisplay(extraCards)}
+				{@render flexibleDisplay(extraCards, deckAdvancedExtraSettings)}
 			{/if}
 		{/if}
 	</div>

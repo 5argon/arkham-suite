@@ -1055,3 +1055,97 @@ export function codeToProduct(packCode: string, encounterCode: string | undefine
       throw new Error(`Unknown pack code: ${packCode}`);
   }
 }
+
+export function cycleCodeToProducts(cycleCode: string): Product[] {
+  switch (cycleCode) {
+    case 'core':
+      return [Product.CoreSet, Product.RevisedCoreSet, Product.CoreSet2026];
+    case 'dwl':
+      return [
+        Product.TheDunwichLegacyInvestigatorExpansion,
+        Product.TheDunwichLegacyCampaignExpansion,
+      ];
+    case 'ptc':
+      return [
+        Product.ThePathToCarcosaInvestigatorExpansion,
+        Product.ThePathToCarcosaCampaignExpansion,
+      ];
+    case 'tfa':
+      return [
+        Product.TheForgottenAgeInvestigatorExpansion,
+        Product.TheForgottenAgeCampaignExpansion,
+      ];
+    case 'tcu':
+      return [
+        Product.TheCircleUndoneInvestigatorExpansion,
+        Product.TheCircleUndoneCampaignExpansion,
+      ];
+    case 'tde':
+      return [
+        Product.TheDreamEatersInvestigatorExpansion,
+        Product.TheDreamEatersCampaignExpansion,
+      ];
+    case 'tic':
+      return [
+        Product.TheInnsmouthConspiracyInvestigatorExpansion,
+        Product.TheInnsmouthConspiracyCampaignExpansion,
+      ];
+    case 'eoe':
+      return [
+        Product.EdgeOfTheEarthInvestigatorExpansion,
+        Product.EdgeOfTheEarthCampaignExpansion,
+      ];
+    case 'tsk':
+      return [
+        Product.TheScarletKeysInvestigatorExpansion,
+        Product.TheScarletKeysCampaignExpansion,
+      ];
+    case 'fhv':
+      return [
+        Product.TheFeastOfHemlockValeInvestigatorExpansion,
+        Product.TheFeastOfHemlockValeCampaignExpansion,
+      ];
+    case 'tdc':
+      return [
+        Product.TheDrownedCityInvestigatorExpansion,
+        Product.TheDrownedCityCampaignExpansion,
+      ];
+    case 'side_stories':
+      return [
+        Product.CurseOfTheRougarou,
+        Product.CarnevaleOfHorrors,
+        Product.TheLabyrinthsOfLunacy,
+        Product.GuardiansOfTheAbyss,
+        Product.MurderAtTheExcelsiorHotel,
+        Product.TheBlobThatAteEverything,
+        Product.WarOfTheOuterGods,
+        Product.MachinationsThroughTime,
+        Product.FortuneAndFolly,
+        Product.TheBlobThatAteEverythingElse,
+        Product.TheMidwinterGala,
+        Product.FilmFatale,
+      ];
+    case 'promotional':
+      return [Product.Promotional];
+    case 'return':
+      return [
+        Product.ReturnToTheNightOfTheZealot,
+        Product.ReturnToTheDunwichLegacy,
+        Product.ReturnToThePathToCarcosa,
+        Product.ReturnToTheForgottenAge,
+        Product.ReturnToTheCircleUndone,
+      ];
+    case 'investigator':
+      return [
+        Product.NathanielCho,
+        Product.HarveyWalters,
+        Product.WinifredHabbamock,
+        Product.JacquelineFine,
+        Product.StellaClark,
+      ];
+    case 'parallel':
+      return [Product.ParallelInvestigators];
+    default:
+      throw new Error(`Unknown cycle code: ${cycleCode}`);
+  }
+}

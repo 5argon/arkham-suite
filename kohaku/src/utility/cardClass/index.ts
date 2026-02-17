@@ -1,4 +1,4 @@
-import { CardClass, type ClassSlots } from '../../type/game/card-class.js';
+import { amountOfClasses, CardClass, type ClassSlots } from '../../type/game/card-class.js';
 
 /**
  * Check if the required class slots are contained within the card's class slots.
@@ -57,6 +57,13 @@ export function classSlotsSorter(
     CardClass.Survivor,
     CardClass.Neutral,
   ];
+
+  const amountOfClassesA = amountOfClasses(a);
+  const amountOfClassesB = amountOfClasses(b);
+
+  if (amountOfClassesA !== amountOfClassesB) {
+    return amountOfClassesA - amountOfClassesB;
+  }
 
   const aIndex = classOrder.indexOf(a.class1);
   const bIndex = classOrder.indexOf(b.class1);

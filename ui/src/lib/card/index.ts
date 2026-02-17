@@ -22,8 +22,13 @@ export { default as ImportDecksForm } from './ImportDecksForm.svelte';
 export { default as ImportDecksImportResult } from './ImportDecksImportResult.svelte';
 export { default as PlusArea } from './PlusArea.svelte';
 export type { CardItem } from './card-item.js';
-export { applyGroupingSorting, getCardItemKey, recursivelyGroupCardItems, sortRecursivelyGroupedCards, divideHalf } from './card-item.js';
+export {
+	applyGroupingSorting,
+	getCardItemKey,
+	recursivelyGroupCardItems,
+	sortRecursivelyGroupedCards,
+	divideHalf
+} from './card-item.js';
 export type { RecursivelyGroupedCardItem } from './card-item.js';
-export { findLinkedCardsSpecial } from './card-utility.js';
+export { findLinkedCardsSpecial } from './card-item.js';
 export type { CardLabelProp } from './CardLabel.svelte';
-

@@ -1,7 +1,6 @@
 <!--
 @component
 A generic tooltip that displays custom content inside a rounded frame with transitions.
-Uses Floating UI for robust positioning that works correctly with browser zoom, scroll, and viewport boundaries.
 -->
 <script lang="ts">
 	import clsx from 'clsx';

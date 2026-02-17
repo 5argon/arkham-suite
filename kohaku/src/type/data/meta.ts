@@ -131,7 +131,9 @@ export interface ArkhamBuildMeta {
   [key: `attachments_${string}`]: AttachmentMetaString | undefined;
 
   /**
-   * Packs that can be used for this deck. Used for limited pool deckbuilding such as #campaign-playalong. Format: "<pack_code>,<pack_code>". For arkham.build, new format pack codes take precedence over old format. Cycles can be added as cycle:<cycle_code>.
+   * Packs that can be used for this deck. Used for limited pool deckbuilding such as #campaign-playalong.
+   * Format: "<pack_code>,<pack_code>". For arkham.build, new format pack codes take precedence over old format.
+   * Cycles can be added as cycle:<cycle_code>.
    */
   card_pool?: string;
 
@@ -223,8 +225,6 @@ export interface CustomizableMeta {
   cus_09119?: CustomizableMetaString;
 }
 
-
-
 /**
  * Format: X,X,X,...
  * Each X: index|checked_boxes OR index|checked_boxes|details
@@ -310,8 +310,14 @@ export function decodeMeta(metaString: string, cardResolver: CardResolver): Deco
     });
   }
   if (json.card_pool) {
-    dm.cardPool = json.card_pool.split(',').map((x) => {
-      return ahdb.codeToProduct(x, undefined);
+    dm.cardPool = json.card_pool.split(',').flatMap<Product>((x) => {
+      const isCycle = x.startsWith('cycle:');
+      if (isCycle) {
+        const cycleCode = x.slice(6);
+        return ahdb.cycleCodeToProducts(cycleCode);
+      } else {
+        return [ahdb.codeToProduct(x, undefined)];
+      }
     });
   }
   if (json.sealed_deck) {

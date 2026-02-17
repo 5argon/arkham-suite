@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { ProductIcon } from '@5argon/arkham-icon';
-	import { card as cardUtility, Product } from '@5argon/arkham-kohaku';
+	import { CardType, card as cardUtility } from '@5argon/arkham-kohaku';
 	interface Prop {
 		card: Card;
 	}
 	const { card }: Prop = $props();
 	const isRandomBasicWeakness = $derived(cardUtility.isRandomBasicWeakness(card));
+	const isUpgradeSheet = $derived(card.cardType === CardType.Upgrade);
 </script>
 
 {#if !isRandomBasicWeakness}
@@ -16,7 +17,9 @@
 		<!-- <span class=""> -->
 		<span class="all-span mr-px">(</span>
 		<span class="icon"><ProductIcon product={card.product} /></span>
-		<span class="all-span">{card.position}</span>
+		{#if !isUpgradeSheet}
+			<span class="all-span">{card.position}</span>
+		{/if}
 		<span class="all-span ml-px">)</span>
 		<!-- </span> -->
 	</span>
