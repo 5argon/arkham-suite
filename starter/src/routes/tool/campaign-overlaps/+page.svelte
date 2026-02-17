@@ -3,6 +3,7 @@
 		BorderedContainer,
 		Button,
 		type CardItem,
+		Checkbox,
 		DeckBanner,
 		DeckDisplay,
 		FaIconType,
@@ -11,7 +12,10 @@
 		MarginFull,
 		Modal,
 		PageLead,
-		Tabs
+		Tabs,
+
+		TextParagraph
+
 	} from '@5argon/arkham-life-ui';
 	import {
 		type Card,
@@ -36,6 +40,7 @@
 		type SubPriority
 	} from '$lib/design/pages/tool/campaign-overlaps/campaign-overlaps-logic';
 	import OverlapResolutions from '$lib/design/pages/tool/campaign-overlaps/OverlapResolutions.svelte';
+	import { untrack } from 'svelte';
 
 	interface Props {
 		data: {
@@ -52,23 +57,15 @@
 
 	let showImportModalA = $state(false);
 	let showImportModalB = $state(false);
-	let campaignADecks = $state<Deck[]>([]);
-	let campaignBDecks = $state<Deck[]>([]);
-
-	// Initialize with preloaded decks
-	$effect(() => {
-		if (data.preLoadedCampaignA && data.preLoadedCampaignA.length > 0) {
-			campaignADecks = data.preLoadedCampaignA;
-		}
-		if (data.preLoadedCampaignB && data.preLoadedCampaignB.length > 0) {
-			campaignBDecks = data.preLoadedCampaignB;
-		}
-	});
+	// Initialize with preloaded decks, using untrack to capture initial value
+	let campaignADecks = $state<Deck[]>(untrack(() => data.preLoadedCampaignA ?? []));
+	let campaignBDecks = $state<Deck[]>(untrack(() => data.preLoadedCampaignB ?? []));
 	let forwardToRcore = $state(true);
 	let activeTabIndex = $state(0);
 	let deckModalDeck = $state<Deck | null>(null);
 	let selectedAlgorithm = $state<MappingAlgorithm>('deck-import-order');
 	let selectedSubPriority = $state<SubPriority>('main-deck');
+	let excludeSideDecks = $state(false);
 
 	// Convert imported decks to browser URLs for modal pre-filling
 	const existingDeckIdsA = $derived(
@@ -88,7 +85,7 @@
 	// Create campaign deck entries with import indices
 	const campaignADeckEntries = $derived.by((): CampaignDeckEntry[] =>
 		campaignADecks.map((deck, index) => ({
-			deck,
+			deck: excludeSideDecks ? { ...deck, sideDeck: [] } : deck,
 			campaign: 'A',
 			importIndex: index
 		}))
@@ -96,7 +93,7 @@
 
 	const campaignBDeckEntries = $derived.by((): CampaignDeckEntry[] =>
 		campaignBDecks.map((deck, index) => ({
-			deck,
+			deck: excludeSideDecks ? { ...deck, sideDeck: [] } : deck,
 			campaign: 'B',
 			importIndex: index
 		}))
@@ -129,9 +126,9 @@
 					const labels = [{ text: 'A', color: CardClass.Guardian }];
 					// Only add deck part label for side and extra
 					if (copy.deckPart === 'side') {
-						labels.push({ text: 'SIDE', color: CardClass.Survivor });
+						labels.push({ text: 'Side', color: CardClass.Survivor });
 					} else if (copy.deckPart === 'extra') {
-						labels.push({ text: 'EXTRA', color: CardClass.Neutral });
+						labels.push({ text: 'Extra', color: CardClass.Mystic });
 					}
 
 					itemMap.set(key, {
@@ -158,9 +155,9 @@
 					const labels = [{ text: 'B', color: CardClass.Seeker }];
 					// Only add deck part label for side and extra
 					if (copy.deckPart === 'side') {
-						labels.push({ text: 'SIDE', color: CardClass.Survivor });
+						labels.push({ text: 'Side', color: CardClass.Survivor });
 					} else if (copy.deckPart === 'extra') {
-						labels.push({ text: 'EXTRA', color: CardClass.Neutral });
+						labels.push({ text: 'Extra', color: CardClass.Mystic });
 					}
 
 					itemMap.set(key, {
@@ -251,11 +248,8 @@
 		return `https://arkham-starter.com/tool/campaign-overlaps?${searchParams.join('&')}`;
 	});
 
-	const totalOverlapCopies = $derived(
-		overlaps.reduce((sum, overlap) => {
-			return sum + Math.min(overlap.campaignACopies.length, overlap.campaignBCopies.length);
-		}, 0)
-	);
+	// Calculate number of resolution mappings
+	const resolutionCount = $derived(resolutionMappings.length);
 </script>
 
 <OpenGraph
@@ -348,16 +342,24 @@
 
 		<!-- Results -->
 		{#if campaignADecks.length > 0 && campaignBDecks.length > 0}
+			<!-- Exclude Side Decks Checkbox -->
+			<div class="flex justify-center">
+				<Checkbox label="Exclude Side Decks" bind:checked={excludeSideDecks} />
+			</div>
+
 			{#if overlaps.length === 0}
 				<BorderedContainer>
-					<p class="p-4 text-center text-muted">No overlapping cards found between campaigns!</p>
+					<TextParagraph>No overlapping cards found between campaigns!</TextParagraph>
 				</BorderedContainer>
 			{:else}
 				<Tabs
 					direction="horizontal"
 					{activeTabIndex}
 					onTabChange={(index) => (activeTabIndex = index)}
-					tabs={[{ label: `Possible Overlaps` }, { label: 'Overlap Resolutions' }]}
+					tabs={[
+						{ label: `Possible Overlaps` },
+						{ label: `Overlap Resolutions (${resolutionCount} Cards)` }
+					]}
 				/>
 
 				{#if activeTabIndex === 0}

@@ -13,7 +13,8 @@
 		MarginFull,
 		Modal,
 		PageLead,
-		Tabs
+		Tabs,
+		TextParagraph
 	} from '@5argon/arkham-life-ui';
 	import {
 		type Card,
@@ -223,9 +224,7 @@
 	});
 
 	// Calculate total card count (including quantities)
-	const totalCardCount = $derived(
-		combinedCardItems.reduce((sum, item) => sum + item.quantity, 0)
-	);
+	const totalCardCount = $derived(combinedCardItems.reduce((sum, item) => sum + item.quantity, 0));
 
 	// Calculate overlapping card count (including quantities)
 	const overlappingCardCount = $derived(
@@ -345,9 +344,9 @@
 			/>
 			<!-- Card Display -->
 			{#if displayedCards.length === 0}
-				<p class="p-4 text-center text-muted">
+				<TextParagraph>
 					{displayMode === 'overlaps' ? 'No overlapping cards found!' : 'No cards to display'}
-				</p>
+				</TextParagraph>
 			{:else}
 				{#key displayMode}
 					<FlexibleCardDisplay
