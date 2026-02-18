@@ -221,12 +221,6 @@
 			searchParams.push(`b${i + 1}=${deck.id}`);
 		});
 
-		console.log('updateUrl called:', {
-			campaignACount: campaignADecks.length,
-			campaignBCount: campaignBDecks.length,
-			searchParams
-		});
-
 		const newUrl =
 			searchParams.length > 0
 				? `/tool/campaign-overlaps?${searchParams.join('&')}`

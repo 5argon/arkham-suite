@@ -14,5 +14,10 @@
 	"button_cancel": "Cancel",
 	"button_fetch_decks": "Fetch Decks",
 	"button_fetch_deck_singular": "Fetch {count} Deck",
-	"button_fetch_deck_plural": "Fetch {count} Decks"
+	"button_fetch_deck_plural": "Fetch {count} Decks",
+	"button_copy": "Copy",
+	"button_copied": "Copied!",
+	"button_export_deck": "Export Deck",
+	"button_download_full_json": "Download JSON",
+	"button_download_compressed_truncated_json": "Download Compressed & Truncated JSON"
 }

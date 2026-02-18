@@ -3,6 +3,7 @@ import {
   LinkedAhdbDeck,
   predictDeckInput,
 } from '../../utility/service/deck-input.js';
+import { compressDeck } from '../../utility/deck/compress.js';
 import { DeckSource } from './deck-source.js';
 import { DecodedMeta, decodeMeta } from './meta.js';
 import { Card } from './player-card.js';
@@ -65,6 +66,7 @@ export interface Deck {
   previousDeck?: Deck;
   nextDeck?: Deck;
   problems: DeckProblem[];
+  compressedJson?: string;
 }
 
 export function linearizeDeck(deck: Deck): Deck[] {
@@ -150,6 +152,7 @@ export function ahdbDeckToDeck(
     nextDeck: undefined, // Temporarily set to undefined
     // TODO: Not really needed for this site but maybe complete it some time later.
     problems: ahdbDeck.problem ? [{ type: '' }] : [],
+    compressedJson: compressDeck(ahdbDeck),
   };
 
   processedDecks.set(ahdbDeck.id, deck);

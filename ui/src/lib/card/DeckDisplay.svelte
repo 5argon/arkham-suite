@@ -8,7 +8,6 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		type LocalizationResolver,
 		type CardResolver,
 		CardType,
-		card,
 		deck as deckUtility,
 		DeckSource,
 		service,
@@ -19,6 +18,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	import DeckDisplayGrid from './DeckDisplayGrid.svelte';
 	import DeckDescriptionReader from './DeckDescriptionReader.svelte';
 	import ExportDeckCardRender from './ExportDeckCardRender.svelte';
+	import ExportDeckModal from './ExportDeckModal.svelte';
 	import CardScanFullSmallGridInvestigator from './CardScanFullSmallGridInvestigator.svelte';
 	import type { CardItem, GroupingSortingSettings } from './card-item.js';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
@@ -47,6 +47,11 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		languageCode?: string;
 		mode?: 'campaign' | 'decklist';
 		toolbar?: boolean;
+		/**
+		 * Share URL for the deck (for QR code generation).
+		 * Should be generated in the application layer using protobuf compression.
+		 */
+		shareUrl?: string;
 	}
 
 	let {
@@ -56,12 +61,14 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		languageCode,
 		mode = 'decklist',
 		toolbar = false,
+		shareUrl,
 		showExportView = $bindable(false)
 	}: Prop & { showExportView?: boolean } = $props();
 
 	let advanced = $state(false);
 	let combineCards = $state(false);
 	let showDescriptionReader = $state(false);
+	let showExportModal = $state(false);
 
 	const forwardResult = $derived.by(() => {
 		const latestDeck = mode === 'campaign' ? deckUtility.forwardToLatest(deck) : deck;
@@ -191,6 +198,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		(deckLatestForwarded.meta.introMd && deckLatestForwarded.meta.introMd.trim().length > 0) ||
 			(deckLatestForwarded.descriptionMd && deckLatestForwarded.descriptionMd.trim().length > 0)
 	);
+
 </script>
 
 {#snippet flexibleDisplay(cards: CardItem[], settings: GroupingSortingSettings)}
@@ -208,12 +216,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 			<DeckBanner {cardResolver} {deck} {mode} {localizationResolver} {languageCode} />
 		</div>
 		<div class="flex flex-wrap gap-2">
-			<CardScanFullSmallGridInvestigator
-				{deck}
-				{cardResolver}
-				{languageCode}
-				{mode}
-			/>
+			<CardScanFullSmallGridInvestigator {deck} {cardResolver} {languageCode} {mode} />
 		</div>
 		<!-- Show buttons to the hosted site -->
 		<div class="flex max-w-60 flex-col gap-2">
@@ -250,13 +253,15 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 {/snippet}
 
 {#snippet deckDisplayList()}
-	<DeckDisplayList
-		{mainCards}
-		{sideCards}
-		{linkedCards}
-		{extraCards}
-		meta={deckLatestForwarded.meta}
-	/>
+	<div class="flex justify-center">
+		<DeckDisplayList
+			{mainCards}
+			{sideCards}
+			{linkedCards}
+			{extraCards}
+			meta={deckLatestForwarded.meta}
+		/>
+	</div>
 {/snippet}
 
 {#if showExportView}
@@ -271,6 +276,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		meta={deckLatestForwarded.meta}
 		{localizationResolver}
 		{languageCode}
+		{shareUrl}
 		onBack={() => {
 			showExportView = false;
 		}}
@@ -346,6 +352,13 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 							showExportView = true;
 						}}
 					/>
+					<Button
+						icon={FaIconType.Export}
+						label={m.button_export_deck()}
+						onClick={() => {
+							showExportModal = true;
+						}}
+					/>
 				{/if}
 			</div>
 		{/if}
@@ -383,3 +396,13 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		{/if}
 	</div>
 {/if}
+
+<!-- Export Deck Modal -->
+<ExportDeckModal
+	isOpen={showExportModal}
+	onClose={() => {
+		showExportModal = false;
+	}}
+	deck={deckLatestForwarded}
+	{shareUrl}
+/>

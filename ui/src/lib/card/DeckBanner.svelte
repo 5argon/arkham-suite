@@ -57,6 +57,11 @@ Block element with fixed height that display some overall information about the 
 		 * If true, hides the colored title bar with deck name.
 		 */
 		hideTitle?: boolean;
+		/**
+		 * If true, renders the first column content horizontally instead of vertically.
+		 * Only works together with `small` prop.
+		 */
+		smallSingleLine?: boolean;
 	}
 	const {
 		deck,
@@ -66,7 +71,8 @@ Block element with fixed height that display some overall information about the 
 		onClick,
 		cardResolver,
 		small = false,
-		hideTitle = false
+		hideTitle = false,
+		smallSingleLine = false
 	}: Prop = $props();
 
 	// Generate unique ID for this component instance to avoid SVG mask ID collisions
@@ -114,7 +120,7 @@ Block element with fixed height that display some overall information about the 
 	{@const regularFront = m.card_regular_front()}
 	{@const regularBack = m.card_regular_back()}
 	{#if front || back}
-		<div class="flex items-center justify-center text-[0.5rem] leading-none">
+		<div class="flex items-center justify-center text-center text-[0.5rem] leading-none">
 			<div
 				class={clsx(
 					'cursor-default rounded-l px-1 py-0.5 select-none',
@@ -173,7 +179,8 @@ Block element with fixed height that display some overall information about the 
 
 <div
 	class={clsx(
-		'relative w-[330px] border bg-white/50 shadow-lg md:w-[550px] dark:bg-black/30',
+		!(small && smallSingleLine) && 'w-[330px] md:w-[550px]',
+		'relative border bg-white/50 shadow-lg dark:bg-black/30',
 		borderColorClass,
 		small && 'md:w-auto'
 	)}
@@ -204,6 +211,7 @@ Block element with fixed height that display some overall information about the 
 			{/if}
 		</div>
 	{/if}
+
 	{#if !small}
 		<div class="relative">
 			<div class="absolute">
@@ -222,7 +230,7 @@ Block element with fixed height that display some overall information about the 
 				class="relative flex h-48 flex-col justify-center gap-2 p-2 md:h-32 md:flex-row md:justify-evenly"
 			>
 				<!-- First Column -->
-				<div class="flex flex-col items-center justify-center gap-0.5 md:basis-[280px]">
+				<div class={clsx('flex flex-col items-center justify-center gap-0.5 md:basis-[280px]')}>
 					{@render investigatorCardLine()}
 					<div>
 						<span>{@render parallelIndicator(isParallelFront, isParallelBack)}</span>
@@ -257,7 +265,13 @@ Block element with fixed height that display some overall information about the 
 		{/if}
 	{:else}
 		<!-- Small mode: Only show investigator CardLine -->
-		<div class="p-2">
+		<div
+			class={clsx(
+				'px-3 py-1',
+				smallSingleLine ? 'flex-row' : 'flex-col',
+				'flex items-center justify-center gap-1'
+			)}
+		>
 			<div class="flex justify-center gap-1">
 				{@render investigatorCardLine()}
 				{@render parallelIndicator(isParallelFront, isParallelBack)}
@@ -266,7 +280,7 @@ Block element with fixed height that display some overall information about the 
 				<span
 					><HealthSanity health={frontInvestigator.health} sanity={frontInvestigator.sanity} />
 				</span>
-				<span><ImageIconCommit card={frontInvestigator} /></span>
+				<span class="hidden md:block"><ImageIconCommit card={frontInvestigator} /></span>
 				<div>
 					<DeckSpecificInformation
 						onlyDeckbuildingChoices

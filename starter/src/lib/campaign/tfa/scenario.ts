@@ -407,6 +407,13 @@ export const theDepthsOfYothScenario: Scenario = {
 				what: 'If you have 0 tally mark, 2x **Pit Warden** are removed from the starting encounter deck.'
 			}
 		]
+	},
+	extraInfo: {
+		back: [
+			{
+				image: 'tfa/tfa-8-b.webp'
+			}
+		]
 	}
 };
 
@@ -466,7 +473,7 @@ export const shatteredAeonsScenario: Scenario = {
 	extraInfo: {
 		back: [
 			{
-				image: 'tfa/tfa-8-b.webp'
+				image: 'tfa/tfa-9-b.webp'
 			}
 		]
 	}
@@ -490,14 +497,7 @@ export const turnBackTimeScenario: Scenario = {
 				yigsVenom
 			]
 		}
-	],
-	extraInfo: {
-		back: [
-			{
-				image: 'tfa/tfa-9-b.webp'
-			}
-		]
-	}
+	]
 };
 
 export const returnToTheUntamedWildsScenario: Scenario = {

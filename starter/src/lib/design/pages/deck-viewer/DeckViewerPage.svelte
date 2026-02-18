@@ -10,8 +10,9 @@
 		Modal,
 		PageLead
 	} from '@5argon/arkham-life-ui';
-	import { CardResolver, type Deck } from '@5argon/arkham-kohaku';
+	import { CardResolver, type Deck, deck as deckUtils } from '@5argon/arkham-kohaku';
 	import { getAllCards, loadAllTabooLists } from '$lib/card-data';
+	import { compressDeckProtobuf } from '$lib/utility/deck-compress';
 	import { browser } from '$app/environment';
 
 	interface Props {
@@ -31,6 +32,22 @@
 
 	// Use preLoadedDeck if available, otherwise use the locally imported deck
 	let displayDeck = $derived(localImportedDeck ?? preLoadedDeck);
+
+	// Generate share URL using protobuf compression for QR codes
+	let shareUrl = $derived.by(() => {
+		if (!displayDeck?.compressedJson) return undefined;
+		try {
+			// Decompress the full JSON, then compress with protobuf for QR
+			const ahdbDeck = deckUtils.decompressDeck(displayDeck.compressedJson);
+			const protobufCompressed = compressDeckProtobuf(ahdbDeck);
+			
+			const baseUrl = browser ? window.location.origin : '';
+			return `${baseUrl}/deck/view?json=${encodeURIComponent(protobufCompressed)}`;
+		} catch (error) {
+			console.error('Failed to generate share URL:', error);
+			return undefined;
+		}
+	});
 
 	function handleImportDeck(decks: Deck[]) {
 		if (decks.length > 0) {
@@ -76,7 +93,7 @@
 			</div>
 		{/if}
 
-		<DeckDisplay toolbar deck={displayDeck} {cardResolver} bind:showExportView={isExportView} />
+		<DeckDisplay toolbar deck={displayDeck} {cardResolver} bind:showExportView={isExportView} {shareUrl} />
 	{/if}
 </MarginFull>
 

@@ -29,7 +29,7 @@
 	const displayLabel = $derived(label ?? (cardClass ? u.cardClass(cardClass) : ''));
 </script>
 
-<div class="flex items-center gap-1">
+<div class="flex items-center text-center gap-1">
 	{#if !hideIcon && cardClass}
 		<span><ImageIconClass {cardClass} /></span>
 	{/if}

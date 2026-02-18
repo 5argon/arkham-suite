@@ -20,7 +20,6 @@
 	function handleConfirm(decks: Deck[]) {
 		importedDecks = decks;
 		isModalOpen = false;
-		console.log('Imported decks:', decks);
 	}
 </script>
 

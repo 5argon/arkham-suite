@@ -19,6 +19,7 @@ export { default as DeckBanner } from './DeckBanner.svelte';
 export { default as DeckBannerSecondColumn } from './DeckBannerSecondColumn.svelte';
 export { default as DeckDescriptionReader } from './DeckDescriptionReader.svelte';
 export { default as ExportDeckCardRender } from './ExportDeckCardRender.svelte';
+export { default as ExportDeckModal } from './ExportDeckModal.svelte';
 export { default as HorizontalCardFrame } from './HorizontalCardFrame.svelte';
 export { default as CardScanFullSmallGridInvestigator } from './CardScanFullSmallGridInvestigator.svelte';
 export { default as ImportDecksModal } from './ImportDecksModal.svelte';

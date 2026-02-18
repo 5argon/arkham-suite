@@ -119,6 +119,12 @@
 		onClick="/proxy"
 		title="Proxy Template"
 	/>
+	<ThumbnailCardButton
+		description="Streamline printing custom content with MakePlayingCards.com. Just want to spread the word in case you haven't heard of it."
+		imageUrl="image/resource/inexorable-fate.webp"
+		onClick="https://inexorablefate.com"
+		title="Inexorable Fate"
+	/>
 </div>
 
 <InnerHeading title="Campaign-Specific Customs" />

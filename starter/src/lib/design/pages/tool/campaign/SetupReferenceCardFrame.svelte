@@ -44,15 +44,16 @@
 <div
 	class="setup-reference-card {isBack
 		? 'setup-reference-card-back'
-		: ''} bordered rounded-lg bg-white dark:bg-primary-800 mx-auto"
+		: ''} bordered bg-white dark:bg-primary-800 mx-auto shadow-lg"
 >
 	<div
-		class="content-area rounded-lg border border-primary-200 dark:border-primary-500 border-opacity-10"
+		class="content-area border border-primary-200 dark:border-primary-500 border-opacity-10"
+		style="border-radius: 29px;"
 	>
 		{#key scenario}
 			<div
-				class="header-with-background rounded-t-lg inline-flex items-center"
-				style="--bg-image: url('/image/expansion/campaign-background/{campaignAbbreviation}.webp');"
+				class="header-with-background inline-flex items-center"
+				style="--bg-image: url('/image/expansion/campaign-background/{campaignAbbreviation}.webp'); border-radius: 20px 20px 0 0;"
 				in:fade={{ duration: 200 }}
 			>
 				<div
@@ -116,7 +117,7 @@
 	}
 
 	.content-area {
-		padding: 20px;
+		padding: 10px;
 		position: relative;
 		height: auto;
 		display: flex;
@@ -157,7 +158,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: rgba(255, 255, 255, 0.8);
+		background-color: rgba(255, 255, 255, 0.65);
 		z-index: 1;
 	}
 

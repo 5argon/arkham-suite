@@ -59,7 +59,8 @@ Render text with inline Arkham icons replacing special text markers.
 <span class="arkham-text">
 	{#each segments as segment, i (i)}
 		{#if segment.type === 'text'}
-			{segment.content}
+			<!-- {segment.content} -->
+			{@html segment.content}
 		{:else}
 			{@const segmentContent = segment.content as ArkhamInlineIcon}
 			<span class="inline-icon">

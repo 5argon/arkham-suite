@@ -21,6 +21,7 @@
 	"card_directive": "Directive",
 	"card_selected_class_singular": "Selected Class",
 	"card_selected_class_plural": "Selected Classes",
+	"card_selected_option": "Selected Option",
 	"card_main_roles": "Main Roles",
 	"card_cost_x": "Cost {cost}",
 	"card_no_cost": "No Cost",
@@ -31,5 +32,7 @@
 	"card_extra": "Extra",
 	"card_read_full_description": "Read Full Description",
 	"card_close_description": "Close Description",
-	"card_deck_description": "Deck Description"
+	"card_deck_description": "Deck Description",
+	"card_add_qr_code": "Add QR Code",
+	"card_qr_code_explanation": "The QR code links to the \"Persistent Deck URL\", check out the Export Deck modal to learn more about it."
 }

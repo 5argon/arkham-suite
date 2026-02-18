@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { type Card, type DecodedMeta, type CardClass } from '@5argon/arkham-kohaku';
 	import SelectedClassBanner from './SelectedClassBanner.svelte';
+	import { isMethodDeclaration } from 'typescript';
 
 	interface Prop {
 		/**
@@ -41,7 +42,6 @@
 			result.push({ cardClass: meta.faction2 });
 		}
 
-		// Check for option selections
 		if (meta.optionSelected && investigator.deckOptions) {
 			// Find the matching option in deckOptions
 			for (const deckOption of investigator.deckOptions) {

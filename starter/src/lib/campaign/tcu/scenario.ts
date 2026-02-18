@@ -469,6 +469,39 @@ export const beforeTheBlackThroneScenario: Scenario = {
 				what: "Don't forget potential chaos bag changes in the prior Interlude IV."
 			}
 		]
+	},
+	extraInfo: {
+		front: [
+			{
+				image: 'tcu/tcu-9-a.webp'
+			}
+		],
+		back: [
+			{
+				heading: 'The Cosmos'
+			},
+			{
+				paragraph:
+					'A new location cannot enter play in a position already occupied by a location. If a location’s connection instructions are impossible to fulfill, shuffle that location back into the Cosmos and cancel the effects of the move.'
+			},
+			{
+				paragraph:
+					'<b>“Cosmos –”</b> instructions are only resolved when a location is being drawn from the Cosmos. When revealing a Cosmos location that is already in play, do not follow its <b>“Cosmos –”</b> instructions.'
+			},
+			{ heading: 'Empty Space' },
+			{
+				paragraph:
+					'During this scenario, you will sometimes be instructed to place “empty space” into play. This is done by taking the top card of the active investigator’s deck and putting it into play facedown, in the indicated position. If there is no active investigator, the top card(s) of the lead investigator’s deck should be used, instead.'
+			},
+			{
+				paragraph:
+					'Empty space is not a location, and cannot be entered by enemies or investigators unless otherwise noted. It does, however, count as a location for the purposes of determining the distance between two locations.'
+			},
+			{
+				paragraph:
+					'A location can enter play in a position occupied by empty space. Should this happen, the empty space card is shuffled back into its owner’s deck.'
+			}
+		]
 	}
 };
 

@@ -40,6 +40,23 @@
 		hideTopics?: boolean;
 
 		hideContainer?: boolean;
+
+		/**
+		 * When true, centers the content horizontally
+		 */
+		centered?: boolean;
+
+		hideDetails?: boolean;
+
+		/**
+		 * When true, disables card hover effects and click interactions
+		 */
+		disableInteractions?: boolean;
+
+		/**
+		 * When true, disables dividing cards into left/right halves (shows single column)
+		 */
+		noHalf?: boolean;
 	}
 
 	const {
@@ -49,14 +66,18 @@
 		linkedCards,
 		meta,
 		hideTopics = false,
-		hideContainer = false
+		hideContainer = false,
+		centered = false,
+		hideDetails = false,
+		disableInteractions = false,
+		noHalf = false
 	}: Prop = $props();
 
 	const recursiveGroups = $derived(recursivelyGroupCardItems(mainCards, deckListMainGrouping));
 	const sorted = $derived(
 		recursiveGroups.map((group) => sortRecursivelyGroupedCards(group, deckListMainSorting))
 	);
-	const halved = $derived(divideHalf(sorted));
+	const halved = $derived(noHalf ? null : divideHalf(sorted));
 
 	const sideRecursiveGroups = $derived(
 		sideCards ? recursivelyGroupCardItems(sideCards, deckListSideGrouping) : []
@@ -64,7 +85,7 @@
 	const sideSorted = $derived(
 		sideRecursiveGroups.map((group) => sortRecursivelyGroupedCards(group, deckListSideSorting))
 	);
-	const sideHalved = $derived(divideHalf(sideSorted));
+	const sideHalved = $derived(noHalf ? null : divideHalf(sideSorted));
 
 	const extraRecursiveGroups = $derived(
 		extraCards ? recursivelyGroupCardItems(extraCards, deckListExtraGrouping) : []
@@ -101,21 +122,23 @@
 </script>
 
 {#snippet cardDetail(card: CardItem)}
-	<!-- Deck display list has dynamic details depending on card type. -->
-	{#if card.card.cardType === CardType.Asset && card.card.permanent !== true}
-		<CardExtraInfo card={card.card} extraInfo={['cost', 'slot', 'commit', 'soak']} />
-	{/if}
-	{#if card.card.cardType === CardType.Event}
-		<CardExtraInfo card={card.card} extraInfo={['cost', 'commit']} />
-	{/if}
-	{#if card.card.cardType === CardType.Skill}
-		<CardExtraInfo card={card.card} extraInfo={['commit']} />
+	{#if !hideDetails}
+		<!-- Deck display list has dynamic details depending on card type. -->
+		{#if card.card.cardType === CardType.Asset && card.card.permanent !== true}
+			<CardExtraInfo card={card.card} extraInfo={['cost', 'slot', 'commit', 'soak']} />
+		{/if}
+		{#if card.card.cardType === CardType.Event}
+			<CardExtraInfo card={card.card} extraInfo={['cost', 'commit']} />
+		{/if}
+		{#if card.card.cardType === CardType.Skill}
+			<CardExtraInfo card={card.card} extraInfo={['commit']} />
+		{/if}
 	{/if}
 {/snippet}
 
 {#snippet content()}
-	<div class="flex flex-wrap gap-4">
-		<!-- Main Deck - Two columns -->
+	<div class="flex flex-col flex-wrap gap-2" class:justify-center={centered}>
+		<!-- Main Deck - Single or Two columns -->
 		{#if mainCards && mainCards.length > 0}
 			<div class="flex flex-col gap-2">
 				{#if !hideTopics}
@@ -128,24 +151,40 @@
 						/>
 					</div>
 				{/if}
-				<div class="flex flex-wrap gap-4">
+				{#if halved}
+					<!-- Two column layout -->
+					<div class="flex flex-wrap gap-4">
+						<div in:fly|global={{ duration: 150, x: -20, delay: 150 }}>
+							<TableCardList
+								groups={halved.left}
+								afterRenders={[cardDetail]}
+								{meta}
+								onClick={disableInteractions ? undefined : handleCardClick}
+								hideCardTypeIcon={hideDetails}
+							/>
+						</div>
+						<div in:fly|global={{ duration: 150, x: -20, delay: 200 }}>
+							<TableCardList
+								groups={halved.right}
+								afterRenders={[cardDetail]}
+								{meta}
+								onClick={disableInteractions ? undefined : handleCardClick}
+								hideCardTypeIcon={hideDetails}
+							/>
+						</div>
+					</div>
+				{:else}
+					<!-- Single column layout -->
 					<div in:fly|global={{ duration: 150, x: -20, delay: 150 }}>
 						<TableCardList
-							groups={halved.left}
+							groups={sorted}
 							afterRenders={[cardDetail]}
 							{meta}
-							onClick={handleCardClick}
+							onClick={disableInteractions ? undefined : handleCardClick}
+							hideCardTypeIcon={hideDetails}
 						/>
 					</div>
-					<div in:fly|global={{ duration: 150, x: -20, delay: 200 }}>
-						<TableCardList
-							groups={halved.right}
-							afterRenders={[cardDetail]}
-							{meta}
-							onClick={handleCardClick}
-						/>
-					</div>
-				</div>
+				{/if}
 			</div>
 		{/if}
 
@@ -168,7 +207,8 @@
 								groups={sideHalved.left}
 								afterRenders={[cardDetail]}
 								{meta}
-								onClick={handleCardClick}
+								onClick={disableInteractions ? undefined : handleCardClick}
+								hideCardTypeIcon={hideDetails}
 							/>
 						</div>
 						<div>
@@ -176,7 +216,8 @@
 								groups={sideHalved.right}
 								afterRenders={[cardDetail]}
 								{meta}
-								onClick={handleCardClick}
+								onClick={disableInteractions ? undefined : handleCardClick}
+								hideCardTypeIcon={hideDetails}
 							/>
 						</div>
 					</div>
@@ -187,7 +228,8 @@
 							groups={sideSorted}
 							afterRenders={[cardDetail]}
 							{meta}
-							onClick={handleCardClick}
+							onClick={disableInteractions ? undefined : handleCardClick}
+							hideCardTypeIcon={hideDetails}
 						/>
 					</div>
 				{/if}
@@ -208,7 +250,8 @@
 						groups={extraSorted}
 						afterRenders={[cardDetail]}
 						{meta}
-						onClick={handleCardClick}
+						onClick={disableInteractions ? undefined : handleCardClick}
+						hideCardTypeIcon={hideDetails}
 					/>
 				</div>
 			</div>
@@ -228,7 +271,8 @@
 						groups={linkedSorted}
 						afterRenders={[cardDetail]}
 						{meta}
-						onClick={handleCardClick}
+						onClick={disableInteractions ? undefined : handleCardClick}
+						hideCardTypeIcon={hideDetails}
 					/>
 				</div>
 			</div>
@@ -236,12 +280,14 @@
 	</div>
 {/snippet}
 
-{#if hideContainer}
-	{@render content()}
-{:else}
-	<BorderedContainer>
+<div class="flex" class:justify-center={centered}>
+	{#if hideContainer}
 		{@render content()}
-	</BorderedContainer>
-{/if}
+	{:else}
+		<BorderedContainer>
+			{@render content()}
+		</BorderedContainer>
+	{/if}
+</div>
 
 <CardMagnifiedModal card={magnifiedCard} isShowing={isModalShowing} onClose={handleModalClose} />

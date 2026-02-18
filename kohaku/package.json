@@ -20,5 +20,9 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@types/pako": "^2.0.4",
+    "pako": "^2.1.0"
+  }
 }

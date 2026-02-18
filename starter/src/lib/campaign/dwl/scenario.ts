@@ -63,7 +63,14 @@ export const extracurricularActivityScenario: Scenario = {
 			],
 			remaining: [extracurricularActivity]
 		}
-	]
+	],
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-1-b.webp'
+			}
+		]
+	}
 };
 
 export const theHouseAlwaysWinsScenario: Scenario = {
@@ -92,11 +99,18 @@ export const theHouseAlwaysWinsScenario: Scenario = {
 				what: 'The entire **Striking Fear** encounter set is set aside, out of play.'
 			}
 		]
+	},
+	extraInfo: {	
+		back: [
+			{
+				image: 'dwl/dwl-2-b.webp'
+			}
+		]
 	}
 };
 
 export const theMiskatonicMuseumScenario: Scenario = {
-	index: 5,
+	index: 3,
 	shortName: 'II',
 	representativeSet: KohakuEncounterSet.TheMiskatonicMuseum,
 	setups: [
@@ -110,11 +124,18 @@ export const theMiskatonicMuseumScenario: Scenario = {
 				theBeyond
 			]
 		}
-	]
+	],
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-3-b.webp'
+			}
+		]
+	}
 };
 
 export const theEssexCountyExpressScenario: Scenario = {
-	index: 6,
+	index: 4,
 	shortName: 'III',
 	representativeSet: KohakuEncounterSet.TheEssexCountyExpress,
 	setups: [
@@ -135,11 +156,18 @@ export const theEssexCountyExpressScenario: Scenario = {
 			hard: [ChaosToken.TokenM4],
 			expert: [ChaosToken.TokenM5]
 		}
+	},
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-4-b.webp'
+			}
+		]
 	}
 };
 
 export const bloodOnTheAltarScenario: Scenario = {
-	index: 7,
+	index: 5,
 	shortName: 'IV',
 	representativeSet: KohakuEncounterSet.BloodOnTheAltar,
 	setups: [
@@ -178,11 +206,18 @@ export const bloodOnTheAltarScenario: Scenario = {
 				what: ['**Professor Warren Rice**']
 			}
 		]
+	},
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-5-b.webp'
+			}
+		]
 	}
 };
 
 export const undimensionedAndUnseenScenario: Scenario = {
-	index: 8,
+	index: 6,
 	shortName: 'V',
 	representativeSet: KohakuEncounterSet.UndimensionedAndUnseen,
 	setups: [
@@ -208,11 +243,18 @@ export const undimensionedAndUnseenScenario: Scenario = {
 				trait: 'Pact'
 			}
 		]
+	},
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-6-b.webp'
+			}
+		]
 	}
 };
 
 export const whereDoomAwaitsScenario: Scenario = {
-	index: 9,
+	index: 7,
 	shortName: 'VI',
 	representativeSet: KohakuEncounterSet.WhereDoomAwaits,
 	setups: [
@@ -253,11 +295,18 @@ export const whereDoomAwaitsScenario: Scenario = {
 			hard: [ChaosToken.TokenM6],
 			expert: [ChaosToken.TokenM7]
 		}
+	},
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-7-b.webp'
+			}
+		]
 	}
 };
 
 export const lostInTimeAndSpaceScenario: Scenario = {
-	index: 10,
+	index: 8,
 	shortName: 'VII',
 	representativeSet: KohakuEncounterSet.LostInTimeAndSpace,
 	setups: [
@@ -270,7 +319,14 @@ export const lostInTimeAndSpaceScenario: Scenario = {
 				theBeyond
 			]
 		}
-	]
+	],
+	extraInfo: {
+		back: [
+			{
+				image: 'dwl/dwl-8-b.webp'
+			}
+		]
+	}
 };
 
 export const returnToExtracurricularActivityScenario: Scenario = {

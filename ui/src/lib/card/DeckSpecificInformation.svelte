@@ -135,6 +135,7 @@
 	import CardSquarePlaceholder from './CardSquarePlaceholder.svelte';
 	import { PluralResolver } from '../mf2/compile.js';
 	import SelectedClassBanner from './SelectedClassBanner.svelte';
+	import DeckbuildingChoiceDisplay from './DeckbuildingChoiceDisplay.svelte';
 
 	interface Prop {
 		deck: Deck;
@@ -149,27 +150,6 @@
 		deck.meta.alternateFront !== undefined &&
 			deck.meta.alternateFront.product === Product.ParallelInvestigators
 	);
-	const isParallelBack = $derived(
-		deck.meta.alternateBack !== undefined &&
-			deck.meta.alternateBack.product === Product.ParallelInvestigators
-	);
-	let singleClassSelected: CardClass | undefined = $derived.by(() => {
-		if (meta.factionSelected) {
-			return meta.factionSelected;
-		}
-		return undefined;
-	});
-	const multipleClassesSelected = $derived.by(() => {
-		const result: CardClass[] = [];
-		if (meta.faction1) {
-			result.push(meta.faction1);
-		}
-		if (meta.faction2) {
-			result.push(meta.faction2);
-		}
-		return result;
-	});
-	const bgClass = $derived(getCardColorClassBackground(investigator.cardClass));
 	const frontInvestigator = $derived(deck.meta.alternateFront ?? deck.investigator);
 	const backInvestigator = $derived(deck.meta.alternateBack ?? deck.investigator);
 
@@ -253,7 +233,7 @@
 {#snippet textTopic(text: string, currentCount?: number, maxCount?: number)}
 	<span
 		class={clsx(
-			'dark:bg-primary-700 bg-primary-100 flex flex-col items-center rounded px-2 py-0.5 text-[0.6rem] leading-none text-black dark:text-white'
+			'dark:bg-primary-700 bg-primary-100 flex flex-col items-center text-center rounded px-2 py-0.5 text-[0.6rem] leading-none text-black dark:text-white'
 		)}
 	>
 		<div>{text}</div>
@@ -272,24 +252,28 @@
 
 <div class="flex flex-col gap-1">
 	<div class="flex items-center gap-3">
-		{#if meta.deckSizeSelected}
+		{#if meta.deckSizeSelected != undefined}
 			<span class="flex items-center gap-1">
 				{@render textTopic(m.card_deck_size())}
 				<span class="leading-none text-black dark:text-white">{meta.deckSizeSelected}</span>
 			</span>
 		{/if}
-		{#if singleClassSelected}
+		{#if meta.optionSelected != undefined}
 			<span class="flex items-center gap-1">
-				{@render textTopic(m.card_selected_class_singular())}
-				<SelectedClassBanner cardClass={singleClassSelected} />
+				{@render textTopic(m.card_selected_option())}
+				<DeckbuildingChoiceDisplay investigator={backInvestigator} meta={meta} />
 			</span>
 		{/if}
-		{#if multipleClassesSelected.length > 0}
+		{#if meta.factionSelected !== undefined}
+			<span class="flex items-center gap-1">
+				{@render textTopic(m.card_selected_class_singular())}
+				<DeckbuildingChoiceDisplay investigator={backInvestigator} meta={meta} />
+			</span>
+		{/if}
+		{#if meta.faction1 !== undefined && meta.faction2 !== undefined}
 			<span class="flex items-center gap-1">
 				{@render textTopic(m.card_selected_class_plural())}
-				{#each multipleClassesSelected as c, i (i)}
-					<SelectedClassBanner cardClass={c} />
-				{/each}
+				<DeckbuildingChoiceDisplay investigator={backInvestigator} meta={meta} />
 			</span>
 		{/if}
 		{#if !onlyDeckbuildingChoices}

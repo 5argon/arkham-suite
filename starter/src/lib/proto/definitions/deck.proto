@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+message CompactDeck {
+  uint32 investigator_code = 1;        // Packed: (set << 13) | (card << 4) | ((qty-1) << 2) | deckType
+  repeated uint32 cards = 2;           // Directly store packed values
+  uint32 taboo_id = 3;
+  
+  // Meta fields (flattened from DeckMeta)
+  uint32 alternate_front = 4;          // Packed card code (or 0 if none)
+  uint32 alternate_back = 5;           // Packed card code (or 0 if none)
+  string option_selected = 6;          // Empty string if none
+  uint32 number_selected = 7;          // Multipurpose field:
+                                       // - If investigator has deck_size_select: deck size (e.g., 30, 40)
+                                       // - Otherwise: packed factions (bits 0-2: faction1, bits 3-5: faction2)
+  repeated CustomizableEntry customizables = 8;
+}
+
+// Card encoding format (stored directly as uint32):
+// - bits 0-1: deck_type (0=slots, 1=side_slots, 2=ignore_deck_limit_slots, 3=extra_deck)
+// - bits 2-3: quantity - 1 (0-3 represents quantities 1-4)
+// - bits 4-20: card_code as integer (0-131071, 17 bits, covers 00000-99999)
+// Encoding: (card_code << 4) | ((quantity - 1) << 2) | deck_type
+// Example: "01684" → integer 1684
+// Total per card: 1 tag + 3 varint bytes = 4 bytes (no message wrapper!)
+
+enum Faction {
+  FACTION_UNSPECIFIED = 0;
+  GUARDIAN = 1;
+  SEEKER = 2;
+  ROGUE = 3;
+  MYSTIC = 4;
+  SURVIVOR = 5;
+}
+
+message CustomizableEntry {
+  uint32 for_card = 1;                 // Packed card code reference
+  repeated CustomizationOption options = 2;
+}
+
+message CustomizationOption {
+  uint32 packed = 1;                   // Packed: index (4 bits) + checked (3 bits) = 7 bits
+                                       // Encoding: (index << 3) | checked
+                                       // index: 0-15 (4 bits), checked: 0-7 (3 bits)
+  CustomizationDetails details = 2;
+}
+
+message CustomizationDetails {
+  repeated uint32 recorded_cards = 1;  // Packed card codes
+  repeated string recorded_traits = 2;
+  repeated Skill recorded_skills = 3;
+}
+
+enum Skill {
+  SKILL_UNSPECIFIED = 0;
+  WILLPOWER = 1;
+  INTELLECT = 2;
+  COMBAT = 3;
+  AGILITY = 4;
+}

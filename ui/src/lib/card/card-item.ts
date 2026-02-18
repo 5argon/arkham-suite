@@ -268,7 +268,6 @@ export function getCardItemKey(item: CardItem, includeQuantity: boolean = false)
 export interface RecursivelyGroupedCardItem {
 	name: string;
 	items: RecursivelyGroupedCardItem[] | CardItem[];
-	preferSide?: 'left' | 'right';
 	/**
 	 * If this group represents a Product (Set grouping), this contains the Product enum value
 	 * so that a ProductIcon can be rendered.
@@ -290,7 +289,6 @@ export function isRecursivelyGroupedCardItemArray(
 export interface GroupedCardItem {
 	name: string;
 	items: CardItem[];
-	preferSide?: 'left' | 'right';
 	/**
 	 * If this group represents a Product (Set grouping), this contains the Product enum value
 	 * so that a ProductIcon can be rendered.
@@ -365,8 +363,7 @@ export function groupCardItems(cardItems: CardItem[], grouping: Grouping): Group
 	return groupedResults.map((result) => {
 		const grouped: GroupedCardItem = {
 			name: groupingKeyToLabel(result.groupingKey, result.dynamicValue),
-			items: result.items,
-			preferSide: result.preferSide
+			items: result.items
 		};
 
 		// Add product data for Set grouping so ProductIcon can be rendered
@@ -396,15 +393,56 @@ export function sortRecursivelyGroupedCards(
 }
 
 /**
- * Arrange topmost level grouping into two columns such that length
- * are as equal as possible.
+ * Divide a single group's items into two columns.
+ * Each side inherits the name of the original group.
+ */
+function divideHalfSingleGroup(group: RecursivelyGroupedCardItem): {
+	left: RecursivelyGroupedCardItem[];
+	right: RecursivelyGroupedCardItem[];
+} {
+	const items = group.items;
+	const halfCount = Math.ceil(items.length / 2);
+	
+	const leftItems = items.slice(0, halfCount);
+	const rightItems = items.slice(halfCount);
+	
+	const left: RecursivelyGroupedCardItem = {
+		name: group.name,
+		items: leftItems,
+		product: group.product
+	};
+	
+	const right: RecursivelyGroupedCardItem = {
+		name: group.name,
+		items: rightItems,
+		product: group.product
+	};
+	
+	return { 
+		left: [left], 
+		right: [right] 
+	};
+}
+
+/**
+ * Arrange topmost level grouping into two columns such that row counts
+ * are as balanced as possible.
+ * 
+ * The algorithm tries all possible split points between groups and chooses
+ * the one with the minimal difference in total row count (including group headers).
  */
 export function divideHalf(groupedCards: RecursivelyGroupedCardItem[]): {
 	left: RecursivelyGroupedCardItem[];
 	right: RecursivelyGroupedCardItem[];
 } {
-	const left: RecursivelyGroupedCardItem[] = [];
-	const right: RecursivelyGroupedCardItem[] = [];
+	// Special case: if there's only one group, divide its items instead
+	if (groupedCards.length === 1) {
+		return divideHalfSingleGroup(groupedCards[0]);
+	}
+	
+	/**
+	 * Count the number of items (card rows) recursively within a group.
+	 */
 	function countRecursive(group: RecursivelyGroupedCardItem): number {
 		return group.items.reduce((acc, item) => {
 			if (noMoreGroup(item)) {
@@ -414,34 +452,39 @@ export function divideHalf(groupedCards: RecursivelyGroupedCardItem[]): {
 			}
 		}, 0);
 	}
-	const totalCount = groupedCards.reduce((acc, group) => acc + countRecursive(group), 0);
-	const halfCount = Math.ceil(totalCount / 2);
-
-	// Ensure the first group take left side. The rest try to use available space. Order must be maintained.
-	let doneWithLeftSide = false;
-	let leftCount = 0;
-	for (let i = 0; i < groupedCards.length; i++) {
-		const group = groupedCards[i];
-		const groupCount = countRecursive(group);
-		if (group.preferSide !== undefined) {
-			if (group.preferSide === 'left') {
-				left.push(group);
-				leftCount += groupCount;
-				continue;
-			} else if (group.preferSide === 'right') {
-				right.push(group);
-				continue;
-			}
-		}
-		if (!doneWithLeftSide && (leftCount === 0 || leftCount + groupCount <= halfCount)) {
-			left.push(group);
-			leftCount += groupCount;
-		} else {
-			right.push(group);
-			doneWithLeftSide = true;
+	
+	/**
+	 * Calculate total row count for a set of groups.
+	 * This includes both the items within groups AND one row per group for the group header.
+	 */
+	function calculateRowCount(groups: RecursivelyGroupedCardItem[]): number {
+		return groups.reduce((total, group) => {
+			return total + 1 + countRecursive(group); // +1 for the group header row
+		}, 0);
+	}
+	
+	// Try all possible split points and find the one with minimal difference
+	let bestSplitIndex = 1; // At least one group on the left
+	let minDifference = Infinity;
+	
+	for (let splitIndex = 1; splitIndex < groupedCards.length; splitIndex++) {
+		const leftGroups = groupedCards.slice(0, splitIndex);
+		const rightGroups = groupedCards.slice(splitIndex);
+		
+		const leftRowCount = calculateRowCount(leftGroups);
+		const rightRowCount = calculateRowCount(rightGroups);
+		const difference = Math.abs(leftRowCount - rightRowCount);
+		
+		if (difference < minDifference) {
+			minDifference = difference;
+			bestSplitIndex = splitIndex;
 		}
 	}
-	return { left, right };
+	
+	return {
+		left: groupedCards.slice(0, bestSplitIndex),
+		right: groupedCards.slice(bestSplitIndex)
+	};
 }
 
 export function sortGroupedCards(
@@ -501,8 +544,8 @@ export function findLinkedCardsSpecial(card: Card, cardResolver: CardResolver): 
 export const deckListMainGrouping: Grouping[] = ['default'];
 export const deckListMainSorting: SortingType[] = ['slot', 'class', 'position'];
 
-export const deckListSideGrouping: Grouping[] = ['level'];
-export const deckListSideSorting: SortingType[] = ['class', 'position'];
+export const deckListSideGrouping: Grouping[] = [];
+export const deckListSideSorting: SortingType[] = ['level','class', 'position'];
 
 export const deckListLinkedGrouping: Grouping[] = [];
 export const deckListLinkedSorting: SortingType[] = ['class', 'set', 'position'];
