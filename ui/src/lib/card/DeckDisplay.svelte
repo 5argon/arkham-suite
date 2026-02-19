@@ -33,7 +33,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		deckAdvancedLinkedSettings,
 		deckAdvancedExtraSettings
 	} from './card-item.js';
-	import { SvelteSet } from 'svelte/reactivity';
+
 	import * as m from '../paraglide/messages.js';
 	import { markdownToPlainText } from './markdown-processor.js';
 	import { FaIconType } from '../icon';
@@ -114,7 +114,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 			...deckLatestForwarded.sideDeck.map((cq) => cq.card)
 		];
 
-		const linkedSet = new SvelteSet<string>();
+		const linkedSet = new Set<string>();
 		const linkedCardItems: CardItem[] = [];
 
 		for (const card of allCards) {

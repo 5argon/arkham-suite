@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { type Card, type DecodedMeta, type CardClass } from '@5argon/arkham-kohaku';
 	import SelectedClassBanner from './SelectedClassBanner.svelte';
-	import { isMethodDeclaration } from 'typescript';
 
 	interface Prop {
 		/**

@@ -31,7 +31,6 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { getAllCards, loadAllTabooLists } from '$lib/card-data';
 	import type { PageProps } from './$types';
-	import { SvelteSet } from 'svelte/reactivity';
 	import { resolve } from '$app/paths';
 
 	const { data }: PageProps = $props();
@@ -63,7 +62,7 @@
 	// Combine all cards from all decks
 	const combinedCardItems = $derived.by(() => {
 		const items: CardItem[] = [];
-		const linkedCardCodes = new SvelteSet<string>(); // Track linked cards we've already added
+		const linkedCardCodes = new Set<string>(); // Track linked cards we've already added
 
 		importedDecks.forEach((deck, deckIndex) => {
 			const investigator = deck.investigator;
