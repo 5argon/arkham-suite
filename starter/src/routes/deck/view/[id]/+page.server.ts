@@ -1,4 +1,5 @@
 import type { PageServerLoad } from './$types';
+import { error } from '@sveltejs/kit';
 import type { Deck } from '@5argon/arkham-kohaku';
 import { loadDeckById } from '$lib/server/deck-loader';
 
@@ -8,7 +9,12 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 
 	let preLoadedDeck: Deck | null = null;
 	if (id) {
-		preLoadedDeck = await loadDeckById(id, fetch, true);
+		try {
+			preLoadedDeck = await loadDeckById(id, fetch);
+		} catch (err) {
+			const errorMessage = err instanceof Error ? err.message : String(err);
+			throw error(404, errorMessage);
+		}
 	}
 
 	return {

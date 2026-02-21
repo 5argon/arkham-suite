@@ -27,18 +27,10 @@ export async function loadDeckFromJson(
 	}
 }
 
-/**
- * Load a deck from ArkhamDB by its ID
- * @param id - The deck ID
- * @param fetch - The fetch function to use for API calls
- * @param throwOnError - Whether to throw an error on failure (default: false)
- * @returns The loaded Deck or null if loading failed
- */
 export async function loadDeckById(
 	id: string,
-	fetch: typeof globalThis.fetch,
-	throwOnError = false
-): Promise<Deck | null> {
+	fetch: typeof globalThis.fetch
+): Promise<Deck> {
 	const noCacheFetch = (input: string | URL | Request, init?: RequestInit) => {
 		return fetch(input, { ...init, cache: 'no-store' });
 	};
@@ -49,12 +41,8 @@ export async function loadDeckById(
 		const linkedDeck = await service.fetchDeckRecursive(noCacheFetch, id);
 		const loadedDeck = linkedAhdbDeckToDeck(linkedDeck, cardResolver, tabooLists);
 		return loadedDeck;
-	} catch (error) {
-		console.error(`Failed to load deck ${id}:`, error);
-		if (throwOnError) {
-			const errorMessage = error instanceof Error ? error.message : String(error);
-			throw new Error(`Failed to load deck ${id}: ${errorMessage}`);
-		}
-		return null;
+	} catch (error: unknown) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		throw new Error(`Failed to load deck ${id}: ${errorMessage}`);
 	}
 }

@@ -8,7 +8,7 @@ import { DeckSource } from './deck-source.js';
 import { DecodedMeta, decodeMeta } from './meta.js';
 import { Card } from './player-card.js';
 import { CardResolver } from './resolver.js';
-import { AhdbTaboo, ahdbTabooToTaboo, Taboo } from './taboo.js';
+import { Taboo } from './taboo.js';
 
 export interface AhdbDeck {
   /**

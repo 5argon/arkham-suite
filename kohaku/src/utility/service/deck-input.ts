@@ -132,6 +132,16 @@ export interface LinkedAhdbDeck {
   previous?: LinkedAhdbDeck;
 }
 
+export interface DeckFetchingError {
+  message: string;
+}
+
+export function isDeckFetchingError(
+  fetched: AhdbDeck | DeckFetchingError
+): fetched is DeckFetchingError {
+  return 'message' in fetched
+}
+
 export function linearizeLinkedAhdbDeck(linked: LinkedAhdbDeck): AhdbDeck[] {
   const decks: AhdbDeck[] = [];
   let current: LinkedAhdbDeck | undefined = linked;
@@ -158,7 +168,7 @@ export async function fetchDeckRecursive(
   fetchFunction: (...p: Parameters<typeof fetch>) => ReturnType<typeof fetch>,
   input: string | number
 ): Promise<LinkedAhdbDeck> {
-  async function fetchLogic(input: string | number): Promise<AhdbDeck> {
+  async function fetchLogic(input: string | number): Promise<AhdbDeck | DeckFetchingError> {
     const predicted = predictDeckInput(input);
     if (predicted.source === DeckSource.Unknown) {
       throw new Error('Unknown deck source');
@@ -173,6 +183,9 @@ export async function fetchDeckRecursive(
     forBacklink: LinkedAhdbDeck
   ): Promise<LinkedAhdbDeck> {
     const deck = await fetchLogic(input);
+    if (isDeckFetchingError(deck)) {
+      throw new Error(`Failed to fetch deck: ${deck.message}`);
+    }
     const linkedDeck: LinkedAhdbDeck = { deck };
 
     if (direction === 'next') {
@@ -196,6 +209,9 @@ export async function fetchDeckRecursive(
   }
 
   const startingDeck = await fetchLogic(input);
+  if (isDeckFetchingError(startingDeck)) {
+    throw new Error(`Failed to fetch deck: ${startingDeck.message}`);
+  }
   const linkedDeck: LinkedAhdbDeck = { deck: startingDeck };
   // Spread both sides from the starting deck.
   if (startingDeck.next_deck) {

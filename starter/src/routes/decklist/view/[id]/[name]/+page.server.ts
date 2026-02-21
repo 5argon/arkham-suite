@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 	let preLoadedDeck: Deck | null = null;
 	if (id) {
 		try {
-			preLoadedDeck = await loadDeckById(id, fetch, true);
+			preLoadedDeck = await loadDeckById(id, fetch);
 		} catch (err) {
 			const errorMessage = err instanceof Error ? err.message : String(err);
 			throw error(404, errorMessage);
