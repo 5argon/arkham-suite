@@ -2,6 +2,7 @@
 	import { type Campaign, type Scenario } from '$lib/core/campaign';
 	import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
 	import { EncounterSetDisplay } from '@5argon/arkham-life-ui';
+	import { getScenarioData } from '@5argon/arkham-kohaku';
 	import { u } from '@5argon/arkham-string';
 
 	import {
@@ -100,7 +101,7 @@
 					>
 						{shortScenarioName
 							? (r.scenario.shortName ?? i + 1)
-							: (r.scenario.overrideName ?? u.encounterSetName(r.scenario.representativeSet))}
+							: (r.scenario.overrideName ?? u.encounterSetName(getScenarioData(r.scenario.kohakuScenario).representativeSet))}
 					</td>
 					<td class="border-x border-primary-300 px-1 py-1 dark:border-primary-700">
 						{#if r.specificSets.length > 0}

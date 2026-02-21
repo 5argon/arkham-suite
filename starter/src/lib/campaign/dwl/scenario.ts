@@ -1,5 +1,5 @@
 import { type Scenario } from '$lib/core/campaign';
-import { ChaosToken, EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { ChaosToken, EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfYogSothoth,
@@ -47,9 +47,8 @@ import {
 } from './encounter';
 
 export const extracurricularActivityScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ExtracurricularActivity,
 	shortName: 'I-A',
-	representativeSet: KohakuEncounterSet.ExtracurricularActivity,
 	setups: [
 		{
 			shuffles: [
@@ -74,9 +73,8 @@ export const extracurricularActivityScenario: Scenario = {
 };
 
 export const theHouseAlwaysWinsScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.TheHouseAlwaysWins,
 	shortName: 'I-B',
-	representativeSet: KohakuEncounterSet.TheHouseAlwaysWins,
 	setups: [
 		{
 			shuffles: [
@@ -110,9 +108,8 @@ export const theHouseAlwaysWinsScenario: Scenario = {
 };
 
 export const theMiskatonicMuseumScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.TheMiskatonicMuseum,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.TheMiskatonicMuseum,
 	setups: [
 		{
 			shuffles: [
@@ -135,9 +132,8 @@ export const theMiskatonicMuseumScenario: Scenario = {
 };
 
 export const theEssexCountyExpressScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.TheEssexCountyExpress,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.TheEssexCountyExpress,
 	setups: [
 		{
 			shuffles: [
@@ -167,9 +163,8 @@ export const theEssexCountyExpressScenario: Scenario = {
 };
 
 export const bloodOnTheAltarScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.BloodOnTheAltar,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.BloodOnTheAltar,
 	setups: [
 		{
 			shuffles: [
@@ -217,9 +212,8 @@ export const bloodOnTheAltarScenario: Scenario = {
 };
 
 export const undimensionedAndUnseenScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.UndimensionedAndUnseen,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.UndimensionedAndUnseen,
 	setups: [
 		{
 			shuffles: [
@@ -254,9 +248,8 @@ export const undimensionedAndUnseenScenario: Scenario = {
 };
 
 export const whereDoomAwaitsScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.WhereDoomAwaits,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.WhereDoomAwaits,
 	setups: [
 		{
 			shuffles: [
@@ -306,9 +299,8 @@ export const whereDoomAwaitsScenario: Scenario = {
 };
 
 export const lostInTimeAndSpaceScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.LostInTimeAndSpace,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.LostInTimeAndSpace,
 	setups: [
 		{
 			shuffles: [
@@ -330,9 +322,8 @@ export const lostInTimeAndSpaceScenario: Scenario = {
 };
 
 export const returnToExtracurricularActivityScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ReturnToExtracurricularActivity,
 	shortName: 'I-A',
-	representativeSet: KohakuEncounterSet.ReturnToExtracurricularActivity,
 	setups: [
 		{
 			name: 'As 1st Scenario',
@@ -378,9 +369,8 @@ export const returnToExtracurricularActivityScenario: Scenario = {
 };
 
 export const returnToTheHouseAlwaysWinsScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.ReturnToTheHouseAlwaysWins,
 	shortName: 'I-B',
-	representativeSet: KohakuEncounterSet.ReturnToTheHouseAlwaysWins,
 	setups: [
 		{
 			shuffles: [
@@ -408,9 +398,8 @@ export const returnToTheHouseAlwaysWinsScenario: Scenario = {
 };
 
 export const returnToTheMiskatonicMuseumScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.ReturnToTheMiskatonicMuseum,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.ReturnToTheMiskatonicMuseum,
 	setups: [
 		{
 			shuffles: [
@@ -427,9 +416,8 @@ export const returnToTheMiskatonicMuseumScenario: Scenario = {
 };
 
 export const returnToTheEssexCountyExpressScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ReturnToTheEssexCountyExpress,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.ReturnToTheEssexCountyExpress,
 	setups: [
 		{
 			shuffles: [
@@ -453,9 +441,8 @@ export const returnToTheEssexCountyExpressScenario: Scenario = {
 };
 
 export const returnToBloodOnTheAltarScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.ReturnToBloodOnTheAltar,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.ReturnToBloodOnTheAltar,
 	setups: [
 		{
 			shuffles: [
@@ -510,9 +497,8 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 };
 
 export const returnToUndimensionedAndUnseenScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.ReturnToUndimensionedAndUnseen,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.ReturnToUndimensionedAndUnseen,
 	setups: [
 		{
 			shuffles: [
@@ -541,9 +527,8 @@ export const returnToUndimensionedAndUnseenScenario: Scenario = {
 };
 
 export const returnToWhereDoomAwaitsScenario: Scenario = {
-	index: 9,
+	kohakuScenario: KohakuScenario.ReturnToWhereDoomAwaits,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.ReturnToWhereDoomAwaits,
 	setups: [
 		{
 			shuffles: [
@@ -588,9 +573,8 @@ export const returnToWhereDoomAwaitsScenario: Scenario = {
 };
 
 export const returnToLostInTimeAndSpaceScenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.ReturnToLostInTimeAndSpace,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.ReturnToLostInTimeAndSpace,
 	setups: [
 		{
 			shuffles: [

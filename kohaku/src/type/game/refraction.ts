@@ -1,4 +1,5 @@
 import { Campaign } from './campaign.js';
+import { Scenario } from './scenario.js';
 
 export enum Refraction {
   /**
@@ -100,7 +101,26 @@ export enum Refraction {
    * Fate of the Vale (v.III) ( 159)’s first ability should read “: Spend X clues: Place X resources on your location, as kindling...” and its second ability should instead read “ If your location has 1 kindling on it, remove all kindling from it: Draw 1 set-aside Fire! treachery. (Group limit once per location.)”
    */
   BoonOfTheMiners = 'boon_of_the_miners',
-}
+  /**
+   * **The Path to Carcosa Campaign**
+   *
+   * If you heeded Daniel's warning is recorded in your Campaign Log, at the beginning of each scenario, take 1 horror for each time you spoke, wrote, or typed the name of HASTUR since the end of the previous scenario.
+   */
+  UltimatumOfTheBrassCrown = 'ultimatum_of_the_brass_crown',
+
+  /**
+   * **The Forgotten Age Campaign**
+   *
+   * After each successful exploration, the performing investigator reveals the top card of the encounter deck. If the revealed card is an enemy, they draw it. Otherwise, they discard it.
+   */
+  UltimatumOfAmbuscade = 'ultimatum_of_ambuscade',
+
+  /**
+   * **The Drowned City Campaign**
+   *
+   * Investigators cannot trigger abilities on or assign damage to Artifact assets. If an Item asset from the Expedition encounter set is ever defeated or discarded, it cannot be chosen during setup for the remainder of the campaign.
+   */
+  UltimatumOfSpoilage = 'ultimatum_of_spoilage',}
 
 export interface RefractionDetails {
   refraction: Refraction;
@@ -108,41 +128,38 @@ export interface RefractionDetails {
   campaign: Campaign;
 
   /**
-   * String representation of the `enum` of that campaign's scenario.
+   * The specific scenario this refraction applies to.
    * If `undefined`, applies to an entire campaign.
    */
-  scenario?: string;
+  scenario?: Scenario;
 }
 
 export type RefractionType = 'boon' | 'ultimatum';
 
-/**
- * TODO: Use satisfies to make scenario strings safe with the enum type?
- */
 export const refractions: RefractionDetails[] = [
   {
     refraction: Refraction.UltimatumOfInvisibility,
     refractionType: 'ultimatum',
     campaign: Campaign.TheDunwichLegacy,
-    scenario: 'undimensioned_and_unseen',
+    scenario: Scenario.UndimensionedAndUnseen,
   },
   {
     refraction:Refraction.BoonOfAtonement,
     refractionType: 'boon',
     campaign: Campaign.TheScarletKeys,
-    scenario: 'shades_of_suffering',
+    scenario: Scenario.ShadesOfSuffering,
   },
   {
     refraction: Refraction.UltimatumOfMultiplication,
     refractionType: 'ultimatum',
     campaign: Campaign.TheDunwichLegacy,
-    scenario: 'undimensioned_and_unseen',
+    scenario: Scenario.UndimensionedAndUnseen,
   },
   {
     refraction: Refraction.UltimatumOfDeath,
     refractionType: 'ultimatum',
     campaign: Campaign.ThePathToCarcosa,
-    scenario: 'the_pallid_mask',
+    scenario: Scenario.ThePallidMask,
   },
   {
     refraction: Refraction.UltimatumOfVenom,
@@ -154,19 +171,19 @@ export const refractions: RefractionDetails[] = [
     refraction: Refraction.UltimatumOfTheDrowned,
     refractionType: 'ultimatum',
     campaign: Campaign.TheInnsmouthConspiracy,
-    scenario: 'into_the_maelstrom',
+    scenario: Scenario.IntoTheMaelstrom,
   },
   {
     refraction: Refraction.BoonOfTheDreamer,
     refractionType: 'boon',
     campaign: Campaign.TheDreamQuest,
-    scenario: 'where_the_gods_dwell',
+    scenario: Scenario.WhereTheGodsDwell,
   },
   {
     refraction: Refraction.UltimatumOfTheMan,
     refractionType: 'ultimatum',
     campaign: Campaign.ThePathToCarcosa,
-    scenario: 'the_pallid_mask',
+    scenario: Scenario.ThePallidMask,
   },
   {
     refraction: Refraction.UltimatumOfTheUnspeakableName,
@@ -184,18 +201,36 @@ export const refractions: RefractionDetails[] = [
     refraction: Refraction.BoonOfTheDance,
     refractionType: 'boon',
     campaign: Campaign.TheFeastOfHemlockVale,
-    scenario: 'the_second_evening',
+    scenario: undefined,
   },
   {
     refraction: Refraction.BoonOfBliss,
     refractionType: 'boon',
     campaign: Campaign.TheFeastOfHemlockVale,
-    scenario: 'fate_of_the_vale',
+    scenario: Scenario.FateOfTheVale,
   },
   {
     refraction: Refraction.BoonOfTheMiners,
     refractionType: 'boon',
     campaign: Campaign.TheFeastOfHemlockVale,
-    scenario: 'fate_of_the_vale',
+    scenario: Scenario.FateOfTheVale,
+  },
+  {
+    refraction: Refraction.UltimatumOfTheBrassCrown,
+    refractionType: 'ultimatum',
+    campaign: Campaign.ThePathToCarcosa,
+    scenario: undefined,
+  },
+  {
+    refraction: Refraction.UltimatumOfAmbuscade,
+    refractionType: 'ultimatum',
+    campaign: Campaign.TheForgottenAge,
+    scenario: undefined,
+  },
+  {
+    refraction: Refraction.UltimatumOfSpoilage,
+    refractionType: 'ultimatum',
+    campaign: Campaign.TheDrownedCity,
+    scenario: undefined,
   },
 ];

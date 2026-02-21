@@ -81,6 +81,7 @@ export interface Card {
   position: number;
   quantity: number;
   researched?: boolean;
+  starting?: boolean;
   restrictions?: { investigator: Card[]; investigatorCardCodes: CardCode[]; trait: string[] };
   reward?: boolean;
   sanity?: number;
@@ -335,6 +336,7 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
       unique: ahdbCard.is_unique,
       myriad: ahdbCard.myriad,
       researched: ahdbCard.text?.includes('Researched.') ? true : undefined,
+      starting: ahdbCard.text?.includes('Starting.') ? true : undefined,
       restrictions: restrictions,
       reward: ahdbCard.text?.includes('Reward.') ? true : undefined,
       sanity: ahdbCard.sanity,

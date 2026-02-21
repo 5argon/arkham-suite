@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfCthulhu,
@@ -34,9 +34,8 @@ import {
 } from './encounter';
 
 export const thePitOfDespairScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ThePitOfDespair,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.ThePitOfDespair,
 	setups: [
 		{
 			shuffles: [
@@ -53,9 +52,8 @@ export const thePitOfDespairScenario: Scenario = {
 };
 
 export const theVanishingOfElinaHarperScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.TheVanishingOfElinaHarper,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.TheVanishingOfElinaHarper,
 	setups: [
 		{
 			shuffles: [
@@ -73,9 +71,8 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 };
 
 export const inTooDeepScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.InTooDeep,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.InTooDeep,
 	setups: [
 		{
 			shuffles: [
@@ -91,9 +88,8 @@ export const inTooDeepScenario: Scenario = {
 };
 
 export const devilReefScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.DevilReef,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.DevilReef,
 	setups: [
 		{
 			shuffles: [
@@ -109,9 +105,8 @@ export const devilReefScenario: Scenario = {
 };
 
 export const horrorInHighGearScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.HorrorInHighGear,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.HorrorInHighGear,
 	setups: [
 		{
 			shuffles: [
@@ -126,9 +121,8 @@ export const horrorInHighGearScenario: Scenario = {
 };
 
 export const aLightInTheFogScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ALightInTheFog,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.ALightInTheFog,
 	setups: [
 		{
 			shuffles: [
@@ -144,9 +138,8 @@ export const aLightInTheFogScenario: Scenario = {
 };
 
 export const theLairOfDagonScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.TheLairOfDagon,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.TheLairOfDagon,
 	setups: [
 		{
 			shuffles: [
@@ -162,9 +155,8 @@ export const theLairOfDagonScenario: Scenario = {
 };
 
 export const intoTheMaelstromScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.IntoTheMaelstrom,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.IntoTheMaelstrom,
 	setups: [
 		{
 			shuffles: [

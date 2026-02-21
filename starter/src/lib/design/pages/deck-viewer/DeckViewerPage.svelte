@@ -33,21 +33,19 @@
 	// Use preLoadedDeck if available, otherwise use the locally imported deck
 	let displayDeck = $derived(localImportedDeck ?? preLoadedDeck);
 
-	// Generate share URL using protobuf compression for QR codes
-	let shareUrl = $derived.by(() => {
+	// Generate share URL lazily — only called when the export modal is opened
+	function getShareUrl(): string | undefined {
 		if (!displayDeck?.compressedJson) return undefined;
 		try {
-			// Decompress the full JSON, then compress with protobuf for QR
 			const ahdbDeck = deckUtils.decompressDeck(displayDeck.compressedJson);
 			const protobufCompressed = compressDeckProtobuf(ahdbDeck);
-			
-			const baseUrl = browser ? window.location.origin : '';
+			const baseUrl = window.location.origin;
 			return `${baseUrl}/deck/view?json=${encodeURIComponent(protobufCompressed)}`;
 		} catch (error) {
 			console.error('Failed to generate share URL:', error);
 			return undefined;
 		}
-	});
+	}
 
 	function handleImportDeck(decks: Deck[]) {
 		if (decks.length > 0) {
@@ -93,7 +91,7 @@
 			</div>
 		{/if}
 
-		<DeckDisplay toolbar deck={displayDeck} {cardResolver} bind:showExportView={isExportView} {shareUrl} />
+		<DeckDisplay toolbar deck={displayDeck} {cardResolver} bind:showExportView={isExportView} {getShareUrl} />
 	{/if}
 </MarginFull>
 

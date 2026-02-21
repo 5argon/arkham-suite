@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	chillingCold,
@@ -36,8 +36,7 @@ import {
 } from './encounter';
 
 export const writtenInRockScenario: Scenario = {
-	index: 1,
-	representativeSet: KohakuEncounterSet.WrittenInRock,
+	kohakuScenario: KohakuScenario.WrittenInRock,
 	setups: [
 		{
 			shuffles: [writtenInRock, horrorsInTheRock, refractions, chillingCold, ghouls]
@@ -46,8 +45,7 @@ export const writtenInRockScenario: Scenario = {
 };
 
 export const hemlockHouseScenario: Scenario = {
-	index: 2,
-	representativeSet: KohakuEncounterSet.HemlockHouse,
+	kohakuScenario: KohakuScenario.HemlockHouse,
 	setups: [
 		{
 			shuffles: [hemlockHouse, agentsOfTheColour, blight, fire, transfiguration, lockedDoors, rats]
@@ -56,8 +54,7 @@ export const hemlockHouseScenario: Scenario = {
 };
 
 export const theSilentHeathScenario: Scenario = {
-	index: 3,
-	representativeSet: KohakuEncounterSet.TheSilentHeath,
+	kohakuScenario: KohakuScenario.TheSilentHeath,
 	setups: [
 		{
 			shuffles: [
@@ -74,8 +71,7 @@ export const theSilentHeathScenario: Scenario = {
 };
 
 export const theLostSisterScenario: Scenario = {
-	index: 4,
-	representativeSet: KohakuEncounterSet.TheLostSister,
+	kohakuScenario: KohakuScenario.TheLostSister,
 	setups: [
 		{
 			shuffles: [theLostSister, blight, horrorsInTheRock, mutations, myconids]
@@ -84,8 +80,7 @@ export const theLostSisterScenario: Scenario = {
 };
 
 export const theThingInTheDepthsScenario: Scenario = {
-	index: 5,
-	representativeSet: KohakuEncounterSet.TheThingInTheDepths,
+	kohakuScenario: KohakuScenario.TheThingInTheDepths,
 	setups: [
 		{
 			shuffles: [theThingInTheDepths, blight, theForest, mutations]
@@ -94,8 +89,7 @@ export const theThingInTheDepthsScenario: Scenario = {
 };
 
 export const theTwistedHollowScenario: Scenario = {
-	index: 6,
-	representativeSet: KohakuEncounterSet.TheTwistedHollow,
+	kohakuScenario: KohakuScenario.TheTwistedHollow,
 	setups: [
 		{
 			shuffles: [theFirstDay, theTwistedHollow, theForest, myconids]
@@ -104,8 +98,7 @@ export const theTwistedHollowScenario: Scenario = {
 };
 
 export const theLongestNightScenario: Scenario = {
-	index: 7,
-	representativeSet: KohakuEncounterSet.TheLongestNight,
+	kohakuScenario: KohakuScenario.TheLongestNight,
 	setups: [
 		{
 			shuffles: [
@@ -131,8 +124,7 @@ export const theLongestNightScenario: Scenario = {
 };
 
 export const fateOfTheValeScenario: Scenario = {
-	index: 8,
-	representativeSet: KohakuEncounterSet.FateOfTheVale,
+	kohakuScenario: KohakuScenario.FateOfTheVale,
 	setups: [
 		{
 			shuffles: [

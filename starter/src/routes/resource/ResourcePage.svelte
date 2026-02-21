@@ -23,6 +23,12 @@
 		onClick="/tool/card"
 		title="Card Table"
 	/>
+	<ThumbnailCardButton
+		description="Browse official Ultimatum, Boon, and Refraction cards to alter gameplay difficulty."
+		imageUrl="image/resource/ultimatum.webp"
+		onClick="/ultimatums-and-boons"
+		title="Ultimatums and Boons"
+	/>
 </div>
 
 <InnerHeading title="Deckbuilding Tools" />
@@ -106,12 +112,6 @@
 		imageUrl="image/resource/utility.webp"
 		onClick="/utility-mini"
 		title="Utility Mini-Card"
-	/>
-	<ThumbnailCardButton
-		description="Print out each Refractions as an individual card so you can store with the campaign or scenario they apply to."
-		imageUrl="image/resource/ultimatum.webp"
-		onClick="/ultimatum"
-		title="Ultimatums and Boons : Refraction Cards"
 	/>
 	<ThumbnailCardButton
 		description="Photocopier-friendly frame graphics that you can fill in the blank to make a proxy card."

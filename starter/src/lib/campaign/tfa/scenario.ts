@@ -1,6 +1,6 @@
 import type { Scenario } from '$lib/core/campaign';
 
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 import { m } from '@5argon/arkham-string';
 import {
 	agentsOfYogSothoth,
@@ -53,9 +53,8 @@ import {
 } from './encounter';
 
 export const theUntamedWildsScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.TheUntamedWilds,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.TheUntamedWilds,
 	setups: [
 		{
 			shuffles: [
@@ -105,9 +104,8 @@ export const theUntamedWildsScenario: Scenario = {
 };
 
 export const theDoomOfEztliScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.TheDoomOfEztli,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.TheDoomOfEztli,
 	setups: [
 		{
 			shuffles: [
@@ -152,9 +150,8 @@ export const theDoomOfEztliScenario: Scenario = {
 };
 
 export const threadsOfFateScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.ThreadsOfFate,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.ThreadsOfFate,
 	setups: [
 		{
 			shuffles: [
@@ -177,9 +174,8 @@ export const threadsOfFateScenario: Scenario = {
 };
 
 export const theBoundaryBeyondScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.TheBoundaryBeyond,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.TheBoundaryBeyond,
 	setups: [
 		{
 			name: 'Cultist',
@@ -242,9 +238,8 @@ export const theBoundaryBeyondScenario: Scenario = {
 };
 
 export const heartOfTheEldersPart1Scenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.HeartOfTheEldersPart1,
 	shortName: 'V-A',
-	representativeSet: KohakuEncounterSet.HeartOfTheElders,
 	overrideName: m.campaignRegularTheForgottenAgeScenarioHeartOfTheEldersPart1(),
 	setups: [
 		{
@@ -300,9 +295,8 @@ export const heartOfTheEldersPart1Scenario: Scenario = {
 };
 
 export const heartOfTheEldersPart2Scenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.HeartOfTheEldersPart2,
 	shortName: 'V-B',
-	representativeSet: KohakuEncounterSet.HeartOfTheElders,
 	overrideName: m.campaignRegularTheForgottenAgeScenarioHeartOfTheEldersPart2(),
 	setups: [
 		{
@@ -352,9 +346,8 @@ export const heartOfTheEldersPart2Scenario: Scenario = {
 };
 
 export const theCityOfArchivesScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.TheCityOfArchives,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.TheCityOfArchives,
 	setups: [
 		{
 			shuffles: [
@@ -384,9 +377,8 @@ export const theCityOfArchivesScenario: Scenario = {
 };
 
 export const theDepthsOfYothScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.TheDepthsOfYoth,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.TheDepthsOfYoth,
 	setups: [
 		{
 			shuffles: [
@@ -418,9 +410,8 @@ export const theDepthsOfYothScenario: Scenario = {
 };
 
 export const shatteredAeonsScenario: Scenario = {
-	index: 9,
+	kohakuScenario: KohakuScenario.ShatteredAeons,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.ShatteredAeons,
 	setups: [
 		{
 			name: 'Cultist',
@@ -480,9 +471,8 @@ export const shatteredAeonsScenario: Scenario = {
 };
 
 export const turnBackTimeScenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.TurnBackTime,
 	shortName: 'IX',
-	representativeSet: KohakuEncounterSet.TurnBackTime,
 	setups: [
 		{
 			shuffles: [
@@ -501,9 +491,8 @@ export const turnBackTimeScenario: Scenario = {
 };
 
 export const returnToTheUntamedWildsScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ReturnToTheUntamedWilds,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.ReturnToTheUntamedWilds,
 	setups: [
 		{
 			shuffles: [
@@ -523,9 +512,8 @@ export const returnToTheUntamedWildsScenario: Scenario = {
 };
 
 export const returnToTheDoomOfEztliScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.ReturnToTheDoomOfEztli,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.ReturnToTheDoomOfEztli,
 	setups: [
 		{
 			shuffles: [
@@ -545,9 +533,8 @@ export const returnToTheDoomOfEztliScenario: Scenario = {
 };
 
 export const returnToThreadsOfFateScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.ReturnToThreadsOfFate,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.ReturnToThreadsOfFate,
 	setups: [
 		{
 			shuffles: [
@@ -564,9 +551,8 @@ export const returnToThreadsOfFateScenario: Scenario = {
 };
 
 export const returnToTheBoundaryBeyondScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.ReturnToTheBoundaryBeyond,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.ReturnToTheBoundaryBeyond,
 	setups: [
 		{
 			shuffles: [
@@ -584,9 +570,8 @@ export const returnToTheBoundaryBeyondScenario: Scenario = {
 };
 
 export const returnToHeartOfTheEldersPart1Scenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.ReturnToHeartOfTheEldersPart1,
 	shortName: 'V-A',
-	representativeSet: KohakuEncounterSet.ReturnToPillarsOfJudgment,
 	overrideName: m.campaignRegularTheForgottenAgeScenarioHeartOfTheEldersPart1(),
 	setups: [
 		{
@@ -604,9 +589,8 @@ export const returnToHeartOfTheEldersPart1Scenario: Scenario = {
 };
 
 export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ReturnToHeartOfTheEldersPart2,
 	shortName: 'V-B',
-	representativeSet: KohakuEncounterSet.ReturnToKnyan,
 	overrideName: m.campaignRegularTheForgottenAgeScenarioHeartOfTheEldersPart2(),
 	setups: [
 		{
@@ -625,9 +609,8 @@ export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
 };
 
 export const returnToTheCityOfArchivesScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.ReturnToTheCityOfArchives,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.ReturnToTheCityOfArchives,
 	setups: [
 		{
 			shuffles: [
@@ -643,9 +626,8 @@ export const returnToTheCityOfArchivesScenario: Scenario = {
 };
 
 export const returnToTheDepthsOfYothScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.ReturnToTheDepthsOfYoth,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.ReturnToTheDepthsOfYoth,
 	setups: [
 		{
 			shuffles: [
@@ -662,9 +644,8 @@ export const returnToTheDepthsOfYothScenario: Scenario = {
 };
 
 export const returnToShatteredAeonsScenario: Scenario = {
-	index: 9,
+	kohakuScenario: KohakuScenario.ReturnToShatteredAeons,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.ReturnToShatteredAeons,
 	setups: [
 		{
 			shuffles: [
@@ -681,9 +662,8 @@ export const returnToShatteredAeonsScenario: Scenario = {
 };
 
 export const returnToTurnBackTimeScenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.ReturnToTurnBackTime,
 	shortName: 'IX',
-	representativeSet: KohakuEncounterSet.ReturnToTurnBackTime,
 	setups: [
 		{
 			shuffles: [

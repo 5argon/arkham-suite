@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	ancientEvils,
@@ -35,9 +35,8 @@ import {
 } from './encounter';
 
 export const beyondTheGatesOfSleepScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.BeyondTheGatesOfSleep,
 	shortName: 'I-A',
-	representativeSet: KohakuEncounterSet.BeyondTheGatesOfSleep,
 	setups: [
 		{
 			shuffles: [
@@ -64,9 +63,8 @@ export const beyondTheGatesOfSleepScenario: Scenario = {
 };
 
 export const wakingNightmareScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.WakingNightmare,
 	shortName: 'I-B',
-	representativeSet: KohakuEncounterSet.WakingNightmare,
 	setups: [
 		{
 			shuffles: [
@@ -98,9 +96,8 @@ export const wakingNightmareScenario: Scenario = {
 };
 
 export const theSearchForKadathScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.TheSearchForKadath,
 	shortName: 'II-A',
-	representativeSet: KohakuEncounterSet.TheSearchForKadath,
 	setups: [
 		{
 			name: '1~2 Players',
@@ -160,9 +157,8 @@ export const theSearchForKadathScenario: Scenario = {
 };
 
 export const aThousandShapesOfHorrorScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.AThousandShapesOfHorror,
 	shortName: 'II-B',
-	representativeSet: KohakuEncounterSet.AThousandShapesOfHorror,
 	setups: [
 		{
 			shuffles: [
@@ -187,9 +183,8 @@ export const aThousandShapesOfHorrorScenario: Scenario = {
 };
 
 export const darkSideOfTheMoonScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.DarkSideOfTheMoon,
 	shortName: 'III-A',
-	representativeSet: KohakuEncounterSet.DarkSideOfTheMoon,
 	setups: [
 		{
 			shuffles: [
@@ -206,9 +201,8 @@ export const darkSideOfTheMoonScenario: Scenario = {
 };
 
 export const pointOfNoReturnScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.PointOfNoReturn,
 	shortName: 'III-B',
-	representativeSet: KohakuEncounterSet.PointOfNoReturn,
 	setups: [
 		{
 			shuffles: [
@@ -252,9 +246,8 @@ export const pointOfNoReturnScenario: Scenario = {
 };
 
 export const whereTheGodsDwellScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.WhereTheGodsDwell,
 	shortName: 'IV-A',
-	representativeSet: KohakuEncounterSet.WhereTheGodsDwell,
 	setups: [
 		{
 			shuffles: [
@@ -285,9 +278,8 @@ export const whereTheGodsDwellScenario: Scenario = {
 };
 
 export const weaverOfTheCosmosScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.WeaverOfTheCosmos,
 	shortName: 'IV-B',
-	representativeSet: KohakuEncounterSet.WeaverOfTheCosmos,
 	setups: [
 		{
 			shuffles: [

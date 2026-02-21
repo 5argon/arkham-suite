@@ -1,4 +1,8 @@
-import { ChaosToken, EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import {
+	ChaosToken,
+	EncounterSet as KohakuEncounterSet,
+	Scenario as KohakuScenario,
+} from '@5argon/arkham-kohaku';
 
 export interface EncounterSet {
 	count: number;
@@ -12,9 +16,9 @@ export interface Campaign {
 }
 
 export interface Scenario {
-	index: number;
+	/** Reference to the kohaku scenario enum which contains index and representative set information */
+	kohakuScenario: KohakuScenario;
 	shortName?: string;
-	representativeSet: KohakuEncounterSet;
 	overrideName?: string;
 
 	setups: ScenarioSetup[];

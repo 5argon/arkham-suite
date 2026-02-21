@@ -15,3 +15,13 @@ A standard text paragraph for normal content.
 <p class="text-base text-secondary-900 dark:text-secondary-100 my-4">
 	{@render children()}
 </p>
+
+<style>
+	p :global(a) {
+		text-decoration: underline;
+	}
+
+	p :global(a:hover) {
+		cursor: pointer;
+	}
+</style>

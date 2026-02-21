@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfShubNiggurath,
@@ -54,9 +54,8 @@ import {
 } from './encounter';
 
 export const disappearanceAtTheTwilightEstateScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.DisappearanceAtTheTwilightEstate,
 	shortName: 'P',
-	representativeSet: KohakuEncounterSet.DisappearanceAtTheTwilightEstate,
 	setups: [
 		{
 			shuffles: [
@@ -101,9 +100,8 @@ export const disappearanceAtTheTwilightEstateScenario: Scenario = {
 };
 
 export const theWitchingHourScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.TheWitchingHour,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.TheWitchingHour,
 	setups: [
 		{
 			shuffles: [ancientEvils, strikingFear, anettesCoven, cityOfSins, witchcraft],
@@ -136,9 +134,8 @@ export const theWitchingHourScenario: Scenario = {
 };
 
 export const atDeathsDoorstepScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.AtDeathsDoorstep,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.AtDeathsDoorstep,
 	setups: [
 		{
 			shuffles: [
@@ -174,9 +171,8 @@ export const atDeathsDoorstepScenario: Scenario = {
 };
 
 export const theSecretNameScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.TheSecretName,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.TheSecretName,
 	setups: [
 		{
 			shuffles: [
@@ -207,9 +203,8 @@ export const theSecretNameScenario: Scenario = {
 };
 
 export const theWagesOfSinScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.TheWagesOfSin,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.TheWagesOfSin,
 	setups: [
 		{
 			shuffles: [
@@ -259,9 +254,8 @@ export const theWagesOfSinScenario: Scenario = {
 };
 
 export const forTheGreaterGoodScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ForTheGreaterGood,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.ForTheGreaterGood,
 	setups: [
 		{
 			name: '"The investigators are members of the Lodge"',
@@ -316,9 +310,8 @@ export const forTheGreaterGoodScenario: Scenario = {
 };
 
 export const unionAndDisillusionScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.UnionAndDisillusion,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.UnionAndDisillusion,
 	setups: [
 		{
 			shuffles: [
@@ -371,9 +364,8 @@ export const unionAndDisillusionScenario: Scenario = {
 };
 
 export const inTheClutchesOfChaosScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.InTheClutchesOfChaos,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.InTheClutchesOfChaos,
 	setups: [
 		{
 			name: '"Anette Mason is possessed by evil"',
@@ -445,9 +437,8 @@ export const inTheClutchesOfChaosScenario: Scenario = {
 };
 
 export const beforeTheBlackThroneScenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.BeforeTheBlackThrone,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.BeforeTheBlackThrone,
 	setups: [
 		{
 			shuffles: [
@@ -506,9 +497,8 @@ export const beforeTheBlackThroneScenario: Scenario = {
 };
 
 export const returnToDisappearanceAtTheTwilightEstateScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ReturnToDisappearanceAtTheTwilightEstate,
 	shortName: 'P',
-	representativeSet: KohakuEncounterSet.ReturnToDisappearanceAtTheTwilightEstate,
 	setups: [
 		{
 			shuffles: [
@@ -527,9 +517,8 @@ export const returnToDisappearanceAtTheTwilightEstateScenario: Scenario = {
 };
 
 export const returnToTheWitchingHourScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.ReturnToTheWitchingHour,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.ReturnToTheWitchingHour,
 	setups: [
 		{
 			shuffles: [
@@ -548,9 +537,8 @@ export const returnToTheWitchingHourScenario: Scenario = {
 };
 
 export const returnToAtDeathsDoorstepScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.ReturnToAtDeathsDoorstep,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.ReturnToAtDeathsDoorstep,
 	setups: [
 		{
 			shuffles: [
@@ -568,9 +556,8 @@ export const returnToAtDeathsDoorstepScenario: Scenario = {
 };
 
 export const returnToTheSecretNameScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.ReturnToTheSecretName,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.ReturnToTheSecretName,
 	setups: [
 		{
 			shuffles: [
@@ -587,9 +574,8 @@ export const returnToTheSecretNameScenario: Scenario = {
 };
 
 export const returnToTheWagesOfSinScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.ReturnToTheWagesOfSin,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.ReturnToTheWagesOfSin,
 	setups: [
 		{
 			shuffles: [
@@ -608,9 +594,8 @@ export const returnToTheWagesOfSinScenario: Scenario = {
 };
 
 export const returnToForTheGreaterGoodScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ReturnToForTheGreaterGood,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.ReturnToForTheGreaterGood,
 	setups: [
 		{
 			shuffles: [
@@ -627,9 +612,8 @@ export const returnToForTheGreaterGoodScenario: Scenario = {
 };
 
 export const returnToUnionAndDisillusionScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.ReturnToUnionAndDisillusion,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.ReturnToUnionAndDisillusion,
 	setups: [
 		{
 			shuffles: [
@@ -647,9 +631,8 @@ export const returnToUnionAndDisillusionScenario: Scenario = {
 };
 
 export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.ReturnToInTheClutchesOfChaos1,
 	shortName: 'VII (v.I)',
-	representativeSet: KohakuEncounterSet.ReturnToInTheClutchesOfChaos,
 	setups: [
 		{
 			shuffles: [
@@ -667,9 +650,8 @@ export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
 };
 
 export const returnToInTheClutchesOfChaos2Scenario: Scenario = {
-	index: 9,
+	kohakuScenario: KohakuScenario.ReturnToInTheClutchesOfChaos2,
 	shortName: 'VII (v.II)',
-	representativeSet: KohakuEncounterSet.ReturnToInTheClutchesOfChaos,
 	setups: [
 		{
 			shuffles: [
@@ -687,9 +669,8 @@ export const returnToInTheClutchesOfChaos2Scenario: Scenario = {
 };
 
 export const returnToBeforeTheBlackThroneScenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.ReturnToBeforeTheBlackThrone,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.ReturnToBeforeTheBlackThrone,
 	setups: [
 		{
 			shuffles: [

@@ -1,5 +1,5 @@
 import { type Scenario } from '$lib/core/campaign';
-import { ChaosToken, EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { ChaosToken, EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import { ancientEvils, chillingCold, lockedDoors, strikingFear } from '../notz/encounter';
 import {
@@ -28,9 +28,8 @@ import {
 import { m } from '@5argon/arkham-string';
 
 export const iceAndDeathPart1Scenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.IceAndDeathPart1,
 	shortName: 'I (Pt. I)',
-	representativeSet: KohakuEncounterSet.IceAndDeath,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioIceAndDeathPartI(),
 	setups: [
 		{
@@ -59,9 +58,8 @@ export const iceAndDeathPart1Scenario: Scenario = {
 };
 
 export const iceAndDeathPart2Scenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.IceAndDeathPart2,
 	shortName: 'I (Pt. II)',
-	representativeSet: KohakuEncounterSet.IceAndDeath,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioIceAndDeathPartII(),
 	setups: [
 		{
@@ -82,9 +80,8 @@ export const iceAndDeathPart2Scenario: Scenario = {
 };
 
 export const iceAndDeathPart3Scenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.IceAndDeathPart3,
 	shortName: 'I (Pt. III)',
-	representativeSet: KohakuEncounterSet.IceAndDeath,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioIceAndDeathPartIII(),
 	setups: [
 		{
@@ -115,9 +112,8 @@ export const iceAndDeathPart3Scenario: Scenario = {
 };
 
 export const fatalMirageScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.FatalMirage,
 	shortName: '???',
-	representativeSet: KohakuEncounterSet.FatalMirage,
 	setups: [
 		{
 			shuffles: [
@@ -134,9 +130,8 @@ export const fatalMirageScenario: Scenario = {
 };
 
 export const toTheForbiddenPeaksScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ToTheForbiddenPeaks,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.ToTheForbiddenPeaks,
 	setups: [
 		{
 			shuffles: [
@@ -154,9 +149,8 @@ export const toTheForbiddenPeaksScenario: Scenario = {
 };
 
 export const cityOfTheElderThings1Scenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.CityOfTheElderThings1,
 	shortName: 'III (v. I)',
-	representativeSet: KohakuEncounterSet.CityOfTheElderThings,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioCityOfTheElderThings() + ' (v. I)',
 	setups: [
 		{
@@ -191,9 +185,8 @@ export const cityOfTheElderThings1Scenario: Scenario = {
 };
 
 export const cityOfTheElderThings2Scenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.CityOfTheElderThings2,
 	shortName: 'III (v. II)',
-	representativeSet: KohakuEncounterSet.CityOfTheElderThings,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioCityOfTheElderThings() + ' (v. II)',
 	setups: [
 		{
@@ -228,9 +221,8 @@ export const cityOfTheElderThings2Scenario: Scenario = {
 };
 
 export const cityOfTheElderThings3Scenario: Scenario = {
-	index: 9,
+	kohakuScenario: KohakuScenario.CityOfTheElderThings3,
 	shortName: 'III (v. III)',
-	representativeSet: KohakuEncounterSet.CityOfTheElderThings,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioCityOfTheElderThings() + ' (v. III)',
 	setups: [
 		{
@@ -264,9 +256,8 @@ export const cityOfTheElderThings3Scenario: Scenario = {
 };
 
 export const theHeartOfMadness1Scenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.TheHeartOfMadness1,
 	shortName: 'IV (Pt. I)',
-	representativeSet: KohakuEncounterSet.TheHeartOfMadness,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioTheHeartOfMadnessPartI(),
 	setups: [
 		{
@@ -285,9 +276,8 @@ export const theHeartOfMadness1Scenario: Scenario = {
 };
 
 export const theHeartOfMadness2Scenario: Scenario = {
-	index: 11,
+	kohakuScenario: KohakuScenario.TheHeartOfMadness2,
 	shortName: 'IV (Pt. II)',
-	representativeSet: KohakuEncounterSet.TheHeartOfMadness,
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioTheHeartOfMadnessPartII(),
 	setups: [
 		{

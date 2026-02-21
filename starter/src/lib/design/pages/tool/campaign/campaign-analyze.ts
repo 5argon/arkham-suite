@@ -8,6 +8,7 @@ import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
 import {
 	type Campaign as KohakuCampaign,
 	encounterSet,
+	getScenarioData,
 	specialOrderingEncounterSets
 } from '@5argon/arkham-kohaku';
 import { u } from '@5argon/arkham-string';
@@ -24,7 +25,9 @@ export function findUniqueScenarios(c: Campaign): Scenario[] {
 		unique.add(x);
 	});
 	return Array.from(unique).sort((a, b) => {
-		return a.index - b.index;
+		const aData = getScenarioData(a.kohakuScenario);
+		const bData = getScenarioData(b.kohakuScenario);
+		return aData.index - bData.index;
 	});
 }
 
@@ -158,6 +161,7 @@ export function sortEncountersScore(a: EncounterSet, b: EncounterSet): number {
 }
 
 export function makeLongScenarioName(s: Scenario): string {
-	const name = s.overrideName ?? u.encounterSetName(s.representativeSet);
+	const scenarioData = getScenarioData(s.kohakuScenario);
+	const name = s.overrideName ?? u.encounterSetName(scenarioData.representativeSet);
 	return s.shortName !== undefined ? `(${s.shortName}) ${name}` : name;
 }

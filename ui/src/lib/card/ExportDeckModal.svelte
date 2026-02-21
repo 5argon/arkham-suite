@@ -23,12 +23,6 @@ Modal for exporting deck as compressed JSON or shareable URL.
 
 	const { isOpen, onClose, deck, shareUrl }: Prop = $props();
 
-	const ahdbDeck = $derived.by(() => {
-		if (!deck.compressedJson) return null;
-		// Decompress the full deck JSON for download
-		return deckUtils.decompressDeck(deck.compressedJson);
-	});
-
 	let urlCopyFeedback = $state('');
 
 	async function copyToClipboard(text: string) {
@@ -47,11 +41,11 @@ Modal for exporting deck as compressed JSON or shareable URL.
 	}
 
 	function downloadFullJson() {
-		if (!ahdbDeck) {
+		if (!deck.compressedJson) {
 			console.error('No deck data available');
 			return;
 		}
-		
+		const ahdbDeck = deckUtils.decompressDeck(deck.compressedJson);
 		const json = JSON.stringify(ahdbDeck, null, 2);
 		const blob = new Blob([json], { type: 'application/json' });
 		const url = URL.createObjectURL(blob);

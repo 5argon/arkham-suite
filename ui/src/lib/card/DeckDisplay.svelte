@@ -48,10 +48,10 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		mode?: 'campaign' | 'decklist';
 		toolbar?: boolean;
 		/**
-		 * Share URL for the deck (for QR code generation).
-		 * Should be generated in the application layer using protobuf compression.
+		 * Lazy factory for the share URL. Called only when the export modal or export view is opened.
+		 * Should be provided by the application layer (uses protobuf compression).
 		 */
-		shareUrl?: string;
+		getShareUrl?: () => string | undefined;
 	}
 
 	let {
@@ -61,9 +61,21 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		languageCode,
 		mode = 'decklist',
 		toolbar = false,
-		shareUrl,
+		getShareUrl,
 		showExportView = $bindable(false)
 	}: Prop & { showExportView?: boolean } = $props();
+
+	let shareUrl = $state<string | undefined>(undefined);
+
+	function openExportModal() {
+		shareUrl = getShareUrl?.();
+		showExportModal = true;
+	}
+
+	function openExportView() {
+		shareUrl = getShareUrl?.();
+		showExportView = true;
+	}
 
 	let advanced = $state(false);
 	let combineCards = $state(false);
@@ -177,7 +189,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	]);
 
 	// Prepare description preview
-	const descriptionPreview = $derived.by(() => {
+	const descriptionPreview: string | null = $derived.by(() => {
 		const intro = deckLatestForwarded.meta.introMd;
 		const desc = deckLatestForwarded.descriptionMd;
 
@@ -189,7 +201,8 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		} else {
 			return null;
 		}
-
+		const descriptionPreviewLength = 400;
+		textToPreview = textToPreview.substring(0, descriptionPreviewLength) + "...";
 		// Process markdown to plain text (strips HTML tags and markdown formatting)
 		return markdownToPlainText(textToPreview);
 	});
@@ -198,7 +211,6 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		(deckLatestForwarded.meta.introMd && deckLatestForwarded.meta.introMd.trim().length > 0) ||
 			(deckLatestForwarded.descriptionMd && deckLatestForwarded.descriptionMd.trim().length > 0)
 	);
-
 </script>
 
 {#snippet flexibleDisplay(cards: CardItem[], settings: GroupingSortingSettings)}
@@ -348,16 +360,12 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 					<Checkbox bind:checked={combineCards} label={m.card_combine_cards()} />
 					<Button
 						label="View Deck-Card"
-						onClick={() => {
-							showExportView = true;
-						}}
+						onClick={openExportView}
 					/>
 					<Button
 						icon={FaIconType.Export}
 						label={m.button_export_deck()}
-						onClick={() => {
-							showExportModal = true;
-						}}
+						onClick={openExportModal}
 					/>
 				{/if}
 			</div>

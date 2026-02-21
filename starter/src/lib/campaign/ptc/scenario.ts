@@ -1,5 +1,5 @@
 import { type Scenario } from '$lib/core/campaign';
-import { ChaosToken, EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { ChaosToken, EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfHastur,
@@ -48,9 +48,8 @@ import {
 } from './encounter';
 
 export const curtainCallScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.CurtainCall,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.CurtainCall,
 	setups: [
 		{
 			shuffles: [
@@ -67,9 +66,8 @@ export const curtainCallScenario: Scenario = {
 };
 
 export const theLastKingScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.TheLastKing,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.TheLastKing,
 	setups: [
 		{
 			shuffles: [
@@ -84,9 +82,8 @@ export const theLastKingScenario: Scenario = {
 };
 
 export const echoesOfThePastScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.EchoesOfThePast,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.EchoesOfThePast,
 	setups: [
 		{
 			name: '4 Players',
@@ -136,9 +133,8 @@ export const echoesOfThePastScenario: Scenario = {
 };
 
 export const theUnspeakableOathScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.TheUnspeakableOath,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.TheUnspeakableOath,
 	setups: [
 		{
 			shuffles: [
@@ -154,9 +150,8 @@ export const theUnspeakableOathScenario: Scenario = {
 };
 
 export const aPhantomOfTruthScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.APhantomOfTruth,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.APhantomOfTruth,
 	setups: [
 		{
 			name: 'Doubt',
@@ -184,9 +179,8 @@ export const aPhantomOfTruthScenario: Scenario = {
 };
 
 export const thePallidMaskScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ThePallidMask,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.ThePallidMask,
 	setups: [
 		{
 			shuffles: [
@@ -200,9 +194,8 @@ export const thePallidMaskScenario: Scenario = {
 };
 
 export const blackStarsRiseScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.BlackStarsRise,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.BlackStarsRise,
 	setups: [
 		{
 			shuffles: [
@@ -234,9 +227,8 @@ export const blackStarsRiseScenario: Scenario = {
 };
 
 export const dimCarcosaScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.DimCarcosa,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.DimCarcosa,
 	setups: [
 		{
 			shuffles: [
@@ -252,9 +244,8 @@ export const dimCarcosaScenario: Scenario = {
 };
 
 export const returnToCurtainCallScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ReturnToCurtainCall,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.ReturnToCurtainCall,
 	setups: [
 		{
 			shuffles: [
@@ -272,9 +263,8 @@ export const returnToCurtainCallScenario: Scenario = {
 };
 
 export const returnToTheLastKingScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.ReturnToTheLastKing,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.ReturnToTheLastKing,
 	setups: [
 		{
 			shuffles: [
@@ -290,9 +280,8 @@ export const returnToTheLastKingScenario: Scenario = {
 };
 
 export const returnToEchoesOfThePastScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.ReturnToEchoesOfThePast,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.ReturnToEchoesOfThePast,
 	setups: [
 		{
 			shuffles: [
@@ -309,9 +298,8 @@ export const returnToEchoesOfThePastScenario: Scenario = {
 };
 
 export const returnToTheUnspeakableOathScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.ReturnToTheUnspeakableOath,
 	shortName: 'IV',
-	representativeSet: KohakuEncounterSet.ReturnToTheUnspeakableOath,
 	setups: [
 		{
 			shuffles: [
@@ -328,9 +316,8 @@ export const returnToTheUnspeakableOathScenario: Scenario = {
 };
 
 export const returnToAPhantomOfTruthScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.ReturnToAPhantomOfTruth,
 	shortName: 'V',
-	representativeSet: KohakuEncounterSet.ReturnToAPhantomOfTruth,
 	setups: [
 		{
 			shuffles: [
@@ -347,9 +334,8 @@ export const returnToAPhantomOfTruthScenario: Scenario = {
 };
 
 export const returnToThePallidMaskScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.ReturnToThePallidMask,
 	shortName: 'VI',
-	representativeSet: KohakuEncounterSet.ReturnToThePallidMask,
 	setups: [
 		{
 			shuffles: [
@@ -364,9 +350,8 @@ export const returnToThePallidMaskScenario: Scenario = {
 };
 
 export const returnToBlackStarsRiseScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.ReturnToBlackStarsRise,
 	shortName: 'VII',
-	representativeSet: KohakuEncounterSet.ReturnToBlackStarsRise,
 	setups: [
 		{
 			shuffles: [
@@ -399,9 +384,8 @@ export const returnToBlackStarsRiseScenario: Scenario = {
 };
 
 export const returnToDimCarcosaScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.ReturnToDimCarcosa,
 	shortName: 'VIII',
-	representativeSet: KohakuEncounterSet.ReturnToDimCarcosa,
 	setups: [
 		{
 			shuffles: [

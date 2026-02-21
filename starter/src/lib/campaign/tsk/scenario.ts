@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	ancientEvils,
@@ -40,9 +40,8 @@ import {
 } from './encounter';
 
 export const riddlesAndRainScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.RiddlesAndRain,
 	shortName: '5-A',
-	representativeSet: KohakuEncounterSet.RiddlesAndRain,
 	setups: [
 		{
 			shuffles: [
@@ -68,9 +67,8 @@ export const riddlesAndRainScenario: Scenario = {
 };
 
 export const deadHeatScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.DeadHeat,
 	shortName: '11-B',
-	representativeSet: KohakuEncounterSet.DeadHeat,
 	setups: [
 		{
 			shuffles: [
@@ -93,9 +91,8 @@ export const deadHeatScenario: Scenario = {
 };
 
 export const sanguineShadowsScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.SanguineShadows,
 	shortName: '16-D',
-	representativeSet: KohakuEncounterSet.SanguineShadows,
 	setups: [
 		{
 			shuffles: [
@@ -120,9 +117,8 @@ export const sanguineShadowsScenario: Scenario = {
 };
 
 export const dealingsInTheDarkScenario: Scenario = {
-	index: 4,
+	kohakuScenario: KohakuScenario.DealingsInTheDark,
 	shortName: '21-F',
-	representativeSet: KohakuEncounterSet.DealingsInTheDark,
 	setups: [
 		{
 			shuffles: [
@@ -155,9 +151,8 @@ export const dealingsInTheDarkScenario: Scenario = {
 };
 
 export const dancingMadScenario: Scenario = {
-	index: 5,
+	kohakuScenario: KohakuScenario.DancingMad,
 	shortName: '28-I',
-	representativeSet: KohakuEncounterSet.DancingMad,
 	setups: [
 		{
 			name: 'v. I',
@@ -202,9 +197,8 @@ export const dancingMadScenario: Scenario = {
 };
 
 export const onThinIceScenario: Scenario = {
-	index: 6,
+	kohakuScenario: KohakuScenario.OnThinIce,
 	shortName: '33-K',
-	representativeSet: KohakuEncounterSet.OnThinIce,
 	setups: [
 		{
 			shuffles: [
@@ -230,9 +224,8 @@ export const onThinIceScenario: Scenario = {
 };
 
 export const dogsOfWarScenario: Scenario = {
-	index: 7,
+	kohakuScenario: KohakuScenario.DogsOfWar,
 	shortName: '38-N',
-	representativeSet: KohakuEncounterSet.DogsOfWar,
 	setups: [
 		{
 			name: 'v. I',
@@ -285,9 +278,8 @@ export const dogsOfWarScenario: Scenario = {
 };
 
 export const shadesOfSufferingScenario: Scenario = {
-	index: 8,
+	kohakuScenario: KohakuScenario.ShadesOfSuffering,
 	shortName: '46-Q',
-	representativeSet: KohakuEncounterSet.ShadesOfSuffering,
 	setups: [
 		{
 			shuffles: [
@@ -311,9 +303,8 @@ export const shadesOfSufferingScenario: Scenario = {
 };
 
 export const withoutATraceScenario: Scenario = {
-	index: 9,
+	kohakuScenario: KohakuScenario.WithoutATrace,
 	shortName: '56-Y',
-	representativeSet: KohakuEncounterSet.WithoutATrace,
 	setups: [
 		{
 			shuffles: [
@@ -341,9 +332,8 @@ export const withoutATraceScenario: Scenario = {
 };
 
 export const congressOfTheKeysScenario: Scenario = {
-	index: 10,
+	kohakuScenario: KohakuScenario.CongressOfTheKeys,
 	shortName: '59-Z',
-	representativeSet: KohakuEncounterSet.CongressOfTheKeys,
 	setups: [
 		{
 			name: 'v. I',

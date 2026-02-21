@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Scenario } from '$lib/core/campaign';
-	import { Campaign, color, convert, strings } from '@5argon/arkham-kohaku';
+	import { Campaign, color, convert, getScenarioData, strings } from '@5argon/arkham-kohaku';
 	import { EncounterSetIcon, ProductIcon } from '@5argon/arkham-icon';
 	import * as m from '$lib/paraglide/messages.js';
 	import { u } from '@5argon/arkham-string';
@@ -19,6 +19,7 @@
 		children: Snippet;
 	} = $props();
 
+	const scenarioData = $derived(getScenarioData(scenario.kohakuScenario));
 	const campaignAbbreviation = $derived(strings.campaignAbbreviation(campaign));
 
 	const campaignProduct = $derived.by(() => {
@@ -60,14 +61,14 @@
 					class="campaign-icon leading-none text-[2rem] pr-2"
 					style="--campaign-color-light: {campaignColors.iconLight}; --campaign-color-dark: {campaignColors.iconDark};"
 				>
-					<EncounterSetIcon encounterSet={scenario.representativeSet} />
+					<EncounterSetIcon encounterSet={scenarioData.representativeSet} />
 				</div>
 				<div
 					class="scenario-name text-secondary-900 dark:text-secondary-100 text-[1.5rem] leading-none flex items-center"
 					style="--campaign-text-color-light: {campaignColors.textLight}; --campaign-text-color-dark: {campaignColors.textDark};"
 				>
 					<span class="relative top-[0.15em]"
-						>{scenario.overrideName ?? u.encounterSetName(scenario.representativeSet)}</span
+						>{scenario.overrideName ?? u.encounterSetName(scenarioData.representativeSet)}</span
 					>
 				</div>
 			</div>

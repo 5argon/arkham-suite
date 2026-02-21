@@ -16,6 +16,10 @@ export enum FaIconType {
 	Reward,
 	Researched,
 	Fast,
+	Starting,
+
+	Ultimatum,
+	Boon,
 
 	EncounterSubset,
 	Dropdown,

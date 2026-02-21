@@ -11,19 +11,19 @@ import tabooData from '../data/taboos.json'; // Constant for cards.json URL
 // Constant for cards.json URL
 const CARDS_JSON_URL = `${PUBLIC_CARD_CDN_URL}/cards.json`;
 
-// In-memory cache for cards data
-let cardsCache: AhdbCard[] | null = null;
+// In-memory cache for CardResolver
+let cardsCache: CardResolver | null = null;
 
 /**
  * Server-side only: Create a CardResolver by fetching cards from CDN.
- * Caches the cards in memory after first fetch for fast subsequent requests.
+ * Caches the CardResolver in memory after first fetch for fast subsequent requests.
  * Uses SvelteKit's fetch for optimized server-side requests.
  * This ensures the large JSON doesn't get bundled with the worker code.
  */
 export async function createCardResolver(fetch: typeof globalThis.fetch): Promise<CardResolver> {
-	// Return cached cards if available
+	// Return cached resolver if available
 	if (cardsCache) {
-		return new CardResolver(cardsCache);
+		return cardsCache;
 	}
 
 	const response = await fetch(CARDS_JSON_URL);
@@ -33,9 +33,9 @@ export async function createCardResolver(fetch: typeof globalThis.fetch): Promis
 	const ahdbCards = (await response.json()) as AhdbCard[];
 
 	// Cache for future requests
-	cardsCache = ahdbCards;
+	cardsCache = new CardResolver(ahdbCards);
 
-	return new CardResolver(ahdbCards);
+	return cardsCache;
 }
 
 /**

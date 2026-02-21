@@ -23,11 +23,13 @@ export enum Ultimatum {
   Highlander = 'ultimatum_of_the_highlander',
   /** Campaign Mode only. Investigator decks can only contain level 0 cards. Investigators cannot earn or spend experience. */
   Induction = 'ultimatum_of_induction',
+  /** Easy or Standard difficulty only. While playing, use the "Hard/Expert" side of the scenario's reference card. */
+  Malevolence = 'ultimatum_of_malevolence',
   /** Play the game using the Taboo List. */
   Orthodoxy = 'ultimatum_of_orthodoxy',
   /** Campaign Mode only. When a unique non-story and non-weakness ally asset you control is defeated, remove it from the game. You cannot play that card for the rest of the campaign. After the scenario ends, remove that ally and all copies of it from each player’s deck. */
-  TheScream = 'ultimatum_of_the_scream',
-  /** Campaign Mode only. If an investigator is killed or driven insane, their player is eliminated from the campaign and cannot continue playing as a new investigator. */
+  TheScream = 'ultimatum_of_the_scream',  /** Campaign Mode only. After an investigator is defeated, add 1 random basic weakness to their deck. */
+  Spiral = 'ultimatum_of_the_spiral',  /** Campaign Mode only. If an investigator is killed or driven insane, their player is eliminated from the campaign and cannot continue playing as a new investigator. */
   Survival = 'ultimatum_of_survival',
   /** Campaign Mode only. Before each game in the campaign, choose 1 ultimatum/boon at random and begin the game with that boon or ultimatum active. (This does not apply to ultimatums or boons that affect deckbuilding or chaos bag construction.) */
   Ultimatums = 'ultimatum_of_ultimatums',
@@ -40,6 +42,7 @@ export const ultimatumCampaignModeOnly: Ultimatum[] = [
   Ultimatum.Finality,
   Ultimatum.Induction,
   Ultimatum.TheScream,
+  Ultimatum.Spiral,
   Ultimatum.Survival,
   Ultimatum.Ultimatums,
 ];

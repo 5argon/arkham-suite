@@ -1,7 +1,7 @@
 module.exports = {
   async constraints({ Yarn }) {
     const sveltePackages = [
-      '@5argon/arkham-starter-sveltekit',
+      '@5argon/arkham-starter',
       '@5argon/arkham-life-site',
       '@5argon/arkham-life-ui',
     ];
@@ -36,7 +36,7 @@ module.exports = {
       'typescript-eslint': '^8.54.0',
       'vite': '^7.3.1',
       'vite-plugin-devtools-json': '^1.0.0',
-      'wrangler': '^4.63.0',
+      'wrangler': '^4.69.0',
     };
 
     for (const workspace of Yarn.workspaces()) {

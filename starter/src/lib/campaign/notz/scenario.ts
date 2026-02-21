@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfCthulhu,
@@ -27,9 +27,8 @@ import {
 } from './encounter';
 
 export const theGatheringScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.TheGathering,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.TheGathering,
 	setups: [
 		{
 			shuffles: [
@@ -45,9 +44,8 @@ export const theGatheringScenario: Scenario = {
 };
 
 export const theMidnightMasksScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.TheMidnightMasks,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.TheMidnightMasks,
 	setups: [
 		{
 			shuffles: [
@@ -63,9 +61,8 @@ export const theMidnightMasksScenario: Scenario = {
 };
 
 export const theDevourerBelowScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.TheDevourerBelow,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.TheDevourerBelow,
 	setups: [
 		{
 			shuffles: [
@@ -115,9 +112,8 @@ export const theDevourerBelowScenario: Scenario = {
 };
 
 export const returnToTheGatheringScenario: Scenario = {
-	index: 1,
+	kohakuScenario: KohakuScenario.ReturnToTheGathering,
 	shortName: 'I',
-	representativeSet: KohakuEncounterSet.ReturnToTheGathering,
 	setups: [
 		{
 			shuffles: [
@@ -134,9 +130,8 @@ export const returnToTheGatheringScenario: Scenario = {
 };
 
 export const returnToTheMidnightMasksScenario: Scenario = {
-	index: 2,
+	kohakuScenario: KohakuScenario.ReturnToTheMidnightMasks,
 	shortName: 'II',
-	representativeSet: KohakuEncounterSet.ReturnToTheMidnightMasks,
 	setups: [
 		{
 			shuffles: [
@@ -153,9 +148,8 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 };
 
 export const returnToTheDevourerBelowScenario: Scenario = {
-	index: 3,
+	kohakuScenario: KohakuScenario.ReturnToTheDevourerBelow,
 	shortName: 'III',
-	representativeSet: KohakuEncounterSet.ReturnToTheDevourerBelow,
 	setups: [
 		{
 			shuffles: [

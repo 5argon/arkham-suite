@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
+import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfCthulhu,
@@ -39,8 +39,7 @@ import {
 } from './encounter';
 
 export const oneLastJobScenario: Scenario = {
-	index: 1,
-	representativeSet: KohakuEncounterSet.OneLastJob,
+	kohakuScenario: KohakuScenario.OneLastJob,
 	setups: [
 		{
 			shuffles: [
@@ -65,8 +64,7 @@ export const oneLastJobScenario: Scenario = {
 };
 
 export const theWesternWallScenario: Scenario = {
-	index: 2,
-	representativeSet: KohakuEncounterSet.TheWesternWall,
+	kohakuScenario: KohakuScenario.TheWesternWall,
 	setups: [
 		{
 			name: 'Standard Setup',
@@ -99,8 +97,7 @@ export const theWesternWallScenario: Scenario = {
 };
 
 export const theDrownedQuarterScenario: Scenario = {
-	index: 3,
-	representativeSet: KohakuEncounterSet.TheDrownedQuarter,
+	kohakuScenario: KohakuScenario.TheDrownedQuarter,
 	setups: [
 		{
 			shuffles: [
@@ -118,8 +115,7 @@ export const theDrownedQuarterScenario: Scenario = {
 };
 
 export const theApiaryScenario: Scenario = {
-	index: 4,
-	representativeSet: KohakuEncounterSet.TheApiary,
+	kohakuScenario: KohakuScenario.TheApiary,
 	setups: [
 		{
 			name: 'Standard Setup',
@@ -141,8 +137,7 @@ export const theApiaryScenario: Scenario = {
 };
 
 export const theGrandVaultScenario: Scenario = {
-	index: 5,
-	representativeSet: KohakuEncounterSet.TheGrandVault,
+	kohakuScenario: KohakuScenario.TheGrandVault,
 	setups: [
 		{
 			shuffles: [theGrandVault, alienMachinery, flood, theInescapable, rlyeh, starSpawn]
@@ -151,8 +146,7 @@ export const theGrandVaultScenario: Scenario = {
 };
 
 export const courtOfTheAncientsScenario: Scenario = {
-	index: 6,
-	representativeSet: KohakuEncounterSet.CourtOfTheAncients,
+	kohakuScenario: KohakuScenario.CourtOfTheAncients,
 	setups: [
 		{
 			shuffles: [courtOfTheAncients, domination, dreams, elderMist, rlyeh, starSpawn]
@@ -161,8 +155,7 @@ export const courtOfTheAncientsScenario: Scenario = {
 };
 
 export const obsidianCanyonsScenario: Scenario = {
-	index: 7,
-	representativeSet: KohakuEncounterSet.ObsidianCanyons,
+	kohakuScenario: KohakuScenario.ObsidianCanyons,
 	setups: [
 		{
 			name: 'Standard Setup',
@@ -196,8 +189,7 @@ export const obsidianCanyonsScenario: Scenario = {
 };
 
 export const sepulchreOfTheSleeperScenario: Scenario = {
-	index: 8,
-	representativeSet: KohakuEncounterSet.SepulchreOfTheSleeper,
+	kohakuScenario: KohakuScenario.SepulchreOfTheSleeper,
 	setups: [
 		{
 			shuffles: [
@@ -214,8 +206,7 @@ export const sepulchreOfTheSleeperScenario: Scenario = {
 };
 
 export const theDoomOfArkhamScenario: Scenario = {
-	index: 9,
-	representativeSet: KohakuEncounterSet.TheDoomOfArkhamPart1,
+	kohakuScenario: KohakuScenario.TheDoomOfArkham,
 	setups: [
 		{
 			name: 'Part I',

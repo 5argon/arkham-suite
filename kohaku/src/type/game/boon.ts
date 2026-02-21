@@ -9,8 +9,12 @@ export enum Boon {
   Hades = 'boon_of_hades',
   /** Each investigator may take an additional action during their turn, which may only be used to move. */
   Hermes = 'boon_of_hermes',
+  /** When a player would add a random basic weakness to their deck during deckbuilding, they instead draw three random basic weaknesses, return one of their choice to the collection, and select one at random from the remaining two. The selected weakness is added to their deck. */
+  Morrigan = 'boon_of_the_morrigan',
   /** The first time each investigator would be defeated in a scenario, after suffering trauma, heal all damage and horror from that investigator. That investigator cannot be damaged until the beginning of their next turn. */
   Osiris = 'boon_of_osiris',
+  /** Campaign Mode only. If an investigator is defeated, they gain 3 additional experience. */
+  Persephone = 'boon_of_persephone',
   /** Each investigator begins the game with 1 additional card in their opening hand. */
   Thoth = 'boon_of_thoth',
 }
@@ -18,4 +22,4 @@ export enum Boon {
 /**
  * Boons that only apply in Campaign Mode
  */
-export const boonCampaignModeOnly: Boon[] = [Boon.Ancients];
+export const boonCampaignModeOnly: Boon[] = [Boon.Ancients, Boon.Persephone];

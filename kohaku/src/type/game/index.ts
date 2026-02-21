@@ -14,3 +14,4 @@ export * from './encounter-set.js';
 export * from './game-component.js';
 export * from './arkham-inline-icon.js';
 export * from './basic-action.js';
+export * from './scenario.js';

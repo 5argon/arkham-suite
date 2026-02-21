@@ -101,9 +101,7 @@ Has three phases: input, loading, and result display with tabs.
 
 	// Parse batch text area into lines
 	const batchLines = $derived(
-		batchImport
-			? batchTextArea.split('\n').filter((line) => line.trim().length > 0)
-			: []
+		batchImport ? batchTextArea.split('\n').filter((line) => line.trim().length > 0) : []
 	);
 
 	// Filter out inputs with unknown sources
@@ -131,7 +129,10 @@ Has three phases: input, loading, and result display with tabs.
 		};
 		validInputs.forEach((input) => {
 			const predicted = service.predictDeckInput(input);
-			if (predicted.source === DeckSource.ArkhamDbPublic || predicted.source === DeckSource.ArkhamDbPublished) {
+			if (
+				predicted.source === DeckSource.ArkhamDbPublic ||
+				predicted.source === DeckSource.ArkhamDbPublished
+			) {
 				stats.arkhamDb++;
 			} else if (predicted.source === DeckSource.ArkhamBuildShared) {
 				stats.arkhamBuild++;
@@ -207,10 +208,9 @@ Has three phases: input, loading, and result display with tabs.
 
 	const tabs = $derived<TabItem[]>(
 		importResults.map((result, index) => ({
-			label:
-				result.success
-					? result.deck.name.substring(0, 20) + (result.deck.name.length > 20 ? '...' : '')
-					: `${m.form_deck()} ${index + 1}`
+			label: result.success
+				? result.deck.name.substring(0, 20) + (result.deck.name.length > 20 ? '...' : '')
+				: `${m.form_deck()} ${index + 1}`
 		}))
 	);
 
@@ -234,7 +234,7 @@ Has three phases: input, loading, and result display with tabs.
 </script>
 
 <Modal
-	isOpen={isOpen}
+	{isOpen}
 	onClose={handleClose}
 	disableOverlayClose={phase === 'loading'}
 	maxWidth={modalMaxWidth}
@@ -246,16 +246,20 @@ Has three phases: input, loading, and result display with tabs.
 				<TextArea
 					bind:value={batchTextArea}
 					label={m.form_batch_import_label()}
-					placeholder="https://arkhamdb.com/deck/view/12345&#10;https://arkham.build/deck/67890&#10;deck-id-here"
+					placeholder="https://arkhamdb.com/deck/view/1234567
+https://arkhamdb.com/decklist/view/12345
+https://arkham.build/deck/view/1234567
+https://arkham.build/share/asdfasdfasdfasd
+"
 					rows={10}
 					help={m.form_batch_import_help()}
 				/>
 				{#if batchStats && batchStats.total > 0}
-					<div class="rounded bg-primary-200 dark:bg-primary-800 p-3 text-sm">
+					<div class="bg-primary-200 dark:bg-primary-800 rounded p-3 text-sm">
 						<p class="font-semibold text-black dark:text-white">
 							{m.form_valid_decks_detected()}: {batchStats.total}
 						</p>
-						<ul class="mt-1 space-y-1 text-primary-700 dark:text-primary-300">
+						<ul class="text-primary-700 dark:text-primary-300 mt-1 space-y-1">
 							{#if batchStats.arkhamDb > 0}
 								<li>ArkhamDB: {batchStats.arkhamDb}</li>
 							{/if}
@@ -283,7 +287,7 @@ Has three phases: input, loading, and result display with tabs.
 				{#if limit !== 1}
 					<PlusArea onClick={addDeckInput} disabled={!canAddMore} />
 					{#if limit !== undefined && deckInputs.length >= limit}
-						<p class="text-center text-sm text-primary-600 dark:text-primary-400">
+						<p class="text-primary-600 dark:text-primary-400 text-center text-sm">
 							{m.form_deck_limit_reached({ limit: limit.toString() })}
 						</p>
 					{/if}
@@ -293,7 +297,7 @@ Has three phases: input, loading, and result display with tabs.
 	{:else if phase === 'loading'}
 		<div class="flex flex-col items-center gap-4 py-8">
 			<div
-				class="h-16 w-16 animate-spin rounded-full border-4 border-primary-200 border-t-primary-600 dark:border-primary-700 dark:border-t-primary-400"
+				class="border-primary-200 border-t-primary-600 dark:border-primary-700 dark:border-t-primary-400 h-16 w-16 animate-spin rounded-full border-4"
 			></div>
 			<p class="text-lg text-black dark:text-white">
 				{loadingProgress.total === 1
@@ -312,12 +316,12 @@ Has three phases: input, loading, and result display with tabs.
 			<Tabs
 				direction="horizontal"
 				{tabs}
-				activeTabIndex={activeTabIndex}
+				{activeTabIndex}
 				onTabChange={(index) => (activeTabIndex = index)}
 			/>
 			{#if importResults[activeTabIndex]}
 				<ImportDecksImportResult
-					cardResolver={cardResolver}
+					{cardResolver}
 					result={importResults[activeTabIndex]}
 					{localizationResolver}
 					{languageCode}
@@ -330,12 +334,7 @@ Has three phases: input, loading, and result display with tabs.
 		{#if phase === 'input'}
 			<div class="flex justify-end gap-2">
 				<Button label={m.button_cancel()} onClick={onClose} />
-				<Button
-					label={fetchButtonText}
-					onClick={handleImport}
-					disabled={!canImport}
-					highlighted
-				/>
+				<Button label={fetchButtonText} onClick={handleImport} disabled={!canImport} highlighted />
 			</div>
 		{:else if phase === 'result'}
 			<div class="flex justify-end gap-2">
