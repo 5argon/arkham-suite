@@ -18,6 +18,214 @@
     "before_the_black_throne",
     "tcu_epilogue"
   ],
+  "scenarioMeta": [
+    {
+      "id": "disappearance_at_the_twilight_estate",
+      "type": "interlude",
+      "resolutions": [
+        "no_resolution"
+      ]
+    },
+    {
+      "id": "the_witching_hour",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "at_deaths_doorstep",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "not_resigned",
+              "conditional": true
+            }
+          ]
+        },
+        "R3": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "not_resigned"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "the_price_of_progress",
+      "type": "interlude"
+    },
+    {
+      "id": "the_secret_name",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_wages_of_sin",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "no_resolution_resigned",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "for_the_greater_good",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "the_inner_circle",
+      "type": "interlude"
+    },
+    {
+      "id": "union_and_disillusion",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R4",
+        "R5"
+      ]
+    },
+    {
+      "id": "in_the_clutches_of_chaos",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "id": "twist_of_fate",
+      "type": "interlude"
+    },
+    {
+      "id": "before_the_black_throne",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R1": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R2": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "lead_investigator"
+            }
+          ],
+          "result": "win"
+        },
+        "R4": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all",
+              "conditional": true
+            }
+          ],
+          "result": "mixed"
+        }
+      }
+    },
+    {
+      "id": "tcu_epilogue",
+      "type": "epilogue"
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 2,
+      "-2": 1,
+      "-3": 1,
+      "skull": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "skull": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 2,
+      "-1": 2,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "-5": 1,
+      "skull": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "-6": 1,
+      "-8": 1,
+      "skull": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -54,85 +262,6 @@
     }
   ],
   "entries": [
-    {
-      "id": "a_record_of_those_lost",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep",
-      "hidden": true
-    },
-    {
-      "id": "on_gavriellas_trail",
-      "section": "05046",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "on_jeromes_trail",
-      "section": "05047",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "on_pennys_trail",
-      "section": "05049",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "on_valentinos_trail",
-      "section": "05048",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "investigators_escaped_the_spectral_realm",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "learned_nothing_of_the_lodges_schemes",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "never_seen_again",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "at_deaths_doorstep"
-    },
-    {
-      "id": "azathoth_devoured_the_universe",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "before_the_black_throne"
-    },
-    {
-      "id": "lead_investigator_joins_pipers",
-      "section": "campaign_notes",
-      "kind": "cards",
-      "scenario": "before_the_black_throne",
-      "param": {
-        "type": "cards",
-        "cards": {
-          "mode": "choice"
-        }
-      }
-    },
-    {
-      "id": "azathoth_slumbers",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "before_the_black_throne"
-    },
-    {
-      "id": "signed_the_black_book",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "before_the_black_throne"
-    },
     {
       "id": "skip_prologue",
       "section": "hidden",
@@ -452,145 +581,98 @@
       "scenario": "disappearance_at_the_twilight_estate"
     },
     {
-      "id": "survived_the_watchers_embrace",
+      "id": "accepted_fate",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "epilogue",
-      "crossOut": true
+      "scenario": "the_witching_hour"
     },
     {
-      "id": "guardian_of_the_trap_emerged",
+      "id": "rejected_fate",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "for_the_greater_good"
+      "scenario": "the_witching_hour"
     },
     {
-      "id": "discovered_how_to_open_the_puzzle_box",
+      "id": "witches_spell_broken",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "for_the_greater_good"
+      "scenario": "the_witching_hour"
     },
     {
-      "id": "guardian_of_the_trap_defeated",
+      "id": "witches_spell_cast",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "for_the_greater_good"
-    },
-    {
-      "id": "continued_alone",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "asked_anette_for_assistance",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "arrested_anette",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "anette_taught_you_the_spells_of_old",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "asked_sanford_for_assistance",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "arrested_sanford",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "assumed_control_of_the_silver_twilight_lodge",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "doom_draws_ever_closer",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "in_the_clutches_of_chaos"
-    },
-    {
-      "id": "gilmans_journal",
-      "section": "mementos",
-      "kind": "note",
-      "scenario": "the_inner_circle",
-      "crossOut": true
-    },
-    {
-      "id": "keziahs_formulae",
-      "section": "mementos",
-      "kind": "note",
-      "scenario": "the_inner_circle",
-      "crossOut": true
-    },
-    {
-      "id": "worn_crucific",
-      "section": "mementos",
-      "kind": "note",
-      "scenario": "the_inner_circle",
-      "crossOut": true
-    },
-    {
-      "id": "wisp_of_spectral_mist",
-      "section": "mementos",
-      "kind": "note",
-      "scenario": "the_inner_circle",
-      "crossOut": true
+      "scenario": "the_witching_hour"
     },
     {
       "id": "mesmerizing_flute",
       "section": "mementos",
       "kind": "note",
-      "scenario": "the_inner_circle",
+      "scenario": "the_witching_hour",
       "crossOut": true
     },
     {
       "id": "ritual_components",
       "section": "mementos",
       "kind": "note",
-      "scenario": "the_inner_circle",
+      "scenario": "the_witching_hour",
       "crossOut": true
     },
     {
       "id": "scrap_of_torn_shadow",
       "section": "mementos",
       "kind": "note",
-      "scenario": "the_inner_circle",
+      "scenario": "the_witching_hour",
       "crossOut": true
     },
     {
-      "id": "corn_husk_doll",
-      "section": "mementos",
+      "id": "a_record_of_those_lost",
+      "section": "hidden",
       "kind": "note",
-      "scenario": "the_inner_circle",
-      "crossOut": true
+      "scenario": "at_deaths_doorstep",
+      "hidden": true
     },
     {
-      "id": "kept_mementos_hidden",
-      "section": "campaign_notes",
+      "id": "on_gavriellas_trail",
+      "section": "05046",
       "kind": "note",
-      "scenario": "the_inner_circle"
+      "scenario": "at_deaths_doorstep"
     },
     {
-      "id": "inducted_into_the_inner_circle",
+      "id": "on_jeromes_trail",
+      "section": "05047",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "on_pennys_trail",
+      "section": "05049",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "on_valentinos_trail",
+      "section": "05048",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "investigators_escaped_the_spectral_realm",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "the_inner_circle"
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "learned_nothing_of_the_lodges_schemes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "never_seen_again",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
     },
     {
       "id": "josef_disappeared_into_the_mist",
@@ -641,6 +723,27 @@
       "scenario": "the_secret_name"
     },
     {
+      "id": "gilmans_journal",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_secret_name",
+      "crossOut": true
+    },
+    {
+      "id": "keziahs_formulae",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_secret_name",
+      "crossOut": true
+    },
+    {
+      "id": "worn_crucific",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_secret_name",
+      "crossOut": true
+    },
+    {
       "id": "heretics_released",
       "section": "campaign_notes",
       "kind": "count",
@@ -650,37 +753,55 @@
       }
     },
     {
-      "id": "accepted_fate",
-      "section": "campaign_notes",
+      "id": "corn_husk_doll",
+      "section": "mementos",
       "kind": "note",
-      "scenario": "the_witching_hour"
+      "scenario": "the_wages_of_sin",
+      "crossOut": true
     },
     {
-      "id": "rejected_fate",
+      "id": "survived_the_watchers_embrace",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "the_witching_hour"
+      "scenario": "the_wages_of_sin",
+      "crossOut": true
     },
     {
-      "id": "witches_spell_broken",
+      "id": "wisp_of_spectral_mist",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_wages_of_sin",
+      "crossOut": true
+    },
+    {
+      "id": "guardian_of_the_trap_emerged",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "the_witching_hour"
+      "scenario": "for_the_greater_good"
     },
     {
-      "id": "witches_spell_cast",
+      "id": "discovered_how_to_open_the_puzzle_box",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "the_witching_hour"
+      "scenario": "for_the_greater_good"
     },
     {
-      "id": "path_winds_before_you",
+      "id": "guardian_of_the_trap_defeated",
       "section": "campaign_notes",
-      "kind": "count",
-      "scenario": "twist_of_fate",
-      "param": {
-        "type": "count"
-      }
+      "kind": "note",
+      "scenario": "for_the_greater_good"
+    },
+    {
+      "id": "kept_mementos_hidden",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_inner_circle"
+    },
+    {
+      "id": "inducted_into_the_inner_circle",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_inner_circle"
     },
     {
       "id": "sided_with_the_lodge",
@@ -736,7 +857,8 @@
       "id": "true_work_of_silver_twilight_lodge_has_begun",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "union_and_disillusion"
+      "scenario": "union_and_disillusion",
+      "outcome": "special"
     },
     {
       "id": "carl_sanford_possesses_the_secrets_of_the_universe",
@@ -780,6 +902,99 @@
       "kind": "note",
       "scenario": "union_and_disillusion",
       "hidden": true
+    },
+    {
+      "id": "continued_alone",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "asked_anette_for_assistance",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "arrested_anette",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "anette_taught_you_the_spells_of_old",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "asked_sanford_for_assistance",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "arrested_sanford",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "assumed_control_of_the_silver_twilight_lodge",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "doom_draws_ever_closer",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "path_winds_before_you",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "twist_of_fate",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "azathoth_devoured_the_universe",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "before_the_black_throne",
+      "outcome": "loss"
+    },
+    {
+      "id": "lead_investigator_joins_pipers",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "before_the_black_throne",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "outcome": "win"
+    },
+    {
+      "id": "azathoth_slumbers",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "before_the_black_throne",
+      "outcome": "win",
+      "outcomeQuality": "best"
+    },
+    {
+      "id": "signed_the_black_book",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "before_the_black_throne",
+      "outcome": "win",
+      "outcomeQuality": "best"
     }
   ],
   "achievements": [
@@ -978,6 +1193,86 @@
         "type": "difficulty",
         "is": "expert"
       }
+    }
+  ],
+  "specialInteractions": [
+    {
+      "id": "check_silver_twilight_investigator",
+      "scenario": "the_price_of_progress",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "Silver Twilight"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
+    },
+    {
+      "id": "check_mystic_investigator",
+      "scenario": "the_secret_name",
+      "match": {
+        "kind": "faction",
+        "factions": [
+          "mystic"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
+    },
+    {
+      "id": "under_arrest",
+      "scenario": "in_the_clutches_of_chaos",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "Detective",
+          "Police",
+          "Agency"
+        ]
+      },
+      "scope": "any",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.arrested_anette"
+      },
+      "source": "extracted"
+    },
+    {
+      "id": "learn_spells",
+      "scenario": "in_the_clutches_of_chaos",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "Sorcerer",
+          "Miskatonic",
+          "Scholar"
+        ]
+      },
+      "scope": "any",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.anette_taught_you_the_spells_of_old"
+      },
+      "source": "extracted"
+    },
+    {
+      "id": "seize_control",
+      "scenario": "in_the_clutches_of_chaos",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "Sorcerer",
+          "Silver Twilight",
+          "Cultist"
+        ]
+      },
+      "scope": "any",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.assumed_control_of_the_silver_twilight_lodge"
+      },
+      "source": "extracted"
     }
   ],
   "validators": [

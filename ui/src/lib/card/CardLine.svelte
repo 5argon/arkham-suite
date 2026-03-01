@@ -26,6 +26,8 @@ Line break not allowed.
 		quantity?: number;
 		quantityColor?: CardClass;
 		greyedOutQuantity?: number;
+		/** Force the whole line (and its strip) greyed out, independent of quantity. */
+		greyedOut?: boolean;
 		hideSet?: boolean;
 		hideIcons?: boolean;
 		/**
@@ -48,6 +50,7 @@ Line break not allowed.
 		quantity,
 		quantityColor,
 		greyedOutQuantity,
+		greyedOut,
 		hideSet,
 		hideName,
 		hideIcons,
@@ -64,7 +67,8 @@ Line break not allowed.
 	);
 	let textColorClass = $derived(getCardColorClass(card));
 	const isGreyedOut = $derived(
-		greyedOutQuantity !== undefined && greyedOutQuantity >= (quantity ?? 1)
+		greyedOut === true ||
+			(greyedOutQuantity !== undefined && greyedOutQuantity >= (quantity ?? 1))
 	);
 	
 	// Calculate effective XP level for customizable cards

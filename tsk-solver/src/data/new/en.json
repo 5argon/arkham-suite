@@ -65,27 +65,27 @@
           "prompt": "Outcome of the chase for the Red-Gloved Man.",
           "options": {
             "RR.R1": {
-              "dropdownText": "R1 – You recover The Eye of Ravens",
+              "dropdownText": "R1 – Defeat the Red-Gloved Man (act 9) — you recover The Eye of Ravens",
               "fullText": "The Red-Gloved Man slips away, but in the scuffle he drops a ruby marble – The Eye of Ravens – which you pull from a centuries-old corpse's eye socket. Choose an investigator to bear The Eye of Ravens (it begins attached to them in later scenarios). Record 'you haven't seen the last of the Red-Gloved Man.' Gain victory-display XP. Mark 1 time, then go to the Foundation interlude.",
               "condition": null
             },
             "RR.R2": {
-              "dropdownText": "R2 – Peaceful approach; you keep The Eye of Ravens",
+              "dropdownText": "R2 – Parley with the Red-Gloved Man (act 9) — you keep The Eye of Ravens",
               "fullText": "You advance slowly; the man leads you to a crypt and you take The Eye of Ravens from the corpse as he vanishes. Same rewards as R1: choose an investigator to bear The Eye of Ravens, record 'you haven't seen the last of the Red-Gloved Man,' gain victory XP, mark 1 time, then go to the Foundation interlude.",
               "condition": null
             },
             "RR.R3": {
-              "dropdownText": "R3 – He escapes with The Eye of Ravens",
+              "dropdownText": "R3 – Doom out on act 4 — he escapes with The Eye of Ravens",
               "fullText": "The Red-Gloved Man vanishes without a trace and keeps the marble. He becomes the bearer of The Eye of Ravens (in later scenarios the key enters play attached to him if he appears). Record 'you haven't seen the last of the Red-Gloved Man.' Gain victory XP. Mark 1 time, then go to the Foundation interlude.",
               "condition": null
             },
             "RR.R4": {
-              "dropdownText": "R4 – You stall; he keeps The Eye of Ravens (+2 time)",
+              "dropdownText": "R4 – Doom out on acts 1–3 — trail goes cold; he keeps The Eye of Ravens (+2 time)",
               "fullText": "You wait for Flint and never confront the man; the Red-Gloved Man keeps the marble and becomes the bearer of The Eye of Ravens. Record 'you haven't seen the last of the Red-Gloved Man.' Gain victory XP. Mark 2 time, then go to the Foundation interlude.",
               "condition": null
             },
             "RR.noRes": {
-              "dropdownText": "No resolution (resigned / defeated)",
+              "dropdownText": "No resolution (resign / all defeated) — counts as R4",
               "fullText": "If every investigator resigned or was defeated, you retreat cautiously – treated exactly as Resolution 4: the Red-Gloved Man keeps The Eye of Ravens, record 'you haven't seen the last of the Red-Gloved Man,' mark 2 time, then go to the Foundation interlude.",
               "condition": "Reached when no resolution is achieved; redirects to R4."
             }
@@ -136,12 +136,12 @@
               "condition": "11–14 time passed."
             },
             "DH.t.15": {
-              "dropdownText": "15–17 time – arrive mid-disaster",
+              "dropdownText": "15–17 time – start at act 2, 1 civilian lost per area",
               "fullText": "Act 1 is skipped: you begin at act 2 with Amaranth already in play holding The Last Blossom, doom on agenda 1, the 'Save the Civilians' card in play, and Khalid shuffled into the encounter deck. 1 civilian per location already slain. Much harder.",
               "condition": "15–17 time passed."
             },
             "DH.t.18": {
-              "dropdownText": "18–24 time – mid-disaster, heavy losses",
+              "dropdownText": "18–24 time – start at act 2, 2 civilians lost per area",
               "fullText": "Same mid-disaster start as 15–17 (begin at act 2, Amaranth in play with the Key, doom on agenda, Save the Civilians in play), but 2 civilians per location are already slain.",
               "condition": "18–24 time passed."
             },
@@ -157,32 +157,32 @@
           "prompt": "How Dead Heat ends.",
           "options": {
             "DH.R1": {
-              "dropdownText": "R1 – City lost; the lovers reunited",
+              "dropdownText": "R1 – Doom out on agenda 5 with Razin Farhi in play — the lovers reunite; Amaranth keeps The Last Blossom",
               "fullText": "The city is destroyed and Razin Farhi was in play (his and Amaranth's story resolves). Amaranth keeps The Last Blossom (she is the bearer). Record 'the lovers are reunited.' Victory XP. Mark 1 time.",
               "condition": null
             },
             "DH.R2": {
-              "dropdownText": "R2 – City lost; Amaranth escapes with the Key",
+              "dropdownText": "R2 – Doom out on agenda 5, Razin not in play — Amaranth escapes with The Last Blossom",
               "fullText": "The city is destroyed and Razin Farhi was not in play. Amaranth becomes the bearer of The Last Blossom. Record 'you haven't seen the last of Amaranth.' Victory XP. Mark 1 time.",
               "condition": null
             },
             "DH.R3": {
-              "dropdownText": "R3 – You free Eryn from Amaranth (best)",
+              "dropdownText": "R3 – Defeat Amaranth (act 4) knowing her real name — Win: free Eryn; choose a bearer of The Last Blossom",
               "fullText": "Knowing her true name (Eryn Cochwyn – from the San Francisco office intel), you break Amaranth's hold on her host. Choose an investigator to bear The Last Blossom. Record 'Amaranth has left the Coterie' (removes her vote against you in the finale). Victory XP. Mark 2 time.",
               "condition": "Requires having acquired the intel on Amaranth from the San Francisco office."
             },
             "DH.R4": {
-              "dropdownText": "R4 – Amaranth flees; you keep the Key",
+              "dropdownText": "R4 – Defeat Amaranth (act 4) without her real name — she flees; you keep The Last Blossom",
               "fullText": "Amaranth convulses and bolts; you lose her in the chaos but keep the Key. Choose an investigator to bear The Last Blossom. Record 'you haven't seen the last of Amaranth.' Victory XP. Mark 1 time.",
               "condition": null
             },
             "DH.R5": {
-              "dropdownText": "R5 – Arrived too late; Marrakesh destroyed",
+              "dropdownText": "R5 – Arrived too late (intro resolution) — Marrakesh destroyed; Amaranth keeps The Last Blossom",
               "fullText": "You reach a ruined city (the 25+ time outcome). Record 'you haven't seen the last of Amaranth.' Each investigator suffers 1 mental trauma; each earns 3 bonus XP helping survivors rebuild. Amaranth is the bearer of The Last Blossom. Mark 1 time.",
               "condition": "Automatic if you arrive at 25+ time."
             },
             "DH.noRes": {
-              "dropdownText": "No resolution (resigned / defeated)",
+              "dropdownText": "No resolution (resign / all defeated) — counts as R1 if Razin is in play, else R2",
               "fullText": "All remaining civilians are slain (if still act 1, resolve the 'Aftermath' card). Then: if Razin Farhi is in play, resolve as R1; otherwise resolve as R2.",
               "condition": "Reached when no resolution is achieved; redirects to R1 or R2."
             }
@@ -239,6 +239,22 @@
             }
           }
         },
+        "SS.targets": {
+          "label": "Did you collect every target?",
+          "prompt": "A board outcome the plan can't derive: did the cell expose every target so La Chica Roja held none? Only then does the 'Cast a Light' interlude happen. Otherwise the scenario ends at R1 (you cleared enough to grab the Key) or R3 (she got the Key first / you were defeated).",
+          "options": {
+            "SS.targets.all": {
+              "dropdownText": "Collected every target — La Chica Roja has none (triggers Cast a Light)",
+              "fullText": "You exposed every target before La Chica Roja could. She is left with none, so when you corner her she offers her bargain — proceed to the Cast a Light interlude (believe her for the R2 ally path, or refuse for R1).",
+              "condition": null
+            },
+            "SS.targets.some": {
+              "dropdownText": "La Chica Roja still held targets — no Cast a Light",
+              "fullText": "La Chica Roja still held one or more targets when the scenario ended, so the Cast a Light interlude does not happen. The scenario resolves directly: R1 if you cleared enough to take the Key, or R3 if she collected hers first / the cell was defeated.",
+              "condition": null
+            }
+          }
+        },
         "SS.castALight.believe": {
           "label": "Cast a Light – believe La Chica Roja?",
           "prompt": "Mid-scenario: once cornered, La Chica Roja claims she is hunting the real villain, the Sanguine Watcher. Do you believe her? (Only reached if you expose her with no targets left on her.)",
@@ -260,22 +276,22 @@
           "prompt": "How Sanguine Shadows ends.",
           "options": {
             "SS.R1": {
-              "dropdownText": "R1 – She fled; you keep The Weeping Lady",
+              "dropdownText": "R1 – Collect 3 targets (act 3) while La Chica Roja still holds hers — she vanishes; you keep The Weeping Lady",
               "fullText": "La Chica Roja vanishes but you assemble the Key yourself. Choose an investigator to bear The Weeping Lady. Record 'you haven't seen the last of La Chica Roja.' Victory XP, +1 bonus XP per target still on the reference card. Mark 1 time.",
               "condition": null
             },
             "SS.R2": {
-              "dropdownText": "R2 – Allied; beat the Watcher; keep key + ally",
+              "dropdownText": "R2 – Ally with La Chica Roja, then doom out on “Seeing Red” — together you beat the Sanguine Watcher; keep The Weeping Lady, Chica joins you",
               "fullText": "Allied with La Chica Roja, you defeat the Sanguine Watcher. Choose an investigator to bear The Weeping Lady. Record 'La Chica Roja is on your side' and 'you haven't seen the last of The Sanguine Watcher.' Each investigator gains 3 bonus XP (plus victory XP). Mark 3 time. Note: 'La Chica Roja is on your side' is one of the three allies needed for the 'overthrow the Coterie' finale.",
               "condition": null
             },
             "SS.R3": {
-              "dropdownText": "R3 – Failed; she keeps The Weeping Lady",
+              "dropdownText": "R3 – La Chica Roja collects 3 targets first (agenda) — she keeps The Weeping Lady",
               "fullText": "La Chica Roja beats you and keeps the Key. She becomes the bearer of The Weeping Lady. Record 'you haven't seen the last of La Chica Roja.' Victory XP, +1 bonus XP per target on the reference card. Mark 1 time. You also land here if every investigator resigned/was defeated during act 1 or 2.",
               "condition": null
             },
             "SS.noRes.seeingRed": {
-              "dropdownText": "Allied but lost to the Watcher",
+              "dropdownText": "No resolution after allying with Chica (resign / defeated) — the Sanguine Watcher keeps The Weeping Lady; Chica stays an ally",
               "fullText": "You allied with La Chica Roja (reached 'Seeing Red') but failed to defeat the Sanguine Watcher. Record 'La Chica Roja is on your side,' 'The Sanguine Watcher's torment continues,' and 'The Sanguine Watcher is the bearer of The Weeping Lady.' Each investigator gains 3 bonus XP. Mark 2 time.",
               "condition": "Reached when no resolution is achieved while the 'Seeing Red' act/agenda is active."
             }
@@ -344,22 +360,22 @@
           "prompt": "Starting clues on 'The Unveiling' represent how far ahead the cult is; set by time passed.",
           "options": {
             "DD.t.early": {
-              "dropdownText": "≤10 time – no head start",
+              "dropdownText": "≤10 time – no modifications",
               "fullText": "The Unveiling starts with no clues. Easiest.",
               "condition": "10 or fewer time passed."
             },
             "DD.t.11": {
-              "dropdownText": "11–17 time – small head start",
+              "dropdownText": "11–17 time – ½ clue per investigator",
               "fullText": "The Unveiling starts with clues equal to half the number of investigators (rounded up).",
               "condition": "11–17 time passed."
             },
             "DD.t.18": {
-              "dropdownText": "18–24 time – moderate head start",
+              "dropdownText": "18–24 time – 1 clue per investigator",
               "fullText": "The Unveiling starts with clues equal to the number of investigators.",
               "condition": "18–24 time passed."
             },
             "DD.t.25": {
-              "dropdownText": "25+ time – severe head start",
+              "dropdownText": "25+ time – 2 clues per investigator",
               "fullText": "The Unveiling starts with clues equal to twice the number of investigators. Hardest – the cult may well beat you to the Key.",
               "condition": "25 or more time passed."
             }
@@ -391,27 +407,27 @@
           "prompt": "How Dealings in the Dark ends. (R1 and R3 are routing steps that branch on your Ece choice into the endings below.)",
           "options": {
             "DD.R2": {
-              "dropdownText": "R2 – You keep the Antiprism (had refused Ece)",
+              "dropdownText": "R2 – Recover the Antiprism, having refused Ece's offer — you keep The Twisted Antiprism",
               "fullText": "You seal the talisman and keep it. Choose an investigator to bear The Twisted Antiprism. Victory XP. Mark 2 time.",
               "condition": "Reached after winning if 'the cell refused Ece's offer.'"
             },
             "DD.R4": {
-              "dropdownText": "R4 – Ece keeps the Antiprism; she trusts you",
+              "dropdownText": "R4 – Recover the Antiprism, working with Ece — Ece bears The Twisted Antiprism and trusts the cell",
               "fullText": "You honor the deal and hand the talisman to Ece. Record 'Ece trusts the cell.' Ece Şahin becomes the bearer of The Twisted Antiprism. Victory XP. Mark 3 time. (Ece on your side is one of the three allies needed to overthrow the Coterie.)",
               "condition": "Reached after winning if 'the cell is working with Ece.'"
             },
             "DD.R5": {
-              "dropdownText": "R5 – You keep the Antiprism; Ece distrusts you",
+              "dropdownText": "R5 – Recover the Antiprism, deceiving Ece — you keep The Twisted Antiprism; Ece distrusts the cell",
               "fullText": "You break your promise and keep the talisman. Record 'Ece does not trust the cell.' Choose an investigator to bear The Twisted Antiprism. Victory XP. Mark 3 time.",
               "condition": "Reached after winning if 'the cell is deceiving Ece.'"
             },
             "DD.R6": {
-              "dropdownText": "R6 – The cult escapes with the Antiprism",
+              "dropdownText": "R6 – The cult reaches act 3 first — they escape; the Red-Gloved Man bears The Twisted Antiprism",
               "fullText": "The cult snatches the unsealed talisman and flees. The Red-Gloved Man becomes the bearer of The Twisted Antiprism. Victory XP. Mark 2 time.",
               "condition": "Reached if you fail during act 3 (or resign there)."
             },
             "DD.noRes.early": {
-              "dropdownText": "Defeated early – Red-Gloved Man takes it",
+              "dropdownText": "No resolution while on acts 1–2 (resign / defeated) — the cult wins; Red-Gloved Man takes The Twisted Antiprism",
               "fullText": "If every investigator is defeated during act 1 or 2, the Red-Gloved Man becomes the bearer of The Twisted Antiprism. Victory XP. Mark 1 time.",
               "condition": "All investigators defeated during act 1 or 2."
             }
@@ -533,17 +549,17 @@
           "prompt": "How Dancing Mad ends.",
           "options": {
             "DM.R1": {
-              "dropdownText": "R1 – Desi is in your debt; you get the passphrase",
+              "dropdownText": "R1 – Complete act 3 “False Light” (identify the true Desi) — Desi is in your debt; you learn the passphrase",
               "fullText": "You root out the impostors and the real Desi survives. Record 'Desi is in your debt' and 'you know the passphrase' (needed to claim The Mirroring Blade later in Ybor City). Set status report Θ six spots ahead on the time track. Victory XP. Mark 2 time. Note: if you couldn't tell the real Desi from the impostor (no Moscow intel) you risk ending with an 'eerily silent' (hollowed) Desi for the finale instead of a true ally.",
               "condition": null
             },
             "DM.R2": {
-              "dropdownText": "R2 – Truth undiscovered; Desi keeps the Blade",
+              "dropdownText": "R2 – Doom out on “A Betrayal of Eyes” — truth undiscovered; Desi keeps The Mirroring Blade",
               "fullText": "You flee without resolving the mystery. Record 'the cell didn't discover the truth in Havana' and 'you haven't seen the last of Desi.' Desi becomes the bearer of The Mirroring Blade. Victory XP. Mark 1 time.",
               "condition": null
             },
             "DM.noRes": {
-              "dropdownText": "No resolution (resigned / defeated)",
+              "dropdownText": "No resolution (resign / all defeated) — flee Havana; Desi keeps The Mirroring Blade",
               "fullText": "You escape Havana empty-handed. Record 'the cell didn't discover the truth in Havana' and 'you haven't seen the last of Desi.' Desi becomes the bearer of The Mirroring Blade. Victory XP. Mark 1 time.",
               "condition": "Reached when no resolution is achieved (mirrors R2)."
             }
@@ -600,7 +616,7 @@
           "prompt": "Starting doom on agenda 1 represents Thorne's lead toward the Key.",
           "options": {
             "OTI.t.0": {
-              "dropdownText": "0–4 time – no head start",
+              "dropdownText": "0–4 time – no modifications",
               "fullText": "Agenda 1 starts with no doom. Best chance to reach the Sable Glass before Thorne.",
               "condition": null
             },
@@ -662,27 +678,27 @@
           "prompt": "How On Thin Ice ends.",
           "options": {
             "OTI.R1": {
-              "dropdownText": "R1 – Dealt with Thorne; Thorne keeps the Sable Glass",
+              "dropdownText": "R1 – Reach act 4 with the Thorne ally asset in play — Thorne keeps The Sable Glass",
               "fullText": "You and Thorne slay the Chimera and Thorne keeps the Key as agreed. Thorne is the bearer of The Sable Glass. Victory XP. Mark 3 time.",
               "condition": "Reached if you made a deal with Thorne."
             },
             "OTI.R2": {
-              "dropdownText": "R2 – Won fair; you keep the Sable Glass",
+              "dropdownText": "R2 – Reach act 4 with the Thorne enemy in play (defeated him) — you keep The Sable Glass",
               "fullText": "You beat the Chimera while holding the Key; Thorne concedes. Record 'you haven't seen the last of Thorne.' The investigator controlling The Sable Glass is its bearer. Victory XP. Mark 3 time.",
               "condition": "Reached if you refused the deal and held the Key."
             },
             "OTI.R3": {
-              "dropdownText": "R3 – Thorne disappeared",
+              "dropdownText": "R3 – Reach act 4 with Thorne not in play — he disappeared; current controller keeps The Sable Glass",
               "fullText": "Thorne vanishes after the hunt (an uncanny, replaced figure). Record 'Thorne disappeared' (this counts as a hollowed/eerily-silent Coterie member toward the 'coterie destroyed' finale). If an investigator controls The Sable Glass they are its bearer; otherwise Thorne is. Victory XP. Mark 3 time.",
               "condition": "Reached if Thorne is defeated during the scenario (as ally or enemy)."
             },
             "OTI.R4": {
-              "dropdownText": "R4 – Scenario never happened (memory-wiped)",
+              "dropdownText": "R4 – Doom out on “Annihilation” — scenario erased from memory; it never happened",
               "fullText": "You are erased from the events and remember nothing. The scenario never happened: mark no time, gain no XP/trauma, update no Keys. Record 'there is nothing of note in Anchorage' (you cannot stop here again). Embark from Anchorage.",
               "condition": "A nullifying failure outcome."
             },
             "OTI.noRes": {
-              "dropdownText": "No resolution (resigned / defeated)",
+              "dropdownText": "No resolution (resign / all defeated) — the Void Chimera escapes; no one claims The Sable Glass",
               "fullText": "Record 'The Void Chimera escaped.' If you made a deal with Thorne or no investigator controls the Key, Thorne is the bearer of The Sable Glass; otherwise the controlling investigator is its bearer and you record 'you haven't seen the last of Thorne.' Victory XP. Mark 1 time.",
               "condition": "Reached when no resolution is achieved."
             }
@@ -762,17 +778,17 @@
           "prompt": "Set by time passed and your bargain choice.",
           "options": {
             "DOW.v1": {
-              "dropdownText": "Version I – Defend the Light (before 20 time, accepted)",
+              "dropdownText": "Version I – Defend the key (before 20 time, accepted)",
               "fullText": "You defend the Knight's four Key Loci while the Beast (the Ravager) assaults the city. The Claret Knight is a controllable ally holding the Light of Pharos. Easiest version.",
               "condition": "Fewer than 20 time AND you accepted the Knight's deal."
             },
             "DOW.v2": {
-              "dropdownText": "Version II – Take the Light from the Knight (before 20 time, refused)",
+              "dropdownText": "Version II – Take the key from the Knight (before 20 time, refused)",
               "fullText": "Working with Sirry, you try to seize the Light from the Claret Knight, who is now an enemy holding the Key. The Beast is not present.",
               "condition": "Fewer than 20 time AND you refused the Knight's deal."
             },
             "DOW.v3": {
-              "dropdownText": "Version III – Recover the Light from the Beast (20+ time)",
+              "dropdownText": "Version III – Recover the key from the Beast (20+ time)",
               "fullText": "You arrive after the Beast has already stolen the Light. You hunt the Beast (Wolf in Sheep's Clothing), which holds the Key. Played whether you accepted the Knight's deal or sided with Sirry.",
               "condition": "20 or more time passed (either bargain choice)."
             }
@@ -783,32 +799,32 @@
           "prompt": "How Dogs of War ends.",
           "options": {
             "DOW.R8": {
-              "dropdownText": "Win cooperating – Knight keeps the Light (R1/R5→R8)",
+              "dropdownText": "R8 – Cooperate: finish v.I, or v.III with the deal made — the Claret Knight keeps The Light of Pharos and inducts you",
               "fullText": "You helped the Knight and he keeps the Light of Pharos, then explains the Coterie's purpose. Record 'the cell aided the knight' and 'you haven't seen the last of the Beast in a Cowl of Crimson.' The Claret Knight is the bearer of The Light of Pharos. Victory XP. Mark 3 time.",
               "condition": "Win in v.I (R1) or v.III after accepting the deal (R5)."
             },
             "DOW.R2": {
-              "dropdownText": "R2 – Win with Sirry (v.II); you keep the Light",
+              "dropdownText": "R2 – v.II: take the Light or defeat the Claret Knight — you keep The Light of Pharos",
               "fullText": "You take the Light from the Knight and keep it. Record 'you haven't seen the last of the Claret Knight.' Choose an investigator to bear The Light of Pharos. Victory XP. Mark 2 time.",
               "condition": "Win in v.II (refused, before 20 time)."
             },
             "DOW.R6": {
-              "dropdownText": "R6 – Win with Sirry (v.III); you keep the Light",
+              "dropdownText": "R6 – v.III: finish while assisting Agent Sirry — you keep The Light of Pharos",
               "fullText": "You recover the Light from the Beast and keep it. Record 'you haven't seen the last of the Beast in a Cowl of Crimson' AND (per erratum) 'you haven't seen the last of the Claret Knight' – you made two enemies. Choose an investigator to bear The Light of Pharos. Victory XP. Mark 2 time.",
               "condition": "Win in v.III while assisting Sirry."
             },
             "DOW.R3": {
-              "dropdownText": "R3 – Defeated in v.I; Beast takes the Light",
+              "dropdownText": "R3 – v.I: the Claret Knight is defeated (doom out) — the Beast takes The Light of Pharos",
               "fullText": "The Beast massacres the Knight's post. Each non-defeated investigator suffers 1 mental trauma. Record 'the cell failed to fend off the Beast' and 'you haven't seen the last of the Beast in a Cowl of Crimson.' The Beast is the bearer of The Light of Pharos. Victory XP. Mark 1 time.",
               "condition": "Defeated in v.I."
             },
             "DOW.R4": {
-              "dropdownText": "R4 – Defeated in v.II; Knight keeps the Light",
+              "dropdownText": "R4 – v.II: doom out / resign — the Claret Knight keeps The Light of Pharos",
               "fullText": "The Knight repels you and stays entrenched. Record 'you haven't seen the last of the Claret Knight.' The Claret Knight is the bearer of The Light of Pharos. Victory XP. Mark 1 time.",
               "condition": "Defeated in v.II."
             },
             "DOW.R7": {
-              "dropdownText": "R7 – Defeated in v.III; the dogs are at war",
+              "dropdownText": "R7 – v.III: doom out / resign — the dogs are at war; you flee Alexandria",
               "fullText": "Alexandria collapses into open war and you flee with nothing. Record 'the dogs are at war.' Victory XP. Mark 1 time. (No one records as the Key's bearer here.)",
               "condition": "Defeated in v.III."
             }
@@ -893,7 +909,7 @@
           "prompt": "Charges on The Shade Reaper (and Tzu San's danger) scale with time.",
           "options": {
             "SOS.t.0": {
-              "dropdownText": "≤11 time – no bonus charges",
+              "dropdownText": "≤11 time – no modifications",
               "fullText": "The Shade Reaper starts with no charges. Easiest.",
               "condition": "11 or fewer time passed."
             },
@@ -919,22 +935,22 @@
           "prompt": "How Shades of Suffering ends.",
           "options": {
             "SOS.R1": {
-              "dropdownText": "R1 – You master the Shade Reaper; Tzu under your sway",
+              "dropdownText": "R1 – Act 3: turn the parasol against Tzu San Niang — you master The Shade Reaper; she's driven off under your sway",
               "fullText": "You wield the Shade Reaper and break Tzu San Niang. Record 'Tzu San Niang is under your sway' (an optional ally for the finale). Each investigator gains 1 bonus XP but suffers 1 physical trauma (the Reaper draws on your soul). Choose an investigator to bear The Shade Reaper. Victory XP. Mark 1 time.",
               "condition": null
             },
             "SOS.R2": {
-              "dropdownText": "R2 – You take the Key; Tzu escapes",
+              "dropdownText": "R2 – Act 3: let Tzu San Niang go — you keep The Shade Reaper; she escapes",
               "fullText": "You claim the Reaper but Tzu San gets away. Record 'you haven't seen the last of Tzu San Niang.' Choose an investigator to bear The Shade Reaper. Victory XP. Mark 1 time.",
               "condition": null
             },
             "SOS.R3": {
-              "dropdownText": "R3 – Tzu dominates you; she keeps the Key",
+              "dropdownText": "R3 – Doom out on “Fear the Reaper” — all defeated; Tzu San Niang dominates you and keeps the Key",
               "fullText": "Tzu San Niang bends you to her will; Melati's attack lets you flee. Record 'Tzu San Niang has you under her sway.' Tzu San Niang is the bearer of The Shade Reaper. Victory XP. Mark 1 time.",
               "condition": null
             },
             "SOS.noRes": {
-              "dropdownText": "No resolution (resigned / defeated)",
+              "dropdownText": "No resolution (resign / all defeated) — flee Kuala Lumpur, still under her sway",
               "fullText": "You flee Kuala Lumpur, haunted. Record 'you haven't seen the last of Tzu San Niang.' Tzu San Niang is the bearer of The Shade Reaper. Victory XP. Mark 1 time.",
               "condition": "Reached when no resolution is achieved."
             }
@@ -962,8 +978,8 @@
               "condition": "Fewer than 20 time AND 'the cell hid the truth from Taylor.'"
             },
             "RH.vanished": {
-              "dropdownText": "Too late – Quinn has vanished",
-              "fullText": "Quinn is gone, erased from existence. Record 'Agent Quinn vanished from existence.' Embark. (The Without a Trace route via Quinn is lost.)",
+              "dropdownText": "20+ time – too late, Quinn has vanished",
+              "fullText": "Reached at 20 or more time: Quinn is gone, erased from existence. Record 'Agent Quinn vanished from existence.' Embark. (The Without a Trace route via Quinn is lost.)",
               "condition": "20 or more time has passed."
             }
           }
@@ -1116,27 +1132,27 @@
           "prompt": "How Without a Trace ends.",
           "options": {
             "WAT.R1": {
-              "dropdownText": "R1 – Win with Aliki; rescue the real Red-Gloved Man",
+              "dropdownText": "R1 – Act 3 with both the Red-Gloved Man and Aliki in the victory display — escape with the real Red-Gloved Man, Aliki at your side",
               "fullText": "You free the true Red-Gloved Man and learn the Outsiders are mimicking the Coterie. Record 'the cell knows the true nature of the Coterie' and 'Aliki is on your side.' Victory XP +1 bonus XP each. Mark 3 time. Knowing the true nature leads to the finale's 'spared' outcome (the real Red-Gloved Man halts the vote).",
               "condition": "Win after blowing the whistle."
             },
             "WAT.R2": {
-              "dropdownText": "R2 – Win with Quinn; rescue the real Red-Gloved Man",
+              "dropdownText": "R2 – Act 3 with only the Red-Gloved Man in the victory display — escape with the real Red-Gloved Man; Aliki lost",
               "fullText": "Same victory, with Quinn instead of Aliki. Record 'the cell knows the true nature of the Coterie' and 'you haven't seen the last of Aliki Zoni Uperetria.' Victory XP +1 bonus XP each. Mark 2 time. Leads to the finale's 'spared' outcome.",
               "condition": "Win after throwing the whistle away."
             },
             "WAT.R3": {
-              "dropdownText": "R3 – Survived with Aliki, no answers",
+              "dropdownText": "R3 – Act 3 with only Aliki in the victory display — escape with Aliki, but no answers",
               "fullText": "You escape but don't reach the truth. Record 'Aliki is on your side.' Victory XP. Mark 2 time.",
               "condition": "No resolution (survived) after blowing the whistle."
             },
             "WAT.R4": {
-              "dropdownText": "R4 – Survived with Quinn, no answers",
+              "dropdownText": "R4 – Act 3 with neither in the victory display — escape with only Quinn, no answers",
               "fullText": "You escape but learn nothing conclusive. Record 'you haven't seen the last of Aliki Zoni Uperetria.' Victory XP. Mark 1 time.",
               "condition": "No resolution (survived) after throwing the whistle away."
             },
             "WAT.hollowed": {
-              "dropdownText": "All defeated – the cell is hollowed (lose)",
+              "dropdownText": "All driven insane on agenda 3, none resigned — the cell is hollowed and erased (lose)",
               "fullText": "Every investigator is consumed by the Outside. Record 'the cell was hollowed.' The investigators lose the campaign (Taylor and Hudson can no longer even remember you existed).",
               "condition": "All investigators defeated."
             }
@@ -1272,17 +1288,17 @@
           "prompt": "How the campaign ends. All three versions share these resolutions.",
           "options": {
             "COTK.R1": {
-              "dropdownText": "R1 – The Outsiders are stopped (win)",
+              "dropdownText": "R1 – Complete act 4 “The Final Err” (defeat the Mimetic Nemesis) — the Outsiders are stopped (win)",
               "fullText": "You collapse the Outsiders' realm and are flung back across the world. Record 'the Outsiders were stopped.' Each investigator suffers 2 physical and 2 mental trauma and earns victory XP plus 5 bonus XP. The investigators win the campaign. Proceed to the Epilogue.",
               "condition": null
             },
             "COTK.R2": {
-              "dropdownText": "R2 – The cell is hollowed (lose)",
+              "dropdownText": "R2 – All investigators defeated / doom out — the cell is hollowed (lose)",
               "fullText": "Every investigator is consumed; even Taylor forgets you existed. Record 'the cell was hollowed.' The investigators lose the campaign.",
               "condition": "Reached if all investigators are defeated."
             },
             "COTK.defeat": {
-              "dropdownText": "Investigator Defeat (per defeated investigator)",
+              "dropdownText": "Investigator Defeat — an investigator torn into oblivion (per defeated investigator)",
               "fullText": "Any individually defeated investigator is driven insane and erased from reality, never seen again. Surviving investigators continue to whichever resolution is reached.",
               "condition": "Applies to each investigator defeated during the finale."
             }

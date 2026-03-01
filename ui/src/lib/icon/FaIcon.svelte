@@ -79,10 +79,17 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.DeleteList]: 'fa-trash-can-list',
 		[FaIconType.ExternalLink]: 'fa-arrow-up-right-from-square',
 		[FaIconType.Logout]: 'fa-right-from-bracket',
+		[FaIconType.WidgetRequiresExtra]: 'fa-clipboard',
+		[FaIconType.StandaloneSource]: 'fa-puzzle-piece',
 		[FaIconType.Achievement]: 'fa-trophy',
 		[FaIconType.AchievementManual]: 'fa-pencil',
 		[FaIconType.AchievementInferred]: 'fa-gears',
-		[FaIconType.Map]: 'fa-map-location-dot'
+		[FaIconType.AchievementInferredExtra]: 'fa-gear-code',
+		[FaIconType.Map]: 'fa-map-location-dot',
+		[FaIconType.EndingWin]: 'fa-face-smile',
+		[FaIconType.EndingBetterWin]: 'fa-face-smile-beam',
+		[FaIconType.EndingLoss]: 'fa-face-angry',
+		[FaIconType.EndingSpecial]: 'fa-face-astonished'
 	};
 </script>
 

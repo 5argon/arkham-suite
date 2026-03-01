@@ -8,16 +8,13 @@
 		token,
 		hideLabel = false,
 		circular = true,
-	}: { token: ChaosToken; hideLabel?: boolean; circular?: boolean } = $props()
+		fillColor = 'text-primary-900 dark:text-primary-100',
+	}: { token: ChaosToken; hideLabel?: boolean; circular?: boolean; fillColor?: string } = $props()
 </script>
 
 <span class="flex items-center">
 	<span class="mr-1 flex text-2xl">
-		<ChaosTokenIcon
-			{circular}
-			chaosToken={token}
-			fillColor="text-primary-900 dark:text-primary-100"
-		/>
+		<ChaosTokenIcon {circular} chaosToken={token} {fillColor} />
 	</span>
 	{#if !hideLabel}
 		<span class="leading-none text-primary-800 dark:text-primary-200"

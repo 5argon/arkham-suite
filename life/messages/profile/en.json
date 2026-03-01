@@ -1,0 +1,19 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"profile_title": "Profile",
+	"profile_page_title": "arkham.life | Profile",
+	"profile_description": "Your investigator career stats and personal account settings.",
+	"profile_view_own": "My Profile",
+	"profile_view_sub_player": "Sub-Player Profiles",
+	"profile_choose_title": "View Profile",
+	"profile_not_found": "This profile doesn't exist or hasn't been made public.",
+	"profile_not_found_page_title": "arkham.life | Profile Not Found",
+	"profile_play_group_members": "Members",
+	"profile_play_group_uid": "Group UID",
+	"profile_play_group_page_title": "arkham.life | Play Group",
+	"profile_visibility_visible_to_friends": "Visible to Friends",
+	"profile_visibility_visible_to_friends_help": "When your profile is private, friends can still view it.",
+	"profile_campaigns_played_title": "Recently Played",
+	"profile_campaigns_played_empty": "No Archived Campaigns yet.",
+	"profile_campaigns_played_draft_badge": "Draft"
+}

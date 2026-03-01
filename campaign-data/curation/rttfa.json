@@ -1,5 +1,24 @@
 {
   "code": "rttfa",
+  "scenarios": {
+    "eztli": "the_doom_of_eztli",
+    "wilds": "the_untamed_wilds"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.investigators_saved_serpents",
+      "campaign_notes.investigators_saved_yithians",
+      "campaign_notes.mended_tear_in_time"
+    ],
+    "loss": [
+      "campaign_notes.fabric_of_time_unwoven",
+      "campaign_notes.had_memories_expunged"
+    ],
+    "betterWin": [
+      "campaign_notes.sealed_relic_of_ages_forever"
+    ]
+  },
   "_notes": "Verified against rttfa-en.draft.json and rttfa-db.draft.json. Both spoiler spans are exact substrings of their entry texts: \"the Harbinger\" in \"the Harbinger is still alive (#X# damage).\" and \"the nexus\" in \"the nexus is near.\" No sibling collisions: harbinger_alive and nexus_is_near are each the unique entry carrying their proper noun in campaign_notes, so blurring leaves them distinguishable. Serpents/Yithians pair correctly left visible (rule 2: they differ only by faction name, blurring both would make them identical); cooperated_with_yithians left visible for consistency. Recurring NPC disambiguators (Alejandro, Ichtaca, Harlan, Relic of Ages) correctly kept visible. Supplies roster verified against references/arkham-cards-data-master/campaigns/tfa/prologue.json: all 11 items present with correct ids/labels; costs/multiple/points metadata in the proposer's note (provisions cost 1 multiple, medicine cost 2 multiple, rope 3, blanket 2, canteen 2, torches 3, compass 2, map 3, binoculars 2, chalk 2, pendant 1; points [10,7,5,4]) match the reference exactly. Hidden section entries are not shown in the dropdown, so no spoilers/drops needed. No changes required; curation accepted as proposed.",
   "spoilers": {
     "campaign_notes.harbinger_alive": [
@@ -207,7 +226,7 @@
         "campaign_notes.investigators_recovered_relic",
         "campaign_notes.alejandro_recovered_relic"
       ],
-      "scenario": "The Doom of Eztli"
+      "scenario": "eztli"
     },
     {
       "type": "mutuallyExclusive",
@@ -215,7 +234,7 @@
         "campaign_notes.wait_for_additional_supplies",
         "campaign_notes.cleared_path_to_temple"
       ],
-      "scenario": "The Untamed Wilds"
+      "scenario": "wilds"
     },
     {
       "type": "mutuallyExclusive",
@@ -224,7 +243,7 @@
         "campaign_notes.ichtaca_observed_progress",
         "campaign_notes.ichtaca_is_wary"
       ],
-      "scenario": "The Untamed Wilds"
+      "scenario": "wilds"
     },
     {
       "type": "mutuallyExclusive",
@@ -232,7 +251,7 @@
         "campaign_notes.alejandro_followed_to_ruins",
         "campaign_notes.alejandro_remained_at_camp"
       ],
-      "scenario": "The Untamed Wilds"
+      "scenario": "wilds"
     },
     {
       "type": "mutuallyExclusive",
@@ -240,7 +259,7 @@
         "campaign_notes.gave_relic_to_alejandro",
         "campaign_notes.gave_relic_to_harlan"
       ],
-      "scenario": "Expedition's End"
+      "scenario": "expeditions_end"
     },
     {
       "type": "mutuallyExclusive",
@@ -248,7 +267,7 @@
         "campaign_notes.earned_alejandros_trust",
         "campaign_notes.alejandro_on_his_own"
       ],
-      "scenario": "Expedition's End"
+      "scenario": "expeditions_end"
     },
     {
       "type": "mutuallyExclusive",
@@ -256,7 +275,7 @@
         "campaign_notes.cooperated_with_yithians",
         "campaign_notes.resisted_captivity"
       ],
-      "scenario": "The City of Archives"
+      "scenario": "the_city_of_archives"
     },
     {
       "type": "mutuallyExclusive",
@@ -267,7 +286,7 @@
         "campaign_notes.process_backfired_spectacularly",
         "campaign_notes.had_memories_expunged"
       ],
-      "scenario": "The City of Archives"
+      "scenario": "the_city_of_archives"
     },
     {
       "type": "mutuallyExclusive",
@@ -275,7 +294,7 @@
         "campaign_notes.found_missing_relic",
         "campaign_notes.relic_is_missing"
       ],
-      "scenario": "Threads of Fate"
+      "scenario": "the_depths_of_yoth"
     },
     {
       "type": "mutuallyExclusive",
@@ -283,7 +302,7 @@
         "campaign_notes.rescued_alejandro",
         "campaign_notes.alejandro_is_missing"
       ],
-      "scenario": "Threads of Fate"
+      "scenario": "threads_of_fate"
     },
     {
       "type": "mutuallyExclusive",
@@ -291,7 +310,7 @@
         "campaign_notes.forged_bond_with_ichtaca",
         "campaign_notes.ichtaca_in_the_dark"
       ],
-      "scenario": "Threads of Fate"
+      "scenario": "threads_of_fate"
     },
     {
       "type": "mutuallyExclusive",
@@ -299,7 +318,7 @@
         "campaign_notes.fell_into_depths",
         "campaign_notes.nexus_is_near"
       ],
-      "scenario": "The Depths of Yoth"
+      "scenario": "the_depths_of_yoth"
     },
     {
       "type": "mutuallyExclusive",
@@ -310,7 +329,7 @@
         "campaign_notes.fabric_of_time_unwoven",
         "campaign_notes.turned_back_time"
       ],
-      "scenario": "Shattered Aeons"
+      "scenario": "shattered_aeons"
     }
   ]
 }

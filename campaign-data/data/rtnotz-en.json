@@ -7,7 +7,15 @@
     "cultists_escaped": "Cultists Who Got Away",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "return_to_the_gathering": "Return to The Gathering",
+    "return_to_the_midnight_masks": "Return to The Midnight Masks",
+    "return_to_the_devourer_below": "Return to The Devourer Below"
+  },
   "entries": {
+    "campaign_notes.house_standing": {
+      "text": "your house is still standing."
+    },
     "campaign_notes.house_burned": {
       "text": "your house has burned to the ground."
     },
@@ -16,6 +24,9 @@
       "spoiler": [
         "the Ghoul Priest"
       ]
+    },
+    "campaign_notes.lita_finds_others": {
+      "text": "Lita was forced to find others to help her cause."
     },
     "campaign_notes.past_midnight": {
       "text": "it is past midnight."
@@ -43,12 +54,6 @@
       "spoiler": [
         "Umôrdhoth"
       ]
-    },
-    "campaign_notes.house_standing": {
-      "text": "your house is still standing."
-    },
-    "campaign_notes.lita_finds_others": {
-      "text": "Lita was forced to find others to help her cause."
     }
   },
   "achievements": {

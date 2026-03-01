@@ -13,6 +13,12 @@
 		 * better for mobile and for multi-paragraph explanations.
 		 */
 		helpMd?: string;
+		/**
+		 * Rich modal help as a snippet (takes precedence over `helpMd`). Lets a consumer
+		 * render arbitrary content — e.g. an mdsvex doc with images — in the help modal
+		 * instead of a raw-markdown string. The clickable `?` button opens it.
+		 */
+		helpContent?: Snippet;
 		children: Snippet;
 
 		/**
@@ -21,7 +27,7 @@
 		 */
 		disableClick?: boolean;
 	}
-	const { label, help, helpMd, children, disableClick }: Prop = $props();
+	const { label, help, helpMd, helpContent, children, disableClick }: Prop = $props();
 </script>
 
 {#snippet inside()}
@@ -32,8 +38,8 @@
 				<span class="text-primary-500/50 ml-2"><HelpIcon /></span>
 			</FormHelp>
 		{/if}
-		{#if helpMd}
-			<HelpButton {label} {helpMd} class="ml-2" />
+		{#if helpMd || helpContent}
+			<HelpButton {label} {helpMd} {helpContent} class="ml-2" />
 		{/if}
 	</div>
 	<div class="relative flex w-full max-w-xl items-center">

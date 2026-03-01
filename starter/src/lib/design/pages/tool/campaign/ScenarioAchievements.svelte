@@ -9,10 +9,8 @@
 	// The campaign-data library resolves a kohaku Campaign + Scenario into the
 	// achievements tied to that specific scenario — proof that the exported data
 	// and TypeScript symbols are adequate for a real consumer.
-	const achievements = $derived.by(() => {
-		const log = getCampaignLog(campaign);
-		return log ? achievementsForScenario(log, scenario) : [];
-	});
+	const log = $derived(getCampaignLog(campaign));
+	const achievements = $derived.by(() => (log ? achievementsForScenario(log, scenario) : []));
 </script>
 
 {#if achievements.length > 0}
@@ -20,7 +18,7 @@
 		<SectionSeparator title="Achievements you can earn here" />
 		<ul class="mt-3 space-y-3">
 			{#each achievements as a (a.def.id)}
-				<AchievementListItem achievement={a} />
+				<AchievementListItem achievement={a} {log} />
 			{/each}
 		</ul>
 	</div>

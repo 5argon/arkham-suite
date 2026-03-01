@@ -67,7 +67,9 @@ export type Effect =
 	| { type: 'card'; card: string; action: string; scope?: string; weakness?: boolean }
 	| { type: 'chaosTokenAdjust'; delta: number; choose?: unknown }
 	| { type: 'campaign'; result: 'win' | 'lose' }
-	| { type: 'note'; textRef: string };
+	| { type: 'note'; textRef: string }
+	/** This stop lifts the one-stop-per-location lockout for its location (Rome/Bermuda/the Ybor City safehouse). `afterScenario` => the revisit is legal only once another scenario has been played since. */
+	| { type: 'allowRevisit'; afterScenario: boolean };
 
 /** Numeric comparison shape shared by `time`, `timeSinceMarker`, `countRecorded`, `tally`. */
 export interface NumBound {
@@ -116,6 +118,8 @@ export interface Condition {
 export interface VoteRow {
 	when: Condition | null;
 	votes: Record<CharacterId, Vote>;
+	/** A flavour flag on this row (e.g. a coin flip or a forced vote) — surfaced as a note in the UI. */
+	note?: string;
 }
 
 export type PlayOutcome = 'win' | 'partial' | 'loss' | 'noResolution';
@@ -150,6 +154,8 @@ export interface LogicDecision {
 	/** On a `scenario_version` decision: true if the version restricts which resolutions are reachable. */
 	gatesResolutions?: boolean;
 	gatingSource?: string;
+	/** This decision only applies (is offered + resolved) when this condition holds against the state built from earlier decisions. Omitted => always applies. */
+	appliesIf?: Condition;
 }
 
 export interface LogicFile {

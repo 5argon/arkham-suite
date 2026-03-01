@@ -1,0 +1,6 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"export_title": "Export",
+	"export_page_title": "arkham.life | Export",
+	"export_description": "Export your campaign data and statistics in various formats."
+}

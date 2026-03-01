@@ -1,5 +1,28 @@
 {
   "code": "tcu",
+  "specialInteractions": {
+    "check_silver_twilight_investigator": { "text": "Sanford recognizes a Lodge member." },
+    "check_mystic_investigator": { "text": "A mystic reads the ritual." },
+    "under_arrest": { "text": "Arrest Anette." },
+    "learn_spells": { "text": "Learn the spells of old." },
+    "seize_control": { "text": "Seize control of the Lodge." }
+  },
+  "outcomes": {
+    "_notes": "Verified against before_the_black_throne.json resolution->step graph: R2/R3/R5 fire `win`/`win_question_mark` (azathoth_slumbers, signed_the_black_book, lead_investigator_joins_pipers — dark/pyrrhic wins count as win); R1 fires `lose` (azathoth_devoured_the_universe).",
+    "win": [
+      "campaign_notes.lead_investigator_joins_pipers"
+    ],
+    "loss": [
+      "campaign_notes.azathoth_devoured_the_universe"
+    ],
+    "special": [
+      "campaign_notes.true_work_of_silver_twilight_lodge_has_begun"
+    ],
+    "betterWin": [
+      "campaign_notes.azathoth_slumbers",
+      "campaign_notes.signed_the_black_book"
+    ]
+  },
   "_notes": "Verified all 12 spans as exact substrings of their entry `text` in tcu-en.draft.json — all valid, no repairs needed. Sibling-collision check in campaign_notes: sided_with_the_coven (blurred \"the coven\") stays distinguishable from sided_with_the_lodge (Lodge visible); witches_spell_broken/cast remain distinguishable (broken vs cast visible) despite both blurring \"witches'\"; told_lodge_about_coven vs hid_knowledge_of_coven have distinct surrounding text. No over-blur: campaign name, Lodge/Inner Circle (visible scenario title), Watcher, spectral realm, guardian of the trap, puzzle box, heretics count, mementos, and the missing-persons #name#/outcome entries (names appear in visible section titles) correctly left unblurred. Under-blur covered: Azathoth/Black Throne endgame reveals and the coven/witches/possessed/secrets-of-the-universe/true-work twists all blurred. No exotic sections (partner/supplies/scarletKeys/glyphs) — all db section types are notes/header, matching the en draft. Curation accepted unchanged.",
   "spoilers": {
     "campaign_notes.azathoth_devoured_the_universe": [

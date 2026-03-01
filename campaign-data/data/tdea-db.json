@@ -14,6 +14,113 @@
     "where_gods_dwell",
     "tde_epilogue"
   ],
+  "scenarioMeta": [
+    {
+      "id": "tde_prologue",
+      "type": "interlude"
+    },
+    {
+      "id": "beyond_the_gates_of_sleep",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_black_cat",
+      "type": "interlude"
+    },
+    {
+      "id": "the_search_for_kadath",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_resigned",
+        "no_resolution_defeated",
+        "R1"
+      ]
+    },
+    {
+      "id": "the_oneironauts",
+      "type": "interlude"
+    },
+    {
+      "id": "dark_side_of_the_moon",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "R1"
+      ]
+    },
+    {
+      "id": "the_great_ones",
+      "type": "interlude"
+    },
+    {
+      "id": "where_gods_dwell",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "tde_epilogue",
+      "type": "epilogue"
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 2,
+      "-2": 2,
+      "cultist": 1,
+      "tablet": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "cultist": 1,
+      "tablet": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 2,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "cultist": 1,
+      "tablet": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 1,
+      "-4": 2,
+      "-5": 1,
+      "-6": 1,
+      "-8": 1,
+      "cultist": 1,
+      "tablet": 2,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -31,90 +138,18 @@
   ],
   "entries": [
     {
-      "id": "dreamers_grow_weaker",
-      "section": "campaign_notes",
+      "id": "interconnected_campaign",
+      "section": "hidden",
       "kind": "note",
-      "scenario": "a_black_cat"
+      "scenario": "campaign",
+      "hidden": true
     },
     {
-      "id": "black_cat_has_a_hunch",
-      "section": "campaign_notes",
+      "id": "half_campaign",
+      "section": "hidden",
       "kind": "note",
-      "scenario": "a_black_cat",
-      "crossOut": true
-    },
-    {
-      "id": "black_cat_delivered_news",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_black_cat"
-    },
-    {
-      "id": "black_cat_at_your_side",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_black_cat",
-      "crossOut": true
-    },
-    {
-      "id": "black_cat_shared_knowledge_of_the_dreamlands",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_black_cat"
-    },
-    {
-      "id": "black_cat_warned_the_others",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_black_cat"
-    },
-    {
-      "id": "threaten_black_cat",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_black_cat"
-    },
-    {
-      "id": "you_asked_for_it",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_black_cat"
-    },
-    {
-      "id": "black_cat_spoke_of_nyarlathotep",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_great_ones"
-    },
-    {
-      "id": "black_cat_spoke_of_atlach_nacha",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_great_ones"
-    },
-    {
-      "id": "possess_silver_key",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_great_ones"
-    },
-    {
-      "id": "black_cat_knows_the_truth",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_great_ones"
-    },
-    {
-      "id": "black_cat_at_your_side_2",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_great_ones"
-    },
-    {
-      "id": "dreamers_know_of_another_path",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "a_oneironauts"
+      "scenario": "campaign",
+      "hidden": true
     },
     {
       "id": "drifter_dream",
@@ -152,44 +187,6 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "beyond_the_gates_of_sleep"
-    },
-    {
-      "id": "interconnected_campaign",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "campaign",
-      "hidden": true
-    },
-    {
-      "id": "half_campaign",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "campaign",
-      "hidden": true
-    },
-    {
-      "id": "carried_to_the_cold_wastes",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "dark_side_of_the_moon"
-    },
-    {
-      "id": "randolph_did_not_survive_the_voyage",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "dark_side_of_the_moon"
-    },
-    {
-      "id": "travelled_to_the_cold_wastes",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "dark_side_of_the_moon"
-    },
-    {
-      "id": "randolph_survived_the_voyage",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "dark_side_of_the_moon"
     },
     {
       "id": "forced_way_into_temple",
@@ -282,6 +279,116 @@
       "hidden": true
     },
     {
+      "id": "carried_to_the_cold_wastes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "randolph_did_not_survive_the_voyage",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "travelled_to_the_cold_wastes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "randolph_survived_the_voyage",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "dreamers_grow_weaker",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_has_a_hunch",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat",
+      "crossOut": true
+    },
+    {
+      "id": "black_cat_delivered_news",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_at_your_side",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat",
+      "crossOut": true
+    },
+    {
+      "id": "black_cat_shared_knowledge_of_the_dreamlands",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_warned_the_others",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "threaten_black_cat",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "you_asked_for_it",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_spoke_of_nyarlathotep",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "black_cat_spoke_of_atlach_nacha",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "possess_silver_key",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "black_cat_knows_the_truth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "black_cat_at_your_side_2",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "dreamers_know_of_another_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_oneironauts"
+    },
+    {
       "id": "grand_design",
       "section": "hidden",
       "kind": "note",
@@ -292,7 +399,8 @@
       "id": "nyarlathoteps_invasion_has_begun",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_the_gods_dwell",
+      "outcome": "loss"
     },
     {
       "id": "dreamers_escaped_nyarlathoteps_grasp",
@@ -310,7 +418,8 @@
       "id": "dreamers_awoke",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_the_gods_dwell",
+      "outcome": "win"
     },
     {
       "id": "dreamers_stayed_in_dreamlands_forever",
@@ -493,6 +602,178 @@
           }
         ]
       }
+    }
+  ],
+  "specialInteractions": [
+    {
+      "id": "guardian",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "faction",
+        "factions": [
+          "guardian"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "seeker",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "faction",
+        "factions": [
+          "seeker"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "rogue",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "faction",
+        "factions": [
+          "rogue"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "mystic",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "faction",
+        "factions": [
+          "mystic"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "survivor",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "faction",
+        "factions": [
+          "survivor"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "criminal",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "criminal"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "drifter",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "drifter"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "hunter",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "hunter"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "medic",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "medic",
+          "assistant"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "miskatonic",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "miskatonic",
+          "scholar"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "veteran",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "veteran"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "wayfarer",
+      "scenario": "beyond_the_gates_of_sleep",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "wayfarer"
+        ]
+      },
+      "scope": "each",
+      "optional": true,
+      "source": "extracted"
+    },
+    {
+      "id": "check_luke_robinson",
+      "scenario": "the_search_for_kadath",
+      "match": {
+        "kind": "code",
+        "codes": [
+          "06004"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
     }
   ],
   "validators": [

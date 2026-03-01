@@ -6,6 +6,48 @@
   "scenarios": [
     "fortune_and_folly_part_1"
   ],
+  "scenarioMeta": [
+    {
+      "id": "fortune_and_folly_part_1",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    }
+  ],
+  "startingChaosBag": {
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 1,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "skull": 2,
+      "cultist": 1,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 2,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-6": 1,
+      "-7": 1,
+      "skull": 2,
+      "cultist": 1,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -18,6 +60,13 @@
     }
   ],
   "entries": [
+    {
+      "id": "fof_skip_part_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fortune_and_folly_part_1",
+      "hidden": true
+    },
     {
       "id": "continue_fortune_and_folly_part_2",
       "section": "hidden",
@@ -244,13 +293,6 @@
           "mode": "choice"
         }
       }
-    },
-    {
-      "id": "fof_skip_part_1",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "fortune_and_folly_part_1",
-      "hidden": true
     },
     {
       "id": "fof_heist_tasks",

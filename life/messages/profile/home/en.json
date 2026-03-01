@@ -1,0 +1,44 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"home_calendar_undated": "Undated",
+	"home_calendar_state_win": "Win",
+	"home_calendar_state_loss": "Loss",
+	"home_calendar_state_special": "Special",
+	"home_cleargrid_col_campaign": "Campaign",
+	"home_cleargrid_reached": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "Reached {count} time",
+				"countPlural=other": "Reached {count} times"
+			}
+		}
+	],
+	"home_cleargrid_not_reached": "Not reached yet",
+	"home_cleargrid_cleared": "Cleared",
+	"home_cleargrid_special_ending": "Special ending",
+	"home_cleargrid_attempted_lost": "Attempted — lost",
+	"home_nav_campaigns_label": "Campaigns",
+	"home_nav_campaigns_blurb": "Clears, endings & paths per campaign",
+	"home_nav_cards_label": "Player Cards",
+	"home_nav_cards_blurb": "Cards played",
+	"home_nav_investigators_label": "Investigators",
+	"home_nav_investigators_blurb": "Investigators run, and how",
+	"home_page_title": "Profile – arkham.life",
+	"home_standalone_count": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "standalone",
+				"countPlural=other": "standalones"
+			}
+		}
+	],
+	"home_standalone_played": "played",
+	"home_standalone_scope_campaign": "inside this campaign",
+	"home_standalone_scope_all": "across your campaigns",
+	"home_standalone_empty": "No standalones recorded yet — add the ones you played in a campaign's Extra tab to tally them here.",
+	"home_members_title": "Members"
+}

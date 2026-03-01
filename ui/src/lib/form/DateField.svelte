@@ -4,6 +4,7 @@ A styled date input field using the same FormLabelWithHelp layout as other
 form fields (TextInput, RadioButtons, etc.).
 -->
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import FormLabelWithHelp from './FormLabelWithHelp.svelte';
 
 	interface Prop {
@@ -18,6 +19,8 @@ form fields (TextInput, RadioButtons, etc.).
 		 * button that opens a MarkdownModal.
 		 */
 		helpMd?: string;
+		/** Rich modal help as a snippet (e.g. an mdsvex doc); see FormLabelWithHelp. */
+		helpContent?: Snippet;
 		/** HTML form field name for native form submission. */
 		name?: string;
 		disabled?: boolean;
@@ -31,8 +34,17 @@ form fields (TextInput, RadioButtons, etc.).
 		onchange?: (value: string) => void;
 	}
 
-	let { label, value = $bindable(), help, helpMd, name, disabled, clearable, onchange }: Prop =
-		$props();
+	let {
+		label,
+		value = $bindable(),
+		help,
+		helpMd,
+		helpContent,
+		name,
+		disabled,
+		clearable,
+		onchange,
+	}: Prop = $props();
 
 	// When clearable and empty, we show a placeholder instead of the date input.
 	// This avoids the browser always rendering today's date as a placeholder.
@@ -68,7 +80,7 @@ form fields (TextInput, RadioButtons, etc.).
 	}
 </script>
 
-<FormLabelWithHelp {label} {help} {helpMd} disableClick={true}>
+<FormLabelWithHelp {label} {help} {helpMd} {helpContent} disableClick={true}>
 	<div class="flex w-full items-center">
 		<!-- Hidden input always present so form submission sends the empty value -->
 		{#if name && !showInput}

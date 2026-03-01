@@ -10,6 +10,21 @@
     "conviction": "Conviction",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "ptc_prologue": "Prologue",
+    "curtain_call": "Curtain Call",
+    "the_last_king": "The Last King",
+    "ptc_interlude1": "Lunacy's Reward",
+    "ptc_interlude1_reprint": "Reality's Shadow",
+    "echoes_of_the_past": "Echoes of the Past",
+    "the_unspeakable_oath": "The Unspeakable Oath",
+    "ptc_interlude2": "Lost Soul",
+    "a_phantom_of_truth": "A Phantom of Truth",
+    "the_pallid_mask": "The Pallid Mask",
+    "black_stars_rise": "Black Stars Rise",
+    "dim_carcosa": "Dim Carcosa",
+    "ptc_epilogue": "Epilogue"
+  },
   "items": {
     "03066b": "Jordan Perry",
     "03069b": "Ashleigh Clarke",
@@ -18,6 +33,18 @@
     "03065b": "Constance Dumaine"
   },
   "entries": {
+    "campaign_notes.stranger_is_on_to_you": {
+      "text": "the Stranger is on to you."
+    },
+    "campaign_notes.tried_to_warn_police": {
+      "text": "you tried to warn the police."
+    },
+    "campaign_notes.police_are_suspicious": {
+      "text": "the police are suspicious of you."
+    },
+    "campaign_notes.chose_not_to_warn_police": {
+      "text": "you chose not to go to the police."
+    },
     "campaign_notes.did_not_escape_gaze": {
       "text": "you did not escape the gaze of the phantom.",
       "spoiler": [
@@ -47,18 +74,6 @@
       "spoiler": [
         "Hastur"
       ]
-    },
-    "campaign_notes.stranger_is_on_to_you": {
-      "text": "the Stranger is on to you."
-    },
-    "campaign_notes.tried_to_warn_police": {
-      "text": "you tried to warn the police."
-    },
-    "campaign_notes.police_are_suspicious": {
-      "text": "the police are suspicious of you."
-    },
-    "campaign_notes.chose_not_to_warn_police": {
-      "text": "you chose not to go to the police."
     },
     "campaign_notes.prevented_hasturs_escape": {
       "text": "the investigators prevented Hastur from escaping his prison.",
@@ -199,6 +214,16 @@
     "carcosa_expertise": {
       "title": "Carcosa Expertise",
       "text": "Win <i>The Path to Carcosa</i> campaign on Expert difficulty."
+    }
+  },
+  "specialInteractions": {
+    "check_lola_hayes": {
+      "text": "Lola starts the campaign backstage."
+    }
+  },
+  "scenarioChoices": {
+    "dim_carcosa.hastur_version": {
+      "label": "Hastur version"
     }
   }
 }

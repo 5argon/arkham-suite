@@ -109,3 +109,27 @@ export const campaignToProductMap: Record<Campaign, Product> = {
   [Campaign.BrethrenOfAsh]: Product.CoreSet2026,
   [Campaign.ChildrenOfBlood]: Product.ChildrenOfBlood,
 };
+
+/**
+ * Inverse of {@link campaignToProductMap}: every {@link Campaign} a given
+ * {@link Product} provides. Most products map to one campaign; The Dream-Eaters
+ * Campaign Expansion provides two (The Dream-Quest + The Web of Dreams), and the
+ * Revised Core Set provides Night of the Zealot. Returns `[]` for products that
+ * carry no campaign (investigator expansions, starter decks, standalones, …).
+ *
+ * Drives ownership scoping: un-owning a product removes its campaigns from a
+ * player's career "blanks".
+ */
+export function productToCampaigns(product: Product): Campaign[] {
+  return (Object.entries(campaignToProductMap) as [Campaign, Product][])
+    .filter(([, p]) => p === product)
+    .map(([campaign]) => campaign);
+}
+
+/** Every {@link Campaign} provided by any product in `products` (deduped). */
+export function campaignsForProducts(products: Iterable<Product>): Campaign[] {
+  const owned = new Set(products);
+  return (Object.entries(campaignToProductMap) as [Campaign, Product][])
+    .filter(([, p]) => owned.has(p))
+    .map(([campaign]) => campaign);
+}

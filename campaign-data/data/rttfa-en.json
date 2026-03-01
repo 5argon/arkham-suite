@@ -7,10 +7,35 @@
     "supplies": "Supplies",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "tfa_prologue": "Prologue",
+    "the_untamed_wilds": "The Untamed Wilds",
+    "tfa_interlude1": "Restless Nights",
+    "the_doom_of_eztli": "The Doom of Eztli",
+    "tfa_interlude2": "Expedition's End",
+    "threads_of_fate": "Threads of Fate",
+    "the_boundary_beyond": "The Boundary Beyond",
+    "tfa_interlude3": "The Jungle Beckons",
+    "heart_of_the_elders_part_1": "Heart of the Elders, Part 1",
+    "heart_of_the_elders_part_2": "Heart of the Elders, Part 2",
+    "the_city_of_archives": "The City of Archives",
+    "tfa_interlude4": "Those Held Captive",
+    "the_depths_of_yoth": "The Depths of Yoth",
+    "tfa_interlude5": "The Darkness",
+    "shattered_aeons": "Shattered Aeons",
+    "tfa_epilogue": "Epilogue",
+    "return_to_the_untamed_wilds": "Return to The Untamed Wilds",
+    "return_to_the_doom_of_eztli": "Return to The Doom of Eztli",
+    "return_to_threads_of_fate": "Return to Threads of Fate",
+    "return_to_the_boundary_beyond": "Return to The Boundary Beyond",
+    "return_to_heart_of_the_elders_part_1": "Return to Heart of the Elders, Part 1",
+    "return_to_heart_of_the_elders_part_2": "Return to Heart of the Elders, Part 2",
+    "return_to_the_city_of_archives": "Return to The City of Archives",
+    "return_to_the_depths_of_yoth": "Return to The Depths of Yoth",
+    "return_to_shattered_aeons": "Return to Shattered Aeons",
+    "turn_back_time": "Turn Back Time"
+  },
   "entries": {
-    "campaign_notes.process_was_perfected": {
-      "text": "the process was perfected."
-    },
     "campaign_notes.recruited_help_of_another_expedition": {
       "text": "the investigators recruited the help of another expedition."
     },
@@ -20,101 +45,8 @@
         "the Harbinger"
       ]
     },
-    "campaign_notes.gave_relic_to_alejandro": {
-      "text": "the investigators gave custody of the relic to Alejandro."
-    },
-    "campaign_notes.earned_alejandros_trust": {
-      "text": "the investigators have earned Alejandro’s trust."
-    },
-    "campaign_notes.gave_relic_to_harlan": {
-      "text": "the investigators gave custody of the relic to Harlan Earnstone."
-    },
-    "campaign_notes.alejandro_on_his_own": {
-      "text": "Alejandro is continuing his research on his own."
-    },
-    "campaign_notes.investigators_recovered_relic": {
-      "text": "the investigators recovered the Relic of Ages."
-    },
-    "campaign_notes.alejandro_recovered_relic": {
-      "text": "Alejandro recovered the Relic of Ages."
-    },
-    "campaign_notes.paths_known": {
-      "text": "#X# paths are known to you."
-    },
-    "campaign_notes.jungle_watches": {
-      "text": "the jungle watches (#name# x#X#)."
-    },
-    "campaign_notes.mended_tear_in_time": {
-      "text": "the investigators mended the tear in time."
-    },
-    "campaign_notes.investigators_saved_serpents": {
-      "text": "the investigators saved the civilization of the Serpents."
-    },
-    "campaign_notes.investigators_saved_yithians": {
-      "text": "the investigators saved the civilization of the Yithians."
-    },
-    "campaign_notes.fabric_of_time_unwoven": {
-      "text": "the fabric of time is unwoven."
-    },
-    "campaign_notes.turned_back_time": {
-      "text": "the investigarors turned back time."
-    },
-    "campaign_notes.ichtaca_has_confidence": {
-      "text": "Ichtaca has confidence in you."
-    },
-    "campaign_notes.cooperated_with_yithians": {
-      "text": "the investigators cooperated with the Yithians."
-    },
-    "campaign_notes.resisted_captivity": {
-      "text": "the investigators resisted captivity."
-    },
-    "campaign_notes.had_memories_expunged": {
-      "text": "the investigators had their memories expunged."
-    },
-    "campaign_notes.process_was_successful": {
-      "text": "the process was successful."
-    },
-    "campaign_notes.process_backfired": {
-      "text": "the process backfired."
-    },
-    "campaign_notes.process_backfired_spectacularly": {
-      "text": "the process backfired spectacularly."
-    },
-    "campaign_notes.relic_is_missing": {
-      "text": "the relic is missing."
-    },
-    "campaign_notes.ichtaca_set_against": {
-      "text": "Ichtaca is set against you."
-    },
-    "campaign_notes.found_missing_relic": {
-      "text": "the investigators found the missing relic."
-    },
-    "campaign_notes.fell_into_depths": {
-      "text": "the investigators fell into the depths."
-    },
-    "campaign_notes.nexus_is_near": {
-      "text": "the nexus is near.",
-      "spoiler": [
-        "the nexus"
-      ]
-    },
-    "campaign_notes.forging_own_path": {
-      "text": "you are forging your own path."
-    },
-    "campaign_notes.rescued_alejandro": {
-      "text": "the investigators rescued Alejandro."
-    },
-    "campaign_notes.alejandro_is_missing": {
-      "text": "Alejandro is missing."
-    },
-    "campaign_notes.forged_bond_with_ichtaca": {
-      "text": "the investigators forged a bond with Ichtaca."
-    },
-    "campaign_notes.ichtaca_in_the_dark": {
-      "text": "Ichtaca is in the dark."
-    },
-    "campaign_notes.sealed_relic_of_ages_forever": {
-      "text": "the investigators sealed the Relic of Ages forever."
+    "campaign_notes.process_was_perfected": {
+      "text": "the process was perfected."
     },
     "campaign_notes.wait_for_additional_supplies": {
       "text": "the investigators were forced to wait for additional supplies."
@@ -136,6 +68,102 @@
     },
     "campaign_notes.cleared_path_to_temple": {
       "text": "the investigators cleared a path to the Eztli ruins."
+    },
+    "campaign_notes.investigators_recovered_relic": {
+      "text": "the investigators recovered the Relic of Ages."
+    },
+    "campaign_notes.alejandro_recovered_relic": {
+      "text": "Alejandro recovered the Relic of Ages."
+    },
+    "campaign_notes.gave_relic_to_alejandro": {
+      "text": "the investigators gave custody of the relic to Alejandro."
+    },
+    "campaign_notes.gave_relic_to_harlan": {
+      "text": "the investigators gave custody of the relic to Harlan Earnstone."
+    },
+    "campaign_notes.forging_own_path": {
+      "text": "you are forging your own path."
+    },
+    "campaign_notes.found_missing_relic": {
+      "text": "the investigators found the missing relic."
+    },
+    "campaign_notes.relic_is_missing": {
+      "text": "the relic is missing."
+    },
+    "campaign_notes.rescued_alejandro": {
+      "text": "the investigators rescued Alejandro."
+    },
+    "campaign_notes.alejandro_is_missing": {
+      "text": "Alejandro is missing."
+    },
+    "campaign_notes.forged_bond_with_ichtaca": {
+      "text": "the investigators forged a bond with Ichtaca."
+    },
+    "campaign_notes.ichtaca_in_the_dark": {
+      "text": "Ichtaca is in the dark."
+    },
+    "campaign_notes.paths_known": {
+      "text": "#X# paths are known to you."
+    },
+    "campaign_notes.ichtaca_has_confidence": {
+      "text": "Ichtaca has confidence in you."
+    },
+    "campaign_notes.jungle_watches": {
+      "text": "the jungle watches (#name# x#X#)."
+    },
+    "campaign_notes.cooperated_with_yithians": {
+      "text": "the investigators cooperated with the Yithians."
+    },
+    "campaign_notes.resisted_captivity": {
+      "text": "the investigators resisted captivity."
+    },
+    "campaign_notes.had_memories_expunged": {
+      "text": "the investigators had their memories expunged."
+    },
+    "campaign_notes.process_was_successful": {
+      "text": "the process was successful."
+    },
+    "campaign_notes.process_backfired": {
+      "text": "the process backfired."
+    },
+    "campaign_notes.process_backfired_spectacularly": {
+      "text": "the process backfired spectacularly."
+    },
+    "campaign_notes.ichtaca_set_against": {
+      "text": "Ichtaca is set against you."
+    },
+    "campaign_notes.fell_into_depths": {
+      "text": "the investigators fell into the depths."
+    },
+    "campaign_notes.nexus_is_near": {
+      "text": "the nexus is near.",
+      "spoiler": [
+        "the nexus"
+      ]
+    },
+    "campaign_notes.mended_tear_in_time": {
+      "text": "the investigators mended the tear in time."
+    },
+    "campaign_notes.investigators_saved_serpents": {
+      "text": "the investigators saved the civilization of the Serpents."
+    },
+    "campaign_notes.investigators_saved_yithians": {
+      "text": "the investigators saved the civilization of the Yithians."
+    },
+    "campaign_notes.fabric_of_time_unwoven": {
+      "text": "the fabric of time is unwoven."
+    },
+    "campaign_notes.turned_back_time": {
+      "text": "the investigarors turned back time."
+    },
+    "campaign_notes.earned_alejandros_trust": {
+      "text": "the investigators have earned Alejandro’s trust."
+    },
+    "campaign_notes.alejandro_on_his_own": {
+      "text": "Alejandro is continuing his research on his own."
+    },
+    "campaign_notes.sealed_relic_of_ages_forever": {
+      "text": "the investigators sealed the Relic of Ages forever."
     }
   },
   "achievements": {

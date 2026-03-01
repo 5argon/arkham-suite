@@ -75,6 +75,26 @@ export function selectableDecisions(fileCode: FileCode, location?: NodeId): Logi
 	return f.decisions.filter((d) => d.selectable && decisionAppliesAt(f, d.decisionId, location));
 }
 
+/**
+ * Like `selectableDecisions`, but drops decisions whose `appliesIf` fails against the state built from
+ * the player's current upstream choices — so a conditional decision (e.g. Cast a Light, which only
+ * happens if the cell collected every target) is hidden until its prerequisite choice is made.
+ */
+export function visibleSelectableDecisions(fileCode: FileCode, choices: Record<DecisionId, OptionId>, state: CampaignState, entryTime: number, location?: NodeId): LogicDecision[] {
+	const f = getFile(fileCode);
+	if (!f) return [];
+	let running: CampaignState = { ...state, timePassed: entryTime };
+	const out: LogicDecision[] = [];
+	for (const d of applicableDecisions(f)) {
+		if (!decisionAppliesAt(f, d.decisionId, location)) continue;
+		if (d.appliesIf && !evalCondition(d.appliesIf, running)) continue;
+		if (d.selectable) out.push(d);
+		const option = d.selectable ? pickSelectable(d, choices) : autoResolve(d, running);
+		if (option) running = thread(running, option);
+	}
+	return out;
+}
+
 /** True when a file has no player choices — the game resolves it entirely (e.g. The Safehouse). */
 export function isAutoFile(fileCode: FileCode): boolean {
 	const f = getFile(fileCode);
@@ -172,6 +192,7 @@ export function resolveFile(file: LogicFile, choices: Record<DecisionId, OptionI
 
 	for (const d of applicableDecisions(file)) {
 		if (!decisionAppliesAt(file, d.decisionId, location)) continue;
+		if (d.appliesIf && !evalCondition(d.appliesIf, running)) continue; // decision gated off by an earlier choice
 		const option = d.selectable ? pickSelectable(d, choices) : autoResolve(d, running);
 		if (!option) continue;
 		if (d.decisionType === 'scenario_version') {
@@ -209,6 +230,7 @@ export function resolutionOffers(fileCode: FileCode, choices: Record<DecisionId,
 	let resolution: LogicDecision | undefined;
 	for (const d of applicableDecisions(file)) {
 		if (!decisionAppliesAt(file, d.decisionId, location)) continue;
+		if (d.appliesIf && !evalCondition(d.appliesIf, running)) continue; // decision gated off by an earlier choice
 		if (d.decisionType === 'resolution') {
 			resolution = d;
 			continue; // evaluate against the state built from the upstream decisions

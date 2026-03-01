@@ -54,35 +54,62 @@ function wrapHalf(node: XY, seam: XY, n = 16): XY[] {
 	return pts;
 }
 
-export interface RouteLeg {
+/** A single graph edge to draw (one hop). `order`/`arrow` are decoration hints carried to the output. */
+export interface EdgeLeg {
 	from: string;
 	to: string;
 	ticket?: boolean;
+	/** 1-based visit order of the stop this edge's leg arrives at (drives the order gradient). */
+	order?: number;
+	/** Draw a direction arrowhead at this edge's end (set only on a leg's final hop). */
+	arrow?: boolean;
 }
 
 export interface DrawnLeg {
 	points: XY[];
 	ticket: boolean;
+	order: number;
+	arrow: boolean;
 }
 
-/** Drawable polylines (fractional 0..1) for a route's legs. Wrap legs yield two polylines. */
-export function drawnLegs(legs: RouteLeg[]): DrawnLeg[] {
+/** Drawable polylines (fractional 0..1) for a route's edges. Wrap edges yield two polylines. */
+export function drawnLegs(legs: EdgeLeg[]): DrawnLeg[] {
 	const out: DrawnLeg[] = [];
 	for (const leg of legs) {
 		if (leg.from === leg.to) continue;
+		const order = leg.order ?? 0;
 		if (leg.ticket) {
-			out.push({ points: [pos(leg.from), pos(leg.to)], ticket: true });
+			out.push({ points: [pos(leg.from), pos(leg.to)], ticket: true, order, arrow: leg.arrow ?? false });
 			continue;
 		}
 		const w = wrapOf(leg.from, leg.to);
 		if (w) {
-			const westHalf = wrapHalf(pos(w.west), w.westSeam);
-			const eastHalf = wrapHalf(pos(w.east), w.eastSeam);
-			out.push({ points: westHalf, ticket: false });
-			out.push({ points: eastHalf, ticket: false });
+			// A seam crossing draws as two half-curves; skip the arrowhead (its direction is ambiguous).
+			out.push({ points: wrapHalf(pos(w.west), w.westSeam), ticket: false, order, arrow: false });
+			out.push({ points: wrapHalf(pos(w.east), w.eastSeam), ticket: false, order, arrow: false });
 		} else {
-			out.push({ points: legPoints(leg.from, leg.to), ticket: false });
+			out.push({ points: legPoints(leg.from, leg.to), ticket: false, order, arrow: leg.arrow ?? false });
 		}
 	}
 	return out;
+}
+
+// --- order gradient ---------------------------------------------------------
+
+const RAMP = {
+	// progress 0 (earliest) → 1 (latest): deep amber → bright gold; tickets keep a pink hue.
+	route: ['#d97706', '#fde047'],
+	ticket: ['#9d174d', '#ff5ed6'],
+} as const;
+
+const hex = (h: string): [number, number, number] => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+
+/** Colour for a leg / stop at `progress` (0..1) of the travel order — later legs read brighter. */
+export function routeColor(progress: number, ticket = false): string {
+	const t = Math.max(0, Math.min(1, progress));
+	const [a, b] = ticket ? RAMP.ticket : RAMP.route;
+	const [r0, g0, b0] = hex(a);
+	const [r1, g1, b1] = hex(b);
+	const c = (x: number, y: number) => Math.round(x + (y - x) * t);
+	return `rgb(${c(r0, r1)}, ${c(g0, g1)}, ${c(b0, b1)})`;
 }

@@ -1,0 +1,13 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"cards_insights_played": "played",
+	"cards_insights_never_played": "never played",
+	"cards_insights_by_class": "By class",
+	"cards_insights_by_level": "By level",
+	"cards_insights_level": "Level {lv}",
+	"cards_index_title": "Player Cards – arkham.life",
+	"cards_index_by_class": "By class",
+	"cards_index_by_type": "By type",
+	"cards_subpage_title": "{name} – arkham.life",
+	"cards_subpage_empty": "No widgets here yet. Add some with Customize."
+}

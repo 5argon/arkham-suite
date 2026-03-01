@@ -1,197 +1,154 @@
 {
   "code": "tskc",
-  "_notes": "All spans validated as exact substrings of their entry text (apostrophe variants confirmed: Ece's=straight, Aliki’s/Amaranth’s/Desi’s=curly, Sanguine Watcher's=straight). scarletKeys roster complete: all 11 ids match db `heart` achievement and en labels exactly.\n\nFIXED — sibling collision (whistle): cell_blew_the_whistle and cell_threw_away_the_whistle originally blurred their full verb phrases (\"blew the whistle\" / \"threw away the whistle\"), which collapse to identical \"the cell █.\" after blur. Changed all three whistle entries to blur only the noun \"whistle\", leaving verbs visible (possesses/blew/threw away). Now distinguishable and the secret noun stays hidden.\n\nFIXED — under-blur (Flint consistency): added \"Flint\" blur to flint_is_working_solo, flint_abandoned_his_search, cell_aided_in_flints_investigation. Flint is a named twist agent whose fate (missing/dead/rejoined/traveled) is blurred elsewhere; leaving these three unblurred exposed the character. All 7 Flint entries remain distinguishable by visible verbs/clauses; agent_flint_is_missing/is_dead keep the \"Agent\" prefix span as proposed.\n\nKept unblurred (defensible restraint, not changed): cell_aided_the_knight (\"the knight\" is generic, cell's own action, no named reveal); taylor/foundation framing, counters, passphrase, anchorage/architecture/havana-style location/action lines, erased_from_existence #name# tokens. cell_made_a_deal_with_the_claret_knight names the Claret Knight explicitly so it stays blurred — contrast preserved.\n\nNo drop entries needed (hidden section already flagged hidden in db).",
-  "spoilers": {
-    "campaign_notes.have_not_seen_the_last_of_the_red_gloved_man": [
-      "the Red-Gloved Man"
+  "specialInteractions": {
+    "check_criminal_trait": { "text": "Black-market insight." },
+    "check_cop_trait": { "text": "Smoother reception from the locals." },
+    "check_wayfarer": { "text": "Follow the river upstream." },
+    "check_scholar": { "text": "Dates the knight's portrait." },
+    "check_sorcerer": { "text": "Senses the spell on Melati." },
+    "check_drifter": { "text": "Attempts the local language." }
+  },
+  "_scenarios_note": "Two key namespaces both normalize to the canonical kohaku Scenario id: the NN_-prefixed keys map entry.scenario (set by extract from the source filename); the bare location keys map scenarioMeta.id (ArkhamCards labels TSK scenarios by location, e.g. buenos_aires=Sanguine Shadows). Aligning scenarioMeta.id to the kohaku Scenario lets the editor resolve each scenario's representative encounter-set icon. Only the 10 playable (type=story) scenarios have a kohaku Scenario; interludes/location-variants stay as-is.",
+  "scenarios": {
+    "01_riddles_and_rain": "riddles_and_rain",
+    "03_dead_heat": "dead_heat",
+    "05_sanguine_shadows": "sanguine_shadows",
+    "07_dealings_in_the_dark": "dealings_in_the_dark",
+    "10_dancing_mad": "dancing_mad",
+    "12_on_thin_ice": "on_thin_ice",
+    "15_dogs_of_war": "dogs_of_war",
+    "18_shades_of_suffering": "shades_of_suffering",
+    "26_without_a_trace": "without_a_trace",
+    "27_congress_of_the_keys": "congress_of_the_keys",
+    "anchorage": "on_thin_ice",
+    "bermuda_triangle": "without_a_trace",
+    "havana": "dancing_mad",
+    "buenos_aires": "sanguine_shadows",
+    "alexandria": "dogs_of_war",
+    "marrakesh": "dead_heat",
+    "istanbul": "dealings_in_the_dark",
+    "tunguska": "congress_of_the_keys",
+    "kuala_lampur": "shades_of_suffering"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.outsiders_were_stopped"
     ],
-    "campaign_notes.have_not_seen_the_last_of_thorne": [
-      "Thorne"
-    ],
-    "campaign_notes.lovers_are_reunited": [
-      "the lovers are reunited"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_amaranth": [
-      "Amaranth"
-    ],
-    "campaign_notes.amaranth_has_left_the_coterie": [
-      "Amaranth",
-      "the Coterie"
-    ],
-    "campaign_notes.sanguine_watchers_torment_continues": [
-      "Sanguine Watcher's"
-    ],
-    "campaign_notes.chica_roja_is_on_your_side": [
-      "La Chica Roja"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_la_chica_roja": [
-      "La Chica Roja"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_the_sanguine_watcher": [
-      "The Sanguine Watcher"
-    ],
-    "campaign_notes.tuwile_masai_fled_to_bermuda": [
-      "Tuwile Masai"
-    ],
-    "campaign_notes.ece_does_not_trust_the_cell": [
-      "Ece"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_desi": [
-      "Desiderio Delgado Álvarez"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_the_claret_knight": [
-      "the Claret Knight"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_aliki_zoni_uperetria": [
-      "Aliki Zoni Uperetria"
-    ],
-    "campaign_notes.tuwile_masai_is_on_your_side": [
-      "Tuwile Masai"
-    ],
-    "campaign_notes.cell_is_working_with_ece": [
-      "Ece"
-    ],
-    "campaign_notes.cell_is_deceiving_ece": [
-      "Ece"
-    ],
-    "campaign_notes.cell_refused_eces_offer": [
-      "Ece's"
-    ],
-    "campaign_notes.ece_trusts_the_cell": [
-      "Ece"
-    ],
-    "campaign_notes.cell_knows_amaranths_real_name": [
-      "Amaranth’s real name"
-    ],
-    "campaign_notes.cell_knows_desis_past": [
-      "Desi’s past"
-    ],
-    "campaign_notes.agent_quinn_does_not_trust_the_cell": [
-      "Agent Quinn"
-    ],
-    "campaign_notes.cell_possesses_a_mysterious_whistle": [
-      "whistle"
-    ],
-    "campaign_notes.cell_made_a_deal_with_desi": [
-      "Desi"
-    ],
-    "campaign_notes.desi_is_in_your_debt": [
-      "Desi"
-    ],
-    "campaign_notes.cell_did_not_discover_the_truth_in_havana": [
-      "Havana"
-    ],
-    "campaign_notes.cell_made_a_deal_with_thorne": [
-      "Thorne"
-    ],
-    "campaign_notes.void_chimera_escaped": [
-      "the Void Chimera"
-    ],
-    "campaign_notes.thorne_disappeared": [
-      "Thorne"
-    ],
-    "campaign_notes.cell_is_delivering_foundation_intel": [
-      "Foundation intel"
-    ],
-    "campaign_notes.cell_made_a_deal_with_the_claret_knight": [
-      "the Claret Knight"
-    ],
-    "campaign_notes.cell_is_assisting_agent_sirry": [
-      "Agent Sirry"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_the_beast": [
-      "the Beast in a Cowl of Crimson"
-    ],
-    "campaign_notes.cell_failed_to_fend_off_the_beast": [
-      "the Beast"
-    ],
-    "campaign_notes.cell_met_dr_irawan": [
-      "Dr. Irawan"
-    ],
-    "campaign_notes.dr_irawan_traveled_to_new_guinea": [
-      "Dr. Irawan"
-    ],
-    "campaign_notes.dr_irawan_vanished_from_existence": [
-      "Dr. Irawan"
-    ],
-    "campaign_notes.dr_irawan_joined_the_cell": [
-      "Dr. Irawan"
-    ],
-    "campaign_notes.flint_is_working_solo": [
-      "Flint"
-    ],
-    "campaign_notes.cell_aided_in_flints_investigation": [
-      "Flint"
-    ],
-    "campaign_notes.flint_abandoned_his_search": [
-      "Flint"
-    ],
-    "campaign_notes.flint_traveled_to_kuala_lampur": [
-      "Flint"
-    ],
-    "campaign_notes.agent_flint_is_missing": [
-      "Agent Flint"
-    ],
-    "campaign_notes.flint_rejoined_the_cell": [
-      "Flint"
-    ],
-    "campaign_notes.agent_flint_is_dead": [
-      "Agent Flint"
-    ],
-    "campaign_notes.have_not_seen_the_last_of_tzu_san_niang": [
-      "Tzu San Niang"
-    ],
-    "campaign_notes.tzu_san_niang_is_under_your_sway": [
-      "Tzu San Niang"
-    ],
-    "campaign_notes.tzu_san_niang_has_you_under_her_sway": [
-      "Tzu San Niang"
-    ],
-    "campaign_notes.agent_quinn_vanished_from_existence": [
-      "Agent Quinn"
-    ],
-    "campaign_notes.cell_refused_alikis_offer": [
-      "Aliki’s"
-    ],
-    "campaign_notes.aliki_is_on_your_side": [
-      "Aliki"
-    ],
-    "campaign_notes.cell_blew_the_whistle": [
-      "whistle"
-    ],
-    "campaign_notes.agent_quinn_has_your_back": [
-      "Agent Quinn"
-    ],
-    "campaign_notes.cell_threw_away_the_whistle": [
-      "whistle"
-    ],
-    "campaign_notes.cell_was_hollowed": [
-      "hollowed"
-    ],
-    "campaign_notes.cell_knows_the_true_nature_of_the_coterie": [
-      "the true nature of the Coterie"
-    ],
-    "campaign_notes.cell_escaped_the_red_coterie": [
-      "the Red Coterie"
-    ],
-    "campaign_notes.cell_overthrew_the_red_coterie": [
-      "the Red Coterie"
-    ],
-    "campaign_notes.cell_joined_the_red_coterie": [
-      "the Red Coterie"
-    ],
-    "campaign_notes.red_coterie_spared_the_cell": [
-      "the Red Coterie"
-    ],
-    "campaign_notes.red_coterie_was_destroyed_from_within": [
-      "the Red Coterie"
-    ],
-    "campaign_notes.outsiders_were_stopped": [
-      "the Outsiders"
-    ],
-    "campaign_notes.work_together": [
-      "the Red Coterie and The Foundation"
+    "loss": [
+      "campaign_notes.cell_was_hollowed"
     ]
+  },
+  "_notes": "Spoiler blur intentionally removed for TSK at the user's request — no entry-level spoiler spans are curated for this campaign.",
+  "spoilers": {},
+  "_clearScenario_note": "cell_was_hollowed (the 'the cell was hollowed.' loss) is recorded at BOTH Without a Trace (26) and Congress of the Keys (27). extract stamps it with the first-in-flow scenario (without_a_trace), which mis-attributes the derived route when the hollowing actually happened at the Congress finale. Dropping its scenario tag keeps it out of route attribution; Without a Trace is still inferred from the whistle logs and Congress from the Coterie-vote logs.",
+  "clearScenario": ["cell_was_hollowed"],
+  "scenarioChoices": {
+    "riddles_and_rain": [
+      {
+        "id": "intro_offer",
+        "control": "radio",
+        "options": ["take_offer", "reject_offer"],
+        "label": "Travel to London (chaos-bag swap)",
+        "optionLabels": {
+          "take_offer": "Took Flint's offer — Trust (remove [elder_thing], add [tablet])",
+          "reject_offer": "Went on your own terms — Deception (remove [tablet], add [elder_thing])"
+        },
+        "_note": "Riddles and Rain: the choose_offer choose_one (ArkhamCards 01_riddles_and_rain.json steps take_offer_swap_token / reject_offer_swap_token). Taking Flint's offer is a Trust act (remove 1 elder_thing, add 1 tablet; mark 1 time); going on your own terms is a Deception act (remove 1 tablet, add 1 elder_thing; mark 2 time). This is the only chaos-bag swap in the campaign that leaves NO campaign-log trace, so it is captured here as an Extra to make every Tablet/Elder Thing shift inferrable. Token names use Arkham markup so the recorder radio + profile widgets render them as glyphs."
+      }
+    ],
+    "on_thin_ice": [
+      {
+        "id": "raw_deal",
+        "control": "radio",
+        "options": ["accept", "reject"],
+        "label": "Raw Deal — Thorne's offer (chaos-bag swap)",
+        "optionLabels": {
+          "accept": "Worked with Thorne — Trust (remove [elder_thing], add [tablet])",
+          "reject": "Refused Thorne — Deception (remove [tablet], add [elder_thing])"
+        },
+        "_note": "On Thin Ice: the Raw Deal interlude choice (ArkhamCards 12_on_thin_ice.json steps raw_deal_1_choice / raw_deal_2_choice). Accepting records 'the cell made a deal with Thorne.' AND is a Trust act (help_thorne_token_swap) — so the Trust side IS log-inferable. Refusing is a Deception act (reject_thorne_token_swap: remove 1 tablet, add 1 elder_thing) but records NO log of its own; the final Sable Glass bearer can't stand in for it (R2 'haven't seen the last of Thorne' lets him steal it back, R3 can leave you without the Key, R4 even crosses out the deal log). So the Deception side is captured here as an Extra. A consumer may still infer Accept from 'cell_made_a_deal_with_thorne' when this Extra is unset."
+      }
+    ],
+    "dead_heat": [
+      {
+        "id": "rescued_civilians",
+        "control": "counter",
+        "min": 0,
+        "max": 25,
+        "options": [],
+        "label": "Rescued Civilians",
+        "_note": "Dead Heat: civilians rescued during the scenario. An Extra input the final log doesn't capture; feeds standalone widgets. max 25 = 5 locations × (max 4 investigators + 1 civilian each); the old cap of 8 wrongly clamped legitimate higher counts."
+      },
+      {
+        "id": "slain_civilians",
+        "control": "counter",
+        "min": 0,
+        "max": 25,
+        "options": [],
+        "label": "Slain Civilians",
+        "_note": "Dead Heat: civilians slain during the scenario. Drives the 'Take That, Ghulat' achievement inference (earned when 0 — not a single civilian slain). max 25 = 5 locations × (max 4 investigators + 1 civilian each); the old cap of 8 wrongly clamped legitimate higher counts."
+      }
+    ],
+    "sanguine_shadows": [
+      {
+        "id": "targets",
+        "control": "counter",
+        "min": 0,
+        "max": 6,
+        "options": [],
+        "label": "Targets",
+        "_note": "Sanguine Shadows: 'How many targets were on the scenario reference card when the scenario ended?' (ArkhamCards 05_sanguine_shadows.json step ask_targets_on_scenario, input type=counter). Six targets are placed at setup; each one still on the card at the end grants 1 bonus experience. Not reconstructable from the final log, hence an Extra."
+      },
+      {
+        "id": "bolivar",
+        "control": "radio",
+        "options": ["all", "some", "nada"],
+        "label": "What you told Oficial Bolívar (chaos-bag swap)",
+        "optionLabels": {
+          "all": "Told him everything — Trust (remove [elder_thing], add [tablet])",
+          "some": "Gave breadcrumbs — no swap",
+          "nada": "Told him nothing — Deception (remove [tablet], add [elder_thing])"
+        },
+        "_note": "Sanguine Shadows: the choose_what_to_share choice (ArkhamCards 05_sanguine_shadows.json steps swap_tell_all_token / swap_tell_nada_token). Telling Bolívar everything is a Trust act (remove 1 elder_thing, add 1 tablet); telling him nothing is a Deception act (remove 1 tablet, add 1 elder_thing); breadcrumbs swaps nothing. The trust/distrust outcome is recorded only as a HIDDEN log (bolivar_trusts_you / bolivar_does_not_trust_you), never in campaign_notes, so it can't be inferred from the Campaign Log — captured here as an Extra to make this Tablet/Elder Thing swap inferrable."
+      }
+    ],
+    "congress_of_the_keys": [
+      {
+        "id": "desi_identity",
+        "control": "radio",
+        "options": ["real", "impostor"],
+        "label": "The back side of Desi is",
+        "optionLabels": {
+          "real": "Story asset",
+          "impostor": "Encounter card"
+        },
+        "_note": "Congress of the Keys: whether the Desiderio Delgado Álvarez you kept was the real Desi or an impostor. During Dancing Mad (Act 3a 'False Light' → Act 3b 'No Man Like Me') two identical copies of Desi fight to the death; you defeat one and STORE the survivor in a safe place SIGHT-UNSEEN ('do not look at its other side until you are instructed to do so'). The game officially instructs you to flip that stored copy at the CONGRESS: a story-asset other-side means the REAL Desi survived (votes Nay when 'Desi is in your debt'); an encounter-card back means you kept an IMPOSTOR (eerily silent). A cell that knows Desi's past CAN peek early via False Light's Parley, and can even keep the wrong copy ON PURPOSE — so the identity is NOT inferable from the Dancing Mad resolution or the persistent log, and is captured here as an Extra on the scenario where the look officially happens. Vote rule (consumer): 'Desi is in your debt' AND real → Nay; impostor, or 'haven't seen the last of Desi' → eerily silent; otherwise Yea. (cf. Sanguine Shadows' Bolívar — another hidden-state Extra.) The Extra is phrased as the OBSERVABLE card back the player flips at the Trial — 'Story asset' (stored value `real`) vs 'Encounter card' (stored value `impostor`) — so the consumer's `real`/`impostor` checks are unchanged."
+      }
+    ],
+    "dealings_in_the_dark": [
+      {
+        "id": "act_2_setup",
+        "control": "radio",
+        "options": ["odd", "even", "skull", "spooky", "extreme"],
+        "label": "Act 2 Setup (revealed token)",
+        "optionLabels": {
+          "odd": "-1, -3, -5, -7",
+          "even": "-2, -4, -6, -8",
+          "skull": "[skull] +1, 0",
+          "spooky": "[cultist] [tablet] [elder_thing]",
+          "extreme": "[auto_fail] [elder_sign]"
+        },
+        "_note": "Dealings in the Dark: the reveal_token choose_one (ArkhamCards 07_dealings_in_the_dark.json step reveal_token) — a random chaos token determines the Grand Bazaar (Act 2) layout. The five options are named by the token group that matches each layout. Chaos-token names are written as Arkham markup ([skull], [cultist], …) so the recording radio + the profile widget render them as glyphs (parseArkhamMarkup); number modifiers (+1, 0, -1…) have no glyph and stay as text."
+      }
+    ]
+  },
+  "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (tracked by the cross-campaign hidden-flag audit). extract trusts ArkhamCards' `hidden` flag to drop sub-resolutions and no-resolution outcomes, but several TSK scenarios leave non-choosable resolutions non-hidden, so they leak into the first-choice list. Each override below restricts the scenario to no_resolution + the card-arrowed (→Rn) resolutions. dogs_of_war: drop R4/R7 (reached only via the no_resolution version-branch, count==2/3) and R8 (sub-resolution read from inside R1/R5). dealings_in_the_dark: drop R2 (sub-resolution of R1, gated on 'refused Ece's offer'; upstream hides its siblings R3/R4/R5 but not R2). congress_of_the_keys: drop R2 (no_resolution.steps routes straight to resolution_2). dead_heat: the OPPOSITE direction — ADD R5 (not a bug fix). R5 is correctly `hidden` in ArkhamCards because the intro auto-routes to it at time>=25 (check_more_than_25_time → dead_heat_skipped → resolution_5), but it is a distinct recordable outcome (the scenario was skipped), so arkham.life must offer it. R5 <=> time>=25; arkham.life always offers it and lets the user pick.",
+  "scenarioResolutions": {
+    "dogs_of_war": ["no_resolution", "R1", "R2", "R3", "R5", "R6"],
+    "dealings_in_the_dark": ["no_resolution", "R1", "R6"],
+    "congress_of_the_keys": ["no_resolution", "R1"],
+    "dead_heat": ["no_resolution", "R1", "R2", "R3", "R4", "R5"]
   },
   "sections": {
     "keys": {
@@ -249,7 +206,7 @@
       "type": "count",
       "perInvestigator": false,
       "min": 0,
-      "_note": "The 'Time Passed' campaign clock (campaign.json type='count'). Single global campaign-wide counter, NOT per-investigator. No fixed maximum on the section; the calendar in campaign.json marks milestone thresholds (alpha=7, epsilon=10, beta=15, zeta=20, gamma=24, Omega=35, then psi/Theta/delta trigger story entries), and the 'speed_demon' achievement checks logCount time<=17 — these are thresholds, not a cap. Left max unset. min:0 inferred as the clock starts at zero."
+      "_note": "The 'Time Passed' campaign clock (campaign.json type='count'). Single global campaign-wide counter, NOT per-investigator. The calendar in campaign.json marks milestone thresholds (alpha=7, epsilon=10, beta=15, zeta=20, gamma=24, Omega=35, then psi/Theta/delta trigger story entries); the 'speed_demon' achievement checks logCount time<=17. NO max: Omega=35 is the last calendar milestone but the clock can overshoot it (a final embark or a resolution can advance time by more than 1), so the editor leaves it unbounded above. min:0 as the clock starts at zero."
     }
   },
   "achievements": {
@@ -280,6 +237,14 @@
         "key": "campaign_notes.cell_was_given_a_permanent_position"
       }
     },
+    "trust_nobody": {
+      "lifeInfer": true,
+      "_note": "Not log-derivable (the 'never removed an [elder_thing]' half needs the acts of trust, three of which are Extra-only). Marked lifeInfer: arkham.life auto-checks it from the Extras (computed in tsk-profile); log-only consumers keep it manual/pencil."
+    },
+    "trust_everybody": {
+      "lifeInfer": true,
+      "_note": "Not log-derivable (the 'never removed a [tablet]' half needs the acts of secrecy, three of which are Extra-only). Marked lifeInfer: arkham.life auto-checks it from the Extras; log-only consumers keep it manual/pencil."
+    },
     "line_in_sand": {
       "infer": {
         "type": "ultimatums",
@@ -296,10 +261,12 @@
       "scenario": "riddles_and_rain"
     },
     "take_that": {
-      "scenario": "dead_heat"
+      "scenario": "dead_heat",
+      "infer": { "type": "scenarioChoice", "scenario": "dead_heat", "choice": "slain_civilians", "max": 0 }
     },
     "whats_in_a_name": {
-      "scenario": "dead_heat"
+      "scenario": "dead_heat",
+      "infer": { "type": "log", "key": "campaign_notes.amaranth_has_left_the_coterie" }
     },
     "porque": {
       "scenario": "dancing_mad"
@@ -317,7 +284,18 @@
       "scenario": "on_thin_ice"
     },
     "watch_watcher": {
-      "scenario": "sanguine_shadows"
+      "scenario": "sanguine_shadows",
+      "infer": { "type": "log", "key": "campaign_notes.chica_roja_is_on_your_side" }
+    },
+    "gift_of_gab": {
+      "_note": "NOT a Congress-specific achievement (no `scenario` tag): it spans the campaign — the cell delivers intel across scenarios (then that note is crossed off) and the campaign is won (outsiders_were_stopped). Tagging it to Congress would mis-file it under the Congress scenario card.",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          { "type": "log", "key": "campaign_notes.cell_is_delivering_foundation_intel", "crossed": true },
+          { "type": "log", "key": "campaign_notes.outsiders_were_stopped" }
+        ]
+      }
     },
     "under_umbrella": {
       "scenario": "shades_of_suffering"
@@ -327,8 +305,14 @@
       "infer": {
         "type": "anyOf",
         "of": [
-          { "type": "log", "key": "campaign_notes.cell_blew_the_whistle" },
-          { "type": "log", "key": "campaign_notes.cell_threw_away_the_whistle" }
+          {
+            "type": "log",
+            "key": "campaign_notes.cell_blew_the_whistle"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cell_threw_away_the_whistle"
+          }
         ]
       }
     },
@@ -399,7 +383,7 @@
         "campaign_notes.cell_told_the_truth_to_taylor",
         "campaign_notes.cell_hid_the_truth_from_taylor"
       ],
-      "scenario": "The Foundation — choose what to tell Commissioner Taylor"
+      "scenario": "02_the_foundation"
     },
     {
       "type": "mutuallyExclusive",
@@ -408,7 +392,7 @@
         "campaign_notes.cell_is_deceiving_ece",
         "campaign_notes.cell_refused_eces_offer"
       ],
-      "scenario": "Dealings in the Dark — respond to Ece's offer (choose_path)"
+      "scenario": "07_dealings_in_the_dark"
     },
     {
       "type": "mutuallyExclusive",
@@ -416,7 +400,7 @@
         "campaign_notes.ece_trusts_the_cell",
         "campaign_notes.ece_does_not_trust_the_cell"
       ],
-      "scenario": "Dealings in the Dark — Ece trust at the Twisted Antiprism handover (R4 vs R5)"
+      "scenario": "07_dealings_in_the_dark"
     },
     {
       "type": "mutuallyExclusive",
@@ -424,7 +408,7 @@
         "campaign_notes.amaranth_has_left_the_coterie",
         "campaign_notes.have_not_seen_the_last_of_amaranth"
       ],
-      "scenario": "Dead Heat — fate of Amaranth (R3 vs R2/R4/R5)"
+      "scenario": "03_dead_heat"
     },
     {
       "type": "mutuallyExclusive",
@@ -432,7 +416,7 @@
         "campaign_notes.chica_roja_is_on_your_side",
         "campaign_notes.have_not_seen_the_last_of_la_chica_roja"
       ],
-      "scenario": "Sanguine Shadows — La Chica Roja outcome (R2 vs R1/R3)"
+      "scenario": "05_sanguine_shadows"
     },
     {
       "type": "mutuallyExclusive",
@@ -441,7 +425,7 @@
         "campaign_notes.cell_aided_in_flints_investigation",
         "campaign_notes.flint_abandoned_his_search"
       ],
-      "scenario": "The Coiled Serpent — instruct Flint (choice)"
+      "scenario": "11_the_coiled_serpent"
     },
     {
       "type": "mutuallyExclusive",
@@ -449,7 +433,7 @@
         "campaign_notes.have_not_seen_the_last_of_thorne",
         "campaign_notes.thorne_disappeared"
       ],
-      "scenario": "On Thin Ice — fate of Thorne (R2 vs R3)"
+      "scenario": "12_on_thin_ice"
     },
     {
       "type": "mutuallyExclusive",
@@ -457,7 +441,7 @@
         "campaign_notes.desi_is_in_your_debt",
         "campaign_notes.have_not_seen_the_last_of_desi"
       ],
-      "scenario": "Dancing Mad — Desi outcome (R1 vs no_resolution/R2)"
+      "scenario": "10_dancing_mad"
     },
     {
       "type": "mutuallyExclusive",
@@ -466,7 +450,7 @@
         "campaign_notes.have_not_seen_the_last_of_tzu_san_niang",
         "campaign_notes.tzu_san_niang_has_you_under_her_sway"
       ],
-      "scenario": "Shades of Suffering — Tzu San Niang confrontation (R1/R2/R3)"
+      "scenario": "18_shades_of_suffering"
     },
     {
       "type": "mutuallyExclusive",
@@ -474,7 +458,7 @@
         "campaign_notes.cell_made_a_deal_with_the_claret_knight",
         "campaign_notes.cell_is_assisting_agent_sirry"
       ],
-      "scenario": "Dogs of War — accept the Claret Knight's bargain vs assist Agent Sirry (early_choice/late_choice)"
+      "scenario": "15_dogs_of_war"
     },
     {
       "type": "mutuallyExclusive",
@@ -482,7 +466,7 @@
         "campaign_notes.cell_aided_the_knight",
         "campaign_notes.cell_failed_to_fend_off_the_beast"
       ],
-      "scenario": "Dogs of War — the Beast confrontation (R8 vs R3)"
+      "scenario": "15_dogs_of_war"
     },
     {
       "type": "mutuallyExclusive",
@@ -490,7 +474,7 @@
         "campaign_notes.cell_possesses_a_mysterious_whistle",
         "campaign_notes.cell_refused_alikis_offer"
       ],
-      "scenario": "Whistle on the Wind — accept or refuse Aliki's offer (make_choice)"
+      "scenario": "23_whistle_on_the_wind"
     },
     {
       "type": "mutuallyExclusive",
@@ -498,7 +482,7 @@
         "campaign_notes.cell_blew_the_whistle",
         "campaign_notes.cell_threw_away_the_whistle"
       ],
-      "scenario": "Without a Trace — blow vs dispose of the whistle (whistle_choice)"
+      "scenario": "26_without_a_trace"
     },
     {
       "type": "mutuallyExclusive",
@@ -506,7 +490,7 @@
         "campaign_notes.aliki_is_on_your_side",
         "campaign_notes.have_not_seen_the_last_of_aliki_zoni_uperetria"
       ],
-      "scenario": "Without a Trace — Aliki fate (R1/R3 vs R2/R4)"
+      "scenario": "26_without_a_trace"
     },
     {
       "type": "mutuallyExclusive",
@@ -514,7 +498,7 @@
         "campaign_notes.dr_irawan_joined_the_cell",
         "campaign_notes.dr_irawan_vanished_from_existence"
       ],
-      "scenario": "Metamorphosis — final fate of Dr. Irawan (joined vs erased)"
+      "scenario": "17_metamorphosis"
     },
     {
       "type": "mutuallyExclusive",
@@ -525,7 +509,7 @@
         "campaign_notes.red_coterie_spared_the_cell",
         "campaign_notes.red_coterie_was_destroyed_from_within"
       ],
-      "scenario": "Congress of the Keys — the trial verdict before the Red Coterie"
+      "scenario": "27_congress_of_the_keys"
     },
     {
       "type": "mutuallyExclusive",
@@ -534,7 +518,7 @@
         "campaign_notes.cell_was_given_a_permanent_position",
         "campaign_notes.cell_was_dismantled"
       ],
-      "scenario": "Epilogue — final disposition of the cell"
+      "scenario": "28_epilogue"
     }
   ]
 }

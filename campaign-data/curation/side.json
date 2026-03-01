@@ -1,5 +1,40 @@
 {
   "code": "side",
+  "scenarioNames": {
+    "fortune_and_folly_part_1": "Fortune and Folly"
+  },
+  "entryOverrides": {
+    "_note": "Fortune and Folly's 'Stashed' and 'Alarm level' are keyed by their card + number, so the player records them repeatedly (one per card). Mark them repeatable and restrict the #name# picker: stash an ASSET, track an INVESTIGATOR's alarm level.",
+    "campaign_notes.fof_stashed": { "repeatable": true, "cardFilter": { "types": ["asset"] } },
+    "campaign_notes.fof_alarm_level": { "repeatable": true, "cardFilter": { "types": ["investigator"] } }
+  },
+  "scenarioResolutions": {
+    "_note": "The catalogue entry 'Fortune and Folly' (keyed fortune_and_folly_part_1) should record Part II's outcomes, not the Part I 'Stakeout' resolutions that extract pulls from the part-1 file. Part II (fortune_and_folly_part_2.json) resolves to no_resolution / R1 / R2 / R3.",
+    "fortune_and_folly_part_1": ["no_resolution", "R1", "R2", "R3"],
+    "_hiddenflag_patch_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). extract trusts ArkhamCards' `hidden` flag, but these leave non-choosable resolutions non-hidden so they leak into the first-choice list. enthralling_encore: drop R2 (read only from inside the no_resolution_defeated outcome). the_midwinter_gala: drop R7 (sub-resolution of the already-hidden R2-R6, themselves sub of R1). NOTE: war_of_the_outer_gods is NOT patched — its R5/R6/R7 are card-reachable via the per-faction encounter sets (swarm_of_assimilation/death_of_stars/children_of_paradise), so they are legit endings.",
+    "enthralling_encore": ["no_resolution_defeated", "R1"],
+    "the_midwinter_gala": ["no_resolution", "R1"]
+  },
+  "scenarioChoices": {
+    "fortune_and_folly_part_1": [
+      {
+        "id": "completed_tasks",
+        "control": "counter",
+        "min": 0,
+        "max": 8,
+        "options": [],
+        "label": "Completed Tasks",
+        "_note": "Fortune and Folly Part II: 'Check the number of tasks on The Heist story card that were completed during this scenario.' (ArkhamCards fortune_and_folly_part_2.json step ask_completed_tasks, input type=counter, max=8). Each task beyond the minimum of 4 grants 1 bonus experience; not reconstructable from the final log, hence an Extra. Recorded on the standalone instance, for standalone-related widgets."
+      }
+    ]
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [],
+    "loss": [
+      "campaign_notes.blob_devoured_universe"
+    ]
+  },
   "_notes": "Verified all 15 spans are exact substrings of their entry texts (note \"Ignis\" entries use a curly apostrophe in \"Ignis' spirit\" but the blurred token \"Ignis\" itself matches; \"Hanninah's\" and \"Dario's\"/sibling use straight apostrophe). No sibling collisions: within Carnevale the three Cnidathqua entries stay distinguishable by surrounding text; the two Ignis entries differ; Xzharah appears in two different scenario entries within campaign_notes but reads differently. No over-blur of scenario-title creatures (Wendigo, Rougarou, Excelsior, Constellation, House of Usher) or disambiguating NPCs. No under-blur found: hidden gods Ithaqua/Cnidathqua/Ignis/Shax/Xzharah and reveal outcomes (Subject 8L-08, eldrich god of fire, Hanninah's gold, solid-gold transformations) are all blurred. No exotic roster sections needed — only notes/cards/count kinds; the cards-bearing section (\"hidden\") is itself hidden. Curation accepted unchanged.",
   "spoilers": {
     "campaign_notes.blob_devoured_universe": [

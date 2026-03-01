@@ -1,5 +1,28 @@
 {
   "code": "rtdwl",
+  "scenarios": {
+    "essex_county_express": "return_to_the_essex_county_express"
+  },
+  "sections": {
+    "sacrificed": {
+      "cardFilter": {
+        "traits": ["Ally"]
+      }
+    }
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.yog_sothoth_fled"
+    ],
+    "loss": [
+      "campaign_notes.yog_sothoth_became_one_with_reality",
+      "campaign_notes.yog_sothoth_escaped"
+    ],
+    "betterWin": [
+      "campaign_notes.closed_tear"
+    ]
+  },
   "_notes": "Verified all 13 spans are exact substrings of their entry texts in rtdwl-en.draft.json. No invalid spans. No sibling collisions: Silas Bishop trio (put out of his misery/restored/banished) and Necronomicon four (stolen/failed to recover/destroyed/took custody) keep distinct surrounding verbs; Yog-Sothoth became_one vs escaped differ by \"barriers\"/\"barrier\" so remain distinguishable. Sacrificed section is type 'cards' matching db structure — no override needed; kidnapped/survived NPCs (Armitage, Morgan, Rice, Whateley, Sawyer) and Naomi/O'Bannion appearing in the items roster left as-is. Generic scaffolding (delayed, unconscious, students, closed_tear, brood, entered_the_gate, townsfolk, ritual_completed, survived) correctly unblurred. Curation accepted unchanged.",
   "spoilers": {
     "campaign_notes.bone_to_pick": [
@@ -131,8 +154,16 @@
       "infer": {
         "type": "allOf",
         "of": [
-          { "type": "chaosToken", "token": "tablet", "max": 0 },
-          { "type": "chaosToken", "token": "elder_thing", "max": 0 }
+          {
+            "type": "chaosToken",
+            "token": "tablet",
+            "max": 0
+          },
+          {
+            "type": "chaosToken",
+            "token": "elder_thing",
+            "max": 0
+          }
         ]
       }
     }

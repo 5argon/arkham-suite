@@ -11,16 +11,30 @@
     "05048": "Missing Persons - Valentino Rivas",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "disappearance_at_the_twilight_estate": "Disappearance at the Twilight Estate",
+    "the_witching_hour": "The Witching Hour",
+    "at_deaths_doorstep": "At Death's Doorstep",
+    "the_price_of_progress": "The Price of Progress",
+    "the_secret_name": "The Secret Name",
+    "the_wages_of_sin": "The Wages of Sin",
+    "for_the_greater_good": "For the Greater Good",
+    "the_inner_circle": "The Inner Circle",
+    "union_and_disillusion": "Union and Disillusion",
+    "in_the_clutches_of_chaos": "In the Clutches of Chaos",
+    "twist_of_fate": "Twist of Fate",
+    "before_the_black_throne": "Before the Black Throne",
+    "tcu_epilogue": "Epilogue",
+    "return_to_the_witching_hour": "Return to The Witching Hour",
+    "return_to_at_deaths_doorstep": "Return to At Death's Doorstep",
+    "return_to_the_secret_name": "Return to The Secret Name",
+    "return_to_the_wages_of_sin": "Return to The Wages of Sin",
+    "return_to_for_the_greater_good": "Return to For the Greater Good",
+    "return_to_union_and_disillusion": "Return to Union and Disillusion",
+    "return_to_in_the_clutches_of_chaos": "Return to In the Clutches of Chaos",
+    "return_to_before_the_black_throne": "Return to Before the Black Throne"
+  },
   "entries": {
-    "campaign_notes.heretics_released": {
-      "text": "#X# heretics were unleashed unto Arkham."
-    },
-    "mementos.bloody_tree_carvings": {
-      "text": "Bloody Tree Carvings"
-    },
-    "campaign_notes.erynn_joined_investigators": {
-      "text": "Erynn joined the investigators."
-    },
     "campaign_notes.erynn_wants_to_meet": {
       "text": "Erynn wants to meet you."
     },
@@ -30,11 +44,14 @@
     "mementos.strange_incantation": {
       "text": "Strange Incantation"
     },
-    "campaign_notes.coven_of_keziah_holds_the_world_in_its_grasp": {
-      "text": "the coven of Keziah holds the world in its grasp.",
-      "spoiler": [
-        "Keziah holds the world in its grasp"
-      ]
+    "campaign_notes.heretics_released": {
+      "text": "#X# heretics were unleashed unto Arkham."
+    },
+    "mementos.bloody_tree_carvings": {
+      "text": "Bloody Tree Carvings"
+    },
+    "campaign_notes.erynn_joined_investigators": {
+      "text": "Erynn joined the investigators."
     },
     "mementos.gilmans_journal": {
       "text": "Gilman's Journal"
@@ -57,8 +74,26 @@
     "mementos.corn_husk_doll": {
       "text": "Corn Husk Doll"
     },
+    "campaign_notes.coven_of_keziah_holds_the_world_in_its_grasp": {
+      "text": "the coven of Keziah holds the world in its grasp.",
+      "spoiler": [
+        "Keziah holds the world in its grasp"
+      ]
+    },
     "campaign_notes.path_winds_before_you": {
       "text": "the path winds before you: #X#"
+    },
+    "campaign_notes.accepted_fate": {
+      "text": "you have accepted your fate."
+    },
+    "campaign_notes.rejected_fate": {
+      "text": "you have rejected your fate."
+    },
+    "campaign_notes.witches_spell_broken": {
+      "text": "the witches' spell was broken."
+    },
+    "campaign_notes.witches_spell_cast": {
+      "text": "the witches' spell was cast."
     },
     "05046.on_gavriellas_trail": {
       "text": "the investigators are on Gavriella’s trail."
@@ -80,6 +115,96 @@
     },
     "campaign_notes.never_seen_again": {
       "text": "the investigators are never seen or heard from again."
+    },
+    "campaign_notes.told_lodge_about_coven": {
+      "text": "the investigators told the Lodge about the coven."
+    },
+    "campaign_notes.hid_knowledge_of_coven": {
+      "text": "the investigators hid their knowledge of the coven."
+    },
+    "campaign_notes.survived_the_watchers_embrace": {
+      "text": "the investigators survived the watcher’s embrace."
+    },
+    "campaign_notes.guardian_of_the_trap_emerged": {
+      "text": "the guardian of the trap emerged."
+    },
+    "campaign_notes.discovered_how_to_open_the_puzzle_box": {
+      "text": "the investigators discovered how to open the puzzle box.."
+    },
+    "campaign_notes.guardian_of_the_trap_defeated": {
+      "text": "the guardian of the trap emerged and was defeated."
+    },
+    "campaign_notes.sided_with_the_lodge": {
+      "text": "the investigators sided with the Lodge."
+    },
+    "campaign_notes.sided_with_the_coven": {
+      "text": "the investigators sided with the coven."
+    },
+    "05046.alive": {
+      "text": "Gavriella is alive."
+    },
+    "05047.alive": {
+      "text": "Jerome is alive."
+    },
+    "05049.alive": {
+      "text": "Penny is alive."
+    },
+    "05048.alive": {
+      "text": "Valentino is alive."
+    },
+    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
+      "text": "the true work of the Silver Twilight Lodge has begun.",
+      "spoiler": [
+        "the true work"
+      ]
+    },
+    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
+      "text": "Carl Sanford possesses the secrets of the universe.",
+      "spoiler": [
+        "the secrets of the universe"
+      ]
+    },
+    "campaign_notes.anette_mason_is_possessed_by_evil": {
+      "text": "Anette Mason is possessed by evil.",
+      "spoiler": [
+        "possessed by evil"
+      ]
+    },
+    "05046.dead": {
+      "text": "Gavriella Mizrah is dead."
+    },
+    "05047.dead": {
+      "text": "Jerome Davids is dead."
+    },
+    "05049.dead": {
+      "text": "Penny White is dead."
+    },
+    "05048.dead": {
+      "text": "Valentino Rivas is dead."
+    },
+    "campaign_notes.continued_alone": {
+      "text": "the investigators continued alone."
+    },
+    "campaign_notes.asked_anette_for_assistance": {
+      "text": "the investigators asked Anette for assistance."
+    },
+    "campaign_notes.arrested_anette": {
+      "text": "the investigators arrested Anette."
+    },
+    "campaign_notes.anette_taught_you_the_spells_of_old": {
+      "text": "Anette taught you the spells of old."
+    },
+    "campaign_notes.asked_sanford_for_assistance": {
+      "text": "the investigators asked Sanford for assistance."
+    },
+    "campaign_notes.arrested_sanford": {
+      "text": "the investigators arrested Sanford."
+    },
+    "campaign_notes.assumed_control_of_the_silver_twilight_lodge": {
+      "text": "the investigators assumed control of the Silver Twilight Lodge."
+    },
+    "campaign_notes.doom_draws_ever_closer": {
+      "text": "doom draws ever closer."
     },
     "campaign_notes.azathoth_devoured_the_universe": {
       "text": "Azathoth devoured the universe.",
@@ -159,48 +284,6 @@
     "campaign_notes.being_hunted": {
       "text": "you are being hunted."
     },
-    "campaign_notes.survived_the_watchers_embrace": {
-      "text": "the investigators survived the watcher’s embrace."
-    },
-    "campaign_notes.guardian_of_the_trap_emerged": {
-      "text": "the guardian of the trap emerged."
-    },
-    "campaign_notes.discovered_how_to_open_the_puzzle_box": {
-      "text": "the investigators discovered how to open the puzzle box.."
-    },
-    "campaign_notes.guardian_of_the_trap_defeated": {
-      "text": "the guardian of the trap emerged and was defeated."
-    },
-    "campaign_notes.continued_alone": {
-      "text": "the investigators continued alone."
-    },
-    "campaign_notes.asked_anette_for_assistance": {
-      "text": "the investigators asked Anette for assistance."
-    },
-    "campaign_notes.arrested_anette": {
-      "text": "the investigators arrested Anette."
-    },
-    "campaign_notes.anette_taught_you_the_spells_of_old": {
-      "text": "Anette taught you the spells of old."
-    },
-    "campaign_notes.asked_sanford_for_assistance": {
-      "text": "the investigators asked Sanford for assistance."
-    },
-    "campaign_notes.arrested_sanford": {
-      "text": "the investigators arrested Sanford."
-    },
-    "campaign_notes.assumed_control_of_the_silver_twilight_lodge": {
-      "text": "the investigators assumed control of the Silver Twilight Lodge."
-    },
-    "campaign_notes.doom_draws_ever_closer": {
-      "text": "doom draws ever closer."
-    },
-    "campaign_notes.kept_mementos_hidden": {
-      "text": "the investigators kept their mementos hidden."
-    },
-    "campaign_notes.inducted_into_the_inner_circle": {
-      "text": "the investigators were inducted into the Inner Circle."
-    },
     "campaign_notes.josef_disappeared_into_the_mist": {
       "text": "Josef disappeared into the mist."
     },
@@ -219,71 +302,11 @@
     "campaign_notes.deceiving_the_lodge": {
       "text": "the investigators are deceiving the Lodge."
     },
-    "campaign_notes.told_lodge_about_coven": {
-      "text": "the investigators told the Lodge about the coven."
+    "campaign_notes.kept_mementos_hidden": {
+      "text": "the investigators kept their mementos hidden."
     },
-    "campaign_notes.hid_knowledge_of_coven": {
-      "text": "the investigators hid their knowledge of the coven."
-    },
-    "campaign_notes.accepted_fate": {
-      "text": "you have accepted your fate."
-    },
-    "campaign_notes.rejected_fate": {
-      "text": "you have rejected your fate."
-    },
-    "campaign_notes.witches_spell_broken": {
-      "text": "the witches' spell was broken."
-    },
-    "campaign_notes.witches_spell_cast": {
-      "text": "the witches' spell was cast."
-    },
-    "campaign_notes.sided_with_the_lodge": {
-      "text": "the investigators sided with the Lodge."
-    },
-    "campaign_notes.sided_with_the_coven": {
-      "text": "the investigators sided with the coven."
-    },
-    "05046.alive": {
-      "text": "Gavriella is alive."
-    },
-    "05047.alive": {
-      "text": "Jerome is alive."
-    },
-    "05049.alive": {
-      "text": "Penny is alive."
-    },
-    "05048.alive": {
-      "text": "Valentino is alive."
-    },
-    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
-      "text": "the true work of the Silver Twilight Lodge has begun.",
-      "spoiler": [
-        "the true work"
-      ]
-    },
-    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
-      "text": "Carl Sanford possesses the secrets of the universe.",
-      "spoiler": [
-        "the secrets of the universe"
-      ]
-    },
-    "campaign_notes.anette_mason_is_possessed_by_evil": {
-      "text": "Anette Mason is possessed by evil.",
-      "spoiler": [
-        "possessed by evil"
-      ]
-    },
-    "05046.dead": {
-      "text": "Gavriella Mizrah is dead."
-    },
-    "05047.dead": {
-      "text": "Jerome Davids is dead."
-    },
-    "05049.dead": {
-      "text": "Penny White is dead."
-    },
-    "05048.dead": {
-      "text": "Valentino Rivas is dead."
+    "campaign_notes.inducted_into_the_inner_circle": {
+      "text": "the investigators were inducted into the Inner Circle."
     }
   },
   "achievements": {
@@ -364,6 +387,23 @@
     "circle_expertise": {
       "title": "Circle Expertise",
       "text": "Win <i>The Circle Undone</i> campaign on Expert difficulty."
+    }
+  },
+  "specialInteractions": {
+    "check_mystic_investigator": {
+      "text": "The markings on the tome form the basis for some kind of spell or ritual. It involves calling out to the dead – beseeching them for power, for secrets, or perhaps for aid. But who was beseeching whom, and for what purpose?"
+    },
+    "under_arrest": {
+      "text": "<i>“You are under arrest.”</i>"
+    },
+    "learn_spells": {
+      "text": "<i>“Then teach me how to be stronger.”</i>"
+    },
+    "seize_control": {
+      "text": "<i>“You don't deserve to lead us.”</i>"
+    },
+    "check_silver_twilight_investigator": {
+      "text": "“Ah, it’s you. I did not expect you to be here, though perhaps I should have,” Mr. Sanford says with a hint of surprise in his voice. “I regret that you had to be involved in this unfortunate affair. I did not plan for you to be a part of any of this.” You narrow your eyes. You suspect fortune had nothing to do with it. You ask him what will happen to those still trapped inside. “Human progress requires sacrifice,” he recites stoically. “It is lamentable when that sacrifice is in blood, but the price in lamentation does not outweigh the yield of our labor.”"
     }
   }
 }

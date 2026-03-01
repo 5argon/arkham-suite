@@ -1,5 +1,21 @@
 {
   "code": "dwl",
+  "scenarios": {
+    "essex_county_express": "the_essex_county_express"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.yog_sothoth_fled"
+    ],
+    "loss": [
+      "campaign_notes.yog_sothoth_became_one_with_reality",
+      "campaign_notes.yog_sothoth_escaped"
+    ],
+    "betterWin": [
+      "campaign_notes.closed_tear"
+    ]
+  },
   "_doc": "Gold-standard exemplar. Spoilers blur the plot-revealing noun/outcome while leaving enough of each sentence to tell it apart from its siblings in the same section. Front-loaded setup NPCs (the kidnapped professors, named in the intro and in the visible 'Sacrificed' roster) are left unblurred so name-based disambiguation still works.",
   "spoilers": {
     "campaign_notes.bone_to_pick": [
@@ -44,7 +60,9 @@
   },
   "sections": {
     "sacrificed": {
-      "freeform": true
+      "cardFilter": {
+        "traits": ["Ally"]
+      }
     }
   },
   "validators": [

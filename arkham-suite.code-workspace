@@ -21,6 +21,10 @@
       "name": "🏷️ Tags",
     },
     {
+      "path": "./life",
+      "name": "🟩 Life",
+    },
+    {
       "path": "./starter",
       "name": "🟪 Starter",
     },

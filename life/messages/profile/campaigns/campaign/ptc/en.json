@@ -1,0 +1,9 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"campaign_ptc_hasturs_version_label": "Hastur {version}",
+	"campaign_ptc_hasturs_never_faced": "never faced",
+	"campaign_ptc_hasturs_faced_count": "faced ×{count}",
+	"campaign_ptc_hasturs_beaten_count": "beaten ×{count}",
+	"campaign_ptc_hasturs_never_beaten": "never beaten",
+	"campaign_ptc_hasturs_empty": "No Hastur version recorded yet — add it in a play's Extra tab to track which you've faced and beaten."
+}

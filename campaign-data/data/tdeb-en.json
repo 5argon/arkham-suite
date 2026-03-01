@@ -6,7 +6,39 @@
     "steps_of_the_bridge": "Steps of the Bridge",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "tde_prologue": "Prologue",
+    "waking_nightmare": "Waking Nightmare",
+    "the_black_cat": "The Black Cat",
+    "a_thousand_shapes_of_horror": "A Thousand Shapes of Horror",
+    "the_oneironauts": "The Oneironauts",
+    "point_of_no_return": "Point of No Return",
+    "the_great_ones": "The Great Ones",
+    "weaver_of_the_cosmos": "Weaver of the Cosmos",
+    "tde_epilogue": "Epilogue"
+  },
   "entries": {
+    "campaign_notes.doctor_joined_investigation": {
+      "text": "Dr. Maheswaran joined the investigation."
+    },
+    "campaign_notes.doctor_stayed_with_patients": {
+      "text": "Dr. Maheswaran stayed with her patients."
+    },
+    "campaign_notes.doctors_fate_unknown": {
+      "text": "Dr. Maheswaran’s fate is unknown."
+    },
+    "campaign_notes.doctor_is_alive": {
+      "text": "Dr. Maheswaran is alive."
+    },
+    "campaign_notes.doctor_is_missing": {
+      "text": "Dr. Maheswaran is missing."
+    },
+    "campaign_notes.randolph_escaped_hospital_alone": {
+      "text": "Randolph escaped the hospital on his own."
+    },
+    "campaign_notes.randolph_escaped_hospital_with_investigators": {
+      "text": "Randolph escaped the hospital with the investigators."
+    },
     "campaign_notes.randolph_survived_descent": {
       "text": "Randolph survived the descent."
     },
@@ -18,6 +50,33 @@
     },
     "campaign_notes.randolph_did_not_survive_descent": {
       "text": "Randolph did not survive the descent."
+    },
+    "campaign_notes.found_a_way_out_of_the_underworld": {
+      "text": "the investigators found a way out of the Underworld.",
+      "spoiler": [
+        "the Underworld"
+      ]
+    },
+    "campaign_notes.trapped_in_atlach_nachas_realm": {
+      "text": "the investigators are trapped in Atlach-Nacha's realm.",
+      "spoiler": [
+        "Atlach-Nacha's"
+      ]
+    },
+    "campaign_notes.bridge_was_completed": {
+      "text": "the bridge was completed."
+    },
+    "campaign_notes.bridge_was_destroyed": {
+      "text": "the bridge was destroyed."
+    },
+    "campaign_notes.returned_to_reality": {
+      "text": "the investigators returned to reality."
+    },
+    "campaign_notes.never_escaped": {
+      "text": "the investigators never escaped."
+    },
+    "campaign_notes.still_in_the_dreamlands": {
+      "text": "the investigators are still in the Dreamlands."
     },
     "campaign_notes.on_your_own": {
       "text": "you are on your own."
@@ -48,54 +107,6 @@
     },
     "campaign_notes.black_cat_warned_the_others": {
       "text": "the black cat warned the others."
-    },
-    "campaign_notes.found_a_way_out_of_the_underworld": {
-      "text": "the investigators found a way out of the Underworld.",
-      "spoiler": [
-        "the Underworld"
-      ]
-    },
-    "campaign_notes.doctor_joined_investigation": {
-      "text": "Dr. Maheswaran joined the investigation."
-    },
-    "campaign_notes.doctor_stayed_with_patients": {
-      "text": "Dr. Maheswaran stayed with her patients."
-    },
-    "campaign_notes.doctors_fate_unknown": {
-      "text": "Dr. Maheswaran’s fate is unknown."
-    },
-    "campaign_notes.doctor_is_alive": {
-      "text": "Dr. Maheswaran is alive."
-    },
-    "campaign_notes.doctor_is_missing": {
-      "text": "Dr. Maheswaran is missing."
-    },
-    "campaign_notes.randolph_escaped_hospital_alone": {
-      "text": "Randolph escaped the hospital on his own."
-    },
-    "campaign_notes.randolph_escaped_hospital_with_investigators": {
-      "text": "Randolph escaped the hospital with the investigators."
-    },
-    "campaign_notes.trapped_in_atlach_nachas_realm": {
-      "text": "the investigators are trapped in Atlach-Nacha's realm.",
-      "spoiler": [
-        "Atlach-Nacha's"
-      ]
-    },
-    "campaign_notes.bridge_was_completed": {
-      "text": "the bridge was completed."
-    },
-    "campaign_notes.bridge_was_destroyed": {
-      "text": "the bridge was destroyed."
-    },
-    "campaign_notes.returned_to_reality": {
-      "text": "the investigators returned to reality."
-    },
-    "campaign_notes.never_escaped": {
-      "text": "the investigators never escaped."
-    },
-    "campaign_notes.still_in_the_dreamlands": {
-      "text": "the investigators are still in the Dreamlands."
     }
   },
   "achievements": {

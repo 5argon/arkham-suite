@@ -17,6 +17,224 @@
     "return_to_lost_in_time_and_space",
     "dwl_epilogue"
   ],
+  "scenarioMeta": [
+    {
+      "id": "dwl_prologue",
+      "type": "interlude"
+    },
+    {
+      "id": "extracurricular_activity",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "id": "the_house_always_wins",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "id": "armitages_fate",
+      "type": "interlude"
+    },
+    {
+      "id": "the_miskatonic_museum",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "return_to_the_essex_county_express",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "blood_on_the_altar",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "dwl_interlude2",
+      "type": "interlude"
+    },
+    {
+      "id": "undimensioned_and_unseen",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "where_doom_awaits",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R2": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    },
+    {
+      "id": "lost_in_time_and_space",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all",
+              "conditional": true
+            }
+          ],
+          "result": "mixed"
+        },
+        "R3": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "win"
+        }
+      }
+    },
+    {
+      "id": "dwl_epilogue",
+      "type": "epilogue"
+    },
+    {
+      "id": "return_to_extracurricular_activity",
+      "type": "story"
+    },
+    {
+      "id": "return_to_the_house_always_wins",
+      "type": "story"
+    },
+    {
+      "id": "return_to_the_miskatonic_museum",
+      "type": "story"
+    },
+    {
+      "id": "return_to_essex_county_express",
+      "type": "story"
+    },
+    {
+      "id": "return_to_blood_on_the_altar",
+      "type": "story"
+    },
+    {
+      "id": "return_to_undimensioned_and_unseen",
+      "type": "story"
+    },
+    {
+      "id": "return_to_where_doom_awaits",
+      "type": "story"
+    },
+    {
+      "id": "return_to_lost_in_time_and_space",
+      "type": "story"
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 3,
+      "-2": 2,
+      "skull": 2,
+      "cultist": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 3,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "skull": 2,
+      "cultist": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 3,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "skull": 2,
+      "cultist": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 2,
+      "-5": 1,
+      "-6": 1,
+      "-8": 1,
+      "skull": 2,
+      "cultist": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -24,7 +242,12 @@
     },
     {
       "id": "sacrificed",
-      "type": "cards"
+      "type": "cards",
+      "cardFilter": {
+        "traits": [
+          "Ally"
+        ]
+      }
     },
     {
       "id": "hidden",
@@ -34,70 +257,10 @@
   ],
   "entries": [
     {
-      "id": "henry_armitage_kidnapped",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "armitages_fate"
-    },
-    {
-      "id": "henry_armitage_rescued",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "armitages_fate"
-    },
-    {
-      "id": "ritual_completed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "blood_on_the_altar"
-    },
-    {
-      "id": "killed_silas_bishop",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "blood_on_the_altar"
-    },
-    {
-      "id": "restored_silas_bishop",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "blood_on_the_altar"
-    },
-    {
-      "id": "banished_silas_bishop",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "blood_on_the_altar"
-    },
-    {
-      "id": "necronomicon_stolen",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "blood_on_the_altar"
-    },
-    {
-      "id": "henry_armitage_survived",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "blood_on_the_altar"
-    },
-    {
-      "id": "investigators_delayed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "essex_county_express"
-    },
-    {
-      "id": "francis_morgan_kidnapped",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "essex_county_express"
-    },
-    {
       "id": "warren_rice_kidnapped",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "essex_county_express"
+      "scenario": "extracurricular_activity"
     },
     {
       "id": "students_rescued",
@@ -130,49 +293,13 @@
       "scenario": "extracurricular_activity"
     },
     {
-      "id": "closed_tear",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "lost_in_time_and_space"
-    },
-    {
-      "id": "yog_sothoth_fled",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "lost_in_time_and_space"
-    },
-    {
-      "id": "yog_sothoth_became_one_with_reality",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "lost_in_time_and_space"
-    },
-    {
-      "id": "warren_rice_survived",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "survivors"
-    },
-    {
-      "id": "francis_morgan_survived",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "survivors"
-    },
-    {
-      "id": "zebulon_whateley_survived",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "survivors"
-    },
-    {
-      "id": "earl_sawyer_survived",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "survivors"
-    },
-    {
       "id": "bone_to_pick",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_house_always_wins"
+    },
+    {
+      "id": "francis_morgan_kidnapped",
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "the_house_always_wins"
@@ -215,6 +342,54 @@
       "hidden": true
     },
     {
+      "id": "investigators_delayed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_the_essex_county_express"
+    },
+    {
+      "id": "necronomicon_stolen",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_the_essex_county_express"
+    },
+    {
+      "id": "henry_armitage_kidnapped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_the_essex_county_express"
+    },
+    {
+      "id": "ritual_completed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "killed_silas_bishop",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "restored_silas_bishop",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "banished_silas_bishop",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "henry_armitage_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
       "id": "calmed_townsfolk",
       "section": "campaign_notes",
       "kind": "note",
@@ -251,7 +426,60 @@
       "id": "yog_sothoth_escaped",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_doom_awaits"
+      "scenario": "where_doom_awaits",
+      "outcome": "loss"
+    },
+    {
+      "id": "closed_tear",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "lost_in_time_and_space",
+      "outcome": "win",
+      "outcomeQuality": "best"
+    },
+    {
+      "id": "yog_sothoth_fled",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "lost_in_time_and_space",
+      "outcome": "win"
+    },
+    {
+      "id": "yog_sothoth_became_one_with_reality",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "lost_in_time_and_space",
+      "outcome": "loss"
+    },
+    {
+      "id": "henry_armitage_rescued",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "armitages_fate"
+    },
+    {
+      "id": "warren_rice_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "francis_morgan_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "zebulon_whateley_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "earl_sawyer_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
     }
   ],
   "achievements": [

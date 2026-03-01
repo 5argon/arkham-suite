@@ -5,6 +5,11 @@
     "campaign_notes": "Campaign Notes",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "spreading_flames": "Spreading Flames",
+    "smoke_and_mirrors": "Smoke and Mirrors",
+    "queen_of_ash": "Queen of Ash"
+  },
   "entries": {
     "campaign_notes.miskatonic_university_burned": {
       "text": "Miskatonic University burned."

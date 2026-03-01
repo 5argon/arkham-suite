@@ -5,6 +5,10 @@
     "campaign_notes": "Campaign Notes",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "the_eternal_slumber": "The Eternal Slumber",
+    "the_nights_usurper": "The Night's Usurper"
+  },
   "entries": {
     "campaign_notes.tes_dreamers_in_the_abyss": {
       "text": "dreamers in the abyss (#X#)"

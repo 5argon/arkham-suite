@@ -1,0 +1,6 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"cards_class_title": "{cardClass} cards – arkham.life",
+	"cards_class_title_fallback": "Class cards – arkham.life",
+	"cards_class_unknown": "Unknown card class."
+}

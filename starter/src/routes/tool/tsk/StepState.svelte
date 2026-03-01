@@ -7,7 +7,9 @@
 		characterName,
 		computeDeception,
 		computeTrust,
+		getFile,
 		keyName,
+		logText,
 		markerLabel,
 		optionText,
 		resolveLocalized,
@@ -38,11 +40,38 @@
 
 	const SYMBOL_TO_ID: Record<string, string> = { 'α': 'alpha', 'β': 'beta', 'γ': 'gamma', 'δ': 'delta', 'ε': 'epsilon', 'ζ': 'zeta', 'Θ': 'theta', 'ψ': 'psi', 'ω': 'omega' };
 	const markerId = (symbol: string): string => SYMBOL_TO_ID[symbol] ?? symbol;
+
+	// Bermuda (The Great Work, 20-E): Tuwile Masai allies only if FEWER THAN TWO Coterie-distrust logs are
+	// recorded. Surface each one (met/unmet) so a hostile outcome can be debugged. The log list is read from
+	// the file's own condition data so it can never drift from the simulator's rule.
+	const tuwileBranch = $derived(step.chosen.find((c) => c.option.id === 'GW.ally' || c.option.id === 'GW.hostile'));
+	const distrustConditions = $derived.by(() => {
+		if (!tuwileBranch) return null;
+		const hostile = getFile(step.fileCode)?.decisions.flatMap((d) => d.options).find((o) => o.id === 'GW.hostile');
+		const ids = (hostile?.conditionLogic?.all ?? []).map((c) => c.countRecorded).find(Boolean)?.anyOf ?? [];
+		return ids.map((id) => ({ id, met: s.recorded.has(id) }));
+	});
+	const distrustMet = $derived(distrustConditions?.filter((c) => c.met).length ?? 0);
 </script>
 
 {#each autoBranches as c (c.decisionId)}
 	<div class="mt-0.5 text-xs font-medium text-primary-500 dark:text-primary-400">{text(step.fileCode, c.decisionId, c.option.id)}</div>
 {/each}
+
+{#if distrustConditions}
+	<div class="mt-1 rounded bg-primary-50 dark:bg-primary-900/40 p-2 text-xs">
+		<div class="font-medium text-primary-700 dark:text-primary-200">
+			Tuwile {distrustMet >= 2 ? 'stays hostile' : 'joins you'} — {distrustMet}/2 Coterie-distrust notes (he allies only with fewer than 2):
+		</div>
+		<ul class="mt-0.5 flex flex-col gap-0.5">
+			{#each distrustConditions as d (d.id)}
+				<li class={d.met ? 'text-survivor-700 dark:text-survivor-300' : 'text-primary-400'}>
+					<i class="fa-solid {d.met ? 'fa-square-check' : 'fa-square'} mr-1"></i>{logText(d.id)}
+				</li>
+			{/each}
+		</ul>
+	</div>
+{/if}
 {#if showChoices && picks.length}
 	<div class="mt-0.5 text-xs text-primary-500 dark:text-primary-400">{picks.map((c) => text(step.fileCode, c.decisionId, c.option.id)).join(' · ')}</div>
 {/if}

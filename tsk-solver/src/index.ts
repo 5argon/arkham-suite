@@ -44,7 +44,7 @@ export {
 } from './data/load.js';
 
 export { resolveLocalized } from './i18n/recipe.js';
-export { catalog, labelFor, type SolverCatalog, type CatalogEntry } from './catalog.js';
+export { catalog, chaosAdjustments, labelFor, resolutionGating, type SolverCatalog, type CatalogEntry, type ChaosAdjustmentSource } from './catalog.js';
 
 // engine
 export { initialState, applyFile, travelTo, computeTrust, computeDeception, keysHeldByInvestigator, bearerIsInvestigator } from './graph/state.js';
@@ -56,6 +56,7 @@ export {
 	allPlayableFiles,
 	applicableDecisions,
 	selectableDecisions,
+	visibleSelectableDecisions,
 	decisionAppliesAt,
 	optionsForDecision,
 	defaultOptionId,
@@ -73,6 +74,7 @@ export {
 export {
 	simulatePlan,
 	reachableDestinations,
+	chaosTokenTrail,
 	type Plan,
 	type PlanStep,
 	type SimStep,
@@ -80,7 +82,24 @@ export {
 	type StepProblem,
 	type StepProblemKind,
 	type Destination,
+	type ChaosTokenEvent,
 } from './solver/simulate.js';
+export { mapRoute, type MapRoute, type RouteLeg, type RouteStop } from './solver/route.js';
 export { evaluatePlan, type ConstraintCheck } from './solver/evaluate.js';
-export { predictFinale, type FinalePrediction, type MemberVote } from './solver/trial.js';
+export {
+	predictFinale,
+	finaleInsights,
+	coterieVoteGuide,
+	coterieAttemptAssertion,
+	COTERIE_ATTEMPT_PREFIX,
+	type FinalePrediction,
+	type MemberVote,
+	type MemberVoteDetail,
+	type FinaleInsights,
+	type CoteriePathCheck,
+	type EpilogueCheck,
+	type CoterieAttempt,
+	type VoteTransition,
+	type CoterieMemberVotes,
+} from './solver/trial.js';
 export { evaluateAchievements } from './solver/achievements.js';

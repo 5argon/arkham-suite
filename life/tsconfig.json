@@ -5,11 +5,14 @@
 		"checkJs": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
+		"lib": ["es2022", "DOM"],
+		"moduleResolution": "bundler",
+		"module": "esnext",
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"moduleResolution": "bundler",
+		"target": "es2020",
 		"composite": true,
 		"declaration": true,
 		"declarationMap": true,
@@ -18,18 +21,22 @@
 	},
 	"references": [
 		{
-			"path": "../kohaku"
+			"path": "../kohaku",
 		},
 		{
-			"path": "../string"
+			"path": "../string",
 		}
 	],
+	"include": [
+		".svelte-kit/ambient.d.ts",
+		".svelte-kit/non-ambient.d.ts",
+		".svelte-kit/types/**/$types.d.ts",
+		"src/**/*.js",
+		"src/**/*.ts",
+		"src/**/*.svelte",
+		"src/**/*.json"
+	],
 	"exclude": [
-		"src/lib/i18n.ts"
+		"src/lib/paraglide/server.js"
 	]
-	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
-	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
-	//
-	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
-	// from the referenced tsconfig.json - TypeScript does not merge them in
 }

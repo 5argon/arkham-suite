@@ -1,5 +1,28 @@
 {
   "code": "eoe",
+  "specialInteractions": {
+    "check_wini": { "text": "Winifred pilots the plane." }
+  },
+  "unhideSections": ["supplies_recovered"],
+  "scenarioChoices": {
+    "city_of_the_elder_things": [
+      { "id": "city_version", "label": "City version", "options": ["I", "II", "III"] }
+    ]
+  },
+  "outcomes": {
+    "_notes": "the_heart_of_madness_part_2 R1/R2/R3 = win, part_1 R3 = lose, part_2 no_resolution = lose. surviving_members_header dropped (header noise, not a clear-signal).",
+    "win": [
+      "campaign_notes.facility_was_destroyed",
+      "campaign_notes.team_escaped_the_facility"
+    ],
+    "loss": [
+      "campaign_notes.nameless_madness_escaped",
+      "campaign_notes.the_seal_was_used_improperly"
+    ],
+    "betterWin": [
+      "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now"
+    ]
+  },
   "_notes": "Verified all spans are exact substrings of their entry texts: \"the true nature of the miasma\" in \"Dr. Kensler understands the true nature of the miasma.\"; \"the nameless madness\" in both \"the nameless madness escaped.\" and \"the nameless madness is contained safely within its host… for now.\". No sibling collision: the two nameless_madness entries remain distinguishable after blur (\"...escaped.\" vs \"...is contained safely within its host… for now.\"). The Nameless Madness is the campaign's final boss (confirmed in achievement \"Simultaneously exhaust fifteen copies of The Nameless Madness in The Heart of Madness, Part II\") so blurring it is correct under-blur protection. All 9 partner codes resolved via resolve.mjs and labels match exactly. Partner \"confronted demons\" entries, memories, location, and camp labels left unblurred as they are named/visible-section disambiguators. No changes needed to the proposed curation; it is correct as submitted.",
   "spoilers": {
     "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": [
@@ -13,8 +36,15 @@
     ]
   },
   "sections": {
+    "seals_placed": {
+      "type": "seals"
+    },
+    "seals_recovered": {
+      "type": "seals"
+    },
     "expedition_team": {
       "type": "partner",
+      "major": true,
       "items": [
         {
           "id": "kensler",
@@ -152,7 +182,19 @@
       }
     },
     "look_at_all_this_stuff": {
-      "scenario": "to_the_forbidden_peaks"
+      "scenario": "to_the_forbidden_peaks",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          { "type": "log", "key": "supplies_recovered.green_soapstone", "crossed": false },
+          { "type": "log", "key": "supplies_recovered.wooden_sledge", "crossed": false },
+          { "type": "log", "key": "supplies_recovered.dynamite", "crossed": false },
+          { "type": "log", "key": "supplies_recovered.miasmic_crystal", "crossed": false },
+          { "type": "log", "key": "supplies_recovered.mineral_specimen", "crossed": false },
+          { "type": "log", "key": "supplies_recovered.small_radio", "crossed": false },
+          { "type": "log", "key": "supplies_recovered.spare_parts", "crossed": false }
+        ]
+      }
     },
     "in_your_head": {
       "scenario": "fatal_mirage",
@@ -191,67 +233,96 @@
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "kensler",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "dyer": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "dyer",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "danforth": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "danforth",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "cookie": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "cookie",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "ashevak": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "ashevak",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "sinha": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "sinha",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "hiroko": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "hiroko",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "claypool": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "claypool",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         },
         "ellsworth": {
           "type": "partnerStatus",
           "section": "expedition_team",
           "partner": "ellsworth",
-          "status": "alive"
+          "status": "name_crossed",
+          "absent": true
         }
       }
     }
   },
   "validators": [
     {
+      "_note": "The campsite chosen in Ice and Death, Part 1 is permanent (you cannot relocate); it carries into Parts 2 and 3. Only one camp may be recorded.",
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.camp_icebreaker_landing",
+        "campaign_notes.camp_icy_wastes",
+        "campaign_notes.camp_barrier_camp",
+        "campaign_notes.camp_rocky_crags",
+        "campaign_notes.camp_frigid_cave",
+        "campaign_notes.camp_precarious_ice_sheet",
+        "campaign_notes.camp_treacherous_path",
+        "campaign_notes.camp_crash_site",
+        "campaign_notes.camp_remnants_of_lakes_camp",
+        "campaign_notes.camp_frozen_shores",
+        "campaign_notes.camp_crystalline_cavern",
+        "campaign_notes.camp_broad_snowdrifts",
+        "campaign_notes.camp_snow_graves"
+      ],
+      "scenario": "ice_and_death_part_1"
+    },
+    {
       "type": "mutuallyExclusive",
       "entries": [
         "campaign_notes.convinced_dyer_to_allow_the_expedition",
         "campaign_notes.did_not_believe_dyers_report"
       ],
-      "scenario": "Prologue: The Side Effects of the Past"
+      "scenario": "eoe_prologue"
     },
     {
       "type": "mutuallyExclusive",
@@ -260,7 +331,7 @@
         "campaign_notes.team_defeated_the_hunting_creatures",
         "campaign_notes.team_fled_to_the_mountains"
       ],
-      "scenario": "Ice and Death, Part III"
+      "scenario": "ice_and_death_part_3"
     },
     {
       "type": "mutuallyExclusive",
@@ -268,7 +339,7 @@
         "campaign_notes.team_climbed_to_the_summit",
         "campaign_notes.team_found_another_way_through_the_mountains"
       ],
-      "scenario": "To the Forbidden Peaks"
+      "scenario": "to_the_forbidden_peaks"
     },
     {
       "type": "mutuallyExclusive",
@@ -276,7 +347,7 @@
         "campaign_notes.team_found_the_hidden_tunnel",
         "campaign_notes.team_was_guided_to_the_hidden_tunnel"
       ],
-      "scenario": "City of the Elder Things"
+      "scenario": "city_of_the_elder_things"
     },
     {
       "type": "mutuallyExclusive",
@@ -284,7 +355,7 @@
         "campaign_notes.dr_kensler_has_a_plan",
         "campaign_notes.truth_of_the_mirage_eludes_you"
       ],
-      "scenario": "The Heart of Madness, Part II"
+      "scenario": "the_heart_of_madness_part_2"
     },
     {
       "type": "mutuallyExclusive",
@@ -294,7 +365,7 @@
         "campaign_notes.facility_was_destroyed",
         "campaign_notes.team_escaped_the_facility"
       ],
-      "scenario": "The Heart of Madness, Part II"
+      "scenario": "the_heart_of_madness_part_2"
     },
     {
       "type": "mutuallyExclusive",
@@ -302,7 +373,7 @@
         "memories_discovered.airfield",
         "memories_banished.airfield"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -310,7 +381,7 @@
         "memories_discovered.alaskan_wilds",
         "memories_banished.alaskan_wilds"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -318,7 +389,7 @@
         "memories_discovered.cluttered_dormitory",
         "memories_banished.cluttered_dormitory"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -326,7 +397,7 @@
         "memories_discovered.dr_kenslers_office",
         "memories_banished.dr_kenslers_office"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -334,7 +405,7 @@
         "memories_discovered.dyers_classroom",
         "memories_banished.dyers_classroom"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -342,7 +413,7 @@
         "memories_discovered.infirmary",
         "memories_banished.infirmary"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -350,7 +421,7 @@
         "memories_discovered.ottoman_front",
         "memories_banished.ottoman_front"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     },
     {
       "type": "mutuallyExclusive",
@@ -358,7 +429,7 @@
         "memories_discovered.the_black_stone",
         "memories_banished.the_black_stone"
       ],
-      "scenario": "Fatal Mirage"
+      "scenario": "fatal_mirage"
     }
   ]
 }

@@ -1,5 +1,23 @@
 {
   "code": "boa",
+  "scenarios": {
+    "01_spreading_flames": "spreading_flames",
+    "02_smoke_and_mirrors": "smoke_and_mirrors",
+    "03_queen_of_ash": "queen_of_ash"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.flooded_the_ritual"
+    ],
+    "loss": [
+      "campaign_notes.elokoss_was_reborn"
+    ],
+    "betterWin": [
+      "campaign_notes.defeated_elokoss_and_the_brethren_of_ash",
+      "campaign_notes.stopped_elokoss_glorious_rebirth"
+    ]
+  },
   "_notes": "Verified all 11 spans are exact substrings of their entry texts (confirmed including the curly apostrophe in stopped_elokoss_glorious_rebirth's \"Elokoss's\"). No sibling collisions: 6 harbinger entries keep distinct investigator names visible; the two Servant-of-Flame entries stay distinguishable via \"killed\" vs \"escaped\"; the three endgame entries keep distinct surrounding text. No over/under-blur changes needed. No exotic sections required. Both sections correctly typed \"notes\". Curation accepted unchanged.",
   "spoilers": {
     "campaign_notes.david_harbinger": [

@@ -1,5 +1,22 @@
 {
   "code": "rtnotz",
+  "scenarios": {
+    "arkham": "return_to_the_midnight_masks",
+    "tentacles": "return_to_the_devourer_below",
+    "torch": "return_to_the_gathering"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.ritual_broken"
+    ],
+    "loss": [
+      "campaign_notes.arkham_succumbed"
+    ],
+    "betterWin": [
+      "campaign_notes.umordhoth_repelled"
+    ]
+  },
   "_notes": "Verified all 5 spans as exact substrings of their entry texts (Umôrdhoth confirmed with circumflex ô; right-single-quote in arkham_succumbed does not affect the span). All entries are in the single `campaign_notes` section. Sibling-collision check passed: the four Umôrdhoth-blurred entries remain distinct (\"Arkham succumbed to ___'s terrible vengeance\", \"the ritual to summon ___ was broken\", \"the investigators repelled ___\", \"the investigators sacrificed Lita Chantler to ___\"). Lita Chantler correctly left unblurred (front-loaded ally NPC; also keeps lita_sacrificed distinguishable). Generic scaffolding (house_burned, house_standing, lita_finds_others, past_midnight) correctly unblurred. No exotic roster section needed: only sections are notes + two dynamic-input cards sections (cultists_interrogated/escaped, no fixed roster) + hidden. No changes required to the proposed curation.",
   "spoilers": {
     "campaign_notes.ghoul_priest_alive": [
@@ -100,7 +117,7 @@
         "campaign_notes.house_burned",
         "campaign_notes.house_standing"
       ],
-      "scenario": "The Gathering"
+      "scenario": "torch"
     },
     {
       "type": "mutuallyExclusive",
@@ -110,7 +127,7 @@
         "campaign_notes.umordhoth_repelled",
         "campaign_notes.lita_sacrificed"
       ],
-      "scenario": "The Devourer Below"
+      "scenario": "tentacles"
     }
   ]
 }
