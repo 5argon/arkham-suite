@@ -215,6 +215,13 @@ export interface CardItem {
 	quantityColor?: CardClass;
 
 	/**
+	 * An arbitrary number to overlay on the card in the icons view (e.g. a usage
+	 * count). Rendered as a small badge by CardSquareGrid when its `showIconCount`
+	 * prop is set; ignored by the scans/list view modes.
+	 */
+	iconCount?: number;
+
+	/**
 	 * Owner card (typically an investigator card) associated with this card.
 	 */
 	owner?: Card;

@@ -1,0 +1,21 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"common_arkham_life": "arkham.life",
+	"common_back": "Back",
+	"common_loading": "Loading...",
+	"common_error": "Error",
+	"common_home_page_title": "arkham.life",
+	"common_home_description": "Finished campaign archival service Arkham Horror: The Card Game. Your career profile is then compiled from all your Archived Campaigns.",
+	"common_clear": "Clear",
+	"common_proceed": "Proceed",
+	"common_coming_soon": "Coming Soon",
+	"common_learn_more": "Learn more",
+	"home_tagline": "The irresponsible Arkham Horror LCG campaign archiving system that you can build a game career profile page out of. This site is in development, I took it online for my own use. Not sure how you found out about this but you can mess around WITH NO GUARANTEE ABOUT ANYTHING. Don't get mad at me when your database suddenly won't open, or when you see anything that looks like AI slop because I didn't have the time to de-slop them yet. - 5argon",
+	"home_empty_intro": "This browser is currently not loaded with any database. Please either initialize a new database or open an existing .ahlifedb to continue working.",
+	"home_start_fresh_title": "Start fresh",
+	"home_start_fresh_description": "Initialize a new database in this browser.",
+	"home_create_database": "Create new database",
+	"home_open_title": "Open an .ahlifedb file",
+	"home_choose_file": "Choose .ahlifedb file",
+	"home_open_error_fallback": "That file could not be read."
+}

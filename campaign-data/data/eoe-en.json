@@ -15,7 +15,164 @@
     "expedition_team": "Expedition Team",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "eoe_prologue": "Prologue",
+    "ice_and_death": "Ice and Death",
+    "ice_and_death_part_1": "Ice and Death, Part I",
+    "the_disapperance": "The Disappearance",
+    "ice_and_death_part_2": "Ice and Death, Part II",
+    "the_attack": "The Attack",
+    "ice_and_death_part_3": "Ice and Death, Part III",
+    "restful_night": "Restful Night",
+    "to_the_forbidden_peaks": "To the Forbidden Peaks",
+    "endless_night": "Endless Night",
+    "city_of_the_elder_things": "City of the Elder Things",
+    "final_night": "Final Night",
+    "the_heart_of_madness": "The Heart of Madness",
+    "the_heart_of_madness_part_1": "The Heart of Madness, Part I",
+    "the_other_side": "The Other Side",
+    "the_heart_of_madness_part_2": "The Heart of Madness, Part II",
+    "eoe_epilogue": "Epilogue",
+    "fatal_mirage": "Fatal Mirage",
+    "fatal_mirage_2": "Fatal Mirage",
+    "fatal_mirage_3": "Fatal Mirage"
+  },
   "entries": {
+    "campaign_notes.convinced_dyer_to_allow_the_expedition": {
+      "text": "the investigators convinced Dyer to allow the expedition."
+    },
+    "campaign_notes.did_not_believe_dyers_report": {
+      "text": "the investigators did not believe Dyer's report."
+    },
+    "campaign_notes.killed_in_plane_crash": {
+      "text": "#name# was killed in the plane crash."
+    },
+    "campaign_notes.camp_icebreaker_landing": {
+      "text": "Camp - Icebreaker Landing (5)"
+    },
+    "campaign_notes.camp_icy_wastes": {
+      "text": "Camp - Icy Wastes (4)"
+    },
+    "campaign_notes.camp_barrier_camp": {
+      "text": "Camp - Barrier Camp (7)"
+    },
+    "campaign_notes.camp_rocky_crags": {
+      "text": "Camp - Rocky Crags (3)"
+    },
+    "campaign_notes.camp_frigid_cave": {
+      "text": "Camp - Frigid Cave (6)"
+    },
+    "campaign_notes.camp_precarious_ice_sheet": {
+      "text": "Camp - Precarious Ice Sheet (2)"
+    },
+    "campaign_notes.camp_treacherous_path": {
+      "text": "Camp - Treacherous Path (1)"
+    },
+    "campaign_notes.camp_crash_site": {
+      "text": "Camp - Crash Site (0)"
+    },
+    "campaign_notes.camp_remnants_of_lakes_camp": {
+      "text": "Camp - Remnants of Lake's Camp (7)"
+    },
+    "campaign_notes.camp_frozen_shores": {
+      "text": "Camp - Frozen Shores (2)"
+    },
+    "campaign_notes.camp_crystalline_cavern": {
+      "text": "Camp - Crystalline Cavern (8)"
+    },
+    "campaign_notes.camp_broad_snowdrifts": {
+      "text": "Camp - Broad Snowdrifts (4)"
+    },
+    "campaign_notes.camp_snow_graves": {
+      "text": "Camp - Snow Graves (5)"
+    },
+    "supplies_recovered.green_soapstone": {
+      "text": "Green Soapstone"
+    },
+    "supplies_recovered.wooden_sledge": {
+      "text": "Wooden Sledge"
+    },
+    "supplies_recovered.dynamite": {
+      "text": "Dynamite"
+    },
+    "supplies_recovered.miasmic_crystal": {
+      "text": "Miasmic Crystal"
+    },
+    "supplies_recovered.mineral_specimen": {
+      "text": "Mineral Specimen"
+    },
+    "supplies_recovered.small_radio": {
+      "text": "Small Radio"
+    },
+    "supplies_recovered.spare_parts": {
+      "text": "Spare Parts"
+    },
+    "campaign_notes.team_fled_to_the_mountains": {
+      "text": "the team fled to the mountains."
+    },
+    "locations_revealed.icebreaker_landing": {
+      "text": "Icebreaker Landing"
+    },
+    "locations_revealed.icy_wastes": {
+      "text": "Icy Wastes"
+    },
+    "locations_revealed.barrier_camp": {
+      "text": "Barrier Camp"
+    },
+    "locations_revealed.rocky_crags": {
+      "text": "Rocky Crags"
+    },
+    "locations_revealed.frigid_cave": {
+      "text": "Frigid Cave"
+    },
+    "locations_revealed.precarious_ice_sheet": {
+      "text": "Precarious Ice Sheet"
+    },
+    "locations_revealed.treacherous_path": {
+      "text": "Treacherous Path"
+    },
+    "locations_revealed.crash_site": {
+      "text": "Crash Site"
+    },
+    "locations_revealed.remnants_of_lakes_camp": {
+      "text": "Remnants of Lake's Camp"
+    },
+    "locations_revealed.frozen_shores": {
+      "text": "Frozen Shores"
+    },
+    "locations_revealed.crystalline_cavern": {
+      "text": "Crystalline Cavern"
+    },
+    "locations_revealed.broad_snowdrifts": {
+      "text": "Broad Snowdrifts"
+    },
+    "locations_revealed.snow_graves": {
+      "text": "Snow Graves"
+    },
+    "campaign_notes.team_barely_escaped_the_ice_shelf": {
+      "text": "the team barely escaped the ice shelf."
+    },
+    "campaign_notes.team_defeated_the_hunting_creatures": {
+      "text": "the team defeated the hunting creatures."
+    },
+    "campaign_notes.dr_kensler_is_sharing_her_research_with_you": {
+      "text": "Dr. Kensler is sharing her research with you."
+    },
+    "campaign_notes.scouted_the_mountain_pass": {
+      "text": "the investigators scouted the mountain pass."
+    },
+    "campaign_notes.team_climbed_to_the_summit": {
+      "text": "the team climbed to the summit."
+    },
+    "campaign_notes.team_found_another_way_through_the_mountains": {
+      "text": "the team found another way through the mountains."
+    },
+    "campaign_notes.dr_kensler_is_on_the_verge_of_understanding": {
+      "text": "Dr. Kensler is on the verge of understanding."
+    },
+    "campaign_notes.scouted_the_city_outskirts": {
+      "text": "the investigators scouted the city outskirts."
+    },
     "campaign_notes.photographed_the_astronomical_charts": {
       "text": "The team photographed the astronomical charts."
     },
@@ -34,17 +191,74 @@
     "campaign_notes.team_was_guided_to_the_hidden_tunnel": {
       "text": "the team was guided to the hidden tunnel."
     },
-    "campaign_notes.dr_kensler_is_on_the_verge_of_understanding": {
-      "text": "Dr. Kensler is on the verge of understanding."
+    "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": {
+      "text": "Dr. Kensler understands the true nature of the miasma.",
+      "spoiler": [
+        "the true nature of the miasma"
+      ]
     },
-    "campaign_notes.scouted_the_city_outskirts": {
-      "text": "the investigators scouted the city outskirts."
+    "campaign_notes.scouted_the_forked_passage": {
+      "text": "the investigators scouted the forked passage."
     },
-    "campaign_notes.convinced_dyer_to_allow_the_expedition": {
-      "text": "the investigators convinced Dyer to allow the expedition."
+    "campaign_notes.the_seal_was_used_improperly": {
+      "text": "the seal was used… improperly."
     },
-    "campaign_notes.did_not_believe_dyers_report": {
-      "text": "the investigators did not believe Dyer's report."
+    "seals_placed.seal_a": {
+      "text": "[seal_a]"
+    },
+    "seals_placed.seal_b": {
+      "text": "[seal_b]"
+    },
+    "seals_placed.seal_c": {
+      "text": "[seal_c]"
+    },
+    "seals_placed.seal_d": {
+      "text": "[seal_d]"
+    },
+    "seals_placed.seal_e": {
+      "text": "[seal_e]"
+    },
+    "seals_recovered.seal_a": {
+      "text": "[seal_a]"
+    },
+    "seals_recovered.seal_b": {
+      "text": "[seal_b]"
+    },
+    "seals_recovered.seal_c": {
+      "text": "[seal_c]"
+    },
+    "seals_recovered.seal_d": {
+      "text": "[seal_d]"
+    },
+    "seals_recovered.seal_e": {
+      "text": "[seal_e]"
+    },
+    "campaign_notes.dr_kensler_has_a_plan": {
+      "text": "Dr. Kensler has a plan."
+    },
+    "campaign_notes.truth_of_the_mirage_eludes_you": {
+      "text": "the truth of the mirage eludes you."
+    },
+    "campaign_notes.nameless_madness_escaped": {
+      "text": "the nameless madness escaped.",
+      "spoiler": [
+        "the nameless madness"
+      ]
+    },
+    "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now": {
+      "text": "the nameless madness is contained safely within its host… for now.",
+      "spoiler": [
+        "the nameless madness"
+      ]
+    },
+    "campaign_notes.team_escaped_the_facility": {
+      "text": "the team escaped the facility."
+    },
+    "campaign_notes.facility_was_destroyed": {
+      "text": "the facility was destroyed."
+    },
+    "campaign_notes.surviving_members_header": {
+      "text": "the survivors of the expedition were:"
     },
     "memories_banished.airfield": {
       "text": "Airfield"
@@ -183,177 +397,6 @@
     },
     "campaign_notes.claypool_has_confronted_his_demons": {
       "text": "Claypool has confronted his demons."
-    },
-    "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": {
-      "text": "Dr. Kensler understands the true nature of the miasma.",
-      "spoiler": [
-        "the true nature of the miasma"
-      ]
-    },
-    "campaign_notes.scouted_the_forked_passage": {
-      "text": "the investigators scouted the forked passage."
-    },
-    "campaign_notes.killed_in_plane_crash": {
-      "text": "#name# was killed in the plane crash."
-    },
-    "campaign_notes.camp_icebreaker_landing": {
-      "text": "Camp - Icebreaker Landing (5)"
-    },
-    "campaign_notes.camp_icy_wastes": {
-      "text": "Camp - Icy Wastes (4)"
-    },
-    "campaign_notes.camp_barrier_camp": {
-      "text": "Camp - Barrier Camp (7)"
-    },
-    "campaign_notes.camp_rocky_crags": {
-      "text": "Camp - Rocky Crags (3)"
-    },
-    "campaign_notes.camp_frigid_cave": {
-      "text": "Camp - Frigid Cave (6)"
-    },
-    "campaign_notes.camp_precarious_ice_sheet": {
-      "text": "Camp - Precarious Ice Sheet (2)"
-    },
-    "campaign_notes.camp_treacherous_path": {
-      "text": "Camp - Treacherous Path (1)"
-    },
-    "campaign_notes.camp_crash_site": {
-      "text": "Camp - Crash Site (0)"
-    },
-    "campaign_notes.camp_remnants_of_lakes_camp": {
-      "text": "Camp - Remnants of Lake's Camp (7)"
-    },
-    "campaign_notes.camp_frozen_shores": {
-      "text": "Camp - Frozen Shores (2)"
-    },
-    "campaign_notes.camp_crystalline_cavern": {
-      "text": "Camp - Crystalline Cavern (8)"
-    },
-    "campaign_notes.camp_broad_snowdrifts": {
-      "text": "Camp - Broad Snowdrifts (4)"
-    },
-    "campaign_notes.camp_snow_graves": {
-      "text": "Camp - Snow Graves (5)"
-    },
-    "campaign_notes.team_barely_escaped_the_ice_shelf": {
-      "text": "the team barely escaped the ice shelf."
-    },
-    "campaign_notes.team_defeated_the_hunting_creatures": {
-      "text": "the team defeated the hunting creatures."
-    },
-    "campaign_notes.team_fled_to_the_mountains": {
-      "text": "the team fled to the mountains."
-    },
-    "campaign_notes.dr_kensler_is_sharing_her_research_with_you": {
-      "text": "Dr. Kensler is sharing her research with you."
-    },
-    "campaign_notes.scouted_the_mountain_pass": {
-      "text": "the investigators scouted the mountain pass."
-    },
-    "locations_revealed.icebreaker_landing": {
-      "text": "Icebreaker Landing"
-    },
-    "locations_revealed.icy_wastes": {
-      "text": "Icy Wastes"
-    },
-    "locations_revealed.barrier_camp": {
-      "text": "Barrier Camp"
-    },
-    "locations_revealed.rocky_crags": {
-      "text": "Rocky Crags"
-    },
-    "locations_revealed.frigid_cave": {
-      "text": "Frigid Cave"
-    },
-    "locations_revealed.precarious_ice_sheet": {
-      "text": "Precarious Ice Sheet"
-    },
-    "locations_revealed.treacherous_path": {
-      "text": "Treacherous Path"
-    },
-    "locations_revealed.crash_site": {
-      "text": "Crash Site"
-    },
-    "locations_revealed.remnants_of_lakes_camp": {
-      "text": "Remnants of Lake's Camp"
-    },
-    "locations_revealed.frozen_shores": {
-      "text": "Frozen Shores"
-    },
-    "locations_revealed.crystalline_cavern": {
-      "text": "Crystalline Cavern"
-    },
-    "locations_revealed.broad_snowdrifts": {
-      "text": "Broad Snowdrifts"
-    },
-    "locations_revealed.snow_graves": {
-      "text": "Snow Graves"
-    },
-    "campaign_notes.the_seal_was_used_improperly": {
-      "text": "the seal was used… improperly."
-    },
-    "campaign_notes.dr_kensler_has_a_plan": {
-      "text": "Dr. Kensler has a plan."
-    },
-    "campaign_notes.truth_of_the_mirage_eludes_you": {
-      "text": "the truth of the mirage eludes you."
-    },
-    "campaign_notes.nameless_madness_escaped": {
-      "text": "the nameless madness escaped.",
-      "spoiler": [
-        "the nameless madness"
-      ]
-    },
-    "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now": {
-      "text": "the nameless madness is contained safely within its host… for now.",
-      "spoiler": [
-        "the nameless madness"
-      ]
-    },
-    "campaign_notes.team_escaped_the_facility": {
-      "text": "the team escaped the facility."
-    },
-    "campaign_notes.facility_was_destroyed": {
-      "text": "the facility was destroyed."
-    },
-    "campaign_notes.surviving_members_header": {
-      "text": "the survivors of the expedition were:"
-    },
-    "seals_placed.seal_a": {
-      "text": "[seal_a]"
-    },
-    "seals_placed.seal_b": {
-      "text": "[seal_b]"
-    },
-    "seals_placed.seal_c": {
-      "text": "[seal_c]"
-    },
-    "seals_placed.seal_d": {
-      "text": "[seal_d]"
-    },
-    "seals_placed.seal_e": {
-      "text": "[seal_e]"
-    },
-    "seals_recovered.seal_a": {
-      "text": "[seal_a]"
-    },
-    "seals_recovered.seal_b": {
-      "text": "[seal_b]"
-    },
-    "seals_recovered.seal_c": {
-      "text": "[seal_c]"
-    },
-    "seals_recovered.seal_d": {
-      "text": "[seal_d]"
-    },
-    "seals_recovered.seal_e": {
-      "text": "[seal_e]"
-    },
-    "campaign_notes.team_climbed_to_the_summit": {
-      "text": "the team climbed to the summit."
-    },
-    "campaign_notes.team_found_another_way_through_the_mountains": {
-      "text": "the team found another way through the mountains."
     }
   },
   "achievements": {
@@ -449,6 +492,11 @@
       "text": "Win the <i>Edge of the Earth</i> campaign on Expert difficulty"
     }
   },
+  "specialInteractions": {
+    "check_wini": {
+      "text": "Winifred pilots the plane."
+    }
+  },
   "items": {
     "kensler": "Dr. Amy Kensler",
     "dyer": "Prof. William Dyer",
@@ -459,5 +507,10 @@
     "sinha": "Dr. Mala Sinha",
     "cookie": "James \"Cookie\" Fredericks",
     "ashevak": "Eliyah Ashevak"
+  },
+  "scenarioChoices": {
+    "city_of_the_elder_things.city_version": {
+      "label": "City version"
+    }
   }
 }

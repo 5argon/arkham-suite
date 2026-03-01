@@ -1,5 +1,24 @@
 {
   "code": "ptc",
+  "specialInteractions": {
+    "check_lola_hayes": { "text": "Lola starts the campaign backstage." }
+  },
+  "scenarioChoices": {
+    "dim_carcosa": [
+      { "id": "hastur_version", "label": "Hastur version", "options": ["I", "II", "III"] }
+    ]
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.possessed",
+      "campaign_notes.prevented_hasturs_escape"
+    ],
+    "loss": [
+      "campaign_notes.carcosa_merged",
+      "campaign_notes.hastur_has_you"
+    ]
+  },
   "_notes": "Verified all 9 spans are exact substrings of their entry texts in ptc-en.draft.json. All entries live in the single campaign_notes section. No sibling collisions: onyx-clasp pair distinguished by took/left+\"behind\"; Nigel trio distinguished by \"Nigel's home\"/\"Nigel ___\"/\"find Nigel\"; three Hastur entries have distinct surrounding text. Blur choices are correct: Hastur (endgame boss), the oathspeaker, the phantom, onyx clasp, and Engram (Stranger's true surname) are genuine reveals; Carcosa (campaign name) and \"the King\"/\"the Stranger\" (early recurring titles) correctly left visible. Card sections (vips_interviewed/vips_slain/possessed/read_act_2) are roster cards not in the entries map and out of scope. No changes required.",
   "spoilers": {
     "campaign_notes.took_onyx_clasp": [

@@ -104,6 +104,7 @@ export function applyEffect(d: Draft, e: Effect, nowBox: number): void {
 		case 'campaign': // win/lose surfaced at the finale step, not stored in state
 		case 'note':
 		case 'trauma':
+		case 'allowRevisit': // consumed by the stop-lockout check in simulate.ts, not stored here
 			break;
 	}
 }

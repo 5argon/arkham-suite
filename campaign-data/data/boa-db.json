@@ -8,6 +8,108 @@
     "smoke_and_mirrors",
     "queen_of_ash"
   ],
+  "scenarioMeta": [
+    {
+      "id": "spreading_flames",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "smoke_and_mirrors",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "queen_of_ash",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R3": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "not_resigned"
+            }
+          ],
+          "result": "win"
+        }
+      }
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 3,
+      "-2": 2,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 3,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 3,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 2,
+      "-5": 1,
+      "-6": 1,
+      "-8": 1,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -24,150 +126,156 @@
       "id": "miskatonic_university_burned",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "01_spreading_flames"
+      "scenario": "spreading_flames"
     },
     {
       "id": "defeated_their_masked_pursuer",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "01_spreading_flames"
+      "scenario": "spreading_flames"
     },
     {
       "id": "saved_miskatonic_university",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "01_spreading_flames"
+      "scenario": "spreading_flames"
     },
     {
       "id": "smoke_and_mirrors_phi",
       "section": "hidden",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors",
+      "scenario": "smoke_and_mirrors",
       "hidden": true
     },
     {
       "id": "killed_servant_of_flame",
       "section": "hidden",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors",
+      "scenario": "smoke_and_mirrors",
       "hidden": true
     },
     {
       "id": "servant_of_flame_beaneath_act",
       "section": "hidden",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors",
+      "scenario": "smoke_and_mirrors",
       "hidden": true
     },
     {
       "id": "david_harbinger",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "cornelia_harbinger",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "naomi_harbinger",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "earl_harbinger",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "abigail_harbinger",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "margaret_harbinger",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "enemy_is_harbinger",
       "section": "hidden",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors",
+      "scenario": "smoke_and_mirrors",
       "hidden": true
     },
     {
       "id": "discovered_the_cults_whereabouts",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "failed_in_their_search",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "killed_the_servant_of_flame",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "scoured_arkham_for_answers",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "stirred_up_trouble",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "the_servant_of_flame_escaped",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_smoke_and_mirrors"
+      "scenario": "smoke_and_mirrors"
     },
     {
       "id": "queen_of_ash_phi",
       "section": "hidden",
       "kind": "note",
-      "scenario": "03_queen_of_ash",
+      "scenario": "queen_of_ash",
       "hidden": true
     },
     {
       "id": "elokoss_was_reborn",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "03_queen_of_ash"
+      "scenario": "queen_of_ash",
+      "outcome": "loss"
     },
     {
       "id": "defeated_elokoss_and_the_brethren_of_ash",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "03_queen_of_ash"
+      "scenario": "queen_of_ash",
+      "outcome": "win",
+      "outcomeQuality": "best"
     },
     {
       "id": "stopped_elokoss_glorious_rebirth",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "03_queen_of_ash"
+      "scenario": "queen_of_ash",
+      "outcome": "win",
+      "outcomeQuality": "best"
     },
     {
       "id": "flooded_the_ritual",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "03_queen_of_ash"
+      "scenario": "queen_of_ash",
+      "outcome": "win"
     }
   ],
   "achievements": [],

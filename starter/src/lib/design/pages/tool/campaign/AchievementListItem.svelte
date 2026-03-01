@@ -1,11 +1,18 @@
 <script lang="ts">
-	import type { ResolvedAchievement } from '@5argon/arkham-campaign-data';
-	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
+	import type { CampaignLog, ResolvedAchievement } from '@5argon/arkham-campaign-data';
+	import {
+		achievementInferScope,
+		describeAchievementInference
+	} from '@5argon/arkham-campaign-data';
+	import { FaIcon, FaIconType, Modal, parseArkhamMarkup } from '@5argon/arkham-life-ui';
 	import AchievementStatusIcon from './AchievementStatusIcon.svelte';
 
-	let { achievement }: { achievement: ResolvedAchievement } = $props();
+	let { achievement, log }: { achievement: ResolvedAchievement; log: CampaignLog | undefined } =
+		$props();
 
-	const inferred = $derived(Boolean(achievement.def.infer || achievement.def.itemInfer));
+	const scope = $derived(achievementInferScope(achievement.def));
+	const conditions = $derived(log ? describeAchievementInference(achievement.def, log) : []);
+	let conditionsOpen = $state(false);
 
 	// For `list` achievements (e.g. "The Gang's All Here"), the ordered sub-items
 	// the player checks off, resolved to their display labels.
@@ -34,7 +41,7 @@
 	<div class="min-w-0">
 		<div class="flex items-center gap-2 font-bold text-secondary-900 dark:text-secondary-100">
 			{achievement.en.title}
-			<AchievementStatusIcon {inferred} />
+			<AchievementStatusIcon {scope} onClick={() => (conditionsOpen = true)} />
 		</div>
 		<div class="text-sm text-primary-700 dark:text-primary-300">
 			{clean(achievement.en.text)}
@@ -53,3 +60,24 @@
 		{/if}
 	</div>
 </li>
+
+<Modal
+	isOpen={conditionsOpen}
+	onClose={() => (conditionsOpen = false)}
+	title={achievement.en.title}
+>
+	<div class="space-y-3 py-2 text-sm">
+		<p class="text-primary-600 dark:text-primary-300">
+			This achievement is fully derivable later from just your campaign logs :
+		</p>
+		{#if conditions.length}
+			<ul class="list-disc space-y-1 pl-5 text-primary-800 dark:text-primary-200">
+				{#each conditions as c, i (i)}
+					<li>{@html parseArkhamMarkup(c)}</li>
+				{/each}
+			</ul>
+		{:else}
+			<p class="text-primary-800 dark:text-primary-200">{clean(achievement.en.text)}</p>
+		{/if}
+	</div>
+</Modal>

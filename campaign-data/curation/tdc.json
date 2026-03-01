@@ -1,5 +1,40 @@
 {
   "code": "tdc",
+  "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). the_doom_of_arkham_part_1: drop R3 (read only from inside R1; not a standalone first-choice ending).",
+  "scenarioResolutions": {
+    "the_doom_of_arkham_part_1": ["no_resolution", "R1", "R2"]
+  },
+  "specialInteractions": {
+    "check_wendy_adams": { "text": "Andy mentions Wendy's father." },
+    "check_detective": { "text": "Reads the relic as stolen." },
+    "check_ursula": { "text": "Ursula recalls her Amazon expedition." }
+  },
+  "scenarios": {
+    "02_one_last_job": "one_last_job",
+    "05_the_western_wall": "the_western_wall",
+    "06_the_drowned_quarter": "the_drowned_quarter",
+    "07_the_apiary": "the_apiary",
+    "08_the_grand_vault": "the_grand_vault",
+    "09_court_of_the_ancients": "court_of_the_ancients",
+    "10_obsidian_canyons": "obsidian_canyons",
+    "11_sepulchre_of_the_sleeper": "sepulchre_of_the_sleeper",
+    "15_the_doom_of_arkham_part_1": "the_doom_of_arkham",
+    "16_the_doom_of_arkham_part_2": "the_doom_of_arkham"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.cthulhu_was_banished",
+      "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed",
+      "campaign_notes.cthulhu_was_driven_away"
+    ],
+    "loss": [
+      "campaign_notes.cthulhu_annihilated_the_city_of_arkham"
+    ],
+    "betterWin": [
+      "campaign_notes.halted_cthulhus_awakening"
+    ]
+  },
   "_notes": "Verified all 6 spoiler spans are exact substrings of their entry texts in tdc-en.draft.json: \"the alien parasites\" in \"the investigators exterminated the alien parasites.\"; \"Cthulhu's awakening\" in \"the investigators halted Cthulhu's awakening.\"; \"Cthulhu\" in each of the four endgame outcome entries. No invalid spans.\n\nSibling-collision check on campaign_notes endgame outcomes after blurring Cthulhu: \"[X] annihilated the city of Arkham.\" / \"[X] was driven away.\" / \"[X] was banished.\" / \"[X] was banished, but Arkham was destroyed.\" — all remain distinguishable by their outcome verbs. No collisions.\n\nglyphs roster: db lists 26 rune entries tdc_rune_a..z all in the glyphs section (rune_a/rune_s from scenarios, rune_b..r,t..z from core); roster enumerates all 26 in a..z order, labeled with the [tdc_rune_X] marker so the UI renders the glyph symbol. resolve.mjs does not apply (glyphs are rune slots, not card codes; resolve tdc returns not-found, as expected). Correct.\n\nNo changes required — the proposed curation is valid as-is. Kept artifacts_earned, flooded_neighborhoods, locations, the Depths/Machine glyph translations, and generic scaffolding unblurred per the curator's reasoning, which is sound (whole-text-only sibling entries under visible section titles; no boss/twist reveals left exposed beyond the central Cthulhu reveal which IS blurred).",
   "spoilers": {
     "campaign_notes.exterminated_the_alien_parasites": [

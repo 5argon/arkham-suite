@@ -8,6 +8,187 @@
     "one_last_job",
     "an_offer_you_cant_refuse"
   ],
+  "scenarioMeta": [
+    {
+      "id": "tdc_prologue",
+      "type": "interlude"
+    },
+    {
+      "id": "one_last_job",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "an_offer_you_cant_refuse",
+      "type": "interlude"
+    },
+    {
+      "id": "expedition_to_ryleh",
+      "type": "interlude"
+    },
+    {
+      "id": "the_western_wall",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_drowned_quarter",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_apiary",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "the_grand_vault",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "court_of_the_ancients",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "obsidian_canyons",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "sepulchre_of_the_sleeper",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "return_to_arkham",
+      "type": "interlude"
+    },
+    {
+      "id": "the_doom_of_arkham",
+      "type": "interlude"
+    },
+    {
+      "id": "the_doom_of_arkham_part_1",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_doom_of_arkham_part_2",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    },
+    {
+      "id": "tdc_epilogue",
+      "type": "epilogue"
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 3,
+      "-2": 2,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 3,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 3,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 2,
+      "-5": 1,
+      "-6": 1,
+      "-8": 1,
+      "skull": 2,
+      "tablet": 1,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -125,25 +306,25 @@
       "id": "discovered_an_alien_language",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_one_last_job"
+      "scenario": "one_last_job"
     },
     {
       "id": "ruby_won_the_bet",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_one_last_job"
+      "scenario": "one_last_job"
     },
     {
       "id": "ruby_lost_the_bet",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "02_one_last_job"
+      "scenario": "one_last_job"
     },
     {
       "id": "tdc_rune_a",
       "section": "glyphs",
       "kind": "note",
-      "scenario": "02_one_last_job"
+      "scenario": "one_last_job"
     },
     {
       "id": "tasks_active",
@@ -279,133 +460,135 @@
       "id": "the_creature_was_defeated",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "05_the_western_wall"
+      "scenario": "the_western_wall"
     },
     {
       "id": "expedition_helped_pilgrim",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "05_the_western_wall",
+      "scenario": "the_western_wall",
       "hidden": true
     },
     {
       "id": "expedition_abandoned_pilgrim",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "05_the_western_wall",
+      "scenario": "the_western_wall",
       "hidden": true
     },
     {
       "id": "barrier_node",
       "section": "artifacts_earned",
       "kind": "note",
-      "scenario": "06_the_drowned_quarter",
+      "scenario": "the_drowned_quarter",
       "crossOut": true
     },
     {
       "id": "the_power_was_diverted",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "06_the_drowned_quarter"
+      "scenario": "the_drowned_quarter"
     },
     {
       "id": "tdc_lost_pilgrims",
       "section": "hidden",
       "kind": "note",
-      "scenario": "07_the_apiary",
+      "scenario": "the_apiary",
       "hidden": true
     },
     {
       "id": "tdc_hive_mind",
       "section": "hidden",
       "kind": "note",
-      "scenario": "07_the_apiary",
+      "scenario": "the_apiary",
       "hidden": true
     },
     {
       "id": "grisly_mask",
       "section": "artifacts_earned",
       "kind": "note",
-      "scenario": "07_the_apiary",
+      "scenario": "the_apiary",
       "crossOut": true
     },
     {
       "id": "pilgrims_were_saved",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "07_the_apiary"
+      "scenario": "the_apiary"
     },
     {
       "id": "pilgrims_were_devoured",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "07_the_apiary"
+      "scenario": "the_apiary"
     },
     {
       "id": "exterminated_the_alien_parasites",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "07_the_apiary"
+      "scenario": "the_apiary"
     },
     {
       "id": "tdc_rune_s",
       "section": "glyphs",
       "kind": "note",
-      "scenario": "07_the_apiary"
+      "scenario": "the_apiary"
     },
     {
       "id": "tdc_vault_core",
       "section": "hidden",
       "kind": "note",
-      "scenario": "08_the_grand_vault",
+      "scenario": "the_grand_vault",
       "hidden": true
     },
     {
       "id": "the_inner_sanctum_was_unsealed",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "08_the_grand_vault"
+      "scenario": "the_grand_vault"
     },
     {
       "id": "tidal_tablet",
       "section": "artifacts_earned",
       "kind": "note",
-      "scenario": "08_the_grand_vault",
+      "scenario": "the_grand_vault",
       "crossOut": true
     },
     {
       "id": "shard",
       "section": "artifacts_earned",
       "kind": "note",
-      "scenario": "09_court_of_the_ancients",
+      "scenario": "court_of_the_ancients",
       "crossOut": true
     },
     {
       "id": "tdc_helped_with_the_ropes",
       "section": "hidden",
       "kind": "note",
-      "scenario": "10_obsidian_canyons",
+      "scenario": "obsidian_canyons",
       "hidden": true
     },
     {
       "id": "obsidian_claw",
       "section": "artifacts_earned",
       "kind": "note",
-      "scenario": "10_obsidian_canyons",
+      "scenario": "obsidian_canyons",
       "crossOut": true
     },
     {
       "id": "did_not_confront_the_nightmare",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "11_sepulchre_of_the_sleeper",
+      "scenario": "sepulchre_of_the_sleeper",
       "hidden": true
     },
     {
       "id": "halted_cthulhus_awakening",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "11_sepulchre_of_the_sleeper"
+      "scenario": "sepulchre_of_the_sleeper",
+      "outcome": "win",
+      "outcomeQuality": "best"
     },
     {
       "id": "tasks_done",
@@ -418,120 +601,124 @@
       "id": "kept_barrier_node",
       "section": "hidden",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1",
+      "scenario": "the_doom_of_arkham",
       "hidden": true
     },
     {
       "id": "kept_obsidian_claw",
       "section": "hidden",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1",
+      "scenario": "the_doom_of_arkham",
       "hidden": true
     },
     {
       "id": "kept_shard",
       "section": "hidden",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1",
+      "scenario": "the_doom_of_arkham",
       "hidden": true
     },
     {
       "id": "kept_tidal_tablet",
       "section": "hidden",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1",
+      "scenario": "the_doom_of_arkham",
       "hidden": true
     },
     {
       "id": "kept_grisly_mask",
       "section": "hidden",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1",
+      "scenario": "the_doom_of_arkham",
       "hidden": true
     },
     {
       "id": "clah_horror",
       "section": "artifacts_earned",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "downtown",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "easttown",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "miskatonic_university",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "northside",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "rivertown",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "southside",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "st_marys_hospital",
       "section": "flooded_neighborhoods",
       "kind": "note",
-      "scenario": "15_the_doom_of_arkham_part_1"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "stood_together",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "16_the_doom_of_arkham_part_2"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "your_allies_have_a_plan",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "16_the_doom_of_arkham_part_2"
+      "scenario": "the_doom_of_arkham"
     },
     {
       "id": "cthulhu_annihilated_the_city_of_arkham",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "16_the_doom_of_arkham_part_2"
+      "scenario": "the_doom_of_arkham",
+      "outcome": "loss"
     },
     {
       "id": "cthulhu_was_driven_away",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "16_the_doom_of_arkham_part_2"
+      "scenario": "the_doom_of_arkham",
+      "outcome": "win"
     },
     {
       "id": "cthulhu_was_banished",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "16_the_doom_of_arkham_part_2"
+      "scenario": "the_doom_of_arkham",
+      "outcome": "win"
     },
     {
       "id": "cthulhu_was_banished_but_arkham_was_destroyed",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "16_the_doom_of_arkham_part_2"
+      "scenario": "the_doom_of_arkham",
+      "outcome": "win"
     }
   ],
   "achievements": [
@@ -743,6 +930,48 @@
         "type": "difficulty",
         "is": "expert"
       }
+    }
+  ],
+  "specialInteractions": [
+    {
+      "id": "check_wendy_adams",
+      "scenario": "one_last_job",
+      "match": {
+        "kind": "code",
+        "codes": [
+          "01005",
+          "01505",
+          "90037"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
+    },
+    {
+      "id": "check_detective",
+      "scenario": "an_offer_you_cant_refuse",
+      "match": {
+        "kind": "trait",
+        "traits": [
+          "Agency",
+          "Detective",
+          "Criminal"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
+    },
+    {
+      "id": "check_ursula",
+      "scenario": "the_apiary",
+      "match": {
+        "kind": "code",
+        "codes": [
+          "04002"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
     }
   ],
   "validators": [

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { simulatePlan, type Plan, type PlanStep } from '../src/solver/simulate.js';
+import { chaosTokenTrail, simulatePlan, type Plan, type PlanStep } from '../src/solver/simulate.js';
+import { chaosAdjustments } from '../src/catalog.js';
 import { resetAll } from './helpers.js';
 
 resetAll();
@@ -52,6 +53,56 @@ describe('simulatePlan', () => {
 		expect(kinds(t.steps[1]!.problems)).not.toContain('stop_locked'); // London hub is exempt
 		const t2 = simulatePlan(plan(prologue(), { location: 'marrakesh', fileCode: '11-B', choices: { 'DH.resolution': 'DH.R4' } }, { location: 'marrakesh', fileCode: '11-B', travelOnly: false, choices: { 'DH.resolution': 'DH.R4' } }));
 		expect(kinds(t2.steps[2]!.problems)).toContain('stop_locked');
+	});
+
+	it('Rome (51-T) may be re-stopped, but only after another scenario is played in between', () => {
+		const rome = (): PlanStep => ({ location: 'rome', fileCode: '51-T', choices: {} });
+		const scenario = (): PlanStep => ({ location: 'marrakesh', fileCode: '11-B', choices: { 'DH.resolution': 'DH.R4' } });
+		// Re-stopping at Rome with no scenario in between is still flagged...
+		const tooSoon = simulatePlan(plan(prologue(), rome(), rome()));
+		expect(kinds(tooSoon.steps[2]!.problems)).toContain('stop_locked');
+		// ...but after playing a scenario, the revisit is legal.
+		const ok = simulatePlan(plan(prologue(), rome(), scenario(), rome()));
+		expect(kinds(ok.steps[3]!.problems)).not.toContain('stop_locked');
+	});
+
+	it('the Ybor City safehouse (52-U "no entry" branch) may be re-stopped freely', () => {
+		const safehouse = (): PlanStep => ({ location: 'yborCity', fileCode: '52-U', choices: {} });
+		const t = simulatePlan(plan(prologue(), safehouse(), safehouse()));
+		expect(kinds(t.steps[2]!.problems)).not.toContain('stop_locked');
+	});
+
+	it('Sanguine Shadows: Cast a Light is gated on collecting every target', async () => {
+		const { visibleSelectableDecisions, resolutionOffers, initialState } = await import('../src/index.js');
+		const st = initialState();
+		const ids = (choices: Record<string, string>) => visibleSelectableDecisions('16-D', choices, st, 5, 'buenosAires').map((d) => d.decisionId);
+		// Collected every target → the Cast a Light decision is offered.
+		expect(ids({ 'SS.targets': 'SS.targets.all' })).toContain('SS.castALight.believe');
+		// Didn't collect every target → Cast a Light is hidden.
+		expect(ids({ 'SS.targets': 'SS.targets.some' })).not.toContain('SS.castALight.believe');
+		// Offerable resolutions follow suit: R3 only when targets weren't all collected; R2 only on the believe path.
+		const offers = (choices: Record<string, string>) => resolutionOffers('16-D', choices, st, 5, 'buenosAires').filter((r) => r.offerable).map((r) => r.option.id);
+		expect(offers({ 'SS.targets': 'SS.targets.some' })).toEqual(expect.arrayContaining(['SS.R1', 'SS.R3']));
+		expect(offers({ 'SS.targets': 'SS.targets.some' })).not.toContain('SS.R2');
+		expect(offers({ 'SS.targets': 'SS.targets.all', 'SS.castALight.believe': 'SS.cal.believe' })).toContain('SS.R2');
+		expect(offers({ 'SS.targets': 'SS.targets.all', 'SS.castALight.believe': 'SS.cal.believe' })).not.toContain('SS.R3');
+	});
+
+	it('chaos-token trail records each Trust/Deception act and the resulting bag (separate from epilogue tallies)', () => {
+		const trail = chaosTokenTrail(simulatePlan(plan(prologue('RR.intro.accept'))));
+		const e = trail.find((x) => x.kind === 'trust');
+		expect(e).toBeTruthy();
+		expect([e!.tabletDelta, e!.elderThingDelta]).toEqual([1, -1]);
+		expect([e!.tablet, e!.elderThing]).toEqual([2, 0]); // from the starting 1 Tablet / 1 Elder Thing
+	});
+
+	it('chaosAdjustments catalog flags which bag shifts can be inferred from the Campaign Log', () => {
+		const adj = chaosAdjustments();
+		const byOpt = (id: string) => adj.find((a) => a.optionId === id);
+		expect(byOpt('FND.tell')?.logDetectable).toBe(true); // records "told the truth to Taylor"
+		expect(byOpt('DAG.tell')?.logDetectable).toBe(true); // crosses off "Quinn does not trust the cell"
+		expect(byOpt('RR.intro.accept')?.kind).toBe('trust');
+		expect(byOpt('RR.intro.accept')?.logDetectable).toBe(false); // travel-with-Flint leaves no log trace
 	});
 
 	it('a ticket jump with no ticket in hand charges 0 travel and is flagged', () => {

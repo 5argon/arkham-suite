@@ -21,6 +21,269 @@
     "return_to_shattered_aeons",
     "tfa_epilogue"
   ],
+  "scenarioMeta": [
+    {
+      "id": "tfa_prologue",
+      "type": "interlude"
+    },
+    {
+      "id": "the_untamed_wilds",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "tfa_interlude1",
+      "type": "interlude"
+    },
+    {
+      "id": "the_doom_of_eztli",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "no_resolution_resigned",
+        "R1",
+        "R3"
+      ]
+    },
+    {
+      "id": "tfa_interlude2",
+      "type": "interlude"
+    },
+    {
+      "id": "threads_of_fate",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "the_boundary_beyond",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "tfa_interlude3",
+      "type": "interlude"
+    },
+    {
+      "id": "heart_of_the_elders_part_1",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "heart_of_the_elders_part_2",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_city_of_archives",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    },
+    {
+      "id": "tfa_interlude4",
+      "type": "interlude"
+    },
+    {
+      "id": "the_depths_of_yoth",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "tfa_interlude5",
+      "type": "interlude"
+    },
+    {
+      "id": "shattered_aeons",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R4": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    },
+    {
+      "id": "tfa_epilogue",
+      "type": "epilogue"
+    },
+    {
+      "id": "return_to_the_untamed_wilds",
+      "type": "story"
+    },
+    {
+      "id": "return_to_the_doom_of_eztli",
+      "type": "story"
+    },
+    {
+      "id": "return_to_threads_of_fate",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "return_to_the_boundary_beyond",
+      "type": "story"
+    },
+    {
+      "id": "return_to_heart_of_the_elders_part_1",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "return_to_heart_of_the_elders_part_2",
+      "type": "story"
+    },
+    {
+      "id": "return_to_the_city_of_archives",
+      "type": "story"
+    },
+    {
+      "id": "return_to_the_depths_of_yoth",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "return_to_shattered_aeons",
+      "type": "story"
+    },
+    {
+      "id": "turn_back_time",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 2,
+      "-2": 1,
+      "-3": 1,
+      "skull": 2,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 3,
+      "+1": 1,
+      "-1": 1,
+      "-2": 2,
+      "-3": 1,
+      "-5": 1,
+      "skull": 2,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 1,
+      "-2": 1,
+      "-3": 2,
+      "-4": 1,
+      "-6": 1,
+      "skull": 2,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 1,
+      "-2": 2,
+      "-3": 2,
+      "-4": 2,
+      "-6": 1,
+      "-8": 1,
+      "skull": 2,
+      "elder_thing": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -102,6 +365,27 @@
   ],
   "entries": [
     {
+      "id": "rtdoe_gain_mysterious_scepter",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "return_to_the_doom_of_eztli",
+      "hidden": true
+    },
+    {
+      "id": "recruited_help_of_another_expedition",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "harbinger_alive",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_threads_of_fate",
+      "crossOut": true
+    },
+    {
       "id": "rthote2_gain_sticky_goop",
       "section": "hidden",
       "kind": "note",
@@ -126,66 +410,160 @@
       "crossOut": true
     },
     {
-      "id": "rtdoe_gain_mysterious_scepter",
+      "id": "wait_for_additional_supplies",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "ichtaca_observed_progress",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "earned_ichtacas_trust",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "alejandro_followed_to_ruins",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "ichtaca_is_wary",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "alejandro_remained_at_camp",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "cleared_path_to_temple",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_untamed_wilds"
+    },
+    {
+      "id": "wilds_add_chaos_token",
       "section": "hidden",
       "kind": "note",
-      "scenario": "return_to_the_doom_of_eztli",
+      "scenario": "the_untamed_wilds",
       "hidden": true
-    },
-    {
-      "id": "recruited_help_of_another_expedition",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "return_to_threads_of_fate",
-      "crossOut": true
-    },
-    {
-      "id": "harbinger_alive",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "return_to_threads_of_fate",
-      "crossOut": true
-    },
-    {
-      "id": "gave_relic_to_alejandro",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "expeditions_end",
-      "crossOut": true
-    },
-    {
-      "id": "earned_alejandros_trust",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "expeditions_end",
-      "crossOut": true
-    },
-    {
-      "id": "gave_relic_to_harlan",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "expeditions_end",
-      "crossOut": true
-    },
-    {
-      "id": "alejandro_on_his_own",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "expeditions_end",
-      "crossOut": true
     },
     {
       "id": "investigators_recovered_relic",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "eztli",
+      "scenario": "the_doom_of_eztli",
       "crossOut": true
     },
     {
       "id": "alejandro_recovered_relic",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "eztli",
+      "scenario": "the_doom_of_eztli",
+      "crossOut": true
+    },
+    {
+      "id": "gave_relic_to_alejandro",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "gave_relic_to_harlan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "listened_to_ichtaca",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "hidden": true
+    },
+    {
+      "id": "ichtaca_left_without_you",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "hidden": true
+    },
+    {
+      "id": "forging_own_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "found_missing_relic",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "relic_is_missing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "rescued_alejandro",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_is_missing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "forged_bond_with_ichtaca",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "ichtaca_in_the_dark",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "paths_known",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "the_boundary_beyond",
+      "param": {
+        "type": "count"
+      },
+      "crossOut": true
+    },
+    {
+      "id": "ichtaca_has_confidence",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_boundary_beyond",
       "crossOut": true
     },
     {
@@ -210,16 +588,6 @@
       "hidden": true
     },
     {
-      "id": "paths_known",
-      "section": "campaign_notes",
-      "kind": "count",
-      "scenario": "heart_of_the_elders_part_1",
-      "param": {
-        "type": "count"
-      },
-      "crossOut": true
-    },
-    {
       "id": "jungle_watches",
       "section": "campaign_notes",
       "kind": "cards",
@@ -230,81 +598,6 @@
           "mode": "choice"
         }
       },
-      "crossOut": true
-    },
-    {
-      "id": "hote_no_mulligan",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "jungle_beckons",
-      "hidden": true
-    },
-    {
-      "id": "hote_fewer_resources",
-      "section": "hidden",
-      "kind": "cards",
-      "scenario": "jungle_beckons",
-      "param": {
-        "type": "cards",
-        "cards": {
-          "mode": "choice"
-        }
-      },
-      "hidden": true
-    },
-    {
-      "id": "eztli_fewer_resources",
-      "section": "hidden",
-      "kind": "cards",
-      "scenario": "restless_nights",
-      "param": {
-        "type": "cards",
-        "cards": {
-          "mode": "choice"
-        }
-      },
-      "hidden": true
-    },
-    {
-      "id": "mended_tear_in_time",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "shattered_aeons",
-      "crossOut": true
-    },
-    {
-      "id": "investigators_saved_serpents",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "shattered_aeons",
-      "crossOut": true
-    },
-    {
-      "id": "investigators_saved_yithians",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "shattered_aeons",
-      "crossOut": true
-    },
-    {
-      "id": "fabric_of_time_unwoven",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "shattered_aeons",
-      "crossOut": true
-    },
-    {
-      "id": "turned_back_time",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "shattered_aeons",
-      "crossOut": true
-    },
-    {
-      "id": "ichtaca_has_confidence",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_boundary_beyond",
       "crossOut": true
     },
     {
@@ -326,7 +619,8 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "the_city_of_archives",
-      "crossOut": true
+      "crossOut": true,
+      "outcome": "loss"
     },
     {
       "id": "process_was_successful",
@@ -350,21 +644,7 @@
       "crossOut": true
     },
     {
-      "id": "relic_is_missing",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_depths_of_yoth",
-      "crossOut": true
-    },
-    {
       "id": "ichtaca_set_against",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_depths_of_yoth",
-      "crossOut": true
-    },
-    {
-      "id": "found_missing_relic",
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "the_depths_of_yoth",
@@ -416,6 +696,92 @@
       "hidden": true
     },
     {
+      "id": "mended_tear_in_time",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true,
+      "outcome": "win"
+    },
+    {
+      "id": "investigators_saved_serpents",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true,
+      "outcome": "win"
+    },
+    {
+      "id": "investigators_saved_yithians",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true,
+      "outcome": "win"
+    },
+    {
+      "id": "fabric_of_time_unwoven",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true,
+      "outcome": "loss"
+    },
+    {
+      "id": "turned_back_time",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true
+    },
+    {
+      "id": "earned_alejandros_trust",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "expeditions_end",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_on_his_own",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "expeditions_end",
+      "crossOut": true
+    },
+    {
+      "id": "hote_no_mulligan",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "hidden": true
+    },
+    {
+      "id": "hote_fewer_resources",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "jungle_beckons",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "eztli_fewer_resources",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "restless_nights",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
       "id": "doy_fewer_resources",
       "section": "hidden",
       "kind": "cards",
@@ -429,108 +795,12 @@
       "hidden": true
     },
     {
-      "id": "listened_to_ichtaca",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "hidden": true
-    },
-    {
-      "id": "ichtaca_left_without_you",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "hidden": true
-    },
-    {
-      "id": "forging_own_path",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "crossOut": true
-    },
-    {
-      "id": "rescued_alejandro",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "crossOut": true
-    },
-    {
-      "id": "alejandro_is_missing",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "crossOut": true
-    },
-    {
-      "id": "forged_bond_with_ichtaca",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "crossOut": true
-    },
-    {
-      "id": "ichtaca_in_the_dark",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "threads_of_fate",
-      "crossOut": true
-    },
-    {
       "id": "sealed_relic_of_ages_forever",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "turn_back_time"
-    },
-    {
-      "id": "wait_for_additional_supplies",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "ichtaca_observed_progress",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "earned_ichtacas_trust",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "alejandro_followed_to_ruins",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "ichtaca_is_wary",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "alejandro_remained_at_camp",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "cleared_path_to_temple",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "wilds"
-    },
-    {
-      "id": "wilds_add_chaos_token",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "wilds",
-      "hidden": true
+      "scenario": "turn_back_time",
+      "outcome": "win",
+      "outcomeQuality": "best"
     }
   ],
   "achievements": [
@@ -699,7 +969,7 @@
         "campaign_notes.investigators_recovered_relic",
         "campaign_notes.alejandro_recovered_relic"
       ],
-      "scenario": "The Doom of Eztli"
+      "scenario": "eztli"
     },
     {
       "type": "mutuallyExclusive",
@@ -707,7 +977,7 @@
         "campaign_notes.wait_for_additional_supplies",
         "campaign_notes.cleared_path_to_temple"
       ],
-      "scenario": "The Untamed Wilds"
+      "scenario": "wilds"
     },
     {
       "type": "mutuallyExclusive",
@@ -716,7 +986,7 @@
         "campaign_notes.ichtaca_observed_progress",
         "campaign_notes.ichtaca_is_wary"
       ],
-      "scenario": "The Untamed Wilds"
+      "scenario": "wilds"
     },
     {
       "type": "mutuallyExclusive",
@@ -724,7 +994,7 @@
         "campaign_notes.alejandro_followed_to_ruins",
         "campaign_notes.alejandro_remained_at_camp"
       ],
-      "scenario": "The Untamed Wilds"
+      "scenario": "wilds"
     },
     {
       "type": "mutuallyExclusive",
@@ -732,7 +1002,7 @@
         "campaign_notes.gave_relic_to_alejandro",
         "campaign_notes.gave_relic_to_harlan"
       ],
-      "scenario": "Expedition's End"
+      "scenario": "expeditions_end"
     },
     {
       "type": "mutuallyExclusive",
@@ -740,7 +1010,7 @@
         "campaign_notes.earned_alejandros_trust",
         "campaign_notes.alejandro_on_his_own"
       ],
-      "scenario": "Expedition's End"
+      "scenario": "expeditions_end"
     },
     {
       "type": "mutuallyExclusive",
@@ -748,7 +1018,7 @@
         "campaign_notes.cooperated_with_yithians",
         "campaign_notes.resisted_captivity"
       ],
-      "scenario": "The City of Archives"
+      "scenario": "the_city_of_archives"
     },
     {
       "type": "mutuallyExclusive",
@@ -759,7 +1029,7 @@
         "campaign_notes.process_backfired_spectacularly",
         "campaign_notes.had_memories_expunged"
       ],
-      "scenario": "The City of Archives"
+      "scenario": "the_city_of_archives"
     },
     {
       "type": "mutuallyExclusive",
@@ -767,7 +1037,7 @@
         "campaign_notes.found_missing_relic",
         "campaign_notes.relic_is_missing"
       ],
-      "scenario": "Threads of Fate"
+      "scenario": "the_depths_of_yoth"
     },
     {
       "type": "mutuallyExclusive",
@@ -775,7 +1045,7 @@
         "campaign_notes.rescued_alejandro",
         "campaign_notes.alejandro_is_missing"
       ],
-      "scenario": "Threads of Fate"
+      "scenario": "threads_of_fate"
     },
     {
       "type": "mutuallyExclusive",
@@ -783,7 +1053,7 @@
         "campaign_notes.forged_bond_with_ichtaca",
         "campaign_notes.ichtaca_in_the_dark"
       ],
-      "scenario": "Threads of Fate"
+      "scenario": "threads_of_fate"
     },
     {
       "type": "mutuallyExclusive",
@@ -791,7 +1061,7 @@
         "campaign_notes.fell_into_depths",
         "campaign_notes.nexus_is_near"
       ],
-      "scenario": "The Depths of Yoth"
+      "scenario": "the_depths_of_yoth"
     },
     {
       "type": "mutuallyExclusive",
@@ -802,7 +1072,7 @@
         "campaign_notes.fabric_of_time_unwoven",
         "campaign_notes.turned_back_time"
       ],
-      "scenario": "Shattered Aeons"
+      "scenario": "shattered_aeons"
     }
   ]
 }

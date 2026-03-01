@@ -29,7 +29,7 @@ const SCENARIO_CODES = (() => {
 const SECTION_TYPES = new Set([
   'notes', 'count', 'cards', 'investigatorCount', 'investigatorChecklist',
   'checklist', 'partner', 'relationship', 'supplies', 'scarletKeys', 'glyphs',
-  'calendar', 'header',
+  'seals', 'calendar', 'header',
 ]);
 const ENTRY_KINDS = new Set(['note', 'count', 'cards', 'investigatorCount', 'text', 'task']);
 
@@ -87,6 +87,10 @@ function validate(code) {
       if (!isSection && !(inf.key in en.entries)) bucket.push(`infer ${aid}: unknown count key "${inf.key}"`);
     } else if (inf.type === 'sectionHas' || inf.type === 'sectionCount' || inf.type === 'partnerStatus') {
       if (!db.sections.some((s) => s.id === inf.section)) bucket.push(`infer ${aid}: unknown section "${inf.section}"`);
+    } else if (inf.type === 'scenarioChoice') {
+      const sm = (db.scenarioMeta || []).find((m) => m.id === inf.scenario);
+      if (!sm || !(sm.choices || []).some((c) => c.id === inf.choice))
+        bucket.push(`infer ${aid}: unknown scenarioChoice "${inf.scenario}.${inf.choice}"`);
     } else if (inf.type === 'allOf' || inf.type === 'anyOf') {
       (inf.of || []).forEach((s) => checkInfer(s, aid, bucket));
     } else if (!['difficulty', 'ultimatums', 'chaosToken'].includes(inf.type)) {
@@ -113,11 +117,55 @@ function validate(code) {
     if (!dbAch.has(id)) errs.push(`en achievement ${id} has no db`);
   }
 
+  // special interactions: id has en title+text, scenario resolves, match valid
+  const siScenarioIds = new Set([
+    ...db.entries.map((e) => e.scenario),
+    ...(db.scenarioMeta || []).map((m) => m.id),
+  ]);
+  const enSi = en.specialInteractions || {};
+  const dbSiIds = new Set();
+  for (const s of db.specialInteractions || []) {
+    dbSiIds.add(s.id);
+    if (!s.scenario || !siScenarioIds.has(s.scenario))
+      errs.push(`specialInteraction ${s.id}: unknown scenario "${s.scenario}"`);
+    if (!s.match || !['code', 'trait', 'faction'].includes(s.match.kind))
+      errs.push(`specialInteraction ${s.id}: bad match`);
+    if (!['any', 'each'].includes(s.scope)) errs.push(`specialInteraction ${s.id}: bad scope "${s.scope}"`);
+    if (s.infer) checkInfer(s.infer, `specialInteraction ${s.id}`);
+    const e = enSi[s.id];
+    if (!e || !e.text) errs.push(`specialInteraction ${s.id} has no en text`);
+    else if (e.spoiler) {
+      if (!Array.isArray(e.spoiler)) errs.push(`specialInteraction ${s.id}: spoiler not array`);
+      else for (const sp of e.spoiler) if (!e.text.includes(sp)) errs.push(`specialInteraction ${s.id}: spoiler "${sp}" not in text`);
+    }
+  }
+  for (const id of Object.keys(enSi)) {
+    if (!dbSiIds.has(id)) errs.push(`en specialInteraction ${id} has no db`);
+  }
+
   // validators: entries must resolve and be a set of ≥2
   for (const v of db.validators || []) {
     if (!Array.isArray(v.entries) || v.entries.length < 2) errs.push(`validator has <2 entries`);
     for (const key of v.entries || []) {
       if (!(key in en.entries)) errs.push(`validator references unknown entry "${key}"`);
+    }
+  }
+
+  // resolutionEffects: keys must be first-choice resolutions of the same
+  // scenario; each trauma entry must mark killed and/or insane plus a target.
+  for (const sm of db.scenarioMeta || []) {
+    if (!sm.resolutionEffects) continue;
+    const resSet = new Set(sm.resolutions || []);
+    for (const [resId, eff] of Object.entries(sm.resolutionEffects)) {
+      if (!resSet.has(resId)) errs.push(`resolutionEffects ${sm.id}.${resId} not in resolutions[]`);
+      if (!Array.isArray(eff.trauma) || !eff.trauma.length)
+        errs.push(`resolutionEffects ${sm.id}.${resId} has empty trauma[]`);
+      for (const t of eff.trauma || []) {
+        if (!t.killed && !t.insane) errs.push(`resolutionEffects ${sm.id}.${resId}: trauma neither killed nor insane`);
+        if (!t.target) errs.push(`resolutionEffects ${sm.id}.${resId}: trauma missing target`);
+      }
+      if (eff.result && !['win', 'lose', 'mixed'].includes(eff.result))
+        errs.push(`resolutionEffects ${sm.id}.${resId}: bad result "${eff.result}"`);
     }
   }
 

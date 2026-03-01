@@ -5,6 +5,9 @@
     "campaign_notes": "Campaign Notes",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "fortune_and_folly_part_1": "The Stakeout"
+  },
   "entries": {
     "campaign_notes.fof_stashed": {
       "text": "Stashed: #name# (#X#)"

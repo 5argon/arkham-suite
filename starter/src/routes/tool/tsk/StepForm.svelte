@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { EncounterSetIcon } from '@5argon/arkham-icon';
 	import { Button, Checkbox, Dropdown, FaIconType, type Option } from '@5argon/arkham-life-ui';
-	import { decisionText, isAutoFile, optionsForDecision, optionText, playableFilesAt, reachableDestinations, resolutionOffers, selectableDecisions, type CampaignState, type PlanStep, type PlanTrajectory, type SimStep } from '@5argon/arkham-tsk-solver';
+	import { decisionText, isAutoFile, optionsForDecision, optionText, playableFilesAt, reachableDestinations, resolutionOffers, selectableDecisions, visibleSelectableDecisions, type CampaignState, type PlanStep, type PlanTrajectory, type SimStep } from '@5argon/arkham-tsk-solver';
 	import MapPickerModal from './MapPickerModal.svelte';
 	import StepState from './StepState.svelte';
-	import { defaultChoices, fileEncounterSet, fileLabel, stepIcon, stepTitle } from './helpers';
+	import StepTime from './StepTime.svelte';
+	import { defaultChoices, fileEncounterSet, fileLabel, isOpeningFile, stepIcon, stepTitle } from './helpers';
 
 	interface Props {
 		id: number;
@@ -49,16 +50,26 @@
 	const set = $derived(fileEncounterSet(sim.fileCode));
 	const bad = $derived(sim.problems.length > 0);
 
+	// Time the currently-selected stop costs (excludes travel) — what "Do nothing here" would save.
+	// When already travelling, sim carries no stop time, so there's nothing to advertise saving.
+	const stopTime = $derived(travelOnly ? 0 : sim.timeAfter - sim.entryTime);
+	const doNothingLabel = $derived(!travelOnly && stopTime > 0 ? `Do nothing here (saves ${stopTime} time)` : 'Do nothing here');
+
 	const destinations = $derived(reachableDestinations(fromState));
-	const filesHere = $derived(location ? playableFilesAt(location) : []);
-	const decisions = $derived(fileCode && !travelOnly ? selectableDecisions(fileCode, location) : []);
+	// The opening files (prologue + Foundation) are pinned at the front and never offered as a revisit.
+	const filesHere = $derived(location ? playableFilesAt(location).filter((f) => !isOpeningFile(f.fileCode)) : []);
+	// Conditional decisions (e.g. Cast a Light, gated on collecting every target) drop out until their prerequisite choice is made.
+	const decisions = $derived(fileCode && !travelOnly ? visibleSelectableDecisions(fileCode, choices, fromState, sim.entryTime, location) : []);
 	const auto = $derived(fileCode ? isAutoFile(fileCode) : false);
 
 	const destOptions = $derived<Option<string>[]>(
-		destinations.map((d) => ({
-			value: d.node,
-			label: `${d.name} · ${d.files.map((f) => fileLabel(f.fileCode, f.isSideStory)).join(' / ')} · ${d.travel != null ? `+${d.travel}` : 'unreachable'}${d.locked ? ' 🔒' : ''}`,
-		})),
+		destinations
+			.map((d) => ({ ...d, files: d.files.filter((f) => !isOpeningFile(f.fileCode)) }))
+			.filter((d) => d.files.length > 0)
+			.map((d) => ({
+				value: d.node,
+				label: `${d.name} · ${d.files.map((f) => fileLabel(f.fileCode, f.isSideStory)).join(' / ')} · ${d.travel != null ? `+${d.travel}` : 'unreachable'}${d.locked ? ' 🔒' : ''}`,
+			})),
 	);
 	const fileOptions = $derived<Option<string>[]>(filesHere.map((f) => ({ value: f.fileCode, label: fileLabel(f.fileCode, f.isSideStory) })));
 	// Resolutions reachable given the version played + the upstream choices/time (per logic.json `requires`).
@@ -67,11 +78,7 @@
 		if (d.decisionType === 'resolution') {
 			return resOffers
 				.filter((r) => r.offerable)
-				.map((r) => {
-					const text = optionText(fileCode, d.decisionId, r.option.id)?.dropdownText ?? r.option.id;
-					const tag = r.option.playOutcome && r.option.playOutcome !== 'win' ? ` · ${r.option.playOutcome}` : '';
-					return { value: r.option.id, label: text + tag };
-				});
+				.map((r) => ({ value: r.option.id, label: optionText(fileCode, d.decisionId, r.option.id)?.dropdownText ?? r.option.id }));
 		}
 		return optionsForDecision(fileCode, d.decisionId).map((o) => ({ value: o.id, label: optionText(fileCode, d.decisionId, o.id)?.dropdownText ?? o.id }));
 	};
@@ -85,21 +92,35 @@
 			...(travelOnly ? { travelOnly: true } : {}),
 		});
 	}
+	/** Keep the resolution pick valid: if the current one isn't offerable for these upstream choices, default to the first offerable. */
+	function withValidResolution(fc: string, loc: string, next: Record<string, string>): Record<string, string> {
+		const resD = selectableDecisions(fc, loc).find((d) => d.decisionType === 'resolution');
+		if (!resD) return next;
+		const offers = resolutionOffers(fc, next, fromState, sim.entryTime, loc).filter((r) => r.offerable);
+		if (offers.length && !offers.some((r) => r.option.id === next[resD.decisionId])) {
+			return { ...next, [resD.decisionId]: offers[0]!.option.id };
+		}
+		return next;
+	}
 	function onLocationChange(v: string) {
 		location = v;
-		fileCode = playableFilesAt(v)[0]?.fileCode ?? '';
-		choices = defaultChoices(fileCode, v);
+		fileCode = playableFilesAt(v).filter((f) => !isOpeningFile(f.fileCode))[0]?.fileCode ?? '';
+		choices = withValidResolution(fileCode, v, defaultChoices(fileCode, v));
 		useTicket = false;
 		travelOnly = false;
 		emit();
 	}
 	function onFileChange(v: string) {
 		fileCode = v;
-		choices = defaultChoices(v, location);
+		choices = withValidResolution(v, location, defaultChoices(v, location));
 		emit();
 	}
 	function onChoiceChange(decisionId: string, v: string) {
-		choices = { ...choices, [decisionId]: v };
+		let next = { ...choices, [decisionId]: v };
+		// Changing an upstream decision can change which resolutions are reachable — re-default if needed.
+		const resD = selectableDecisions(fileCode, location).find((d) => d.decisionType === 'resolution');
+		if (resD && resD.decisionId !== decisionId) next = withValidResolution(fileCode, location, next);
+		choices = next;
 		emit();
 	}
 	function pickFromMap(v: string) {
@@ -116,9 +137,7 @@
 	<div class="flex-1">
 		<div class="flex flex-wrap items-baseline justify-between gap-2">
 			<span class="text-primary-900 dark:text-primary-100 {role === 'finale' ? 'font-bold' : ''}">{stepTitle(sim)}</span>
-			<span class="shrink-0 text-xs text-primary-400">
-				{#if sim.usedTicket}🎟 ticket{:else if sim.travelCost > 0}+{sim.travelCost} travel{/if} · t={sim.timeAfter}
-			</span>
+			<StepTime step={sim} />
 		</div>
 
 		<div class="mt-2 flex flex-col gap-2">
@@ -128,7 +147,7 @@
 					<div class="shrink-0 pb-0.5"><Button label="Pick on map" icon={FaIconType.Map} onClick={() => (mapOpen = true)} /></div>
 				</div>
 				<div class="flex flex-wrap items-center gap-4">
-					<Checkbox bind:checked={travelOnly} label="Do nothing here" onChange={emit} />
+					<Checkbox bind:checked={travelOnly} label={doNothingLabel} onChange={emit} />
 					<Checkbox bind:checked={useTicket} label="Ticket jump" onChange={emit} />
 				</div>
 			{/if}
@@ -146,7 +165,7 @@
 				{/if}
 				{#if role === 'finale' && onDesi}
 					<div class="max-w-lg"><Dropdown value={desi} label="Was Desi real?" options={desiOptions} onchange={(v) => onDesi(v)} /></div>
-					<div class="text-xs italic text-primary-400">Dancing Mad doesn't record whether Desi was genuine — but it decides her vote here.</div>
+					<div class="text-xs italic text-primary-400">Dancing Mad doesn't record whether Desi was genuine — but it decides his vote here.</div>
 				{/if}
 			{/if}
 

@@ -1,18 +1,15 @@
 import {
-	catalog,
 	characterName,
 	defaultOptionId,
 	fileTitle,
 	getFile,
-	keyName,
 	locationName,
-	logText,
 	playableFilesAt,
 	reachableDestinations,
+	resolutionOffers,
 	selectableDecisions,
 	sideStoryProductName,
 	type CampaignState,
-	type Constraint,
 	type PlanStep,
 	type SimStep,
 } from '@5argon/arkham-tsk-solver';
@@ -21,8 +18,19 @@ import { type EncounterSet, getScenarioData, Scenario } from '@5argon/arkham-koh
 /** Fixed campaign endpoints — the plan always opens at the prologue and ends at the finale. */
 export const PROLOGUE_LOCATION = 'london';
 export const PROLOGUE_FILE = '5-A';
+/** The Foundation interlude is pinned right after the prologue (Riddles and Rain → The Foundation). */
+export const FOUNDATION_FILE = 'Foundation';
 export const FINALE_LOCATION = 'tunguska';
 export const FINALE_FILE = '59-Z';
+
+/**
+ * Files that are part of the fixed campaign opening — Riddles and Rain (the prologue) and the
+ * Foundation interlude. They are pinned at the front of every plan and must never be offered as a
+ * revisit choice (e.g. at a London revisit only Dead and Gone / 27-H is a real option).
+ */
+export function isOpeningFile(fileCode: string): boolean {
+	return fileCode === FOUNDATION_FILE || getFile(fileCode)?.kind === 'prologue';
+}
 
 /** Default choices for a file at a location: the first selectable option per applicable decision. */
 export function defaultChoices(fileCode: string, location?: string): Record<string, string> {
@@ -38,16 +46,41 @@ export function defaultPrologueStep(): PlanStep {
 	return { location: PROLOGUE_LOCATION, fileCode: PROLOGUE_FILE, choices: defaultChoices(PROLOGUE_FILE, PROLOGUE_LOCATION) };
 }
 
+export function defaultFoundationStep(): PlanStep {
+	return { location: PROLOGUE_LOCATION, fileCode: FOUNDATION_FILE, choices: defaultChoices(FOUNDATION_FILE, PROLOGUE_LOCATION) };
+}
+
+/** Ensure the plan opens with the fixed pair Riddles and Rain → The Foundation (idempotent). */
+export function withOpening(steps: PlanStep[]): PlanStep[] {
+	const out = [...steps];
+	if (!out.length || out[0]!.fileCode !== PROLOGUE_FILE) out.unshift(defaultPrologueStep());
+	if (out.length < 2 || out[1]!.fileCode !== FOUNDATION_FILE) out.splice(1, 0, defaultFoundationStep());
+	return out;
+}
+
 export function defaultFinaleStep(): PlanStep {
 	return { location: FINALE_LOCATION, fileCode: FINALE_FILE, choices: { 'COTK.resolution': 'COTK.R1' } };
 }
 
-/** A sensible new middle step: the nearest reachable, unlocked non-endpoint location's first file. */
+/** A sensible new middle step: the nearest reachable, unlocked non-endpoint location's first non-opening file. */
 export function defaultMiddleStep(fromState: CampaignState): PlanStep {
-	const dest = reachableDestinations(fromState).find((d) => !d.locked && d.travel != null && d.node !== PROLOGUE_LOCATION && d.node !== FINALE_LOCATION && d.files.length > 0);
+	const dest = reachableDestinations(fromState).find(
+		(d) => !d.locked && d.travel != null && d.node !== PROLOGUE_LOCATION && d.node !== FINALE_LOCATION && d.files.some((f) => !isOpeningFile(f.fileCode)),
+	);
 	const location = dest?.node ?? '';
-	const fileCode = dest?.files[0]?.fileCode ?? '';
-	return { location, fileCode, choices: fileCode ? defaultChoices(fileCode, location) : {} };
+	const fileCode = dest?.files.find((f) => !isOpeningFile(f.fileCode))?.fileCode ?? '';
+	const choices = fileCode ? validResolutionChoices(fileCode, location, fromState, (fromState.timePassed ?? 0) + (dest?.travel ?? 0)) : {};
+	return { location, fileCode, choices };
+}
+
+/** defaultChoices, but with the resolution defaulted to one that's actually reachable for those upstream picks. */
+export function validResolutionChoices(fileCode: string, location: string, fromState: CampaignState, entryTime: number): Record<string, string> {
+	const choices = defaultChoices(fileCode, location);
+	const resD = selectableDecisions(fileCode, location).find((d) => d.decisionType === 'resolution');
+	if (!resD) return choices;
+	const offers = resolutionOffers(fileCode, choices, fromState, entryTime, location).filter((r) => r.offerable);
+	if (offers.length && !offers.some((r) => r.option.id === choices[resD.decisionId])) choices[resD.decisionId] = offers[0]!.option.id;
+	return choices;
 }
 
 // --- scenario icons ---------------------------------------------------------
@@ -92,125 +125,6 @@ function scenarioBadge(s: SimStep): string | undefined {
 	return idx >= 0 ? `L${idx + 1}/${options.length}` : undefined; // tier index / total tiers, e.g. "L2/4"
 }
 
-// --- editable goal rows -----------------------------------------------------
-
-export type CategoryId =
-	| 'achievement'
-	| 'get_key'
-	| 'visit_file'
-	| 'resolution'
-	| 'scenario_version'
-	| 'scenario_level'
-	| 'campaign_log'
-	| 'side_story'
-	| 'reach_judgment'
-	| 'epilogue'
-	| 'chaos_mix'
-	| 'chaos_balanced';
-
-export const CATEGORY_LABELS: { value: CategoryId; label: string }[] = [
-	{ value: 'achievement', label: 'Achievement' },
-	{ value: 'get_key', label: 'Obtain a Key' },
-	{ value: 'visit_file', label: 'Play a Scenario / Interlude' },
-	{ value: 'resolution', label: 'Scenario — Resolution' },
-	{ value: 'scenario_version', label: 'Scenario — Version' },
-	{ value: 'scenario_level', label: 'Scenario — Time tier' },
-	{ value: 'campaign_log', label: 'Campaign Log Entry' },
-	{ value: 'side_story', label: 'Side Story' },
-	{ value: 'reach_judgment', label: 'Finale — Coterie judgment' },
-	{ value: 'epilogue', label: 'Finale — Epilogue' },
-	{ value: 'chaos_mix', label: 'Chaos Token Mix' },
-	{ value: 'chaos_balanced', label: 'Balanced Chaos Bag' },
-];
-
-/** Categories that need no entity "target" dropdown. */
-export const TARGETLESS: CategoryId[] = ['reach_judgment', 'epilogue', 'chaos_mix', 'chaos_balanced'];
-
-export interface RowModel {
-	category: CategoryId;
-	target: string;
-	optionId: string;
-	negate: boolean;
-	bearer: boolean;
-	judgment: string;
-	epilogue: string;
-	tablet: number;
-	elderThing: number;
-	logGroup: string;
-}
-
-export function newRow(category: CategoryId = 'achievement', target = ''): RowModel {
-	return { category, target, optionId: '', negate: false, bearer: false, judgment: 'COTK.judgment.overthrow', epilogue: 'EP.permanent', tablet: 4, elderThing: 0, logGroup: 'all' };
-}
-
-export function toConstraint(r: RowModel): Constraint | null {
-	const negate = r.negate;
-	switch (r.category) {
-		case 'reach_judgment':
-			return { kind: 'reach_judgment', judgment: r.judgment, negate };
-		case 'epilogue':
-			return { kind: 'epilogue', optionId: r.epilogue, negate };
-		case 'chaos_mix':
-			return { kind: 'chaos_mix', tablet: r.tablet, elderThing: r.elderThing, negate };
-		case 'chaos_balanced':
-			return { kind: 'chaos_balanced', negate };
-	}
-	if (!r.target) return null;
-	switch (r.category) {
-		case 'achievement':
-			return { kind: 'achievement', id: r.target, negate };
-		case 'get_key':
-			return { kind: 'get_key', key: r.target, ...(r.bearer ? { bearer: 'investigator' as const } : {}), negate };
-		case 'visit_file':
-			return { kind: 'visit_file', fileCode: r.target, negate };
-		case 'resolution':
-			return r.optionId ? { kind: 'resolution', fileCode: r.target, optionId: r.optionId, negate } : null;
-		case 'scenario_version':
-			return r.optionId ? { kind: 'scenario_version', fileCode: r.target, optionId: r.optionId, negate } : null;
-		case 'scenario_level':
-			return r.optionId ? { kind: 'scenario_level', fileCode: r.target, optionId: r.optionId, negate } : null;
-		case 'campaign_log':
-			return { kind: 'campaign_log', entryId: r.target, negate };
-		case 'side_story':
-			return { kind: 'play_side_story', product: r.target, negate };
-		default:
-			return null;
-	}
-}
-
-export function rowFromConstraint(c: Constraint): RowModel {
-	const base = newRow();
-	base.negate = c.negate === true;
-	switch (c.kind) {
-		case 'achievement':
-			return { ...base, category: 'achievement', target: c.id };
-		case 'get_key':
-			return { ...base, category: 'get_key', target: c.key, bearer: c.bearer === 'investigator' };
-		case 'visit_file':
-			return { ...base, category: 'visit_file', target: c.fileCode };
-		case 'resolution':
-			return { ...base, category: 'resolution', target: c.fileCode, optionId: c.optionId };
-		case 'scenario_version':
-			return { ...base, category: 'scenario_version', target: c.fileCode, optionId: c.optionId };
-		case 'scenario_level':
-			return { ...base, category: 'scenario_level', target: c.fileCode, optionId: c.optionId };
-		case 'campaign_log':
-			return { ...base, category: 'campaign_log', target: c.entryId };
-		case 'play_side_story':
-			return { ...base, category: 'side_story', target: c.product };
-		case 'reach_judgment':
-			return { ...base, category: 'reach_judgment', judgment: c.judgment };
-		case 'epilogue':
-			return { ...base, category: 'epilogue', epilogue: c.optionId };
-		case 'chaos_mix':
-			return { ...base, category: 'chaos_mix', tablet: c.tablet ?? 4, elderThing: c.elderThing ?? 0 };
-		case 'chaos_balanced':
-			return { ...base, category: 'chaos_balanced' };
-		default:
-			return base;
-	}
-}
-
 // --- step display -----------------------------------------------------------
 
 export function stepTitle(step: SimStep): string {
@@ -235,41 +149,6 @@ export function stepIcon(step: SimStep): string {
 	if (step.kind === 'scenario' || step.kind === 'prologue') return 'fa-solid fa-skull';
 	if (step.kind === 'sideStory') return 'fa-solid fa-dice';
 	return 'fa-solid fa-location-dot';
-}
-
-/** A short human summary of a goal row (for the goals checklist). */
-export function constraintLabel(c: Constraint): string {
-	const not = c.negate ? 'NOT ' : '';
-	const cat = catalog();
-	const optLabel = (fileCode: string, optionId: string, table: Record<string, { id: string; label: string }[]>) => table[fileCode]?.find((o) => o.id === optionId)?.label ?? optionId;
-	switch (c.kind) {
-		case 'finale_outcome':
-			return 'Win the campaign';
-		case 'visit_file':
-			return `${not}Play ${fileTitle(c.fileCode)}`;
-		case 'resolution':
-			return `${not}${fileTitle(c.fileCode)} — ${optLabel(c.fileCode, c.optionId, cat.resolutions)}`;
-		case 'scenario_version':
-			return `${not}${fileTitle(c.fileCode)} — ${optLabel(c.fileCode, c.optionId, cat.versions)}`;
-		case 'scenario_level':
-			return `${not}${fileTitle(c.fileCode)} — ${optLabel(c.fileCode, c.optionId, cat.levels)}`;
-		case 'get_key':
-			return `${not}Obtain ${keyName(c.key)}${c.bearer === 'investigator' ? ' (held by you)' : ''}`;
-		case 'achievement':
-			return `${not}Achievement: ${cat.achievements.find((a) => a.id === c.id)?.label ?? c.id}`;
-		case 'campaign_log':
-			return `${not}Campaign log: ${logText(c.entryId)}`;
-		case 'play_side_story':
-			return `${not}Side story: ${cat.sideStories.find((s) => s.id === c.product)?.label ?? c.product}`;
-		case 'reach_judgment':
-			return `${not}Finale: ${cat.judgments.find((j) => j.id === c.judgment)?.label ?? c.judgment}`;
-		case 'epilogue':
-			return `${not}Epilogue: ${cat.epilogues.find((e) => e.id === c.optionId)?.label ?? c.optionId}`;
-		case 'chaos_mix':
-			return `Chaos: ${c.tablet ?? '?'} Tablet / ${c.elderThing ?? '?'} Elder Thing`;
-		case 'chaos_balanced':
-			return 'Balanced chaos bag';
-	}
 }
 
 export { characterName };

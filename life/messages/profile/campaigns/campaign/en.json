@@ -1,0 +1,67 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"campaign_detail_head_fallback": "Campaign",
+	"campaign_detail_not_played": "You haven't played that campaign, or it isn't recognized.",
+	"campaign_coverage_outcomes": "{explored}/{total} outcomes ({pct}%)",
+	"campaign_coverage_route_better": "Harder / better route",
+	"campaign_coverage_route_easier": "Easier route",
+	"campaign_endings_reached": "{reached}/{total} reached",
+	"campaign_achievements_earned_in_plays": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "Earned in {count} play",
+				"countPlural=other": "Earned in {count} plays"
+			}
+		}
+	],
+	"campaign_achievements_earned_on": "Earned on: {tiers}",
+	"campaign_chips_total": "Total {count}",
+	"campaign_chips_total_breakdown": "Total {count} ({breakdown})",
+	"campaign_resolution_coverage_seen": "resolutions seen across your plays.",
+	"campaign_resolution_coverage_col_scenario": "Scenario",
+	"campaign_resolution_coverage_col_resolutions": "Resolutions",
+	"campaign_xp_breakdown_entry": "{tier} {xp} XP",
+	"campaign_xp_unit": "{xp} XP",
+	"campaign_summary_state_cleared": "Cleared",
+	"campaign_summary_state_special": "Special",
+	"campaign_summary_state_attempted": "Attempted",
+	"campaign_summary_state_blank": "Not played",
+	"campaign_summary_not_played_yet": "Not played yet.",
+	"campaign_summary_play": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "play",
+				"countPlural=other": "plays"
+			}
+		}
+	],
+	"campaign_summary_reached_times": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "Reached {count} time",
+				"countPlural=other": "Reached {count} times"
+			}
+		}
+	],
+	"campaign_summary_not_reached": "Not reached yet",
+	"campaign_special_trait": "{trait} trait",
+	"campaign_special_class": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "{factions} class",
+				"countPlural=other": "{factions} classes"
+			}
+		}
+	],
+	"campaign_special_triggered": "triggered",
+	"campaign_special_not_triggered": "not triggered",
+	"campaign_special_empty": "No special interactions are catalogued for this campaign yet."
+}

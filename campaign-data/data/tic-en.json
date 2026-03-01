@@ -8,51 +8,66 @@
     "possible_hideouts": "Possible Hideouts",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "the_pit_of_despair": "The Pit of Despair",
+    "puzzle_pieces": "Puzzle Pieces",
+    "the_vanishing_of_elina_harper": "The Vanishing of Elina Harper",
+    "the_syzygy": "The Syzygy",
+    "in_too_deep": "In Too Deep",
+    "devil_reef": "Devil Reef",
+    "beneath_the_waves": "Beneath the Waves",
+    "horror_in_high_gear": "Horror in High Gear",
+    "a_light_in_the_fog": "A Light in the Fog",
+    "the_lair_of_dagon": "The Lair of Dagon",
+    "hidden_truths": "Hidden Truths",
+    "into_the_maelstrom": "Into the Maelstrom",
+    "tic_epilogue": "Epilogue"
+  },
   "entries": {
-    "memories_recovered.conversation_with_mr_moore": {
-      "text": "a conversation with Mr. Moore"
+    "memories_recovered.meeting_with_thomas_dawson": {
+      "text": "a meeting with Thomas Dawson"
     },
-    "memories_recovered.lifecycle_of_a_deep_one": {
-      "text": "the lifecycle of a \"Deep One\""
+    "memories_recovered.battle_with_a_horrifying_devil": {
+      "text": "a battle with a horrifying devil"
     },
-    "campaign_notes.possesses_a_diving_suit": {
-      "text": "#name# possesses a diving suit."
+    "memories_recovered.decision_to_stick_together": {
+      "text": "a decision to stick together"
     },
-    "campaign_notes.possess_a_map_of_yhanthlei": {
-      "text": "the investigators possess a map of Y'ha-nthlei.",
-      "spoiler": [
-        "Y'ha-nthlei"
-      ]
+    "memories_recovered.encounter_with_a_secret_cult": {
+      "text": "an encounter with a secret cult"
     },
-    "campaign_notes.possess_the_key_to_yhanthlei": {
-      "text": "the investigators possess the key to Y'ha-nthlei.",
-      "spoiler": [
-        "Y'ha-nthlei"
-      ]
-    },
-    "campaign_notes.idol_brought_to_the_lighthouse": {
-      "text": "the idol was brought to the lighthouse."
-    },
-    "campaign_notes.mantle_brought_to_the_lighthouse": {
-      "text": "the mantle was brought to the lighthouse."
-    },
-    "campaign_notes.headdress_brought_to_the_lighthouse": {
-      "text": "the headdress was brought to the lighthouse."
+    "campaign_notes.burnham_out_for_blood": {
+      "text": "Brian Burnham is out for blood."
     },
     "possible_suspects.burnham": {
       "text": "Brian Burnham"
     },
+    "campaign_notes.gilman_out_for_blood": {
+      "text": "Othera Gilman is out for blood."
+    },
     "possible_suspects.gilman": {
       "text": "Othera Gilman"
+    },
+    "campaign_notes.little_out_for_blood": {
+      "text": "Joyce Little is out for blood."
     },
     "possible_suspects.little": {
       "text": "Joyce Little"
     },
+    "campaign_notes.marsh_out_for_blood": {
+      "text": "Barnabas Marsh is out for blood."
+    },
     "possible_suspects.marsh": {
       "text": "Barnabas Marsh"
     },
+    "campaign_notes.allen_out_for_blood": {
+      "text": "Zadok Allen is out for blood."
+    },
     "possible_suspects.allen": {
       "text": "Zadok Allen"
+    },
+    "campaign_notes.friendly_out_for_blood": {
+      "text": "Robert Friendly is out for blood."
     },
     "possible_suspects.friendly": {
       "text": "Robert Friendly"
@@ -74,6 +89,33 @@
     },
     "possible_hideouts.new_church_green": {
       "text": "New Church Green"
+    },
+    "campaign_notes.mission_failed": {
+      "text": "the mission failed."
+    },
+    "campaign_notes.mission_succeeded": {
+      "text": "the mission was successful."
+    },
+    "memories_recovered.a_deal_with_joe_sargent": {
+      "text": "a deal with Joe Sargent"
+    },
+    "memories_recovered.a_followed_lead": {
+      "text": "a followed lead"
+    },
+    "memories_recovered.an_intervention": {
+      "text": "an intervention"
+    },
+    "memories_recovered.a_jailbreak": {
+      "text": "a jailbreak"
+    },
+    "campaign_notes.made_it_safely_to_their_vehicles": {
+      "text": "the investigators made it safely to their vehicles."
+    },
+    "campaign_notes.innsmouth_was_consumed_by_the_rising_tide": {
+      "text": "Innsmouth was consumed by the rising tide.",
+      "spoiler": [
+        "consumed by the rising tide"
+      ]
     },
     "campaign_notes.tide_has_grown_stronger": {
       "text": "the tide has grown stronger."
@@ -99,6 +141,63 @@
         "the Terror of Devil Reef"
       ]
     },
+    "campaign_notes.idol_brought_to_the_lighthouse": {
+      "text": "the idol was brought to the lighthouse."
+    },
+    "campaign_notes.mantle_brought_to_the_lighthouse": {
+      "text": "the mantle was brought to the lighthouse."
+    },
+    "campaign_notes.headdress_brought_to_the_lighthouse": {
+      "text": "the headdress was brought to the lighthouse."
+    },
+    "campaign_notes.reached_falcon_point_after_sunrise": {
+      "text": "the investigators reached Falcon Point after sunrise."
+    },
+    "campaign_notes.reached_falcon_point_before_sunrise": {
+      "text": "the investigators reached Falcon Point before sunrise."
+    },
+    "memories_recovered.conversation_with_mr_moore": {
+      "text": "a conversation with Mr. Moore"
+    },
+    "memories_recovered.lifecycle_of_a_deep_one": {
+      "text": "the lifecycle of a \"Deep One\""
+    },
+    "campaign_notes.possesses_a_diving_suit": {
+      "text": "#name# possesses a diving suit."
+    },
+    "campaign_notes.possess_a_map_of_yhanthlei": {
+      "text": "the investigators possess a map of Y'ha-nthlei.",
+      "spoiler": [
+        "Y'ha-nthlei"
+      ]
+    },
+    "campaign_notes.possess_the_key_to_yhanthlei": {
+      "text": "the investigators possess the key to Y'ha-nthlei.",
+      "spoiler": [
+        "Y'ha-nthlei"
+      ]
+    },
+    "campaign_notes.dagon_has_awakened": {
+      "text": "Dagon has awakened.",
+      "spoiler": [
+        "Dagon"
+      ]
+    },
+    "campaign_notes.gatekeeper_has_been_defeated": {
+      "text": "the gatekeeper has been defeated.",
+      "spoiler": [
+        "the gatekeeper"
+      ]
+    },
+    "campaign_notes.orders_ritual_was_disrupted": {
+      "text": "the Order's ritual was disrupted."
+    },
+    "campaign_notes.dagon_still_slumbers": {
+      "text": "Dagon still slumbers.",
+      "spoiler": [
+        "Dagon"
+      ]
+    },
     "campaign_notes.guardian_of_yhanthlei_is_dispatched": {
       "text": "the guardian of Y’ha-nthlei is dispatched.",
       "spoiler": [
@@ -109,33 +208,6 @@
       "text": "the gateway to Y’ha-nthlei recognizes you as its rightful keeper",
       "spoiler": [
         "Y’ha-nthlei"
-      ]
-    },
-    "campaign_notes.reached_falcon_point_after_sunrise": {
-      "text": "the investigators reached Falcon Point after sunrise."
-    },
-    "campaign_notes.reached_falcon_point_before_sunrise": {
-      "text": "the investigators reached Falcon Point before sunrise."
-    },
-    "memories_recovered.a_deal_with_joe_sargent": {
-      "text": "a deal with Joe Sargent"
-    },
-    "memories_recovered.a_followed_lead": {
-      "text": "a followed lead"
-    },
-    "memories_recovered.an_intervention": {
-      "text": "an intervention"
-    },
-    "memories_recovered.a_jailbreak": {
-      "text": "a jailbreak"
-    },
-    "campaign_notes.made_it_safely_to_their_vehicles": {
-      "text": "the investigators made it safely to their vehicles."
-    },
-    "campaign_notes.innsmouth_was_consumed_by_the_rising_tide": {
-      "text": "Innsmouth was consumed by the rising tide.",
-      "spoiler": [
-        "consumed by the rising tide"
       ]
     },
     "memories_recovered.stinging_betrayal": {
@@ -173,63 +245,6 @@
       "spoiler": [
         "the Deep Ones"
       ]
-    },
-    "campaign_notes.dagon_has_awakened": {
-      "text": "Dagon has awakened.",
-      "spoiler": [
-        "Dagon"
-      ]
-    },
-    "campaign_notes.gatekeeper_has_been_defeated": {
-      "text": "the gatekeeper has been defeated.",
-      "spoiler": [
-        "the gatekeeper"
-      ]
-    },
-    "campaign_notes.orders_ritual_was_disrupted": {
-      "text": "the Order's ritual was disrupted."
-    },
-    "campaign_notes.dagon_still_slumbers": {
-      "text": "Dagon still slumbers.",
-      "spoiler": [
-        "Dagon"
-      ]
-    },
-    "memories_recovered.meeting_with_thomas_dawson": {
-      "text": "a meeting with Thomas Dawson"
-    },
-    "memories_recovered.battle_with_a_horrifying_devil": {
-      "text": "a battle with a horrifying devil"
-    },
-    "memories_recovered.decision_to_stick_together": {
-      "text": "a decision to stick together"
-    },
-    "memories_recovered.encounter_with_a_secret_cult": {
-      "text": "an encounter with a secret cult"
-    },
-    "campaign_notes.burnham_out_for_blood": {
-      "text": "Brian Burnham is out for blood."
-    },
-    "campaign_notes.gilman_out_for_blood": {
-      "text": "Othera Gilman is out for blood."
-    },
-    "campaign_notes.little_out_for_blood": {
-      "text": "Joyce Little is out for blood."
-    },
-    "campaign_notes.marsh_out_for_blood": {
-      "text": "Barnabas Marsh is out for blood."
-    },
-    "campaign_notes.allen_out_for_blood": {
-      "text": "Zadok Allen is out for blood."
-    },
-    "campaign_notes.friendly_out_for_blood": {
-      "text": "Robert Friendly is out for blood."
-    },
-    "campaign_notes.mission_failed": {
-      "text": "the mission failed."
-    },
-    "campaign_notes.mission_succeeded": {
-      "text": "the mission was successful."
     },
     "memories_recovered.horrific_truth": {
       "text": "the horrific truth"

@@ -3,18 +3,31 @@
 		value: T;
 		label: string;
 	};
+
+	export type OptionGroup<T = string> = {
+		groupLabel: string;
+		options: Option<T>[];
+	};
+
+	export type OptionOrGroup<T = string> = Option<T> | OptionGroup<T>;
+
+	export function isGroup<T>(item: OptionOrGroup<T>): item is OptionGroup<T> {
+		return 'groupLabel' in item;
+	}
 </script>
 
-<!-- 
+<!--
  @component
- Styled dropdown/select component.
+ Styled dropdown/select component. `options` accepts either a flat array of
+ `Option` values or a mixed array of `Option` and `OptionGroup` (which renders
+ as `<optgroup>` elements).
  -->
 <script lang="ts" generics="T extends string | number">
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import FaIcon from '../icon/FaIcon.svelte';
 	import FormLabelWithHelp from './FormLabelWithHelp.svelte';
 
-	export type { Option };
+	export type { Option, OptionGroup, OptionOrGroup };
 
 	interface Prop {
 		/**
@@ -23,9 +36,9 @@
 		value: T;
 
 		/**
-		 * Array of options to display in the dropdown.
+		 * Flat options or a mix of plain options and labelled option groups.
 		 */
-		options: Option<T>[];
+		options: OptionOrGroup<T>[];
 
 		/**
 		 * Text over the dropdown.
@@ -46,17 +59,24 @@
 		 * Disable the dropdown.
 		 */
 		disabled?: boolean;
+
+		/**
+		 * Visually hide the label (kept as the select's `aria-label`). Use when the
+		 * label would be redundant — e.g. a column of identical "Bearer" selects.
+		 */
+		hideLabel?: boolean;
 	}
 
-	let { value = $bindable(), options, label, onchange, name, disabled }: Prop = $props();
+	let { value = $bindable(), options, label, onchange, name, disabled, hideLabel }: Prop = $props();
 
-	// Determine if we're working with numbers based on the first option
-	const isNumeric = $derived(options.length > 0 && typeof options[0].value === 'number');
+	const firstOption = $derived(
+		options.length === 0 ? null : isGroup(options[0]) ? options[0].options[0] : options[0],
+	);
+	const isNumeric = $derived(firstOption != null && typeof firstOption.value === 'number');
 
 	function handleChange(e: Event & { currentTarget: HTMLSelectElement }) {
 		const target = e.currentTarget;
 		const selectedValue = target.value;
-		// Parse as number if we're in numeric mode
 		if (isNumeric) {
 			value = Number(selectedValue) as T;
 		} else {
@@ -68,14 +88,14 @@
 	}
 </script>
 
-<div>
-	<FormLabelWithHelp label={label}>
+{#snippet control()}
 	<div class="relative">
 		<select
 			id={name}
 			{name}
 			{disabled}
-			value={value}
+			{value}
+			aria-label={hideLabel ? label : undefined}
 			onchange={handleChange}
 			class="
 				w-full rounded-lg border px-3 py-1 pr-10 shadow-lg
@@ -90,15 +110,30 @@
 				transition-all duration-200
 			"
 		>
-			{#each options as option (option.value)}
-				<option value={option.value}>
-					{option.label}
-				</option>
+			{#each options as item (isGroup(item) ? item.groupLabel : item.value)}
+				{#if isGroup(item)}
+					<optgroup label={item.groupLabel}>
+						{#each item.options as opt (opt.value)}
+							<option value={opt.value}>{opt.label}</option>
+						{/each}
+					</optgroup>
+				{:else}
+					<option value={item.value}>{item.label}</option>
+				{/if}
 			{/each}
 		</select>
 		<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-primary-600 dark:text-primary-400">
 			<FaIcon duotone icon={FaIconType.Dropdown} />
 		</div>
 	</div>
-	</FormLabelWithHelp>
+{/snippet}
+
+<div>
+	{#if hideLabel}
+		{@render control()}
+	{:else}
+		<FormLabelWithHelp {label}>
+			{@render control()}
+		</FormLabelWithHelp>
+	{/if}
 </div>

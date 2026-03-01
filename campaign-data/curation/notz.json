@@ -1,5 +1,22 @@
 {
   "code": "notz",
+  "scenarios": {
+    "arkham": "the_midnight_masks",
+    "tentacles": "the_devourer_below",
+    "torch": "the_gathering"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.ritual_broken"
+    ],
+    "loss": [
+      "campaign_notes.arkham_succumbed"
+    ],
+    "betterWin": [
+      "campaign_notes.umordhoth_repelled"
+    ]
+  },
   "_notes": "Verified against both drafts; no changes needed. All 5 spans are exact substrings of their entry text. The three tentacles-ending siblings sharing 'Umôrdhoth' (arkham_succumbed/ritual_broken/umordhoth_repelled/lita_sacrificed) stay distinguishable by their differing verbs after blur, so no collision. Lita Chantler correctly left unblurred in lita_sacrificed (front-loaded intro companion). Generic scaffolding (house_burned/house_standing/lita_finds_others/past_midnight) correctly unblurred. The Ghoul Priest (scenario-2 boss) and Umôrdhoth (hidden final antagonist) are genuine reveals and blurred. cultists_interrogated/cultists_escaped (cards sections) and hidden section have no en text entries. No exotic roster sections. No section overrides or drops.",
   "spoilers": {
     "campaign_notes.ghoul_priest_alive": [
@@ -25,7 +42,7 @@
         "campaign_notes.house_burned",
         "campaign_notes.house_standing"
       ],
-      "scenario": "The Gathering"
+      "scenario": "torch"
     },
     {
       "type": "mutuallyExclusive",
@@ -35,7 +52,7 @@
         "campaign_notes.umordhoth_repelled",
         "campaign_notes.lita_sacrificed"
       ],
-      "scenario": "The Devourer Below"
+      "scenario": "tentacles"
     }
   ]
 }

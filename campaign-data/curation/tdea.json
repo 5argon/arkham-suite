@@ -1,5 +1,17 @@
 {
   "code": "tdea",
+  "specialInteractions": {
+    "check_luke_robinson": { "text": "Luke gets his own intro scene." }
+  },
+  "outcomes": {
+    "_notes": "Authored from game knowledge — TDE finales carry NO ArkhamCards result effect. where_the_gods_dwell: dreamers_awoke = win (R1/R2/R3), nyarlathoteps_invasion_has_begun = loss (no_resolution_defeated). Lower confidence; refine if needed.",
+    "win": [
+      "campaign_notes.dreamers_awoke"
+    ],
+    "loss": [
+      "campaign_notes.nyarlathoteps_invasion_has_begun"
+    ]
+  },
   "_notes": "Verified against tdea-en.draft.json and tdea-db.draft.json. All four spans are exact substrings of their entry texts. No sibling collisions: the two where_the_gods_dwell endgame notes stay distinguishable (\"escaped from ... grasp\" vs \"banished\"); possess_silver_key is the sole sibling for that reveal. The two black_cat_spoke_of_* (Nyarlathotep / Atlach-Nacha) are correctly left unblurred to avoid collapsing them to identical text. Randolph/Virgil/black-cat capture-and-relationship notes correctly left visible for name-based disambiguation. No exotic sections (only campaign_notes notes carry display text; evidence_of_kadath is count, hidden is hidden). db sections/types match reference. Curation accepted unchanged.",
   "spoilers": {
     "campaign_notes.nyarlathoteps_invasion_has_begun": [

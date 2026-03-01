@@ -87,7 +87,7 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 				</h3>
 			{/if}
 
-			<div class="flex-1 overflow-y-auto px-6 {title ? 'pt-2' : 'pt-6'}">
+			<div class="flex-1 overflow-y-auto px-6 pb-6 {title ? 'pt-2' : 'pt-6'}">
 				{@render children()}
 			</div>
 

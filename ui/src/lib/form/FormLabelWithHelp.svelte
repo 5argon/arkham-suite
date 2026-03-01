@@ -3,6 +3,7 @@
 	import FormHelp from './FormHelp.svelte';
 	import SvgIcon from '../basic/SvgIcon.svelte';
 	import MarkdownModal from '../layout/MarkdownModal.svelte';
+	import Modal from '../layout/Modal.svelte';
 
 	interface Prop {
 		label: string;
@@ -13,6 +14,12 @@
 		 * better for mobile and for multi-paragraph explanations.
 		 */
 		helpMd?: string;
+		/**
+		 * Rich modal help as a snippet (takes precedence over `helpMd`). Lets a consumer
+		 * render arbitrary content — e.g. an mdsvex doc with images — in the help modal
+		 * instead of a raw-markdown string. The clickable `?` button opens it.
+		 */
+		helpContent?: Snippet;
 		children: Snippet;
 
 		/**
@@ -21,7 +28,7 @@
 		 */
 		disableClick?: boolean;
 	}
-	const { label, help, helpMd, children, disableClick }: Prop = $props();
+	const { label, help, helpMd, helpContent, children, disableClick }: Prop = $props();
 
 	let helpMdOpen = $state(false);
 </script>
@@ -44,7 +51,7 @@
 				</span>
 			</FormHelp>
 		{/if}
-		{#if helpMd}
+		{#if helpMd || helpContent}
 			<button
 				type="button"
 				class="text-primary-500/50 hover:text-primary-500 ml-2 cursor-pointer focus:outline-none"
@@ -70,7 +77,11 @@
 	</label>
 {/if}
 
-{#if helpMd}
+{#if helpContent}
+	<Modal isOpen={helpMdOpen} onClose={() => (helpMdOpen = false)} title={label}>
+		{@render helpContent()}
+	</Modal>
+{:else if helpMd}
 	<MarkdownModal
 		source={helpMd}
 		isOpen={helpMdOpen}

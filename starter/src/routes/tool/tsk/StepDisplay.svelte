@@ -2,6 +2,7 @@
 	import { EncounterSetIcon } from '@5argon/arkham-icon';
 	import { type CampaignState, type SimStep } from '@5argon/arkham-tsk-solver';
 	import StepState from './StepState.svelte';
+	import StepTime from './StepTime.svelte';
 	import { fileEncounterSet, stepIcon, stepTitle } from './helpers';
 
 	let { step, finalState }: { step: SimStep; finalState: CampaignState } = $props();
@@ -16,10 +17,7 @@
 	<div class="flex-1">
 		<div class="flex flex-wrap items-baseline justify-between gap-2">
 			<span class="text-primary-900 dark:text-primary-100 {step.kind === 'finale' ? 'font-bold' : ''}">{stepTitle(step)}</span>
-			<span class="shrink-0 text-xs text-primary-400">
-				{#if step.usedTicket}🎟 ticket (saves {step.usedTicket.saved}){:else if step.travelCost > 0}+{step.travelCost} travel{/if}
-				· t={step.timeAfter}
-			</span>
+			<StepTime {step} />
 		</div>
 		<StepState {step} {finalState} showChoices />
 	</div>

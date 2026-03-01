@@ -27,10 +27,8 @@
 
 	// All achievements for the campaign (including shared ones inherited from a
 	// Return-to box), in the data file's order.
-	const all = $derived.by((): ResolvedAchievement[] => {
-		const log = getCampaignLog(kohakuCampaign);
-		return log ? achievementsFor(log) : [];
-	});
+	const log = $derived(getCampaignLog(kohakuCampaign));
+	const all = $derived.by((): ResolvedAchievement[] => (log ? achievementsFor(log) : []));
 
 	// Grouped by the scenario they're earned in — scenarios in play order first,
 	// then anything campaign-wide.
@@ -76,14 +74,14 @@
 				<SectionSeparator title={g.title} />
 				<ul class="mt-3 mb-6 space-y-3">
 					{#each g.items as a (a.def.id)}
-						<AchievementListItem achievement={a} />
+						<AchievementListItem achievement={a} {log} />
 					{/each}
 				</ul>
 			{/each}
 		{:else}
 			<ul class="space-y-3">
 				{#each all as a (a.def.id)}
-					<AchievementListItem achievement={a} />
+					<AchievementListItem achievement={a} {log} />
 				{/each}
 			</ul>
 		{/if}

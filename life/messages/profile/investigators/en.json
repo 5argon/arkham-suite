@@ -1,0 +1,7 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"investigators_insights_intro": "Investigators you've run, with how many decks each appeared in; greyed-out ones you've never played. ({played}/{total})",
+	"investigators_insights_versions_played": "Versions played",
+	"investigators_index_title": "Investigators – arkham.life",
+	"investigators_index_by_class": "By class"
+}

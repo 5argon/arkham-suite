@@ -1,5 +1,27 @@
 {
   "code": "tic",
+  "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). a_light_in_the_fog: drop R4 (read only from inside the no_resolution_defeated outcome; not a standalone first-choice ending).",
+  "scenarioResolutions": {
+    "a_light_in_the_fog": ["no_resolution_defeated", "R1", "R2", "R3"]
+  },
+  "outcomes": {
+    "_notes": "From into_the_maelstrom finale only (R1-R7 win, R8/no_resolution lose). Mid-campaign possess_the_key/possess_a_map (recorded in a_light_in_the_fog's losing resolution too) and the flood-axis flood_has_begun are excluded — they are not clear-signals.",
+    "win": [
+      "campaign_notes.plot_of_the_deep_ones_was_thwarted",
+      "campaign_notes.escaped_yhanthlei"
+    ],
+    "loss": [
+      "campaign_notes.deep_ones_have_flooded_the_earth"
+    ],
+    "betterWin": [
+      "campaign_notes.riches_of_the_deep_are_lost_forever",
+      "campaign_notes.agent_harpers_mission_is_complete"
+    ],
+    "special": [
+      "campaign_notes.agent_harpers_mission_is_complete_at_what_cost",
+      "campaign_notes.riches_of_the_deep_are_destroyed_at_what_cost"
+    ]
+  },
   "_notes": "Verified all 13 spans are exact substrings of their entry texts, including apostrophe variants: straight ' for possess_a_map/possess_the_key/escaped_yhanthlei (entry text uses Y'ha-nthlei straight); curly ’ for guardian_of_yhanthlei and gateway_to_yhanthlei (entry text uses Y’ha-nthlei curly). All valid.\n\nSibling-collision checks pass: Terror alive/dead differ by 'still alive.'/'dead.' after blur; Dagon awakened/slumbers differ by 'has awakened.'/'still slumbers.'; the two Deep Ones entries keep distinct remaining text ('the plot of ▓ was thwarted.' vs '▓ have flooded the Earth.').\n\nNo changes made — curation is correct as proposed. Defensible borderline kept: 'Dagon' is blurred in dagon_has_awakened/dagon_still_slumbers even though the word appears publicly in visible hideout 'Esoteric Order of Dagon'; the reveal is the god's awakening/slumber state (a boss/endgame twist), not the faction name, so blurring stays. 'the flood has begun', 'mission failed/succeeded', Falcon Point sunrise, riches lost/destroyed, Harper mission, *_out_for_blood, suspect/hideout rosters, and all memories_recovered correctly left unblurred as scaffolding or front-loaded investigation choices. No exotic roster sections (possesses_a_diving_suit is a kind:cards choice with no card codes to resolve). Hidden-section bookkeeping entries (flashbacks, accuse_*, defeated_suspects, correct_guesses, the_accusation, act_2_setup) are not in the en draft, so nothing to drop.",
   "spoilers": {
     "campaign_notes.possess_a_map_of_yhanthlei": [

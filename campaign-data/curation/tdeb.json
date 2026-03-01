@@ -1,5 +1,16 @@
 {
   "code": "tdeb",
+  "outcomes": {
+    "_notes": "Authored from game knowledge — no ArkhamCards result effect. weaver_of_the_cosmos: returned_to_reality / bridge_was_destroyed = win, bridge_was_completed / never_escaped = loss. Lower confidence.",
+    "win": [
+      "campaign_notes.returned_to_reality",
+      "campaign_notes.bridge_was_destroyed"
+    ],
+    "loss": [
+      "campaign_notes.bridge_was_completed",
+      "campaign_notes.never_escaped"
+    ]
+  },
   "_notes": "Verified all 4 spans are exact substrings of their entry text (Atlach-Nacha's uses a straight apostrophe matching the source). No sibling collisions: the two Underworld entries remain distinguishable ('the black cat shared knowledge of [BLUR]' vs 'the investigators found a way out of [BLUR]'). Genuine reveals blurred: Silver Key (artifact), the Underworld (endgame location), Atlach-Nacha's (final Great Old One). Black cat (campaign framing companion), Randolph Carter, and Dr. Maheswaran correctly left visible as setup NPCs; 'the bridge'/Dreamlands are the campaign's own visible concepts. No exotic rosters needed (count + hidden sections only). Curation accepted unchanged.",
   "spoilers": {
     "campaign_notes.possess_silver_key": [

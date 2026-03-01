@@ -10,6 +10,24 @@
     "flooded_neighborhoods": "Flooded Neighborhoods",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "tdc_prologue": "Prologue",
+    "one_last_job": "One Last Job",
+    "an_offer_you_cant_refuse": "An Offer You Can't Refuse",
+    "expedition_to_ryleh": "Expedition to R'lyeh",
+    "the_western_wall": "The Western Wall",
+    "the_drowned_quarter": "The Drowned Quarter",
+    "the_apiary": "The Apiary",
+    "the_grand_vault": "The Grand Vault",
+    "court_of_the_ancients": "Court of the Ancients",
+    "obsidian_canyons": "Obsidian Canyons",
+    "sepulchre_of_the_sleeper": "Sepulchre of the Sleeper",
+    "return_to_arkham": "Return to Arkham",
+    "the_doom_of_arkham": "The Doom of Arkham",
+    "the_doom_of_arkham_part_1": "The Doom of Arkham: Part I",
+    "the_doom_of_arkham_part_2": "The Doom of Arkham: Part II",
+    "tdc_epilogue": "Epilogue"
+  },
   "entries": {
     "campaign_notes.discovered_an_alien_language": {
       "text": "the investigators discovered an alien language."
@@ -29,8 +47,35 @@
     "campaign_notes.expedition_headed_east": {
       "text": "the expedition headed east."
     },
+    "locations.the_western_wall": {
+      "text": "The Western Wall"
+    },
+    "locations.the_drowned_quarter": {
+      "text": "The Drowned Quarter"
+    },
+    "locations.the_apiary": {
+      "text": "The Apiary"
+    },
+    "locations.the_grand_vault": {
+      "text": "The Grand Vault"
+    },
+    "locations.court_of_the_ancients": {
+      "text": "Court of the Ancients"
+    },
+    "locations.obsidian_canyons": {
+      "text": "Obsidian Canyons"
+    },
+    "locations.sepulchre_of_the_sleeper": {
+      "text": "Sepulchre of the Sleeper"
+    },
     "campaign_notes.the_creature_was_defeated": {
       "text": "the creature was defeated."
+    },
+    "campaign_notes.expedition_helped_pilgrim": {
+      "text": "the expedition helped the pilgrim."
+    },
+    "campaign_notes.expedition_abandoned_pilgrim": {
+      "text": "the expedition left the pilgrim behind."
     },
     "artifacts_earned.barrier_node": {
       "text": "Barrier Node"
@@ -67,6 +112,9 @@
     },
     "artifacts_earned.obsidian_claw": {
       "text": "Obsidian Claw"
+    },
+    "campaign_notes.did_not_confront_the_nightmare": {
+      "text": "the investigators did not confront the nightmare."
     },
     "campaign_notes.halted_cthulhus_awakening": {
       "text": "the investigators halted Cthulhu's awakening.",
@@ -227,6 +275,17 @@
     "expertise": {
       "title": "R’lyeh Expertise",
       "text": "Win <i>The Drowned City</i> campaign on Expert difficulty."
+    }
+  },
+  "specialInteractions": {
+    "check_wendy_adams": {
+      "text": "Andy mentions Wendy's father."
+    },
+    "check_detective": {
+      "text": "Reads the relic as stolen."
+    },
+    "check_ursula": {
+      "text": "Ursula recalls her Amazon expedition."
     }
   }
 }

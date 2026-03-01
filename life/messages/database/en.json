@@ -1,0 +1,6 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"database_title": "Save / Load Database",
+	"database_page_title": "arkham.life | Save / Load Database",
+	"database_description": "This site is just a tool to update your database FILE. NO HOSTING. You must Save to keep your work."
+}

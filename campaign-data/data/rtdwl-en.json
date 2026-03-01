@@ -6,49 +6,29 @@
     "sacrificed": "Sacrificed to Yog-Sothoth",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "dwl_prologue": "Prologue",
+    "extracurricular_activity": "Extracurricular Activity",
+    "the_house_always_wins": "The House Always Wins",
+    "armitages_fate": "Armitage's Fate",
+    "the_miskatonic_museum": "The Miskatonic Museum",
+    "return_to_the_essex_county_express": "The Essex County Express",
+    "blood_on_the_altar": "Blood on the Altar",
+    "dwl_interlude2": "The Survivors",
+    "undimensioned_and_unseen": "Undimensioned and Unseen",
+    "where_doom_awaits": "Where Doom Awaits",
+    "lost_in_time_and_space": "Lost in Time and Space",
+    "dwl_epilogue": "Epilogue",
+    "return_to_extracurricular_activity": "Return to Extracurricular Activity",
+    "return_to_the_house_always_wins": "Return to The House Always Wins",
+    "return_to_the_miskatonic_museum": "Return to The Miskatonic Museum",
+    "return_to_essex_county_express": "Return to The Essex County Express",
+    "return_to_blood_on_the_altar": "Return to Blood on the Altar",
+    "return_to_undimensioned_and_unseen": "Return to Undimensioned and Unseen",
+    "return_to_where_doom_awaits": "Return to Where Doom Awaits",
+    "return_to_lost_in_time_and_space": "Return to Lost in Time and Space"
+  },
   "entries": {
-    "campaign_notes.henry_armitage_kidnapped": {
-      "text": "Dr. Henry Armitage was kidnapped."
-    },
-    "campaign_notes.henry_armitage_rescued": {
-      "text": "the investigators rescued Dr. Henry Armitage."
-    },
-    "campaign_notes.ritual_completed": {
-      "text": "the ritual was completed."
-    },
-    "campaign_notes.killed_silas_bishop": {
-      "text": "the investigators put Silas Bishop out of his misery.",
-      "spoiler": [
-        "Silas Bishop"
-      ]
-    },
-    "campaign_notes.restored_silas_bishop": {
-      "text": "the investigators restored Silas Bishop.",
-      "spoiler": [
-        "Silas Bishop"
-      ]
-    },
-    "campaign_notes.banished_silas_bishop": {
-      "text": "the investigators banished Silas Bishop.",
-      "spoiler": [
-        "Silas Bishop"
-      ]
-    },
-    "campaign_notes.necronomicon_stolen": {
-      "text": "the Necronomicon was stolen.",
-      "spoiler": [
-        "the Necronomicon"
-      ]
-    },
-    "campaign_notes.henry_armitage_survived": {
-      "text": "Dr. Henry Armitage survived The Dunwich Legacy."
-    },
-    "campaign_notes.investigators_delayed": {
-      "text": "the investigators were delayed on their way to Dunwich."
-    },
-    "campaign_notes.francis_morgan_kidnapped": {
-      "text": "Dr. Francis Morgan was kidnapped."
-    },
     "campaign_notes.warren_rice_kidnapped": {
       "text": "Professor Warren Rice was kidnapped."
     },
@@ -70,38 +50,14 @@
     "campaign_notes.failed_to_save_students": {
       "text": "the investigators failed to save the students."
     },
-    "campaign_notes.closed_tear": {
-      "text": "the investigators closed the tear in reality."
-    },
-    "campaign_notes.yog_sothoth_fled": {
-      "text": "Yog-Sothoth has fled to another dimension.",
-      "spoiler": [
-        "Yog-Sothoth"
-      ]
-    },
-    "campaign_notes.yog_sothoth_became_one_with_reality": {
-      "text": "Yog-Sothoth tore apart the barriers between worlds, and became one with all reality.",
-      "spoiler": [
-        "Yog-Sothoth"
-      ]
-    },
-    "campaign_notes.warren_rice_survived": {
-      "text": "Professor Warren Rice survived The Dunwich Legacy."
-    },
-    "campaign_notes.francis_morgan_survived": {
-      "text": "Dr. Francis Morgan survived The Dunwich Legacy."
-    },
-    "campaign_notes.zebulon_whateley_survived": {
-      "text": "Zebulon Whateley survived The Dunwich Legacy."
-    },
-    "campaign_notes.earl_sawyer_survived": {
-      "text": "Earl Sawyer survived The Dunwich Legacy."
-    },
     "campaign_notes.bone_to_pick": {
       "text": "the O'Bannion gang has a bone to pick with the investigators.",
       "spoiler": [
         "O'Bannion"
       ]
+    },
+    "campaign_notes.francis_morgan_kidnapped": {
+      "text": "Dr. Francis Morgan was kidnapped."
     },
     "campaign_notes.naomi_has_back": {
       "text": "Naomi has the investigators' back.",
@@ -130,6 +86,42 @@
         "the Necronomicon"
       ]
     },
+    "campaign_notes.investigators_delayed": {
+      "text": "the investigators were delayed on their way to Dunwich."
+    },
+    "campaign_notes.necronomicon_stolen": {
+      "text": "the Necronomicon was stolen.",
+      "spoiler": [
+        "the Necronomicon"
+      ]
+    },
+    "campaign_notes.henry_armitage_kidnapped": {
+      "text": "Dr. Henry Armitage was kidnapped."
+    },
+    "campaign_notes.ritual_completed": {
+      "text": "the ritual was completed."
+    },
+    "campaign_notes.killed_silas_bishop": {
+      "text": "the investigators put Silas Bishop out of his misery.",
+      "spoiler": [
+        "Silas Bishop"
+      ]
+    },
+    "campaign_notes.restored_silas_bishop": {
+      "text": "the investigators restored Silas Bishop.",
+      "spoiler": [
+        "Silas Bishop"
+      ]
+    },
+    "campaign_notes.banished_silas_bishop": {
+      "text": "the investigators banished Silas Bishop.",
+      "spoiler": [
+        "Silas Bishop"
+      ]
+    },
+    "campaign_notes.henry_armitage_survived": {
+      "text": "Dr. Henry Armitage survived The Dunwich Legacy."
+    },
     "campaign_notes.calmed_townsfolk": {
       "text": "you calmed the townsfolk."
     },
@@ -150,6 +142,36 @@
       "spoiler": [
         "Yog-Sothoth"
       ]
+    },
+    "campaign_notes.closed_tear": {
+      "text": "the investigators closed the tear in reality."
+    },
+    "campaign_notes.yog_sothoth_fled": {
+      "text": "Yog-Sothoth has fled to another dimension.",
+      "spoiler": [
+        "Yog-Sothoth"
+      ]
+    },
+    "campaign_notes.yog_sothoth_became_one_with_reality": {
+      "text": "Yog-Sothoth tore apart the barriers between worlds, and became one with all reality.",
+      "spoiler": [
+        "Yog-Sothoth"
+      ]
+    },
+    "campaign_notes.henry_armitage_rescued": {
+      "text": "the investigators rescued Dr. Henry Armitage."
+    },
+    "campaign_notes.warren_rice_survived": {
+      "text": "Professor Warren Rice survived The Dunwich Legacy."
+    },
+    "campaign_notes.francis_morgan_survived": {
+      "text": "Dr. Francis Morgan survived The Dunwich Legacy."
+    },
+    "campaign_notes.zebulon_whateley_survived": {
+      "text": "Zebulon Whateley survived The Dunwich Legacy."
+    },
+    "campaign_notes.earl_sawyer_survived": {
+      "text": "Earl Sawyer survived The Dunwich Legacy."
     }
   },
   "achievements": {

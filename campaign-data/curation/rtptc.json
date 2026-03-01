@@ -1,5 +1,21 @@
 {
   "code": "rtptc",
+  "scenarioChoices": {
+    "dim_carcosa": [
+      { "id": "hastur_version", "label": "Hastur version", "options": ["I", "II", "III"] }
+    ]
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.possessed",
+      "campaign_notes.prevented_hasturs_escape"
+    ],
+    "loss": [
+      "campaign_notes.carcosa_merged",
+      "campaign_notes.hastur_has_you"
+    ]
+  },
   "_notes": "Verified all 9 spans are exact substrings of their entry text. No changes needed. Sibling-collision check on campaign_notes (single notes section): took_onyx_clasp (\"you took [blur].\") vs left_onyx_clasp (\"you left [blur] behind.\") remain distinguishable via took/left + \"behind\"; the three Hastur entries differ in surrounding text; no two entries collapse to identical readable text. Over-blur avoided: \"Carcosa\" (title), \"the Stranger\" (visible section title \"Chasing the Stranger\"), \"The King in Yellow\" in read_act_2 (front-loaded signature play), and Nigel/Daniel NPC names (needed to disambiguate sibling entries) correctly left visible. Under-blur covered: all Hastur/King reveals, onyx clasp artifact, oathspeaker, phantom, followers of the sign are blurred. db section types match reference; cards sections (vips_interviewed/vips_slain) are roster cards, not spoiler note entries, so no card-code resolution required. No structural overrides or drops.",
   "spoilers": {
     "campaign_notes.king_claimed_victims": [
@@ -137,8 +153,16 @@
       "infer": {
         "type": "allOf",
         "of": [
-          { "type": "logCount", "key": "doubt", "max": 1 },
-          { "type": "logCount", "key": "conviction", "max": 1 }
+          {
+            "type": "logCount",
+            "key": "doubt",
+            "max": 1
+          },
+          {
+            "type": "logCount",
+            "key": "conviction",
+            "max": 1
+          }
         ]
       }
     }

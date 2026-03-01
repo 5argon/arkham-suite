@@ -8,6 +8,112 @@
     "arkham",
     "tentacles"
   ],
+  "scenarioMeta": [
+    {
+      "id": "the_gathering",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "R3": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "not_resigned"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "the_midnight_masks",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_devourer_below",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 3,
+      "-2": 2,
+      "skull": 2,
+      "cultist": 1,
+      "tablet": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 3,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "skull": 2,
+      "cultist": 1,
+      "tablet": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 3,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "skull": 2,
+      "cultist": 1,
+      "tablet": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 2,
+      "-5": 1,
+      "-6": 1,
+      "-8": 1,
+      "skull": 2,
+      "cultist": 1,
+      "tablet": 1,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -29,59 +135,63 @@
   ],
   "entries": [
     {
+      "id": "house_standing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_gathering"
+    },
+    {
       "id": "house_burned",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "arkham"
+      "scenario": "the_gathering"
     },
     {
       "id": "ghoul_priest_alive",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "arkham",
+      "scenario": "the_gathering",
       "crossOut": true
-    },
-    {
-      "id": "past_midnight",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "arkham"
-    },
-    {
-      "id": "arkham_succumbed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "tentacles"
-    },
-    {
-      "id": "ritual_broken",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "tentacles"
-    },
-    {
-      "id": "umordhoth_repelled",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "tentacles"
-    },
-    {
-      "id": "lita_sacrificed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "tentacles"
-    },
-    {
-      "id": "house_standing",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "torch"
     },
     {
       "id": "lita_finds_others",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "torch"
+      "scenario": "the_gathering"
+    },
+    {
+      "id": "past_midnight",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_midnight_masks"
+    },
+    {
+      "id": "arkham_succumbed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_devourer_below",
+      "outcome": "loss"
+    },
+    {
+      "id": "ritual_broken",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_devourer_below",
+      "outcome": "win"
+    },
+    {
+      "id": "umordhoth_repelled",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_devourer_below",
+      "outcome": "win",
+      "outcomeQuality": "best"
+    },
+    {
+      "id": "lita_sacrificed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_devourer_below"
     }
   ],
   "achievements": [
@@ -196,7 +306,7 @@
         "campaign_notes.house_burned",
         "campaign_notes.house_standing"
       ],
-      "scenario": "The Gathering"
+      "scenario": "torch"
     },
     {
       "type": "mutuallyExclusive",
@@ -206,7 +316,7 @@
         "campaign_notes.umordhoth_repelled",
         "campaign_notes.lita_sacrificed"
       ],
-      "scenario": "The Devourer Below"
+      "scenario": "tentacles"
     }
   ]
 }

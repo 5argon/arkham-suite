@@ -6,7 +6,60 @@
     "evidence_of_kadath": "Evidence of Kadath",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "tde_prologue": "Prologue",
+    "beyond_the_gates_of_sleep": "Beyond the Gates of Sleep",
+    "the_black_cat": "The Black Cat",
+    "the_search_for_kadath": "The Search for Kadath",
+    "the_oneironauts": "The Oneironauts",
+    "dark_side_of_the_moon": "Dark Side of the Moon",
+    "the_great_ones": "The Great Ones",
+    "where_gods_dwell": "Where the Gods Dwell",
+    "tde_epilogue": "Epilogue"
+  },
   "entries": {
+    "campaign_notes.saved_by_randolph_carter": {
+      "text": "the investigators were saved by Randolph Carter."
+    },
+    "campaign_notes.cats_collected_their_tribute": {
+      "text": "the cats collected their tribute from the Zoogs."
+    },
+    "campaign_notes.parleyed_with_zoogs": {
+      "text": "the investigators parleyed with the Zoogs."
+    },
+    "campaign_notes.strayed_from_the_path": {
+      "text": "the dreamers strayed from the path."
+    },
+    "campaign_notes.forced_way_into_temple": {
+      "text": "the investigators forced their way into the temple."
+    },
+    "campaign_notes.broken_the_law_of_ulthar": {
+      "text": "#name# has broken the law of Ulthar."
+    },
+    "campaign_notes.virgil_was_captured": {
+      "text": "Virgil was captured."
+    },
+    "campaign_notes.randolph_eluded_capture": {
+      "text": "Randolph eluded capture."
+    },
+    "campaign_notes.randolph_was_captured": {
+      "text": "Randolph was captured."
+    },
+    "campaign_notes.captured": {
+      "text": "#name# was captured."
+    },
+    "campaign_notes.carried_to_the_cold_wastes": {
+      "text": "the investigators were carried to the Cold Wastes."
+    },
+    "campaign_notes.randolph_did_not_survive_the_voyage": {
+      "text": "Randolph Carter did not survive the voyage."
+    },
+    "campaign_notes.travelled_to_the_cold_wastes": {
+      "text": "the investigators traveled to the Cold Wastes."
+    },
+    "campaign_notes.randolph_survived_the_voyage": {
+      "text": "Randolph survived the voyage."
+    },
     "campaign_notes.dreamers_grow_weaker": {
       "text": "the dreamers grow weaker."
     },
@@ -51,48 +104,6 @@
     },
     "campaign_notes.dreamers_know_of_another_path": {
       "text": "the dreamers know of another path."
-    },
-    "campaign_notes.saved_by_randolph_carter": {
-      "text": "the investigators were saved by Randolph Carter."
-    },
-    "campaign_notes.cats_collected_their_tribute": {
-      "text": "the cats collected their tribute from the Zoogs."
-    },
-    "campaign_notes.parleyed_with_zoogs": {
-      "text": "the investigators parleyed with the Zoogs."
-    },
-    "campaign_notes.strayed_from_the_path": {
-      "text": "the dreamers strayed from the path."
-    },
-    "campaign_notes.carried_to_the_cold_wastes": {
-      "text": "the investigators were carried to the Cold Wastes."
-    },
-    "campaign_notes.randolph_did_not_survive_the_voyage": {
-      "text": "Randolph Carter did not survive the voyage."
-    },
-    "campaign_notes.travelled_to_the_cold_wastes": {
-      "text": "the investigators traveled to the Cold Wastes."
-    },
-    "campaign_notes.randolph_survived_the_voyage": {
-      "text": "Randolph survived the voyage."
-    },
-    "campaign_notes.forced_way_into_temple": {
-      "text": "the investigators forced their way into the temple."
-    },
-    "campaign_notes.broken_the_law_of_ulthar": {
-      "text": "#name# has broken the law of Ulthar."
-    },
-    "campaign_notes.virgil_was_captured": {
-      "text": "Virgil was captured."
-    },
-    "campaign_notes.randolph_eluded_capture": {
-      "text": "Randolph eluded capture."
-    },
-    "campaign_notes.randolph_was_captured": {
-      "text": "Randolph was captured."
-    },
-    "campaign_notes.captured": {
-      "text": "#name# was captured."
     },
     "campaign_notes.nyarlathoteps_invasion_has_begun": {
       "text": "Nyarlathotep's invasion has begun.",
@@ -182,6 +193,47 @@
     "reunited": {
       "title": "Reunited and it Feels So Good",
       "text": "Win <i>The Dream-Eaters</i> as an interconnected 8-part campaign, and have both groups reunite during the epilogue."
+    }
+  },
+  "specialInteractions": {
+    "guardian": {
+      "text": "Guardian [guardian] dream"
+    },
+    "seeker": {
+      "text": "Seeker [seeker] dream"
+    },
+    "rogue": {
+      "text": "Rogue [rogue] dream"
+    },
+    "mystic": {
+      "text": "Mystic [mystic] dream"
+    },
+    "survivor": {
+      "text": "Survivor [survivor] dream"
+    },
+    "criminal": {
+      "text": "[[Criminal]] dream"
+    },
+    "drifter": {
+      "text": "[[Drifter]] dream"
+    },
+    "hunter": {
+      "text": "[[Hunter]] dream"
+    },
+    "medic": {
+      "text": "[[Medic]] or [[Assistant]] dream"
+    },
+    "miskatonic": {
+      "text": "[[Miskatonic]] or [[Scholar]] dream"
+    },
+    "veteran": {
+      "text": "[[Veteran]] dream"
+    },
+    "wayfarer": {
+      "text": "[[Wayfarer]] dream"
+    },
+    "check_luke_robinson": {
+      "text": "Luke gets his own intro scene."
     }
   }
 }

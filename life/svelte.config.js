@@ -1,21 +1,30 @@
-import { mdsvex } from "mdsvex";
-import adapter from '@sveltejs/adapter-auto';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import adapter from '@sveltejs/adapter-cloudflare'
+import { sveltePreprocess } from 'svelte-preprocess'
+import { mdsvex } from 'mdsvex'
+import { fileURLToPath } from 'node:url'
+import { remarkDocImages } from './src/lib/docs/remark-doc-images.js'
 
-/** @type {import('@sveltejs/kit').Config} */
+/** mdsvex powers the in-app docs system (`src/lib/docs/**`): markdown compiled to Svelte
+ *  components so docs can embed components (DocButton/Figure) and use co-located images.
+ *  The layout maps element styling (e.g. `##` → SectionSeparator look); remarkDocImages
+ *  rewrites relative `![](./x.webp)` to the served `/docs/...` path (images copied by the
+ *  doc-images Vite plugin). See src/lib/docs/. */
+const mdsvexConfig = {
+	extensions: ['.md'],
+	layout: fileURLToPath(new URL('./src/lib/docs/_layout.svelte', import.meta.url)),
+	remarkPlugins: [remarkDocImages],
+}
+
 const config = {
-    // Consult https://svelte.dev/docs/kit/integrations
-    // for more information about preprocessors
-    preprocess: [vitePreprocess(), mdsvex()],
+	// `.md` are Svelte components (mdsvex). Existing `src/lib/md/**` help files are imported with
+	// `?raw` (raw strings), which bypasses this — they coexist until migrated to src/lib/docs.
+	extensions: ['.svelte', '.md'],
+	// mdsvex FIRST (markdown → svelte), then svelte-preprocess (ts/scss in the result).
+	preprocess: [mdsvex(mdsvexConfig), sveltePreprocess()],
 
-    kit: {
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter()
+	kit: {
+		adapter: adapter(),
 	},
+}
 
-    extensions: [".svelte", ".svx"]
-};
-
-export default config;
+export default config

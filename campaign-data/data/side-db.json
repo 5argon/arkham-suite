@@ -41,6 +41,425 @@
     "when_the_world_screamed",
     "film_fatale"
   ],
+  "scenarioMeta": [
+    {
+      "id": "the_midwinter_gala",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ]
+    },
+    {
+      "id": "curse_of_the_rougarou",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "carnevale_of_horrors",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_eternal_slumber",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_nights_usurper",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "murder_at_the_excelsior_hotel",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "blob_that_ate_everything",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "blob_that_ate_everything_else",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "read_or_die",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "all_or_nothing",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "bad_blood",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "by_the_book",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "red_tide_rising",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_resigned",
+        "no_resolution_defeated",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "laid_to_rest",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "relics_of_the_past",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "R1"
+      ]
+    },
+    {
+      "id": "enthralling_encore",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_defeated",
+        "R1"
+      ]
+    },
+    {
+      "id": "in_the_labyrinths_of_lunacy",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "id": "war_of_the_outer_gods",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all",
+              "conditional": true
+            }
+          ],
+          "result": "lose"
+        },
+        "R5": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R6": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R7": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    },
+    {
+      "id": "meddling_of_meowlathotep",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "machinations_through_time",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "id": "consternation_on_the_constellation",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "the_symphony_of_erich_zann",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "the_colour_out_of_space",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "jennys_choice",
+      "type": "story",
+      "resolutions": [
+        "no_resolution_resigned",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "the_fall_of_the_house_of_usher",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "against_the_wendigo",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "fortune_and_folly_part_1",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "choices": [
+        {
+          "id": "completed_tasks",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 8
+        }
+      ]
+    },
+    {
+      "id": "the_black_stone",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "too_noble",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "something_big",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "unscrupulous_investments",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "anything_once",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "mysterious_benefits",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "legions_of_fire",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "when_the_world_screamed",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "fanMade": true
+    },
+    {
+      "id": "film_fatale",
+      "type": "story",
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    }
+  ],
   "sections": [
     {
       "id": "campaign_notes",
@@ -75,6 +494,397 @@
     }
   ],
   "entries": [
+    {
+      "id": "tmg_side_story_mode",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_midwinter_gala",
+      "hidden": true
+    },
+    {
+      "id": "tmg_fabeled_jewel",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_midwinter_gala",
+      "hidden": true
+    },
+    {
+      "id": "tmg_calculate_score",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_midwinter_gala",
+      "hidden": true
+    },
+    {
+      "id": "tmg_score_tally",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "the_midwinter_gala",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "tmg_score_tally_spellbound",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_midwinter_gala",
+      "hidden": true
+    },
+    {
+      "id": "rougarou_destroyed_and_curse_is_lifted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curse_of_the_rougarou"
+    },
+    {
+      "id": "rougarou_escaped_and_embrace_curse",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curse_of_the_rougarou"
+    },
+    {
+      "id": "rougarou_continues_to_haunt_the_bayou",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curse_of_the_rougarou"
+    },
+    {
+      "id": "coh_many_were_sacrificed_to_cnidathqua",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "carnevale_of_horrors"
+    },
+    {
+      "id": "coh_sun_banished_cnidathqua",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "carnevale_of_horrors"
+    },
+    {
+      "id": "coh_cnidathqua_retreated",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "carnevale_of_horrors"
+    },
+    {
+      "id": "tes_dreamers_in_the_abyss",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "the_eternal_slumber",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "tes_escaped_brotherhood",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "the_eternal_slumber",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "tes_brotherhood_schemes_continue",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber"
+    },
+    {
+      "id": "tes_aware_of_xzharahs_plan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber"
+    },
+    {
+      "id": "tes_curse_of_slumber_lifted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber"
+    },
+    {
+      "id": "tes_taken_by_the_abyss",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber",
+      "crossOut": true
+    },
+    {
+      "id": "tnu_day_of_reckoning_is_coming",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper"
+    },
+    {
+      "id": "tnu_the_abyss_was_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper"
+    },
+    {
+      "id": "tnu_taken_by_the_abyss",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper",
+      "crossOut": true
+    },
+    {
+      "id": "tnu_joined_xzharah",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper"
+    },
+    {
+      "id": "meh_excelsior_claims_another_victim",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true
+    },
+    {
+      "id": "meh_fled_scene_of_the_crime",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true
+    },
+    {
+      "id": "meh_excelsior_is_quiet_for_now",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel"
+    },
+    {
+      "id": "meh_the_truth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_did_not_cover_up",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_have_clues",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_no_innocents_killed",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_did_cover_up",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_police_dont_believe_you",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_police_are_on_your_side",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "meh_murders_continue_unsolved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "murder_at_the_excelsior_hotel"
+    },
+    {
+      "id": "blob_devoured_universe",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blob_that_ate_everything",
+      "outcome": "loss"
+    },
+    {
+      "id": "blob_contained",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blob_that_ate_everything"
+    },
+    {
+      "id": "epic_multiplayer",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_the_labyrinths_of_lunacy",
+      "hidden": true
+    },
+    {
+      "id": "group_a",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_the_labyrinths_of_lunacy",
+      "hidden": true
+    },
+    {
+      "id": "group_b",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_the_labyrinths_of_lunacy",
+      "hidden": true
+    },
+    {
+      "id": "group_c",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_the_labyrinths_of_lunacy",
+      "hidden": true
+    },
+    {
+      "id": "act_2_setup",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_the_labyrinths_of_lunacy",
+      "hidden": true
+    },
+    {
+      "id": "act_3_setup",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_the_labyrinths_of_lunacy",
+      "hidden": true
+    },
+    {
+      "id": "coc_swap_chaos_bag",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation",
+      "hidden": true
+    },
+    {
+      "id": "ritual_at_sea_was_completed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation"
+    },
+    {
+      "id": "constellation_was_lost_to_the_depths",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation"
+    },
+    {
+      "id": "ritual_at_sea_was_halted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation"
+    },
+    {
+      "id": "constellation_was_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation"
+    },
+    {
+      "id": "coc_bridge",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation",
+      "hidden": true
+    },
+    {
+      "id": "coc_engine_room",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation",
+      "hidden": true
+    },
+    {
+      "id": "coc_galley",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation",
+      "hidden": true
+    },
+    {
+      "id": "coc_library",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation",
+      "hidden": true
+    },
+    {
+      "id": "coc_passenger_cabins",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "consternation_on_the_constellation",
+      "hidden": true
+    },
+    {
+      "id": "zez_all_is_quiet",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_symphony_of_erich_zann"
+    },
+    {
+      "id": "zcos_abandoned_the_people_of_eastwick",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_colour_out_of_space"
+    },
+    {
+      "id": "zcos_fended_off_an_alien_entity",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_colour_out_of_space"
+    },
+    {
+      "id": "zcos_slaughtered_the_people_of_eastwick",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_colour_out_of_space"
+    },
+    {
+      "id": "zjc_killed_jenny",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "jennys_choice",
+      "hidden": true
+    },
+    {
+      "id": "zhu_house_of_usher_has_fallen",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_fall_of_the_house_of_usher"
+    },
+    {
+      "id": "zhu_avenged_the_house_of_usher",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_fall_of_the_house_of_usher"
+    },
     {
       "id": "atw_discovered_the_fate_of_the_students",
       "section": "campaign_notes",
@@ -173,6 +983,97 @@
       "scenario": "against_the_wendigo"
     },
     {
+      "id": "fof_skip_part_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fortune_and_folly_part_1",
+      "hidden": true
+    },
+    {
+      "id": "zbs_have_seen_and_understood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_black_stone"
+    },
+    {
+      "id": "zbs_the_monolith_broods_in_silence",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_black_stone"
+    },
+    {
+      "id": "testsuo_made_a_noble_sacrifice",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "too_noble"
+    },
+    {
+      "id": "tetsuos_investigation_has_failed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "too_noble"
+    },
+    {
+      "id": "saved_the_mutated_officer",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "too_noble"
+    },
+    {
+      "id": "purged_the_police_station",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "too_noble"
+    },
+    {
+      "id": "dr_malesons_experiment_was_a_failure",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "something_big"
+    },
+    {
+      "id": "dr_maleson_was_lost_between_dimensions",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "something_big"
+    },
+    {
+      "id": "observed_the_aftereffects_of_the_shift",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "something_big"
+    },
+    {
+      "id": "gathered_samples_from_another_earth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "something_big"
+    },
+    {
+      "id": "darios_investment_didnt_pay_off",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "unscrupulous_investments"
+    },
+    {
+      "id": "dario_was_turned_into_solid_gold",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "unscrupulous_investments"
+    },
+    {
+      "id": "banished_the_gilded_spirit",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "unscrupulous_investments"
+    },
+    {
+      "id": "repaired_the_golden_artifact",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "unscrupulous_investments"
+    },
+    {
       "id": "olive_has_sworn_off_blood_magic",
       "section": "campaign_notes",
       "kind": "note",
@@ -197,118 +1098,85 @@
       "scenario": "anything_once"
     },
     {
-      "id": "blob_devoured_universe",
+      "id": "madame_labranche_has_lost_her_fortune",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "blob_that_ate_everything"
+      "scenario": "mysterious_benefits"
     },
     {
-      "id": "blob_contained",
+      "id": "madame_labranche_has_settled_accounts",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "blob_that_ate_everything"
+      "scenario": "mysterious_benefits"
     },
     {
-      "id": "coh_many_were_sacrificed_to_cnidathqua",
+      "id": "banished_shax",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "carnevale_of_horrors"
+      "scenario": "mysterious_benefits"
     },
     {
-      "id": "coh_sun_banished_cnidathqua",
+      "id": "renewed_the_labranches_pact",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "carnevale_of_horrors"
+      "scenario": "mysterious_benefits"
     },
     {
-      "id": "coh_cnidathqua_retreated",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "carnevale_of_horrors"
-    },
-    {
-      "id": "coc_swap_chaos_bag",
+      "id": "zlf_explosion",
       "section": "hidden",
       "kind": "note",
-      "scenario": "consternation_on_the_constellation",
+      "scenario": "legions_of_fire",
       "hidden": true
     },
     {
-      "id": "ritual_at_sea_was_completed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation"
-    },
-    {
-      "id": "constellation_was_lost_to_the_depths",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation"
-    },
-    {
-      "id": "ritual_at_sea_was_halted",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation"
-    },
-    {
-      "id": "constellation_was_saved",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation"
-    },
-    {
-      "id": "coc_bridge",
+      "id": "zlf_at_vatican_location",
       "section": "hidden",
       "kind": "note",
-      "scenario": "consternation_on_the_constellation",
+      "scenario": "legions_of_fire",
       "hidden": true
     },
     {
-      "id": "coc_engine_room",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation",
-      "hidden": true
-    },
-    {
-      "id": "coc_galley",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation",
-      "hidden": true
-    },
-    {
-      "id": "coc_library",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation",
-      "hidden": true
-    },
-    {
-      "id": "coc_passenger_cabins",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "consternation_on_the_constellation",
-      "hidden": true
-    },
-    {
-      "id": "rougarou_destroyed_and_curse_is_lifted",
+      "id": "zlf_italy_has_ceased_to_exist",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "curse_of_the_rougarou"
+      "scenario": "legions_of_fire"
     },
     {
-      "id": "rougarou_escaped_and_embrace_curse",
+      "id": "zlf_ignis_destroy_humanity",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "curse_of_the_rougarou"
+      "scenario": "legions_of_fire"
     },
     {
-      "id": "rougarou_continues_to_haunt_the_bayou",
+      "id": "zlf_ignis_spirit_has_been_crushed",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "curse_of_the_rougarou"
+      "scenario": "legions_of_fire"
+    },
+    {
+      "id": "zlf_slain_the_eldrich_god",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "legions_of_fire"
+    },
+    {
+      "id": "wtws_epic_multiplayer",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "when_the_world_screamed",
+      "hidden": true
+    },
+    {
+      "id": "drill_broke_down",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "when_the_world_screamed"
+    },
+    {
+      "id": "world_screamed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "when_the_world_screamed"
     },
     {
       "id": "always_true",
@@ -376,6 +1244,12 @@
         "cards": {
           "mode": "choice"
         }
+      },
+      "repeatable": true,
+      "cardFilter": {
+        "types": [
+          "asset"
+        ]
       }
     },
     {
@@ -388,6 +1262,12 @@
         "cards": {
           "mode": "choice"
         }
+      },
+      "repeatable": true,
+      "cardFilter": {
+        "types": [
+          "investigator"
+        ]
       }
     },
     {
@@ -587,13 +1467,6 @@
       }
     },
     {
-      "id": "fof_skip_part_1",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "fortune_and_folly_part_1",
-      "hidden": true
-    },
-    {
       "id": "fof_heist_tasks",
       "section": "hidden",
       "kind": "count",
@@ -608,447 +1481,6 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "fortune_and_folly_part_2"
-    },
-    {
-      "id": "epic_multiplayer",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "in_the_labyrinths_of_lunacy",
-      "hidden": true
-    },
-    {
-      "id": "group_a",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "in_the_labyrinths_of_lunacy",
-      "hidden": true
-    },
-    {
-      "id": "group_b",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "in_the_labyrinths_of_lunacy",
-      "hidden": true
-    },
-    {
-      "id": "group_c",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "in_the_labyrinths_of_lunacy",
-      "hidden": true
-    },
-    {
-      "id": "act_2_setup",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "in_the_labyrinths_of_lunacy",
-      "hidden": true
-    },
-    {
-      "id": "act_3_setup",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "in_the_labyrinths_of_lunacy",
-      "hidden": true
-    },
-    {
-      "id": "zjc_killed_jenny",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "jennys_choice",
-      "hidden": true
-    },
-    {
-      "id": "zlf_explosion",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "legions_of_fire",
-      "hidden": true
-    },
-    {
-      "id": "zlf_at_vatican_location",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "legions_of_fire",
-      "hidden": true
-    },
-    {
-      "id": "zlf_italy_has_ceased_to_exist",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "legions_of_fire"
-    },
-    {
-      "id": "zlf_ignis_destroy_humanity",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "legions_of_fire"
-    },
-    {
-      "id": "zlf_ignis_spirit_has_been_crushed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "legions_of_fire"
-    },
-    {
-      "id": "zlf_slain_the_eldrich_god",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "legions_of_fire"
-    },
-    {
-      "id": "meh_excelsior_claims_another_victim",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true
-    },
-    {
-      "id": "meh_fled_scene_of_the_crime",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true
-    },
-    {
-      "id": "meh_excelsior_is_quiet_for_now",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel"
-    },
-    {
-      "id": "meh_the_truth",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_did_not_cover_up",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_have_clues",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_no_innocents_killed",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_did_cover_up",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_police_dont_believe_you",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_police_are_on_your_side",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel",
-      "crossOut": true,
-      "hidden": true
-    },
-    {
-      "id": "meh_murders_continue_unsolved",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "murder_at_the_excelsior_hotel"
-    },
-    {
-      "id": "madame_labranche_has_lost_her_fortune",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "mysterious_benefits"
-    },
-    {
-      "id": "madame_labranche_has_settled_accounts",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "mysterious_benefits"
-    },
-    {
-      "id": "banished_shax",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "mysterious_benefits"
-    },
-    {
-      "id": "renewed_the_labranches_pact",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "mysterious_benefits"
-    },
-    {
-      "id": "dr_malesons_experiment_was_a_failure",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "something_big"
-    },
-    {
-      "id": "dr_maleson_was_lost_between_dimensions",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "something_big"
-    },
-    {
-      "id": "observed_the_aftereffects_of_the_shift",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "something_big"
-    },
-    {
-      "id": "gathered_samples_from_another_earth",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "something_big"
-    },
-    {
-      "id": "zbs_have_seen_and_understood",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_black_stone"
-    },
-    {
-      "id": "zbs_the_monolith_broods_in_silence",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_black_stone"
-    },
-    {
-      "id": "zcos_abandoned_the_people_of_eastwick",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_colour_out_of_space"
-    },
-    {
-      "id": "zcos_fended_off_an_alien_entity",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_colour_out_of_space"
-    },
-    {
-      "id": "zcos_slaughtered_the_people_of_eastwick",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_colour_out_of_space"
-    },
-    {
-      "id": "tes_dreamers_in_the_abyss",
-      "section": "campaign_notes",
-      "kind": "count",
-      "scenario": "the_eternal_slumber",
-      "param": {
-        "type": "count"
-      }
-    },
-    {
-      "id": "tes_escaped_brotherhood",
-      "section": "campaign_notes",
-      "kind": "cards",
-      "scenario": "the_eternal_slumber",
-      "param": {
-        "type": "cards",
-        "cards": {
-          "mode": "choice"
-        }
-      }
-    },
-    {
-      "id": "tes_brotherhood_schemes_continue",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_eternal_slumber"
-    },
-    {
-      "id": "tes_aware_of_xzharahs_plan",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_eternal_slumber"
-    },
-    {
-      "id": "tes_curse_of_slumber_lifted",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_eternal_slumber"
-    },
-    {
-      "id": "tes_taken_by_the_abyss",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_eternal_slumber",
-      "crossOut": true
-    },
-    {
-      "id": "zhu_house_of_usher_has_fallen",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_fall_of_the_house_of_usher"
-    },
-    {
-      "id": "zhu_avenged_the_house_of_usher",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_fall_of_the_house_of_usher"
-    },
-    {
-      "id": "tmg_side_story_mode",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_midwinter_gala",
-      "hidden": true
-    },
-    {
-      "id": "tmg_fabeled_jewel",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_midwinter_gala",
-      "hidden": true
-    },
-    {
-      "id": "tmg_calculate_score",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_midwinter_gala",
-      "hidden": true
-    },
-    {
-      "id": "tmg_score_tally",
-      "section": "hidden",
-      "kind": "count",
-      "scenario": "the_midwinter_gala",
-      "param": {
-        "type": "count"
-      },
-      "hidden": true
-    },
-    {
-      "id": "tmg_score_tally_spellbound",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_midwinter_gala",
-      "hidden": true
-    },
-    {
-      "id": "tnu_day_of_reckoning_is_coming",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_nights_usurper"
-    },
-    {
-      "id": "tnu_the_abyss_was_saved",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_nights_usurper"
-    },
-    {
-      "id": "tnu_taken_by_the_abyss",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_nights_usurper",
-      "crossOut": true
-    },
-    {
-      "id": "tnu_joined_xzharah",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_nights_usurper"
-    },
-    {
-      "id": "zez_all_is_quiet",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "the_symphony_of_erich_zann"
-    },
-    {
-      "id": "testsuo_made_a_noble_sacrifice",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "too_noble"
-    },
-    {
-      "id": "tetsuos_investigation_has_failed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "too_noble"
-    },
-    {
-      "id": "saved_the_mutated_officer",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "too_noble"
-    },
-    {
-      "id": "purged_the_police_station",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "too_noble"
-    },
-    {
-      "id": "darios_investment_didnt_pay_off",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "unscrupulous_investments"
-    },
-    {
-      "id": "dario_was_turned_into_solid_gold",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "unscrupulous_investments"
-    },
-    {
-      "id": "banished_the_gilded_spirit",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "unscrupulous_investments"
-    },
-    {
-      "id": "repaired_the_golden_artifact",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "unscrupulous_investments"
-    },
-    {
-      "id": "wtws_epic_multiplayer",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "when_the_world_screamed",
-      "hidden": true
-    },
-    {
-      "id": "drill_broke_down",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "when_the_world_screamed"
-    },
-    {
-      "id": "world_screamed",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "when_the_world_screamed"
     }
   ],
   "achievements": []

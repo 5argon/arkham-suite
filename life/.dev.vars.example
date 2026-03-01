@@ -1,0 +1,10 @@
+# Cloudflare Worker secrets for local development (via wrangler / @cloudflare/vite-plugin)
+# Copy this file to .dev.vars and fill in your values.
+# .dev.vars is gitignored — never commit real credentials.
+#
+# To get Google credentials:
+# 1. Go to https://console.cloud.google.com/apis/credentials
+# 2. Create an OAuth 2.0 Client ID (Web application)
+# 3. Add http://localhost:5173/auth/google/callback as an Authorized redirect URI
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=

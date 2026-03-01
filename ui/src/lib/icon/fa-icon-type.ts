@@ -31,6 +31,8 @@ export enum FaIconType {
 	ArrowUpAdd,
 	ArrowDown,
 	ArrowDownAdd,
+	/** Swap / exchange two things (e.g. swap the two widgets of a split row). */
+	Swap,
 	Import,
 	Export,
 	Add,
@@ -81,6 +83,13 @@ export enum FaIconType {
 	ExternalLink,
 	Logout,
 
+	// Widget picker status
+	/** Widget depends on data from the "Extra" archive tab — user may want to skip or fill in data first. */
+	WidgetRequiresExtra,
+
+	/** A log entry contributed by a standalone scenario played inside the campaign. */
+	StandaloneSource,
+
 	// Achievements
 	/** An earnable achievement (the marker/bullet). */
 	Achievement,
@@ -88,7 +97,19 @@ export enum FaIconType {
 	AchievementManual,
 	/** Achievement auto-derived from the recorded campaign log. */
 	AchievementInferred,
+	/** Achievement auto-derived, but only with the per-scenario "Extra" inputs (not the log alone). */
+	AchievementInferredExtra,
 
 	// World map (TSK solver map tool)
 	Map,
+
+	// Campaign endings (shared by the Overview + Endings widgets)
+	/** A win ending. */
+	EndingWin,
+	/** A superior / "better" win ending. */
+	EndingBetterWin,
+	/** A losing ending. */
+	EndingLoss,
+	/** A special / rival-faction ("other kind of") ending. */
+	EndingSpecial,
 }

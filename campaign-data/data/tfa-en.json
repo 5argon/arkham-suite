@@ -7,18 +7,46 @@
     "supplies": "Supplies",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "tfa_prologue": "Prologue",
+    "the_untamed_wilds": "The Untamed Wilds",
+    "tfa_interlude1": "Restless Nights",
+    "the_doom_of_eztli": "The Doom of Eztli",
+    "tfa_interlude2": "Expedition's End",
+    "threads_of_fate": "Threads of Fate",
+    "the_boundary_beyond": "The Boundary Beyond",
+    "tfa_interlude3": "The Jungle Beckons",
+    "heart_of_the_elders_part_1": "Heart of the Elders, Part 1",
+    "heart_of_the_elders_part_2": "Heart of the Elders, Part 2",
+    "the_city_of_archives": "The City of Archives",
+    "tfa_interlude4": "Those Held Captive",
+    "the_depths_of_yoth": "The Depths of Yoth",
+    "tfa_interlude5": "The Darkness",
+    "shattered_aeons": "Shattered Aeons",
+    "tfa_epilogue": "Epilogue",
+    "turn_back_time": "Turn Back Time"
+  },
   "entries": {
-    "campaign_notes.gave_relic_to_alejandro": {
-      "text": "the investigators gave custody of the relic to Alejandro."
+    "campaign_notes.wait_for_additional_supplies": {
+      "text": "the investigators were forced to wait for additional supplies."
     },
-    "campaign_notes.earned_alejandros_trust": {
-      "text": "the investigators have earned Alejandro’s trust."
+    "campaign_notes.ichtaca_observed_progress": {
+      "text": "Ichtaca observed your progress with keen interest."
     },
-    "campaign_notes.gave_relic_to_harlan": {
-      "text": "the investigators gave custody of the relic to Harlan Earnstone."
+    "campaign_notes.earned_ichtacas_trust": {
+      "text": "the investigators have earned Ichtaca’s trust."
     },
-    "campaign_notes.alejandro_on_his_own": {
-      "text": "Alejandro is continuing his research on his own."
+    "campaign_notes.alejandro_followed_to_ruins": {
+      "text": "Alejandro followed the investigators into the ruins."
+    },
+    "campaign_notes.ichtaca_is_wary": {
+      "text": "Ichtaca is wary of the investigators."
+    },
+    "campaign_notes.alejandro_remained_at_camp": {
+      "text": "Alejandro chose to remain at camp."
+    },
+    "campaign_notes.cleared_path_to_temple": {
+      "text": "the investigators cleared a path to the Eztli ruins."
     },
     "campaign_notes.investigators_recovered_relic": {
       "text": "the investigators recovered the Relic of Ages."
@@ -32,29 +60,41 @@
     "campaign_notes.alejandro_recovered_relic": {
       "text": "Alejandro recovered the Relic of Ages."
     },
+    "campaign_notes.gave_relic_to_alejandro": {
+      "text": "the investigators gave custody of the relic to Alejandro."
+    },
+    "campaign_notes.gave_relic_to_harlan": {
+      "text": "the investigators gave custody of the relic to Harlan Earnstone."
+    },
+    "campaign_notes.forging_own_path": {
+      "text": "you are forging your own path."
+    },
+    "campaign_notes.found_missing_relic": {
+      "text": "the investigators found the missing relic."
+    },
+    "campaign_notes.relic_is_missing": {
+      "text": "the relic is missing."
+    },
+    "campaign_notes.rescued_alejandro": {
+      "text": "the investigators rescued Alejandro."
+    },
+    "campaign_notes.alejandro_is_missing": {
+      "text": "Alejandro is missing."
+    },
+    "campaign_notes.forged_bond_with_ichtaca": {
+      "text": "the investigators forged a bond with Ichtaca."
+    },
+    "campaign_notes.ichtaca_in_the_dark": {
+      "text": "Ichtaca is in the dark."
+    },
     "campaign_notes.paths_known": {
       "text": "#X# paths are known to you."
     },
-    "campaign_notes.jungle_watches": {
-      "text": "the jungle watches (#name# x#X#)."
-    },
-    "campaign_notes.mended_tear_in_time": {
-      "text": "the investigators mended the tear in time."
-    },
-    "campaign_notes.investigators_saved_serpents": {
-      "text": "the investigators saved the civilization of the Serpents."
-    },
-    "campaign_notes.investigators_saved_yithians": {
-      "text": "the investigators saved the civilization of the Yithians."
-    },
-    "campaign_notes.fabric_of_time_unwoven": {
-      "text": "the fabric of time is unwoven."
-    },
-    "campaign_notes.turned_back_time": {
-      "text": "the investigarors turned back time."
-    },
     "campaign_notes.ichtaca_has_confidence": {
       "text": "Ichtaca has confidence in you."
+    },
+    "campaign_notes.jungle_watches": {
+      "text": "the jungle watches (#name# x#X#)."
     },
     "campaign_notes.cooperated_with_yithians": {
       "text": "the investigators cooperated with the Yithians."
@@ -77,14 +117,8 @@
     "campaign_notes.process_backfired_spectacularly": {
       "text": "the process backfired spectacularly."
     },
-    "campaign_notes.relic_is_missing": {
-      "text": "the relic is missing."
-    },
     "campaign_notes.ichtaca_set_against": {
       "text": "Ichtaca is set against you."
-    },
-    "campaign_notes.found_missing_relic": {
-      "text": "the investigators found the missing relic."
     },
     "campaign_notes.fell_into_depths": {
       "text": "the investigators fell into the depths."
@@ -92,44 +126,29 @@
     "campaign_notes.nexus_is_near": {
       "text": "the nexus is near."
     },
-    "campaign_notes.forging_own_path": {
-      "text": "you are forging your own path."
+    "campaign_notes.mended_tear_in_time": {
+      "text": "the investigators mended the tear in time."
     },
-    "campaign_notes.rescued_alejandro": {
-      "text": "the investigators rescued Alejandro."
+    "campaign_notes.investigators_saved_serpents": {
+      "text": "the investigators saved the civilization of the Serpents."
     },
-    "campaign_notes.alejandro_is_missing": {
-      "text": "Alejandro is missing."
+    "campaign_notes.investigators_saved_yithians": {
+      "text": "the investigators saved the civilization of the Yithians."
     },
-    "campaign_notes.forged_bond_with_ichtaca": {
-      "text": "the investigators forged a bond with Ichtaca."
+    "campaign_notes.fabric_of_time_unwoven": {
+      "text": "the fabric of time is unwoven."
     },
-    "campaign_notes.ichtaca_in_the_dark": {
-      "text": "Ichtaca is in the dark."
+    "campaign_notes.turned_back_time": {
+      "text": "the investigarors turned back time."
+    },
+    "campaign_notes.earned_alejandros_trust": {
+      "text": "the investigators have earned Alejandro’s trust."
+    },
+    "campaign_notes.alejandro_on_his_own": {
+      "text": "Alejandro is continuing his research on his own."
     },
     "campaign_notes.sealed_relic_of_ages_forever": {
       "text": "the investigators sealed the Relic of Ages forever."
-    },
-    "campaign_notes.wait_for_additional_supplies": {
-      "text": "the investigators were forced to wait for additional supplies."
-    },
-    "campaign_notes.ichtaca_observed_progress": {
-      "text": "Ichtaca observed your progress with keen interest."
-    },
-    "campaign_notes.earned_ichtacas_trust": {
-      "text": "the investigators have earned Ichtaca’s trust."
-    },
-    "campaign_notes.alejandro_followed_to_ruins": {
-      "text": "Alejandro followed the investigators into the ruins."
-    },
-    "campaign_notes.ichtaca_is_wary": {
-      "text": "Ichtaca is wary of the investigators."
-    },
-    "campaign_notes.alejandro_remained_at_camp": {
-      "text": "Alejandro chose to remain at camp."
-    },
-    "campaign_notes.cleared_path_to_temple": {
-      "text": "the investigators cleared a path to the Eztli ruins."
     }
   },
   "achievements": {
@@ -202,5 +221,10 @@
     "binoculars": "Binoculars",
     "chalk": "Chalk",
     "pendant": "Pendant"
+  },
+  "specialInteractions": {
+    "expedition_leader": {
+      "text": "Becomes lead investigator for Scenarios I–II."
+    }
   }
 }

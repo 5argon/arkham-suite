@@ -23,9 +23,15 @@ CSS flex of vertical cards, with optional grouping.
 		onClick?: (card: Card) => void;
 		languageCode?: string;
 		hideQuantity?: boolean;
+		/**
+		 * Overlay each card's `iconCount` as a small badge (e.g. a usage count) —
+		 * parity with the icons view's `showIconCount`.
+		 */
+		showIconCount?: boolean;
 	}
 
-	const { groups, showCardName, onClick, languageCode, hideQuantity }: Prop = $props();
+	const { groups, showCardName, onClick, languageCode, hideQuantity, showIconCount }: Prop =
+		$props();
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
 
@@ -89,30 +95,38 @@ CSS flex of vertical cards, with optional grouping.
 </script>
 
 {#snippet cardRender(item: CardItem, animIndex: number)}
-	<div
-		role="button"
-		in:fade={{ duration: 80, delay: animIndex * 20 }}
-		tabindex="0"
-		onclick={() => handleCardClick(item.card)}
-		onkeydown={(e) => {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				handleCardClick(item.card);
-			}
-		}}
-		class="cursor-pointer transition-all hover:brightness-110"
-	>
-		<CardScanFullSmall
-			card={item.card}
-			{showCardName}
-			quantity={item.quantity}
-			{maxQuantity}
-			greyedOutQuantity={item.greyedOutQuantity}
-			owner={item.owner}
-			labels={item.labels}
-			metaDisplay={item.metaDisplay}
-			{hideQuantity}
-		/>
+	<div class="relative" in:fade={{ duration: 80, delay: animIndex * 20 }}>
+		<div
+			role="button"
+			tabindex="0"
+			onclick={() => handleCardClick(item.card)}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					handleCardClick(item.card);
+				}
+			}}
+			class="cursor-pointer transition-all hover:brightness-110"
+		>
+			<CardScanFullSmall
+				card={item.card}
+				{showCardName}
+				quantity={item.quantity}
+				{maxQuantity}
+				greyedOutQuantity={item.greyedOutQuantity}
+				owner={item.owner}
+				labels={item.labels}
+				metaDisplay={item.metaDisplay}
+				{hideQuantity}
+			/>
+		</div>
+		{#if showIconCount && (item.iconCount ?? 0) > 0}
+			<span
+				class="bg-primary-100/90 dark:bg-primary-900/90 text-primary-700 dark:text-primary-200 pointer-events-none absolute top-1 right-1 min-w-[1.25rem] rounded px-1 text-center text-xs leading-5 font-bold tabular-nums"
+			>
+				{item.iconCount}
+			</span>
+		{/if}
 	</div>
 {/snippet}
 

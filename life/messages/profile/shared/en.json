@@ -1,0 +1,70 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"shared_difficulty": [
+		{
+			"declarations": ["input tier"],
+			"selectors": ["tier"],
+			"match": {
+				"tier=easy": "Easy",
+				"tier=standard": "Standard",
+				"tier=hard": "Hard",
+				"tier=expert": "Expert",
+				"tier=*": "{tier}"
+			}
+		}
+	],
+	"shared_difficulty_abbr": [
+		{
+			"declarations": ["input tier"],
+			"selectors": ["tier"],
+			"match": {
+				"tier=easy": "Easy",
+				"tier=standard": "Std",
+				"tier=hard": "Hard",
+				"tier=expert": "Expert",
+				"tier=*": "{tier}"
+			}
+		}
+	],
+	"shared_class": [
+		{
+			"declarations": ["input class"],
+			"selectors": ["class"],
+			"match": {
+				"class=guardian": "Guardian",
+				"class=seeker": "Seeker",
+				"class=rogue": "Rogue",
+				"class=mystic": "Mystic",
+				"class=survivor": "Survivor",
+				"class=neutral": "Neutral",
+				"class=*": "{class}"
+			}
+		}
+	],
+	"shared_count_times": [
+		{
+			"declarations": ["input count"],
+			"selectors": ["count"],
+			"match": {
+				"count=1": "once",
+				"count=2": "twice",
+				"count=*": "{count} times"
+			}
+		}
+	],
+	"shared_count_time": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "{count} time",
+				"countPlural=other": "{count} times"
+			}
+		}
+	],
+	"shared_resolution_n": "Resolution {n}",
+	"shared_resolution_none": "No resolution was reached",
+	"shared_resolution_none_tail": "No resolution — {tail}",
+	"shared_resolution_short_none": "None",
+	"shared_resolution_short_none_tail": "None·{tail}"
+}

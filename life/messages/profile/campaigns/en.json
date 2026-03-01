@@ -1,0 +1,43 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"campaigns_index_page_title": "Campaigns – arkham.life",
+	"campaigns_index_played_heading": "Campaigns played ({count})",
+	"campaigns_index_empty": "No campaigns recorded yet.",
+	"campaigns_plays": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "{count} play",
+				"countPlural=other": "{count} plays"
+			}
+		}
+	],
+	"campaigns_trauma_empty": "No deadly or maddening endings recorded yet — pick the resolution you reached in a scenario's Extra tab, and any ending that kills or drives your party insane will tally here.",
+	"campaigns_trauma_stat_killed": "Killed",
+	"campaigns_trauma_stat_killed_sub": "{count} death-only",
+	"campaigns_trauma_stat_insane": "Driven Insane",
+	"campaigns_trauma_stat_insane_sub": "{count} madness-only",
+	"campaigns_trauma_stat_pyrrhic": "Pyrrhic Wins",
+	"campaigns_trauma_stat_pyrrhic_sub": "won, but at a cost",
+	"campaigns_trauma_stat_casualties": "Casualties",
+	"campaigns_trauma_stat_casualties_sub": "campaign continued",
+	"campaigns_trauma_possible": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "+{count} ending that <i>could</i> kill or madden depending on an in-resolution choice we can't tell apart.",
+				"countPlural=other": "+{count} endings that <i>could</i> kill or madden depending on an in-resolution choice we can't tell apart."
+			}
+		}
+	],
+	"campaigns_trauma_who_paid": "Who paid the price",
+	"campaigns_trauma_party_wide_only": "(party-wide endings only)",
+	"campaigns_trauma_badge_killed": "Killed",
+	"campaigns_trauma_badge_killed_maybe": "Killed?",
+	"campaigns_trauma_badge_insane": "Insane",
+	"campaigns_trauma_badge_insane_maybe": "Insane?",
+	"campaigns_trauma_badge_pyrrhic": "Pyrrhic win",
+	"campaigns_trauma_badge_casualty": "Casualty"
+}

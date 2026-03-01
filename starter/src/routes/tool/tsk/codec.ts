@@ -1,18 +1,21 @@
 import { deflate, inflate } from 'pako';
-import type { Constraint, PlanStep } from '@5argon/arkham-tsk-solver';
+import type { PlanStep } from '@5argon/arkham-tsk-solver';
 
 /**
- * Compact, URL-safe encoding of a handcrafted plan + its goals.
- * The simulator is deterministic, so encoding the plan (the player's step list) and re-simulating on
- * load reproduces the exact same trajectory and goals checklist. We DEFLATE the JSON (pako) and
- * base64url it, which keeps even long plans inside a shareable URL.
+ * Compact, URL-safe encoding of a handcrafted plan.
+ * The simulator is deterministic, so encoding the plan (the player's step list + asserted board
+ * outcomes) and re-simulating on load reproduces the exact same trajectory. We DEFLATE the JSON
+ * (pako) and base64url it, which keeps even long plans inside a shareable URL.
  */
 
 export interface PlanShareState {
 	plan: PlanStep[];
-	constraints: Constraint[];
-	/** Board outcomes the plan can't derive but the player asserts (e.g. `desiReal`). */
+	/** Board outcomes the plan can't derive but the player asserts (e.g. `desiReal`, `finaleAttempt:join`). */
 	assertions?: string[];
+	/** A title the author gives the route, shown to anyone who opens the share link. */
+	name?: string;
+	/** A longer description of the route's purpose, shown alongside the name. */
+	description?: string;
 }
 
 function bytesToBase64Url(bytes: Uint8Array): string {
@@ -42,8 +45,9 @@ export function decodeState(encoded: string): PlanShareState | null {
 		if (!parsed || !Array.isArray(parsed.plan)) return null;
 		return {
 			plan: parsed.plan,
-			constraints: Array.isArray(parsed.constraints) ? parsed.constraints : [],
 			assertions: Array.isArray(parsed.assertions) ? parsed.assertions : [],
+			name: typeof parsed.name === 'string' ? parsed.name : undefined,
+			description: typeof parsed.description === 'string' ? parsed.description : undefined,
 		};
 	} catch {
 		return null;

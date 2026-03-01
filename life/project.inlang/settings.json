@@ -1,20 +1,46 @@
 {
 	"$schema": "https://inlang.com/schema/project-settings",
 	"modules": [
-		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-empty-pattern@1/dist/index.js",
-		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-identical-pattern@1/dist/index.js",
-		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-missing-translation@1/dist/index.js",
-		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-without-source@1/dist/index.js",
-		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-valid-js-identifier@1/dist/index.js",
-		"https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@2/dist/index.js",
-		"https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@0/dist/index.js"
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-empty-pattern@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-identical-pattern@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-missing-translation@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-without-source@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-valid-js-identifier@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@latest/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@latest/dist/index.js"
 	],
 	"plugin.inlang.messageFormat": {
-		"pathPattern": "./messages/{languageTag}.json"
+		"pathPattern": [
+			"./messages/common/{languageTag}.json",
+			"./messages/archive/{languageTag}.json",
+			"./messages/players/{languageTag}.json",
+			"./messages/database/{languageTag}.json",
+			"./messages/guides/{languageTag}.json",
+			"./messages/settings/{languageTag}.json",
+			"./messages/export/{languageTag}.json",
+			"./messages/profile/{languageTag}.json",
+			"./messages/profile/shared/{languageTag}.json",
+			"./messages/profile/framework/{languageTag}.json",
+			"./messages/profile/home/{languageTag}.json",
+			"./messages/profile/campaigns/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/tsk/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/eote/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/ptc/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/tcu/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/tdc/{languageTag}.json",
+			"./messages/profile/cards/{languageTag}.json",
+			"./messages/profile/cards/class/{languageTag}.json",
+			"./messages/profile/cards/core/{languageTag}.json",
+			"./messages/profile/cards/asset/{languageTag}.json",
+			"./messages/profile/cards/event/{languageTag}.json",
+			"./messages/profile/cards/skill/{languageTag}.json",
+			"./messages/profile/cards/keywords/{languageTag}.json",
+			"./messages/profile/cards/levels/{languageTag}.json",
+			"./messages/profile/investigators/{languageTag}.json",
+			"./messages/profile/investigators/class/{languageTag}.json"
+		]
 	},
 	"sourceLanguageTag": "en",
-	"languageTags": [
-		"en",
-		"th"
-	]
+	"languageTags": ["en"]
 }

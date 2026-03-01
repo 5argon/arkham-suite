@@ -1,0 +1,71 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"campaign_eote_city_empty": "Record which version you faced (and its victory display & resolution) in each play's Extra tab to fill this in.",
+	"campaign_eote_city_col_version": "Version",
+	"campaign_eote_city_col_times_played": "Times played",
+	"campaign_eote_city_col_resolutions": "Resolutions obtained",
+	"campaign_eote_city_col_xp_high": "XP high score",
+	"campaign_eote_city_version_label": "Version {version}",
+	"campaign_eote_city_xp_unit": "{n} XP",
+	"campaign_eote_city_plays_detail": "Total {total}",
+	"campaign_eote_city_plays_detail_bd": "Total {total} ({bd})",
+	"campaign_eote_city_vp_detail": "Best {best} XP",
+	"campaign_eote_city_vp_detail_bd": "Best {best} XP ({bd})",
+	"campaign_eote_city_resolution_detail": "Reached {total}",
+	"campaign_eote_city_resolution_detail_bd": "Reached {total} ({bd})",
+	"campaign_eote_city_aria_times_played": "Times played: {detail}",
+	"campaign_eote_city_aria_resolution_reached": "{label} — {detail}",
+	"campaign_eote_city_aria_resolution_not_reached": "{label} — not reached",
+	"campaign_eote_city_not_reached": "Not reached",
+	"campaign_eote_city_aria_xp_high": "XP high score: {detail}",
+	"campaign_eote_fatal_played_once": "Played once",
+	"campaign_eote_fatal_played_twice": "Played twice",
+	"campaign_eote_fatal_played_thrice": "Played thrice",
+	"campaign_eote_fatal_most_banished": "Most banished per run",
+	"campaign_eote_fatal_fewest_banished": "Fewest banished per run",
+	"campaign_eote_frost_max_winning": "Maximum on Winning",
+	"campaign_eote_frost_min_winning": "Minimum on Winning",
+	"campaign_eote_ice_part2_skipped": "Part II skipped",
+	"campaign_eote_ice_part3_skipped": "Part III skipped",
+	"campaign_eote_ice_max_shelter": "Max shelter",
+	"campaign_eote_ice_min_shelter": "Min shelter",
+	"campaign_eote_ice_defeated_creatures": "Defeated the hunting creatures",
+	"campaign_eote_ice_fled": "Fled to the mountains",
+	"campaign_eote_ice_escaped": "Barely escaped the ice shelf",
+	"campaign_eote_item_recovered": "Recovered {times}",
+	"campaign_eote_item_never_recovered": "Never recovered",
+	"campaign_eote_item_camped": "Camped here {times}",
+	"campaign_eote_item_never_camped": "Never camped here",
+	"campaign_eote_roster_killed": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "Killed in {count} plane crash",
+				"countPlural=other": "Killed in {count} plane crashes"
+			}
+		}
+	],
+	"campaign_eote_roster_killed_none": "Never killed in the plane crash",
+	"campaign_eote_roster_demons": "Confronted their demons {times}",
+	"campaign_eote_roster_demons_none": "Never confronted their demons",
+	"campaign_eote_roster_survived": [
+		{
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": {
+				"countPlural=one": "Survived {count} expedition",
+				"countPlural=other": "Survived {count} expeditions"
+			}
+		}
+	],
+	"campaign_eote_roster_survived_none": "Never made it back",
+	"campaign_eote_roster_rescued": "Rescued {times}",
+	"campaign_eote_roster_rescued_none": "Never rescued",
+	"campaign_eote_memory_banished": "Banished {times}",
+	"campaign_eote_memory_never_banished": "Never banished",
+	"campaign_eote_memory_locations": "Locations ({seen}/{total})",
+	"campaign_eote_memory_enemies": "Enemies ({seen}/{total})",
+	"campaign_eote_miasma_plan": "Dr. Kensler has a plan",
+	"campaign_eote_miasma_eludes": "The truth of the mirage eludes you"
+}

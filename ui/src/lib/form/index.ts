@@ -6,7 +6,7 @@ export { default as InlineTextBox } from './InlineTextBox.svelte';
 export { default as Checkbox } from './Checkbox.svelte';
 export { default as CheckboxLong } from './CheckboxLong.svelte';
 export { default as Dropdown } from './Dropdown.svelte';
-export type { Option } from './Dropdown.svelte';
+export type { Option, OptionGroup, OptionOrGroup } from './Dropdown.svelte';
 export { default as FormHelp } from './FormHelp.svelte';
 export { default as FormLabelWithHelp } from './FormLabelWithHelp.svelte';
 export { default as FormRow } from './FormRow.svelte';

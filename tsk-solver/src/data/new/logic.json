@@ -682,9 +682,31 @@
           ]
         },
         {
+          "decisionId": "SS.targets",
+          "decisionType": "scenario_interlude",
+          "selectable": true,
+          "options": [
+            {
+              "id": "SS.targets.all",
+              "selectable": true,
+              "effects": [],
+              "conditionLogic": null
+            },
+            {
+              "id": "SS.targets.some",
+              "selectable": true,
+              "effects": [],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
           "decisionId": "SS.castALight.believe",
           "decisionType": "scenario_interlude",
           "selectable": true,
+          "appliesIf": {
+            "choseOption": "SS.targets.all"
+          },
           "options": [
             {
               "id": "SS.cal.believe",
@@ -820,7 +842,7 @@
               "conditionLogic": null,
               "isNoResolution": true,
               "requires": {
-                "notChoseOption": "SS.cal.believe"
+                "choseOption": "SS.targets.some"
               },
               "playOutcome": "loss"
             },
@@ -918,7 +940,12 @@
             {
               "id": "SAFE.out",
               "selectable": false,
-              "effects": [],
+              "effects": [
+                {
+                  "type": "allowRevisit",
+                  "afterScenario": false
+                }
+              ],
               "conditionLogic": {
                 "default": true
               }
@@ -972,12 +999,12 @@
                   {
                     "countRecorded": {
                       "anyOf": [
-                        "log.laChicaOnYourSide",
-                        "log.aidedKnight",
-                        "log.alikiOnYourSide",
-                        "log.desiInDebt",
-                        "log.dealWithThorne",
-                        "log.eceTrusts"
+                        "log.eceDistrusts",
+                        "log.notSeenLaChicaRoja",
+                        "log.notSeenDesi",
+                        "log.notSeenClaretKnight",
+                        "log.notSeenThorne",
+                        "log.notSeenAliki"
                       ],
                       "lt": 2
                     }
@@ -1003,12 +1030,12 @@
                   {
                     "countRecorded": {
                       "anyOf": [
-                        "log.laChicaOnYourSide",
-                        "log.aidedKnight",
-                        "log.alikiOnYourSide",
-                        "log.desiInDebt",
-                        "log.dealWithThorne",
-                        "log.eceTrusts"
+                        "log.eceDistrusts",
+                        "log.notSeenLaChicaRoja",
+                        "log.notSeenDesi",
+                        "log.notSeenClaretKnight",
+                        "log.notSeenThorne",
+                        "log.notSeenAliki"
                       ],
                       "gte": 2
                     }
@@ -1023,6 +1050,10 @@
                 {
                   "type": "note",
                   "textRef": "GW.absent.0"
+                },
+                {
+                  "type": "allowRevisit",
+                  "afterScenario": true
                 }
               ],
               "conditionLogic": {
@@ -3188,6 +3219,10 @@
                 {
                   "type": "note",
                   "textRef": "RAR2.rest.0"
+                },
+                {
+                  "type": "allowRevisit",
+                  "afterScenario": true
                 }
               ],
               "conditionLogic": {

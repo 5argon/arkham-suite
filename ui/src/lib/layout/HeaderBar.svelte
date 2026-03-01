@@ -4,7 +4,8 @@
 	interface UserInfo {
 		name: string;
 		iconCard: Card;
-		onSignOut: () => void;
+		/** Optional. When omitted, the identity is shown but not clickable (no menu). */
+		onSignOut?: () => void;
 	}
 
 	interface Props {
@@ -32,7 +33,7 @@
 
 	function handleSignOut() {
 		userMenuOpen = false;
-		user?.onSignOut();
+		user?.onSignOut?.();
 	}
 </script>
 
@@ -41,7 +42,7 @@
 	border-secondary-400 dark:border-secondary-600 flex flex-row items-center justify-between
 	border-b-2 px-2 py-2 md:px-8 lg:px-16 mb-4"
 >
-	<a href={resolve("/", {})} class="flex flex-row items-center gap-2">
+	<a href={resolve("/")} class="flex flex-row items-center gap-2">
 		{#if iconUrl}
 			<img src={iconUrl} alt="Site icon" class="icon" />
 		{/if}
@@ -100,23 +101,30 @@
 	{/if}
 
 	{#if user}
-		<div class="relative">
-			<button
-				onclick={() => (userMenuOpen = !userMenuOpen)}
-				class="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-primary-400/20 dark:hover:bg-primary-800/20"
-				aria-label="User menu"
-			>
-				<UserDisplay username={user.name} card={user.iconCard} size="sm" />
-			</button>
-
-			{#if userMenuOpen}
-				<div
-					class="border-primary-300 dark:border-primary-600 bg-primary-100 dark:bg-primary-900 absolute right-0 top-full z-50 mt-1 rounded border p-2 shadow-lg"
+		{#if user.onSignOut}
+			<div class="relative">
+				<button
+					onclick={() => (userMenuOpen = !userMenuOpen)}
+					class="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-primary-400/20 dark:hover:bg-primary-800/20"
+					aria-label="User menu"
 				>
-					<Button danger label="Sign Out" onClick={handleSignOut} />
-				</div>
-			{/if}
-		</div>
+					<UserDisplay username={user.name} card={user.iconCard} size="sm" />
+				</button>
+
+				{#if userMenuOpen}
+					<div
+						class="border-primary-300 dark:border-primary-600 bg-primary-100 dark:bg-primary-900 absolute right-0 top-full z-50 mt-1 rounded border p-2 shadow-lg"
+					>
+						<Button danger label="Sign Out" onClick={handleSignOut} />
+					</div>
+				{/if}
+			</div>
+		{:else}
+			<!-- Identity shown but no account actions (local build): not clickable. -->
+			<div class="flex items-center gap-2 p-1">
+				<UserDisplay username={user.name} card={user.iconCard} size="sm" />
+			</div>
+		{/if}
 	{/if}
 	</div>
 </div>

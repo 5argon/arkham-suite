@@ -1,5 +1,35 @@
 {
   "code": "fhv",
+  "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). extract trusts ArkhamCards' `hidden` flag, but these leave sub-resolutions non-hidden so they leak into the first-choice list. the_silent_heath: drop R3 (read only from inside R1/R2; its sibling R4 IS already hidden). the_lost_sister: drop R2/R3 (read only from inside R1; sibling R4 hidden). NOTE: the_final_evening is NOT patched — it is a day_of_the_feast scenario whose R3 IS card-reachable (agenda 'Lambs to the Slaughter' → R3; R1 = 'Around the Table', R2 = 'All is Full of Love'), so R1/R2/R3 are all legit first choices.",
+  "scenarioResolutions": {
+    "the_silent_heath": ["no_resolution", "R1", "R2"],
+    "the_lost_sister": ["no_resolution", "R1"]
+  },
+  "scenarios": {
+    "02_written_in_rock": "written_in_rock",
+    "03_hemlock_house": "hemlock_house",
+    "04_the_silent_heath": "the_silent_heath",
+    "05_the_lost_sister": "the_lost_sister",
+    "06_the_thing_in_the_depths": "the_thing_in_the_depths",
+    "08_the_twisted_hollow": "the_twisted_hollow",
+    "11_the_longest_night": "the_longest_night",
+    "14_fate_of_the_vale": "fate_of_the_vale"
+  },
+  "outcomes": {
+    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "win": [
+      "campaign_notes.barely_survived",
+      "campaign_notes.dr_marquez_sacrificed_herself_for_the_vale"
+    ],
+    "loss": [
+      "campaign_notes.became_the_true_feast_of_hemlock_vale"
+    ],
+    "betterWin": [
+      "campaign_notes.the_vale_burned",
+      "campaign_notes.the_vale_was_saved",
+      "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+    ]
+  },
   "_notes": "Verified all 22 spans are exact substrings of their entry text (incl. curly apostrophe in \"Madame Pearl’s diary\"). No sibling collisions: the 3 Chelydran Hybrid entries (perished/lived/was devoured), 4 Bertie entries (lost/rescued/epiphany/perished), and 2 Dr. Marquez entries (plan/hunch) all stay distinct by their remaining verbs after blurring. Resident names left unblurred (visible relationship section titles, needed to disambiguate shared-a-dance/stood-by-you/sacrificed siblings). Endgame/twist reveals (Pearl Ruins/Family, Madame Pearl's diary, Captain Hemlock, Annabelle Lee, true Feast of Hemlock Vale, Dr. Marquez, Helen, Bertie) are blurred. No exotic sections present (only notes/relationship/checklist/investigator_count). Curation accepted unchanged — no invalid spans, no collisions, no over/under-blur found.",
   "spoilers": {
     "leah.searched_the_pearl_ruins": [
@@ -252,7 +282,7 @@
         "leah.leah_and_simeon_were_reunited",
         "campaign_notes.survived_the_horrors_in_the_rock"
       ],
-      "scenario": "Written in Rock"
+      "scenario": "02_written_in_rock"
     },
     {
       "type": "mutuallyExclusive",
@@ -260,7 +290,7 @@
         "campaign_notes.laid_the_pearl_family_to_rest",
         "campaign_notes.remains_were_partially_recovered"
       ],
-      "scenario": "The Silent Heath"
+      "scenario": "04_the_silent_heath"
     },
     {
       "type": "mutuallyExclusive",
@@ -268,7 +298,7 @@
         "campaign_notes.the_peters_family_was_reunited",
         "campaign_notes.elizabeth_peters_was_saved"
       ],
-      "scenario": "The Lost Sister"
+      "scenario": "05_the_lost_sister"
     },
     {
       "type": "mutuallyExclusive",
@@ -277,7 +307,7 @@
         "campaign_notes.chelydran_hybrid_lived",
         "campaign_notes.chelydran_hybrid_devoured"
       ],
-      "scenario": "The Thing in the Depths"
+      "scenario": "06_the_thing_in_the_depths"
     },
     {
       "type": "mutuallyExclusive",
@@ -285,7 +315,7 @@
         "campaign_notes.mother_rachel_showed_the_way",
         "campaign_notes.lost_the_path"
       ],
-      "scenario": "The Twisted Hollow"
+      "scenario": "08_the_twisted_hollow"
     },
     {
       "type": "mutuallyExclusive",
@@ -293,7 +323,7 @@
         "campaign_notes.bertie_was_rescued",
         "campaign_notes.bertie_was_lost_in_the_woods"
       ],
-      "scenario": "The Twisted Hollow"
+      "scenario": "08_the_twisted_hollow"
     },
     {
       "type": "mutuallyExclusive",
@@ -302,7 +332,7 @@
         "campaign_notes.many_captives_were_lost",
         "campaign_notes.all_the_captives_were_lost"
       ],
-      "scenario": "The Longest Night"
+      "scenario": "11_the_longest_night"
     },
     {
       "type": "mutuallyExclusive",
@@ -310,7 +340,7 @@
         "campaign_notes.lied_to_mother_rachel",
         "campaign_notes.interrupted_the_feast"
       ],
-      "scenario": "The Final Evening"
+      "scenario": "13_the_final_evening"
     },
     {
       "type": "mutuallyExclusive",
@@ -322,7 +352,7 @@
         "campaign_notes.the_vale_burned",
         "campaign_notes.barely_survived"
       ],
-      "scenario": "Fate of the Vale"
+      "scenario": "14_fate_of_the_vale"
     }
   ],
   "sections": {
