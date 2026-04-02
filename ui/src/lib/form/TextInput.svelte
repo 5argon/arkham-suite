@@ -56,6 +56,12 @@
 		help?: string;
 
 		/**
+		 * Longer help text as raw markdown. When provided, renders a clickable button
+		 * that opens a modal — better for mobile and multi-paragraph explanations.
+		 */
+		helpMd?: string;
+
+		/**
 		 * Callback when input changes. Receives the new value.
 		 */
 		oninput?: (value: string) => void;
@@ -73,6 +79,7 @@
 		loading,
 		feedback,
 		help,
+		helpMd,
 		oninput,
 		onblur
 	}: Prop = $props();
@@ -97,7 +104,7 @@
 {/snippet}
 
 <div class="mb-2">
-	<FormLabelWithHelp {label} {help}>
+	<FormLabelWithHelp {label} {help} {helpMd}>
 		<TextBox bind:value {disabled} {placeholder} {oninput} {onblur} />
 		{#if loading}
 			<div class="absolute right-2">

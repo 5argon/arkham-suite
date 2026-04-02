@@ -44,7 +44,7 @@
 				Imported Decks ({importedDecks.length})
 			</h2>
 			<div class="space-y-2">
-				{#each importedDecks as deck}
+				{#each importedDecks as deck (deck.id)}
 					<div class="rounded border border-primary-300 bg-white p-3 dark:border-primary-700 dark:bg-primary-900">
 						<div class="font-bold text-black dark:text-white">{deck.name}</div>
 						<div class="text-sm text-black/70 dark:text-white/70">

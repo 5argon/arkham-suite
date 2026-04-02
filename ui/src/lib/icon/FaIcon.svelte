@@ -74,7 +74,8 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Clear]: 'fa-xmark',
 		[FaIconType.CloseModal]: 'fa-xmark',
 		[FaIconType.DeleteList]: 'fa-trash-can-list',
-		[FaIconType.ExternalLink]: 'fa-arrow-up-right-from-square'
+		[FaIconType.ExternalLink]: 'fa-arrow-up-right-from-square',
+		[FaIconType.Logout]: 'fa-right-from-bracket',
 	};
 </script>
 

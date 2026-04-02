@@ -42,9 +42,14 @@
 		 * Optional snippet to render after the text input, useful for showing selected cards.
 		 */
 		selectedItems?: Snippet;
+
+		/**
+		 * Longer help text as raw markdown displayed in a modal.
+		 */
+		helpMd?: string;
 	}
 
-	let { label, cards, placeholder, filter, onSelect, selectedItems }: Prop = $props();
+	let { label, cards, placeholder, filter, onSelect, selectedItems, helpMd }: Prop = $props();
 </script>
 
 <SearchableDropdown
@@ -54,6 +59,7 @@
 	searchKeys={['name', 'subname']}
 	{filter}
 	{onSelect}
+	{helpMd}
 	fuzzyThreshold={0.2}
 	maxResults={50}
 	width="400px"

@@ -69,6 +69,12 @@
 		 * Text that exceeds this width will be clipped with ellipsis.
 		 */
 		width?: string;
+
+		/**
+		 * Longer help text as raw markdown. When provided, renders a clickable button
+		 * that opens a modal — better for mobile and multi-paragraph explanations.
+		 */
+		helpMd?: string;
 	}
 
 	let {
@@ -82,7 +88,8 @@
 		selectedItems,
 		maxResults = 50,
 		fuzzyThreshold = 0.2,
-		width
+		width,
+		helpMd
 	}: Prop<T> = $props();
 
 	let searchText = $state('');
@@ -102,7 +109,7 @@
 			threshold: fuzzyThreshold,
 			isCaseSensitive: false,
 			ignoreDiacritics: true,
-			shouldSort: true,
+			shouldSort: true
 		})
 	);
 
@@ -195,7 +202,7 @@
 				selectedIndex = newIndex;
 			},
 			onSelect: handleSelect,
-			onEscape: closePopup,
+			onEscape: closePopup
 		})
 	);
 
@@ -228,6 +235,7 @@
 			bind:value={searchText}
 			{label}
 			{placeholder}
+			{helpMd}
 			onblur={() => {
 				// Small delay to allow click events to fire
 				setTimeout(() => {
@@ -251,8 +259,7 @@
 							class={clsx(
 								'hover:bg-primary-100 dark:hover:bg-primary-800 flex w-full items-center gap-2 p-2 text-left transition-colors',
 								width && 'overflow-hidden text-ellipsis whitespace-nowrap',
-								index === selectedIndex &&
-									'bg-primary-200 dark:bg-primary-700'
+								index === selectedIndex && 'bg-primary-200 dark:bg-primary-700'
 							)}
 							onmousedown={() => handleSelect(item)}
 							onmouseenter={() => {
@@ -267,7 +274,7 @@
 
 				{#if filteredItemsResult.totalCount > 0}
 					<div
-						class="border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400 border-t bg-primary-100 dark:bg-primary-900 px-3 py-1 text-right text-xs"
+						class="border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900 border-t px-3 py-1 text-right text-xs"
 					>
 						{#if filteredItemsResult.hasMore}
 							{maxResults}+ results

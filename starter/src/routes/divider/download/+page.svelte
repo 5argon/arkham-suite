@@ -95,7 +95,7 @@
 <SectionSeparator title="Available Languages" />
 
 <ul>
-	{#each languages as l}
+	{#each languages as l (l.code)}
 		<li>{l.text} (Folder: {l.code})</li>
 	{/each}
 </ul>

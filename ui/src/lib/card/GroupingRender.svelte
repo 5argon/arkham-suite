@@ -43,10 +43,6 @@
 </div>
 
 <style>
-	.small {
-		/* font-size: 0.6rem; */
-	}
-
 	.count-text {
 		font-size: 0.5rem;
 	}

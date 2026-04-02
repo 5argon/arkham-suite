@@ -16,6 +16,6 @@ Can render as either a clickable link (for SEO) or a button with custom behavior
 	const { label, onClick }: Prop = $props();
 </script>
 
-<div in:fly={{ x: -20, duration: 200 }} out:fly={{ x: -20, duration: 100 }}>
+<div in:fly={{ x: -20, duration: 200 }}>
 	<Button {label} {onClick} icon={FaIconType.LeftDouble} />
 </div>

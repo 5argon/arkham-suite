@@ -20,7 +20,7 @@ A styled unordered list for displaying links, commonly used for download links o
 </script>
 
 <ul class="my-4 space-y-2">
-	{#each items as item}
+	{#each items as item (item.href)}
 		<li>
 			<a
 				href={item.href}

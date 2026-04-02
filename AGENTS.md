@@ -46,6 +46,10 @@ This monorepo uses different build strategies for different packages:
 
 **Why the difference?** The `ui` package contains Svelte components that need to be processed by the consuming project's Vite pipeline anyway, so it exports source files. The `kohaku` and `string` packages are pure TypeScript/JavaScript utilities that are more stable and can be pre-compiled for better performance and compatibility.
 
+## Svelte Rules
+
+- **`svelte/require-each-key`**: Every `{#each}` block MUST have a key expression: `{#each items as item (item.id)}`. Never write `{#each items as item}` without a key. Use a stable unique property (`id`, `code`, `href`, etc.) or the item itself if it is a primitive.
+
 ## Workflow
 
 ## Current Progress

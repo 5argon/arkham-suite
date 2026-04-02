@@ -387,6 +387,8 @@
   "campaignNameTheInnsmouthConspiracy": "",
   "campaignNameThePathToCarcosa": "Út Carcosába",
   "campaignNameTheScarletKeys": "",
+  "campaignNameBrethrenOfAsh": "",
+  "campaignNameChildrenOfBlood": "",
   "challengeScenarioNameAllOrNothing": "",
   "challengeScenarioNameBadBlood": "",
   "challengeScenarioNameByTheBook": "",
@@ -523,6 +525,7 @@
   "standaloneScenarioNameTheLabyrinthsOfLunacy": "",
   "standaloneScenarioNameTheMidwinterGala": "",
   "standaloneScenarioNameWarOfTheOuterGods": "",
+  "standaloneScenarioNameTracesToNowhere": "",
   "boonAncients": "",
   "boonAthena": "",
   "boonDestiny": "",
@@ -565,5 +568,5 @@
   "refractionBoonOfTheMiners": "",
   "refractionUltimatumOfTheBrassCrown": "",
   "refractionUltimatumOfAmbuscade": "",
-  "refractionUltimatumOfSpoilage": "\r"
+  "refractionUltimatumOfSpoilage": ""
 }

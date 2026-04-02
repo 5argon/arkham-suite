@@ -1,20 +1,38 @@
 <script module lang="ts">
+	import type { Card } from '@5argon/arkham-kohaku';
+
+	interface UserInfo {
+		name: string;
+		iconCard: Card;
+		onSignOut: () => void;
+	}
+
 	interface Props {
 		siteName: string;
 		iconUrl?: string;
 		theme?: 'light' | 'dark';
 		onThemeChange?: (theme: 'light' | 'dark') => void;
+		user?: UserInfo;
 	}
 </script>
 
 <script lang="ts">
-	import { resolve } from "$app/paths";
+	import { resolve } from '$app/paths';
+	import UserDisplay from '../card/UserDisplay.svelte';
+	import Button from '../button/Button.svelte';
 
-	const { siteName, iconUrl, theme = 'light', onThemeChange }: Props = $props();
+	const { siteName, iconUrl, theme = 'light', onThemeChange, user }: Props = $props();
+
+	let userMenuOpen = $state(false);
 
 	function toggleTheme() {
 		const newTheme = theme === 'light' ? 'dark' : 'light';
 		onThemeChange?.(newTheme);
+	}
+
+	function handleSignOut() {
+		userMenuOpen = false;
+		user?.onSignOut();
 	}
 </script>
 
@@ -32,6 +50,7 @@
 		</div>
 	</a>
 
+	<div class="flex items-center gap-2">
 	{#if onThemeChange}
 		<button
 			onclick={toggleTheme}
@@ -79,6 +98,27 @@
 			{/if}
 		</button>
 	{/if}
+
+	{#if user}
+		<div class="relative">
+			<button
+				onclick={() => (userMenuOpen = !userMenuOpen)}
+				class="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-primary-400/20 dark:hover:bg-primary-800/20"
+				aria-label="User menu"
+			>
+				<UserDisplay username={user.name} card={user.iconCard} size="sm" />
+			</button>
+
+			{#if userMenuOpen}
+				<div
+					class="border-primary-300 dark:border-primary-600 bg-primary-100 dark:bg-primary-900 absolute right-0 top-full z-50 mt-1 rounded border p-2 shadow-lg"
+				>
+					<Button danger label="Sign Out" onClick={handleSignOut} />
+				</div>
+			{/if}
+		</div>
+	{/if}
+	</div>
 </div>
 
 <style>

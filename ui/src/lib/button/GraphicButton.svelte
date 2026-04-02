@@ -133,7 +133,7 @@ TODO: Make the tab index work.
 		{@render inside()}
 	</button>
 {:else}
-	<a href={resolve(onClick,{})} class="cursor-pointer">
+	<a href={resolve(onClick as any)} class="cursor-pointer">
 		{@render inside()}
 	</a>
 {/if}

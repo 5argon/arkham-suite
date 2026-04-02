@@ -1,0 +1,183 @@
+@reference "../../app.css";
+
+.description-content {
+	@apply text-primary-900 text-sm;
+}
+
+.dark .description-content {
+	@apply text-primary-100;
+}
+
+.description-content p,
+.description-content li,
+.description-content th,
+.description-content td,
+.description-content span:not(.card-link),
+.description-content div {
+	@apply text-primary-900;
+}
+
+.dark .description-content p,
+.dark .description-content li,
+.dark .description-content th,
+.dark .description-content td,
+.dark .description-content span:not(.card-link),
+.dark .description-content div {
+	@apply text-primary-100;
+}
+
+.description-content .card-link {
+	@apply font-semibold underline decoration-dotted;
+}
+
+.description-content h1 {
+	@apply text-primary-900 mb-4 mt-6 text-2xl font-bold;
+}
+
+.dark .description-content h1 {
+	@apply text-primary-100;
+}
+
+.description-content h2 {
+	@apply text-primary-900 mb-3 mt-5 text-xl font-bold;
+}
+
+.dark .description-content h2 {
+	@apply text-primary-100;
+}
+
+.description-content h3 {
+	@apply text-primary-900 mb-2 mt-4 text-lg font-semibold;
+}
+
+.dark .description-content h3 {
+	@apply text-primary-100;
+}
+
+.description-content p {
+	@apply mb-4;
+}
+
+.description-content strong {
+	@apply text-primary-900 font-semibold;
+}
+
+.dark .description-content strong {
+	@apply text-primary-100;
+}
+
+.description-content em {
+	@apply text-primary-900 italic;
+}
+
+.dark .description-content em {
+	@apply text-primary-100;
+}
+
+.description-content a {
+	@apply text-secondary-600;
+}
+
+.dark .description-content a {
+	@apply text-secondary-400;
+}
+
+.description-content a:hover {
+	@apply underline;
+}
+
+.description-content a img {
+	@apply block m-0;
+}
+
+.description-content blockquote {
+	@apply border-l-4 border-primary-300 pl-4 my-4 text-primary-900 italic;
+}
+
+.dark .description-content blockquote {
+	@apply border-primary-700 text-primary-100;
+}
+
+.description-content code {
+	@apply bg-primary-100 px-1 py-0.5 rounded font-mono text-sm text-primary-900;
+}
+
+.dark .description-content code {
+	@apply bg-primary-800 text-primary-100;
+}
+
+.description-content pre {
+	@apply bg-primary-100 p-4 rounded-md overflow-x-auto my-4 text-primary-900;
+}
+
+.dark .description-content pre {
+	@apply bg-primary-800 text-primary-100;
+}
+
+.description-content pre code {
+	@apply bg-transparent p-0;
+}
+
+.description-content ul {
+	@apply mb-4 ml-6 text-primary-900 list-disc;
+}
+
+.description-content ol {
+	@apply mb-4 ml-6 text-primary-900 list-decimal;
+}
+
+.dark .description-content ul,
+.dark .description-content ol {
+	@apply text-primary-100;
+}
+
+.description-content li {
+	@apply mb-1;
+}
+
+.description-content table {
+	@apply mb-4 w-full border-collapse text-primary-900;
+}
+
+.dark .description-content table {
+	@apply text-primary-100;
+}
+
+.description-content th,
+.description-content td {
+	@apply text-left;
+}
+
+.description-content th {
+	@apply px-3 py-2 font-semibold;
+}
+
+.description-content td {
+	@apply p-1;
+}
+
+.description-content hr {
+	@apply border-primary-300 my-6;
+}
+
+.dark .description-content hr {
+	@apply border-primary-700;
+}
+
+.description-content img:not(.inline-icon) {
+	@apply my-4 mx-auto max-w-full rounded-md block;
+}
+
+.description-content center {
+	@apply text-center;
+}
+
+.description-content center span {
+	@apply text-inherit;
+}
+
+/* Icon font rendering - handled by icons-icon.css */
+.description-content [class^="icon-"],
+.description-content [class*=" icon-"] {
+	@apply inline-block text-base align-text-bottom leading-none;
+}

@@ -78,5 +78,6 @@ export enum FaIconType {
 	Reset,
 	Clear,
 	CloseModal,
-	ExternalLink
+	ExternalLink,
+	Logout,
 }

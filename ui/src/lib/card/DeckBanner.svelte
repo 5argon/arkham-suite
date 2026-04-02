@@ -186,6 +186,7 @@ Block element with fixed height that display some overall information about the 
 	)}
 >
 	{#if !hideTitle}
+		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div
 			class={clsx(
 				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-left text-xs text-ellipsis text-black md:line-clamp-1 md:h-6 md:justify-start md:text-base dark:text-white',
@@ -205,7 +206,7 @@ Block element with fixed height that display some overall information about the 
 				: undefined}
 		>
 			{#if onClick && typeof onClick === 'string'}
-				<a href={resolve(onClick, {})} class="block w-full">{deckLatestForwarded.name}</a>
+				<a href={resolve(onClick as any)} class="block w-full">{deckLatestForwarded.name}</a>
 			{:else}
 				{deckLatestForwarded.name}
 			{/if}

@@ -1,4 +1,6 @@
 export { default as CardStrip } from './CardStrip.svelte';
+export { default as CardSquare } from './CardSquare.svelte';
+export { default as CardCircle } from './CardCircle.svelte';
 export { default as CardLabel } from './CardLabel.svelte';
 export { default as CardLine } from './CardLine.svelte';
 export { default as CardLineHoverTooltip } from './CardLineHoverTooltip.svelte';
@@ -37,3 +39,4 @@ export {
 export type { RecursivelyGroupedCardItem } from './card-item.js';
 export { findLinkedCardsSpecial } from './card-item.js';
 export type { CardLabelProp } from './CardLabel.svelte';
+export { default as UserDisplay } from './UserDisplay.svelte';

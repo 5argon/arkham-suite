@@ -76,7 +76,7 @@
 			{name}
 			{disabled}
 			value={value}
-			on:change={handleChange}
+			onchange={handleChange}
 			class="
 				w-full rounded-lg border px-3 py-1 pr-10 shadow-lg
 				appearance-none

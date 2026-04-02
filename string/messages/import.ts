@@ -22,7 +22,7 @@ class Csv {
 
   static fromLanguages(csvPath: string, languages: string[]): Csv {
     const read = fs.readFileSync(csvPath, 'utf8');
-    const lines = read.split('\r\n');
+    const lines = read.split(/\r?\n/);
     const rows = lines.map((line) => line.split(','));
     const languageToColumnIndex = new Map<string, number>();
     languages.forEach((language) => {
@@ -49,18 +49,20 @@ class Csv {
         let rowIndex = 0;
         return {
           next() {
-            if (rowIndex < self.data.length) {
+            while (rowIndex < self.data.length) {
               const row = self.data[rowIndex++];
+              const key = row[self.keyColumnIndex];
+              if (!key) continue; // skip empty rows
+              const term = row[columnIndex] ?? '';
               return {
                 value: {
-                  key: row[self.keyColumnIndex],
-                  term: row[columnIndex].replace(/;/g, ','),
+                  key,
+                  term: term.replace(/;/g, ','),
                 },
                 done: false,
               };
-            } else {
-              return { done: true, value: undefined };
             }
+            return { done: true, value: undefined };
           },
         };
       },

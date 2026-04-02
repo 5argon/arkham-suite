@@ -46,6 +46,13 @@ Has three phases: input, loading, and result display with tabs.
 		 * Skips the preview phase and imports directly.
 		 */
 		batchImport?: boolean;
+		/**
+		 * Controls the `mode` prop passed to DeckDisplay / DeckBanner in the result preview step.
+		 * Use `'campaign'` to always show the latest deck in the upgrade chain regardless of which
+		 * version the user imported.
+		 * Defaults to `'decklist'`.
+		 */
+		previewMode?: 'campaign' | 'decklist';
 	}
 
 	const {
@@ -59,7 +66,8 @@ Has three phases: input, loading, and result display with tabs.
 		languageCode,
 		limit,
 		initialDeckIds = [],
-		batchImport = false
+		batchImport = false,
+		previewMode = 'decklist'
 	}: Prop = $props();
 
 	type Phase = 'input' | 'loading' | 'result';
@@ -325,6 +333,7 @@ https://arkham.build/share/asdfasdfasdfasd
 					result={importResults[activeTabIndex]}
 					{localizationResolver}
 					{languageCode}
+					mode={previewMode}
 				/>
 			{/if}
 		</div>

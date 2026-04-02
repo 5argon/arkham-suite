@@ -19,6 +19,11 @@ Single line radio buttons styled as buttons.
 		 */
 		size?: 'icon' | 'text' | 'flexible';
 		help?: string;
+		/**
+		 * Longer help text as raw markdown. When provided, renders a clickable button
+		 * that opens a modal — better for mobile and multi-paragraph explanations.
+		 */
+		helpMd?: string;
 
 		/**
 		 * Bindable.
@@ -31,7 +36,7 @@ Single line radio buttons styled as buttons.
 			icon?: FaIconType;
 		}[];
 	}
-	let { label, help, selectedValue = $bindable(), choices, size }: Prop<T> = $props();
+	let { label, help, helpMd, selectedValue = $bindable(), choices, size }: Prop<T> = $props();
 	const sizeClass = $derived(size === 'icon' ? 'w-2' : size === 'text' ? 'w-16' : '');
 </script>
 
@@ -65,7 +70,7 @@ Single line radio buttons styled as buttons.
 	</FormHelp>
 {/snippet}
 
-<FormLabelWithHelp disableClick {label} {help}>
+<FormLabelWithHelp disableClick {label} {help} {helpMd}>
 	<div class="flex">
 		{#each choices as { value, label, icon }, index (index)}
 			{@render eachButton(value, label, icon, index)}

@@ -17,6 +17,9 @@
         "tags"
     ],
     "packageManager": "yarn@4.12.0",
+    "resolutions": {
+        "esbuild": "0.27.3"
+    },
     "devDependencies": {
         "typescript": "^5.9.3"
     }

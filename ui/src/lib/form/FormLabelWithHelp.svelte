@@ -2,10 +2,17 @@
 	import type { Snippet } from 'svelte';
 	import FormHelp from './FormHelp.svelte';
 	import SvgIcon from '../basic/SvgIcon.svelte';
+	import MarkdownModal from '../layout/MarkdownModal.svelte';
 
 	interface Prop {
 		label: string;
 		help?: string;
+		/**
+		 * Longer help text as raw markdown. When provided, renders a clickable
+		 * button instead of a hover tooltip. Clicking it opens a MarkdownModal —
+		 * better for mobile and for multi-paragraph explanations.
+		 */
+		helpMd?: string;
 		children: Snippet;
 
 		/**
@@ -14,7 +21,9 @@
 		 */
 		disableClick?: boolean;
 	}
-	const { label, help, children, disableClick }: Prop = $props();
+	const { label, help, helpMd, children, disableClick }: Prop = $props();
+
+	let helpMdOpen = $state(false);
 </script>
 
 {#snippet helpIcon()}
@@ -26,7 +35,7 @@
 {/snippet}
 
 {#snippet inside()}
-	<div class="flex items-center text-primary-900 dark:text-primary-100 mt-2 min-h-[1rem]">
+	<div class="flex items-center text-primary-900 dark:text-primary-100 mt-2 min-h-4">
 		<span class="text-xs">{label || '\u00A0'}</span>
 		{#if help}
 			<FormHelp {help}>
@@ -35,8 +44,18 @@
 				</span>
 			</FormHelp>
 		{/if}
+		{#if helpMd}
+			<button
+				type="button"
+				class="text-primary-500/50 hover:text-primary-500 ml-2 cursor-pointer focus:outline-none"
+				onclick={() => (helpMdOpen = true)}
+				aria-label="Learn more about {label}"
+			>
+				<SvgIcon>{@render helpIcon()}</SvgIcon>
+			</button>
+		{/if}
 	</div>
-	<div class="flex w-full max-w-xl items-center">
+	<div class="relative flex w-full max-w-xl items-center">
 		{@render children()}
 	</div>
 {/snippet}
@@ -49,4 +68,13 @@
 	<label>
 		{@render inside()}
 	</label>
+{/if}
+
+{#if helpMd}
+	<MarkdownModal
+		source={helpMd}
+		isOpen={helpMdOpen}
+		onClose={() => (helpMdOpen = false)}
+		title={label}
+	/>
 {/if}

@@ -161,7 +161,7 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 		border-color: var(--border-color-light);
 	}
 
-	.dark .custom-border-color {
+	:global(.dark) .custom-border-color {
 		border-color: var(--border-color-dark);
 	}
 
@@ -193,7 +193,5 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 		border-color: var(--accent-color);
 	}
 
-	.inactive-effect {
-		opacity: 0.5;
-	}
+
 </style>

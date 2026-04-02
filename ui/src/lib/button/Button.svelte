@@ -20,8 +20,12 @@
 		highlighted?: boolean;
 		danger?: boolean;
 		disabled?: boolean;
+		/** HTML button type. Defaults to "button" to prevent accidental form submission. Use "submit" for form submit buttons. */
+		type?: 'button' | 'submit' | 'reset';
+		/** Associates the button with a form element by its id, allowing it to submit a form it is not a descendant of. */
+		form?: string;
 	}
-	const { icon, label, onClick, hideLabel, highlighted, danger, disabled }: Prop = $props();
+	const { icon, label, onClick, hideLabel, highlighted, danger, disabled, type = 'button', form }: Prop = $props();
 	const hasText = $derived(!hideLabel);
 	const paddingClass = $derived(hasText ? 'px-3' : 'px-1');
 	const isLink = $derived(typeof onClick === 'string');
@@ -35,7 +39,7 @@
 			if (isExternalLink) {
 				return onClick as string;
 			} else {
-				return resolve(onClick, {});
+				return resolve(onClick as any);
 			}
 		}
 		return undefined;
@@ -79,6 +83,8 @@
 		</a>
 	{:else}
 		<button
+			{type}
+			{form}
 			{disabled}
 			onclick={() => {
 				clickHandler?.();
@@ -108,6 +114,8 @@
 		</a>
 	{:else}
 		<button
+			{type}
+			{form}
 			{disabled}
 			onclick={() => {
 				clickHandler?.();
@@ -136,6 +144,8 @@
 	</a>
 {:else}
 	<button
+		{type}
+		{form}
 		{disabled}
 		onclick={() => {
 			clickHandler?.();

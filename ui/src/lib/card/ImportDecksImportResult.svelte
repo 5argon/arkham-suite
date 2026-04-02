@@ -13,13 +13,14 @@ Handles error display for failed deck imports.
 		cardResolver: CardResolver;
 		localizationResolver?: LocalizationResolver;
 		languageCode?: string;
+		mode?: 'campaign' | 'decklist';
 	}
 
-	const { result, cardResolver, localizationResolver, languageCode }: Prop = $props();
+	const { result, cardResolver, localizationResolver, languageCode, mode = 'decklist' }: Prop = $props();
 </script>
 
 {#if result.success}
-	<DeckDisplay deck={result.deck} mode="decklist" {localizationResolver} {languageCode} {cardResolver} />
+	<DeckDisplay deck={result.deck} {mode} {localizationResolver} {languageCode} {cardResolver} />
 {:else}
 	<div class="rounded bg-red-50 p-4 text-red-900 dark:bg-red-900/30 dark:text-red-200">
 		<h3 class="mb-2 text-lg font-bold">{m.form_import_failed()}</h3>

@@ -15,7 +15,7 @@ A thumbnail card button using BorderedContainer with responsive image/text layou
 
 	const { imageUrl, title, description, onClick }: Props = $props();
 
-	const isLink = typeof onClick === 'string';
+	const isLink = $derived(typeof onClick === 'string');
 	const handleClick = () => {
 		if (typeof onClick === 'function') {
 			onClick();
@@ -45,7 +45,7 @@ A thumbnail card button using BorderedContainer with responsive image/text layou
 {/snippet}
 
 <BorderedContainer>
-	{#if isLink}
+	{#if isLink && typeof onClick === 'string'}
 		<a
 			href={onClick}
 			{target}
