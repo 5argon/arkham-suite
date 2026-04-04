@@ -102,6 +102,7 @@ export enum EncounterSet {
   ReadOrDie = 'read_or_die',
   RedTideRising = 'red_tide_rising',
   RelicsOfThePast = 'relics_of_the_past',
+  EnthrallingEncore = 'enthralling_encore',
 
   // The Path to Carcosa
   APhantomOfTruth = 'a_phantom_of_truth',
@@ -406,6 +407,32 @@ export enum EncounterSet {
   DeathOfStars = 'death_of_stars',
   SwarmOfAssimilation = 'swarm_of_assimilation',
   WarOfTheOuterGods = 'war_of_the_outer_gods',
+
+  // Core Set 2026
+  ArcaneLock = 'arcane_lock',
+  ArkhamCh2 = 'arkham_ch2',
+  AshenPilgrims = 'ashen_pilgrims',
+  BadWeather = 'bad_weather',
+  Bystanders = 'bystanders',
+  CosmicEvils = 'cosmic_evils',
+  CultistsCh2 = 'cultists_ch2',
+  DeadEnds = 'dead_ends',
+  EldritchLore = 'eldritch_lore',
+  FireCh2 = 'fire_ch2',
+  FlyingTerrors = 'flying_terrors',
+  GangsOfArkham = 'gangs_of_arkham',
+  Hallucinations = 'hallucinations',
+  MadScience = 'mad_science',
+  MiskatonicUniversity = 'miskatonic_university',
+  PeopleOfArkham = 'people_of_arkham',
+  ReekingDecay = 'reeking_decay',
+  Sewers = 'sewers',
+  Torment = 'torment',
+  WhippoorwillsCh2 = 'whippoorwills_ch2',
+
+  SpreadingFlames = 'spreading_flames',
+  SmokeAndMirrors = 'smoke_and_mirrors',
+  QueenOfAsh = 'queen_of_ash',
 }
 
 /**
@@ -513,6 +540,7 @@ export const productEncounterSetsMap: Partial<Record<Product, EncounterSet[]>> =
     EncounterSet.ReadOrDie,
     EncounterSet.RedTideRising,
     EncounterSet.RelicsOfThePast,
+    EncounterSet.EnthrallingEncore,
   ],
   [Product.ThePathToCarcosaCampaignExpansion]: [
     EncounterSet.APhantomOfTruth,
@@ -809,7 +837,31 @@ export const productEncounterSetsMap: Partial<Record<Product, EncounterSet[]>> =
     EncounterSet.FilmFatale,
     EncounterSet.ForgottenIsland,
   ],
-  [Product.CoreSet2026]: [],
+  [Product.CoreSet2026]: [
+    EncounterSet.ArcaneLock,
+    EncounterSet.ArkhamCh2,
+    EncounterSet.AshenPilgrims,
+    EncounterSet.BadWeather,
+    EncounterSet.Bystanders,
+    EncounterSet.CosmicEvils,
+    EncounterSet.CultistsCh2,
+    EncounterSet.DeadEnds,
+    EncounterSet.EldritchLore,
+    EncounterSet.FireCh2,
+    EncounterSet.FlyingTerrors,
+    EncounterSet.GangsOfArkham,
+    EncounterSet.Hallucinations,
+    EncounterSet.MadScience,
+    EncounterSet.MiskatonicUniversity,
+    EncounterSet.PeopleOfArkham,
+    EncounterSet.ReekingDecay,
+    EncounterSet.Sewers,
+    EncounterSet.Torment,
+    EncounterSet.WhippoorwillsCh2,
+    EncounterSet.SpreadingFlames,
+    EncounterSet.SmokeAndMirrors,
+    EncounterSet.QueenOfAsh,
+  ],
 };
 
 /**
@@ -841,8 +893,10 @@ export const campaignEncounterSetsMap: Record<Campaign, EncounterSet[]> = {
     productEncounterSetsMap[Product.ReturnToTheDunwichLegacy] || [],
   [Campaign.ReturnToThePathToCarcosa]:
     productEncounterSetsMap[Product.ReturnToThePathToCarcosa] || [],
-  [Campaign.ReturnToTheForgottenAge]: productEncounterSetsMap[Product.ReturnToTheForgottenAge] || [],
-  [Campaign.ReturnToTheCircleUndone]: productEncounterSetsMap[Product.ReturnToTheCircleUndone] || [],
+  [Campaign.ReturnToTheForgottenAge]:
+    productEncounterSetsMap[Product.ReturnToTheForgottenAge] || [],
+  [Campaign.ReturnToTheCircleUndone]:
+    productEncounterSetsMap[Product.ReturnToTheCircleUndone] || [],
   [Campaign.BrethrenOfAsh]: productEncounterSetsMap[Product.CoreSet2026] || [],
 };
 
@@ -850,8 +904,10 @@ export const campaignEncounterSetsMap: Record<Campaign, EncounterSet[]> = {
  * Maps StandaloneScenarios to their associated EncounterSets.
  */
 export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet[]> = {
-  [StandaloneScenario.CurseOfTheRougarou]: productEncounterSetsMap[Product.CurseOfTheRougarou] || [],
-  [StandaloneScenario.CarnevaleOfHorrors]: productEncounterSetsMap[Product.CarnevaleOfHorrors] || [],
+  [StandaloneScenario.CurseOfTheRougarou]:
+    productEncounterSetsMap[Product.CurseOfTheRougarou] || [],
+  [StandaloneScenario.CarnevaleOfHorrors]:
+    productEncounterSetsMap[Product.CarnevaleOfHorrors] || [],
   [StandaloneScenario.TheLabyrinthsOfLunacy]:
     productEncounterSetsMap[Product.TheLabyrinthsOfLunacy] || [],
   [StandaloneScenario.GuardiansOfTheAbyss]:
@@ -874,13 +930,16 @@ export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet
  * Separated so they do not get used in scenarioExclusiveEncounterSets,
  * these could be reused in other scenarios even though they were
  * one of the scenario's name.
+ * 
+ * I think we don't need to include Core Set 2026 ones, I assume in Chapter Two
+ * they had fixed their previous mistakes.
  */
 export const coreScenarioNameEncounterSets: readonly EncounterSet[] = [
   // Core Set
   EncounterSet.TheGathering,
   EncounterSet.TheMidnightMasks,
   EncounterSet.TheDevourerBelow,
-]
+];
 
 /**
  * Encounter sets that are also scenario names.
@@ -1115,7 +1174,4 @@ export const specialOrderingEncounterSets: readonly EncounterSet[] = [
   EncounterSet.DayOfRain,
   EncounterSet.TheFinalDay,
   EncounterSet.DayOfTheFeast,
-]
-
-
-
+];

@@ -201,6 +201,8 @@ export function encounterSetToEncounterSet(ahdbEncounterSet: string): EncounterS
       return EncounterSet.RedTideRising;
     case 'relics_of_the_past':
       return EncounterSet.RelicsOfThePast;
+    case 'enthralling_encore':
+      return EncounterSet.EnthrallingEncore;
 
     // The Path to Carcosa
     case 'a_phantom_of_truth':
@@ -760,6 +762,56 @@ export function encounterSetToEncounterSet(ahdbEncounterSet: string): EncounterS
     case 'war_of_the_outer_gods':
       return EncounterSet.WarOfTheOuterGods;
 
+    // Core Set 2026
+
+    case 'arcane_lock':
+      return EncounterSet.ArcaneLock;
+    case 'arkham_ch2':
+      return EncounterSet.ArkhamCh2;
+    case 'ashen_pilgrims':
+      return EncounterSet.AshenPilgrims;
+    case 'bad_weather':
+      return EncounterSet.BadWeather;
+    case 'bystanders':
+      return EncounterSet.Bystanders;
+    case 'cosmic_evils':
+      return EncounterSet.CosmicEvils;
+    case 'cultists_ch2':
+      return EncounterSet.CultistsCh2;
+    case 'dead_ends':
+      return EncounterSet.DeadEnds;
+    case 'eldritch_lore':
+      return EncounterSet.EldritchLore;
+    case 'fire_ch2':
+      return EncounterSet.FireCh2;
+    case 'flying_terrors':
+      return EncounterSet.FlyingTerrors;
+    case 'gangs_of_arkham':
+      return EncounterSet.GangsOfArkham;
+    case 'hallucinations':
+      return EncounterSet.Hallucinations;
+    case 'mad_science':
+      return EncounterSet.MadScience;
+    case 'miskatonic_university':
+      return EncounterSet.MiskatonicUniversity;
+    case 'people_of_arkham':
+      return EncounterSet.PeopleOfArkham;
+    case 'reeking_decay':
+      return EncounterSet.ReekingDecay;
+    case 'sewers':
+      return EncounterSet.Sewers;
+    case 'torment':
+      return EncounterSet.Torment;
+    case 'whippoorwills_ch2':
+      return EncounterSet.WhippoorwillsCh2;
+
+    case 'spreading_flames':
+      return EncounterSet.SpreadingFlames;
+    case 'smoke_and_mirrors':
+      return EncounterSet.SmokeAndMirrors;
+    case 'queen_of_ash':
+      return EncounterSet.QueenOfAsh;
+
     default:
       throw new Error(`Unknown AHDB encounter set: ${ahdbEncounterSet}`);
   }
@@ -1052,6 +1104,16 @@ export function codeToProduct(packCode: string, encounterCode: string | undefine
       return Product.Promotional;
     case 'core_2026':
       return Product.CoreSet2026;
+    case 'tom':
+      return Product.TommyMuldoon;
+    case 'car':
+      return Product.CarolynFern;
+    case 'and':
+      return Product.AndrePatel;
+    case 'mar':
+      return Product.MarieLambeau;
+    case 'mig':
+      return Product.MiguelDeLaCruz;
     default:
       throw new Error(`Unknown pack code: ${packCode}`);
   }
@@ -1082,35 +1144,23 @@ export function cycleCodeToProducts(cycleCode: string): Product[] {
         Product.TheCircleUndoneCampaignExpansion,
       ];
     case 'tde':
-      return [
-        Product.TheDreamEatersInvestigatorExpansion,
-        Product.TheDreamEatersCampaignExpansion,
-      ];
+      return [Product.TheDreamEatersInvestigatorExpansion, Product.TheDreamEatersCampaignExpansion];
     case 'tic':
       return [
         Product.TheInnsmouthConspiracyInvestigatorExpansion,
         Product.TheInnsmouthConspiracyCampaignExpansion,
       ];
     case 'eoe':
-      return [
-        Product.EdgeOfTheEarthInvestigatorExpansion,
-        Product.EdgeOfTheEarthCampaignExpansion,
-      ];
+      return [Product.EdgeOfTheEarthInvestigatorExpansion, Product.EdgeOfTheEarthCampaignExpansion];
     case 'tsk':
-      return [
-        Product.TheScarletKeysInvestigatorExpansion,
-        Product.TheScarletKeysCampaignExpansion,
-      ];
+      return [Product.TheScarletKeysInvestigatorExpansion, Product.TheScarletKeysCampaignExpansion];
     case 'fhv':
       return [
         Product.TheFeastOfHemlockValeInvestigatorExpansion,
         Product.TheFeastOfHemlockValeCampaignExpansion,
       ];
     case 'tdc':
-      return [
-        Product.TheDrownedCityInvestigatorExpansion,
-        Product.TheDrownedCityCampaignExpansion,
-      ];
+      return [Product.TheDrownedCityInvestigatorExpansion, Product.TheDrownedCityCampaignExpansion];
     case 'side_stories':
       return [
         Product.CurseOfTheRougarou,

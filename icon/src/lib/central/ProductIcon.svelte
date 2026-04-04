@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Product } from "@5argon/arkham-kohaku";
-  import type { ComponentType } from "svelte";
 
   interface Prop {
     product: Product;
@@ -97,7 +96,17 @@
       case Product.Promotional:
         return import("../individual/svelte/Novella.svelte");
       case Product.CoreSet2026:
-        return import("../individual/svelte/CoreSet2026.svelte");
+        return import("../individual/svelte/Core2026.svelte");
+      case Product.TommyMuldoon:
+        return import("../individual/svelte/Tommy.svelte");
+      case Product.CarolynFern:
+        return import("../individual/svelte/Carolyn.svelte");
+      case Product.AndrePatel:
+        return import("../individual/svelte/Andre.svelte");
+      case Product.MarieLambeau:
+        return import("../individual/svelte/Marie.svelte");
+      case Product.MiguelDeLaCruz:
+        return import("../individual/svelte/Miguel.svelte");
       default:
         const _exhaustive: never = prod;
         throw new Error(`Unhandled product: ${_exhaustive}`);

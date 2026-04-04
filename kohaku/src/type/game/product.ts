@@ -57,6 +57,12 @@ export enum Product {
   Promotional = 'promo',
 
   CoreSet2026 = 'core_2026',
+
+  TommyMuldoon = 'tom',
+  CarolynFern = 'car',
+  AndrePatel = 'and',
+  MarieLambeau = 'mar',
+  MiguelDeLaCruz = 'mig',
 }
 
 export const productMainline: Product[] = [
@@ -82,6 +88,15 @@ export const productMainline: Product[] = [
   Product.TheFeastOfHemlockValeInvestigatorExpansion,
   Product.TheDrownedCityCampaignExpansion,
   Product.TheDrownedCityInvestigatorExpansion,
+  Product.CoreSet2026,
+];
+
+export const productCoreSetsChapterOne: Product[] = [
+  Product.CoreSet,
+  Product.RevisedCoreSet,
+];
+
+export const productCoreSetsChapterTwo: Product[] = [
   Product.CoreSet2026,
 ];
 
@@ -163,15 +178,14 @@ export const productInvestigatorStarterDeck: Product[] = [
 ];
 
 /**
- * Also includes the new Investigator Starter Decks,
- * as well as those after Core Set 2026.
+ * The new investigator decks coming out after Core Set 2026.
  */
 export const productInvestigatorDeck: Product[] = [
-  Product.NathanielCho,
-  Product.HarveyWalters,
-  Product.WinifredHabbamock,
-  Product.JacquelineFine,
-  Product.StellaClark,
+  Product.TommyMuldoon,
+  Product.CarolynFern,
+  Product.AndrePatel,
+  Product.MarieLambeau,
+  Product.MiguelDeLaCruz,
 ];
 
 export const productStandalone: Product[] = [
@@ -186,6 +200,7 @@ export const productStandalone: Product[] = [
   Product.MachinationsThroughTime,
   Product.FortuneAndFolly,
   Product.TheMidwinterGala,
+  Product.FilmFatale
 ];
 
 export const productOther: Product[] = [Product.ParallelInvestigators, Product.Promotional];
@@ -194,6 +209,7 @@ export const productOrdering: Product[] = [
   ...productMainline,
   ...productReturnTo,
   ...productInvestigatorStarterDeck,
+  ...productInvestigatorDeck,
   ...productStandalone,
   ...productOther,
 ];

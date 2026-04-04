@@ -198,6 +198,8 @@ export function encounterSetName(encounterSet: EncounterSet): string {
       return m.challengeScenarioNameRedTideRising();
     case EncounterSet.RelicsOfThePast:
       return m.challengeScenarioNameRelicsOfThePast();
+    case EncounterSet.EnthrallingEncore:
+      return m.challengeScenarioNameEnthrallingEncore();
 
     // The Path to Carcosa
     case EncounterSet.APhantomOfTruth:
@@ -755,6 +757,56 @@ export function encounterSetName(encounterSet: EncounterSet): string {
       return m.standaloneScenarioWarOfTheOuterGodsSwarmOfAssimilation();
     case EncounterSet.WarOfTheOuterGods:
       return m.standaloneScenarioNameWarOfTheOuterGods();
+
+    // Core Set 2026
+
+    case EncounterSet.ArcaneLock:
+      return m.campaignRegularCoreSet2026EncounterArcaneLock();
+    case EncounterSet.ArkhamCh2:
+      return m.campaignRegularCoreSet2026EncounterArkham();
+    case EncounterSet.AshenPilgrims:
+      return m.campaignRegularCoreSet2026EncounterAshenPilgrims();
+    case EncounterSet.BadWeather:
+      return m.campaignRegularCoreSet2026EncounterBadWeather();
+    case EncounterSet.Bystanders:
+      return m.campaignRegularCoreSet2026EncounterBystanders();
+    case EncounterSet.CosmicEvils:
+      return m.campaignRegularCoreSet2026EncounterCosmicEvils();
+    case EncounterSet.CultistsCh2:
+      return m.campaignRegularCoreSet2026EncounterCultists();
+    case EncounterSet.DeadEnds:
+      return m.campaignRegularCoreSet2026EncounterDeadEnds();
+    case EncounterSet.EldritchLore:
+      return m.campaignRegularCoreSet2026EncounterEldritchLore();
+    case EncounterSet.FireCh2:
+      return m.campaignRegularCoreSet2026EncounterFire();
+    case EncounterSet.FlyingTerrors:
+      return m.campaignRegularCoreSet2026EncounterFlyingTerrors();
+    case EncounterSet.GangsOfArkham:
+      return m.campaignRegularCoreSet2026EncounterGangsOfArkham();
+    case EncounterSet.Hallucinations:
+      return m.campaignRegularCoreSet2026EncounterHallucinations();
+    case EncounterSet.MadScience:
+      return m.campaignRegularCoreSet2026EncounterMadScience();
+    case EncounterSet.MiskatonicUniversity:
+      return m.campaignRegularCoreSet2026EncounterMiskatonicUniversity();
+    case EncounterSet.PeopleOfArkham:
+      return m.campaignRegularCoreSet2026EncounterPeopleOfArkham();
+    case EncounterSet.ReekingDecay:
+      return m.campaignRegularCoreSet2026EncounterReekingDecay();
+    case EncounterSet.Sewers:
+      return m.campaignRegularCoreSet2026EncounterSewers();
+    case EncounterSet.Torment:
+      return m.campaignRegularCoreSet2026EncounterTorment();
+    case EncounterSet.WhippoorwillsCh2:
+      return m.campaignRegularCoreSet2026EncounterWhippoorwills();
+
+    case EncounterSet.SpreadingFlames:
+      return m.campaignRegularBrethrenOfAshScenarioSpreadingFlames();
+    case EncounterSet.SmokeAndMirrors:
+      return m.campaignRegularBrethrenOfAshScenarioSmokeAndMirrors();
+    case EncounterSet.QueenOfAsh:
+      return m.campaignRegularBrethrenOfAshScenarioQueenOfAsh();
 
     default: {
       const _exhaustive: never = encounterSet;

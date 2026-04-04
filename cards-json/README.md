@@ -11,7 +11,7 @@ This `cards.json` is in the same format as stored in https://github.com/Kamalisk
 
 ## Commands
 
-### `pack` (merge-pack)
+### `merge-pack`
 
 Merges all JSON files from the `pack` folder into `pulls/json/cards.json`. This is the first step that should be run before other scripts. Run with `yarn merge-pack` or `deno run --allow-read --allow-write pack.ts`.
 
@@ -26,7 +26,7 @@ Blatantly steals images of all those cards from arkham.build as much as possible
 
 This empties the target folder on each run. As this use someone else's bandwidth, you shouldn't run this often.
 
-### `patch`
+### `patch-cards`
 
 Add additional card graphics to the `download` result, whether it's English or other languages. These came from `patch` folder. Now we are ready to create `valid.json` which tells you what images are available or missing.
 
@@ -37,5 +37,5 @@ Make variations of card graphics from `true` folder.
 ## Then?
 
 - `cards.json` placed on `src/lib/data` on the site. This file is imported by client code on any pages that need to use all cards in the game, ensuring client only load this module once.
-- `cards.json` is also uploaded to Cloudflare R2. The server side worker will download this JSON and cache it, so it could work with things such as URL parameters while knowing all cards in the game. We cannot let this JSON contribute to worker's code since it will exceed 3 MB limit of the free tier.
-- All graphic folders except `true` are then synchroized to Cloudflare R2 with `rclone`, site's `<img>` then use those images.
+- All graphic folders except `true` are then synchroized to Cloudflare R2 with `rclone-sync` command, site's `<img>` then use those images. Before synchronizing, make sure to remove the `true` folder first.
+- `cards.json` is also then uploaded to Cloudflare R2. The server side worker will download this JSON and cache it, so it could work with things such as URL parameters while knowing all cards in the game. We cannot let this JSON contribute to worker's code since it will exceed 3 MB limit of the free tier.

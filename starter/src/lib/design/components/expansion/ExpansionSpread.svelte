@@ -9,7 +9,11 @@
 		color,
 		productChapterOneInvestigatorExpansions,
 		productCoreSets,
+		productCoreSetsChapterOne,
+		productCoreSetsChapterTwo,
+		productInvestigatorDeck,
 		productInvestigatorStarterDeck,
+		productOther,
 		productReturnTo
 	} from '@5argon/arkham-kohaku';
 	import { m, u } from '@5argon/arkham-string';
@@ -33,8 +37,10 @@
 	title="Player Cards"
 />
 
+<SectionSeparator title="Chapter Two" />
+
 <div class="flex gap-1">
-	{#each productCoreSets as product (product)}
+	{#each productCoreSetsChapterTwo as product (product)}
 		<div in:slide|global={{ duration: 200, axis: getSlideAxis(), easing: cubicOut }}>
 			<GraphicButton
 				text={u.productName(product)}
@@ -49,7 +55,44 @@
 	{/each}
 </div>
 
-<SectionSeparator title={m.productTypeInvestigatorExpansion()} />
+<SectionSeparator inner title={m.productTypeInvestigatorDeck()} />
+
+<div class="flex gap-1">
+	{#each productInvestigatorDeck as product (product)}
+		<div in:slide|global={{ duration: 250, delay: 150, easing: cubicOut }}>
+			<GraphicButton
+				small
+				text={u.productName(product)}
+				subtext={m.productTypeInvestigatorDeck()}
+				graphic={productImageUrl(product)}
+				accentColor={color.getColor(color.productToColors(product), 950, false)}
+				onClick={'/player/' + productToExploreRoute(product)}
+			>
+				<ProductIcon {product} />
+			</GraphicButton>
+		</div>
+	{/each}
+</div>
+
+<SectionSeparator title="Chapter One" />
+
+<div class="flex gap-1">
+	{#each productCoreSetsChapterOne as product (product)}
+		<div in:slide|global={{ duration: 200, axis: getSlideAxis(), easing: cubicOut }}>
+			<GraphicButton
+				text={u.productName(product)}
+				graphic={productImageUrl(product)}
+				accentColor={color.getColor(color.productToColors(product), 950, false)}
+				small
+				onClick={'/player/' + productToExploreRoute(product)}
+			>
+				<ProductIcon {product} />
+			</GraphicButton>
+		</div>
+	{/each}
+</div>
+
+<SectionSeparator inner title={m.productTypeInvestigatorExpansion()} />
 
 <div class="flex gap-1">
 	{#each productChapterOneInvestigatorExpansions as product (product)}
@@ -68,7 +111,7 @@
 	{/each}
 </div>
 
-<SectionSeparator title={m.productTypeInvestigatorStarterDeck()} />
+<SectionSeparator inner title={m.productTypeInvestigatorStarterDeck()} />
 
 <div class="flex gap-1">
 	{#each productInvestigatorStarterDeck as product (product)}
@@ -87,10 +130,29 @@
 	{/each}
 </div>
 
-<SectionSeparator title="Return To" />
+
+<SectionSeparator inner title="Return To" />
 
 <div class="flex gap-1">
 	{#each productReturnTo as product (product)}
+		<div in:slide|global={{ duration: 250, delay: 200, easing: cubicOut }}>
+			<GraphicButton
+				text={u.productName(product, true)}
+				graphic={productImageUrl(product)}
+				accentColor={color.getColor(color.productToColors(product), 950, false)}
+				small
+				onClick={'/player/' + productToExploreRoute(product)}
+			>
+				<ProductIcon {product} />
+			</GraphicButton>
+		</div>
+	{/each}
+</div>
+
+<SectionSeparator inner title="Other" />
+
+<div class="flex gap-1">
+	{#each productOther as product (product)}
 		<div in:slide|global={{ duration: 250, delay: 200, easing: cubicOut }}>
 			<GraphicButton
 				text={u.productName(product, true)}

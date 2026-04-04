@@ -28,7 +28,6 @@
 		type Card,
 		type CardCode,
 		type DecodedMeta,
-		productRepackaged,
 		sorter
 	} from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';

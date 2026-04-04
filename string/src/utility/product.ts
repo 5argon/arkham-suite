@@ -40,6 +40,11 @@ import {
   productCoreCoreSet2026,
   standaloneScenarioNameFilmFatale,
   gameTermsRandomBasicWeakness,
+  investigatorDeckTommyMuldoon,
+  investigatorDeckCarolynFern,
+  investigatorDeckAndrPatel,
+  investigatorDeckMarieLambeau,
+  investigatorDeckMiguelDeLaCruz,
 } from '../paraglide/messages.js';
 
 export function productName(product: Product, removeExpansionSuffix?: boolean): string {
@@ -187,6 +192,17 @@ export function productName(product: Product, removeExpansionSuffix?: boolean): 
 
     case Product.CoreSet2026:
       return productCoreCoreSet2026();
+
+    case Product.TommyMuldoon:
+      return investigatorDeckTommyMuldoon();
+    case Product.CarolynFern:
+      return investigatorDeckCarolynFern();
+    case Product.AndrePatel:
+      return investigatorDeckAndrPatel();
+    case Product.MarieLambeau:
+      return investigatorDeckMarieLambeau();
+    case Product.MiguelDeLaCruz:
+      return investigatorDeckMiguelDeLaCruz();
 
     default:
       return assertUnreachable(product);

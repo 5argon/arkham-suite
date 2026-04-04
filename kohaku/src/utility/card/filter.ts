@@ -6,7 +6,7 @@ import { CardType } from '../../type/game/card-type.js';
  * Excludes cards with encounter sets and hidden cards.
  */
 export function playerCardsNonCampaignFilter(card: Card): boolean {
-  return card.encounterSet === undefined && card.hidden !== true;
+  return card.reward || (card.encounterSet === undefined && card.hidden !== true);
 }
 
 /**

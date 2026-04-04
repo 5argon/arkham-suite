@@ -2,8 +2,11 @@ import type { PageServerLoad } from './$types';
 import {
 	Product,
 	productChapterOneInvestigatorExpansions,
-	productCoreSets,
+	productCoreSetsChapterOne,
+	productCoreSetsChapterTwo,
+	productInvestigatorDeck,
 	productInvestigatorStarterDeck,
+	productOther,
 	productReturnTo
 } from '@5argon/arkham-kohaku';
 import { productToExploreRoute } from '$lib/utility/product';
@@ -11,10 +14,13 @@ import { productToExploreRoute } from '$lib/utility/product';
 export const load: PageServerLoad = async ({ params }) => {
 	const urlPackCode = params.packCode;
 	const supportedProducts: Product[] = [
-		...productCoreSets,
+		...productCoreSetsChapterOne,
+		...productCoreSetsChapterTwo,
 		...productChapterOneInvestigatorExpansions,
 		...productInvestigatorStarterDeck,
-		...productReturnTo
+		...productInvestigatorDeck,
+		...productReturnTo,
+		...productOther
 	];
 	const routeToProductMap: Map<string, Product> = new Map();
 	supportedProducts.forEach((product) => {
