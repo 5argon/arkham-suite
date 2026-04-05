@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Campaign, type Scenario } from '$lib/core/campaign';
 	import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
-	import { EncounterSetDisplay } from '@5argon/arkham-life-ui';
+	import EncounterSetDisplayWithTooltip from './EncounterSetDisplayWithTooltip.svelte';
 	import { getScenarioData } from '@5argon/arkham-kohaku';
 	import { u } from '@5argon/arkham-string';
 
@@ -108,7 +108,7 @@
 							<div class="flex flex-wrap items-center justify-center gap-1">
 								{#each r.specificSets as s, j (j)}
 									{#if s.kohakuEncounterSet}
-										<EncounterSetDisplay encounterSet={s.kohakuEncounterSet} flag="scenario" />
+										<EncounterSetDisplayWithTooltip encounterSet={s.kohakuEncounterSet} flag="scenario" />
 									{/if}
 								{/each}
 							</div>
@@ -119,7 +119,7 @@
 							<td class="border-x border-primary-300 px-1 py-1 dark:border-primary-700">
 								<div class="flex items-center justify-center">
 									{#if o.kohakuEncounterSet}
-										<EncounterSetDisplay
+										<EncounterSetDisplayWithTooltip
 											encounterSet={o.kohakuEncounterSet}
 											flag={getEncounterSetFlag(o.kohakuEncounterSet, kohakuCampaign)}
 										/>

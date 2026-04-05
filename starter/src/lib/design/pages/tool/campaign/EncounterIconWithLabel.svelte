@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { EncounterSetDisplay, FaIcon, FaIconType } from '@5argon/arkham-life-ui';
+	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
 	import { u } from '@5argon/arkham-string';
 	import clsx from 'clsx';
+	import EncounterSetDisplayWithTooltip from './EncounterSetDisplayWithTooltip.svelte';
 
 	let {
 		kohakuEncounterSet,
@@ -46,7 +47,7 @@
 
 <div class="inline-flex flex-col space-y-px text-center items-center mx-1">
 	<div class="flex items-center">
-		<EncounterSetDisplay encounterSet={kohakuEncounterSet} flag={getFlag()} />
+		<EncounterSetDisplayWithTooltip encounterSet={kohakuEncounterSet} flag={getFlag()} />
 		{#if smallNumber !== null || number !== null}
 			<div
 				class={clsx(

@@ -2,7 +2,7 @@
 	import type { EncounterSet } from '$lib/core/campaign';
 	import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
 	import type { Campaign } from '@5argon/arkham-kohaku';
-	import { EncounterSetDisplay } from '@5argon/arkham-life-ui';
+	import EncounterSetDisplayWithTooltip from './EncounterSetDisplayWithTooltip.svelte';
 
 	let {
 		encounterSet,
@@ -15,7 +15,7 @@
 
 <div class="fade">
 	{#if encounterSet.kohakuEncounterSet}
-		<EncounterSetDisplay
+		<EncounterSetDisplayWithTooltip
 			encounterSet={encounterSet.kohakuEncounterSet}
 			flag={getEncounterSetFlag(encounterSet.kohakuEncounterSet, kohakuCampaign)}
 		/>
