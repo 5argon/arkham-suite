@@ -28,7 +28,9 @@ This empties the target folder on each run. As this use someone else's bandwidth
 
 ### `patch-cards`
 
-Add additional card graphics to the `download` result, whether it's English or other languages. These came from `patch` folder. Now we are ready to create `valid.json` which tells you what images are available or missing.
+Add additional card graphics to the `download` result, whether it's English or other languages. These came from `patch` folder. 
+
+Then it modifies `cards.json` for our purpose. Currently, we read some specific string and remember them as new fields. After that, text are removed to minimize size, since both arkham-starter.com and arkham.life will not ever need to render card's text.
 
 ### `process`
 

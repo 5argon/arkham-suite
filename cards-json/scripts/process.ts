@@ -31,6 +31,13 @@ let playerCards: AhdbCard[] = JSON.parse(
 if (args.length > 0) {
   const cardCodes = new Set(args)
   playerCards = playerCards.filter((card) => cardCodes.has(card.code))
+} else {
+  const partialCodes: number[] = JSON.parse(await Deno.readTextFile("partial.json"))
+  if (partialCodes.length > 0) {
+    const codeSet = new Set(partialCodes.map(String))
+    playerCards = playerCards.filter((card) => codeSet.has(card.code))
+    console.log(`Partial mode: processing ${playerCards.length} card(s) from partial.json`)
+  }
 }
 
 await processImages(playerCards, clean)

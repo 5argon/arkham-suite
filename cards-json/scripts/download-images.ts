@@ -1,5 +1,5 @@
 import { AhdbCard } from "./interfaces.ts"
-import { path, emptyDir } from "../mod.ts"
+import { path, emptyDir, ensureDir } from "../mod.ts"
 import { initialize } from "@imagemagick/deno"
 import {
   pullsDirectory,
@@ -12,11 +12,15 @@ import { fetchWithRetries } from "./fetch.ts"
 const concurrentLimit = 110
 initialize()
 
-export async function downloadImages(cards: AhdbCard[]): Promise<void> {
+export async function downloadImages(cards: AhdbCard[], skipClean = false): Promise<void> {
   const pi = path.join(pullsDirectory, pullsCard)
   const truePath = path.join(pi, pullsImagesTrue)
   const trueEnglish = path.join(truePath, "en")
-  await emptyDir(trueEnglish)
+  if (skipClean) {
+    await ensureDir(trueEnglish)
+  } else {
+    await emptyDir(trueEnglish)
+  }
   for (let i = 0; i < cards.length; i += concurrentLimit) {
     const cardBatch = cards.slice(i, i + concurrentLimit)
     console.log(
