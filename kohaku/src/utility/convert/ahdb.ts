@@ -1122,7 +1122,9 @@ export function codeToProduct(packCode: string, encounterCode: string | undefine
 export function cycleCodeToProducts(cycleCode: string): Product[] {
   switch (cycleCode) {
     case 'core':
-      return [Product.CoreSet, Product.RevisedCoreSet, Product.CoreSet2026];
+      return [Product.CoreSet, Product.RevisedCoreSet];
+    case 'core_ch2':
+      return [Product.CoreSet2026];
     case 'dwl':
       return [
         Product.TheDunwichLegacyInvestigatorExpansion,
@@ -1193,6 +1195,14 @@ export function cycleCodeToProducts(cycleCode: string): Product[] {
         Product.WinifredHabbamock,
         Product.JacquelineFine,
         Product.StellaClark,
+      ];
+    case 'investigator_decks_ch2':
+      return [
+        Product.TommyMuldoon,
+        Product.CarolynFern,
+        Product.AndrePatel,
+        Product.MarieLambeau,
+        Product.MiguelDeLaCruz,
       ];
     case 'parallel':
       return [Product.ParallelInvestigators];
