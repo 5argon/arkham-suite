@@ -5,6 +5,7 @@ import {
   createArkhamDbPublicDeckUrl,
   createArkhamDbPublishedDeckUrl,
   createArkhamBuildShareBrowserUrl,
+  createArkhamBuildViewBrowserUrl,
   createArkhamDbPublicDeckBrowserUrl,
   createArkhamDbPublishedDeckBrowserUrl,
 } from './url.js';
@@ -64,10 +65,19 @@ export function predictDeckInput(input: string | number): PredictDeckInputResult
     const urlRegex = new RegExp(/deck\/view\/([^/]*)/gm);
     const matchResult = urlRegex.exec(inputString);
     if (matchResult !== null) {
+      const deckId = matchResult[1];
+      if (isArkhamBuildDeckId(deckId)) {
+        return {
+          deck: deckId,
+          url: createArkhamBuildShareUrl(deckId),
+          browserUrl: createArkhamBuildViewBrowserUrl(deckId),
+          source: DeckSource.ArkhamBuildShared,
+        };
+      }
       return {
-        deck: matchResult[1],
-        url: createArkhamDbPublicDeckUrl(matchResult[1]),
-        browserUrl: createArkhamDbPublicDeckBrowserUrl(matchResult[1]),
+        deck: deckId,
+        url: createArkhamDbPublicDeckUrl(deckId),
+        browserUrl: createArkhamDbPublicDeckBrowserUrl(deckId),
         source: DeckSource.ArkhamDbPublic,
       };
     }
