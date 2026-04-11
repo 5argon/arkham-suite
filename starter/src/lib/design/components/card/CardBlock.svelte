@@ -57,9 +57,38 @@
 		}
 	}
 
+	let dragImageCleanup: (() => void) | null = null;
+
 	function dragStartHandler(e: DragEvent & { currentTarget: HTMLDivElement }) {
 		if (e.dataTransfer !== null) {
 			e.dataTransfer.setData('text/plain', dragDataPrefix + cardId);
+
+			// Create a custom drag image from the entire card block.
+			const el = e.currentTarget;
+			const clone = el.cloneNode(true) as HTMLDivElement;
+			const rect = el.getBoundingClientRect();
+			clone.style.position = 'fixed';
+			clone.style.top = '-9999px';
+			clone.style.left = '-9999px';
+			clone.style.width = rect.width + 'px';
+			clone.style.height = rect.height + 'px';
+			clone.style.background = getComputedStyle(el).backgroundColor;
+			clone.style.border = getComputedStyle(el).border;
+			clone.style.borderRadius = getComputedStyle(el).borderRadius;
+			clone.style.display = 'flex';
+			clone.style.alignItems = 'center';
+			clone.style.padding = getComputedStyle(el).padding;
+			clone.style.opacity = '0.9';
+			clone.style.overflow = 'hidden';
+			document.body.appendChild(clone);
+
+			const offsetX = e.clientX - rect.left;
+			const offsetY = e.clientY - rect.top;
+			e.dataTransfer.setDragImage(clone, offsetX, offsetY);
+
+			dragImageCleanup = () => {
+				document.body.removeChild(clone);
+			};
 		}
 	}
 
@@ -97,6 +126,10 @@
 		e.preventDefault();
 		hovering = false;
 		onChangeHovering(false);
+		if (dragImageCleanup) {
+			dragImageCleanup();
+			dragImageCleanup = null;
+		}
 		if (e.dataTransfer !== null) {
 			if (e.dataTransfer.dropEffect !== 'none') {
 				// Do nothing, since swap at drop target will remove this one.

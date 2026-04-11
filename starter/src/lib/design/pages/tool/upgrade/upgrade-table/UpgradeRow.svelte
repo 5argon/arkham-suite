@@ -91,16 +91,60 @@
 	// This gives a ghost image of an entire row.
 	let rowDraggable = $state(false);
 
+	let dragImageCleanup: (() => void) | null = null;
+
 	function dragStartHandler(e: DragEvent & { currentTarget: HTMLTableRowElement }) {
 		// This drag start can override the individual card dragging EVEN THOUGH
 		// "draggable" is on/off dynamically. We must on/off this one as well.
 		if (e.dataTransfer !== null) {
 			e.dataTransfer.setData('text/plain', rowDragPrefix + ',' + index);
+
+			// Create a custom drag image from the entire row.
+			// A <tr> can't render standalone, so wrap the clone in a <table>.
+			const tr = e.currentTarget;
+			const table = document.createElement('table');
+			const tbody = document.createElement('tbody');
+			const clonedRow = tr.cloneNode(true) as HTMLTableRowElement;
+
+			// Copy computed column widths so the clone matches the original layout.
+			const originalCells = tr.querySelectorAll('td, th');
+			const clonedCells = clonedRow.querySelectorAll('td, th');
+			originalCells.forEach((cell, i) => {
+				const w = (cell as HTMLElement).offsetWidth;
+				(clonedCells[i] as HTMLElement).style.width = w + 'px';
+			});
+
+			tbody.appendChild(clonedRow);
+			table.appendChild(tbody);
+			table.style.position = 'fixed';
+			table.style.top = '-9999px';
+			table.style.left = '-9999px';
+			table.style.borderCollapse = 'collapse';
+			table.style.background = getComputedStyle(tr).backgroundColor;
+			table.style.borderRadius = '0.375rem';
+			table.style.overflow = 'hidden';
+			table.style.opacity = '0.9';
+			document.body.appendChild(table);
+
+			// Position the drag image so the cursor is near the grip area.
+			const rect = tr.getBoundingClientRect();
+			const offsetX = e.clientX - rect.left;
+			const offsetY = e.clientY - rect.top;
+			e.dataTransfer.setDragImage(table, offsetX, offsetY);
+
+			// Clean up the temporary element after the browser captures it.
+			dragImageCleanup = () => {
+				document.body.removeChild(table);
+			};
 		}
 		onRowDraggingChanged(true);
 	}
 
 	function dragEndHander() {
+		if (dragImageCleanup) {
+			dragImageCleanup();
+			dragImageCleanup = null;
+		}
 		onRowDraggingChanged(false);
 	}
 </script>
