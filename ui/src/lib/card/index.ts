@@ -19,6 +19,8 @@ export { default as TableCardList } from './TableCardList.svelte';
 export { default as DeckDisplay } from './DeckDisplay.svelte';
 export { default as DeckBanner } from './DeckBanner.svelte';
 export { default as DeckBannerSecondColumn } from './DeckBannerSecondColumn.svelte';
+export { default as HealthSanity } from './HealthSanity.svelte';
+export { default as ImageIconCommit } from './ImageIconCommit.svelte';
 export { default as DeckDescriptionReader } from './DeckDescriptionReader.svelte';
 export { default as ExportDeckCardRender } from './ExportDeckCardRender.svelte';
 export { default as ExportDeckModal } from './ExportDeckModal.svelte';

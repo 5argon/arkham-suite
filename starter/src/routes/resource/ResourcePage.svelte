@@ -2,6 +2,17 @@
 	import { InnerHeading, ThumbnailCardButton } from '@5argon/arkham-life-ui';
 </script>
 
+<InnerHeading title="Starter Contents"></InnerHeading>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+	<ThumbnailCardButton
+		description="Comprehensive card-by-card reviews for each Core Set 2026 preconstructed deck and their multiplayer interactions."
+		imageUrl="image/resource/precon.webp"
+		onClick="/precon"
+		title="Precon In-Depth"
+	/>
+</div>
+
 <InnerHeading title="Reference Materials"></InnerHeading>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
