@@ -11,7 +11,8 @@ export const arkhamdbApiTaboos = [...arkhamdbApiPublic, 'taboos'];
 export const arkhamdbUrlPublishedDeck = [arkhamdbBaseUrl, 'decklist', 'view'];
 export const arkhamdbUrlPublicDeck = [arkhamdbBaseUrl, 'deck', 'view'];
 
-export const arkhamBuildApiShare = ['https://api.arkham.build/v1/public', 'share'];
+const arkhamBuildApiPublic = ['https://api.arkham.build/v1/public'];
+export const arkhamBuildApiShare = [...arkhamBuildApiPublic, 'share'];
 export const arkhamBuildUrlShare = [arkhamBuildBaseUrl, 'share'];
 export const arkhamBuildUrlView = [arkhamBuildBaseUrl, 'deck', 'view'];
 

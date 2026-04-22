@@ -3,7 +3,7 @@ import { CardClass } from '../game/card-class.js';
 import { Product } from '../game/product.js';
 import { ahdb } from '../../utility/index.js';
 import { SkillType } from '../game/skill.js';
-import { CardQuantity } from './deck.js';
+import { CardQuantity, CardQuantityKvp } from './deck.js';
 import { Card, CardCode } from './player-card.js';
 import { CardResolver } from './resolver.js';
 
@@ -120,6 +120,32 @@ export interface Meta extends CustomizableMeta, ArkhamBuildMeta {
  */
 export interface ArkhamBuildMeta {
   /**
+   * Additional metadata keys (AMK)
+   *
+   * ArkhamDB imposes a strict limit on the amount of data that can be stored in the meta field of a deck.
+   * In order to work around this, we extract some of our custom metadata from deck.meta and store it
+   * in our own database before a deck is saved to ArkhamDB.
+   *
+   * The information is replaced with a token that can be used to retrieve it,
+   * the so called amk (additional metadata key).
+   *
+   * When a deck is fetched from ArkhamDB, our API consumes the entry and writes the actual metadata back to the deck.meta.
+   * The process is transparent to the API consumer.
+   *
+   * The following fields are currently handled in this fashion:
+   *
+   * meta.annotation_{code}
+   * meta.fan_made_content
+   * meta.hidden_slots
+   * meta.intro_md
+   * meta.sealed_deck
+   * meta.sealed_deck_name
+   *
+   * There is a public endpoint to resolve an amk via GET https://api.arkham.build/v1/public/additional_metadata/[AMK]
+   */
+  amk?: string;
+
+  /**
    * Parallel Jim's spirit deck. Format: comma-separated list of ids "id1,id2,id3".
    */
   extra_deck?: ExtraDeckString;
@@ -151,7 +177,7 @@ export interface ArkhamBuildMeta {
   /**
    * When syncing decks with fan-made content to ArkhamDB, we need to extract the slot entries and investigator. This object holds this data so we can later re-apply it.
    */
-  hidden_slots?: any;
+  hidden_slots?: ArkhamBuildMetaHiddenSlots;
 
   /**
    * Card ids that are pickable for this deck. Used for sealed deckbuilding. Format: comma-separated list of id / quantity pairs in the format "id:2,id:1,...".
@@ -183,6 +209,26 @@ export interface ArkhamBuildMeta {
    * Dynamic keys in format: annotation_{code}
    */
   [key: `annotation_${string}`]: string | undefined;
+}
+
+export type ArkhamBuildAdditionalMetadata = Pick<
+  ArkhamBuildMeta,
+  | 'fan_made_content'
+  | 'hidden_slots'
+  | 'intro_md'
+  | 'sealed_deck'
+  | 'sealed_deck_name'
+  | `annotation_${string}`
+>;
+
+/**
+ * When syncing decks with fan-made content to ArkhamDB, we need to extract the slot entries and investigator. This object holds this data so we can later re-apply it.
+ */
+export interface ArkhamBuildMetaHiddenSlots {
+  investigator_code: string;
+  slots: CardQuantityKvp;
+  sideSlots: CardQuantityKvp;
+  ignoreDeckLimitSlots: CardQuantityKvp;
 }
 
 export interface CustomizableMeta {

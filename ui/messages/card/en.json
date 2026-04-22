@@ -34,5 +34,8 @@
 	"card_close_description": "Close Description",
 	"card_deck_description": "Deck Description",
 	"card_add_qr_code": "Add QR Code",
-	"card_qr_code_explanation": "The QR code links to the \"Persistent Deck URL\", check out the Export Deck modal to learn more about it."
+	"card_qr_code_explanation": "The QR code links to the \"Persistent Deck URL\", check out the Export Deck modal to learn more about it.",
+	"card_arkhamdb_incompatibility_title": "Incompatibility with arkhamdb.com",
+	"card_arkhamdb_incompatibility_description": "This deck is hosted on arkhamdb.com, but created on arkham.build with some cards that arkhamdb.com currently doesn't know about. arkham.build had to pack those cards away before uploading the deck to arkhamdb.com, therefore viewing it will show seemingly incomplete deck. You should use arkham.build to view this deck instead to see the actual deck.",
+	"card_arkhamdb_incompatibility_help": "Explain arkhamdb.com incompatibility"
 }

@@ -25,6 +25,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	import FlexibleCardDisplay from './FlexibleCardDisplay.svelte';
 	import Checkbox from '../form/Checkbox.svelte';
 	import Button from '../button/Button.svelte';
+	import Modal from '../layout/Modal.svelte';
 	import {
 		findLinkedCardsSpecial,
 		deckAdvancedCombinedSettings,
@@ -39,6 +40,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	import { FaIconType } from '../icon';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
+	import TextParagraph from '../typography/TextParagraph.svelte';
 
 	interface Prop {
 		deck: Deck;
@@ -81,6 +83,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	let combineCards = $state(false);
 	let showDescriptionReader = $state(false);
 	let showExportModal = $state(false);
+	let showArkhamDbIncompatibilityModal = $state(false);
 
 	const forwardResult = $derived.by(() => {
 		const latestDeck = mode === 'campaign' ? deckUtility.forwardToLatest(deck) : deck;
@@ -211,6 +214,11 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		(deckLatestForwarded.meta.introMd && deckLatestForwarded.meta.introMd.trim().length > 0) ||
 			(deckLatestForwarded.descriptionMd && deckLatestForwarded.descriptionMd.trim().length > 0)
 	);
+
+	const hasArkhamDbIncompatibility = $derived(
+		(deck.source === DeckSource.ArkhamDbPublished || deck.source === DeckSource.ArkhamDbPublic) &&
+			Boolean(deckLatestForwarded.meta.hiddenSlots)
+	);
 </script>
 
 {#snippet flexibleDisplay(cards: CardItem[], settings: GroupingSortingSettings)}
@@ -233,18 +241,42 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		<!-- Show buttons to the hosted site -->
 		<div class="flex max-w-60 flex-col gap-2">
 			{#if showArkhamDbPublishedButton}
-				<Button
-					icon={FaIconType.ExternalLink}
-					label="Send some love to the author on arkhamdb.com"
-					onClick={service.createArkhamDbPublishedDeckBrowserUrl(deck.id)}
-				/>
+				<div class="flex items-center gap-2">
+					<Button
+						icon={FaIconType.ExternalLink}
+						label="Send some love to the author on arkhamdb.com"
+						onClick={service.createArkhamDbPublishedDeckBrowserUrl(deck.id)}
+					/>
+					{#if hasArkhamDbIncompatibility}
+						<Button
+							icon={FaIconType.NoticeError}
+							label={m.card_arkhamdb_incompatibility_help()}
+							hideLabel
+							onClick={() => {
+								showArkhamDbIncompatibilityModal = true;
+							}}
+						/>
+					{/if}
+				</div>
 			{/if}
 			{#if showArkhamDbPublicButton}
-				<Button
-					icon={FaIconType.ExternalLink}
-					label="View on arkhamdb.com"
-					onClick={service.createArkhamDbPublicDeckBrowserUrl(deck.id)}
-				/>
+				<div class="flex items-center gap-2">
+					<Button
+						icon={FaIconType.ExternalLink}
+						label="View on arkhamdb.com"
+						onClick={service.createArkhamDbPublicDeckBrowserUrl(deck.id)}
+					/>
+					{#if hasArkhamDbIncompatibility}
+						<Button
+							icon={FaIconType.NoticeError}
+							label={m.card_arkhamdb_incompatibility_help()}
+							hideLabel
+							onClick={() => {
+								showArkhamDbIncompatibilityModal = true;
+							}}
+						/>
+					{/if}
+				</div>
 			{/if}
 			{#if showArkhamBuildViewButton}
 				<Button
@@ -414,3 +446,16 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	deck={deckLatestForwarded}
 	{shareUrl}
 />
+
+<Modal
+	isOpen={showArkhamDbIncompatibilityModal}
+	onClose={() => {
+		showArkhamDbIncompatibilityModal = false;
+	}}
+	maxWidth="md"
+	title={m.card_arkhamdb_incompatibility_title()}
+>
+	<TextParagraph>
+		{m.card_arkhamdb_incompatibility_description()}
+	</TextParagraph>
+</Modal>

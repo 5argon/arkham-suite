@@ -17,6 +17,19 @@ export interface PredictDeckInputResult {
   source: DeckSource;
 }
 
+type DeckMetaWithAmk = {
+  amk?: string;
+};
+
+function getAmk(metaString: string): string | undefined {
+  try {
+    const parsedMeta = JSON.parse(metaString) as DeckMetaWithAmk;
+    return typeof parsedMeta.amk === 'string' && parsedMeta.amk !== '' ? parsedMeta.amk : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * Handles either URL string or plain string of deck ID of any source.
  * It tries to predict the right source. Unknown source can be used to disable
@@ -178,13 +191,39 @@ export async function fetchDeckRecursive(
   fetchFunction: (...p: Parameters<typeof fetch>) => ReturnType<typeof fetch>,
   input: string | number
 ): Promise<LinkedAhdbDeck> {
+  async function resolveArkhamBuildDeckWhenAmkPresent(
+    deck: AhdbDeck,
+    source: DeckSource
+  ): Promise<AhdbDeck> {
+    if (source !== DeckSource.ArkhamDbPublic && source !== DeckSource.ArkhamDbPublished) {
+      return deck;
+    }
+    if (!deck.meta) {
+      return deck;
+    }
+
+    const amk = getAmk(deck.meta);
+    if (!amk) {
+      return deck;
+    }
+
+    const response = await fetchFunction(createArkhamBuildShareUrl(deck.id));
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch arkham.build deck ${deck.id} for amk ${amk}: HTTP ${response.status}`
+      );
+    }
+    return (await response.json()) as AhdbDeck;
+  }
+
   async function fetchLogic(input: string | number): Promise<AhdbDeck | DeckFetchingError> {
     const predicted = predictDeckInput(input);
     if (predicted.source === DeckSource.Unknown) {
       throw new Error('Unknown deck source');
     }
     const response = await fetchFunction(predicted.url);
-    return (await response.json()) as AhdbDeck;
+    const deck = (await response.json()) as AhdbDeck;
+    return resolveArkhamBuildDeckWhenAmkPresent(deck, predicted.source);
   }
 
   async function fetchDeckRecursiveLogic(

@@ -322,7 +322,7 @@ function groupByClass<T>(items: CardItemWrapper<T>[]): GroupedResult<T>[] {
   const classOrder = [CardClass.Guardian, CardClass.Seeker, CardClass.Rogue, CardClass.Mystic, CardClass.Survivor, CardClass.Neutral];
   const sortedClasses = Array.from(classMap.keys()).sort((a, b) => classOrder.indexOf(a) - classOrder.indexOf(b));
   
-  return sortedClasses.map((cardClass) => ({
+  return sortedClasses.map<GroupedResult<T>>((cardClass) => ({
     groupingKey: GroupingKey.Class,
     dynamicGrouping: true,
     dynamicValue: cardClass,

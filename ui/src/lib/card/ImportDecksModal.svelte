@@ -177,6 +177,7 @@ Has three phases: input, loading, and result display with tabs.
 				loadingProgress.current++;
 				return { success: true, deck } as ImportResult;
 			} catch (error) {
+				console.log(error)
 				loadingProgress.current++;
 				return {
 					success: false,

@@ -7,6 +7,7 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 	import { fade, scale } from 'svelte/transition';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import Button from '../button/Button.svelte';
+	import * as m from '../paraglide/messages.js';
 
 	interface Prop {
 		isOpen: boolean;
@@ -77,7 +78,7 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 			transition:scale={{ duration: 200, start: 0.95 }}
 		>
 			<div class="absolute right-2 top-2 z-10">
-				<Button label="Close" hideLabel onClick={onClose} icon={FaIconType.Clear} />
+				<Button label={m.button_close()} hideLabel onClick={onClose} icon={FaIconType.Clear} />
 			</div>
 
 			{#if title}

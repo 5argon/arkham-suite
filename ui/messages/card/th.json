@@ -22,5 +22,8 @@
 	"card_selected_class_plural": "คลาสที่เลือก",
 	"card_main_roles": "บทบาทหลัก",
 	"card_cost_x": "ต้นทุน {cost}",
-	"card_no_cost": "ไม่มีต้นทุน"
+	"card_no_cost": "ไม่มีต้นทุน",
+	"card_arkhamdb_incompatibility_title": "ความเข้ากันไม่ได้กับ arkhamdb.com",
+	"card_arkhamdb_incompatibility_description": "สำรับนี้โฮสต์อยู่บน arkhamdb.com แต่ถูกสร้างบน arkham.build พร้อมการ์ดบางใบที่ arkhamdb.com ยังไม่รู้จักอยู่ในขณะนี้ arkham.build จึงต้องเก็บการ์ดเหล่านั้นซ่อนไว้ก่อนอัปโหลดสำรับไปยัง arkhamdb.com ดังนั้นเมื่อเปิดดูที่นั่น สำรับจะดูเหมือนไม่ครบ คุณควรใช้ arkham.build เพื่อดูสำรับนี้แทนเพื่อให้เห็นสำรับจริงทั้งหมด",
+	"card_arkhamdb_incompatibility_help": "อธิบายความเข้ากันไม่ได้กับ arkhamdb.com"
 }
