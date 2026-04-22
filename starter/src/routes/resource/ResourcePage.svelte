@@ -2,7 +2,7 @@
 	import { InnerHeading, ThumbnailCardButton } from '@5argon/arkham-life-ui';
 </script>
 
-<InnerHeading title="Starter Contents"></InnerHeading>
+<!-- <InnerHeading title="Starter Contents"></InnerHeading>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
@@ -11,7 +11,7 @@
 		onClick="/precon"
 		title="Precon In-Depth"
 	/>
-</div>
+</div> -->
 
 <InnerHeading title="Reference Materials"></InnerHeading>
 

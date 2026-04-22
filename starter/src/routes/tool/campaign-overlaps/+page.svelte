@@ -33,6 +33,8 @@
 	import { SvelteMap } from 'svelte/reactivity';
 	import {
 		calculateOverlaps,
+		extractCardCopies,
+		type CardCopy,
 		type CampaignDeckEntry,
 		type MappingAlgorithm,
 		type OverlapEntry,
@@ -107,71 +109,62 @@
 		return calculateOverlaps(campaignADeckEntries, campaignBDeckEntries, forwardToRcore);
 	});
 
-	// Convert overlaps to card items for display
-	const overlapCardItems = $derived.by((): CardItem[] => {
+	function buildCardItems(copies: CardCopy[]): CardItem[] {
 		const itemMap = new SvelteMap<string, CardItem>();
 
-		overlaps.forEach((overlap) => {
-			// Create items for campaign A copies
-			overlap.campaignACopies.forEach((copy) => {
-				// Create unique key for merging: card code + owner + deckPart + campaign
-				const key = `${copy.card.code}-${copy.deck.investigator.code}-${copy.deckPart}-A`;
+		copies.forEach((copy) => {
+			// Create unique key for merging: card code + owner + deckPart + campaign
+			const key = `${copy.card.code}-${copy.deck.investigator.code}-${copy.deckPart}-${copy.campaign}`;
 
-				if (itemMap.has(key)) {
-					// Merge by incrementing quantity
-					const existing = itemMap.get(key)!;
-					existing.quantity++;
-				} else {
-					// Create new item
-					const labels = [{ text: 'A', color: CardClass.Guardian }];
-					// Only add deck part label for side and extra
-					if (copy.deckPart === 'side') {
-						labels.push({ text: 'Side', color: CardClass.Survivor });
-					} else if (copy.deckPart === 'extra') {
-						labels.push({ text: 'Extra', color: CardClass.Mystic });
-					}
-
-					itemMap.set(key, {
-						card: copy.card,
-						quantity: 1,
-						id: key,
-						owner: copy.deck.investigator,
-						labels
-					});
+			if (itemMap.has(key)) {
+				// Merge by incrementing quantity
+				const existing = itemMap.get(key)!;
+				existing.quantity++;
+			} else {
+				// Create new item
+				const labels: NonNullable<CardItem['labels']> = [
+					{ text: copy.campaign, color: copy.campaign === 'A' ? CardClass.Guardian : CardClass.Seeker }
+				];
+				// Only add deck part label for side and extra
+				if (copy.deckPart === 'side') {
+					labels.push({ text: 'Side', color: CardClass.Survivor });
+				} else if (copy.deckPart === 'extra') {
+					labels.push({ text: 'Extra', color: CardClass.Mystic });
 				}
-			});
 
-			// Create items for campaign B copies
-			overlap.campaignBCopies.forEach((copy) => {
-				// Create unique key for merging: card code + owner + deckPart + campaign
-				const key = `${copy.card.code}-${copy.deck.investigator.code}-${copy.deckPart}-B`;
-
-				if (itemMap.has(key)) {
-					// Merge by incrementing quantity
-					const existing = itemMap.get(key)!;
-					existing.quantity++;
-				} else {
-					// Create new item
-					const labels = [{ text: 'B', color: CardClass.Seeker }];
-					// Only add deck part label for side and extra
-					if (copy.deckPart === 'side') {
-						labels.push({ text: 'Side', color: CardClass.Survivor });
-					} else if (copy.deckPart === 'extra') {
-						labels.push({ text: 'Extra', color: CardClass.Mystic });
-					}
-
-					itemMap.set(key, {
-						card: copy.card,
-						quantity: 1,
-						id: key,
-						owner: copy.deck.investigator,
-						labels
-					});
-				}
-			});
+				itemMap.set(key, {
+					card: copy.card,
+					quantity: 1,
+					id: key,
+					owner: copy.deck.investigator,
+					labels
+				});
+			}
 		});
 
 		return Array.from(itemMap.values());
+	}
+
+	// Convert overlaps to card items for display
+	const overlapCardItems = $derived.by((): CardItem[] => {
+		const overlapCopies: CardCopy[] = [];
+		overlaps.forEach((overlap) => {
+			overlapCopies.push(...overlap.campaignACopies, ...overlap.campaignBCopies);
+		});
+
+		return buildCardItems(overlapCopies);
+	});
+
+	const nonOverlapCardItems = $derived.by((): CardItem[] => {
+		const allCopies = extractCardCopies(
+			[...campaignADeckEntries, ...campaignBDeckEntries],
+			forwardToRcore
+		);
+
+		const overlappingCodes = new Set(overlaps.map((overlap) => overlap.card.code));
+		const nonOverlappingCopies = allCopies.filter((copy) => !overlappingCodes.has(copy.card.code));
+
+		return buildCardItems(nonOverlappingCopies);
 	});
 
 	// Calculate resolution mappings
@@ -352,6 +345,7 @@
 					onTabChange={(index) => (activeTabIndex = index)}
 					tabs={[
 						{ label: `Possible Overlaps` },
+						{ label: `Non-Overlapping` },
 						{ label: `Overlap Resolutions (${resolutionCount} Cards)` }
 					]}
 				/>
@@ -359,6 +353,9 @@
 				{#if activeTabIndex === 0}
 					<!-- Overlaps Tab -->
 					<FlexibleCardDisplay cards={overlapCardItems} defaultViewMode="list" />
+				{:else if activeTabIndex === 1}
+					<!-- Non-overlapping Tab -->
+					<FlexibleCardDisplay cards={nonOverlapCardItems} defaultViewMode="list" />
 				{:else}
 					<!-- Resolutions Tab -->
 					<OverlapResolutions

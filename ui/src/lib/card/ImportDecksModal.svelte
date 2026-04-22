@@ -177,7 +177,6 @@ Has three phases: input, loading, and result display with tabs.
 				loadingProgress.current++;
 				return { success: true, deck } as ImportResult;
 			} catch (error) {
-				console.log(error)
 				loadingProgress.current++;
 				return {
 					success: false,
@@ -218,7 +217,7 @@ Has three phases: input, loading, and result display with tabs.
 	const tabs = $derived<TabItem[]>(
 		importResults.map((result, index) => ({
 			label: result.success
-				? result.deck.name.substring(0, 20) + (result.deck.name.length > 20 ? '...' : '')
+				? result.deck.name
 				: `${m.form_deck()} ${index + 1}`
 		}))
 	);
