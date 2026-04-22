@@ -126,7 +126,6 @@
 		SkillIcon,
 		type CardCode
 	} from '@5argon/arkham-kohaku';
-	import { getCardColorClassBackground } from './coloring.js';
 	import * as m from '../paraglide/messages.js';
 	import clsx from 'clsx';
 	import CardStrip from './CardStrip.svelte';

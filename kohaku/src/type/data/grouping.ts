@@ -1,5 +1,5 @@
 import type { Card } from './player-card.js';
-import { CardType, CardClass, Product, Slot, productOrdering } from '../game/index.js';
+import { amountOfClasses, CardType, CardClass, Product, Slot, productOrdering } from '../game/index.js';
 import { getCommitPower } from '../../utility/card/index.js';
 
 /**
@@ -65,6 +65,16 @@ export enum GroupingKey {
 }
 
 /**
+ * Dynamic discriminator used when GroupingKey needs data from card content.
+ */
+export const MULTI_CLASS_GROUPING_VALUE = 'multi-class';
+
+/**
+ * Dynamic discriminator used when GroupingKey needs data from card content.
+ */
+export type DynamicGroupingValue = Product | CardClass | typeof MULTI_CLASS_GROUPING_VALUE;
+
+/**
  * Result of grouping operation.
  */
 export interface GroupedResult<T> {
@@ -79,9 +89,9 @@ export interface GroupedResult<T> {
   /**
    * For dynamic grouping, this contains the value that differentiates groups.
    * For Set: Product enum value
-   * For Class: CardClass enum value
+   * For Class: CardClass enum value or MULTI_CLASS_GROUPING_VALUE
    */
-  dynamicValue?: Product | CardClass;
+  dynamicValue?: DynamicGroupingValue;
   preferSide?: 'left' | 'right';
 }
 
@@ -309,24 +319,36 @@ function groupByLevelGrouped<T>(items: CardItemWrapper<T>[]): GroupedResult<T>[]
 }
 
 function groupByClass<T>(items: CardItemWrapper<T>[]): GroupedResult<T>[] {
-  const classMap = new Map<CardClass, CardItemWrapper<T>[]>();
+  const classMap = new Map<CardClass | typeof MULTI_CLASS_GROUPING_VALUE, CardItemWrapper<T>[]>();
   
   for (const wrapper of items) {
-    const primaryClass = wrapper.card.cardClass?.class1 ?? CardClass.Neutral;
-    if (!classMap.has(primaryClass)) {
-      classMap.set(primaryClass, []);
+    const groupValue =
+      amountOfClasses(wrapper.card.cardClass) > 1
+        ? MULTI_CLASS_GROUPING_VALUE
+        : (wrapper.card.cardClass?.class1 ?? CardClass.Neutral);
+
+    if (!classMap.has(groupValue)) {
+      classMap.set(groupValue, []);
     }
-    classMap.get(primaryClass)!.push(wrapper);
+    classMap.get(groupValue)!.push(wrapper);
   }
   
-  const classOrder = [CardClass.Guardian, CardClass.Seeker, CardClass.Rogue, CardClass.Mystic, CardClass.Survivor, CardClass.Neutral];
+  const classOrder: Array<CardClass | typeof MULTI_CLASS_GROUPING_VALUE> = [
+    CardClass.Guardian,
+    CardClass.Seeker,
+    CardClass.Rogue,
+    CardClass.Mystic,
+    CardClass.Survivor,
+    MULTI_CLASS_GROUPING_VALUE,
+    CardClass.Neutral,
+  ];
   const sortedClasses = Array.from(classMap.keys()).sort((a, b) => classOrder.indexOf(a) - classOrder.indexOf(b));
   
-  return sortedClasses.map<GroupedResult<T>>((cardClass) => ({
+  return sortedClasses.map<GroupedResult<T>>((classValue) => ({
     groupingKey: GroupingKey.Class,
     dynamicGrouping: true,
-    dynamicValue: cardClass,
-    items: classMap.get(cardClass)!.map(w => w.item),
+    dynamicValue: classValue,
+    items: classMap.get(classValue)!.map(w => w.item),
   }));
 }
 

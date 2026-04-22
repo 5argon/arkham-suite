@@ -8,6 +8,8 @@ import {
 	groupByType,
 	type GroupingType,
 	GroupingKey,
+	type DynamicGroupingValue,
+	MULTI_CLASS_GROUPING_VALUE,
 	type CardItemWrapper,
 	type DecodedMeta,
 	type CardResolver,
@@ -69,7 +71,10 @@ export function applyGroupingSorting(
  * Convert a GroupingKey from Kohaku to a localized label string.
  * For dynamic grouping, also pass the dynamicValue to determine the label.
  */
-function groupingKeyToLabel(key: GroupingKey, dynamicValue?: Product | CardClass): string {
+function groupingKeyToLabel(
+	key: GroupingKey,
+	dynamicValue?: DynamicGroupingValue
+): string {
 	switch (key) {
 		// Default grouping
 		case GroupingKey.Asset:
@@ -161,6 +166,9 @@ function groupingKeyToLabel(key: GroupingKey, dynamicValue?: Product | CardClass
 			return 'Unknown Set';
 		case GroupingKey.Class:
 			if (dynamicValue && typeof dynamicValue === 'string') {
+				if (dynamicValue === MULTI_CLASS_GROUPING_VALUE) {
+					return asm.playerClassMultiClass();
+				}
 				return u.cardClass(dynamicValue as CardClass);
 			}
 			return 'Unknown Class';
@@ -269,6 +277,10 @@ export interface RecursivelyGroupedCardItem {
 	name: string;
 	items: RecursivelyGroupedCardItem[] | CardItem[];
 	/**
+	 * If true, this group represents cards with 2+ classes.
+	 */
+	multiClass?: boolean;
+	/**
 	 * If this group represents a Product (Set grouping), this contains the Product enum value
 	 * so that a ProductIcon can be rendered.
 	 */
@@ -289,6 +301,10 @@ export function isRecursivelyGroupedCardItemArray(
 export interface GroupedCardItem {
 	name: string;
 	items: CardItem[];
+	/**
+	 * If true, this group represents cards with 2+ classes.
+	 */
+	multiClass?: boolean;
 	/**
 	 * If this group represents a Product (Set grouping), this contains the Product enum value
 	 * so that a ProductIcon can be rendered.
@@ -346,6 +362,7 @@ export function recursivelyGroupCardItems(
 			remainingGroupings.length > 0
 				? recursivelyGroupCardItems(group.items, remainingGroupings)
 				: group.items,
+		multiClass: group.multiClass,
 		product: group.product
 	}));
 }
@@ -369,6 +386,10 @@ export function groupCardItems(cardItems: CardItem[], grouping: Grouping): Group
 		// Add product data for Set grouping so ProductIcon can be rendered
 		if (result.groupingKey === GroupingKey.Set && result.dynamicValue) {
 			grouped.product = result.dynamicValue as Product;
+		}
+
+		if (result.groupingKey === GroupingKey.Class && result.dynamicValue === MULTI_CLASS_GROUPING_VALUE) {
+			grouped.multiClass = true;
 		}
 
 		return grouped;
@@ -409,12 +430,14 @@ function divideHalfSingleGroup(group: RecursivelyGroupedCardItem): {
 	const left: RecursivelyGroupedCardItem = {
 		name: group.name,
 		items: leftItems,
+		multiClass: group.multiClass,
 		product: group.product
 	};
 	
 	const right: RecursivelyGroupedCardItem = {
 		name: group.name,
 		items: rightItems,
+		multiClass: group.multiClass,
 		product: group.product
 	};
 	

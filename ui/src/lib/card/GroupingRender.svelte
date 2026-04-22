@@ -37,7 +37,8 @@
 			<ProductIcon product={group.product} />
 		</span>
 	{/if}
-	<span>{group.name}</span><span class="count-text text-primary-500 dark:text-primary-300 ml-1"
+	<span>{group.name}</span>
+	<span class="count-text text-primary-500 dark:text-primary-300 ml-1"
 		>({countText.resolve(count)})</span
 	>
 </div>
