@@ -65,40 +65,9 @@ export enum Product {
   MiguelDeLaCruz = 'mig',
 }
 
-export const productMainline: Product[] = [
-  Product.CoreSet,
-  Product.RevisedCoreSet,
-  Product.TheDunwichLegacyCampaignExpansion,
-  Product.TheDunwichLegacyInvestigatorExpansion,
-  Product.ThePathToCarcosaCampaignExpansion,
-  Product.ThePathToCarcosaInvestigatorExpansion,
-  Product.TheForgottenAgeCampaignExpansion,
-  Product.TheForgottenAgeInvestigatorExpansion,
-  Product.TheCircleUndoneCampaignExpansion,
-  Product.TheCircleUndoneInvestigatorExpansion,
-  Product.TheDreamEatersCampaignExpansion,
-  Product.TheDreamEatersInvestigatorExpansion,
-  Product.TheInnsmouthConspiracyCampaignExpansion,
-  Product.TheInnsmouthConspiracyInvestigatorExpansion,
-  Product.EdgeOfTheEarthCampaignExpansion,
-  Product.EdgeOfTheEarthInvestigatorExpansion,
-  Product.TheScarletKeysCampaignExpansion,
-  Product.TheScarletKeysInvestigatorExpansion,
-  Product.TheFeastOfHemlockValeCampaignExpansion,
-  Product.TheFeastOfHemlockValeInvestigatorExpansion,
-  Product.TheDrownedCityCampaignExpansion,
-  Product.TheDrownedCityInvestigatorExpansion,
-  Product.CoreSet2026,
-];
+export const productCoreSetsChapterOne: Product[] = [Product.CoreSet, Product.RevisedCoreSet];
 
-export const productCoreSetsChapterOne: Product[] = [
-  Product.CoreSet,
-  Product.RevisedCoreSet,
-];
-
-export const productCoreSetsChapterTwo: Product[] = [
-  Product.CoreSet2026,
-];
+export const productCoreSetsChapterTwo: Product[] = [Product.CoreSet2026];
 
 export const productCoreSets: Product[] = [
   Product.CoreSet,
@@ -106,10 +75,7 @@ export const productCoreSets: Product[] = [
   Product.CoreSet2026,
 ];
 
-export const productCoreSetsNoOldCore: Product[] = [
-  Product.RevisedCoreSet,
-  Product.CoreSet2026,
-];
+export const productCoreSetsNoOldCore: Product[] = [Product.RevisedCoreSet, Product.CoreSet2026];
 
 /**
  * These products was once Mythos Pack or Deluxe Expansion but have been repackaged as Investigator Expansions.
@@ -156,6 +122,9 @@ export const productChapterOneExpansions: Product[] = [
   ...productChapterOneCampaignExpansions,
 ];
 
+export const productChapterTwoCampaignExpansions: Product[] = [
+]
+
 export const productReturnTo: Product[] = [
   Product.ReturnToTheNightOfTheZealot,
   Product.ReturnToTheDunwichLegacy,
@@ -200,16 +169,33 @@ export const productStandalone: Product[] = [
   Product.MachinationsThroughTime,
   Product.FortuneAndFolly,
   Product.TheMidwinterGala,
-  Product.FilmFatale
+  Product.FilmFatale,
 ];
 
 export const productOther: Product[] = [Product.ParallelInvestigators, Product.Promotional];
 
 export const productOrdering: Product[] = [
-  ...productMainline,
-  ...productReturnTo,
+  ...productCoreSetsChapterOne,
+  Product.ReturnToTheNightOfTheZealot,
+  Product.TheDunwichLegacyInvestigatorExpansion,
+  Product.ReturnToTheDunwichLegacy,
+  Product.ThePathToCarcosaInvestigatorExpansion,
+  Product.ReturnToThePathToCarcosa,
+  Product.TheForgottenAgeInvestigatorExpansion,
+  Product.ReturnToTheForgottenAge,
+  Product.TheCircleUndoneInvestigatorExpansion,
+  Product.ReturnToTheCircleUndone,
+  Product.TheDreamEatersInvestigatorExpansion,
+  Product.TheInnsmouthConspiracyInvestigatorExpansion,
+  Product.EdgeOfTheEarthInvestigatorExpansion,
+  Product.TheScarletKeysInvestigatorExpansion,
+  Product.TheFeastOfHemlockValeInvestigatorExpansion,
+  Product.TheDrownedCityInvestigatorExpansion,
   ...productInvestigatorStarterDeck,
+  ...productCoreSetsChapterTwo,
   ...productInvestigatorDeck,
   ...productStandalone,
+  ...productChapterOneCampaignExpansions,
+  ...productChapterTwoCampaignExpansions,
   ...productOther,
 ];
