@@ -37,13 +37,13 @@ export function markdownToHtml(markdown: string, cardResolver?: CardResolver): s
 					const card = cardResolver.resolve(cardCode);
 					if (card.cardClass) {
 						const colorClass = getCardColorClass(card);
-						return `<span class="card-link ${colorClass}">${cardName}</span>`;
+						return `<span class="card-link ${colorClass}" data-card-code="${cardCode}">${cardName}</span>`;
 					}
 				} catch {
 					// If card not found, just return the name
 				}
 			}
-			return `<span class="card-link">${cardName}</span>`;
+			return `<span class="card-link" data-card-code="${cardCode}">${cardName}</span>`;
 		}
 	);
 
@@ -61,7 +61,7 @@ export function markdownToHtml(markdown: string, cardResolver?: CardResolver): s
 	// Step 3: Sanitize HTML
 	// Note: Icon spans like <span class="icon-willpower"></span> are preserved
 	// and rendered via webfont CSS (icons-icon.css)
-	const clean = DOMPurify.sanitize(html);
+	const clean = DOMPurify.sanitize(html, { ADD_ATTR: ['data-card-code'] });
 	return clean;
 }
 
