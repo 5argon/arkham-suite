@@ -18,7 +18,6 @@ It can group these cards for one level, then sort inside the group.
 		deckGridExtraSorting,
 		deckGridLinkedSorting
 	} from './card-item.js';
-	import type { SortingType } from '@5argon/arkham-kohaku';
 
 	interface Prop {
 		mainCards: CardItem[];

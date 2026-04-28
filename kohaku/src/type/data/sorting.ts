@@ -12,7 +12,8 @@ export type SortingType =
   | 'slot'
   | 'set'
   | 'cost'
-  | 'commitPower';
+  | 'commitPower'
+  | 'type-special';
 
 export function sorter(sortingType: SortingType, a: Card, b: Card): number {
   // Random Basic Weakness always last.
@@ -116,7 +117,33 @@ export function sorter(sortingType: SortingType, a: Card, b: Card): number {
       // Dashed XP (undefined) came before 0 XP.
       return (a.xp ?? -1) - (b.xp ?? -1);
     case 'type': {
-      const priority = [CardType.Asset, CardType.Event, CardType.Skill];
+      const priority = [CardType.Asset, CardType.Event, CardType.Skill, CardType.Enemy, CardType.Treachery];
+      const aScore = priority.indexOf(a.cardType);
+      const bScore = priority.indexOf(b.cardType);
+      return aScore - bScore;
+    }
+    case 'type-special': {
+      // Asset, Event, Skill
+      // Except that what comes after skill is 
+      // - Permanent Asset
+      // - Weakness (of any card type)
+      const aIsPermanentAsset = a.cardType === CardType.Asset && a.permanent;
+      const bIsPermanentAsset = b.cardType === CardType.Asset && b.permanent;
+      const aIsWeakness = a.weakness !== undefined;
+      const bIsWeakness = b.weakness !== undefined;
+      if (aIsPermanentAsset && !bIsPermanentAsset) {
+        return -1;
+      }
+      if (!aIsPermanentAsset && bIsPermanentAsset) {
+        return 1;
+      }
+      if (aIsWeakness && !bIsWeakness) {
+        return 1;
+      }
+      if (!aIsWeakness && bIsWeakness) {
+        return -1;
+      }
+      const priority = [CardType.Asset, CardType.Event, CardType.Skill, CardType.Enemy, CardType.Treachery];
       const aScore = priority.indexOf(a.cardType);
       const bScore = priority.indexOf(b.cardType);
       return aScore - bScore;

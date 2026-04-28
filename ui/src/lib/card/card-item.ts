@@ -579,7 +579,7 @@ export const deckListExtraSorting: SortingType[] = deckListMainSorting;
 
 // Grid View Settings
 
-export const deckGridMainSorting: SortingType[] = ['type', 'name', 'level', 'position'];
+export const deckGridMainSorting: SortingType[] = ['type-special', 'slot', 'class', 'position'];
 export const deckGridSideSorting: SortingType[] = ['level', 'class', 'position'];
 
 // Extra and linked use same as main deck

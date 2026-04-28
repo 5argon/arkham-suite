@@ -119,3 +119,14 @@ margin. Using masking tape will also help prevent this problem.
 If you just slide ruler along the way, the last cut is where ruler has insufficient contact area to clamp the work. You
 must switch your cutting position to the other side to make the final cut to make sure the ruler can grip your work
 well. This gets easier if you work on a table where you can walk around the work. (Like at the corner of table.)
+
+# The side of the cut line
+
+Even a cut line has it's own width. In an ideal, nearly impossible case, the correct place to cut is at the center of this cut line's width. When you actually try to do this lining up your ruler, you would sometimes make mistake and cut into the graphic you want. This might sounds very nitpicky, but the mistake can eat up some small text along the edge.
+
+Therefore it is safer to cut on the "outer" edge of the cut line. This has interesting interaction with **how the cut line looks like** relative to your ruler when you are aiming where to cut. If you are sliding your ruler across one card's edge to the same card's other edge :
+
+- The cut where you are at the start of the card's graphic, you must adjust the ruler such that you can **still fully see the cut line**. This means you are touching the outer edge of the line where it enters the graphic you want.
+- The cut where you are at the end of the card's graphic, you must adjust the ruler until you **no longer see the cut line**. This means you have arrived at the outer edge of the line.
+
+Alternating between this "fully see / no longer see" aiming to get good cutting result. The final cut where you have the least clamping from the ruler, swap the clamping of ruler to the other side. Therefore the final cut gets both "fully see" cut.
