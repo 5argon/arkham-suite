@@ -1,8 +1,3 @@
-<!--
-@component
-A full deck description reader that processes markdown with HTML,
-replaces card links with colored text. Icons are rendered via webfont CSS.
--->
 <script lang="ts">
 	import { type CardResolver } from '@5argon/arkham-kohaku';
 	import Button from '../button/Button.svelte';
@@ -34,7 +29,7 @@ replaces card links with colored text. Icons are rendered via webfont CSS.
 	</div>
 
 	<!-- Description content -->
-	<div class="flex-1 overflow-y-auto p-6">
+	<div class="flex-1 overflow-y-auto p-6 bg-primary-50/40 dark:bg-primary-950/40">
 		<div class="prose dark:prose-invert description-content max-w-none">
 			{@html processedHtml}
 		</div>

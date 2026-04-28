@@ -1,7 +1,7 @@
 @reference "../../app.css";
 
 .description-content {
-	@apply text-primary-900 text-sm;
+	@apply text-primary-900 text-base;
 }
 
 .dark .description-content {
@@ -26,8 +26,25 @@
 	@apply text-primary-100;
 }
 
+.description-content [class^="icon-"],
+.description-content [class*=" icon-"] {
+	@apply inline-block text-base align-text-bottom;
+}
+
 .description-content .card-link {
-	@apply font-semibold underline decoration-dotted;
+	@apply font-semibold underline decoration-dotted cursor-pointer;
+}
+
+.description-content .card-link span,
+.description-content .card-link strong,
+.description-content .card-link em {
+	color: inherit;
+}
+
+.dark .description-content .card-link span,
+.dark .description-content .card-link strong,
+.dark .description-content .card-link em {
+	color: inherit;
 }
 
 .description-content h1 {
@@ -99,7 +116,7 @@
 }
 
 .description-content code {
-	@apply bg-primary-100 px-1 py-0.5 rounded font-mono text-sm text-primary-900;
+	@apply bg-primary-100 px-1 py-0.5 rounded font-mono text-base text-primary-900;
 }
 
 .dark .description-content code {
@@ -176,8 +193,4 @@
 	@apply text-inherit;
 }
 
-/* Icon font rendering - handled by icons-icon.css */
-.description-content [class^="icon-"],
-.description-content [class*=" icon-"] {
-	@apply inline-block text-base align-text-bottom leading-none;
-}
+
