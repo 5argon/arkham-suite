@@ -140,28 +140,26 @@
 
 @font-face {
 	font-family: 'Main';
-	src: url('/font/Unna-Italic.ttf') format('truetype');
-	font-weight: 400;
-	font-style: italic;
+	src: url('/font/Domine-Regular.ttf') format('truetype');
+	font-weight: normal;
 }
 
 @font-face {
 	font-family: 'Main';
-	src: url('/font/Unna-Regular.ttf') format('truetype');
-	font-weight: 400;
+	src: url('/font/Domine-Medium.ttf') format('truetype');
+	font-weight: 500;
 }
 
 @font-face {
 	font-family: 'Main';
-	src: url('/font/Unna-Bold.ttf') format('truetype');
-	font-weight: 700;
+	src: url('/font/Domine-SemiBold.ttf') format('truetype');
+	font-weight: 600;
 }
 
 @font-face {
 	font-family: 'Main';
-	src: url('/font/Unna-BoldItalic.ttf') format('truetype');
-	font-weight: 700;
-	font-style: italic;
+	src: url('/font/Domine-Bold.ttf') format('truetype');
+	font-weight: bold;
 }
 
 @font-face {

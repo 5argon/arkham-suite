@@ -22,6 +22,7 @@ export { default as DeckBannerSecondColumn } from './DeckBannerSecondColumn.svel
 export { default as HealthSanity } from './HealthSanity.svelte';
 export { default as ImageIconCommit } from './ImageIconCommit.svelte';
 export { default as DeckDescriptionReader } from './DeckDescriptionReader.svelte';
+export { default as ArkhamdbMarkdownRenderer } from './ArkhamdbMarkdownRenderer.svelte';
 export { default as ExportDeckCardRender } from './ExportDeckCardRender.svelte';
 export { default as ExportDeckModal } from './ExportDeckModal.svelte';
 export { default as HorizontalCardFrame } from './HorizontalCardFrame.svelte';

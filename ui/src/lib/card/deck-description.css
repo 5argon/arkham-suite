@@ -1,7 +1,7 @@
 @reference "../../app.css";
 
 .description-content {
-	@apply text-primary-900 text-base;
+	@apply text-primary-900 text-sm;
 }
 
 .dark .description-content {
@@ -28,11 +28,12 @@
 
 .description-content [class^="icon-"],
 .description-content [class*=" icon-"] {
-	@apply inline-block text-base align-text-bottom;
+	@apply inline-block text-base;
+	line-height: 1;
 }
 
 .description-content .card-link {
-	@apply font-semibold underline decoration-dotted cursor-pointer;
+	@apply underline decoration-dotted cursor-pointer;
 }
 
 .description-content .card-link span,
@@ -76,7 +77,7 @@
 }
 
 .description-content strong {
-	@apply text-primary-900 font-semibold;
+	@apply text-primary-900 font-bold;
 }
 
 .dark .description-content strong {

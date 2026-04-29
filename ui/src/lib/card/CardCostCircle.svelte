@@ -14,9 +14,7 @@
 
 {#if cost !== undefined}
 	<div class={`cost-circle ${borderColorClass} ${textColorClass}`}>
-		<span class="shift-baseline">
-			{cost}
-		</span>
+		<div class="cost-text">{cost}</div>
 	</div>
 {/if}
 
@@ -33,5 +31,9 @@
 		height: 1rem;
 		border-width: 1px;
 		border-style: solid;
+	}
+
+	.cost-text {
+		transform: translateY(1px);
 	}
 </style>
