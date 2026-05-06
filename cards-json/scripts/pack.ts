@@ -48,26 +48,42 @@ for (const card of allCards) {
   cardMap.set(card.code, card)
 }
 
-// Second pass: Resolve duplicate_of references
-const resolvedCards: Card[] = []
-for (const card of allCards) {
-  if (card.duplicate_of) {
-    // Get the target card
-    const targetCard = cardMap.get(card.duplicate_of)
-    
-    if (targetCard) {
-      // Create a new card by copying all fields from target, then overriding with current card's fields
-      const resolvedCard = { ...targetCard, ...card }
-      resolvedCards.push(resolvedCard)
-      console.log(`Resolved ${card.code} as duplicate of ${card.duplicate_of}`)
-    } else {
-      console.warn(`Warning: duplicate_of target ${card.duplicate_of} not found for card ${card.code}`)
-      resolvedCards.push(card)
+// Second pass: Resolve duplicate_of references (following chains)
+function resolveDuplicate(card: Card): Card {
+  if (!card.duplicate_of) return card
+
+  const chain: string[] = [card.code]
+  let current: Card = card
+  const visited = new Set<string>([card.code])
+
+  while (current.duplicate_of) {
+    const nextCode = current.duplicate_of
+    if (visited.has(nextCode)) {
+      console.warn(`Warning: cycle detected resolving duplicate_of for ${card.code}: ${[...chain, nextCode].join(" -> ")}`)
+      break
     }
-  } else {
-    resolvedCards.push(card)
+    const next = cardMap.get(nextCode)
+    if (!next) {
+      console.warn(`Warning: duplicate_of target ${nextCode} not found for card ${current.code}`)
+      break
+    }
+    visited.add(nextCode)
+    chain.push(nextCode)
+    current = next
   }
+
+  // Merge from the deepest target outward, so closer overrides win
+  let resolved: Card = { ...current }
+  for (let i = chain.length - 2; i >= 0; i--) {
+    const code = chain[i]
+    const c = cardMap.get(code)
+    if (c) resolved = { ...resolved, ...c }
+  }
+  console.log(`Resolved ${card.code} via chain ${chain.join(" -> ")}`)
+  return resolved
 }
+
+const resolvedCards: Card[] = allCards.map(resolveDuplicate)
 
 console.log(`Resolved ${resolvedCards.length} cards`)
 

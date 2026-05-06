@@ -12,7 +12,13 @@ import {
 } from "./constants.ts"
 
 const destination = "r2ahlcg:arkham-card-images"
-const partialCodes: number[] = JSON.parse(await Deno.readTextFile("partial.json"))
+
+let partialCodes: string[] | null = null
+try {
+  partialCodes = JSON.parse(await Deno.readTextFile("partial.json")) as string[]
+} catch (err) {
+  if (!(err instanceof Deno.errors.NotFound)) throw err
+}
 const cardDir = path.join(pullsDirectory, pullsCard)
 
 async function runRclone(args: string[]): Promise<void> {
@@ -30,7 +36,12 @@ async function runRclone(args: string[]): Promise<void> {
   }
 }
 
-if (partialCodes.length > 0) {
+if (partialCodes === null) {
+  console.log("Full sync mode...")
+  await runRclone(["sync", "-P", cardDir, destination])
+} else if (partialCodes.length === 0) {
+  console.log("Partial mode with no card codes — skipping image sync.")
+} else {
   console.log(`Partial mode: copying ${partialCodes.length} card code(s)...`)
 
   // Flat variants: files sit directly in the variant directory as {code}.avif
@@ -61,9 +72,6 @@ if (partialCodes.length > 0) {
     console.log(`Copying ${variant}...`)
     await runRclone(args)
   }
-} else {
-  console.log("Full sync mode...")
-  await runRclone(["sync", "-P", cardDir, destination])
 }
 
 // Always copy cards.json to the destination root (the sync removes it since it is not under pulls/card)

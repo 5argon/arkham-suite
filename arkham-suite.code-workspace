@@ -30,8 +30,10 @@
     },
   ],
   "settings": {
+    "editor.formatOnSave": true,
     "search.exclude": {
       "**/node_modules": true,
+      "**/dist": true,
     },
     "deno.enablePaths": ["./cards-json", "./tags/script"],
   },

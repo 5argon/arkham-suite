@@ -1,17 +1,41 @@
 <script>
-	import { InnerHeading, ThumbnailCardButton } from '@5argon/arkham-life-ui';
+	import { InnerHeading, ThumbnailCardButton, TextParagraph } from '@5argon/arkham-life-ui';
 </script>
 
-<!-- <InnerHeading title="Starter Contents"></InnerHeading>
+<InnerHeading title="Starter Contents"></InnerHeading>
+
+<TextParagraph>
+	Welcome to the game! These contents are guaranteed to be within the evergreen card pool. (The Core
+	Set 2026 and the five investigator decks.) As the site's name might suggest, I wanted to make it a
+	priority that new players are not intimidated by the sheer amount of player cards in the game.
+</TextParagraph>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="Comprehensive card-by-card reviews for each Core Set 2026 preconstructed deck and their multiplayer interactions."
+		description="Needed help making more sense out of the 'decks' you see when you first opened the Core Set 2026 box?"
 		imageUrl="image/resource/precon.webp"
 		onClick="/precon"
 		title="Precon In-Depth"
 	/>
-</div> -->
+	<ThumbnailCardButton
+		description="Beginner-friendly decks built only from the evergreen card pool."
+		imageUrl="image/resource/precon.webp"
+		onClick="/starter"
+		title="Starter Decks"
+	/>
+	<ThumbnailCardButton
+		description="Ready-to-go teams of various player count with balanced member roles and card overlaps all resolved for you!"
+		imageUrl="image/resource/precon.webp"
+		onClick="/team"
+		title="Pre-Built Teams"
+	/>
+	<ThumbnailCardButton
+		description="Read beginner-friendly reviews about each individual card in the evergreen pool!"
+		imageUrl="image/resource/precon.webp"
+		onClick="/review"
+		title="Evergreen Card Reviews"
+	/>
+</div>
 
 <InnerHeading title="Reference Materials"></InnerHeading>
 

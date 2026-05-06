@@ -7,7 +7,7 @@ import {
 } from "./constants.ts"
 import { downloadImages } from "./download-images.ts"
 
-const partialCodes: number[] = JSON.parse(await Deno.readTextFile("partial.json"))
+const partialCodes: string[] = JSON.parse(await Deno.readTextFile("partial.json"))
 
 let playerCards: AhdbCard[] = JSON.parse(
   await Deno.readTextFile(
@@ -17,7 +17,7 @@ let playerCards: AhdbCard[] = JSON.parse(
 
 const isPartial = partialCodes.length > 0
 if (isPartial) {
-  const codeSet = new Set(partialCodes.map(String))
+  const codeSet = new Set(partialCodes)
   playerCards = playerCards.filter((card) => codeSet.has(card.code))
   console.log(`Partial mode: downloading ${playerCards.length} card(s) from partial.json`)
 }

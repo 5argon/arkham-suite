@@ -24,8 +24,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 	import * as m from '../paraglide/messages.js';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import FormRow from '../form/FormRow.svelte';
-	import { fade, fly } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
+	import { fly } from 'svelte/transition';
 
 	interface Prop {
 		cards: CardItem[];
@@ -58,7 +57,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 	}: Prop = $props();
 
 	type DisplayMode = 'icons' | 'scans' | 'list';
-let displayMode = $derived<DisplayMode>('scans');
+	let displayMode = $derived<DisplayMode>('scans');
 	let checklistMode = $state(false);
 	let showGroupingSortingModal = $state(false);
 	let currentSettings = $state<GroupingSortingSettings>({
@@ -119,11 +118,19 @@ let displayMode = $derived<DisplayMode>('scans');
 	// Filter view mode choices based on hideIconsView
 	const viewModeChoices = $derived.by(() => {
 		const allChoices = [
-			{ value: 'scans' as const, label: m.form_view_mode_scans(), icon: FaIconType.CardViewModeScans },
+			{
+				value: 'scans' as const,
+				label: m.form_view_mode_scans(),
+				icon: FaIconType.CardViewModeScans
+			},
 			{ value: 'list' as const, label: m.form_view_mode_list(), icon: FaIconType.CardViewModeList },
-			{ value: 'icons' as const, label: m.form_view_mode_icons(), icon: FaIconType.CardViewModeIcons }
+			{
+				value: 'icons' as const,
+				label: m.form_view_mode_icons(),
+				icon: FaIconType.CardViewModeIcons
+			}
 		];
-		return hideIconsView ? allChoices.filter(c => c.value !== 'icons') : allChoices;
+		return hideIconsView ? allChoices.filter((c) => c.value !== 'icons') : allChoices;
 	});
 
 	function handleIconsOrListClick(card: Card) {

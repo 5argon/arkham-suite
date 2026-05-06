@@ -426,7 +426,7 @@ export enum EncounterSet {
   MiskatonicUniversity = 'miskatonic_university',
   PeopleOfArkham = 'people_of_arkham',
   ReekingDecay = 'reeking_decay',
-  Sewers = 'sewers',
+  Sewers = 'arkham_sewers',
   Torment = 'torment',
   WhippoorwillsCh2 = 'whippoorwills_ch2',
 

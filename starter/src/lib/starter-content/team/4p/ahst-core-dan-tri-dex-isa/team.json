@@ -1,0 +1,28 @@
+{
+	"name": "AHST Core DA TR DE IS",
+	"description": "A deck for the AHST Core set, using the DA, TR, DE, and IS expansions.",
+	"authors": ["5argon"],
+	"memberCapabilities": [
+		{
+			"code": "daniela",
+			"capabilities": [
+				{
+					"name": "Defeat Enemies",
+					"level": "consistently",
+					"description": "Many weapons to do so with RTFTJ on top."
+				},
+                {
+                    "name": "Discover Clues",
+                    "level": "conditionally",
+                    "description": "Lesson Learned and Scene of the Crime."
+                }
+			]
+		}
+	],
+	"decks": [
+		{
+			"code": "daniela",
+			"xp0": {}
+		}
+	]
+}

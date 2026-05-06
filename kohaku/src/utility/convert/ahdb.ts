@@ -798,7 +798,7 @@ export function encounterSetToEncounterSet(ahdbEncounterSet: string): EncounterS
       return EncounterSet.PeopleOfArkham;
     case 'reeking_decay':
       return EncounterSet.ReekingDecay;
-    case 'sewers':
+    case 'arkham_sewers':
       return EncounterSet.Sewers;
     case 'torment':
       return EncounterSet.Torment;

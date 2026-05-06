@@ -9,6 +9,18 @@ This `cards.json` is in the same format as stored in https://github.com/Kamalisk
 - All `text` and `back_text` removed except some keywords, since site always show card images and will not render the card text.
 - The Scarlet Keys Upgrade Sheets are added after the last card of this expansion with card type "upgrade".
 
+## `partial.json`
+
+A JSON array of card codes (strings) that scopes the heavy commands to a subset of cards instead of the full set. When the array is non-empty, `download`, `process`, and `sync` only operate on cards whose `code` matches one of the entries; when it is empty (`[]`), they fall back to processing every card.
+
+This is useful when iterating on a single new pack: you avoid re-downloading and re-processing the entire library and you avoid uploading unchanged images back to R2. Codes are stored as strings so any code is representable, including those with leading zeros (e.g. `"01000"`) or non-numeric suffixes (e.g. `"12179b"`).
+
+The `process` command also accepts card codes directly as positional arguments, which take precedence over `partial.json`.
+
+### `set-partial`
+
+Replaces the contents of `partial.json` with the union of all card codes contained in one or more pack JSON files under `pack/`. Run with `yarn set-partial core_2026.json` or `deno run --allow-read --allow-write ./scripts/set-partial.ts core_2026.json`. Multiple files can be passed separated by spaces, e.g. `yarn set-partial core_2026.json core_2026_encounter.json`, and their codes will be merged and de-duplicated. The `.json` suffix is optional and the lookup is case-insensitive; the script searches the `pack/` subdirectories for a matching file.
+
 ## Commands
 
 ### `merge-pack`
