@@ -45,9 +45,9 @@ Modal for configuring grouping and sorting settings for card display.
 		{ value: 'cost', label: m.form_grouping_cost() },
 		{ value: 'slot', label: m.form_grouping_slot() },
 		{ value: 'level', label: m.form_grouping_level() },
-		{ value: 'levelGrouped', label: m.form_grouping_level_grouped() },
+		{ value: 'level-grouped', label: m.form_grouping_level_grouped() },
 		{ value: 'class', label: m.form_grouping_class() },
-		{ value: 'commitPower', label: m.form_grouping_commit_power() }
+		{ value: 'commit-power', label: m.form_grouping_commit_power() }
 	];
 
 	const sortingChoices: { value: SortingType; label: string }[] = [
@@ -59,7 +59,7 @@ Modal for configuring grouping and sorting settings for card display.
 		{ value: 'set', label: m.form_sorting_set() },
 		{ value: 'slot', label: m.form_sorting_slot() },
 		{ value: 'position', label: m.form_sorting_position() },
-		{ value: 'commitPower', label: m.form_sorting_commit_power() }
+		{ value: 'commit-power', label: m.form_sorting_commit_power() }
 	];
 
 	function getGroupingLabel(value: Grouping): string {

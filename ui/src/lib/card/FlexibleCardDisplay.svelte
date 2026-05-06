@@ -31,6 +31,11 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		languageCode?: string;
 		defaultSettings?: GroupingSortingSettings;
 		/**
+		 * Starting state for currentSettings. Falls back to defaultSettings when omitted.
+		 * Use this to seed state from a URL or storage without changing the modal's Reset target.
+		 */
+		initialSettings?: GroupingSortingSettings;
+		/**
 		 * If true, hide the checklist mode checkbox
 		 */
 		hideChecklistMode?: boolean;
@@ -44,37 +49,37 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		defaultViewMode?: 'icons' | 'scans' | 'list';
 
 		hideIconsView?: boolean;
+		/**
+		 * Fired whenever the user applies new grouping/sorting from the modal.
+		 * Use this to mirror state to the URL, storage, or analytics.
+		 */
+		onSettingsApply?: (settings: GroupingSortingSettings) => void;
 	}
 
 	const {
 		cards,
 		languageCode,
 		defaultSettings = { grouping: [], sortingOrder: [] },
+		initialSettings,
 		hideChecklistMode = false,
 		hideQuantity = false,
 		defaultViewMode = 'scans',
-		hideIconsView = false
+		hideIconsView = false,
+		onSettingsApply
 	}: Prop = $props();
 
 	type DisplayMode = 'icons' | 'scans' | 'list';
 	let displayMode = $derived<DisplayMode>('scans');
 	let checklistMode = $state(false);
 	let showGroupingSortingModal = $state(false);
+	// svelte-ignore state_referenced_locally
 	let currentSettings = $state<GroupingSortingSettings>({
-		grouping: [],
-		sortingOrder: []
+		...(initialSettings ?? defaultSettings)
 	});
 
 	// Sync with defaultViewMode when it changes
 	$effect(() => {
 		displayMode = defaultViewMode;
-	});
-
-	// Sync with defaultSettings when it changes
-	$effect(() => {
-		if (defaultSettings) {
-			currentSettings = { ...defaultSettings };
-		}
 	});
 
 	// Track greyed out quantity per card code when in checklist mode
@@ -245,6 +250,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 	onClose={() => (showGroupingSortingModal = false)}
 	onApply={(newSettings) => {
 		currentSettings = newSettings;
+		onSettingsApply?.(newSettings);
 		showGroupingSortingModal = false;
 	}}
 />

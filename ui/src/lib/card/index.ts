@@ -31,9 +31,10 @@ export { default as ImportDecksModal } from './ImportDecksModal.svelte';
 export { default as ImportDecksForm } from './ImportDecksForm.svelte';
 export { default as ImportDecksImportResult } from './ImportDecksImportResult.svelte';
 export { default as PlusArea } from './PlusArea.svelte';
-export type { CardItem } from './card-item.js';
+export type { CardItem, Grouping, GroupingSortingSettings } from './card-item.js';
 export {
 	applyGroupingSorting,
+	areGroupingSortingSettingsEqual,
 	getCardItemKey,
 	recursivelyGroupCardItems,
 	sortRecursivelyGroupedCards,

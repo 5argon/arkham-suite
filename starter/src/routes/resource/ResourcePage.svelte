@@ -1,8 +1,8 @@
 <script>
-	import { InnerHeading, ThumbnailCardButton, TextParagraph } from '@5argon/arkham-life-ui';
+	import { InnerHeading, ThumbnailCardButton } from '@5argon/arkham-life-ui';
 </script>
 
-<InnerHeading title="Starter Contents"></InnerHeading>
+<!-- <InnerHeading title="Starter Contents"></InnerHeading>
 
 <TextParagraph>
 	Welcome to the game! These contents are guaranteed to be within the evergreen card pool. (The Core
@@ -35,7 +35,7 @@
 		onClick="/review"
 		title="Evergreen Card Reviews"
 	/>
-</div>
+</div> -->
 
 <InnerHeading title="Reference Materials"></InnerHeading>
 

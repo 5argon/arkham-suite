@@ -4,6 +4,7 @@
 		BackButton,
 		BorderedContainer,
 		Button,
+		buildUrlForSettings,
 		CardFormMultiple,
 		type CardItem,
 		CardSquareGrid,
@@ -12,11 +13,13 @@
 		FlexibleCardDisplay,
 		FormLabelWithHelp,
 		FormRow,
+		type GroupingSortingSettings,
 		HelpParagraph,
 		MarginFull,
 		PageLead,
 		productImageUrl,
 		RadioButtons,
+		searchParamsToSettings,
 		type SelectedCardEntry
 	} from '@5argon/arkham-life-ui';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
@@ -31,12 +34,26 @@
 		sorter
 	} from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
+	import { browser } from '$app/environment';
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	import type { PageProps } from './$types';
 	import { SvelteMap } from 'svelte/reactivity';
 
 	const { data }: PageProps = $props();
 	const product = $derived(data.product);
+
+	// Wanted to still prerender this page, so we read URL parameters now and accept 1 frame late update.
+	const initialSettings: GroupingSortingSettings = browser
+		? searchParamsToSettings(new URLSearchParams(window.location.search))
+		: { grouping: [], sortingOrder: [] };
+
+	function handleSettingsApply(settings: GroupingSortingSettings) {
+		if (!browser) return;
+		// eslint-disable-next-line svelte/no-navigation-without-resolve
+		replaceState(buildUrlForSettings(settings, window.location), $page.state);
+	}
 
 	const allCards = getAllCards();
 	const productCards = $derived.by(() => {
@@ -273,6 +290,8 @@
 			grouping: [],
 			sortingOrder: []
 		}}
+		{initialSettings}
+		onSettingsApply={handleSettingsApply}
 		hideChecklistMode={fittingRoomMode}
 	/>
 </MarginFull>

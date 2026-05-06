@@ -399,7 +399,7 @@
 		<FlexibleCardDisplay
 			cards={cardItems}
 			defaultSettings={{
-				grouping: ['levelGrouped', 'set'],
+				grouping: ['level-grouped', 'set'],
 				sortingOrder: ['level']
 			}}
 			defaultViewMode="icons"
