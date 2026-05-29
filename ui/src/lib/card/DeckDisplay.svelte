@@ -54,6 +54,12 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		 * Should be provided by the application layer (uses protobuf compression).
 		 */
 		getShareUrl?: () => string | undefined;
+		/**
+		 * URL to view this deck in our own deck viewer (e.g. `/deck/view?id=4931805`).
+		 * When provided, a "View in Deck Viewer" button is shown that opens it in a new tab.
+		 * Provided by the application layer since the route is app-specific.
+		 */
+		deckViewerUrl?: string;
 	}
 
 	let {
@@ -64,6 +70,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		mode = 'decklist',
 		toolbar = false,
 		getShareUrl,
+		deckViewerUrl,
 		showExportView = $bindable(false)
 	}: Prop & { showExportView?: boolean } = $props();
 
@@ -240,6 +247,14 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		</div>
 		<!-- Show buttons to the hosted site -->
 		<div class="flex max-w-60 flex-col gap-2">
+			{#if deckViewerUrl}
+				<Button
+					icon={FaIconType.ExternalLink}
+					label="View in Deck Viewer"
+					onClick={deckViewerUrl}
+					newTab
+				/>
+			{/if}
 			{#if showArkhamDbPublishedButton}
 				<div class="flex items-center gap-2">
 					<Button

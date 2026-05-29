@@ -24,8 +24,10 @@
 		type?: 'button' | 'submit' | 'reset';
 		/** Associates the button with a form element by its id, allowing it to submit a form it is not a descendant of. */
 		form?: string;
+		/** When {@link onClick} is a URL, open it in a new tab. External (http) links already open in a new tab regardless. */
+		newTab?: boolean;
 	}
-	const { icon, label, onClick, hideLabel, highlighted, danger, disabled, type = 'button', form }: Prop = $props();
+	const { icon, label, onClick, hideLabel, highlighted, danger, disabled, type = 'button', form, newTab }: Prop = $props();
 	const hasText = $derived(!hideLabel);
 	const paddingClass = $derived(hasText ? 'px-3' : 'px-1');
 	const isLink = $derived(typeof onClick === 'string');
@@ -44,8 +46,8 @@
 		}
 		return undefined;
 	})
-	const target = $derived(isExternalLink ? '_blank' : undefined);
-	const rel = $derived(isExternalLink ? 'noreferrer' : undefined);
+	const target = $derived(isExternalLink || (isLink && newTab) ? '_blank' : undefined);
+	const rel = $derived(isExternalLink || (isLink && newTab) ? 'noreferrer' : undefined);
 	const baseClasses =
 		'inline-flex cursor-pointer items-center justify-center space-x-2 rounded border py-1 shadow-md hover:brightness-105 active:brightness-100 dark:text-white dark:hover:brightness-110 dark:active:brightness-125 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100 disabled:active:brightness-100';
 </script>

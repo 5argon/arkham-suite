@@ -379,5 +379,10 @@
 	onClose={() => (deckModalDeck = null)}
 	title="Deck Details"
 >
-	<DeckDisplay {cardResolver} deck={deckModalDeck!} mode="decklist" />
+	<DeckDisplay
+		{cardResolver}
+		deck={deckModalDeck!}
+		mode="decklist"
+		deckViewerUrl={`/deck/view?id=${deckModalDeck!.id}`}
+	/>
 </Modal>

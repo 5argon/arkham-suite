@@ -232,7 +232,7 @@
 {#snippet textTopic(text: string, currentCount?: number, maxCount?: number)}
 	<span
 		class={clsx(
-			'dark:bg-primary-700 bg-primary-100 flex flex-col items-center text-center rounded px-2 py-0.5 text-[0.6rem] leading-none text-black dark:text-white'
+			'dark:bg-primary-700 bg-primary-100 flex flex-col items-center rounded px-2 py-0.5 text-center text-[0.6rem] leading-none text-black dark:text-white'
 		)}
 	>
 		<div>{text}</div>
@@ -260,19 +260,19 @@
 		{#if meta.optionSelected != undefined}
 			<span class="flex items-center gap-1">
 				{@render textTopic(m.card_selected_option())}
-				<DeckbuildingChoiceDisplay investigator={backInvestigator} meta={meta} />
+				<DeckbuildingChoiceDisplay investigator={backInvestigator} {meta} />
 			</span>
 		{/if}
 		{#if meta.factionSelected !== undefined}
 			<span class="flex items-center gap-1">
 				{@render textTopic(m.card_selected_class_singular())}
-				<DeckbuildingChoiceDisplay investigator={backInvestigator} meta={meta} />
+				<DeckbuildingChoiceDisplay investigator={backInvestigator} {meta} />
 			</span>
 		{/if}
 		{#if meta.faction1 !== undefined && meta.faction2 !== undefined}
 			<span class="flex items-center gap-1">
 				{@render textTopic(m.card_selected_class_plural())}
-				<DeckbuildingChoiceDisplay investigator={backInvestigator} meta={meta} />
+				<DeckbuildingChoiceDisplay investigator={backInvestigator} {meta} />
 			</span>
 		{/if}
 		{#if !onlyDeckbuildingChoices}
@@ -377,7 +377,7 @@
 				{/if}
 				{#if leftSplashes.more}
 					<div
-						class="dark:text-primary-300 text-primary-700 flex items-center gap-0.5 text-[0.5rem] leading-none"
+						class="dark:text-primary-300 text-primary-700 gap-0.1 flex items-center text-[0.4rem] leading-none"
 					>
 						<span>.</span>
 						<span>.</span>

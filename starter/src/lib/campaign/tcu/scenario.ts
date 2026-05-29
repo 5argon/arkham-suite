@@ -1,5 +1,8 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import {
+	EncounterSet as KohakuEncounterSet,
+	Scenario as KohakuScenario
+} from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfShubNiggurath,
@@ -315,7 +318,7 @@ export const unionAndDisillusionScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: unionAndDisillusion, overwriteCount: 14 },
+				{ encounterSet: unionAndDisillusion, overwriteCount: 13 },
 				ancientEvils,
 				chillingCold,
 				inexorableFate,
@@ -337,6 +340,10 @@ export const unionAndDisillusionScenario: Scenario = {
 			}
 		],
 		notes: [
+			{
+				encounterSet: unionAndDisillusion,
+				what: "**The Watcher's Gaze** treachery is set aside, out of play."
+			},
 			{
 				encounterSet: anettesCoven,
 				what: "The entire **Anette's Coven** encounter set is set aside, out of play."

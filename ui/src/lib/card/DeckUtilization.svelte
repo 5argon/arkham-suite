@@ -10,6 +10,8 @@
 	import { u } from '@5argon/arkham-string';
 	import { HoverTooltip } from '../container';
 	import { createTooltipState } from '../utility/tooltip-state.svelte.js';
+	import Modal from '../layout/Modal.svelte';
+	import * as m from '../paraglide/messages.js';
 
 	interface Prop {
 		deck: Deck;
@@ -21,6 +23,11 @@
 	}
 	const { deck, allowSideDeck }: Prop = $props();
 	const tooltip = createTooltipState<Product>();
+
+	/** Maximum number of product icons to render inline before collapsing into a "..." button. */
+	const maxInlineProducts = 10;
+
+	let modalOpen = $state(false);
 
 	function countFilter(card: Card) {
 		return card.encounterSet === undefined;
@@ -60,35 +67,50 @@
 		return cardPerProduct;
 	}
 
+	function displayCount(count: Count) {
+		return count.mainCount + (allowSideDeck ? count.sideCount : 0);
+	}
+
 	const cardPerProduct = $derived(countCardPerProduct(deck));
 	const sortedCardPerProduct: { product: Product; count: Count }[] = $derived(
 		Array.from(cardPerProduct.entries())
 			.map(([product, count]) => ({ product, count }))
+			.filter(({ count }) => displayCount(count) > 0)
 			.sort((a, b) => {
 				return productOrdering.indexOf(a.product) - productOrdering.indexOf(b.product);
 			})
 	);
+
+	const inlineProducts = $derived(sortedCardPerProduct.slice(0, maxInlineProducts));
+	const hasOverflow = $derived(sortedCardPerProduct.length > maxInlineProducts);
 </script>
 
 {#snippet oneProduct(product: Product, count: Count)}
-	{#if count.mainCount + (allowSideDeck ? count.sideCount : 0) > 0}
-		<div
-			class="flex h-7 w-4 flex-col items-center justify-center leading-none"
-			onmouseenter={(e) => tooltip.show(product, e)}
-			onmouseleave={tooltip.hide}
-			role="button"
-			tabindex="-1"
-		>
-			<span><ProductIcon {product} /></span>
-			<span class="text-[0.5rem]">{count.mainCount + (allowSideDeck ? count.sideCount : 0)}</span>
-		</div>
-	{/if}
+	<div
+		class="flex h-7 w-4 flex-col items-center justify-center leading-none"
+		onmouseenter={(e) => tooltip.show(product, e)}
+		onmouseleave={tooltip.hide}
+		role="button"
+		tabindex="-1"
+	>
+		<span><ProductIcon {product} /></span>
+		<span class="text-[0.5rem]">{displayCount(count)}</span>
+	</div>
 {/snippet}
 
 <div class="text-primary-900 dark:text-primary-200 flex gap-1">
-	{#each sortedCardPerProduct as { product, count }, i (i)}
+	{#each inlineProducts as { product, count }, i (i)}
 		{@render oneProduct(product, count)}
 	{/each}
+	{#if hasOverflow}
+		<button
+			type="button"
+			class="hover:text-secondary-700 active:text-secondary-800 dark:hover:text-secondary-300 dark:active:text-secondary-100 flex h-7 cursor-pointer items-center justify-center px-0.5 leading-none transition-colors active:scale-95"
+			onclick={() => (modalOpen = true)}
+		>
+			…
+		</button>
+	{/if}
 </div>
 
 <HoverTooltip visible={tooltip.visible} referenceElement={tooltip.referenceElement}>
@@ -99,3 +121,17 @@
 		</div>
 	{/if}
 </HoverTooltip>
+
+<Modal isOpen={modalOpen} onClose={() => (modalOpen = false)} title={m.card_deck_utilization_title()}>
+	<table class="text-primary-900 dark:text-primary-100 w-full border-collapse text-sm">
+		<tbody>
+			{#each sortedCardPerProduct as { product, count }, i (i)}
+				<tr class="border-primary-300 dark:border-primary-700 border-b last:border-b-0">
+					<td class="py-1.5 pr-3 text-lg"><ProductIcon {product} /></td>
+					<td class="py-1.5 pr-3 whitespace-nowrap">{u.productName(product)}</td>
+					<td class="py-1.5 text-right tabular-nums">{displayCount(count)}</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+</Modal>
