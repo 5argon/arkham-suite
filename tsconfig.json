@@ -14,6 +14,9 @@
       "path": "./tags"
     },
     {
+      "path": "./card-collection-manager"
+    },
+    {
       "path": "./life"
     },
     {

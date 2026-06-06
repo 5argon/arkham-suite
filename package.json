@@ -14,7 +14,8 @@
         "starter",
         "icon",
         "cards-json",
-        "tags"
+        "tags",
+        "card-collection-manager"
     ],
     "packageManager": "yarn@4.12.0",
     "resolutions": {

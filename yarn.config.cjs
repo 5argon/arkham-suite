@@ -9,6 +9,7 @@ module.exports = {
     const typeScriptPackages = [
       '@5argon/arkham-kohaku',
       '@5argon/arkham-tags',
+      '@5argon/arkham-collection',
     ];
 
     const targetVersions = {
