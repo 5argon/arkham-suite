@@ -84,6 +84,12 @@
 		title={m.resource_who_can_use_title()}
 	/>
 	<ThumbnailCardButton
+		description={m.resource_tag_browser_description()}
+		imageUrl="image/resource/card.webp"
+		onClick="/tool/tag-browser"
+		title={m.resource_tag_browser_title()}
+	/>
+	<ThumbnailCardButton
 		description={m.resource_upgrade_planner_description()}
 		imageUrl="image/resource/upgrade.webp"
 		onClick="/tool/upgrade"

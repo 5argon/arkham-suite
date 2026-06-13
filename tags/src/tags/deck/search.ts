@@ -5,6 +5,7 @@ export enum TagTypeDeckSearch {
   DeckSearchEncounter = "deck-search-encounter",
   DeckSearchYou = "deck-search-you",
   DeckSearchInvestigator = "deck-search-investigator",
+  DeckSearchBonded = "deck-search-bonded",
 }
 
 interface TagDeckSearchBase extends TagBase {
@@ -38,4 +39,13 @@ export interface TagDeckSearchYou extends TagDeckSearchBase {
  */
 export interface TagDeckSearchInvestigator extends TagDeckSearchBase {
   type: TagTypeDeckSearch.DeckSearchInvestigator;
+}
+
+/**
+ * Search your BONDED cards (set aside, out of play) for a specific card — the
+ * defining engine of the bonded archetype (Miss Doyle, Gate Box, Hallowed
+ * Mirror, Occult Lexicon). The base "range" is typically "all".
+ */
+export interface TagDeckSearchBonded extends TagDeckSearchBase {
+  type: TagTypeDeckSearch.DeckSearchBonded;
 }

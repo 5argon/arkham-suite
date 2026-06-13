@@ -2,11 +2,27 @@
   "name": "@5argon/arkham-tags",
   "type": "module",
   "scripts": {
-    "sync": "deno run --allow-read --allow-write ./script/sync.ts",
     "sync-unions": "deno run --allow-read --allow-write ./script/generate-unions.ts",
-    "build": "tsc -b"
+    "seed-strings": "node ./script/seed-strings.ts",
+    "build-strings": "node ./script/build-strings.ts",
+    "export-json": "node ./script/export-json.ts",
+    "digest": "node ./script/build-digest.ts",
+    "build": "tsc -b",
+    "scaffold-untagged": "node ./script/scaffold-untagged.ts"
   },
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./cards.json": "./json/export/cards.json"
+  },
+  "files": [
+    "dist",
+    "json/export/cards.json"
+  ],
   "dependencies": {
     "@5argon/arkham-kohaku": "workspace:*"
   },

@@ -7,6 +7,8 @@ export enum TagTypeTestless {
   TestlessDamageAttackingEnemy = "testless-damage-attacking-enemy",
   TestlessClue = "testless-clue",
   TestlessEvade = "testless-evade",
+  TestlessDamageEvadedEnemy = "testless-damage-evaded-enemy",
+  TestlessDamageEngagedEnemy = "testless-damage-engaged-enemy",
 }
 
 interface TagTestlessBase extends TagBase {}
@@ -37,4 +39,14 @@ export interface TagTestlessClue extends TagTestlessWithValueBase {
 
 export interface TagTestlessEvade extends TagTestlessBase {
   type: TagTypeTestless.TestlessEvade;
+}
+
+/** Deal damage with no test to the enemy you just EVADED (only that enemy, not any at your location) — e.g. Blinding Light. */
+export interface TagTestlessDamageEvadedEnemy extends TagTestlessWithValueBase {
+  type: TagTypeTestless.TestlessDamageEvadedEnemy;
+}
+
+/** Deal testless damage to ONLY the single enemy that just became engaged with you (not all enemies at your location). */
+export interface TagTestlessDamageEngagedEnemy extends TagTestlessWithValueBase {
+  type: TagTypeTestless.TestlessDamageEngagedEnemy;
 }

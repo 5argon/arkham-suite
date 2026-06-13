@@ -12,6 +12,7 @@ export enum TagTypeChaosReveal {
   ChaosRevealMore = "chaos-reveal-more",
   ChaosRevealManual = "chaos-reveal-manual",
   ChaosRevealAnotherInstead = "chaos-reveal-another-instead",
+  ChaosRevealSealedInstead = "chaos-reveal-sealed-instead",
 }
 
 interface TagChaosRevealBase extends TagBase {}
@@ -58,4 +59,8 @@ export interface TagChaosRevealManual extends TagChaosRevealBase {
 
 export interface TagChaosRevealAnotherInstead extends TagChaosRevealBase {
   type: TagTypeChaosReveal.ChaosRevealAnotherInstead;
+}
+
+export interface TagChaosRevealSealedInstead extends TagChaosRevealBase {
+  type: TagTypeChaosReveal.ChaosRevealSealedInstead;
 }

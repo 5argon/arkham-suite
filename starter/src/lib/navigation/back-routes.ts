@@ -114,6 +114,7 @@ export const backRoutes = {
 	'/tool/card': { label: () => m.common_back_to_card_table(), parent: '/' },
 	'/tool/gather': { label: () => m.common_back_to_gather(), parent: '/' },
 	'/tool/limited': { label: () => m.common_back_to_limited(), parent: '/' },
+	'/tool/tag-browser': { label: () => m.common_back_to_tag_browser(), parent: '/' },
 	'/tool/team-builder': { label: () => m.common_back_to_team_builder(), parent: '/' },
 	'/tool/team-builder/view': {
 		label: () => m.common_back_to_shared_team(),

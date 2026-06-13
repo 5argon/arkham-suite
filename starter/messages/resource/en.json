@@ -45,6 +45,8 @@
 	"resource_ultimatums_and_boons_description": "Browse official Ultimatum, Boon, and Refraction cards to alter gameplay difficulty.",
 	"resource_who_can_use_title": "Who Can Use",
 	"resource_who_can_use_description": "Query eligible investigators that could run combo cards you are interested in together in their deck.",
+	"resource_tag_browser_title": "Tag Browser",
+	"resource_tag_browser_description": "Browse cards by the game effects in their text box, and pivot between tags and the compound archetypes that group them.",
 	"resource_upgrade_planner_title": "Upgrade Planner",
 	"resource_upgrade_planner_description": "Plan out how you progress your deck throughout the campaign with automatic XP calculations in each step.",
 	"resource_deck_viewer_title": "Deck Viewer",

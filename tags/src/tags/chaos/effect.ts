@@ -8,6 +8,8 @@ export enum TagTypeChaosEffect {
   ChaosEffectResolveChoose = "chaos-resolve-choose",
   ChaosEffectRevealBeforeEffect = "chaos-reveal-before-effect",
   ChaosEffectTreatAsElderSign = "chaos-treat-as-elder-sign",
+  ChaosEffectTreatTokenAs = "chaos-treat-token-as",
+  ChaosEffectResolveAdditional = "chaos-resolve-additional",
 }
 
 interface TagChaosEffectBase extends TagBase {}
@@ -26,6 +28,7 @@ export interface TagChaosEffectIgnoreModifier extends TagChaosEffectBase {
 
 export interface TagChaosEffectModifier extends TagChaosEffectBase {
   type: TagTypeChaosEffect.ChaosEffectModifier;
+  treatAs?: number;
 }
 
 export interface TagChaosEffectResolveChoose extends TagChaosEffectBase {
@@ -38,4 +41,13 @@ export interface TagChaosEffectRevealBeforeEffect extends TagChaosEffectBase {
 
 export interface TagChaosEffectTreatAsElderSign extends TagChaosEffectBase {
   type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign;
+}
+
+export interface TagChaosEffectTreatTokenAs extends TagChaosEffectBase {
+  type: TagTypeChaosEffect.ChaosEffectTreatTokenAs;
+  to: "bless" | "curse" | "skull" | "elder-sign" | "auto-fail";
+}
+
+export interface TagChaosEffectResolveAdditional extends TagChaosEffectBase {
+  type: TagTypeChaosEffect.ChaosEffectResolveAdditional;
 }
