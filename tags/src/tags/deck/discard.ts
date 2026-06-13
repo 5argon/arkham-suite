@@ -6,7 +6,7 @@ export enum TagTypeDeckDiscard {
   DeckDiscardDeck = "deck-discard-deck",
   DeckDiscardSelf = "deck-discard-self",
   DeckDiscardTreachery = "deck-discard-treachery",
-  DeckDiscardZeroUses = "deck-discard-zero-uses",
+  DeckDiscardEncounter = "deck-discard-encounter",
 }
 
 interface TagDeckDiscardBase extends TagBase {}
@@ -31,6 +31,10 @@ export interface TagDeckDiscardTreachery extends TagDeckDiscardBase {
   type: TagTypeDeckDiscard.DeckDiscardTreachery;
 }
 
-export interface TagDeckDiscardZeroUses extends TagDeckDiscardBase {
-  type: TagTypeDeckDiscard.DeckDiscardZeroUses;
+/**
+ * Proactively discard/thin the top of the ENCOUNTER deck (Split the Angle).
+ * DeckDiscardDeck/Self target the player deck; this targets the encounter deck.
+ */
+export interface TagDeckDiscardEncounter extends TagDeckDiscardBase {
+  type: TagTypeDeckDiscard.DeckDiscardEncounter;
 }

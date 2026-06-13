@@ -82,6 +82,12 @@
 		title="Who Can Use"
 	/>
 	<ThumbnailCardButton
+		description="Browse cards by the game effects in their text box, and pivot between tags and the compound archetypes that group them."
+		imageUrl="image/resource/card.webp"
+		onClick="/tool/tag-browser"
+		title="Tag Browser"
+	/>
+	<ThumbnailCardButton
 		description="Plan out how you progress your deck throughout the campaign with automatic XP calculations in each step. "
 		imageUrl="image/resource/upgrade.webp"
 		onClick="/tool/upgrade"

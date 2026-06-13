@@ -6,6 +6,9 @@ export enum TagTypeUsesStarting {
   UsesStartingSupply = "uses-starting-supply",
   UsesStartingSecret = "uses-starting-secret",
   UsesStartingEvidence = "uses-starting-evidence",
+  UsesStartingOffering = "uses-starting-offering",
+  UsesStartingResource = "uses-starting-resource",
+  UsesStartingInspiration = "uses-starting-inspiration",
 }
 
 interface TagUsesStartingBase extends TagBase {
@@ -30,4 +33,22 @@ export interface TagUsesStartingSecret extends TagUsesStartingBase {
 
 export interface TagUsesStartingEvidence extends TagUsesStartingBase {
   type: TagTypeUsesStarting.UsesStartingEvidence;
+}
+
+/** Printed use-token type "offering" (Masks sub-theme). */
+export interface TagUsesStartingOffering extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingOffering;
+}
+
+/**
+ * Printed "Uses (N resources)" as a use-pool stored on the card, distinct from
+ * gaining resources to your pool.
+ */
+export interface TagUsesStartingResource extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingResource;
+}
+
+/** New printed use-token type "inspiration" (tdc). */
+export interface TagUsesStartingInspiration extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingInspiration;
 }

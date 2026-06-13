@@ -8,6 +8,12 @@ export enum TagTypeCancel {
   CancelEncounterEffect = "cancel-encounter-effect",
   CancelHorror = "cancel-horror",
   CancelRevelation = "cancel-revelation",
+  CancelLoseAction = "cancel-lose-action",
+  CancelLoseResource = "cancel-lose-resource",
+  CancelDiscardFromHand = "cancel-discard-from-hand",
+  CancelTreacheryInPlay = "cancel-treachery-in-play",
+  CancelFailedTestEffects = "cancel-failed-test-effects",
+  CancelWeaknessDraw = "cancel-weakness-draw",
 }
 
 interface TagCancelBase extends TagBase {}
@@ -38,4 +44,37 @@ export interface TagCancelHorror extends TagCancelBase {
 
 export interface TagCancelRevelation extends TagCancelBase {
   type: TagTypeCancel.CancelRevelation;
+}
+
+/** Ignore/cancel the "lose actions" aspect of an incoming effect (e.g. Deny Existence). */
+export interface TagCancelLoseAction extends TagCancelBase {
+  type: TagTypeCancel.CancelLoseAction;
+}
+
+/** Ignore/cancel the "lose resources" aspect of an incoming effect (e.g. Deny Existence). */
+export interface TagCancelLoseResource extends TagCancelBase {
+  type: TagTypeCancel.CancelLoseResource;
+}
+
+/** Ignore/cancel a forced hand-discard aspect of an incoming effect (e.g. Deny Existence). */
+export interface TagCancelDiscardFromHand extends TagCancelBase {
+  type: TagTypeCancel.CancelDiscardFromHand;
+}
+
+/**
+ * Discard/remove a treachery that is ALREADY in play (ongoing/attached),
+ * distinct from the on-draw cancels.
+ */
+export interface TagCancelTreacheryInPlay extends TagCancelBase {
+  type: TagTypeCancel.CancelTreacheryInPlay;
+}
+
+/** Cancel all effects/consequences of a (failed) skill test (e.g. Neither Rain nor Snow). */
+export interface TagCancelFailedTestEffects extends TagCancelBase {
+  type: TagTypeCancel.CancelFailedTestEffects;
+}
+
+/** Cancel/suppress a drawn weakness's effects (e.g. Ikiaq). */
+export interface TagCancelWeaknessDraw extends TagCancelBase {
+  type: TagTypeCancel.CancelWeaknessDraw;
 }

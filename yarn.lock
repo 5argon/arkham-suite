@@ -176,6 +176,7 @@ __metadata:
     "@5argon/arkham-kohaku": "workspace:*"
     "@5argon/arkham-life-ui": "workspace:*"
     "@5argon/arkham-string": "workspace:*"
+    "@5argon/arkham-tags": "workspace:*"
     "@5argon/arkham-tsk-solver": "workspace:*"
     "@eslint/compat": "npm:^2.1.1"
     "@eslint/js": "npm:^10.0.1"
@@ -246,7 +247,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@5argon/arkham-tags@workspace:tags":
+"@5argon/arkham-tags@workspace:*, @5argon/arkham-tags@workspace:tags":
   version: 0.0.0-use.local
   resolution: "@5argon/arkham-tags@workspace:tags"
   dependencies:

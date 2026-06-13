@@ -8,6 +8,7 @@ export enum TagTypeLocationMove {
   LocationMoveEnemyToYou = "move-enemy-to-you",
   LocationMoveInvestigatorAny = "move-investigator-any",
   LocationMoveInvestigatorSelf = "move-investigator-self",
+  LocationMoveInvestigatorPerformer = "move-investigator-performer",
 }
 
 interface TagLocationMoveBase extends TagBase {}
@@ -38,4 +39,15 @@ export interface TagLocationMoveInvestigatorAny extends TagLocationMoveBase {
 
 export interface TagLocationMoveInvestigatorSelf extends TagLocationMoveBase {
   type: TagTypeLocationMove.LocationMoveInvestigatorSelf;
+}
+
+/**
+ * The PERFORMING investigator moves — for a skill card whose effect applies to whoever
+ * performs the test it is committed to (text: "the evading/investigating/performing
+ * investigator"), which may be another player at your location. This is what makes such a
+ * skill a true SUPPORT card; contrast move-investigator-self (the owner only — e.g. Guts,
+ * not support). See the Support compound.
+ */
+export interface TagLocationMoveInvestigatorPerformer extends TagLocationMoveBase {
+  type: TagTypeLocationMove.LocationMoveInvestigatorPerformer;
 }

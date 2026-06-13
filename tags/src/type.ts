@@ -4,13 +4,19 @@ export interface TaggedCard {
   code: string;
   name: string;
   text: string;
-  tags: Tag[];
-
   /**
-   * For tags that technically applies to the card, but are not the main aspect of the card.
-   * When finding matching cards, the search can offer to hide all matches that only match on secondary tags.
+   * Stat metadata (NOT tags) carried alongside the text so tag authors can judge
+   * icon/level/type-aware tags (e.g. a non-skill level-0 wild icon, or a card with
+   * two effective commit icons). Populated from the resolved card database by the
+   * ingress/enrich scripts; optional so older files still type-check.
    */
-  secondaryTags?: Tag[];
+  /** Card level (XP), e.g. 0–5. Undefined for unleveled cards (e.g. weaknesses). */
+  level?: number;
+  /** Card type code: "asset" | "event" | "skill" | "investigator" | … */
+  cardType?: string;
+  /** Printed commit/skill icons, one entry per icon, e.g. ["willpower","wild"]. */
+  icons?: string[];
+  tags: Tag[];
 }
 
 export type BoostValue = number | "dynamic";

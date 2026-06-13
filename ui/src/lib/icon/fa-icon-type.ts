@@ -112,5 +112,9 @@ export enum FaIconType {
 	/** A losing ending. */
 	EndingLoss,
 	/** A special / rival-faction ("other kind of") ending. */
-	EndingSpecial
+	EndingSpecial,
+
+	// Card tags
+	Tag,
+	Tags
 }

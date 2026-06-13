@@ -1,3 +1,9 @@
 dist
 node_modules/
 bun.lockb
+
+# Generated JSON export (reproducible via `yarn export-json`; TS is source of truth)
+json/export/
+
+# Work files for the tagging pass (reproducible)
+reference/_taxonomy-digest.md

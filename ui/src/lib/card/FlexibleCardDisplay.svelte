@@ -68,6 +68,12 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		 * Use this to mirror state to the URL, storage, or analytics.
 		 */
 		onSettingsApply?: (settings: GroupingSortingSettings) => void;
+		/**
+		 * Fired when a card is clicked while NOT in checklist mode. When provided, the click
+		 * calls this instead of opening the magnified modal — use it to navigate to a detail
+		 * page. Checklist mode still toggles greyed-out quantity as usual.
+		 */
+		onCardClick?: (card: Card) => void;
 	}
 
 	const {
@@ -82,7 +88,8 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		hideViewMode = false,
 		hideGroupingSorting = false,
 		showIconCount = false,
-		onSettingsApply
+		onSettingsApply,
+		onCardClick
 	}: Prop = $props();
 
 	type DisplayMode = 'icons' | 'scans' | 'list';
@@ -239,7 +246,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				groups={displayGroups}
 				{languageCode}
 				{showIconCount}
-				onClick={checklistMode ? handleIconsOrListClick : undefined}
+				onClick={checklistMode ? handleIconsOrListClick : onCardClick}
 			/>
 		</div>
 	{:else if displayMode === 'scans'}
@@ -247,7 +254,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 			<CardScanFullSmallGrid
 				groups={displayGroups}
 				{languageCode}
-				onClick={checklistMode ? handleScansClick : undefined}
+				onClick={checklistMode ? handleScansClick : onCardClick}
 				showCardName
 				{hideQuantity}
 				{showIconCount}
@@ -258,7 +265,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 			<CardLineList
 				groups={displayGroups}
 				{languageCode}
-				onClick={checklistMode ? handleIconsOrListClick : undefined}
+				onClick={checklistMode ? handleIconsOrListClick : onCardClick}
 				{hideQuantity}
 			/>
 		</div>

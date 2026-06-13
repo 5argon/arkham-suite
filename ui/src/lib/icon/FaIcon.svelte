@@ -23,6 +23,8 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.NoticeError]: 'fa-circle-exclamation',
 		[FaIconType.Loading]: 'fa-spinner',
 		[FaIconType.Manual]: 'fa-book',
+		[FaIconType.Tag]: 'fa-tag',
+		[FaIconType.Tags]: 'fa-tags',
 		[FaIconType.Plus]: 'fa-plus',
 		[FaIconType.Minus]: 'fa-minus',
 		[FaIconType.Grip]: 'fa-grip-dots-vertical',

@@ -8,6 +8,8 @@ export enum TagTypeCostReaction {
   CostReactionHorrorSelf = "cost-reaction-horror-self",
   CostReactionSpendCharge = "cost-reaction-spend-charge",
   CostReactionSpendResource = "cost-reaction-spend-resource",
+  CostReactionSpendClue = "cost-reaction-spend-clue",
+  CostReactionSpendSecret = "cost-reaction-spend-secret",
 }
 
 interface TagCostReactionBase extends TagBase {
@@ -25,6 +27,12 @@ export interface TagCostReactionExhaustSelf extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionExhaustSelf;
 }
 
+/**
+ * Take horror on the INVESTIGATOR (you, or freely assignable like Forbidden Knowledge) as
+ * a [reaction] cost. NOT horror placed on THIS card itself — that is soak (soak-sanity),
+ * e.g. Aquinnah taking the redirected horror onto its own sanity, which is a tank, not
+ * self-harm. The same "self = investigator, not this card" rule applies to *-damage-self.
+ */
 export interface TagCostReactionHorrorSelf extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionHorrorSelf;
 }
@@ -35,4 +43,14 @@ export interface TagCostReactionSpendCharge extends TagCostReactionBase {
 
 export interface TagCostReactionSpendResource extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionSpendResource;
+}
+
+/** Spend/place one of your OWN clues (pay with progress) as a reaction cost. Distinct from clue-place (a beneficial placement). */
+export interface TagCostReactionSpendClue extends TagCostReactionBase {
+  type: TagTypeCostReaction.CostReactionSpendClue;
+}
+
+/** Spend a secret use-token as the cost of a [reaction] triggered ability. */
+export interface TagCostReactionSpendSecret extends TagCostReactionBase {
+  type: TagTypeCostReaction.CostReactionSpendSecret;
 }

@@ -63,6 +63,7 @@
 		"@5argon/arkham-kohaku": "workspace:*",
 		"@5argon/arkham-life-ui": "workspace:*",
 		"@5argon/arkham-string": "workspace:*",
+		"@5argon/arkham-tags": "workspace:*",
 		"@5argon/arkham-tsk-solver": "workspace:*",
 		"@fontsource/fira-mono": "^5.3.0",
 		"@inlang/paraglide-js": "^2.29.3",

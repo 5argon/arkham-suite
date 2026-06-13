@@ -6,6 +6,7 @@ export enum TagTypeTimingWhen {
   TimingWhenEnemyAttacks = "timing-when-enemy-attacks",
   TimingWhenDefeatEnemy = "timing-when-defeat-enemy",
   TimingWhenEnemySpawnsYourLocation = "timing-when-enemy-spawns-your-location",
+  TimingWhenWouldFailTest = "timing-when-would-fail-test",
 }
 
 interface TagTimingWhenBase extends TagBase {}
@@ -20,4 +21,9 @@ export interface TagTimingWhenDefeatEnemy extends TagTimingWhenBase {
 
 export interface TagTimingWhenEnemySpawnsYourLocation extends TagTimingWhenBase {
   type: TagTypeTimingWhen.TimingWhenEnemySpawnsYourLocation;
+}
+
+/** Reactive window at the moment a test WOULD fail (modified value known, failure not yet locked) — lets a last-second boost flip it (Lucky!). Distinct from timing-after-fail-skill-test. */
+export interface TagTimingWhenWouldFailTest extends TagTimingWhenBase {
+  type: TagTypeTimingWhen.TimingWhenWouldFailTest;
 }

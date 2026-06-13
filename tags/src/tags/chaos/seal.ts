@@ -9,6 +9,9 @@ export enum TagTypeChaosSeal {
   ChaosSealTokenElderThing = "chaos-seal-token-elder-thing",
   ChaosSealTokenSkull = "chaos-seal-token-skull",
   ChaosSealTokenTablet = "chaos-seal-token-tablet",
+  ChaosSealTokenBless = "chaos-seal-token-bless",
+  ChaosSealTokenCurse = "chaos-seal-token-curse",
+  ChaosSealRevealed = "chaos-seal-revealed",
 }
 
 interface TagChaosSealBase extends TagBase {}
@@ -43,4 +46,16 @@ export interface TagChaosSealTokenSkull extends TagChaosSealBase {
 
 export interface TagChaosSealTokenTablet extends TagChaosSealBase {
   type: TagTypeChaosSeal.ChaosSealTokenTablet;
+}
+
+export interface TagChaosSealTokenBless extends TagChaosSealBase {
+  type: TagTypeChaosSeal.ChaosSealTokenBless;
+}
+
+export interface TagChaosSealTokenCurse extends TagChaosSealBase {
+  type: TagTypeChaosSeal.ChaosSealTokenCurse;
+}
+
+export interface TagChaosSealRevealed extends TagChaosSealBase {
+  type: TagTypeChaosSeal.ChaosSealRevealed;
 }
