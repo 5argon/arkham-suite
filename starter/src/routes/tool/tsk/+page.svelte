@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { onDestroy } from 'svelte';
 	import { Button, MarginFull, MarginText, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
 	import { resolveLocalized, solve, type Constraint, type Recipe, type SolveOutput } from '@5argon/arkham-tsk-solver';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
@@ -82,15 +84,52 @@
 		goto(resolve(`/tool/tsk?${param}=${encoded}`, {}), { replaceState: replace, keepFocus: true, noScroll: true });
 	}
 
+	// The solver runs in a Web Worker so heavy searches never freeze the UI. Each request carries an
+	// id; only the latest result is applied (stale ones are dropped). Falls back to a synchronous
+	// solve if workers are unavailable.
+	let worker: Worker | null = null;
+	let reqId = 0;
+	let inflight: { id: number; updateURL: boolean; state: SolverShareState } | null = null;
+
+	function finishSolve(id: number, out: SolveOutput) {
+		if (!inflight || inflight.id !== id) return; // superseded by a newer request
+		result = out;
+		solving = false;
+		if (inflight.updateURL) updateUrl(encodeState(inflight.state), 'c', true);
+		inflight = null;
+	}
+
+	function getWorker(): Worker | null {
+		if (!browser) return null;
+		if (worker) return worker;
+		try {
+			worker = new Worker(new URL('./solver.worker.ts', import.meta.url), { type: 'module' });
+			worker.onmessage = (e: MessageEvent<{ id: number; result: SolveOutput }>) => finishSolve(e.data.id, e.data.result);
+			worker.onerror = () => {
+				worker = null; // drop it; subsequent solves fall back to synchronous
+			};
+		} catch {
+			worker = null;
+		}
+		return worker;
+	}
+
 	function runSolve(updateURL = true) {
 		solving = true;
 		selectedIndex = null;
-		setTimeout(() => {
-			result = solve({ constraints, preferences });
-			solving = false;
-			if (updateURL) updateUrl(encodeState(inputState()), 'c', true);
-		}, 0);
+		const input = { constraints: $state.snapshot(constraints), preferences: $state.snapshot(preferences) };
+		const id = ++reqId;
+		inflight = { id, updateURL, state: inputState() };
+		const w = getWorker();
+		if (w) {
+			w.postMessage({ id, input });
+		} else {
+			// No worker (very old browser): solve synchronously on the next tick.
+			setTimeout(() => finishSolve(id, solve(input)), 0);
+		}
 	}
+
+	onDestroy(() => worker?.terminate());
 
 	function openRecipe(index: number) {
 		selectedIndex = index;
