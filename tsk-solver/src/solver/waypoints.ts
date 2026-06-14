@@ -20,6 +20,7 @@ import type {
 	ResId,
 } from '../types.js';
 import { getLocation } from '../data/load.js';
+import { ALL_FINALE_BRANCHES, finaleBranchGroup, trialPlan } from './trial.js';
 
 export type RequirementMatch =
 	| { type: 'visit_node' }
@@ -61,7 +62,10 @@ export interface ExpandedConstraints {
 	scenarioCap?: number;
 	forbiddenNodes: Set<NodeId>;
 	negativeChecks: NegativeCheck[];
+	/** The single Trial branch the search engineers a coalition for (representative of `acceptableTrials`). */
 	desiredEnding?: string;
+	/** Predicted Trial branch must be in this set (post-filter). Undefined => no ending constraint. */
+	acceptableTrials?: Set<string>;
 	difficultyExpert: boolean;
 	logicalConflict?: { conflict: string; a: string; b: string };
 	/** Nodes the search may stop at to satisfy mandatory goals + unlock prerequisites. */
@@ -172,8 +176,10 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 	const goalTokens = new Set<string>();
 	let timeCap: number | undefined;
 	let scenarioCap: number | undefined;
-	let desiredEnding: string | undefined;
 	let difficultyExpert = false;
+	// Each finale-related constraint contributes a set of acceptable Trial branches; the route's
+	// predicted branch must lie in the intersection of all of them (conjunctive).
+	const endingSets: Set<string>[] = [];
 	const meta = loadDatabase().campaign_metadata;
 
 	// Structural requirements: prologue first, finale last.
@@ -197,6 +203,20 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 
 	constraints.forEach((constraint, index) => {
 		if (constraint.negate) {
+			// A negated finale version has no `version` field on the finale option to match (the finale's
+			// version is decided by the Trial vote), so a generic version check is a no-op. Translate it
+			// into an *excluded* branch set: accept any ending NOT in that version's group.
+			if (constraint.kind === 'scenario_version') {
+				const sc = loadDatabase().scenarios[constraint.scenario];
+				if (sc?.role === 'finale') {
+					const t = sc.versions?.[constraint.version]?.trial;
+					if (t !== undefined) {
+						const excluded = new Set(finaleBranchGroup(`trial_${t}`));
+						endingSets.push(new Set(ALL_FINALE_BRANCHES.filter((b) => !excluded.has(b))));
+					}
+					return;
+				}
+			}
 			expandNegation(constraint, forbiddenNodes, negativeChecks);
 			return;
 		}
@@ -244,8 +264,10 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 				// so route for the corresponding Trial branch (best-effort) rather than a version match.
 				const finaleScenario = loadDatabase().scenarios[constraint.scenario]?.role === 'finale';
 				if (finaleScenario) {
+					// A finale "version" is reached by any Trial branch in its group (v.II = 3/4/5, v.III = 6/7),
+					// so accept the whole group rather than a single branch.
 					const trial = loadDatabase().scenarios[constraint.scenario]?.versions?.[constraint.version]?.trial;
-					if (trial !== undefined) desiredEnding = `trial_${trial}`;
+					if (trial !== undefined) endingSets.push(new Set(finaleBranchGroup(`trial_${trial}`)));
 				} else if (node) {
 					requirements.push({
 						id: `scenario_version:${constraint.scenario}:${constraint.version}`,
@@ -335,7 +357,7 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 				break;
 			}
 			case 'reach_ending':
-				desiredEnding = constraint.trial;
+				endingSets.push(new Set([constraint.trial]));
 				break;
 			case 'chaos_mix':
 			case 'chaos_overflow_xp':
@@ -354,8 +376,8 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 					setExpert: () => {
 						difficultyExpert = true;
 					},
-					setDesiredEnding: (e) => {
-						desiredEnding = e;
+					addEndingSet: (set) => {
+						endingSets.push(set);
 					},
 				});
 				break;
@@ -370,6 +392,25 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 		}
 	}
 
+	// Finale Trial routing. The acceptable branches are the intersection of every finale-related
+	// constraint's branch set (a route has exactly one ending). We engineer a single representative
+	// branch (the Coalition waypoints + exclusions); the post-filter accepts any branch in the set.
+	let acceptableTrials: Set<string> | undefined;
+	let desiredEnding: string | undefined;
+	if (endingSets.length > 0) {
+		acceptableTrials = endingSets.reduce((acc, s) => new Set([...acc].filter((b) => s.has(b))));
+		if (acceptableTrials.size === 0) {
+			// Distinct, mutually exclusive endings were requested — no single route can satisfy them.
+			logicalConflict = logicalConflict ?? { conflict: 'contradictory finale outcomes requested', a: '', b: '' };
+		} else {
+			// Deterministic representative to engineer: the lowest-numbered branch that has a plan.
+			desiredEnding = [...acceptableTrials].sort().find((b) => trialPlan(b) !== null) ?? [...acceptableTrials].sort()[0];
+			if (desiredEnding && /^trial_\d+$/.test(desiredEnding)) {
+				expandTrialPlan(desiredEnding, requirements, relevantNodes, negativeChecks, seen);
+			}
+		}
+	}
+
 	return {
 		requirements,
 		timeCap,
@@ -377,6 +418,7 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 		forbiddenNodes,
 		negativeChecks,
 		desiredEnding,
+		acceptableTrials,
 		difficultyExpert,
 		logicalConflict,
 		relevantNodes,
@@ -548,10 +590,47 @@ function expandRecruitChain(
 	});
 }
 
+/**
+ * Expand a requested Trial outcome into routing requirements (the flags whose votes the branch
+ * needs, routed via their producer nodes) plus negative checks (flags that would break the branch).
+ * The flag requirements are structural (constraintIndex -1): they are mandatory for the search, while
+ * the originating constraint's `satisfies` is reported from the predicted Trial in solve.ts.
+ */
+function expandTrialPlan(
+	branch: string,
+	out: Requirement[],
+	relevant: Set<NodeId>,
+	negativeChecks: NegativeCheck[],
+	seen: Set<string>,
+): void {
+	const plan = trialPlan(branch);
+	if (!plan) return;
+	for (const flag of plan.required) {
+		const nodes = [
+			...new Set(
+				(flagProducers().get(flag) ?? []).filter((p) => !p.optionId.startsWith('status:')).map((p) => p.node),
+			),
+		].sort();
+		if (nodes.length === 0) continue;
+		out.push({
+			id: `trial:${branch}:require:${flag}`,
+			nodes,
+			match: { type: 'flag', flag },
+			constraintIndex: -1,
+			specificResolution: false,
+			reason: reason('reason_trial_vote', { branch, flag }),
+		});
+		markRelevantWithPrereqs(nodes, out, relevant, seen);
+	}
+	for (const flag of plan.forbidden) {
+		negativeChecks.push({ kind: 'flag', flag });
+	}
+}
+
 interface AchievementHooks {
 	setTimeCap: (cap: number) => void;
 	setExpert: () => void;
-	setDesiredEnding: (ending: string) => void;
+	addEndingSet: (set: Set<string>) => void;
 }
 
 /**
@@ -609,10 +688,11 @@ function expandAchievement(
 			for (const node of c.nodes) addVisit(node, { type: 'visit_node' }, false);
 			break;
 		case 'finale_trial':
-			hooks.setDesiredEnding(`trial_${c.trial}`);
+			hooks.addEndingSet(new Set([`trial_${c.trial}`]));
 			break;
 		case 'epilogue':
-			hooks.setDesiredEnding(c.epilogue);
+			// Epilogue (trust >= deception) is not a Trial branch; earnability is reported post-hoc
+			// in achievements.ts. No routing/branch constraint here.
 			break;
 		case 'all_keys':
 			for (const key of keysById().keys()) {

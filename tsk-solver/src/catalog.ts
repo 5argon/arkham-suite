@@ -16,6 +16,8 @@ export interface SolverCatalog {
 	achievements: CatalogEntry[];
 	keys: CatalogEntry[];
 	scenarios: CatalogEntry[];
+	/** Scenarios that have selectable versions — INCLUDING the finale (its versions = the endings). */
+	versionedScenarios: CatalogEntry[];
 	narrativeChains: CatalogEntry[];
 	allies: CatalogEntry[];
 	/** One entry per standalone product (label = product name, id = the green node it routes to). */
@@ -78,6 +80,13 @@ export function catalog(): SolverCatalog {
 	}
 	sideStories.sort((a, b) => a.label.localeCompare(b.label));
 
+	// Scenarios with versions, finale included (the finale's "versions" are the three endings,
+	// reached via the Trial groups v.I=2 / v.II=3·4·5 / v.III=6·7).
+	const versionedScenarios: CatalogEntry[] = Object.entries(db.scenarios)
+		.filter(([id]) => (versions[id]?.length ?? 0) > 0)
+		.map(([id, s]) => ({ id, label: s.name }))
+		.sort((a, b) => a.label.localeCompare(b.label));
+
 	_catalog = {
 		achievements: db.achievements
 			.filter((a) => a.planning !== false)
@@ -85,6 +94,7 @@ export function catalog(): SolverCatalog {
 			.sort((a, b) => a.label.localeCompare(b.label)),
 		keys: db.keys.map((k) => ({ id: k.id, label: titleize(k.id), note: k.character })).sort((a, b) => a.label.localeCompare(b.label)),
 		scenarios,
+		versionedScenarios,
 		narrativeChains: Object.entries(db.narrative_chains)
 			.map(([id, c]) => ({ id, label: c.label }))
 			.sort((a, b) => a.label.localeCompare(b.label)),

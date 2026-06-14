@@ -499,7 +499,7 @@ export interface ImpossibilityBreakdownItem {
 	value: number;
 }
 
-export type ImpossibilityKind = 'time_floor' | 'scenario_count' | 'logical';
+export type ImpossibilityKind = 'time_floor' | 'scenario_count' | 'logical' | 'search_budget';
 
 export interface ImpossibilityProof {
 	kind: ImpossibilityKind;

@@ -23,7 +23,7 @@
 			case 'scenario_resolution':
 				return cat.scenarios;
 			case 'scenario_version':
-				return cat.scenarios.filter((s) => (cat.versions[s.id]?.length ?? 0) > 0);
+				return cat.versionedScenarios;
 			case 'narrative_chain':
 				return cat.narrativeChains;
 			case 'recruit_ally':
@@ -47,7 +47,11 @@
 			label: r.note ? `${r.id} — ${r.note.slice(0, 60)}` : r.id,
 		}));
 	const versionOptions = (scenario: string): Option<string>[] =>
-		(cat.versions[scenario] ?? []).map((v) => ({ value: v.id, label: v.label }));
+		(cat.versions[scenario] ?? []).map((v) => ({
+			value: v.id,
+			// Prefix the version number (v1/v2/…) so it's always visible alongside the description.
+			label: v.label && !v.label.toLowerCase().startsWith(v.id) ? `${v.id} — ${v.label}` : v.label || v.id,
+		}));
 	const noteFor = (r: RowModel): string | undefined => {
 		if (r.category === 'side_story') return cat.sideStories.find((s) => s.label && s.id === r.target)?.note;
 		if (r.category === 'scenario_resolution') return cat.resolutions[r.target]?.find((x) => x.id === r.resolution)?.note;

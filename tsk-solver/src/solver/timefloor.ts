@@ -99,6 +99,24 @@ function buildPrecedence(terminals: Terminal[]): Map<number, Set<number>> {
 	return before;
 }
 
+/** Above this many mid-terminals the Held-Karp table (2^n × n) would blow memory; fall back. */
+const HELD_KARP_MAX_MIDS = 16;
+
+/**
+ * Cheap admissible lower bound on a start→…→end path visiting every mid, ignoring precedence
+ * (precedence only lengthens the true path, so this stays admissible). Each mid lies on the path,
+ * so the total is at least dist(start, m) + dist(m, end) for every m, and at least dist(start, end).
+ * Used when the exact Held-Karp DP would be too large.
+ */
+function pathLowerBound(start: NodeId, end: NodeId, mids: Terminal[], dist: (a: NodeId, b: NodeId) => number): number {
+	let best = dist(start, end);
+	for (const m of mids) {
+		const d = dist(start, m.node) + dist(m.node, end);
+		if (d > best) best = d;
+	}
+	return best;
+}
+
 /**
  * Held-Karp shortest path that starts at `start`, ends at `end`, visits all `mids`,
  * and respects `before` precedence. Distances via `dist`. Returns Infinity if no
@@ -194,8 +212,13 @@ export function timeFloor(expanded: ExpandedConstraints): TimeFloorResult {
 		(t) => !(t.req.match.type === 'prologue') && !(t.req.match.type === 'finale'),
 	);
 
+	// Exact precedence-respecting path for tractable sets; a cheap admissible bound for huge ones
+	// (the exponential DP would OOM). Both are admissible, so impossibility proofs stay sound.
 	const before = buildPrecedence(mids);
-	const travel = precedenceShortestPath(start, end, mids, before, fullDistance);
+	const travel =
+		mids.length > HELD_KARP_MAX_MIDS
+			? pathLowerBound(start, end, mids, fullDistance)
+			: precedenceShortestPath(start, end, mids, before, fullDistance);
 
 	// Stop-time lower bound: a single physical stop at a node pays at most the MAX of the
 	// per-requirement minimums pinned there, never the SUM (two requirements one stop satisfies
@@ -275,6 +298,24 @@ export function scenarioCountProof(count: number, keys: string[], cap: number): 
 		],
 		floor: count,
 		message: msg('impossible_scenarios', { count, cap, keys: keys.join(', ') }),
+	};
+}
+
+/**
+ * Build a "no route found within the search budget" proof. Used when the time floor is within the
+ * cap (so it's NOT a time-floor impossibility) but the bounded search still returned nothing — the
+ * constraints are likely jointly unsatisfiable or too tight. Carries no floor/cap breakdown, so the
+ * UI never shows the misleading "floor N exceeds cap M" (N ≤ M) line.
+ */
+export function searchBudgetProof(expanded: ExpandedConstraints): ImpossibilityProof {
+	const conflictParts = expanded.requirements.filter((r) => r.constraintIndex >= 0).map((r) => r.id);
+	return {
+		kind: 'search_budget',
+		conflict: conflictParts.join(' + ') || 'the requested constraints',
+		cap: 0,
+		breakdown: [],
+		floor: 0,
+		message: msg('impossible_search_budget'),
 	};
 }
 

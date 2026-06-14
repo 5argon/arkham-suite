@@ -94,9 +94,11 @@ export interface SearchConfig {
 
 export const DEFAULT_SEARCH: Omit<SearchConfig, 'timeCap' | 'scenarioCap'> = {
 	// Collect a broad pool of goals to diversify across scenario-count buckets, while staying
-	// responsive (the two passes + state cap bound total work). Callers can raise via prefs.
+	// responsive (the two passes + state cap bound total work). The MST heuristic guides hard,
+	// heavily-constrained queries to a goal quickly, so a smaller state cap keeps recall while
+	// roughly halving worst-case latency. Callers can raise via prefs.
 	goalLimit: 150,
-	maxStates: 38000,
+	maxStates: 20000,
 	maxDepth: 15,
 };
 
@@ -243,7 +245,10 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 		// Pathological constraint set; the orchestrator handles these via impossibility checks.
 		return [];
 	}
-	const goalMask = requirements.length === 0 ? 0 : (1 << requirements.length) - 1;
+	// `>>> 0` keeps the mask unsigned: at length 31, `(1 << 31) - 1` is negative in JS's signed
+	// 32-bit shift, which would never equal the (always-positive) accumulated satisfiedMask. With the
+	// coercion, length 31 is fully usable; the `> 31` guard above still rejects 32+ (bit 31 overflow).
+	const goalMask = requirements.length === 0 ? 0 : ((1 << requirements.length) - 1) >>> 0;
 	const meta = loadDatabase().campaign_metadata;
 	const startNode = meta.start_node;
 	const finaleNode = meta.finale_node;
@@ -256,6 +261,17 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 	);
 	const unlockBox = betaReport && typeof betaReport.at_box === 'number' ? betaReport.at_box + 1 : 0;
 
+	// MST-based admissible heuristic. A route that still has to visit a set of FORCED (single-
+	// candidate) requirement nodes from the current node must, in the metric closure, weigh at least
+	// the minimum spanning tree over {current} ∪ {unmet forced nodes}. That is far tighter than
+	// "distance to the single farthest waypoint" when a query pins many scattered nodes (a narrative
+	// chain, a Trial coalition), and is what stops heavily-constrained searches from near-exhausting
+	// the state budget. Pairwise distances among forced nodes are static, so precompute them once.
+	const forcedNodeOfReq: (NodeId | null)[] = requirements.map((r) => (r.nodes.length === 1 ? r.nodes[0]! : null));
+	const forcedNodes = [...new Set(forcedNodeOfReq.filter((n): n is NodeId => n !== null))];
+	const forcedIdx = new Map<NodeId, number>(forcedNodes.map((n, i) => [n, i]));
+	const pairDist: number[][] = forcedNodes.map((a) => forcedNodes.map((b) => fullDist(a, b)));
+
 	// Key-theft (Zeta) take-back: if a route crosses the Zeta box holding Keys, a Key is stolen and
 	// must be recovered at `requiredTakeBack` 14-C "Ruses and Reclamation" sites before the finale.
 	const requiredTakeBack = config.requiredTakeBack ?? 0;
@@ -266,21 +282,56 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 	);
 	const takeBackEnabled = requiredTakeBack > 0 && zetaBox !== null;
 
+	/** MST weight over {cur} ∪ unmet forced nodes (Prim's) — admissible lower bound on remaining travel. */
+	const mstLowerBound = (cur: NodeId, unmet: NodeId[]): number => {
+		const k = unmet.length;
+		if (k === 0) return 0;
+		const inTree = new Array<boolean>(k).fill(false);
+		const best = new Array<number>(k);
+		for (let i = 0; i < k; i++) {
+			const d = fullDist(cur, unmet[i]!);
+			best[i] = Number.isFinite(d) ? d : Infinity;
+		}
+		let total = 0;
+		for (let added = 0; added < k; added++) {
+			let u = -1;
+			let ud = Infinity;
+			for (let i = 0; i < k; i++) if (!inTree[i] && best[i]! < ud) (ud = best[i]!), (u = i);
+			if (u === -1 || !Number.isFinite(ud)) break; // disconnected subset → partial (still admissible) bound
+			inTree[u] = true;
+			total += ud;
+			const ui = forcedIdx.get(unmet[u]!)!;
+			for (let i = 0; i < k; i++) {
+				if (inTree[i]) continue;
+				const d = pairDist[ui]![forcedIdx.get(unmet[i]!)!]!;
+				if (d < best[i]!) best[i] = d;
+			}
+		}
+		return total;
+	};
+
 	/** Admissible lower bound on remaining time from `node`. */
 	const heuristic = (node: SearchNode): number => {
 		const s = node.state;
 		let h = Math.max(0, unlockBox - s.timePassed);
 		const finaleDist = fullDist(s.node, finaleNode);
 		if (Number.isFinite(finaleDist)) h = Math.max(h, finaleDist);
+		// Collect distinct unmet forced nodes (skip the one we're standing on — already arrived).
+		const unmet: NodeId[] = [];
 		for (let i = 0; i < requirements.length; i++) {
 			if (node.satisfiedMask & (1 << i)) continue;
+			// Per-requirement single-leg bound (also covers multi-candidate requirements, which the
+			// MST term ignores).
 			let best = Infinity;
 			for (const n of requirements[i]!.nodes) {
 				const d = fullDist(s.node, n);
 				if (d < best) best = d;
 			}
 			if (Number.isFinite(best)) h = Math.max(h, best);
+			const fn = forcedNodeOfReq[i];
+			if (fn != null && fn !== s.node && !unmet.includes(fn)) unmet.push(fn);
 		}
+		h = Math.max(h, mstLowerBound(s.node, unmet));
 		return h;
 	};
 

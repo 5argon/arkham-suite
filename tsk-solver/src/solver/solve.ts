@@ -31,10 +31,11 @@ import {
 	logicalProof,
 	scenarioCountFloor,
 	scenarioCountProof,
+	searchBudgetProof,
 	timeFloor,
 	timeFloorProof,
 } from './timefloor.js';
-import { predictTrial } from './trial.js';
+import { finaleBranchGroup, predictTrial } from './trial.js';
 import {
 	expandConstraints,
 	optionMatches,
@@ -95,6 +96,15 @@ export function solve(input: SolveInput): SolveOutput {
 		return { ok: false, proof: logicalProof(expanded.logicalConflict.conflict) };
 	}
 
+	// 1b. Capacity limit: the search packs goals into a 31-bit mask. Beyond that it can't represent
+	// them, so surface it honestly as a constraint-set-too-large conflict (not a false time-floor).
+	if (expanded.requirements.length > 31) {
+		return {
+			ok: false,
+			proof: logicalProof(`too many goals (${expanded.requirements.length} > 31) — please narrow the constraints`),
+		};
+	}
+
 	// 2. Scenario-count impossibility.
 	if (prefs.maxScenarios !== undefined) {
 		const sc = scenarioCountFloor(expanded);
@@ -122,16 +132,16 @@ export function solve(input: SolveInput): SolveOutput {
 	});
 
 	// Filter out routes that violate a negated constraint, fail a chaos goal, or miss a requested
-	// Trial outcome (the finale vote result is predicted from the route's flags).
-	const desiredTrials = input.constraints
-		.filter((c): c is Extract<Constraint, { kind: 'reach_ending' }> => c.kind === 'reach_ending')
-		.map((c) => c.trial);
+	// Trial outcome. `acceptableTrials` (from reach_ending / achievement finale_trial / finale version,
+	// already intersected) is the set of branches the route's predicted ending may be; two distinct
+	// mutually-exclusive endings intersect to empty and are caught as a logical conflict above.
+	const acceptableTrials = expanded.acceptableTrials;
 	const routes = allRoutes.filter(
 		(r) =>
 			!expanded.negativeChecks.some((c) => violatesNegative(r, c)) &&
 			chaosConstraintsSatisfied(r, input.constraints) &&
-			(desiredTrials.length === 0 ||
-				desiredTrials.includes(predictTrial(r.finalState.flags, r.finalState.trust, r.finalState.deception).branch)),
+			(!acceptableTrials ||
+				acceptableTrials.has(predictTrial(r.finalState.flags, r.finalState.trust, r.finalState.deception).branch)),
 	);
 
 	if (routes.length === 0) {
@@ -141,14 +151,16 @@ export function solve(input: SolveInput): SolveOutput {
 			const which = [
 				expanded.negativeChecks.length ? 'exclusions' : '',
 				input.constraints.some((c) => c.kind.startsWith('chaos_')) ? 'chaos goals' : '',
-				desiredTrials.length ? `Trial outcome (${desiredTrials.join('/')})` : '',
+				acceptableTrials?.size ? `Trial outcome (${[...acceptableTrials].sort().join('/')})` : '',
 			]
 				.filter(Boolean)
 				.join(', ');
 			return { ok: false, proof: logicalProof(`no explored route satisfies: ${which || 'the requested constraints'}`) };
 		}
-		// No route found within the cap / state budget — report the floor arithmetic.
-		return { ok: false, proof: timeFloorProof(expanded, tf, effectiveCap) };
+		// The time floor is within the cap (step 3 already proved that), yet the bounded search found
+		// nothing — so this is NOT a time-floor impossibility. Report it honestly as "no route found
+		// within the search budget" rather than the contradictory "floor ≤ cap exceeds cap".
+		return { ok: false, proof: searchBudgetProof(expanded) };
 	}
 
 	// 5. Diversity selection, bucketed by scenario count.
@@ -240,7 +252,7 @@ function buildRecipe(
 		.filter((s) => s.option.kind === 'scenario' || s.option.kind === 'finale')
 		.map((s) => getLocation(s.option.node).scenario_id)
 		.filter((s): s is string => s !== null);
-	const satisfies = satisfiedConstraints(route, expanded, constraints);
+	const satisfies = satisfiedConstraints(route, expanded, constraints, trial.branch);
 	const requestedAch = new Set(
 		constraints.filter((c): c is Extract<Constraint, { kind: 'achievement' }> => c.kind === 'achievement').map((c) => c.id),
 	);
@@ -375,13 +387,29 @@ function parseThreshold(at: string): number | null {
 	return m ? Number(m[1]) : null;
 }
 
-function satisfiedConstraints(route: RawRoute, expanded: ExpandedConstraints, constraints: Constraint[]): ConstraintRef[] {
+function satisfiedConstraints(
+	route: RawRoute,
+	expanded: ExpandedConstraints,
+	constraints: Constraint[],
+	trialBranch: string,
+): ConstraintRef[] {
 	const satisfiedIndices = new Set<number>();
 	for (const req of expanded.requirements) {
 		if (req.constraintIndex < 0) continue;
 		const ok = route.steps.some((s) => req.nodes.includes(s.option.node) && optionMatches(s.option, req.match));
 		if (ok) satisfiedIndices.add(req.constraintIndex);
 	}
+	// Finale-outcome constraints have no node requirement (the result is predicted from the route's
+	// flags); report them satisfied when the predicted branch matches the request. A finale
+	// scenario_version is satisfied by any Trial branch in its group (v.II = 3/4/5, v.III = 6/7).
+	constraints.forEach((c, index) => {
+		if (c.kind === 'reach_ending' && c.trial === trialBranch) satisfiedIndices.add(index);
+		if (c.kind === 'scenario_version') {
+			const sc = loadDatabase().scenarios[c.scenario];
+			const t = sc?.role === 'finale' ? sc.versions?.[c.version]?.trial : undefined;
+			if (t !== undefined && finaleBranchGroup(`trial_${t}`).includes(trialBranch)) satisfiedIndices.add(index);
+		}
+	});
 	return [...satisfiedIndices]
 		.sort((a, b) => a - b)
 		.map((index) => ({ index, kind: constraints[index]!.kind, label: loc('constraint_satisfied', { index }) }));

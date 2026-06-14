@@ -21,6 +21,7 @@
 	"reason_chain_waypoint": "Narrative step ({chain}) at {node}.",
 	"reason_visit_node": "Visit {node}.",
 	"reason_achievement": "Needed for achievement {achievement} (at {node}).",
+	"reason_trial_vote": "Sways a Coterie vote for the {branch} ending ({flag}).",
 	"warning_time_scaling": "Entering {scenario} at time {threshold}+ triggers: {effect}.",
 	"warning_key_theft": "A held Key will be stolen around time {box} (Zeta status report). Recover it at a 14-C site: {sites}.",
 	"warning_order_costs": "Honoring the requested order costs +{extra} time versus the fastest route.",
@@ -29,5 +30,6 @@
 	"achievement_name": "{name}",
 	"impossible_time": "Minimum time floor is {floor}, which exceeds the cap of {cap}.",
 	"impossible_scenarios": "{count} distinct keys require at least {count} scenarios, but the cap is {cap}: {keys}.",
-	"impossible_logical": "These constraints are mutually exclusive: {conflict}."
+	"impossible_logical": "These constraints are mutually exclusive: {conflict}.",
+	"impossible_search_budget": "No route satisfying all constraints was found within the search budget — they may be jointly unsatisfiable, or too tight. Try removing or loosening some."
 }
