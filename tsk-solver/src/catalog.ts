@@ -20,6 +20,12 @@ export interface SolverCatalog {
 	versionedScenarios: CatalogEntry[];
 	narrativeChains: CatalogEntry[];
 	allies: CatalogEntry[];
+	/** Campaign-log entries the planner can target (every story log a scenario/interlude records). */
+	campaignLogs: CatalogEntry[];
+	/** Scenarios that have time-based difficulty levels (time tiers). */
+	levelScenarios: CatalogEntry[];
+	/** scenarioId -> selectable levels (id = 1-based tier index, label = "Lv. n/total — effect"). */
+	levels: Record<string, CatalogEntry[]>;
 	/** One entry per standalone product (label = product name, id = the green node it routes to). */
 	sideStories: CatalogEntry[];
 	nodes: CatalogEntry[];
@@ -30,6 +36,26 @@ export interface SolverCatalog {
 	/** Finale Trial outcomes (the vote results that funnel into the three finale versions). */
 	trials: CatalogEntry[];
 }
+
+/**
+ * Friendly display labels for notable campaign-log entries. The `campaign_log` picker lists EVERY
+ * story log a scenario/interlude records (see catalog()); these just give the well-known ones a nicer
+ * name than the auto-titleized flag id. (Replaces the coarse "narrative chain" picker — e.g.
+ * "Understand Aliki" is simply the `aliki_is_on_your_side` log.)
+ */
+const CAMPAIGN_LOG_LABELS: Record<string, string> = {
+	aliki_is_on_your_side: 'Aliki is on your side (Understand Aliki)',
+	desi_is_in_your_debt: 'Desi is in your debt',
+	the_cell_made_a_deal_with_thorne: 'Made a deal with Thorne',
+	tuwile_masai_is_on_your_side: 'Tuwile Masai is on your side',
+	the_cell_aided_the_knight: 'Aided the Claret Knight',
+	ece_trusts_the_cell: 'Ece trusts the cell',
+	the_lovers_are_reunited: 'The lovers are reunited (Amaranth & Razin)',
+	the_cell_knows_the_true_nature_of_the_coterie: "Uncover the Coterie's true nature",
+};
+
+/** Internal/temporary logs that aren't meaningful planning targets on their own. */
+const CAMPAIGN_LOG_EXCLUDE = new Set<string>(['the_cell_is_delivering_intel']);
 
 /** The Trial-1 vote outcomes (guide §"Trial Outcomes"; see derbk "Scarlet Politics"). */
 const TRIALS: CatalogEntry[] = [
@@ -87,6 +113,42 @@ export function catalog(): SolverCatalog {
 		.map(([id, s]) => ({ id, label: s.name }))
 		.sort((a, b) => a.label.localeCompare(b.label));
 
+	// Which scenario/interlude records a campaign-log flag (for the picker's note).
+	const logProducerName = (flag: string): string | undefined => {
+		for (const s of Object.values(db.scenarios)) {
+			if (s.resolutions.some((r) => (r.logs ?? []).includes(flag))) return s.name;
+		}
+		for (const it of Object.values(db.interludes)) {
+			if ((it.outcomes ?? it.options ?? []).some((o) => (o.logs ?? []).includes(flag))) return it.name;
+		}
+		return undefined;
+	};
+	// Every campaign-log entry a scenario/interlude records (excluding unlock codes, deck assets, and
+	// internal/temporary flags). Well-known ones get a friendly label; the rest are titleized.
+	const assetIds = new Set(db.allies.map((a) => a.id));
+	const logFlags = new Set<string>();
+	for (const s of Object.values(db.scenarios)) for (const r of s.resolutions) for (const f of r.logs ?? []) logFlags.add(f);
+	for (const it of Object.values(db.interludes))
+		for (const o of it.outcomes ?? it.options ?? []) for (const f of o.logs ?? []) logFlags.add(f);
+	const campaignLogs: CatalogEntry[] = [...logFlags]
+		.filter((f) => !/^code_.*_written$/.test(f) && !assetIds.has(f) && !CAMPAIGN_LOG_EXCLUDE.has(f))
+		.map((f) => {
+			const sc = logProducerName(f);
+			return { id: f, label: CAMPAIGN_LOG_LABELS[f] ?? titleize(f), ...(sc ? { note: `Recorded in ${sc}` } : {}) };
+		})
+		.sort((a, b) => a.label.localeCompare(b.label));
+
+	// Scenarios with time-based difficulty levels, and their selectable levels.
+	const levels: Record<string, CatalogEntry[]> = {};
+	const levelScenarios: CatalogEntry[] = [];
+	for (const [id, s] of Object.entries(db.scenarios)) {
+		const tiers = s.time_tiers;
+		if (!tiers || tiers.length === 0) continue;
+		levelScenarios.push({ id, label: s.name });
+		levels[id] = tiers.map((t, i) => ({ id: String(i + 1), label: `Lv. ${i + 1}/${tiers.length} — ${t.label}` }));
+	}
+	levelScenarios.sort((a, b) => a.label.localeCompare(b.label));
+
 	_catalog = {
 		achievements: db.achievements
 			.filter((a) => a.planning !== false)
@@ -99,9 +161,14 @@ export function catalog(): SolverCatalog {
 			.map(([id, c]) => ({ id, label: c.label }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
 		allies: db.allies
-			.filter((a) => a.deck_asset)
+			// Foundation Intel is a temporary liability from the Special Delivery quest, not a recruitable
+			// deck ally — it's exposed via the `special_delivery` constraint instead.
+			.filter((a) => a.deck_asset && a.id !== 'foundation_intel')
 			.map((a) => ({ id: a.id, label: a.name }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
+		campaignLogs,
+		levelScenarios,
+		levels,
 		sideStories,
 		nodes: db.locations.map((l) => ({ id: l.id, label: l.name })).sort((a, b) => a.label.localeCompare(b.label)),
 		resolutions,

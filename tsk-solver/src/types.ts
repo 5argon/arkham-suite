@@ -369,10 +369,19 @@ export type Constraint = ConstraintBase &
 		| { kind: 'visit_scenario'; scenario: ScenarioId }
 		| { kind: 'scenario_resolution'; scenario: ScenarioId; resolution: ResId }
 		| { kind: 'scenario_version'; scenario: ScenarioId; version: string }
+		// Play a scenario at a specific time-based difficulty "level" (1-based index into its time tiers,
+		// e.g. Lv.4 Dealings in the Dark) — the solver times the visit into that tier's entry window.
+		| { kind: 'scenario_level'; scenario: ScenarioId; level: number }
 		| { kind: 'get_key'; key: KeyId; bearer?: 'investigator' }
 		| { kind: 'recruit_ally'; ally: AllyId }
 		| { kind: 'achievement'; id: AchievementId }
 		| { kind: 'narrative_chain'; id: ChainId }
+		// Obtain a specific campaign-log entry (e.g. "Aliki is on your side"); the solver routes to a
+		// scenario/resolution that sets it, pulling in any prerequisites.
+		| { kind: 'campaign_log'; flag: FlagId }
+		// Run the Special Delivery questline: receive the Foundation Intel, then deliver it (upgrading a
+		// chaos token). The intel is a temporary liability, not a deck ally.
+		| { kind: 'special_delivery' }
 		| { kind: 'visit_node'; node: NodeId }
 		| { kind: 'play_side_story'; sideStory: string }
 		| { kind: 'avoid_scenario'; scenario: ScenarioId }

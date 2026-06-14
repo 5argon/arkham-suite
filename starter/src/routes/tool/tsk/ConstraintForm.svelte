@@ -24,8 +24,10 @@
 				return cat.scenarios;
 			case 'scenario_version':
 				return cat.versionedScenarios;
-			case 'narrative_chain':
-				return cat.narrativeChains;
+			case 'scenario_level':
+				return cat.levelScenarios;
+			case 'campaign_log':
+				return cat.campaignLogs;
 			case 'recruit_ally':
 				return cat.allies;
 			case 'side_story':
@@ -46,6 +48,8 @@
 			value: r.id,
 			label: r.note ? `${r.id} — ${r.note.slice(0, 60)}` : r.id,
 		}));
+	const levelOptions = (scenario: string): Option<number>[] =>
+		(cat.levels[scenario] ?? []).map((l) => ({ value: Number(l.id), label: l.label }));
 	const versionOptions = (scenario: string): Option<string>[] =>
 		(cat.versions[scenario] ?? []).map((v) => ({
 			value: v.id,
@@ -63,6 +67,7 @@
 		r.target = entriesFor(r.category)[0]?.id ?? '';
 		r.resolution = cat.resolutions[r.target]?.[0]?.id ?? 'R1';
 		r.version = cat.versions[r.target]?.[0]?.id ?? 'v1';
+		r.level = Number(cat.levels[r.target]?.[0]?.id ?? 1);
 		r.bearer = false;
 		rows = rows;
 	}
@@ -70,6 +75,7 @@
 		const r = rows[i]!;
 		r.resolution = cat.resolutions[r.target]?.[0]?.id ?? 'R1';
 		r.version = cat.versions[r.target]?.[0]?.id ?? 'v1';
+		r.level = Number(cat.levels[r.target]?.[0]?.id ?? 1);
 		rows = rows;
 	}
 	function addRow() {
@@ -148,6 +154,11 @@
 			{#if row.category === 'scenario_version'}
 				<div class="min-w-64">
 					<Dropdown bind:value={row.version} label="Version" options={versionOptions(row.target)} />
+				</div>
+			{/if}
+			{#if row.category === 'scenario_level'}
+				<div class="min-w-72 grow">
+					<Dropdown bind:value={row.level} label="Level" options={levelOptions(row.target)} />
 				</div>
 			{/if}
 			{#if row.category === 'reach_ending'}

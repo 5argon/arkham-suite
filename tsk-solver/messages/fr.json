@@ -31,5 +31,8 @@
 	"impossible_time": "Minimum time floor is {floor}, which exceeds the cap of {cap}.",
 	"impossible_scenarios": "{count} distinct keys require at least {count} scenarios, but the cap is {cap}: {keys}.",
 	"impossible_logical": "These constraints are mutually exclusive: {conflict}.",
-	"impossible_search_budget": "No route satisfying all constraints was found within the search budget — they may be jointly unsatisfiable, or too tight. Try removing or loosening some."
+	"impossible_search_budget": "No route satisfying all constraints was found within the search budget — they may be jointly unsatisfiable, or too tight. Try removing or loosening some.",
+	"reason_campaign_log": "Record the campaign log: {flag}.",
+	"reason_special_delivery": "Special Delivery: receive the Foundation Intel, then deliver it (upgrades a chaos token).",
+	"reason_scenario_level": "{scenario}: enter at difficulty level {level} (timed entry)."
 }

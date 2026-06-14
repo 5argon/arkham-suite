@@ -88,7 +88,12 @@ const SHORTHAND_ASSET: Record<string, string> = {
 };
 
 /** Routing flags the solver tracks and therefore enforces when required. */
-const TRACKED_FLAGS = new Set<FlagId>(['the_cell_is_off_mission', 'the_cell_met_dr_irawan']);
+const TRACKED_FLAGS = new Set<FlagId>([
+	'the_cell_is_off_mission',
+	'the_cell_met_dr_irawan',
+	// Special Delivery: you can only "deliver" intel after "receive"-ing it (enforces stop order).
+	'the_cell_is_delivering_intel',
+]);
 // Note: "knowing Amaranth's real name" (San Francisco intel) gates Dead Heat R3 in the data, but
 // is treated as a player-managed decision (not auto-routed), consistent with other in-play choices.
 

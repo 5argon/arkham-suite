@@ -122,11 +122,14 @@ export function solve(input: SolveInput): SolveOutput {
 
 	// 4. Search (ticket handled post-hoc to keep the hot loop small).
 	const tc = ticketConfig(prefs);
+	// Scenario-level (entry-time window) constraints force *slower* routes (enter a scenario late),
+	// which a time-minimizing A* reaches last — give those queries a larger state budget.
+	const hasEntryWindow = expanded.requirements.some((r) => r.entryTimeWindow !== undefined);
 	const allRoutes = search(expanded, {
 		...DEFAULT_SEARCH,
 		timeCap: effectiveCap,
 		scenarioCap: prefs.maxScenarios ?? 999,
-		maxStates: prefs.maxStates ?? DEFAULT_SEARCH.maxStates,
+		maxStates: prefs.maxStates ?? (hasEntryWindow ? DEFAULT_SEARCH.maxStates * 3 : DEFAULT_SEARCH.maxStates),
 		// Take-back insurance for the Zeta key theft (only routes that cross Zeta holding Keys are affected).
 		requiredTakeBack: prefs.keyTakeBackSites ?? 1,
 	});
@@ -177,7 +180,9 @@ export function solve(input: SolveInput): SolveOutput {
 	const fastestTime = Math.min(...routes.map((r) => r.finalState.timePassed));
 
 	const recipes: Recipe[] = selected.map((sr) => {
-		const route = optimizeTicket(sr.route, tc);
+		// The Expedited Ticket saves time, pulling later stops earlier — which would shift a scenario out
+		// of its requested difficulty (entry-time) window. Skip it when such a constraint is present.
+		const route = hasEntryWindow ? sr.route : optimizeTicket(sr.route, tc);
 		return buildRecipe(route, expanded, input.constraints, difficulty, prefs.respectOrder === true, orderedConstraintIndices, fastestTime);
 	});
 

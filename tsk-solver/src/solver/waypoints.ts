@@ -44,6 +44,9 @@ export interface Requirement {
 	constraintIndex: number;
 	/** When true, the recipe must name the exact resolution (resolutionRequired). */
 	specificResolution: boolean;
+	/** If set, the requirement is only satisfied when the node is ENTERED within this time window
+	 * (used by `scenario_level` to pin a scenario's time-based difficulty tier). */
+	entryTimeWindow?: { min?: number; max?: number };
 	reason?: LocalizedString;
 }
 
@@ -93,6 +96,13 @@ function keyCandidateNodes(key: KeyId, investigatorOnly: boolean): NodeId[] {
 		}
 	}
 	return [...nodes].sort();
+}
+
+/** Nodes whose stop options produce a given flag (excluding time-based status-report producers). */
+function flagProducerNodes(flag: FlagId): NodeId[] {
+	return [
+		...new Set((flagProducers().get(flag) ?? []).filter((p) => !p.optionId.startsWith('status:')).map((p) => p.node)),
+	].sort();
 }
 
 /** Map an ally to its recruitment node candidates. */
@@ -324,6 +334,73 @@ export function expandConstraints(constraints: Constraint[]): ExpandedConstraint
 				expandNarrativeChain(constraint.id, index, requirements, relevantNodes, seen, goalTokens);
 				break;
 			}
+			case 'scenario_level': {
+				// Pin the scenario's time-based difficulty tier by constraining its ENTRY time to that
+				// tier's window. Level is 1-based into time_tiers (ascending maxTime; null = open-ended).
+				const node = scenarioLocation(constraint.scenario);
+				const tiers = getScenario(constraint.scenario)?.time_tiers;
+				if (node && tiers && tiers.length > 0 && constraint.level >= 1 && constraint.level <= tiers.length) {
+					const L = constraint.level;
+					const min = L > 1 ? (tiers[L - 2]!.maxTime ?? 0) + 1 : undefined;
+					const max = tiers[L - 1]!.maxTime ?? undefined;
+					requirements.push({
+						id: `scenario_level:${constraint.scenario}:${L}`,
+						nodes: [node],
+						match: { type: 'visit_node' },
+						constraintIndex: index,
+						specificResolution: false,
+						entryTimeWindow: { min, max },
+						reason: reason('reason_scenario_level', { scenario: constraint.scenario, level: L }),
+					});
+					markRelevantWithPrereqs([node], requirements, relevantNodes, seen);
+				}
+				break;
+			}
+			case 'campaign_log': {
+				// Route to any scenario/resolution that records this campaign-log entry (e.g. "Aliki is on
+				// your side"), pulling in the prerequisites of that producer.
+				const nodes = flagProducerNodes(constraint.flag);
+				if (nodes.length > 0) {
+					requirements.push({
+						id: `campaign_log:${constraint.flag}`,
+						nodes,
+						match: { type: 'flag', flag: constraint.flag },
+						constraintIndex: index,
+						specificResolution: false,
+						reason: reason('reason_campaign_log', { flag: constraint.flag }),
+					});
+					markRelevantWithPrereqs(nodes, requirements, relevantNodes, seen);
+				}
+				break;
+			}
+			case 'special_delivery': {
+				// The Special Delivery questline: receive the Foundation Intel, then deliver it (upgrading a
+				// chaos token). `deliver` requires the intel, so the search routes receive→deliver in order.
+				const nodes = loadDatabase()
+					.locations.filter((l) => l.scenario_id === 'special_delivery')
+					.map((l) => l.id)
+					.sort();
+				if (nodes.length > 0) {
+					requirements.push({
+						id: 'special_delivery:receive',
+						nodes,
+						match: { type: 'flag', flag: 'the_cell_is_delivering_intel' },
+						constraintIndex: index,
+						specificResolution: false,
+						reason: reason('reason_special_delivery', {}),
+					});
+					requirements.push({
+						id: 'special_delivery:deliver',
+						nodes,
+						match: { type: 'resolution', resolution: 'deliver' },
+						constraintIndex: index,
+						specificResolution: true,
+						reason: reason('reason_special_delivery', {}),
+					});
+					markRelevantWithPrereqs(nodes, requirements, relevantNodes, seen);
+				}
+				break;
+			}
 			case 'visit_node': {
 				requirements.push({
 					id: `visit_node:${constraint.node}`,
@@ -456,6 +533,9 @@ function expandNegation(constraint: Constraint, forbidden: Set<NodeId>, checks: 
 			break;
 		case 'recruit_ally':
 			checks.push({ kind: 'ally', ally: constraint.ally });
+			break;
+		case 'campaign_log':
+			checks.push({ kind: 'flag', flag: constraint.flag });
 			break;
 		case 'play_side_story': {
 			const node = sideStoryProductNode(constraint.sideStory);
@@ -606,11 +686,7 @@ function expandTrialPlan(
 	const plan = trialPlan(branch);
 	if (!plan) return;
 	for (const flag of plan.required) {
-		const nodes = [
-			...new Set(
-				(flagProducers().get(flag) ?? []).filter((p) => !p.optionId.startsWith('status:')).map((p) => p.node),
-			),
-		].sort();
+		const nodes = flagProducerNodes(flag);
 		if (nodes.length === 0) continue;
 		out.push({
 			id: `trial:${branch}:require:${flag}`,

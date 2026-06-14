@@ -330,6 +330,9 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 			if (Number.isFinite(best)) h = Math.max(h, best);
 			const fn = forcedNodeOfReq[i];
 			if (fn != null && fn !== s.node && !unmet.includes(fn)) unmet.push(fn);
+			// A scenario-level window with a minimum entry time forces the clock at least that high.
+			const min = requirements[i]!.entryTimeWindow?.min;
+			if (min !== undefined && min - s.timePassed > h) h = min - s.timePassed;
 		}
 		h = Math.max(h, mstLowerBound(s.node, unmet));
 		return h;
@@ -390,6 +393,21 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 				if (cur.depth === 0 && !option.isPrologue) continue; // first move is always the prologue
 				if (!requiresSatisfied(option.requires, cur.state)) continue;
 
+					// Entry time = clock on arrival, before the stop's own time (drives scenario-level windows).
+					const entryTime = cur.state.timePassed + travelCost;
+					// Don't spend the single allowed stop at a scenario-level node before its window opens —
+					// skip now so a later, in-window visit stays possible (else the node locks out unsatisfied).
+					let beforeWindow = false;
+					for (let i = 0; i < requirements.length; i++) {
+						if (cur.satisfiedMask & (1 << i)) continue;
+						const min = requirements[i]!.entryTimeWindow?.min;
+						if (min !== undefined && entryTime < min && requirements[i]!.nodes.includes(target) && optionMatches(option, requirements[i]!.match)) {
+							beforeWindow = true;
+							break;
+						}
+					}
+					if (beforeWindow) continue;
+
 				const { state: nextState, firedReports } = applyStop(cur.state, option, travelCost);
 				if (nextState.timePassed > config.timeCap) continue;
 				const scenarioCount = cur.scenarioCount + (isCombatScenarioNode(target) ? 1 : 0);
@@ -399,7 +417,10 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 				for (let i = 0; i < requirements.length; i++) {
 					if (satisfiedMask & (1 << i)) continue;
 					const req = requirements[i]!;
-					if (req.nodes.includes(target) && optionMatches(option, req.match)) satisfiedMask |= 1 << i;
+					if (!req.nodes.includes(target) || !optionMatches(option, req.match)) continue;
+						const w = req.entryTimeWindow;
+						if (w && ((w.min !== undefined && entryTime < w.min) || (w.max !== undefined && entryTime > w.max))) continue;
+						satisfiedMask |= 1 << i;
 				}
 
 				// Theft: crossing the Zeta box while holding an investigator Key triggers a take-back need.

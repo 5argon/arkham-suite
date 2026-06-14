@@ -32,9 +32,11 @@ export type CategoryId =
 	| 'visit_scenario'
 	| 'scenario_resolution'
 	| 'scenario_version'
-	| 'narrative_chain'
+	| 'scenario_level'
+	| 'campaign_log'
 	| 'recruit_ally'
 	| 'side_story'
+	| 'special_delivery'
 	| 'visit_node'
 	| 'reach_ending'
 	| 'chaos_mix'
@@ -47,9 +49,11 @@ export const CATEGORY_LABELS: { value: CategoryId; label: string }[] = [
 	{ value: 'visit_scenario', label: 'Play a Scenario' },
 	{ value: 'scenario_resolution', label: 'Scenario — Resolution' },
 	{ value: 'scenario_version', label: 'Scenario — Version' },
-	{ value: 'narrative_chain', label: 'Narrative Chain' },
+	{ value: 'scenario_level', label: 'Scenario — Level (time tier)' },
+	{ value: 'campaign_log', label: 'Campaign Log Entry' },
 	{ value: 'recruit_ally', label: 'Recruit an Ally' },
 	{ value: 'side_story', label: 'Side Story' },
+	{ value: 'special_delivery', label: 'Special Delivery (deliver intel)' },
 	{ value: 'visit_node', label: 'Visit a Location' },
 	{ value: 'reach_ending', label: 'Finale Outcome (Trial)' },
 	{ value: 'chaos_mix', label: 'Chaos Token Mix' },
@@ -58,7 +62,13 @@ export const CATEGORY_LABELS: { value: CategoryId; label: string }[] = [
 ];
 
 /** Categories that need no entity "target" dropdown. */
-export const TARGETLESS: CategoryId[] = ['reach_ending', 'chaos_mix', 'chaos_overflow_xp', 'chaos_balanced'];
+export const TARGETLESS: CategoryId[] = [
+	'special_delivery',
+	'reach_ending',
+	'chaos_mix',
+	'chaos_overflow_xp',
+	'chaos_balanced',
+];
 
 /** Editable form representation of one constraint (decoupled from the discriminated union). */
 export interface RowModel {
@@ -66,6 +76,7 @@ export interface RowModel {
 	target: string;
 	resolution: string;
 	version: string;
+	level: number;
 	negate: boolean;
 	bearer: boolean;
 	trial: string;
@@ -75,7 +86,7 @@ export interface RowModel {
 }
 
 export function newRow(category: CategoryId = 'achievement', target = ''): RowModel {
-	return { category, target, resolution: 'R1', version: 'v1', negate: false, bearer: false, trial: 'trial_3', tablet: 4, elderThing: 0, overflowMin: 2 };
+	return { category, target, resolution: 'R1', version: 'v1', level: 1, negate: false, bearer: false, trial: 'trial_3', tablet: 4, elderThing: 0, overflowMin: 2 };
 }
 
 /** Convert an editable row to a solver `Constraint` (null if incomplete). */
@@ -89,6 +100,8 @@ export function toConstraint(r: RowModel): Constraint | null {
 			return { kind: 'chaos_overflow_xp', min: r.overflowMin };
 		case 'chaos_balanced':
 			return { kind: 'chaos_balanced' };
+		case 'special_delivery':
+			return { kind: 'special_delivery' };
 	}
 	if (!r.target) return null;
 	const negate = r.negate;
@@ -103,8 +116,10 @@ export function toConstraint(r: RowModel): Constraint | null {
 			return { kind: 'scenario_resolution', scenario: r.target, resolution: r.resolution, negate };
 		case 'scenario_version':
 			return { kind: 'scenario_version', scenario: r.target, version: r.version, negate };
-		case 'narrative_chain':
-			return { kind: 'narrative_chain', id: r.target, negate };
+		case 'scenario_level':
+			return { kind: 'scenario_level', scenario: r.target, level: r.level };
+		case 'campaign_log':
+			return { kind: 'campaign_log', flag: r.target, negate };
 		case 'recruit_ally':
 			return { kind: 'recruit_ally', ally: r.target, negate };
 		case 'side_story':
@@ -132,10 +147,14 @@ export function rowFromConstraint(c: Constraint): RowModel {
 			return { ...base, category: 'scenario_resolution', target: c.scenario, resolution: c.resolution };
 		case 'scenario_version':
 			return { ...base, category: 'scenario_version', target: c.scenario, version: c.version };
-		case 'narrative_chain':
-			return { ...base, category: 'narrative_chain', target: c.id };
+		case 'scenario_level':
+			return { ...base, category: 'scenario_level', target: c.scenario, level: c.level };
+		case 'campaign_log':
+			return { ...base, category: 'campaign_log', target: c.flag };
 		case 'recruit_ally':
 			return { ...base, category: 'recruit_ally', target: c.ally };
+		case 'special_delivery':
+			return { ...base, category: 'special_delivery' };
 		case 'play_side_story':
 			return { ...base, category: 'side_story', target: c.sideStory };
 		case 'visit_node':
@@ -222,6 +241,8 @@ export function constraintLabel(c: Constraint): string {
 			return `${not}${labelFor(c.scenario)} — Resolution ${c.resolution}`;
 		case 'scenario_version':
 			return `${not}${labelFor(c.scenario)} — version ${c.version}`;
+		case 'scenario_level':
+			return `${not}${labelFor(c.scenario)} — Lv. ${c.level}`;
 		case 'get_key':
 			return `${not}Obtain ${labelFor(c.key)}${c.bearer === 'investigator' ? ' (held by you)' : ''}`;
 		case 'recruit_ally':
@@ -230,6 +251,10 @@ export function constraintLabel(c: Constraint): string {
 			return `${not}Achievement: ${labelFor(c.id)}`;
 		case 'narrative_chain':
 			return `${not}Chain: ${labelFor(c.id)}`;
+		case 'campaign_log':
+			return `${not}Campaign log: ${labelFor(c.flag)}`;
+		case 'special_delivery':
+			return 'Special Delivery (deliver intel)';
 		case 'visit_node':
 			return `${not}Visit ${labelFor(c.node)}`;
 		case 'play_side_story':
