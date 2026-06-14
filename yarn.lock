@@ -163,6 +163,7 @@ __metadata:
     "@5argon/arkham-kohaku": "workspace:*"
     "@5argon/arkham-life-ui": "workspace:*"
     "@5argon/arkham-string": "workspace:*"
+    "@5argon/arkham-tsk-solver": "workspace:*"
     "@eslint/compat": "npm:^2.0.2"
     "@eslint/js": "npm:^9.39.2"
     "@fontsource/fira-mono": "npm:^5.2.7"
@@ -243,6 +244,17 @@ __metadata:
     eslint: "npm:^9.39.2"
     prettier: "npm:^3.8.1"
     typescript: "npm:^5.9.3"
+  languageName: unknown
+  linkType: soft
+
+"@5argon/arkham-tsk-solver@workspace:*, @5argon/arkham-tsk-solver@workspace:tsk-solver":
+  version: 0.0.0-use.local
+  resolution: "@5argon/arkham-tsk-solver@workspace:tsk-solver"
+  dependencies:
+    "@inlang/paraglide-js": "npm:2.11.0"
+    "@types/node": "npm:^25.2.3"
+    typescript: "npm:^5.9.3"
+    vitest: "npm:^4.0.18"
   languageName: unknown
   linkType: soft
 

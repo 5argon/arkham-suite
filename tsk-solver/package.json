@@ -1,0 +1,35 @@
+{
+  "name": "@5argon/arkham-tsk-solver",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Framework-agnostic solver for optimal campaign routes in Arkham Horror LCG: The Scarlet Keys.",
+  "scripts": {
+    "paraglide": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
+    "copy-data": "node -e \"require('fs').copyFileSync('src/data/tsk_database.json','dist/data/tsk_database.json')\"",
+    "build": "tsc -b && npm run copy-data",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json}\"",
+    "prepare": "npm run paraglide && npm run build"
+  },
+  "dependencies": {
+    "@inlang/paraglide-js": "2.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ]
+}

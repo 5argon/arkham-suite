@@ -58,9 +58,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@5argon/arkham-icon": "workspace:*",
 		"@5argon/arkham-kohaku": "workspace:*",
 		"@5argon/arkham-life-ui": "workspace:*",
 		"@5argon/arkham-string": "workspace:*",
+		"@5argon/arkham-tsk-solver": "workspace:*",
 		"@fontsource/fira-mono": "^5.2.7",
 		"@inlang/paraglide-js": "^2.10.0",
 		"@lukeed/uuid": "^2.0.1",
