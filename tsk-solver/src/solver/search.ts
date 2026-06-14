@@ -93,12 +93,13 @@ export interface SearchConfig {
 }
 
 export const DEFAULT_SEARCH: Omit<SearchConfig, 'timeCap' | 'scenarioCap'> = {
-	// Collect a broad pool of goals to diversify across scenario-count buckets, while staying
-	// responsive (the two passes + state cap bound total work). The MST heuristic guides hard,
-	// heavily-constrained queries to a goal quickly, so a smaller state cap keeps recall while
-	// roughly halving worst-case latency. Callers can raise via prefs.
+	// Collect a broad pool of goals to diversify across scenario-count buckets. The MST heuristic
+	// makes heavily-constrained queries reach a goal in far fewer states; this budget is sized for
+	// the harder direction — UNDER-constrained queries (a single flag/log) that must pad time to
+	// unlock the finale and have a large open frontier. The solver runs in a Web Worker, so this
+	// latency never freezes the UI. Callers can raise via prefs.
 	goalLimit: 150,
-	maxStates: 20000,
+	maxStates: 38000,
 	maxDepth: 15,
 };
 

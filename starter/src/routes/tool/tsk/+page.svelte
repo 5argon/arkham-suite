@@ -5,7 +5,7 @@
 	import { resolve } from '$app/paths';
 	import { onDestroy } from 'svelte';
 	import { Button, MarginFull, MarginText, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
-	import { resolveLocalized, solve, type Constraint, type Recipe, type SolveOutput } from '@5argon/arkham-tsk-solver';
+	import { resolveLocalized, solve, type Constraint, type Recipe, type SolveInput, type SolveOutput } from '@5argon/arkham-tsk-solver';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import ConstraintForm from './ConstraintForm.svelte';
 	import RecipeDetail from './RecipeDetail.svelte';
@@ -89,7 +89,7 @@
 	// solve if workers are unavailable.
 	let worker: Worker | null = null;
 	let reqId = 0;
-	let inflight: { id: number; updateURL: boolean; state: SolverShareState } | null = null;
+	let inflight: { id: number; updateURL: boolean; state: SolverShareState; input: SolveInput } | null = null;
 
 	function finishSolve(id: number, out: SolveOutput) {
 		if (!inflight || inflight.id !== id) return; // superseded by a newer request
@@ -99,15 +99,20 @@
 		inflight = null;
 	}
 
+	/** Worker died/failed to load: finish the pending request synchronously so the UI never hangs. */
+	function recoverFromWorkerFailure() {
+		worker = null;
+		const f = inflight;
+		if (f) setTimeout(() => finishSolve(f.id, solve(f.input)), 0);
+	}
+
 	function getWorker(): Worker | null {
 		if (!browser) return null;
 		if (worker) return worker;
 		try {
 			worker = new Worker(new URL('./solver.worker.ts', import.meta.url), { type: 'module' });
 			worker.onmessage = (e: MessageEvent<{ id: number; result: SolveOutput }>) => finishSolve(e.data.id, e.data.result);
-			worker.onerror = () => {
-				worker = null; // drop it; subsequent solves fall back to synchronous
-			};
+			worker.onerror = recoverFromWorkerFailure;
 		} catch {
 			worker = null;
 		}
@@ -117,9 +122,12 @@
 	function runSolve(updateURL = true) {
 		solving = true;
 		selectedIndex = null;
-		const input = { constraints: $state.snapshot(constraints), preferences: $state.snapshot(preferences) };
+		const input: SolveInput = {
+			constraints: $state.snapshot(constraints) as Constraint[],
+			preferences: $state.snapshot(preferences) as UiPreferences,
+		};
 		const id = ++reqId;
-		inflight = { id, updateURL, state: inputState() };
+		inflight = { id, updateURL, state: inputState(), input };
 		const w = getWorker();
 		if (w) {
 			w.postMessage({ id, input });

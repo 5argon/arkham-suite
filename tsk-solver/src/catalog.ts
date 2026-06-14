@@ -54,8 +54,18 @@ const CAMPAIGN_LOG_LABELS: Record<string, string> = {
 	the_cell_knows_the_true_nature_of_the_coterie: "Uncover the Coterie's true nature",
 };
 
-/** Internal/temporary logs that aren't meaningful planning targets on their own. */
-const CAMPAIGN_LOG_EXCLUDE = new Set<string>(['the_cell_is_delivering_intel']);
+/**
+ * Logs not offered as planning targets: internal/temporary, or conditional/failure-state entries
+ * that aren't routable on a straightforward winning plan (verified by a recall sweep). (Logs whose
+ * only producers are LOSE_CAMPAIGN resolutions are filtered out separately, data-driven.)
+ */
+const CAMPAIGN_LOG_EXCLUDE = new Set<string>([
+	'the_cell_is_delivering_intel', // temporary; the Special Delivery constraint handles it
+	'the_cell_is_off_mission', // needs the whistle questline (an option prerequisite, not auto-routed)
+	'agent_flint_is_missing', // needs a specific psi-marker timing window
+	'agent_quinn_vanished_from_existence', // needs entering Ringing Hollow at time >= 20
+	'the_foundation_remains_in_the_dark', // a "didn't deliver the intel" failure outcome
+]);
 
 /** The Trial-1 vote outcomes (guide §"Trial Outcomes"; see derbk "Scarlet Politics"). */
 const TRIALS: CatalogEntry[] = [
@@ -123,11 +133,13 @@ export function catalog(): SolverCatalog {
 		}
 		return undefined;
 	};
-	// Every campaign-log entry a scenario/interlude records (excluding unlock codes, deck assets, and
-	// internal/temporary flags). Well-known ones get a friendly label; the rest are titleized.
+	// Every campaign-log entry a scenario/interlude records on a WINNING path (logs produced only by
+	// LOSE_CAMPAIGN resolutions are dropped), excluding unlock codes, deck assets, and the explicit
+	// exclude set. Well-known ones get a friendly label; the rest are titleized.
 	const assetIds = new Set(db.allies.map((a) => a.id));
 	const logFlags = new Set<string>();
-	for (const s of Object.values(db.scenarios)) for (const r of s.resolutions) for (const f of r.logs ?? []) logFlags.add(f);
+	for (const s of Object.values(db.scenarios))
+		for (const r of s.resolutions) if (r.outcome !== 'LOSE_CAMPAIGN') for (const f of r.logs ?? []) logFlags.add(f);
 	for (const it of Object.values(db.interludes))
 		for (const o of it.outcomes ?? it.options ?? []) for (const f of o.logs ?? []) logFlags.add(f);
 	const campaignLogs: CatalogEntry[] = [...logFlags]
