@@ -91,23 +91,34 @@ export function selectByScenarioCount(routes: RawRoute[], opts: DiversityOptions
 		}
 		// Then farthest-first on the SCENARIO set so the kept cards show varied icons: take the cheapest
 		// route, then repeatedly the one whose scenario set is most different from those already kept.
+		// Cap how many routes share an identical scenario set (same icons) so a bucket whose scenarios
+		// are structurally fixed — e.g. the minimum count = constraint + prologue + finale — doesn't fill
+		// with near-duplicate cards.
+		const MAX_SAME_SET = 2;
+		const setSig = (u: (typeof unique)[number]) => [...u.scen].sort().join(',');
+		const setCount = new Map<string, number>();
 		const kept: typeof unique = [];
-		if (unique.length > 0) kept.push(unique[0]!); // cheapest representative
-		while (kept.length < opts.perBucket && kept.length < unique.length) {
+		const add = (u: (typeof unique)[number]): void => {
+			kept.push(u);
+			setCount.set(setSig(u), (setCount.get(setSig(u)) ?? 0) + 1);
+		};
+		if (unique.length > 0) add(unique[0]!); // cheapest representative
+		while (kept.length < opts.perBucket) {
 			let best = -1;
 			let bestScore = -1;
 			for (let i = 0; i < unique.length; i++) {
-				if (kept.includes(unique[i]!)) continue;
+				const u = unique[i]!;
+				if (kept.includes(u) || (setCount.get(setSig(u)) ?? 0) >= MAX_SAME_SET) continue;
 				// Distance to the nearest already-kept route's scenario set (1 - Jaccard); higher = more varied.
 				let minDist = Infinity;
-				for (const k of kept) minDist = Math.min(minDist, 1 - jaccard(k.scen, unique[i]!.scen));
+				for (const k of kept) minDist = Math.min(minDist, 1 - jaccard(k.scen, u.scen));
 				if (minDist > bestScore) {
 					bestScore = minDist; // ties keep the earlier (cheaper) candidate — deterministic
 					best = i;
 				}
 			}
 			if (best < 0) break;
-			kept.push(unique[best]!);
+			add(unique[best]!);
 		}
 		perBucketSelected.set(
 			count,

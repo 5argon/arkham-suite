@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button } from '@5argon/arkham-life-ui';
 	import { labelFor, resolveRecipe, type Locale, type Recipe } from '@5argon/arkham-tsk-solver';
-	import { stepIcon, stepTitle } from './helpers';
+	import { scenarioIconItems, stepIcon, stepTitle } from './helpers';
 	import ScenarioIcons from './ScenarioIcons.svelte';
 
 	interface Props {
@@ -32,7 +32,7 @@
 			<div class="font-heading text-2xl text-primary-900 dark:text-primary-100">
 				{recipe.scenarioCount} scenarios · {recipe.totalTime} time
 			</div>
-			<div class="mt-1"><ScenarioIcons scenarios={recipe.playedScenarios} size="1.5rem" /></div>
+			<div class="mt-1"><ScenarioIcons items={scenarioIconItems(recipe)} size="1.75rem" /></div>
 		</div>
 		<div class="flex gap-2">
 			<Button label={copied ? 'Link copied!' : 'Share this recipe'} onClick={share} highlighted />

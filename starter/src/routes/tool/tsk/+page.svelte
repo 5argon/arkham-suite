@@ -10,7 +10,7 @@
 	import ConstraintForm from './ConstraintForm.svelte';
 	import RecipeDetail from './RecipeDetail.svelte';
 	import ScenarioIcons from './ScenarioIcons.svelte';
-	import { DEFAULT_PREFS, rowFromConstraint, toConstraint, type RowModel, type UiPreferences } from './helpers';
+	import { DEFAULT_PREFS, rowFromConstraint, scenarioIconItems, toConstraint, type RowModel, type UiPreferences } from './helpers';
 	import { decodeState, encodeState, type SolverShareState } from './codec';
 
 	let revealed = $state(false);
@@ -226,18 +226,18 @@
 										class="rounded-lg border border-primary-200 dark:border-primary-800 p-4 text-left transition hover:border-secondary-500 hover:shadow-md"
 										onclick={() => openRecipe(index)}
 									>
-										<div class="mb-2"><ScenarioIcons scenarios={recipe.playedScenarios} /></div>
-										<div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-primary-600 dark:text-primary-300">
-											<span class="rounded bg-primary-100 px-2 py-0.5 dark:bg-primary-900">{recipe.totalTime} time</span>
+										<div class="mb-3"><ScenarioIcons items={scenarioIconItems(recipe)} /></div>
+										<div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm text-primary-600 dark:text-primary-300">
+											<span class="rounded bg-primary-100 px-2 py-0.5 font-medium text-primary-700 dark:bg-primary-800 dark:text-primary-200">{recipe.totalTime} time</span>
 											<span>{recipe.keysHeld.length} keys</span>
-											{#if recipe.bonusXp > 0}<span class="text-rogue-600 dark:text-rogue-400">+{recipe.bonusXp} XP</span>{/if}
+											{#if recipe.bonusXp > 0}<span class="font-semibold text-secondary-700 dark:text-secondary-300">+{recipe.bonusXp} XP</span>{/if}
 											<span>Trust {recipe.trust} / Decep {recipe.deception}</span>
 											{#if recipe.earnableAchievements.length}<span>{recipe.earnableAchievements.length} achievements</span>{/if}
 										</div>
 										{#if recipe.freebies.length}
-											<div class="mt-1 text-xs text-rogue-600 dark:text-rogue-400">★ {recipe.freebies.map((f) => resolveLocalized(f, locale)).join(' · ')}</div>
+											<div class="mt-1.5 text-xs text-primary-500 dark:text-primary-400">{recipe.freebies.map((f) => resolveLocalized(f, locale)).join(' · ')}</div>
 										{/if}
-										<div class="mt-2 text-xs text-secondary-600 dark:text-secondary-400">View full route →</div>
+										<div class="mt-2 text-xs font-medium text-secondary-600 dark:text-secondary-400">View full route →</div>
 									</button>
 								{/each}
 							</div>

@@ -1,16 +1,24 @@
 <script lang="ts">
 	import { EncounterSetIcon } from '@5argon/arkham-icon';
 	import { labelFor } from '@5argon/arkham-tsk-solver';
-	import { scenarioEncounterSet } from './helpers';
+	import { scenarioEncounterSet, type ScenarioIconItem } from './helpers';
 
-	let { scenarios, size = '1.25rem' }: { scenarios: string[]; size?: string } = $props();
+	let { items, size = '1.6rem' }: { items: ScenarioIconItem[]; size?: string } = $props();
 </script>
 
-<span class="inline-flex flex-wrap items-center gap-1.5 text-guardian-700 dark:text-guardian-300" style="font-size: {size}">
-	{#each scenarios as s, i (i)}
-		{@const es = scenarioEncounterSet(s)}
+<span class="inline-flex flex-wrap items-start gap-2.5" style="font-size: {size}">
+	{#each items as it, i (i)}
+		{@const es = scenarioEncounterSet(it.scenario)}
 		{#if es}
-			<span class="leading-none" title={labelFor(s)}><EncounterSetIcon encounterSet={es} /></span>
+			<span
+				class="inline-flex flex-col items-center leading-none text-primary-700 dark:text-primary-200"
+				title={labelFor(it.scenario)}
+			>
+				<EncounterSetIcon encounterSet={es} />
+				<span class="mt-0.5 text-[0.5em] font-semibold tabular-nums text-primary-400 dark:text-primary-500">
+					{it.badge ?? ' '}
+				</span>
+			</span>
 		{/if}
 	{/each}
 </span>

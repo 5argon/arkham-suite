@@ -163,12 +163,13 @@ function paddedHighCountRoutes(
 	const pad = paddingCandidates(expanded);
 	if (pad.length === 0) return [];
 	const out: RawRoute[] = [];
-	const PER_SIZE = 3; // subsets per added-scenario count (the diversity step then picks the varied ones)
-	// Forcing `size` scenarios produces ~(3 + size) total (prologue + forced + finale); start just above
-	// the base search's reach so every padded search contributes a genuinely higher count. Each forced
-	// search is cheap — its lean candidate set is tiny (just the constraint + the forced subset).
-	const startSize = Math.max(1, baseMax - 2);
-	let budget = 10; // total forced searches; each is a single cheap lean pass
+	const PER_SIZE = 4; // subsets per added-scenario count (the diversity step then picks the varied ones)
+	// Forcing `size` scenarios produces ~(3 + size) total (prologue + forced + finale). Start one count
+	// below the base search's reach so the highest base bucket — which the time-minimizing base often
+	// under-fills with distinct scenario sets — gets topped up with varied sets too. Each forced search
+	// is cheap: its lean candidate set is tiny (just the constraint + the forced subset).
+	const startSize = Math.max(1, baseMax - 3);
+	let budget = 14; // total forced searches; each is a single cheap lean pass
 	for (let size = startSize; size <= pad.length && budget > 0; size++) {
 		for (const subset of combinations(pad, size, PER_SIZE)) {
 			if (budget-- <= 0) break;

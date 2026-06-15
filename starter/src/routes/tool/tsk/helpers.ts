@@ -1,6 +1,23 @@
 import { labelFor } from '@5argon/arkham-tsk-solver';
-import type { ResolvedStep, Constraint, Difficulty, Locale } from '@5argon/arkham-tsk-solver';
+import type { ResolvedStep, Constraint, Difficulty, Locale, Recipe } from '@5argon/arkham-tsk-solver';
 import { type EncounterSet, getScenarioData, Scenario } from '@5argon/arkham-kohaku';
+
+/** One scenario icon on a recipe card: the encounter-set id + an optional short level/version badge. */
+export interface ScenarioIconItem {
+	scenario: string;
+	/** Short overview badge, e.g. "L3" (time-tier difficulty level) — shown under the icon. */
+	badge?: string;
+}
+
+/** The scenarios a recipe plays, in order, each tagged with the difficulty level it's entered at. */
+export function scenarioIconItems(recipe: Recipe): ScenarioIconItem[] {
+	return recipe.steps
+		.filter((s) => s.type === 'play' || s.type === 'finale')
+		.map((s) => {
+			const level = s.scenarioLevel?.params?.level;
+			return { scenario: s.scenario ?? '', badge: level != null ? `L${level}` : undefined };
+		});
+}
 
 /** Preferences with the form-bound fields non-optional (assignable to SolvePreferences). */
 export interface UiPreferences {
