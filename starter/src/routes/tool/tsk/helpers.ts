@@ -15,7 +15,8 @@ export function scenarioIconItems(recipe: Recipe): ScenarioIconItem[] {
 		.filter((s) => s.type === 'play' || s.type === 'finale')
 		.map((s) => {
 			const level = s.scenarioLevel?.params?.level;
-			return { scenario: s.scenario ?? '', badge: level != null ? `L${level}` : undefined };
+			const total = s.scenarioLevel?.params?.total;
+			return { scenario: s.scenario ?? '', badge: level != null ? `Lv.${level}/${total}` : undefined };
 		});
 }
 
@@ -227,20 +228,21 @@ export function stepTitle(step: ResolvedStep): string {
 	}
 }
 
+/** Font Awesome (solid) icon class for a route step. */
 export function stepIcon(step: ResolvedStep): string {
 	switch (step.type) {
 		case 'travel':
-			return '→';
+			return 'fa-solid fa-plane';
 		case 'use_ticket':
-			return '✦';
+			return 'fa-solid fa-ticket';
 		case 'status_report':
-			return '⚠';
+			return 'fa-solid fa-triangle-exclamation';
 		case 'finale':
-			return '★';
+			return 'fa-solid fa-trophy';
 		case 'play':
-			return '⚔';
+			return 'fa-solid fa-skull';
 		case 'stop':
-			return '◆';
+			return 'fa-solid fa-location-dot';
 	}
 }
 

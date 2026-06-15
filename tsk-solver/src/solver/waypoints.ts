@@ -21,6 +21,7 @@ import type {
 } from '../types.js';
 import { getLocation } from '../data/load.js';
 import { ALL_FINALE_BRANCHES, finaleBranchGroup, trialPlan } from './trial.js';
+import { labelFor } from '../catalog.js';
 
 export type RequirementMatch =
 	| { type: 'visit_node' }
@@ -75,7 +76,15 @@ export interface ExpandedConstraints {
 	relevantNodes: Set<NodeId>;
 }
 
-const reason = (id: string, params: Record<string, string | number> = {}): LocalizedString => ({ id, params });
+/** Param keys whose value is a raw id and should be shown via its friendly label, not the code. */
+const HUMAN_PARAM_KEYS = new Set(['scenario', 'key', 'ally', 'node', 'flag', 'achievement', 'chain', 'branch']);
+const reason = (id: string, params: Record<string, string | number> = {}): LocalizedString => {
+	const out: Record<string, string | number> = {};
+	for (const [k, v] of Object.entries(params)) {
+		out[k] = HUMAN_PARAM_KEYS.has(k) && typeof v === 'string' ? labelFor(v) : v;
+	}
+	return { id, params: out };
+};
 
 /** Candidate nodes (and whether investigator-bearer is possible) for obtaining a key. */
 function keyCandidateNodes(key: KeyId, investigatorOnly: boolean): NodeId[] {

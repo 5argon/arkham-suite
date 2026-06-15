@@ -15,7 +15,7 @@
 				title={labelFor(it.scenario)}
 			>
 				<EncounterSetIcon encounterSet={es} />
-				<span class="mt-0.5 text-[0.5em] font-semibold tabular-nums text-primary-400 dark:text-primary-500">
+				<span class="mt-0.5 text-[0.42em] font-semibold tabular-nums text-primary-500 dark:text-primary-400">
 					{it.badge ?? ' '}
 				</span>
 			</span>
