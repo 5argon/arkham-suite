@@ -80,4 +80,5 @@ export enum FaIconType {
 	CloseModal,
 	ExternalLink,
 	Logout,
+	Map,
 }

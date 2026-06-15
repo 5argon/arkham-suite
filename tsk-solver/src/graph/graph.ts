@@ -1,70 +1,79 @@
 /**
- * Dynamic adjacency, BFS distance, and reachability on the *currently unlocked*
- * subgraph (README §2.3, §4.1).
+ * Dynamic adjacency, BFS distance, and reachability for travel.
  *
- * A locked node is absent from the graph — it can be neither stopped at nor passed
- * through — until its `unlock_condition` flag is present. Distances are therefore a
- * function of campaign state. We memoize per the frozen set of unlock flags so that
- * repeated queries during search are cheap, while staying perfectly deterministic.
+ * Two different gates apply to a location:
+ *  - **Stopping** (playing a file): a `locked` *or* `secret` node can't be stopped at until an
+ *    `unlock` effect adds it to `state.unlocked` (`isNodeUnlocked`). The start (London) is always
+ *    stoppable (its `locked` marker only gates the 27-H revisit).
+ *  - **Travelling through**: a `locked` node is *passable* — the cell may transit it (and pay time)
+ *    even before it's unlocked; only a `secret` node (the unrevealed Bermuda Triangle) blocks travel
+ *    until unlocked (`isPassable`). So the shortest-path graph excludes only hidden `secret` nodes.
+ * Distances are a function of which secret nodes are revealed; we memoize per that frozen set.
  */
 
-import { getLocation, loadDatabase, locationsById } from '../data/load.js';
-import type { FlagId, NodeId } from '../types.js';
+import { getLocation, locationIds, metadata } from '../data/load.js';
+import type { NodeId } from '../types.js';
 
-/** Flags that, when present, unlock one or more `status: "locked"` location nodes. */
-let _travelUnlockFlags: ReadonlySet<FlagId> | null = null;
-export function travelUnlockFlags(): ReadonlySet<FlagId> {
-	if (!_travelUnlockFlags) {
-		const flags = new Set<FlagId>();
-		for (const loc of loadDatabase().locations) {
-			if (loc.status === 'locked' && loc.unlock_condition) flags.add(loc.unlock_condition);
+/** Nodes that can't be STOPPED at until unlocked (`locked` or `secret`, except the start). */
+let _lockable: ReadonlySet<NodeId> | null = null;
+export function lockableNodes(): ReadonlySet<NodeId> {
+	if (!_lockable) {
+		const start = metadata().startLocation;
+		const set = new Set<NodeId>();
+		for (const id of locationIds()) {
+			const mt = getLocation(id).markerType;
+			if ((mt === 'locked' || mt === 'secret') && id !== start) set.add(id);
 		}
-		_travelUnlockFlags = flags;
+		_lockable = set;
 	}
-	return _travelUnlockFlags;
+	return _lockable;
 }
 
-const startNode = (): NodeId => loadDatabase().campaign_metadata.start_node;
-
-/**
- * Is `node` enterable (travel / pass-through) given `flags`?
- * The start node (London) is always enterable — it is the campaign origin even though
- * its `status` is "locked" (that lock only gates the 27-H *revisit stop*, not travel).
- */
-export function isNodeUnlocked(node: NodeId, flags: ReadonlySet<FlagId>): boolean {
-	const loc = getLocation(node);
-	if (loc.id === startNode()) return true;
-	if (loc.status !== 'locked') return true;
-	return loc.unlock_condition !== undefined && flags.has(loc.unlock_condition);
+/** Nodes that block TRAVEL until revealed — only the hidden `secret` node(s), except the start. */
+let _transitBlocked: ReadonlySet<NodeId> | null = null;
+function transitBlockedNodes(): ReadonlySet<NodeId> {
+	if (!_transitBlocked) {
+		const start = metadata().startLocation;
+		const set = new Set<NodeId>();
+		for (const id of locationIds()) if (getLocation(id).markerType === 'secret' && id !== start) set.add(id);
+		_transitBlocked = set;
+	}
+	return _transitBlocked;
 }
 
-/** Canonical, order-independent signature of the unlocked subgraph for `flags`. */
-function unlockSignature(flags: ReadonlySet<FlagId>): string {
+/** Can the cell STOP (play a file) at `node`? `locked`/`secret` need to be unlocked first. */
+export function isNodeUnlocked(node: NodeId, unlocked: ReadonlySet<NodeId>): boolean {
+	if (node === metadata().startLocation) return true;
+	if (!lockableNodes().has(node)) return true;
+	return unlocked.has(node);
+}
+
+/** Can the cell TRAVEL through / into `node`? Locked nodes are passable; only secret nodes block. */
+export function isPassable(node: NodeId, unlocked: ReadonlySet<NodeId>): boolean {
+	if (node === metadata().startLocation) return true;
+	if (!transitBlockedNodes().has(node)) return true;
+	return unlocked.has(node);
+}
+
+/** Canonical, order-independent signature of the travel graph (which secret nodes are revealed). */
+function unlockSignature(unlocked: ReadonlySet<NodeId>): string {
 	const present: string[] = [];
-	for (const f of travelUnlockFlags()) {
-		if (flags.has(f)) present.push(f);
-	}
+	for (const n of transitBlockedNodes()) if (unlocked.has(n)) present.push(n);
 	present.sort();
 	return present.join('|');
 }
 
-// Memo: unlock signature -> (source node -> distance map)
 const bfsMemo = new Map<string, Map<NodeId, Map<NodeId, number>>>();
 
-function unlockedNodeSet(flags: ReadonlySet<FlagId>): Set<NodeId> {
+function unlockedNodeSet(unlocked: ReadonlySet<NodeId>): Set<NodeId> {
 	const set = new Set<NodeId>();
-	for (const id of locationsById().keys()) {
-		if (isNodeUnlocked(id, flags)) set.add(id);
-	}
+	for (const id of locationIds()) if (isPassable(id, unlocked)) set.add(id);
 	return set;
 }
 
-/**
- * BFS hop-count distances from `from` to every reachable node on the unlocked subgraph.
- * Nodes not in the result are unreachable (treat distance as Infinity).
- */
-export function reachableFrom(flags: ReadonlySet<FlagId>, from: NodeId): ReadonlyMap<NodeId, number> {
-	const sig = unlockSignature(flags);
+/** BFS hop-count distances from `from` to every reachable node on the unlocked subgraph. */
+export function reachableFrom(unlocked: ReadonlySet<NodeId>, from: NodeId): ReadonlyMap<NodeId, number> {
+	const sig = unlockSignature(unlocked);
 	let bySource = bfsMemo.get(sig);
 	if (!bySource) {
 		bySource = new Map();
@@ -73,9 +82,9 @@ export function reachableFrom(flags: ReadonlySet<FlagId>, from: NodeId): Readonl
 	const cached = bySource.get(from);
 	if (cached) return cached;
 
-	const unlocked = unlockedNodeSet(flags);
+	const unlockedSet = unlockedNodeSet(unlocked);
 	const dist = new Map<NodeId, number>();
-	if (!unlocked.has(from)) {
+	if (!unlockedSet.has(from)) {
 		bySource.set(from, dist);
 		return dist;
 	}
@@ -85,11 +94,9 @@ export function reachableFrom(flags: ReadonlySet<FlagId>, from: NodeId): Readonl
 	while (head < queue.length) {
 		const cur = queue[head++]!;
 		const d = dist.get(cur)!;
-		// Sort neighbors for deterministic BFS ordering (does not affect hop counts,
-		// but keeps any tie-dependent downstream ordering stable).
 		const neighbors = [...getLocation(cur).connections].sort();
 		for (const next of neighbors) {
-			if (!unlocked.has(next)) continue;
+			if (!unlockedSet.has(next)) continue;
 			if (dist.has(next)) continue;
 			dist.set(next, d + 1);
 			queue.push(next);
@@ -99,13 +106,48 @@ export function reachableFrom(flags: ReadonlySet<FlagId>, from: NodeId): Readonl
 	return dist;
 }
 
-/** Hop-count distance from `from` to `to` on the unlocked subgraph (Infinity if unreachable). */
-export function distance(flags: ReadonlySet<FlagId>, from: NodeId, to: NodeId): number {
-	const d = reachableFrom(flags, from).get(to);
+/** Hop-count distance from `from` to `to` (Infinity if unreachable on the unlocked subgraph). */
+export function distance(unlocked: ReadonlySet<NodeId>, from: NodeId, to: NodeId): number {
+	const d = reachableFrom(unlocked, from).get(to);
 	return d === undefined ? Infinity : d;
+}
+
+/**
+ * A shortest node-by-node path from `from` to `to` on the unlocked subgraph (inclusive of both).
+ * Returns `[]` if unreachable, `[from]` if `from === to`. Ties broken by sorted neighbour order
+ * (deterministic). Used to preview the hop-by-hop travel a destination would cost.
+ */
+export function shortestPath(unlocked: ReadonlySet<NodeId>, from: NodeId, to: NodeId): NodeId[] {
+	if (from === to) return [from];
+	const unlockedSet = unlockedNodeSet(unlocked);
+	if (!unlockedSet.has(from) || !unlockedSet.has(to)) return [];
+	const parent = new Map<NodeId, NodeId>();
+	const seen = new Set<NodeId>([from]);
+	const queue: NodeId[] = [from];
+	let head = 0;
+	while (head < queue.length) {
+		const cur = queue[head++]!;
+		if (cur === to) break;
+		for (const next of [...getLocation(cur).connections].sort()) {
+			if (!unlockedSet.has(next) || seen.has(next)) continue;
+			seen.add(next);
+			parent.set(next, cur);
+			queue.push(next);
+		}
+	}
+	if (!seen.has(to)) return [];
+	const path: NodeId[] = [to];
+	let n: NodeId | undefined = to;
+	while (n !== undefined && n !== from) {
+		n = parent.get(n);
+		if (n !== undefined) path.push(n);
+	}
+	return path.reverse();
 }
 
 /** Reset memoization (test isolation only). */
 export function _resetGraphMemo(): void {
 	bfsMemo.clear();
+	_lockable = null;
+	_transitBlocked = null;
 }

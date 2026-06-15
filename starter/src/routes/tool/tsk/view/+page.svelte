@@ -9,18 +9,21 @@
 	import GoalsChecklist from '../GoalsChecklist.svelte';
 	import PlanSummary from '../PlanSummary.svelte';
 	import StepDisplay from '../StepDisplay.svelte';
+	import StrategyLinks from '../StrategyLinks.svelte';
+	import TskMap from '../TskMap.svelte';
 	import { encodeState, decodeState } from '../codec';
 
 	let revealed = $state(false);
 	let plan = $state<PlanStep[]>([]);
 	let constraints = $state<Constraint[]>([]);
+	let assertions = $state<string[]>([]);
 	let pending: string | null = null;
 	let copied = $state(false);
 	let valid = $state(true);
 
-	const trajectory = $derived(simulatePlan({ steps: $state.snapshot(plan) as PlanStep[] }));
+	const trajectory = $derived(simulatePlan({ steps: $state.snapshot(plan) as PlanStep[], assertions: $state.snapshot(assertions) as string[] }));
 	const checks = $derived(evaluatePlan(trajectory, constraints));
-	const encoded = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], constraints }));
+	const encoded = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], constraints, assertions: $state.snapshot(assertions) as string[] }));
 
 	afterNavigate(() => {
 		const enc = new URLSearchParams(page.url.search).get('p');
@@ -43,6 +46,7 @@
 		}
 		plan = st.plan;
 		constraints = st.constraints ?? [];
+		assertions = st.assertions ?? [];
 		valid = true;
 	}
 	function reveal() {
@@ -90,7 +94,11 @@
 				<Button label={copied ? 'Link copied!' : 'Copy link'} onClick={async () => { try { await navigator.clipboard.writeText(`https://arkham-starter.com/tool/tsk/view?p=${encoded}`); copied = true; setTimeout(() => (copied = false), 1800); } catch { copied = false; } }} />
 			</div>
 
+			<div class="mb-3"><StrategyLinks /></div>
+
 			<PlanSummary {trajectory} />
+
+			<div class="mt-3"><TskMap {trajectory} /></div>
 
 			<ol class="my-4 flex flex-col">
 				{#each trajectory.steps as step, i (i)}

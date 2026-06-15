@@ -1,40 +1,42 @@
 import { describe, expect, it } from 'vitest';
-import { loadDatabase, validateIntegrity } from '../src/data/load.js';
+import { loadEn, loadLogic, validateIntegrity } from '../src/data/load.js';
+import { resetAll } from './helpers.js';
 
-describe('data integrity (§9)', () => {
-	it('loads without throwing', () => {
-		expect(() => loadDatabase()).not.toThrow();
+resetAll();
+
+describe('data integrity', () => {
+	it('logic.json + en.json pass structural validation', () => {
+		expect(validateIntegrity(loadLogic(), loadEn())).toEqual([]);
 	});
 
-	it('passes all integrity checks (no problems)', () => {
-		const db = loadDatabase();
-		expect(validateIntegrity(db)).toEqual([]);
-	});
-
-	it('has the expected campaign metadata', () => {
-		const db = loadDatabase();
-		expect(db.campaign_metadata.start_node).toBe('london');
-		expect(db.campaign_metadata.finale_node).toBe('tunguska');
-		expect(db.locations.length).toBe(db.campaign_metadata.location_count);
-	});
-
-	it('graph is symmetric', () => {
-		const db = loadDatabase();
-		const adj = new Map(db.locations.map((l) => [l.id, new Set(l.connections)]));
-		for (const loc of db.locations) {
-			for (const t of loc.connections) {
-				expect(adj.get(t)?.has(loc.id), `${loc.id}<->${t}`).toBe(true);
+	it('every effect log/key/character/note ref resolves to en text', () => {
+		const E = loadEn();
+		for (const f of loadLogic().files) {
+			for (const d of f.decisions) {
+				for (const o of d.options) {
+					for (const e of o.effects) {
+						if (e.type === 'record' || e.type === 'crossOff' || e.type === 'tally') expect(E.campaignLog[e.entryId], e.entryId).toBeTypeOf('string');
+						if (e.type === 'key') {
+							expect(E.keys[e.keyId], e.keyId).toBeTypeOf('string');
+							if (e.bearer !== 'investigator') expect(E.characters[e.bearer], e.bearer).toBeTypeOf('string');
+						}
+						if (e.type === 'note') expect(E.effectText[e.textRef], e.textRef).toBeTypeOf('string');
+					}
+				}
 			}
 		}
 	});
 
-	it('detects injected corruption (orphan lock + bad edge)', () => {
-		const db = loadDatabase();
-		const broken = structuredClone(db);
-		broken.locations[0]!.connections = [...broken.locations[0]!.connections, 'atlantis'];
-		broken.locations[1]!.unlock_condition = 'code_never_written';
-		const problems = validateIntegrity(broken);
-		expect(problems.some((p) => p.includes('atlantis'))).toBe(true);
-		expect(problems.some((p) => p.includes('orphan lock'))).toBe(true);
+	it('pre-printed markers carry a box; written markers do not; track is 35 boxes', () => {
+		const printed = new Set(['α', 'β', 'γ', 'ε', 'ζ', 'ω']);
+		for (const m of loadLogic().timeMarkers) {
+			if (printed.has(m.symbol)) expect(m.box, m.symbol).toBeGreaterThan(0);
+			else expect(m.box, m.symbol).toBeUndefined();
+		}
+		expect(loadLogic().timeTrack.boxes).toBe(35);
+	});
+
+	it('every achievement carries a detect rule', () => {
+		for (const a of loadLogic().achievements) expect(a.detect?.kind, a.id).toBeTypeOf('string');
 	});
 });

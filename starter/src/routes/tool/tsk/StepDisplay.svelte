@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { EncounterSetIcon } from '@5argon/arkham-icon';
-	import { getLocation, type CampaignState, type SimStep } from '@5argon/arkham-tsk-solver';
+	import { type CampaignState, type SimStep } from '@5argon/arkham-tsk-solver';
 	import StepState from './StepState.svelte';
-	import { scenarioEncounterSet, stepIcon, stepTitle } from './helpers';
+	import { fileEncounterSet, stepIcon, stepTitle } from './helpers';
 
 	let { step, finalState }: { step: SimStep; finalState: CampaignState } = $props();
-	const isScenario = $derived(step.option.kind === 'scenario' || step.option.kind === 'finale');
-	const set = $derived(isScenario ? scenarioEncounterSet(getLocation(step.option.node).scenario_id ?? '') : null);
+	const set = $derived(fileEncounterSet(step.fileCode));
 	const bad = $derived(step.problems.length > 0);
 </script>
 
@@ -16,12 +15,12 @@
 	</span>
 	<div class="flex-1">
 		<div class="flex flex-wrap items-baseline justify-between gap-2">
-			<span class="text-primary-900 dark:text-primary-100 {step.option.kind === 'finale' ? 'font-bold' : ''}">{stepTitle(step)}</span>
+			<span class="text-primary-900 dark:text-primary-100 {step.kind === 'finale' ? 'font-bold' : ''}">{stepTitle(step)}</span>
 			<span class="shrink-0 text-xs text-primary-400">
 				{#if step.usedTicket}🎟 ticket (saves {step.usedTicket.saved}){:else if step.travelCost > 0}+{step.travelCost} travel{/if}
 				· t={step.timeAfter}
 			</span>
 		</div>
-		<StepState {step} {finalState} />
+		<StepState {step} {finalState} showChoices />
 	</div>
 </li>

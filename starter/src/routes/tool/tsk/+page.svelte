@@ -10,6 +10,8 @@
 	import GoalsChecklist from './GoalsChecklist.svelte';
 	import PlanSummary from './PlanSummary.svelte';
 	import StepForm from './StepForm.svelte';
+	import StrategyLinks from './StrategyLinks.svelte';
+	import TskMap from './TskMap.svelte';
 	import { defaultFinaleStep, defaultMiddleStep, defaultPrologueStep, rowFromConstraint, toConstraint, type RowModel } from './helpers';
 	import { decodeState, encodeState } from './codec';
 
@@ -27,18 +29,22 @@
 	// The plan always opens with Riddles and Rain (pinned first) and ends with Congress (pinned last).
 	let entries = $state<Entry[]>(seed());
 	let rows = $state<RowModel[]>([]);
+	// Whether Desi turned out real or an impostor — a board outcome the plan can't derive, but it
+	// decides her finale vote. '' = leave to the default (she votes against you unless in your debt + real).
+	let desi = $state('');
 	let pending: string | null = null;
 	let copied = $state(false);
 
 	const plan = $derived<PlanStep[]>(entries.map((e) => e.step));
+	const assertions = $derived<string[]>(desi ? [desi] : []);
 	const constraints = $derived<Constraint[]>(rows.map(toConstraint).filter((c): c is Constraint => c !== null));
-	const trajectory = $derived(simulatePlan({ steps: $state.snapshot(plan) as PlanStep[] }));
+	const trajectory = $derived(simulatePlan({ steps: $state.snapshot(plan) as PlanStep[], assertions: $state.snapshot(assertions) as string[] }));
 	const checks = $derived(evaluatePlan(trajectory, constraints));
 
 	const lastIndex = $derived(entries.length - 1);
 	const roleOf = (i: number): 'prologue' | 'middle' | 'finale' => (i === 0 ? 'prologue' : i === lastIndex ? 'finale' : 'middle');
 	const fromStateAt = (i: number) => (i === 0 ? initialState() : trajectory.steps[i - 1]!.stateAfter);
-	const encodedNow = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], constraints }));
+	const encodedNow = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], constraints, assertions: $state.snapshot(assertions) as string[] }));
 
 	afterNavigate(() => {
 		const enc = new URLSearchParams(page.url.search).get('p');
@@ -56,6 +62,7 @@
 		const steps = st.plan.length ? st.plan : [defaultPrologueStep(), defaultFinaleStep()];
 		entries = steps.map((step) => ({ id: nextId++, step }));
 		rows = (st.constraints ?? []).map(rowFromConstraint);
+		desi = (st.assertions ?? []).find((a) => a === 'desiReal' || a === 'desiImpostor') ?? '';
 	}
 	function reveal() {
 		revealed = true;
@@ -139,7 +146,12 @@
 			<Button label={copied ? 'Link copied!' : 'Share plan link'} onClick={share} highlighted />
 		</div>
 
+		<div class="mb-3"><StrategyLinks /></div>
+
 		<PlanSummary {trajectory} />
+
+		<div class="mt-3"><TskMap {trajectory} /></div>
+		<p class="mt-1 text-xs italic text-primary-400">The full planned course, start to finish. Use “Pick on map” on a step to choose its destination.</p>
 
 		<ol class="my-4 flex flex-col">
 			{#each entries as e, i (e.id)}
@@ -155,6 +167,10 @@
 					onUpdate={updateStep}
 					onRemove={removeStep}
 					onMove={moveStep}
+					{trajectory}
+					index={i}
+					desi={i === lastIndex ? desi : ''}
+					onDesi={i === lastIndex ? (v) => (desi = v) : undefined}
 				/>
 				{#if i === lastIndex - 1}
 					<li class="mb-4 ml-4 list-none"><Button label="+ Add step" onClick={addStep} /></li>

@@ -1,18 +1,16 @@
 <script lang="ts">
 	import { EncounterSetIcon } from '@5argon/arkham-icon';
-	import { Checkbox, Dropdown, type Option } from '@5argon/arkham-life-ui';
-	import { getLocation, isAutoInterlude, optionsAt, preChoicesAt, reachableDestinations, type CampaignState, type PlanStep, type SimStep } from '@5argon/arkham-tsk-solver';
+	import { Button, Checkbox, Dropdown, FaIconType, type Option } from '@5argon/arkham-life-ui';
+	import { decisionText, isAutoFile, optionsForDecision, optionText, playableFilesAt, reachableDestinations, resolutionOffers, selectableDecisions, type CampaignState, type PlanStep, type PlanTrajectory, type SimStep } from '@5argon/arkham-tsk-solver';
+	import MapPickerModal from './MapPickerModal.svelte';
 	import StepState from './StepState.svelte';
-	import { describeOption, optionName, scenarioEncounterSet, stepIcon, stepTitle } from './helpers';
+	import { defaultChoices, fileEncounterSet, fileLabel, stepIcon, stepTitle } from './helpers';
 
 	interface Props {
 		id: number;
 		role: 'prologue' | 'middle' | 'finale';
-		/** State before this step (drives the pickers' reachable/legal annotations). */
 		fromState: CampaignState;
-		/** Simulated result for this step (state, validity, finale). */
 		sim: SimStep;
-		/** The table state at the finale (for a finale step's summary). */
 		finalState: CampaignState;
 		step: PlanStep;
 		canMoveUp: boolean;
@@ -20,61 +18,93 @@
 		onUpdate: (id: number, step: PlanStep) => void;
 		onRemove: (id: number) => void;
 		onMove: (id: number, dir: -1 | 1) => void;
+		/** The full trajectory + this step's index — for the per-step map picker (route up to here). */
+		trajectory: PlanTrajectory;
+		index: number;
+		/** Finale only — the plan-level "was Desi real?" assertion (decides her Congress vote). */
+		desi?: string;
+		onDesi?: (v: string) => void;
 	}
-	let { id, role, fromState, sim, finalState, step, canMoveUp, canMoveDown, onUpdate, onRemove, onMove }: Props = $props();
+	let { id, role, fromState, sim, finalState, step, canMoveUp, canMoveDown, onUpdate, onRemove, onMove, trajectory, index, desi = '', onDesi }: Props = $props();
 
-	// Local edit state — initialized once from `step`. This form is keyed by a stable id in the parent,
-	// so the values persist across re-simulation and reorder; the parent only mutates this step via emit().
+	const desiOptions = [
+		{ value: '', label: 'Desi: default (unknown)' },
+		{ value: 'desiReal', label: 'Desi was the real Desi' },
+		{ value: 'desiImpostor', label: 'Desi was an impostor' },
+	];
+
+	// Local edit state — initialized once from `step`; the form is keyed by a stable id in the parent.
 	// svelte-ignore state_referenced_locally
-	let node = $state(step.node);
+	let location = $state(step.location);
 	// svelte-ignore state_referenced_locally
-	let optionId = $state(step.optionId);
-	// A pre-scenario choice is mandatory in play, so default to the first one (never "none").
+	let fileCode = $state(step.fileCode);
 	// svelte-ignore state_referenced_locally
-	let introChoiceId = $state(step.introChoiceIds?.[0] ?? preChoicesAt(step.node)[0]?.id ?? '');
+	let choices = $state<Record<string, string>>({ ...(step.choices ?? {}) });
 	// svelte-ignore state_referenced_locally
 	let useTicket = $state(step.useTicket === true);
 	// svelte-ignore state_referenced_locally
 	let travelOnly = $state(step.travelOnly === true);
+	let mapOpen = $state(false);
 
-	const isScenario = $derived(sim.option.kind === 'scenario' || sim.option.kind === 'finale');
-	const set = $derived(isScenario ? scenarioEncounterSet(getLocation(sim.option.node).scenario_id ?? '') : null);
+	const set = $derived(fileEncounterSet(sim.fileCode));
 	const bad = $derived(sim.problems.length > 0);
 
 	const destinations = $derived(reachableDestinations(fromState));
-	const allOptions = $derived(node ? optionsAt(fromState, node) : []);
-	const options = $derived(role === 'prologue' ? allOptions.filter((o) => o.option.isPrologue) : allOptions);
-	const preChoices = $derived(node ? preChoicesAt(node) : []);
-	// Auto-evaluated "check log → outcome" interludes: the game resolves the result, the player doesn't pick.
-	const auto = $derived(node ? isAutoInterlude(node) : false);
+	const filesHere = $derived(location ? playableFilesAt(location) : []);
+	const decisions = $derived(fileCode && !travelOnly ? selectableDecisions(fileCode, location) : []);
+	const auto = $derived(fileCode ? isAutoFile(fileCode) : false);
 
 	const destOptions = $derived<Option<string>[]>(
 		destinations.map((d) => ({
 			value: d.node,
-			label: `${d.name}${d.story ? ` — ${d.story}` : ''}${d.file ? ` (#${d.file})` : ''}${d.locked ? ' 🔒' : ''} · ${d.travel != null ? `+${d.travel}` : 'unreachable'}`,
+			label: `${d.name} · ${d.files.map((f) => fileLabel(f.fileCode, f.isSideStory)).join(' / ')} · ${d.travel != null ? `+${d.travel}` : 'unreachable'}${d.locked ? ' 🔒' : ''}`,
 		})),
 	);
-	const optionOptions = $derived<Option<string>[]>(
-		options.map((o) => ({ value: o.option.optionId, label: `${optionName(o.option)} · ${describeOption(o.option)}${o.problems.length ? ' ⚠' : ''}` })),
-	);
-	const preChoiceOptions = $derived<Option<string>[]>(
-		preChoices.map((c) => ({ value: c.id, label: c.note ? `${c.id.replace(/_/g, ' ')} — ${c.note}` : c.id.replace(/_/g, ' ') })),
-	);
+	const fileOptions = $derived<Option<string>[]>(filesHere.map((f) => ({ value: f.fileCode, label: fileLabel(f.fileCode, f.isSideStory) })));
+	// Resolutions reachable given the version played + the upstream choices/time (per logic.json `requires`).
+	const resOffers = $derived(fileCode && !travelOnly ? resolutionOffers(fileCode, choices, fromState, sim.entryTime, location) : []);
+	const decisionOptions = (d: { decisionId: string; decisionType: string }): Option<string>[] => {
+		if (d.decisionType === 'resolution') {
+			return resOffers
+				.filter((r) => r.offerable)
+				.map((r) => {
+					const text = optionText(fileCode, d.decisionId, r.option.id)?.dropdownText ?? r.option.id;
+					const tag = r.option.playOutcome && r.option.playOutcome !== 'win' ? ` · ${r.option.playOutcome}` : '';
+					return { value: r.option.id, label: text + tag };
+				});
+		}
+		return optionsForDecision(fileCode, d.decisionId).map((o) => ({ value: o.id, label: optionText(fileCode, d.decisionId, o.id)?.dropdownText ?? o.id }));
+	};
 
 	function emit() {
 		onUpdate(id, {
-			node,
-			optionId,
-			...(introChoiceId ? { introChoiceIds: [introChoiceId] } : {}),
+			location,
+			fileCode: travelOnly ? '' : fileCode,
+			choices: { ...choices },
 			...(useTicket ? { useTicket: true } : {}),
 			...(travelOnly ? { travelOnly: true } : {}),
 		});
 	}
-	function onNodeChange() {
-		optionId = options[0]?.option.optionId ?? '';
-		introChoiceId = preChoices[0]?.id ?? '';
+	function onLocationChange(v: string) {
+		location = v;
+		fileCode = playableFilesAt(v)[0]?.fileCode ?? '';
+		choices = defaultChoices(fileCode, v);
 		useTicket = false;
+		travelOnly = false;
 		emit();
+	}
+	function onFileChange(v: string) {
+		fileCode = v;
+		choices = defaultChoices(v, location);
+		emit();
+	}
+	function onChoiceChange(decisionId: string, v: string) {
+		choices = { ...choices, [decisionId]: v };
+		emit();
+	}
+	function pickFromMap(v: string) {
+		mapOpen = false;
+		onLocationChange(v);
 	}
 </script>
 
@@ -91,27 +121,39 @@
 			</span>
 		</div>
 
-		{#if role === 'finale'}
-			<div class="mt-1 text-xs italic text-primary-400">Always the final step — win the Congress of the Keys.</div>
-		{:else}
-			<div class="mt-2 flex flex-wrap items-end gap-2">
-				{#if role === 'middle'}
-					<div class="min-w-56 grow"><Dropdown bind:value={node} label="Go to" options={destOptions} onchange={onNodeChange} /></div>
-					<div class="pb-1"><Checkbox bind:checked={travelOnly} label="Do nothing here" onChange={emit} /></div>
+		<div class="mt-2 flex flex-col gap-2">
+			{#if role === 'middle'}
+				<div class="flex flex-wrap items-end gap-2">
+					<div class="min-w-72 grow"><Dropdown value={location} label="Go to" options={destOptions} onchange={onLocationChange} /></div>
+					<div class="shrink-0 pb-0.5"><Button label="Pick on map" icon={FaIconType.Map} onClick={() => (mapOpen = true)} /></div>
+				</div>
+				<div class="flex flex-wrap items-center gap-4">
+					<Checkbox bind:checked={travelOnly} label="Do nothing here" onChange={emit} />
+					<Checkbox bind:checked={useTicket} label="Ticket jump" onChange={emit} />
+				</div>
+			{/if}
+
+			{#if !travelOnly}
+				{#if role === 'middle' && filesHere.length > 1}
+					<div class="max-w-lg"><Dropdown value={fileCode} label="Play" options={fileOptions} onchange={onFileChange} /></div>
 				{/if}
-				{#if auto && !travelOnly}
-					<div class="pb-1 text-xs italic text-primary-400">The game resolves this from your log automatically — reorder this step to change the outcome.</div>
-				{:else if !travelOnly}
-					<div class="min-w-64 grow"><Dropdown bind:value={optionId} label={role === 'prologue' ? 'Resolution' : 'Do what'} options={optionOptions} onchange={emit} /></div>
-					{#if preChoices.length}
-						<div class="min-w-64"><Dropdown bind:value={introChoiceId} label="Pre-scenario choice" options={preChoiceOptions} onchange={emit} /></div>
-					{/if}
+				{#if auto}
+					<div class="text-xs italic text-primary-400">The game resolves this from your log automatically — reorder this step to change the outcome.</div>
+				{:else}
+					{#each decisions as d (d.decisionId)}
+						<div class="max-w-lg"><Dropdown value={choices[d.decisionId] ?? ''} label={decisionText(fileCode, d.decisionId)?.label ?? d.decisionId} options={decisionOptions(d)} onchange={(v) => onChoiceChange(d.decisionId, v)} /></div>
+					{/each}
 				{/if}
-				{#if role === 'middle'}
-					<div class="pb-1"><Checkbox bind:checked={useTicket} label="Ticket jump" onChange={emit} /></div>
+				{#if role === 'finale' && onDesi}
+					<div class="max-w-lg"><Dropdown value={desi} label="Was Desi real?" options={desiOptions} onchange={(v) => onDesi(v)} /></div>
+					<div class="text-xs italic text-primary-400">Dancing Mad doesn't record whether Desi was genuine — but it decides her vote here.</div>
 				{/if}
-			</div>
-		{/if}
+			{/if}
+
+			{#if role === 'finale'}
+				<div class="text-xs italic text-primary-400">Always the final step — the Congress of the Keys. The vote is predicted from your campaign log.</div>
+			{/if}
+		</div>
 
 		<StepState step={sim} {finalState} />
 	</div>
@@ -124,3 +166,7 @@
 		</div>
 	{/if}
 </li>
+
+{#if role === 'middle'}
+	<MapPickerModal open={mapOpen} onClose={() => (mapOpen = false)} {trajectory} untilStep={index} {fromState} onPick={pickFromMap} />
+{/if}

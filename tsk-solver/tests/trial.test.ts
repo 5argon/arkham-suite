@@ -1,48 +1,43 @@
 import { describe, expect, it } from 'vitest';
-import { ALL_FINALE_BRANCHES, finaleBranchGroup, predictTrial, trialPlan } from '../src/solver/trial.js';
+import { predictFinale } from '../src/solver/trial.js';
+import { resetAll, stateWith } from './helpers.js';
 
-describe('predictTrial', () => {
-	it('low-engagement default is the liability outcome (trial_2)', () => {
-		expect(predictTrial(new Set(), 0, 0).branch).toBe('trial_2');
+resetAll();
+
+describe('predictFinale', () => {
+	it('an empty table → liability (yeas win), version v1, epilogue permanent (0 vs 0)', () => {
+		const f = predictFinale(stateWith());
+		expect(f.judgment).toBe('COTK.judgment.liability');
+		expect(f.version).toBe('COTK.v1');
+		expect(f.nayWins).toBe(false);
+		expect(f.epilogue).toBe('EP.permanent');
 	});
 
-	it('knowing the Coterie\'s true nature forces trial_6', () => {
-		expect(predictTrial(new Set(['the_cell_knows_the_true_nature_of_the_coterie']), 0, 0).branch).toBe('trial_6');
+	it('knowing the Coterie’s true nature overrides to "spared" (version v3)', () => {
+		const f = predictFinale(stateWith(['log.knowsTrueNature']));
+		expect(f.judgment).toBe('COTK.judgment.spared');
+		expect(f.version).toBe('COTK.v3');
 	});
 
-	it('three or more eerily-silent voters force trial_7', () => {
-		const flags = new Set(['thorne_disappeared', 'havent_seen_the_last_of_aliki', 'havent_seen_the_last_of_desi']);
-		expect(predictTrial(flags, 0, 0).branch).toBe('trial_7');
+	it('three eerily-silent members → destroyed from within', () => {
+		// Red-Gloved Man is always silent; Thorne disappeared + Aliki unseen add two more.
+		const f = predictFinale(stateWith(['log.thorneDisappeared', 'log.notSeenAliki']));
+		expect(f.silent).toBeGreaterThanOrEqual(3);
+		expect(f.judgment).toBe('COTK.judgment.destroyed');
 	});
 
-	it('each engineered trial plan actually reaches its branch', () => {
-		for (const branch of ['trial_3', 'trial_4', 'trial_5', 'trial_6', 'trial_7']) {
-			const plan = trialPlan(branch)!;
-			expect(plan).toBeTruthy();
-			expect(predictTrial(new Set(plan.required), 0, 0).branch).toBe(branch);
-		}
+	it('the join coalition (Thorne + Tuwile + Claret Knight nay) → join, epilogue joined', () => {
+		// claretKnight + ece vote nay by default; deal w/ Thorne + Tuwile + Desi(real) push nays over the top.
+		const f = predictFinale(stateWith(['log.dealWithThorne', 'log.tuwileOnYourSide', 'log.desiInDebt'], ['desiReal']));
+		expect(f.nayWins).toBe(true);
+		expect(f.judgment).toBe('COTK.judgment.join');
+		expect(f.epilogue).toBe('EP.joined');
 	});
 
-	it('epilogue tracks trust vs deception when not joined', () => {
-		expect(predictTrial(new Set(), 1, 0).epilogue).toBe('permanent_position');
-		expect(predictTrial(new Set(), 0, 1).epilogue).toBe('dismantled');
-	});
-
-	it('joining the Coterie (Trial 4) overrides to the "work together" epilogue', () => {
-		const plan = trialPlan('trial_4')!;
-		const p = predictTrial(new Set(plan.required), 5, 0); // trust would say permanent, but joining wins
-		expect(p.branch).toBe('trial_4');
-		expect(p.epilogue).toBe('agreed_to_work_together');
-	});
-});
-
-describe('finale branch groups', () => {
-	it('groups the overthrow/join/asset and truth/destroyed outcomes', () => {
-		expect(finaleBranchGroup('trial_3')).toEqual(expect.arrayContaining(['trial_3', 'trial_4', 'trial_5']));
-		expect(finaleBranchGroup('trial_6')).toEqual(expect.arrayContaining(['trial_6', 'trial_7']));
-	});
-
-	it('enumerates every campaign ending', () => {
-		expect(ALL_FINALE_BRANCHES).toEqual(expect.arrayContaining(['trial_2', 'trial_3', 'trial_4', 'trial_5', 'trial_6', 'trial_7']));
+	it('Foundation-Trust ≥ Cell-Deception → permanent position at the epilogue', () => {
+		const f = predictFinale(stateWith(['log.assistingSirry', 'log.toldTruthTaylor']));
+		expect(f.trust).toBeGreaterThanOrEqual(f.deception);
+		// liability ending (yeas win) but trust wins the tally → permanent.
+		expect(f.epilogue).toBe('EP.permanent');
 	});
 });

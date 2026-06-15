@@ -1,240 +1,167 @@
 /**
- * UI catalog helpers: selectable options for building constraints, and friendly display
- * labels for raw ids. Keeps consuming UIs thin — they never need to read the JSON directly.
+ * UI catalog: selectable options for building goals, plus friendly labels for raw ids.
+ * Keeps consuming UIs thin — they never read the JSON directly. All text comes from en.json.
  */
 
-import { loadDatabase } from './data/load.js';
-import type { NodeId } from './types.js';
+import {
+	achievementDescription,
+	achievementName,
+	achievements as achievementList,
+	characterName,
+	fileTitle,
+	getEnFile,
+	getFile,
+	keyName,
+	loadEn,
+	loadLogic,
+	locationName,
+	logText,
+	optionById,
+} from './data/load.js';
+import type { CampaignLogEntry, FileCode, LogId } from './types.js';
 
 export interface CatalogEntry {
 	id: string;
 	label: string;
 	note?: string;
-	/** For campaign logs: the browse groups this entry belongs to (trial / epilogue / scenario / other). */
+	/** For campaign logs: the browse groups this entry belongs to (scenario / trial / epilogue / other). */
 	groups?: string[];
 }
 
 export interface SolverCatalog {
 	achievements: CatalogEntry[];
 	keys: CatalogEntry[];
-	scenarios: CatalogEntry[];
-	/** Scenarios that have selectable versions — INCLUDING the finale (its versions = the endings). */
-	versionedScenarios: CatalogEntry[];
-	narrativeChains: CatalogEntry[];
-	allies: CatalogEntry[];
-	/** Campaign-log entries the planner can target (every story log a scenario/interlude records). */
+	/** Files the player can target (scenarios/interludes), id = file code, label = title. */
+	files: CatalogEntry[];
+	/** fileCode -> selectable resolution options. */
+	resolutions: Record<FileCode, CatalogEntry[]>;
+	/** fileCode -> scenario-version branches (non-finale). */
+	versions: Record<FileCode, CatalogEntry[]>;
+	/** fileCode -> time-scaling levels. */
+	levels: Record<FileCode, CatalogEntry[]>;
+	versionedFiles: CatalogEntry[];
+	levelFiles: CatalogEntry[];
 	campaignLogs: CatalogEntry[];
-	/** Browse groups for the (long) campaign-log list — a log may belong to several. */
 	campaignLogGroups: { id: string; label: string }[];
-	/** Scenarios that have time-based difficulty levels (time tiers). */
-	levelScenarios: CatalogEntry[];
-	/** scenarioId -> selectable levels (id = 1-based tier index, label = "Lv. n/total — effect"). */
-	levels: Record<string, CatalogEntry[]>;
-	/** One entry per standalone product (label = product name, id = the green node it routes to). */
 	sideStories: CatalogEntry[];
-	nodes: CatalogEntry[];
-	/** scenarioId -> selectable resolutions (label = id, note = description). */
-	resolutions: Record<string, CatalogEntry[]>;
-	/** scenarioId -> selectable versions (label = human label). */
-	versions: Record<string, CatalogEntry[]>;
-	/** Finale Trial outcomes (the vote results that funnel into the three finale versions). */
-	trials: CatalogEntry[];
+	/** Finale Coterie judgments (the `reach_judgment` targets). */
+	judgments: CatalogEntry[];
+	/** Epilogue outcomes. */
+	epilogues: CatalogEntry[];
 }
 
-/**
- * Friendly display labels for notable campaign-log entries. The `campaign_log` picker lists EVERY
- * story log a scenario/interlude records (see catalog()); these just give the well-known ones a nicer
- * name than the auto-titleized flag id. (Replaces the coarse "narrative chain" picker — e.g.
- * "Understand Aliki" is simply the `aliki_is_on_your_side` log.)
- */
-const CAMPAIGN_LOG_LABELS: Record<string, string> = {
-	aliki_is_on_your_side: 'Aliki is on your side (Understand Aliki)',
-	desi_is_in_your_debt: 'Desi is in your debt',
-	the_cell_made_a_deal_with_thorne: 'Made a deal with Thorne',
-	tuwile_masai_is_on_your_side: 'Tuwile Masai is on your side',
-	the_cell_aided_the_knight: 'Aided the Claret Knight',
-	ece_trusts_the_cell: 'Ece trusts the cell',
-	the_lovers_are_reunited: 'The lovers are reunited (Amaranth & Razin)',
-	the_cell_knows_the_true_nature_of_the_coterie: "Uncover the Coterie's true nature",
-};
+/** Logs not offered as planning targets (internal / temporary / tally bookkeeping). */
+const LOG_EXCLUDE = new Set<LogId>(['log.deliveringIntel']);
 
-/**
- * Logs not offered as planning targets: internal/temporary, or conditional/failure-state entries
- * that aren't routable on a straightforward winning plan (verified by a recall sweep). (Logs whose
- * only producers are LOSE_CAMPAIGN resolutions are filtered out separately, data-driven.)
- */
-const CAMPAIGN_LOG_EXCLUDE = new Set<string>([
-	'the_cell_is_delivering_intel', // temporary; the Special Delivery constraint handles it
-	'the_cell_is_off_mission', // needs the whistle questline (an option prerequisite, not auto-routed)
-	'agent_flint_is_missing', // needs a specific psi-marker timing window
-	'agent_quinn_vanished_from_existence', // needs entering Ringing Hollow at time >= 20
-	'the_foundation_remains_in_the_dark', // a "didn't deliver the intel" failure outcome
-]);
+function recordedLogsByKind(): { scenario: Set<LogId>; all: Set<LogId> } {
+	const scenario = new Set<LogId>();
+	const all = new Set<LogId>();
+	for (const f of loadLogic().files) {
+		const scenicKind = f.kind === 'scenario' || f.kind === 'prologue';
+		for (const d of f.decisions) for (const o of d.options) for (const e of o.effects) if (e.type === 'record') {
+			all.add(e.entryId);
+			if (scenicKind) scenario.add(e.entryId);
+		}
+	}
+	return { scenario, all };
+}
 
-/** The Trial-1 vote outcomes (guide §"Trial Outcomes"; see derbk "Scarlet Politics"). */
-const TRIALS: CatalogEntry[] = [
-	{ id: 'trial_2', label: 'Deemed a liability — escape the Coterie', note: 'Finale v.I' },
-	{ id: 'trial_3', label: 'Overthrow the Red Coterie', note: 'Finale v.II (Trial 8)' },
-	{ id: 'trial_4', label: 'Join the Red Coterie', note: 'Finale v.II (Trial 8)' },
-	{ id: 'trial_5', label: 'Spared as an asset', note: 'Finale v.II (Trial 8)' },
-	{ id: 'trial_6', label: 'They learn you know the truth — spared', note: 'Finale v.III' },
-	{ id: 'trial_7', label: 'The Red Coterie is destroyed from within', note: 'Finale v.III' },
-];
-
-/** Human descriptions of each achievement (guide §"Achievement List") — names alone aren't memorable. */
-const ACHIEVEMENT_DESC: Record<string, string> = {
-	clued_in: "Don't spend or drop a single clue via treachery cards in Riddles and Rain.",
-	take_that_ghulat: 'No civilian slain in Dead Heat.',
-	whats_in_a_name: 'Tell Amaranth her real name in Dead Heat.',
-	porque_no_los_dos: 'Defeat both copies of Desi simultaneously in Dancing Mad.',
-	lost_and_found: 'Take The Twisted Antiprism without a single clue on Clues Unveiled in Dealings in the Dark.',
-	i_like_tower_defense: 'Defend The Claret Knight without any Key Locuses destroyed in Dogs of War v. I.',
-	play_with_your_food: 'Steal The Light of Pharos from the Knight or the Beast while they have exactly 1 health in Dogs of War v. II/v. III.',
-	more_like_destroyed_chimera: 'Defeat all five forms of the Void Chimera in one session of On Thin Ice.',
-	who_watches_the_watcher: 'Unlock the secret final act in Sanguine Shadows.',
-	under_my_umbrella: "Don't let Tzu San Niang devour a single Geist in Shades of Suffering.",
-	all_hollow: 'Learn of a place where Outsiders dwell and travel there to unlock Without a Trace.',
-	red_looks_good_on_me: 'Join the Red Coterie in Congress of the Keys.',
-	bloody_red_revolution: 'Overthrow the Red Coterie in Congress of the Keys.',
-	with_your_powers_combined: 'Shift 5 keys in a single turn.',
-	gift_of_gab: 'Have Taylor order you to "talk" 3 times in one campaign.',
-	local_cuisine: 'Sample cuisine/bars/cafés from Marrakesh, Havana, Buenos Aires, Tokyo, and Kuala Lumpur in one campaign.',
-	speed_demon: 'Win with only 17 or fewer time passed.',
-	trust_nobody: 'Win with 4 curse tokens and without ever removing any bless tokens.',
-	trust_everybody: 'Win with 4 bless tokens and without ever removing any curse tokens.',
-	here_is_your_badge: 'Win and earn a permanent Foundation position.',
-	line_in_the_sand: 'Win with at least three Ultimatums active.',
-	global_expertise: 'Win on Expert difficulty.',
-	key_to_my_heart:
-		'Collect every Key: The Eye of Ravens, The Last Blossom, The Light of Pharos, The Sable Glass, The Weeping Lady, The Twisted Antiprism, The Shade Reaper, The Mirroring Blade, The Bale Engine, The Ruinous Chime, The Wellspring of Fortune.',
-};
+/** Logs referenced by the finale member-vote table conditions (the Trial group). */
+function voteLogs(): Set<LogId> {
+	const out = new Set<LogId>();
+	const collect = (c: unknown): void => {
+		if (!c || typeof c !== 'object') return;
+		const o = c as Record<string, unknown>;
+		if (typeof o.recorded === 'string') out.add(o.recorded);
+		if (typeof o.notRecorded === 'string') out.add(o.notRecorded);
+		for (const v of [o.all, o.any]) if (Array.isArray(v)) v.forEach(collect);
+		if (o.not) collect(o.not);
+	};
+	const finale = getFile(loadLogic().files.find((f) => f.kind === 'finale')?.fileCode ?? '59-Z');
+	for (const d of finale?.decisions ?? []) if (d.decisionId === 'COTK.memberVotes') for (const opt of d.options) for (const row of opt.voteTable ?? []) collect(row.when);
+	return out;
+}
 
 let _catalog: SolverCatalog | null = null;
 
 export function catalog(): SolverCatalog {
 	if (_catalog) return _catalog;
-	const db = loadDatabase();
-	const titleize = (id: string) => id.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+	const L = loadLogic();
 
-	const scenarios: CatalogEntry[] = Object.entries(db.scenarios)
-		.filter(([, s]) => s.role !== 'finale')
-		.map(([id, s]) => ({ id, label: s.name }))
+	const resolutions: Record<FileCode, CatalogEntry[]> = {};
+	const versions: Record<FileCode, CatalogEntry[]> = {};
+	const levels: Record<FileCode, CatalogEntry[]> = {};
+	const files: CatalogEntry[] = [];
+	const versionedFiles: CatalogEntry[] = [];
+	const levelFiles: CatalogEntry[] = [];
+
+	for (const f of L.files) {
+		if (f.kind === 'epilogue' || f.kind === 'status_reports') continue;
+		const title = fileTitle(f.fileCode);
+		files.push({ id: f.fileCode, label: title });
+		const ef = getEnFile(f.fileCode);
+		const text = (decisionId: string, optionId: string) => ef?.decisions[decisionId]?.options[optionId]?.dropdownText ?? optionId;
+		for (const d of f.decisions) {
+			if (d.decisionType === 'resolution' && f.kind !== 'finale') {
+				resolutions[f.fileCode] = d.options.filter((o) => o.selectable).map((o) => ({ id: o.id, label: text(d.decisionId, o.id) }));
+			} else if (d.decisionType === 'scenario_version' && f.kind !== 'finale') {
+				versions[f.fileCode] = d.options.map((o) => ({ id: o.id, label: text(d.decisionId, o.id) }));
+				versionedFiles.push({ id: f.fileCode, label: title });
+			} else if (d.decisionType === 'time_scaling') {
+				levels[f.fileCode] = d.options.map((o) => ({ id: o.id, label: text(d.decisionId, o.id) }));
+				levelFiles.push({ id: f.fileCode, label: title });
+			}
+		}
+	}
+	files.sort((a, b) => a.label.localeCompare(b.label));
+	versionedFiles.sort((a, b) => a.label.localeCompare(b.label));
+	levelFiles.sort((a, b) => a.label.localeCompare(b.label));
+
+	// Campaign logs (targetable), with browse groups.
+	const { scenario: scenarioFlags, all: allFlags } = recordedLogsByKind();
+	const epilogueFlags = new Set<LogId>([...L.epilogueTally.foundationTrust, ...L.epilogueTally.cellDeception]);
+	const voteFlags = voteLogs();
+	const tallyIds = new Set((L.campaignLog as CampaignLogEntry[]).filter((c) => c.type === 'tally').map((c) => c.id));
+	const groupsForLog = (f: LogId): string[] => {
+		const g: string[] = [];
+		if (voteFlags.has(f)) g.push('trial');
+		if (epilogueFlags.has(f)) g.push('epilogue');
+		if (scenarioFlags.has(f)) g.push('scenario');
+		return g.length ? g : ['other'];
+	};
+	const campaignLogs: CatalogEntry[] = [...allFlags]
+		.filter((f) => !tallyIds.has(f) && !LOG_EXCLUDE.has(f))
+		.map((f) => ({ id: f, label: logText(f), groups: groupsForLog(f) }))
 		.sort((a, b) => a.label.localeCompare(b.label));
 
-	const versions: Record<string, CatalogEntry[]> = {};
-	const resolutions: Record<string, CatalogEntry[]> = {};
-	for (const [id, s] of Object.entries(db.scenarios)) {
-		if (s.versions) {
-			versions[id] = Object.entries(s.versions)
-				.map(([vid, v]) => ({ id: vid, label: v.label ?? v.note ?? vid }))
-				.sort((a, b) => a.id.localeCompare(b.id));
-		}
-		// Selectable resolutions: real outcomes (skip explicit campaign-loss dead ends).
-		resolutions[id] = s.resolutions
-			.filter((r) => r.outcome !== 'LOSE_CAMPAIGN')
-			.map((r) => ({ id: r.id, label: r.id, note: r.desc ?? r.note }));
-	}
-
-	// One dropdown entry per standalone product (id = product id for `play_side_story`).
+	// Side-story products.
 	const sideStories: CatalogEntry[] = [];
-	for (const s of db.side_stories) {
-		for (const product of s.products) {
-			sideStories.push({
-				id: product.id,
-				label: product.name,
-				note: `Played at ${getLocationName(s.node)} — costs ${product.xp_cost} time${s.grants_key ? '; awards a Key' : ''}`,
-			});
+	for (const s of L.sideStories) {
+		for (const p of s.products) {
+			sideStories.push({ id: p.id, label: loadEn().sideStoryProducts[p.id] ?? p.id, note: `Played at ${locationName(s.locationId)} — costs ${p.timeCost} time${s.grantsKeyId ? '; awards a Key' : ''}` });
 		}
 	}
 	sideStories.sort((a, b) => a.label.localeCompare(b.label));
 
-	// Scenarios with versions, finale included (the finale's "versions" are the three endings,
-	// reached via the Trial groups v.I=2 / v.II=3·4·5 / v.III=6·7).
-	const versionedScenarios: CatalogEntry[] = Object.entries(db.scenarios)
-		.filter(([id]) => (versions[id]?.length ?? 0) > 0)
-		.map(([id, s]) => ({ id, label: s.name }))
-		.sort((a, b) => a.label.localeCompare(b.label));
-
-	// Which scenario/interlude records a campaign-log flag (for the picker's note).
-	const logProducerName = (flag: string): string | undefined => {
-		for (const s of Object.values(db.scenarios)) {
-			if (s.resolutions.some((r) => (r.logs ?? []).includes(flag))) return s.name;
-			if ([...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])].some((c) => (c.logs ?? []).includes(flag))) return s.name;
-		}
-		for (const it of Object.values(db.interludes)) {
-			if ((it.outcomes ?? it.options ?? []).some((o) => (o.logs ?? []).includes(flag))) return it.name;
-		}
-		return undefined;
-	};
-	// Every campaign-log entry a scenario/interlude records on a WINNING path (logs produced only by
-	// LOSE_CAMPAIGN resolutions are dropped), excluding unlock codes, deck assets, and the explicit
-	// exclude set. Well-known ones get a friendly label; the rest are titleized.
-	const assetIds = new Set(db.allies.map((a) => a.id));
-	const logFlags = new Set<string>();
-	for (const s of Object.values(db.scenarios))
-		for (const r of s.resolutions) if (r.outcome !== 'LOSE_CAMPAIGN') for (const f of r.logs ?? []) logFlags.add(f);
-	for (const it of Object.values(db.interludes))
-		for (const o of it.outcomes ?? it.options ?? []) for (const f of o.logs ?? []) logFlags.add(f);
-	// Scenarios' pre-scenario (intro/interlude) choices also record logs — include them so flags like
-	// `agent_quinn_has_your_back` (a Foundation Trust source) are targetable.
-	for (const s of Object.values(db.scenarios))
-		for (const c of [...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])]) for (const f of c.logs ?? []) logFlags.add(f);
-
-	// Browse-group classification for the long campaign-log list (a flag may belong to several).
-	const stripNote = (x: string) => x.replace(/\([^)]*\)/g, '').trim();
-	const epilogueFlags = new Set([...db.trust_deception.foundation_trust_sources, ...db.trust_deception.cell_deception_sources].map(stripNote));
-	const voteFlags = new Set<string>();
-	for (const m of Object.values(db.trial_logic.voters)) for (const f of Object.keys(m)) if (f !== 'default') voteFlags.add(stripNote(f));
-	const scenarioLogFlags = new Set<string>();
-	for (const s of Object.values(db.scenarios)) {
-		for (const r of s.resolutions) if (r.outcome !== 'LOSE_CAMPAIGN') for (const f of r.logs ?? []) scenarioLogFlags.add(f);
-		for (const c of [...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])]) for (const f of c.logs ?? []) scenarioLogFlags.add(f);
-	}
-	const groupsForLog = (f: string): string[] => {
-		const g: string[] = [];
-		if (voteFlags.has(f)) g.push('trial');
-		if (epilogueFlags.has(f)) g.push('epilogue');
-		if (scenarioLogFlags.has(f)) g.push('scenario');
-		return g.length ? g : ['other'];
-	};
-	const campaignLogs: CatalogEntry[] = [...logFlags]
-		.filter((f) => !/^code_.*_written$/.test(f) && !assetIds.has(f) && !CAMPAIGN_LOG_EXCLUDE.has(f))
-		.map((f) => {
-			const sc = logProducerName(f);
-			return { id: f, label: CAMPAIGN_LOG_LABELS[f] ?? titleize(f), groups: groupsForLog(f), ...(sc ? { note: `Recorded in ${sc}` } : {}) };
-		})
-		.sort((a, b) => a.label.localeCompare(b.label));
-
-	// Scenarios with time-based difficulty levels, and their selectable levels.
-	const levels: Record<string, CatalogEntry[]> = {};
-	const levelScenarios: CatalogEntry[] = [];
-	for (const [id, s] of Object.entries(db.scenarios)) {
-		const tiers = s.time_tiers;
-		if (!tiers || tiers.length === 0) continue;
-		levelScenarios.push({ id, label: s.name });
-		levels[id] = tiers.map((t, i) => ({ id: String(i + 1), label: `Lv. ${i + 1}/${tiers.length} — ${t.label}` }));
-	}
-	levelScenarios.sort((a, b) => a.label.localeCompare(b.label));
+	// Finale judgments + epilogues.
+	const finale = getFile(L.files.find((f) => f.kind === 'finale')?.fileCode ?? '59-Z');
+	const judgments: CatalogEntry[] = (finale?.decisions.find((d) => d.decisionId === 'COTK.judgment')?.options ?? []).map((o) => ({ id: o.id, label: optionById('59-Z', o.id)?.dropdownText ?? o.id }));
+	const epilogues: CatalogEntry[] = (getFile('Epilogue')?.decisions[0]?.options ?? []).map((o) => ({ id: o.id, label: optionById('Epilogue', o.id)?.dropdownText ?? o.id }));
 
 	_catalog = {
-		achievements: db.achievements
-			// Difficulty-gated achievements (e.g. Expert "Global Expertise") are not supported — the planner
-			// is difficulty-agnostic, so they're never selectable as goals.
-			.filter((a) => a.planning !== false && a.constraint?.kind !== 'difficulty')
-			.map((a) => ({ id: a.id, label: a.label ?? titleize(a.id), note: ACHIEVEMENT_DESC[a.id] ?? a.requires }))
+		achievements: achievementList()
+			.filter((a) => a.planning !== false && a.detect.kind !== 'difficulty')
+			.map((a) => ({ id: a.id, label: achievementName(a.id), note: achievementDescription(a.id) }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
-		keys: db.keys.map((k) => ({ id: k.id, label: titleize(k.id), note: k.character })).sort((a, b) => a.label.localeCompare(b.label)),
-		scenarios,
-		versionedScenarios,
-		narrativeChains: Object.entries(db.narrative_chains)
-			.map(([id, c]) => ({ id, label: c.label }))
+		keys: Object.keys(loadEn().keys)
+			.map((id) => ({ id, label: keyName(id) }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
-		allies: db.allies
-			// Foundation Intel is a temporary liability from the Special Delivery quest, not a recruitable
-			// deck ally — it's exposed via the `special_delivery` constraint instead.
-			.filter((a) => a.deck_asset && a.id !== 'foundation_intel')
-			.map((a) => ({ id: a.id, label: a.name }))
-			.sort((a, b) => a.label.localeCompare(b.label)),
+		files,
+		resolutions,
+		versions,
+		levels,
+		versionedFiles,
+		levelFiles,
 		campaignLogs,
 		campaignLogGroups: [
 			{ id: 'scenario', label: 'Scenario resolutions' },
@@ -242,33 +169,26 @@ export function catalog(): SolverCatalog {
 			{ id: 'epilogue', label: 'Epilogue (Trust / Deception)' },
 			{ id: 'other', label: 'Other' },
 		],
-		levelScenarios,
-		levels,
 		sideStories,
-		nodes: db.locations.map((l) => ({ id: l.id, label: l.name })).sort((a, b) => a.label.localeCompare(b.label)),
-		resolutions,
-		versions,
-		trials: TRIALS,
+		judgments,
+		epilogues,
 	};
 	return _catalog;
 }
 
-function getLocationName(node: NodeId): string {
-	return loadDatabase().locations.find((l) => l.id === node)?.name ?? node;
+/** Friendly display label for any raw id (location, key, character, file, log, achievement). */
+export function labelFor(id: string): string {
+	const en = loadEn();
+	if (en.locations[id]) return locationName(id);
+	if (en.keys[id]) return keyName(id);
+	if (en.characters[id]) return characterName(id);
+	if (en.files[id]) return fileTitle(id);
+	if (en.campaignLog[id]) return logText(id);
+	if (en.achievements[id]) return achievementName(id);
+	return id;
 }
 
-/** Friendly display label for any raw id (location, key, scenario, ally, or marker symbol). */
-export function labelFor(id: string): string {
-	const db = loadDatabase();
-	const loc = db.locations.find((l) => l.id === id);
-	if (loc) return loc.name;
-	if (db.scenarios[id]) return db.scenarios[id]!.name;
-	if (db.interludes[id]) return db.interludes[id]!.name;
-	const ally = db.allies.find((a) => a.id === id);
-	if (ally) return ally.name;
-	const key = db.keys.find((k) => k.id === id);
-	if (key) return id.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-	const ach = db.achievements.find((a) => a.id === id);
-	if (ach?.label) return ach.label;
-	return id.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+/** Reset memoized catalog (test isolation only). */
+export function _resetCatalog(): void {
+	_catalog = null;
 }

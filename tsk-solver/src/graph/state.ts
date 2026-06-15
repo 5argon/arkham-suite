@@ -1,262 +1,171 @@
 /**
- * The campaign state machine (README §2.4).
+ * The campaign state machine (pure).
  *
- * State transitions are pure: every helper returns a fresh `CampaignState`; the
- * input is never mutated. `applyStop` is the single transition used by the search —
- * it folds travel time, status-report / marker interrupts, and the chosen stop
- * option's effects into the next state, reporting which interrupts fired.
+ * Every transition returns a fresh `CampaignState`; the input is never mutated. `applyFile`
+ * is the single "stop" transition: it folds travel + the file's chosen options' time into one
+ * clock advance (firing every time-track marker crossed, applying its status report), then
+ * applies the chosen options' structured effects. `travelTo` moves without stopping.
  */
 
-import { alliesById, loadDatabase } from '../data/load.js';
-import type { BearerId, CampaignState, FlagId, KeyId, MarkerSymbol, NodeId, RawIntroChoice } from '../types.js';
-import type { StopOption } from './model.js';
+import { getMarker, loadLogic, metadata, statusReportOption } from '../data/load.js';
+import type { BearerId, CampaignState, FileCode, KeyId, LogId, MarkerSymbol, NodeId } from '../types.js';
+import { applyEffect, type Draft, sumTime } from './effects.js';
+import type { ChosenOption } from './model.js';
 
-const CHAOS_CAP = 4;
-
-/** Fresh campaign state at London, pre-prologue. */
+/** Fresh campaign state at the start location (London), pre-prologue. */
 export function initialState(): CampaignState {
-	const meta = loadDatabase().campaign_metadata;
 	return {
-		node: meta.start_node,
+		location: metadata().startLocation,
 		timePassed: 0,
 		visitedStops: new Set(),
-		flags: new Set(),
+		visitedFiles: new Set(),
+		recorded: new Set(),
+		tallies: new Map(),
 		keys: new Map(),
-		allies: new Set(),
 		assets: new Set(),
-		// The TSK chaos bag starts with one Tablet and one Elder Thing; trust/defy choices shift them.
+		// The TSK chaos bag starts with one Tablet and one Elder Thing; trust/deception shift them.
 		tablet: 1,
 		elderThing: 1,
+		cultist: 0,
 		xpBonus: 0,
-		trust: 0,
-		deception: 0,
 		hasTicket: false,
+		unlocked: new Set(),
 		markers: new Map(),
+		boardStates: new Set(),
+		chosenOptions: new Set(),
 	};
 }
 
-// --- trust / deception ------------------------------------------------------
+// --- trust / deception (epilogue tallies) -----------------------------------
 
-/** Base flag id with any parenthetical note stripped, e.g. "x (crossed off)" -> "x". */
-function baseFlag(source: string): FlagId {
-	return source.replace(/\([^)]*\)/g, '').trim();
+/** Foundation-Trust tally = recorded `epilogueTally.foundationTrust` entries. */
+export function computeTrust(recorded: ReadonlySet<LogId>): number {
+	return loadLogic().epilogueTally.foundationTrust.filter((l) => recorded.has(l)).length;
+}
+/** Cell-Deception tally = recorded `epilogueTally.cellDeception` entries. */
+export function computeDeception(recorded: ReadonlySet<LogId>): number {
+	return loadLogic().epilogueTally.cellDeception.filter((l) => recorded.has(l)).length;
 }
 
-let _trustSources: FlagId[] | null = null;
-let _deceptionSources: FlagId[] | null = null;
-function trustSources(): FlagId[] {
-	if (!_trustSources) _trustSources = loadDatabase().trust_deception.foundation_trust_sources.map(baseFlag);
-	return _trustSources;
-}
-function deceptionSources(): FlagId[] {
-	if (!_deceptionSources)
-		_deceptionSources = loadDatabase().trust_deception.cell_deception_sources.map(baseFlag);
-	return _deceptionSources;
-}
+// --- time-track crossing ----------------------------------------------------
 
-export function computeTrust(flags: ReadonlySet<FlagId>): number {
-	return trustSources().filter((f) => flags.has(f)).length;
-}
-export function computeDeception(flags: ReadonlySet<FlagId>): number {
-	return deceptionSources().filter((f) => flags.has(f)).length;
-}
-
-// --- time interrupts (status reports + written markers) ---------------------
-
-interface Crossing {
-	timePassed: number;
-	flags: Set<FlagId>;
-	elderThing: number;
-	fired: MarkerSymbol[];
+function toDraft(s: CampaignState): Draft {
+	return {
+		recorded: new Set(s.recorded),
+		tallies: new Map(s.tallies),
+		keys: new Map(s.keys),
+		assets: new Set(s.assets),
+		tablet: s.tablet,
+		elderThing: s.elderThing,
+		cultist: s.cultist,
+		xpBonus: s.xpBonus,
+		hasTicket: s.hasTicket,
+		unlocked: new Set(s.unlocked),
+		markers: new Map(s.markers),
+	};
 }
 
 /**
- * Advance time from `state` by `delta`, firing every status report / written marker
- * whose box is crossed. box-symbol reports without a numeric box are never fired
- * (their position is not in the data); markers already written in `state` fire when
- * their box is crossed (e.g. psi -> code_50S_written unlocks Hong Kong).
+ * Advance the clock from `t0` to `t1`, firing every printed or written marker whose box lies
+ * in `(t0, t1]` (in box order) and applying its status report's effects to `draft` (unlock
+ * nodes, add a cultist token, etc.). Returns the symbols fired.
  */
-function crossTime(state: CampaignState, delta: number): Crossing {
-	const db = loadDatabase();
-	const t0 = state.timePassed;
-	const t1 = t0 + delta;
-	const flags = new Set(state.flags);
-	let elderThing = state.elderThing;
-	const fired: MarkerSymbol[] = [];
-
-	const fire = (symbol: MarkerSymbol, sets: FlagId | undefined, effect: string) => {
-		if (sets) flags.add(sets);
-		// The guide's "(curse)" token is the Elder Thing token in TSK.
-		if (/curse|elder/i.test(effect)) elderThing = Math.min(CHAOS_CAP, elderThing + 1);
-		fired.push(symbol);
-	};
-
-	// box-symbol status reports with a defined box.
-	const finalBox = db.campaign_metadata.global_time_track_boxes;
-	for (const report of Object.values(db.status_reports)) {
-		if (report.type !== 'box_symbol') continue;
-		const box = report.at_box === 'final' ? finalBox : typeof report.at_box === 'number' ? report.at_box : undefined;
+function crossTime(draft: Draft, t0: number, t1: number): MarkerSymbol[] {
+	const crossed: { symbol: MarkerSymbol; box: number }[] = [];
+	for (const m of loadLogic().timeMarkers) {
+		const box = m.box ?? draft.markers.get(m.symbol);
 		if (box === undefined) continue;
-		if (t0 < box && box <= t1) fire(report.symbol, report.sets, report.effect);
+		if (t0 < box && box <= t1) crossed.push({ symbol: m.symbol, box });
 	}
-
-	// previously-written markers crossed during this advance.
-	for (const [sym, box] of state.markers) {
-		const report = db.status_reports[sym];
-		if (!report) continue;
-		if (t0 < box && box <= t1) fire(report.symbol, report.sets, report.effect);
+	crossed.sort((a, b) => a.box - b.box);
+	for (const { symbol } of crossed) {
+		const marker = getMarker(symbol);
+		if (marker?.reportOptionId) {
+			const opt = statusReportOption(marker.reportOptionId);
+			if (opt) for (const e of opt.effects) applyEffect(draft, e, t1);
+		}
 	}
-
-	return { timePassed: t1, flags, elderThing, fired };
+	return crossed.map((c) => c.symbol);
 }
 
-// --- the transition ---------------------------------------------------------
+function freeze(draft: Draft, base: CampaignState, location: NodeId, t1: number, visitedStops: ReadonlySet<NodeId>, visitedFiles: ReadonlySet<FileCode>, chosenOptions: ReadonlySet<string>): CampaignState {
+	return {
+		location,
+		timePassed: t1,
+		visitedStops,
+		visitedFiles,
+		recorded: draft.recorded,
+		tallies: draft.tallies,
+		keys: draft.keys,
+		assets: draft.assets,
+		tablet: draft.tablet,
+		elderThing: draft.elderThing,
+		cultist: draft.cultist,
+		xpBonus: draft.xpBonus,
+		hasTicket: draft.hasTicket,
+		unlocked: draft.unlocked,
+		markers: draft.markers,
+		boardStates: base.boardStates,
+		chosenOptions,
+	};
+}
+
+// --- the transitions --------------------------------------------------------
 
 export interface StopResult {
 	state: CampaignState;
-	/** Interrupts that fired while traveling + playing this stop (in time order). */
+	/** Markers fired (in time order) while travelling + playing this stop. */
 	firedReports: MarkerSymbol[];
-	/** Travel cost folded into this transition. */
-	travelCost: number;
 }
 
 /**
- * Apply: travel `travelCost` hops to `option.node`, optionally make the selected pre-scenario
- * choices, stop, and resolve `option`. Pre-choices' time/logs/chaos/granted-asset apply BEFORE the
- * resolution (they routinely shift trust/deception and the chaos bag pre-play). When `useTicket` is
- * true, the travel is a 0-time Expedited Ticket jump (the ticket is consumed). Returns the next state
- * plus any interrupts fired. Pure.
+ * Travel `travelCost` hops to `location`, then stop and resolve `chosen` (the player's picks +
+ * auto branches, in file order). Pre-step time = travel + every chosen option's `time` effect;
+ * the clock advances once (firing markers), then the options' non-time effects apply. When
+ * `useTicket` is true the travel is a 0-time Expedited Ticket jump (the ticket is consumed). Pure.
  */
-export function applyStop(
-	state: CampaignState,
-	option: StopOption,
-	travelCost: number,
-	useTicket = false,
-	preChoices: RawIntroChoice[] = [],
-): StopResult {
-	// 1. Travel + pre-choice time + the stop's own time (interrupts may fire across the whole leg).
-	const preTime = preChoices.reduce((t, c) => t + (c.time ?? 0), 0);
-	const totalDelta = travelCost + preTime + option.baseTime;
-	const crossing = crossTime(state, totalDelta);
+export function applyFile(state: CampaignState, location: NodeId, fileCode: FileCode, chosen: ChosenOption[], travelCost: number, useTicket = false): StopResult {
+	const draft = toDraft(state);
+	if (useTicket) draft.hasTicket = false;
 
-	const flags = crossing.flags;
-	const keys = new Map<KeyId, BearerId>(state.keys);
-	const allies = new Set(state.allies);
-	const assets = new Set(state.assets);
-	const markers = new Map(state.markers);
+	const optionTime = chosen.reduce((t, c) => t + sumTime(c.option.effects), 0);
+	const t0 = state.timePassed;
+	const t1 = t0 + travelCost + optionTime;
+	const fired = crossTime(draft, t0, t1);
+	for (const c of chosen) for (const e of c.option.effects) applyEffect(draft, e, t1);
+
 	const visitedStops = new Set(state.visitedStops);
-	let elderThing = crossing.elderThing;
-	let tablet = state.tablet;
-	// Adding a chaos token to an already-full bag (cap 4) grants +1 XP instead (campaign rule).
-	let overflowXp = 0;
-
-	// chaos: best-effort from a "-bless +curse" style string (bless≈Tablet, curse≈Elder Thing).
-	const bumpChaos = (chaos: string | undefined): void => {
-		if (!chaos) return;
-		if (/\+\s*(bless|tablet)/i.test(chaos)) tablet >= CHAOS_CAP ? overflowXp++ : tablet++;
-		if (/-\s*(bless|tablet)/i.test(chaos)) tablet = Math.max(0, tablet - 1);
-		if (/\+\s*(curse|elder)/i.test(chaos)) elderThing >= CHAOS_CAP ? overflowXp++ : elderThing++;
-		if (/-\s*(curse|elder)/i.test(chaos)) elderThing = Math.max(0, elderThing - 1);
-	};
-	const grant = (asset: string): void => {
-		if (alliesById().has(asset)) allies.add(asset);
-		else assets.add(asset);
-	};
-
-	// 2. Stop-lockout bookkeeping (London may be stopped twice — prologue + revisit).
-	visitedStops.add(option.node);
-
-	// 3. Pre-scenario choices (applied before the resolution).
-	for (const c of preChoices) {
-		for (const log of c.logs ?? []) flags.add(log);
-		if (c.grants_asset) grant(c.grants_asset);
-		bumpChaos(c.chaos);
-	}
-
-	// 4. Apply the option's structured effects.
-	for (const log of option.logs) flags.add(log);
-	if (option.unlocks) flags.add(option.unlocks);
-	if (option.clearsLog) flags.delete(option.clearsLog);
-	if (option.grantsAsset) assets.add(option.grantsAsset);
-	for (const ally of option.grantsAllies) allies.add(ally);
-
-	// keys: resolution key goes to its bearer; granted keys go to an investigator.
-	if (option.key) keys.set(option.key, option.bearer ?? 'unknown');
-	if (option.grantsKey) keys.set(option.grantsKey, 'investigator');
-
-	// markers written by this option land `offset` boxes ahead of current time.
-	if (option.writesMarker) {
-		markers.set(option.writesMarker.symbol, crossing.timePassed + option.writesMarker.offset);
-	}
-
-	bumpChaos(option.chaos);
-
-	const next: CampaignState = {
-		node: option.node,
-		timePassed: crossing.timePassed,
-		visitedStops,
-		flags,
-		keys,
-		allies,
-		assets,
-		tablet,
-		elderThing,
-		xpBonus: state.xpBonus + option.xpBonus + overflowXp,
-		trust: computeTrust(flags),
-		deception: computeDeception(flags),
-		// Acquiring the ticket sets it; using it (this jump) consumes it.
-		hasTicket: useTicket ? false : state.hasTicket || option.grantsAsset === 'expedited_ticket',
-		markers,
-	};
-
-	return { state: next, firedReports: crossing.fired, travelCost };
+	visitedStops.add(location);
+	const visitedFiles = new Set(state.visitedFiles);
+	visitedFiles.add(fileCode);
+	const chosenOptions = new Set(state.chosenOptions);
+	for (const c of chosen) chosenOptions.add(c.option.id);
+	return { state: freeze(draft, state, location, t1, visitedStops, visitedFiles, chosenOptions), firedReports: fired };
 }
 
 /**
- * Travel to `node` WITHOUT stopping — the rules let the cell move and decline to act. Advances the
- * clock by `travelCost` (firing any status-report / marker interrupts crossed en route), relocates,
- * and consumes a ticket if `useTicket`. No stop is recorded (the node stays available to stop at
- * later) and no option effects apply. Pure. Lets a plan loop to burn time / trigger calendar events.
+ * Travel to `location` WITHOUT stopping — the rules let the cell move and decline to act.
+ * Advances the clock (firing any markers crossed), relocates, consumes a ticket if `useTicket`.
+ * No stop is recorded and no option effects apply. Lets a plan loop to burn time. Pure.
  */
-export function travelTo(state: CampaignState, node: NodeId, travelCost: number, useTicket = false): StopResult {
-	const crossing = crossTime(state, travelCost);
-	const next: CampaignState = {
-		...state,
-		node,
-		timePassed: crossing.timePassed,
-		flags: crossing.flags,
-		elderThing: crossing.elderThing,
-		trust: computeTrust(crossing.flags),
-		deception: computeDeception(crossing.flags),
-		hasTicket: useTicket ? false : state.hasTicket,
-	};
-	return { state: next, firedReports: crossing.fired, travelCost };
+export function travelTo(state: CampaignState, location: NodeId, travelCost: number, useTicket = false): StopResult {
+	const draft = toDraft(state);
+	if (useTicket) draft.hasTicket = false;
+	const t1 = state.timePassed + travelCost;
+	const fired = crossTime(draft, state.timePassed, t1);
+	return { state: freeze(draft, state, location, t1, state.visitedStops, state.visitedFiles, state.chosenOptions), firedReports: fired };
 }
 
-/** Is this key bearer one the cell controls at the finale (investigator, or conditionally so)? */
+// --- key helpers ------------------------------------------------------------
+
+/** Is this bearer one the cell controls at the finale? */
 export function bearerIsInvestigator(bearer: BearerId | undefined): boolean {
-	return bearer === 'investigator' || bearer === 'conditional';
+	return bearer === 'investigator';
 }
 
 /** Keys currently held by an investigator (the cell) — for the finale tally. */
 export function keysHeldByInvestigator(state: CampaignState): KeyId[] {
 	const held: KeyId[] = [];
-	for (const [key, bearer] of state.keys) {
-		if (bearerIsInvestigator(bearer)) held.push(key);
-	}
+	for (const [key, bearer] of state.keys) if (bearerIsInvestigator(bearer)) held.push(key);
 	return held.sort();
-}
-
-/**
- * A stable string fingerprint of the routing-relevant parts of a state (for visited-set dedup).
- * Includes written markers and assets so that two states differing only in a pending marker
- * (e.g. an unfired psi/delta) or a held asset (e.g. the whistle) are never merged — which would
- * make later `requires` checks order-dependent and pruning unsound.
- */
-export function stateSignature(state: CampaignState): string {
-	const stops = [...state.visitedStops].sort().join(',');
-	const flags = [...state.flags].sort().join(',');
-	const markers = [...state.markers.entries()].map(([k, v]) => `${k}:${v}`).sort().join(',');
-	const assets = [...state.assets].sort().join(',');
-	return `${state.node}|${state.timePassed}|${stops}|${flags}|${state.hasTicket ? 1 : 0}|${markers}|${assets}`;
 }

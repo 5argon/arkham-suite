@@ -1,15 +1,11 @@
 <script lang="ts">
-	import { catalog, evaluateAchievements, predictTrial, resolveLocalized, type Constraint, type PlanTrajectory } from '@5argon/arkham-tsk-solver';
+	import { catalog, evaluateAchievements, resolveLocalized, type Constraint, type PlanTrajectory } from '@5argon/arkham-tsk-solver';
 
 	let { trajectory, constraints }: { trajectory: PlanTrajectory; constraints: Constraint[] } = $props();
 
-	const fs = $derived(trajectory.finalState);
-	const requested = $derived(
-		new Set(constraints.filter((c): c is Extract<Constraint, { kind: 'achievement' }> => c.kind === 'achievement').map((c) => c.id)),
-	);
-	const trial = $derived(predictTrial(fs.flags, fs.trust, fs.deception));
-	// `steps` are SimStep (a superset of RouteStep); travel-only steps aren't plays, so exclude them.
-	const earned = $derived(evaluateAchievements(trajectory.steps.filter((s) => !s.travelOnly), fs, 'standard', trial, requested));
+	const requested = $derived(new Set(constraints.filter((c): c is Extract<Constraint, { kind: 'achievement' }> => c.kind === 'achievement').map((c) => c.id)));
+	// travel-only steps aren't plays, so exclude them.
+	const earned = $derived(evaluateAchievements(trajectory.steps.filter((s) => !s.travelOnly), trajectory.finalState, trajectory.finale, requested));
 	const descById = new Map(catalog().achievements.map((e) => [e.id, e.note]));
 </script>
 

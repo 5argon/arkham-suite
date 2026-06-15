@@ -11,6 +11,8 @@ import type { Constraint, PlanStep } from '@5argon/arkham-tsk-solver';
 export interface PlanShareState {
 	plan: PlanStep[];
 	constraints: Constraint[];
+	/** Board outcomes the plan can't derive but the player asserts (e.g. `desiReal`). */
+	assertions?: string[];
 }
 
 function bytesToBase64Url(bytes: Uint8Array): string {
@@ -38,7 +40,11 @@ export function decodeState(encoded: string): PlanShareState | null {
 		const json = inflate(base64UrlToBytes(encoded), { to: 'string' });
 		const parsed = JSON.parse(json);
 		if (!parsed || !Array.isArray(parsed.plan)) return null;
-		return { plan: parsed.plan, constraints: Array.isArray(parsed.constraints) ? parsed.constraints : [] };
+		return {
+			plan: parsed.plan,
+			constraints: Array.isArray(parsed.constraints) ? parsed.constraints : [],
+			assertions: Array.isArray(parsed.assertions) ? parsed.assertions : [],
+		};
 	} catch {
 		return null;
 	}

@@ -601,13 +601,38 @@
           "options": {
             "OTI.t.0": {
               "dropdownText": "0–4 time – no head start",
-              "fullText": "Agenda 1 starts with no doom. You have the best chance to reach the Sable Glass before Thorne.",
-              "condition": "Fewer than 5 time passed."
+              "fullText": "Agenda 1 starts with no doom. Best chance to reach the Sable Glass before Thorne.",
+              "condition": null
             },
-            "OTI.t.scaling": {
-              "dropdownText": "5+ time – Thorne gains a lead",
-              "fullText": "Agenda 1 starts with 1 doom for every 5 time passed (e.g. 2 doom at 10 time, 4 doom at 20). The more time has passed, the more likely Thorne reaches the Key first and you must fight or deal for it.",
-              "condition": "5 or more time passed (1 doom per full 5 time)."
+            "OTI.t.5": {
+              "dropdownText": "5–9 time – +1 doom",
+              "fullText": "Agenda 1 starts with 1 doom (1 per 5 time passed).",
+              "condition": null
+            },
+            "OTI.t.10": {
+              "dropdownText": "10–14 time – +2 doom",
+              "fullText": "Agenda 1 starts with 2 doom (1 per 5 time passed).",
+              "condition": null
+            },
+            "OTI.t.15": {
+              "dropdownText": "15–19 time – +3 doom",
+              "fullText": "Agenda 1 starts with 3 doom (1 per 5 time passed).",
+              "condition": null
+            },
+            "OTI.t.20": {
+              "dropdownText": "20–24 time – +4 doom",
+              "fullText": "Agenda 1 starts with 4 doom (1 per 5 time passed).",
+              "condition": null
+            },
+            "OTI.t.25": {
+              "dropdownText": "25–29 time – +5 doom",
+              "fullText": "Agenda 1 starts with 5 doom (1 per 5 time passed). Thorne is far ahead.",
+              "condition": null
+            },
+            "OTI.t.30": {
+              "dropdownText": "30+ time – +6 doom",
+              "fullText": "Agenda 1 starts with 6+ doom (1 per 5 time passed). Thorne has a commanding lead.",
+              "condition": null
             }
           }
         },

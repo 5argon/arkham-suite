@@ -76,6 +76,7 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.DeleteList]: 'fa-trash-can-list',
 		[FaIconType.ExternalLink]: 'fa-arrow-up-right-from-square',
 		[FaIconType.Logout]: 'fa-right-from-bracket',
+		[FaIconType.Map]: 'fa-map-location-dot',
 	};
 </script>
 

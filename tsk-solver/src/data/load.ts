@@ -1,231 +1,248 @@
 /**
- * Typed loader + integrity validation for the shipped campaign database.
+ * Typed loader for the two-file campaign data (`logic.json` + `en.json`), bridged by IDs.
  *
- * The JSON is the single source of truth (README §9). On first load we validate
- * structural integrity and throw `DatabaseIntegrityError` (fail-fast) if the data
- * is malformed. All accessors return immutable views derived once and memoized.
+ * `logic.json` is language-independent behaviour; `en.json` is the matching display strings.
+ * On first load we run a light integrity pass and throw `DatabaseIntegrityError` (fail-fast)
+ * on malformed data. All accessors are memoized immutable views.
  */
 
-import rawDatabase from './tsk_database.json' with { type: 'json' };
+import rawLogic from './new/logic.json' with { type: 'json' };
+import rawEn from './new/en.json' with { type: 'json' };
 import type {
-	FlagId,
+	AchievementEntry,
+	CampaignLogEntry,
+	EnFile,
+	EnLocale,
+	EnOption,
+	FileCode,
+	LogicDatabase,
+	LogicFile,
+	LogicLocation,
+	LogicOption,
 	NodeId,
-	RawAlly,
-	RawDatabase,
-	RawInterlude,
-	RawKey,
-	RawLocation,
-	RawScenario,
-	RawSideStory,
+	SideStory,
+	TimeMarker,
 } from '../types.js';
 
-const db = rawDatabase as unknown as RawDatabase;
+const logic = rawLogic as unknown as LogicDatabase;
+const en = rawEn as unknown as EnLocale;
 
 export class DatabaseIntegrityError extends Error {
 	readonly problems: string[];
 	constructor(problems: string[]) {
-		super(`tsk_database.json failed integrity validation:\n - ${problems.join('\n - ')}`);
+		super(`TSK data failed integrity validation:\n - ${problems.join('\n - ')}`);
 		this.name = 'DatabaseIntegrityError';
 		this.problems = problems;
 	}
 }
 
-/** Split a `_or_` compound node reference (e.g. `rio_de_janiero_or_perth`) into parts. */
-export function splitNodeRef(ref: NodeId): NodeId[] {
-	return ref.split('_or_');
-}
-
-/**
- * Run all §9 integrity checks. Returns a (possibly empty) list of human-readable
- * problems. Pure: does not throw.
- */
-export function validateIntegrity(data: RawDatabase): string[] {
+/** Light structural integrity pass (pure; returns problems). */
+export function validateIntegrity(L: LogicDatabase, E: EnLocale): string[] {
 	const problems: string[] = [];
-	const locationIds = new Set(data.locations.map((l) => l.id));
-	const scenarioIds = new Set(Object.keys(data.scenarios));
-	const interludeIds = new Set(Object.keys(data.interludes));
-	const sideStoryIds = new Set(data.side_stories.map((s) => s.id));
-	const keyIds = new Set(data.keys.map((k) => k.id));
+	const locIds = new Set(Object.keys(L.locations));
+	const fileCodes = new Set(L.files.map((f) => f.fileCode));
 
-	// 1. Connection targets exist; graph is symmetric.
-	const adjacency = new Map<NodeId, Set<NodeId>>();
-	for (const loc of data.locations) {
-		adjacency.set(loc.id, new Set(loc.connections));
+	// 1. Connections: targets exist + symmetric.
+	for (const [id, loc] of Object.entries(L.locations)) {
+		for (const t of loc.connections) {
+			if (!locIds.has(t)) problems.push(`location "${id}" connects to unknown node "${t}"`);
+			else if (!L.locations[t]!.connections.includes(id)) problems.push(`asymmetric edge: "${id}" -> "${t}"`);
+		}
 	}
-	for (const loc of data.locations) {
-		for (const target of loc.connections) {
-			if (!locationIds.has(target)) {
-				problems.push(`location "${loc.id}" connects to unknown node "${target}"`);
+	// 2. Every file's locationIds exist (epilogue / status-reports legitimately have none).
+	for (const f of L.files) for (const lid of f.locationIds ?? []) if (!locIds.has(lid)) problems.push(`file "${f.fileCode}" references unknown location "${lid}"`);
+	// 3. Location fileCodes exist.
+	for (const [id, loc] of Object.entries(L.locations)) for (const fc of loc.fileCodes) if (!fileCodes.has(fc)) problems.push(`location "${id}" references unknown file "${fc}"`);
+	// 4. unlock effects target real locations.
+	for (const f of L.files) for (const d of f.decisions) for (const o of d.options) for (const e of o.effects) if (e.type === 'unlock') for (const lid of e.locationIds) if (!locIds.has(lid)) problems.push(`file "${f.fileCode}" option "${o.id}" unlocks unknown location "${lid}"`);
+	// 5. Every file/decision/option has matching en text.
+	for (const f of L.files) {
+		const ef = E.files[f.fileCode];
+		if (!ef) {
+			problems.push(`en.files missing "${f.fileCode}"`);
+			continue;
+		}
+		for (const d of f.decisions) {
+			const ed = ef.decisions[d.decisionId];
+			if (!ed) {
+				problems.push(`en missing decision "${f.fileCode}/${d.decisionId}"`);
 				continue;
 			}
-			const back = adjacency.get(target);
-			if (!back || !back.has(loc.id)) {
-				problems.push(`asymmetric edge: "${loc.id}" -> "${target}" has no reverse edge`);
-			}
+			for (const o of d.options) if (!ed.options[o.id]) problems.push(`en missing option "${f.fileCode}/${d.decisionId}/${o.id}"`);
 		}
 	}
-
-	// 2. Every scenario_id on a node exists in scenarios or interludes.
-	for (const loc of data.locations) {
-		if (loc.scenario_id === null) continue;
-		if (
-			!scenarioIds.has(loc.scenario_id) &&
-			!interludeIds.has(loc.scenario_id) &&
-			!sideStoryIds.has(loc.scenario_id)
-		) {
-			problems.push(
-				`location "${loc.id}" references scenario_id "${loc.scenario_id}" not found in scenarios, interludes, or side_stories`,
-			);
-		}
-	}
-
-	// 3. Every unlock_condition is produced by some outcome's `unlocks` or status report `sets`.
-	const producedFlags = new Set<FlagId>();
-	for (const report of Object.values(data.status_reports)) {
-		if (report.sets) producedFlags.add(report.sets);
-	}
-	for (const interlude of Object.values(data.interludes)) {
-		for (const outcome of interlude.outcomes ?? []) {
-			if (outcome.unlocks) producedFlags.add(outcome.unlocks);
-		}
-	}
-	for (const chain of Object.values(data.narrative_chains)) {
-		for (const wp of chain.waypoints) {
-			if (wp.sets) {
-				// `sets` strings may be compound ("code_45P_written + delta"); record each token.
-				for (const token of wp.sets.split('+').map((s) => s.trim())) {
-					if (token) producedFlags.add(token);
-				}
-			}
-		}
-	}
-	for (const loc of data.locations) {
-		const conds: { field: string; value?: FlagId }[] = [
-			{ field: 'unlock_condition', value: loc.unlock_condition },
-			{ field: 'revisit_unlock', value: loc.revisit_unlock },
-		];
-		for (const { field, value } of conds) {
-			if (value && !producedFlags.has(value)) {
-				problems.push(
-					`location "${loc.id}".${field} = "${value}" is an orphan lock (no outcome/status report produces it)`,
-				);
-			}
-		}
-	}
-
-	// 4. Every key referenced in resolutions / interlude grants exists in keys.
-	for (const [sid, scenario] of Object.entries(data.scenarios)) {
-		for (const res of scenario.resolutions) {
-			if (res.key && !keyIds.has(res.key)) {
-				problems.push(`scenario "${sid}" resolution "${res.id}" references unknown key "${res.key}"`);
-			}
-		}
-	}
-	for (const [iid, interlude] of Object.entries(data.interludes)) {
-		for (const outcome of interlude.outcomes ?? []) {
-			if (outcome.grants_key && !keyIds.has(outcome.grants_key)) {
-				problems.push(
-					`interlude "${iid}" outcome "${outcome.id}" grants unknown key "${outcome.grants_key}"`,
-				);
-			}
-		}
-	}
-
-	// 5. Every narrative_chain waypoint references a real node.
-	for (const [cid, chain] of Object.entries(data.narrative_chains)) {
-		for (const wp of chain.waypoints) {
-			for (const part of splitNodeRef(wp.node)) {
-				if (!locationIds.has(part)) {
-					problems.push(`narrative_chain "${cid}" waypoint references unknown node "${part}"`);
-				}
-			}
-		}
-	}
-
-	// 6. Ally recruit nodes reference real nodes.
-	for (const ally of data.allies) {
-		for (const recruit of ally.recruit_via) {
-			for (const part of splitNodeRef(recruit.node)) {
-				if (!locationIds.has(part)) {
-					problems.push(`ally "${ally.id}" recruits at unknown node "${part}"`);
-				}
-			}
-		}
-	}
-
-	// 7. Metadata sanity: start and finale nodes exist.
-	if (!locationIds.has(data.campaign_metadata.start_node)) {
-		problems.push(`campaign_metadata.start_node "${data.campaign_metadata.start_node}" not found`);
-	}
-	if (!locationIds.has(data.campaign_metadata.finale_node)) {
-		problems.push(`campaign_metadata.finale_node "${data.campaign_metadata.finale_node}" not found`);
-	}
-
+	// 6. A prologue and a finale file exist.
+	if (!L.files.some((f) => f.kind === 'prologue')) problems.push('no prologue file');
+	if (!L.files.some((f) => f.kind === 'finale')) problems.push('no finale file');
 	return problems;
 }
 
-let validated: RawDatabase | null = null;
-
-/** Load the validated database, throwing `DatabaseIntegrityError` on malformed data. */
-export function loadDatabase(): RawDatabase {
-	if (validated) return validated;
-	const problems = validateIntegrity(db);
-	if (problems.length > 0) {
-		throw new DatabaseIntegrityError(problems);
-	}
-	validated = db;
-	return db;
+let _validated = false;
+function ensureValid(): void {
+	if (_validated) return;
+	const problems = validateIntegrity(logic, en);
+	if (problems.length > 0) throw new DatabaseIntegrityError(problems);
+	_validated = true;
 }
 
-// --- Memoized derived accessors --------------------------------------------
-
-let _locationsById: Map<NodeId, RawLocation> | null = null;
-export function locationsById(): ReadonlyMap<NodeId, RawLocation> {
-	if (!_locationsById) {
-		_locationsById = new Map(loadDatabase().locations.map((l) => [l.id, l]));
-	}
-	return _locationsById;
+export function loadLogic(): LogicDatabase {
+	ensureValid();
+	return logic;
+}
+export function loadEn(): EnLocale {
+	ensureValid();
+	return en;
 }
 
-export function getLocation(id: NodeId): RawLocation {
-	const loc = locationsById().get(id);
+// --- memoized indexes -------------------------------------------------------
+
+let _fileByCode: Map<FileCode, LogicFile> | null = null;
+export function fileByCode(): ReadonlyMap<FileCode, LogicFile> {
+	if (!_fileByCode) _fileByCode = new Map(loadLogic().files.map((f) => [f.fileCode, f]));
+	return _fileByCode;
+}
+export function getFile(code: FileCode): LogicFile | undefined {
+	return fileByCode().get(code);
+}
+export function getEnFile(code: FileCode): EnFile | undefined {
+	return loadEn().files[code];
+}
+
+export function getLocation(id: NodeId): LogicLocation {
+	const loc = loadLogic().locations[id];
 	if (!loc) throw new Error(`Unknown location: ${id}`);
 	return loc;
 }
+export function hasLocation(id: NodeId): boolean {
+	return loadLogic().locations[id] !== undefined;
+}
+export function locationIds(): NodeId[] {
+	return Object.keys(loadLogic().locations);
+}
 
-let _keysById: Map<string, RawKey> | null = null;
-export function keysById(): ReadonlyMap<string, RawKey> {
-	if (!_keysById) {
-		_keysById = new Map(loadDatabase().keys.map((k) => [k.id, k]));
+let _markerBySymbol: Map<string, TimeMarker> | null = null;
+export function markerBySymbol(): ReadonlyMap<string, TimeMarker> {
+	if (!_markerBySymbol) _markerBySymbol = new Map(loadLogic().timeMarkers.map((m) => [m.symbol, m]));
+	return _markerBySymbol;
+}
+export function getMarker(symbol: string): TimeMarker | undefined {
+	return markerBySymbol().get(symbol);
+}
+
+/** The shared `StatusReports` file (its `SR.*` options fire when a marker's box is crossed). */
+export function statusReportsFile(): LogicFile | undefined {
+	return loadLogic().files.find((f) => f.kind === 'status_reports');
+}
+let _srOptions: Map<string, LogicOption> | null = null;
+export function statusReportOption(optionId: string): LogicOption | undefined {
+	if (!_srOptions) {
+		_srOptions = new Map();
+		const sr = statusReportsFile();
+		if (sr) for (const d of sr.decisions) for (const o of d.options) _srOptions.set(o.id, o);
 	}
-	return _keysById;
+	return _srOptions.get(optionId);
 }
 
-let _alliesById: Map<string, RawAlly> | null = null;
-export function alliesById(): ReadonlyMap<string, RawAlly> {
-	if (!_alliesById) {
-		_alliesById = new Map(loadDatabase().allies.map((a) => [a.id, a]));
+let _sideByLocation: Map<NodeId, SideStory> | null = null;
+export function sideStoryForLocation(id: NodeId): SideStory | undefined {
+	if (!_sideByLocation) _sideByLocation = new Map(loadLogic().sideStories.map((s) => [s.locationId, s]));
+	return _sideByLocation.get(id);
+}
+
+export function campaignLog(): CampaignLogEntry[] {
+	return loadLogic().campaignLog;
+}
+let _tallyEntries: Set<string> | null = null;
+export function isTallyEntry(id: string): boolean {
+	if (!_tallyEntries) _tallyEntries = new Set(loadLogic().campaignLog.filter((c) => c.type === 'tally').map((c) => c.id));
+	return _tallyEntries.has(id);
+}
+export function achievements(): AchievementEntry[] {
+	return loadLogic().achievements;
+}
+
+// --- campaign metadata (derived) -------------------------------------------
+
+export interface Metadata {
+	startLocation: NodeId;
+	finaleFile: FileCode;
+	finaleLocation: NodeId;
+	timeTrackBoxes: number;
+}
+let _meta: Metadata | null = null;
+export function metadata(): Metadata {
+	if (_meta) return _meta;
+	const L = loadLogic();
+	const prologue = L.files.find((f) => f.kind === 'prologue');
+	const finale = L.files.find((f) => f.kind === 'finale');
+	_meta = {
+		startLocation: prologue?.locationIds[0] ?? 'london',
+		finaleFile: finale?.fileCode ?? '59-Z',
+		finaleLocation: finale?.locationIds[0] ?? 'tunguska',
+		timeTrackBoxes: L.timeTrack?.boxes ?? 35,
+	};
+	return _meta;
+}
+
+// --- display accessors (en.json) -------------------------------------------
+
+const titleize = (id: string) => id.replace(/^[a-z]+\./, '').replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim().replace(/^./, (c) => c.toUpperCase());
+
+export function optionText(fileCode: FileCode, decisionId: string, optionId: string): EnOption | undefined {
+	return getEnFile(fileCode)?.decisions[decisionId]?.options[optionId];
+}
+export function decisionText(fileCode: FileCode, decisionId: string): { label: string; prompt: string } | undefined {
+	const d = getEnFile(fileCode)?.decisions[decisionId];
+	return d ? { label: d.label, prompt: d.prompt } : undefined;
+}
+/** Find an option's display text anywhere in a file (across decisions), by option id. */
+export function optionById(fileCode: FileCode, optionId: string): EnOption | undefined {
+	const ef = getEnFile(fileCode);
+	if (!ef) return undefined;
+	for (const d of Object.values(ef.decisions)) {
+		const o = d.options[optionId];
+		if (o) return o;
 	}
-	return _alliesById;
+	return undefined;
+}
+export function fileTitle(fileCode: FileCode): string {
+	return getEnFile(fileCode)?.title ?? fileCode;
+}
+export function keyName(id: string): string {
+	return loadEn().keys[id] ?? titleize(id);
+}
+export function characterName(id: string): string {
+	if (id === 'investigator') return 'an investigator';
+	return loadEn().characters[id] ?? titleize(id);
+}
+export function locationName(id: string): string {
+	return loadEn().locations[id] ?? titleize(id);
+}
+export function logText(id: string): string {
+	return loadEn().campaignLog[id] ?? titleize(id);
+}
+export function markerLabel(markerId: string): string {
+	return loadEn().timeMarkers[markerId] ?? markerId;
+}
+export function effectText(ref: string): string {
+	return loadEn().effectText[ref] ?? ref;
+}
+export function sideStoryProductName(id: string): string {
+	return loadEn().sideStoryProducts[id] ?? titleize(id);
+}
+export function achievementName(id: string): string {
+	return loadEn().achievements[id]?.name ?? titleize(id);
+}
+export function achievementDescription(id: string): string {
+	return loadEn().achievements[id]?.description ?? '';
 }
 
-export function getScenario(id: string): RawScenario | undefined {
-	return loadDatabase().scenarios[id];
-}
-
-export function getInterlude(id: string): RawInterlude | undefined {
-	return loadDatabase().interludes[id];
-}
-
-let _sideStoriesByNode: Map<NodeId, RawSideStory> | null = null;
-export function sideStoryForNode(node: NodeId): RawSideStory | undefined {
-	if (!_sideStoriesByNode) {
-		_sideStoriesByNode = new Map(loadDatabase().side_stories.map((s) => [s.node, s]));
-	}
-	return _sideStoriesByNode.get(node);
-}
-
-/** The scenario/interlude id that "plays" at a node, or undefined for pure connectors. */
-export function nodeScenarioId(id: NodeId): string | null {
-	return getLocation(id).scenario_id;
+/** Reset memoized indexes (test isolation only). */
+export function _resetLoadCaches(): void {
+	_fileByCode = null;
+	_markerBySymbol = null;
+	_srOptions = null;
+	_sideByLocation = null;
+	_tallyEntries = null;
+	_meta = null;
 }

@@ -21,9 +21,16 @@
     "effects": "See en.json legend.effects for human descriptions. record/crossOff/tally reference campaignLog ids via entryId. note/variable-xp carry textRef/amountRef into en.effectText.",
     "identifiers": "Proper nouns are ids resolved via en.json: keyId->en.keys, bearer/voter ids->en.characters (the literal 'investigator' means the player's chosen investigator, not a character), locationIds->en.locations. file.keyAtStakeId and unlock.locationIds use the same ids.",
     "locations": "Registry: locationId -> {fileCodes:[...]}. Resolve a location's three display facets without duplication: city NAME = en.locations[locId]; PAGE CODE(s) = the fileCodes themselves; SCENARIO NAME(s) = en.files[fileCode].title. (london maps to several files because the prologue, the Foundation interlude, and the revisit all occur there.)",
-    "timeMarkers": "Time-track markers. symbol is what's printed in the time box; id bridges to en.timeMarkers for a succinct label; reportOptionId points to the StatusReports option whose effects/fullText fire when reached (null for δ, which is a silent timer used by the Dr. Irawan deadline). Flags: unlocksFinale (β makes Tunguska travellable), forcesFinale (ω sends you straight to the finale).",
+    "timeMarkers": "Time-track markers. symbol is what's printed in the time box; id bridges to en.timeMarkers for a succinct label; reportOptionId points to the StatusReports option whose effects/fullText fire when reached (null for δ, which is a silent timer used by the Dr. Irawan deadline). box = the printed box on the 35-box track where this marker sits and fires (α7 ε10 β15 ζ20 γ24 ω35); markers WITHOUT a box (Θ/ψ/δ) are written onto the track at runtime by statusMarker effects and fire when that written box is reached. Flags: unlocksFinale (β makes Tunguska travellable), forcesFinale (ω sends you straight to the finale). See timeTrack for the track length.",
     "sideStories": "Standalone scenarios playable at green side-story nodes. timeCost = the side story's normal XP cost, spent as time here instead. grantsKeyId/bearer present when the side story awards a campaign Key (Fortune and Folly grants The Wellspring of Fortune). Product display names are in en.sideStoryProducts.",
-    "connections": "Undirected adjacency from the official ArkhamCards map data. locations[id].connections lists directly-travellable neighbors (1 time each). wrapEdges cross the Pacific seam: the 'west' node runs off the LEFT edge to its westSeam point (x=0), and the 'east' node runs off the RIGHT edge to its eastSeam point (x=1); both seam points share a latitude (y) so the line reads as continuous wrap-around. Render each wrap leg as two half-curves (west->westSeam and east->eastSeam), not a straight line across the map."
+    "connections": "Undirected adjacency from the official ArkhamCards map data. locations[id].connections lists directly-travellable neighbors (1 time each). wrapEdges cross the Pacific seam: the 'west' node runs off the LEFT edge to its westSeam point (x=0), and the 'east' node runs off the RIGHT edge to its eastSeam point (x=1); both seam points share a latitude (y) so the line reads as continuous wrap-around. Render each wrap leg as two half-curves (west->westSeam and east->eastSeam), not a straight line across the map.",
+    "reachableInVersions": "On a resolution option in a scenario that has a scenario_version decision: the version option id(s) in which this resolution can occur. Use it to filter the resolution dropdown by the selected version. Absent = reachable regardless of version.",
+    "isNoResolution": "true on a resolution option that represents the 'no resolution reached' (all investigators resigned/were defeated) outcome. The campaign guide routes no-resolution to these; some scenarios fold it into a numbered resolution (e.g. Dogs of War R3/R4/R7 by version, Sanguine Shadows R3, Dealings R6).",
+    "gatesResolutions": "On a scenario_version decision: true if the version played restricts which resolutions are reachable (use options' reachableInVersions to filter). false if all versions share the same finishing act/agenda and can reach the same resolutions. Verified against the campaign's act/agenda cards: Dogs of War gates (each version's act routes to different resolutions: v.I->R1->R8, v.II->R2, v.III->R5/R6, with no-resolution R3/R4/R7 by version); Dancing Mad and Congress of the Keys do NOT gate (shared finishers route to R1/R2 regardless of version).",
+    "requires": "Plannable precondition for a resolution: predicates the planner can evaluate from the player's planned CHOICES, time, and version. Use it to HIDE resolutions that can't be reached given the plan. null = no choice/time gate. Predicates: recorded/notRecorded(logId), choseOption/notChoseOption(decision option id), time{...}, plus all/any/not. (Version gating stays in reachableInVersions; a UI hides a resolution if requires fails OR—when the scenario gatesResolutions—the chosen version isn't in reachableInVersions.)",
+    "playOutcome": "How the session must go for this resolution: 'win' | 'partial' (completed but suboptimal, e.g. a Key lost to the Coterie) | 'loss' | 'noResolution'. NOT plannable — the UI should show these as outcome-dependent rather than hide them.",
+    "choseOption": "Predicate referencing an upstream decision option id the planner selected (and notChoseOption for its negation). Used where a choice gates resolutions without setting a campaign-log entry (e.g. Sanguine Shadows believe/refuse, Without a Trace blow/throw the whistle).",
+    "achievements": "id bridges to en.achievements for name/description. detect = the machine rule a planner uses to decide whether a plan earns the achievement; kinds: visitFile{fileCode,maxEntryTime?}, resolution{fileCode,optionId}, version{fileCode,optionId} (the scenario_version/finale-version option that fired), finaleJudgment{judgmentId}, timeCap{maxTime}, chaos{token,count}, epilogue{optionId}, visitLocations{locationIds}, allKeys, difficulty{difficulty}, tableFeat (pure in-play feat, no routing). inSession:true => routing only POSITIONS the player; the feat itself is unverifiable by the planner. planning:false => not a single-run planning goal (key collection / difficulty)."
   },
   "files": [
     {
@@ -94,7 +101,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "RR.R2",
@@ -119,7 +128,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "RR.R3",
@@ -144,7 +155,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "partial"
             },
             {
               "id": "RR.R4",
@@ -169,7 +182,9 @@
                   "delta": 2
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "partial"
             },
             {
               "id": "RR.noRes",
@@ -195,7 +210,10 @@
               ],
               "conditionLogic": {
                 "noResolution": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -362,7 +380,13 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "partial"
             },
             {
               "id": "DH.R2",
@@ -387,7 +411,13 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "partial"
             },
             {
               "id": "DH.R3",
@@ -414,7 +444,20 @@
               ],
               "conditionLogic": {
                 "recorded": "log.knowsAmaranthName"
-              }
+              },
+              "requires": {
+                "all": [
+                  {
+                    "time": {
+                      "lt": 25
+                    }
+                  },
+                  {
+                    "recorded": "log.knowsAmaranthName"
+                  }
+                ]
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DH.R4",
@@ -439,7 +482,13 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DH.R5",
@@ -474,7 +523,13 @@
                 "time": {
                   "gte": 25
                 }
-              }
+              },
+              "requires": {
+                "time": {
+                  "gte": 25
+                }
+              },
+              "playOutcome": "partial"
             },
             {
               "id": "DH.noRes",
@@ -487,7 +542,14 @@
               ],
               "conditionLogic": {
                 "noResolution": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -682,7 +744,11 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": {
+                "notChoseOption": "SS.cal.believe"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "SS.R2",
@@ -716,7 +782,11 @@
                   "delta": 3
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": {
+                "choseOption": "SS.cal.believe"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "SS.R3",
@@ -747,7 +817,12 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "isNoResolution": true,
+              "requires": {
+                "notChoseOption": "SS.cal.believe"
+              },
+              "playOutcome": "loss"
             },
             {
               "id": "SS.noRes.seeingRed",
@@ -785,7 +860,12 @@
                     "scenarioState": "seeingRedActive"
                   }
                 ]
-              }
+              },
+              "isNoResolution": true,
+              "requires": {
+                "choseOption": "SS.cal.believe"
+              },
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -1116,7 +1196,11 @@
               ],
               "conditionLogic": {
                 "recorded": "log.refusedEce"
-              }
+              },
+              "requires": {
+                "recorded": "log.refusedEce"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DD.R4",
@@ -1143,7 +1227,11 @@
               ],
               "conditionLogic": {
                 "recorded": "log.workingWithEce"
-              }
+              },
+              "requires": {
+                "recorded": "log.workingWithEce"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DD.R5",
@@ -1170,7 +1258,11 @@
               ],
               "conditionLogic": {
                 "recorded": "log.deceivingEce"
-              }
+              },
+              "requires": {
+                "recorded": "log.deceivingEce"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DD.R6",
@@ -1193,7 +1285,10 @@
               ],
               "conditionLogic": {
                 "scenarioState": "failAct3"
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
             },
             {
               "id": "DD.noRes.early",
@@ -1216,7 +1311,10 @@
               ],
               "conditionLogic": {
                 "scenarioState": "defeatedAct1or2"
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -1487,7 +1585,9 @@
                 }
               }
             }
-          ]
+          ],
+          "gatesResolutions": false,
+          "gatingSource": "card-verified (tskc.json act/agenda routing)"
         },
         {
           "decisionId": "DM.resolution",
@@ -1525,7 +1625,9 @@
                   "textRef": "DM.R1.5"
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "DM.R2",
@@ -1554,7 +1656,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "partial"
             },
             {
               "id": "DM.noRes",
@@ -1585,7 +1689,10 @@
               ],
               "conditionLogic": {
                 "noResolution": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -1724,17 +1831,67 @@
               }
             },
             {
-              "id": "OTI.t.scaling",
+              "id": "OTI.t.5",
               "selectable": false,
-              "effects": [
-                {
-                  "type": "note",
-                  "textRef": "OTI.t.scaling.0"
-                }
-              ],
+              "effects": [],
               "conditionLogic": {
                 "time": {
-                  "gte": 5
+                  "min": 5,
+                  "max": 9
+                }
+              }
+            },
+            {
+              "id": "OTI.t.10",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 10,
+                  "max": 14
+                }
+              }
+            },
+            {
+              "id": "OTI.t.15",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 15,
+                  "max": 19
+                }
+              }
+            },
+            {
+              "id": "OTI.t.20",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 20,
+                  "max": 24
+                }
+              }
+            },
+            {
+              "id": "OTI.t.25",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 25,
+                  "max": 29
+                }
+              }
+            },
+            {
+              "id": "OTI.t.30",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "gte": 30
                 }
               }
             }
@@ -1823,7 +1980,11 @@
               ],
               "conditionLogic": {
                 "recorded": "log.dealWithThorne"
-              }
+              },
+              "requires": {
+                "recorded": "log.dealWithThorne"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "OTI.R2",
@@ -1850,7 +2011,11 @@
               ],
               "conditionLogic": {
                 "scenarioState": "winHoldingKey"
-              }
+              },
+              "requires": {
+                "notRecorded": "log.dealWithThorne"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "OTI.R3",
@@ -1876,7 +2041,9 @@
               ],
               "conditionLogic": {
                 "scenarioState": "thorneDefeated"
-              }
+              },
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "OTI.R4",
@@ -1893,7 +2060,9 @@
               ],
               "conditionLogic": {
                 "scenarioState": "nullified"
-              }
+              },
+              "requires": null,
+              "playOutcome": "loss"
             },
             {
               "id": "OTI.noRes",
@@ -1919,7 +2088,10 @@
               ],
               "conditionLogic": {
                 "noResolution": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -2162,7 +2334,9 @@
                 }
               }
             }
-          ]
+          ],
+          "gatesResolutions": true,
+          "gatingSource": "card-verified (tskc.json act/agenda routing)"
         },
         {
           "decisionId": "DOW.resolution",
@@ -2198,7 +2372,15 @@
               ],
               "conditionLogic": {
                 "scenarioState": "winCooperating"
-              }
+              },
+              "reachableInVersions": [
+                "DOW.v1",
+                "DOW.v3"
+              ],
+              "requires": {
+                "recorded": "log.dealWithKnight"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DOW.R2",
@@ -2225,7 +2407,14 @@
               ],
               "conditionLogic": {
                 "scenarioState": "winV2"
-              }
+              },
+              "reachableInVersions": [
+                "DOW.v2"
+              ],
+              "requires": {
+                "recorded": "log.assistingSirry"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DOW.R6",
@@ -2256,7 +2445,14 @@
               ],
               "conditionLogic": {
                 "scenarioState": "winV3Sirry"
-              }
+              },
+              "reachableInVersions": [
+                "DOW.v3"
+              ],
+              "requires": {
+                "recorded": "log.assistingSirry"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "DOW.R3",
@@ -2293,7 +2489,13 @@
               ],
               "conditionLogic": {
                 "scenarioState": "defeatV1"
-              }
+              },
+              "reachableInVersions": [
+                "DOW.v1"
+              ],
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             },
             {
               "id": "DOW.R4",
@@ -2320,7 +2522,13 @@
               ],
               "conditionLogic": {
                 "scenarioState": "defeatV2"
-              }
+              },
+              "reachableInVersions": [
+                "DOW.v2"
+              ],
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             },
             {
               "id": "DOW.R7",
@@ -2342,7 +2550,13 @@
               ],
               "conditionLogic": {
                 "scenarioState": "defeatV3"
-              }
+              },
+              "reachableInVersions": [
+                "DOW.v3"
+              ],
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -2677,7 +2891,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "SOS.R2",
@@ -2702,7 +2918,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "SOS.R3",
@@ -2727,7 +2945,9 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "loss"
             },
             {
               "id": "SOS.noRes",
@@ -2752,7 +2972,10 @@
                   "delta": 1
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
             }
           ]
         }
@@ -3299,7 +3522,11 @@
               ],
               "conditionLogic": {
                 "scenarioState": "winBlewWhistle"
-              }
+              },
+              "requires": {
+                "choseOption": "WAT.blow"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "WAT.R2",
@@ -3330,7 +3557,11 @@
               ],
               "conditionLogic": {
                 "scenarioState": "winThrewWhistle"
-              }
+              },
+              "requires": {
+                "choseOption": "WAT.throw"
+              },
+              "playOutcome": "win"
             },
             {
               "id": "WAT.R3",
@@ -3352,7 +3583,11 @@
               ],
               "conditionLogic": {
                 "scenarioState": "survivedBlewWhistle"
-              }
+              },
+              "requires": {
+                "choseOption": "WAT.blow"
+              },
+              "playOutcome": "noResolution"
             },
             {
               "id": "WAT.R4",
@@ -3374,7 +3609,11 @@
               ],
               "conditionLogic": {
                 "scenarioState": "survivedThrewWhistle"
-              }
+              },
+              "requires": {
+                "choseOption": "WAT.throw"
+              },
+              "playOutcome": "noResolution"
             },
             {
               "id": "WAT.hollowed",
@@ -3391,7 +3630,10 @@
               ],
               "conditionLogic": {
                 "allDefeated": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
             }
           ]
         }
@@ -3969,7 +4211,9 @@
                 ]
               }
             }
-          ]
+          ],
+          "gatesResolutions": false,
+          "gatingSource": "card-verified (tskc.json act/agenda routing)"
         },
         {
           "decisionId": "COTK.resolution",
@@ -4005,7 +4249,9 @@
                   "result": "win"
                 }
               ],
-              "conditionLogic": null
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
             },
             {
               "id": "COTK.R2",
@@ -4022,7 +4268,10 @@
               ],
               "conditionLogic": {
                 "allDefeated": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
             },
             {
               "id": "COTK.defeat",
@@ -4035,7 +4284,10 @@
               ],
               "conditionLogic": {
                 "perDefeatedInvestigator": true
-              }
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
             }
           ]
         }
@@ -4512,73 +4764,189 @@
   ],
   "achievements": [
     {
-      "id": "ach.cluedIn"
+      "id": "ach.cluedIn",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "5-A",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.takeThatGhulat"
+      "id": "ach.takeThatGhulat",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "11-B",
+        "maxEntryTime": 10,
+        "inSession": true
+      }
     },
     {
-      "id": "ach.whatsInAName"
+      "id": "ach.whatsInAName",
+      "detect": {
+        "kind": "resolution",
+        "fileCode": "11-B",
+        "optionId": "DH.R3"
+      }
     },
     {
-      "id": "ach.porqueNoLosDos"
+      "id": "ach.porqueNoLosDos",
+      "detect": {
+        "kind": "version",
+        "fileCode": "28-I",
+        "optionId": "DM.v2",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.lostAndFound"
+      "id": "ach.lostAndFound",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "21-F",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.towerDefense"
+      "id": "ach.towerDefense",
+      "detect": {
+        "kind": "version",
+        "fileCode": "38-N",
+        "optionId": "DOW.v1",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.playWithYourFood"
+      "id": "ach.playWithYourFood",
+      "detect": {
+        "kind": "version",
+        "fileCode": "38-N",
+        "optionId": "DOW.v2",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.destroyedChimera"
+      "id": "ach.destroyedChimera",
+      "detect": {
+        "kind": "resolution",
+        "fileCode": "33-K",
+        "optionId": "OTI.R2",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.whoWatchesWatcher"
+      "id": "ach.whoWatchesWatcher",
+      "detect": {
+        "kind": "resolution",
+        "fileCode": "16-D",
+        "optionId": "SS.R2",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.underMyUmbrella"
+      "id": "ach.underMyUmbrella",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "46-Q",
+        "inSession": true
+      }
     },
     {
-      "id": "ach.allHollow"
+      "id": "ach.allHollow",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "56-Y"
+      }
     },
     {
-      "id": "ach.redLooksGood"
+      "id": "ach.redLooksGood",
+      "detect": {
+        "kind": "finaleJudgment",
+        "judgmentId": "COTK.judgment.join"
+      }
     },
     {
-      "id": "ach.bloodyRedRevolution"
+      "id": "ach.bloodyRedRevolution",
+      "detect": {
+        "kind": "finaleJudgment",
+        "judgmentId": "COTK.judgment.overthrow"
+      }
     },
     {
-      "id": "ach.powersCombined"
+      "id": "ach.powersCombined",
+      "detect": {
+        "kind": "tableFeat"
+      }
     },
     {
-      "id": "ach.giftOfGab"
+      "id": "ach.giftOfGab",
+      "detect": {
+        "kind": "tableFeat"
+      }
     },
     {
-      "id": "ach.localCuisine"
+      "id": "ach.localCuisine",
+      "detect": {
+        "kind": "visitLocations",
+        "locationIds": [
+          "marrakesh",
+          "havana",
+          "buenosAires",
+          "tokyo",
+          "kualaLumpur"
+        ]
+      }
     },
     {
-      "id": "ach.speedDemon"
+      "id": "ach.speedDemon",
+      "detect": {
+        "kind": "timeCap",
+        "maxTime": 17
+      }
     },
     {
-      "id": "ach.trustNobody"
+      "id": "ach.trustNobody",
+      "detect": {
+        "kind": "chaos",
+        "token": "elderThing",
+        "count": 4,
+        "inSession": true
+      }
     },
     {
-      "id": "ach.trustEverybody"
+      "id": "ach.trustEverybody",
+      "detect": {
+        "kind": "chaos",
+        "token": "tablet",
+        "count": 4,
+        "inSession": true
+      }
     },
     {
-      "id": "ach.hereIsYourBadge"
+      "id": "ach.hereIsYourBadge",
+      "detect": {
+        "kind": "epilogue",
+        "optionId": "EP.permanent"
+      }
     },
     {
-      "id": "ach.keyToMyHeart"
+      "id": "ach.keyToMyHeart",
+      "detect": {
+        "kind": "allKeys"
+      },
+      "planning": false
     },
     {
-      "id": "ach.lineInTheSand"
+      "id": "ach.lineInTheSand",
+      "detect": {
+        "kind": "tableFeat"
+      }
     },
     {
-      "id": "ach.globalExpertise"
+      "id": "ach.globalExpertise",
+      "detect": {
+        "kind": "difficulty",
+        "difficulty": "expert"
+      },
+      "planning": false
     }
   ],
   "epilogueTally": {
@@ -5208,20 +5576,23 @@
       "symbol": "α",
       "id": "alpha",
       "hasReport": true,
-      "reportOptionId": "SR.alpha"
+      "reportOptionId": "SR.alpha",
+      "box": 7
     },
     {
       "symbol": "β",
       "id": "beta",
       "hasReport": true,
       "reportOptionId": "SR.beta",
-      "unlocksFinale": true
+      "unlocksFinale": true,
+      "box": 15
     },
     {
       "symbol": "γ",
       "id": "gamma",
       "hasReport": true,
-      "reportOptionId": "SR.gamma"
+      "reportOptionId": "SR.gamma",
+      "box": 24
     },
     {
       "symbol": "δ",
@@ -5234,13 +5605,15 @@
       "symbol": "ε",
       "id": "epsilon",
       "hasReport": true,
-      "reportOptionId": "SR.epsilon"
+      "reportOptionId": "SR.epsilon",
+      "box": 10
     },
     {
       "symbol": "ζ",
       "id": "zeta",
       "hasReport": true,
-      "reportOptionId": "SR.zeta"
+      "reportOptionId": "SR.zeta",
+      "box": 20
     },
     {
       "symbol": "Θ",
@@ -5259,7 +5632,8 @@
       "id": "omega",
       "hasReport": true,
       "reportOptionId": "SR.omega",
-      "forcesFinale": true
+      "forcesFinale": true,
+      "box": 35
     }
   ],
   "mapImage": {
@@ -5467,11 +5841,11 @@
       "west": "sanFrancisco",
       "east": "tokyo",
       "westSeam": {
-        "x": 0.0,
+        "x": 0,
         "y": 0.2633
       },
       "eastSeam": {
-        "x": 1.0,
+        "x": 1,
         "y": 0.2633
       },
       "seamConfidence": "verified"
@@ -5480,11 +5854,11 @@
       "west": "quito",
       "east": "manokwari",
       "westSeam": {
-        "x": 0.0,
+        "x": 0,
         "y": 0.4724
       },
       "eastSeam": {
-        "x": 1.0,
+        "x": 1,
         "y": 0.4724
       },
       "seamConfidence": "verified"
@@ -5493,14 +5867,18 @@
       "west": "buenosAires",
       "east": "sydney",
       "westSeam": {
-        "x": 0.0,
+        "x": 0,
         "y": 0.6906
       },
       "eastSeam": {
-        "x": 1.0,
+        "x": 1,
         "y": 0.6906
       },
       "seamConfidence": "verified"
     }
-  ]
+  ],
+  "timeTrack": {
+    "boxes": 35,
+    "note": "The global time track is 35 boxes. Printed Greek markers fire their status report when their box is filled; written markers (Θ/ψ/δ) are placed onto the track at runtime by statusMarker effects and fire when reached. ω is the final box and forces the finale."
+  }
 }

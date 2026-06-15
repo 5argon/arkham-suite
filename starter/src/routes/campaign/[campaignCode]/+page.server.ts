@@ -32,7 +32,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 
 	// Check if campaign is marked as incomplete
-	const incompleteCampaigns = ['ptc', 'tic', 'fhv', 'tdc', 'rtnotz', 'rtptc', 'rttfa', 'rttcu'];
+	const incompleteCampaigns = ['ptc', 'tic', 'fhv', 'rtnotz', 'rtptc', 'rttfa', 'rttcu'];
 	// const incompleteCampaigns: string[] = []
 	const isIncomplete = incompleteCampaigns.includes(campaignCode);
 
