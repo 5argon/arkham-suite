@@ -114,68 +114,71 @@ function combinations<T>(arr: T[], k: number, limit: number): T[][] {
 	return out;
 }
 
-/** Non-locked middle combat scenarios not already required/forbidden — usable as optional padding. */
-function paddingCandidates(expanded: ExpandedConstraints): NodeId[] {
-	return loadDatabase()
-		.locations.filter((l) => {
-			const s = l.scenario_id ? getScenario(l.scenario_id) : undefined;
-			return (
-				s !== undefined &&
-				s.role !== 'finale' &&
-				s.role !== 'prologue' &&
-				l.status !== 'locked' &&
-				!expanded.forbiddenNodes.has(l.id) &&
-				!expanded.relevantNodes.has(l.id)
-			);
-		})
-		.map((l) => l.id)
-		.sort();
-}
-
-/** Add `nodes` as mandatory visit waypoints to a copy of `expanded`. */
-function withForcedVisits(expanded: ExpandedConstraints, nodes: NodeId[]): ExpandedConstraints {
-	const requirements: Requirement[] = [...expanded.requirements];
-	const relevantNodes = new Set(expanded.relevantNodes);
-	for (const node of nodes) {
-		requirements.push({ id: `pad:${node}`, nodes: [node], match: { type: 'visit_node' }, constraintIndex: -1, specificResolution: false });
-		relevantNodes.add(node);
+/**
+ * Combat scenarios usable as optional padding: not already pinned/forbidden by the constraints, and
+ * NOT locked. Locked scenarios (e.g. Without a Trace, Shades of Suffering) drag in their long unlock
+ * chains — slow to search and time-cap-infeasible in large combinations — and reaching counts beyond
+ * the non-locked set realistically needs the Expedited Ticket modeled in-search (not yet done).
+ */
+function paddingScenarios(constraints: Constraint[], expanded: ExpandedConstraints): string[] {
+	const pinned = new Set<string>();
+	for (const c of constraints) {
+		const sid = (c as { scenario?: string }).scenario;
+		if (typeof sid === 'string') pinned.add(sid);
 	}
-	return { ...expanded, requirements, relevantNodes };
+	const out = new Set<string>();
+	for (const loc of loadDatabase().locations) {
+		const sid = loc.scenario_id;
+		const s = sid ? getScenario(sid) : undefined;
+		if (!sid || !s || s.role === 'finale' || s.role === 'prologue') continue;
+		if (loc.status === 'locked' || pinned.has(sid) || expanded.forbiddenNodes.has(loc.id)) continue;
+		out.add(sid);
+	}
+	return [...out].sort();
 }
 
 /**
- * Cheap lean searches that force optional-scenario subsets, seeding higher scenario-count buckets
- * than the time-minimizing base search reaches. Forcing `size` extra scenarios yields a route of
- * `baseStructure + size` scenarios, so we only run sizes that exceed `baseMax` (skip redundant ones).
+ * Seed higher scenario-count buckets than the time-minimizing base search reaches, by forcing
+ * optional-scenario subsets (re-expanded as `visit_scenario` so LOCKED scenarios pull their unlock
+ * chains too). Larger sizes are tried first each round so the maximum-count route is guaranteed
+ * before the budget runs out; sizes that don't fit the time cap simply yield nothing. Only runs for
+ * under-constrained queries (where each forced lean search stays cheap).
  */
 function paddedHighCountRoutes(
+	constraints: Constraint[],
 	expanded: ExpandedConstraints,
 	baseConfig: Parameters<typeof search>[1],
 	baseMax: number,
 ): RawRoute[] {
-	// Padding only helps (and stays cheap) for UNDER-constrained queries: its forced lean searches are
-	// tiny only when the base query pins few nodes. Heavily-constrained queries (Trial coalitions,
-	// many scenarios) already determine their scenario counts and would make each padded search
-	// expensive, so skip them.
 	const meta = loadDatabase().campaign_metadata;
 	const nonStructuralRelevant = [...expanded.relevantNodes].filter((n) => n !== meta.start_node && n !== meta.finale_node);
 	if (nonStructuralRelevant.length > 2) return [];
-	const pad = paddingCandidates(expanded);
-	if (pad.length === 0) return [];
+	const pool = paddingScenarios(constraints, expanded);
+	if (pool.length === 0) return [];
+
+	const startSize = Math.max(1, baseMax - 2);
+	// Larger subsets are expensive (a tighter ordering puzzle), and high counts have fewer distinct
+	// sets anyway, so cap subsets-per-size: just confirm the top counts, vary the cheaper low counts.
+	const perSizeCap = (size: number): number => (size >= 5 ? 1 : size === 4 ? 2 : 3);
+	const bySize = new Map<number, string[][]>();
+	for (let size = startSize; size <= pool.length; size++) bySize.set(size, combinations(pool, size, perSizeCap(size)));
+	const sizesDesc = [...bySize.keys()].sort((a, b) => b - a); // largest first → reach max count early
+
 	const out: RawRoute[] = [];
-	const PER_SIZE = 4; // subsets per added-scenario count (the diversity step then picks the varied ones)
-	// Forcing `size` scenarios produces ~(3 + size) total (prologue + forced + finale). Start one count
-	// below the base search's reach so the highest base bucket — which the time-minimizing base often
-	// under-fills with distinct scenario sets — gets topped up with varied sets too. Each forced search
-	// is cheap: its lean candidate set is tiny (just the constraint + the forced subset).
-	const startSize = Math.max(1, baseMax - 3);
-	let budget = 14; // total forced searches; each is a single cheap lean pass
-	for (let size = startSize; size <= pad.length && budget > 0; size++) {
-		for (const subset of combinations(pad, size, PER_SIZE)) {
-			if (budget-- <= 0) break;
-			const aug = withForcedVisits(expanded, subset);
+	let budget = 14;
+	for (let round = 0; round < 3 && budget > 0; round++) {
+		for (const size of sizesDesc) {
+			if (budget <= 0) break;
+			const subs = bySize.get(size)!;
+			if (round >= subs.length) continue;
+			const cs: Constraint[] = [...constraints, ...subs[round]!.map((s) => ({ kind: 'visit_scenario' as const, scenario: s }))];
+			const aug = expandConstraints(cs);
 			if (aug.requirements.length > 31) continue;
-			out.push(...search(aug, { ...baseConfig, leanOnly: true, maxStates: 15000, goalLimit: 12, perCountGoalCap: 12 }));
+			budget--;
+			// More forced scenarios = a tighter ordering puzzle needing more states; small subsets stop
+			// early at goalLimit anyway, so scaling the cap by size keeps small searches cheap.
+			const maxStates = Math.min(40000, 8000 + size * 5000);
+			out.push(...search(aug, { ...baseConfig, leanOnly: true, maxStates, goalLimit: 12, perCountGoalCap: 12 }));
 		}
 	}
 	return out;
@@ -238,7 +241,7 @@ export function solve(input: SolveInput): SolveOutput {
 	// waypoints (a goal-directed search then finds them cheaply). This also yields icon variety.
 	const baseRoutes = search(expanded, baseConfig);
 	const baseMax = Math.max(0, ...baseRoutes.map((r) => r.scenarioCount));
-	const allRoutes = dedupeRoutes([...baseRoutes, ...paddedHighCountRoutes(expanded, baseConfig, baseMax)]);
+	const allRoutes = dedupeRoutes([...baseRoutes, ...paddedHighCountRoutes(input.constraints, expanded, baseConfig, baseMax)]);
 
 	// Filter out routes that violate a negated constraint, fail a chaos goal, or miss a requested
 	// Trial outcome. `acceptableTrials` (from reach_ending / achievement finale_trial / finale version,
