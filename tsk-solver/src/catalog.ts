@@ -10,6 +10,8 @@ export interface CatalogEntry {
 	id: string;
 	label: string;
 	note?: string;
+	/** For campaign logs: the browse groups this entry belongs to (trial / epilogue / scenario / other). */
+	groups?: string[];
 }
 
 export interface SolverCatalog {
@@ -22,6 +24,8 @@ export interface SolverCatalog {
 	allies: CatalogEntry[];
 	/** Campaign-log entries the planner can target (every story log a scenario/interlude records). */
 	campaignLogs: CatalogEntry[];
+	/** Browse groups for the (long) campaign-log list — a log may belong to several. */
+	campaignLogGroups: { id: string; label: string }[];
 	/** Scenarios that have time-based difficulty levels (time tiers). */
 	levelScenarios: CatalogEntry[];
 	/** scenarioId -> selectable levels (id = 1-based tier index, label = "Lv. n/total — effect"). */
@@ -127,6 +131,7 @@ export function catalog(): SolverCatalog {
 	const logProducerName = (flag: string): string | undefined => {
 		for (const s of Object.values(db.scenarios)) {
 			if (s.resolutions.some((r) => (r.logs ?? []).includes(flag))) return s.name;
+			if ([...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])].some((c) => (c.logs ?? []).includes(flag))) return s.name;
 		}
 		for (const it of Object.values(db.interludes)) {
 			if ((it.outcomes ?? it.options ?? []).some((o) => (o.logs ?? []).includes(flag))) return it.name;
@@ -142,11 +147,33 @@ export function catalog(): SolverCatalog {
 		for (const r of s.resolutions) if (r.outcome !== 'LOSE_CAMPAIGN') for (const f of r.logs ?? []) logFlags.add(f);
 	for (const it of Object.values(db.interludes))
 		for (const o of it.outcomes ?? it.options ?? []) for (const f of o.logs ?? []) logFlags.add(f);
+	// Scenarios' pre-scenario (intro/interlude) choices also record logs — include them so flags like
+	// `agent_quinn_has_your_back` (a Foundation Trust source) are targetable.
+	for (const s of Object.values(db.scenarios))
+		for (const c of [...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])]) for (const f of c.logs ?? []) logFlags.add(f);
+
+	// Browse-group classification for the long campaign-log list (a flag may belong to several).
+	const stripNote = (x: string) => x.replace(/\([^)]*\)/g, '').trim();
+	const epilogueFlags = new Set([...db.trust_deception.foundation_trust_sources, ...db.trust_deception.cell_deception_sources].map(stripNote));
+	const voteFlags = new Set<string>();
+	for (const m of Object.values(db.trial_logic.voters)) for (const f of Object.keys(m)) if (f !== 'default') voteFlags.add(stripNote(f));
+	const scenarioLogFlags = new Set<string>();
+	for (const s of Object.values(db.scenarios)) {
+		for (const r of s.resolutions) if (r.outcome !== 'LOSE_CAMPAIGN') for (const f of r.logs ?? []) scenarioLogFlags.add(f);
+		for (const c of [...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])]) for (const f of c.logs ?? []) scenarioLogFlags.add(f);
+	}
+	const groupsForLog = (f: string): string[] => {
+		const g: string[] = [];
+		if (voteFlags.has(f)) g.push('trial');
+		if (epilogueFlags.has(f)) g.push('epilogue');
+		if (scenarioLogFlags.has(f)) g.push('scenario');
+		return g.length ? g : ['other'];
+	};
 	const campaignLogs: CatalogEntry[] = [...logFlags]
 		.filter((f) => !/^code_.*_written$/.test(f) && !assetIds.has(f) && !CAMPAIGN_LOG_EXCLUDE.has(f))
 		.map((f) => {
 			const sc = logProducerName(f);
-			return { id: f, label: CAMPAIGN_LOG_LABELS[f] ?? titleize(f), ...(sc ? { note: `Recorded in ${sc}` } : {}) };
+			return { id: f, label: CAMPAIGN_LOG_LABELS[f] ?? titleize(f), groups: groupsForLog(f), ...(sc ? { note: `Recorded in ${sc}` } : {}) };
 		})
 		.sort((a, b) => a.label.localeCompare(b.label));
 
@@ -163,7 +190,9 @@ export function catalog(): SolverCatalog {
 
 	_catalog = {
 		achievements: db.achievements
-			.filter((a) => a.planning !== false)
+			// Difficulty-gated achievements (e.g. Expert "Global Expertise") are not supported — the planner
+			// is difficulty-agnostic, so they're never selectable as goals.
+			.filter((a) => a.planning !== false && a.constraint?.kind !== 'difficulty')
 			.map((a) => ({ id: a.id, label: a.label ?? titleize(a.id), note: a.requires }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
 		keys: db.keys.map((k) => ({ id: k.id, label: titleize(k.id), note: k.character })).sort((a, b) => a.label.localeCompare(b.label)),
@@ -179,6 +208,12 @@ export function catalog(): SolverCatalog {
 			.map((a) => ({ id: a.id, label: a.name }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
 		campaignLogs,
+		campaignLogGroups: [
+			{ id: 'scenario', label: 'Scenario resolutions' },
+			{ id: 'trial', label: 'Final Trial (Coterie vote)' },
+			{ id: 'epilogue', label: 'Epilogue (Trust / Deception)' },
+			{ id: 'other', label: 'Other' },
+		],
 		levelScenarios,
 		levels,
 		sideStories,

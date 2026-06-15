@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { distance, isNodeUnlocked, reachableFrom, _resetGraphMemo } from '../src/graph/graph.js';
 import { applyStop, initialState, keysHeldByInvestigator } from '../src/graph/state.js';
-import { stopOptions, _resetModelCaches } from '../src/graph/model.js';
+import { preChoicesAt, stopOptions, _resetModelCaches } from '../src/graph/model.js';
 
 beforeEach(() => {
 	_resetGraphMemo();
@@ -40,8 +40,9 @@ describe('state transitions', () => {
 		const opts = stopOptions('london');
 		const r1 = opts.find((o) => o.optionId === 'R1' && o.isPrologue)!;
 		expect(r1).toBeDefined();
-		const { state } = applyStop(start, r1, 0);
-		// trust_flint intro (1) + R1 (1) = 2.
+		// Pre-scenario choices are now explicit: pick the Flint intro (time 1), then play R1 (time 1).
+		const flint = preChoicesAt('london').find((c) => c.id === 'trust_flint')!;
+		const { state } = applyStop(start, r1, 0, false, [flint]);
 		expect(state.timePassed).toBe(2);
 		expect(keysHeldByInvestigator(state)).toContain('the_eye_of_ravens');
 		expect(state.visitedStops.has('london')).toBe(true);

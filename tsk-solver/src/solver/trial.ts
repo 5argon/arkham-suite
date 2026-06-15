@@ -17,8 +17,9 @@ export interface TrialPrediction {
 	yea: number;
 	nay: number;
 	silent: number;
-	/** Epilogue branch: permanent_position (trust >= deception) or dismantled. */
-	epilogue: 'permanent_position' | 'dismantled';
+	/** Epilogue: joining the Coterie (Trial 4) → agreed_to_work_together (Epilogue 2); otherwise
+	 *  Trust ≥ Deception → permanent_position (Epilogue 4) or dismantled (Epilogue 5). */
+	epilogue: 'agreed_to_work_together' | 'permanent_position' | 'dismantled';
 }
 
 interface MemberVote {
@@ -239,11 +240,20 @@ export function predictTrial(flags: ReadonlySet<FlagId>, trust: number, deceptio
 	const yea = votes.filter((x) => x.vote === 'yea').length;
 	const nay = votes.filter((x) => x.vote === 'nay').length;
 	const silent = votes.filter((x) => x.vote === 'silent').length;
-	const epilogue = trust >= deception ? 'permanent_position' : 'dismantled';
 	const by = new Map(votes.map((x) => [x.member, x.vote]));
 	const votedNay = (member: string) => by.get(member) === 'nay';
 
-	const finish = (trial: number): TrialPrediction => ({ trial, branch: `trial_${trial}`, yea, nay, silent, epilogue });
+	// Epilogue: joining the Coterie (Trial 4) records "the cell joined the Coterie" → Epilogue 2 (the
+	// Foundation and Coterie work together). Every other ending → Epilogue 3 → Trust ≥ Deception decides
+	// permanent_position (Epilogue 4) vs dismantled (Epilogue 5).
+	const finish = (trial: number): TrialPrediction => ({
+		trial,
+		branch: `trial_${trial}`,
+		yea,
+		nay,
+		silent,
+		epilogue: trial === 4 ? 'agreed_to_work_together' : trust >= deception ? 'permanent_position' : 'dismantled',
+	});
 
 	// Override checks (guide: after the first vote group).
 	if (flags.has('the_cell_knows_the_true_nature_of_the_coterie')) return finish(6);

@@ -1,19 +1,16 @@
 import { deflate, inflate } from 'pako';
-import type { Constraint, SolvePreferences } from '@5argon/arkham-tsk-solver';
+import type { Constraint, PlanStep } from '@5argon/arkham-tsk-solver';
 
 /**
- * Compact, URL-safe encoding of the solver *input* (constraints + preferences).
- * Because `solve()` is deterministic, encoding the input — not the bulky recipe — and
- * re-solving on load reproduces the exact same recipes. We DEFLATE the JSON (pako) and
- * base64url it, which keeps even large constraint sets inside a shareable URL.
- * (Protobuf could shave a few more bytes, but the input is small and JSON keeps it legible.)
+ * Compact, URL-safe encoding of a handcrafted plan + its goals.
+ * The simulator is deterministic, so encoding the plan (the player's step list) and re-simulating on
+ * load reproduces the exact same trajectory and goals checklist. We DEFLATE the JSON (pako) and
+ * base64url it, which keeps even long plans inside a shareable URL.
  */
 
-export interface SolverShareState {
+export interface PlanShareState {
+	plan: PlanStep[];
 	constraints: Constraint[];
-	preferences?: SolvePreferences;
-	/** Selected recipe index (deterministic), present only in `?r=` (single-recipe) links. */
-	index?: number;
 }
 
 function bytesToBase64Url(bytes: Uint8Array): string {
@@ -31,17 +28,17 @@ function base64UrlToBytes(s: string): Uint8Array {
 	return bytes;
 }
 
-export function encodeState(state: SolverShareState): string {
+export function encodeState(state: PlanShareState): string {
 	const json = JSON.stringify(state);
 	return bytesToBase64Url(deflate(json));
 }
 
-export function decodeState(encoded: string): SolverShareState | null {
+export function decodeState(encoded: string): PlanShareState | null {
 	try {
 		const json = inflate(base64UrlToBytes(encoded), { to: 'string' });
 		const parsed = JSON.parse(json);
-		if (!parsed || !Array.isArray(parsed.constraints)) return null;
-		return parsed as SolverShareState;
+		if (!parsed || !Array.isArray(parsed.plan)) return null;
+		return { plan: parsed.plan, constraints: Array.isArray(parsed.constraints) ? parsed.constraints : [] };
 	} catch {
 		return null;
 	}

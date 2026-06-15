@@ -393,80 +393,12 @@ export type Constraint = ConstraintBase &
 		| { kind: 'chaos_balanced' }
 	);
 
-export type Archetype = 'speedrunner' | 'collector' | 'loyalist' | 'renegade' | 'scholar';
-
 export type Difficulty = 'easy' | 'standard' | 'hard' | 'expert';
 
-export interface SolvePreferences {
-	respectOrder?: boolean;
-	maxScenarios?: number;
-	/**
-	 * How many 14-C "Ruses and Reclamation" take-back sites a route should pass through to recover a
-	 * stolen Key, IF it still holds Keys when it crosses the Zeta box (theft). Default 1; raise for
-	 * more insurance against the "wrong leads" randomness. Routes that finish before Zeta need none.
-	 */
-	keyTakeBackSites?: number;
-	/** Max distinct routes returned per scenario-count bucket (default 6). */
-	maxPerScenarioCount?: number;
-	/** Overall safety cap on total returned routes across all buckets (default 48). */
-	maxResults?: number;
-	difficulty?: Difficulty;
-	allowExpeditedTicket?: boolean;
-	ticketUse?: { mode: 'auto' } | { mode: 'manual'; jumpTo: NodeId };
-	locale?: Locale;
-	/** Upper bound on explored search states (determinism / responsiveness). Default 60000. */
-	maxStates?: number;
-}
-
-export interface SolveInput {
-	constraints: Constraint[];
-	preferences?: SolvePreferences;
-}
-
-// ---------------------------------------------------------------------------
-// Public API: output (see README §3.2)
-// ---------------------------------------------------------------------------
-
-export type StepType = 'travel' | 'stop' | 'play' | 'use_ticket' | 'status_report' | 'finale';
-
-export interface Step {
-	type: StepType;
-	node?: NodeId;
-	/** Time added by this travel leg (for `travel`/`use_ticket`). */
-	pathCost?: number;
-	/** For `use_ticket`. */
-	from?: NodeId;
-	to?: NodeId;
-	timeSaved?: number;
-	scenario?: ScenarioId;
-	/** For stops; named when a specific resolution is required. */
-	resolution?: ResId;
-	/** Scenario version played at this stop (e.g. `v2`), if the scenario has versions. */
-	version?: string;
-	/** false => "any resolution OK" (see README §3.3). */
-	resolutionRequired: boolean;
-	/** Why this step / why this resolution. */
-	reason?: LocalizedString;
-	/** Symbol fired, for `status_report`. */
-	marker?: MarkerSymbol;
-	/** For scenario stops: the time-based "level" the scenario is in at entry (e.g. "Lv. 3/4 — …"). */
-	scenarioLevel?: LocalizedString;
-	/** Bonus XP gained at this stop, if any. */
-	xp?: number;
-	timeAfter: number;
-}
-
-/** A reference back to an input constraint that a recipe satisfies. */
-export interface ConstraintRef {
-	index: number;
-	kind: Constraint['kind'];
-	label: LocalizedString;
-}
-
 /**
- * An achievement a recipe earns or makes possible.
- *  - `guaranteed`: the route fully satisfies it (e.g. Speed Demon's time cap, a forced resolution).
- *  - `in_session`: the route positions you correctly (right scenario/version), but the table feat
+ * An achievement a plan earns or makes possible.
+ *  - `guaranteed`: the plan fully satisfies it (e.g. a time cap, a forced resolution).
+ *  - `in_session`: the plan positions you correctly (right scenario/version), but the table feat
  *    itself (e.g. "defeat both Desis simultaneously") is up to play.
  */
 export interface EarnedAchievement {
@@ -476,51 +408,3 @@ export interface EarnedAchievement {
 	/** True if this achievement was one of the input constraints (vs a surprise bonus). */
 	requested: boolean;
 }
-
-export interface Recipe {
-	steps: Step[];
-	totalTime: number;
-	scenarioCount: number;
-	/** Combat scenarios played, in route order (for grouping + scenario-icon display). */
-	playedScenarios: ScenarioId[];
-	/** Keys held by an investigator at the finale. */
-	keysHeld: KeyId[];
-	alliesRecruited: AllyId[];
-	trust: number;
-	deception: number;
-	/** Total bonus XP grabbed along the route. */
-	bonusXp: number;
-	/** Max extra XP achievable from over-trusting/over-deceiving (chaos-bag overflow). */
-	chaosMaxOverflowXp: number;
-	/** Brief summary of opportunistic side gains (XP, Foundation Intel, chaos-bag upgrades). */
-	freebies: LocalizedString[];
-	/** Predicted Trial outcome / epilogue branch. */
-	endingBranch: string;
-	/** TSK chaos tokens at the finale. */
-	tablet: number;
-	elderThing: number;
-	warnings: LocalizedString[];
-	satisfies: ConstraintRef[];
-	/** Achievements this route earns (guaranteed) or makes possible (in_session). */
-	earnableAchievements: EarnedAchievement[];
-}
-
-export interface ImpossibilityBreakdownItem {
-	label: string;
-	value: number;
-}
-
-export type ImpossibilityKind = 'time_floor' | 'scenario_count' | 'logical' | 'search_budget';
-
-export interface ImpossibilityProof {
-	kind: ImpossibilityKind;
-	conflict: string;
-	cap: number;
-	breakdown: ImpossibilityBreakdownItem[];
-	floor: number;
-	message: LocalizedString;
-}
-
-export type SolveOutput =
-	| { ok: true; recipes: Recipe[] }
-	| { ok: false; proof: ImpossibilityProof };

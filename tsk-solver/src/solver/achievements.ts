@@ -9,7 +9,7 @@
 
 import { getScenario, loadDatabase } from '../data/load.js';
 import type { CampaignState, Difficulty, EarnedAchievement, NodeId } from '../types.js';
-import type { RouteStep } from './search.js';
+import type { RouteStep } from './route-types.js';
 import type { TrialPrediction } from './trial.js';
 
 function achievementLabel(id: string): { id: string; params: Record<string, string | number> } {

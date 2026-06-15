@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { Button, Checkbox, Dropdown, type Option } from '@5argon/arkham-life-ui';
-	import { catalog, type Difficulty, type Locale } from '@5argon/arkham-tsk-solver';
-	import { CATEGORY_LABELS, newRow, TARGETLESS, type CategoryId, type RowModel, type UiPreferences } from './helpers';
+	import { catalog } from '@5argon/arkham-tsk-solver';
+	import { CATEGORY_LABELS, newRow, TARGETLESS, type CategoryId, type RowModel } from './helpers';
 
 	interface Props {
 		rows: RowModel[];
-		preferences: UiPreferences;
-		solving: boolean;
-		onSolve: () => void;
 	}
-	let { rows = $bindable(), preferences = $bindable(), solving, onSolve }: Props = $props();
+	let { rows = $bindable() }: Props = $props();
 
 	const cat = catalog();
 
@@ -53,9 +50,15 @@
 	const versionOptions = (scenario: string): Option<string>[] =>
 		(cat.versions[scenario] ?? []).map((v) => ({
 			value: v.id,
-			// Prefix the version number (v1/v2/…) so it's always visible alongside the description.
 			label: v.label && !v.label.toLowerCase().startsWith(v.id) ? `${v.id} — ${v.label}` : v.label || v.id,
 		}));
+	// Campaign logs are many; browse them by group (scenario / final trial / epilogue / other).
+	const logGroupOptions: Option<string>[] = [
+		{ value: 'all', label: 'All logs' },
+		...cat.campaignLogGroups.map((g) => ({ value: g.id, label: g.label })),
+	];
+	const campaignLogOptions = (group: string): Option<string>[] =>
+		cat.campaignLogs.filter((e) => group === 'all' || (e.groups ?? []).includes(group)).map((e) => ({ value: e.id, label: e.label }));
 	const noteFor = (r: RowModel): string | undefined => {
 		if (r.category === 'side_story') return cat.sideStories.find((s) => s.label && s.id === r.target)?.note;
 		if (r.category === 'scenario_resolution') return cat.resolutions[r.target]?.find((x) => x.id === r.resolution)?.note;
@@ -64,11 +67,17 @@
 
 	function onCategoryChange(i: number) {
 		const r = rows[i]!;
+		r.logGroup = 'all';
 		r.target = entriesFor(r.category)[0]?.id ?? '';
 		r.resolution = cat.resolutions[r.target]?.[0]?.id ?? 'R1';
 		r.version = cat.versions[r.target]?.[0]?.id ?? 'v1';
 		r.level = Number(cat.levels[r.target]?.[0]?.id ?? 1);
 		r.bearer = false;
+		rows = rows;
+	}
+	function onLogGroupChange(i: number) {
+		const r = rows[i]!;
+		r.target = campaignLogOptions(r.logGroup)[0]?.value ?? '';
 		rows = rows;
 	}
 	function onTargetChange(i: number) {
@@ -79,8 +88,7 @@
 		rows = rows;
 	}
 	function addRow() {
-		const r = newRow('achievement', cat.achievements[0]?.id ?? '');
-		rows = [...rows, r];
+		rows = [...rows, newRow('visit_scenario', cat.scenarios[0]?.id ?? '')];
 	}
 	function removeRow(i: number) {
 		rows = rows.filter((_, idx) => idx !== i);
@@ -88,48 +96,23 @@
 	function clearAll() {
 		rows = [];
 	}
-
-	const maxPerCountOptions: Option<number>[] = [3, 4, 5, 6, 8, 10].map((n) => ({ value: n, label: `${n}` }));
-	const takeBackOptions: Option<number>[] = [
-		{ value: 0, label: 'Warn only' },
-		{ value: 1, label: '1 site' },
-		{ value: 2, label: '2 sites' },
-		{ value: 3, label: '3 sites' },
-		{ value: 4, label: '4 sites' },
-	];
-	const scenarioCapOptions: Option<number>[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((n) => ({
-		value: n,
-		label: n === 0 ? 'No limit' : `${n}`,
-	}));
-	const difficultyOptions: Option<Difficulty>[] = (['easy', 'standard', 'hard', 'expert'] as Difficulty[]).map((d) => ({
-		value: d,
-		label: d[0]!.toUpperCase() + d.slice(1),
-	}));
-	const localeOptions: Option<Locale>[] = (['en', 'fr', 'es', 'it'] as Locale[]).map((l) => ({ value: l, label: l.toUpperCase() }));
-
-	let scenarioCap = $state<number>(preferences.maxScenarios ?? 0);
-	function syncScenarioCap() {
-		preferences.maxScenarios = scenarioCap === 0 ? undefined : scenarioCap;
-	}
 </script>
 
 <div class="flex flex-col gap-4">
 	<div class="flex items-center justify-between">
 		<h3 class="font-heading text-lg text-primary-900 dark:text-primary-100">
-			Constraints {rows.length ? `(${rows.length})` : ''}
+			Goals {rows.length ? `(${rows.length})` : ''}
 		</h3>
 		<div class="flex gap-2">
 			{#if rows.length}<Button label="Clear all" onClick={clearAll} danger />{/if}
-			<Button label="+ Add constraint" onClick={addRow} highlighted />
+			<Button label="+ Add goal" onClick={addRow} highlighted />
 		</div>
 	</div>
 
-	{#if rows.length === 0}
-		<p class="text-sm italic text-primary-500 dark:text-primary-400">
-			No constraints — solving now finds diverse winning routes to browse. Add a constraint to narrow
-			the search; tick <b>NOT</b> on any row to forbid it (you can still travel through a forbidden node, just not stop there).
-		</p>
-	{/if}
+	<p class="text-sm italic text-primary-500 dark:text-primary-400">
+		Goals are an optional checklist — the planner tells you which ones your handcrafted plan meets. Tick
+		<b>NOT</b> on a row to make it a goal you want to <i>avoid</i>.
+	</p>
 
 	{#each rows as row, i (i)}
 		<div
@@ -141,7 +124,14 @@
 			<div class="min-w-48">
 				<Dropdown bind:value={row.category} label="Type" options={CATEGORY_LABELS} onchange={() => onCategoryChange(i)} />
 			</div>
-			{#if !TARGETLESS.includes(row.category)}
+			{#if row.category === 'campaign_log'}
+				<div class="min-w-44">
+					<Dropdown bind:value={row.logGroup} label="Log group" options={logGroupOptions} onchange={() => onLogGroupChange(i)} />
+				</div>
+				<div class="min-w-56 grow">
+					<Dropdown bind:value={row.target} label="Campaign log" options={campaignLogOptions(row.logGroup)} onchange={() => onTargetChange(i)} />
+				</div>
+			{:else if !TARGETLESS.includes(row.category)}
 				<div class="min-w-56 grow">
 					<Dropdown bind:value={row.target} label="Target" options={targetOptions(row.category)} onchange={() => onTargetChange(i)} />
 				</div>
@@ -176,7 +166,7 @@
 					<Checkbox bind:checked={row.bearer} label="Held by you" />
 				{/if}
 				{#if !TARGETLESS.includes(row.category)}<Checkbox bind:checked={row.negate} label="NOT" />{/if}
-				<button class="px-2 text-survivor-600 hover:text-survivor-800" onclick={() => removeRow(i)} aria-label="Remove constraint">✕</button>
+				<button class="px-2 text-survivor-600 hover:text-survivor-800" onclick={() => removeRow(i)} aria-label="Remove goal">✕</button>
 			</div>
 			{#if noteFor(row)}
 				<p class="w-full text-xs italic text-primary-500 dark:text-primary-400">{noteFor(row)}</p>
@@ -184,23 +174,4 @@
 		</div>
 	{/each}
 
-	<!-- Preferences -->
-	<div class="rounded-md border border-primary-200 dark:border-primary-800 p-4">
-		<h3 class="font-heading text-lg text-primary-900 dark:text-primary-100 mb-3">Preferences</h3>
-		<div class="flex flex-wrap items-end gap-4">
-			<div class="w-40"><Dropdown bind:value={preferences.maxPerScenarioCount} label="Routes per group" options={maxPerCountOptions} /></div>
-			<div class="w-32"><Dropdown bind:value={scenarioCap} label="Scenario cap" options={scenarioCapOptions} onchange={syncScenarioCap} /></div>
-			<div class="w-40"><Dropdown bind:value={preferences.keyTakeBackSites} label="Key take-back" options={takeBackOptions} /></div>
-			<div class="w-44"><Dropdown bind:value={preferences.difficulty} label="Difficulty" options={difficultyOptions} /></div>
-			<div class="w-24"><Dropdown bind:value={preferences.locale} label="Language" options={localeOptions} /></div>
-			<div class="flex items-center gap-4 pb-1">
-				<Checkbox bind:checked={preferences.respectOrder} label="Respect order" />
-				<Checkbox bind:checked={preferences.allowExpeditedTicket} label="Allow ticket" />
-			</div>
-		</div>
-	</div>
-
-	<div class="flex justify-center">
-		<Button label={solving ? 'Solving…' : 'Solve routes'} onClick={onSolve} highlighted disabled={solving} />
-	</div>
 </div>

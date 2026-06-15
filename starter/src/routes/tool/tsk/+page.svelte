@@ -1,175 +1,108 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { onDestroy } from 'svelte';
-	import { Button, Dropdown, MarginFull, MarginText, type Option, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
-	import { resolveLocalized, solve, type Constraint, type Recipe, type SolveInput, type SolveOutput } from '@5argon/arkham-tsk-solver';
+	import { Button, MarginFull, MarginText, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
+	import { evaluatePlan, initialState, simulatePlan, type Constraint, type PlanStep } from '@5argon/arkham-tsk-solver';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import ConstraintForm from './ConstraintForm.svelte';
-	import RecipeDetail from './RecipeDetail.svelte';
-	import ScenarioIcons from './ScenarioIcons.svelte';
-	import { DEFAULT_PREFS, rowFromConstraint, scenarioIconItems, toConstraint, type RowModel, type UiPreferences } from './helpers';
-	import { decodeState, encodeState, type SolverShareState } from './codec';
+	import GoalsChecklist from './GoalsChecklist.svelte';
+	import PlanSummary from './PlanSummary.svelte';
+	import StepForm from './StepForm.svelte';
+	import { defaultFinaleStep, defaultMiddleStep, defaultPrologueStep, rowFromConstraint, toConstraint, type RowModel } from './helpers';
+	import { decodeState, encodeState } from './codec';
+
+	interface Entry {
+		id: number;
+		step: PlanStep;
+	}
+	let nextId = 1;
+	const seed = (): Entry[] => [
+		{ id: nextId++, step: defaultPrologueStep() },
+		{ id: nextId++, step: defaultFinaleStep() },
+	];
 
 	let revealed = $state(false);
+	// The plan always opens with Riddles and Rain (pinned first) and ends with Congress (pinned last).
+	let entries = $state<Entry[]>(seed());
 	let rows = $state<RowModel[]>([]);
-	let preferences = $state<UiPreferences>({ ...DEFAULT_PREFS });
-	let result = $state<SolveOutput | null>(null);
-	let solving = $state(false);
-	let selectedIndex = $state<number | null>(null);
-	let groupFilter = $state<string>('all');
 	let pending: string | null = null;
-	let lastWritten: string | null = null;
+	let copied = $state(false);
 
+	const plan = $derived<PlanStep[]>(entries.map((e) => e.step));
 	const constraints = $derived<Constraint[]>(rows.map(toConstraint).filter((c): c is Constraint => c !== null));
-	const locale = $derived(preferences.locale ?? 'en');
-	const recipes = $derived<Recipe[]>(result && result.ok ? result.recipes : []);
-	const selectedRecipe = $derived<Recipe | undefined>(
-		selectedIndex !== null ? recipes[selectedIndex] : undefined,
-	);
+	const trajectory = $derived(simulatePlan({ steps: $state.snapshot(plan) as PlanStep[] }));
+	const checks = $derived(evaluatePlan(trajectory, constraints));
 
-	// Results grouped by scenario count, ascending — players browse by how many scenarios to play.
-	const groups = $derived.by(() => {
-		const m = new Map<number, { recipe: Recipe; index: number }[]>();
-		recipes.forEach((recipe, index) => {
-			const list = m.get(recipe.scenarioCount) ?? [];
-			list.push({ recipe, index });
-			m.set(recipe.scenarioCount, list);
-		});
-		return [...m.entries()].sort((a, b) => a[0] - b[0]);
-	});
-
-	// "Jump to" group filter so players can go straight to the 6–8 scenario plans without scrolling.
-	const groupOptions = $derived<Option<string>[]>([
-		{ value: 'all', label: `All groups (${recipes.length})` },
-		...groups.map(([count, items]) => ({ value: String(count), label: `Play ${count} scenario${count === 1 ? '' : 's'} (${items.length})` })),
-	]);
-	const visibleGroups = $derived(
-		groupFilter === 'all' ? groups : groups.filter(([count]) => String(count) === groupFilter),
-	);
+	const lastIndex = $derived(entries.length - 1);
+	const roleOf = (i: number): 'prologue' | 'middle' | 'finale' => (i === 0 ? 'prologue' : i === lastIndex ? 'finale' : 'middle');
+	const fromStateAt = (i: number) => (i === 0 ? initialState() : trajectory.steps[i - 1]!.stateAfter);
+	const encodedNow = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], constraints }));
 
 	afterNavigate(() => {
-		const params = new URLSearchParams(page.url.search);
-		const encoded = params.get('r') ?? params.get('c');
-		if (encoded === lastWritten) return;
+		const enc = new URLSearchParams(page.url.search).get('p');
+		if (!enc) return;
 		if (!revealed) {
-			pending = encoded;
+			pending = enc;
 			return;
 		}
-		applyEncoded(encoded);
+		load(enc);
 	});
 
-	function applyEncoded(encoded: string | null) {
-		if (!encoded) {
-			selectedIndex = null;
-			return;
-		}
-		const state = decodeState(encoded);
-		if (!state) return;
-		lastWritten = encoded;
-		applyShared(state);
-		runSolve(false);
-		selectedIndex = typeof state.index === 'number' ? state.index : null;
+	function load(enc: string) {
+		const st = decodeState(enc);
+		if (!st) return;
+		const steps = st.plan.length ? st.plan : [defaultPrologueStep(), defaultFinaleStep()];
+		entries = steps.map((step) => ({ id: nextId++, step }));
+		rows = (st.constraints ?? []).map(rowFromConstraint);
 	}
-
-	function applyShared(state: SolverShareState) {
-		rows = (state.constraints ?? []).map((c) => rowFromConstraint(c));
-		preferences = { ...DEFAULT_PREFS, ...(state.preferences ?? {}) };
-	}
-
 	function reveal() {
 		revealed = true;
-		const enc = pending;
+		const e = pending;
 		pending = null;
-		if (enc) applyEncoded(enc);
+		if (e) load(e);
 	}
 
-	function inputState(extra?: Partial<SolverShareState>): SolverShareState {
-		return { constraints, preferences, ...extra };
+	function addStep() {
+		// Insert a new middle just before the pinned finale, departing from the last middle's state.
+		const before = trajectory.steps[entries.length - 2]?.stateAfter ?? initialState();
+		const mid: Entry = { id: nextId++, step: defaultMiddleStep(before) };
+		entries = [...entries.slice(0, lastIndex), mid, ...entries.slice(lastIndex)];
 	}
-	function updateUrl(encoded: string, param: 'c' | 'r', replace: boolean) {
-		lastWritten = encoded;
-		goto(resolve(`/tool/tsk?${param}=${encoded}`, {}), { replaceState: replace, keepFocus: true, noScroll: true });
+	function updateStep(id: number, step: PlanStep) {
+		entries = entries.map((e) => (e.id === id ? { ...e, step } : e));
 	}
-
-	// The solver runs in a Web Worker so heavy searches never freeze the UI. Each request carries an
-	// id; only the latest result is applied (stale ones are dropped). Falls back to a synchronous
-	// solve if workers are unavailable.
-	let worker: Worker | null = null;
-	let reqId = 0;
-	let inflight: { id: number; updateURL: boolean; state: SolverShareState; input: SolveInput } | null = null;
-
-	function finishSolve(id: number, out: SolveOutput) {
-		if (!inflight || inflight.id !== id) return; // superseded by a newer request
-		result = out;
-		solving = false;
-		if (inflight.updateURL) updateUrl(encodeState(inflight.state), 'c', true);
-		inflight = null;
+	function removeStep(id: number) {
+		entries = entries.filter((e) => e.id !== id);
 	}
-
-	/** Worker died/failed to load: finish the pending request synchronously so the UI never hangs. */
-	function recoverFromWorkerFailure() {
-		worker = null;
-		const f = inflight;
-		if (f) setTimeout(() => finishSolve(f.id, solve(f.input)), 0);
+	function moveStep(id: number, dir: -1 | 1) {
+		const i = entries.findIndex((e) => e.id === id);
+		const j = i + dir;
+		// Middles only; the prologue (0) and finale (lastIndex) stay pinned.
+		if (i <= 0 || i >= lastIndex || j < 1 || j > lastIndex - 1) return;
+		const next = [...entries];
+		[next[i], next[j]] = [next[j]!, next[i]!];
+		entries = next;
 	}
 
-	function getWorker(): Worker | null {
-		if (!browser) return null;
-		if (worker) return worker;
+	async function share() {
 		try {
-			worker = new Worker(new URL('./solver.worker.ts', import.meta.url), { type: 'module' });
-			worker.onmessage = (e: MessageEvent<{ id: number; result: SolveOutput }>) => finishSolve(e.data.id, e.data.result);
-			worker.onerror = recoverFromWorkerFailure;
+			await navigator.clipboard.writeText(`https://arkham-starter.com/tool/tsk/view?p=${encodedNow}`);
+			copied = true;
+			setTimeout(() => (copied = false), 1800);
 		} catch {
-			worker = null;
-		}
-		return worker;
-	}
-
-	function runSolve(updateURL = true) {
-		solving = true;
-		selectedIndex = null;
-		groupFilter = 'all';
-		const input: SolveInput = {
-			constraints: $state.snapshot(constraints) as Constraint[],
-			preferences: $state.snapshot(preferences) as UiPreferences,
-		};
-		const id = ++reqId;
-		inflight = { id, updateURL, state: inputState(), input };
-		const w = getWorker();
-		if (w) {
-			w.postMessage({ id, input });
-		} else {
-			// No worker (very old browser): solve synchronously on the next tick.
-			setTimeout(() => finishSolve(id, solve(input)), 0);
+			copied = false;
 		}
 	}
-
-	onDestroy(() => worker?.terminate());
-
-	function openRecipe(index: number) {
-		selectedIndex = index;
-		updateUrl(encodeState(inputState({ index })), 'r', false);
+	function preview() {
+		goto(resolve(`/tool/tsk/view?p=${encodedNow}`, {}));
 	}
-	function backToResults() {
-		selectedIndex = null;
-		updateUrl(encodeState(inputState()), 'c', false);
-	}
-
-	const shareUrl = $derived(
-		selectedIndex !== null
-			? `https://arkham-starter.com/tool/tsk?r=${encodeState(inputState({ index: selectedIndex }))}`
-			: `https://arkham-starter.com/tool/tsk?c=${encodeState(inputState())}`,
-	);
 </script>
 
 <OpenGraph
-	description="Plan The Scarlet Keys campaign backwards from your goals — a spoiler-heavy route solver."
+	description="Hand-plan The Scarlet Keys campaign step by step — the app tracks time, trust, keys, allies, and your goals at every decision."
 	image="image/resource/tskdoc.webp"
-	title="The Scarlet Keys : Route Solver"
+	title="The Scarlet Keys : Campaign Planner"
 	url="/tool/tsk"
 />
 
@@ -178,90 +111,60 @@
 		<div class="mx-auto mt-10 max-w-2xl rounded-lg border-2 border-survivor-400 dark:border-survivor-700 p-8 text-center">
 			<div class="font-heading text-3xl text-survivor-700 dark:text-survivor-300 mb-4">⚠ Heavy Spoiler Warning</div>
 			<TextParagraph>
-				The TSK Route Solver is the <b>inverse</b> of how <i>The Scarlet Keys</i> is meant to be played. The
-				campaign is a non-linear, discovery-driven globe-trot; this tool plans it <b>backwards</b> from the
-				outcomes you want.
+				The TSK Campaign Planner lets you build a route through <i>The Scarlet Keys</i> by hand — choosing
+				where to go and what to do at each stop — while it tracks the full campaign state for you.
 			</TextParagraph>
 			<TextParagraph>
-				Simply <b>choosing constraints</b> — which scenarios, resolutions, keys, allies, or ending — reveals the
-				campaign's structure and many of its surprises. This is for <b>replays</b>, achievement runs, and custom
-				"gauntlet" planning. Please play the campaign normally at least once first.
+				Seeing the scenarios, resolutions, keys, allies, and endings laid out reveals much of the campaign's
+				structure and many surprises. This is for <b>replays</b>, achievement runs, and custom "gauntlet"
+				planning. Please play the campaign normally at least once first.
 			</TextParagraph>
 			<div class="mt-6">
-				<Button label="I understand — reveal the solver" onClick={reveal} highlighted />
+				<Button label="I understand — reveal the planner" onClick={reveal} highlighted />
 			</div>
 		</div>
 	</MarginText>
 {:else}
 	<MarginFull>
-		<PageLead title="The Scarlet Keys : Route Solver" description="Specify constraints; browse distinct, playable routes grouped by how many scenarios you want to play — or a proof they can't all be satisfied." />
+		<PageLead
+			title="The Scarlet Keys : Campaign Planner"
+			description="Edit any step at any time; the app computes travel time, campaign state, and which of your goals each plan meets. Riddles and Rain opens and Congress closes the run."
+		/>
 	</MarginFull>
 
 	<MarginText>
-		{#if selectedRecipe}
-			<RecipeDetail recipe={selectedRecipe} {locale} {shareUrl} onBack={backToResults} />
-		{:else}
-			<ConstraintForm bind:rows bind:preferences {solving} onSolve={() => runSolve(true)} />
+		<div class="mb-3 flex justify-end gap-2">
+			<Button label="Preview (read-only)" onClick={preview} />
+			<Button label={copied ? 'Link copied!' : 'Share plan link'} onClick={share} highlighted />
+		</div>
 
-			{#if result}
-				<SectionSeparator title="Results" />
-				{#if result.ok}
-					<p class="mb-4 text-sm text-primary-500 dark:text-primary-400">
-						{result.recipes.length} distinct route{result.recipes.length === 1 ? '' : 's'} across {groups.length} scenario-count
-						group{groups.length === 1 ? '' : 's'}. Click a route for the full plan and a shareable link.
-					</p>
-					{#if groups.length > 1}
-						<div class="mb-4 w-72">
-							<Dropdown bind:value={groupFilter} label="Jump to a scenario-count group" options={groupOptions} />
-						</div>
-					{/if}
-					{#each visibleGroups as [count, items] (count)}
-						<div class="mb-6">
-							<h3 class="font-heading text-lg text-primary-900 dark:text-primary-100 mb-2">
-								Play {count} scenario{count === 1 ? '' : 's'} <span class="text-sm text-primary-400">({items.length})</span>
-							</h3>
-							<div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-								{#each items as { recipe, index } (index)}
-									<button
-										class="rounded-lg border border-primary-200 dark:border-primary-800 p-4 text-left transition hover:border-secondary-500 hover:shadow-md"
-										onclick={() => openRecipe(index)}
-									>
-										<div class="mb-3"><ScenarioIcons items={scenarioIconItems(recipe)} /></div>
-										<div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm text-primary-600 dark:text-primary-300">
-											<span class="rounded bg-primary-100 px-2 py-0.5 font-medium text-primary-700 dark:bg-primary-800 dark:text-primary-200">{recipe.totalTime} time</span>
-											<span>{recipe.keysHeld.length} keys</span>
-											{#if recipe.bonusXp > 0}<span class="font-semibold text-secondary-700 dark:text-secondary-300">+{recipe.bonusXp} XP</span>{/if}
-											<span>Trust {recipe.trust} / Decep {recipe.deception}</span>
-											{#if recipe.earnableAchievements.length}<span>{recipe.earnableAchievements.length} achievements</span>{/if}
-										</div>
-										{#if recipe.freebies.length}
-											<div class="mt-1.5 text-xs text-primary-500 dark:text-primary-400">{recipe.freebies.map((f) => resolveLocalized(f, locale)).join(' · ')}</div>
-										{/if}
-										<div class="mt-2 text-xs font-medium text-secondary-600 dark:text-secondary-400">View full route →</div>
-									</button>
-								{/each}
-							</div>
-						</div>
-					{/each}
-				{:else}
-					<div class="rounded-lg border-2 border-survivor-400 dark:border-survivor-700 p-5">
-						<div class="font-heading text-xl text-survivor-700 dark:text-survivor-300 mb-2">No route satisfies these constraints</div>
-						<p class="text-primary-800 dark:text-primary-200">{resolveLocalized(result.proof.message, locale)}</p>
-						<p class="mt-1 text-sm text-primary-500">Conflict: {result.proof.conflict}</p>
-						{#if result.proof.breakdown.length}
-							<table class="mt-3 text-sm">
-								<tbody>
-									{#each result.proof.breakdown as b (b.label)}
-										<tr><td class="pr-4 text-primary-500">{b.label}</td><td class="text-primary-900 dark:text-primary-100">{b.value}</td></tr>
-									{/each}
-									<tr class="border-t border-primary-300"><td class="pr-4 font-semibold">floor</td><td class="font-semibold">{result.proof.floor}</td></tr>
-									<tr><td class="pr-4 font-semibold">cap</td><td class="font-semibold">{result.proof.cap}</td></tr>
-								</tbody>
-							</table>
-						{/if}
-					</div>
+		<PlanSummary {trajectory} />
+
+		<ol class="my-4 flex flex-col">
+			{#each entries as e, i (e.id)}
+				<StepForm
+					id={e.id}
+					role={roleOf(i)}
+					fromState={fromStateAt(i)}
+					sim={trajectory.steps[i]!}
+					finalState={trajectory.finalState}
+					step={e.step}
+					canMoveUp={i > 1}
+					canMoveDown={i < lastIndex - 1}
+					onUpdate={updateStep}
+					onRemove={removeStep}
+					onMove={moveStep}
+				/>
+				{#if i === lastIndex - 1}
+					<li class="mb-4 ml-4 list-none"><Button label="+ Add step" onClick={addStep} /></li>
 				{/if}
-			{/if}
+			{/each}
+		</ol>
+
+		<SectionSeparator title="Goals" />
+		{#if checks.length}
+			<div class="mb-4"><GoalsChecklist {checks} {constraints} /></div>
 		{/if}
+		<ConstraintForm bind:rows />
 	</MarginText>
 {/if}

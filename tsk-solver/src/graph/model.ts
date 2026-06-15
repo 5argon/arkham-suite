@@ -24,6 +24,7 @@ import type {
 	MarkerSymbol,
 	NodeId,
 	RawInterludeOutcome,
+	RawIntroChoice,
 	RawResolution,
 	RawScenario,
 } from '../types.js';
@@ -153,7 +154,9 @@ function interludeOption(node: NodeId, outcome: RawInterludeOutcome): StopOption
 		bearer: outcome.bearer ?? null,
 		grantsKey: outcome.grants_key,
 		logs: outcome.logs ?? [],
-		grantsAsset: outcome.grants_asset,
+		// An ally granted here goes into grantsAllies only — never also into assets (applyStop adds both
+		// sets blindly), keeping the allies/assets collections disjoint as the pre-choice path does.
+		grantsAsset: outcome.grants_asset && isAlly(outcome.grants_asset) ? undefined : outcome.grants_asset,
 		grantsAllies,
 		unlocks: outcome.unlocks,
 		clearsLog: outcome.clears_log,
@@ -184,17 +187,11 @@ export function stopOptions(node: NodeId): StopOption[] {
 		const interlude = getInterlude(sid);
 		if (scenario) {
 			const isPrologue = scenario.role === 'prologue';
-			// Fold in the cheapest prologue intro choice's time AND its chaos (the time-optimal
-			// choice the speedrunner would take), so prologue chaos tokens aren't silently dropped.
-			const cheapestIntro =
-				isPrologue && scenario.intro_choices
-					? scenario.intro_choices.reduce((best, c) => ((c.time ?? 0) < (best.time ?? 0) ? c : best))
-					: undefined;
-			const prologueIntroTime = cheapestIntro?.time ?? 0;
+			// Pre-scenario choices (intro/interlude) are selected explicitly per plan step and folded
+			// in by applyStop, so a resolution option carries only its own time/chaos here.
 			options = scenario.resolutions.map((r) => ({
-				...scenarioResolutionOption(node, scenario, sid, r, prologueIntroTime),
+				...scenarioResolutionOption(node, scenario, sid, r, 0),
 				isPrologue,
-				chaos: isPrologue ? (cheapestIntro?.chaos ?? r.chaos) : r.chaos,
 			}));
 		} else if (interlude) {
 			options = (interlude.outcomes ?? interlude.options ?? []).map((o) => interludeOption(node, o));
@@ -245,6 +242,28 @@ export function stopOptions(node: NodeId): StopOption[] {
 	}
 	optionCache.set(node, options);
 	return options;
+}
+
+/**
+ * Is this node a combat scenario stop (the canonical ten, incl. the prologue + finale)? True iff its
+ * scenario id resolves to a real scenario; interludes/side-stories return false. Drives scenario count.
+ */
+export function isCombatScenarioNode(node: NodeId): boolean {
+	const sid = getLocation(node).scenario_id;
+	return sid !== null && getScenario(sid) !== undefined;
+}
+
+/**
+ * Pre-scenario choices made at a scenario node BEFORE its resolution — the scenario's `intro_choices`
+ * (e.g. trust/defy a contact) plus its `interlude_choices`. These commonly alter trust/deception and
+ * the chaos bag; `applyStop` folds the selected ones in. Empty for interlude / side-story nodes (whose
+ * single chosen outcome already carries those effects).
+ */
+export function preChoicesAt(node: NodeId): RawIntroChoice[] {
+	const sid = getLocation(node).scenario_id;
+	const s = sid ? getScenario(sid) : undefined;
+	if (!s) return [];
+	return [...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])];
 }
 
 // --- requires evaluation ----------------------------------------------------

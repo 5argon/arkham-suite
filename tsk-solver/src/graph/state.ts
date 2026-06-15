@@ -7,8 +7,8 @@
  * option's effects into the next state, reporting which interrupts fired.
  */
 
-import { loadDatabase } from '../data/load.js';
-import type { BearerId, CampaignState, FlagId, KeyId, MarkerSymbol } from '../types.js';
+import { alliesById, loadDatabase } from '../data/load.js';
+import type { BearerId, CampaignState, FlagId, KeyId, MarkerSymbol, RawIntroChoice } from '../types.js';
 import type { StopOption } from './model.js';
 
 const CHAOS_CAP = 4;
@@ -24,8 +24,9 @@ export function initialState(): CampaignState {
 		keys: new Map(),
 		allies: new Set(),
 		assets: new Set(),
-		tablet: 0,
-		elderThing: 0,
+		// The TSK chaos bag starts with one Tablet and one Elder Thing; trust/defy choices shift them.
+		tablet: 1,
+		elderThing: 1,
 		xpBonus: 0,
 		trust: 0,
 		deception: 0,
@@ -120,13 +121,22 @@ export interface StopResult {
 }
 
 /**
- * Apply: travel `travelCost` hops to `option.node`, stop, and resolve `option`.
- * When `useTicket` is true, the travel is a 0-time Expedited Ticket jump (the ticket is
- * consumed). Returns the next state plus any interrupts fired. Pure.
+ * Apply: travel `travelCost` hops to `option.node`, optionally make the selected pre-scenario
+ * choices, stop, and resolve `option`. Pre-choices' time/logs/chaos/granted-asset apply BEFORE the
+ * resolution (they routinely shift trust/deception and the chaos bag pre-play). When `useTicket` is
+ * true, the travel is a 0-time Expedited Ticket jump (the ticket is consumed). Returns the next state
+ * plus any interrupts fired. Pure.
  */
-export function applyStop(state: CampaignState, option: StopOption, travelCost: number, useTicket = false): StopResult {
-	// 1. Travel (interrupts may fire en route), then mark the stop's own time.
-	const totalDelta = travelCost + option.baseTime;
+export function applyStop(
+	state: CampaignState,
+	option: StopOption,
+	travelCost: number,
+	useTicket = false,
+	preChoices: RawIntroChoice[] = [],
+): StopResult {
+	// 1. Travel + pre-choice time + the stop's own time (interrupts may fire across the whole leg).
+	const preTime = preChoices.reduce((t, c) => t + (c.time ?? 0), 0);
+	const totalDelta = travelCost + preTime + option.baseTime;
 	const crossing = crossTime(state, totalDelta);
 
 	const flags = crossing.flags;
@@ -137,11 +147,33 @@ export function applyStop(state: CampaignState, option: StopOption, travelCost: 
 	const visitedStops = new Set(state.visitedStops);
 	let elderThing = crossing.elderThing;
 	let tablet = state.tablet;
+	// Adding a chaos token to an already-full bag (cap 4) grants +1 XP instead (campaign rule).
+	let overflowXp = 0;
+
+	// chaos: best-effort from a "-bless +curse" style string (bless≈Tablet, curse≈Elder Thing).
+	const bumpChaos = (chaos: string | undefined): void => {
+		if (!chaos) return;
+		if (/\+\s*(bless|tablet)/i.test(chaos)) tablet >= CHAOS_CAP ? overflowXp++ : tablet++;
+		if (/-\s*(bless|tablet)/i.test(chaos)) tablet = Math.max(0, tablet - 1);
+		if (/\+\s*(curse|elder)/i.test(chaos)) elderThing >= CHAOS_CAP ? overflowXp++ : elderThing++;
+		if (/-\s*(curse|elder)/i.test(chaos)) elderThing = Math.max(0, elderThing - 1);
+	};
+	const grant = (asset: string): void => {
+		if (alliesById().has(asset)) allies.add(asset);
+		else assets.add(asset);
+	};
 
 	// 2. Stop-lockout bookkeeping (London may be stopped twice — prologue + revisit).
 	visitedStops.add(option.node);
 
-	// 3. Apply the option's structured effects.
+	// 3. Pre-scenario choices (applied before the resolution).
+	for (const c of preChoices) {
+		for (const log of c.logs ?? []) flags.add(log);
+		if (c.grants_asset) grant(c.grants_asset);
+		bumpChaos(c.chaos);
+	}
+
+	// 4. Apply the option's structured effects.
 	for (const log of option.logs) flags.add(log);
 	if (option.unlocks) flags.add(option.unlocks);
 	if (option.clearsLog) flags.delete(option.clearsLog);
@@ -157,13 +189,7 @@ export function applyStop(state: CampaignState, option: StopOption, travelCost: 
 		markers.set(option.writesMarker.symbol, crossing.timePassed + option.writesMarker.offset);
 	}
 
-	// chaos: best-effort from a "-bless +curse" style string (bless≈Tablet, curse≈Elder Thing).
-	if (option.chaos) {
-		if (/\+\s*(bless|tablet)/i.test(option.chaos)) tablet = Math.min(CHAOS_CAP, tablet + 1);
-		if (/-\s*(bless|tablet)/i.test(option.chaos)) tablet = Math.max(0, tablet - 1);
-		if (/\+\s*(curse|elder)/i.test(option.chaos)) elderThing = Math.min(CHAOS_CAP, elderThing + 1);
-		if (/-\s*(curse|elder)/i.test(option.chaos)) elderThing = Math.max(0, elderThing - 1);
-	}
+	bumpChaos(option.chaos);
 
 	const next: CampaignState = {
 		node: option.node,
@@ -175,7 +201,7 @@ export function applyStop(state: CampaignState, option: StopOption, travelCost: 
 		assets,
 		tablet,
 		elderThing,
-		xpBonus: state.xpBonus + option.xpBonus,
+		xpBonus: state.xpBonus + option.xpBonus + overflowXp,
 		trust: computeTrust(flags),
 		deception: computeDeception(flags),
 		// Acquiring the ticket sets it; using it (this jump) consumes it.

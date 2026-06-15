@@ -1,6 +1,31 @@
-import { catalog, labelFor } from '@5argon/arkham-tsk-solver';
-import type { ResolvedStep, Constraint, Difficulty, Locale, Recipe } from '@5argon/arkham-tsk-solver';
+import { catalog, getLocation, labelFor, optionsAt, reachableDestinations, stopOptions } from '@5argon/arkham-tsk-solver';
+import type { CampaignState, Constraint, PlanStep, SimStep, StopOption } from '@5argon/arkham-tsk-solver';
 import { type EncounterSet, getScenarioData, Scenario } from '@5argon/arkham-kohaku';
+
+/** Fixed campaign endpoints — the plan always opens here and ends here. */
+export const PROLOGUE_NODE = 'london';
+export const FINALE_NODE = 'tunguska';
+
+/** The seeded first step: Riddles and Rain at London (pinned). */
+export function defaultPrologueStep(): PlanStep {
+	const opt = stopOptions(PROLOGUE_NODE).find((o) => o.isPrologue);
+	return { node: PROLOGUE_NODE, optionId: opt?.optionId ?? 'R1', introChoiceIds: [] };
+}
+
+/** The seeded last step: the winning Congress of the Keys at Tunguska (pinned). */
+export function defaultFinaleStep(): PlanStep {
+	const win = stopOptions(FINALE_NODE).find((o) => o.outcome === 'WIN_CAMPAIGN');
+	return { node: FINALE_NODE, optionId: win?.optionId ?? 'R1' };
+}
+
+/** A sensible default for a newly-added middle step: the nearest reachable, unlocked non-endpoint node. */
+export function defaultMiddleStep(fromState: CampaignState): PlanStep {
+	const dest = reachableDestinations(fromState).find(
+		(d) => !d.locked && d.travel != null && d.node !== PROLOGUE_NODE && d.node !== FINALE_NODE,
+	);
+	const node = dest?.node ?? '';
+	return { node, optionId: node ? (optionsAt(fromState, node)[0]?.option.optionId ?? '') : '' };
+}
 
 /** One scenario icon on a recipe card: the encounter-set id + an optional short level/version badge. */
 export interface ScenarioIconItem {
@@ -10,49 +35,28 @@ export interface ScenarioIconItem {
 }
 
 /**
- * The scenarios a recipe plays, in order, each tagged with a short overview badge: the chosen
- * VERSION (for scenarios whose variants are versions, e.g. Dogs of War) or otherwise the time-based
- * difficulty LEVEL (for scenarios that only scale by time, e.g. Dealings in the Dark).
+ * The scenarios a plan plays, in order, each tagged with a short badge: the chosen VERSION (for
+ * scenarios whose variants are versions, e.g. Dogs of War) or otherwise the time-based difficulty
+ * LEVEL (for scenarios that only scale by time, e.g. Dealings in the Dark).
  */
-export function scenarioIconItems(recipe: Recipe): ScenarioIconItem[] {
+export function scenarioIconItems(steps: SimStep[]): ScenarioIconItem[] {
 	const versions = catalog().versions;
-	return recipe.steps
-		.filter((s) => s.type === 'play' || s.type === 'finale')
+	return steps
+		.filter((s) => s.option.kind === 'scenario' || s.option.kind === 'finale')
 		.map((s) => {
-			const hasVersions = (versions[s.scenario ?? '']?.length ?? 0) > 0;
+			const scenario = getLocation(s.option.node).scenario_id ?? '';
+			const hasVersions = (versions[scenario]?.length ?? 0) > 0;
 			let badge: string | undefined;
 			if (hasVersions) {
-				badge = s.version ? s.version : undefined; // e.g. "v2"; omit if not version-determined
+				badge = s.option.version ?? undefined; // e.g. "v2"; omit if not version-determined
 			} else {
 				const level = s.scenarioLevel?.params?.level;
 				const total = s.scenarioLevel?.params?.total;
 				badge = level != null ? `Lv.${level}/${total}` : undefined;
 			}
-			return { scenario: s.scenario ?? '', badge };
+			return { scenario, badge };
 		});
 }
-
-/** Preferences with the form-bound fields non-optional (assignable to SolvePreferences). */
-export interface UiPreferences {
-	maxPerScenarioCount: number;
-	maxResults: number;
-	maxScenarios?: number;
-	keyTakeBackSites: number;
-	difficulty: Difficulty;
-	locale: Locale;
-	respectOrder: boolean;
-	allowExpeditedTicket: boolean;
-}
-
-export const DEFAULT_PREFS: UiPreferences = {
-	maxPerScenarioCount: 6,
-	maxResults: 48,
-	keyTakeBackSites: 1,
-	difficulty: 'standard',
-	locale: 'en',
-	respectOrder: false,
-	allowExpeditedTicket: true,
-};
 
 // --- editable constraint rows ------------------------------------------------
 
@@ -113,10 +117,12 @@ export interface RowModel {
 	tablet: number;
 	elderThing: number;
 	overflowMin: number;
+	/** Campaign-log browse group filter (UI only, not serialized): 'all' | a campaignLogGroups id. */
+	logGroup: string;
 }
 
 export function newRow(category: CategoryId = 'achievement', target = ''): RowModel {
-	return { category, target, resolution: 'R1', version: 'v1', level: 1, negate: false, bearer: false, trial: 'trial_3', tablet: 4, elderThing: 0, overflowMin: 2 };
+	return { category, target, resolution: 'R1', version: 'v1', level: 1, negate: false, bearer: false, trial: 'trial_3', tablet: 4, elderThing: 0, overflowMin: 2, logGroup: 'all' };
 }
 
 /** Convert an editable row to a solver `Constraint` (null if incomplete). */
@@ -147,7 +153,7 @@ export function toConstraint(r: RowModel): Constraint | null {
 		case 'scenario_version':
 			return { kind: 'scenario_version', scenario: r.target, version: r.version, negate };
 		case 'scenario_level':
-			return { kind: 'scenario_level', scenario: r.target, level: r.level };
+			return { kind: 'scenario_level', scenario: r.target, level: r.level, negate };
 		case 'campaign_log':
 			return { kind: 'campaign_log', flag: r.target, negate };
 		case 'recruit_ally':
@@ -210,7 +216,7 @@ export function scenarioEncounterSet(scenarioId: string): EncounterSet | null {
 	return getScenarioData(scenarioId as Scenario).representativeSet;
 }
 
-const MARKER_NAME: Record<string, string> = {
+export const MARKER_NAME: Record<string, string> = {
 	alpha: 'Alpha (α)',
 	beta: 'Beta (β)',
 	gamma: 'Gamma (γ)',
@@ -222,41 +228,44 @@ const MARKER_NAME: Record<string, string> = {
 	omega: 'Omega (ω)',
 };
 
-/** Human title for a resolved recipe step. */
-export function stepTitle(step: ResolvedStep): string {
-	switch (step.type) {
-		case 'travel':
-			return `Travel to ${labelFor(step.node ?? '')} (+${step.pathCost ?? 0} time)`;
-		case 'use_ticket':
-			return `Expedited Ticket — jump from ${labelFor(step.from ?? '')} to ${labelFor(step.to ?? '')} (saves ${step.timeSaved ?? 0} time)`;
-		case 'status_report':
-			return `Status Report — ${MARKER_NAME[step.marker ?? ''] ?? step.marker}`;
+/** Human title for a plan step — scenario name + place, e.g. "Play Dogs of War at Alexandria". */
+export function stepTitle(step: SimStep): string {
+	const node = step.option.node;
+	const scenario = getLocation(node).scenario_id ?? '';
+	switch (step.option.kind) {
 		case 'finale':
-			return `Finale — ${labelFor(step.scenario ?? step.node ?? '')} (win the campaign)`;
-		case 'play':
-			// Name the scenario being played and where, e.g. "Play Dogs of War at Alexandria".
-			return `Play ${labelFor(step.scenario ?? step.node ?? '')} at ${labelFor(step.node ?? '')}`;
-		case 'stop':
-			return `Stop at ${labelFor(step.node ?? '')}`;
+			return `Finale — ${labelFor(scenario)} at ${labelFor(node)} (win the campaign)`;
+		case 'scenario':
+			return `Play ${labelFor(scenario)} at ${labelFor(node)}`;
+		default:
+			return `Stop at ${labelFor(node)}`;
 	}
 }
 
-/** Font Awesome (solid) icon class for a route step. */
-export function stepIcon(step: ResolvedStep): string {
-	switch (step.type) {
-		case 'travel':
-			return 'fa-solid fa-plane';
-		case 'use_ticket':
-			return 'fa-solid fa-ticket';
-		case 'status_report':
-			return 'fa-solid fa-triangle-exclamation';
+/** Font Awesome (solid) icon for a plan step (scenario/finale render the encounter-set icon instead). */
+export function stepIcon(step: SimStep): string {
+	switch (step.option.kind) {
 		case 'finale':
 			return 'fa-solid fa-trophy';
-		case 'play':
+		case 'scenario':
 			return 'fa-solid fa-skull';
-		case 'stop':
+		default:
 			return 'fa-solid fa-location-dot';
 	}
+}
+
+/** A short description of a stop option for the picker (key/ally/outcome/time hints). */
+export function describeOption(o: StopOption): string {
+	const parts: string[] = [];
+	if (o.outcome === 'WIN_CAMPAIGN') parts.push('win the campaign');
+	if (o.outcome === 'LOSE_CAMPAIGN') parts.push('lose the campaign');
+	if (o.grantsKey) parts.push(`gain ${labelFor(o.grantsKey)}`);
+	else if (o.key) parts.push(`Key ${labelFor(o.key)}${o.bearer && o.bearer !== 'investigator' ? ` → ${o.bearer.replace(/_/g, ' ')}` : ''}`);
+	for (const a of o.grantsAllies) parts.push(`ally ${labelFor(a)}`);
+	if (o.grantsAsset) parts.push(labelFor(o.grantsAsset));
+	if (o.xpBonus > 0) parts.push(`+${o.xpBonus} XP`);
+	parts.push(`${o.baseTime} time`);
+	return parts.join(' · ');
 }
 
 /** A short human summary of a constraint row. */
