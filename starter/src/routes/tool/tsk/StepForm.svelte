@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { EncounterSetIcon } from '@5argon/arkham-icon';
 	import { Checkbox, Dropdown, type Option } from '@5argon/arkham-life-ui';
-	import { getLocation, optionsAt, preChoicesAt, reachableDestinations, type CampaignState, type PlanStep, type SimStep } from '@5argon/arkham-tsk-solver';
+	import { getLocation, isAutoInterlude, optionsAt, preChoicesAt, reachableDestinations, type CampaignState, type PlanStep, type SimStep } from '@5argon/arkham-tsk-solver';
 	import StepState from './StepState.svelte';
-	import { describeOption, scenarioEncounterSet, stepIcon, stepTitle } from './helpers';
+	import { describeOption, optionName, scenarioEncounterSet, stepIcon, stepTitle } from './helpers';
 
 	interface Props {
 		id: number;
@@ -29,10 +29,13 @@
 	let node = $state(step.node);
 	// svelte-ignore state_referenced_locally
 	let optionId = $state(step.optionId);
+	// A pre-scenario choice is mandatory in play, so default to the first one (never "none").
 	// svelte-ignore state_referenced_locally
-	let introChoiceId = $state(step.introChoiceIds?.[0] ?? '');
+	let introChoiceId = $state(step.introChoiceIds?.[0] ?? preChoicesAt(step.node)[0]?.id ?? '');
 	// svelte-ignore state_referenced_locally
 	let useTicket = $state(step.useTicket === true);
+	// svelte-ignore state_referenced_locally
+	let travelOnly = $state(step.travelOnly === true);
 
 	const isScenario = $derived(sim.option.kind === 'scenario' || sim.option.kind === 'finale');
 	const set = $derived(isScenario ? scenarioEncounterSet(getLocation(sim.option.node).scenario_id ?? '') : null);
@@ -42,17 +45,21 @@
 	const allOptions = $derived(node ? optionsAt(fromState, node) : []);
 	const options = $derived(role === 'prologue' ? allOptions.filter((o) => o.option.isPrologue) : allOptions);
 	const preChoices = $derived(node ? preChoicesAt(node) : []);
+	// Auto-evaluated "check log → outcome" interludes: the game resolves the result, the player doesn't pick.
+	const auto = $derived(node ? isAutoInterlude(node) : false);
 
 	const destOptions = $derived<Option<string>[]>(
-		destinations.map((d) => ({ value: d.node, label: `${d.name}${d.locked ? ' 🔒' : ''} · ${d.travel != null ? `+${d.travel}` : 'unreachable'}` })),
+		destinations.map((d) => ({
+			value: d.node,
+			label: `${d.name}${d.story ? ` — ${d.story}` : ''}${d.file ? ` (#${d.file})` : ''}${d.locked ? ' 🔒' : ''} · ${d.travel != null ? `+${d.travel}` : 'unreachable'}`,
+		})),
 	);
 	const optionOptions = $derived<Option<string>[]>(
-		options.map((o) => ({ value: o.option.optionId, label: `${o.option.optionId} — ${describeOption(o.option)}${o.problems.length ? ' ⚠' : ''}` })),
+		options.map((o) => ({ value: o.option.optionId, label: `${optionName(o.option)} · ${describeOption(o.option)}${o.problems.length ? ' ⚠' : ''}` })),
 	);
-	const preChoiceOptions = $derived<Option<string>[]>([
-		{ value: '', label: '(no pre-scenario choice)' },
-		...preChoices.map((c) => ({ value: c.id, label: c.note ? `${c.id.replace(/_/g, ' ')} — ${c.note}` : c.id.replace(/_/g, ' ') })),
-	]);
+	const preChoiceOptions = $derived<Option<string>[]>(
+		preChoices.map((c) => ({ value: c.id, label: c.note ? `${c.id.replace(/_/g, ' ')} — ${c.note}` : c.id.replace(/_/g, ' ') })),
+	);
 
 	function emit() {
 		onUpdate(id, {
@@ -60,11 +67,12 @@
 			optionId,
 			...(introChoiceId ? { introChoiceIds: [introChoiceId] } : {}),
 			...(useTicket ? { useTicket: true } : {}),
+			...(travelOnly ? { travelOnly: true } : {}),
 		});
 	}
 	function onNodeChange() {
 		optionId = options[0]?.option.optionId ?? '';
-		introChoiceId = '';
+		introChoiceId = preChoices[0]?.id ?? '';
 		useTicket = false;
 		emit();
 	}
@@ -89,10 +97,15 @@
 			<div class="mt-2 flex flex-wrap items-end gap-2">
 				{#if role === 'middle'}
 					<div class="min-w-56 grow"><Dropdown bind:value={node} label="Go to" options={destOptions} onchange={onNodeChange} /></div>
+					<div class="pb-1"><Checkbox bind:checked={travelOnly} label="Do nothing here" onChange={emit} /></div>
 				{/if}
-				<div class="min-w-64 grow"><Dropdown bind:value={optionId} label={role === 'prologue' ? 'Resolution' : 'Do what'} options={optionOptions} onchange={emit} /></div>
-				{#if preChoices.length}
-					<div class="min-w-64"><Dropdown bind:value={introChoiceId} label="Pre-scenario choice" options={preChoiceOptions} onchange={emit} /></div>
+				{#if auto && !travelOnly}
+					<div class="pb-1 text-xs italic text-primary-400">The game resolves this from your log automatically — reorder this step to change the outcome.</div>
+				{:else if !travelOnly}
+					<div class="min-w-64 grow"><Dropdown bind:value={optionId} label={role === 'prologue' ? 'Resolution' : 'Do what'} options={optionOptions} onchange={emit} /></div>
+					{#if preChoices.length}
+						<div class="min-w-64"><Dropdown bind:value={introChoiceId} label="Pre-scenario choice" options={preChoiceOptions} onchange={emit} /></div>
+					{/if}
 				{/if}
 				{#if role === 'middle'}
 					<div class="pb-1"><Checkbox bind:checked={useTicket} label="Ticket jump" onChange={emit} /></div>

@@ -34,6 +34,8 @@ export interface StopOption {
 	node: NodeId;
 	/** Resolution / outcome id, e.g. `R1`, `M2`, `DG6`, `first_meet`. */
 	optionId: string;
+	/** Short human description (resolution desc/note, or interlude outcome note), if the data has one. */
+	desc?: string;
 	kind: 'scenario' | 'interlude' | 'finale';
 	/** Time marked when playing this option (excludes travel). */
 	baseTime: number;
@@ -77,10 +79,34 @@ export function parseXpBonus(xp: string | number | null | undefined): number {
 
 // --- flag / asset normalization --------------------------------------------
 
-/** Shorthand `requires` tokens that map to a tracked campaign-log flag. */
+/**
+ * Shorthand `requires` tokens that map to a tracked campaign-log flag. The data frequently abbreviates
+ * a recorded log (e.g. `deceiving_ece`) — these map each shorthand to the full flag id so the gate is
+ * actually enforced rather than silently treated as a free play-time decision.
+ */
 const SHORTHAND_FLAG: Record<string, FlagId> = {
 	met_irawan: 'the_cell_met_dr_irawan',
 	off_mission: 'the_cell_is_off_mission',
+	// The Safehouse (Ybor City) blade is gated by Dancing Mad R1's passphrase.
+	know_passphrase: 'you_know_the_passphrase',
+	// Cross-step prerequisites recorded under a fuller flag name (audited against the guide).
+	masai_fled_to_bermuda: 'tuwile_masai_fled_to_bermuda',
+	appreciated_the_architecture: 'the_cell_appreciated_the_architecture',
+	hid_truth: 'the_cell_hid_the_truth_from_taylor',
+	told_truth_to_taylor: 'the_cell_told_the_truth_to_taylor',
+	flint_solo: 'flint_is_working_solo',
+	// Coterie "on your side" tallies used by Infernal Machinery's count gate.
+	la_chica_roja_on_side: 'la_chica_roja_is_on_your_side',
+	aided_knight: 'the_cell_aided_the_knight',
+	aliki_on_side: 'aliki_is_on_your_side',
+	desi_on_side: 'desi_is_in_your_debt',
+	ece_trusts: 'ece_trusts_the_cell',
+	deal_with_thorne: 'the_cell_made_a_deal_with_thorne',
+};
+
+/** Shorthand tokens satisfied when a flag is ABSENT (e.g. "quinn_trusts" = NOT "does not trust"). */
+const NEGATED_SHORTHAND: Record<string, FlagId> = {
+	quinn_trusts: 'agent_quinn_does_not_trust_the_cell',
 };
 
 /** Shorthand `requires` tokens that map to a tracked asset. */
@@ -94,9 +120,13 @@ const TRACKED_FLAGS = new Set<FlagId>([
 	'the_cell_met_dr_irawan',
 	// Special Delivery: you can only "deliver" intel after "receive"-ing it (enforces stop order).
 	'the_cell_is_delivering_intel',
+	// Dancing Mad R1 gives the passphrase → gates The Safehouse (Ybor City) Mirroring Blade.
+	'you_know_the_passphrase',
+	// Cross-step prerequisites recorded under their exact flag name (audited against the guide):
+	'agent_flint_is_missing', // Blood, Sweat & Tea → gates Shades of Suffering intro
+	'flint_traveled_to_kuala_lumpur', // Blood, Sweat & Tea → gates Shades of Suffering intro
+	'the_cell_knows_amaranths_real_name', // Quid Pro Quo (San Francisco intel) → gates Dead Heat R3
 ]);
-// Note: "knowing Amaranth's real name" (San Francisco intel) gates Dead Heat R3 in the data, but
-// is treated as a player-managed decision (not auto-routed), consistent with other in-play choices.
 
 const isUnlockCode = (t: string): boolean => /^code_.*_written$/.test(t);
 
@@ -121,6 +151,7 @@ function scenarioResolutionOption(node: NodeId, scenario: RawScenario, scenarioI
 	return {
 		node,
 		optionId: res.id,
+		desc: res.desc ?? res.note ?? undefined,
 		kind: isFinale ? 'finale' : 'scenario',
 		baseTime: res.time + prologueIntroTime,
 		key: res.key ?? null,
@@ -148,6 +179,7 @@ function interludeOption(node: NodeId, outcome: RawInterludeOutcome): StopOption
 	return {
 		node,
 		optionId: outcome.id,
+		desc: outcome.note ?? undefined,
 		kind: 'interlude',
 		baseTime: outcome.time ?? 0,
 		key: null,
@@ -266,6 +298,33 @@ export function preChoicesAt(node: NodeId): RawIntroChoice[] {
 	return [...(s.intro_choices ?? []), ...(s.interlude_choices ?? [])];
 }
 
+/**
+ * Interludes the GAME resolves automatically by checking the log/clock ("Check log: if X → 2; else → 3"),
+ * rather than the player choosing an outcome (audited against the guide). The simulator picks the outcome
+ * whose `requires` the current state satisfies. (The Coiled Serpent is intentionally excluded: its CS5/CS6
+ * outcomes share identical requires in the data and can't be auto-disambiguated, so it stays a choice.)
+ */
+const AUTO_EVALUATED_INTERLUDES = new Set<string>([
+	'the_safehouse',
+	'strange_architecture',
+	'ringing_hollow',
+	'theory_of_annihilation',
+	'paranatural_selection',
+	'metamorphosis',
+	'romulus_and_remus',
+	'blood_sweat_and_tea',
+	'special_delivery',
+	'the_great_work',
+	'infernal_machinery',
+	'dead_and_gone',
+]);
+
+/** Is this node an auto-evaluated "check log → outcome" interlude (resolved by the game, not the player)? */
+export function isAutoInterlude(node: NodeId): boolean {
+	const sid = getLocation(node).scenario_id;
+	return sid !== null && AUTO_EVALUATED_INTERLUDES.has(sid);
+}
+
 // --- requires evaluation ----------------------------------------------------
 
 export interface RequiresContext {
@@ -319,6 +378,26 @@ function evalClause(clause: string, state: CampaignState): boolean {
 		return evalNumeric(delta, sinceMatch[1]!, Number(sinceMatch[2]));
 	}
 
+	// at_or_after_MARKER / before_MARKER — the clock has (not) reached a written marker's box. The
+	// marker must have been written first (e.g. Dancing Mad R1 writes theta), so an absent marker fails.
+	const markerGate = /^(at_or_after|before)_(\w+)$/.exec(c);
+	if (markerGate) {
+		const box = state.markers.get(markerGate[2]!);
+		if (box === undefined) return false;
+		return markerGate[1] === 'before' ? state.timePassed < box : state.timePassed >= box;
+	}
+
+	// "at_least_N_of_[a,b,c]" / "at_most_N_of_[...]" / "exactly_N_of_[...]" — count set flags in the list
+	// (the list elements are full flag ids). Used by the Coterie-coalition gates (Infernal Machinery,
+	// The Great Work). Commas separate items, so this survives the '+'-conjunct split intact.
+	const countMatch = /^(at_least|at_most|exactly)_(\d+)_of_\[(.+)\]$/.exec(c);
+	if (countMatch) {
+		const want = Number(countMatch[2]);
+		const items = countMatch[3]!.split(',').map((s) => s.trim()).filter(Boolean);
+		const have = items.filter((f) => state.flags.has(f)).length;
+		return countMatch[1] === 'at_most' ? have <= want : countMatch[1] === 'exactly' ? have === want : have >= want;
+	}
+
 	// version gate handled at option level
 	if (/^version_v\d+$/.test(c)) return true;
 
@@ -326,6 +405,7 @@ function evalClause(clause: string, state: CampaignState): boolean {
 	const token = clause.trim();
 	if (isUnlockCode(token)) return state.flags.has(token);
 	if (SHORTHAND_FLAG[token]) return state.flags.has(SHORTHAND_FLAG[token]!);
+	if (NEGATED_SHORTHAND[token]) return !state.flags.has(NEGATED_SHORTHAND[token]!);
 	if (SHORTHAND_ASSET[token]) return state.assets.has(SHORTHAND_ASSET[token]!);
 	if (TRACKED_FLAGS.has(token)) return state.flags.has(token);
 

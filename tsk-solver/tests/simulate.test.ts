@@ -34,6 +34,13 @@ describe('simulatePlan', () => {
 		expect(t.scenarioCount).toBe(1);
 	});
 
+	it('The Safehouse auto-resolves to "no entry" (no blade) without the Dancing Mad passphrase + theta', () => {
+		// Auto-evaluated interlude: early arrival picks the fallback (SH3) — no requires_unmet, no blade.
+		const t = simulatePlan(plan(prologue(), { node: 'ybor_city', optionId: 'SH2' }));
+		expect(kinds(t.steps[1]!.problems)).not.toContain('requires_unmet');
+		expect(t.keysHeld).not.toContain('the_mirroring_blade');
+	});
+
 	it('flags a locked-scenario step but still keeps it (best-effort continue)', () => {
 		const t = simulatePlan(plan({ node: 'bermuda_triangle', optionId: 'R1' }));
 		expect(t.steps).toHaveLength(1);

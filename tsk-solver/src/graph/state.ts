@@ -8,7 +8,7 @@
  */
 
 import { alliesById, loadDatabase } from '../data/load.js';
-import type { BearerId, CampaignState, FlagId, KeyId, MarkerSymbol, RawIntroChoice } from '../types.js';
+import type { BearerId, CampaignState, FlagId, KeyId, MarkerSymbol, NodeId, RawIntroChoice } from '../types.js';
 import type { StopOption } from './model.js';
 
 const CHAOS_CAP = 4;
@@ -209,6 +209,27 @@ export function applyStop(
 		markers,
 	};
 
+	return { state: next, firedReports: crossing.fired, travelCost };
+}
+
+/**
+ * Travel to `node` WITHOUT stopping — the rules let the cell move and decline to act. Advances the
+ * clock by `travelCost` (firing any status-report / marker interrupts crossed en route), relocates,
+ * and consumes a ticket if `useTicket`. No stop is recorded (the node stays available to stop at
+ * later) and no option effects apply. Pure. Lets a plan loop to burn time / trigger calendar events.
+ */
+export function travelTo(state: CampaignState, node: NodeId, travelCost: number, useTicket = false): StopResult {
+	const crossing = crossTime(state, travelCost);
+	const next: CampaignState = {
+		...state,
+		node,
+		timePassed: crossing.timePassed,
+		flags: crossing.flags,
+		elderThing: crossing.elderThing,
+		trust: computeTrust(crossing.flags),
+		deception: computeDeception(crossing.flags),
+		hasTicket: useTicket ? false : state.hasTicket,
+	};
 	return { state: next, firedReports: crossing.fired, travelCost };
 }
 

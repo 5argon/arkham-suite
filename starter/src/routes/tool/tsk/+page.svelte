@@ -5,6 +5,7 @@
 	import { Button, MarginFull, MarginText, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
 	import { evaluatePlan, initialState, simulatePlan, type Constraint, type PlanStep } from '@5argon/arkham-tsk-solver';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
+	import AchievementsEarned from './AchievementsEarned.svelte';
 	import ConstraintForm from './ConstraintForm.svelte';
 	import GoalsChecklist from './GoalsChecklist.svelte';
 	import PlanSummary from './PlanSummary.svelte';
@@ -160,6 +161,9 @@
 				{/if}
 			{/each}
 		</ol>
+
+		<SectionSeparator title="Achievements" />
+		<div class="mb-4"><AchievementsEarned {trajectory} {constraints} /></div>
 
 		<SectionSeparator title="Goals" />
 		{#if checks.length}

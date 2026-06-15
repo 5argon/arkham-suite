@@ -8,6 +8,7 @@
  * constraint is satisfied when the plan does NOT meet the base condition.
  */
 
+import { catalog } from '../catalog.js';
 import { getScenario, loadDatabase } from '../data/load.js';
 import { bearerIsInvestigator } from '../graph/state.js';
 import type { Constraint, LocalizedString, NodeId } from '../types.js';
@@ -27,6 +28,9 @@ export interface ConstraintCheck {
 }
 
 const loc = (id: string, params: Record<string, string | number> = {}): LocalizedString => ({ id, params });
+
+/** Friendly name for a Trial branch (e.g. `trial_3` → "Overthrow the Red Coterie"). */
+const trialLabel = (branch: string): string => catalog().trials.find((t) => t.id === branch)?.label ?? branch.replace(/_/g, ' ');
 
 /** scenario id → its location node. */
 function scenarioNode(scenario: string): NodeId | undefined {
@@ -50,7 +54,8 @@ const UNMET: Raw = { status: 'unmet' };
 const yes = (b: boolean): Raw => (b ? MET : UNMET);
 
 export function evaluatePlan(trajectory: PlanTrajectory, constraints: Constraint[]): ConstraintCheck[] {
-	const steps: SimStep[] = trajectory.steps;
+	// Travel-only steps are not stops — they satisfy no constraint and earn no achievement.
+	const steps: SimStep[] = trajectory.steps.filter((s) => !s.travelOnly);
 	const fs = trajectory.finalState;
 	const trial = predictTrial(fs.flags, fs.trust, fs.deception);
 	const requested = new Set(
@@ -75,7 +80,7 @@ export function evaluatePlan(trajectory: PlanTrajectory, constraints: Constraint
 				if (sc?.role === 'finale') {
 					const t = sc.versions?.[c.version]?.trial;
 					const ok = t !== undefined && finaleBranchGroup(`trial_${t}`).includes(trial.branch);
-					return { status: ok ? 'met' : 'unmet', detail: loc('check_finale_version', { branch: trial.branch }) };
+					return { status: ok ? 'met' : 'unmet', detail: loc('check_finale_version', { branch: trialLabel(trial.branch) }) };
 				}
 				return { status: atScenario(c.scenario, (s) => s.option.version === c.version) ? 'in_position' : 'unmet' };
 			}
@@ -106,7 +111,7 @@ export function evaluatePlan(trajectory: PlanTrajectory, constraints: Constraint
 				return yes(node === undefined || !steps.some((s) => s.option.node === node));
 			}
 			case 'reach_ending':
-				return { status: trial.branch === c.trial ? 'met' : 'unmet', detail: loc('check_ending', { branch: trial.branch }) };
+				return { status: trial.branch === c.trial ? 'met' : 'unmet', detail: loc('check_ending', { branch: trialLabel(trial.branch) }) };
 			case 'finale_outcome':
 				// Won iff the plan ends on a LEGAL winning Congress step.
 				return yes(steps.some((s) => s.option.outcome === 'WIN_CAMPAIGN' && s.problems.length === 0));

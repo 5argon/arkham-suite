@@ -2008,7 +2008,7 @@
           "logs": [
             "tuwile_masai_is_on_your_side"
           ],
-          "requires": "masai_fled_to_bermuda + <=1 enemy unfinished"
+          "requires": "masai_fled_to_bermuda + at_most_1_of_[ece_does_not_trust_the_cell,havent_seen_the_last_of_la_chica_roja,havent_seen_the_last_of_desi,havent_seen_the_last_of_the_claret_knight,havent_seen_the_last_of_thorne,havent_seen_the_last_of_aliki]"
         },
         {
           "id": "GW5",
@@ -2329,7 +2329,7 @@
             "tuwile_masai_is_on_your_side"
           ],
           "xp": 1,
-          "requires": "3+ of [la_chica_roja_on_side, aided_knight, aliki_on_side, desi_on_side, deal_with_thorne, ece_trusts]"
+          "requires": "at_least_3_of_[la_chica_roja_is_on_your_side,the_cell_aided_the_knight,aliki_is_on_your_side,desi_is_in_your_debt,the_cell_made_a_deal_with_thorne,ece_trusts_the_cell]"
         },
         {
           "id": "IM3",

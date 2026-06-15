@@ -81,6 +81,34 @@ const TRIALS: CatalogEntry[] = [
 	{ id: 'trial_7', label: 'The Red Coterie is destroyed from within', note: 'Finale v.III' },
 ];
 
+/** Human descriptions of each achievement (guide §"Achievement List") — names alone aren't memorable. */
+const ACHIEVEMENT_DESC: Record<string, string> = {
+	clued_in: "Don't spend or drop a single clue via treachery cards in Riddles and Rain.",
+	take_that_ghulat: 'No civilian slain in Dead Heat.',
+	whats_in_a_name: 'Tell Amaranth her real name in Dead Heat.',
+	porque_no_los_dos: 'Defeat both copies of Desi simultaneously in Dancing Mad.',
+	lost_and_found: 'Take The Twisted Antiprism without a single clue on Clues Unveiled in Dealings in the Dark.',
+	i_like_tower_defense: 'Defend The Claret Knight without any Key Locuses destroyed in Dogs of War v. I.',
+	play_with_your_food: 'Steal The Light of Pharos from the Knight or the Beast while they have exactly 1 health in Dogs of War v. II/v. III.',
+	more_like_destroyed_chimera: 'Defeat all five forms of the Void Chimera in one session of On Thin Ice.',
+	who_watches_the_watcher: 'Unlock the secret final act in Sanguine Shadows.',
+	under_my_umbrella: "Don't let Tzu San Niang devour a single Geist in Shades of Suffering.",
+	all_hollow: 'Learn of a place where Outsiders dwell and travel there to unlock Without a Trace.',
+	red_looks_good_on_me: 'Join the Red Coterie in Congress of the Keys.',
+	bloody_red_revolution: 'Overthrow the Red Coterie in Congress of the Keys.',
+	with_your_powers_combined: 'Shift 5 keys in a single turn.',
+	gift_of_gab: 'Have Taylor order you to "talk" 3 times in one campaign.',
+	local_cuisine: 'Sample cuisine/bars/cafés from Marrakesh, Havana, Buenos Aires, Tokyo, and Kuala Lumpur in one campaign.',
+	speed_demon: 'Win with only 17 or fewer time passed.',
+	trust_nobody: 'Win with 4 curse tokens and without ever removing any bless tokens.',
+	trust_everybody: 'Win with 4 bless tokens and without ever removing any curse tokens.',
+	here_is_your_badge: 'Win and earn a permanent Foundation position.',
+	line_in_the_sand: 'Win with at least three Ultimatums active.',
+	global_expertise: 'Win on Expert difficulty.',
+	key_to_my_heart:
+		'Collect every Key: The Eye of Ravens, The Last Blossom, The Light of Pharos, The Sable Glass, The Weeping Lady, The Twisted Antiprism, The Shade Reaper, The Mirroring Blade, The Bale Engine, The Ruinous Chime, The Wellspring of Fortune.',
+};
+
 let _catalog: SolverCatalog | null = null;
 
 export function catalog(): SolverCatalog {
@@ -193,7 +221,7 @@ export function catalog(): SolverCatalog {
 			// Difficulty-gated achievements (e.g. Expert "Global Expertise") are not supported — the planner
 			// is difficulty-agnostic, so they're never selectable as goals.
 			.filter((a) => a.planning !== false && a.constraint?.kind !== 'difficulty')
-			.map((a) => ({ id: a.id, label: a.label ?? titleize(a.id), note: a.requires }))
+			.map((a) => ({ id: a.id, label: a.label ?? titleize(a.id), note: ACHIEVEMENT_DESC[a.id] ?? a.requires }))
 			.sort((a, b) => a.label.localeCompare(b.label)),
 		keys: db.keys.map((k) => ({ id: k.id, label: titleize(k.id), note: k.character })).sort((a, b) => a.label.localeCompare(b.label)),
 		scenarios,

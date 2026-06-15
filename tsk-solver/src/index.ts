@@ -24,7 +24,7 @@ export { catalog, labelFor, type SolverCatalog, type CatalogEntry } from './cata
 // --- engine + manual plan simulator (the search layer was replaced by player-authored plans) ---
 export { initialState, applyStop, keysHeldByInvestigator, bearerIsInvestigator } from './graph/state.js';
 export { distance, isNodeUnlocked, reachableFrom } from './graph/graph.js';
-export { stopOptions, preChoicesAt, isCombatScenarioNode, type StopOption } from './graph/model.js';
+export { stopOptions, preChoicesAt, isAutoInterlude, isCombatScenarioNode, type StopOption } from './graph/model.js';
 export {
 	simulatePlan,
 	optionsAt,

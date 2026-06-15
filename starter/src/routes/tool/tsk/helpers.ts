@@ -1,4 +1,4 @@
-import { catalog, getLocation, labelFor, optionsAt, reachableDestinations, stopOptions } from '@5argon/arkham-tsk-solver';
+import { catalog, getLocation, labelFor, optionsAt, preChoicesAt, reachableDestinations, stopOptions } from '@5argon/arkham-tsk-solver';
 import type { CampaignState, Constraint, PlanStep, SimStep, StopOption } from '@5argon/arkham-tsk-solver';
 import { type EncounterSet, getScenarioData, Scenario } from '@5argon/arkham-kohaku';
 
@@ -9,7 +9,8 @@ export const FINALE_NODE = 'tunguska';
 /** The seeded first step: Riddles and Rain at London (pinned). */
 export function defaultPrologueStep(): PlanStep {
 	const opt = stopOptions(PROLOGUE_NODE).find((o) => o.isPrologue);
-	return { node: PROLOGUE_NODE, optionId: opt?.optionId ?? 'R1', introChoiceIds: [] };
+	const pre = preChoicesAt(PROLOGUE_NODE)[0];
+	return { node: PROLOGUE_NODE, optionId: opt?.optionId ?? 'R1', introChoiceIds: pre ? [pre.id] : [] };
 }
 
 /** The seeded last step: the winning Congress of the Keys at Tunguska (pinned). */
@@ -24,7 +25,12 @@ export function defaultMiddleStep(fromState: CampaignState): PlanStep {
 		(d) => !d.locked && d.travel != null && d.node !== PROLOGUE_NODE && d.node !== FINALE_NODE,
 	);
 	const node = dest?.node ?? '';
-	return { node, optionId: node ? (optionsAt(fromState, node)[0]?.option.optionId ?? '') : '' };
+	const pre = node ? preChoicesAt(node)[0] : undefined;
+	return {
+		node,
+		optionId: node ? (optionsAt(fromState, node)[0]?.option.optionId ?? '') : '',
+		...(pre ? { introChoiceIds: [pre.id] } : {}),
+	};
 }
 
 /** One scenario icon on a recipe card: the encounter-set id + an optional short level/version badge. */
@@ -231,6 +237,7 @@ export const MARKER_NAME: Record<string, string> = {
 /** Human title for a plan step — scenario name + place, e.g. "Play Dogs of War at Alexandria". */
 export function stepTitle(step: SimStep): string {
 	const node = step.option.node;
+	if (step.travelOnly) return `Travel to ${labelFor(node)} — do nothing`;
 	const scenario = getLocation(node).scenario_id ?? '';
 	switch (step.option.kind) {
 		case 'finale':
@@ -244,6 +251,7 @@ export function stepTitle(step: SimStep): string {
 
 /** Font Awesome (solid) icon for a plan step (scenario/finale render the encounter-set icon instead). */
 export function stepIcon(step: SimStep): string {
+	if (step.travelOnly) return 'fa-solid fa-plane';
 	switch (step.option.kind) {
 		case 'finale':
 			return 'fa-solid fa-trophy';
@@ -252,6 +260,15 @@ export function stepIcon(step: SimStep): string {
 		default:
 			return 'fa-solid fa-location-dot';
 	}
+}
+
+const titleize = (s: string): string => s.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+/** A readable name for a stop option: its description, else its most-descriptive recorded log, else the id. */
+export function optionName(o: StopOption): string {
+	if (o.desc) return o.desc;
+	if (o.logs.length) return titleize(o.logs[0]!);
+	return titleize(o.optionId);
 }
 
 /** A short description of a stop option for the picker (key/ally/outcome/time hints). */
@@ -301,7 +318,7 @@ export function constraintLabel(c: Constraint): string {
 		case 'play_side_story':
 			return `${not}Side story: ${c.sideStory}`;
 		case 'reach_ending':
-			return `Finale: ${c.trial}`;
+			return `Finale: ${catalog().trials.find((t) => t.id === c.trial)?.label ?? c.trial}`;
 		case 'chaos_mix':
 			return `Chaos: ${c.tablet ?? '?'} Tablet / ${c.elderThing ?? '?'} Elder Thing`;
 		case 'chaos_overflow_xp':

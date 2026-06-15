@@ -1,0 +1,1661 @@
+{
+  "campaign": "The Scarlet Keys",
+  "locale": "en",
+  "split": "text",
+  "legend": {
+    "decisionType": {
+      "pre_scenario": "A choice made in a scenario/file intro, before setup.",
+      "interlude_directive": "A choice made during a standalone interlude.",
+      "scenario_interlude": "A choice made mid-scenario (a 'scenario interlude' the campaign book breaks to).",
+      "resolution": "Which ending the player wants the simulator to treat as achieved.",
+      "conditional_outcome": "Branch resolved automatically from prior campaign state; the player does not choose.",
+      "scenario_version": "Which physical setup/version of a scenario is played; auto-determined by time and/or earlier choices.",
+      "time_scaling": "How harsh the scenario's setup is, auto-determined by how much time has passed on arrival.",
+      "vote_outcome": "An automatic tally (the Coterie's judgment in the finale, or epilogue checks) that selects what happens; the player does not choose."
+    },
+    "selectable": "true = appears as a pickable dropdown option. false = outcome is auto-determined by state; the UI only displays its fullText, never offers it for selection.",
+    "trustVsDeception": "Recurring chaos-bag mechanic. A 'trust' act removes 1 Elder Thing token and adds 1 Tablet token. A 'deception' act removes 1 Tablet token and adds 1 Elder Thing token. In either case, if the bag already holds 4 of the token to be added, each investigator gains 1 XP instead.",
+    "time": "Most outcomes mark time on the campaign track (the central resource). Crossing a Greek-letter threshold triggers a Status Report; reaching 35 time forces the finale.",
+    "keys": "The 11 Keys: The Eye of Ravens, The Last Blossom, The Light of Pharos, The Sable Glass, The Weeping Lady, The Twisted Antiprism, The Shade Reaper, The Mirroring Blade, The Bale Engine, The Ruinous Chime, The Wellspring of Fortune. A Key is bound to a 'bearer' (an investigator, a story ally, or an enemy) recorded in the Campaign Log.",
+    "effects": {
+      "_doc": "Each option carries an 'effects' array of structured deltas a simulator can apply directly (the prose 'fullText' is the human-readable version of the same).",
+      "record": "{type:'record', entry} - add a campaign-log entry (see campaignLog).",
+      "crossOff": "{type:'crossOff', entry} - remove/cross off a campaign-log entry.",
+      "tally": "{type:'tally', entry, delta} - add tally marks to a log entry.",
+      "key": "{type:'key', key, bearer} - set a Key's bearer ('investigator' = player's choice, otherwise a named character).",
+      "token": "{type:'token', token:'tablet'|'elderThing'|'cultist', delta} - add/remove a chaos-bag token.",
+      "trust": "{type:'trust'} - shorthand: remove 1 elderThing, add 1 tablet (or +1 XP each if already four tablets).",
+      "deception": "{type:'deception'} - shorthand: remove 1 tablet, add 1 elderThing (or +1 XP each if already four elderThings).",
+      "time": "{type:'time', delta} - mark time on the campaign track.",
+      "xp": "{type:'xp', scope:'each'|'lead', amount|amountExpr|victoryDisplay} - experience. victoryDisplay=true means XP equal to the victory display.",
+      "trauma": "{type:'trauma', scope, physical, mental} or {scope, amount, kind:'physicalOrMental'} for player's choice.",
+      "storyAsset": "{type:'storyAsset', asset, action:'add'|'remove', deckFree} - gain/lose a story-asset ally.",
+      "statusMarker": "{type:'statusMarker', symbol, offsetFromNow} - write a Greek-letter status marker N spots ahead on the time track (0 = current spot).",
+      "unlock": "{type:'unlock', location, fileCode} - make a map location travellable.",
+      "card": "{type:'card', card, action:'add'|'remove', scope, deckFree, weakness} - add/remove a specific player card (e.g. Expedited Ticket, or a weakness).",
+      "chaosTokenAdjust": "{type:'chaosTokenAdjust', delta, choose} - nudge one chosen number token's modifier.",
+      "campaign": "{type:'campaign', result:'win'|'lose'} - end the campaign.",
+      "note": "{type:'note', text} - an effect that isn't cleanly structured; apply per the text."
+    }
+  },
+  "files": {
+    "5-A": {
+      "title": "Riddles and Rain",
+      "location": "London",
+      "note": "Always the first scenario; cannot be skipped.",
+      "decisions": {
+        "RR.intro.travel": {
+          "label": "Travel to London",
+          "prompt": "How do you get to London after Flint hands you the Foundation file?",
+          "options": {
+            "RR.intro.accept": {
+              "dropdownText": "Travel with Flint (Trust) – +1 time",
+              "fullText": "You accept Flint's tickets and travel openly alongside him. Trust act: remove 1 Elder Thing token, add 1 Tablet token (or +1 XP each if already four Tablets). Mark 1 time, then set up the scenario.",
+              "condition": null
+            },
+            "RR.intro.ownterms": {
+              "dropdownText": "Go on your own terms (Deception) – +2 time",
+              "fullText": "Distrustful of a man you just met, you take the file but travel separately by a slower, untraceable route. Deception act: remove 1 Tablet token, add 1 Elder Thing token (or +1 XP each if already four Elder Things). Mark 2 time (the indirect route costs an extra time), then set up the scenario.",
+              "condition": null
+            }
+          }
+        },
+        "RR.resolution": {
+          "label": "Resolution",
+          "prompt": "Outcome of the chase for the Red-Gloved Man.",
+          "options": {
+            "RR.R1": {
+              "dropdownText": "R1 – You recover The Eye of Ravens",
+              "fullText": "The Red-Gloved Man slips away, but in the scuffle he drops a ruby marble – The Eye of Ravens – which you pull from a centuries-old corpse's eye socket. Choose an investigator to bear The Eye of Ravens (it begins attached to them in later scenarios). Record 'you haven't seen the last of the Red-Gloved Man.' Gain victory-display XP. Mark 1 time, then go to the Foundation interlude.",
+              "condition": null
+            },
+            "RR.R2": {
+              "dropdownText": "R2 – Peaceful approach; you keep The Eye of Ravens",
+              "fullText": "You advance slowly; the man leads you to a crypt and you take The Eye of Ravens from the corpse as he vanishes. Same rewards as R1: choose an investigator to bear The Eye of Ravens, record 'you haven't seen the last of the Red-Gloved Man,' gain victory XP, mark 1 time, then go to the Foundation interlude.",
+              "condition": null
+            },
+            "RR.R3": {
+              "dropdownText": "R3 – He escapes with The Eye of Ravens",
+              "fullText": "The Red-Gloved Man vanishes without a trace and keeps the marble. He becomes the bearer of The Eye of Ravens (in later scenarios the key enters play attached to him if he appears). Record 'you haven't seen the last of the Red-Gloved Man.' Gain victory XP. Mark 1 time, then go to the Foundation interlude.",
+              "condition": null
+            },
+            "RR.R4": {
+              "dropdownText": "R4 – You stall; he keeps The Eye of Ravens (+2 time)",
+              "fullText": "You wait for Flint and never confront the man; the Red-Gloved Man keeps the marble and becomes the bearer of The Eye of Ravens. Record 'you haven't seen the last of the Red-Gloved Man.' Gain victory XP. Mark 2 time, then go to the Foundation interlude.",
+              "condition": null
+            },
+            "RR.noRes": {
+              "dropdownText": "No resolution (resigned / defeated)",
+              "fullText": "If every investigator resigned or was defeated, you retreat cautiously – treated exactly as Resolution 4: the Red-Gloved Man keeps The Eye of Ravens, record 'you haven't seen the last of the Red-Gloved Man,' mark 2 time, then go to the Foundation interlude.",
+              "condition": "Reached when no resolution is achieved; redirects to R4."
+            }
+          }
+        }
+      }
+    },
+    "Foundation": {
+      "title": "Interlude: The Foundation",
+      "location": "London",
+      "note": "Played immediately after Riddles and Rain. Commissioner Taylor recruits the cell and opens up world travel.",
+      "decisions": {
+        "FND.tellTaylor": {
+          "label": "Tell Taylor about the disappearances?",
+          "prompt": "Do you reveal the Arkham disappearances to Commissioner Taylor?",
+          "options": {
+            "FND.tell": {
+              "dropdownText": "Tell the truth (Trust)",
+              "fullText": "You disclose the disappearances; Taylor insists your priority stays on acquiring Keys. Record 'the cell told the truth to Taylor.' Trust act: remove 1 Elder Thing token, add 1 Tablet token (or +1 XP each if already four Tablets). Note: telling the truth here later smooths the path to the secret scenario (Without a Trace) when you revisit London.",
+              "condition": null
+            },
+            "FND.hide": {
+              "dropdownText": "Hide the truth (Deception)",
+              "fullText": "You keep the disappearances to yourself. Record 'the cell hid the truth from Taylor.' Deception act: remove 1 Tablet token, add 1 Elder Thing token (or +1 XP each if already four Elder Things).",
+              "condition": null
+            }
+          }
+        }
+      }
+    },
+    "11-B": {
+      "title": "Dead Heat",
+      "location": "Marrakesh",
+      "note": "Hunt for Amaranth. One of the hardest scenarios; setup degrades sharply with time and it locks out entirely at 25 time.",
+      "decisions": {
+        "DH.timeScaling": {
+          "label": "Arrival severity (by time passed)",
+          "prompt": "How far the disaster has progressed when you arrive, set by total time passed.",
+          "options": {
+            "DH.t.early": {
+              "dropdownText": "Before 11 time – full scenario, no losses",
+              "fullText": "Easiest start. You meet your contact Latif and play from act 1. No civilians are pre-slain.",
+              "condition": "Fewer than 11 time passed."
+            },
+            "DH.t.11": {
+              "dropdownText": "11–14 time – 1 civilian lost per area",
+              "fullText": "Still played from act 1, but 1 civilian at each location is already slain at setup.",
+              "condition": "11–14 time passed."
+            },
+            "DH.t.15": {
+              "dropdownText": "15–17 time – arrive mid-disaster",
+              "fullText": "Act 1 is skipped: you begin at act 2 with Amaranth already in play holding The Last Blossom, doom on agenda 1, the 'Save the Civilians' card in play, and Khalid shuffled into the encounter deck. 1 civilian per location already slain. Much harder.",
+              "condition": "15–17 time passed."
+            },
+            "DH.t.18": {
+              "dropdownText": "18–24 time – mid-disaster, heavy losses",
+              "fullText": "Same mid-disaster start as 15–17 (begin at act 2, Amaranth in play with the Key, doom on agenda, Save the Civilians in play), but 2 civilians per location are already slain.",
+              "condition": "18–24 time passed."
+            },
+            "DH.t.late": {
+              "dropdownText": "25+ time – too late, city already destroyed",
+              "fullText": "The scenario is not played. Marrakesh is already in ruins; go straight to Resolution 5.",
+              "condition": "25 or more time passed."
+            }
+          }
+        },
+        "DH.resolution": {
+          "label": "Resolution",
+          "prompt": "How Dead Heat ends.",
+          "options": {
+            "DH.R1": {
+              "dropdownText": "R1 – City lost; the lovers reunited",
+              "fullText": "The city is destroyed and Razin Farhi was in play (his and Amaranth's story resolves). Amaranth keeps The Last Blossom (she is the bearer). Record 'the lovers are reunited.' Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "DH.R2": {
+              "dropdownText": "R2 – City lost; Amaranth escapes with the Key",
+              "fullText": "The city is destroyed and Razin Farhi was not in play. Amaranth becomes the bearer of The Last Blossom. Record 'you haven't seen the last of Amaranth.' Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "DH.R3": {
+              "dropdownText": "R3 – You free Eryn from Amaranth (best)",
+              "fullText": "Knowing her true name (Eryn Cochwyn – from the San Francisco office intel), you break Amaranth's hold on her host. Choose an investigator to bear The Last Blossom. Record 'Amaranth has left the Coterie' (removes her vote against you in the finale). Victory XP. Mark 2 time.",
+              "condition": "Requires having acquired the intel on Amaranth from the San Francisco office."
+            },
+            "DH.R4": {
+              "dropdownText": "R4 – Amaranth flees; you keep the Key",
+              "fullText": "Amaranth convulses and bolts; you lose her in the chaos but keep the Key. Choose an investigator to bear The Last Blossom. Record 'you haven't seen the last of Amaranth.' Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "DH.R5": {
+              "dropdownText": "R5 – Arrived too late; Marrakesh destroyed",
+              "fullText": "You reach a ruined city (the 25+ time outcome). Record 'you haven't seen the last of Amaranth.' Each investigator suffers 1 mental trauma; each earns 3 bonus XP helping survivors rebuild. Amaranth is the bearer of The Last Blossom. Mark 1 time.",
+              "condition": "Automatic if you arrive at 25+ time."
+            },
+            "DH.noRes": {
+              "dropdownText": "No resolution (resigned / defeated)",
+              "fullText": "All remaining civilians are slain (if still act 1, resolve the 'Aftermath' card). Then: if Razin Farhi is in play, resolve as R1; otherwise resolve as R2.",
+              "condition": "Reached when no resolution is achieved; redirects to R1 or R2."
+            }
+          }
+        }
+      }
+    },
+    "14-C": {
+      "title": "Ruses and Reclamation",
+      "location": "Quito / San Juan / Reykjavik / Kabul",
+      "note": "The stolen-Key search. After 20 time a Coterie member steals a random Key from you; this node appears at four cities and you search them to get it back. Outcome is auto-resolved (a random draw), not a player choice.",
+      "decisions": {
+        "RAR.search": {
+          "label": "Search this hideout for your stolen Key (auto-resolved)",
+          "prompt": "A random draw determines whether the stolen Key is hidden here.",
+          "options": {
+            "RAR.wrong": {
+              "dropdownText": "Wrong lead – Key not here",
+              "fullText": "This isn't the right hideout. Record a 'wrong leads' tally (+1). You leave empty-handed and may embark. Each wrong lead improves your odds at the next site and adds 1 XP you collect once you finally recover the Key.",
+              "condition": "Random draw is a decoy (odds worsen with each prior wrong lead)."
+            },
+            "RAR.found": {
+              "dropdownText": "Key recovered",
+              "fullText": "You find the thief's safehouse and reclaim your stolen Key: it returns to its original bearer (update the Keys section). Each investigator earns 1 XP, +1 per 'wrong leads' tally recorded. Cross off 14–C at the other search sites. Mark 1 time. (The narrative differs by which Coterie member took it, but the mechanical effect is identical.)",
+              "condition": "Random draw is the Key's location, or automatic after 3 wrong leads."
+            }
+          }
+        }
+      }
+    },
+    "16-D": {
+      "title": "Sanguine Shadows",
+      "location": "Buenos Aires",
+      "note": "Reached by traveling to Buenos Aires. Does not scale with time.",
+      "decisions": {
+        "SS.intro.bolivar": {
+          "label": "How much to tell Oficial Bolívar",
+          "prompt": "What do you share with the policeman Matias Bolívar about your target?",
+          "options": {
+            "SS.intro.tellAll": {
+              "dropdownText": "Tell him everything (Trust)",
+              "fullText": "You are fully honest about La Chica Roja's paradimensional abilities and he believes you. Record 'Matias Bolívar trusts you.' Trust act: remove 1 Elder Thing token, add 1 Tablet token (or +1 XP each if already four Tablets). His trust changes the mid-scenario 'Cast a Light' interlude.",
+              "condition": null
+            },
+            "SS.intro.breadcrumbs": {
+              "dropdownText": "Give only breadcrumbs (neutral)",
+              "fullText": "You feed Bolívar a few harmless details and keep the truth back. No campaign-log record and no chaos-bag change; Bolívar neither fully trusts nor distrusts you, which leads to the neutral branch of the 'Cast a Light' interlude.",
+              "condition": null
+            },
+            "SS.intro.insist": {
+              "dropdownText": "Coerce him with Taylor's letter (Deception)",
+              "fullText": "You refuse to cooperate and strong-arm Bolívar using a Foundation letter. Record 'Matias Bolívar doesn't trust you.' Deception act: remove 1 Tablet token, add 1 Elder Thing token (or +1 XP each if already four Elder Things). His distrust changes the 'Cast a Light' interlude.",
+              "condition": null
+            }
+          }
+        },
+        "SS.castALight.believe": {
+          "label": "Cast a Light – believe La Chica Roja?",
+          "prompt": "Mid-scenario: once cornered, La Chica Roja claims she is hunting the real villain, the Sanguine Watcher. Do you believe her? (Only reached if you expose her with no targets left on her.)",
+          "options": {
+            "SS.cal.believe": {
+              "dropdownText": "Believe her – ally against the Sanguine Watcher",
+              "fullText": "You trust her story and join forces. The scenario flips to the 'Seeing Red' act/agenda and La Chica Roja becomes a controllable ally; the Sanguine Watcher and a second concealed enemy take the field. This path aims for Resolution 2. (A short Bolívar sub-branch – trusts / distrusts / neither – changes only the flavor of how you escape, then converges.)",
+              "condition": null
+            },
+            "SS.cal.refuse": {
+              "dropdownText": "Don't believe her – she escapes",
+              "fullText": "You refuse to trust her; she kills the lights and disappears. The scenario ends down the Resolution 1 path – you keep the Key yourself if you had cleared her targets.",
+              "condition": null
+            }
+          }
+        },
+        "SS.resolution": {
+          "label": "Resolution",
+          "prompt": "How Sanguine Shadows ends.",
+          "options": {
+            "SS.R1": {
+              "dropdownText": "R1 – She fled; you keep The Weeping Lady",
+              "fullText": "La Chica Roja vanishes but you assemble the Key yourself. Choose an investigator to bear The Weeping Lady. Record 'you haven't seen the last of La Chica Roja.' Victory XP, +1 bonus XP per target still on the reference card. Mark 1 time.",
+              "condition": null
+            },
+            "SS.R2": {
+              "dropdownText": "R2 – Allied; beat the Watcher; keep key + ally",
+              "fullText": "Allied with La Chica Roja, you defeat the Sanguine Watcher. Choose an investigator to bear The Weeping Lady. Record 'La Chica Roja is on your side' and 'you haven't seen the last of The Sanguine Watcher.' Each investigator gains 3 bonus XP (plus victory XP). Mark 3 time. Note: 'La Chica Roja is on your side' is one of the three allies needed for the 'overthrow the Coterie' finale.",
+              "condition": null
+            },
+            "SS.R3": {
+              "dropdownText": "R3 – Failed; she keeps The Weeping Lady",
+              "fullText": "La Chica Roja beats you and keeps the Key. She becomes the bearer of The Weeping Lady. Record 'you haven't seen the last of La Chica Roja.' Victory XP, +1 bonus XP per target on the reference card. Mark 1 time. You also land here if every investigator resigned/was defeated during act 1 or 2.",
+              "condition": null
+            },
+            "SS.noRes.seeingRed": {
+              "dropdownText": "Allied but lost to the Watcher",
+              "fullText": "You allied with La Chica Roja (reached 'Seeing Red') but failed to defeat the Sanguine Watcher. Record 'La Chica Roja is on your side,' 'The Sanguine Watcher's torment continues,' and 'The Sanguine Watcher is the bearer of The Weeping Lady.' Each investigator gains 3 bonus XP. Mark 2 time.",
+              "condition": "Reached when no resolution is achieved while the 'Seeing Red' act/agenda is active."
+            }
+          }
+        }
+      }
+    },
+    "52-U": {
+      "title": "The Safehouse",
+      "location": "Ybor City",
+      "note": "Auto-resolved node. On arrival the game checks state and tells you what happens – the player never picks an option, so these branches are display-only (selectable=false).",
+      "decisions": {
+        "SAFE.arrival": {
+          "label": "Arrival at Desi's safehouse (auto-resolved)",
+          "prompt": "Outcome is determined automatically by the campaign log and current time.",
+          "options": {
+            "SAFE.in": {
+              "dropdownText": "Got in – claim The Mirroring Blade",
+              "fullText": "The doorman accepts Desi's passphrase and lets you take what you need. Choose an investigator to bear The Mirroring Blade (from the Globetrotting set). Each investigator gains 2 XP. Mark 1 time, then embark.",
+              "condition": "You know the passphrase (recorded from siding with Desi in Havana) AND current time is at or after Θ (theta)."
+            },
+            "SAFE.out": {
+              "dropdownText": "Turned away – return later",
+              "fullText": "Without the passphrase (or too early), the door stays shut and you leave empty-handed. No state change. You may return to this location later, then embark.",
+              "condition": "You lack the passphrase, or the current time is before Θ (theta)."
+            }
+          }
+        }
+      }
+    },
+    "20-E": {
+      "title": "The Great Work",
+      "location": "Bermuda",
+      "note": "Resolves the Tuwile Masai / Bale Engine questline if he fled here from Nairobi. Auto-resolved from prior coterie relationships.",
+      "decisions": {
+        "GW.arrival": {
+          "label": "Meeting at Bermuda (auto-resolved)",
+          "prompt": "Whether Tuwile is here, and how he receives you, is set by the campaign log.",
+          "options": {
+            "GW.ally": {
+              "dropdownText": "Tuwile joins you – gain The Bale Engine",
+              "fullText": "Tuwile fled here and you've made at most one enemy among the coterie, so he trusts you. Record 'Tuwile Masai is on your side' (turns his finale vote in your favor). Each investigator gains 1 XP; choose an investigator to bear The Bale Engine. Mark 1 time.",
+              "condition": "Tuwile Masai fled to Bermuda AND fewer than two of these are recorded: Ece does not trust the cell, or you haven't seen the last of La Chica Roja / Desi / the Claret Knight / Thorne / Aliki."
+            },
+            "GW.hostile": {
+              "dropdownText": "Tuwile rebuffs you – no Key",
+              "fullText": "Tuwile fled here but you've made two or more coterie enemies, so he turns you away. No Key and no ally; each investigator gains 3 XP. You may embark.",
+              "condition": "Tuwile Masai fled to Bermuda AND at least two of the listed 'enemy' records are present."
+            },
+            "GW.absent": {
+              "dropdownText": "Quiet island – rest only",
+              "fullText": "Tuwile never fled here, so there's no coterie activity. You rest: each investigator may start the next scenario with 1 extra card in hand. You may return to Bermuda later (after another scenario), then embark.",
+              "condition": "Tuwile Masai did not flee to Bermuda."
+            }
+          }
+        }
+      }
+    },
+    "21-F": {
+      "title": "Dealings in the Dark",
+      "location": "Istanbul",
+      "note": "Race against a cult for a jinni's talisman. Ece Şahin offers help. The cult gets a bigger head start the later you arrive.",
+      "decisions": {
+        "DD.timeScaling": {
+          "label": "Cult head start (by time passed)",
+          "prompt": "Starting clues on 'The Unveiling' represent how far ahead the cult is; set by time passed.",
+          "options": {
+            "DD.t.early": {
+              "dropdownText": "≤10 time – no head start",
+              "fullText": "The Unveiling starts with no clues. Easiest.",
+              "condition": "10 or fewer time passed."
+            },
+            "DD.t.11": {
+              "dropdownText": "11–17 time – small head start",
+              "fullText": "The Unveiling starts with clues equal to half the number of investigators (rounded up).",
+              "condition": "11–17 time passed."
+            },
+            "DD.t.18": {
+              "dropdownText": "18–24 time – moderate head start",
+              "fullText": "The Unveiling starts with clues equal to the number of investigators.",
+              "condition": "18–24 time passed."
+            },
+            "DD.t.25": {
+              "dropdownText": "25+ time – severe head start",
+              "fullText": "The Unveiling starts with clues equal to twice the number of investigators. Hardest – the cult may well beat you to the Key.",
+              "condition": "25 or more time passed."
+            }
+          }
+        },
+        "DD.intro.ece": {
+          "label": "Ece Şahin's offer",
+          "prompt": "Ece asks you to recover the talisman and hand it to her afterward. How do you respond?",
+          "options": {
+            "DD.intro.work": {
+              "dropdownText": "Agree, sincerely (Trust)",
+              "fullText": "You agree to give Ece the talisman and mean it. Record 'the cell is working with Ece.' Trust act: remove 1 Elder Thing, add 1 Tablet (or +1 XP each if four already). Ece joins as a story asset.",
+              "condition": null
+            },
+            "DD.intro.deceive": {
+              "dropdownText": "Agree, but lying (Deception)",
+              "fullText": "You agree but secretly intend to keep the talisman. Record 'the cell is deceiving Ece.' Deception act: remove 1 Tablet, add 1 Elder Thing (or +1 XP each if four already). Ece still joins as a story asset.",
+              "condition": null
+            },
+            "DD.intro.refuse": {
+              "dropdownText": "Refuse – you'll keep it (neutral)",
+              "fullText": "You tell Ece honestly that you intend to keep the talisman. Record 'the cell refused Ece's offer.' No chaos-bag change. Ece is removed from the game (no story-asset help).",
+              "condition": null
+            }
+          }
+        },
+        "DD.resolution": {
+          "label": "Resolution",
+          "prompt": "How Dealings in the Dark ends. (R1 and R3 are routing steps that branch on your Ece choice into the endings below.)",
+          "options": {
+            "DD.R2": {
+              "dropdownText": "R2 – You keep the Antiprism (had refused Ece)",
+              "fullText": "You seal the talisman and keep it. Choose an investigator to bear The Twisted Antiprism. Victory XP. Mark 2 time.",
+              "condition": "Reached after winning if 'the cell refused Ece's offer.'"
+            },
+            "DD.R4": {
+              "dropdownText": "R4 – Ece keeps the Antiprism; she trusts you",
+              "fullText": "You honor the deal and hand the talisman to Ece. Record 'Ece trusts the cell.' Ece Şahin becomes the bearer of The Twisted Antiprism. Victory XP. Mark 3 time. (Ece on your side is one of the three allies needed to overthrow the Coterie.)",
+              "condition": "Reached after winning if 'the cell is working with Ece.'"
+            },
+            "DD.R5": {
+              "dropdownText": "R5 – You keep the Antiprism; Ece distrusts you",
+              "fullText": "You break your promise and keep the talisman. Record 'Ece does not trust the cell.' Choose an investigator to bear The Twisted Antiprism. Victory XP. Mark 3 time.",
+              "condition": "Reached after winning if 'the cell is deceiving Ece.'"
+            },
+            "DD.R6": {
+              "dropdownText": "R6 – The cult escapes with the Antiprism",
+              "fullText": "The cult snatches the unsealed talisman and flees. The Red-Gloved Man becomes the bearer of The Twisted Antiprism. Victory XP. Mark 2 time.",
+              "condition": "Reached if you fail during act 3 (or resign there)."
+            },
+            "DD.noRes.early": {
+              "dropdownText": "Defeated early – Red-Gloved Man takes it",
+              "fullText": "If every investigator is defeated during act 1 or 2, the Red-Gloved Man becomes the bearer of The Twisted Antiprism. Victory XP. Mark 1 time.",
+              "condition": "All investigators defeated during act 1 or 2."
+            }
+          }
+        }
+      }
+    },
+    "26-G": {
+      "title": "Quid Pro Quo",
+      "location": "Foundation offices (San Francisco / Moscow)",
+      "note": "Stopping at a Foundation office costs no time. The intel options are the key reason to visit. San Francisco and Moscow each offer their own version.",
+      "decisions": {
+        "QPQ.sanfrancisco": {
+          "label": "San Francisco office",
+          "prompt": "What do you ask the Foundation for in San Francisco?",
+          "options": {
+            "QPQ.sf.ticket": {
+              "dropdownText": "Expedited Ticket",
+              "fullText": "The lead investigator adds one Expedited Ticket to their deck (lets you skip travel time later). Embark.",
+              "condition": null
+            },
+            "QPQ.sf.supplies": {
+              "dropdownText": "Supplies (+1 XP each)",
+              "fullText": "Each investigator earns 1 XP. Embark.",
+              "condition": null
+            },
+            "QPQ.sf.intel": {
+              "dropdownText": "Intel on Amaranth",
+              "fullText": "You learn Amaranth's real name, Eryn Cochwyn. Record 'the cell knows Amaranth's real name' – this unlocks Dead Heat's best ending (R3, freeing Eryn). Embark.",
+              "condition": "Only selectable if you have not yet visited Marrakesh."
+            }
+          }
+        },
+        "QPQ.moscow": {
+          "label": "Moscow office",
+          "prompt": "What do you ask the Foundation for in Moscow?",
+          "options": {
+            "QPQ.mos.ticket": {
+              "dropdownText": "Expedited Ticket",
+              "fullText": "The lead investigator adds one Expedited Ticket to their deck. Embark.",
+              "condition": null
+            },
+            "QPQ.mos.supplies": {
+              "dropdownText": "Supplies (+1 XP each)",
+              "fullText": "Each investigator earns 1 XP. Embark.",
+              "condition": null
+            },
+            "QPQ.mos.intel": {
+              "dropdownText": "Intel on Desi",
+              "fullText": "You learn Desi's past. Record 'the cell knows Desi's past' – this lets you tell the real Desi from the impostor in Havana (so you don't risk the wrong one). Embark.",
+              "condition": "Only selectable if you have not yet visited Havana."
+            }
+          }
+        }
+      }
+    },
+    "27-H": {
+      "title": "Dead and Gone",
+      "location": "London (Amesbury / Stonehenge)",
+      "note": "Revisit to London with Agent Quinn; a step on the road to the secret scenario (Without a Trace). Recording 'the cell is off-mission' here is what later unlocks the Bermuda Triangle route.",
+      "decisions": {
+        "DAG.tellQuinn": {
+          "label": "Tell Agent Quinn the truth?",
+          "prompt": "Only asked if Quinn doesn't already trust you. Do you explain the disappearances to her?",
+          "options": {
+            "DAG.tell": {
+              "dropdownText": "Tell Quinn the truth (Trust)",
+              "fullText": "You explain everything. Cross off 'Agent Quinn does not trust the cell.' Trust act: remove 1 Elder Thing, add 1 Tablet (or +1 XP each if four already). You can now proceed toward the off-mission outcome.",
+              "condition": "Only offered if 'Agent Quinn does not trust the cell' is recorded (e.g., you hid the truth from Taylor)."
+            },
+            "DAG.keep": {
+              "dropdownText": "Keep your secrets (Deception)",
+              "fullText": "You stay tight-lipped and Quinn dismisses you. Record 'the Foundation remains in the dark.' Deception act: remove 1 Tablet, add 1 Elder Thing (or +1 XP each if four already). You do NOT go off-mission, blocking the Without a Trace route. Embark.",
+              "condition": "Only offered if 'Agent Quinn does not trust the cell' is recorded."
+            }
+          }
+        },
+        "DAG.outcome": {
+          "label": "Outcome of the meeting (auto-resolved)",
+          "prompt": "Whether you unlock the secret-scenario route, set by whistle + time + Quinn's trust.",
+          "options": {
+            "DAG.offmission": {
+              "dropdownText": "Off-mission – secret route unlocked",
+              "fullText": "Quinn agrees to help off the books. Record 'the cell is off-mission' (this lets a later visit to Rome open the Bermuda Triangle for Without a Trace). Each investigator gains 1 XP. Mark 1 time.",
+              "condition": "Quinn trusts the cell AND you possess the mysterious whistle AND 30 or fewer time has passed."
+            },
+            "DAG.research": {
+              "dropdownText": "Research only – no route unlocked",
+              "fullText": "You explore the ruins together but nothing more comes of it. Each investigator gains 2 XP. Mark 1 time. (You do not go off-mission.)",
+              "condition": "Otherwise (no whistle, over 30 time, or you kept secrets from Quinn)."
+            }
+          }
+        }
+      }
+    },
+    "28-I": {
+      "title": "Dancing Mad",
+      "location": "Havana",
+      "note": "Meet Desi (Desiderio Delgado Álvarez). Which version you play is set automatically by time passed.",
+      "decisions": {
+        "DM.version": {
+          "label": "Scenario version (auto)",
+          "prompt": "Set by time passed on arrival.",
+          "options": {
+            "DM.v1": {
+              "dropdownText": "Version I – Deal with Desi (before 20 time)",
+              "fullText": "Desi opens up and you strike a deal. Record 'the cell made a deal with Desi.' Desi joins as a controllable story-asset ally; the scenario plays across all six Havana locations. Easier.",
+              "condition": "Fewer than 20 time passed."
+            },
+            "DM.v2": {
+              "dropdownText": "Version II – Ambushed (20+ time)",
+              "fullText": "You return to find Café Luna a trap. Record 'the cell has been ambushed!' The scenario begins confined to Café Luna with Desi and other Coterie/Outsider enemies hidden in the shadows. Harder.",
+              "condition": "20 or more time passed."
+            }
+          }
+        },
+        "DM.resolution": {
+          "label": "Resolution",
+          "prompt": "How Dancing Mad ends.",
+          "options": {
+            "DM.R1": {
+              "dropdownText": "R1 – Desi is in your debt; you get the passphrase",
+              "fullText": "You root out the impostors and the real Desi survives. Record 'Desi is in your debt' and 'you know the passphrase' (needed to claim The Mirroring Blade later in Ybor City). Set status report Θ six spots ahead on the time track. Victory XP. Mark 2 time. Note: if you couldn't tell the real Desi from the impostor (no Moscow intel) you risk ending with an 'eerily silent' (hollowed) Desi for the finale instead of a true ally.",
+              "condition": null
+            },
+            "DM.R2": {
+              "dropdownText": "R2 – Truth undiscovered; Desi keeps the Blade",
+              "fullText": "You flee without resolving the mystery. Record 'the cell didn't discover the truth in Havana' and 'you haven't seen the last of Desi.' Desi becomes the bearer of The Mirroring Blade. Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "DM.noRes": {
+              "dropdownText": "No resolution (resigned / defeated)",
+              "fullText": "You escape Havana empty-handed. Record 'the cell didn't discover the truth in Havana' and 'you haven't seen the last of Desi.' Desi becomes the bearer of The Mirroring Blade. Victory XP. Mark 1 time.",
+              "condition": "Reached when no resolution is achieved (mirrors R2)."
+            }
+          }
+        }
+      }
+    },
+    "32-J": {
+      "title": "The Coiled Serpent",
+      "location": "Shanghai",
+      "note": "Meet Flint, who is tracking Tzu San Niang. This is the gateway to the Shades of Suffering scenario (via Hong Kong then Kuala Lumpur). What's offered depends on whether you told Taylor the truth.",
+      "decisions": {
+        "CS.toldTruth": {
+          "label": "If you told Taylor the truth (auto)",
+          "prompt": "Flint distrusts your discretion and splits off alone.",
+          "options": {
+            "CS.solo": {
+              "dropdownText": "Flint goes solo",
+              "fullText": "Considering you too talkative, Flint leaves to investigate alone. Record 'Flint is working solo.' Set status report ψ six spots ahead on the time track. Embark.",
+              "condition": "Recorded 'the cell told the truth to Taylor.'"
+            }
+          }
+        },
+        "CS.hidTruth": {
+          "label": "If you hid the truth from Taylor – Flint's offer",
+          "prompt": "Flint trusts your discretion and lets you choose how to proceed.",
+          "options": {
+            "CS.inquire": {
+              "dropdownText": "Let Flint keep searching alone",
+              "fullText": "You leave Flint to it. Record 'Flint is working solo.' Set status report ψ six spots ahead. Embark.",
+              "condition": "Only if 'the cell hid the truth from Taylor' is recorded."
+            },
+            "CS.help": {
+              "dropdownText": "Stay and help Flint (unlocks Hong Kong)",
+              "fullText": "You aid the investigation and learn the target is Tzu San Niang, now bound for Hong Kong. Record 'the cell aided in Flint's investigation.' Each investigator gains 1 XP. Hong Kong opens (write 50–S there) – the route toward Shades of Suffering. Mark 3 time.",
+              "condition": "Only if 'the cell hid the truth from Taylor' is recorded."
+            },
+            "CS.forget": {
+              "dropdownText": "Tell Flint to drop it – gain Flint as ally",
+              "fullText": "You convince Flint to abandon the case. Record 'Flint abandoned his search.' Any one investigator may add the Inspector Flint story asset to their deck (does not count toward deck size). This locks Hong Kong and Kuala Lumpur (you can't reach Shades of Suffering this way). Embark.",
+              "condition": "Only if 'the cell hid the truth from Taylor' is recorded."
+            }
+          }
+        }
+      }
+    },
+    "33-K": {
+      "title": "On Thin Ice",
+      "location": "Anchorage",
+      "note": "Race Thorne to the Sable Glass. The later you arrive, the bigger Thorne's head start toward the Key.",
+      "decisions": {
+        "OTI.timeScaling": {
+          "label": "Thorne's head start (by time passed)",
+          "prompt": "Starting doom on agenda 1 represents Thorne's lead toward the Key.",
+          "options": {
+            "OTI.t.0": {
+              "dropdownText": "0–4 time – no head start",
+              "fullText": "Agenda 1 starts with no doom. You have the best chance to reach the Sable Glass before Thorne.",
+              "condition": "Fewer than 5 time passed."
+            },
+            "OTI.t.scaling": {
+              "dropdownText": "5+ time – Thorne gains a lead",
+              "fullText": "Agenda 1 starts with 1 doom for every 5 time passed (e.g. 2 doom at 10 time, 4 doom at 20). The more time has passed, the more likely Thorne reaches the Key first and you must fight or deal for it.",
+              "condition": "5 or more time passed (1 doom per full 5 time)."
+            }
+          }
+        },
+        "OTI.rawDeal": {
+          "label": "Raw Deal – Thorne's offer",
+          "prompt": "Thorne offers to hunt the Void Chimera with you in exchange for the Sable Glass. Do you deal?",
+          "options": {
+            "OTI.deal": {
+              "dropdownText": "Make a deal with Thorne (Trust)",
+              "fullText": "You accept Thorne's help. Record 'the cell made a deal with Thorne.' Trust act: remove 1 Elder Thing, add 1 Tablet (or +1 XP each if four already). Thorne joins as a story-asset ally with The Sable Glass attached. Securing Thorne is one of the three allies needed to join the Coterie in the finale.",
+              "condition": null
+            },
+            "OTI.refuse.youHaveKey": {
+              "dropdownText": "Refuse – you already hold the Key (Deception)",
+              "fullText": "You reached the Sable Glass first and turn Thorne down. Deception act: remove 1 Tablet, add 1 Elder Thing (or +1 XP each if four already). An investigator keeps control of The Sable Glass; Thorne spawns as an enemy.",
+              "condition": "Reached the Key first (Raw Deal at agenda 1)."
+            },
+            "OTI.refuse.thorneHasKey": {
+              "dropdownText": "Refuse – fight Thorne for the Key (Deception)",
+              "fullText": "Thorne already has the Sable Glass and you refuse to let it go. Deception act: remove 1 Tablet, add 1 Elder Thing (or +1 XP each if four already). Thorne spawns as an enemy with The Sable Glass attached; you must take it by force.",
+              "condition": "Thorne reached the Key first (Raw Deal at agenda 2 or 3)."
+            }
+          }
+        },
+        "OTI.resolution": {
+          "label": "Resolution",
+          "prompt": "How On Thin Ice ends.",
+          "options": {
+            "OTI.R1": {
+              "dropdownText": "R1 – Dealt with Thorne; Thorne keeps the Sable Glass",
+              "fullText": "You and Thorne slay the Chimera and Thorne keeps the Key as agreed. Thorne is the bearer of The Sable Glass. Victory XP. Mark 3 time.",
+              "condition": "Reached if you made a deal with Thorne."
+            },
+            "OTI.R2": {
+              "dropdownText": "R2 – Won fair; you keep the Sable Glass",
+              "fullText": "You beat the Chimera while holding the Key; Thorne concedes. Record 'you haven't seen the last of Thorne.' The investigator controlling The Sable Glass is its bearer. Victory XP. Mark 3 time.",
+              "condition": "Reached if you refused the deal and held the Key."
+            },
+            "OTI.R3": {
+              "dropdownText": "R3 – Thorne disappeared",
+              "fullText": "Thorne vanishes after the hunt (an uncanny, replaced figure). Record 'Thorne disappeared' (this counts as a hollowed/eerily-silent Coterie member toward the 'coterie destroyed' finale). If an investigator controls The Sable Glass they are its bearer; otherwise Thorne is. Victory XP. Mark 3 time.",
+              "condition": "Reached if Thorne is defeated during the scenario (as ally or enemy)."
+            },
+            "OTI.R4": {
+              "dropdownText": "R4 – Scenario never happened (memory-wiped)",
+              "fullText": "You are erased from the events and remember nothing. The scenario never happened: mark no time, gain no XP/trauma, update no Keys. Record 'there is nothing of note in Anchorage' (you cannot stop here again). Embark from Anchorage.",
+              "condition": "A nullifying failure outcome."
+            },
+            "OTI.noRes": {
+              "dropdownText": "No resolution (resigned / defeated)",
+              "fullText": "Record 'The Void Chimera escaped.' If you made a deal with Thorne or no investigator controls the Key, Thorne is the bearer of The Sable Glass; otherwise the controlling investigator is its bearer and you record 'you haven't seen the last of Thorne.' Victory XP. Mark 1 time.",
+              "condition": "Reached when no resolution is achieved."
+            }
+          }
+        }
+      }
+    },
+    "36-L": {
+      "title": "Strange Architecture",
+      "location": "Bombay / Stockholm",
+      "note": "A two-city XP mini-quest. Auto-resolved by whether you've already seen the matching building in the other city.",
+      "decisions": {
+        "SA.visit": {
+          "label": "The strange building (auto-resolved)",
+          "prompt": "Outcome set by whether you noted the building in the other city already.",
+          "options": {
+            "SA.first": {
+              "dropdownText": "First building – note it",
+              "fullText": "You admire an out-of-place building marked '13'. Record 'the cell appreciated the architecture.' No XP or time. Embark.",
+              "condition": "'the cell appreciated the architecture' is not yet recorded."
+            },
+            "SA.second": {
+              "dropdownText": "Second building – uncanny déjà vu (+2 XP)",
+              "fullText": "You recognize the identical building from the other city and sense its wrongness. Cross off 'the cell appreciated the architecture.' Each investigator gains 2 XP. Mark 1 time.",
+              "condition": "'the cell appreciated the architecture' is already recorded (you've visited the other city)."
+            }
+          }
+        }
+      }
+    },
+    "37-M": {
+      "title": "Special Delivery",
+      "location": "Lagos / Tokyo",
+      "note": "Courier mini-quest between Lagos and Tokyo for a small chaos-bag improvement. Auto-resolved by whether you're already carrying the intel.",
+      "decisions": {
+        "SD.courier": {
+          "label": "Foundation courier run (auto-resolved)",
+          "prompt": "Pick up or deliver, set by whether you already carry the intel.",
+          "options": {
+            "SD.pickup": {
+              "dropdownText": "Pick up the intel",
+              "fullText": "Taylor hands you a package to carry to the other city. Record 'the cell is delivering intel.' Each investigator adds one Foundation Intel (a weakness) to their deck. Mark 1 time.",
+              "condition": "'the cell is delivering intel' is not recorded (first of the two cities)."
+            },
+            "SD.deliver": {
+              "dropdownText": "Deliver the intel (+1 to a chaos token)",
+              "fullText": "You hand off the documents. Cross off 'the cell is delivering intel'; each investigator removes Foundation Intel from their deck. Improve one chosen number token in the chaos bag by 1 (e.g. a –3 becomes a –2). Embark.",
+              "condition": "'the cell is delivering intel' is recorded and you are at the other city."
+            }
+          }
+        }
+      }
+    },
+    "38-N": {
+      "title": "Dogs of War",
+      "location": "Alexandria",
+      "note": "The Claret Knight vs the Beast over the Light of Pharos. Three versions: your choice (deal with the Knight or side with Agent Sirry) decides v.I vs v.II before 20 time; arriving at 20+ time forces v.III.",
+      "decisions": {
+        "DOW.knightBargain": {
+          "label": "The Claret Knight's bargain",
+          "prompt": "The Claret Knight asks you to help him keep/recover the Light of Pharos. Accept?",
+          "options": {
+            "DOW.accept": {
+              "dropdownText": "Accept the Knight's deal (Trust)",
+              "fullText": "You agree to help the Claret Knight. Record 'the cell made a deal with the Claret Knight.' Trust act: remove 1 Elder Thing, add 1 Tablet (or +1 XP each if four already). The Knight fights alongside you. Aiding the Knight is one of the three allies needed to join the Coterie in the finale.",
+              "condition": null
+            },
+            "DOW.refuse": {
+              "dropdownText": "Refuse – side with Agent Sirry (Deception)",
+              "fullText": "You turn the Knight down and team up with Foundation agent Hossam Sirry to take the Key for yourselves. Record 'the cell is assisting Agent Sirry.' Deception act: remove 1 Tablet, add 1 Elder Thing (or +1 XP each if four already).",
+              "condition": null
+            }
+          }
+        },
+        "DOW.version": {
+          "label": "Scenario version (auto)",
+          "prompt": "Set by time passed and your bargain choice.",
+          "options": {
+            "DOW.v1": {
+              "dropdownText": "Version I – Defend the Light (before 20 time, accepted)",
+              "fullText": "You defend the Knight's four Key Loci while the Beast (the Ravager) assaults the city. The Claret Knight is a controllable ally holding the Light of Pharos. Easiest version.",
+              "condition": "Fewer than 20 time AND you accepted the Knight's deal."
+            },
+            "DOW.v2": {
+              "dropdownText": "Version II – Take the Light from the Knight (before 20 time, refused)",
+              "fullText": "Working with Sirry, you try to seize the Light from the Claret Knight, who is now an enemy holding the Key. The Beast is not present.",
+              "condition": "Fewer than 20 time AND you refused the Knight's deal."
+            },
+            "DOW.v3": {
+              "dropdownText": "Version III – Recover the Light from the Beast (20+ time)",
+              "fullText": "You arrive after the Beast has already stolen the Light. You hunt the Beast (Wolf in Sheep's Clothing), which holds the Key. Played whether you accepted the Knight's deal or sided with Sirry.",
+              "condition": "20 or more time passed (either bargain choice)."
+            }
+          }
+        },
+        "DOW.resolution": {
+          "label": "Resolution",
+          "prompt": "How Dogs of War ends.",
+          "options": {
+            "DOW.R8": {
+              "dropdownText": "Win cooperating – Knight keeps the Light (R1/R5→R8)",
+              "fullText": "You helped the Knight and he keeps the Light of Pharos, then explains the Coterie's purpose. Record 'the cell aided the knight' and 'you haven't seen the last of the Beast in a Cowl of Crimson.' The Claret Knight is the bearer of The Light of Pharos. Victory XP. Mark 3 time.",
+              "condition": "Win in v.I (R1) or v.III after accepting the deal (R5)."
+            },
+            "DOW.R2": {
+              "dropdownText": "R2 – Win with Sirry (v.II); you keep the Light",
+              "fullText": "You take the Light from the Knight and keep it. Record 'you haven't seen the last of the Claret Knight.' Choose an investigator to bear The Light of Pharos. Victory XP. Mark 2 time.",
+              "condition": "Win in v.II (refused, before 20 time)."
+            },
+            "DOW.R6": {
+              "dropdownText": "R6 – Win with Sirry (v.III); you keep the Light",
+              "fullText": "You recover the Light from the Beast and keep it. Record 'you haven't seen the last of the Beast in a Cowl of Crimson' AND (per erratum) 'you haven't seen the last of the Claret Knight' – you made two enemies. Choose an investigator to bear The Light of Pharos. Victory XP. Mark 2 time.",
+              "condition": "Win in v.III while assisting Sirry."
+            },
+            "DOW.R3": {
+              "dropdownText": "R3 – Defeated in v.I; Beast takes the Light",
+              "fullText": "The Beast massacres the Knight's post. Each non-defeated investigator suffers 1 mental trauma. Record 'the cell failed to fend off the Beast' and 'you haven't seen the last of the Beast in a Cowl of Crimson.' The Beast is the bearer of The Light of Pharos. Victory XP. Mark 1 time.",
+              "condition": "Defeated in v.I."
+            },
+            "DOW.R4": {
+              "dropdownText": "R4 – Defeated in v.II; Knight keeps the Light",
+              "fullText": "The Knight repels you and stays entrenched. Record 'you haven't seen the last of the Claret Knight.' The Claret Knight is the bearer of The Light of Pharos. Victory XP. Mark 1 time.",
+              "condition": "Defeated in v.II."
+            },
+            "DOW.R7": {
+              "dropdownText": "R7 – Defeated in v.III; the dogs are at war",
+              "fullText": "Alexandria collapses into open war and you flee with nothing. Record 'the dogs are at war.' Victory XP. Mark 1 time. (No one records as the Key's bearer here.)",
+              "condition": "Defeated in v.III."
+            }
+          }
+        }
+      }
+    },
+    "44-O": {
+      "title": "Theory of Annihilation",
+      "location": "Rio de Janeiro",
+      "note": "First/second meeting with Dr. Dewi Irawan (the Ruinous Chime questline). Auto-resolved by whether you've met her and how much time has passed.",
+      "decisions": {
+        "TOA.meet": {
+          "label": "Meeting Dr. Irawan (auto-resolved)",
+          "prompt": "Outcome set by the campaign log and time.",
+          "options": {
+            "TOA.first": {
+              "dropdownText": "First meeting – hear her theory",
+              "fullText": "You meet Dr. Irawan and she shares her 'Theory of Annihilation,' pointing you toward the other city (Perth/Rio). Record 'the cell met Dr. Irawan.' Each investigator gains 1 XP. Embark.",
+              "condition": "'the cell met Dr. Irawan' is not yet recorded."
+            },
+            "TOA.second": {
+              "dropdownText": "Second meeting – she heads to New Guinea",
+              "fullText": "She realizes a species vanished from her own sketchbook and leaves for Manokwari. Record 'Dr. Irawan traveled to New Guinea.' Each investigator gains 1 XP. Mark δ (delta) at the current time as a timer reference (no status report). Manokwari opens (write 45–P). Embark. You must reach Manokwari within 10 time of δ.",
+              "condition": "'the cell met Dr. Irawan' is recorded AND fewer than 25 time has passed."
+            },
+            "TOA.tooLate": {
+              "dropdownText": "Too late – she has vanished",
+              "fullText": "Dr. Irawan is gone, erased from existence and memory. Record 'Dr. Irawan vanished from existence.' Embark. (The Ruinous Chime can no longer be obtained.)",
+              "condition": "'the cell met Dr. Irawan' is recorded AND 25 or more time has passed."
+            }
+          }
+        }
+      }
+    },
+    "45-P": {
+      "title": "Metamorphosis",
+      "location": "Manokwari",
+      "note": "Finale of the Dr. Irawan questline. Auto-resolved by time elapsed since δ (delta) was marked in Theory of Annihilation.",
+      "decisions": {
+        "MET.arrival": {
+          "label": "Finding Dr. Irawan (auto-resolved)",
+          "prompt": "Outcome set by time since δ.",
+          "options": {
+            "MET.intime": {
+              "dropdownText": "In time – gain Irawan and The Ruinous Chime",
+              "fullText": "You rescue Dr. Irawan and she entrusts you the Chime. Record 'Dr. Irawan joined the cell' (any one investigator may add the Dr. Dewi Irawan story asset, free of deck size). Choose an investigator to bear The Ruinous Chime. Mark 1 time.",
+              "condition": "10 or fewer time has passed since δ."
+            },
+            "MET.late": {
+              "dropdownText": "Too late – Irawan has vanished",
+              "fullText": "No one remembers Dr. Irawan. Record 'Dr. Irawan vanished from existence.' Each investigator gains 2 XP. Mark 1 time. (No Key.)",
+              "condition": "11 or more time has passed since δ."
+            }
+          }
+        }
+      }
+    },
+    "46-Q": {
+      "title": "Shades of Suffering",
+      "location": "Kuala Lumpur",
+      "note": "Confront Tzu San Niang. Reached via Shanghai > Hong Kong. The Shade Reaper grows more dangerous the later you arrive. Inspector Flint may be present or already dead.",
+      "decisions": {
+        "SOS.flint": {
+          "label": "Flint's status (auto)",
+          "prompt": "Whether Flint is with you, set by the campaign log.",
+          "options": {
+            "SOS.flint.here": {
+              "dropdownText": "Flint rejoined the cell",
+              "fullText": "Flint meets you in Kuala Lumpur. Record 'Flint rejoined the cell' (an investigator may add the Inspector Flint story asset). You start at the Selangor Club.",
+              "condition": "'Flint traveled to Kuala Lumpur' is recorded."
+            },
+            "SOS.flint.missing": {
+              "dropdownText": "Flint is missing (he dies in the Bomoh interlude)",
+              "fullText": "Flint isn't here. You start at the station. During the Bomoh interlude you learn Tzu San killed him: cross off 'Agent Flint is missing' and record 'Agent Flint is dead,' and place 2 charges on The Shade Reaper.",
+              "condition": "'Agent Flint is missing' is recorded."
+            }
+          }
+        },
+        "SOS.timeScaling": {
+          "label": "Shade Reaper power (by time passed)",
+          "prompt": "Charges on The Shade Reaper (and Tzu San's danger) scale with time.",
+          "options": {
+            "SOS.t.0": {
+              "dropdownText": "≤11 time – no bonus charges",
+              "fullText": "The Shade Reaper starts with no charges. Easiest.",
+              "condition": "11 or fewer time passed."
+            },
+            "SOS.t.12": {
+              "dropdownText": "12–18 time – 3 charges",
+              "fullText": "The Shade Reaper starts with 3 charges, making Tzu San and her effects tougher.",
+              "condition": "12–18 time passed."
+            },
+            "SOS.t.19": {
+              "dropdownText": "19–26 time – 6 charges",
+              "fullText": "The Shade Reaper starts with 6 charges. The final confrontation is significantly more dangerous.",
+              "condition": "19–26 time passed."
+            },
+            "SOS.t.27": {
+              "dropdownText": "27+ time – 9 charges + doom",
+              "fullText": "The Shade Reaper starts with 9 charges AND the agenda starts with 1 doom. Hardest.",
+              "condition": "27 or more time passed."
+            }
+          }
+        },
+        "SOS.resolution": {
+          "label": "Resolution",
+          "prompt": "How Shades of Suffering ends.",
+          "options": {
+            "SOS.R1": {
+              "dropdownText": "R1 – You master the Shade Reaper; Tzu under your sway",
+              "fullText": "You wield the Shade Reaper and break Tzu San Niang. Record 'Tzu San Niang is under your sway' (an optional ally for the finale). Each investigator gains 1 bonus XP but suffers 1 physical trauma (the Reaper draws on your soul). Choose an investigator to bear The Shade Reaper. Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "SOS.R2": {
+              "dropdownText": "R2 – You take the Key; Tzu escapes",
+              "fullText": "You claim the Reaper but Tzu San gets away. Record 'you haven't seen the last of Tzu San Niang.' Choose an investigator to bear The Shade Reaper. Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "SOS.R3": {
+              "dropdownText": "R3 – Tzu dominates you; she keeps the Key",
+              "fullText": "Tzu San Niang bends you to her will; Melati's attack lets you flee. Record 'Tzu San Niang has you under her sway.' Tzu San Niang is the bearer of The Shade Reaper. Victory XP. Mark 1 time.",
+              "condition": null
+            },
+            "SOS.noRes": {
+              "dropdownText": "No resolution (resigned / defeated)",
+              "fullText": "You flee Kuala Lumpur, haunted. Record 'you haven't seen the last of Tzu San Niang.' Tzu San Niang is the bearer of The Shade Reaper. Victory XP. Mark 1 time.",
+              "condition": "Reached when no resolution is achieved."
+            }
+          }
+        }
+      }
+    },
+    "49-R": {
+      "title": "Ringing Hollow",
+      "location": "Sydney",
+      "note": "Meet Agent Quinn. A step toward the secret scenario; unlocks the London revisit (27-H). Must be done before 20 time or Quinn vanishes.",
+      "decisions": {
+        "RH.meet": {
+          "label": "Meeting Agent Quinn (auto-resolved)",
+          "prompt": "Outcome set by time and whether you told Taylor the truth.",
+          "options": {
+            "RH.trusts": {
+              "dropdownText": "Quinn trusts you – London unlocked",
+              "fullText": "Quinn opens up because you were honest with Taylor. London opens for a revisit (write 27–H). Embark. (Because she trusts you, the later London meeting needs no truth-telling.)",
+              "condition": "Fewer than 20 time AND 'the cell told the truth to Taylor.'"
+            },
+            "RH.distrusts": {
+              "dropdownText": "Quinn distrusts you – London unlocked",
+              "fullText": "Quinn sees through your evasions. Record 'Agent Quinn does not trust the cell.' London opens for a revisit (write 27–H). Embark. (You'll need to tell her the truth at London to proceed toward Without a Trace.)",
+              "condition": "Fewer than 20 time AND 'the cell hid the truth from Taylor.'"
+            },
+            "RH.vanished": {
+              "dropdownText": "Too late – Quinn has vanished",
+              "fullText": "Quinn is gone, erased from existence. Record 'Agent Quinn vanished from existence.' Embark. (The Without a Trace route via Quinn is lost.)",
+              "condition": "20 or more time has passed."
+            }
+          }
+        }
+      }
+    },
+    "50-S": {
+      "title": "Blood, Sweat, and Tea",
+      "location": "Hong Kong",
+      "note": "Track Tzu San Niang with Flint; unlocks Kuala Lumpur (Shades of Suffering). Auto-resolved by Flint's status and time since ψ.",
+      "decisions": {
+        "BST.meet": {
+          "label": "Lead on Tzu San (auto-resolved)",
+          "prompt": "Outcome set by Flint's status and time.",
+          "options": {
+            "BST.withFlint": {
+              "dropdownText": "With Flint – trail leads to Kuala Lumpur",
+              "fullText": "You and Flint pick up Tzu San's trail (the parasol is a Key). Record 'Flint traveled to Kuala Lumpur.' Kuala Lumpur opens (write 46–Q). Embark.",
+              "condition": "'the cell aided in Flint's investigation' is recorded, OR Flint is working solo and ≤10 time has passed since ψ."
+            },
+            "BST.flintMissing": {
+              "dropdownText": "Flint has gone missing",
+              "fullText": "Flint stopped answering and seems to have vanished. Record 'Agent Flint is missing.' Kuala Lumpur opens (write 46–Q). Embark.",
+              "condition": "Flint is working solo and 11 or more time has passed since ψ."
+            }
+          }
+        }
+      }
+    },
+    "51-T": {
+      "title": "Romulus and Remus",
+      "location": "Rome",
+      "note": "Auto-resolved. If you're off-mission, this opens the Bermuda Triangle (the secret scenario). Otherwise it's a small rest bonus.",
+      "decisions": {
+        "RAR2.visit": {
+          "label": "Rome (auto-resolved)",
+          "prompt": "Outcome set by whether you're off-mission.",
+          "options": {
+            "RAR2.offmission": {
+              "dropdownText": "Off-mission – open the Bermuda Triangle",
+              "fullText": "With Quinn you summon Aliki, who points to the Bermuda Triangle as the place the Outsiders take things. The Bermuda Triangle opens (write 56–Y); you may enter it from Ybor City, San Juan, or Bermuda for 1 time. Embark.",
+              "condition": "'the cell is off-mission' is recorded."
+            },
+            "RAR2.rest": {
+              "dropdownText": "Sightseeing – small bonus",
+              "fullText": "Just a quiet visit. Each investigator may start the next scenario with 1 extra resource. You may return to Rome later (after another scenario). Embark.",
+              "condition": "'the cell is off-mission' is not recorded."
+            }
+          }
+        }
+      }
+    },
+    "53-V": {
+      "title": "Whistle on the Wind",
+      "location": "Kathmandu",
+      "note": "Meet Aliki, who offers a bone whistle. Accepting it is mandatory to reach the secret scenario (Without a Trace) but costs trauma.",
+      "decisions": {
+        "WW.whistle": {
+          "label": "Aliki's whistle",
+          "prompt": "Aliki holds out a white-raven bone whistle. Do you take it?",
+          "options": {
+            "WW.accept": {
+              "dropdownText": "Accept the whistle (Trust)",
+              "fullText": "You take the whistle. Record 'the cell possesses a mysterious whistle' (required for the Without a Trace questline). Each investigator suffers 1 trauma (their choice of mental or physical) from the ceaseless shrill sound. Trust act: remove 1 Elder Thing, add 1 Tablet (or +1 XP each if four already).",
+              "condition": null
+            },
+            "WW.refuse": {
+              "dropdownText": "Refuse the whistle (Deception)",
+              "fullText": "You decline Aliki's gift. Record 'the cell refused Aliki's offer.' Each investigator gains 1 XP. Deception act: remove 1 Tablet, add 1 Elder Thing (or +1 XP each if four already). (Without the whistle you cannot reach Without a Trace.)",
+              "condition": null
+            }
+          }
+        }
+      }
+    },
+    "54-W": {
+      "title": "Infernal Machinery",
+      "location": "Nairobi",
+      "note": "Start of the Tuwile Masai / Bale Engine questline. Auto-resolved by how many Coterie members you've befriended.",
+      "decisions": {
+        "IM.meet": {
+          "label": "Meeting Tuwile Masai (auto-resolved)",
+          "prompt": "Whether Masai trusts you, set by your record with the Coterie.",
+          "options": {
+            "IM.ally": {
+              "dropdownText": "Masai trusts you – gain The Bale Engine",
+              "fullText": "Having proven yourself a friend to the Coterie, Masai gives you the Key. Record 'Tuwile Masai is on your side' (turns his finale vote your way). Each investigator gains 1 XP; choose an investigator to bear The Bale Engine. Mark 1 time.",
+              "condition": "At least three of these are recorded: La Chica Roja is on your side, the cell aided the knight, Aliki is on your side, Desi is on your side, the cell made a deal with Thorne, Ece trusts the cell."
+            },
+            "IM.flees": {
+              "dropdownText": "Masai distrusts you – he flees to Bermuda",
+              "fullText": "Unconvinced of your intentions, Masai slips away. Record 'Tuwile Masai fled to Bermuda' (resolve the questline there at The Great Work, 20–E). Embark.",
+              "condition": "Fewer than three of the listed 'ally' records are present."
+            }
+          }
+        }
+      }
+    },
+    "55-X": {
+      "title": "Paranatural Selection",
+      "location": "Perth",
+      "note": "The Perth counterpart of Theory of Annihilation (44-O) – the other first/second meeting point with Dr. Irawan. Auto-resolved by whether you've met her and the time.",
+      "decisions": {
+        "PS.meet": {
+          "label": "Meeting Dr. Irawan in Perth (auto-resolved)",
+          "prompt": "Outcome set by the campaign log and time.",
+          "options": {
+            "PS.first": {
+              "dropdownText": "First meeting – hear her theory",
+              "fullText": "You meet Dr. Irawan and she shares her 'Paranatural Selection' theory, pointing you to Rio de Janeiro next. Record 'the cell met Dr. Irawan.' Each investigator gains 1 XP. Embark.",
+              "condition": "'the cell met Dr. Irawan' is not yet recorded."
+            },
+            "PS.second": {
+              "dropdownText": "Second meeting – she heads to New Guinea",
+              "fullText": "She finds a species erased from her own sketchbook and leaves for Manokwari. Record 'Dr. Irawan traveled to New Guinea.' Each investigator gains 1 XP. Mark δ (delta) at the current time. Manokwari opens (write 45–P). Embark. Reach Manokwari within 10 time of δ.",
+              "condition": "'the cell met Dr. Irawan' is recorded AND fewer than 25 time has passed."
+            },
+            "PS.tooLate": {
+              "dropdownText": "Too late – she has vanished",
+              "fullText": "Dr. Irawan is gone, erased from existence. Record 'Dr. Irawan vanished from existence.' Embark. (The Ruinous Chime can no longer be obtained.)",
+              "condition": "'the cell met Dr. Irawan' is recorded AND 25 or more time has passed."
+            }
+          }
+        }
+      }
+    },
+    "56-Y": {
+      "title": "Without a Trace",
+      "location": "Bermuda Triangle (The Outside)",
+      "note": "The secret scenario. Reached only after going off-mission and unlocking the Bermuda Triangle. Winning here reveals the true nature of the Outsiders and leads to being 'spared' in the finale.",
+      "decisions": {
+        "WAT.whistle": {
+          "label": "Blow the whistle?",
+          "prompt": "At the gateway, do you summon Aliki with the whistle or throw it away to protect Agent Quinn?",
+          "options": {
+            "WAT.blow": {
+              "dropdownText": "Blow the whistle – summon Aliki",
+              "fullText": "You call Aliki to your side. Record 'the cell blew the whistle.' Aliki joins as a story-asset ally for the scenario. (If she is defeated while you fail to rescue the real Red-Gloved Man, she counts as hollowed toward the 'coterie destroyed' finale.)",
+              "condition": null
+            },
+            "WAT.throw": {
+              "dropdownText": "Throw the whistle away – keep Quinn",
+              "fullText": "You dispose of the whistle so Taylor lets Quinn keep her post. Record 'Agent Quinn has your back' (an investigator may add the Agent Ari Quinn story asset) and 'the cell threw away the whistle.' Aliki is removed from the game.",
+              "condition": null
+            }
+          }
+        },
+        "WAT.resolution": {
+          "label": "Resolution",
+          "prompt": "How Without a Trace ends.",
+          "options": {
+            "WAT.R1": {
+              "dropdownText": "R1 – Win with Aliki; rescue the real Red-Gloved Man",
+              "fullText": "You free the true Red-Gloved Man and learn the Outsiders are mimicking the Coterie. Record 'the cell knows the true nature of the Coterie' and 'Aliki is on your side.' Victory XP +1 bonus XP each. Mark 3 time. Knowing the true nature leads to the finale's 'spared' outcome (the real Red-Gloved Man halts the vote).",
+              "condition": "Win after blowing the whistle."
+            },
+            "WAT.R2": {
+              "dropdownText": "R2 – Win with Quinn; rescue the real Red-Gloved Man",
+              "fullText": "Same victory, with Quinn instead of Aliki. Record 'the cell knows the true nature of the Coterie' and 'you haven't seen the last of Aliki Zoni Uperetria.' Victory XP +1 bonus XP each. Mark 2 time. Leads to the finale's 'spared' outcome.",
+              "condition": "Win after throwing the whistle away."
+            },
+            "WAT.R3": {
+              "dropdownText": "R3 – Survived with Aliki, no answers",
+              "fullText": "You escape but don't reach the truth. Record 'Aliki is on your side.' Victory XP. Mark 2 time.",
+              "condition": "No resolution (survived) after blowing the whistle."
+            },
+            "WAT.R4": {
+              "dropdownText": "R4 – Survived with Quinn, no answers",
+              "fullText": "You escape but learn nothing conclusive. Record 'you haven't seen the last of Aliki Zoni Uperetria.' Victory XP. Mark 1 time.",
+              "condition": "No resolution (survived) after throwing the whistle away."
+            },
+            "WAT.hollowed": {
+              "dropdownText": "All defeated – the cell is hollowed (lose)",
+              "fullText": "Every investigator is consumed by the Outside. Record 'the cell was hollowed.' The investigators lose the campaign (Taylor and Hudson can no longer even remember you existed).",
+              "condition": "All investigators defeated."
+            }
+          }
+        }
+      }
+    },
+    "59-Z": {
+      "title": "Congress of the Keys",
+      "location": "Tunguska",
+      "note": "The finale. Unlocks after 15 time (status report β); reaching 35 time (ω) forces you here. The Coterie tallies a vote on your fate from everything you did all campaign; the outcome picks one of three scenario versions. The per-member votes below are the inputs to that tally.",
+      "decisions": {
+        "COTK.judgment": {
+          "label": "The Coterie's judgment (auto-tallied)",
+          "prompt": "After all member votes are tallied (a tie counts as 'yea'), one of six outcomes occurs.",
+          "options": {
+            "COTK.judgment.liability": {
+              "dropdownText": "Deemed a liability → finale v.I",
+              "fullText": "Yeas win or tie. You're sentenced to death but the disguised Red-Gloved Man attacks, letting you escape. Record 'the cell escaped the Red Coterie.' Play finale version I (you fight the Red-Gloved Man; 'yea' Coterie enemies oppose you, 'nay' members help as Conspirators).",
+              "condition": "Tie, or 'yeas' outnumber 'nays' (and you don't know the true nature, and fewer than 3 eerily silent)."
+            },
+            "COTK.judgment.asset": {
+              "dropdownText": "Deemed an asset → finale v.II",
+              "fullText": "Nays win, without the special trios. Record 'the Red Coterie spared the cell.' Play finale version II (you join the Coterie's forces against the escaped Red-Gloved Man).",
+              "condition": "'Nays' win but neither the overthrow trio nor the join trio all voted nay."
+            },
+            "COTK.judgment.overthrow": {
+              "dropdownText": "Overthrow the Coterie → finale v.II",
+              "fullText": "Nays win AND La Chica Roja, Ece, and Desi all voted nay; you may rally them to purge the corrupt members. Record 'the cell overthrew the Red Coterie.' Play finale version II.",
+              "condition": "'Nays' win AND La Chica Roja, Ece Şahin, and Desi all voted 'nay' (and you choose to overthrow)."
+            },
+            "COTK.judgment.join": {
+              "dropdownText": "Join the Coterie → finale v.II",
+              "fullText": "Nays win AND Thorne, Tuwile, and the Claret Knight all voted nay; you may be inducted. Each investigator marks an article of clothing as their scarlet token. Record 'the cell joined the Red Coterie.' Play finale version II.",
+              "condition": "'Nays' win AND Thorne, Tuwile Masai, and the Claret Knight all voted 'nay' (and you choose to join)."
+            },
+            "COTK.judgment.spared": {
+              "dropdownText": "Spared (knew the truth) → finale v.III",
+              "fullText": "Because you completed Without a Trace and 'the cell knows the true nature of the Coterie,' the real Red-Gloved Man executes his impostor and halts the vote entirely. Record 'the Red Coterie spared the cell.' Play finale version III (the Coterie turns on the Outsiders; spared members fight beside you).",
+              "condition": "'the cell knows the true nature of the Coterie' is recorded (overrides the vote)."
+            },
+            "COTK.judgment.destroyed": {
+              "dropdownText": "Coterie destroyed from within → finale v.III",
+              "fullText": "Three or more members were 'eerily silent' (replaced by Outsiders), who now hollow the Congress from within. Record 'the Red Coterie was destroyed from within.' Play finale version III.",
+              "condition": "You don't know the true nature, but 3 or more Coterie members are 'eerily silent'."
+            }
+          }
+        },
+        "COTK.memberVotes": {
+          "label": "How each Coterie member votes (reference)",
+          "prompt": "Reference for computing the tally. 'Yea' = wants you killed; 'Nay' = wants you spared; abstain/eerily-silent = neither. The Red-Gloved Man is always eerily silent.",
+          "options": {
+            "COTK.vote.knightBeast": {
+              "dropdownText": "Claret Knight & Beast",
+              "fullText": "Aided the knight → Knight NAY, Beast abstains. Failed to fend off the Beast → Knight abstains, Beast YEA. Haven't seen the last of the Claret Knight → both YEA. The dogs are at war → both abstain. Default → Knight NAY, Beast YEA (flip a coin for who bears the Light of Pharos).",
+              "condition": "Determined by the Dogs of War outcome records."
+            },
+            "COTK.vote.ece": {
+              "dropdownText": "Ece Şahin",
+              "fullText": "Ece trusts the cell → NAY. Ece does not trust the cell → abstains. Default (never met) → NAY.",
+              "condition": "Determined by the Dealings in the Dark outcome."
+            },
+            "COTK.vote.amaranth": {
+              "dropdownText": "Amaranth (& Razin Farhi)",
+              "fullText": "Haven't seen the last of Amaranth → Amaranth YEA. The lovers are reunited → Amaranth YEA and Razin Farhi YEA. Amaranth has left the Coterie → abstains. Default → Amaranth YEA (bears the Last Blossom).",
+              "condition": "Determined by the Dead Heat outcome."
+            },
+            "COTK.vote.thorne": {
+              "dropdownText": "Thorne",
+              "fullText": "Haven't seen the last of Thorne → YEA. Made a deal with Thorne → NAY. Thorne disappeared → eerily silent. Default → abstains (bears the Sable Glass).",
+              "condition": "Determined by the On Thin Ice outcome."
+            },
+            "COTK.vote.aliki": {
+              "dropdownText": "Aliki Zoni Uperetria",
+              "fullText": "Aliki is on your side → NAY. Haven't seen the last of Aliki → eerily silent. Default → YEA.",
+              "condition": "Determined by the Whistle on the Wind / Without a Trace outcomes."
+            },
+            "COTK.vote.desi": {
+              "dropdownText": "Desiderio Delgado Álvarez",
+              "fullText": "Desi is in your debt and the real Desi survived → NAY. Haven't seen the last of Desi, or you saved the impostor → eerily silent. Default → YEA (bears the Mirroring Blade).",
+              "condition": "Determined by the Dancing Mad outcome (Moscow intel decides real vs impostor)."
+            },
+            "COTK.vote.laChicaWatcher": {
+              "dropdownText": "La Chica Roja & Sanguine Watcher",
+              "fullText": "Haven't seen the last of La Chica Roja → La Chica abstains, Watcher YEA. Haven't seen the last of the Sanguine Watcher → La Chica NAY, Watcher YEA. The Sanguine Watcher's torment continues → La Chica NAY, Watcher abstains. Default → both abstain (Watcher bears the Weeping Lady).",
+              "condition": "Determined by the Sanguine Shadows outcome."
+            },
+            "COTK.vote.tzu": {
+              "dropdownText": "Tzu San Niang",
+              "fullText": "Haven't seen the last of Tzu San Niang → YEA. Tzu San Niang has you under her sway → she forces the lead investigator to vote YEA in her stead. Tzu San Niang is under your sway → abstains. Default → YEA (bears the Shade Reaper).",
+              "condition": "Determined by the Shades of Suffering outcome."
+            },
+            "COTK.vote.tuwile": {
+              "dropdownText": "Tuwile Masai",
+              "fullText": "Tuwile Masai is on your side → NAY. Default → YEA.",
+              "condition": "Determined by the Infernal Machinery / The Great Work outcome."
+            },
+            "COTK.vote.abarran": {
+              "dropdownText": "Abarran Arrigorriagakoa (Fortune's Chosen)",
+              "fullText": "The cell meddled in Abarran's affairs → YEA. Otherwise → abstains. (Tied to the Wellspring of Fortune, an optional side encounter.)",
+              "condition": "Determined by whether you crossed Abarran."
+            },
+            "COTK.vote.redGlovedMan": {
+              "dropdownText": "The Red-Gloved Man",
+              "fullText": "Always eerily silent — he is an Outsider impostor. He counts toward the 3-eerily-silent 'destroyed' threshold by default.",
+              "condition": "Always."
+            }
+          }
+        },
+        "COTK.version": {
+          "label": "Finale version (auto)",
+          "prompt": "Set by the judgment outcome.",
+          "options": {
+            "COTK.v1": {
+              "dropdownText": "Version I – Liability",
+              "fullText": "You escaped and must stop the Red-Gloved Man yourselves. 'Yea' Coterie members are enemies (the Red-Gloved Man is concealed); 'nay' members join you as Conspirator allies. Played in the Lair locations, then into the Outside.",
+              "condition": "Outcome was 'deemed a liability'."
+            },
+            "COTK.v2": {
+              "dropdownText": "Version II – Asset / Overthrow / Join",
+              "fullText": "The Coterie sides with you against the fleeing Red-Gloved Man. 'Yea' members are removed; 'nay' members join as Conspirators. Played in the Sanctum locations and the Outside.",
+              "condition": "Outcome was 'deemed an asset', 'overthrow', or 'join'."
+            },
+            "COTK.v3": {
+              "dropdownText": "Version III – Spared / Destroyed",
+              "fullText": "The Coterie clashes directly with the Outsiders. 'Eerily silent' members are enemies (the Red-Gloved Man concealed); if you were spared, the true Red-Gloved Man and the surviving members fight beside you as Conspirators. Played in the Sanctum locations and the Outside.",
+              "condition": "Outcome was 'spared' or 'destroyed from within'."
+            }
+          }
+        },
+        "COTK.resolution": {
+          "label": "Resolution",
+          "prompt": "How the campaign ends. All three versions share these resolutions.",
+          "options": {
+            "COTK.R1": {
+              "dropdownText": "R1 – The Outsiders are stopped (win)",
+              "fullText": "You collapse the Outsiders' realm and are flung back across the world. Record 'the Outsiders were stopped.' Each investigator suffers 2 physical and 2 mental trauma and earns victory XP plus 5 bonus XP. The investigators win the campaign. Proceed to the Epilogue.",
+              "condition": null
+            },
+            "COTK.R2": {
+              "dropdownText": "R2 – The cell is hollowed (lose)",
+              "fullText": "Every investigator is consumed; even Taylor forgets you existed. Record 'the cell was hollowed.' The investigators lose the campaign.",
+              "condition": "Reached if all investigators are defeated."
+            },
+            "COTK.defeat": {
+              "dropdownText": "Investigator Defeat (per defeated investigator)",
+              "fullText": "Any individually defeated investigator is driven insane and erased from reality, never seen again. Surviving investigators continue to whichever resolution is reached.",
+              "condition": "Applies to each investigator defeated during the finale."
+            }
+          }
+        }
+      }
+    },
+    "Epilogue": {
+      "title": "Epilogue",
+      "location": "Foundation interrogation room",
+      "note": "Read only if the campaign was won. A series of automatic checks (no player choice) sets the cell's final standing with the Foundation.",
+      "decisions": {
+        "EP.outcome": {
+          "label": "Final standing with the Foundation (auto-resolved)",
+          "prompt": "Determined automatically from your campaign-log record.",
+          "options": {
+            "EP.joined": {
+              "dropdownText": "Joined the Coterie → Foundation alliance",
+              "fullText": "Because the cell joined the Red Coterie, Taylor terminates your Foundation role but proposes the two organizations work together. Record 'the Red Coterie and The Foundation agreed to work together.' File closed.",
+              "condition": "'the cell joined the Red Coterie' is recorded."
+            },
+            "EP.permanent": {
+              "dropdownText": "Trust ≥ Deception → permanent position",
+              "fullText": "Tallying Foundation Trust vs Cell Deception (see counts below), Trust ties or wins: Taylor offers you full Foundation membership. Record 'the cell was given a permanent position.' File closed.",
+              "condition": "Foundation Trust tally ≥ Cell Deception tally. Trust +1 each for: assisting Agent Sirry, told the truth to Taylor, Agent Quinn has your back, delivered the intel. Deception +1 each for: hid the truth from Taylor, off-mission, aided the knight, Ece trusts the cell, made a deal with Thorne, Aliki is on your side, Desi is in your debt, Tuwile Masai is on your side."
+            },
+            "EP.dismantled": {
+              "dropdownText": "Deception > Trust → dismantled",
+              "fullText": "If Cell Deception outweighs Foundation Trust, Taylor cuts you loose with one-way tickets and a warning. Record 'the cell was dismantled.' File closed.",
+              "condition": "Cell Deception tally is greater than Foundation Trust tally."
+            }
+          }
+        }
+      }
+    },
+    "StatusReports": {
+      "title": "Status Reports",
+      "location": "Triggered by the time track",
+      "note": "Auto-events that fire when you fill a time box marked with a Greek letter (no player choice). δ is only a timer with no report.",
+      "decisions": {
+        "SR.events": {
+          "label": "Time-track status reports (auto)",
+          "prompt": "Triggered automatically when the time track crosses the matching Greek letter.",
+          "options": {
+            "SR.alpha": {
+              "dropdownText": "α Alpha",
+              "fullText": "Disappearances mount. Add 1 Cultist token to the chaos bag.",
+              "condition": "Time track reaches α."
+            },
+            "SR.beta": {
+              "dropdownText": "β Beta – Tunguska unlocked",
+              "fullText": "Taylor reveals the Tunguska sanctum. Add 1 Cultist token. Unlock Tunguska (write 59–Z); you may now travel there to begin the finale at any time.",
+              "condition": "Time track reaches β (the finale becomes available, ~15 time)."
+            },
+            "SR.gamma": {
+              "dropdownText": "γ Gamma",
+              "fullText": "Things return changed. Add 1 Cultist token. Each investigator adds 1 Paradimensional Understanding weakness to their deck (free of deck size).",
+              "condition": "Time track reaches γ."
+            },
+            "SR.epsilon": {
+              "dropdownText": "ε Epsilon – pursued",
+              "fullText": "You're being followed. For the rest of the campaign, at each scenario setup, shuffle one random Red Coterie enemy you 'haven't seen the last of' into that scenario's encounter deck.",
+              "condition": "Time track reaches ε (~10 time)."
+            },
+            "SR.zeta": {
+              "dropdownText": "ζ Zeta – a Key is stolen",
+              "fullText": "A Coterie member robs you. One random Key borne by an investigator is stolen (2 if you hold 5+ Keys); a random 'haven't seen the last of' enemy becomes its new bearer. Unlock Quito, San Juan, Reykjavik, and Kabul (write 14–C) to search for it.",
+              "condition": "Time track reaches ζ (after 20 time)."
+            },
+            "SR.theta": {
+              "dropdownText": "Θ Theta – Ybor City passphrase",
+              "fullText": "Desi's note: his Ybor City people know the new passphrase and expect you. (Lets you claim The Mirroring Blade at The Safehouse, 52–U.) No mechanical change beyond the prompt.",
+              "condition": "Time track reaches Θ (set 6 spots ahead when you earned Desi's debt)."
+            },
+            "SR.psi": {
+              "dropdownText": "ψ Psi – Flint's telegram",
+              "fullText": "Flint has picked up Tzu San's trail. Unlock Hong Kong (write 50–S); travel there to continue toward Shades of Suffering.",
+              "condition": "Time track reaches ψ (set 6 spots ahead when Flint went solo)."
+            },
+            "SR.omega": {
+              "dropdownText": "ω Omega – out of time",
+              "fullText": "You're ambushed and knocked out. Add 1 Cultist token. Travel immediately to Tunguska and begin the finale (you arrive as a captive — finale Intro 1).",
+              "condition": "Time track reaches ω (35 time — the hard end of the campaign)."
+            }
+          }
+        }
+      }
+    }
+  },
+  "campaignLog": {
+    "log.notSeenRedGlovedMan": "you haven't seen the last of the Red-Gloved Man",
+    "log.toldTruthTaylor": "the cell told the truth to Taylor",
+    "log.hidTruthTaylor": "the cell hid the truth from Taylor",
+    "log.bolivarTrusts": "Matias Bolívar trusts you",
+    "log.bolivarDistrusts": "Matias Bolívar doesn't trust you",
+    "log.notSeenLaChicaRoja": "you haven't seen the last of La Chica Roja",
+    "log.laChicaOnYourSide": "La Chica Roja is on your side",
+    "log.notSeenSanguineWatcher": "you haven't seen the last of The Sanguine Watcher",
+    "log.watcherTormentContinues": "The Sanguine Watcher's torment continues",
+    "log.loversReunited": "the lovers are reunited",
+    "log.notSeenAmaranth": "you haven't seen the last of Amaranth",
+    "log.amaranthLeftCoterie": "Amaranth has left the Coterie",
+    "log.knowsAmaranthName": "the cell knows Amaranth's real name",
+    "log.workingWithEce": "the cell is working with Ece",
+    "log.deceivingEce": "the cell is deceiving Ece",
+    "log.refusedEce": "the cell refused Ece's offer",
+    "log.eceTrusts": "Ece trusts the cell",
+    "log.eceDistrusts": "Ece does not trust the cell",
+    "log.wrongLeads": "wrong leads",
+    "log.dealWithDesi": "the cell made a deal with Desi",
+    "log.ambushed": "the cell has been ambushed",
+    "log.desiInDebt": "Desi is in your debt",
+    "log.knowPassphrase": "you know the passphrase",
+    "log.noTruthHavana": "the cell didn't discover the truth in Havana",
+    "log.notSeenDesi": "you haven't seen the last of Desi",
+    "log.knowsDesiPast": "the cell knows Desi's past",
+    "log.flintSolo": "Flint is working solo",
+    "log.aidedFlint": "the cell aided in Flint's investigation",
+    "log.flintAbandoned": "Flint abandoned his search",
+    "log.dealWithThorne": "the cell made a deal with Thorne",
+    "log.notSeenThorne": "you haven't seen the last of Thorne",
+    "log.thorneDisappeared": "Thorne disappeared",
+    "log.voidChimeraEscaped": "The Void Chimera escaped",
+    "log.nothingAnchorage": "there is nothing of note in Anchorage",
+    "log.appreciatedArchitecture": "the cell appreciated the architecture",
+    "log.deliveringIntel": "the cell is delivering intel",
+    "log.dealWithKnight": "the cell made a deal with the Claret Knight",
+    "log.assistingSirry": "the cell is assisting Agent Sirry",
+    "log.notSeenClaretKnight": "you haven't seen the last of the Claret Knight",
+    "log.failedBeast": "the cell failed to fend off the Beast",
+    "log.notSeenBeast": "you haven't seen the last of the Beast in a Cowl of Crimson",
+    "log.aidedKnight": "the cell aided the knight",
+    "log.dogsAtWar": "the dogs are at war",
+    "log.irawanNewGuinea": "Dr. Irawan traveled to New Guinea",
+    "log.irawanVanished": "Dr. Irawan vanished from existence",
+    "log.metIrawan": "the cell met Dr. Irawan",
+    "log.irawanJoined": "Dr. Irawan joined the cell",
+    "log.flintRejoined": "Flint rejoined the cell",
+    "log.flintToKL": "Flint traveled to Kuala Lumpur",
+    "log.flintMissing": "Agent Flint is missing",
+    "log.flintDead": "Agent Flint is dead",
+    "log.tzuUnderYourSway": "Tzu San Niang is under your sway",
+    "log.notSeenTzu": "you haven't seen the last of Tzu San Niang",
+    "log.tzuHasYouUnderSway": "Tzu San Niang has you under her sway",
+    "log.quinnDistrusts": "Agent Quinn does not trust the cell",
+    "log.foundationInDark": "the Foundation remains in the dark",
+    "log.offMission": "the cell is off-mission",
+    "log.quinnVanished": "Agent Quinn vanished from existence",
+    "log.possessWhistle": "the cell possesses a mysterious whistle",
+    "log.refusedAliki": "the cell refused Aliki's offer",
+    "log.tuwileOnYourSide": "Tuwile Masai is on your side",
+    "log.tuwileFledBermuda": "Tuwile Masai fled to Bermuda",
+    "log.alikiOnYourSide": "Aliki is on your side",
+    "log.notSeenAliki": "you haven't seen the last of Aliki Zoni Uperetria",
+    "log.blewWhistle": "the cell blew the whistle",
+    "log.quinnHasYourBack": "Agent Quinn has your back",
+    "log.threwWhistle": "the cell threw away the whistle",
+    "log.knowsTrueNature": "the cell knows the true nature of the Coterie",
+    "log.meddledAbarran": "the cell meddled in Abarran's affairs",
+    "log.cellHollowed": "the cell was hollowed",
+    "log.escapedCoterie": "the cell escaped the Red Coterie",
+    "log.overthrewCoterie": "the cell overthrew the Red Coterie",
+    "log.joinedCoterie": "the cell joined the Red Coterie",
+    "log.coterieSpared": "the Red Coterie spared the cell",
+    "log.coterieDestroyed": "the Red Coterie was destroyed from within",
+    "log.outsidersStopped": "the Outsiders were stopped",
+    "log.coterieFoundationAlly": "the Red Coterie and The Foundation agreed to work together",
+    "log.permanentPosition": "the cell was given a permanent position",
+    "log.cellDismantled": "the cell was dismantled",
+    "log.foundationTrust": "Foundation Trust",
+    "log.cellDeception": "Cell Deception"
+  },
+  "achievements": {
+    "ach.cluedIn": {
+      "name": "Clued In",
+      "description": "Do not spend or drop a single clue via treachery cards in Riddles and Rain."
+    },
+    "ach.takeThatGhulat": {
+      "name": "Take That, Ghulat",
+      "description": "Ensure that not a single civilian is slain in Dead Heat."
+    },
+    "ach.whatsInAName": {
+      "name": "What's in a Name?",
+      "description": "Tell Amaranth her real name in Dead Heat."
+    },
+    "ach.porqueNoLosDos": {
+      "name": "Porque No Los Dos?",
+      "description": "Defeat both copies of Desi simultaneously in Dancing Mad."
+    },
+    "ach.lostAndFound": {
+      "name": "Lost and Found",
+      "description": "Take control of the Twisted Antiprism without a single clue on Clues Unveiled in Dealings in the Dark."
+    },
+    "ach.towerDefense": {
+      "name": "I Like Tower Defense Games",
+      "description": "Defend The Claret Knight without any Key Locuses being destroyed in Dogs of War v. I."
+    },
+    "ach.playWithYourFood": {
+      "name": "Play With Your Food",
+      "description": "Steal The Light of Pharos from either The Claret Knight or The Beast in a Cowl of Crimson while they have exactly 1 health remaining in Dogs of War v. II or v. III."
+    },
+    "ach.destroyedChimera": {
+      "name": "More Like “Destroyed” Chimera",
+      "description": "Defeat all five forms of the Void Chimera in a single session of On Thin Ice."
+    },
+    "ach.whoWatchesWatcher": {
+      "name": "Who Watches the Watcher?",
+      "description": "Unlock a secret final act in Sanguine Shadows."
+    },
+    "ach.underMyUmbrella": {
+      "name": "Under My Umbrella",
+      "description": "Do not let Tzu San Niang devour a single Geist enemy in Shades of Suffering."
+    },
+    "ach.allHollow": {
+      "name": "All Hollow",
+      "description": "Learn about a place where Outsiders dwell and travel there to unlock Without a Trace."
+    },
+    "ach.redLooksGood": {
+      "name": "Red Looks Good on Me",
+      "description": "Join the Red Coterie in Congress of the Keys."
+    },
+    "ach.bloodyRedRevolution": {
+      "name": "Bloody Red Revolution",
+      "description": "Overthrow the Red Coterie in Congress of the Keys."
+    },
+    "ach.powersCombined": {
+      "name": "With Your Powers Combined…",
+      "description": "Shift 5 keys in a single turn."
+    },
+    "ach.giftOfGab": {
+      "name": "Gift of Gab",
+      "description": "Ensure that Commissioner Taylor orders you to “talk” 3 times during a single campaign."
+    },
+    "ach.localCuisine": {
+      "name": "“I'm Just Here for the Local Cuisine”",
+      "description": "In a single campaign, sample cuisine and/or visit bars or cafes from the following locations: Marrakesh, Havana, Buenos Aires, Tokyo, and Kuala Lumpur."
+    },
+    "ach.speedDemon": {
+      "name": "Speed Demon",
+      "description": "Win The Scarlet Keys campaign with only 17 or fewer time passed."
+    },
+    "ach.trustNobody": {
+      "name": "Trust Nobody",
+      "description": "Win The Scarlet Keys campaign with 4 Elder Thing tokens in the chaos bag and without ever removing any Elder Thing tokens. (Original uses chaos-token symbols.)"
+    },
+    "ach.trustEverybody": {
+      "name": "Trust Everybody",
+      "description": "Win The Scarlet Keys campaign with 4 Tablet tokens in the chaos bag and without ever removing any Tablet tokens. (Original uses chaos-token symbols.)"
+    },
+    "ach.hereIsYourBadge": {
+      "name": "Here is Your Badge",
+      "description": "Win The Scarlet Keys campaign and earn yourself a permanent position in the Foundation."
+    },
+    "ach.keyToMyHeart": {
+      "name": "Key to My Heart",
+      "description": "Collect each of the following keys throughout The Scarlet Keys campaign: The Eye of Ravens, The Last Blossom, The Light of Pharos, The Sable Glass, The Weeping Lady, The Twisted Antiprism, The Shade Reaper, The Mirroring Blade, The Bale Engine, The Ruinous Chime, The Wellspring of Fortune."
+    },
+    "ach.lineInTheSand": {
+      "name": "Line in the Sand",
+      "description": "Win The Scarlet Keys campaign with at least three Ultimatums active."
+    },
+    "ach.globalExpertise": {
+      "name": "Global Expertise",
+      "description": "Win The Scarlet Keys campaign on Expert difficulty."
+    }
+  },
+  "effectText": {
+    "RR.noRes.0": "resolves as Resolution 4",
+    "DH.t.11.0": "1 civilian slain at each location at setup",
+    "DH.t.15.0": "begin at act 2; Amaranth in play holding The Last Blossom; doom on agenda 1; Save the Civilians in play; 1 civilian/location slain",
+    "DH.t.18.0": "begin at act 2 (as 15-17) but 2 civilians/location slain",
+    "DH.t.late.0": "scenario skipped; resolve as Resolution 5",
+    "DH.noRes.0": "each civilian slain; then resolve as R1 if Razin Farhi in play, else R2",
+    "RAR.found.0": "the stolen Key returns to its original bearer",
+    "RAR.found.2": "+1 per 'wrong leads' tally",
+    "RAR.found.3": "cross off 14-C at the other search sites",
+    "SS.cal.believe.0": "scenario flips to the 'Seeing Red' act/agenda; La Chica Roja becomes a controllable ally; aims for R2",
+    "SS.cal.refuse.0": "ends down the Resolution 1 path",
+    "SS.R1.3": "+1 per target on the reference card",
+    "SS.R3.3": "+1 per target on the reference card",
+    "GW.absent.0": "each investigator may start the next scenario with 1 extra card in hand; may return later",
+    "DD.t.11.0": "The Unveiling starts with clues equal to half the number of investigators (round up)",
+    "DD.t.18.0": "The Unveiling starts with clues equal to the number of investigators",
+    "DD.t.25.0": "The Unveiling starts with clues equal to twice the number of investigators",
+    "DM.v1.1": "Desi joins as a controllable ally; 6 locations",
+    "DM.v2.1": "ambush start at Café Luna with concealed Coterie/Outsider enemies",
+    "DM.R1.5": "if you couldn't identify the real Desi (no Moscow intel), he may instead end up 'eerily silent'/hollowed for the finale",
+    "OTI.t.scaling.0": "agenda 1 starts with 1 doom for every full 5 time passed",
+    "OTI.deal.2": "Thorne joins as an ally with The Sable Glass attached",
+    "OTI.refuse.youHaveKey.1": "an investigator controls The Sable Glass; Thorne spawns as an enemy",
+    "OTI.refuse.thorneHasKey.1": "Thorne spawns as an enemy with The Sable Glass attached",
+    "OTI.R3.1": "Sable Glass bearer: the controlling investigator, or Thorne if uncontrolled",
+    "OTI.R4.1": "scenario nullified: no time, XP, trauma, or Key updates",
+    "OTI.noRes.1": "Sable Glass bearer: Thorne if you dealt with him or no one controls it; otherwise the controlling investigator and record 'you haven't seen the last of Thorne'",
+    "DOW.v1.0": "defend the four Key Loci; Claret Knight ally holding the Light; Beast attacks as the Ravager",
+    "DOW.v2.0": "Claret Knight is an enemy holding the Light; take it from him; Beast absent",
+    "DOW.v3.0": "Beast holds the Light; recover it from the Beast",
+    "SOS.flint.missing.2": "placed during the Bomoh interlude; +2 charges on The Shade Reaper",
+    "SOS.t.12.0": "The Shade Reaper starts with 3 charges",
+    "SOS.t.19.0": "The Shade Reaper starts with 6 charges",
+    "SOS.t.27.0": "The Shade Reaper starts with 9 charges and agenda starts with 1 doom",
+    "RAR2.rest.0": "each investigator may start the next scenario with 1 extra resource; may return later",
+    "COTK.judgment.join.1": "each investigator marks an article of their clothing as their scarlet token",
+    "COTK.defeat.0": "each defeated investigator is driven insane and erased from reality",
+    "SR.epsilon.0": "for the rest of the campaign, at each scenario setup shuffle one random 'haven't seen the last of' Red Coterie enemy into that encounter deck",
+    "SR.zeta.0": "one random investigator-borne Key is stolen (2 if 5+ Keys); a random 'haven't seen the last of' enemy becomes its bearer",
+    "SR.theta.0": "Desi's Ybor City people know the new passphrase (enables claiming The Mirroring Blade at 52-U)",
+    "SR.omega.1": "travel immediately to Tunguska and begin the finale as a captive (Intro 1)"
+  },
+  "keys": {
+    "eyeOfRavens": "The Eye of Ravens",
+    "lastBlossom": "The Last Blossom",
+    "lightOfPharos": "The Light of Pharos",
+    "sableGlass": "The Sable Glass",
+    "weepingLady": "The Weeping Lady",
+    "twistedAntiprism": "The Twisted Antiprism",
+    "shadeReaper": "The Shade Reaper",
+    "mirroringBlade": "The Mirroring Blade",
+    "baleEngine": "The Bale Engine",
+    "ruinousChime": "The Ruinous Chime",
+    "wellspringOfFortune": "The Wellspring of Fortune"
+  },
+  "characters": {
+    "redGlovedMan": "The Red-Gloved Man",
+    "amaranth": "Amaranth",
+    "laChicaRoja": "La Chica Roja",
+    "sanguineWatcher": "The Sanguine Watcher",
+    "ece": "Ece Şahin",
+    "desi": "Desiderio Delgado Álvarez",
+    "claretKnight": "The Claret Knight",
+    "beast": "The Beast in a Cowl of Crimson",
+    "thorne": "Thorne",
+    "tzuSanNiang": "Tzu San Niang",
+    "aliki": "Aliki Zoni Uperetria",
+    "tuwileMasai": "Tuwile Masai",
+    "abarran": "Abarran Arrigorriagakoa",
+    "razinFarhi": "Razin Farhi"
+  },
+  "locations": {
+    "london": "London",
+    "marrakesh": "Marrakesh",
+    "quito": "Quito",
+    "sanJuan": "San Juan",
+    "reykjavik": "Reykjavik",
+    "kabul": "Kabul",
+    "buenosAires": "Buenos Aires",
+    "yborCity": "Ybor City",
+    "bermuda": "Bermuda",
+    "istanbul": "Istanbul",
+    "sanFrancisco": "San Francisco",
+    "moscow": "Moscow",
+    "havana": "Havana",
+    "shanghai": "Shanghai",
+    "anchorage": "Anchorage",
+    "bombay": "Bombay",
+    "stockholm": "Stockholm",
+    "lagos": "Lagos",
+    "tokyo": "Tokyo",
+    "alexandria": "Alexandria",
+    "rioDeJaneiro": "Rio de Janeiro",
+    "manokwari": "Manokwari",
+    "kualaLumpur": "Kuala Lumpur",
+    "sydney": "Sydney",
+    "hongKong": "Hong Kong",
+    "rome": "Rome",
+    "kathmandu": "Kathmandu",
+    "nairobi": "Nairobi",
+    "perth": "Perth",
+    "bermudaTriangle": "Bermuda Triangle",
+    "tunguska": "Tunguska",
+    "arkham": "Arkham",
+    "newOrleans": "New Orleans",
+    "monteCarlo": "Monte Carlo",
+    "venice": "Venice",
+    "cairo": "Cairo"
+  },
+  "timeMarkers": {
+    "alpha": "Disappearances spread (+1 Cultist token).",
+    "beta": "Tunguska is located — the finale unlocks (+1 Cultist token).",
+    "gamma": "Things return, changed (+1 Cultist token; each investigator gains a Paradimensional Understanding weakness).",
+    "delta": "Timer only — marks the Dr. Irawan / Manokwari deadline. No status report.",
+    "epsilon": "You're being followed — a random Coterie enemy joins every scenario.",
+    "zeta": "A Coterie member steals one of your Keys (search Quito / San Juan / Reykjavik / Kabul to recover it).",
+    "theta": "Desi's Ybor City passphrase is now active (claim The Mirroring Blade).",
+    "psi": "Flint's lead surfaces — Hong Kong unlocks.",
+    "omega": "Out of time — you're forced into the finale (+1 Cultist token)."
+  },
+  "sideStoryProducts": {
+    "fortuneAndFolly": "Fortune and Folly",
+    "curseOfTheRougarou": "The Curse of the Rougarou",
+    "murderExcelsior": "Murder at the Excelsior Hotel",
+    "blobThatAteEverything": "The Blob That Ate Everything",
+    "warOfTheOuterGods": "War of the Outer Gods",
+    "machinationsThroughTime": "Machinations Through Time",
+    "midwinterGala": "The Midwinter Gala",
+    "filmFatale": "Film Fatale",
+    "guardiansEternalSlumber": "Guardians of the Abyss: The Eternal Slumber",
+    "guardiansNightsUsurper": "Guardians of the Abyss: The Night's Usurper",
+    "carnevaleOfHorrors": "Carnevale of Horrors"
+  }
+}

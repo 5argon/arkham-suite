@@ -10,11 +10,11 @@
  * never routes for the player, it only scores the plan the player builds.
  */
 
-import { getLocation, getScenario, loadDatabase } from '../data/load.js';
+import { getInterlude, getLocation, getScenario, loadDatabase } from '../data/load.js';
 import { distance, isNodeUnlocked } from '../graph/graph.js';
-import { isCombatScenarioNode, preChoicesAt, requiresSatisfied, stopOptions, type StopOption } from '../graph/model.js';
-import { applyStop, bearerIsInvestigator, initialState, keysHeldByInvestigator } from '../graph/state.js';
-import type { CampaignState, KeyId, LocalizedString, NodeId, RawIntroChoice } from '../types.js';
+import { isAutoInterlude, isCombatScenarioNode, preChoicesAt, requiresSatisfied, stopOptions, type StopOption } from '../graph/model.js';
+import { applyStop, bearerIsInvestigator, initialState, keysHeldByInvestigator, travelTo } from '../graph/state.js';
+import type { CampaignState, KeyId, LocalizedString, MarkerSymbol, NodeId, RawIntroChoice } from '../types.js';
 import type { RouteStep } from './route-types.js';
 import { predictTrial, type TrialPrediction } from './trial.js';
 
@@ -29,6 +29,9 @@ export interface PlanStep {
 	introChoiceIds?: string[];
 	/** Reach `node` via a 0-time Expedited Ticket jump instead of normal travel. */
 	useTicket?: boolean;
+	/** Travel here and do NOTHING (the rules allow declining to act) — no stop, no effects. Lets a plan
+	 *  loop to burn time / trigger calendar events. When true, `optionId`/`introChoiceIds` are ignored. */
+	travelOnly?: boolean;
 }
 
 export interface Plan {
@@ -54,6 +57,8 @@ export interface SimStep extends RouteStep {
 	deceptionDelta: number;
 	/** Pre-scenario choices applied this step (resolved from introChoiceIds). */
 	introChoices: RawIntroChoice[];
+	/** True => the player travelled here and did nothing (no stop, no effects). */
+	travelOnly: boolean;
 	/** Empty => the step is legal at this point in the plan. */
 	problems: StepProblem[];
 	/** The scenario's time-based level at entry, if it has tiers (e.g. "Lv. 3/4 — …"). */
@@ -86,6 +91,26 @@ function humanizeCode(code: string | undefined): string {
 	if (!code) return '';
 	const m = /code_([0-9]+)([A-Z])_written/i.exec(code);
 	return m ? `${m[1]}-${m[2]}` : code;
+}
+
+/** Turn a raw `requires` string (e.g. `met_irawan + time>=20`) into readable English (best-effort). */
+function humanizeRequires(raw: string): string {
+	return raw
+		.replace(/\([^)]*\)/g, '')
+		.split('+')
+		.map((s) => s.trim())
+		.filter(Boolean)
+		.map((tok) => {
+			const t = tok.toLowerCase();
+			let m = /^time\s*(<=|>=|<|>)\s*(\d+)$/.exec(t);
+			if (m) return `time ${m[1]} ${m[2]}`;
+			m = /^version_(v\d+)$/.exec(t);
+			if (m) return `${m[1]} version`;
+			m = /^code_([0-9]+)([a-z])_written$/.exec(t);
+			if (m) return `${m[1]}-${m[2]!.toUpperCase()} unlocked`;
+			return tok.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+		})
+		.join(' + ');
 }
 
 /** The scenario's time-based level (1-based tier index + total) at the given entry time, if any. */
@@ -169,15 +194,12 @@ export function simulatePlan(plan: Plan): PlanTrajectory {
 	for (const ps of plan.steps) {
 		const node = ps.node;
 		const before = state;
-		const { option, missing } = resolveOption(node, ps.optionId);
-		const allPreChoices = preChoicesAt(node);
-		const introChoices = (ps.introChoiceIds ?? [])
-			.map((id) => allPreChoices.find((c) => c.id === id))
-			.filter((c): c is RawIntroChoice => c !== undefined);
-
+		const travelOnly = ps.travelOnly === true;
+		// "Check log → outcome" interludes are resolved by the game from current state, not chosen.
+		const auto = !travelOnly && isAutoInterlude(node);
 		const problems: StepProblem[] = [];
 
-		// Node lock (travel/pass-through gate). London is always enterable.
+		// Node lock (applies whether stopping or just passing through). London is always enterable.
 		if (!isNodeUnlocked(node, before.flags)) {
 			const code = humanizeCode(getLocation(node).unlock_condition);
 			problems.push({ kind: 'node_locked', detail: loc('problem_node_locked', { node: getLocation(node).name, code }) });
@@ -206,31 +228,61 @@ export function simulatePlan(plan: Plan): PlanTrajectory {
 			problems.push({ kind: 'unreachable', detail: loc('problem_unreachable', { node: getLocation(node).name }) });
 		}
 
-		// Stop-lockout: a node may be stopped at once (London twice — prologue + revisit).
-		const isLondonRevisit = node === startNode && option.isRevisit === true;
-		if (before.visitedStops.has(node) && !isLondonRevisit) {
-			problems.push({ kind: 'stop_locked', detail: loc('problem_stop_locked', { node: getLocation(node).name }) });
-		}
-
-		// `requires` gates on the option and on each selected pre-choice.
-		if (option.requires && !requiresSatisfied(option.requires, before)) {
-			problems.push({ kind: 'requires_unmet', detail: loc('problem_requires_unmet', { requires: option.requires }) });
-		}
-		for (const c of introChoices) {
-			if (c.requires && !requiresSatisfied(c.requires, before)) {
-				problems.push({ kind: 'requires_unmet', detail: loc('problem_requires_unmet', { requires: c.requires }) });
-			}
-		}
-
-		if (missing) {
-			problems.push({ kind: 'no_option', detail: loc('problem_no_option', { option: ps.optionId, node: getLocation(node).name }) });
-		}
-
 		const entryTime = before.timePassed + travelCost;
-		// Finale prediction reads the state BEFORE playing the Congress (the table you bring to the vote).
-		const finale = option.kind === 'finale' ? predictTrial(before.flags, before.trust, before.deception) : undefined;
 
-		const { state: after, firedReports } = applyStop(before, option, travelCost, ps.useTicket === true, introChoices);
+		// Resolve the stop, or — for a travel-only step — apply nothing (no stop recorded, no effects).
+		let option: StopOption;
+		let introChoices: RawIntroChoice[] = [];
+		let finale: TrialPrediction | undefined;
+		let after: CampaignState;
+		let firedReports: MarkerSymbol[];
+		if (travelOnly) {
+			option = { node, optionId: '', kind: 'interlude', baseTime: 0, key: null, bearer: null, logs: [], grantsAllies: [], xpBonus: 0, noResolution: true };
+			({ state: after, firedReports } = travelTo(before, node, travelCost, ps.useTicket === true));
+		} else if (auto) {
+			// The game checks the log and resolves automatically: a satisfied CONDITIONAL outcome wins,
+			// else the requires-less fallback. (Order-independent — Special Delivery lists "receive" first.)
+			// No requires_unmet — reorder the node to change which branch you land on.
+			const opts = stopOptions(node).filter((o) => o.outcome !== 'LOSE_CAMPAIGN');
+			option =
+				opts.find((o) => o.requires && requiresSatisfied(o.requires, before)) ??
+				opts.find((o) => !o.requires) ??
+				opts[0] ??
+				resolveOption(node, ps.optionId).option;
+			const isLondonRevisit = node === startNode && option.isRevisit === true;
+			if (before.visitedStops.has(node) && !isLondonRevisit) {
+				problems.push({ kind: 'stop_locked', detail: loc('problem_stop_locked', { node: getLocation(node).name }) });
+			}
+			({ state: after, firedReports } = applyStop(before, option, travelCost, ps.useTicket === true));
+		} else {
+			const resolved = resolveOption(node, ps.optionId);
+			option = resolved.option;
+			const allPreChoices = preChoicesAt(node);
+			introChoices = (ps.introChoiceIds ?? [])
+				.map((id) => allPreChoices.find((c) => c.id === id))
+				.filter((c): c is RawIntroChoice => c !== undefined);
+
+			// Stop-lockout: a node may be stopped at once (London twice — prologue + revisit).
+			const isLondonRevisit = node === startNode && option.isRevisit === true;
+			if (before.visitedStops.has(node) && !isLondonRevisit) {
+				problems.push({ kind: 'stop_locked', detail: loc('problem_stop_locked', { node: getLocation(node).name }) });
+			}
+			// `requires` gates on the option and on each selected pre-choice.
+			if (option.requires && !requiresSatisfied(option.requires, before)) {
+				problems.push({ kind: 'requires_unmet', detail: loc('problem_requires_unmet', { requires: humanizeRequires(option.requires) }) });
+			}
+			for (const c of introChoices) {
+				if (c.requires && !requiresSatisfied(c.requires, before)) {
+					problems.push({ kind: 'requires_unmet', detail: loc('problem_requires_unmet', { requires: humanizeRequires(c.requires) }) });
+				}
+			}
+			if (resolved.missing) {
+				problems.push({ kind: 'no_option', detail: loc('problem_no_option', { option: ps.optionId, node: getLocation(node).name }) });
+			}
+			// Finale prediction reads the state BEFORE playing the Congress (the table you bring to the vote).
+			finale = option.kind === 'finale' ? predictTrial(before.flags, before.trust, before.deception) : undefined;
+			({ state: after, firedReports } = applyStop(before, option, travelCost, ps.useTicket === true, introChoices));
+		}
 
 		// Key theft (Zeta crossing while holding a Key) + take-back recovery, informational only.
 		if (zeta !== null) {
@@ -251,9 +303,10 @@ export function simulatePlan(plan: Plan): PlanTrajectory {
 			trustDelta: after.trust - before.trust,
 			deceptionDelta: after.deception - before.deception,
 			introChoices,
+			travelOnly,
 			problems,
-			scenarioLevel: scenarioLevelAt(node, entryTime),
-			warnings: [...warnings, ...timeScalingWarnings(node, entryTime)],
+			scenarioLevel: travelOnly ? undefined : scenarioLevelAt(node, entryTime),
+			warnings: [...warnings, ...(travelOnly ? [] : timeScalingWarnings(node, entryTime))],
 			finale,
 		});
 		state = after;
@@ -275,6 +328,10 @@ export function simulatePlan(plan: Plan): PlanTrajectory {
 export interface Destination {
 	node: NodeId;
 	name: string;
+	/** The location's file code (e.g. "52-U"), if any — players may recall a place by it. */
+	file?: string;
+	/** The scenario/interlude played here (e.g. "The Safehouse"), if any. */
+	story?: string;
 	/** Shortest-path hops from the current node on the unlocked subgraph; null if unreachable now. */
 	travel: number | null;
 	/** The node itself is locked (needs an unlock code) at the current state. */
@@ -287,7 +344,15 @@ export function reachableDestinations(state: CampaignState): Destination[] {
 	for (const l of loadDatabase().locations) {
 		if (stopOptions(l.id).length === 0) continue;
 		const d = distance(state.flags, state.node, l.id);
-		out.push({ node: l.id, name: l.name, travel: Number.isFinite(d) ? d : null, locked: !isNodeUnlocked(l.id, state.flags) });
+		const story = l.scenario_id ? (getScenario(l.scenario_id)?.name ?? getInterlude(l.scenario_id)?.name) : undefined;
+		out.push({
+			node: l.id,
+			name: l.name,
+			file: l.file ?? undefined,
+			story: story ?? undefined,
+			travel: Number.isFinite(d) ? d : null,
+			locked: !isNodeUnlocked(l.id, state.flags),
+		});
 	}
 	out.sort((a, b) => (a.travel ?? Infinity) - (b.travel ?? Infinity) || (a.node < b.node ? -1 : 1));
 	return out;
