@@ -441,6 +441,8 @@ export interface Step {
 	scenario?: ScenarioId;
 	/** For stops; named when a specific resolution is required. */
 	resolution?: ResId;
+	/** Scenario version played at this stop (e.g. `v2`), if the scenario has versions. */
+	version?: string;
 	/** false => "any resolution OK" (see README §3.3). */
 	resolutionRequired: boolean;
 	/** Why this step / why this resolution. */

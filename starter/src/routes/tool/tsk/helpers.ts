@@ -1,4 +1,4 @@
-import { labelFor } from '@5argon/arkham-tsk-solver';
+import { catalog, labelFor } from '@5argon/arkham-tsk-solver';
 import type { ResolvedStep, Constraint, Difficulty, Locale, Recipe } from '@5argon/arkham-tsk-solver';
 import { type EncounterSet, getScenarioData, Scenario } from '@5argon/arkham-kohaku';
 
@@ -9,14 +9,26 @@ export interface ScenarioIconItem {
 	badge?: string;
 }
 
-/** The scenarios a recipe plays, in order, each tagged with the difficulty level it's entered at. */
+/**
+ * The scenarios a recipe plays, in order, each tagged with a short overview badge: the chosen
+ * VERSION (for scenarios whose variants are versions, e.g. Dogs of War) or otherwise the time-based
+ * difficulty LEVEL (for scenarios that only scale by time, e.g. Dealings in the Dark).
+ */
 export function scenarioIconItems(recipe: Recipe): ScenarioIconItem[] {
+	const versions = catalog().versions;
 	return recipe.steps
 		.filter((s) => s.type === 'play' || s.type === 'finale')
 		.map((s) => {
-			const level = s.scenarioLevel?.params?.level;
-			const total = s.scenarioLevel?.params?.total;
-			return { scenario: s.scenario ?? '', badge: level != null ? `Lv.${level}/${total}` : undefined };
+			const hasVersions = (versions[s.scenario ?? '']?.length ?? 0) > 0;
+			let badge: string | undefined;
+			if (hasVersions) {
+				badge = s.version ? s.version : undefined; // e.g. "v2"; omit if not version-determined
+			} else {
+				const level = s.scenarioLevel?.params?.level;
+				const total = s.scenarioLevel?.params?.total;
+				badge = level != null ? `Lv.${level}/${total}` : undefined;
+			}
+			return { scenario: s.scenario ?? '', badge };
 		});
 }
 
@@ -220,11 +232,12 @@ export function stepTitle(step: ResolvedStep): string {
 		case 'status_report':
 			return `Status Report — ${MARKER_NAME[step.marker ?? ''] ?? step.marker}`;
 		case 'finale':
-			return `Finale — Congress of the Keys (WIN)`;
+			return `Finale — ${labelFor(step.scenario ?? step.node ?? '')} (win the campaign)`;
 		case 'play':
-			return `Play ${labelFor(step.node ?? '')}${step.resolution ? ` — Resolution ${step.resolution}` : ''}`;
+			// Name the scenario being played and where, e.g. "Play Dogs of War at Alexandria".
+			return `Play ${labelFor(step.scenario ?? step.node ?? '')} at ${labelFor(step.node ?? '')}`;
 		case 'stop':
-			return `${labelFor(step.node ?? '')}${step.resolution ? ` — ${step.resolution}` : ''}`;
+			return `Stop at ${labelFor(step.node ?? '')}`;
 	}
 }
 

@@ -349,6 +349,7 @@ function buildRecipe(
 			node,
 			scenario: getLocation(node).scenario_id ?? undefined,
 			resolution: rstep.option.optionId,
+			version: rstep.option.version,
 			resolutionRequired: required.required,
 			reason: required.reason ?? stepReason(stepType, node, rstep),
 			scenarioLevel: scenarioLevelAt(node, entryTime),
