@@ -16,6 +16,7 @@ import type {
 	ConstraintRef,
 	Difficulty,
 	LocalizedString,
+	NodeId,
 	Recipe,
 	SolveInput,
 	SolveOutput,
@@ -81,6 +82,104 @@ function violatesNegative(route: RawRoute, check: NegativeCheck): boolean {
 
 const loc = (id: string, params: Record<string, string | number> = {}): LocalizedString => ({ id, params });
 
+/** Dedup routes by their stop/option sequence (stable order preserved). */
+function dedupeRoutes(routes: RawRoute[]): RawRoute[] {
+	const seen = new Set<string>();
+	const out: RawRoute[] = [];
+	for (const r of routes) {
+		const key = r.steps.map((s) => `${s.option.node}:${s.option.optionId}`).join('>');
+		if (seen.has(key)) continue;
+		seen.add(key);
+		out.push(r);
+	}
+	return out;
+}
+
+/** Deterministic lexicographic k-combinations of `arr`, capped at `limit`. */
+function combinations<T>(arr: T[], k: number, limit: number): T[][] {
+	const out: T[][] = [];
+	const pick = (start: number, acc: T[]): void => {
+		if (out.length >= limit) return;
+		if (acc.length === k) {
+			out.push(acc.slice());
+			return;
+		}
+		for (let i = start; i < arr.length; i++) {
+			acc.push(arr[i]!);
+			pick(i + 1, acc);
+			acc.pop();
+		}
+	};
+	pick(0, []);
+	return out;
+}
+
+/** Non-locked middle combat scenarios not already required/forbidden — usable as optional padding. */
+function paddingCandidates(expanded: ExpandedConstraints): NodeId[] {
+	return loadDatabase()
+		.locations.filter((l) => {
+			const s = l.scenario_id ? getScenario(l.scenario_id) : undefined;
+			return (
+				s !== undefined &&
+				s.role !== 'finale' &&
+				s.role !== 'prologue' &&
+				l.status !== 'locked' &&
+				!expanded.forbiddenNodes.has(l.id) &&
+				!expanded.relevantNodes.has(l.id)
+			);
+		})
+		.map((l) => l.id)
+		.sort();
+}
+
+/** Add `nodes` as mandatory visit waypoints to a copy of `expanded`. */
+function withForcedVisits(expanded: ExpandedConstraints, nodes: NodeId[]): ExpandedConstraints {
+	const requirements: Requirement[] = [...expanded.requirements];
+	const relevantNodes = new Set(expanded.relevantNodes);
+	for (const node of nodes) {
+		requirements.push({ id: `pad:${node}`, nodes: [node], match: { type: 'visit_node' }, constraintIndex: -1, specificResolution: false });
+		relevantNodes.add(node);
+	}
+	return { ...expanded, requirements, relevantNodes };
+}
+
+/**
+ * Cheap lean searches that force optional-scenario subsets, seeding higher scenario-count buckets
+ * than the time-minimizing base search reaches. Forcing `size` extra scenarios yields a route of
+ * `baseStructure + size` scenarios, so we only run sizes that exceed `baseMax` (skip redundant ones).
+ */
+function paddedHighCountRoutes(
+	expanded: ExpandedConstraints,
+	baseConfig: Parameters<typeof search>[1],
+	baseMax: number,
+): RawRoute[] {
+	// Padding only helps (and stays cheap) for UNDER-constrained queries: its forced lean searches are
+	// tiny only when the base query pins few nodes. Heavily-constrained queries (Trial coalitions,
+	// many scenarios) already determine their scenario counts and would make each padded search
+	// expensive, so skip them.
+	const meta = loadDatabase().campaign_metadata;
+	const nonStructuralRelevant = [...expanded.relevantNodes].filter((n) => n !== meta.start_node && n !== meta.finale_node);
+	if (nonStructuralRelevant.length > 2) return [];
+	const pad = paddingCandidates(expanded);
+	if (pad.length === 0) return [];
+	const out: RawRoute[] = [];
+	const PER_SIZE = 3; // subsets per added-scenario count (the diversity step then picks the varied ones)
+	// Forcing `size` scenarios produces ~(3 + size) total (prologue + forced + finale); start just above
+	// the base search's reach so every padded search contributes a genuinely higher count. Each forced
+	// search is cheap — its lean candidate set is tiny (just the constraint + the forced subset).
+	const startSize = Math.max(1, baseMax - 2);
+	let budget = 10; // total forced searches; each is a single cheap lean pass
+	for (let size = startSize; size <= pad.length && budget > 0; size++) {
+		for (const subset of combinations(pad, size, PER_SIZE)) {
+			if (budget-- <= 0) break;
+			const aug = withForcedVisits(expanded, subset);
+			if (aug.requirements.length > 31) continue;
+			out.push(...search(aug, { ...baseConfig, leanOnly: true, maxStates: 15000, goalLimit: 12, perCountGoalCap: 12 }));
+		}
+	}
+	return out;
+}
+
 export function solve(input: SolveInput): SolveOutput {
 	const prefs = input.preferences ?? {};
 	const meta = loadDatabase().campaign_metadata;
@@ -125,14 +224,20 @@ export function solve(input: SolveInput): SolveOutput {
 	// Scenario-level (entry-time window) constraints force *slower* routes (enter a scenario late),
 	// which a time-minimizing A* reaches last — give those queries a larger state budget.
 	const hasEntryWindow = expanded.requirements.some((r) => r.entryTimeWindow !== undefined);
-	const allRoutes = search(expanded, {
+	const baseConfig = {
 		...DEFAULT_SEARCH,
 		timeCap: effectiveCap,
 		scenarioCap: prefs.maxScenarios ?? 999,
 		maxStates: prefs.maxStates ?? (hasEntryWindow ? DEFAULT_SEARCH.maxStates * 3 : DEFAULT_SEARCH.maxStates),
 		// Take-back insurance for the Zeta key theft (only routes that cross Zeta holding Keys are affected).
 		requiredTakeBack: prefs.keyTakeBackSites ?? 1,
-	});
+	};
+	// A time-minimizing A* only ever finds the fewest-scenario routes; to let players browse longer
+	// plans, constructively seed higher scenario-count routes by forcing extra optional scenarios as
+	// waypoints (a goal-directed search then finds them cheaply). This also yields icon variety.
+	const baseRoutes = search(expanded, baseConfig);
+	const baseMax = Math.max(0, ...baseRoutes.map((r) => r.scenarioCount));
+	const allRoutes = dedupeRoutes([...baseRoutes, ...paddedHighCountRoutes(expanded, baseConfig, baseMax)]);
 
 	// Filter out routes that violate a negated constraint, fail a chaos goal, or miss a requested
 	// Trial outcome. `acceptableTrials` (from reach_ending / achievement finale_trial / finale version,

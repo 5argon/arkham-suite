@@ -88,6 +88,15 @@ export interface SearchConfig {
 	goalLimit: number;
 	maxStates: number;
 	maxDepth: number;
+	/**
+	 * Max goals kept PER scenario-count bucket. A* pops in nondecreasing time, so the cheapest
+	 * (fewest-scenario) routes are found first; without a per-bucket cap a flat goalLimit fills up
+	 * entirely with them. Capping per bucket lets the cheaper buckets fill and the search keep going
+	 * into higher counts. (High scenario counts are also seeded constructively — see solve.ts.)
+	 */
+	perCountGoalCap?: number;
+	/** Run only the lean (relevant-nodes-only) pass — used by the cheap constructive padding searches. */
+	leanOnly?: boolean;
 	/** Required 14-C take-back stops when a Key is stolen (0 = none). Conditional on theft. */
 	requiredTakeBack?: number;
 }
@@ -344,6 +353,8 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 		const heap = new MinHeap();
 		const bestG = new Map<string, number>();
 		const goals: RawRoute[] = [];
+		const goalsByCount = new Map<number, number>();
+		const perCount = config.perCountGoalCap ?? config.goalLimit;
 		let explored = 0;
 
 		const root: SearchNode = {
@@ -369,7 +380,13 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 			explored++;
 
 			if (cur.satisfiedMask === goalMask) {
-				goals.push({ steps: reconstruct(cur), finalState: cur.state, scenarioCount: cur.scenarioCount });
+				// Keep at most `perCount` goals per scenario-count bucket so the cheapest bucket can't
+				// fill `goalLimit` alone and starve the others; the search then explores into higher counts.
+				const c = cur.scenarioCount;
+				if ((goalsByCount.get(c) ?? 0) < perCount) {
+					goals.push({ steps: reconstruct(cur), finalState: cur.state, scenarioCount: c });
+					goalsByCount.set(c, (goalsByCount.get(c) ?? 0) + 1);
+				}
 				continue;
 			}
 			if (cur.depth >= config.maxDepth) continue;
@@ -474,7 +491,7 @@ export function search(expanded: ExpandedConstraints, config: SearchConfig): Raw
 	const withTakeBack = (arr: NodeId[]): NodeId[] =>
 		takeBackEnabled ? [...new Set([...arr, ...takeBackNodes])] : arr;
 	const lean = explore(withTakeBack(candidateNodes(expanded, false)));
-	const enriched = explore(withTakeBack(candidateNodes(expanded, true)));
+	const enriched = config.leanOnly ? [] : explore(withTakeBack(candidateNodes(expanded, true)));
 	const seen = new Set<string>();
 	const merged: RawRoute[] = [];
 	for (const r of [...lean, ...enriched]) {

@@ -8,7 +8,7 @@
  * distinct choices. Deterministic throughout.
  */
 
-import { loadDatabase } from '../data/load.js';
+import { getLocation, getScenario, loadDatabase } from '../data/load.js';
 import type { RawRoute } from './search.js';
 
 /** Feature set for similarity: visited node ids + `node:resolution` pairs. */
@@ -17,6 +17,16 @@ export function featureSet(route: RawRoute): Set<string> {
 	for (const step of route.steps) {
 		set.add(`node:${step.option.node}`);
 		set.add(`res:${step.option.node}:${step.option.optionId}`);
+	}
+	return set;
+}
+
+/** The set of combat scenarios a route plays — i.e. the icons shown on its card. */
+export function scenarioFeature(route: RawRoute): Set<string> {
+	const set = new Set<string>();
+	for (const step of route.steps) {
+		const sid = getLocation(step.option.node).scenario_id;
+		if (sid && getScenario(sid)) set.add(sid);
 	}
 	return set;
 }
@@ -72,12 +82,32 @@ export function selectByScenarioCount(routes: RawRoute[], opts: DiversityOptions
 				b.finalState.xpBonus - a.finalState.xpBonus ||
 				(routeKey(a) < routeKey(b) ? -1 : 1),
 		);
-		const kept: { route: RawRoute; feature: Set<string> }[] = [];
+		// First collapse near-identical routes (Jaccard on the full feature set).
+		const unique: { route: RawRoute; feature: Set<string>; scen: Set<string> }[] = [];
 		for (const route of sorted) {
-			if (kept.length >= opts.perBucket) break;
 			const feature = featureSet(route);
-			if (kept.some((k) => jaccard(k.feature, feature) >= opts.mergeThreshold)) continue;
-			kept.push({ route, feature });
+			if (unique.some((u) => jaccard(u.feature, feature) >= opts.mergeThreshold)) continue;
+			unique.push({ route, feature, scen: scenarioFeature(route) });
+		}
+		// Then farthest-first on the SCENARIO set so the kept cards show varied icons: take the cheapest
+		// route, then repeatedly the one whose scenario set is most different from those already kept.
+		const kept: typeof unique = [];
+		if (unique.length > 0) kept.push(unique[0]!); // cheapest representative
+		while (kept.length < opts.perBucket && kept.length < unique.length) {
+			let best = -1;
+			let bestScore = -1;
+			for (let i = 0; i < unique.length; i++) {
+				if (kept.includes(unique[i]!)) continue;
+				// Distance to the nearest already-kept route's scenario set (1 - Jaccard); higher = more varied.
+				let minDist = Infinity;
+				for (const k of kept) minDist = Math.min(minDist, 1 - jaccard(k.scen, unique[i]!.scen));
+				if (minDist > bestScore) {
+					bestScore = minDist; // ties keep the earlier (cheaper) candidate — deterministic
+					best = i;
+				}
+			}
+			if (best < 0) break;
+			kept.push(unique[best]!);
 		}
 		perBucketSelected.set(
 			count,

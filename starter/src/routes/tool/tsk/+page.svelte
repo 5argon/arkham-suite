@@ -4,7 +4,7 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import { onDestroy } from 'svelte';
-	import { Button, MarginFull, MarginText, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
+	import { Button, Dropdown, MarginFull, MarginText, type Option, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
 	import { resolveLocalized, solve, type Constraint, type Recipe, type SolveInput, type SolveOutput } from '@5argon/arkham-tsk-solver';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import ConstraintForm from './ConstraintForm.svelte';
@@ -19,6 +19,7 @@
 	let result = $state<SolveOutput | null>(null);
 	let solving = $state(false);
 	let selectedIndex = $state<number | null>(null);
+	let groupFilter = $state<string>('all');
 	let pending: string | null = null;
 	let lastWritten: string | null = null;
 
@@ -39,6 +40,15 @@
 		});
 		return [...m.entries()].sort((a, b) => a[0] - b[0]);
 	});
+
+	// "Jump to" group filter so players can go straight to the 6–8 scenario plans without scrolling.
+	const groupOptions = $derived<Option<string>[]>([
+		{ value: 'all', label: `All groups (${recipes.length})` },
+		...groups.map(([count, items]) => ({ value: String(count), label: `Play ${count} scenario${count === 1 ? '' : 's'} (${items.length})` })),
+	]);
+	const visibleGroups = $derived(
+		groupFilter === 'all' ? groups : groups.filter(([count]) => String(count) === groupFilter),
+	);
 
 	afterNavigate(() => {
 		const params = new URLSearchParams(page.url.search);
@@ -122,6 +132,7 @@
 	function runSolve(updateURL = true) {
 		solving = true;
 		selectedIndex = null;
+		groupFilter = 'all';
 		const input: SolveInput = {
 			constraints: $state.snapshot(constraints) as Constraint[],
 			preferences: $state.snapshot(preferences) as UiPreferences,
@@ -199,7 +210,12 @@
 						{result.recipes.length} distinct route{result.recipes.length === 1 ? '' : 's'} across {groups.length} scenario-count
 						group{groups.length === 1 ? '' : 's'}. Click a route for the full plan and a shareable link.
 					</p>
-					{#each groups as [count, items] (count)}
+					{#if groups.length > 1}
+						<div class="mb-4 w-72">
+							<Dropdown bind:value={groupFilter} label="Jump to a scenario-count group" options={groupOptions} />
+						</div>
+					{/if}
+					{#each visibleGroups as [count, items] (count)}
 						<div class="mb-6">
 							<h3 class="font-heading text-lg text-primary-900 dark:text-primary-100 mb-2">
 								Play {count} scenario{count === 1 ? '' : 's'} <span class="text-sm text-primary-400">({items.length})</span>
