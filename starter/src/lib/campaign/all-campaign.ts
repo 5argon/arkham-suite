@@ -5,6 +5,7 @@ import { edgeOfTheEarthCampaign } from './eote/campaign';
 import { nightOfTheZealotCampaign, returnToTheNightOfTheZealotCampaign } from './notz/campaign';
 import { returnToThePathToCarcosaCampaign, thePathToCarcosaCampaign } from './ptc/campaign';
 import { returnToTheCircleUndoneCampaign, theCircleUndoneCampaign } from './tcu/campaign';
+import { theDrownedCityCampaign } from './tdc/campaign';
 import { theDreamQuestCampaign, theWebOfDreamsCampaign } from './tde/campaign';
 import { returnToTheForgottenAgeCampaign, theForgottenAgeCampaign } from './tfa/campaign';
 import { theInnsmouthConspiracyCampaign } from './tic/campaign';
@@ -24,6 +25,7 @@ export const allCampaigns: Campaign[] = [
 	theInnsmouthConspiracyCampaign,
 	edgeOfTheEarthCampaign,
 	theScarletKeysCampaign,
+	theDrownedCityCampaign,
 
 	returnToTheNightOfTheZealotCampaign,
 	returnToTheDunwichLegacyCampaign,

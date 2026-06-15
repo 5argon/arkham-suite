@@ -278,7 +278,7 @@
       case EncounterSet.CourtOfTheAncients:
         return import("../individual/svelte/CourtOfTheAncients.svelte");
       case EncounterSet.DeepOnes:
-        return import("../individual/svelte/DeepOnes.svelte");
+        return import("../individual/svelte/DeepOnes1.svelte");
       case EncounterSet.Domination:
         return import("../individual/svelte/Domination.svelte");
       case EncounterSet.Dreams:

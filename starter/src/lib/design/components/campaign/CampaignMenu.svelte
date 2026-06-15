@@ -32,7 +32,7 @@
 
 <div class="flex gap-1">
 	{#each chapterOneCampaigns as campaign (campaign)}
-		{#if campaign !== Campaign.TheFeastOfHemlockVale && campaign !== Campaign.TheDrownedCity}
+		{#if campaign !== Campaign.TheFeastOfHemlockVale}
 			<div in:slide|global={{ duration: 200, easing: quintOut }}>
 				<GraphicButton
 					text={u.campaignName(campaign)}
