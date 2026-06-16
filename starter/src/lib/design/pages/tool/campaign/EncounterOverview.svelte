@@ -22,10 +22,9 @@
 	interface Prop {
 		campaign: Campaign;
 		kohakuCampaign: KohakuCampaign;
-		incomplete?: boolean;
 	}
 
-	const { campaign, kohakuCampaign, incomplete = false }: Prop = $props();
+	const { campaign, kohakuCampaign }: Prop = $props();
 
 	let scenarioTabIndex = $state(0);
 	let showName = $state(false);
@@ -135,7 +134,6 @@
 					onDropdownIndexChanged={(n) => {
 						scenarioTabIndex = n;
 					}}
-					{incomplete}
 				/>
 			</div>
 		{/if}

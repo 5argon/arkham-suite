@@ -2,6 +2,7 @@ import type { Campaign } from '$lib/core/campaign';
 
 import { returnToTheDunwichLegacyCampaign, theDunwichLegacyCampaign } from './dwl/campaign';
 import { edgeOfTheEarthCampaign } from './eote/campaign';
+import { theFeastOfHemlockValeCampaign } from './fhv/campaign';
 import { nightOfTheZealotCampaign, returnToTheNightOfTheZealotCampaign } from './notz/campaign';
 import { returnToThePathToCarcosaCampaign, thePathToCarcosaCampaign } from './ptc/campaign';
 import { returnToTheCircleUndoneCampaign, theCircleUndoneCampaign } from './tcu/campaign';
@@ -25,6 +26,7 @@ export const allCampaigns: Campaign[] = [
 	theInnsmouthConspiracyCampaign,
 	edgeOfTheEarthCampaign,
 	theScarletKeysCampaign,
+	theFeastOfHemlockValeCampaign,
 	theDrownedCityCampaign,
 
 	returnToTheNightOfTheZealotCampaign,

@@ -8,7 +8,6 @@
 	const { data }: PageProps = $props();
 	const campaign = $derived(data.campaignData);
 	const kohakuCampaign = $derived(data.kohakuCampaign);
-	const incomplete = $derived(data.incomplete);
 
 	const campaignNameText = $derived(u.campaignName(kohakuCampaign));
 	const campaignImage = $derived(campaignBoxImageUrl(kohakuCampaign));
@@ -21,4 +20,4 @@
 	url={`/campaign/${kohakuCampaign}`}
 />
 
-<EncounterOverview {campaign} {incomplete} {kohakuCampaign} />
+<EncounterOverview {campaign} {kohakuCampaign} />

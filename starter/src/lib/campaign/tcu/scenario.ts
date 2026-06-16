@@ -531,7 +531,7 @@ export const returnToTheWitchingHourScenario: Scenario = {
 			shuffles: [
 				{ encounterSet: theWitchingHour, overwriteCount: 0 },
 				{ encounterSet: returnToTheWitchingHour, overwriteCount: 0 },
-				{ encounterSet: theDevourerBelow, overwriteCount: 6 },
+				{ encounterSet: theDevourerBelow, overwriteCount: 0 },
 				strikingFear,
 				anettesCoven,
 				cityOfTheDamned,
@@ -550,14 +550,20 @@ export const returnToAtDeathsDoorstepScenario: Scenario = {
 		{
 			shuffles: [
 				{ encounterSet: atDeathsDoorstep, overwriteCount: 0 },
-				{ encounterSet: returnToAtDeathsDoorstep, overwriteCount: 0 },
+				{ encounterSet: returnToAtDeathsDoorstep, overwriteCount: 1 },
 				silverTwilightLodge,
 				spectralPredators,
 				bloodthirstySpirits,
 				chillingMists,
 				unspeakableFate
 			],
-			remaining: [unstableRealm, theWatcher]
+			remaining: [unstableRealm, theWatcher],
+			notes: [
+				{
+					encounterSet: returnToAtDeathsDoorstep,
+					what: '**Dmitri Konstantinov** is shuffled into the encounter deck (**Senator Nathaniel Rhodes** is put into play in the Entry Hall).'
+				}
+			]
 		}
 	]
 };
@@ -568,7 +574,7 @@ export const returnToTheSecretNameScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theSecretName, overwriteCount: 0 },
+				{ encounterSet: theSecretName, overwriteCount: 10 },
 				{ encounterSet: returnToTheSecretName, overwriteCount: 0 },
 				rats,
 				cityOfTheDamned,
@@ -586,18 +592,27 @@ export const returnToTheWagesOfSinScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theWagesOfSin, overwriteCount: 0 },
-				{ encounterSet: returnToTheWagesOfSin, overwriteCount: 0 },
+				{ encounterSet: theWagesOfSin, overwriteCount: 8 },
+				{ encounterSet: returnToTheWagesOfSin, overwriteCount: 2 },
 				anettesCoven,
-				bloodthirstySpirits,
 				cityOfTheDamned,
-				hexcraft,
-				unspeakableFate,
-				unstableRealm
+				hexcraft
 			],
-			remaining: [theWatcher]
+			remaining: [theWatcher, bloodthirstySpirits, unspeakableFate, unstableRealm]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				topic: 'Spectral Encounter Deck',
+				what: '20 Cards'
+			},
+			{
+				encounterSet: returnToTheWagesOfSin,
+				what: '2x **Witchweed** are shuffled into the starting encounter deck.'
+			}
+		]
+	}
 };
 
 export const returnToForTheGreaterGoodScenario: Scenario = {
@@ -606,7 +621,7 @@ export const returnToForTheGreaterGoodScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: forTheGreaterGood, overwriteCount: 0 },
+				{ encounterSet: forTheGreaterGood, overwriteCount: 7 },
 				{ encounterSet: returnToForTheGreaterGood, overwriteCount: 0 },
 				darkCult,
 				lockedDoors,
@@ -624,15 +639,21 @@ export const returnToUnionAndDisillusionScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: unionAndDisillusion, overwriteCount: 0 },
-				{ encounterSet: returnToUnionAndDisillusion, overwriteCount: 0 },
+				{ encounterSet: unionAndDisillusion, overwriteCount: 13 },
+				{ encounterSet: returnToUnionAndDisillusion, overwriteCount: 2 },
 				spectralPredators,
 				chillingMists,
 				impendingEvils,
 				unspeakableFate,
 				unstableRealm
 			],
-			remaining: [anettesCoven, silverTwilightLodge, theWatcher]
+			remaining: [anettesCoven, silverTwilightLodge, theWatcher],
+			notes: [
+				{
+					encounterSet: returnToUnionAndDisillusion,
+					what: '2x **Brazier Enchantment** are shuffled into the encounter deck.'
+				}
+			]
 		}
 	]
 };
@@ -643,11 +664,11 @@ export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: inTheClutchesOfChaos, overwriteCount: 0 },
+				{ encounterSet: inTheClutchesOfChaos, overwriteCount: 8 },
 				{ encounterSet: returnToInTheClutchesOfChaos, overwriteCount: 0 },
-				{ encounterSet: musicOfTheDamned, overwriteCount: 0 },
+				{ encounterSet: musicOfTheDamned, overwriteCount: 4 },
 				nightgaunts,
-				agentsOfAzathoth,
+				{ encounterSet: agentsOfAzathoth, overwriteCount: 3 },
 				anettesCoven,
 				cityOfTheDamned,
 				hexcraft
@@ -662,13 +683,13 @@ export const returnToInTheClutchesOfChaos2Scenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: inTheClutchesOfChaos, overwriteCount: 0 },
+				{ encounterSet: inTheClutchesOfChaos, overwriteCount: 8 },
 				{ encounterSet: returnToInTheClutchesOfChaos, overwriteCount: 0 },
-				{ encounterSet: secretsOfTheUniverse, overwriteCount: 0 },
+				{ encounterSet: secretsOfTheUniverse, overwriteCount: 4 },
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
 				nightgaunts,
 				strikingFear,
-				agentsOfAzathoth,
+				{ encounterSet: agentsOfAzathoth, overwriteCount: 3 },
 				silverTwilightLodge
 			]
 		}
@@ -681,10 +702,10 @@ export const returnToBeforeTheBlackThroneScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: beforeTheBlackThrone, overwriteCount: 0 },
+				{ encounterSet: beforeTheBlackThrone, overwriteCount: 12 },
 				{ encounterSet: returnToBeforeTheBlackThrone, overwriteCount: 0 },
 				darkCult,
-				agentsOfAzathoth,
+				{ encounterSet: agentsOfAzathoth, overwriteCount: 3 },
 				impendingEvils,
 				unspeakableFate
 			]

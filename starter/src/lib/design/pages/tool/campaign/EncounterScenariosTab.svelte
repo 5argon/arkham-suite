@@ -16,7 +16,6 @@
 	let {
 		campaign,
 		kohakuCampaign,
-		incomplete = false,
 		showSetCount = false,
 		dropdownIndex = 0,
 		onDropdownIndexChanged = (n: number) => {
@@ -25,7 +24,6 @@
 	}: {
 		campaign: Campaign;
 		kohakuCampaign: KohakuCampaign;
-		incomplete?: boolean;
 		showSetCount?: boolean;
 		dropdownIndex?: number;
 		onDropdownIndexChanged?: (n: number) => void;
@@ -81,16 +79,4 @@
 	</FormLabelWithHelp>
 </div>
 
-{#if incomplete}
-	<HelpParagraph>
-		Setup reference cards for scenarios in this campaign are still in development. Please check back
-		later or refer to the official campaign guide.
-	</HelpParagraph>
-{:else}
-	<SetupReferenceCardFront
-		campaign={kohakuCampaign}
-		scenario={selectedScenario}
-		{incomplete}
-		{showSetCount}
-	/>
-{/if}
+<SetupReferenceCardFront campaign={kohakuCampaign} scenario={selectedScenario} {showSetCount} />

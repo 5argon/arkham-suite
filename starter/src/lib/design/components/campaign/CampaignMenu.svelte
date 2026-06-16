@@ -32,19 +32,17 @@
 
 <div class="flex gap-1">
 	{#each chapterOneCampaigns as campaign (campaign)}
-		{#if campaign !== Campaign.TheFeastOfHemlockVale}
-			<div in:slide|global={{ duration: 200, easing: quintOut }}>
-				<GraphicButton
-					text={u.campaignName(campaign)}
-					graphic={getCampaignImage(campaign)}
-					accentColor={color.getColor(campaignToColor(campaign), 950, false)}
-					small
-					onClick={campaignToLink(campaign)}
-				>
-					<ProductIcon product={convert.campaignToProduct(campaign)} />
-				</GraphicButton>
-			</div>
-		{/if}
+		<div in:slide|global={{ duration: 200, easing: quintOut }}>
+			<GraphicButton
+				text={u.campaignName(campaign)}
+				graphic={getCampaignImage(campaign)}
+				accentColor={color.getColor(campaignToColor(campaign), 950, false)}
+				small
+				onClick={campaignToLink(campaign)}
+			>
+				<ProductIcon product={convert.campaignToProduct(campaign)} />
+			</GraphicButton>
+		</div>
 	{/each}
 </div>
 

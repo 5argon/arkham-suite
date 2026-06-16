@@ -380,7 +380,13 @@ export const returnToTheHouseAlwaysWinsScenario: Scenario = {
 				badLuck,
 				naomisCrew
 			],
-			remaining: [hideousAbominations, erraticFear]
+			remaining: [hideousAbominations, erraticFear],
+			notes: [
+				{
+					encounterSet: returnToTheHouseAlwaysWins,
+					what: '2x **Caught Cheating** and 2x **Raise the Stakes** are shuffled into the encounter deck.'
+				}
+			]
 		}
 	],
 	commonSetup: {
@@ -410,6 +416,16 @@ export const returnToTheMiskatonicMuseumScenario: Scenario = {
 				beyondTheThreshold,
 				creepingCold,
 				secretDoors
+			],
+			notes: [
+				{
+					encounterSet: returnToTheMiskatonicMuseum,
+					what: '2x **Dark Bidding** and 2x **Night Beyond the Void** are shuffled into the encounter deck.'
+				},
+				{
+					encounterSet: theMiskatonicMuseum,
+					what: 'The 8 **Exhibit Hall** locations form a separate 6-card **Exhibit Deck**: **Restricted Hall** plus 2 random Exhibit Halls are shuffled as the bottom 3, the other 3 placed on top (2 are removed at random).'
+				}
 			]
 		}
 	]
@@ -508,6 +524,12 @@ export const returnToUndimensionedAndUnseenScenario: Scenario = {
 				dunwich,
 				whippoorwills,
 				erraticFear
+			],
+			notes: [
+				{
+					encounterSet: returnToUndimensionedAndUnseen,
+					what: '2x **Imperceptible Creature** are shuffled into the encounter deck. The 4 new **Brood of Yog-Sothoth** replace the original copies and are set aside, then put into play at random.'
+				}
 			]
 		}
 	],
@@ -584,6 +606,12 @@ export const returnToLostInTimeAndSpaceScenario: Scenario = {
 				sorcery,
 				beyondTheThreshold,
 				yogSothothsEmissaries
+			],
+			notes: [
+				{
+					encounterSet: returnToLostInTimeAndSpace,
+					what: '**Indecipherable Stairs**, **Towering Luminosity**, and **Unstable Vortex** are shuffled into the encounter deck. **Realms Beyond** is put into play with **Yog-Sothoth**; **Seth Bishop** is set aside.'
+				}
 			]
 		}
 	]

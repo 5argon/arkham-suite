@@ -31,11 +31,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		throw error(404, 'KohakuCampaign not found');
 	}
 
-	// Check if campaign is marked as incomplete
-	const incompleteCampaigns = ['ptc', 'tic', 'fhv', 'rtnotz', 'rtptc', 'rttfa', 'rttcu'];
-	// const incompleteCampaigns: string[] = []
-	const isIncomplete = incompleteCampaigns.includes(campaignCode);
-
 	// Use dynamic imports for code splitting - each campaign becomes its own chunk
 	let campaignData: Campaign;
 	switch (kohakuCampaign) {
@@ -130,7 +125,6 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	return {
 		kohakuCampaign: kohakuCampaign,
-		campaignData: campaignData,
-		incomplete: isIncomplete
+		campaignData: campaignData
 	};
 };

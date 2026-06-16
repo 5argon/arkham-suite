@@ -43,12 +43,20 @@ export const thePitOfDespairScenario: Scenario = {
 				agentsOfCthulhu,
 				rats,
 				creaturesOfTheDeep,
-				floodedCaverns,
+				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				risingTide,
 				shatteredMemories
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: thePitOfDespair,
+				what: 'None of this set enters the deck: **The Amalgam**, both **Blindsense**, and 3x **From the Depths** are set aside, out of play.'
+			}
+		]
+	}
 };
 
 export const theVanishingOfElinaHarperScenario: Scenario = {
@@ -60,14 +68,34 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 				{ encounterSet: theVanishingOfElinaHarper, overwriteCount: 0 },
 				chillingCold,
 				lockedDoors,
-				nightgaunts,
+				{ encounterSet: nightgaunts, overwriteCount: 2 },
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
 				agentsOfDagon,
-				fogOverInnsmouth,
+				{ encounterSet: fogOverInnsmouth, overwriteCount: 2 },
 				theLocals
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: theVanishingOfElinaHarper,
+				what: 'The suspects are placed as leads; none of this set enters the encounter deck.'
+			},
+			{
+				encounterSet: nightgaunts,
+				what: 'Both **Hunting Nightgaunt** enemies are set aside, out of play.'
+			},
+			{
+				encounterSet: fogOverInnsmouth,
+				what: 'The **Winged One** enemy is set aside, out of play.'
+			},
+			{
+				encounterSet: theMidnightMasks,
+				what: 'Only its 5 treacheries are gathered.'
+			}
+		]
+	}
 };
 
 export const inTooDeepScenario: Scenario = {
@@ -76,7 +104,7 @@ export const inTooDeepScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: inTooDeep, overwriteCount: 0 },
+				{ encounterSet: inTooDeep, overwriteCount: 7 },
 				agentsOfCthulhu,
 				creaturesOfTheDeep,
 				risingTide,
@@ -84,7 +112,15 @@ export const inTooDeepScenario: Scenario = {
 				theLocals
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: inTooDeep,
+				what: 'The **Innsmouth Shoggoth** and 2x **Ravager from the Deep** are set aside; Deep One enemies spawn at flooded locations during the chase.'
+			}
+		]
+	}
 };
 
 export const devilReefScenario: Scenario = {
@@ -93,15 +129,23 @@ export const devilReefScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: devilReef, overwriteCount: 0 },
+				{ encounterSet: devilReef, overwriteCount: 15 },
 				agentsOfHydra,
 				creaturesOfTheDeep,
-				floodedCaverns,
+				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				malfunction,
 				risingTide
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: devilReef,
+				what: 'Only its story-asset relics are set aside; all of its enemies and treacheries enter the deck.'
+			}
+		]
+	}
 };
 
 export const horrorInHighGearScenario: Scenario = {
@@ -109,15 +153,44 @@ export const horrorInHighGearScenario: Scenario = {
 	shortName: 'V',
 	setups: [
 		{
+			name: '1 Player',
 			shuffles: [
-				{ encounterSet: horrorInHighGear, overwriteCount: 0 },
+				{ encounterSet: horrorInHighGear, overwriteCount: 14 },
+				ancientEvils,
+				fogOverInnsmouth,
+				malfunction,
+				shatteredMemories
+			]
+		},
+		{
+			name: '2 to 3 Players',
+			shuffles: [
+				{ encounterSet: horrorInHighGear, overwriteCount: 13 },
+				ancientEvils,
+				fogOverInnsmouth,
+				malfunction,
+				shatteredMemories
+			]
+		},
+		{
+			name: '4 Players',
+			shuffles: [
+				{ encounterSet: horrorInHighGear, overwriteCount: 12 },
 				ancientEvils,
 				fogOverInnsmouth,
 				malfunction,
 				shatteredMemories
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: horrorInHighGear,
+				what: 'Additional vehicle enemies spawn at setup as the player count rises, so the starting encounter deck shrinks accordingly.'
+			}
+		]
+	}
 };
 
 export const aLightInTheFogScenario: Scenario = {
@@ -126,15 +199,23 @@ export const aLightInTheFogScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: aLightInTheFog, overwriteCount: 0 },
+				{ encounterSet: aLightInTheFog, overwriteCount: 13 },
 				strikingFear,
 				creaturesOfTheDeep,
-				floodedCaverns,
+				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				risingTide,
 				syzygy
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: aLightInTheFog,
+				what: 'The **Oceiros Marsh** enemy and both **Worth His Salt** and **Taken Captive** treacheries are set aside, out of play.'
+			}
+		]
+	}
 };
 
 export const theLairOfDagonScenario: Scenario = {
@@ -143,15 +224,27 @@ export const theLairOfDagonScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theLairOfDagon, overwriteCount: 0 },
+				{ encounterSet: theLairOfDagon, overwriteCount: 15 },
 				darkCult,
 				lockedDoors,
 				agentsOfDagon,
-				floodedCaverns,
-				syzygy
+				{ encounterSet: floodedCaverns, overwriteCount: 0 },
+				{ encounterSet: syzygy, overwriteCount: 0 }
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: theLairOfDagon,
+				what: 'The **Apostle of Dagon** and **Dagon** enemies are set aside, out of play.'
+			},
+			{
+				encounterSet: syzygy,
+				what: 'Both **Syzygy** and both **Tidal Alignment** treacheries are set aside, out of play.'
+			}
+		]
+	}
 };
 
 export const intoTheMaelstromScenario: Scenario = {
@@ -160,14 +253,26 @@ export const intoTheMaelstromScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: intoTheMaelstrom, overwriteCount: 0 },
+				{ encounterSet: intoTheMaelstrom, overwriteCount: 11 },
 				ancientEvils,
-				agentsOfHydra,
+				{ encounterSet: agentsOfHydra, overwriteCount: 3 },
 				creaturesOfTheDeep,
-				floodedCaverns,
+				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				shatteredMemories,
 				syzygy
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: intoTheMaelstrom,
+				what: 'The **Aquatic Abomination**, **Hydra**, and **Dagon** enemies are set aside, out of play.'
+			},
+			{
+				encounterSet: agentsOfHydra,
+				what: 'The **Lloigor** enemy is set aside, out of play.'
+			}
+		]
+	}
 };

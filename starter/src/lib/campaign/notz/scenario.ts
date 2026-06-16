@@ -117,8 +117,8 @@ export const returnToTheGatheringScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theGathering, overwriteCount: 0 },
-				{ encounterSet: returnToTheGathering, overwriteCount: 0 },
+				{ encounterSet: theGathering, overwriteCount: 2 },
+				{ encounterSet: returnToTheGathering, overwriteCount: 4 },
 				ancientEvils,
 				chillingCold,
 				ghoulsOfUmordhoth,
@@ -126,7 +126,15 @@ export const returnToTheGatheringScenario: Scenario = {
 				strikingFear
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: returnToTheGathering,
+				what: '**Corpse-Hungry Ghoul**, **Ghoul from the Depths**, and 2x **The Zealot’s Seal** are shuffled into the encounter deck. **Ghouls of Umördhoth** replaces the regular **Ghouls** set.'
+			}
+		]
+	}
 };
 
 export const returnToTheMidnightMasksScenario: Scenario = {
@@ -135,8 +143,8 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theMidnightMasks, overwriteCount: 0 },
-				{ encounterSet: returnToTheMidnightMasks, overwriteCount: 0 },
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				{ encounterSet: returnToTheMidnightMasks, overwriteCount: 2 },
 				chillingCold,
 				lockedDoors,
 				nightgaunts,
@@ -144,7 +152,15 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 			],
 			remaining: [cultOfUmordhoth, returnToCultOfUmordhoth]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: returnToTheMidnightMasks,
+				what: '2x **Masked Horrors** are shuffled into the encounter deck (**Narôgath** is set aside, entering play via the agenda). **The Devourer’s Cult** replaces the regular **Dark Cult** set.'
+			}
+		]
+	}
 };
 
 export const returnToTheDevourerBelowScenario: Scenario = {
@@ -153,8 +169,8 @@ export const returnToTheDevourerBelowScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theDevourerBelow, overwriteCount: 0 },
-				{ encounterSet: returnToTheDevourerBelow, overwriteCount: 0 },
+				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
+				{ encounterSet: returnToTheDevourerBelow, overwriteCount: 2 },
 				ancientEvils,
 				ghoulsOfUmordhoth,
 				theDevourersCult,
@@ -169,5 +185,13 @@ export const returnToTheDevourerBelowScenario: Scenario = {
 				cultOfUmordhoth
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: returnToTheDevourerBelow,
+				what: '2x **Umôrdhoth’s Hunger** are shuffled into the encounter deck (**Vault of Earthly Demise** is attached to Umôrdhoth and set aside). **Ghouls of Umördhoth** and **The Devourer’s Cult** replace the regular **Ghouls** and **Dark Cult** sets.'
+			}
+		]
+	}
 };

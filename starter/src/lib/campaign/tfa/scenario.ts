@@ -497,18 +497,34 @@ export const returnToTheUntamedWildsScenario: Scenario = {
 		{
 			shuffles: [
 				{ encounterSet: theUntamedWilds, overwriteCount: 0 },
-				{ encounterSet: returnToTheUntamedWilds, overwriteCount: 0 },
+				returnToTheUntamedWilds,
 				ancientEvils,
-				agentsOfYig,
-				guardiansOfTime,
+				{ encounterSet: agentsOfYig, overwriteCount: 0 },
+				{ encounterSet: guardiansOfTime, overwriteCount: 3 },
 				{ encounterSet: poison, overwriteCount: 2 },
-				rainforest,
-				serpents,
-				doomedExpedition,
+				{ encounterSet: rainforest, overwriteCount: 3 },
+				{ encounterSet: serpents, overwriteCount: 6 },
+				{ encounterSet: doomedExpedition, overwriteCount: 3 },
 				returnToTheRainforest
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				topic: 'Exploration Deck (5)',
+				what: '5x Locations'
+			},
+			{
+				encounterSet: returnToTheUntamedWilds,
+				what: '**Forced**: After a successful exploration ends, Shuffle the top card of the encounter deck into the exploration deck.'
+			},
+			{
+				encounterSet: agentsOfYig,
+				what: 'The entire **Agents of Yig** encounter set is set aside, out of play.'
+			}
+		]
+	}
 };
 
 export const returnToTheDoomOfEztliScenario: Scenario = {
@@ -519,17 +535,28 @@ export const returnToTheDoomOfEztliScenario: Scenario = {
 			shuffles: [
 				{ encounterSet: theDoomOfEztli, overwriteCount: 0 },
 				{ encounterSet: returnToTheDoomOfEztli, overwriteCount: 0 },
-				{ encounterSet: chillingCold, overwriteCount: 3 },
+				chillingCold,
 				agentsOfYig,
-				{ encounterSet: deadlyTraps, overwriteCount: 3 },
-				{ encounterSet: forgottenRuins, overwriteCount: 5 },
+				deadlyTraps,
+				forgottenRuins,
 				{ encounterSet: poison, overwriteCount: 2 },
-				serpents,
 				temporalHunters,
 				venomousHate
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				topic: 'Exploration Deck (5)',
+				what: '5x Locations (no Treacheries; they start in the encounter deck)'
+			},
+			{
+				encounterSet: returnToTheDoomOfEztli,
+				what: '**Forced**: After a successful exploration ends, Shuffle the top card of the encounter deck into the exploration deck.'
+			}
+		]
+	}
 };
 
 export const returnToThreadsOfFateScenario: Scenario = {
@@ -538,7 +565,7 @@ export const returnToThreadsOfFateScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: threadsOfFate, overwriteCount: 0 },
+				{ encounterSet: threadsOfFate, overwriteCount: 7 },
 				{ encounterSet: returnToThreadsOfFate, overwriteCount: 0 },
 				lockedDoors,
 				nightgaunts,
@@ -547,7 +574,15 @@ export const returnToThreadsOfFateScenario: Scenario = {
 				cultOfPnakotus
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: cultOfPnakotus,
+				what: 'Replaces the regular **Dark Cult** set. **Return to Threads of Fate** locations are placed during setup; none enter the encounter deck.'
+			}
+		]
+	}
 };
 
 export const returnToTheBoundaryBeyondScenario: Scenario = {
@@ -556,17 +591,31 @@ export const returnToTheBoundaryBeyondScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theBoundaryBeyond, overwriteCount: 0 },
+				{ encounterSet: theBoundaryBeyond, overwriteCount: 9 },
 				{ encounterSet: returnToTheBoundaryBeyond, overwriteCount: 0 },
-				guardiansOfTime,
-				pnakoticBrotherhood,
 				{ encounterSet: poison, overwriteCount: 2 },
-				cultOfPnakotus,
 				temporalHunters,
-				venomousHate
+				pnakoticBrotherhood,
+				cultOfPnakotus
 			]
 		}
-	]
+	],
+	commonSetup: {
+		specialGather: [{ encounterSet: theDoomOfEztli, what: ['**Harbinger of Valusia**'] }],
+		notes: [
+			{
+				topic: 'Exploration Deck (12)',
+				what: '12x Locations (no Treacheries; they start in the encounter deck)'
+			},
+			{
+				what: 'You might need a *Madness* or *Injury* random basic weakness.'
+			},
+			{
+				encounterSet: cultOfPnakotus,
+				what: 'Replaces the regular **Dark Cult** set. This is the *Cultist* version of the scenario.'
+			}
+		]
+	}
 };
 
 export const returnToHeartOfTheEldersPart1Scenario: Scenario = {
@@ -576,16 +625,29 @@ export const returnToHeartOfTheEldersPart1Scenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: heartOfTheElders, overwriteCount: 0 },
-				{ encounterSet: pillarsOfJudgement, overwriteCount: 0 },
-				{ encounterSet: returnToPillarsOfJudgement, overwriteCount: 0 },
+				{ encounterSet: heartOfTheElders, overwriteCount: 6 },
+				{ encounterSet: pillarsOfJudgement, overwriteCount: 7 },
+				{ encounterSet: returnToPillarsOfJudgement, overwriteCount: 2 },
 				{ encounterSet: poison, overwriteCount: 2 },
-				rainforest,
+				{ encounterSet: rainforest, overwriteCount: 4 },
+				serpents,
 				doomedExpedition,
-				returnToTheRainforest
+				{ encounterSet: returnToTheRainforest, overwriteCount: 0 }
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				topic: 'Exploration Deck (6~7)',
+				what: '6~7x Locations (no Treacheries; they start in the encounter deck) : 6x *Jungle* + 1x *Ruins* if no **Map**'
+			},
+			{
+				encounterSet: returnToPillarsOfJudgement,
+				what: '2x **Feathered Serpent** are shuffled into the encounter deck (**The Winged Serpent** is set aside). **Return to the Rainforest** locations replace the basic *Jungle* locations in the exploration deck.'
+			}
+		]
+	}
 };
 
 export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
@@ -595,17 +657,34 @@ export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: heartOfTheElders, overwriteCount: 0 },
-				{ encounterSet: knyan, overwriteCount: 0 },
+				{ encounterSet: heartOfTheElders, overwriteCount: 6 },
+				{ encounterSet: knyan, overwriteCount: 3 },
 				{ encounterSet: returnToKnyan, overwriteCount: 0 },
 				agentsOfYig,
-				deadlyTraps,
-				forgottenRuins,
+				{ encounterSet: deadlyTraps, overwriteCount: 5 },
+				{ encounterSet: forgottenRuins, overwriteCount: 7 },
 				{ encounterSet: poison, overwriteCount: 2 },
 				venomousHate
 			]
 		}
-	]
+	],
+	commonSetup: {
+		specialGather: [{ encounterSet: theDoomOfEztli, what: ['**Harbinger of Valusia**'] }],
+		notes: [
+			{
+				topic: 'Exploration Deck (5)',
+				what: '5x Locations (no Treacheries; they start in the encounter deck)'
+			},
+			{
+				encounterSet: knyan,
+				what: '5 locations other than **Descent to Yoth** are in the exploration deck; **No Turning Back** starts in the encounter deck.'
+			},
+			{
+				encounterSet: returnToKnyan,
+				what: '**Forced**: After a successful exploration ends, Shuffle the top card of the encounter deck into the exploration deck.'
+			}
+		]
+	}
 };
 
 export const returnToTheCityOfArchivesScenario: Scenario = {
@@ -614,15 +693,27 @@ export const returnToTheCityOfArchivesScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theCityOfArchives, overwriteCount: 0 },
-				{ encounterSet: returnToTheCityOfArchives, overwriteCount: 0 },
-				agentsOfYogSothoth,
+				{ encounterSet: theCityOfArchives, overwriteCount: 17 },
+				{ encounterSet: returnToTheCityOfArchives, overwriteCount: 2 },
+				{ encounterSet: agentsOfYogSothoth, overwriteCount: 3 },
 				chillingCold,
 				lockedDoors,
 				strikingFear
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: agentsOfYogSothoth,
+				what: '1x **Yithian Observer** is either spawned or in the victory display.'
+			},
+			{
+				encounterSet: returnToTheCityOfArchives,
+				what: '2x **Captive Subjects** are shuffled into the encounter deck.'
+			}
+		]
+	}
 };
 
 export const returnToTheDepthsOfYothScenario: Scenario = {
@@ -631,7 +722,7 @@ export const returnToTheDepthsOfYothScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theDepthsOfYoth, overwriteCount: 0 },
+				{ encounterSet: theDepthsOfYoth, overwriteCount: 15 },
 				{ encounterSet: returnToTheDepthsOfYoth, overwriteCount: 0 },
 				agentsOfYig,
 				forgottenRuins,
@@ -640,7 +731,16 @@ export const returnToTheDepthsOfYothScenario: Scenario = {
 				venomousHate
 			]
 		}
-	]
+	],
+	commonSetup: {
+		specialGather: [{ encounterSet: theDoomOfEztli, what: ['**Harbinger of Valusia**'] }],
+		notes: [
+			{
+				encounterSet: theDepthsOfYoth,
+				what: 'If you have 0 tally mark, 2x **Pit Warden** are removed from the starting encounter deck.'
+			}
+		]
+	}
 };
 
 export const returnToShatteredAeonsScenario: Scenario = {
@@ -649,16 +749,31 @@ export const returnToShatteredAeonsScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: shatteredAeons, overwriteCount: 0 },
-				{ encounterSet: returnToShatteredAeons, overwriteCount: 0 },
+				{ encounterSet: shatteredAeons, overwriteCount: 12 },
+				{ encounterSet: returnToShatteredAeons, overwriteCount: 2 },
 				ancientEvils,
 				agentsOfYig,
 				pnakoticBrotherhood,
-				cultOfPnakotus,
-				temporalHunters
+				{ encounterSet: temporalHunters, overwriteCount: 4 }
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				topic: 'Exploration Deck (3)',
+				what: '3x Locations (no Treacheries; they start in the encounter deck)'
+			},
+			{
+				encounterSet: returnToShatteredAeons,
+				what: '2x **Unknowable Past** are shuffled into the encounter deck. This is the *Tablet* version of the scenario.'
+			},
+			{
+				encounterSet: shatteredAeons,
+				what: '3 *Otherworld* locations are in the exploration deck; **Wracked by Time** and **Between Worlds** start in the encounter deck.'
+			}
+		]
+	}
 };
 
 export const returnToTurnBackTimeScenario: Scenario = {
