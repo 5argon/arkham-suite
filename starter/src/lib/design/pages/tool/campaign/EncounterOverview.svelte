@@ -18,6 +18,9 @@
 	import EncounterMatrixTab from './EncounterMatrixTab.svelte';
 	import EncounterScenariosTab from './EncounterScenariosTab.svelte';
 	import { fly } from 'svelte/transition';
+	import { browser } from '$app/environment';
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/state';
 
 	interface Prop {
 		campaign: Campaign;
@@ -26,20 +29,58 @@
 
 	const { campaign, kohakuCampaign }: Prop = $props();
 
-	let scenarioTabIndex = $state(0);
+	const MATRIX_TAB = 0;
+	const SETUP_TAB = 1;
+
+	// This page is prerendered, so we read URL parameters on the client only and
+	// seed the initial state from them (accepting a 1-frame-late update). `tab`
+	// selects the tab (`matrix` | `setup`); `s` is the 1-based scenario page,
+	// only meaningful on the setup tab.
+	const initial = (() => {
+		if (!browser) {
+			return { tab: MATRIX_TAB, scenario: 0 };
+		}
+		const params = new URLSearchParams(window.location.search);
+		const tab = params.get('tab') === 'setup' ? SETUP_TAB : MATRIX_TAB;
+		const sRaw = Number(params.get('s'));
+		const scenarioCount = findUniqueScenarios(campaign).length;
+		const scenario = Number.isFinite(sRaw)
+			? Math.min(Math.max(0, Math.trunc(sRaw) - 1), Math.max(0, scenarioCount - 1))
+			: 0;
+		return { tab, scenario };
+	})();
+
+	let scenarioTabIndex = $state(initial.scenario);
 	let showName = $state(false);
 	let showSetCount = $state(true);
 	let shortScenarioName = $state(false);
-	let activeTab = $state(0);
+	let activeTab = $state(initial.tab);
 	let pendingTab: number | null = $state(null);
 	let contentHost: HTMLDivElement | null = $state(null);
 	let frozenContentHeight: number | null = $state(null);
+
+	const syncUrl = (tab: number, scenario: number) => {
+		if (!browser) {
+			return;
+		}
+		const url = new URL(window.location.href);
+		if (tab === SETUP_TAB) {
+			url.searchParams.set('tab', 'setup');
+			url.searchParams.set('s', String(scenario + 1));
+		} else {
+			url.searchParams.set('tab', 'matrix');
+			url.searchParams.delete('s');
+		}
+		// eslint-disable-next-line svelte/no-navigation-without-resolve
+		replaceState(url, page.state);
+	};
 
 	const requestTabChange = (index: number) => {
 		if (index === activeTab) {
 			return;
 		}
 
+		syncUrl(index, scenarioTabIndex);
 		frozenContentHeight = contentHost?.clientHeight ?? null;
 		pendingTab = index;
 		activeTab = -1;
@@ -114,9 +155,9 @@
 					{kohakuCampaign}
 					{showName}
 					onGoToScenario={(s) => {
-						requestTabChange(1);
 						const index = findUniqueScenarios(campaign).findIndex((x) => x === s);
 						scenarioTabIndex = index;
+						requestTabChange(SETUP_TAB);
 					}}
 				/>
 			</div>
@@ -133,6 +174,7 @@
 					dropdownIndex={scenarioTabIndex}
 					onDropdownIndexChanged={(n) => {
 						scenarioTabIndex = n;
+						syncUrl(SETUP_TAB, n);
 					}}
 				/>
 			</div>

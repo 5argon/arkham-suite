@@ -1,5 +1,9 @@
 import { type Scenario } from '$lib/core/campaign';
-import { ChaosToken, EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import {
+	ChaosToken,
+	EncounterSet as KohakuEncounterSet,
+	Scenario as KohakuScenario
+} from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfHastur,
@@ -62,15 +66,7 @@ export const curtainCallScenario: Scenario = {
 				hauntings
 			]
 		}
-	],
-	commonSetup: {
-		notes: [
-			{
-				encounterSet: curtainCall,
-				what: 'None of this set enters the deck: **The Man in the Pallid Mask** and **Royal Emissary** are set aside, and its locations are placed in play.'
-			}
-		]
-	}
+	]
 };
 
 export const theLastKingScenario: Scenario = {
@@ -89,6 +85,9 @@ export const theLastKingScenario: Scenario = {
 	],
 	commonSetup: {
 		notes: [
+			{
+				what: 'Place 1 clue on each of ***Bystander*** assets, plus 1 [per_investigator] additional clue.'
+			},
 			{
 				encounterSet: theLastKing,
 				what: 'The **Dianne Devine** enemy is set aside, out of play.'
@@ -147,10 +146,19 @@ export const echoesOfThePastScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Sebastien Moreau**']
+			}
+		],
 		notes: [
 			{
+				what: 'If **Sebastien Moreau** is under **VIPs Interviewed**: place 1 [per_investigator] clues on **Entry Hall**.'
+			},
+			{
 				encounterSet: echoesOfThePast,
-				what: '**Hidden Library**, **Possessed Oathspeaker**, **Mr. Peabody**, **The Tattered Cloak**, and **Clasp of Black Onyx** are set aside, out of play.'
+				what: 'The **Seeker of Carcosa** enemies start in play at Historical Society locations rather than shuffled into the deck: 0/1/2/3 for 1/2/3/4 players.'
 			}
 		]
 	}
@@ -172,10 +180,40 @@ export const theUnspeakableOathScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		addChaosTokenPerDifficulty: {
+			easy: [ChaosToken.TokenM2],
+			standard: [ChaosToken.TokenM3],
+			hard: [ChaosToken.TokenM4],
+			expert: [ChaosToken.TokenM5]
+		},
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Constance Dumaine**']
+			}
+		],
 		notes: [
 			{
+				what: 'If **Constance Dumaine** is under **VIPs Interviewed**: each investigator places the top card of their deck facedown as a **Courage** asset (2 sanity).'
+			},
+			{
+				what: 'Set aside two piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
+			},
+			{
+				encounterSet: agentsOfHastur,
+				what: '2x **Screeching Byakhee** ***(Monster)*** are set aside; only 2x **The Yellow Sign** enter the encounter deck.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: '1x **Beast of Aldebaran** and 2x **Spawn of Hali** ***(Monster)*** are set aside.'
+			},
+			{
+				encounterSet: hastursGift,
+				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
+			},
+			{
 				encounterSet: theUnspeakableOath,
-				what: 'All **Monster**, **Possessed**, and **Lunatic** enemies (7 of each) are set aside in separate piles; **Daniel Chesterfield** and the **Patient Confinement** locations are also set aside.'
+				what: '2x **Asylum Gorger** ***(Monster)*** and 3x **Haunted Patient** ***(Possessed)*** are set aside.'
 			}
 		]
 	}
@@ -198,7 +236,11 @@ export const aPhantomOfTruthScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: aPhantomOfTruth,
-					what: 'Remove both **Twin Suns** and 3x **Hunting Shadow** from the game.'
+					what: 'Remove 2x **Twin Suns** from the game.'
+				},
+				{
+					encounterSet: theMidnightMasks,
+					what: 'Remove 3x **Hunting Shadow** from the game.'
 				}
 			]
 		},
@@ -214,17 +256,26 @@ export const aPhantomOfTruthScenario: Scenario = {
 			],
 			notes: [
 				{
-					encounterSet: aPhantomOfTruth,
-					what: 'Remove both **Black Stars Rise** and both **False Lead**.'
+					encounterSet: evilPortents,
+					what: 'Remove 2x **Black Stars Rise** from the game.'
+				},
+				{
+					encounterSet: theMidnightMasks,
+					what: 'Remove 2x **False Lead** from the game.'
 				}
 			]
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Jordan Perry**']
+			}
+		],
 		notes: [
 			{
-				encounterSet: aPhantomOfTruth,
-				what: 'The double-sided **The Organist** is set aside, out of play.'
+				what: 'If **Jordan Perry** is under **VIPs Interviewed**: each investigator begins with 3 extra resources and starts at **Montparnasse**.'
 			}
 		]
 	}
@@ -244,10 +295,35 @@ export const thePallidMaskScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Ishimaru Haruko**']
+			}
+		],
 		notes: [
 			{
-				encounterSet: thePallidMask,
-				what: 'The **Tomb of Shadows** and **Blocked Passage** Catacombs locations and **The Man in the Pallid Mask** weakness are set aside, out of play.'
+				what: 'If **Ishimaru Haruko** is under **VIPs Interviewed**: remember that “you opened a secret passageway.”'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Starting Location'
+			},
+			{
+				paragraph:
+					'Put a random Catacombs location (not the set-aside **Tomb of Shadows** or **Blocked Passage**) into play, Catacombs side faceup, and mark it with a resource token as the starting location. If you awoke inside the Catacombs, use **The Gate to Hell** as the starting location instead. Each investigator begins play there once it is revealed.'
+			},
+			{
+				heading: 'Catacombs Deck'
+			},
+			{
+				bullets: [
+					'Shuffle the set-aside **Tomb of Shadows**, **Blocked Passage**, and 3 other random Catacombs locations to form the bottom 5 cards, Catacombs side faceup.',
+					'Place every remaining Catacombs location on top in random order, all showing only the Catacombs side.'
+				]
 			}
 		]
 	}
@@ -271,6 +347,12 @@ export const blackStarsRiseScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Ashleigh Clarke**']
+			}
+		],
 		addChaosTokenPerDifficulty: {
 			easy: [ChaosToken.TokenM3],
 			standard: [ChaosToken.TokenM5],
@@ -285,8 +367,22 @@ export const blackStarsRiseScenario: Scenario = {
 		],
 		notes: [
 			{
-				encounterSet: blackStarsRise,
-				what: 'Both act 3 cards, the **Beast of Aldebaran**, each **Tidal Terror**, each **Rift Seeker**, and the **Cloister** and **Knight** locations are set aside, out of play.'
+				what: 'If **Ashleigh Clarke** is under **VIPs Interviewed**: once per game, an investigator may remove 1 doom from an agenda in play as a [fast] ability. Use the back of this card as a reminder.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: 'The **Beast of Aldebaran** is set aside, out of play.'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Ashleigh’s Information'
+			},
+			{
+				paragraph:
+					'[fast] If **Ashleigh Clarke** is under **VIPs Interviewed**: Remove 1 doom from an agenda in play. (Limit once per game.)'
 			}
 		]
 	}
@@ -310,8 +406,14 @@ export const dimCarcosaScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: dimCarcosa,
-				what: 'All three **Hastur** versions and the **Beast of Aldebaran** are set aside, out of play.'
+				what: 'Add starting doom to agenda 1a from your **Chasing the Stranger** tally: 3 doom (0 to 2), 2 doom (3 to 5), 1 doom (6 to 8), or none (9+).'
+			},
+			{
+				what: 'Each investigator takes direct horror equal to half their sanity, rounded down (cannot be prevented). In the Realm of Carcosa, horror cannot defeat investigators.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: 'The **Beast of Aldebaran** is set aside, out of play.'
 			}
 		]
 	}
@@ -336,10 +438,6 @@ export const returnToCurtainCallScenario: Scenario = {
 	],
 	commonSetup: {
 		notes: [
-			{
-				encounterSet: curtainCall,
-				what: 'None of this set enters the deck: **The Man in the Pallid Mask** and **Royal Emissary** are set aside, and its locations are placed in play.'
-			},
 			{
 				encounterSet: returnToCurtainCall,
 				what: '**La Comtesse** is shuffled into the encounter deck.'
@@ -366,8 +464,11 @@ export const returnToTheLastKingScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: theLastKing,
-				what: 'The new **Dianne Devine** ally and the **Shocking Display** treachery are set aside; the original Dianne Devine enemy is removed.'
+				what: 'Place 1 clue on each of ***Bystander*** assets, plus 1 [per_investigator] additional clue.'
+			},
+			{
+				encounterSet: returnToTheLastKing,
+				what: 'The new **Dianne Devine** asset and the **Shocking Display** treachery are set aside; the original Dianne Devine enemy is removed.'
 			},
 			{
 				encounterSet: returnToTheLastKing,
@@ -431,10 +532,19 @@ export const returnToEchoesOfThePastScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Sebastien Moreau**']
+			}
+		],
 		notes: [
 			{
+				what: 'If **Sebastien Moreau** is under **VIPs Interviewed**: place 1 [per_investigator] clues on **Entry Hall**.'
+			},
+			{
 				encounterSet: echoesOfThePast,
-				what: '**Hidden Library**, **Possessed Oathspeaker**, **Mr. Peabody**, **The Tattered Cloak**, and **Clasp of Black Onyx** are set aside, out of play.'
+				what: 'The **Seeker of Carcosa** enemies start in play at Historical Society locations rather than shuffled into the deck: 0/1/2/3 for 1/2/3/4 players.'
 			}
 		]
 	}
@@ -457,10 +567,40 @@ export const returnToTheUnspeakableOathScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		addChaosTokenPerDifficulty: {
+			easy: [ChaosToken.TokenM2],
+			standard: [ChaosToken.TokenM3],
+			hard: [ChaosToken.TokenM4],
+			expert: [ChaosToken.TokenM5]
+		},
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Constance Dumaine**']
+			}
+		],
 		notes: [
 			{
+				what: 'If **Constance Dumaine** is under **VIPs Interviewed**: each investigator places the top card of their deck facedown as a **Courage** asset (2 sanity).'
+			},
+			{
+				what: 'Set aside two piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
+			},
+			{
+				encounterSet: hastursEnvoys,
+				what: '2x **Preying Byakhee** ***(Monster)*** are set aside; only 2x **The Sign of Hastur** enter the encounter deck.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: '1x **Beast of Aldebaran** and 2x **Spawn of Hali** ***(Monster)*** are set aside.'
+			},
+			{
+				encounterSet: hastursGift,
+				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
+			},
+			{
 				encounterSet: theUnspeakableOath,
-				what: 'All **Monster**, **Possessed**, and **Lunatic** enemies (7 of each) are set aside in separate piles; **Daniel Chesterfield**, **Host of Insanity**, **Radical Treatment**, and **Patient Confinement** are also set aside.'
+				what: '2x **Asylum Gorger** ***(Monster)*** and 3x **Haunted Patient** ***(Possessed)*** are set aside.'
 			},
 			{
 				encounterSet: returnToTheUnspeakableOath,
@@ -488,7 +628,11 @@ export const returnToAPhantomOfTruthScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: aPhantomOfTruth,
-					what: 'Remove **Twin Suns** and **Hunting Shadow**.'
+					what: 'Remove 2x **Twin Suns** from the game.'
+				},
+				{
+					encounterSet: theMidnightMasks,
+					what: 'Remove 3x **Hunting Shadow** from the game.'
 				}
 			]
 		},
@@ -505,8 +649,12 @@ export const returnToAPhantomOfTruthScenario: Scenario = {
 			],
 			notes: [
 				{
-					encounterSet: aPhantomOfTruth,
-					what: 'Remove **Black Stars Rise** and **False Lead**.'
+					encounterSet: evilPortents,
+					what: 'Remove 2x **Black Stars Rise** from the game.'
+				},
+				{
+					encounterSet: theMidnightMasks,
+					what: 'Remove 2x **False Lead** from the game.'
 				}
 			]
 		}
@@ -514,8 +662,11 @@ export const returnToAPhantomOfTruthScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: aPhantomOfTruth,
-				what: 'The double-sided **The Organist** and both **Figure in the Shadows** are set aside, out of play.'
+				what: 'If **Jordan Perry** is under **VIPs Interviewed**: each investigator begins with 3 extra resources and starts at **Montparnasse**.'
+			},
+			{
+				encounterSet: returnToAPhantomOfTruth,
+				what: '2x **Figure in the Shadows** are set aside, out of play.'
 			}
 		]
 	}
@@ -536,14 +687,39 @@ export const returnToThePallidMaskScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Ishimaru Haruko**']
+			}
+		],
 		notes: [
 			{
-				encounterSet: thePallidMask,
-				what: 'The **Tomb of Shadows** and **Blocked Passage** Catacombs locations and **The Man in the Pallid Mask** weakness are set aside, out of play.'
+				what: 'If **Ishimaru Haruko** is under **VIPs Interviewed**: remember that “you opened a secret passageway.”'
 			},
 			{
 				encounterSet: returnToThePallidMask,
 				what: '**Malformed Skeleton** is shuffled into the encounter deck.'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Starting Location'
+			},
+			{
+				paragraph:
+					'Put a random Catacombs location (not the set-aside **Tomb of Shadows** or **Blocked Passage**) into play, Catacombs side faceup, and mark it with a resource token as the starting location. If you awoke inside the Catacombs, use **The Gate to Hell** as the starting location instead. Each investigator begins play there once it is revealed.'
+			},
+			{
+				heading: 'Catacombs Deck'
+			},
+			{
+				bullets: [
+					'Shuffle the set-aside **Tomb of Shadows**, **Blocked Passage**, and 3 other random Catacombs locations to form the bottom 5 cards, Catacombs side faceup.',
+					'Place every remaining Catacombs location on top in random order, all showing only the Catacombs side.'
+				]
 			}
 		]
 	}
@@ -568,6 +744,12 @@ export const returnToBlackStarsRiseScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theLastKing,
+				what: ['**Ashleigh Clarke**']
+			}
+		],
 		addChaosTokenPerDifficulty: {
 			easy: [ChaosToken.TokenM3],
 			standard: [ChaosToken.TokenM5],
@@ -582,12 +764,26 @@ export const returnToBlackStarsRiseScenario: Scenario = {
 		],
 		notes: [
 			{
-				encounterSet: blackStarsRise,
-				what: 'Both act 3 cards, the **Beast of Aldebaran**, each **Tidal Terror**, each **Rift Seeker**, and the **Cloister** and **Knight** locations are set aside, out of play.'
+				what: 'If **Ashleigh Clarke** is under **VIPs Interviewed**: once per game, an investigator may remove 1 doom from an agenda in play as a [fast] ability. Use the back of this card as a reminder.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: 'The **Beast of Aldebaran** is set aside, out of play.'
 			},
 			{
 				encounterSet: returnToBlackStarsRise,
 				what: '**Hastur’s Gaze** and **Hastur’s Grasp** are shuffled into the encounter deck.'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Ashleigh’s Information'
+			},
+			{
+				paragraph:
+					'[fast] If **Ashleigh Clarke** is under **VIPs Interviewed**: Remove 1 doom from an agenda in play. (Limit once per game.)'
 			}
 		]
 	}
@@ -612,8 +808,14 @@ export const returnToDimCarcosaScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: dimCarcosa,
-				what: 'All three **Hastur** versions and the **Beast of Aldebaran** are set aside, out of play.'
+				what: 'Add starting doom to agenda 1a from your **Chasing the Stranger** tally: 3 doom (0 to 2), 2 doom (3 to 5), 1 doom (6 to 8), or none (9+).'
+			},
+			{
+				what: 'Each investigator takes direct horror equal to half their sanity, rounded down (cannot be prevented). In the Realm of Carcosa, horror cannot defeat investigators.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: 'The **Beast of Aldebaran** is set aside, out of play.'
 			},
 			{
 				encounterSet: returnToDimCarcosa,

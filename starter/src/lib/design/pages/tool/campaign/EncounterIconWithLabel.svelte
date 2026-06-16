@@ -2,6 +2,7 @@
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
 	import { u } from '@5argon/arkham-string';
+	import { parseArkhamMarkup } from '$lib/utility/arkham-markup';
 	import clsx from 'clsx';
 	import EncounterSetDisplayWithTooltip from './EncounterSetDisplayWithTooltip.svelte';
 
@@ -33,16 +34,6 @@
 	}
 
 	const translatedName = $derived(u.encounterSetName(kohakuEncounterSet));
-
-	function parseMarkdown(text: string): string {
-		// Replace **bold** with <strong>bold</strong>
-		let parsed = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-		// Replace *italic* with <em>italic</em>
-		parsed = parsed.replace(/\*(.+?)\*/g, '<em>$1</em>');
-		// Replace [number]x with [number]×
-		parsed = parsed.replace(/(\d+)x/g, '$1×');
-		return parsed;
-	}
 </script>
 
 <div class="inline-flex flex-col space-y-px text-center items-center mx-1">
@@ -74,7 +65,7 @@
 				)}
 			>
 				<span class="text-[1em] text-primary-700 dark:text-primary-300"
-					>{@html parseMarkdown(subText)}</span
+					>{@html parseArkhamMarkup(subText)}</span
 				>
 			</div>
 		{/if}

@@ -5,6 +5,7 @@
 		type ScenarioSetupSub
 	} from '$lib/core/campaign';
 	import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
+	import { parseArkhamMarkup } from '$lib/utility/arkham-markup';
 	import { ChaosTokenDisplay, FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import { Campaign as KohakuCampaign, ChaosToken } from '@5argon/arkham-kohaku';
 
@@ -19,16 +20,6 @@
 	}
 
 	let { setup, notCommon = false, campaign = undefined }: Props = $props();
-
-	function parseMarkdown(text: string): string {
-		// Replace **bold** with <strong>bold</strong>
-		let parsed = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-		// Replace *italic* with <em>italic</em>
-		parsed = parsed.replace(/\*(.+?)\*/g, '<em>$1</em>');
-		// Replace [number]x with [number]×
-		parsed = parsed.replace(/(\d+)x/g, '$1×');
-		return parsed;
-	}
 
 	function getTopicIcon(): FaIconType | undefined {
 		if (!campaign) return undefined;
@@ -181,7 +172,7 @@
 							</span>
 						{/if}
 						<span class="text-sm text-primary-500 dark:text-primary-300"
-							>{@html parseMarkdown(n.what)}</span
+							>{@html parseArkhamMarkup(n.what)}</span
 						>
 					{/if}
 				</div>

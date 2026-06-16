@@ -9,21 +9,21 @@ export const load: PageServerLoad = async ({ params }) => {
 	const urlToKohakuCampaign: Record<string, KohakuCampaign> = {
 		notz: KohakuCampaign.NightOfTheZealot,
 		dwl: KohakuCampaign.TheDunwichLegacy,
-		ptc: KohakuCampaign.ThePathToCarcosa, // incomplete
+		ptc: KohakuCampaign.ThePathToCarcosa,
 		tfa: KohakuCampaign.TheForgottenAge,
 		tcu: KohakuCampaign.TheCircleUndone,
 		tdea: KohakuCampaign.TheDreamQuest,
 		tdeb: KohakuCampaign.TheWebOfDreams,
-		tic: KohakuCampaign.TheInnsmouthConspiracy, // incomplete
+		tic: KohakuCampaign.TheInnsmouthConspiracy,
 		eote: KohakuCampaign.EdgeOfTheEarth,
 		tsk: KohakuCampaign.TheScarletKeys,
-		fhv: KohakuCampaign.TheFeastOfHemlockVale, // incomplete
-		tdc: KohakuCampaign.TheDrownedCity, // incomplete
-		rtnotz: KohakuCampaign.ReturnToNightOfTheZealot, // incomplete
+		fhv: KohakuCampaign.TheFeastOfHemlockVale,
+		tdc: KohakuCampaign.TheDrownedCity,
+		rtnotz: KohakuCampaign.ReturnToNightOfTheZealot,
 		rtdwl: KohakuCampaign.ReturnToTheDunwichLegacy,
-		rtptc: KohakuCampaign.ReturnToThePathToCarcosa, // incomplete
-		rttfa: KohakuCampaign.ReturnToTheForgottenAge, // incomplete
-		rttcu: KohakuCampaign.ReturnToTheCircleUndone // incomplete
+		rtptc: KohakuCampaign.ReturnToThePathToCarcosa,
+		rttfa: KohakuCampaign.ReturnToTheForgottenAge,
+		rttcu: KohakuCampaign.ReturnToTheCircleUndone
 	};
 
 	const kohakuCampaign = urlToKohakuCampaign[campaignCode];

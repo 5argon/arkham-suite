@@ -53,7 +53,7 @@ export const thePitOfDespairScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: thePitOfDespair,
-				what: 'None of this set enters the deck: **The Amalgam**, both **Blindsense**, and 3x **From the Depths** are set aside, out of play.'
+				what: 'None of this set enters the deck: **The Amalgam**, 2x **Blindsense**, and 3x **From the Depths** are set aside, out of play.'
 			}
 		]
 	}
@@ -84,7 +84,7 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 			},
 			{
 				encounterSet: nightgaunts,
-				what: 'Both **Hunting Nightgaunt** enemies are set aside, out of play.'
+				what: '2x **Hunting Nightgaunt** enemies are set aside, out of play.'
 			},
 			{
 				encounterSet: fogOverInnsmouth,
@@ -241,7 +241,7 @@ export const theLairOfDagonScenario: Scenario = {
 			},
 			{
 				encounterSet: syzygy,
-				what: 'Both **Syzygy** and both **Tidal Alignment** treacheries are set aside, out of play.'
+				what: '2x **Syzygy** and 2x **Tidal Alignment** treacheries are set aside, out of play.'
 			}
 		]
 	}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ExtraInfo } from '$lib/core/campaign';
-	import { ArkhamText } from '@5argon/arkham-life-ui';
+	import { parseArkhamMarkup } from '$lib/utility/arkham-markup';
 
 	let {
 		extraInfos,
@@ -20,16 +20,16 @@
 		{/if}
 		{#if info.paragraph}
 			<p class="leading-5 text-base text-primary-800 dark:text-primary-200 mb-1">
-				<ArkhamText text={info.paragraph} />
+				{@html parseArkhamMarkup(info.paragraph)}
 			</p>
 		{/if}
 		{#if info.bullets}
 			<ul class="mb-3">
 				{#each info.bullets as bullet, j (j)}
 					<li
-						class="leading-none text-base text-primary-800 dark:text-primary-200 ml-5 mb-1 list-disc"
+						class="leading-5 text-base text-primary-800 dark:text-primary-200 ml-5 mb-1 list-disc"
 					>
-						{bullet}
+						{@html parseArkhamMarkup(bullet)}
 					</li>
 				{/each}
 			</ul>

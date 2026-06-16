@@ -214,7 +214,7 @@ export const theApiaryWesternScenario: Scenario = {
 			},
 			{
 				encounterSet: theApiary,
-				what: '13 cards from this set enter the encounter deck: 3 locations (**Growing Fields** and both **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. **Luminous Tunnels** is then shuffled into the bottom ten cards.'
+				what: '13 cards from this set enter the encounter deck: 3 locations (**Growing Fields** and 2x **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. **Luminous Tunnels** is then shuffled into the bottom ten cards.'
 			},
 			{
 				encounterSet: theApiary,
@@ -222,7 +222,7 @@ export const theApiaryWesternScenario: Scenario = {
 			},
 			{
 				encounterSet: pilgrims,
-				what: 'Gathered but set aside, out of play.'
+				what: 'The entire **Pilgrims** encounter set is gathered but set aside, out of play.'
 			},
 			{
 				encounterSet: theInescapable,
@@ -257,7 +257,7 @@ export const theApiaryEasternScenario: Scenario = {
 			},
 			{
 				encounterSet: theApiary,
-				what: '13 cards from this set enter the encounter deck: 3 locations (**Growing Fields** and both **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. **Grasping Corridor** is then shuffled into the bottom ten cards.'
+				what: '13 cards from this set enter the encounter deck: 3 locations (**Growing Fields** and 2x **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. **Grasping Corridor** is then shuffled into the bottom ten cards.'
 			},
 			{
 				encounterSet: theApiary,
@@ -454,15 +454,15 @@ export const obsidianCanyonsScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: ancientEvils,
-				what: 'Used only for its **open sky** backs; set aside, not in the encounter deck.'
+				what: 'The **Ancient Evils** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
 			},
 			{
 				encounterSet: chillingCold,
-				what: 'Used only for its **open sky** backs; set aside, not in the encounter deck.'
+				what: 'The **Chilling Cold** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
 			},
 			{
 				encounterSet: strikingFear,
-				what: 'Used only for its **open sky** backs; set aside, not in the encounter deck.'
+				what: 'The **Striking Fear** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
 			},
 			{
 				encounterSet: starSpawn,

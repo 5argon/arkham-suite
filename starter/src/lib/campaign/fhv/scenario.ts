@@ -69,7 +69,7 @@ export const writtenInRockScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its 6 **Cave** locations are used by the setup and both **Crystal Parasite** enemies are set aside; only its 4 treacheries are shuffled in.'
+				what: 'Its 6 **Cave** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside; only its 4 treacheries are shuffled in.'
 			}
 		]
 	}
@@ -152,7 +152,7 @@ export const theSilentHeathScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Both **Crystal Parasite** enemies are set aside; only its 4 treacheries enter the deck.'
+				what: '2x **Crystal Parasite** enemies are set aside; only its 4 treacheries enter the deck.'
 			}
 		]
 	}
@@ -190,7 +190,7 @@ export const theLostSisterScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Both **Crystal Parasite** enemies are set aside; only its 4 treacheries enter the deck (its locations join the Caverns deck).'
+				what: '2x **Crystal Parasite** enemies are set aside; only its 4 treacheries enter the deck (its locations join the Caverns deck).'
 			}
 		]
 	}
@@ -320,7 +320,7 @@ export const fateOfTheValeScenario: Scenario = {
 			},
 			{
 				encounterSet: dayOfTheFeast,
-				what: 'Gathered but set aside for **The Abyss**, along with **Residents**, **Fire!**, and **The Vale**.'
+				what: 'The **Day of the Feast** set is gathered but set aside for **The Abyss**, along with **Residents**, **Fire!**, and **The Vale**.'
 			}
 		]
 	}
