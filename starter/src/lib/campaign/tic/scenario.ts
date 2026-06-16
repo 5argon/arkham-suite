@@ -53,7 +53,7 @@ export const thePitOfDespairScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: thePitOfDespair,
-				what: 'None of this set enters the deck: **The Amalgam**, 2x **Blindsense**, and 3x **From the Depths** are set aside, out of play.'
+				what: 'None of **The Pit of Despair** enters the deck: **The Amalgam**, 2x **Blindsense**, and 3x **From the Depths** are set aside, out of play.'
 			}
 		]
 	}
@@ -80,7 +80,7 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: theVanishingOfElinaHarper,
-				what: 'The suspects are placed as leads; none of this set enters the encounter deck.'
+				what: 'The suspects are placed as leads; none of **The Vanishing of Elina Harper** enters the encounter deck.'
 			},
 			{
 				encounterSet: nightgaunts,

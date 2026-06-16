@@ -66,7 +66,7 @@ export const oneLastJobScenario: Scenario = {
 			},
 			{
 				encounterSet: theMidnightMasks,
-				what: 'Only the **location** cards are gathered from this set. None enter the encounter deck.'
+				what: 'Only the **location** cards are gathered from **The Midnight Masks**. None enter the encounter deck.'
 			}
 		]
 	}
@@ -487,15 +487,7 @@ export const sepulchreOfTheSleeperScenario: Scenario = {
 				strikingFear
 			]
 		}
-	],
-	commonSetup: {
-		notes: [
-			{
-				encounterSet: sepulchreOfTheSleeper,
-				what: '**Cthulhu** awakens from the agenda deck, so none of its cards enter the encounter deck.'
-			}
-		]
-	}
+	]
 };
 
 export const theDoomOfArkhamPart1Scenario: Scenario = {
@@ -582,7 +574,7 @@ export const theDoomOfArkhamPart2Scenario: Scenario = {
 			},
 			{
 				encounterSet: theMidnightMasks,
-				what: 'Only the **location** cards are gathered from this set. None enter the encounter deck.'
+				what: 'Only the **location** cards are gathered from **The Midnight Masks**. None enter the encounter deck.'
 			}
 		]
 	}

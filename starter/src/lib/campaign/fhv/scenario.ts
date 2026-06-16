@@ -1,5 +1,8 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import {
+	EncounterSet as KohakuEncounterSet,
+	Scenario as KohakuScenario
+} from '@5argon/arkham-kohaku';
 
 import {
 	chillingCold,
@@ -54,8 +57,14 @@ export const writtenInRockScenario: Scenario = {
 	],
 	commonSetup: {
 		specialGather: [
-			{ encounterSet: residents, what: ['**River Hawthorne** (Day 1): place at the column 3 location.'] },
-			{ encounterSet: residents, what: ['**Simeon Atwood** (Day 1 or 2): set aside, out of play.'] },
+			{
+				encounterSet: residents,
+				what: ['**River Hawthorne** (Day 1): place at the column 3 location.']
+			},
+			{
+				encounterSet: residents,
+				what: ['**Simeon Atwood** (Day 1 or 2): set aside, out of play.']
+			},
 			{ encounterSet: residents, what: ['**Leah Atwood** (Day 3): set aside, out of play.'] }
 		],
 		notes: [
@@ -65,11 +74,11 @@ export const writtenInRockScenario: Scenario = {
 			},
 			{
 				encounterSet: writtenInRock,
-				what: 'This set starts set aside, out of play. Its cards are shuffled into the encounter deck later, during the Cave-In interlude (Act 2).'
+				what: 'The **Written in Rock** set is set aside, out of play.'
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its 6 **Cave** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside; only its 4 treacheries are shuffled in.'
+				what: 'Its 6 **Cave** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled in.'
 			}
 		]
 	}
@@ -96,7 +105,10 @@ export const hemlockHouseScenario: Scenario = {
 	],
 	commonSetup: {
 		specialGather: [
-			{ encounterSet: residents, what: ['**Judith Park** (Day 2 or 3): put into play at the Parlor.'] },
+			{
+				encounterSet: residents,
+				what: ['**Judith Park** (Day 2 or 3): put into play at the Parlor.']
+			},
 			{ encounterSet: residents, what: ['**Theo Peters** (Day 3): put into play at the Foyer.'] }
 		],
 		notes: [
@@ -106,7 +118,7 @@ export const hemlockHouseScenario: Scenario = {
 			},
 			{
 				encounterSet: hemlockHouse,
-				what: 'Only 2x **Grappling Spawn** enter the deck; the **Out of the Walls** and **Pulled In** treacheries are set aside until the house stirs.'
+				what: 'Only 2x **Grappling Spawn** enter the deck; the **Out of the Walls** and **Pulled In** treacheries are set aside, out of play.'
 			},
 			{
 				encounterSet: fire,
@@ -148,11 +160,11 @@ export const theSilentHeathScenario: Scenario = {
 			},
 			{
 				encounterSet: theSilentHeath,
-				what: 'The **Brood Queen** enemy is set aside; the rest of this set (10) enters the deck.'
+				what: 'The **Brood Queen** enemy is set aside, out of play.'
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: '2x **Crystal Parasite** enemies are set aside; only its 4 treacheries enter the deck.'
+				what: '3 random **Horrors in the Rock** locations are set aside and the rest removed from the game; 2x **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) enter the deck.'
 			}
 		]
 	}
@@ -177,7 +189,10 @@ export const theLostSisterScenario: Scenario = {
 	],
 	commonSetup: {
 		specialGather: [
-			{ encounterSet: residents, what: ['**Theo Peters** (Day 1 or 2): put into play under an investigator’s control.'] }
+			{
+				encounterSet: residents,
+				what: ['**Theo Peters** (Day 1 or 2): put into play under an investigator’s control.']
+			}
 		],
 		notes: [
 			{
@@ -186,11 +201,11 @@ export const theLostSisterScenario: Scenario = {
 			},
 			{
 				encounterSet: theLostSister,
-				what: 'The **Limulus Hybrid** and **Crustacean Hybrid** enemies are set aside; its locations form the Caverns deck.'
+				what: 'The **Limulus Hybrid** and 2x **Crustacean Hybrid** enemies are set aside; its locations form the Caverns deck. The 9 cards shuffled in are 3x **Cavern Moss**, 3x **Reclaimed by Nature**, and 3x **Luminous Growth**.'
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: '2x **Crystal Parasite** enemies are set aside; only its 4 treacheries enter the deck (its locations join the Caverns deck).'
+				what: '2x **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) enter the deck (its locations join the Caverns deck).'
 			}
 		]
 	}
@@ -215,7 +230,10 @@ export const theThingInTheDepthsScenario: Scenario = {
 	commonSetup: {
 		specialGather: [
 			{ encounterSet: residents, what: ['**Judith Park** (Day 1): place at North Shore.'] },
-			{ encounterSet: residents, what: ['**Dr. Rosa Marquez** (Day 1): put into play under an investigator’s control.'] },
+			{
+				encounterSet: residents,
+				what: ['**Dr. Rosa Marquez** (Day 1): put into play under an investigator’s control.']
+			},
 			{ encounterSet: residents, what: ['**River Hawthorne** (Day 2 or 3): place at North Shore.'] }
 		],
 		notes: [
@@ -225,7 +243,7 @@ export const theThingInTheDepthsScenario: Scenario = {
 			},
 			{
 				encounterSet: theThingInTheDepths,
-				what: 'The **Thing in the Depths**, **Chelydran Hybrid**, and 5x **Grasping Tendril** enemies are set aside; only its 7 treacheries enter the deck.'
+				what: 'The **Thing in the Depths**, **Chelydran Hybrid**, and 5x **Grasping Tendril** enemies are set aside; only its 7 treacheries enter the deck: 3x **Ground Disturbance** and 4x **Sinking Sludge**.'
 			}
 		]
 	}
@@ -245,10 +263,37 @@ export const theTwistedHollowScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: residents,
+				what: [
+					'**Dr. Rosa Marquez**: put into play under an investigator’s control (does not take an ally slot).'
+				]
+			},
+			{ encounterSet: residents, what: ['**Bertie Musgrave**: set aside, out of play.'] },
+			{
+				encounterSet: residents,
+				what: ['**Theo Peters**: set aside, out of play, if at Relationship Level 2 or higher.']
+			},
+			{
+				encounterSet: residents,
+				what: ['**Judith Park**: set aside, out of play, if at Relationship Level 2 or higher.']
+			}
+		],
 		notes: [
 			{
-				encounterSet: theTwistedHollow,
-				what: 'A fixed Night 1 scenario. The **Twisted Hollow** and **Glimmering Meadow** locations are set aside to seed the Woods deck.'
+				what: 'Put the **Vale Lantern** into play under an investigator’s control, **Lit** side faceup: **with Boon** version if Mother Rachel showed the way, or the **without Boon** version if you lost the path. Remove the other. With a single investigator, it does not take a hand slot.'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Woods Deck'
+			},
+			{
+				paragraph:
+					'Set **Twisted Hollow** and **Glimmering Meadow** aside, then remove 2 Western Woods locations (1 to 2 players) or 1 (3 to 4 players). Put 1 random remaining location into play as the starting location, shuffle the rest into the Woods deck, and reveal the top 4 around the start.'
 			}
 		]
 	}
@@ -275,15 +320,15 @@ export const theLongestNightScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: theLongestNight,
-				what: 'Only its 6 treacheries enter the encounter deck; its 15 enemies form a separate **Enemy deck**.'
+				what: 'Only 2x **Endless Night** and 4x **Incursion** treacheries enter the encounter deck.'
 			},
 			{
 				encounterSet: fire,
-				what: 'The entire **Fire!** set and the **Ajax** story asset are set aside, out of play.'
+				what: 'The entire **Fire!** set is set aside, out of play.'
 			},
 			{
 				encounterSet: theMidnightMasks,
-				what: 'Only its 5 treachery cards are gathered.'
+				what: 'Gather only 3x **Hunting Shadow** and 2x **False Lead**.'
 			}
 		]
 	}
@@ -295,8 +340,8 @@ export const fateOfTheValeScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: fateOfTheVale, overwriteCount: 6 },
-				{ encounterSet: horrorsInTheRock, overwriteCount: 6 },
+				{ encounterSet: fateOfTheVale, overwriteCount: 8 },
+				{ encounterSet: horrorsInTheRock, overwriteCount: 4 },
 				agentsOfTheColour,
 				refractions,
 				transfiguration,
@@ -311,16 +356,57 @@ export const fateOfTheValeScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
+				what: '**The Abyss** replaces the encounter deck. The count shown is the encounter portion only; it does not include the top 5 cards of each investigator’s deck or each investigator card, which are also shuffled into **The Abyss**.'
+			},
+			{
 				encounterSet: fateOfTheVale,
-				what: 'The **Cosmic Emissary** and **Crystal Mimic** enemies are placed by the diagram; only its 6 treacheries enter the deck.'
+				what: '2x **Crystal Mimic** and the 6 treacheries (2x **Sublimation**, 2x **Fragmentation**, 2x **Euphoria**) are shuffled into **The Abyss**.'
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its locations are set aside; its enemies and treacheries (6) enter the deck.'
+				what: 'Its locations and both **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled into **The Abyss**.'
 			},
 			{
 				encounterSet: dayOfTheFeast,
-				what: 'The **Day of the Feast** set is gathered but set aside for **The Abyss**, along with **Residents**, **Fire!**, and **The Vale**.'
+				what: 'The entire **Day of the Feast** set is set aside, out of play.'
+			},
+			{
+				encounterSet: residents,
+				what: 'The entire **Residents** set is set aside, out of play.'
+			},
+			{
+				encounterSet: fire,
+				what: 'The entire **Fire!** set is set aside, out of play.'
+			},
+			{
+				encounterSet: theVale,
+				what: 'The entire **The Vale** set is set aside, out of play.'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Building The Abyss'
+			},
+			{
+				bullets: [
+					'After drawing opening hands, shuffle together all remaining encounter cards and the top 5 cards of each investigator’s deck.',
+					'Split the shuffled deck in half and set one half aside.',
+					'Shuffle each “true” investigator card into the other half, then place that half on top of the set-aside half.',
+					'Place the double-sided **The Abyss** card on top, story card side faceup; it always covers the top and is never shuffled in.'
+				]
+			},
+			{
+				heading: 'The Abyss Rules'
+			},
+			{
+				bullets: [
+					'When an investigator would draw from the encounter deck, instead reveal from the bottom of The Abyss until an encounter-card back appears, draw it, and shuffle the rest back on top.',
+					'Resolve a card drawn from The Abyss using the double-sided The Abyss story card.',
+					'Player card and weakness effects targeting the encounter deck cannot interact with The Abyss and all fail.',
+					'Encounter cards discarded this scenario are always placed on top of The Abyss.'
+				]
 			}
 		]
 	}
