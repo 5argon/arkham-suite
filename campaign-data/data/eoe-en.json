@@ -1,0 +1,463 @@
+{
+  "code": "eoe",
+  "name": "Edge of the Earth",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "ice_and_death": "Ice and Death",
+    "locations_revealed": "Locations Revealed",
+    "supplies_recovered": "Supplies Recovered",
+    "fatal_mirage": "Fatal Mirage",
+    "memories_discovered": "Memories Discovered",
+    "memories_banished": "Memories Banished",
+    "the_heart_of_madness": "The Heart of Madness",
+    "seals_placed": "Seals Placed",
+    "seals_recovered": "Seals Recovered",
+    "expedition_team": "Expedition Team",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.photographed_the_astronomical_charts": {
+      "text": "The team photographed the astronomical charts."
+    },
+    "campaign_notes.discovered_an_ancient_vault": {
+      "text": "The team discovered an ancient vault."
+    },
+    "campaign_notes.studied_the_mural_carvings": {
+      "text": "the team studied the mural carvings."
+    },
+    "campaign_notes.read_the_map": {
+      "text": "the team read the map."
+    },
+    "campaign_notes.team_found_the_hidden_tunnel": {
+      "text": "the team found the hidden tunnel."
+    },
+    "campaign_notes.team_was_guided_to_the_hidden_tunnel": {
+      "text": "the team was guided to the hidden tunnel."
+    },
+    "campaign_notes.dr_kensler_is_on_the_verge_of_understanding": {
+      "text": "Dr. Kensler is on the verge of understanding."
+    },
+    "campaign_notes.scouted_the_city_outskirts": {
+      "text": "the investigators scouted the city outskirts."
+    },
+    "campaign_notes.convinced_dyer_to_allow_the_expedition": {
+      "text": "the investigators convinced Dyer to allow the expedition."
+    },
+    "campaign_notes.did_not_believe_dyers_report": {
+      "text": "the investigators did not believe Dyer's report."
+    },
+    "memories_banished.airfield": {
+      "text": "Airfield"
+    },
+    "memories_discovered.airfield": {
+      "text": "Airfield"
+    },
+    "memories_banished.alaskan_wilds": {
+      "text": "Alaskan Wilds"
+    },
+    "memories_discovered.alaskan_wilds": {
+      "text": "Alaskan Wilds"
+    },
+    "memories_banished.cluttered_dormitory": {
+      "text": "Cluttered Dormitory"
+    },
+    "memories_discovered.cluttered_dormitory": {
+      "text": "Cluttered Dormitory"
+    },
+    "memories_banished.dyers_classroom": {
+      "text": "Dyer's Classroom"
+    },
+    "memories_discovered.dyers_classroom": {
+      "text": "Dyer's Classroom"
+    },
+    "memories_banished.infirmary": {
+      "text": "Infirmary"
+    },
+    "memories_discovered.infirmary": {
+      "text": "Infirmary"
+    },
+    "memories_banished.dr_kenslers_office": {
+      "text": "Dr. Kensler's Office"
+    },
+    "memories_discovered.dr_kenslers_office": {
+      "text": "Dr. Kensler's Office"
+    },
+    "memories_banished.moai_statues": {
+      "text": "Mo'ai Statues"
+    },
+    "memories_discovered.moai_statue": {
+      "text": "Mo'ai Statues"
+    },
+    "memories_banished.ottoman_front": {
+      "text": "Ottoman Front"
+    },
+    "memories_discovered.ottoman_front": {
+      "text": "Ottoman Front"
+    },
+    "memories_banished.the_black_stone": {
+      "text": "The Black Stone"
+    },
+    "memories_discovered.the_black_stone": {
+      "text": "The Black Stone"
+    },
+    "memories_banished.alien_translation": {
+      "text": "Memory of an Alien Translation"
+    },
+    "memories_banished.hunt_gone_awry": {
+      "text": "Memory of a Hunt Gone Awry"
+    },
+    "memories_banished.lost_patient": {
+      "text": "Memory of a Lost Patient"
+    },
+    "memories_banished.missing_father": {
+      "text": "Memory of a Missing Father"
+    },
+    "memories_banished.ravaged_country": {
+      "text": "Memory of a Ravaged Country"
+    },
+    "memories_banished.regretful_voyage": {
+      "text": "Memory of a Regretful Voyage"
+    },
+    "memories_banished.terrible_discovery": {
+      "text": "Memory of a Terrible Discovery"
+    },
+    "memories_banished.unrequited_love": {
+      "text": "Memory of an Unrequited Love"
+    },
+    "memories_banished.unspeakable_evil": {
+      "text": "Memory of an Unspeakable Evil"
+    },
+    "memories_discovered.base_camp": {
+      "text": "Base Camp"
+    },
+    "memories_discovered.deck_of_the_theodosia": {
+      "text": "Deck of the Theodosia"
+    },
+    "memories_discovered.university_halls": {
+      "text": "University Halls"
+    },
+    "memories_discovered.hedge_maze": {
+      "text": "Hedge Maze"
+    },
+    "memories_discovered.deserted_station": {
+      "text": "Deserted Station"
+    },
+    "memories_discovered.coastal_waters": {
+      "text": "Coastal Waters"
+    },
+    "memories_discovered.elder_chamber": {
+      "text": "Elder Chamber"
+    },
+    "memories_discovered.riverview_theatre": {
+      "text": "Riverview Theatre"
+    },
+    "memories_discovered.standing_stones": {
+      "text": "Standing Stones"
+    },
+    "memories_discovered.moai_statues": {
+      "text": "Mo'ai Statues"
+    },
+    "campaign_notes.cookie_has_confronted_his_demons": {
+      "text": "Cookie has confronted his demons."
+    },
+    "campaign_notes.danforth_has_confronted_his_demons": {
+      "text": "Danforth has confronted his demons."
+    },
+    "campaign_notes.dyer_has_confronted_his_demons": {
+      "text": "Dyer has confronted his demons."
+    },
+    "campaign_notes.eliyah_has_confronted_his_demons": {
+      "text": "Eliyah has confronted his demons."
+    },
+    "campaign_notes.ellsworth_has_confronted_his_demons": {
+      "text": "Ellsworth has confronted his demons."
+    },
+    "campaign_notes.dr_kensler_has_confronted_her_demons": {
+      "text": "Dr. Kensler has confronted her demons."
+    },
+    "campaign_notes.dr_sinha_has_confronted_her_demons": {
+      "text": "Dr. Sinha has confronted her demons."
+    },
+    "campaign_notes.takada_has_confronted_her_demons": {
+      "text": "Takada has confronted her demons."
+    },
+    "campaign_notes.claypool_has_confronted_his_demons": {
+      "text": "Claypool has confronted his demons."
+    },
+    "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": {
+      "text": "Dr. Kensler understands the true nature of the miasma.",
+      "spoiler": [
+        "the true nature of the miasma"
+      ]
+    },
+    "campaign_notes.scouted_the_forked_passage": {
+      "text": "the investigators scouted the forked passage."
+    },
+    "campaign_notes.killed_in_plane_crash": {
+      "text": "#name# was killed in the plane crash."
+    },
+    "campaign_notes.camp_icebreaker_landing": {
+      "text": "Camp - Icebreaker Landing (5)"
+    },
+    "campaign_notes.camp_icy_wastes": {
+      "text": "Camp - Icy Wastes (4)"
+    },
+    "campaign_notes.camp_barrier_camp": {
+      "text": "Camp - Barrier Camp (7)"
+    },
+    "campaign_notes.camp_rocky_crags": {
+      "text": "Camp - Rocky Crags (3)"
+    },
+    "campaign_notes.camp_frigid_cave": {
+      "text": "Camp - Frigid Cave (6)"
+    },
+    "campaign_notes.camp_precarious_ice_sheet": {
+      "text": "Camp - Precarious Ice Sheet (2)"
+    },
+    "campaign_notes.camp_treacherous_path": {
+      "text": "Camp - Treacherous Path (1)"
+    },
+    "campaign_notes.camp_crash_site": {
+      "text": "Camp - Crash Site (0)"
+    },
+    "campaign_notes.camp_remnants_of_lakes_camp": {
+      "text": "Camp - Remnants of Lake's Camp (7)"
+    },
+    "campaign_notes.camp_frozen_shores": {
+      "text": "Camp - Frozen Shores (2)"
+    },
+    "campaign_notes.camp_crystalline_cavern": {
+      "text": "Camp - Crystalline Cavern (8)"
+    },
+    "campaign_notes.camp_broad_snowdrifts": {
+      "text": "Camp - Broad Snowdrifts (4)"
+    },
+    "campaign_notes.camp_snow_graves": {
+      "text": "Camp - Snow Graves (5)"
+    },
+    "campaign_notes.team_barely_escaped_the_ice_shelf": {
+      "text": "the team barely escaped the ice shelf."
+    },
+    "campaign_notes.team_defeated_the_hunting_creatures": {
+      "text": "the team defeated the hunting creatures."
+    },
+    "campaign_notes.team_fled_to_the_mountains": {
+      "text": "the team fled to the mountains."
+    },
+    "campaign_notes.dr_kensler_is_sharing_her_research_with_you": {
+      "text": "Dr. Kensler is sharing her research with you."
+    },
+    "campaign_notes.scouted_the_mountain_pass": {
+      "text": "the investigators scouted the mountain pass."
+    },
+    "locations_revealed.icebreaker_landing": {
+      "text": "Icebreaker Landing"
+    },
+    "locations_revealed.icy_wastes": {
+      "text": "Icy Wastes"
+    },
+    "locations_revealed.barrier_camp": {
+      "text": "Barrier Camp"
+    },
+    "locations_revealed.rocky_crags": {
+      "text": "Rocky Crags"
+    },
+    "locations_revealed.frigid_cave": {
+      "text": "Frigid Cave"
+    },
+    "locations_revealed.precarious_ice_sheet": {
+      "text": "Precarious Ice Sheet"
+    },
+    "locations_revealed.treacherous_path": {
+      "text": "Treacherous Path"
+    },
+    "locations_revealed.crash_site": {
+      "text": "Crash Site"
+    },
+    "locations_revealed.remnants_of_lakes_camp": {
+      "text": "Remnants of Lake's Camp"
+    },
+    "locations_revealed.frozen_shores": {
+      "text": "Frozen Shores"
+    },
+    "locations_revealed.crystalline_cavern": {
+      "text": "Crystalline Cavern"
+    },
+    "locations_revealed.broad_snowdrifts": {
+      "text": "Broad Snowdrifts"
+    },
+    "locations_revealed.snow_graves": {
+      "text": "Snow Graves"
+    },
+    "campaign_notes.the_seal_was_used_improperly": {
+      "text": "the seal was used… improperly."
+    },
+    "campaign_notes.dr_kensler_has_a_plan": {
+      "text": "Dr. Kensler has a plan."
+    },
+    "campaign_notes.truth_of_the_mirage_eludes_you": {
+      "text": "the truth of the mirage eludes you."
+    },
+    "campaign_notes.nameless_madness_escaped": {
+      "text": "the nameless madness escaped.",
+      "spoiler": [
+        "the nameless madness"
+      ]
+    },
+    "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now": {
+      "text": "the nameless madness is contained safely within its host… for now.",
+      "spoiler": [
+        "the nameless madness"
+      ]
+    },
+    "campaign_notes.team_escaped_the_facility": {
+      "text": "the team escaped the facility."
+    },
+    "campaign_notes.facility_was_destroyed": {
+      "text": "the facility was destroyed."
+    },
+    "campaign_notes.surviving_members_header": {
+      "text": "the survivors of the expedition were:"
+    },
+    "seals_placed.seal_a": {
+      "text": "[seal_a]"
+    },
+    "seals_placed.seal_b": {
+      "text": "[seal_b]"
+    },
+    "seals_placed.seal_c": {
+      "text": "[seal_c]"
+    },
+    "seals_placed.seal_d": {
+      "text": "[seal_d]"
+    },
+    "seals_placed.seal_e": {
+      "text": "[seal_e]"
+    },
+    "seals_recovered.seal_a": {
+      "text": "[seal_a]"
+    },
+    "seals_recovered.seal_b": {
+      "text": "[seal_b]"
+    },
+    "seals_recovered.seal_c": {
+      "text": "[seal_c]"
+    },
+    "seals_recovered.seal_d": {
+      "text": "[seal_d]"
+    },
+    "seals_recovered.seal_e": {
+      "text": "[seal_e]"
+    },
+    "campaign_notes.team_climbed_to_the_summit": {
+      "text": "the team climbed to the summit."
+    },
+    "campaign_notes.team_found_another_way_through_the_mountains": {
+      "text": "the team found another way through the mountains."
+    }
+  },
+  "achievements": {
+    "safe_bet": {
+      "title": "Safe Bet",
+      "text": "Camp at a location with a shelter value of 8 in <i>Ice and Death, Part I</i>."
+    },
+    "look_at_all_this_stuff": {
+      "title": "Look at All This Stuff!",
+      "text": "Recover all seven supplies in <i>Ice and Death</i>, and carry all of them to The Summit in <i>To the Forbidden Peaks</i>."
+    },
+    "in_your_head": {
+      "title": "In Your Head",
+      "text": "Finish <i>Fatal Mirage</i> with nine story cards in the victory display."
+    },
+    "chaos_chaos": {
+      "title": "Chaos Chaos",
+      "text": "Collect and spend a total of ten or more keys in <i>City of the Elder Things</i>."
+    },
+    "knock_knock": {
+      "title": "Knock, Knock",
+      "text": "Collect, activate, and place all five seals in <i>The Heart of Madness, Part I</i>."
+    },
+    "mad_with_power": {
+      "title": "Mad With Power",
+      "text": "Simultaneously exhaust fifteen copies of The Nameless Madness in <i>The Heart of Madness, Part II</i>."
+    },
+    "construct_additional_pylons": {
+      "title": "Construct Additional Pylons",
+      "text": "Collapse all five Mist-Pylons and escape with your life in <i>The Heart of Madness, Part II</i>."
+    },
+    "the_sound_of_madness": {
+      "title": "The Sound of Madness",
+      "text": "Draw 10 copies of \"Tekeli-li!\" during a single game."
+    },
+    "sorry_im_all_out_of_dog_puns": {
+      "title": "Sorry, I'm All Out of Dog Puns",
+      "text": "Have Anyu and four or more other assets with \"Dog\" in their title in play at the same time."
+    },
+    "kind_of_a_hat_on_a_hat": {
+      "title": "Kind of a Hat on a Hat",
+      "text": "Play a Wooden Sledge from a Backpack, then immediately use its ability to attach a backpack to it."
+    },
+    "this_was_your_idea": {
+      "title": "This Was Your Idea",
+      "text": "Use Professor William Dyer's ability to heal at least 4 horror from Danforth during a single scenario."
+    },
+    "no_respect_for_the_dead": {
+      "title": "No Respect For the Dead",
+      "text": "Control at least five assets from the <i>Memorials of the Lost</i> encounter set at the same time."
+    },
+    "wuk_wuk_boom": {
+      "title": "Wuk Wuk Boom",
+      "text": "Use Dynamite to defeat two Giant Albino Penguins at the same time."
+    },
+    "the_cold_never_bothered_me": {
+      "title": "The Cold Never Bothered Me",
+      "text": "Win the <i>Edge of the Earth</i> campaign with eight [frost] tokens in the chaos bag at the end of the campaign."
+    },
+    "hell_froze_over": {
+      "title": "Hell Froze Over",
+      "text": "Win the <i>Edge of the Earth</i> campaign with zero [frost] tokens in the chaos bag at the end of the campaign."
+    },
+    "abandoned_and_alone": {
+      "title": "Abandoned and Alone",
+      "text": "Win the <i>Edge of the Earth</i> campaign without ever bringing a partner asset along with you during a scenario."
+    },
+    "friends_forever": {
+      "title": "Friends Forever",
+      "text": "Bring the same partner with you in each scenario, ensure that they have confronted their demons, and win the <i>Edge of the Earth</i> campaign with them still alive."
+    },
+    "there_and_back_again": {
+      "title": "There and Back Again",
+      "text": "Win the <i>Edge of the Earth</i> campaign with each of the following survivors:",
+      "items": {
+        "kensler": "Dr. Amy Kensler",
+        "dyer": "Professor William Dyer",
+        "danforth": "Danforth",
+        "cookie": "James \"Cookie\" Fredericks",
+        "ashevak": "Eliyah Ashevak",
+        "sinha": "Dr. Mala Sinha",
+        "hiroko": "Takada Hiroko",
+        "claypool": "Avery Claypool",
+        "ellsworth": "Roald Ellsworth"
+      }
+    },
+    "line_in_the_snow": {
+      "title": "Line in the… Snow",
+      "text": "Win the <i>Edge of the Earth</i> campaign with at least three Ultimatums active."
+    },
+    "antarctic_expertise": {
+      "title": "Antarctic Expertise",
+      "text": "Win the <i>Edge of the Earth</i> campaign on Expert difficulty"
+    }
+  },
+  "items": {
+    "kensler": "Dr. Amy Kensler",
+    "dyer": "Prof. William Dyer",
+    "danforth": "Danforth",
+    "ellsworth": "Roald Ellsworth",
+    "hiroko": "Takada Hiroko",
+    "claypool": "Avery Claypool",
+    "sinha": "Dr. Mala Sinha",
+    "cookie": "James \"Cookie\" Fredericks",
+    "ashevak": "Eliyah Ashevak"
+  }
+}

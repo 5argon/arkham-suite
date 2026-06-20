@@ -1,0 +1,1633 @@
+{
+ "classifications": [
+  {
+   "code": "tdea",
+   "achievements": [
+    {
+     "id": "follow_orders",
+     "status": "infer",
+     "reason": "Not straying = the 'strayed from the path' note was NOT recorded; key exists in en entries.",
+     "infer": {
+      "type": "logAbsent",
+      "key": "campaign_notes.strayed_from_the_path"
+     }
+    },
+    {
+     "id": "so_cute",
+     "status": "manual",
+     "reason": "Not defeating any Zoog is a mid-scenario play constraint; no campaign-log key records it."
+    },
+    {
+     "id": "losing_my_religion",
+     "status": "infer",
+     "reason": "Signs of the Gods are tallied in the evidence_of_kadath count section; all 10 = count >= 10.",
+     "infer": {
+      "type": "logCount",
+      "key": "evidence_of_kadath",
+      "min": 10
+     }
+    },
+    {
+     "id": "cat_killer",
+     "status": "infer",
+     "reason": "Breaking the law of Ulthar is recorded as the broken_the_law_of_ulthar note; key exists in en entries.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.broken_the_law_of_ulthar"
+     }
+    },
+    {
+     "id": "spy",
+     "status": "manual",
+     "reason": "Alarm levels at zero is a mid-scenario state not recorded in the campaign log."
+    },
+    {
+     "id": "moon_lizard",
+     "status": "manual",
+     "reason": "Defeating the Moon Lizard is a mid-scenario feat with no campaign-log trace."
+    },
+    {
+     "id": "barkham",
+     "status": "manual",
+     "reason": "Defeating Cats from Saturn via a fight on an ally is a mid-scenario action, not logged."
+    },
+    {
+     "id": "high_priest",
+     "status": "manual",
+     "reason": "Shoving the High Priest down a well is a mid-scenario act with no recorded log entry."
+    },
+    {
+     "id": "hidden_nylar",
+     "status": "manual",
+     "reason": "Adding every hidden Nyarlathotep form in a single round is a mid-scenario timing feat; not logged."
+    },
+    {
+     "id": "final_form",
+     "status": "manual",
+     "reason": "Exposing and defeating the True Shape is a mid-scenario feat; no distinct campaign-log key."
+    },
+    {
+     "id": "dont_tell",
+     "status": "manual",
+     "reason": "Using The Great Hall ability to pass 6 hidden cards is mid-scenario; not recorded."
+    },
+    {
+     "id": "line_in_the_sand",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active maps to the ultimatums rule.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "dreamlands_expertise",
+     "status": "infer",
+     "reason": "Winning on Expert maps to the difficulty rule.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    },
+    {
+     "id": "beware_black_cat",
+     "status": "infer",
+     "reason": "'okay, fine, have it your way then' is the threaten_black_cat note text; key exists in en entries.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.threaten_black_cat"
+     }
+    },
+    {
+     "id": "reunited",
+     "status": "unsure",
+     "reason": "The 8-part interconnected mode is tracked (hidden interconnected_campaign note), but 'both groups reunite during the epilogue' has no verified recorded campaign-notes entry.",
+     "question": "CROSS-CAMPAIGN: reunion pairs a tdea dreamers-outcome with a tdeb investigators-outcome (returned_to_reality/never_escaped/still_in_the_dreamlands live in tdeb). Mapping: anyOf[(nyarlathoteps_invasion_has_begun & returned_to_reality),(dreamers_awoke & returned_to_reality),(dreamers_stayed_in_dreamlands_forever & still_in_the_dreamlands),(never_escaped & dreamers_traveled_beneath_the_monastery)]. Needs linked-mode (8-part) cross-campaign inference — not yet supported."
+    }
+   ]
+  },
+  {
+   "code": "tdeb",
+   "achievements": [
+    {
+     "id": "spiders",
+     "status": "manual",
+     "reason": "Tally of 20 defeated Spiders is tracked by the achievement counter itself (type:count, max:20); no count/investigatorCount log section records it (only steps_of_the_bridge count exists)."
+    },
+    {
+     "id": "carter_method",
+     "status": "manual",
+     "reason": "In-scenario feat (infest all locations then seal them in Waking Nightmare); no campaign-log entry."
+    },
+    {
+     "id": "doctor_is_in",
+     "status": "manual",
+     "reason": "In-scenario feat (keep Dr. Maheswaran free of damage/horror); recruiting her is logged but the no-damage condition is not."
+    },
+    {
+     "id": "deja_vu",
+     "status": "manual",
+     "reason": "In-scenario feat (resolve every free triggered ability on every location); not recorded."
+    },
+    {
+     "id": "casa_loma",
+     "status": "manual",
+     "reason": "In-scenario feat (escape endless stairs with The Unnamable at topmost staircase); not recorded."
+    },
+    {
+     "id": "remember_this_place",
+     "status": "infer",
+     "reason": "Achievement = finding a way out of the Underworld in Point of No Return; verified recorded as campaign note key campaign_notes.found_a_way_out_of_the_underworld.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.found_a_way_out_of_the_underworld"
+     }
+    },
+    {
+     "id": "bad_advice",
+     "status": "manual",
+     "reason": "In-scenario feat (flip over every location at least once); not recorded."
+    },
+    {
+     "id": "march_of_ghouls",
+     "status": "manual",
+     "reason": "In-scenario feat (4 Ghouls attached to Pickman); not recorded."
+    },
+    {
+     "id": "ishimura",
+     "status": "manual",
+     "reason": "In-scenario feat (defeat all 4 Legs of Atlach-Nacha in a single round); not recorded."
+    },
+    {
+     "id": "spin_me_round",
+     "status": "manual",
+     "reason": "In-scenario feat (Atlach-Nacha spins 360 degrees in a single phase); not recorded."
+    },
+    {
+     "id": "master_of_unlocking",
+     "status": "manual",
+     "reason": "In-scenario feat (cancel 10 horror with The Silver Key in one scenario); not recorded."
+    },
+    {
+     "id": "line_in_the_sand",
+     "status": "infer",
+     "reason": "Win with at least three Ultimatums active; active ultimatums are recorded by the UI.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "underworld_expertise",
+     "status": "infer",
+     "reason": "Win the campaign on Expert difficulty; difficulty is recorded.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "tic",
+   "achievements": [
+    {
+     "id": "die_already",
+     "status": "manual",
+     "reason": "Defeating The Amalgam 5+ times in The Pit of Despair is an in-scenario feat with no campaign-log record."
+    },
+    {
+     "id": "elementary",
+     "status": "manual",
+     "reason": "Hidden accuse_* entries record which suspect/hideout was accused, and mission_succeeded exists, but no log key records the CORRECT answer, so a correct double-guess can't be derived from recorded keys. [confirmed manual by review]"
+    },
+    {
+     "id": "no_break_stride",
+     "status": "manual",
+     "reason": "Destroying every barrier in In Too Deep is an in-scenario feat not recorded in the campaign log."
+    },
+    {
+     "id": "speeding_ticket",
+     "status": "manual",
+     "reason": "Log records reached_falcon_point_before/after_sunrise, but that is not the same as never stopping/exiting a vehicle or avoiding Long Way Around. [confirmed manual by review]"
+    },
+    {
+     "id": "locked_in_here",
+     "status": "manual",
+     "reason": "Completing A Light in the Fog without any investigator captured is an in-scenario state not recorded in the campaign log."
+    },
+    {
+     "id": "fish_out_of_water",
+     "status": "manual",
+     "reason": "Each investigator still wearing their Diving Suit at the end of Into the Maelstrom is a board state not recorded in the campaign log (possesses_a_diving_suit is recorded in A Light in the Fog, not at the finale)."
+    },
+    {
+     "id": "dont_wake_daddy",
+     "status": "manual",
+     "reason": "dagon_still_slumbers/dagon_has_awakened exist for Dagon, but no log entry represents Hydra's state. [confirmed manual by review]"
+    },
+    {
+     "id": "gone_fishing",
+     "status": "manual",
+     "reason": "Tally of 20 Deep One defeats is tracked only on the achievement itself (type count max 20); there is no count/investigatorCount section recording Deep One kills."
+    },
+    {
+     "id": "full_build",
+     "status": "manual",
+     "reason": "Equipping the three relics simultaneously is an in-scenario board state not recorded in the campaign log."
+    },
+    {
+     "id": "wake_up",
+     "status": "infer",
+     "reason": "All 15 required memories map exactly to recorded memories_recovered entries present in the en entries map.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "memories_recovered.meeting_with_thomas_dawson"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.battle_with_a_horrifying_devil"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.decision_to_stick_together"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.encounter_with_a_secret_cult"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.a_deal_with_joe_sargent"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.a_followed_lead"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.an_intervention"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.a_jailbreak"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.discovery_of_a_strange_idol"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.discovery_of_an_unholy_mantle"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.discovery_of_a_mystical_relic"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.conversation_with_mr_moore"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.lifecycle_of_a_deep_one"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.stinging_betrayal"
+       },
+       {
+        "type": "log",
+        "key": "memories_recovered.horrific_truth"
+       }
+      ]
+     }
+    },
+    {
+     "id": "bigger_fish",
+     "status": "manual",
+     "reason": "Completing the campaign without defeating any Deep One is not recorded; no campaign-log section tracks Deep One defeats."
+    },
+    {
+     "id": "line_in_the_sand",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active is derivable from the recorded active ultimatums.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "expertise",
+     "status": "infer",
+     "reason": "Winning on Expert difficulty is derivable from the recorded campaign difficulty.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "eoe",
+   "achievements": [
+    {
+     "id": "safe_bet",
+     "status": "manual",
+     "reason": "camp_shelter is a hidden count section that tallies camps, not shelter values; the named camp_* notes do not record shelter value, so 'camp at a shelter-8 location' has no recorded trace."
+    },
+    {
+     "id": "look_at_all_this_stuff",
+     "status": "manual",
+     "reason": "Derivable in principle: all 7 supplies recovered AND none crossed off (cross_off_missing_expedition_assets). But the supplies_recovered section is not exposed as -en entries yet — needs supply-tracking plumbing."
+    },
+    {
+     "id": "in_your_head",
+     "status": "manual",
+     "reason": "Story-card count in the Fatal Mirage victory display is not recorded; memories_discovered/banished track memories, not victory-display count."
+    },
+    {
+     "id": "chaos_chaos",
+     "status": "manual",
+     "reason": "Scenario tie is city_of_the_elder_things — kohaku now models City of the Elder Things as ONE scenario (the three versions are setup-card presentation only, not distinct scenario identities)."
+    },
+    {
+     "id": "knock_knock",
+     "status": "infer",
+     "reason": "All five seals placed are recorded in seals_placed; keys seal_a..seal_e all exist verbatim in the en entries map.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "seals_placed.seal_a"
+       },
+       {
+        "type": "log",
+        "key": "seals_placed.seal_b"
+       },
+       {
+        "type": "log",
+        "key": "seals_placed.seal_c"
+       },
+       {
+        "type": "log",
+        "key": "seals_placed.seal_d"
+       },
+       {
+        "type": "log",
+        "key": "seals_placed.seal_e"
+       }
+      ]
+     }
+    },
+    {
+     "id": "mad_with_power",
+     "status": "manual",
+     "reason": "Exhausting fifteen Nameless Madness copies is an in-scenario board state, not recorded."
+    },
+    {
+     "id": "construct_additional_pylons",
+     "status": "manual",
+     "reason": "Collapsing all five Mist-Pylons and escaping is an in-scenario feat; no log section records pylon collapses."
+    },
+    {
+     "id": "the_sound_of_madness",
+     "status": "manual",
+     "reason": "Drawing 10 Tekeli-li tokens in one game is an in-scenario event; no count section exists for it."
+    },
+    {
+     "id": "sorry_im_all_out_of_dog_puns",
+     "status": "manual",
+     "reason": "Anyu plus four Dog assets in play is an in-scenario board state, not recorded."
+    },
+    {
+     "id": "kind_of_a_hat_on_a_hat",
+     "status": "manual",
+     "reason": "Playing a Wooden Sledge from a Backpack and re-attaching is a card-play sequence with no log trace."
+    },
+    {
+     "id": "this_was_your_idea",
+     "status": "manual",
+     "reason": "Healing 4 horror from Danforth via Dyer's ability is an in-scenario action; no count section records it."
+    },
+    {
+     "id": "no_respect_for_the_dead",
+     "status": "manual",
+     "reason": "Controlling five Memorials of the Lost assets at once is an in-scenario board state, not recorded."
+    },
+    {
+     "id": "wuk_wuk_boom",
+     "status": "manual",
+     "reason": "Using Dynamite to defeat two Giant Albino Penguins at once is an in-scenario feat with no log trace."
+    },
+    {
+     "id": "the_cold_never_bothered_me",
+     "status": "manual",
+     "reason": "No frost-token section exists; chaos-bag frost count at campaign end is not recorded."
+    },
+    {
+     "id": "hell_froze_over",
+     "status": "manual",
+     "reason": "No frost-token section exists; zero frost in chaos bag at campaign end is not recorded."
+    },
+    {
+     "id": "abandoned_and_alone",
+     "status": "manual",
+     "reason": "expedition_team is a partner-status section and confronted-demons is in campaign_notes, but no entry records per-scenario 'brought a partner along'. [confirmed manual by review]"
+    },
+    {
+     "id": "friends_forever",
+     "status": "manual",
+     "reason": "Confronted-demons is recorded per partner in campaign_notes and partner alive/dead is in expedition_team, but 'bring the SAME partner in each scenario' is a per-scenario selection not logged. [confirmed manual by review]"
+    },
+    {
+     "id": "there_and_back_again",
+     "status": "infer",
+     "reason": "This is a list achievement; partner alive/dead is in the expedition_team partner section, but that structured partner status is not exposed as per-partner entries-map keys (e.g. expedition_team.kensler) usable by the log/logCount DSL types, so per-item inference can't be cleanly expressed."
+    },
+    {
+     "id": "line_in_the_snow",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active is derivable from the recorded active ultimatums.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "antarctic_expertise",
+     "status": "infer",
+     "reason": "Winning on Expert difficulty is derivable from recorded campaign difficulty (winning implied by completion).",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "tskc",
+   "achievements": [
+    {
+     "id": "clued_in",
+     "status": "manual",
+     "reason": "No-clue-spent-via-treachery feat in Riddles and Rain; not recorded in any campaign-log key."
+    },
+    {
+     "id": "take_that",
+     "status": "manual",
+     "reason": "Civilian slain tally tracked only in hidden per-scenario count entry (dh_slain_civilians) inside the hidden section, not a referenceable count-section id; not expressible via logCount."
+    },
+    {
+     "id": "whats_in_a_name",
+     "status": "manual",
+     "reason": "Note: campaign_notes.cell_knows_amaranths_real_name records that the cell KNOWS Amaranth's name (learned in Quid Pro Quo SF), but the achievement is specifically TELLING Amaranth her name in Dead Heat, a distinct mid-scenario choice with no log entry. Manual."
+    },
+    {
+     "id": "porque",
+     "status": "manual",
+     "reason": "Defeating both Desi copies simultaneously is an in-scenario combat feat with no log trace."
+    },
+    {
+     "id": "lost_and_found",
+     "status": "manual",
+     "reason": "Taking the Twisted Antiprism with no clues on Clues Unveiled is a mid-scenario board-state feat; not logged."
+    },
+    {
+     "id": "tower_defense",
+     "status": "manual",
+     "reason": "Defending the Claret Knight with no Key Locuses destroyed is an in-scenario feat; not logged."
+    },
+    {
+     "id": "play_with_food",
+     "status": "manual",
+     "reason": "Stealing The Light of Pharos at exactly 1 health is an in-scenario timing feat; not logged."
+    },
+    {
+     "id": "destroyed_chimera",
+     "status": "manual",
+     "reason": "Defeating all five Void Chimera forms in one session is an in-scenario feat; not logged."
+    },
+    {
+     "id": "watch_watcher",
+     "status": "manual",
+     "reason": "Unlocking a secret final act in Sanguine Shadows is an in-scenario branch; only hidden notes (cast_a_light/seeing_red) exist, no referenceable campaign-log outcome entry."
+    },
+    {
+     "id": "under_umbrella",
+     "status": "manual",
+     "reason": "Preventing Tzu San Niang from devouring any Geist is an in-scenario feat; not logged."
+    },
+    {
+     "id": "all_hollow",
+     "status": "unsure",
+     "reason": "Achievement = unlocking/playing Without a Trace (scenario 26). Its scenario-26 entries (cell_blew_the_whistle, etc.) only exist if you played it, but none uniquely marks 'learned of and traveled to the Outsiders place to unlock it'.",
+     "question": "Does reaching/playing scenario 26 'Without a Trace' leave a campaign-log entry that uniquely marks it was unlocked (e.g. is the presence of any scenario-26 entry like cell_blew_the_whistle sufficient to imply it was played/unlocked), or is unlocking it untracked in the campaign log?"
+    },
+    {
+     "id": "red_looks_good",
+     "status": "infer",
+     "reason": "Joining the Red Coterie is recorded as a campaign-notes entry (verified key exists).",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.cell_joined_the_red_coterie"
+     }
+    },
+    {
+     "id": "bloody_red",
+     "status": "infer",
+     "reason": "Overthrowing the Red Coterie is recorded as a campaign-notes entry (verified key exists).",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.cell_overthrew_the_red_coterie"
+     }
+    },
+    {
+     "id": "powers_combined",
+     "status": "manual",
+     "reason": "Shifting 5 keys in a single turn is an in-scenario action feat; not logged."
+    },
+    {
+     "id": "gift_of_gab",
+     "status": "manual",
+     "reason": "Taylor ordering you to 'talk' 3 times is an in-play occurrence with no campaign-log counter."
+    },
+    {
+     "id": "cuisine",
+     "status": "manual",
+     "reason": "Sampling cuisine/bars across the listed cities is a flavor feat with no recorded log key."
+    },
+    {
+     "id": "speed_demon",
+     "status": "infer",
+     "reason": "'time' is a real count section tracking Time Passed; win with 17 or fewer maps to logCount max:17.",
+     "infer": {
+      "type": "logCount",
+      "key": "time",
+      "max": 17
+     }
+    },
+    {
+     "id": "trust_nobody",
+     "status": "manual",
+     "reason": "Chaos-bag composition (4 elder_thing tokens, never removed) is not recorded in the campaign log."
+    },
+    {
+     "id": "trust_everybody",
+     "status": "manual",
+     "reason": "Chaos-bag composition (4 tablet tokens, never removed) is not recorded in the campaign log."
+    },
+    {
+     "id": "badge",
+     "status": "infer",
+     "reason": "Earning a permanent Foundation position is recorded in the epilogue campaign-notes entry (verified key exists).",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.cell_was_given_a_permanent_position"
+     }
+    },
+    {
+     "id": "heart",
+     "status": "unsure",
+     "reason": "Collecting all 11 Scarlet Keys is tracked by the real 'keys' scarletKeys section and the achievement is type 'list', but the provided DSL (log/logCount/difficulty/ultimatums) has no rule expressing 'all key items in a scarletKeys section collected'.",
+     "question": "For collecting all 11 keys, should this map to the 'keys' (scarletKeys) section, and if so what infer shape represents 'all 11 key items collected/owned'? The provided DSL has no scarletKeys/list-section rule."
+    },
+    {
+     "id": "line_in_sand",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active maps directly to the ultimatums rule.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "global_expertise",
+     "status": "infer",
+     "reason": "Winning on Expert difficulty maps to the difficulty rule.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "tdc",
+   "achievements": [
+    {
+     "id": "one_first_last_job",
+     "status": "infer",
+     "reason": "Completing the campaign is recorded as one of the four Doom of Arkham ending entries; any of them means the campaign was finished. All four keys exist in -en entries.",
+     "infer": {
+      "type": "anyOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.cthulhu_annihilated_the_city_of_arkham"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.cthulhu_was_driven_away"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.cthulhu_was_banished"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed"
+       }
+      ]
+     }
+    },
+    {
+     "id": "season_two",
+     "status": "manual",
+     "reason": "Difficulty is recorded, but investigator provenance (4 from 4 different previous campaigns) is not captured in the campaign log."
+    },
+    {
+     "id": "cliff",
+     "status": "manual",
+     "reason": "Whether a diving suit was ever brought along is an in-scenario equipment choice not recorded in the campaign log."
+    },
+    {
+     "id": "coup",
+     "status": "manual",
+     "reason": "Defeating both targets using only the act 3a parley ability is an in-scenario method, not recorded."
+    },
+    {
+     "id": "search",
+     "status": "manual",
+     "reason": "Ending The Western Wall with every location revealed is in-scenario board state, not recorded in the log."
+    },
+    {
+     "id": "tidal_flip",
+     "status": "manual",
+     "reason": "Each location revealed and not flooded at end of The Drowned Quarter is in-scenario state, not recorded."
+    },
+    {
+     "id": "acolyte",
+     "status": "manual",
+     "reason": "Rescuing 5 cultists in The Apiary is an in-scenario count; only hidden saved/devoured outcome flags exist, not a rescued-cultist tally."
+    },
+    {
+     "id": "kill_the_adds",
+     "status": "manual",
+     "reason": "Defeating Mother using only her Forced effect is an in-scenario method, not recorded."
+    },
+    {
+     "id": "deep_end",
+     "status": "manual",
+     "reason": "Escaping with the Tidal Tablet after every location fully flooded is an in-scenario board condition; only artifact-earned is recorded, not the flooded-while-escaping requirement."
+    },
+    {
+     "id": "sorry",
+     "status": "manual",
+     "reason": "Not moving the Great Lift after the Colossal Tyrant spawns is an in-scenario action constraint, not recorded."
+    },
+    {
+     "id": "sky_rider",
+     "status": "manual",
+     "reason": "Ending your turn in open sky 5 times in a single game is in-scenario play, not recorded."
+    },
+    {
+     "id": "skip_to_the_end",
+     "status": "unsure",
+     "reason": "The log records 'halted Cthulhu's awakening' (campaign_notes.halted_cthulhus_awakening) in Sepulchre of the Sleeper, which may or may not be exactly the same outcome as 'defeat Cthulhu' for this achievement.",
+     "question": "In Sepulchre of the Sleeper, does recording campaign_notes.halted_cthulhus_awakening correspond exactly to defeating Cthulhu in that scenario, or can the awakening be halted without defeating Cthulhu (making the achievement a stricter sub-case)?"
+    },
+    {
+     "id": "alien_dropout",
+     "status": "infer",
+     "reason": "Translated glyphs are recorded in the glyphs section (real section id); no glyphs recorded means none were translated.",
+     "infer": {
+      "type": "logCount",
+      "key": "glyphs",
+      "max": 0
+     }
+    },
+    {
+     "id": "alien_grad",
+     "status": "infer",
+     "reason": "All 26 alien glyphs translated equals 26 entries recorded in the glyphs section (which has 26 items).",
+     "infer": {
+      "type": "logCount",
+      "key": "glyphs",
+      "min": 26
+     }
+    },
+    {
+     "id": "empty_handed",
+     "status": "infer",
+     "reason": "Artifacts collected are recorded in the artifacts_earned section (real section id); none recorded means returned without any Artifact story assets.",
+     "infer": {
+      "type": "logCount",
+      "key": "artifacts_earned",
+      "max": 0
+     }
+    },
+    {
+     "id": "stay_dead",
+     "status": "manual",
+     "reason": "Adding The Inescapable to the victory display 20 times in a campaign is an in-scenario tally not recorded in the log."
+    },
+    {
+     "id": "powers_combined",
+     "status": "infer",
+     "reason": "All six artifacts are recorded individually in the artifacts_earned section; all six keys verified in -en entries.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "artifacts_earned.barrier_node"
+       },
+       {
+        "type": "log",
+        "key": "artifacts_earned.obsidian_claw"
+       },
+       {
+        "type": "log",
+        "key": "artifacts_earned.shard"
+       },
+       {
+        "type": "log",
+        "key": "artifacts_earned.grisly_mask"
+       },
+       {
+        "type": "log",
+        "key": "artifacts_earned.tidal_tablet"
+       },
+       {
+        "type": "log",
+        "key": "artifacts_earned.clah_horror"
+       }
+      ]
+     }
+    },
+    {
+     "id": "obligations",
+     "status": "unsure",
+     "reason": "The log records which tasks were picked (hidden picked_* notes) and a single hidden tasks_done note, plus the task_progress investigatorCount section, but there is no per-task completion key matching the eight named tasks in the -en entries.",
+     "question": "Is per-task completion derivable for the eight obligations tasks (walk_in_faith, toe_the_line, good_money, prove_your_worth, dreams_of_destruction, do_no_harm, no_place_like_home, plumb_the_depths)? The log only has hidden picked_* notes (chosen) plus a single hidden 'tasks_done' note and the 'task_progress' investigatorCount section — does any of these encode that all eight specific tasks were completed?"
+    },
+    {
+     "id": "line_in_the_sand",
+     "status": "infer",
+     "reason": "Winning is implied by completing the recorded campaign; the UI records which ultimatums were active.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "expertise",
+     "status": "infer",
+     "reason": "Winning is implied by completing the recorded campaign; difficulty is recorded.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "rtnotz",
+   "achievements": [
+    {
+     "id": "zealots_revent",
+     "status": "manual",
+     "reason": "Lita's reaction dealing the killing blow to the Ghoul Priest is an in-scenario event with no campaign-log trace."
+    },
+    {
+     "id": "dont_trust_her",
+     "status": "infer",
+     "reason": "Refusing to add Lita Chantler to your deck is recorded as the campaign note 'Lita was forced to find others to help her cause' (campaign_notes.lita_finds_others), a verified key in the en entries map.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.lita_finds_others"
+     }
+    },
+    {
+     "id": "insurance",
+     "status": "infer",
+     "reason": "Burning your house in The Gathering is recorded as campaign note 'your house has burned to the ground.' Key campaign_notes.house_burned exists in en entries.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.house_burned"
+     }
+    },
+    {
+     "id": "do_i_have_to",
+     "status": "manual",
+     "reason": "Every investigator remaining in Your House for three rounds is an in-scenario positioning feat with no log trace."
+    },
+    {
+     "id": "conspiracy_of_silence",
+     "status": "unsure",
+     "reason": "cultists_interrogated is a 'cards' section, not a count/investigatorCount section, so logCount may not apply; need confirmation that all six unique cultists being recorded there satisfies the achievement and how to express it in the DSL.",
+     "question": "Does the 'cultists_interrogated' cards section record each unique cultist interrogated, such that the achievement is satisfied when all six unique cultists appear in that section, and is there a DSL rule to count/require entries in a cards section?"
+    },
+    {
+     "id": "tour_of_arkham",
+     "status": "manual",
+     "reason": "Triggering each location's once-per-game ability is an in-scenario feat with no log trace."
+    },
+    {
+     "id": "do_you_get_it_now",
+     "status": "manual",
+     "reason": "Triggering Billy Cooper's Forced ability by defeating the Ghoul Priest at his location is an in-scenario event not recorded in the log."
+    },
+    {
+     "id": "pinch_hitter",
+     "status": "manual",
+     "reason": "Defeating three Ghouls with a Baseball Bat without it breaking is an in-scenario feat with no log trace."
+    },
+    {
+     "id": "even_death_may_die",
+     "status": "manual",
+     "reason": "Defeating Umordhoth with the Vault of Earthly Demise attached is an in-scenario event; not recorded distinctly in the log."
+    },
+    {
+     "id": "break_the_circle",
+     "status": "unsure",
+     "reason": "Completing The Devourer Below without Umordhoth spawning may correspond to campaign_notes.ritual_broken (Umordhoth never summoned), but umordhoth_repelled implies he did spawn; need confirmation that ritual_broken reliably implies no spawn.",
+     "question": "Does the campaign note 'the ritual to summon Umordhoth was broken' (campaign_notes.ritual_broken) reliably imply Umordhoth never spawned, while 'umordhoth_repelled' implies he did spawn, so that ritual_broken alone satisfies this achievement?"
+    },
+    {
+     "id": "theyre_just_misunderstood",
+     "status": "manual",
+     "reason": "Winning without defeating a single unique Cultist enemy is not tracked in the campaign log."
+    },
+    {
+     "id": "umordhoths_favor",
+     "status": "manual",
+     "reason": "Winning without defeating a single Ghoul enemy is not tracked in the campaign log."
+    },
+    {
+     "id": "notz_line_in_the_sand",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active maps to the recorded active-ultimatums count.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "arkham_expertise",
+     "status": "infer",
+     "reason": "Winning on Expert difficulty maps to the recorded campaign difficulty.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "rtdwl",
+   "achievements": [
+    {
+     "id": "what_is_this_stuff",
+     "status": "manual",
+     "reason": "Only experiment_defeated is recorded; the method (using the Alchemical Concoction) leaves no log trace."
+    },
+    {
+     "id": "no_void_for_you",
+     "status": "manual",
+     "reason": "Mid-scenario condition (never defeating the Hunting Horror) is not recorded in the campaign log."
+    },
+    {
+     "id": "first_rule_of_arkham",
+     "status": "infer",
+     "reason": "Burning the Necronomicon is recorded as campaign_notes.destroyed_necronomicon (verified key exists).",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.destroyed_necronomicon"
+     }
+    },
+    {
+     "id": "all_aboard",
+     "status": "manual",
+     "reason": "Whether Helpless Passengers left play during Essex County Express is not recorded in the log."
+    },
+    {
+     "id": "gangs_all_here",
+     "status": "infer",
+     "reason": "All five named characters surviving maps to the five 'survived' note entries (all keys verified).",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.henry_armitage_survived"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.francis_morgan_survived"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.warren_rice_survived"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.zebulon_whateley_survived"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.earl_sawyer_survived"
+       }
+      ]
+     }
+    },
+    {
+     "id": "no_brood_left_behind",
+     "status": "infer",
+     "reason": "Having no broods escape is recorded as campaign_notes.no_brood_escaped (verified key exists).",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.no_brood_escaped"
+     }
+    },
+    {
+     "id": "remind_me_not_to_piss_her_off",
+     "status": "manual",
+     "reason": "Defeating Seth Bishop while Naomi O'Bannion is under control is a mid-scenario feat not recorded in the log."
+    },
+    {
+     "id": "eureka",
+     "status": "manual",
+     "reason": "Identifying the Strange Solution is an in-scenario event with no corresponding campaign-log entry."
+    },
+    {
+     "id": "beyond_what_veil",
+     "status": "manual",
+     "reason": "Taking 10 damage from Beyond the Veil without being defeated is an in-scenario feat, not logged."
+    },
+    {
+     "id": "here_we_go_again",
+     "status": "manual",
+     "reason": "Having the three allies in play at the same time is a board-state feat, not recorded in the log."
+    },
+    {
+     "id": "bird_hunting",
+     "status": "manual",
+     "reason": "Defeating 3 Whippoorwills in a single turn is an in-scenario feat with no log trace."
+    },
+    {
+     "id": "they_arent_getting_away_with_this",
+     "status": "unsure",
+     "reason": "Requires Duke recorded in the 'sacrificed' cards section AND the investigator being Ashcan Pete; the DSL has no card-in-section or investigator-identity rule.",
+     "question": "Can earned-state be derived from the 'sacrificed' (cards) section containing the Duke card combined with the player having chosen Ashcan Pete as their investigator? Is there a DSL rule for card-present-in-a-cards-section or for investigator identity, and does winning the campaign need to be checked too?"
+    },
+    {
+     "id": "tabula_rasa",
+     "status": "unsure",
+     "reason": "Winning with no [tablet] or [elder_thing] tokens in the chaos bag depends on chaos-bag/setup state, not a recorded log entry; the DSL has no chaos-bag rule.",
+     "question": "Does recorded campaign data capture the chaos bag's token composition (specifically absence of tablet and elder_thing tokens) so this can be auto-derived, or is it a manual setup feat?"
+    },
+    {
+     "id": "dwl_line_in_the_sand",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active maps to the ultimatums rule.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "dunwich_expertise",
+     "status": "infer",
+     "reason": "Winning on Expert difficulty maps to the difficulty rule (winning implied by completing the campaign).",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "rtptc",
+   "achievements": [
+    {
+     "id": "fair_warning",
+     "status": "manual",
+     "reason": "Defeat Royal Emissary 3x in Curtain Call is a mid-scenario feat; no campaign-log entry records it. Confirmed no matching entry in en map."
+    },
+    {
+     "id": "first_steps",
+     "status": "unsure",
+     "reason": "List achievement requiring 5 specific VIP cards present in the vips_interviewed cards-section; DSL has no rule asserting a set of cards are all present in a cards section.",
+     "question": "For a 'list'-type achievement requiring all 5 specific VIP cards (codes 03065b/03066b/03067b/03068b/03069b) to be recorded in the vips_interviewed cards-section, is there an inference rule (per-card or cards-section-contains) supported by the engine, or should this remain manual?"
+    },
+    {
+     "id": "crashing_the_party",
+     "status": "manual",
+     "reason": "Defeating the Lunatic Dianne Devine in The Last King is a mid-scenario feat with no campaign-log trace."
+    },
+    {
+     "id": "for_prying_eyes",
+     "status": "manual",
+     "reason": "Adding the Hidden Library to the victory display in Echoes of the Past is mid-scenario; no log entry records it."
+    },
+    {
+     "id": "cuckoos_nest",
+     "status": "manual",
+     "reason": "Resigning with Daniel Chesterfield under control in The Unspeakable Oath is not a recorded campaign-log key (only escaped_the_asylum/attacked_as_you_escaped_arkham/king_claimed_victims are recorded)."
+    },
+    {
+     "id": "take_a_look_at_this",
+     "status": "manual",
+     "reason": "Parleying with the Host of Insanity is a mid-scenario action with no campaign-log trace."
+    },
+    {
+     "id": "path_of_death",
+     "status": "unsure",
+     "reason": "Uses the Clasp of Black Onyx for a shortcut in The Pallid Mask. took_onyx_clasp/left_onyx_clasp are recorded in Echoes, but whether using it for the shortcut leaves a recorded trace is unclear.",
+     "question": "Does 'Use your Clasp of Black Onyx to find a shortcut in The Pallid Mask' correspond to any recorded campaign-log entry (e.g. gated on campaign_notes.took_onyx_clasp), or is the shortcut use itself untracked and thus manual?"
+    },
+    {
+     "id": "guessing_game",
+     "status": "manual",
+     "reason": "Advancing one agenda deck to its final agenda before the other's first is an in-scenario timing feat with no log trace."
+    },
+    {
+     "id": "hastur_made_me_do_it",
+     "status": "manual",
+     "reason": "Defeating Hastur while a Possession treachery is in hand is a mid-scenario condition not recorded in the campaign log."
+    },
+    {
+     "id": "say_my_name",
+     "status": "manual",
+     "reason": "Speaking the name HASTUR aloud seven+ times is a real-world table feat with no recordable log entry."
+    },
+    {
+     "id": "get_back_here",
+     "status": "manual",
+     "reason": "Winning while never ending a scenario with The Man in the Pallid Mask in play is not tracked in the campaign log."
+    },
+    {
+     "id": "path_is_false",
+     "status": "infer",
+     "reason": "doubt is a count section (verified in -db.json); 8 Doubt at campaign end is derivable. Winning is implied by completing the recorded campaign.",
+     "infer": {
+      "type": "logCount",
+      "key": "doubt",
+      "min": 8
+     }
+    },
+    {
+     "id": "path_is_real",
+     "status": "infer",
+     "reason": "conviction is a count section (verified in -db.json); 8 Conviction at campaign end is derivable.",
+     "infer": {
+      "type": "logCount",
+      "key": "conviction",
+      "min": 8
+     }
+    },
+    {
+     "id": "path_is_mine",
+     "status": "unsure",
+     "reason": "Requires Doubt + Conviction total < 2 (at most 1 combined). Both are count sections, but the DSL has no rule to sum two count sections, and allOf(max:1,max:1) would wrongly allow 1+1=2.",
+     "question": "Is there a supported inference for 'sum of two count sections (doubt + conviction) < 2'? allOf(logCount doubt max:1, logCount conviction max:1) is insufficient since it permits 1+1=2, so should this remain manual?"
+    },
+    {
+     "id": "ptc_line_in_the_sand",
+     "status": "infer",
+     "reason": "Winning with at least three Ultimatums active; the UI records active ultimatums.",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     }
+    },
+    {
+     "id": "carcosa_expertise",
+     "status": "infer",
+     "reason": "Winning on Expert difficulty; difficulty is recorded.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "rttfa",
+   "achievements": [
+    {
+     "id": "why_did_it_have_to_be_snakes",
+     "status": "manual",
+     "reason": "Defeating 20 Serpent enemies is an in-scenario tally; no campaign-log entry records it."
+    },
+    {
+     "id": "watch_them_unravel",
+     "status": "manual",
+     "reason": "Completing all four act decks in a single Threads of Fate playthrough is an in-scenario feat; no log entry records it."
+    },
+    {
+     "id": "hope_for_humanity",
+     "status": "infer",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.ichtaca_has_confidence"
+     },
+     "reason": "Restoring Ichtaca's faith in humanity in The Boundary Beyond is recorded as campaign_notes.ichtaca_has_confidence (verified key)."
+    },
+    {
+     "id": "scenario_5_what",
+     "status": "unsure",
+     "reason": "Skipping Heart of the Elders Part 1 is a setup branch; the related recorded note is paths_known (count), not an explicit 'skipped' flag.",
+     "question": "When the investigators skip 'Heart of the Elders, Part 1', is that decision captured by any recorded campaign-log entry (e.g. paths_known count being absent/zero, or a hidden flag like hote_consult_*), such that skipping can be derived from saved log data?"
+    },
+    {
+     "id": "beyond_perfection",
+     "status": "infer",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.process_was_perfected"
+     },
+     "reason": "Completing all eight tasks on act 2 of The City of Archives is recorded as campaign_notes.process_was_perfected (verified key)."
+    },
+    {
+     "id": "i_remember_everything",
+     "status": "infer",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.process_was_successful"
+     },
+     "reason": "Restoring Alejandro's memories in The City of Archives is recorded as campaign_notes.process_was_successful (verified key)."
+    },
+    {
+     "id": "patricide",
+     "status": "unsure",
+     "reason": "Defeating Yig in The Depths of Yoth may correlate with a recorded note but no entry explicitly states Yig was defeated. relic_is_missing/found_missing_relic exist but their mapping to defeating Yig is unclear.",
+     "question": "When Yig is defeated in 'The Depths of Yoth', which campaign-log entry (if any) is recorded as a result, and does defeating Yig map to relic_is_missing / found_missing_relic / nexus_is_near or a hidden flag that can be derived from saved data?"
+    },
+    {
+     "id": "hes_got_a_point",
+     "status": "unsure",
+     "reason": "Siding with Alejandro in Shattered Aeons is a setup/branch choice; unclear which recorded note uniquely captures it.",
+     "question": "Siding with Alejandro vs Ichtaca in 'Shattered Aeons' — is that choice uniquely recorded in the campaign log (e.g. fabric_of_time_unwoven, gave_relic_to_alejandro, or forging_own_path), or is it only an in-scenario setup decision with no distinct log entry?"
+    },
+    {
+     "id": "valusia_sounds_great",
+     "status": "unsure",
+     "reason": "Siding with Ichtaca in Shattered Aeons is a setup/branch choice; unclear which recorded note uniquely captures it.",
+     "question": "Siding with Ichtaca in 'Shattered Aeons' — which campaign-log entry uniquely records this choice (e.g. one of investigators_saved_serpents / investigators_saved_yithians / mended_tear_in_time), if any?"
+    },
+    {
+     "id": "built_up_an_immunity",
+     "status": "manual",
+     "reason": "Never becoming poisoned across the campaign is an in-scenario condition with no campaign-log entry tracking poison status."
+    },
+    {
+     "id": "we_have_an_understanding",
+     "status": "unsure",
+     "reason": "campaign_notes.harbinger_alive records remaining damage on the Harbinger ('#X# damage'); whether 'never dealt any damage' is derivable depends on whether X reflects zero damage dealt.",
+     "question": "The 'harbinger_alive' note records '#X# damage'. If the investigators never dealt damage to the Harbinger of Valusia all campaign, does that produce a recorded harbinger_alive entry with X=0 (or its starting health), so 'never dealt damage' can be inferred from the logged value?"
+    },
+    {
+     "id": "who_needs_any_of_this_junk",
+     "status": "unsure",
+     "reason": "Supplies are tracked in the 'supplies' section, but purchases vs gained-otherwise may not be distinguishable from the saved supplies tally.",
+     "question": "Does the saved 'supplies' section let us derive 'never purchased any supplies' (i.e. is there a way to tell that recorded supplies were never bought at the Provisions store), or is purchasing untracked relative to other supply gains?"
+    },
+    {
+     "id": "dont_tread_on_me",
+     "status": "infer",
+     "infer": {
+      "type": "logCount",
+      "key": "yigs_fury",
+      "max": 0
+     },
+     "reason": "Winning with no tally marks under Yig's Fury = the yigs_fury count section is zero (verified section id)."
+    },
+    {
+     "id": "bane_of_yig",
+     "status": "infer",
+     "infer": {
+      "type": "logCount",
+      "key": "yigs_fury",
+      "min": 25
+     },
+     "reason": "Winning with 25+ tally marks under Yig's Fury = yigs_fury count section >= 25 (verified section id)."
+    },
+    {
+     "id": "if_i_could_turn_back_time",
+     "status": "infer",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.forging_own_path"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.turned_back_time"
+       }
+      ]
+     },
+     "reason": "Forging your own path is recorded as campaign_notes.forging_own_path; unlocking Scenario IX (Turn Back Time) and winning yields campaign_notes.turned_back_time (both keys verified)."
+    },
+    {
+     "id": "yoth_expertise",
+     "status": "infer",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     },
+     "reason": "Win the campaign on Expert difficulty; derivable from the recorded difficulty (winning implied by completing the campaign)."
+    }
+   ]
+  },
+  {
+   "code": "rttcu",
+   "achievements": [
+    {
+     "id": "who_you_gonna_call",
+     "status": "manual",
+     "reason": "Defeat 13 Geist/Spectral enemies across the campaign; no campaign-log count section records this tally (the db count achievement is the tracker UI, not a recorded log section)."
+    },
+    {
+     "id": "savior_of_humanity",
+     "status": "manual",
+     "reason": "Rescue every Silver Twilight enemy in At Death's Doorstep; an in-scenario feat with no recorded log key."
+    },
+    {
+     "id": "would_read_again",
+     "status": "manual",
+     "reason": "Take a total of 10 horror via the Black Book ability over the campaign; nothing in the log tracks this cumulative horror."
+    },
+    {
+     "id": "carl_shmarl",
+     "status": "infer",
+     "reason": "Inducted into the Inner Circle then sided with the coven in Union and Disillusion. Both keys verified in en entries.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.inducted_into_the_inner_circle"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.sided_with_the_coven"
+       }
+      ]
+     }
+    },
+    {
+     "id": "threefold_rule",
+     "status": "infer",
+     "reason": "Erynn joined the investigators then sided with the Lodge in Union and Disillusion. Both keys verified.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.erynn_joined_investigators"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.sided_with_the_lodge"
+       }
+      ]
+     }
+    },
+    {
+     "id": "new_world_order",
+     "status": "infer",
+     "reason": "Help the Silver Twilight Lodge win = recorded as sided with the Lodge. Key verified.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.sided_with_the_lodge"
+     }
+    },
+    {
+     "id": "immortality_sounds_nice",
+     "status": "infer",
+     "reason": "Help Anette's Coven win = recorded as sided with the coven. Key verified.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.sided_with_the_coven"
+     }
+    },
+    {
+     "id": "more_like_excursion",
+     "status": "manual",
+     "reason": "Complete In the Clutches of Chaos with no incursion occurring; in-scenario condition with no log key recording incursions."
+    },
+    {
+     "id": "member_these",
+     "status": "infer",
+     "reason": "All 10 memento keys verified in en entries; achievement item 'worn_crucifix' maps to entry id 'worn_crucific' (typo'd in -en entries, confirmed at line 45).",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "mementos.mesmerizing_flute"
+       },
+       {
+        "type": "log",
+        "key": "mementos.ritual_components"
+       },
+       {
+        "type": "log",
+        "key": "mementos.scrap_of_torn_shadow"
+       },
+       {
+        "type": "log",
+        "key": "mementos.strange_incantation"
+       },
+       {
+        "type": "log",
+        "key": "mementos.gilmans_journal"
+       },
+       {
+        "type": "log",
+        "key": "mementos.keziahs_formulae"
+       },
+       {
+        "type": "log",
+        "key": "mementos.worn_crucific"
+       },
+       {
+        "type": "log",
+        "key": "mementos.wisp_of_spectral_mist"
+       },
+       {
+        "type": "log",
+        "key": "mementos.corn_husk_doll"
+       },
+       {
+        "type": "log",
+        "key": "mementos.bloody_tree_carvings"
+       }
+      ]
+     }
+    },
+    {
+     "id": "case_closed",
+     "status": "infer",
+     "reason": "Save each of the 4 missing persons = each recorded alive in Union and Disillusion. All four .alive keys verified.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "05048.alive"
+       },
+       {
+        "type": "log",
+        "key": "05046.alive"
+       },
+       {
+        "type": "log",
+        "key": "05049.alive"
+       },
+       {
+        "type": "log",
+        "key": "05047.alive"
+       }
+      ]
+     }
+    },
+    {
+     "id": "music_of_the_outer_gods",
+     "status": "infer",
+     "reason": "Accept fate and win by joining the Pipers of Azathoth = accepted_fate plus lead investigator joins pipers. Both keys verified.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.accepted_fate"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.lead_investigator_joins_pipers"
+       }
+      ]
+     }
+    },
+    {
+     "id": "weaver_of_shadow_and_mist",
+     "status": "infer",
+     "reason": "Reject fate and win by crafting a spell to contain Azathoth = Azathoth slumbers with rejected_fate. Both keys verified.",
+     "infer": {
+      "type": "allOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.rejected_fate"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.azathoth_slumbers"
+       }
+      ]
+     }
+    },
+    {
+     "id": "fine_print",
+     "status": "infer",
+     "reason": "Win by signing your name in the Black Book = recorded as signed the Black Book. Key verified.",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.signed_the_black_book"
+     }
+    },
+    {
+     "id": "speak_the_words_aloud",
+     "status": "unsure",
+     "reason": "Win by discovering and reversing an ancient incantation; this 'slumbers' ending overlaps with weaver_of_shadow_and_mist on azathoth_slumbers. The witching-hour entries witches_spell_broken vs witches_spell_cast may distinguish it, but I cannot confirm which combination uniquely identifies the reversal ending vs the craft-a-spell-to-contain ending.",
+     "question": "For Return to The Circle Undone, which recorded campaign-log entries uniquely distinguish the 'discover and reverse an ancient incantation' winning ending (speak_the_words_aloud) from the 'craft a spell to contain Azathoth / azathoth_slumbers' ending (weaver_of_shadow_and_mist)? Both produce campaign_notes.azathoth_slumbers. Is the reversal ending tied to campaign_notes.witches_spell_broken (vs witches_spell_cast) and/or campaign_notes.accepted_fate vs rejected_fate, and is there a distinct Before the Black Throne resolution entry for it?"
+    },
+    {
+     "id": "circle_expertise",
+     "status": "infer",
+     "reason": "Win the campaign on Expert difficulty; winning is implied by completing the recorded campaign.",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     }
+    }
+   ]
+  },
+  {
+   "code": "fhv",
+   "achievements": [
+    {
+     "id": "apertif",
+     "status": "infer",
+     "infer": {
+      "type": "anyOf",
+      "of": [
+       {
+        "type": "log",
+        "key": "campaign_notes.the_vale_was_saved"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.the_vale_burned"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.barely_survived"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.became_the_true_feast_of_hemlock_vale"
+       },
+       {
+        "type": "log",
+        "key": "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+       }
+      ]
+     },
+     "reason": "\"Complete the campaign once on any difficulty\" = reach any Fate of the Vale resolution. Verified: all five keys exist exactly in fhv-en.json entries (campaign_notes.the_vale_was_saved / the_vale_burned / barely_survived / became_the_true_feast_of_hemlock_vale / investigators_sacrificed_themselves_for_the_vale). Presence of any one means the campaign was completed."
+    },
+    {
+     "id": "unshattered",
+     "status": "manual",
+     "reason": "\"Achieve every ending\" spans multiple separate playthroughs; a single campaign log can only ever hold one ending. Cross-playthrough meta-achievement with no single-log trace."
+    },
+    {
+     "id": "a_strong_silent_type",
+     "status": "manual",
+     "reason": "\"Without voluntarily triggering any codex entries.\" Codex entries are hidden-section notes (fhv_*_codex_*) confirmed in fhv-db.json as hidden:true internal branching flags. The achievement is about NOT triggering optional ones; there is no positive log proving abstention."
+    },
+    {
+     "id": "colour_outside_the_lines",
+     "status": "manual",
+     "reason": "\"Skip both The Twisted Hollow and The Longest Night.\" Skipping a scenario leaves no positive log; the per-scenario notes (e.g. western_woods, faced_the_night_alone) only appear when the scenario IS played, and their absence is not reliably distinguishable from other branches. In-scenario routing choice with no affirmative trace."
+    },
+    {
+     "id": "life_of_the_party",
+     "status": "manual",
+     "reason": "\"Each resident at Relationship Level 2 or higher.\" Relationship levels are numeric counters on the relationship-type sections (confirmed type:relationship in fhv-db.json), not discrete log entries; no per-resident level threshold note to test."
+    },
+    {
+     "id": "dancing_queen",
+     "status": "manual",
+     "reason": "\"Share a dance with 4 different residents during The Second Evening.\" Per-resident dance notes exist (leah/simeon/william/river/gideon/judith/theo _shared_a_dance plus campaign_notes.helen_shared_a_dance), but the DSL has no count-of-distinct-keys-across-sections operator; requiring 4 distinct from a set of 8 is not expressible as a simple log/logCount rule."
+    },
+    {
+     "id": "audrey_3",
+     "status": "manual",
+     "reason": "\"Complete a scenario engaged with a Poisonblossom having 10+ overgrowth.\" Pure in-scenario board state; nothing recorded in the campaign log."
+    },
+    {
+     "id": "hold_onto_your_potatoes",
+     "status": "manual",
+     "reason": "\"Complete Written in Rock with both a resident and the Prismatic Shard asset under your control.\" In-scenario control/asset state; no campaign-log trace."
+    },
+    {
+     "id": "dream_home_breakover",
+     "status": "manual",
+     "reason": "\"Complete Hemlock House with 10 locations in the victory display.\" In-scenario victory-display count; not logged in the campaign data."
+    },
+    {
+     "id": "settling_the_score",
+     "status": "infer",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.thing_in_the_depths_was_defeated"
+     },
+     "reason": "\"Defeat the Thing in the Depths in The Thing in the Depths\" maps directly to campaign_notes.thing_in_the_depths_was_defeated. Verified: key exists exactly in fhv-en.json entries (text: \"The Thing in the Depths was defeated.\") and as id in fhv-db.json."
+    },
+    {
+     "id": "here_crabby_crabby",
+     "status": "manual",
+     "reason": "\"Make the Limulus Hybrid flip at least 8 times during The Lost Sister.\" In-scenario flip counter; nothing recorded in the campaign log."
+    },
+    {
+     "id": "a_different_kind_of_string_ops",
+     "status": "manual",
+     "reason": "\"Complete The Silent Heath without spawning the Brood Queen.\" In-scenario enemy-spawn avoidance; no affirmative log entry tracks it."
+    },
+    {
+     "id": "wait_theres_no_shrouded_shrine",
+     "status": "manual",
+     "reason": "\"Survive The Twisted Hollow in Standalone Mode until Darkness Level 10.\" Standalone-mode in-scenario darkness threshold; not recorded in campaign log."
+    },
+    {
+     "id": "bear_necessities",
+     "status": "manual",
+     "reason": "\"Defeat the Ursine Hybrid in The Longest Night using only scenario card effects.\" Method-constrained in-scenario feat; the bear notes (the_bear_was_wounded, theo_distracted_the_bear) don't capture the defeat-by-scenario-effects condition."
+    },
+    {
+     "id": "lets_do_the_time_warp",
+     "status": "manual",
+     "reason": "\"Complete the Lambs to the Slaughter Resolution in Prelude: The Final Evening.\" No dedicated note for that specific resolution; the Final Evening notes (lied_to_mother_rachel / interrupted_the_feast / the_hemlocks_made_a_truce / bertie_perished) don't isolate the Lambs to the Slaughter branch."
+    },
+    {
+     "id": "oblivion_shmoblivion",
+     "status": "manual",
+     "reason": "\"Win the Fate of the Vale with each Cosmic Emissary enemy in the victory display.\" In-scenario victory-display composition; not captured by any campaign-log note."
+    },
+    {
+     "id": "high_dive",
+     "status": "infer",
+     "infer": {
+      "type": "log",
+      "key": "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+     },
+     "reason": "\"Sacrifice yourself for the Vale in Fate of the Vale\" maps directly to campaign_notes.investigators_sacrificed_themselves_for_the_vale. Verified: key exists exactly in fhv-en.json entries (text: \"the investigators sacrificed themselves for the Vale.\") and as id in fhv-db.json."
+    },
+    {
+     "id": "best_friends_forever",
+     "status": "manual",
+     "reason": "List-type achievement requiring Relationship Level 6 with each of leah/simeon/william/river/gideon. Relationship levels are numeric section counters (type:relationship), not discrete log entries; no per-resident level-6 note exists to test."
+    },
+    {
+     "id": "know_your_place",
+     "status": "manual",
+     "reason": "\"Win the campaign with Mother Rachel at Relationship Level 3.\" Relationship level is a numeric counter on the rachel section (type:relationship), not a recorded threshold note; not expressible via log/logCount."
+    },
+    {
+     "id": "heart_of_steel",
+     "status": "manual",
+     "reason": "\"Win the campaign with Judith Park at Relationship Level 7.\" Numeric relationship-level threshold on the judith section (type:relationship), not a discrete log entry."
+    },
+    {
+     "id": "holding_out_for_a_himbo",
+     "status": "manual",
+     "reason": "\"Win the campaign with Theo Peters at Relationship Level 7.\" Numeric relationship-level threshold on the theo section (type:relationship), not a discrete log entry."
+    },
+    {
+     "id": "captivating_scream",
+     "status": "manual",
+     "reason": "\"Win the campaign as Patrice Hathaway.\" Depends on the investigator chosen, which is not recorded in this campaign log data."
+    },
+    {
+     "id": "line_in_the_sand",
+     "status": "infer",
+     "infer": {
+      "type": "ultimatums",
+      "min": 3
+     },
+     "reason": "\"Win the campaign with at least three Ultimatums active\" is the standard Line in the Sand ultimatums>=3 uniform rule."
+    },
+    {
+     "id": "hemlock_expertise",
+     "status": "infer",
+     "infer": {
+      "type": "difficulty",
+      "is": "expert"
+     },
+     "reason": "\"Win the campaign on Expert difficulty\" is the standard Expertise difficulty=expert uniform rule."
+    }
+   ]
+  }
+ ]
+}

@@ -149,7 +149,7 @@ export const toTheForbiddenPeaksScenario: Scenario = {
 };
 
 export const cityOfTheElderThings1Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.CityOfTheElderThings1,
+	kohakuScenario: KohakuScenario.CityOfTheElderThings,
 	shortName: 'III (v. I)',
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioCityOfTheElderThings() + ' (v. I)',
 	setups: [
@@ -185,7 +185,7 @@ export const cityOfTheElderThings1Scenario: Scenario = {
 };
 
 export const cityOfTheElderThings2Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.CityOfTheElderThings2,
+	kohakuScenario: KohakuScenario.CityOfTheElderThings,
 	shortName: 'III (v. II)',
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioCityOfTheElderThings() + ' (v. II)',
 	setups: [
@@ -221,7 +221,7 @@ export const cityOfTheElderThings2Scenario: Scenario = {
 };
 
 export const cityOfTheElderThings3Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.CityOfTheElderThings3,
+	kohakuScenario: KohakuScenario.CityOfTheElderThings,
 	shortName: 'III (v. III)',
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioCityOfTheElderThings() + ' (v. III)',
 	setups: [

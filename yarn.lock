@@ -5,6 +5,16 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@5argon/arkham-campaign-data@workspace:*, @5argon/arkham-campaign-data@workspace:campaign-data":
+  version: 0.0.0-use.local
+  resolution: "@5argon/arkham-campaign-data@workspace:campaign-data"
+  dependencies:
+    "@5argon/arkham-kohaku": "workspace:*"
+    "@types/node": "npm:^25.2.3"
+    typescript: "npm:^5.9.3"
+  languageName: unknown
+  linkType: soft
+
 "@5argon/arkham-collection@workspace:card-collection-manager":
   version: 0.0.0-use.local
   resolution: "@5argon/arkham-collection@workspace:card-collection-manager"
@@ -160,6 +170,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@5argon/arkham-starter@workspace:starter"
   dependencies:
+    "@5argon/arkham-campaign-data": "workspace:*"
     "@5argon/arkham-kohaku": "workspace:*"
     "@5argon/arkham-life-ui": "workspace:*"
     "@5argon/arkham-string": "workspace:*"

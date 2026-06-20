@@ -1,0 +1,224 @@
+{
+  "code": "rtnotz",
+  "name": "Return to The Night of the Zealot",
+  "kind": "return",
+  "originalId": "core",
+  "scenarios": [
+    "return_to_the_gathering",
+    "return_to_the_midnight_masks",
+    "return_to_the_devourer_below"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "cultists_interrogated",
+      "type": "cards"
+    },
+    {
+      "id": "cultists_escaped",
+      "type": "cards"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "house_burned",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "arkham"
+    },
+    {
+      "id": "ghoul_priest_alive",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "arkham",
+      "crossOut": true
+    },
+    {
+      "id": "past_midnight",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "arkham"
+    },
+    {
+      "id": "arkham_succumbed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "tentacles"
+    },
+    {
+      "id": "ritual_broken",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "tentacles"
+    },
+    {
+      "id": "umordhoth_repelled",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "tentacles"
+    },
+    {
+      "id": "lita_sacrificed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "tentacles"
+    },
+    {
+      "id": "house_standing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "torch"
+    },
+    {
+      "id": "lita_finds_others",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "torch"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "zealots_revent",
+      "type": "binary",
+      "family": "notz",
+      "shared": true
+    },
+    {
+      "id": "dont_trust_her",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.lita_finds_others"
+      },
+      "scenario": "return_to_the_gathering"
+    },
+    {
+      "id": "insurance",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.house_burned"
+      },
+      "scenario": "return_to_the_gathering"
+    },
+    {
+      "id": "do_i_have_to",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "scenario": "return_to_the_midnight_masks"
+    },
+    {
+      "id": "conspiracy_of_silence",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "infer": {
+        "type": "sectionCount",
+        "section": "cultists_interrogated",
+        "min": 6
+      },
+      "scenario": "return_to_the_midnight_masks"
+    },
+    {
+      "id": "tour_of_arkham",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "scenario": "return_to_the_midnight_masks"
+    },
+    {
+      "id": "do_you_get_it_now",
+      "type": "binary",
+      "family": "notz",
+      "scenario": "return_to_the_midnight_masks"
+    },
+    {
+      "id": "pinch_hitter",
+      "type": "binary",
+      "family": "notz",
+      "shared": true
+    },
+    {
+      "id": "even_death_may_die",
+      "type": "binary",
+      "family": "notz",
+      "scenario": "return_to_the_devourer_below"
+    },
+    {
+      "id": "break_the_circle",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.ritual_broken"
+      },
+      "scenario": "return_to_the_devourer_below"
+    },
+    {
+      "id": "theyre_just_misunderstood",
+      "type": "binary",
+      "family": "notz",
+      "shared": true
+    },
+    {
+      "id": "umordhoths_favor",
+      "type": "binary",
+      "family": "notz",
+      "shared": true
+    },
+    {
+      "id": "notz_line_in_the_sand",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "arkham_expertise",
+      "type": "binary",
+      "family": "notz",
+      "shared": true,
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.house_burned",
+        "campaign_notes.house_standing"
+      ],
+      "scenario": "The Gathering"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.arkham_succumbed",
+        "campaign_notes.ritual_broken",
+        "campaign_notes.umordhoth_repelled",
+        "campaign_notes.lita_sacrificed"
+      ],
+      "scenario": "The Devourer Below"
+    }
+  ]
+}

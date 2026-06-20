@@ -1,0 +1,352 @@
+{
+  "code": "tcu",
+  "name": "The Circle Undone",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "mementos": "Mementos Discovered",
+    "missing_persons": "Missing Persons",
+    "05046": "Missing Persons - Gavriella Mizrah",
+    "05047": "Missing Persons - Jerome Davids",
+    "05049": "Missing Persons - Penny White",
+    "05048": "Missing Persons - Valentino Rivas",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "05046.on_gavriellas_trail": {
+      "text": "the investigators are on Gavriella’s trail."
+    },
+    "05047.on_jeromes_trail": {
+      "text": "the investigators are on Jerome’s trail."
+    },
+    "05049.on_pennys_trail": {
+      "text": "the investigators are on Penny's trail."
+    },
+    "05048.on_valentinos_trail": {
+      "text": "the investigators are on Valentino's trail."
+    },
+    "campaign_notes.investigators_escaped_the_spectral_realm": {
+      "text": "the investigators escaped the spectral realm."
+    },
+    "campaign_notes.learned_nothing_of_the_lodges_schemes": {
+      "text": "the investigators learned nothing of the Lodge’s schemes."
+    },
+    "campaign_notes.never_seen_again": {
+      "text": "the investigators are never seen or heard from again."
+    },
+    "campaign_notes.azathoth_devoured_the_universe": {
+      "text": "Azathoth devoured the universe.",
+      "spoiler": [
+        "Azathoth"
+      ]
+    },
+    "campaign_notes.lead_investigator_joins_pipers": {
+      "text": "#name# has joined the pipers of Azathoth.",
+      "spoiler": [
+        "the pipers of Azathoth"
+      ]
+    },
+    "campaign_notes.azathoth_slumbers": {
+      "text": "Azathoth slumbers… for now.",
+      "spoiler": [
+        "Azathoth"
+      ]
+    },
+    "campaign_notes.signed_the_black_book": {
+      "text": "the investigators signed the Black Book of Azathoth.",
+      "spoiler": [
+        "the Black Book of Azathoth"
+      ]
+    },
+    "campaign_notes.pieces_of_evidence": {
+      "text": "#X# pieces of evidence were left behind."
+    },
+    "05046.taken_by_the_watcher": {
+      "text": "#name# was taken by the Watcher."
+    },
+    "05046.claimed_by_specters": {
+      "text": "#name# was claimed by specters."
+    },
+    "05046.disappeared_into_the_mist": {
+      "text": "#name# disappeared into the mist."
+    },
+    "05046.pulled_into_the_spectral_realm": {
+      "text": "#name# was pulled into the spectral realm."
+    },
+    "05047.taken_by_the_watcher": {
+      "text": "#name# was taken by the Watcher."
+    },
+    "05047.claimed_by_specters": {
+      "text": "#name# was claimed by specters."
+    },
+    "05047.disappeared_into_the_mist": {
+      "text": "#name# disappeared into the mist."
+    },
+    "05047.pulled_into_the_spectral_realm": {
+      "text": "#name# was pulled into the spectral realm."
+    },
+    "05048.taken_by_the_watcher": {
+      "text": "#name# was taken by the Watcher."
+    },
+    "05048.claimed_by_specters": {
+      "text": "#name# was claimed by specters."
+    },
+    "05048.disappeared_into_the_mist": {
+      "text": "#name# disappeared into the mist."
+    },
+    "05048.pulled_into_the_spectral_realm": {
+      "text": "#name# was pulled into the spectral realm."
+    },
+    "05049.taken_by_the_watcher": {
+      "text": "#name# was taken by the Watcher."
+    },
+    "05049.claimed_by_specters": {
+      "text": "#name# was claimed by specters."
+    },
+    "05049.disappeared_into_the_mist": {
+      "text": "#name# disappeared into the mist."
+    },
+    "05049.pulled_into_the_spectral_realm": {
+      "text": "#name# was pulled into the spectral realm."
+    },
+    "campaign_notes.being_hunted": {
+      "text": "you are being hunted."
+    },
+    "campaign_notes.survived_the_watchers_embrace": {
+      "text": "the investigators survived the watcher’s embrace."
+    },
+    "campaign_notes.guardian_of_the_trap_emerged": {
+      "text": "the guardian of the trap emerged."
+    },
+    "campaign_notes.discovered_how_to_open_the_puzzle_box": {
+      "text": "the investigators discovered how to open the puzzle box.."
+    },
+    "campaign_notes.guardian_of_the_trap_defeated": {
+      "text": "the guardian of the trap emerged and was defeated."
+    },
+    "campaign_notes.continued_alone": {
+      "text": "the investigators continued alone."
+    },
+    "campaign_notes.asked_anette_for_assistance": {
+      "text": "the investigators asked Anette for assistance."
+    },
+    "campaign_notes.arrested_anette": {
+      "text": "the investigators arrested Anette."
+    },
+    "campaign_notes.anette_taught_you_the_spells_of_old": {
+      "text": "Anette taught you the spells of old."
+    },
+    "campaign_notes.asked_sanford_for_assistance": {
+      "text": "the investigators asked Sanford for assistance."
+    },
+    "campaign_notes.arrested_sanford": {
+      "text": "the investigators arrested Sanford."
+    },
+    "campaign_notes.assumed_control_of_the_silver_twilight_lodge": {
+      "text": "the investigators assumed control of the Silver Twilight Lodge."
+    },
+    "campaign_notes.doom_draws_ever_closer": {
+      "text": "doom draws ever closer."
+    },
+    "mementos.gilmans_journal": {
+      "text": "Gilman's Journal"
+    },
+    "mementos.keziahs_formulae": {
+      "text": "Keziah's Formulae"
+    },
+    "mementos.worn_crucific": {
+      "text": "Worn Crucifix"
+    },
+    "mementos.wisp_of_spectral_mist": {
+      "text": "Wisp of Spectral Mist"
+    },
+    "mementos.mesmerizing_flute": {
+      "text": "Mesmerizing Flute"
+    },
+    "mementos.ritual_components": {
+      "text": "Ritual Components"
+    },
+    "mementos.scrap_of_torn_shadow": {
+      "text": "Scrap of Torn Shadow"
+    },
+    "mementos.corn_husk_doll": {
+      "text": "Corn Husk Doll"
+    },
+    "campaign_notes.kept_mementos_hidden": {
+      "text": "the investigators kept their mementos hidden."
+    },
+    "campaign_notes.inducted_into_the_inner_circle": {
+      "text": "the investigators were inducted into the Inner Circle."
+    },
+    "campaign_notes.josef_disappeared_into_the_mist": {
+      "text": "Josef disappeared into the mist."
+    },
+    "campaign_notes.enemies_of_the_lodge": {
+      "text": "the investigators are enemies of the Lodge."
+    },
+    "campaign_notes.rescued_josef": {
+      "text": "the investigators rescued Josef."
+    },
+    "campaign_notes.josef_is_alive": {
+      "text": "Josef is alive and well."
+    },
+    "campaign_notes.members_of_the_lodge": {
+      "text": "the investigators are members of the Lodge."
+    },
+    "campaign_notes.deceiving_the_lodge": {
+      "text": "the investigators are deceiving the Lodge."
+    },
+    "campaign_notes.told_lodge_about_coven": {
+      "text": "the investigators told the Lodge about the coven.",
+      "spoiler": [
+        "the coven"
+      ]
+    },
+    "campaign_notes.hid_knowledge_of_coven": {
+      "text": "the investigators hid their knowledge of the coven.",
+      "spoiler": [
+        "the coven"
+      ]
+    },
+    "campaign_notes.heretics_released": {
+      "text": "#X# heretics were unleashed unto Arkham."
+    },
+    "campaign_notes.accepted_fate": {
+      "text": "you have accepted your fate."
+    },
+    "campaign_notes.rejected_fate": {
+      "text": "you have rejected your fate."
+    },
+    "campaign_notes.witches_spell_broken": {
+      "text": "the witches' spell was broken.",
+      "spoiler": [
+        "witches'"
+      ]
+    },
+    "campaign_notes.witches_spell_cast": {
+      "text": "the witches' spell was cast.",
+      "spoiler": [
+        "witches'"
+      ]
+    },
+    "campaign_notes.path_winds_before_you": {
+      "text": "the path winds before you: #X#"
+    },
+    "campaign_notes.sided_with_the_lodge": {
+      "text": "the investigators sided with the Lodge."
+    },
+    "campaign_notes.sided_with_the_coven": {
+      "text": "the investigators sided with the coven.",
+      "spoiler": [
+        "the coven"
+      ]
+    },
+    "05046.alive": {
+      "text": "Gavriella is alive."
+    },
+    "05047.alive": {
+      "text": "Jerome is alive."
+    },
+    "05049.alive": {
+      "text": "Penny is alive."
+    },
+    "05048.alive": {
+      "text": "Valentino is alive."
+    },
+    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
+      "text": "the true work of the Silver Twilight Lodge has begun.",
+      "spoiler": [
+        "true work"
+      ]
+    },
+    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
+      "text": "Carl Sanford possesses the secrets of the universe.",
+      "spoiler": [
+        "the secrets of the universe"
+      ]
+    },
+    "campaign_notes.anette_mason_is_possessed_by_evil": {
+      "text": "Anette Mason is possessed by evil.",
+      "spoiler": [
+        "possessed by evil"
+      ]
+    },
+    "05046.dead": {
+      "text": "Gavriella Mizrah is dead."
+    },
+    "05047.dead": {
+      "text": "Jerome Davids is dead."
+    },
+    "05049.dead": {
+      "text": "Penny White is dead."
+    },
+    "05048.dead": {
+      "text": "Valentino Rivas is dead."
+    }
+  },
+  "achievements": {
+    "who_you_gonna_call": {
+      "title": "Who You Gonna Call?",
+      "text": "Defeat 13 [[Geist]] or [[Spectral]] enemies. Enemies who are not discarded or added to the victory display do not count."
+    },
+    "savior_of_humanity": {
+      "title": "Savior of Humanity",
+      "text": "Rescue every [[Silver Twilight]] enemy who appears in \"At Death's Doorstep.\""
+    },
+    "would_read_again": {
+      "title": "10/10 Would Read Again",
+      "text": "Using the Black Book, take a total of 10 horror with its ability throughout the campaign."
+    },
+    "carl_shmarl": {
+      "title": "Carl Shmarl",
+      "text": "Become part of the Silver Twilight Lodge's Inner Circle, then betray them in \"Union and Disillusion.\""
+    },
+    "new_world_order": {
+      "title": "New World Order",
+      "text": "Help the Silver Twilight Lodge win <i>The Circle Undone</i> campaign."
+    },
+    "more_like_excursion": {
+      "title": "More Like Excursion",
+      "text": "Complete \"In the Clutches of Chaos\" without a single incursion occurring."
+    },
+    "member_these": {
+      "title": "'Member These?",
+      "text": "Discover the following Mementos:",
+      "items": {
+        "mesmerizing_flute": "Mesmerizing Flute",
+        "ritual_components": "Ritual Components",
+        "scrap_of_torn_shadow": "Scrap of Torn Shadow",
+        "gilmans_journal": "Gilman's Journal",
+        "keziahs_formulae": "Keziah's Formulae",
+        "worn_crucifix": "Worn Crucifix",
+        "wisp_of_spectral_mist": "Wisp of Spectral Mist",
+        "corn_husk_doll": "Corn Husk Doll"
+      }
+    },
+    "case_closed": {
+      "title": "Case Closed",
+      "text": "Save each of the following characters from a terrible fate:",
+      "items": {
+        "valentino": "Valentino Rivas",
+        "gavriella": "Gavriella Mizrah",
+        "penny": "Penny White",
+        "jerome": "Jerome Davids"
+      }
+    },
+    "music_of_the_outer_gods": {
+      "title": "Music of the Outer Gods",
+      "text": "Accept your fate and win <i>The Circle Undone</i> campaign by joining the Pipers of Azathoth."
+    },
+    "weaver_of_shadow_and_mist": {
+      "title": "Weaver of Shadow and Mist",
+      "text": "Reject your fate and win <i>The Circle Undone</i> campaign by crafting a spell to contain Azathoth."
+    },
+    "fine_print": {
+      "title": "Fine Print",
+      "text": "Win <i>The Circle Undone</i> campaign by signing your name in The Black Book of Azathoth."
+    },
+    "circle_expertise": {
+      "title": "Circle Expertise",
+      "text": "Win <i>The Circle Undone</i> campaign on Expert difficulty."
+    }
+  }
+}

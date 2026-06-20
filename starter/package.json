@@ -58,6 +58,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@5argon/arkham-campaign-data": "workspace:*",
 		"@5argon/arkham-kohaku": "workspace:*",
 		"@5argon/arkham-life-ui": "workspace:*",
 		"@5argon/arkham-string": "workspace:*",

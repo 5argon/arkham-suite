@@ -1,0 +1,295 @@
+{
+  "code": "tdc",
+  "_notes": "Verified all 6 spoiler spans are exact substrings of their entry texts in tdc-en.draft.json: \"the alien parasites\" in \"the investigators exterminated the alien parasites.\"; \"Cthulhu's awakening\" in \"the investigators halted Cthulhu's awakening.\"; \"Cthulhu\" in each of the four endgame outcome entries. No invalid spans.\n\nSibling-collision check on campaign_notes endgame outcomes after blurring Cthulhu: \"[X] annihilated the city of Arkham.\" / \"[X] was driven away.\" / \"[X] was banished.\" / \"[X] was banished, but Arkham was destroyed.\" — all remain distinguishable by their outcome verbs. No collisions.\n\nglyphs roster: db lists 26 rune entries tdc_rune_a..z all in the glyphs section (rune_a/rune_s from scenarios, rune_b..r,t..z from core); roster enumerates all 26 in a..z order, labeled with the [tdc_rune_X] marker so the UI renders the glyph symbol. resolve.mjs does not apply (glyphs are rune slots, not card codes; resolve tdc returns not-found, as expected). Correct.\n\nNo changes required — the proposed curation is valid as-is. Kept artifacts_earned, flooded_neighborhoods, locations, the Depths/Machine glyph translations, and generic scaffolding unblurred per the curator's reasoning, which is sound (whole-text-only sibling entries under visible section titles; no boss/twist reveals left exposed beyond the central Cthulhu reveal which IS blurred).",
+  "spoilers": {
+    "campaign_notes.exterminated_the_alien_parasites": [
+      "the alien parasites"
+    ],
+    "campaign_notes.halted_cthulhus_awakening": [
+      "Cthulhu's awakening"
+    ],
+    "campaign_notes.cthulhu_annihilated_the_city_of_arkham": [
+      "Cthulhu"
+    ],
+    "campaign_notes.cthulhu_was_driven_away": [
+      "Cthulhu"
+    ],
+    "campaign_notes.cthulhu_was_banished": [
+      "Cthulhu"
+    ],
+    "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed": [
+      "Cthulhu"
+    ]
+  },
+  "sections": {
+    "glyphs": {
+      "type": "glyphs",
+      "items": [
+        {
+          "id": "tdc_rune_a"
+        },
+        {
+          "id": "tdc_rune_b"
+        },
+        {
+          "id": "tdc_rune_c"
+        },
+        {
+          "id": "tdc_rune_d"
+        },
+        {
+          "id": "tdc_rune_e"
+        },
+        {
+          "id": "tdc_rune_f"
+        },
+        {
+          "id": "tdc_rune_g"
+        },
+        {
+          "id": "tdc_rune_h"
+        },
+        {
+          "id": "tdc_rune_i"
+        },
+        {
+          "id": "tdc_rune_j"
+        },
+        {
+          "id": "tdc_rune_k"
+        },
+        {
+          "id": "tdc_rune_l"
+        },
+        {
+          "id": "tdc_rune_m"
+        },
+        {
+          "id": "tdc_rune_n"
+        },
+        {
+          "id": "tdc_rune_o"
+        },
+        {
+          "id": "tdc_rune_p"
+        },
+        {
+          "id": "tdc_rune_q"
+        },
+        {
+          "id": "tdc_rune_r"
+        },
+        {
+          "id": "tdc_rune_s"
+        },
+        {
+          "id": "tdc_rune_t"
+        },
+        {
+          "id": "tdc_rune_u"
+        },
+        {
+          "id": "tdc_rune_v"
+        },
+        {
+          "id": "tdc_rune_w"
+        },
+        {
+          "id": "tdc_rune_x"
+        },
+        {
+          "id": "tdc_rune_y"
+        },
+        {
+          "id": "tdc_rune_z"
+        }
+      ],
+      "_note": "Section title 'Alien Glyphs' (campaign_log id 'glyphs', type 'glyphs'). Player-decoded translate puzzle: 26 glyph slots tdc_rune_a..tdc_rune_z, each recording the decoded English letter the player has assigned to that glyph as it is translated during play. Glyphs are unlocked/checked off across scenarios (tdc-db seeds entries tdc_rune_a in 02_one_last_job and tdc_rune_s in 07_the_apiary; remaining runes are added as the campaign proceeds). Achievements infer over logCount of key 'glyphs': 'alien_grad' = all 26 translated (min 26), 'alien_dropout' = none translated (max 0)."
+    },
+    "task_progress": {
+      "type": "investigatorCount",
+      "perInvestigator": true,
+      "_note": "Section title 'Task progress' (campaign_log id 'task_progress', type 'investigator_count'). Per-investigator numeric counter. In scenario 03_an_offer_you_cant_refuse each investigator is assigned exactly one task and its progress is initialized to 0, then incremented as the campaign proceeds. No single campaign-wide max exists in the reference data: each task's completion threshold lives on its individual task card, not in campaign.json, so 'max' is intentionally left unset. The 8 possible tasks (per the 'obligations' list achievement and 'picked_*' hidden log entries) are: no_place_like_home, walk_in_faith, toe_the_line, good_money, prove_your_worth, do_no_harm, dreams_of_destruction, plumb_the_depths."
+    }
+  },
+  "achievements": {
+    "one_first_last_job": {
+      "infer": {
+        "type": "anyOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_annihilated_the_city_of_arkham"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_was_driven_away"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_was_banished"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed"
+          }
+        ]
+      }
+    },
+    "alien_dropout": {
+      "infer": {
+        "type": "logCount",
+        "key": "glyphs",
+        "max": 0
+      }
+    },
+    "alien_grad": {
+      "infer": {
+        "type": "logCount",
+        "key": "glyphs",
+        "min": 26
+      }
+    },
+    "empty_handed": {
+      "infer": {
+        "type": "logCount",
+        "key": "artifacts_earned",
+        "max": 0
+      }
+    },
+    "powers_combined": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "artifacts_earned.barrier_node"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.obsidian_claw"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.shard"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.grisly_mask"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.tidal_tablet"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.clah_horror"
+          }
+        ]
+      }
+    },
+    "line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "coup": {
+      "scenario": "one_last_job"
+    },
+    "search": {
+      "scenario": "the_western_wall"
+    },
+    "tidal_flip": {
+      "scenario": "the_drowned_quarter"
+    },
+    "acolyte": {
+      "scenario": "the_apiary"
+    },
+    "kill_the_adds": {
+      "scenario": "the_apiary"
+    },
+    "deep_end": {
+      "scenario": "the_grand_vault"
+    },
+    "sorry": {
+      "scenario": "court_of_the_ancients"
+    },
+    "sky_rider": {
+      "scenario": "obsidian_canyons"
+    },
+    "skip_to_the_end": {
+      "scenario": "sepulchre_of_the_sleeper",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.halted_cthulhus_awakening"
+      }
+    },
+    "obligations": {
+      "infer": {
+        "type": "logCount",
+        "key": "task_progress",
+        "min": 5
+      }
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.expedition_headed_west",
+        "campaign_notes.expedition_headed_east"
+      ],
+      "scenario": "expedition_to_ryleh"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.ruby_won_the_bet",
+        "campaign_notes.ruby_lost_the_bet"
+      ],
+      "scenario": "one_last_job"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.pilgrims_were_saved",
+        "campaign_notes.pilgrims_were_devoured",
+        "campaign_notes.exterminated_the_alien_parasites"
+      ],
+      "scenario": "the_apiary"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "artifacts_earned.barrier_node",
+        "campaign_notes.the_power_was_diverted"
+      ],
+      "scenario": "the_drowned_quarter"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.stood_together",
+        "campaign_notes.your_allies_have_a_plan"
+      ],
+      "scenario": "the_doom_of_arkham_part_2"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cthulhu_annihilated_the_city_of_arkham",
+        "campaign_notes.cthulhu_was_driven_away",
+        "campaign_notes.cthulhu_was_banished",
+        "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed"
+      ],
+      "scenario": "the_doom_of_arkham_part_2"
+    }
+  ]
+}

@@ -1,16 +1,11 @@
 <script lang="ts">
 	import { type Campaign } from '$lib/core/campaign';
-	import {
-		Button,
-		Dropdown,
-		FaIconType,
-		FormLabelWithHelp,
-		HelpParagraph
-	} from '@5argon/arkham-life-ui';
+	import { Button, Dropdown, FaIconType, FormLabelWithHelp } from '@5argon/arkham-life-ui';
 
 	import { findUniqueScenarios, makeLongScenarioName } from './campaign-analyze';
 	import { Campaign as KohakuCampaign } from '@5argon/arkham-kohaku';
 	import SetupReferenceCardFront from './SetupReferenceCardFront.svelte';
+	import ScenarioAchievements from './ScenarioAchievements.svelte';
 	import { fly } from 'svelte/transition';
 
 	let {
@@ -80,3 +75,7 @@
 </div>
 
 <SetupReferenceCardFront campaign={kohakuCampaign} scenario={selectedScenario} {showSetCount} />
+
+{#if selectedScenario}
+	<ScenarioAchievements campaign={kohakuCampaign} scenario={selectedScenario.kohakuScenario} />
+{/if}

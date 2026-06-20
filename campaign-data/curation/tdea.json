@@ -1,0 +1,177 @@
+{
+  "code": "tdea",
+  "_notes": "Verified against tdea-en.draft.json and tdea-db.draft.json. All four spans are exact substrings of their entry texts. No sibling collisions: the two where_the_gods_dwell endgame notes stay distinguishable (\"escaped from ... grasp\" vs \"banished\"); possess_silver_key is the sole sibling for that reveal. The two black_cat_spoke_of_* (Nyarlathotep / Atlach-Nacha) are correctly left unblurred to avoid collapsing them to identical text. Randolph/Virgil/black-cat capture-and-relationship notes correctly left visible for name-based disambiguation. No exotic sections (only campaign_notes notes carry display text; evidence_of_kadath is count, hidden is hidden). db sections/types match reference. Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.nyarlathoteps_invasion_has_begun": [
+      "Nyarlathotep's"
+    ],
+    "campaign_notes.possess_silver_key": [
+      "the Silver Key"
+    ],
+    "campaign_notes.dreamers_escaped_nyarlathoteps_grasp": [
+      "Nyarlathotep's"
+    ],
+    "campaign_notes.dreamers_banished_nyarlathotep": [
+      "Nyarlathotep"
+    ]
+  },
+  "achievements": {
+    "reunited": {
+      "requires": {
+        "type": "anyOf",
+        "of": [
+          { "type": "allOf", "of": [
+            { "type": "log", "key": "campaign_notes.nyarlathoteps_invasion_has_begun" },
+            { "type": "log", "key": "campaign_notes.returned_to_reality" }
+          ] },
+          { "type": "allOf", "of": [
+            { "type": "log", "key": "campaign_notes.dreamers_awoke" },
+            { "type": "log", "key": "campaign_notes.returned_to_reality" }
+          ] },
+          { "type": "allOf", "of": [
+            { "type": "log", "key": "campaign_notes.dreamers_stayed_in_dreamlands_forever" },
+            { "type": "log", "key": "campaign_notes.still_in_the_dreamlands" }
+          ] },
+          { "type": "allOf", "of": [
+            { "type": "log", "key": "campaign_notes.dreamers_traveled_beneath_the_monastery" },
+            { "type": "log", "key": "campaign_notes.never_escaped" }
+          ] }
+        ]
+      }
+    },
+    "follow_orders": {
+      "infer": {
+        "type": "logAbsent",
+        "key": "campaign_notes.strayed_from_the_path"
+      },
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    "losing_my_religion": {
+      "infer": {
+        "type": "logCount",
+        "key": "evidence_of_kadath",
+        "min": 10
+      },
+      "scenario": "the_search_for_kadath"
+    },
+    "cat_killer": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.broken_the_law_of_ulthar"
+      },
+      "scenario": "the_search_for_kadath"
+    },
+    "line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "dreamlands_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "beware_black_cat": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.threaten_black_cat"
+      }
+    },
+    "so_cute": {
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    "spy": {
+      "scenario": "dark_side_of_the_moon"
+    },
+    "moon_lizard": {
+      "scenario": "dark_side_of_the_moon"
+    },
+    "barkham": {
+      "scenario": "dark_side_of_the_moon"
+    },
+    "high_priest": {
+      "scenario": "where_the_gods_dwell"
+    },
+    "hidden_nylar": {
+      "scenario": "where_the_gods_dwell"
+    },
+    "final_form": {
+      "scenario": "where_the_gods_dwell"
+    },
+    "dont_tell": {
+      "scenario": "where_the_gods_dwell"
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cats_collected_their_tribute",
+        "campaign_notes.parleyed_with_zoogs"
+      ],
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_eluded_capture",
+        "campaign_notes.randolph_was_captured"
+      ],
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.carried_to_the_cold_wastes",
+        "campaign_notes.travelled_to_the_cold_wastes"
+      ],
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_did_not_survive_the_voyage",
+        "campaign_notes.randolph_survived_the_voyage"
+      ],
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.nyarlathoteps_invasion_has_begun",
+        "campaign_notes.dreamers_escaped_nyarlathoteps_grasp",
+        "campaign_notes.dreamers_banished_nyarlathotep"
+      ],
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dreamers_awoke",
+        "campaign_notes.dreamers_stayed_in_dreamlands_forever",
+        "campaign_notes.dreamers_traveled_beneath_the_monastery"
+      ],
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.black_cat_delivered_news",
+        "campaign_notes.black_cat_shared_knowledge_of_the_dreamlands",
+        "campaign_notes.black_cat_warned_the_others",
+        "campaign_notes.threaten_black_cat"
+      ],
+      "scenario": "the_black_cat"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.black_cat_spoke_of_nyarlathotep",
+        "campaign_notes.black_cat_spoke_of_atlach_nacha"
+      ],
+      "scenario": "the_great_ones"
+    }
+  ]
+}

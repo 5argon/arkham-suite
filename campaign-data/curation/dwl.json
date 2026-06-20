@@ -1,0 +1,135 @@
+{
+  "code": "dwl",
+  "_doc": "Gold-standard exemplar. Spoilers blur the plot-revealing noun/outcome while leaving enough of each sentence to tell it apart from its siblings in the same section. Front-loaded setup NPCs (the kidnapped professors, named in the intro and in the visible 'Sacrificed' roster) are left unblurred so name-based disambiguation still works.",
+  "spoilers": {
+    "campaign_notes.bone_to_pick": [
+      "O'Bannion"
+    ],
+    "campaign_notes.killed_silas_bishop": [
+      "Silas Bishop"
+    ],
+    "campaign_notes.restored_silas_bishop": [
+      "Silas Bishop"
+    ],
+    "campaign_notes.banished_silas_bishop": [
+      "Silas Bishop"
+    ],
+    "campaign_notes.experiment_defeated": [
+      "the Experiment"
+    ],
+    "campaign_notes.necronomicon_stolen": [
+      "the Necronomicon"
+    ],
+    "campaign_notes.failed_to_recover_necronomicon": [
+      "the Necronomicon"
+    ],
+    "campaign_notes.destroyed_necronomicon": [
+      "the Necronomicon"
+    ],
+    "campaign_notes.took_necronomicon": [
+      "the Necronomicon"
+    ],
+    "campaign_notes.yog_sothoth_fled": [
+      "Yog-Sothoth"
+    ],
+    "campaign_notes.yog_sothoth_became_one_with_reality": [
+      "Yog-Sothoth"
+    ],
+    "campaign_notes.yog_sothoth_escaped": [
+      "Yog-Sothoth"
+    ],
+    "campaign_notes.naomi_has_back": [
+      "Naomi"
+    ]
+  },
+  "sections": {
+    "sacrificed": {
+      "freeform": true
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.failed_to_recover_necronomicon",
+        "campaign_notes.destroyed_necronomicon",
+        "campaign_notes.took_necronomicon"
+      ],
+      "scenario": "the_miskatonic_museum"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.killed_silas_bishop",
+        "campaign_notes.restored_silas_bishop",
+        "campaign_notes.banished_silas_bishop"
+      ],
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.warren_rice_rescued",
+        "campaign_notes.warren_rice_kidnapped"
+      ],
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.students_rescued",
+        "campaign_notes.failed_to_save_students"
+      ],
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.francis_morgan_rescued",
+        "campaign_notes.francis_morgan_kidnapped"
+      ],
+      "scenario": "the_house_always_wins"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.henry_armitage_rescued",
+        "campaign_notes.henry_armitage_kidnapped"
+      ],
+      "scenario": "armitages_fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.calmed_townsfolk",
+        "campaign_notes.warned_townsfolk"
+      ],
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.no_brood_escaped",
+        "campaign_notes.brood_escaped"
+      ],
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.entered_the_gate",
+        "campaign_notes.yog_sothoth_escaped"
+      ],
+      "scenario": "where_doom_awaits"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.closed_tear",
+        "campaign_notes.yog_sothoth_fled",
+        "campaign_notes.yog_sothoth_became_one_with_reality"
+      ],
+      "scenario": "lost_in_time_and_space"
+    }
+  ]
+}

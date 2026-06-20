@@ -1,0 +1,115 @@
+{
+  "code": "tdeb",
+  "_notes": "Verified all 4 spans are exact substrings of their entry text (Atlach-Nacha's uses a straight apostrophe matching the source). No sibling collisions: the two Underworld entries remain distinguishable ('the black cat shared knowledge of [BLUR]' vs 'the investigators found a way out of [BLUR]'). Genuine reveals blurred: Silver Key (artifact), the Underworld (endgame location), Atlach-Nacha's (final Great Old One). Black cat (campaign framing companion), Randolph Carter, and Dr. Maheswaran correctly left visible as setup NPCs; 'the bridge'/Dreamlands are the campaign's own visible concepts. No exotic rosters needed (count + hidden sections only). Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.possess_silver_key": [
+      "the Silver Key"
+    ],
+    "campaign_notes.black_cat_shared_knowledge_of_the_underworld": [
+      "the Underworld"
+    ],
+    "campaign_notes.found_a_way_out_of_the_underworld": [
+      "the Underworld"
+    ],
+    "campaign_notes.trapped_in_atlach_nachas_realm": [
+      "Atlach-Nacha's"
+    ]
+  },
+  "achievements": {
+    "remember_this_place": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.found_a_way_out_of_the_underworld"
+      },
+      "scenario": "point_of_no_return"
+    },
+    "line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "underworld_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "carter_method": {
+      "scenario": "waking_nightmare"
+    },
+    "doctor_is_in": {
+      "scenario": "waking_nightmare"
+    },
+    "deja_vu": {
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    "casa_loma": {
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    "bad_advice": {
+      "scenario": "point_of_no_return"
+    },
+    "march_of_ghouls": {
+      "scenario": "point_of_no_return"
+    },
+    "ishimura": {
+      "scenario": "weaver_of_the_cosmos"
+    },
+    "spin_me_round": {
+      "scenario": "weaver_of_the_cosmos"
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.doctor_joined_investigation",
+        "campaign_notes.doctor_stayed_with_patients"
+      ],
+      "scenario": "waking_nightmare"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.doctor_is_alive",
+        "campaign_notes.doctor_is_missing",
+        "campaign_notes.doctors_fate_unknown"
+      ],
+      "scenario": "waking_nightmare"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_escaped_hospital_with_investigators",
+        "campaign_notes.randolph_escaped_hospital_alone"
+      ],
+      "scenario": "waking_nightmare"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_survived_descent",
+        "campaign_notes.randolph_did_not_survive_descent"
+      ],
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.bridge_was_completed",
+        "campaign_notes.bridge_was_destroyed"
+      ],
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.returned_to_reality",
+        "campaign_notes.never_escaped",
+        "campaign_notes.still_in_the_dreamlands"
+      ],
+      "scenario": "weaver_of_the_cosmos"
+    }
+  ]
+}

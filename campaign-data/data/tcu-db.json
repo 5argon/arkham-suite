@@ -1,0 +1,1134 @@
+{
+  "code": "tcu",
+  "name": "The Circle Undone",
+  "kind": "campaign",
+  "version": 8,
+  "scenarios": [
+    "disappearance_at_the_twilight_estate",
+    "the_witching_hour",
+    "at_deaths_doorstep",
+    "the_price_of_progress",
+    "the_secret_name",
+    "the_wages_of_sin",
+    "for_the_greater_good",
+    "the_inner_circle",
+    "union_and_disillusion",
+    "in_the_clutches_of_chaos",
+    "twist_of_fate",
+    "before_the_black_throne",
+    "tcu_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "mementos",
+      "type": "notes"
+    },
+    {
+      "id": "missing_persons",
+      "type": "header"
+    },
+    {
+      "id": "05046",
+      "type": "notes"
+    },
+    {
+      "id": "05047",
+      "type": "notes"
+    },
+    {
+      "id": "05049",
+      "type": "notes"
+    },
+    {
+      "id": "05048",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "a_record_of_those_lost",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep",
+      "hidden": true
+    },
+    {
+      "id": "on_gavriellas_trail",
+      "section": "05046",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "on_jeromes_trail",
+      "section": "05047",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "on_pennys_trail",
+      "section": "05049",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "on_valentinos_trail",
+      "section": "05048",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "investigators_escaped_the_spectral_realm",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "learned_nothing_of_the_lodges_schemes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "never_seen_again",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "azathoth_devoured_the_universe",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "before_the_black_throne"
+    },
+    {
+      "id": "lead_investigator_joins_pipers",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "before_the_black_throne",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "azathoth_slumbers",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "before_the_black_throne"
+    },
+    {
+      "id": "signed_the_black_book",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "before_the_black_throne"
+    },
+    {
+      "id": "skip_prologue",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "pieces_of_evidence",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "05046_fate_decided",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "05047_fate_decided",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "05048_fate_decided",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "05049_fate_decided",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "taken_by_the_watcher",
+      "section": "05046",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05046"
+          ]
+        }
+      }
+    },
+    {
+      "id": "prologue_05046",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "claimed_by_specters",
+      "section": "05046",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05046"
+          ]
+        }
+      }
+    },
+    {
+      "id": "disappeared_into_the_mist",
+      "section": "05046",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05046"
+          ]
+        }
+      }
+    },
+    {
+      "id": "pulled_into_the_spectral_realm",
+      "section": "05046",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05046"
+          ]
+        }
+      }
+    },
+    {
+      "id": "taken_by_the_watcher",
+      "section": "05047",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05047"
+          ]
+        }
+      }
+    },
+    {
+      "id": "prologue_05047",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "claimed_by_specters",
+      "section": "05047",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05047"
+          ]
+        }
+      }
+    },
+    {
+      "id": "disappeared_into_the_mist",
+      "section": "05047",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05047"
+          ]
+        }
+      }
+    },
+    {
+      "id": "pulled_into_the_spectral_realm",
+      "section": "05047",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05047"
+          ]
+        }
+      }
+    },
+    {
+      "id": "taken_by_the_watcher",
+      "section": "05048",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05048"
+          ]
+        }
+      }
+    },
+    {
+      "id": "prologue_05048",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "claimed_by_specters",
+      "section": "05048",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05048"
+          ]
+        }
+      }
+    },
+    {
+      "id": "disappeared_into_the_mist",
+      "section": "05048",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05048"
+          ]
+        }
+      }
+    },
+    {
+      "id": "pulled_into_the_spectral_realm",
+      "section": "05048",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05048"
+          ]
+        }
+      }
+    },
+    {
+      "id": "taken_by_the_watcher",
+      "section": "05049",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05049"
+          ]
+        }
+      }
+    },
+    {
+      "id": "prologue_05049",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "hidden": true
+    },
+    {
+      "id": "claimed_by_specters",
+      "section": "05049",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05049"
+          ]
+        }
+      }
+    },
+    {
+      "id": "disappeared_into_the_mist",
+      "section": "05049",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05049"
+          ]
+        }
+      }
+    },
+    {
+      "id": "pulled_into_the_spectral_realm",
+      "section": "05049",
+      "kind": "cards",
+      "scenario": "disappearance_at_the_twilight_estate",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "05049"
+          ]
+        }
+      }
+    },
+    {
+      "id": "being_hunted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "id": "survived_the_watchers_embrace",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "epilogue",
+      "crossOut": true
+    },
+    {
+      "id": "guardian_of_the_trap_emerged",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "for_the_greater_good"
+    },
+    {
+      "id": "discovered_how_to_open_the_puzzle_box",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "for_the_greater_good"
+    },
+    {
+      "id": "guardian_of_the_trap_defeated",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "for_the_greater_good"
+    },
+    {
+      "id": "continued_alone",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "asked_anette_for_assistance",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "arrested_anette",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "anette_taught_you_the_spells_of_old",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "asked_sanford_for_assistance",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "arrested_sanford",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "assumed_control_of_the_silver_twilight_lodge",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "doom_draws_ever_closer",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "gilmans_journal",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "keziahs_formulae",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "worn_crucific",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "wisp_of_spectral_mist",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "mesmerizing_flute",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "ritual_components",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "scrap_of_torn_shadow",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "corn_husk_doll",
+      "section": "mementos",
+      "kind": "note",
+      "scenario": "the_inner_circle",
+      "crossOut": true
+    },
+    {
+      "id": "kept_mementos_hidden",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_inner_circle"
+    },
+    {
+      "id": "inducted_into_the_inner_circle",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_inner_circle"
+    },
+    {
+      "id": "josef_disappeared_into_the_mist",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "id": "enemies_of_the_lodge",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "id": "rescued_josef",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "id": "josef_is_alive",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "id": "members_of_the_lodge",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "id": "deceiving_the_lodge",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "id": "told_lodge_about_coven",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_secret_name"
+    },
+    {
+      "id": "hid_knowledge_of_coven",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_secret_name"
+    },
+    {
+      "id": "heretics_released",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "the_wages_of_sin",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "accepted_fate",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_witching_hour"
+    },
+    {
+      "id": "rejected_fate",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_witching_hour"
+    },
+    {
+      "id": "witches_spell_broken",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_witching_hour"
+    },
+    {
+      "id": "witches_spell_cast",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_witching_hour"
+    },
+    {
+      "id": "path_winds_before_you",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "twist_of_fate",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "sided_with_the_lodge",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "sided_with_the_coven",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "act_3_v2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
+    },
+    {
+      "id": "uad_add_chaos_token",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
+    },
+    {
+      "id": "alive",
+      "section": "05046",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "alive",
+      "section": "05047",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "alive",
+      "section": "05049",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "alive",
+      "section": "05048",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "true_work_of_silver_twilight_lodge_has_begun",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "carl_sanford_possesses_the_secrets_of_the_universe",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "anette_mason_is_possessed_by_evil",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "dead",
+      "section": "05046",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "dead",
+      "section": "05047",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "dead",
+      "section": "05049",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "dead",
+      "section": "05048",
+      "kind": "note",
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "uad_no_investigators_alive",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
+    }
+  ],
+  "achievements": [
+    {
+      "id": "who_you_gonna_call",
+      "type": "count",
+      "family": "tcu",
+      "from": "rttcu",
+      "max": 13
+    },
+    {
+      "id": "savior_of_humanity",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "id": "would_read_again",
+      "type": "count",
+      "family": "tcu",
+      "from": "rttcu",
+      "max": 10
+    },
+    {
+      "id": "carl_shmarl",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.inducted_into_the_inner_circle"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.sided_with_the_coven"
+          }
+        ]
+      },
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "new_world_order",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.sided_with_the_lodge"
+      }
+    },
+    {
+      "id": "more_like_excursion",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "id": "member_these",
+      "type": "list",
+      "family": "tcu",
+      "from": "rttcu",
+      "items": [
+        "mesmerizing_flute",
+        "ritual_components",
+        "scrap_of_torn_shadow",
+        "gilmans_journal",
+        "keziahs_formulae",
+        "worn_crucifix",
+        "wisp_of_spectral_mist",
+        "corn_husk_doll"
+      ],
+      "itemInfer": {
+        "mesmerizing_flute": {
+          "type": "log",
+          "key": "mementos.mesmerizing_flute"
+        },
+        "ritual_components": {
+          "type": "log",
+          "key": "mementos.ritual_components"
+        },
+        "scrap_of_torn_shadow": {
+          "type": "log",
+          "key": "mementos.scrap_of_torn_shadow"
+        },
+        "gilmans_journal": {
+          "type": "log",
+          "key": "mementos.gilmans_journal"
+        },
+        "keziahs_formulae": {
+          "type": "log",
+          "key": "mementos.keziahs_formulae"
+        },
+        "worn_crucifix": {
+          "type": "log",
+          "key": "mementos.worn_crucific"
+        },
+        "wisp_of_spectral_mist": {
+          "type": "log",
+          "key": "mementos.wisp_of_spectral_mist"
+        },
+        "corn_husk_doll": {
+          "type": "log",
+          "key": "mementos.corn_husk_doll"
+        }
+      }
+    },
+    {
+      "id": "case_closed",
+      "type": "list",
+      "family": "tcu",
+      "from": "rttcu",
+      "items": [
+        "valentino",
+        "gavriella",
+        "penny",
+        "jerome"
+      ],
+      "itemInfer": {
+        "valentino": {
+          "type": "log",
+          "key": "05048.alive"
+        },
+        "gavriella": {
+          "type": "log",
+          "key": "05046.alive"
+        },
+        "penny": {
+          "type": "log",
+          "key": "05049.alive"
+        },
+        "jerome": {
+          "type": "log",
+          "key": "05047.alive"
+        }
+      }
+    },
+    {
+      "id": "music_of_the_outer_gods",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.accepted_fate"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.lead_investigator_joins_pipers"
+          }
+        ]
+      }
+    },
+    {
+      "id": "weaver_of_shadow_and_mist",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.rejected_fate"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.azathoth_slumbers"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fine_print",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.signed_the_black_book"
+      }
+    },
+    {
+      "id": "circle_expertise",
+      "type": "binary",
+      "family": "tcu",
+      "from": "rttcu",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05046.taken_by_the_watcher",
+        "05046.claimed_by_specters",
+        "05046.disappeared_into_the_mist",
+        "05046.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05047.taken_by_the_watcher",
+        "05047.claimed_by_specters",
+        "05047.disappeared_into_the_mist",
+        "05047.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05048.taken_by_the_watcher",
+        "05048.claimed_by_specters",
+        "05048.disappeared_into_the_mist",
+        "05048.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05049.taken_by_the_watcher",
+        "05049.claimed_by_specters",
+        "05049.disappeared_into_the_mist",
+        "05049.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.accepted_fate",
+        "campaign_notes.rejected_fate"
+      ],
+      "scenario": "the_witching_hour"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.witches_spell_broken",
+        "campaign_notes.witches_spell_cast"
+      ],
+      "scenario": "the_witching_hour"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.guardian_of_the_trap_emerged",
+        "campaign_notes.discovered_how_to_open_the_puzzle_box",
+        "campaign_notes.guardian_of_the_trap_defeated"
+      ],
+      "scenario": "for_the_greater_good"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.members_of_the_lodge",
+        "campaign_notes.enemies_of_the_lodge"
+      ],
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.investigators_escaped_the_spectral_realm",
+        "campaign_notes.learned_nothing_of_the_lodges_schemes",
+        "campaign_notes.never_seen_again"
+      ],
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.asked_anette_for_assistance",
+        "campaign_notes.arrested_anette",
+        "campaign_notes.anette_taught_you_the_spells_of_old"
+      ],
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.asked_sanford_for_assistance",
+        "campaign_notes.arrested_sanford",
+        "campaign_notes.assumed_control_of_the_silver_twilight_lodge"
+      ],
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.sided_with_the_lodge",
+        "campaign_notes.sided_with_the_coven"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.azathoth_devoured_the_universe",
+        "campaign_notes.lead_investigator_joins_pipers",
+        "campaign_notes.signed_the_black_book"
+      ],
+      "scenario": "before_the_black_throne"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05046.alive",
+        "05046.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05047.alive",
+        "05047.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05048.alive",
+        "05048.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05049.alive",
+        "05049.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    }
+  ]
+}

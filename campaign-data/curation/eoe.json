@@ -1,0 +1,364 @@
+{
+  "code": "eoe",
+  "_notes": "Verified all spans are exact substrings of their entry texts: \"the true nature of the miasma\" in \"Dr. Kensler understands the true nature of the miasma.\"; \"the nameless madness\" in both \"the nameless madness escaped.\" and \"the nameless madness is contained safely within its host… for now.\". No sibling collision: the two nameless_madness entries remain distinguishable after blur (\"...escaped.\" vs \"...is contained safely within its host… for now.\"). The Nameless Madness is the campaign's final boss (confirmed in achievement \"Simultaneously exhaust fifteen copies of The Nameless Madness in The Heart of Madness, Part II\") so blurring it is correct under-blur protection. All 9 partner codes resolved via resolve.mjs and labels match exactly. Partner \"confronted demons\" entries, memories, location, and camp labels left unblurred as they are named/visible-section disambiguators. No changes needed to the proposed curation; it is correct as submitted.",
+  "spoilers": {
+    "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": [
+      "the true nature of the miasma"
+    ],
+    "campaign_notes.nameless_madness_escaped": [
+      "the nameless madness"
+    ],
+    "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now": [
+      "the nameless madness"
+    ]
+  },
+  "sections": {
+    "expedition_team": {
+      "type": "partner",
+      "items": [
+        {
+          "id": "kensler",
+          "code": "08720",
+          "label": "Dr. Amy Kensler",
+          "health": 2,
+          "sanity": 4,
+          "resoluteHealth": 3
+        },
+        {
+          "id": "dyer",
+          "code": "08714",
+          "label": "Prof. William Dyer",
+          "health": 1,
+          "sanity": 5,
+          "resoluteSanity": 6
+        },
+        {
+          "id": "danforth",
+          "code": "08715",
+          "label": "Danforth",
+          "health": 2,
+          "sanity": 4,
+          "resoluteSanity": 5
+        },
+        {
+          "id": "ellsworth",
+          "code": "08721",
+          "label": "Roald Ellsworth",
+          "health": 4,
+          "sanity": 2,
+          "resoluteHealth": 5
+        },
+        {
+          "id": "hiroko",
+          "code": "08722",
+          "label": "Takada Hiroko",
+          "health": 3,
+          "sanity": 3,
+          "resoluteSanity": 4
+        },
+        {
+          "id": "claypool",
+          "code": "08718",
+          "label": "Avery Claypool",
+          "health": 3,
+          "sanity": 3,
+          "resoluteHealth": 4
+        },
+        {
+          "id": "sinha",
+          "code": "08717",
+          "label": "Dr. Mala Sinha",
+          "health": 4,
+          "sanity": 2,
+          "resoluteSanity": 3
+        },
+        {
+          "id": "cookie",
+          "code": "08719",
+          "label": "James \"Cookie\" Fredericks",
+          "health": 5,
+          "sanity": 1,
+          "resoluteHealth": 6
+        },
+        {
+          "id": "ashevak",
+          "code": "08716",
+          "label": "Eliyah Ashevak",
+          "health": 3,
+          "sanity": 3,
+          "resoluteHealth": 4,
+          "resoluteSanity": 4
+        }
+      ],
+      "statuses": [
+        "alive",
+        "resolute",
+        "mia",
+        "eliminated",
+        "safe",
+        "victim",
+        "the_entity",
+        "cannot_take"
+      ],
+      "_note": "Partner health/sanity/resolute read from campaign.json campaign_log partners array (verified exact: kensler 2/4 res_h3, dyer 1/5 res_s6, danforth 2/4 res_s5, ellsworth 4/2 res_h5, hiroko 3/3 res_s4, claypool 3/3 res_h4, sinha 4/2 res_s3, cookie 5/1 res_h6, ashevak 3/3 res_h4 res_s4). resoluteHealth/resoluteSanity included only where resolute_health/resolute_sanity present. Statuses = the full set of assignable partner_status states (those reached via add/remove operations) plus the baseline 'alive'. Counts across eoe files: alive=155, resolute=60, eliminated=57, safe=21, mia=20, victim=13, the_entity=1, cannot_take=2. Excluded: has_damage/has_horror/investigator_defeated (read-only conditions, only ever 'all'/'any', never assigned) and heal_damage/heal_horror (healing operations, not persistent states). No supplies/scarletKeys/relationship/glyphs/checklist sections exist in eoe-db (EOE supplies are tracked as notes sections supplies_recovered, not a purchasable catalog), so expedition_team is the only structured section."
+    }
+  },
+  "achievements": {
+    "knock_knock": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "seals_placed.seal_a"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_b"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_c"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_d"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_e"
+          }
+        ]
+      },
+      "scenario": "the_heart_of_madness_part_1"
+    },
+    "line_in_the_snow": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "antarctic_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "safe_bet": {
+      "scenario": "ice_and_death_part_1",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.camp_crystalline_cavern"
+      }
+    },
+    "look_at_all_this_stuff": {
+      "scenario": "to_the_forbidden_peaks"
+    },
+    "in_your_head": {
+      "scenario": "fatal_mirage",
+      "infer": {
+        "type": "sectionCount",
+        "section": "memories_banished",
+        "min": 9
+      }
+    },
+    "chaos_chaos": {
+      "scenario": "city_of_the_elder_things"
+    },
+    "mad_with_power": {
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    "construct_additional_pylons": {
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    "the_cold_never_bothered_me": {
+      "infer": {
+        "type": "chaosToken",
+        "token": "frost",
+        "min": 8
+      }
+    },
+    "hell_froze_over": {
+      "infer": {
+        "type": "chaosToken",
+        "token": "frost",
+        "max": 0
+      }
+    },
+    "there_and_back_again": {
+      "itemInfer": {
+        "kensler": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "kensler",
+          "status": "alive"
+        },
+        "dyer": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "dyer",
+          "status": "alive"
+        },
+        "danforth": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "danforth",
+          "status": "alive"
+        },
+        "cookie": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "cookie",
+          "status": "alive"
+        },
+        "ashevak": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "ashevak",
+          "status": "alive"
+        },
+        "sinha": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "sinha",
+          "status": "alive"
+        },
+        "hiroko": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "hiroko",
+          "status": "alive"
+        },
+        "claypool": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "claypool",
+          "status": "alive"
+        },
+        "ellsworth": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "ellsworth",
+          "status": "alive"
+        }
+      }
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.convinced_dyer_to_allow_the_expedition",
+        "campaign_notes.did_not_believe_dyers_report"
+      ],
+      "scenario": "Prologue: The Side Effects of the Past"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.team_barely_escaped_the_ice_shelf",
+        "campaign_notes.team_defeated_the_hunting_creatures",
+        "campaign_notes.team_fled_to_the_mountains"
+      ],
+      "scenario": "Ice and Death, Part III"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.team_climbed_to_the_summit",
+        "campaign_notes.team_found_another_way_through_the_mountains"
+      ],
+      "scenario": "To the Forbidden Peaks"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.team_found_the_hidden_tunnel",
+        "campaign_notes.team_was_guided_to_the_hidden_tunnel"
+      ],
+      "scenario": "City of the Elder Things"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dr_kensler_has_a_plan",
+        "campaign_notes.truth_of_the_mirage_eludes_you"
+      ],
+      "scenario": "The Heart of Madness, Part II"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.nameless_madness_escaped",
+        "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now",
+        "campaign_notes.facility_was_destroyed",
+        "campaign_notes.team_escaped_the_facility"
+      ],
+      "scenario": "The Heart of Madness, Part II"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.airfield",
+        "memories_banished.airfield"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.alaskan_wilds",
+        "memories_banished.alaskan_wilds"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.cluttered_dormitory",
+        "memories_banished.cluttered_dormitory"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.dr_kenslers_office",
+        "memories_banished.dr_kenslers_office"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.dyers_classroom",
+        "memories_banished.dyers_classroom"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.infirmary",
+        "memories_banished.infirmary"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.ottoman_front",
+        "memories_banished.ottoman_front"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.the_black_stone",
+        "memories_banished.the_black_stone"
+      ],
+      "scenario": "Fatal Mirage"
+    }
+  ]
+}

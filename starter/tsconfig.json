@@ -21,16 +21,14 @@
 	},
 	"references": [
 		{
-			"path": "../kohaku",
+			"path": "../kohaku"
 		},
 		{
-			"path": "../string",
+			"path": "../campaign-data"
+		},
+		{
+			"path": "../string"
 		}
 	],
-	"include": [
-		"src/**/*.js",
-		"src/**/*.ts",
-		"src/**/*.svelte",
-		"src/**/*.json"
-	]
+	"include": ["src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "src/**/*.json"]
 }

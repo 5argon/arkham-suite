@@ -1,0 +1,861 @@
+{
+  "code": "tic",
+  "name": "The Innsmouth Conspiracy",
+  "kind": "campaign",
+  "version": 4,
+  "scenarios": [
+    "the_pit_of_despair",
+    "puzzle_pieces",
+    "the_vanishing_of_elina_harper",
+    "the_syzygy",
+    "in_too_deep",
+    "devil_reef",
+    "beneath_the_waves",
+    "horror_in_high_gear",
+    "a_light_in_the_fog",
+    "the_lair_of_dagon",
+    "hidden_truths",
+    "into_the_maelstrom",
+    "tic_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "memories_recovered",
+      "type": "notes"
+    },
+    {
+      "id": "possible_suspects",
+      "type": "notes"
+    },
+    {
+      "id": "possible_hideouts",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "flashback_12",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "a_light_in_the_fog",
+      "hidden": true
+    },
+    {
+      "id": "flashback_13",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "a_light_in_the_fog",
+      "hidden": true
+    },
+    {
+      "id": "conversation_with_mr_moore",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "a_light_in_the_fog"
+    },
+    {
+      "id": "lifecycle_of_a_deep_one",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "a_light_in_the_fog"
+    },
+    {
+      "id": "possesses_a_diving_suit",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "a_light_in_the_fog",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "possess_a_map_of_yhanthlei",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_light_in_the_fog"
+    },
+    {
+      "id": "possess_the_key_to_yhanthlei",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_light_in_the_fog"
+    },
+    {
+      "id": "idol_brought_to_the_lighthouse",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beneath_the_waves"
+    },
+    {
+      "id": "mantle_brought_to_the_lighthouse",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beneath_the_waves"
+    },
+    {
+      "id": "headdress_brought_to_the_lighthouse",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beneath_the_waves"
+    },
+    {
+      "id": "burnham",
+      "section": "possible_suspects",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "gilman",
+      "section": "possible_suspects",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "little",
+      "section": "possible_suspects",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "marsh",
+      "section": "possible_suspects",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "allen",
+      "section": "possible_suspects",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "friendly",
+      "section": "possible_suspects",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "innsmouth_jail",
+      "section": "possible_hideouts",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "shoreward_slums",
+      "section": "possible_hideouts",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "sawbone_alley",
+      "section": "possible_hideouts",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "house_on_water_street",
+      "section": "possible_hideouts",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "order_of_dagon",
+      "section": "possible_hideouts",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "new_church_green",
+      "section": "possible_hideouts",
+      "kind": "note",
+      "scenario": "campaign",
+      "crossOut": true,
+      "decorate": "circle"
+    },
+    {
+      "id": "tide_has_grown_stronger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "devil_reef"
+    },
+    {
+      "id": "flashback_9",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "devil_reef",
+      "hidden": true
+    },
+    {
+      "id": "flashback_10",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "devil_reef",
+      "hidden": true
+    },
+    {
+      "id": "flashback_11",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "devil_reef",
+      "hidden": true
+    },
+    {
+      "id": "discovery_of_a_strange_idol",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "devil_reef"
+    },
+    {
+      "id": "discovery_of_an_unholy_mantle",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "devil_reef"
+    },
+    {
+      "id": "discovery_of_a_mystical_relic",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "devil_reef"
+    },
+    {
+      "id": "terror_of_devil_reef_is_still_alive",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "devil_reef"
+    },
+    {
+      "id": "terror_of_devil_reef_is_dead",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "devil_reef"
+    },
+    {
+      "id": "guardian_of_yhanthlei_is_dispatched",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "hidden_truths"
+    },
+    {
+      "id": "gateway_to_yhanthlei_recognizes_you_as_its_rightful_keeper",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "hidden_truths"
+    },
+    {
+      "id": "reached_falcon_point_after_sunrise",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "horror_in_high_gear"
+    },
+    {
+      "id": "reached_falcon_point_before_sunrise",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "horror_in_high_gear"
+    },
+    {
+      "id": "flashback_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_too_deep",
+      "hidden": true
+    },
+    {
+      "id": "flashback_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_too_deep",
+      "hidden": true
+    },
+    {
+      "id": "flashback_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_too_deep",
+      "hidden": true
+    },
+    {
+      "id": "flashback_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "in_too_deep",
+      "hidden": true
+    },
+    {
+      "id": "a_deal_with_joe_sargent",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "a_followed_lead",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "an_intervention",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "a_jailbreak",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "made_it_safely_to_their_vehicles",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "innsmouth_was_consumed_by_the_rising_tide",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "flashback_14",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "into_the_maelstrom",
+      "hidden": true
+    },
+    {
+      "id": "act_2_setup",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "into_the_maelstrom",
+      "hidden": true
+    },
+    {
+      "id": "stinging_betrayal",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "escaped_yhanthlei",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "flood_has_begun",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "plot_of_the_deep_ones_was_thwarted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "agent_harpers_mission_is_complete",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "agent_harpers_mission_is_complete_at_what_cost",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "riches_of_the_deep_are_lost_forever",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "riches_of_the_deep_are_destroyed_at_what_cost",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "deep_ones_have_flooded_the_earth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "dagon_has_awakened",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_lair_of_dagon"
+    },
+    {
+      "id": "gatekeeper_has_been_defeated",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_lair_of_dagon"
+    },
+    {
+      "id": "orders_ritual_was_disrupted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_lair_of_dagon"
+    },
+    {
+      "id": "dagon_still_slumbers",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_lair_of_dagon"
+    },
+    {
+      "id": "flashback_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_pit_of_despair",
+      "hidden": true
+    },
+    {
+      "id": "flashback_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_pit_of_despair",
+      "hidden": true
+    },
+    {
+      "id": "flashback_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_pit_of_despair",
+      "hidden": true
+    },
+    {
+      "id": "flashback_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_pit_of_despair",
+      "hidden": true
+    },
+    {
+      "id": "meeting_with_thomas_dawson",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "the_pit_of_despair"
+    },
+    {
+      "id": "battle_with_a_horrifying_devil",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "the_pit_of_despair"
+    },
+    {
+      "id": "decision_to_stick_together",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "the_pit_of_despair"
+    },
+    {
+      "id": "encounter_with_a_secret_cult",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "the_pit_of_despair"
+    },
+    {
+      "id": "the_accusation",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "burnham_out_for_blood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "gilman_out_for_blood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "little_out_for_blood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "marsh_out_for_blood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "allen_out_for_blood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "friendly_out_for_blood",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "accuse_burnham",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_gilman",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_little",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_marsh",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_allen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_friendly",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_prison",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_slums",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_sawbone_alley",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_house_on_water_street",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_order_of_dagon",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "accuse_new_church_green",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper",
+      "hidden": true
+    },
+    {
+      "id": "mission_failed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "mission_succeeded",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "horrific_truth",
+      "section": "memories_recovered",
+      "kind": "note",
+      "scenario": "tic_epilogue"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "die_already",
+      "type": "binary",
+      "family": "tic",
+      "scenario": "the_pit_of_despair"
+    },
+    {
+      "id": "elementary",
+      "type": "binary",
+      "family": "tic",
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "id": "no_break_stride",
+      "type": "binary",
+      "family": "tic",
+      "scenario": "in_too_deep"
+    },
+    {
+      "id": "speeding_ticket",
+      "type": "binary",
+      "family": "tic",
+      "scenario": "horror_in_high_gear"
+    },
+    {
+      "id": "locked_in_here",
+      "type": "binary",
+      "family": "tic",
+      "scenario": "a_light_in_the_fog"
+    },
+    {
+      "id": "fish_out_of_water",
+      "type": "binary",
+      "family": "tic",
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "id": "dont_wake_daddy",
+      "type": "binary",
+      "family": "tic"
+    },
+    {
+      "id": "gone_fishing",
+      "type": "count",
+      "max": 20,
+      "family": "tic"
+    },
+    {
+      "id": "full_build",
+      "type": "binary",
+      "family": "tic"
+    },
+    {
+      "id": "wake_up",
+      "type": "list",
+      "items": [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "eleven",
+        "twelve",
+        "thirteen",
+        "fourteen",
+        "fifteen"
+      ],
+      "family": "tic",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "memories_recovered.meeting_with_thomas_dawson"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.battle_with_a_horrifying_devil"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.decision_to_stick_together"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.encounter_with_a_secret_cult"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.a_deal_with_joe_sargent"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.a_followed_lead"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.an_intervention"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.a_jailbreak"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.discovery_of_a_strange_idol"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.discovery_of_an_unholy_mantle"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.discovery_of_a_mystical_relic"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.conversation_with_mr_moore"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.lifecycle_of_a_deep_one"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.stinging_betrayal"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.horrific_truth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bigger_fish",
+      "type": "binary",
+      "family": "tic"
+    },
+    {
+      "id": "line_in_the_sand",
+      "type": "binary",
+      "family": "tic",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "expertise",
+      "type": "binary",
+      "family": "tic",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.terror_of_devil_reef_is_still_alive",
+        "campaign_notes.terror_of_devil_reef_is_dead"
+      ],
+      "scenario": "devil_reef"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dagon_still_slumbers",
+        "campaign_notes.dagon_has_awakened"
+      ],
+      "scenario": "the_lair_of_dagon"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.mission_failed",
+        "campaign_notes.mission_succeeded"
+      ],
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.reached_falcon_point_after_sunrise",
+        "campaign_notes.reached_falcon_point_before_sunrise"
+      ],
+      "scenario": "horror_in_high_gear"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.plot_of_the_deep_ones_was_thwarted",
+        "campaign_notes.flood_has_begun",
+        "campaign_notes.deep_ones_have_flooded_the_earth"
+      ],
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.agent_harpers_mission_is_complete",
+        "campaign_notes.riches_of_the_deep_are_lost_forever",
+        "campaign_notes.agent_harpers_mission_is_complete_at_what_cost",
+        "campaign_notes.riches_of_the_deep_are_destroyed_at_what_cost"
+      ],
+      "scenario": "into_the_maelstrom"
+    }
+  ]
+}

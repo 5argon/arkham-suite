@@ -1,0 +1,15 @@
+{
+  "code": "fof",
+  "_notes": "Verified all three spans against fof-en.draft.json: \"Isamara\" is exact substring of \"the investigators convinced Isamara to participate in the heist.\"; \"Abarran\" is exact substring of both \"the investigators stole Abarran's keys.\" and \"the cell meddled in Abarran's affairs.\" (matches the bare name inside the possessive). No sibling collisions: each blurred entry remains uniquely distinguishable by its surrounding action text. Confirmed fof_wellspring_clues (\"The Wellspring of Fortune\") is the front-loaded heist objective tied to the campaign title region and correctly left unblurred. Role/scaffolding entries (#name#: The Face/Muscle/Thief/Grifter and Practiced variants, #name# stashed/alarm level) correctly unblurred. No exotic roster sections needed; both db sections are type notes (one hidden, not present in en draft). Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.fof_convinced_isamara": [
+      "Isamara"
+    ],
+    "campaign_notes.fof_stole_keys": [
+      "Abarran"
+    ],
+    "campaign_notes.cell_meddled_in_abarrans_affairs": [
+      "Abarran"
+    ]
+  }
+}

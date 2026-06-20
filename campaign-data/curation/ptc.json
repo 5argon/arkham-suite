@@ -1,0 +1,113 @@
+{
+  "code": "ptc",
+  "_notes": "Verified all 9 spans are exact substrings of their entry texts in ptc-en.draft.json. All entries live in the single campaign_notes section. No sibling collisions: onyx-clasp pair distinguished by took/left+\"behind\"; Nigel trio distinguished by \"Nigel's home\"/\"Nigel ___\"/\"find Nigel\"; three Hastur entries have distinct surrounding text. Blur choices are correct: Hastur (endgame boss), the oathspeaker, the phantom, onyx clasp, and Engram (Stranger's true surname) are genuine reveals; Carcosa (campaign name) and \"the King\"/\"the Stranger\" (early recurring titles) correctly left visible. Card sections (vips_interviewed/vips_slain/possessed/read_act_2) are roster cards not in the entries map and out of scope. No changes required.",
+  "spoilers": {
+    "campaign_notes.took_onyx_clasp": [
+      "the onyx clasp"
+    ],
+    "campaign_notes.left_onyx_clasp": [
+      "the onyx clasp"
+    ],
+    "campaign_notes.did_not_escape_gaze": [
+      "the phantom"
+    ],
+    "campaign_notes.found_nigel_engram": [
+      "Engram"
+    ],
+    "campaign_notes.carcosa_merged": [
+      "Hastur"
+    ],
+    "campaign_notes.prevented_hasturs_escape": [
+      "Hastur"
+    ],
+    "campaign_notes.hastur_has_you": [
+      "Hastur"
+    ],
+    "campaign_notes.destroyed_the_oathspeaker": [
+      "the oathspeaker"
+    ],
+    "campaign_notes.followers_of_sign_found_way": [
+      "the followers of the sign"
+    ]
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.tried_to_warn_police",
+        "campaign_notes.chose_not_to_warn_police"
+      ],
+      "scenario": "curtain_call"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.intruded_on_secret_meeting",
+        "campaign_notes.fled_dinner_party",
+        "campaign_notes.slayed_the_monsters"
+      ],
+      "scenario": "lunacys_reward"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.took_onyx_clasp",
+        "campaign_notes.left_onyx_clasp",
+        "campaign_notes.destroyed_the_oathspeaker"
+      ],
+      "scenario": "echoes_of_the_past"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.king_claimed_victims",
+        "campaign_notes.escaped_the_asylum",
+        "campaign_notes.attacked_as_you_escaped_arkham"
+      ],
+      "scenario": "the_unspeakable_oath"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.ignored_daniels_warning",
+        "campaign_notes.heeded_daniels_warning"
+      ],
+      "scenario": "lost_soul"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.entered_catacombs",
+        "campaign_notes.awoke_inside_catacombs"
+      ],
+      "scenario": "the_pallid_mask"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.found_nigels_home",
+        "campaign_notes.found_nigel_engram",
+        "campaign_notes.unable_to_find_nigel",
+        "campaign_notes.did_not_escape_gaze"
+      ],
+      "scenario": "a_phantom_of_truth"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.opened_path_below",
+        "campaign_notes.opened_path_above"
+      ],
+      "scenario": "black_stars_rise"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.prevented_hasturs_escape",
+        "campaign_notes.carcosa_merged",
+        "campaign_notes.hastur_has_you"
+      ],
+      "scenario": "dim_carcosa"
+    }
+  ]
+}

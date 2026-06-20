@@ -1,0 +1,2133 @@
+{
+  "code": "fhv",
+  "name": "The Feast of Hemlock Vale",
+  "kind": "campaign",
+  "version": 5,
+  "scenarios": [
+    "fhv_prologue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "rachel",
+      "type": "relationship",
+      "min": 0,
+      "max": 3
+    },
+    {
+      "id": "leah",
+      "type": "relationship",
+      "min": 0,
+      "max": 6
+    },
+    {
+      "id": "simeon",
+      "type": "relationship",
+      "min": 0,
+      "max": 6
+    },
+    {
+      "id": "william",
+      "type": "relationship",
+      "min": 0,
+      "max": 6
+    },
+    {
+      "id": "river",
+      "type": "relationship",
+      "min": 0,
+      "max": 6
+    },
+    {
+      "id": "gideon",
+      "type": "relationship",
+      "min": 0,
+      "max": 6
+    },
+    {
+      "id": "judith",
+      "type": "relationship",
+      "min": 0,
+      "max": 7
+    },
+    {
+      "id": "theo",
+      "type": "relationship",
+      "min": 0,
+      "max": 7
+    },
+    {
+      "id": "areas_surveyed",
+      "type": "checklist",
+      "items": [
+        {
+          "id": "north_point_mine"
+        },
+        {
+          "id": "hemlock_harbor"
+        },
+        {
+          "id": "pearl_ridge"
+        },
+        {
+          "id": "akwan_shoreline"
+        },
+        {
+          "id": "eastwick_bog"
+        },
+        {
+          "id": "western_woods"
+        },
+        {
+          "id": "southern_fields"
+        }
+      ]
+    },
+    {
+      "id": "current_day",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_curse_count",
+      "type": "investigatorCount",
+      "hidden": true,
+      "perInvestigator": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "fhv_prologue_codex_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_9",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_10",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_11",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_12",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_13",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_15",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_16",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "fhv_prologue_codex_14",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_prologue",
+      "hidden": true
+    },
+    {
+      "id": "the_cave_in",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "written_in_rock_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "written_in_rock_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "simeon_plan_is_underway",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_written_in_rock",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "simeon_survived",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "02_written_in_rock"
+    },
+    {
+      "id": "leah_saw_something_in_the_mine",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "02_written_in_rock"
+    },
+    {
+      "id": "simeon_disappeared",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "02_written_in_rock"
+    },
+    {
+      "id": "leah_and_simeon_were_reunited",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "02_written_in_rock"
+    },
+    {
+      "id": "survived_the_horrors_in_the_rock",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_written_in_rock"
+    },
+    {
+      "id": "wir_helped_river",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "north_point_mine",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "02_written_in_rock"
+    },
+    {
+      "id": "hemlock_house_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "found_little_sylvie",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_4_william_and_judith_reunited",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_helping_gideon",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_judith_is_remodeling",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_7_william_and_judith_reuinted",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_control_judith",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_harbor",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "03_hemlock_house"
+    },
+    {
+      "id": "silent_heath_codex_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "silent_heath_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "silent_heath_codex_psi",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "silent_heath_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "silent_heath_codex_phi",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "silent_heath_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "searched_the_pearl_ruins",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "04_the_silent_heath"
+    },
+    {
+      "id": "silent_heath_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "04_the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "laid_the_pearl_family_to_rest",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "04_the_silent_heath"
+    },
+    {
+      "id": "remains_were_partially_recovered",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "04_the_silent_heath"
+    },
+    {
+      "id": "madame_pearls_diary_was_recovered",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "04_the_silent_heath"
+    },
+    {
+      "id": "pearl_ridge",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "04_the_silent_heath"
+    },
+    {
+      "id": "lost_sister_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "lost_sister_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "lost_sister_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "lost_sister_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "lost_sister_gideon_is_searching_for_an_heirloom",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "theo_is_arguing_with_helen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "lost_sister_argument_done",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "theo_reconciled_with_helen",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "05_the_lost_sister"
+    },
+    {
+      "id": "lost_sister_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "the_peters_family_was_reunited",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_the_lost_sister"
+    },
+    {
+      "id": "elizabeth_peters_was_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_the_lost_sister"
+    },
+    {
+      "id": "akwan_shoreline",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "05_the_lost_sister"
+    },
+    {
+      "id": "gideon_found_his_treasure",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "05_the_lost_sister"
+    },
+    {
+      "id": "judith_shared_a_grudge",
+      "section": "judith",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths"
+    },
+    {
+      "id": "thing_depths_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "thing_depths_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "thing_depths_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "thing_depths_river_asked_for_help",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "thing_depths_control_river",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "chelydran_hybrid_perished",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths"
+    },
+    {
+      "id": "chelydran_hybrid_lived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths"
+    },
+    {
+      "id": "chelydran_hybrid_devoured",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths"
+    },
+    {
+      "id": "thing_in_the_depths_was_defeated",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths"
+    },
+    {
+      "id": "eastwick_bog",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths"
+    },
+    {
+      "id": "thing_depths_controlled_river",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "thing_depths_in_victory",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "06_the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "eat",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "07_the_first_evening",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "first_evening_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_first_evening",
+      "hidden": true
+    },
+    {
+      "id": "first_evening_codex_delta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_first_evening",
+      "hidden": true
+    },
+    {
+      "id": "first_evening_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_first_evening",
+      "hidden": true
+    },
+    {
+      "id": "first_evening_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_first_evening",
+      "hidden": true
+    },
+    {
+      "id": "first_evening_codex_gamma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_first_evening",
+      "hidden": true
+    },
+    {
+      "id": "first_evening_codex_pi",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_first_evening",
+      "hidden": true
+    },
+    {
+      "id": "william_shared_his_legacy",
+      "section": "william",
+      "kind": "note",
+      "scenario": "07_the_first_evening"
+    },
+    {
+      "id": "river_shared_their_ambitions",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_the_first_evening"
+    },
+    {
+      "id": "gideon_told_the_story_of_captain_hemlock",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "07_the_first_evening"
+    },
+    {
+      "id": "leah_shared_her_frustrations",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "07_the_first_evening"
+    },
+    {
+      "id": "helen_peters_joined_the_survey",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_the_first_evening"
+    },
+    {
+      "id": "simeon_hatched_a_plan",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "07_the_first_evening"
+    },
+    {
+      "id": "mother_rachel_showed_the_way",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "lost_the_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "twisted_hollow_judith_set_aside",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow",
+      "hidden": true
+    },
+    {
+      "id": "twisted_hollow_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow",
+      "hidden": true
+    },
+    {
+      "id": "twisted_hollow_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow",
+      "hidden": true
+    },
+    {
+      "id": "twisted_hollow_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow",
+      "hidden": true
+    },
+    {
+      "id": "judith_saved_your_ass",
+      "section": "judith",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "theo_distracted_the_bear",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "mother_rachel_intervened",
+      "section": "rachel",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "bertie_was_lost_in_the_woods",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "bertie_was_rescued",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "the_bear_was_wounded",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "western_woods",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "08_the_twisted_hollow"
+    },
+    {
+      "id": "fhv_second_day_codex_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_10",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_11",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_12",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_13",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_15",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_16",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_17",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "plan_is_underway",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "crossOut": true
+    },
+    {
+      "id": "william_took_heart",
+      "section": "william",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day"
+    },
+    {
+      "id": "scheme_is_in_motion",
+      "section": "river",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day"
+    },
+    {
+      "id": "gideon_told_the_tale_of_the_annabelle_lee",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day"
+    },
+    {
+      "id": "running_an_errand",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "read_codex_17_curse",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "09_dawn_of_the_second_day",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "leah_is_searching_for_simeon",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "mother_rachel_shared_her_doubts",
+      "section": "rachel",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "leah_shared_a_dance",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "simeon_shared_a_dance",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "william_shared_a_dance",
+      "section": "william",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "river_shared_a_dance",
+      "section": "river",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "gideon_shared_a_dance",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "judith_shared_a_dance",
+      "section": "judith",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "theo_shared_a_dance",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "second_evening_codex_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_9",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "second_evening_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_the_second_evening",
+      "hidden": true
+    },
+    {
+      "id": "helen_shared_a_dance",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "theo_rejected_his_family",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "bertie_had_an_epiphany",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_the_second_evening"
+    },
+    {
+      "id": "faced_the_night_alone",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "fhv_longest_night_agenda_flip",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "longest_night_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "leah_stood_by_you",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "simeon_stood_by_you",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "william_stood_by_you",
+      "section": "william",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "river_stood_by_you",
+      "section": "river",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "gideon_stood_by_you",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "judith_stood_by_you",
+      "section": "judith",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "theo_stood_by_you",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "took_ajax",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "11_the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "damage_on_captives",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "11_the_longest_night",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "captives_were_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "many_captives_were_lost",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "all_the_captives_were_lost",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "dr_marquez_has_a_plan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "southern_fields",
+      "section": "areas_surveyed",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "leah_sacrificed_himself",
+      "section": "leah",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "simeon_sacrificed_himself",
+      "section": "simeon",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "william_sacrificed_himself",
+      "section": "william",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "river_sacrificed_himself",
+      "section": "river",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "gideon_sacrificed_himself",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "judith_sacrificed_himself",
+      "section": "judith",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "theo_sacrificed_himself",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "11_the_longest_night"
+    },
+    {
+      "id": "fhv_final_day_codex_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_10",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_11",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_13",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_15",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_16",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "learned_their_place",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "william_is_resolved",
+      "section": "william",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "river_is_reclaiming_their_legacy",
+      "section": "river",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "you_backed_judith_up",
+      "section": "judith",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "theo_is_having_second_thoughts",
+      "section": "theo",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "delivering_a_package",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "plan_is_underway_count",
+      "section": "simeon",
+      "kind": "count",
+      "scenario": "12_dawn_of_the_final_day",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "fhv_final_day_codex_14",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "dr_marquez_has_a_hunch",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "the_vale_is_full_of_fireworks",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day"
+    },
+    {
+      "id": "believed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "lied_to_mother_rachel",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13_the_final_evening"
+    },
+    {
+      "id": "interrupted_the_feast",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13_the_final_evening"
+    },
+    {
+      "id": "fhv_final_evening_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_9",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_10",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_11",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_12",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_14",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_15",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_16",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "bertie_perished",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13_the_final_evening"
+    },
+    {
+      "id": "gideon_finished_the_tale_of_the_annabelle_lee",
+      "section": "gideon",
+      "kind": "note",
+      "scenario": "13_the_final_evening"
+    },
+    {
+      "id": "the_hemlocks_made_a_truce",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13_the_final_evening"
+    },
+    {
+      "id": "fhv_final_evening_codex_13",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "the_hemlocks_are_hashing_it_out",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "replay_final_evening",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_act_3a_v1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_act_3a_v2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_act_3a_v3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_act_3a_v4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "bertie_is_fleeing",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "became_the_true_feast_of_hemlock_vale",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale"
+    },
+    {
+      "id": "fate_of_the_vale_saved_rachel",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_leah",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_simeon",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_william",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_river",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_gideon",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_judith",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_saved_theo",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "dr_marquez_sacrificed_herself_for_the_vale",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale"
+    },
+    {
+      "id": "investigators_sacrificed_themselves_for_the_vale",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale"
+    },
+    {
+      "id": "the_vale_was_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale"
+    },
+    {
+      "id": "the_vale_burned",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale"
+    },
+    {
+      "id": "barely_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14_fate_of_the_vale"
+    },
+    {
+      "id": "day_1_day",
+      "section": "current_day",
+      "kind": "note",
+      "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "always_true",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "campaign",
+      "hidden": true
+    }
+  ],
+  "achievements": [
+    {
+      "id": "apertif",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "anyOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.the_vale_was_saved"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.the_vale_burned"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.barely_survived"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.became_the_true_feast_of_hemlock_vale"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+          }
+        ]
+      }
+    },
+    {
+      "id": "unshattered",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "a_strong_silent_type",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "colour_outside_the_lines",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "life_of_the_party",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "logCount",
+            "key": "rachel",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "leah",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "simeon",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "william",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "river",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "gideon",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "judith",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "theo",
+            "min": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "dancing_queen",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "audrey_3",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "hold_onto_your_potatoes",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "written_in_rock"
+    },
+    {
+      "id": "dream_home_breakover",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "hemlock_house"
+    },
+    {
+      "id": "settling_the_score",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.thing_in_the_depths_was_defeated"
+      },
+      "scenario": "the_thing_in_the_depths"
+    },
+    {
+      "id": "here_crabby_crabby",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "the_lost_sister"
+    },
+    {
+      "id": "a_different_kind_of_string_ops",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "the_silent_heath"
+    },
+    {
+      "id": "wait_theres_no_shrouded_shrine",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "the_twisted_hollow"
+    },
+    {
+      "id": "bear_necessities",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "the_longest_night"
+    },
+    {
+      "id": "lets_do_the_time_warp",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "oblivion_shmoblivion",
+      "type": "binary",
+      "family": "fhv",
+      "scenario": "fate_of_the_vale"
+    },
+    {
+      "id": "high_dive",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+      },
+      "scenario": "fate_of_the_vale"
+    },
+    {
+      "id": "best_friends_forever",
+      "type": "list",
+      "items": [
+        "leah",
+        "simeon",
+        "william",
+        "river",
+        "gideon"
+      ],
+      "family": "fhv",
+      "itemInfer": {
+        "leah": {
+          "type": "logCount",
+          "key": "leah",
+          "min": 6
+        },
+        "simeon": {
+          "type": "logCount",
+          "key": "simeon",
+          "min": 6
+        },
+        "william": {
+          "type": "logCount",
+          "key": "william",
+          "min": 6
+        },
+        "river": {
+          "type": "logCount",
+          "key": "river",
+          "min": 6
+        },
+        "gideon": {
+          "type": "logCount",
+          "key": "gideon",
+          "min": 6
+        }
+      }
+    },
+    {
+      "id": "know_your_place",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "logCount",
+        "key": "rachel",
+        "min": 3
+      }
+    },
+    {
+      "id": "heart_of_steel",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "logCount",
+        "key": "judith",
+        "min": 7
+      }
+    },
+    {
+      "id": "holding_out_for_a_himbo",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "logCount",
+        "key": "theo",
+        "min": 7
+      }
+    },
+    {
+      "id": "captivating_scream",
+      "type": "binary",
+      "family": "fhv"
+    },
+    {
+      "id": "line_in_the_sand",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "hemlock_expertise",
+      "type": "binary",
+      "family": "fhv",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "simeon.simeon_survived",
+        "leah.leah_saw_something_in_the_mine",
+        "simeon.simeon_disappeared",
+        "leah.leah_and_simeon_were_reunited",
+        "campaign_notes.survived_the_horrors_in_the_rock"
+      ],
+      "scenario": "Written in Rock"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.laid_the_pearl_family_to_rest",
+        "campaign_notes.remains_were_partially_recovered"
+      ],
+      "scenario": "The Silent Heath"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.the_peters_family_was_reunited",
+        "campaign_notes.elizabeth_peters_was_saved"
+      ],
+      "scenario": "The Lost Sister"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.chelydran_hybrid_perished",
+        "campaign_notes.chelydran_hybrid_lived",
+        "campaign_notes.chelydran_hybrid_devoured"
+      ],
+      "scenario": "The Thing in the Depths"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.mother_rachel_showed_the_way",
+        "campaign_notes.lost_the_path"
+      ],
+      "scenario": "The Twisted Hollow"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.bertie_was_rescued",
+        "campaign_notes.bertie_was_lost_in_the_woods"
+      ],
+      "scenario": "The Twisted Hollow"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.captives_were_saved",
+        "campaign_notes.many_captives_were_lost",
+        "campaign_notes.all_the_captives_were_lost"
+      ],
+      "scenario": "The Longest Night"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.lied_to_mother_rachel",
+        "campaign_notes.interrupted_the_feast"
+      ],
+      "scenario": "The Final Evening"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.became_the_true_feast_of_hemlock_vale",
+        "campaign_notes.dr_marquez_sacrificed_herself_for_the_vale",
+        "campaign_notes.investigators_sacrificed_themselves_for_the_vale",
+        "campaign_notes.the_vale_was_saved",
+        "campaign_notes.the_vale_burned",
+        "campaign_notes.barely_survived"
+      ],
+      "scenario": "Fate of the Vale"
+    }
+  ]
+}

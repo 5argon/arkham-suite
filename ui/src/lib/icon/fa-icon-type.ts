@@ -80,4 +80,12 @@ export enum FaIconType {
 	CloseModal,
 	ExternalLink,
 	Logout,
+
+	// Achievements
+	/** An earnable achievement (the marker/bullet). */
+	Achievement,
+	/** Achievement that must be ticked by hand (no campaign-log trace). */
+	AchievementManual,
+	/** Achievement auto-derived from the recorded campaign log. */
+	AchievementInferred,
 }

@@ -1,0 +1,1253 @@
+{
+  "code": "tskc",
+  "name": "The Scarlet Keys",
+  "kind": "campaign",
+  "version": 2,
+  "scenarios": [
+    "riddles_and_rain",
+    "the_foundation"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "keys",
+      "type": "scarletKeys",
+      "trackBearer": true,
+      "items": [
+        {
+          "id": "eye_of_ravens"
+        },
+        {
+          "id": "last_blossom"
+        },
+        {
+          "id": "light_of_pharos"
+        },
+        {
+          "id": "sable_glass"
+        },
+        {
+          "id": "weeping_lady"
+        },
+        {
+          "id": "twisted_antiprism"
+        },
+        {
+          "id": "shade_reaper"
+        },
+        {
+          "id": "mirroring_blade"
+        },
+        {
+          "id": "bale_engine"
+        },
+        {
+          "id": "ruinous_chime"
+        },
+        {
+          "id": "wellspring_of_fortune"
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "type": "count",
+      "perInvestigator": false,
+      "min": 0
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "always_true",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_riddles_and_rain",
+      "hidden": true
+    },
+    {
+      "id": "have_not_seen_the_last_of_the_red_gloved_man",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "01_riddles_and_rain"
+    },
+    {
+      "id": "rar_mark_time",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "01_riddles_and_rain",
+      "hidden": true
+    },
+    {
+      "id": "cell_told_the_truth_to_taylor",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_the_foundation"
+    },
+    {
+      "id": "cell_hid_the_truth_from_taylor",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_the_foundation"
+    },
+    {
+      "id": "lovers_are_reunited",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_dead_heat"
+    },
+    {
+      "id": "have_not_seen_the_last_of_amaranth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_dead_heat"
+    },
+    {
+      "id": "amaranth_has_left_the_coterie",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_dead_heat"
+    },
+    {
+      "id": "dh_rescued_civilians",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "03_dead_heat",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "dh_double_rescued_civilians",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "03_dead_heat",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "dh_slain_civilians",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "03_dead_heat",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "dh_double_slain_civilians",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "03_dead_heat",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "wrong_leads",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "04a_ruses_and_reclamations_kabul",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "bolivar_trusts_you",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows",
+      "hidden": true
+    },
+    {
+      "id": "bolivar_does_not_trust_you",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows",
+      "hidden": true
+    },
+    {
+      "id": "cast_a_light",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows",
+      "hidden": true
+    },
+    {
+      "id": "chica_roja_has_no_targets",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows",
+      "hidden": true
+    },
+    {
+      "id": "seeing_red",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows",
+      "hidden": true
+    },
+    {
+      "id": "sanguine_watchers_torment_continues",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows"
+    },
+    {
+      "id": "chica_roja_is_on_your_side",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows"
+    },
+    {
+      "id": "have_not_seen_the_last_of_la_chica_roja",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows"
+    },
+    {
+      "id": "have_not_seen_the_last_of_the_sanguine_watcher",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_sanguine_shadows"
+    },
+    {
+      "id": "tuwile_masai_is_on_your_side",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "06_the_great_work"
+    },
+    {
+      "id": "cell_is_working_with_ece",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_dealings_in_the_dark"
+    },
+    {
+      "id": "cell_is_deceiving_ece",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_dealings_in_the_dark"
+    },
+    {
+      "id": "cell_refused_eces_offer",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_dealings_in_the_dark"
+    },
+    {
+      "id": "ditd_act_2_setup",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_dealings_in_the_dark",
+      "hidden": true
+    },
+    {
+      "id": "ece_trusts_the_cell",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_dealings_in_the_dark"
+    },
+    {
+      "id": "ece_does_not_trust_the_cell",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_dealings_in_the_dark"
+    },
+    {
+      "id": "cell_knows_amaranths_real_name",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08a_quid_pro_quo_sf"
+    },
+    {
+      "id": "cell_knows_desis_past",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08b_quid_pro_quo_moscow"
+    },
+    {
+      "id": "agent_quinn_does_not_trust_the_cell",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "09_dead_and_gone",
+      "crossOut": true
+    },
+    {
+      "id": "foundation_remains_in_the_dark",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "09_dead_and_gone"
+    },
+    {
+      "id": "cell_is_off_mission",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "09_dead_and_gone"
+    },
+    {
+      "id": "cell_made_a_deal_with_desi",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_dancing_mad"
+    },
+    {
+      "id": "cell_has_been_ambushed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_dancing_mad"
+    },
+    {
+      "id": "have_not_seen_the_last_of_desi",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_dancing_mad"
+    },
+    {
+      "id": "desi_is_in_your_debt",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_dancing_mad"
+    },
+    {
+      "id": "know_the_passphrase",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_dancing_mad"
+    },
+    {
+      "id": "cell_did_not_discover_the_truth_in_havana",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "10_dancing_mad"
+    },
+    {
+      "id": "erased_from_existence_dm",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "10_dancing_mad",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "flint_is_working_solo",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_coiled_serpent"
+    },
+    {
+      "id": "cell_aided_in_flints_investigation",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_coiled_serpent"
+    },
+    {
+      "id": "flint_abandoned_his_search",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_the_coiled_serpent"
+    },
+    {
+      "id": "raw_deal",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_on_thin_ice",
+      "hidden": true
+    },
+    {
+      "id": "cell_made_a_deal_with_thorne",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_on_thin_ice",
+      "crossOut": true
+    },
+    {
+      "id": "nothing_of_note_in_anchorage",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_on_thin_ice"
+    },
+    {
+      "id": "void_chimera_escaped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_on_thin_ice"
+    },
+    {
+      "id": "investigator_has_sable_glass",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_on_thin_ice",
+      "hidden": true
+    },
+    {
+      "id": "have_not_seen_the_last_of_thorne",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_on_thin_ice"
+    },
+    {
+      "id": "thorne_disappeared",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "12_on_thin_ice"
+    },
+    {
+      "id": "erased_from_existence_oti",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "12_on_thin_ice",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "cell_appreciated_the_architecture",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13a_strange_architecture_bombay",
+      "crossOut": true
+    },
+    {
+      "id": "cell_is_delivering_foundation_intel",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "14a_special_delivery_tokyo",
+      "crossOut": true
+    },
+    {
+      "id": "delivered_intel",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "14a_special_delivery_tokyo",
+      "hidden": true
+    },
+    {
+      "id": "dogs_of_war",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "15_dogs_of_war",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "cell_made_a_deal_with_the_claret_knight",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "cell_is_assisting_agent_sirry",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "have_not_seen_the_last_of_the_claret_knight",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "have_not_seen_the_last_of_the_beast",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "cell_aided_the_knight",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "cell_failed_to_fend_off_the_beast",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "dogs_are_at_war",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "15_dogs_of_war"
+    },
+    {
+      "id": "dr_irawan_traveled_to_new_guinea",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_theory_of_annihilation"
+    },
+    {
+      "id": "dr_irawan_vanished_from_existence",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_theory_of_annihilation"
+    },
+    {
+      "id": "cell_met_dr_irawan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_theory_of_annihilation"
+    },
+    {
+      "id": "dr_irawan_joined_the_cell",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "17_metamorphosis"
+    },
+    {
+      "id": "flint_rejoined_the_cell",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering"
+    },
+    {
+      "id": "the_bomoh",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering",
+      "hidden": true
+    },
+    {
+      "id": "agent_flint_is_missing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering",
+      "crossOut": true
+    },
+    {
+      "id": "agent_flint_is_dead",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering"
+    },
+    {
+      "id": "have_not_seen_the_last_of_tzu_san_niang",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering"
+    },
+    {
+      "id": "tzu_san_niang_is_under_your_sway",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering"
+    },
+    {
+      "id": "tzu_san_niang_has_you_under_her_sway",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "18_shades_of_suffering"
+    },
+    {
+      "id": "agent_quinn_vanished_from_existence",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "19_ringing_hollow"
+    },
+    {
+      "id": "flint_traveled_to_kuala_lampur",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "20_blood_sweat_and_tea"
+    },
+    {
+      "id": "cell_possesses_a_mysterious_whistle",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "23_whistle_on_the_wind"
+    },
+    {
+      "id": "cell_refused_alikis_offer",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "23_whistle_on_the_wind"
+    },
+    {
+      "id": "tuwile_masai_fled_to_bermuda",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "24_infernal_machinery"
+    },
+    {
+      "id": "cell_blew_the_whistle",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "agent_quinn_has_your_back",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "cell_threw_away_the_whistle",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "cell_was_hollowed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "have_not_seen_the_last_of_aliki_zoni_uperetria",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "cell_knows_the_true_nature_of_the_coterie",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "aliki_is_on_your_side",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "26_without_a_trace"
+    },
+    {
+      "id": "nay_votes",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "27_congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "overthrow_vote",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "27_congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "desi_nay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "eerily_silent_votes",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "27_congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "desi_eerily_silent",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "overthrow_coterie",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "join_coterie",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "cell_escaped_the_red_coterie",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys"
+    },
+    {
+      "id": "cell_overthrew_the_red_coterie",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys"
+    },
+    {
+      "id": "cell_joined_the_red_coterie",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys"
+    },
+    {
+      "id": "red_coterie_spared_the_cell",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys"
+    },
+    {
+      "id": "red_coterie_was_destroyed_from_within",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys"
+    },
+    {
+      "id": "gathered_spawn",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "27_congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "outsiders_were_stopped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "27_congress_of_the_keys"
+    },
+    {
+      "id": "work_together",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "28_epilogue"
+    },
+    {
+      "id": "trust",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "28_epilogue",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "deception",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "28_epilogue",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "cell_was_given_a_permanent_position",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "28_epilogue"
+    },
+    {
+      "id": "cell_was_dismantled",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "28_epilogue"
+    },
+    {
+      "id": "eye_of_ravens_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "last_blossom_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "weeping_lady_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "bale_engine_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "twisted_antiprism_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "light_of_pharos_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "ruinous_chime_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "shade_reaper_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "mirroring_blade_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "sable_glass_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "wellpspring_of_fortune_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "key_thief",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "core",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "fixed",
+          "codes": [
+            "ztsk_desi"
+          ]
+        }
+      },
+      "hidden": true
+    }
+  ],
+  "achievements": [
+    {
+      "id": "clued_in",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "riddles_and_rain"
+    },
+    {
+      "id": "take_that",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "dead_heat"
+    },
+    {
+      "id": "whats_in_a_name",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "dead_heat"
+    },
+    {
+      "id": "porque",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "dancing_mad"
+    },
+    {
+      "id": "lost_and_found",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "dealings_in_the_dark"
+    },
+    {
+      "id": "tower_defense",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "dogs_of_war"
+    },
+    {
+      "id": "play_with_food",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "dogs_of_war"
+    },
+    {
+      "id": "destroyed_chimera",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "on_thin_ice"
+    },
+    {
+      "id": "watch_watcher",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "sanguine_shadows"
+    },
+    {
+      "id": "under_umbrella",
+      "type": "binary",
+      "family": "tskc",
+      "scenario": "shades_of_suffering"
+    },
+    {
+      "id": "all_hollow",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "anyOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.cell_blew_the_whistle"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cell_threw_away_the_whistle"
+          }
+        ]
+      },
+      "scenario": "without_a_trace"
+    },
+    {
+      "id": "red_looks_good",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.cell_joined_the_red_coterie"
+      },
+      "scenario": "congress_of_the_keys"
+    },
+    {
+      "id": "bloody_red",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.cell_overthrew_the_red_coterie"
+      },
+      "scenario": "congress_of_the_keys"
+    },
+    {
+      "id": "powers_combined",
+      "type": "binary",
+      "family": "tskc"
+    },
+    {
+      "id": "gift_of_gab",
+      "type": "binary",
+      "family": "tskc"
+    },
+    {
+      "id": "cuisine",
+      "type": "binary",
+      "family": "tskc"
+    },
+    {
+      "id": "speed_demon",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "logCount",
+        "key": "time",
+        "max": 17
+      }
+    },
+    {
+      "id": "trust_nobody",
+      "type": "binary",
+      "family": "tskc"
+    },
+    {
+      "id": "trust_everybody",
+      "type": "binary",
+      "family": "tskc"
+    },
+    {
+      "id": "badge",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.cell_was_given_a_permanent_position"
+      }
+    },
+    {
+      "id": "heart",
+      "type": "list",
+      "items": [
+        "eye_of_ravens",
+        "last_blossom",
+        "light_of_pharos",
+        "sable_glass",
+        "weeping_lady",
+        "twisted_antiprism",
+        "shade_reaper",
+        "mirroring_blade",
+        "bale_engine",
+        "ruinous_chime",
+        "wellspring_of_fortune"
+      ],
+      "family": "tskc",
+      "itemInfer": {
+        "eye_of_ravens": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "eye_of_ravens"
+        },
+        "last_blossom": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "last_blossom"
+        },
+        "light_of_pharos": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "light_of_pharos"
+        },
+        "sable_glass": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "sable_glass"
+        },
+        "weeping_lady": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "weeping_lady"
+        },
+        "twisted_antiprism": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "twisted_antiprism"
+        },
+        "shade_reaper": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "shade_reaper"
+        },
+        "mirroring_blade": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "mirroring_blade"
+        },
+        "bale_engine": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "bale_engine"
+        },
+        "ruinous_chime": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "ruinous_chime"
+        },
+        "wellspring_of_fortune": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "wellspring_of_fortune"
+        }
+      }
+    },
+    {
+      "id": "line_in_sand",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "global_expertise",
+      "type": "binary",
+      "family": "tskc",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_told_the_truth_to_taylor",
+        "campaign_notes.cell_hid_the_truth_from_taylor"
+      ],
+      "scenario": "The Foundation — choose what to tell Commissioner Taylor"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_is_working_with_ece",
+        "campaign_notes.cell_is_deceiving_ece",
+        "campaign_notes.cell_refused_eces_offer"
+      ],
+      "scenario": "Dealings in the Dark — respond to Ece's offer (choose_path)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.ece_trusts_the_cell",
+        "campaign_notes.ece_does_not_trust_the_cell"
+      ],
+      "scenario": "Dealings in the Dark — Ece trust at the Twisted Antiprism handover (R4 vs R5)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.amaranth_has_left_the_coterie",
+        "campaign_notes.have_not_seen_the_last_of_amaranth"
+      ],
+      "scenario": "Dead Heat — fate of Amaranth (R3 vs R2/R4/R5)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.chica_roja_is_on_your_side",
+        "campaign_notes.have_not_seen_the_last_of_la_chica_roja"
+      ],
+      "scenario": "Sanguine Shadows — La Chica Roja outcome (R2 vs R1/R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.flint_is_working_solo",
+        "campaign_notes.cell_aided_in_flints_investigation",
+        "campaign_notes.flint_abandoned_his_search"
+      ],
+      "scenario": "The Coiled Serpent — instruct Flint (choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.have_not_seen_the_last_of_thorne",
+        "campaign_notes.thorne_disappeared"
+      ],
+      "scenario": "On Thin Ice — fate of Thorne (R2 vs R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.desi_is_in_your_debt",
+        "campaign_notes.have_not_seen_the_last_of_desi"
+      ],
+      "scenario": "Dancing Mad — Desi outcome (R1 vs no_resolution/R2)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.tzu_san_niang_is_under_your_sway",
+        "campaign_notes.have_not_seen_the_last_of_tzu_san_niang",
+        "campaign_notes.tzu_san_niang_has_you_under_her_sway"
+      ],
+      "scenario": "Shades of Suffering — Tzu San Niang confrontation (R1/R2/R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_made_a_deal_with_the_claret_knight",
+        "campaign_notes.cell_is_assisting_agent_sirry"
+      ],
+      "scenario": "Dogs of War — accept the Claret Knight's bargain vs assist Agent Sirry (early_choice/late_choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_aided_the_knight",
+        "campaign_notes.cell_failed_to_fend_off_the_beast"
+      ],
+      "scenario": "Dogs of War — the Beast confrontation (R8 vs R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_possesses_a_mysterious_whistle",
+        "campaign_notes.cell_refused_alikis_offer"
+      ],
+      "scenario": "Whistle on the Wind — accept or refuse Aliki's offer (make_choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_blew_the_whistle",
+        "campaign_notes.cell_threw_away_the_whistle"
+      ],
+      "scenario": "Without a Trace — blow vs dispose of the whistle (whistle_choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.aliki_is_on_your_side",
+        "campaign_notes.have_not_seen_the_last_of_aliki_zoni_uperetria"
+      ],
+      "scenario": "Without a Trace — Aliki fate (R1/R3 vs R2/R4)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dr_irawan_joined_the_cell",
+        "campaign_notes.dr_irawan_vanished_from_existence"
+      ],
+      "scenario": "Metamorphosis — final fate of Dr. Irawan (joined vs erased)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_escaped_the_red_coterie",
+        "campaign_notes.cell_overthrew_the_red_coterie",
+        "campaign_notes.cell_joined_the_red_coterie",
+        "campaign_notes.red_coterie_spared_the_cell",
+        "campaign_notes.red_coterie_was_destroyed_from_within"
+      ],
+      "scenario": "Congress of the Keys — the trial verdict before the Red Coterie"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.work_together",
+        "campaign_notes.cell_was_given_a_permanent_position",
+        "campaign_notes.cell_was_dismantled"
+      ],
+      "scenario": "Epilogue — final disposition of the cell"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "code": "boa",
+  "_notes": "Verified all 11 spans are exact substrings of their entry texts (confirmed including the curly apostrophe in stopped_elokoss_glorious_rebirth's \"Elokoss's\"). No sibling collisions: 6 harbinger entries keep distinct investigator names visible; the two Servant-of-Flame entries stay distinguishable via \"killed\" vs \"escaped\"; the three endgame entries keep distinct surrounding text. No over/under-blur changes needed. No exotic sections required. Both sections correctly typed \"notes\". Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.david_harbinger": [
+      "Elokoss"
+    ],
+    "campaign_notes.cornelia_harbinger": [
+      "Elokoss"
+    ],
+    "campaign_notes.naomi_harbinger": [
+      "Elokoss"
+    ],
+    "campaign_notes.earl_harbinger": [
+      "Elokoss"
+    ],
+    "campaign_notes.abigail_harbinger": [
+      "Elokoss"
+    ],
+    "campaign_notes.margaret_harbinger": [
+      "Elokoss"
+    ],
+    "campaign_notes.killed_the_servant_of_flame": [
+      "the Servant of Flame"
+    ],
+    "campaign_notes.the_servant_of_flame_escaped": [
+      "the Servant of Flame"
+    ],
+    "campaign_notes.elokoss_was_reborn": [
+      "Elokoss"
+    ],
+    "campaign_notes.defeated_elokoss_and_the_brethren_of_ash": [
+      "Elokoss"
+    ],
+    "campaign_notes.stopped_elokoss_glorious_rebirth": [
+      "Elokoss"
+    ]
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.miskatonic_university_burned",
+        "campaign_notes.saved_miskatonic_university"
+      ],
+      "scenario": "01_spreading_flames"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.david_harbinger",
+        "campaign_notes.cornelia_harbinger",
+        "campaign_notes.naomi_harbinger",
+        "campaign_notes.earl_harbinger",
+        "campaign_notes.abigail_harbinger",
+        "campaign_notes.margaret_harbinger"
+      ],
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.discovered_the_cults_whereabouts",
+        "campaign_notes.failed_in_their_search"
+      ],
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.elokoss_was_reborn",
+        "campaign_notes.defeated_elokoss_and_the_brethren_of_ash",
+        "campaign_notes.stopped_elokoss_glorious_rebirth",
+        "campaign_notes.flooded_the_ritual"
+      ],
+      "scenario": "03_queen_of_ash"
+    }
+  ]
+}

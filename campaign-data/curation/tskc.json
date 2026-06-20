@@ -1,0 +1,540 @@
+{
+  "code": "tskc",
+  "_notes": "All spans validated as exact substrings of their entry text (apostrophe variants confirmed: Ece's=straight, Aliki’s/Amaranth’s/Desi’s=curly, Sanguine Watcher's=straight). scarletKeys roster complete: all 11 ids match db `heart` achievement and en labels exactly.\n\nFIXED — sibling collision (whistle): cell_blew_the_whistle and cell_threw_away_the_whistle originally blurred their full verb phrases (\"blew the whistle\" / \"threw away the whistle\"), which collapse to identical \"the cell █.\" after blur. Changed all three whistle entries to blur only the noun \"whistle\", leaving verbs visible (possesses/blew/threw away). Now distinguishable and the secret noun stays hidden.\n\nFIXED — under-blur (Flint consistency): added \"Flint\" blur to flint_is_working_solo, flint_abandoned_his_search, cell_aided_in_flints_investigation. Flint is a named twist agent whose fate (missing/dead/rejoined/traveled) is blurred elsewhere; leaving these three unblurred exposed the character. All 7 Flint entries remain distinguishable by visible verbs/clauses; agent_flint_is_missing/is_dead keep the \"Agent\" prefix span as proposed.\n\nKept unblurred (defensible restraint, not changed): cell_aided_the_knight (\"the knight\" is generic, cell's own action, no named reveal); taylor/foundation framing, counters, passphrase, anchorage/architecture/havana-style location/action lines, erased_from_existence #name# tokens. cell_made_a_deal_with_the_claret_knight names the Claret Knight explicitly so it stays blurred — contrast preserved.\n\nNo drop entries needed (hidden section already flagged hidden in db).",
+  "spoilers": {
+    "campaign_notes.have_not_seen_the_last_of_the_red_gloved_man": [
+      "the Red-Gloved Man"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_thorne": [
+      "Thorne"
+    ],
+    "campaign_notes.lovers_are_reunited": [
+      "the lovers are reunited"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_amaranth": [
+      "Amaranth"
+    ],
+    "campaign_notes.amaranth_has_left_the_coterie": [
+      "Amaranth",
+      "the Coterie"
+    ],
+    "campaign_notes.sanguine_watchers_torment_continues": [
+      "Sanguine Watcher's"
+    ],
+    "campaign_notes.chica_roja_is_on_your_side": [
+      "La Chica Roja"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_la_chica_roja": [
+      "La Chica Roja"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_the_sanguine_watcher": [
+      "The Sanguine Watcher"
+    ],
+    "campaign_notes.tuwile_masai_fled_to_bermuda": [
+      "Tuwile Masai"
+    ],
+    "campaign_notes.ece_does_not_trust_the_cell": [
+      "Ece"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_desi": [
+      "Desiderio Delgado Álvarez"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_the_claret_knight": [
+      "the Claret Knight"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_aliki_zoni_uperetria": [
+      "Aliki Zoni Uperetria"
+    ],
+    "campaign_notes.tuwile_masai_is_on_your_side": [
+      "Tuwile Masai"
+    ],
+    "campaign_notes.cell_is_working_with_ece": [
+      "Ece"
+    ],
+    "campaign_notes.cell_is_deceiving_ece": [
+      "Ece"
+    ],
+    "campaign_notes.cell_refused_eces_offer": [
+      "Ece's"
+    ],
+    "campaign_notes.ece_trusts_the_cell": [
+      "Ece"
+    ],
+    "campaign_notes.cell_knows_amaranths_real_name": [
+      "Amaranth’s real name"
+    ],
+    "campaign_notes.cell_knows_desis_past": [
+      "Desi’s past"
+    ],
+    "campaign_notes.agent_quinn_does_not_trust_the_cell": [
+      "Agent Quinn"
+    ],
+    "campaign_notes.cell_possesses_a_mysterious_whistle": [
+      "whistle"
+    ],
+    "campaign_notes.cell_made_a_deal_with_desi": [
+      "Desi"
+    ],
+    "campaign_notes.desi_is_in_your_debt": [
+      "Desi"
+    ],
+    "campaign_notes.cell_did_not_discover_the_truth_in_havana": [
+      "Havana"
+    ],
+    "campaign_notes.cell_made_a_deal_with_thorne": [
+      "Thorne"
+    ],
+    "campaign_notes.void_chimera_escaped": [
+      "the Void Chimera"
+    ],
+    "campaign_notes.thorne_disappeared": [
+      "Thorne"
+    ],
+    "campaign_notes.cell_is_delivering_foundation_intel": [
+      "Foundation intel"
+    ],
+    "campaign_notes.cell_made_a_deal_with_the_claret_knight": [
+      "the Claret Knight"
+    ],
+    "campaign_notes.cell_is_assisting_agent_sirry": [
+      "Agent Sirry"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_the_beast": [
+      "the Beast in a Cowl of Crimson"
+    ],
+    "campaign_notes.cell_failed_to_fend_off_the_beast": [
+      "the Beast"
+    ],
+    "campaign_notes.cell_met_dr_irawan": [
+      "Dr. Irawan"
+    ],
+    "campaign_notes.dr_irawan_traveled_to_new_guinea": [
+      "Dr. Irawan"
+    ],
+    "campaign_notes.dr_irawan_vanished_from_existence": [
+      "Dr. Irawan"
+    ],
+    "campaign_notes.dr_irawan_joined_the_cell": [
+      "Dr. Irawan"
+    ],
+    "campaign_notes.flint_is_working_solo": [
+      "Flint"
+    ],
+    "campaign_notes.cell_aided_in_flints_investigation": [
+      "Flint"
+    ],
+    "campaign_notes.flint_abandoned_his_search": [
+      "Flint"
+    ],
+    "campaign_notes.flint_traveled_to_kuala_lampur": [
+      "Flint"
+    ],
+    "campaign_notes.agent_flint_is_missing": [
+      "Agent Flint"
+    ],
+    "campaign_notes.flint_rejoined_the_cell": [
+      "Flint"
+    ],
+    "campaign_notes.agent_flint_is_dead": [
+      "Agent Flint"
+    ],
+    "campaign_notes.have_not_seen_the_last_of_tzu_san_niang": [
+      "Tzu San Niang"
+    ],
+    "campaign_notes.tzu_san_niang_is_under_your_sway": [
+      "Tzu San Niang"
+    ],
+    "campaign_notes.tzu_san_niang_has_you_under_her_sway": [
+      "Tzu San Niang"
+    ],
+    "campaign_notes.agent_quinn_vanished_from_existence": [
+      "Agent Quinn"
+    ],
+    "campaign_notes.cell_refused_alikis_offer": [
+      "Aliki’s"
+    ],
+    "campaign_notes.aliki_is_on_your_side": [
+      "Aliki"
+    ],
+    "campaign_notes.cell_blew_the_whistle": [
+      "whistle"
+    ],
+    "campaign_notes.agent_quinn_has_your_back": [
+      "Agent Quinn"
+    ],
+    "campaign_notes.cell_threw_away_the_whistle": [
+      "whistle"
+    ],
+    "campaign_notes.cell_was_hollowed": [
+      "hollowed"
+    ],
+    "campaign_notes.cell_knows_the_true_nature_of_the_coterie": [
+      "the true nature of the Coterie"
+    ],
+    "campaign_notes.cell_escaped_the_red_coterie": [
+      "the Red Coterie"
+    ],
+    "campaign_notes.cell_overthrew_the_red_coterie": [
+      "the Red Coterie"
+    ],
+    "campaign_notes.cell_joined_the_red_coterie": [
+      "the Red Coterie"
+    ],
+    "campaign_notes.red_coterie_spared_the_cell": [
+      "the Red Coterie"
+    ],
+    "campaign_notes.red_coterie_was_destroyed_from_within": [
+      "the Red Coterie"
+    ],
+    "campaign_notes.outsiders_were_stopped": [
+      "the Outsiders"
+    ],
+    "campaign_notes.work_together": [
+      "the Red Coterie and The Foundation"
+    ]
+  },
+  "sections": {
+    "keys": {
+      "type": "scarletKeys",
+      "items": [
+        {
+          "id": "eye_of_ravens",
+          "label": "The Eye of Ravens"
+        },
+        {
+          "id": "last_blossom",
+          "label": "The Last Blossom"
+        },
+        {
+          "id": "light_of_pharos",
+          "label": "The Light of Pharos"
+        },
+        {
+          "id": "sable_glass",
+          "label": "The Sable Glass"
+        },
+        {
+          "id": "weeping_lady",
+          "label": "The Weeping Lady"
+        },
+        {
+          "id": "twisted_antiprism",
+          "label": "The Twisted Antiprism"
+        },
+        {
+          "id": "shade_reaper",
+          "label": "The Shade Reaper"
+        },
+        {
+          "id": "mirroring_blade",
+          "label": "The Mirroring Blade"
+        },
+        {
+          "id": "bale_engine",
+          "label": "The Bale Engine"
+        },
+        {
+          "id": "ruinous_chime",
+          "label": "The Ruinous Chime"
+        },
+        {
+          "id": "wellspring_of_fortune",
+          "label": "The Wellspring of Fortune"
+        }
+      ],
+      "trackBearer": true,
+      "_note": "Section type in campaign.json is 'scarlet_keys'. The 11 key items + names come straight from campaign.json campaign_log 'keys' (verified id+name exact match to tskc-db.json item ids). Each Scarlet Key in TSK records a bearer (which Coterie member / location currently holds it, or whether the investigators hold it); trackBearer=true so the editor records who/where bears each key. The 'core' scenario hidden notes (e.g. eye_of_ravens_stolen) and 'key_thief' (ztsk_desi) confirm keys can be stolen/held by named bearers."
+    },
+    "time": {
+      "type": "count",
+      "perInvestigator": false,
+      "min": 0,
+      "_note": "The 'Time Passed' campaign clock (campaign.json type='count'). Single global campaign-wide counter, NOT per-investigator. No fixed maximum on the section; the calendar in campaign.json marks milestone thresholds (alpha=7, epsilon=10, beta=15, zeta=20, gamma=24, Omega=35, then psi/Theta/delta trigger story entries), and the 'speed_demon' achievement checks logCount time<=17 — these are thresholds, not a cap. Left max unset. min:0 inferred as the clock starts at zero."
+    }
+  },
+  "achievements": {
+    "red_looks_good": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.cell_joined_the_red_coterie"
+      },
+      "scenario": "congress_of_the_keys"
+    },
+    "bloody_red": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.cell_overthrew_the_red_coterie"
+      },
+      "scenario": "congress_of_the_keys"
+    },
+    "speed_demon": {
+      "infer": {
+        "type": "logCount",
+        "key": "time",
+        "max": 17
+      }
+    },
+    "badge": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.cell_was_given_a_permanent_position"
+      }
+    },
+    "line_in_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "global_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "clued_in": {
+      "scenario": "riddles_and_rain"
+    },
+    "take_that": {
+      "scenario": "dead_heat"
+    },
+    "whats_in_a_name": {
+      "scenario": "dead_heat"
+    },
+    "porque": {
+      "scenario": "dancing_mad"
+    },
+    "lost_and_found": {
+      "scenario": "dealings_in_the_dark"
+    },
+    "tower_defense": {
+      "scenario": "dogs_of_war"
+    },
+    "play_with_food": {
+      "scenario": "dogs_of_war"
+    },
+    "destroyed_chimera": {
+      "scenario": "on_thin_ice"
+    },
+    "watch_watcher": {
+      "scenario": "sanguine_shadows"
+    },
+    "under_umbrella": {
+      "scenario": "shades_of_suffering"
+    },
+    "all_hollow": {
+      "scenario": "without_a_trace",
+      "infer": {
+        "type": "anyOf",
+        "of": [
+          { "type": "log", "key": "campaign_notes.cell_blew_the_whistle" },
+          { "type": "log", "key": "campaign_notes.cell_threw_away_the_whistle" }
+        ]
+      }
+    },
+    "heart": {
+      "itemInfer": {
+        "eye_of_ravens": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "eye_of_ravens"
+        },
+        "last_blossom": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "last_blossom"
+        },
+        "light_of_pharos": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "light_of_pharos"
+        },
+        "sable_glass": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "sable_glass"
+        },
+        "weeping_lady": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "weeping_lady"
+        },
+        "twisted_antiprism": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "twisted_antiprism"
+        },
+        "shade_reaper": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "shade_reaper"
+        },
+        "mirroring_blade": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "mirroring_blade"
+        },
+        "bale_engine": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "bale_engine"
+        },
+        "ruinous_chime": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "ruinous_chime"
+        },
+        "wellspring_of_fortune": {
+          "type": "sectionHas",
+          "section": "keys",
+          "item": "wellspring_of_fortune"
+        }
+      }
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_told_the_truth_to_taylor",
+        "campaign_notes.cell_hid_the_truth_from_taylor"
+      ],
+      "scenario": "The Foundation — choose what to tell Commissioner Taylor"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_is_working_with_ece",
+        "campaign_notes.cell_is_deceiving_ece",
+        "campaign_notes.cell_refused_eces_offer"
+      ],
+      "scenario": "Dealings in the Dark — respond to Ece's offer (choose_path)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.ece_trusts_the_cell",
+        "campaign_notes.ece_does_not_trust_the_cell"
+      ],
+      "scenario": "Dealings in the Dark — Ece trust at the Twisted Antiprism handover (R4 vs R5)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.amaranth_has_left_the_coterie",
+        "campaign_notes.have_not_seen_the_last_of_amaranth"
+      ],
+      "scenario": "Dead Heat — fate of Amaranth (R3 vs R2/R4/R5)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.chica_roja_is_on_your_side",
+        "campaign_notes.have_not_seen_the_last_of_la_chica_roja"
+      ],
+      "scenario": "Sanguine Shadows — La Chica Roja outcome (R2 vs R1/R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.flint_is_working_solo",
+        "campaign_notes.cell_aided_in_flints_investigation",
+        "campaign_notes.flint_abandoned_his_search"
+      ],
+      "scenario": "The Coiled Serpent — instruct Flint (choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.have_not_seen_the_last_of_thorne",
+        "campaign_notes.thorne_disappeared"
+      ],
+      "scenario": "On Thin Ice — fate of Thorne (R2 vs R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.desi_is_in_your_debt",
+        "campaign_notes.have_not_seen_the_last_of_desi"
+      ],
+      "scenario": "Dancing Mad — Desi outcome (R1 vs no_resolution/R2)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.tzu_san_niang_is_under_your_sway",
+        "campaign_notes.have_not_seen_the_last_of_tzu_san_niang",
+        "campaign_notes.tzu_san_niang_has_you_under_her_sway"
+      ],
+      "scenario": "Shades of Suffering — Tzu San Niang confrontation (R1/R2/R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_made_a_deal_with_the_claret_knight",
+        "campaign_notes.cell_is_assisting_agent_sirry"
+      ],
+      "scenario": "Dogs of War — accept the Claret Knight's bargain vs assist Agent Sirry (early_choice/late_choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_aided_the_knight",
+        "campaign_notes.cell_failed_to_fend_off_the_beast"
+      ],
+      "scenario": "Dogs of War — the Beast confrontation (R8 vs R3)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_possesses_a_mysterious_whistle",
+        "campaign_notes.cell_refused_alikis_offer"
+      ],
+      "scenario": "Whistle on the Wind — accept or refuse Aliki's offer (make_choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_blew_the_whistle",
+        "campaign_notes.cell_threw_away_the_whistle"
+      ],
+      "scenario": "Without a Trace — blow vs dispose of the whistle (whistle_choice)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.aliki_is_on_your_side",
+        "campaign_notes.have_not_seen_the_last_of_aliki_zoni_uperetria"
+      ],
+      "scenario": "Without a Trace — Aliki fate (R1/R3 vs R2/R4)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dr_irawan_joined_the_cell",
+        "campaign_notes.dr_irawan_vanished_from_existence"
+      ],
+      "scenario": "Metamorphosis — final fate of Dr. Irawan (joined vs erased)"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cell_escaped_the_red_coterie",
+        "campaign_notes.cell_overthrew_the_red_coterie",
+        "campaign_notes.cell_joined_the_red_coterie",
+        "campaign_notes.red_coterie_spared_the_cell",
+        "campaign_notes.red_coterie_was_destroyed_from_within"
+      ],
+      "scenario": "Congress of the Keys — the trial verdict before the Red Coterie"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.work_together",
+        "campaign_notes.cell_was_given_a_permanent_position",
+        "campaign_notes.cell_was_dismantled"
+      ],
+      "scenario": "Epilogue — final disposition of the cell"
+    }
+  ]
+}

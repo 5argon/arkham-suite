@@ -1,0 +1,801 @@
+{
+  "code": "tdc",
+  "name": "The Drowned City",
+  "kind": "campaign",
+  "version": 2,
+  "scenarios": [
+    "tdc_prologue",
+    "one_last_job",
+    "an_offer_you_cant_refuse"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "glyphs",
+      "type": "glyphs",
+      "items": [
+        {
+          "id": "tdc_rune_a"
+        },
+        {
+          "id": "tdc_rune_b"
+        },
+        {
+          "id": "tdc_rune_c"
+        },
+        {
+          "id": "tdc_rune_d"
+        },
+        {
+          "id": "tdc_rune_e"
+        },
+        {
+          "id": "tdc_rune_f"
+        },
+        {
+          "id": "tdc_rune_g"
+        },
+        {
+          "id": "tdc_rune_h"
+        },
+        {
+          "id": "tdc_rune_i"
+        },
+        {
+          "id": "tdc_rune_j"
+        },
+        {
+          "id": "tdc_rune_k"
+        },
+        {
+          "id": "tdc_rune_l"
+        },
+        {
+          "id": "tdc_rune_m"
+        },
+        {
+          "id": "tdc_rune_n"
+        },
+        {
+          "id": "tdc_rune_o"
+        },
+        {
+          "id": "tdc_rune_p"
+        },
+        {
+          "id": "tdc_rune_q"
+        },
+        {
+          "id": "tdc_rune_r"
+        },
+        {
+          "id": "tdc_rune_s"
+        },
+        {
+          "id": "tdc_rune_t"
+        },
+        {
+          "id": "tdc_rune_u"
+        },
+        {
+          "id": "tdc_rune_v"
+        },
+        {
+          "id": "tdc_rune_w"
+        },
+        {
+          "id": "tdc_rune_x"
+        },
+        {
+          "id": "tdc_rune_y"
+        },
+        {
+          "id": "tdc_rune_z"
+        }
+      ]
+    },
+    {
+      "id": "task_progress",
+      "type": "investigatorCount",
+      "perInvestigator": true
+    },
+    {
+      "id": "artifacts_earned",
+      "type": "notes"
+    },
+    {
+      "id": "locations",
+      "type": "notes"
+    },
+    {
+      "id": "flooded_neighborhoods",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "discovered_an_alien_language",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_one_last_job"
+    },
+    {
+      "id": "ruby_won_the_bet",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_one_last_job"
+    },
+    {
+      "id": "ruby_lost_the_bet",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_one_last_job"
+    },
+    {
+      "id": "tdc_rune_a",
+      "section": "glyphs",
+      "kind": "note",
+      "scenario": "02_one_last_job"
+    },
+    {
+      "id": "tasks_active",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_no_place_like_home",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_walk_in_faith",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_toe_the_line",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_good_money",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_prove_your_worth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_do_no_harm",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_dreams_of_destruction",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "picked_plumb_the_depths",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_an_offer_you_cant_refuse",
+      "hidden": true
+    },
+    {
+      "id": "expedition_headed_west",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh"
+    },
+    {
+      "id": "expedition_headed_east",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh"
+    },
+    {
+      "id": "the_western_wall",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "the_drowned_quarter",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "the_apiary",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "the_grand_vault",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "court_of_the_ancients",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "obsidian_canyons",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "sepulchre_of_the_sleeper",
+      "section": "locations",
+      "kind": "note",
+      "scenario": "04_expedition_to_ryleh",
+      "hidden": true
+    },
+    {
+      "id": "the_creature_was_defeated",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_the_western_wall"
+    },
+    {
+      "id": "expedition_helped_pilgrim",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_the_western_wall",
+      "hidden": true
+    },
+    {
+      "id": "expedition_abandoned_pilgrim",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "05_the_western_wall",
+      "hidden": true
+    },
+    {
+      "id": "barrier_node",
+      "section": "artifacts_earned",
+      "kind": "note",
+      "scenario": "06_the_drowned_quarter",
+      "crossOut": true
+    },
+    {
+      "id": "the_power_was_diverted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "06_the_drowned_quarter"
+    },
+    {
+      "id": "tdc_lost_pilgrims",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_apiary",
+      "hidden": true
+    },
+    {
+      "id": "tdc_hive_mind",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "07_the_apiary",
+      "hidden": true
+    },
+    {
+      "id": "grisly_mask",
+      "section": "artifacts_earned",
+      "kind": "note",
+      "scenario": "07_the_apiary",
+      "crossOut": true
+    },
+    {
+      "id": "pilgrims_were_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_the_apiary"
+    },
+    {
+      "id": "pilgrims_were_devoured",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_the_apiary"
+    },
+    {
+      "id": "exterminated_the_alien_parasites",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "07_the_apiary"
+    },
+    {
+      "id": "tdc_rune_s",
+      "section": "glyphs",
+      "kind": "note",
+      "scenario": "07_the_apiary"
+    },
+    {
+      "id": "tdc_vault_core",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "08_the_grand_vault",
+      "hidden": true
+    },
+    {
+      "id": "the_inner_sanctum_was_unsealed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "08_the_grand_vault"
+    },
+    {
+      "id": "tidal_tablet",
+      "section": "artifacts_earned",
+      "kind": "note",
+      "scenario": "08_the_grand_vault",
+      "crossOut": true
+    },
+    {
+      "id": "shard",
+      "section": "artifacts_earned",
+      "kind": "note",
+      "scenario": "09_court_of_the_ancients",
+      "crossOut": true
+    },
+    {
+      "id": "tdc_helped_with_the_ropes",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "10_obsidian_canyons",
+      "hidden": true
+    },
+    {
+      "id": "obsidian_claw",
+      "section": "artifacts_earned",
+      "kind": "note",
+      "scenario": "10_obsidian_canyons",
+      "crossOut": true
+    },
+    {
+      "id": "did_not_confront_the_nightmare",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_sepulchre_of_the_sleeper",
+      "hidden": true
+    },
+    {
+      "id": "halted_cthulhus_awakening",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "11_sepulchre_of_the_sleeper"
+    },
+    {
+      "id": "tasks_done",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_return_to_arkham",
+      "hidden": true
+    },
+    {
+      "id": "kept_barrier_node",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1",
+      "hidden": true
+    },
+    {
+      "id": "kept_obsidian_claw",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1",
+      "hidden": true
+    },
+    {
+      "id": "kept_shard",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1",
+      "hidden": true
+    },
+    {
+      "id": "kept_tidal_tablet",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1",
+      "hidden": true
+    },
+    {
+      "id": "kept_grisly_mask",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1",
+      "hidden": true
+    },
+    {
+      "id": "clah_horror",
+      "section": "artifacts_earned",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "downtown",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "easttown",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "miskatonic_university",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "northside",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "rivertown",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "southside",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "st_marys_hospital",
+      "section": "flooded_neighborhoods",
+      "kind": "note",
+      "scenario": "15_the_doom_of_arkham_part_1"
+    },
+    {
+      "id": "stood_together",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_the_doom_of_arkham_part_2"
+    },
+    {
+      "id": "your_allies_have_a_plan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_the_doom_of_arkham_part_2"
+    },
+    {
+      "id": "cthulhu_annihilated_the_city_of_arkham",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_the_doom_of_arkham_part_2"
+    },
+    {
+      "id": "cthulhu_was_driven_away",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_the_doom_of_arkham_part_2"
+    },
+    {
+      "id": "cthulhu_was_banished",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_the_doom_of_arkham_part_2"
+    },
+    {
+      "id": "cthulhu_was_banished_but_arkham_was_destroyed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "16_the_doom_of_arkham_part_2"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "one_first_last_job",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "anyOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_annihilated_the_city_of_arkham"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_was_driven_away"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_was_banished"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "season_two",
+      "type": "binary",
+      "family": "tdc"
+    },
+    {
+      "id": "cliff",
+      "type": "binary",
+      "family": "tdc"
+    },
+    {
+      "id": "coup",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "one_last_job"
+    },
+    {
+      "id": "search",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "the_western_wall"
+    },
+    {
+      "id": "tidal_flip",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "the_drowned_quarter"
+    },
+    {
+      "id": "acolyte",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "the_apiary"
+    },
+    {
+      "id": "kill_the_adds",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "the_apiary"
+    },
+    {
+      "id": "deep_end",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "the_grand_vault"
+    },
+    {
+      "id": "sorry",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "court_of_the_ancients"
+    },
+    {
+      "id": "sky_rider",
+      "type": "binary",
+      "family": "tdc",
+      "scenario": "obsidian_canyons"
+    },
+    {
+      "id": "skip_to_the_end",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.halted_cthulhus_awakening"
+      },
+      "scenario": "sepulchre_of_the_sleeper"
+    },
+    {
+      "id": "alien_dropout",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "logCount",
+        "key": "glyphs",
+        "max": 0
+      }
+    },
+    {
+      "id": "alien_grad",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "logCount",
+        "key": "glyphs",
+        "min": 26
+      }
+    },
+    {
+      "id": "empty_handed",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "logCount",
+        "key": "artifacts_earned",
+        "max": 0
+      }
+    },
+    {
+      "id": "stay_dead",
+      "type": "binary",
+      "family": "tdc"
+    },
+    {
+      "id": "powers_combined",
+      "type": "list",
+      "items": [
+        "barrier_node",
+        "obsidian_claw",
+        "shard",
+        "mask",
+        "tablet",
+        "horror"
+      ],
+      "family": "tdc",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "artifacts_earned.barrier_node"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.obsidian_claw"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.shard"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.grisly_mask"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.tidal_tablet"
+          },
+          {
+            "type": "log",
+            "key": "artifacts_earned.clah_horror"
+          }
+        ]
+      }
+    },
+    {
+      "id": "obligations",
+      "type": "list",
+      "items": [
+        "walk_in_faith",
+        "toe_the_line",
+        "good_money",
+        "prove_your_worth",
+        "dreams_of_destruction",
+        "do_no_harm",
+        "no_place_like_home",
+        "plumb_the_depths"
+      ],
+      "family": "tdc",
+      "infer": {
+        "type": "logCount",
+        "key": "task_progress",
+        "min": 5
+      }
+    },
+    {
+      "id": "line_in_the_sand",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "expertise",
+      "type": "binary",
+      "family": "tdc",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.expedition_headed_west",
+        "campaign_notes.expedition_headed_east"
+      ],
+      "scenario": "expedition_to_ryleh"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.ruby_won_the_bet",
+        "campaign_notes.ruby_lost_the_bet"
+      ],
+      "scenario": "one_last_job"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.pilgrims_were_saved",
+        "campaign_notes.pilgrims_were_devoured",
+        "campaign_notes.exterminated_the_alien_parasites"
+      ],
+      "scenario": "the_apiary"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "artifacts_earned.barrier_node",
+        "campaign_notes.the_power_was_diverted"
+      ],
+      "scenario": "the_drowned_quarter"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.stood_together",
+        "campaign_notes.your_allies_have_a_plan"
+      ],
+      "scenario": "the_doom_of_arkham_part_2"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cthulhu_annihilated_the_city_of_arkham",
+        "campaign_notes.cthulhu_was_driven_away",
+        "campaign_notes.cthulhu_was_banished",
+        "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed"
+      ],
+      "scenario": "the_doom_of_arkham_part_2"
+    }
+  ]
+}

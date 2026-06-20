@@ -1,0 +1,18 @@
+{
+  "code": "gob",
+  "_notes": "Verified all 4 spans are exact substrings of their entry texts (Xzharah x2, \"the curse of slumber\", \"the Day of Reckoning\"). No sibling collisions: all entries share section campaign_notes but each remains distinguishable after blurring; the two identical \"#name# was taken by the abyss.\" placeholder entries are left unblurred so no new collision is introduced. No over-blur of the campaign name \"Abyss\"/\"abyss\" or the front-loaded \"Brotherhood\" faction. Twist boss Xzharah, endgame prophecy \"Day of Reckoning\", and central mystery \"curse of slumber\" are all correctly blurred. No exotic sections present; section types (notes) match db. Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.tes_aware_of_xzharahs_plan": [
+      "Xzharah"
+    ],
+    "campaign_notes.tes_curse_of_slumber_lifted": [
+      "the curse of slumber"
+    ],
+    "campaign_notes.tnu_day_of_reckoning_is_coming": [
+      "the Day of Reckoning"
+    ],
+    "campaign_notes.tnu_joined_xzharah": [
+      "Xzharah"
+    ]
+  }
+}

@@ -1,0 +1,568 @@
+{
+  "code": "tdea",
+  "name": "The Dream-Quest",
+  "kind": "campaign",
+  "version": 3,
+  "scenarios": [
+    "tde_prologue",
+    "beyond_the_gates_of_sleep",
+    "the_black_cat",
+    "the_search_for_kadath",
+    "the_oneironauts",
+    "dark_side_of_the_moon",
+    "the_great_ones",
+    "where_gods_dwell",
+    "tde_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "evidence_of_kadath",
+      "type": "count"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "dreamers_grow_weaker",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_has_a_hunch",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat",
+      "crossOut": true
+    },
+    {
+      "id": "black_cat_delivered_news",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_at_your_side",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat",
+      "crossOut": true
+    },
+    {
+      "id": "black_cat_shared_knowledge_of_the_dreamlands",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_warned_the_others",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "threaten_black_cat",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "you_asked_for_it",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_black_cat"
+    },
+    {
+      "id": "black_cat_spoke_of_nyarlathotep",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "black_cat_spoke_of_atlach_nacha",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "possess_silver_key",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "black_cat_knows_the_truth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "black_cat_at_your_side_2",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones"
+    },
+    {
+      "id": "dreamers_know_of_another_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_oneironauts"
+    },
+    {
+      "id": "drifter_dream",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "beyond_the_gates_of_sleep",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "saved_by_randolph_carter",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "id": "cats_collected_their_tribute",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "id": "parleyed_with_zoogs",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "id": "strayed_from_the_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "id": "interconnected_campaign",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "half_campaign",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "carried_to_the_cold_wastes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "randolph_did_not_survive_the_voyage",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "travelled_to_the_cold_wastes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "randolph_survived_the_voyage",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "forced_way_into_temple",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "id": "oriab",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_search_for_kadath",
+      "hidden": true
+    },
+    {
+      "id": "minar",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_search_for_kadath",
+      "hidden": true
+    },
+    {
+      "id": "forbidden_lands",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_search_for_kadath",
+      "hidden": true
+    },
+    {
+      "id": "timeless_realm",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_search_for_kadath",
+      "hidden": true
+    },
+    {
+      "id": "broken_the_law_of_ulthar",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "the_search_for_kadath",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "virgil_was_captured",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "id": "randolph_eluded_capture",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "id": "randolph_was_captured",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "id": "captured",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "the_search_for_kadath",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "someone_escaped",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_search_for_kadath",
+      "hidden": true
+    },
+    {
+      "id": "everyone_captured",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_search_for_kadath",
+      "hidden": true
+    },
+    {
+      "id": "grand_design",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell",
+      "hidden": true
+    },
+    {
+      "id": "nyarlathoteps_invasion_has_begun",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "dreamers_escaped_nyarlathoteps_grasp",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "dreamers_banished_nyarlathotep",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "dreamers_awoke",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "dreamers_stayed_in_dreamlands_forever",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "dreamers_traveled_beneath_the_monastery",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_the_gods_dwell"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "follow_orders",
+      "type": "binary",
+      "family": "tdea",
+      "infer": {
+        "type": "logAbsent",
+        "key": "campaign_notes.strayed_from_the_path"
+      },
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "id": "so_cute",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "id": "losing_my_religion",
+      "type": "binary",
+      "family": "tdea",
+      "infer": {
+        "type": "logCount",
+        "key": "evidence_of_kadath",
+        "min": 10
+      },
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "id": "cat_killer",
+      "type": "binary",
+      "family": "tdea",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.broken_the_law_of_ulthar"
+      },
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "id": "spy",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "moon_lizard",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "barkham",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "id": "high_priest",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "hidden_nylar",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "final_form",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "dont_tell",
+      "type": "binary",
+      "family": "tdea",
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "id": "line_in_the_sand",
+      "type": "binary",
+      "family": "tdea",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "dreamlands_expertise",
+      "type": "binary",
+      "family": "tdea",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    {
+      "id": "beware_black_cat",
+      "type": "binary",
+      "family": "tdea",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.threaten_black_cat"
+      }
+    },
+    {
+      "id": "reunited",
+      "type": "binary",
+      "family": "tdea",
+      "requires": {
+        "type": "anyOf",
+        "of": [
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.nyarlathoteps_invasion_has_begun"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.returned_to_reality"
+              }
+            ]
+          },
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.dreamers_awoke"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.returned_to_reality"
+              }
+            ]
+          },
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.dreamers_stayed_in_dreamlands_forever"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.still_in_the_dreamlands"
+              }
+            ]
+          },
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.dreamers_traveled_beneath_the_monastery"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.never_escaped"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cats_collected_their_tribute",
+        "campaign_notes.parleyed_with_zoogs"
+      ],
+      "scenario": "beyond_the_gates_of_sleep"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_eluded_capture",
+        "campaign_notes.randolph_was_captured"
+      ],
+      "scenario": "the_search_for_kadath"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.carried_to_the_cold_wastes",
+        "campaign_notes.travelled_to_the_cold_wastes"
+      ],
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_did_not_survive_the_voyage",
+        "campaign_notes.randolph_survived_the_voyage"
+      ],
+      "scenario": "dark_side_of_the_moon"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.nyarlathoteps_invasion_has_begun",
+        "campaign_notes.dreamers_escaped_nyarlathoteps_grasp",
+        "campaign_notes.dreamers_banished_nyarlathotep"
+      ],
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dreamers_awoke",
+        "campaign_notes.dreamers_stayed_in_dreamlands_forever",
+        "campaign_notes.dreamers_traveled_beneath_the_monastery"
+      ],
+      "scenario": "where_the_gods_dwell"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.black_cat_delivered_news",
+        "campaign_notes.black_cat_shared_knowledge_of_the_dreamlands",
+        "campaign_notes.black_cat_warned_the_others",
+        "campaign_notes.threaten_black_cat"
+      ],
+      "scenario": "the_black_cat"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.black_cat_spoke_of_nyarlathotep",
+        "campaign_notes.black_cat_spoke_of_atlach_nacha"
+      ],
+      "scenario": "the_great_ones"
+    }
+  ]
+}

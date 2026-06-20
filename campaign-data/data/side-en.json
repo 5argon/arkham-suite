@@ -1,0 +1,306 @@
+{
+  "code": "side",
+  "name": "Side Scenarios",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "hidden": "Hidden"
+  },
+  "items": {
+    "84028": "Alien Device",
+    "84031": "Manager's Key",
+    "84034": "Tome of Rituals",
+    "84037": "Sinister Solution",
+    "84040": "Time-Worn Locket"
+  },
+  "entries": {
+    "campaign_notes.atw_defeated_the_wendigo": {
+      "text": "you defated the Wendigo.",
+      "spoiler": [
+        "the Wendigo"
+      ]
+    },
+    "campaign_notes.atw_wendigo_still_roams": {
+      "text": "you know that the Wendigo still roams the North Hanninah valley.",
+      "spoiler": [
+        "the Wendigo"
+      ]
+    },
+    "campaign_notes.olive_has_sworn_off_blood_magic": {
+      "text": "Olive has sworn off blood magic."
+    },
+    "campaign_notes.olive_paid_the_price_for_her_curiosity": {
+      "text": "Olive paid the price for her curiosity."
+    },
+    "campaign_notes.halted_the_blood_ceremony": {
+      "text": "the investigators halted the blood ceremony."
+    },
+    "campaign_notes.used_the_sorcrerers_magic_against_them": {
+      "text": "the investigators used the sorcerers' magic against them."
+    },
+    "campaign_notes.blob_devoured_universe": {
+      "text": "Subject 8L-08 devoured the entire universe.",
+      "spoiler": [
+        "Subject 8L-08"
+      ]
+    },
+    "campaign_notes.blob_contained": {
+      "text": "the anomaly was contained."
+    },
+    "campaign_notes.coh_many_were_sacrificed_to_cnidathqua": {
+      "text": "many were sacrificed to Cnidathqua during the Carnevale.",
+      "spoiler": [
+        "Cnidathqua"
+      ]
+    },
+    "campaign_notes.coh_sun_banished_cnidathqua": {
+      "text": "the sun banished Cnidathqua into the depths.",
+      "spoiler": [
+        "Cnidathqua"
+      ]
+    },
+    "campaign_notes.coh_cnidathqua_retreated": {
+      "text": "Cnidathqua retreated to nurse its wounds.",
+      "spoiler": [
+        "Cnidathqua"
+      ]
+    },
+    "campaign_notes.ritual_at_sea_was_completed": {
+      "text": "the ritual at sea was completed."
+    },
+    "campaign_notes.constellation_was_lost_to_the_depths": {
+      "text": "the Constellation was lost to the depths."
+    },
+    "campaign_notes.ritual_at_sea_was_halted": {
+      "text": "the ritual at sea was halted."
+    },
+    "campaign_notes.constellation_was_saved": {
+      "text": "the Constellation was saved."
+    },
+    "campaign_notes.rougarou_destroyed_and_curse_is_lifted": {
+      "text": "the Rougarou is destroyed, and the curse is lifted."
+    },
+    "campaign_notes.rougarou_escaped_and_embrace_curse": {
+      "text": "the Rougarou escaped, and you embraced the curse."
+    },
+    "campaign_notes.rougarou_continues_to_haunt_the_bayou": {
+      "text": "the Rougarou continues to haunt the bayou."
+    },
+    "campaign_notes.fof_stashed": {
+      "text": "Stashed: #name# (#X#)"
+    },
+    "campaign_notes.fof_alarm_level": {
+      "text": "Alarm level: #name# (#X#)"
+    },
+    "campaign_notes.fof_wellspring_clues": {
+      "text": "Clues on The Wellspring of Fortune: #X#"
+    },
+    "campaign_notes.fof_found_a_vent": {
+      "text": "the investigators found a vent."
+    },
+    "campaign_notes.fof_impersonated_a_high_roller": {
+      "text": "the investigators impersonated a high roller."
+    },
+    "campaign_notes.fof_convinced_isamara": {
+      "text": "the investigators convinced Isamara to participate in the heist."
+    },
+    "campaign_notes.fof_obtained_an_uniform": {
+      "text": "the investigators obtained an employee uniform."
+    },
+    "campaign_notes.fof_stole_keys": {
+      "text": "the investigators stole Abarran's keys."
+    },
+    "campaign_notes.fof_cleaned_out_the_house": {
+      "text": "the investigators cleaned out the house."
+    },
+    "campaign_notes.fof_need_time_to_rest": {
+      "text": "the investigators need time to rest."
+    },
+    "campaign_notes.fof_the_face": {
+      "text": "#name#: The Face"
+    },
+    "campaign_notes.fof_the_muscle": {
+      "text": "#name#: The Muscle"
+    },
+    "campaign_notes.fof_the_thief": {
+      "text": "#name#: The Thief"
+    },
+    "campaign_notes.fof_the_grifter": {
+      "text": "#name#: The Grifter"
+    },
+    "campaign_notes.fof_the_face_practiced": {
+      "text": "#name#: The Face (Practiced)"
+    },
+    "campaign_notes.fof_the_muscle_practiced": {
+      "text": "#name#: The Muscle (Practiced)"
+    },
+    "campaign_notes.fof_the_thief_practiced": {
+      "text": "#name#: The Thief (Practiced)"
+    },
+    "campaign_notes.fof_the_grifter_practiced": {
+      "text": "#name#: The Grifter (Practiced)"
+    },
+    "campaign_notes.cell_meddled_in_abarrans_affairs": {
+      "text": "the cell meddled in Abarran’s affairs."
+    },
+    "campaign_notes.zlf_italy_has_ceased_to_exist": {
+      "text": "Italy has ceased to exist."
+    },
+    "campaign_notes.zlf_ignis_destroy_humanity": {
+      "text": "Ignis will bring about the destruction of humanity.",
+      "spoiler": [
+        "Ignis"
+      ]
+    },
+    "campaign_notes.zlf_ignis_spirit_has_been_crushed": {
+      "text": "Ignis’ spirit has been crushed.",
+      "spoiler": [
+        "Ignis"
+      ]
+    },
+    "campaign_notes.zlf_slain_the_eldrich_god": {
+      "text": "you have slain the eldrich god of fire.",
+      "spoiler": [
+        "the eldrich god of fire"
+      ]
+    },
+    "campaign_notes.meh_excelsior_claims_another_victim": {
+      "text": "the Excelsior claims another victim."
+    },
+    "campaign_notes.meh_fled_scene_of_the_crime": {
+      "text": "the investigators fled the scene of the crime."
+    },
+    "campaign_notes.meh_excelsior_is_quiet_for_now": {
+      "text": "the Excelsior is quiet, for now."
+    },
+    "campaign_notes.meh_murders_continue_unsolved": {
+      "text": "the murders continue, unsolved."
+    },
+    "campaign_notes.madame_labranche_has_lost_her_fortune": {
+      "text": "Madame Labranche has lost her fortune."
+    },
+    "campaign_notes.madame_labranche_has_settled_accounts": {
+      "text": "Madame Labranche has settled accounts."
+    },
+    "campaign_notes.banished_shax": {
+      "text": "the investigators banished Shax.",
+      "spoiler": [
+        "Shax"
+      ]
+    },
+    "campaign_notes.renewed_the_labranches_pact": {
+      "text": "the investigators renewed the Labranches' pact."
+    },
+    "campaign_notes.dr_malesons_experiment_was_a_failure": {
+      "text": "Dr. Maleson's experiment was a failure."
+    },
+    "campaign_notes.dr_maleson_was_lost_between_dimensions": {
+      "text": "Dr. Maleson was lost between dimensions."
+    },
+    "campaign_notes.observed_the_aftereffects_of_the_shift": {
+      "text": "the investigators observed the aftereffects of the shift."
+    },
+    "campaign_notes.gathered_samples_from_another_earth": {
+      "text": "the investigators gathered samples from another Earth."
+    },
+    "campaign_notes.zbs_have_seen_and_understood": {
+      "text": "you have seen, and understood."
+    },
+    "campaign_notes.zbs_the_monolith_broods_in_silence": {
+      "text": "the monolith broods in silence."
+    },
+    "campaign_notes.zcos_abandoned_the_people_of_eastwick": {
+      "text": "you abandoned the people of Eastwick."
+    },
+    "campaign_notes.zcos_fended_off_an_alien_entity": {
+      "text": "you fended off an alien entity."
+    },
+    "campaign_notes.zcos_slaughtered_the_people_of_eastwick": {
+      "text": "you slaughtered the people of Eastwick."
+    },
+    "campaign_notes.tes_dreamers_in_the_abyss": {
+      "text": "dreamers in the abyss (#X#)"
+    },
+    "campaign_notes.tes_escaped_brotherhood": {
+      "text": "Brotherhood Agents Who Escaped: #name#"
+    },
+    "campaign_notes.tes_brotherhood_schemes_continue": {
+      "text": "the Brotherhood’s schemes continue unabated."
+    },
+    "campaign_notes.tes_aware_of_xzharahs_plan": {
+      "text": "you are aware of Xzharah’s plans.",
+      "spoiler": [
+        "Xzharah"
+      ]
+    },
+    "campaign_notes.tes_curse_of_slumber_lifted": {
+      "text": "the curse of slumber was lifted."
+    },
+    "campaign_notes.tes_taken_by_the_abyss": {
+      "text": "#name# was taken by the abyss."
+    },
+    "campaign_notes.zhu_house_of_usher_has_fallen": {
+      "text": "the House of Usher has fallen."
+    },
+    "campaign_notes.zhu_avenged_the_house_of_usher": {
+      "text": "the investigators avenged the House of Usher."
+    },
+    "campaign_notes.tnu_day_of_reckoning_is_coming": {
+      "text": "the Day of Reckoning is coming."
+    },
+    "campaign_notes.tnu_the_abyss_was_saved": {
+      "text": "the Abyss was saved."
+    },
+    "campaign_notes.tnu_taken_by_the_abyss": {
+      "text": "#name# was taken by the abyss."
+    },
+    "campaign_notes.tnu_joined_xzharah": {
+      "text": "you joined forces with Xzharah.",
+      "spoiler": [
+        "Xzharah"
+      ]
+    },
+    "campaign_notes.zez_all_is_quiet": {
+      "text": "all is quiet at Rue d'Auseil… for now."
+    },
+    "campaign_notes.testsuo_made_a_noble_sacrifice": {
+      "text": "Tetsuo made a noble sacrifice."
+    },
+    "campaign_notes.tetsuos_investigation_has_failed": {
+      "text": "Tetsuo's investigation has failed."
+    },
+    "campaign_notes.saved_the_mutated_officer": {
+      "text": "the investigators saved the mutated officer."
+    },
+    "campaign_notes.purged_the_police_station": {
+      "text": "the investigators purged the police station."
+    },
+    "campaign_notes.darios_investment_didnt_pay_off": {
+      "text": "Dario's investment didn't pay off."
+    },
+    "campaign_notes.dario_was_turned_into_solid_gold": {
+      "text": "Dario was turned into solid gold.",
+      "spoiler": [
+        "solid gold"
+      ]
+    },
+    "campaign_notes.banished_the_gilded_spirit": {
+      "text": "the investigators banished the gilded spirit.",
+      "spoiler": [
+        "the gilded spirit"
+      ]
+    },
+    "campaign_notes.repaired_the_golden_artifact": {
+      "text": "the investigators repaired the golden artifact.",
+      "spoiler": [
+        "the golden artifact"
+      ]
+    },
+    "campaign_notes.drill_broke_down": {
+      "text": "the drill broke down."
+    },
+    "campaign_notes.world_screamed": {
+      "text": "the World screamed."
+    }
+  },
+  "achievements": {}
+}

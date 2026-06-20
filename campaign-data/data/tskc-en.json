@@ -1,0 +1,562 @@
+{
+  "code": "tskc",
+  "name": "The Scarlet Keys",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "keys": "Keys",
+    "time": "Time Passed",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.have_not_seen_the_last_of_the_red_gloved_man": {
+      "text": "you haven’t seen the last of the Red-Gloved Man.",
+      "spoiler": [
+        "the Red-Gloved Man"
+      ]
+    },
+    "campaign_notes.cell_told_the_truth_to_taylor": {
+      "text": "the cell told the truth to Taylor."
+    },
+    "campaign_notes.cell_hid_the_truth_from_taylor": {
+      "text": "the cell hid the truth from Taylor."
+    },
+    "campaign_notes.lovers_are_reunited": {
+      "text": "the lovers are reunited.",
+      "spoiler": [
+        "the lovers are reunited"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_amaranth": {
+      "text": "you haven't seen the last of Amaranth.",
+      "spoiler": [
+        "Amaranth"
+      ]
+    },
+    "campaign_notes.amaranth_has_left_the_coterie": {
+      "text": "Amaranth has left the Coterie.",
+      "spoiler": [
+        "Amaranth",
+        "the Coterie"
+      ]
+    },
+    "campaign_notes.wrong_leads": {
+      "text": "Wrong leads: #X#"
+    },
+    "campaign_notes.sanguine_watchers_torment_continues": {
+      "text": "The Sanguine Watcher's torment continues.",
+      "spoiler": [
+        "Sanguine Watcher's"
+      ]
+    },
+    "campaign_notes.chica_roja_is_on_your_side": {
+      "text": "La Chica Roja is on your side.",
+      "spoiler": [
+        "La Chica Roja"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_la_chica_roja": {
+      "text": "you haven't seen the last of La Chica Roja.",
+      "spoiler": [
+        "La Chica Roja"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_the_sanguine_watcher": {
+      "text": "you haven't seen the last of The Sanguine Watcher.",
+      "spoiler": [
+        "The Sanguine Watcher"
+      ]
+    },
+    "campaign_notes.tuwile_masai_is_on_your_side": {
+      "text": "Tuwile Masai is on your side.",
+      "spoiler": [
+        "Tuwile Masai"
+      ]
+    },
+    "campaign_notes.cell_is_working_with_ece": {
+      "text": "the cell is working with Ece.",
+      "spoiler": [
+        "Ece"
+      ]
+    },
+    "campaign_notes.cell_is_deceiving_ece": {
+      "text": "the cell is deceiving Ece.",
+      "spoiler": [
+        "Ece"
+      ]
+    },
+    "campaign_notes.cell_refused_eces_offer": {
+      "text": "the cell refused Ece's offer.",
+      "spoiler": [
+        "Ece's"
+      ]
+    },
+    "campaign_notes.ece_trusts_the_cell": {
+      "text": "Ece trusts the cell.",
+      "spoiler": [
+        "Ece"
+      ]
+    },
+    "campaign_notes.ece_does_not_trust_the_cell": {
+      "text": "Ece does not trust the cell.",
+      "spoiler": [
+        "Ece"
+      ]
+    },
+    "campaign_notes.cell_knows_amaranths_real_name": {
+      "text": "the cell knows Amaranth’s real name.",
+      "spoiler": [
+        "Amaranth’s real name"
+      ]
+    },
+    "campaign_notes.cell_knows_desis_past": {
+      "text": "the cell knows Desi’s past",
+      "spoiler": [
+        "Desi’s past"
+      ]
+    },
+    "campaign_notes.agent_quinn_does_not_trust_the_cell": {
+      "text": "Agent Quinn does not trust the cell.",
+      "spoiler": [
+        "Agent Quinn"
+      ]
+    },
+    "campaign_notes.foundation_remains_in_the_dark": {
+      "text": "the Foundation remains in the dark."
+    },
+    "campaign_notes.cell_is_off_mission": {
+      "text": "the cell is off-mission."
+    },
+    "campaign_notes.cell_made_a_deal_with_desi": {
+      "text": "the cell made a deal with Desi.",
+      "spoiler": [
+        "Desi"
+      ]
+    },
+    "campaign_notes.cell_has_been_ambushed": {
+      "text": "the cell has been ambushed!"
+    },
+    "campaign_notes.have_not_seen_the_last_of_desi": {
+      "text": "you haven’t seen the last of Desiderio Delgado Álvarez.",
+      "spoiler": [
+        "Desiderio Delgado Álvarez"
+      ]
+    },
+    "campaign_notes.desi_is_in_your_debt": {
+      "text": "Desi is in your debt.",
+      "spoiler": [
+        "Desi"
+      ]
+    },
+    "campaign_notes.know_the_passphrase": {
+      "text": "you know the passphrase."
+    },
+    "campaign_notes.cell_did_not_discover_the_truth_in_havana": {
+      "text": "the cell didn’t discover the truth in Havana.",
+      "spoiler": [
+        "Havana"
+      ]
+    },
+    "campaign_notes.erased_from_existence_dm": {
+      "text": "erased from existence: #name#"
+    },
+    "campaign_notes.flint_is_working_solo": {
+      "text": "Flint is working solo.",
+      "spoiler": [
+        "Flint"
+      ]
+    },
+    "campaign_notes.cell_aided_in_flints_investigation": {
+      "text": "the cell aided in Flint’s investigation.",
+      "spoiler": [
+        "Flint"
+      ]
+    },
+    "campaign_notes.flint_abandoned_his_search": {
+      "text": "Flint abandoned his search.",
+      "spoiler": [
+        "Flint"
+      ]
+    },
+    "campaign_notes.cell_made_a_deal_with_thorne": {
+      "text": "the cell made a deal with Thorne.",
+      "spoiler": [
+        "Thorne"
+      ]
+    },
+    "campaign_notes.nothing_of_note_in_anchorage": {
+      "text": "there is nothing of note in Anchorage."
+    },
+    "campaign_notes.void_chimera_escaped": {
+      "text": "the Void Chimera escaped.",
+      "spoiler": [
+        "the Void Chimera"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_thorne": {
+      "text": "you haven’t seen the last of Thorne.",
+      "spoiler": [
+        "Thorne"
+      ]
+    },
+    "campaign_notes.thorne_disappeared": {
+      "text": "Thorne disappeared.",
+      "spoiler": [
+        "Thorne"
+      ]
+    },
+    "campaign_notes.erased_from_existence_oti": {
+      "text": "erased from existence: #name#"
+    },
+    "campaign_notes.cell_appreciated_the_architecture": {
+      "text": "the cell appreciated the architecture."
+    },
+    "campaign_notes.cell_is_delivering_foundation_intel": {
+      "text": "the cell is delivering Foundation intel.",
+      "spoiler": [
+        "Foundation intel"
+      ]
+    },
+    "campaign_notes.cell_made_a_deal_with_the_claret_knight": {
+      "text": "the cell made a deal with the Claret Knight.",
+      "spoiler": [
+        "the Claret Knight"
+      ]
+    },
+    "campaign_notes.cell_is_assisting_agent_sirry": {
+      "text": "the cell is assisting Agent Sirry.",
+      "spoiler": [
+        "Agent Sirry"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_the_claret_knight": {
+      "text": "you haven’t seen the last of the Claret Knight.",
+      "spoiler": [
+        "the Claret Knight"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_the_beast": {
+      "text": "you haven’t seen the last of the Beast in a Cowl of Crimson.",
+      "spoiler": [
+        "the Beast in a Cowl of Crimson"
+      ]
+    },
+    "campaign_notes.cell_aided_the_knight": {
+      "text": "the cell aided the knight."
+    },
+    "campaign_notes.cell_failed_to_fend_off_the_beast": {
+      "text": "the cell failed to fend off the Beast.",
+      "spoiler": [
+        "the Beast"
+      ]
+    },
+    "campaign_notes.dogs_are_at_war": {
+      "text": "the dogs are at war."
+    },
+    "campaign_notes.dr_irawan_traveled_to_new_guinea": {
+      "text": "Dr. Irawan traveled to New Guinea.",
+      "spoiler": [
+        "Dr. Irawan"
+      ]
+    },
+    "campaign_notes.dr_irawan_vanished_from_existence": {
+      "text": "Dr. Irawan vanished from existence.",
+      "spoiler": [
+        "Dr. Irawan"
+      ]
+    },
+    "campaign_notes.cell_met_dr_irawan": {
+      "text": "the cell met Dr. Irawan.",
+      "spoiler": [
+        "Dr. Irawan"
+      ]
+    },
+    "campaign_notes.dr_irawan_joined_the_cell": {
+      "text": "Dr. Irawan joined the cell.",
+      "spoiler": [
+        "Dr. Irawan"
+      ]
+    },
+    "campaign_notes.flint_rejoined_the_cell": {
+      "text": "Flint rejoined the cell.",
+      "spoiler": [
+        "Flint"
+      ]
+    },
+    "campaign_notes.agent_flint_is_missing": {
+      "text": "Agent Flint is missing.",
+      "spoiler": [
+        "Agent Flint"
+      ]
+    },
+    "campaign_notes.agent_flint_is_dead": {
+      "text": "Agent Flint is dead.",
+      "spoiler": [
+        "Agent Flint"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_tzu_san_niang": {
+      "text": "you haven’t seen the last of Tzu San Niang.",
+      "spoiler": [
+        "Tzu San Niang"
+      ]
+    },
+    "campaign_notes.tzu_san_niang_is_under_your_sway": {
+      "text": "Tzu San Niang is under your sway.",
+      "spoiler": [
+        "Tzu San Niang"
+      ]
+    },
+    "campaign_notes.tzu_san_niang_has_you_under_her_sway": {
+      "text": "Tzu San Niang has you under her sway.",
+      "spoiler": [
+        "Tzu San Niang"
+      ]
+    },
+    "campaign_notes.agent_quinn_vanished_from_existence": {
+      "text": "Agent Quinn vanished from existence.",
+      "spoiler": [
+        "Agent Quinn"
+      ]
+    },
+    "campaign_notes.flint_traveled_to_kuala_lampur": {
+      "text": "Flint traveled to Kuala Lumpur.",
+      "spoiler": [
+        "Flint"
+      ]
+    },
+    "campaign_notes.cell_possesses_a_mysterious_whistle": {
+      "text": "the cell possesses a mysterious whistle.",
+      "spoiler": [
+        "whistle"
+      ]
+    },
+    "campaign_notes.cell_refused_alikis_offer": {
+      "text": "the cell refused Aliki’s offer.",
+      "spoiler": [
+        "Aliki’s"
+      ]
+    },
+    "campaign_notes.tuwile_masai_fled_to_bermuda": {
+      "text": "Tuwile Masai fled to Bermuda.",
+      "spoiler": [
+        "Tuwile Masai"
+      ]
+    },
+    "campaign_notes.cell_blew_the_whistle": {
+      "text": "the cell blew the whistle.",
+      "spoiler": [
+        "whistle"
+      ]
+    },
+    "campaign_notes.agent_quinn_has_your_back": {
+      "text": "Agent Quinn has your back.",
+      "spoiler": [
+        "Agent Quinn"
+      ]
+    },
+    "campaign_notes.cell_threw_away_the_whistle": {
+      "text": "the cell threw away the whistle.",
+      "spoiler": [
+        "whistle"
+      ]
+    },
+    "campaign_notes.cell_was_hollowed": {
+      "text": "the cell was hollowed.",
+      "spoiler": [
+        "hollowed"
+      ]
+    },
+    "campaign_notes.have_not_seen_the_last_of_aliki_zoni_uperetria": {
+      "text": "you haven’t seen the last of Aliki Zoni Uperetria.",
+      "spoiler": [
+        "Aliki Zoni Uperetria"
+      ]
+    },
+    "campaign_notes.cell_knows_the_true_nature_of_the_coterie": {
+      "text": "the cell knows the true nature of the Coterie.",
+      "spoiler": [
+        "the true nature of the Coterie"
+      ]
+    },
+    "campaign_notes.aliki_is_on_your_side": {
+      "text": "Aliki is on your side.",
+      "spoiler": [
+        "Aliki"
+      ]
+    },
+    "campaign_notes.cell_escaped_the_red_coterie": {
+      "text": "the cell escaped the Red Coterie.",
+      "spoiler": [
+        "the Red Coterie"
+      ]
+    },
+    "campaign_notes.cell_overthrew_the_red_coterie": {
+      "text": "the cell overthrew the Red Coterie.",
+      "spoiler": [
+        "the Red Coterie"
+      ]
+    },
+    "campaign_notes.cell_joined_the_red_coterie": {
+      "text": "the cell joined the Red Coterie.",
+      "spoiler": [
+        "the Red Coterie"
+      ]
+    },
+    "campaign_notes.red_coterie_spared_the_cell": {
+      "text": "the Red Coterie spared the cell.",
+      "spoiler": [
+        "the Red Coterie"
+      ]
+    },
+    "campaign_notes.red_coterie_was_destroyed_from_within": {
+      "text": "the Red Coterie was destroyed from within.",
+      "spoiler": [
+        "the Red Coterie"
+      ]
+    },
+    "campaign_notes.outsiders_were_stopped": {
+      "text": "the Outsiders were stopped.",
+      "spoiler": [
+        "the Outsiders"
+      ]
+    },
+    "campaign_notes.work_together": {
+      "text": "the Red Coterie and The Foundation agreed to work together.",
+      "spoiler": [
+        "the Red Coterie and The Foundation"
+      ]
+    },
+    "campaign_notes.trust": {
+      "text": "Foundation Trust: #X#"
+    },
+    "campaign_notes.deception": {
+      "text": "Cell Deception: #X#"
+    },
+    "campaign_notes.cell_was_given_a_permanent_position": {
+      "text": "the cell was given a permanent position."
+    },
+    "campaign_notes.cell_was_dismantled": {
+      "text": "the cell was dismantled."
+    }
+  },
+  "achievements": {
+    "clued_in": {
+      "title": "Clued In",
+      "text": "Do not spend or drop a single clue via treachery cards in <i>Riddles and Rain</i>."
+    },
+    "take_that": {
+      "title": "Take That, Ghulat",
+      "text": "Ensure that not a single civilian is slain in <i>Dead Heat</i>."
+    },
+    "whats_in_a_name": {
+      "title": "What’s in a Name?",
+      "text": "Tell Amaranth her real name in <i>Dead Heat</i>."
+    },
+    "porque": {
+      "title": "Porque No Los Dos?",
+      "text": "Defeat both copies of Desi simultaneously in <i>Dancing Mad</i>."
+    },
+    "lost_and_found": {
+      "title": "Lost and Found",
+      "text": "Take control of the Twisted Antiprism without a single clue on Clues Unveiled in <i>Dealings in the Dark</i>."
+    },
+    "tower_defense": {
+      "title": "I Like Tower Defense Games",
+      "text": "Defend The Claret Knight without any Key Locuses being destroyed in <i>Dogs of War v. I.</i>"
+    },
+    "play_with_food": {
+      "title": "Play With Your Food",
+      "text": "Steal The Light of Pharos from either The Claret Knight or The Beast in a Cowl of Crimson while they have exactly 1 health remaining in <i>Dogs of War v. II or v. III</i>."
+    },
+    "destroyed_chimera": {
+      "title": "More Like “Destroyed” Chimera",
+      "text": "Defeat all five forms of the Void Chimera in a single session of <i>On Thin Ice</i>."
+    },
+    "watch_watcher": {
+      "title": "Who Watches the Watcher?",
+      "text": "Unlock a secret final act in <i>Sanguine Shadows</i>."
+    },
+    "under_umbrella": {
+      "title": "Under My Umbrella",
+      "text": "Do not let Tzu San Niang devour a single Geist enemy in <i>Shades of Suffering</i>."
+    },
+    "all_hollow": {
+      "title": "All Hollow",
+      "text": "Learn about a place where Outsiders dwell and travel there to unlock <i>Without a Trace</i>."
+    },
+    "red_looks_good": {
+      "title": "Red Looks Good on Me",
+      "text": "Join the Red Coterie in <i>Congress of the Keys</i>."
+    },
+    "bloody_red": {
+      "title": "Bloody Red Revolution",
+      "text": "Overthrow the Red Coterie in <i>Congress of the Keys</i>."
+    },
+    "powers_combined": {
+      "title": "With Your Powers Combined…",
+      "text": "Shift 5 keys in a single turn."
+    },
+    "gift_of_gab": {
+      "title": "Gift of Gab",
+      "text": "Ensure that Commissioner Taylor orders you to “talk” 3 times during a single campaign."
+    },
+    "cuisine": {
+      "title": "“I’m Just Here for the Local Cuisine”",
+      "text": "In a single campaign, sample cuisine and/or visit bars or cafes from the following locations: Marrakesh, Havana, Buenos Aires, Tokyo, and Kuala Lumpur."
+    },
+    "speed_demon": {
+      "title": "Speed Demon",
+      "text": "Win <i>The Scarlet Keys</i> campaign with only 17 or fewer time passed."
+    },
+    "trust_nobody": {
+      "title": "Trust Nobody",
+      "text": "Win <i>The Scarlet Keys</i> campaign with 4 [elder_thing] tokens in the chaos bag and without ever removing any [elder_thing] tokens."
+    },
+    "trust_everybody": {
+      "title": "Trust Everybody",
+      "text": "Win <i>The Scarlet Keys</i> campaign with 4 [tablet] tokens in the chaos bag and without ever removing any [tablet] tokens."
+    },
+    "badge": {
+      "title": "Here is Your Badge",
+      "text": "Win <i>The Scarlet Keys</i> campaign and earn yourself a permanent position in the Foundation."
+    },
+    "heart": {
+      "title": "Key to My Heart",
+      "text": "Collect each of the following keys throughout <i>The Scarlet Keys</i> campaign:",
+      "items": {
+        "eye_of_ravens": "The Eye of Ravens",
+        "last_blossom": "The Last Blossom",
+        "light_of_pharos": "The Light of Pharos",
+        "sable_glass": "The Sable Glass",
+        "weeping_lady": "The Weeping Lady",
+        "twisted_antiprism": "The Twisted Antiprism",
+        "shade_reaper": "The Shade Reaper",
+        "mirroring_blade": "The Mirroring Blade",
+        "bale_engine": "The Bale Engine",
+        "ruinous_chime": "The Ruinous Chime",
+        "wellspring_of_fortune": "The Wellspring of Fortune"
+      }
+    },
+    "line_in_sand": {
+      "title": "Line in the Sand",
+      "text": "Win <i>The Scarlet Keys</i> campaign with at least three Ultimatums active."
+    },
+    "global_expertise": {
+      "title": "Global Expertise",
+      "text": "Win <i>The Scarlet Keys</i> campaign on Expert difficulty."
+    }
+  },
+  "items": {
+    "eye_of_ravens": "The Eye of Ravens",
+    "last_blossom": "The Last Blossom",
+    "light_of_pharos": "The Light of Pharos",
+    "sable_glass": "The Sable Glass",
+    "weeping_lady": "The Weeping Lady",
+    "twisted_antiprism": "The Twisted Antiprism",
+    "shade_reaper": "The Shade Reaper",
+    "mirroring_blade": "The Mirroring Blade",
+    "bale_engine": "The Bale Engine",
+    "ruinous_chime": "The Ruinous Chime",
+    "wellspring_of_fortune": "The Wellspring of Fortune"
+  }
+}

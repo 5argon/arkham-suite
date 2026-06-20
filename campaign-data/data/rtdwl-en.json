@@ -1,0 +1,224 @@
+{
+  "code": "rtdwl",
+  "name": "Return to The Dunwich Legacy",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "sacrificed": "Sacrificed to Yog-Sothoth",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.henry_armitage_kidnapped": {
+      "text": "Dr. Henry Armitage was kidnapped."
+    },
+    "campaign_notes.henry_armitage_rescued": {
+      "text": "the investigators rescued Dr. Henry Armitage."
+    },
+    "campaign_notes.ritual_completed": {
+      "text": "the ritual was completed."
+    },
+    "campaign_notes.killed_silas_bishop": {
+      "text": "the investigators put Silas Bishop out of his misery.",
+      "spoiler": [
+        "Silas Bishop"
+      ]
+    },
+    "campaign_notes.restored_silas_bishop": {
+      "text": "the investigators restored Silas Bishop.",
+      "spoiler": [
+        "Silas Bishop"
+      ]
+    },
+    "campaign_notes.banished_silas_bishop": {
+      "text": "the investigators banished Silas Bishop.",
+      "spoiler": [
+        "Silas Bishop"
+      ]
+    },
+    "campaign_notes.necronomicon_stolen": {
+      "text": "the Necronomicon was stolen.",
+      "spoiler": [
+        "the Necronomicon"
+      ]
+    },
+    "campaign_notes.henry_armitage_survived": {
+      "text": "Dr. Henry Armitage survived The Dunwich Legacy."
+    },
+    "campaign_notes.investigators_delayed": {
+      "text": "the investigators were delayed on their way to Dunwich."
+    },
+    "campaign_notes.francis_morgan_kidnapped": {
+      "text": "Dr. Francis Morgan was kidnapped."
+    },
+    "campaign_notes.warren_rice_kidnapped": {
+      "text": "Professor Warren Rice was kidnapped."
+    },
+    "campaign_notes.students_rescued": {
+      "text": "the students were rescued."
+    },
+    "campaign_notes.experiment_defeated": {
+      "text": "the Experiment was defeated.",
+      "spoiler": [
+        "the Experiment"
+      ]
+    },
+    "campaign_notes.unconscious_for_several_hours": {
+      "text": "the investigators were unconscious for several hours."
+    },
+    "campaign_notes.warren_rice_rescued": {
+      "text": "the investigators rescued Professor Warren Rice."
+    },
+    "campaign_notes.failed_to_save_students": {
+      "text": "the investigators failed to save the students."
+    },
+    "campaign_notes.closed_tear": {
+      "text": "the investigators closed the tear in reality."
+    },
+    "campaign_notes.yog_sothoth_fled": {
+      "text": "Yog-Sothoth has fled to another dimension.",
+      "spoiler": [
+        "Yog-Sothoth"
+      ]
+    },
+    "campaign_notes.yog_sothoth_became_one_with_reality": {
+      "text": "Yog-Sothoth tore apart the barriers between worlds, and became one with all reality.",
+      "spoiler": [
+        "Yog-Sothoth"
+      ]
+    },
+    "campaign_notes.warren_rice_survived": {
+      "text": "Professor Warren Rice survived The Dunwich Legacy."
+    },
+    "campaign_notes.francis_morgan_survived": {
+      "text": "Dr. Francis Morgan survived The Dunwich Legacy."
+    },
+    "campaign_notes.zebulon_whateley_survived": {
+      "text": "Zebulon Whateley survived The Dunwich Legacy."
+    },
+    "campaign_notes.earl_sawyer_survived": {
+      "text": "Earl Sawyer survived The Dunwich Legacy."
+    },
+    "campaign_notes.bone_to_pick": {
+      "text": "the O'Bannion gang has a bone to pick with the investigators.",
+      "spoiler": [
+        "O'Bannion"
+      ]
+    },
+    "campaign_notes.naomi_has_back": {
+      "text": "Naomi has the investigators' back.",
+      "spoiler": [
+        "Naomi"
+      ]
+    },
+    "campaign_notes.francis_morgan_rescued": {
+      "text": "the investigators rescued Dr. Francis Morgan."
+    },
+    "campaign_notes.failed_to_recover_necronomicon": {
+      "text": "the investigators failed to recover the Necronomicon.",
+      "spoiler": [
+        "the Necronomicon"
+      ]
+    },
+    "campaign_notes.destroyed_necronomicon": {
+      "text": "the investigators destroyed the Necronomicon.",
+      "spoiler": [
+        "the Necronomicon"
+      ]
+    },
+    "campaign_notes.took_necronomicon": {
+      "text": "the investigators took custody of the Necronomicon.",
+      "spoiler": [
+        "the Necronomicon"
+      ]
+    },
+    "campaign_notes.calmed_townsfolk": {
+      "text": "you calmed the townsfolk."
+    },
+    "campaign_notes.warned_townsfolk": {
+      "text": "you warned the townsfolk."
+    },
+    "campaign_notes.brood_escaped": {
+      "text": "#X# brood escaped into the wild."
+    },
+    "campaign_notes.no_brood_escaped": {
+      "text": "No brood escaped into the wild."
+    },
+    "campaign_notes.entered_the_gate": {
+      "text": "the investigators entered the gate."
+    },
+    "campaign_notes.yog_sothoth_escaped": {
+      "text": "Yog-Sothoth tore apart the barrier between worlds, and became one with all reality.",
+      "spoiler": [
+        "Yog-Sothoth"
+      ]
+    }
+  },
+  "achievements": {
+    "what_is_this_stuff": {
+      "title": "What Is This Stuff, Anyway?",
+      "text": "Defeat The Experiment using the Alchemical Concoction in “Extracurricular Activities”."
+    },
+    "no_void_for_you": {
+      "title": "No Void For You",
+      "text": "Complete “The Miskatonic Museum” without ever defeating the Hunting Horror."
+    },
+    "first_rule_of_arkham": {
+      "title": "First Rule of Arkham",
+      "text": "Burn The Necronomicon in “The Miskatonic Museum.”"
+    },
+    "all_aboard": {
+      "title": "All Aboard",
+      "text": "Complete “The Essex County Express” without letting any Helpless Passengers leave play."
+    },
+    "gangs_all_here": {
+      "title": "The Gang’s All Here",
+      "text": "In “The Survivors,” the following characters <i>survived The Dunwich Legacy</i>:",
+      "items": {
+        "armitage": "Dr. Henry Armitage",
+        "morgan": "Dr. Francis Morgan",
+        "rice": "Professor Warren Rice",
+        "whateley": "Zebulon Whateley",
+        "sawyer": "Earl Sawyer"
+      }
+    },
+    "no_brood_left_behind": {
+      "title": "No Brood Left Behind",
+      "text": "Have no Broods of Yog-Sothoth escape into the wild in “Undimensioned and Unseen.”"
+    },
+    "remind_me_not_to_piss_her_off": {
+      "title": "Remind Me Not To Piss Her Off",
+      "text": "Defeat either version of Seth Bishop while Naomi O’Bannion is under your control."
+    },
+    "eureka": {
+      "title": "Eureka!",
+      "text": "Identify the Strange Solution."
+    },
+    "beyond_what_veil": {
+      "title": "Beyond What Veil?",
+      "text": "Take 10 damage from Beyond the Veil without being defeated."
+    },
+    "here_we_go_again": {
+      "title": "Here We Go Again",
+      "text": "Have Dr. Henry Armitage, Dr. Francis Morgan, and Professor Warren Rice in play at the same time."
+    },
+    "bird_hunting": {
+      "title": "Bird Hunting",
+      "text": "Defeat 3 Whippoorwills in a single turn."
+    },
+    "they_arent_getting_away_with_this": {
+      "title": "They Aren’t Getting Away With This",
+      "text": "Win <i>The Dunwich Legacy</i> campaign as “Ashcan” Pete with Duke listed under “Sacrificed to Yog-Sothoth.”"
+    },
+    "tabula_rasa": {
+      "title": "Tabula Rasa",
+      "text": "Win The Dunwich Legacy campaign with no [tablet] or [elder_thing] tokens in the chaos bag."
+    },
+    "dwl_line_in_the_sand": {
+      "title": "Line in the Sand",
+      "text": "Win <i>The Dunwich Legacy</i> campaign with at least three Ultimatums active."
+    },
+    "dunwich_expertise": {
+      "title": "Dunwich Expertise",
+      "text": "Win <i>The Dunwich Legacy</i> campaign on Expert difficulty."
+    }
+  }
+}

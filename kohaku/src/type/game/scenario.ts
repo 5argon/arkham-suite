@@ -88,8 +88,7 @@ export enum Scenario {
   ReturnToTheWagesOfSin = 'return_to_the_wages_of_sin',
   ReturnToForTheGreaterGood = 'return_to_for_the_greater_good',
   ReturnToUnionAndDisillusion = 'return_to_union_and_disillusion',
-  ReturnToInTheClutchesOfChaos1 = 'return_to_in_the_clutches_of_chaos_1',
-  ReturnToInTheClutchesOfChaos2 = 'return_to_in_the_clutches_of_chaos_2',
+  ReturnToInTheClutchesOfChaos = 'return_to_in_the_clutches_of_chaos',
   ReturnToBeforeTheBlackThrone = 'return_to_before_the_black_throne',
 
   // The Innsmouth Conspiracy
@@ -118,9 +117,7 @@ export enum Scenario {
   IceAndDeathPart3 = 'ice_and_death_part_3',
   FatalMirage = 'fatal_mirage',
   ToTheForbiddenPeaks = 'to_the_forbidden_peaks',
-  CityOfTheElderThings1 = 'city_of_the_elder_things_1',
-  CityOfTheElderThings2 = 'city_of_the_elder_things_2',
-  CityOfTheElderThings3 = 'city_of_the_elder_things_3',
+  CityOfTheElderThings = 'city_of_the_elder_things',
   TheHeartOfMadnessPart1 = 'the_heart_of_madness_part_1',
   TheHeartOfMadnessPart2 = 'the_heart_of_madness_part_2',
 
@@ -560,14 +557,9 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
     index: 7,
     representativeSet: EncounterSet.ReturnToUnionAndDisillusion,
   },
-  [Scenario.ReturnToInTheClutchesOfChaos1]: {
-    scenario: Scenario.ReturnToInTheClutchesOfChaos1,
+  [Scenario.ReturnToInTheClutchesOfChaos]: {
+    scenario: Scenario.ReturnToInTheClutchesOfChaos,
     index: 8,
-    representativeSet: EncounterSet.ReturnToInTheClutchesOfChaos,
-  },
-  [Scenario.ReturnToInTheClutchesOfChaos2]: {
-    scenario: Scenario.ReturnToInTheClutchesOfChaos2,
-    index: 9,
     representativeSet: EncounterSet.ReturnToInTheClutchesOfChaos,
   },
   [Scenario.ReturnToBeforeTheBlackThrone]: {
@@ -686,19 +678,9 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
     index: 6,
     representativeSet: EncounterSet.ToTheForbiddenPeaks,
   },
-  [Scenario.CityOfTheElderThings1]: {
-    scenario: Scenario.CityOfTheElderThings1,
+  [Scenario.CityOfTheElderThings]: {
+    scenario: Scenario.CityOfTheElderThings,
     index: 7,
-    representativeSet: EncounterSet.CityOfTheElderThings,
-  },
-  [Scenario.CityOfTheElderThings2]: {
-    scenario: Scenario.CityOfTheElderThings2,
-    index: 8,
-    representativeSet: EncounterSet.CityOfTheElderThings,
-  },
-  [Scenario.CityOfTheElderThings3]: {
-    scenario: Scenario.CityOfTheElderThings3,
-    index: 9,
     representativeSet: EncounterSet.CityOfTheElderThings,
   },
   [Scenario.TheHeartOfMadnessPart1]: {
@@ -899,14 +881,8 @@ const arkhamCardsScenarioIdOverrides: Partial<Record<Scenario, string | null>> =
   [Scenario.WhereTheGodsDwell]: 'where_gods_dwell',
   [Scenario.TheUntamedWilds]: 'wilds',
   [Scenario.TheDoomOfEztli]: 'eztli',
-  // ArkhamCards keeps City of the Elder Things a single scenario (no parts).
-  [Scenario.CityOfTheElderThings1]: 'city_of_the_elder_things',
-  [Scenario.CityOfTheElderThings2]: 'city_of_the_elder_things',
-  [Scenario.CityOfTheElderThings3]: 'city_of_the_elder_things',
   // ArkhamCards reuses the base id / keeps these single.
   [Scenario.ReturnToDisappearanceAtTheTwilightEstate]: 'disappearance_at_the_twilight_estate',
-  [Scenario.ReturnToInTheClutchesOfChaos1]: 'return_to_in_the_clutches_of_chaos',
-  [Scenario.ReturnToInTheClutchesOfChaos2]: 'return_to_in_the_clutches_of_chaos',
   // The Scarlet Keys — modelled by location in ArkhamCards; no 1:1 id.
   [Scenario.DeadHeat]: null,
   [Scenario.SanguineShadows]: null,

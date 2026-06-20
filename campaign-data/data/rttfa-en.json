@@ -1,0 +1,220 @@
+{
+  "code": "rttfa",
+  "name": "Return to The Forgotten Age",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "yigs_fury": "Yig's Fury",
+    "supplies": "Supplies",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.process_was_perfected": {
+      "text": "the process was perfected."
+    },
+    "campaign_notes.recruited_help_of_another_expedition": {
+      "text": "the investigators recruited the help of another expedition."
+    },
+    "campaign_notes.harbinger_alive": {
+      "text": "the Harbinger is still alive (#X# damage).",
+      "spoiler": [
+        "the Harbinger"
+      ]
+    },
+    "campaign_notes.gave_relic_to_alejandro": {
+      "text": "the investigators gave custody of the relic to Alejandro."
+    },
+    "campaign_notes.earned_alejandros_trust": {
+      "text": "the investigators have earned Alejandro’s trust."
+    },
+    "campaign_notes.gave_relic_to_harlan": {
+      "text": "the investigators gave custody of the relic to Harlan Earnstone."
+    },
+    "campaign_notes.alejandro_on_his_own": {
+      "text": "Alejandro is continuing his research on his own."
+    },
+    "campaign_notes.investigators_recovered_relic": {
+      "text": "the investigators recovered the Relic of Ages."
+    },
+    "campaign_notes.alejandro_recovered_relic": {
+      "text": "Alejandro recovered the Relic of Ages."
+    },
+    "campaign_notes.paths_known": {
+      "text": "#X# paths are known to you."
+    },
+    "campaign_notes.jungle_watches": {
+      "text": "the jungle watches (#name# x#X#)."
+    },
+    "campaign_notes.mended_tear_in_time": {
+      "text": "the investigators mended the tear in time."
+    },
+    "campaign_notes.investigators_saved_serpents": {
+      "text": "the investigators saved the civilization of the Serpents."
+    },
+    "campaign_notes.investigators_saved_yithians": {
+      "text": "the investigators saved the civilization of the Yithians."
+    },
+    "campaign_notes.fabric_of_time_unwoven": {
+      "text": "the fabric of time is unwoven."
+    },
+    "campaign_notes.turned_back_time": {
+      "text": "the investigarors turned back time."
+    },
+    "campaign_notes.ichtaca_has_confidence": {
+      "text": "Ichtaca has confidence in you."
+    },
+    "campaign_notes.cooperated_with_yithians": {
+      "text": "the investigators cooperated with the Yithians."
+    },
+    "campaign_notes.resisted_captivity": {
+      "text": "the investigators resisted captivity."
+    },
+    "campaign_notes.had_memories_expunged": {
+      "text": "the investigators had their memories expunged."
+    },
+    "campaign_notes.process_was_successful": {
+      "text": "the process was successful."
+    },
+    "campaign_notes.process_backfired": {
+      "text": "the process backfired."
+    },
+    "campaign_notes.process_backfired_spectacularly": {
+      "text": "the process backfired spectacularly."
+    },
+    "campaign_notes.relic_is_missing": {
+      "text": "the relic is missing."
+    },
+    "campaign_notes.ichtaca_set_against": {
+      "text": "Ichtaca is set against you."
+    },
+    "campaign_notes.found_missing_relic": {
+      "text": "the investigators found the missing relic."
+    },
+    "campaign_notes.fell_into_depths": {
+      "text": "the investigators fell into the depths."
+    },
+    "campaign_notes.nexus_is_near": {
+      "text": "the nexus is near.",
+      "spoiler": [
+        "the nexus"
+      ]
+    },
+    "campaign_notes.forging_own_path": {
+      "text": "you are forging your own path."
+    },
+    "campaign_notes.rescued_alejandro": {
+      "text": "the investigators rescued Alejandro."
+    },
+    "campaign_notes.alejandro_is_missing": {
+      "text": "Alejandro is missing."
+    },
+    "campaign_notes.forged_bond_with_ichtaca": {
+      "text": "the investigators forged a bond with Ichtaca."
+    },
+    "campaign_notes.ichtaca_in_the_dark": {
+      "text": "Ichtaca is in the dark."
+    },
+    "campaign_notes.sealed_relic_of_ages_forever": {
+      "text": "the investigators sealed the Relic of Ages forever."
+    },
+    "campaign_notes.wait_for_additional_supplies": {
+      "text": "the investigators were forced to wait for additional supplies."
+    },
+    "campaign_notes.ichtaca_observed_progress": {
+      "text": "Ichtaca observed your progress with keen interest."
+    },
+    "campaign_notes.earned_ichtacas_trust": {
+      "text": "the investigators have earned Ichtaca’s trust."
+    },
+    "campaign_notes.alejandro_followed_to_ruins": {
+      "text": "Alejandro followed the investigators into the ruins."
+    },
+    "campaign_notes.ichtaca_is_wary": {
+      "text": "Ichtaca is wary of the investigators."
+    },
+    "campaign_notes.alejandro_remained_at_camp": {
+      "text": "Alejandro chose to remain at camp."
+    },
+    "campaign_notes.cleared_path_to_temple": {
+      "text": "the investigators cleared a path to the Eztli ruins."
+    }
+  },
+  "achievements": {
+    "why_did_it_have_to_be_snakes": {
+      "title": "Why Did It Have to Be Snakes?",
+      "text": "Defeat twenty [[Serpent]] enemies."
+    },
+    "watch_them_unravel": {
+      "title": "Watch Them Unravel",
+      "text": "Complete all four act decks during a single playthrough of “Threads of Fate.”"
+    },
+    "hope_for_humanity": {
+      "title": "Hope for Humanity",
+      "text": "Restore Ichtaca’s faith in humanity in “The Boundary Beyond.”"
+    },
+    "scenario_5_what": {
+      "title": "Scenario 5-What?",
+      "text": "Skip “Heart of the Elders, Part 1.”"
+    },
+    "beyond_perfection": {
+      "title": "Beyond Perfection:",
+      "text": "Complete all eight tasks on act 2 of “The City of Archives” during a single playthrough."
+    },
+    "i_remember_everything": {
+      "title": "I Remember Everything",
+      "text": "Restore Alejandro’s memories in “The City of Archives.”"
+    },
+    "patricide": {
+      "title": "Patricide",
+      "text": "Defeat Yig in “The Depths of Yoth.”"
+    },
+    "hes_got_a_point": {
+      "title": "He's Got a Point",
+      "text": "Side with Alejandro in “Shattered Aeons.”"
+    },
+    "valusia_sounds_great": {
+      "title": "Valusia Sounds Great",
+      "text": "Side with Ichtaca in “Shattered Aeons.”"
+    },
+    "built_up_an_immunity": {
+      "title": "I’ve Built Up An Immunity",
+      "text": "Win <i>The Forgotten Age</i> campaign without ever becoming poisoned."
+    },
+    "we_have_an_understanding": {
+      "title": "We Have an Understanding",
+      "text": "Win <i>The Forgotten Age</i> campaign without ever dealing any damage to the Harbinger of Valusia."
+    },
+    "who_needs_any_of_this_junk": {
+      "title": "Who Needs Any of This Junk?",
+      "text": "Win <i>The Forgotten Age</i> campaign without purchasing any supplies."
+    },
+    "dont_tread_on_me": {
+      "title": "Don’t Tread on Me",
+      "text": "Win <i>The Forgotten Age</i> campaign with no tally marks recorded under Yig’s Fury in your Campaign Log"
+    },
+    "bane_of_yig": {
+      "title": "Bane of Yig",
+      "text": "Win <i>The Forgotten Age</i> campaign with 25+ tally marks recorded under Yig’s Fury in your Campaign Log."
+    },
+    "if_i_could_turn_back_time": {
+      "title": "If I Could Turn Back Time",
+      "text": "Forge your own path, unlock Scenario IX, and win <i>The Forgotten Age</i> campaign."
+    },
+    "yoth_expertise": {
+      "title": "Yoth Expertise",
+      "text": "Win <i>The Forgotten Age</i> campaign on Expert difficulty"
+    }
+  },
+  "items": {
+    "provisions": "Provisions",
+    "medicine": "Medicine",
+    "rope": "Rope",
+    "blanket": "Blanket",
+    "canteen": "Canteen",
+    "torches": "Torches",
+    "compass": "Compass",
+    "map": "Map",
+    "binoculars": "Binoculars",
+    "chalk": "Chalk",
+    "pendant": "Pendant"
+  }
+}

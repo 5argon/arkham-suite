@@ -1,0 +1,51 @@
+{
+  "code": "side",
+  "_notes": "Verified all 15 spans are exact substrings of their entry texts (note \"Ignis\" entries use a curly apostrophe in \"Ignis' spirit\" but the blurred token \"Ignis\" itself matches; \"Hanninah's\" and \"Dario's\"/sibling use straight apostrophe). No sibling collisions: within Carnevale the three Cnidathqua entries stay distinguishable by surrounding text; the two Ignis entries differ; Xzharah appears in two different scenario entries within campaign_notes but reads differently. No over-blur of scenario-title creatures (Wendigo, Rougarou, Excelsior, Constellation, House of Usher) or disambiguating NPCs. No under-blur found: hidden gods Ithaqua/Cnidathqua/Ignis/Shax/Xzharah and reveal outcomes (Subject 8L-08, eldrich god of fire, Hanninah's gold, solid-gold transformations) are all blurred. No exotic roster sections needed — only notes/cards/count kinds; the cards-bearing section (\"hidden\") is itself hidden. Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.blob_devoured_universe": [
+      "Subject 8L-08"
+    ],
+    "campaign_notes.coh_many_were_sacrificed_to_cnidathqua": [
+      "Cnidathqua"
+    ],
+    "campaign_notes.coh_sun_banished_cnidathqua": [
+      "Cnidathqua"
+    ],
+    "campaign_notes.coh_cnidathqua_retreated": [
+      "Cnidathqua"
+    ],
+    "campaign_notes.zlf_ignis_destroy_humanity": [
+      "Ignis"
+    ],
+    "campaign_notes.zlf_ignis_spirit_has_been_crushed": [
+      "Ignis"
+    ],
+    "campaign_notes.zlf_slain_the_eldrich_god": [
+      "the eldrich god of fire"
+    ],
+    "campaign_notes.banished_shax": [
+      "Shax"
+    ],
+    "campaign_notes.tes_aware_of_xzharahs_plan": [
+      "Xzharah"
+    ],
+    "campaign_notes.tnu_joined_xzharah": [
+      "Xzharah"
+    ],
+    "campaign_notes.dario_was_turned_into_solid_gold": [
+      "solid gold"
+    ],
+    "campaign_notes.banished_the_gilded_spirit": [
+      "the gilded spirit"
+    ],
+    "campaign_notes.repaired_the_golden_artifact": [
+      "the golden artifact"
+    ],
+    "campaign_notes.atw_defeated_the_wendigo": [
+      "the Wendigo"
+    ],
+    "campaign_notes.atw_wendigo_still_roams": [
+      "the Wendigo"
+    ]
+  }
+}

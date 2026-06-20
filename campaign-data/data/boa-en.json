@@ -1,0 +1,101 @@
+{
+  "code": "boa",
+  "name": "Brethren of Ash",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.miskatonic_university_burned": {
+      "text": "Miskatonic University burned."
+    },
+    "campaign_notes.defeated_their_masked_pursuer": {
+      "text": "the investigators defeated their masked pursuer."
+    },
+    "campaign_notes.saved_miskatonic_university": {
+      "text": "the investigators saved Miskatonic University."
+    },
+    "campaign_notes.david_harbinger": {
+      "text": "David Renfield is the harbinger of Elokoss.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.cornelia_harbinger": {
+      "text": "Cornelia Akely is the harbinger of Elokoss.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.naomi_harbinger": {
+      "text": "Naomi O'Bannion is the harbinger of Elokoss.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.earl_harbinger": {
+      "text": "Sgt. Earl Monroe is the harbinger of Elokoss.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.abigail_harbinger": {
+      "text": "Abigail Foreman is the harbinger of Elokoss.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.margaret_harbinger": {
+      "text": "Margaret Liu is the harbinger of Elokoss.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.discovered_the_cults_whereabouts": {
+      "text": "the investigators discovered the cult's whereabouts."
+    },
+    "campaign_notes.failed_in_their_search": {
+      "text": "the investigators failed in their search."
+    },
+    "campaign_notes.killed_the_servant_of_flame": {
+      "text": "the investigators killed the Servant of Flame",
+      "spoiler": [
+        "the Servant of Flame"
+      ]
+    },
+    "campaign_notes.scoured_arkham_for_answers": {
+      "text": "the investigators scoured Arkham for answers."
+    },
+    "campaign_notes.stirred_up_trouble": {
+      "text": "the investigators stirred up trouble."
+    },
+    "campaign_notes.the_servant_of_flame_escaped": {
+      "text": "the Servant of Flame escaped.",
+      "spoiler": [
+        "the Servant of Flame"
+      ]
+    },
+    "campaign_notes.elokoss_was_reborn": {
+      "text": "Elokoss was reborn.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.defeated_elokoss_and_the_brethren_of_ash": {
+      "text": "the investigators defeated Elokoss and the Brethren of Ash.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.stopped_elokoss_glorious_rebirth": {
+      "text": "the investigators stopped Elokoss’s glorious rebirth.",
+      "spoiler": [
+        "Elokoss"
+      ]
+    },
+    "campaign_notes.flooded_the_ritual": {
+      "text": "the investigators flooded the Brethren of Ash’s summoning ritual."
+    }
+  },
+  "achievements": {}
+}

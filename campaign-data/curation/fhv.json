@@ -1,0 +1,417 @@
+{
+  "code": "fhv",
+  "_notes": "Verified all 22 spans are exact substrings of their entry text (incl. curly apostrophe in \"Madame Pearl’s diary\"). No sibling collisions: the 3 Chelydran Hybrid entries (perished/lived/was devoured), 4 Bertie entries (lost/rescued/epiphany/perished), and 2 Dr. Marquez entries (plan/hunch) all stay distinct by their remaining verbs after blurring. Resident names left unblurred (visible relationship section titles, needed to disambiguate shared-a-dance/stood-by-you/sacrificed siblings). Endgame/twist reveals (Pearl Ruins/Family, Madame Pearl's diary, Captain Hemlock, Annabelle Lee, true Feast of Hemlock Vale, Dr. Marquez, Helen, Bertie) are blurred. No exotic sections present (only notes/relationship/checklist/investigator_count). Curation accepted unchanged — no invalid spans, no collisions, no over/under-blur found.",
+  "spoilers": {
+    "leah.searched_the_pearl_ruins": [
+      "the Pearl Ruins"
+    ],
+    "campaign_notes.laid_the_pearl_family_to_rest": [
+      "the Pearl Family"
+    ],
+    "campaign_notes.madame_pearls_diary_was_recovered": [
+      "Madame Pearl’s diary"
+    ],
+    "theo.theo_reconciled_with_helen": [
+      "Helen"
+    ],
+    "campaign_notes.the_peters_family_was_reunited": [
+      "Peters family"
+    ],
+    "campaign_notes.elizabeth_peters_was_saved": [
+      "Elizabeth Peters"
+    ],
+    "campaign_notes.chelydran_hybrid_perished": [
+      "Chelydran Hybrid"
+    ],
+    "campaign_notes.chelydran_hybrid_lived": [
+      "Chelydran Hybrid"
+    ],
+    "campaign_notes.chelydran_hybrid_devoured": [
+      "Chelydran Hybrid"
+    ],
+    "gideon.gideon_told_the_story_of_captain_hemlock": [
+      "Captain Hemlock"
+    ],
+    "campaign_notes.helen_peters_joined_the_survey": [
+      "Helen Peters"
+    ],
+    "campaign_notes.bertie_was_lost_in_the_woods": [
+      "Bertie"
+    ],
+    "campaign_notes.bertie_was_rescued": [
+      "Bertie"
+    ],
+    "gideon.gideon_told_the_tale_of_the_annabelle_lee": [
+      "the Annabelle Lee"
+    ],
+    "campaign_notes.helen_shared_a_dance": [
+      "Helen"
+    ],
+    "campaign_notes.bertie_had_an_epiphany": [
+      "Bertie"
+    ],
+    "campaign_notes.dr_marquez_has_a_plan": [
+      "Dr. Marquez"
+    ],
+    "campaign_notes.dr_marquez_has_a_hunch": [
+      "Dr. Marquez"
+    ],
+    "campaign_notes.bertie_perished": [
+      "Bertie"
+    ],
+    "gideon.gideon_finished_the_tale_of_the_annabelle_lee": [
+      "the Annabelle Lee"
+    ],
+    "campaign_notes.became_the_true_feast_of_hemlock_vale": [
+      "the true Feast of Hemlock Vale"
+    ],
+    "campaign_notes.dr_marquez_sacrificed_herself_for_the_vale": [
+      "Dr. Marquez"
+    ]
+  },
+  "achievements": {
+    "apertif": {
+      "infer": {
+        "type": "anyOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.the_vale_was_saved"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.the_vale_burned"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.barely_survived"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.became_the_true_feast_of_hemlock_vale"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+          }
+        ]
+      }
+    },
+    "settling_the_score": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.thing_in_the_depths_was_defeated"
+      },
+      "scenario": "the_thing_in_the_depths"
+    },
+    "high_dive": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.investigators_sacrificed_themselves_for_the_vale"
+      },
+      "scenario": "fate_of_the_vale"
+    },
+    "line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "hemlock_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "hold_onto_your_potatoes": {
+      "scenario": "written_in_rock"
+    },
+    "dream_home_breakover": {
+      "scenario": "hemlock_house"
+    },
+    "here_crabby_crabby": {
+      "scenario": "the_lost_sister"
+    },
+    "a_different_kind_of_string_ops": {
+      "scenario": "the_silent_heath"
+    },
+    "wait_theres_no_shrouded_shrine": {
+      "scenario": "the_twisted_hollow"
+    },
+    "bear_necessities": {
+      "scenario": "the_longest_night"
+    },
+    "oblivion_shmoblivion": {
+      "scenario": "fate_of_the_vale"
+    },
+    "know_your_place": {
+      "infer": {
+        "type": "logCount",
+        "key": "rachel",
+        "min": 3
+      }
+    },
+    "heart_of_steel": {
+      "infer": {
+        "type": "logCount",
+        "key": "judith",
+        "min": 7
+      }
+    },
+    "holding_out_for_a_himbo": {
+      "infer": {
+        "type": "logCount",
+        "key": "theo",
+        "min": 7
+      }
+    },
+    "life_of_the_party": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "logCount",
+            "key": "rachel",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "leah",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "simeon",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "william",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "river",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "gideon",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "judith",
+            "min": 2
+          },
+          {
+            "type": "logCount",
+            "key": "theo",
+            "min": 2
+          }
+        ]
+      }
+    },
+    "best_friends_forever": {
+      "itemInfer": {
+        "leah": {
+          "type": "logCount",
+          "key": "leah",
+          "min": 6
+        },
+        "simeon": {
+          "type": "logCount",
+          "key": "simeon",
+          "min": 6
+        },
+        "william": {
+          "type": "logCount",
+          "key": "william",
+          "min": 6
+        },
+        "river": {
+          "type": "logCount",
+          "key": "river",
+          "min": 6
+        },
+        "gideon": {
+          "type": "logCount",
+          "key": "gideon",
+          "min": 6
+        }
+      }
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "simeon.simeon_survived",
+        "leah.leah_saw_something_in_the_mine",
+        "simeon.simeon_disappeared",
+        "leah.leah_and_simeon_were_reunited",
+        "campaign_notes.survived_the_horrors_in_the_rock"
+      ],
+      "scenario": "Written in Rock"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.laid_the_pearl_family_to_rest",
+        "campaign_notes.remains_were_partially_recovered"
+      ],
+      "scenario": "The Silent Heath"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.the_peters_family_was_reunited",
+        "campaign_notes.elizabeth_peters_was_saved"
+      ],
+      "scenario": "The Lost Sister"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.chelydran_hybrid_perished",
+        "campaign_notes.chelydran_hybrid_lived",
+        "campaign_notes.chelydran_hybrid_devoured"
+      ],
+      "scenario": "The Thing in the Depths"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.mother_rachel_showed_the_way",
+        "campaign_notes.lost_the_path"
+      ],
+      "scenario": "The Twisted Hollow"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.bertie_was_rescued",
+        "campaign_notes.bertie_was_lost_in_the_woods"
+      ],
+      "scenario": "The Twisted Hollow"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.captives_were_saved",
+        "campaign_notes.many_captives_were_lost",
+        "campaign_notes.all_the_captives_were_lost"
+      ],
+      "scenario": "The Longest Night"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.lied_to_mother_rachel",
+        "campaign_notes.interrupted_the_feast"
+      ],
+      "scenario": "The Final Evening"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.became_the_true_feast_of_hemlock_vale",
+        "campaign_notes.dr_marquez_sacrificed_herself_for_the_vale",
+        "campaign_notes.investigators_sacrificed_themselves_for_the_vale",
+        "campaign_notes.the_vale_was_saved",
+        "campaign_notes.the_vale_burned",
+        "campaign_notes.barely_survived"
+      ],
+      "scenario": "Fate of the Vale"
+    }
+  ],
+  "sections": {
+    "rachel": {
+      "type": "relationship",
+      "min": 0,
+      "max": 3,
+      "_note": "Mother Rachel. Cap 3 confirmed from achievement 'know_your_place' (infer logCount rachel min:3) in campaign.json; 'life_of_the_party' requires logCount rachel min:2. Relationship Level = number of increases applied via $relationship effects."
+    },
+    "leah": {
+      "type": "relationship",
+      "min": 0,
+      "max": 6,
+      "_note": "Leah Atwood. Cap 6 confirmed from achievement 'best_friends_forever' (itemInfer leah logCount min:6) in campaign.json."
+    },
+    "simeon": {
+      "type": "relationship",
+      "min": 0,
+      "max": 6,
+      "_note": "Simeon Atwood. Cap 6 confirmed from achievement 'best_friends_forever' (itemInfer simeon logCount min:6) in campaign.json."
+    },
+    "william": {
+      "type": "relationship",
+      "min": 0,
+      "max": 6,
+      "_note": "William Hemlock. Cap 6 confirmed from achievement 'best_friends_forever' (itemInfer william logCount min:6) in campaign.json."
+    },
+    "river": {
+      "type": "relationship",
+      "min": 0,
+      "max": 6,
+      "_note": "River Hawthorne. Cap 6 confirmed from achievement 'best_friends_forever' (itemInfer river logCount min:6). River's level can also DECREASE (decrease_river_relationship effect in 02_written_in_rock.json), so min:0 is meaningful here."
+    },
+    "gideon": {
+      "type": "relationship",
+      "min": 0,
+      "max": 6,
+      "_note": "Gideon Mizrah. Cap 6 confirmed from achievement 'best_friends_forever' (itemInfer gideon logCount min:6) in campaign.json."
+    },
+    "judith": {
+      "type": "relationship",
+      "min": 0,
+      "max": 7,
+      "_note": "Judith Park. Cap 7 confirmed from achievement 'heart_of_steel' (infer logCount judith min:7) in campaign.json."
+    },
+    "theo": {
+      "type": "relationship",
+      "min": 0,
+      "max": 7,
+      "_note": "Theo Peters. Cap 7 confirmed from achievement 'holding_out_for_a_himbo' (infer logCount theo min:7) in campaign.json."
+    },
+    "areas_surveyed": {
+      "type": "checklist",
+      "items": [
+        {
+          "id": "north_point_mine",
+          "label": "North Point Mine"
+        },
+        {
+          "id": "hemlock_harbor",
+          "label": "Hemlock Harbor"
+        },
+        {
+          "id": "pearl_ridge",
+          "label": "Pearl Ridge"
+        },
+        {
+          "id": "akwan_shoreline",
+          "label": "Akwan Shoreline"
+        },
+        {
+          "id": "eastwick_bog",
+          "label": "Eastwick Bog"
+        },
+        {
+          "id": "western_woods",
+          "label": "Western Woods"
+        },
+        {
+          "id": "southern_fields",
+          "label": "Southern Fields"
+        }
+      ],
+      "_note": "Checklist of areas surveyed; each box is checked when the named scenario completes. Item ids and labels (and scenario mapping via 'description') taken verbatim from campaign.json checklist: North Point Mine=Written in Rock, Hemlock Harbor=Hemlock House, Pearl Ridge=The Silent Heath, Akwan Shoreline=The Lost Sister, Eastwick Bog=The Thing in the Depths, Western Woods=The Twisted Hollow, Southern Fields=The Longest Night."
+    },
+    "hemlock_curse_count": {
+      "type": "investigatorCount",
+      "perInvestigator": true,
+      "_note": "Hidden per-investigator counter introduced in 'Dawn of the Second Day' (09_dawn_of_the_second_day.json, the_hemlock_curse). Set via campaign_log_investigator_count on section hemlock_curse_count with operation 'set', value 1 for each investigator who finished their meal (effectively a per-investigator flag/accumulator). No fixed numeric cap found in the reference."
+    }
+  }
+}

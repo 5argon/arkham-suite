@@ -1,0 +1,198 @@
+{
+  "code": "tic",
+  "_notes": "Verified all 13 spans are exact substrings of their entry texts, including apostrophe variants: straight ' for possess_a_map/possess_the_key/escaped_yhanthlei (entry text uses Y'ha-nthlei straight); curly ’ for guardian_of_yhanthlei and gateway_to_yhanthlei (entry text uses Y’ha-nthlei curly). All valid.\n\nSibling-collision checks pass: Terror alive/dead differ by 'still alive.'/'dead.' after blur; Dagon awakened/slumbers differ by 'has awakened.'/'still slumbers.'; the two Deep Ones entries keep distinct remaining text ('the plot of ▓ was thwarted.' vs '▓ have flooded the Earth.').\n\nNo changes made — curation is correct as proposed. Defensible borderline kept: 'Dagon' is blurred in dagon_has_awakened/dagon_still_slumbers even though the word appears publicly in visible hideout 'Esoteric Order of Dagon'; the reveal is the god's awakening/slumber state (a boss/endgame twist), not the faction name, so blurring stays. 'the flood has begun', 'mission failed/succeeded', Falcon Point sunrise, riches lost/destroyed, Harper mission, *_out_for_blood, suspect/hideout rosters, and all memories_recovered correctly left unblurred as scaffolding or front-loaded investigation choices. No exotic roster sections (possesses_a_diving_suit is a kind:cards choice with no card codes to resolve). Hidden-section bookkeeping entries (flashbacks, accuse_*, defeated_suspects, correct_guesses, the_accusation, act_2_setup) are not in the en draft, so nothing to drop.",
+  "spoilers": {
+    "campaign_notes.possess_a_map_of_yhanthlei": [
+      "Y'ha-nthlei"
+    ],
+    "campaign_notes.possess_the_key_to_yhanthlei": [
+      "Y'ha-nthlei"
+    ],
+    "campaign_notes.terror_of_devil_reef_is_still_alive": [
+      "the Terror of Devil Reef"
+    ],
+    "campaign_notes.terror_of_devil_reef_is_dead": [
+      "the Terror of Devil Reef"
+    ],
+    "campaign_notes.guardian_of_yhanthlei_is_dispatched": [
+      "the guardian of Y’ha-nthlei"
+    ],
+    "campaign_notes.gatekeeper_has_been_defeated": [
+      "the gatekeeper"
+    ],
+    "campaign_notes.gateway_to_yhanthlei_recognizes_you_as_its_rightful_keeper": [
+      "Y’ha-nthlei"
+    ],
+    "campaign_notes.escaped_yhanthlei": [
+      "Y'ha-nthlei"
+    ],
+    "campaign_notes.innsmouth_was_consumed_by_the_rising_tide": [
+      "consumed by the rising tide"
+    ],
+    "campaign_notes.plot_of_the_deep_ones_was_thwarted": [
+      "the Deep Ones"
+    ],
+    "campaign_notes.deep_ones_have_flooded_the_earth": [
+      "the Deep Ones"
+    ],
+    "campaign_notes.dagon_has_awakened": [
+      "Dagon"
+    ],
+    "campaign_notes.dagon_still_slumbers": [
+      "Dagon"
+    ]
+  },
+  "achievements": {
+    "wake_up": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "memories_recovered.meeting_with_thomas_dawson"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.battle_with_a_horrifying_devil"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.decision_to_stick_together"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.encounter_with_a_secret_cult"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.a_deal_with_joe_sargent"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.a_followed_lead"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.an_intervention"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.a_jailbreak"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.discovery_of_a_strange_idol"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.discovery_of_an_unholy_mantle"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.discovery_of_a_mystical_relic"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.conversation_with_mr_moore"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.lifecycle_of_a_deep_one"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.stinging_betrayal"
+          },
+          {
+            "type": "log",
+            "key": "memories_recovered.horrific_truth"
+          }
+        ]
+      }
+    },
+    "line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    "expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    },
+    "die_already": {
+      "scenario": "the_pit_of_despair"
+    },
+    "elementary": {
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    "no_break_stride": {
+      "scenario": "in_too_deep"
+    },
+    "speeding_ticket": {
+      "scenario": "horror_in_high_gear"
+    },
+    "locked_in_here": {
+      "scenario": "a_light_in_the_fog"
+    },
+    "fish_out_of_water": {
+      "scenario": "into_the_maelstrom"
+    },
+    "dont_wake_daddy": {}
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.terror_of_devil_reef_is_still_alive",
+        "campaign_notes.terror_of_devil_reef_is_dead"
+      ],
+      "scenario": "devil_reef"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dagon_still_slumbers",
+        "campaign_notes.dagon_has_awakened"
+      ],
+      "scenario": "the_lair_of_dagon"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.mission_failed",
+        "campaign_notes.mission_succeeded"
+      ],
+      "scenario": "the_vanishing_of_elina_harper"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.reached_falcon_point_after_sunrise",
+        "campaign_notes.reached_falcon_point_before_sunrise"
+      ],
+      "scenario": "horror_in_high_gear"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.plot_of_the_deep_ones_was_thwarted",
+        "campaign_notes.flood_has_begun",
+        "campaign_notes.deep_ones_have_flooded_the_earth"
+      ],
+      "scenario": "into_the_maelstrom"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.agent_harpers_mission_is_complete",
+        "campaign_notes.riches_of_the_deep_are_lost_forever",
+        "campaign_notes.agent_harpers_mission_is_complete_at_what_cost",
+        "campaign_notes.riches_of_the_deep_are_destroyed_at_what_cost"
+      ],
+      "scenario": "into_the_maelstrom"
+    }
+  ]
+}

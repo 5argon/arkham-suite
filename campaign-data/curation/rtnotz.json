@@ -1,0 +1,116 @@
+{
+  "code": "rtnotz",
+  "_notes": "Verified all 5 spans as exact substrings of their entry texts (Umôrdhoth confirmed with circumflex ô; right-single-quote in arkham_succumbed does not affect the span). All entries are in the single `campaign_notes` section. Sibling-collision check passed: the four Umôrdhoth-blurred entries remain distinct (\"Arkham succumbed to ___'s terrible vengeance\", \"the ritual to summon ___ was broken\", \"the investigators repelled ___\", \"the investigators sacrificed Lita Chantler to ___\"). Lita Chantler correctly left unblurred (front-loaded ally NPC; also keeps lita_sacrificed distinguishable). Generic scaffolding (house_burned, house_standing, lita_finds_others, past_midnight) correctly unblurred. No exotic roster section needed: only sections are notes + two dynamic-input cards sections (cultists_interrogated/escaped, no fixed roster) + hidden. No changes required to the proposed curation.",
+  "spoilers": {
+    "campaign_notes.ghoul_priest_alive": [
+      "the Ghoul Priest"
+    ],
+    "campaign_notes.arkham_succumbed": [
+      "Umôrdhoth"
+    ],
+    "campaign_notes.ritual_broken": [
+      "Umôrdhoth"
+    ],
+    "campaign_notes.umordhoth_repelled": [
+      "Umôrdhoth"
+    ],
+    "campaign_notes.lita_sacrificed": [
+      "Umôrdhoth"
+    ]
+  },
+  "achievements": {
+    "dont_trust_her": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.lita_finds_others"
+      },
+      "scenario": "the_gathering",
+      "shared": true
+    },
+    "insurance": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.house_burned"
+      },
+      "scenario": "the_gathering",
+      "shared": true
+    },
+    "notz_line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      },
+      "shared": true
+    },
+    "arkham_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      },
+      "shared": true
+    },
+    "zealots_revent": {
+      "shared": true
+    },
+    "do_i_have_to": {
+      "scenario": "the_midnight_masks",
+      "shared": true
+    },
+    "conspiracy_of_silence": {
+      "scenario": "the_midnight_masks",
+      "shared": true,
+      "infer": {
+        "type": "sectionCount",
+        "section": "cultists_interrogated",
+        "min": 6
+      }
+    },
+    "tour_of_arkham": {
+      "scenario": "the_midnight_masks",
+      "shared": true
+    },
+    "do_you_get_it_now": {
+      "scenario": "the_midnight_masks"
+    },
+    "even_death_may_die": {
+      "scenario": "the_devourer_below"
+    },
+    "break_the_circle": {
+      "scenario": "the_devourer_below",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.ritual_broken"
+      }
+    },
+    "pinch_hitter": {
+      "shared": true
+    },
+    "theyre_just_misunderstood": {
+      "shared": true
+    },
+    "umordhoths_favor": {
+      "shared": true
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.house_burned",
+        "campaign_notes.house_standing"
+      ],
+      "scenario": "The Gathering"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.arkham_succumbed",
+        "campaign_notes.ritual_broken",
+        "campaign_notes.umordhoth_repelled",
+        "campaign_notes.lita_sacrificed"
+      ],
+      "scenario": "The Devourer Below"
+    }
+  ]
+}

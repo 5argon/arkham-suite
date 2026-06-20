@@ -1,0 +1,204 @@
+{
+  "code": "ptc",
+  "name": "The Path to Carcosa",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "chasing_the_stranger": "Chasing the Stranger",
+    "vips_interviewed": "VIPs Interviewed",
+    "vips_slain": "VIPs Slain",
+    "doubt": "Doubt",
+    "conviction": "Conviction",
+    "hidden": "Hidden"
+  },
+  "items": {
+    "03066b": "Jordan Perry",
+    "03069b": "Ashleigh Clarke",
+    "03068b": "Sebastien Moreau",
+    "03067b": "Ishimaru Haruko",
+    "03065b": "Constance Dumaine"
+  },
+  "entries": {
+    "campaign_notes.did_not_escape_gaze": {
+      "text": "you did not escape the gaze of the phantom.",
+      "spoiler": [
+        "the phantom"
+      ]
+    },
+    "campaign_notes.found_nigels_home": {
+      "text": "you found Nigel's home."
+    },
+    "campaign_notes.found_nigel_engram": {
+      "text": "you found Nigel Engram.",
+      "spoiler": [
+        "Engram"
+      ]
+    },
+    "campaign_notes.unable_to_find_nigel": {
+      "text": "you were unable to find Nigel."
+    },
+    "campaign_notes.opened_path_below": {
+      "text": "you opened the path below."
+    },
+    "campaign_notes.opened_path_above": {
+      "text": "you opened the path above."
+    },
+    "campaign_notes.carcosa_merged": {
+      "text": "the realm of Carcosa merged with our own, and Hastur rules over them both.",
+      "spoiler": [
+        "Hastur"
+      ]
+    },
+    "campaign_notes.stranger_is_on_to_you": {
+      "text": "the Stranger is on to you."
+    },
+    "campaign_notes.tried_to_warn_police": {
+      "text": "you tried to warn the police."
+    },
+    "campaign_notes.police_are_suspicious": {
+      "text": "the police are suspicious of you."
+    },
+    "campaign_notes.chose_not_to_warn_police": {
+      "text": "you chose not to go to the police."
+    },
+    "campaign_notes.prevented_hasturs_escape": {
+      "text": "the investigators prevented Hastur from escaping his prison.",
+      "spoiler": [
+        "Hastur"
+      ]
+    },
+    "campaign_notes.possessed": {
+      "text": "#name# was possessed."
+    },
+    "campaign_notes.hastur_has_you": {
+      "text": "Hastur has you in his grasp.",
+      "spoiler": [
+        "Hastur"
+      ]
+    },
+    "campaign_notes.took_onyx_clasp": {
+      "text": "you took the onyx clasp.",
+      "spoiler": [
+        "the onyx clasp"
+      ]
+    },
+    "campaign_notes.destroyed_the_oathspeaker": {
+      "text": "you destroyed the oathspeaker.",
+      "spoiler": [
+        "the oathspeaker"
+      ]
+    },
+    "campaign_notes.left_onyx_clasp": {
+      "text": "you left the onyx clasp behind.",
+      "spoiler": [
+        "the onyx clasp"
+      ]
+    },
+    "campaign_notes.followers_of_sign_found_way": {
+      "text": "the followers of the sign have found the way forward.",
+      "spoiler": [
+        "the followers of the sign"
+      ]
+    },
+    "campaign_notes.ignored_daniels_warning": {
+      "text": "you ignored Daniel’s warning."
+    },
+    "campaign_notes.heeded_daniels_warning": {
+      "text": "you heeded Daniel’s warning."
+    },
+    "campaign_notes.fled_dinner_party": {
+      "text": "you fled the dinner party."
+    },
+    "campaign_notes.intruded_on_secret_meeting": {
+      "text": "you intruded on a secret meeting."
+    },
+    "campaign_notes.slayed_the_monsters": {
+      "text": "you slayed the monsters at the dinner party."
+    },
+    "campaign_notes.entered_catacombs": {
+      "text": "you entered the catacombs on your own."
+    },
+    "campaign_notes.awoke_inside_catacombs": {
+      "text": "you awoke inside the catacombs."
+    },
+    "campaign_notes.know_site_of_gate": {
+      "text": "you know the site of the gate."
+    },
+    "campaign_notes.read_act_2": {
+      "text": "#name# read Act 2 of The King in Yellow."
+    },
+    "campaign_notes.attacked_as_you_escaped_arkham": {
+      "text": "the investigators were attacked as they escaped the Asylum."
+    },
+    "campaign_notes.escaped_the_asylum": {
+      "text": "the investigators escaped the Asylum."
+    },
+    "campaign_notes.king_claimed_victims": {
+      "text": "the King claimed its victims."
+    }
+  },
+  "achievements": {
+    "fair_warning": {
+      "title": "Fair Warning",
+      "text": "Defeat the Royal Emissary three times during a single playthrough of “Curtain Call.”"
+    },
+    "first_steps": {
+      "title": "First Steps",
+      "text": "Interview the following VIPs in “The Last King”:",
+      "items": {
+        "constance": "Constance Dumaine",
+        "jordan": "Jordan Perry",
+        "haruko": "Ishimaru Haruko",
+        "sebastien": "Sebastien Moreau",
+        "ashleigh": "Ashleigh Clarke"
+      }
+    },
+    "crashing_the_party": {
+      "title": "Crashing the Party",
+      "text": "Defeat the [[Lunatic]] version of Dianne Devine in “The Last King.”"
+    },
+    "for_prying_eyes": {
+      "title": "For Prying Eyes",
+      "text": "Add the Hidden Library to the victory display in “Echoes of the Past.”"
+    },
+    "cuckoos_nest": {
+      "title": "The Cuckoo's Nest",
+      "text": "Resign with Daniel Chesterfield under an investigator’s control in “The Unspeakable Oath.”"
+    },
+    "guessing_game": {
+      "title": "Guessing Game",
+      "text": "Advance to the final agenda of one agenda deck before advacing the first agenda of the other agenda deck in “Black Stars Rise.”"
+    },
+    "hastur_made_me_do_it": {
+      "title": "Hastur Made Me Do It",
+      "text": "Defeat Hastur in “Dim Carcosa” while a Possession treachery is in your hand."
+    },
+    "say_my_name": {
+      "title": "Say My Name",
+      "text": "After you have <i>heeded Daniel’s warning</i>, speak the name of HASTUR aloud seven or more times during a single scenario (or its setup)."
+    },
+    "get_back_here": {
+      "title": "Get Back Here",
+      "text": "Win <i>The Path to Carcosa</i> campaign having never ended a scenario with The Man in the Pallid Mask in play"
+    },
+    "path_is_false": {
+      "title": "The Path is False",
+      "text": "Win <i>The Path to Carcosa</i> campaign with <b>8 Doubt</b>."
+    },
+    "path_is_real": {
+      "title": "The Path is Real",
+      "text": "Win <i>The Path to Carcosa</i> campaign with <b>8 Conviction</b>."
+    },
+    "path_is_mine": {
+      "title": "The Path is Mine",
+      "text": "Win <i>The Path to Carcosa</i> campaign with less than <b>2 Doubt</b> and <b>Conviction</b> in total."
+    },
+    "ptc_line_in_the_sand": {
+      "title": "Line in the Sand",
+      "text": "Win <i>The Path to Carcosa</i> campaign with at least three Ultimatums active."
+    },
+    "carcosa_expertise": {
+      "title": "Carcosa Expertise",
+      "text": "Win <i>The Path to Carcosa</i> campaign on Expert difficulty."
+    }
+  }
+}

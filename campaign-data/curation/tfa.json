@@ -1,0 +1,203 @@
+{
+  "code": "tfa",
+  "_notes": "Verified against tfa-en.draft.json and tfa-db.draft.json. Span \"the Harbinger\" is an exact substring of \"the Harbinger is still alive (#X# damage).\" and is the only Harbinger/count-style sibling in campaign_notes, so blurring leaves it distinguishable (\"is still alive (#X# damage).\"). No sibling collisions: Alejandro/Harlan/Relic of Ages/Eztli are front-loaded in the prologue and left visible (rule 3); Ichtaca is an early recurring companion left visible to keep siblings distinct; Serpents/Yithians faction pairs (investigators_saved_serpents/investigators_saved_yithians, cooperated_with_yithians) differ only by the faction noun so it stays visible (rule 2). nexus/depths/tear in time/fabric of time are generic endgame scaffolding, each the sole sibling of its kind, so left unblurred. The en draft contains ONLY campaign_notes entries, so no hidden-section bookkeeping entries to drop. Supplies roster: the published tfa-en/db and rttfa references do not enumerate the items, so the 11-item list is taken from the canonical TFA prologue supplies step (Provisions x2 and Medicine x2 are the multiple-allowed ones). Labels/ids verified internally consistent; none are spoilers (visible prologue section). No changes needed.",
+  "spoilers": {
+    "campaign_notes.harbinger_alive": [
+      "the Harbinger"
+    ]
+  },
+  "sections": {
+    "supplies": {
+      "type": "supplies",
+      "items": [
+        {
+          "id": "provisions",
+          "label": "Provisions",
+          "cost": 1,
+          "repeatable": true
+        },
+        {
+          "id": "medicine",
+          "label": "Medicine",
+          "cost": 2,
+          "repeatable": true
+        },
+        {
+          "id": "rope",
+          "label": "Rope",
+          "cost": 3,
+          "repeatable": false
+        },
+        {
+          "id": "blanket",
+          "label": "Blanket",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "canteen",
+          "label": "Canteen",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "torches",
+          "label": "Torches",
+          "cost": 3,
+          "repeatable": false
+        },
+        {
+          "id": "compass",
+          "label": "Compass",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "map",
+          "label": "Map",
+          "cost": 3,
+          "repeatable": false
+        },
+        {
+          "id": "binoculars",
+          "label": "Binoculars",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "chalk",
+          "label": "Chalk",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "pendant",
+          "label": "Pendant",
+          "cost": 1,
+          "repeatable": false
+        }
+      ],
+      "perInvestigator": true,
+      "_note": "Recorded per investigator under each investigator's 'Supplies' section. Purchased in the prologue 'supplies' input with supply points (points array by player count: [10,7,5,4]). cost = supply 'cost' field. repeatable maps to the prologue 'multiple' flag (Provisions, Medicine only). All item ids, labels, costs, and repeatable flags verified against prologue.json and tfa-db.json."
+    },
+    "yigs_fury": {
+      "type": "count",
+      "perInvestigator": false,
+      "min": 0,
+      "_note": "Campaign-wide 'Yig's Fury' counter (campaign.json section title 'Yig's Fury', type 'count'). Accumulates across scenarios. No fixed cap in the reference; achievement 'bane_of_yig' infers logCount min 25 and 'dont_tread_on_me' infers logCount max 0, so it can range from 0 upward with no max set. Not per-investigator."
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.investigators_recovered_relic",
+        "campaign_notes.alejandro_recovered_relic"
+      ],
+      "scenario": "The Doom of Eztli"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.wait_for_additional_supplies",
+        "campaign_notes.cleared_path_to_temple"
+      ],
+      "scenario": "The Untamed Wilds"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.earned_ichtacas_trust",
+        "campaign_notes.ichtaca_observed_progress",
+        "campaign_notes.ichtaca_is_wary"
+      ],
+      "scenario": "The Untamed Wilds"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.alejandro_followed_to_ruins",
+        "campaign_notes.alejandro_remained_at_camp"
+      ],
+      "scenario": "The Untamed Wilds"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.gave_relic_to_alejandro",
+        "campaign_notes.gave_relic_to_harlan"
+      ],
+      "scenario": "Expedition's End"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.earned_alejandros_trust",
+        "campaign_notes.alejandro_on_his_own"
+      ],
+      "scenario": "Expedition's End"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cooperated_with_yithians",
+        "campaign_notes.resisted_captivity"
+      ],
+      "scenario": "The City of Archives"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.process_was_perfected",
+        "campaign_notes.process_was_successful",
+        "campaign_notes.process_backfired",
+        "campaign_notes.process_backfired_spectacularly",
+        "campaign_notes.had_memories_expunged"
+      ],
+      "scenario": "The City of Archives"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.found_missing_relic",
+        "campaign_notes.relic_is_missing"
+      ],
+      "scenario": "Threads of Fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.rescued_alejandro",
+        "campaign_notes.alejandro_is_missing"
+      ],
+      "scenario": "Threads of Fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.forged_bond_with_ichtaca",
+        "campaign_notes.ichtaca_in_the_dark"
+      ],
+      "scenario": "Threads of Fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.fell_into_depths",
+        "campaign_notes.nexus_is_near"
+      ],
+      "scenario": "The Depths of Yoth"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.mended_tear_in_time",
+        "campaign_notes.investigators_saved_serpents",
+        "campaign_notes.investigators_saved_yithians",
+        "campaign_notes.fabric_of_time_unwoven",
+        "campaign_notes.turned_back_time"
+      ],
+      "scenario": "Shattered Aeons"
+    }
+  ]
+}

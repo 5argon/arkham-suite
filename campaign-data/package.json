@@ -1,0 +1,24 @@
+{
+  "name": "@5argon/arkham-campaign-data",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "generate": "node tools/generate.mjs",
+    "regen": "node tools/extract.mjs --all && node tools/apply.mjs --all && node tools/validate.mjs --all && node tools/generate.mjs",
+    "validate": "node tools/validate.mjs --all",
+    "prepare": "npm run build"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@5argon/arkham-kohaku": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "typescript": "^5.9.3"
+  }
+}

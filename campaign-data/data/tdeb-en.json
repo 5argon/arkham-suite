@@ -1,0 +1,155 @@
+{
+  "code": "tdeb",
+  "name": "The Web of Dreams",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "steps_of_the_bridge": "Steps of the Bridge",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.randolph_survived_descent": {
+      "text": "Randolph survived the descent."
+    },
+    "campaign_notes.possess_silver_key": {
+      "text": "the investigators possess the Silver Key.",
+      "spoiler": [
+        "the Silver Key"
+      ]
+    },
+    "campaign_notes.randolph_did_not_survive_descent": {
+      "text": "Randolph did not survive the descent."
+    },
+    "campaign_notes.on_your_own": {
+      "text": "you are on your own."
+    },
+    "campaign_notes.black_cat_has_a_hunch": {
+      "text": "the black cat has a hunch."
+    },
+    "campaign_notes.black_cat_at_your_side": {
+      "text": "the black cat is at your side."
+    },
+    "campaign_notes.you_asked_for_it": {
+      "text": "you asked for it."
+    },
+    "campaign_notes.black_cat_is_searching_for_the_truth": {
+      "text": "the black cat is searching for the truth."
+    },
+    "campaign_notes.black_cat_at_your_side_2": {
+      "text": "the black cat is at your side."
+    },
+    "campaign_notes.black_cat_requested_aid": {
+      "text": "the black cat requested aid from the others."
+    },
+    "campaign_notes.black_cat_shared_knowledge_of_the_underworld": {
+      "text": "the black cat shared knowledge of the Underworld.",
+      "spoiler": [
+        "the Underworld"
+      ]
+    },
+    "campaign_notes.black_cat_warned_the_others": {
+      "text": "the black cat warned the others."
+    },
+    "campaign_notes.found_a_way_out_of_the_underworld": {
+      "text": "the investigators found a way out of the Underworld.",
+      "spoiler": [
+        "the Underworld"
+      ]
+    },
+    "campaign_notes.doctor_joined_investigation": {
+      "text": "Dr. Maheswaran joined the investigation."
+    },
+    "campaign_notes.doctor_stayed_with_patients": {
+      "text": "Dr. Maheswaran stayed with her patients."
+    },
+    "campaign_notes.doctors_fate_unknown": {
+      "text": "Dr. Maheswaran’s fate is unknown."
+    },
+    "campaign_notes.doctor_is_alive": {
+      "text": "Dr. Maheswaran is alive."
+    },
+    "campaign_notes.doctor_is_missing": {
+      "text": "Dr. Maheswaran is missing."
+    },
+    "campaign_notes.randolph_escaped_hospital_alone": {
+      "text": "Randolph escaped the hospital on his own."
+    },
+    "campaign_notes.randolph_escaped_hospital_with_investigators": {
+      "text": "Randolph escaped the hospital with the investigators."
+    },
+    "campaign_notes.trapped_in_atlach_nachas_realm": {
+      "text": "the investigators are trapped in Atlach-Nacha's realm.",
+      "spoiler": [
+        "Atlach-Nacha's"
+      ]
+    },
+    "campaign_notes.bridge_was_completed": {
+      "text": "the bridge was completed."
+    },
+    "campaign_notes.bridge_was_destroyed": {
+      "text": "the bridge was destroyed."
+    },
+    "campaign_notes.returned_to_reality": {
+      "text": "the investigators returned to reality."
+    },
+    "campaign_notes.never_escaped": {
+      "text": "the investigators never escaped."
+    },
+    "campaign_notes.still_in_the_dreamlands": {
+      "text": "the investigators are still in the Dreamlands."
+    }
+  },
+  "achievements": {
+    "spiders": {
+      "title": "Everyone's a Feminist Until There Is a Spider Around:",
+      "text": "Defeat twenty [[Spider]] enemies. Keep track with tally marks in your Campaign Log. <i>(Note: swarm cards do not count.)</i>"
+    },
+    "carter_method": {
+      "title": "The Carter Method",
+      "text": "Let every location get infested, then seal all of them in <i>Waking Nightmare</i>."
+    },
+    "doctor_is_in": {
+      "title": "The Doctor is In",
+      "text": "Take Dr. Shivani Maheswaran with you and do not let her take any amount of damage or horror in <i>Waking Nightmare</i>."
+    },
+    "deja_vu": {
+      "title": "Déjà Vu",
+      "text": "Resolve every free triggered ability on every location in <i>A Thousand Shapes of Horror</i> (not counting the Mysterious Stairs during act 2)."
+    },
+    "casa_loma": {
+      "title": "The Casa Loma Maneuver",
+      "text": "Escape the endless stairs with The Unnamable at the topmost staircase in <i>A Thousand Shapes of Horror</i>."
+    },
+    "remember_this_place": {
+      "title": "I Remember This Place",
+      "text": "Find a way out of the Underworld in <i>Point of No Return</i>."
+    },
+    "bad_advice": {
+      "title": "Bad Advice",
+      "text": "Flip over every location at least once in <i>Point of No Return</i>."
+    },
+    "march_of_ghouls": {
+      "title": "March of the Ghouls",
+      "text": "Have 4 [[Ghoul]] enemies attached to Richard Upton Pickman in <i>Point of No Return</i>."
+    },
+    "ishimura": {
+      "title": "The Ishimura Flex",
+      "text": "In a single round, defeat all 4 Legs of Atlach-Nacha in <i>Weaver of the Cosmos</i>."
+    },
+    "spin_me_round": {
+      "title": "You Spin Me Right 'Round:",
+      "text": "Ensure that Atlach-Nacha spins a full 360 degrees in a single phase in <i>Weaver of the Cosmos</i>."
+    },
+    "master_of_unlocking": {
+      "title": "Master of Unlocking",
+      "text": "Use The Silver Key to cancel a total of at least 10 horror throughout the course of a single scenario."
+    },
+    "line_in_the_sand": {
+      "title": "Line in the Sand",
+      "text": "Win <i>The Web of Dreams</i> campaign with at least three Ultimatums active."
+    },
+    "underworld_expertise": {
+      "title": "Underworld Expertise",
+      "text": "Win the <i>The Web of Dreams</i> campaign on Expert difficulty."
+    }
+  }
+}

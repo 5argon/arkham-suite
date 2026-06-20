@@ -659,7 +659,7 @@ export const returnToUnionAndDisillusionScenario: Scenario = {
 };
 
 export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.ReturnToInTheClutchesOfChaos1,
+	kohakuScenario: KohakuScenario.ReturnToInTheClutchesOfChaos,
 	shortName: 'VII (v.I)',
 	setups: [
 		{
@@ -678,7 +678,7 @@ export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
 };
 
 export const returnToInTheClutchesOfChaos2Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.ReturnToInTheClutchesOfChaos2,
+	kohakuScenario: KohakuScenario.ReturnToInTheClutchesOfChaos,
 	shortName: 'VII (v.II)',
 	setups: [
 		{

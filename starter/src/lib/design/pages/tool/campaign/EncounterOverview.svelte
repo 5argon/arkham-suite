@@ -17,6 +17,7 @@
 	import EncounterIconFlex from './EncounterIconFlex.svelte';
 	import EncounterMatrixTab from './EncounterMatrixTab.svelte';
 	import EncounterScenariosTab from './EncounterScenariosTab.svelte';
+	import CampaignAchievements from './CampaignAchievements.svelte';
 	import { fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
 	import { replaceState } from '$app/navigation';
@@ -31,6 +32,7 @@
 
 	const MATRIX_TAB = 0;
 	const SETUP_TAB = 1;
+	const ACHIEVEMENTS_TAB = 2;
 
 	// This page is prerendered, so we read URL parameters on the client only and
 	// seed the initial state from them (accepting a 1-frame-late update). `tab`
@@ -41,7 +43,13 @@
 			return { tab: MATRIX_TAB, scenario: 0 };
 		}
 		const params = new URLSearchParams(window.location.search);
-		const tab = params.get('tab') === 'setup' ? SETUP_TAB : MATRIX_TAB;
+		const tabParam = params.get('tab');
+		const tab =
+			tabParam === 'setup'
+				? SETUP_TAB
+				: tabParam === 'achievements'
+					? ACHIEVEMENTS_TAB
+					: MATRIX_TAB;
 		const sRaw = Number(params.get('s'));
 		const scenarioCount = findUniqueScenarios(campaign).length;
 		const scenario = Number.isFinite(sRaw)
@@ -67,6 +75,9 @@
 		if (tab === SETUP_TAB) {
 			url.searchParams.set('tab', 'setup');
 			url.searchParams.set('s', String(scenario + 1));
+		} else if (tab === ACHIEVEMENTS_TAB) {
+			url.searchParams.set('tab', 'achievements');
+			url.searchParams.delete('s');
 		} else {
 			url.searchParams.set('tab', 'matrix');
 			url.searchParams.delete('s');
@@ -96,7 +107,11 @@
 		frozenContentHeight = null;
 	};
 
-	const tabs = [{ label: 'Encounter Set Matrix' }, { label: 'Setup Reference Cards' }];
+	const tabs = [
+		{ label: 'Encounter Set Matrix' },
+		{ label: 'Setup Reference Cards' },
+		{ label: 'Achievements' }
+	];
 
 	const coreEncounters = $derived(sortEncounters(findCoreEncounters(campaign, kohakuCampaign)));
 	const campaignNameText = $derived(u.campaignName(kohakuCampaign));
@@ -177,6 +192,14 @@
 						syncUrl(SETUP_TAB, n);
 					}}
 				/>
+			</div>
+		{:else if activeTab === 2}
+			<div
+				in:fly={{ y: -10, duration: 200 }}
+				out:fly={{ y: 10, duration: 50 }}
+				onoutroend={handleOutroEnd}
+			>
+				<CampaignAchievements {campaign} {kohakuCampaign} />
 			</div>
 		{/if}
 	</div>

@@ -1,0 +1,226 @@
+{
+  "code": "rtptc",
+  "_notes": "Verified all 9 spans are exact substrings of their entry text. No changes needed. Sibling-collision check on campaign_notes (single notes section): took_onyx_clasp (\"you took [blur].\") vs left_onyx_clasp (\"you left [blur] behind.\") remain distinguishable via took/left + \"behind\"; the three Hastur entries differ in surrounding text; no two entries collapse to identical readable text. Over-blur avoided: \"Carcosa\" (title), \"the Stranger\" (visible section title \"Chasing the Stranger\"), \"The King in Yellow\" in read_act_2 (front-loaded signature play), and Nigel/Daniel NPC names (needed to disambiguate sibling entries) correctly left visible. Under-blur covered: all Hastur/King reveals, onyx clasp artifact, oathspeaker, phantom, followers of the sign are blurred. db section types match reference; cards sections (vips_interviewed/vips_slain) are roster cards, not spoiler note entries, so no card-code resolution required. No structural overrides or drops.",
+  "spoilers": {
+    "campaign_notes.king_claimed_victims": [
+      "the King"
+    ],
+    "campaign_notes.took_onyx_clasp": [
+      "the onyx clasp"
+    ],
+    "campaign_notes.did_not_escape_gaze": [
+      "the phantom"
+    ],
+    "campaign_notes.carcosa_merged": [
+      "Hastur"
+    ],
+    "campaign_notes.prevented_hasturs_escape": [
+      "Hastur"
+    ],
+    "campaign_notes.hastur_has_you": [
+      "Hastur"
+    ],
+    "campaign_notes.destroyed_the_oathspeaker": [
+      "the oathspeaker"
+    ],
+    "campaign_notes.left_onyx_clasp": [
+      "the onyx clasp"
+    ],
+    "campaign_notes.followers_of_sign_found_way": [
+      "the followers of the sign"
+    ]
+  },
+  "achievements": {
+    "path_is_false": {
+      "infer": {
+        "type": "logCount",
+        "key": "doubt",
+        "min": 8
+      },
+      "shared": true
+    },
+    "path_is_real": {
+      "infer": {
+        "type": "logCount",
+        "key": "conviction",
+        "min": 8
+      },
+      "shared": true
+    },
+    "ptc_line_in_the_sand": {
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      },
+      "shared": true
+    },
+    "carcosa_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      },
+      "shared": true
+    },
+    "fair_warning": {
+      "scenario": "curtain_call",
+      "shared": true
+    },
+    "first_steps": {
+      "scenario": "the_last_king",
+      "shared": true,
+      "itemInfer": {
+        "constance": {
+          "type": "sectionHas",
+          "section": "vips_interviewed",
+          "item": "03065b"
+        },
+        "jordan": {
+          "type": "sectionHas",
+          "section": "vips_interviewed",
+          "item": "03066b"
+        },
+        "haruko": {
+          "type": "sectionHas",
+          "section": "vips_interviewed",
+          "item": "03067b"
+        },
+        "sebastien": {
+          "type": "sectionHas",
+          "section": "vips_interviewed",
+          "item": "03068b"
+        },
+        "ashleigh": {
+          "type": "sectionHas",
+          "section": "vips_interviewed",
+          "item": "03069b"
+        }
+      }
+    },
+    "crashing_the_party": {
+      "scenario": "the_last_king",
+      "shared": true
+    },
+    "for_prying_eyes": {
+      "scenario": "echoes_of_the_past",
+      "shared": true
+    },
+    "cuckoos_nest": {
+      "scenario": "the_unspeakable_oath",
+      "shared": true
+    },
+    "take_a_look_at_this": {
+      "scenario": "the_unspeakable_oath"
+    },
+    "path_of_death": {
+      "scenario": "the_pallid_mask",
+      "requires": {
+        "type": "log",
+        "key": "campaign_notes.took_onyx_clasp"
+      }
+    },
+    "guessing_game": {
+      "scenario": "black_stars_rise",
+      "shared": true
+    },
+    "hastur_made_me_do_it": {
+      "scenario": "dim_carcosa",
+      "shared": true
+    },
+    "say_my_name": {
+      "shared": true
+    },
+    "get_back_here": {
+      "shared": true
+    },
+    "path_is_mine": {
+      "shared": true,
+      "infer": {
+        "type": "allOf",
+        "of": [
+          { "type": "logCount", "key": "doubt", "max": 1 },
+          { "type": "logCount", "key": "conviction", "max": 1 }
+        ]
+      }
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.tried_to_warn_police",
+        "campaign_notes.chose_not_to_warn_police"
+      ],
+      "scenario": "curtain_call"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.intruded_on_secret_meeting",
+        "campaign_notes.fled_dinner_party",
+        "campaign_notes.slayed_the_monsters"
+      ],
+      "scenario": "lunacys_reward"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.took_onyx_clasp",
+        "campaign_notes.left_onyx_clasp",
+        "campaign_notes.destroyed_the_oathspeaker"
+      ],
+      "scenario": "echoes_of_the_past"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.king_claimed_victims",
+        "campaign_notes.escaped_the_asylum",
+        "campaign_notes.attacked_as_you_escaped_arkham"
+      ],
+      "scenario": "the_unspeakable_oath"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.ignored_daniels_warning",
+        "campaign_notes.heeded_daniels_warning"
+      ],
+      "scenario": "lost_soul"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.entered_catacombs",
+        "campaign_notes.awoke_inside_catacombs"
+      ],
+      "scenario": "the_pallid_mask"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.found_nigels_home",
+        "campaign_notes.found_nigel_engram",
+        "campaign_notes.unable_to_find_nigel",
+        "campaign_notes.did_not_escape_gaze"
+      ],
+      "scenario": "a_phantom_of_truth"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.opened_path_below",
+        "campaign_notes.opened_path_above"
+      ],
+      "scenario": "black_stars_rise"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.prevented_hasturs_escape",
+        "campaign_notes.carcosa_merged",
+        "campaign_notes.hastur_has_you"
+      ],
+      "scenario": "dim_carcosa"
+    }
+  ]
+}

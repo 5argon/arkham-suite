@@ -1,0 +1,77 @@
+{
+  "code": "fof",
+  "name": "Fortune and Folly",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.fof_stashed": {
+      "text": "Stashed: #name# (#X#)"
+    },
+    "campaign_notes.fof_alarm_level": {
+      "text": "Alarm level: #name# (#X#)"
+    },
+    "campaign_notes.fof_wellspring_clues": {
+      "text": "Clues on The Wellspring of Fortune: #X#"
+    },
+    "campaign_notes.fof_found_a_vent": {
+      "text": "the investigators found a vent."
+    },
+    "campaign_notes.fof_impersonated_a_high_roller": {
+      "text": "the investigators impersonated a high roller."
+    },
+    "campaign_notes.fof_convinced_isamara": {
+      "text": "the investigators convinced Isamara to participate in the heist.",
+      "spoiler": [
+        "Isamara"
+      ]
+    },
+    "campaign_notes.fof_obtained_an_uniform": {
+      "text": "the investigators obtained an employee uniform."
+    },
+    "campaign_notes.fof_stole_keys": {
+      "text": "the investigators stole Abarran's keys.",
+      "spoiler": [
+        "Abarran"
+      ]
+    },
+    "campaign_notes.fof_cleaned_out_the_house": {
+      "text": "the investigators cleaned out the house."
+    },
+    "campaign_notes.fof_need_time_to_rest": {
+      "text": "the investigators need time to rest."
+    },
+    "campaign_notes.fof_the_face": {
+      "text": "#name#: The Face"
+    },
+    "campaign_notes.fof_the_muscle": {
+      "text": "#name#: The Muscle"
+    },
+    "campaign_notes.fof_the_thief": {
+      "text": "#name#: The Thief"
+    },
+    "campaign_notes.fof_the_grifter": {
+      "text": "#name#: The Grifter"
+    },
+    "campaign_notes.fof_the_face_practiced": {
+      "text": "#name#: The Face (Practiced)"
+    },
+    "campaign_notes.fof_the_muscle_practiced": {
+      "text": "#name#: The Muscle (Practiced)"
+    },
+    "campaign_notes.fof_the_thief_practiced": {
+      "text": "#name#: The Thief (Practiced)"
+    },
+    "campaign_notes.fof_the_grifter_practiced": {
+      "text": "#name#: The Grifter (Practiced)"
+    },
+    "campaign_notes.cell_meddled_in_abarrans_affairs": {
+      "text": "the cell meddled in Abarran’s affairs.",
+      "spoiler": [
+        "Abarran"
+      ]
+    }
+  },
+  "achievements": {}
+}

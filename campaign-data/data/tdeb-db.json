@@ -1,0 +1,355 @@
+{
+  "code": "tdeb",
+  "name": "The Web of Dreams",
+  "kind": "campaign",
+  "version": 3,
+  "scenarios": [
+    "tde_prologue",
+    "waking_nightmare",
+    "the_black_cat",
+    "a_thousand_shapes_of_horror",
+    "the_oneironauts",
+    "point_of_no_return",
+    "the_great_ones",
+    "weaver_of_the_cosmos",
+    "tde_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "steps_of_the_bridge",
+      "type": "count"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "randolph_survived_descent",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "id": "possess_silver_key",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "id": "randolph_did_not_survive_descent",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "id": "on_your_own",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_black_cat"
+    },
+    {
+      "id": "black_cat_has_a_hunch",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_black_cat",
+      "crossOut": true
+    },
+    {
+      "id": "black_cat_at_your_side",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_black_cat",
+      "crossOut": true
+    },
+    {
+      "id": "you_asked_for_it",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_black_cat"
+    },
+    {
+      "id": "black_cat_is_searching_for_the_truth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_great_ones",
+      "crossOut": true
+    },
+    {
+      "id": "black_cat_at_your_side_2",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_great_ones"
+    },
+    {
+      "id": "black_cat_requested_aid",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_oneironauts"
+    },
+    {
+      "id": "black_cat_shared_knowledge_of_the_underworld",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_oneironauts"
+    },
+    {
+      "id": "black_cat_warned_the_others",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_oneironauts"
+    },
+    {
+      "id": "interconnected_campaign",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "half_campaign",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "found_a_way_out_of_the_underworld",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "point_of_no_return"
+    },
+    {
+      "id": "doctor_joined_investigation",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "doctor_stayed_with_patients",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "doctors_fate_unknown",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "doctor_is_alive",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "doctor_is_missing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "randolph_escaped_hospital_alone",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "randolph_escaped_hospital_with_investigators",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "spider_queen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos",
+      "hidden": true
+    },
+    {
+      "id": "trapped_in_atlach_nachas_realm",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "bridge_was_completed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "bridge_was_destroyed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "returned_to_reality",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "never_escaped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "still_in_the_dreamlands",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "weaver_of_the_cosmos"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "spiders",
+      "type": "count",
+      "max": 20,
+      "family": "tdeb"
+    },
+    {
+      "id": "carter_method",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "doctor_is_in",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "waking_nightmare"
+    },
+    {
+      "id": "deja_vu",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "id": "casa_loma",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "id": "remember_this_place",
+      "type": "binary",
+      "family": "tdeb",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.found_a_way_out_of_the_underworld"
+      },
+      "scenario": "point_of_no_return"
+    },
+    {
+      "id": "bad_advice",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "point_of_no_return"
+    },
+    {
+      "id": "march_of_ghouls",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "point_of_no_return"
+    },
+    {
+      "id": "ishimura",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "spin_me_round",
+      "type": "binary",
+      "family": "tdeb",
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "id": "master_of_unlocking",
+      "type": "binary",
+      "family": "tdeb"
+    },
+    {
+      "id": "line_in_the_sand",
+      "type": "binary",
+      "family": "tdeb",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "underworld_expertise",
+      "type": "binary",
+      "family": "tdeb",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.doctor_joined_investigation",
+        "campaign_notes.doctor_stayed_with_patients"
+      ],
+      "scenario": "waking_nightmare"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.doctor_is_alive",
+        "campaign_notes.doctor_is_missing",
+        "campaign_notes.doctors_fate_unknown"
+      ],
+      "scenario": "waking_nightmare"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_escaped_hospital_with_investigators",
+        "campaign_notes.randolph_escaped_hospital_alone"
+      ],
+      "scenario": "waking_nightmare"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.randolph_survived_descent",
+        "campaign_notes.randolph_did_not_survive_descent"
+      ],
+      "scenario": "a_thousand_shapes_of_horror"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.bridge_was_completed",
+        "campaign_notes.bridge_was_destroyed"
+      ],
+      "scenario": "weaver_of_the_cosmos"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.returned_to_reality",
+        "campaign_notes.never_escaped",
+        "campaign_notes.still_in_the_dreamlands"
+      ],
+      "scenario": "weaver_of_the_cosmos"
+    }
+  ]
+}

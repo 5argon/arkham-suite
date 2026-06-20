@@ -1,0 +1,808 @@
+{
+  "code": "rttfa",
+  "name": "Return to The Forgotten Age",
+  "kind": "return",
+  "originalId": "tfa",
+  "scenarios": [
+    "tfa_prologue",
+    "return_to_the_untamed_wilds",
+    "tfa_interlude1",
+    "return_to_the_doom_of_eztli",
+    "tfa_interlude2",
+    "return_to_threads_of_fate",
+    "return_to_the_boundary_beyond",
+    "tfa_interlude3",
+    "return_to_heart_of_the_elders_part_1",
+    "return_to_heart_of_the_elders_part_2",
+    "return_to_the_city_of_archives",
+    "tfa_interlude4",
+    "return_to_the_depths_of_yoth",
+    "tfa_interlude5",
+    "return_to_shattered_aeons",
+    "tfa_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "yigs_fury",
+      "type": "count",
+      "perInvestigator": false,
+      "min": 0
+    },
+    {
+      "id": "supplies",
+      "type": "supplies",
+      "perInvestigator": true,
+      "items": [
+        {
+          "id": "provisions",
+          "cost": 1,
+          "repeatable": true
+        },
+        {
+          "id": "medicine",
+          "cost": 2,
+          "repeatable": true
+        },
+        {
+          "id": "rope",
+          "cost": 3,
+          "repeatable": false
+        },
+        {
+          "id": "blanket",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "canteen",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "torches",
+          "cost": 3,
+          "repeatable": false
+        },
+        {
+          "id": "compass",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "map",
+          "cost": 3,
+          "repeatable": false
+        },
+        {
+          "id": "binoculars",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "chalk",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "pendant",
+          "cost": 1,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "rthote2_gain_sticky_goop",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "return_to_heart_of_the_elders_part_2",
+      "hidden": true
+    },
+    {
+      "id": "tasks_completed",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "return_to_the_city_of_archives",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "process_was_perfected",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "rtdoe_gain_mysterious_scepter",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "return_to_the_doom_of_eztli",
+      "hidden": true
+    },
+    {
+      "id": "recruited_help_of_another_expedition",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "harbinger_alive",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "return_to_threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "gave_relic_to_alejandro",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "expeditions_end",
+      "crossOut": true
+    },
+    {
+      "id": "earned_alejandros_trust",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "expeditions_end",
+      "crossOut": true
+    },
+    {
+      "id": "gave_relic_to_harlan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "expeditions_end",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_on_his_own",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "expeditions_end",
+      "crossOut": true
+    },
+    {
+      "id": "investigators_recovered_relic",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "eztli",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_recovered_relic",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "eztli",
+      "crossOut": true
+    },
+    {
+      "id": "hote_consult_ichtaca",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "heart_of_the_elders_part_1",
+      "hidden": true
+    },
+    {
+      "id": "hote_consult_alejandro",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "heart_of_the_elders_part_1",
+      "hidden": true
+    },
+    {
+      "id": "hote_consult_journal",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "heart_of_the_elders_part_1",
+      "hidden": true
+    },
+    {
+      "id": "paths_known",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "heart_of_the_elders_part_1",
+      "param": {
+        "type": "count"
+      },
+      "crossOut": true
+    },
+    {
+      "id": "jungle_watches",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "heart_of_the_elders_part_1",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "crossOut": true
+    },
+    {
+      "id": "hote_no_mulligan",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "hidden": true
+    },
+    {
+      "id": "hote_fewer_resources",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "jungle_beckons",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "eztli_fewer_resources",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "restless_nights",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "mended_tear_in_time",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true
+    },
+    {
+      "id": "investigators_saved_serpents",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true
+    },
+    {
+      "id": "investigators_saved_yithians",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true
+    },
+    {
+      "id": "fabric_of_time_unwoven",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true
+    },
+    {
+      "id": "turned_back_time",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "shattered_aeons",
+      "crossOut": true
+    },
+    {
+      "id": "ichtaca_has_confidence",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_boundary_beyond",
+      "crossOut": true
+    },
+    {
+      "id": "cooperated_with_yithians",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "resisted_captivity",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "had_memories_expunged",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "process_was_successful",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "process_backfired",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "process_backfired_spectacularly",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_city_of_archives",
+      "crossOut": true
+    },
+    {
+      "id": "relic_is_missing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "crossOut": true
+    },
+    {
+      "id": "ichtaca_set_against",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "crossOut": true
+    },
+    {
+      "id": "found_missing_relic",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "crossOut": true
+    },
+    {
+      "id": "agenda_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "hidden": true
+    },
+    {
+      "id": "agenda_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "hidden": true
+    },
+    {
+      "id": "fell_into_depths",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "crossOut": true
+    },
+    {
+      "id": "final_depth",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "the_depths_of_yoth",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "nexus_is_near",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "crossOut": true
+    },
+    {
+      "id": "doy_cross_off_rope",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "hidden": true
+    },
+    {
+      "id": "doy_fewer_resources",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "those_held_captive",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "listened_to_ichtaca",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "hidden": true
+    },
+    {
+      "id": "ichtaca_left_without_you",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "hidden": true
+    },
+    {
+      "id": "forging_own_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "rescued_alejandro",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_is_missing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "forged_bond_with_ichtaca",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "ichtaca_in_the_dark",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "threads_of_fate",
+      "crossOut": true
+    },
+    {
+      "id": "sealed_relic_of_ages_forever",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "turn_back_time"
+    },
+    {
+      "id": "wait_for_additional_supplies",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "ichtaca_observed_progress",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "earned_ichtacas_trust",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "alejandro_followed_to_ruins",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "ichtaca_is_wary",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "alejandro_remained_at_camp",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "cleared_path_to_temple",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "wilds"
+    },
+    {
+      "id": "wilds_add_chaos_token",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "wilds",
+      "hidden": true
+    }
+  ],
+  "achievements": [
+    {
+      "id": "why_did_it_have_to_be_snakes",
+      "type": "count",
+      "max": 20,
+      "family": "tfa",
+      "shared": true
+    },
+    {
+      "id": "watch_them_unravel",
+      "type": "binary",
+      "family": "tfa",
+      "scenario": "return_to_threads_of_fate"
+    },
+    {
+      "id": "hope_for_humanity",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.ichtaca_has_confidence"
+      },
+      "scenario": "return_to_the_boundary_beyond"
+    },
+    {
+      "id": "scenario_5_what",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "logCount",
+        "key": "campaign_notes.paths_known",
+        "min": 6
+      },
+      "scenario": "return_to_heart_of_the_elders_part_1"
+    },
+    {
+      "id": "beyond_perfection",
+      "type": "binary",
+      "family": "tfa",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.process_was_perfected"
+      },
+      "scenario": "return_to_the_city_of_archives"
+    },
+    {
+      "id": "i_remember_everything",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.process_was_successful"
+      },
+      "scenario": "return_to_the_city_of_archives"
+    },
+    {
+      "id": "patricide",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "scenario": "return_to_the_depths_of_yoth"
+    },
+    {
+      "id": "hes_got_a_point",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "scenario": "return_to_shattered_aeons"
+    },
+    {
+      "id": "valusia_sounds_great",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "scenario": "return_to_shattered_aeons"
+    },
+    {
+      "id": "built_up_an_immunity",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true
+    },
+    {
+      "id": "we_have_an_understanding",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "logCount",
+        "key": "campaign_notes.harbinger_alive",
+        "max": 0
+      }
+    },
+    {
+      "id": "who_needs_any_of_this_junk",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "sectionCount",
+        "section": "supplies",
+        "max": 0
+      }
+    },
+    {
+      "id": "dont_tread_on_me",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "logCount",
+        "key": "yigs_fury",
+        "max": 0
+      }
+    },
+    {
+      "id": "bane_of_yig",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "logCount",
+        "key": "yigs_fury",
+        "min": 25
+      }
+    },
+    {
+      "id": "if_i_could_turn_back_time",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.forging_own_path"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.turned_back_time"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yoth_expertise",
+      "type": "binary",
+      "family": "tfa",
+      "shared": true,
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.investigators_recovered_relic",
+        "campaign_notes.alejandro_recovered_relic"
+      ],
+      "scenario": "The Doom of Eztli"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.wait_for_additional_supplies",
+        "campaign_notes.cleared_path_to_temple"
+      ],
+      "scenario": "The Untamed Wilds"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.earned_ichtacas_trust",
+        "campaign_notes.ichtaca_observed_progress",
+        "campaign_notes.ichtaca_is_wary"
+      ],
+      "scenario": "The Untamed Wilds"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.alejandro_followed_to_ruins",
+        "campaign_notes.alejandro_remained_at_camp"
+      ],
+      "scenario": "The Untamed Wilds"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.gave_relic_to_alejandro",
+        "campaign_notes.gave_relic_to_harlan"
+      ],
+      "scenario": "Expedition's End"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.earned_alejandros_trust",
+        "campaign_notes.alejandro_on_his_own"
+      ],
+      "scenario": "Expedition's End"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.cooperated_with_yithians",
+        "campaign_notes.resisted_captivity"
+      ],
+      "scenario": "The City of Archives"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.process_was_perfected",
+        "campaign_notes.process_was_successful",
+        "campaign_notes.process_backfired",
+        "campaign_notes.process_backfired_spectacularly",
+        "campaign_notes.had_memories_expunged"
+      ],
+      "scenario": "The City of Archives"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.found_missing_relic",
+        "campaign_notes.relic_is_missing"
+      ],
+      "scenario": "Threads of Fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.rescued_alejandro",
+        "campaign_notes.alejandro_is_missing"
+      ],
+      "scenario": "Threads of Fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.forged_bond_with_ichtaca",
+        "campaign_notes.ichtaca_in_the_dark"
+      ],
+      "scenario": "Threads of Fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.fell_into_depths",
+        "campaign_notes.nexus_is_near"
+      ],
+      "scenario": "The Depths of Yoth"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.mended_tear_in_time",
+        "campaign_notes.investigators_saved_serpents",
+        "campaign_notes.investigators_saved_yithians",
+        "campaign_notes.fabric_of_time_unwoven",
+        "campaign_notes.turned_back_time"
+      ],
+      "scenario": "Shattered Aeons"
+    }
+  ]
+}

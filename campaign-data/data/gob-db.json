@@ -1,0 +1,95 @@
+{
+  "code": "gob",
+  "name": "Guardians of the Abyss",
+  "kind": "campaign",
+  "version": 2,
+  "scenarios": [
+    "the_eternal_slumber",
+    "the_nights_usurper"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "tes_dreamers_in_the_abyss",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "the_eternal_slumber",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "tes_escaped_brotherhood",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "the_eternal_slumber",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "tes_brotherhood_schemes_continue",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber"
+    },
+    {
+      "id": "tes_aware_of_xzharahs_plan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber"
+    },
+    {
+      "id": "tes_curse_of_slumber_lifted",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber"
+    },
+    {
+      "id": "tes_taken_by_the_abyss",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_eternal_slumber",
+      "crossOut": true
+    },
+    {
+      "id": "tnu_day_of_reckoning_is_coming",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper"
+    },
+    {
+      "id": "tnu_the_abyss_was_saved",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper"
+    },
+    {
+      "id": "tnu_taken_by_the_abyss",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper",
+      "crossOut": true
+    },
+    {
+      "id": "tnu_joined_xzharah",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_nights_usurper"
+    }
+  ],
+  "achievements": []
+}

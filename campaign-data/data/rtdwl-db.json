@@ -1,0 +1,498 @@
+{
+  "code": "rtdwl",
+  "name": "Return to The Dunwich Legacy",
+  "kind": "return",
+  "originalId": "dwl",
+  "scenarios": [
+    "dwl_prologue",
+    "return_to_extracurricular_activity",
+    "return_to_the_house_always_wins",
+    "armitages_fate",
+    "return_to_the_miskatonic_museum",
+    "return_to_essex_county_express",
+    "return_to_blood_on_the_altar",
+    "dwl_interlude2",
+    "return_to_undimensioned_and_unseen",
+    "return_to_where_doom_awaits",
+    "return_to_lost_in_time_and_space",
+    "dwl_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "sacrificed",
+      "type": "cards"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "henry_armitage_kidnapped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "armitages_fate"
+    },
+    {
+      "id": "henry_armitage_rescued",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "armitages_fate"
+    },
+    {
+      "id": "ritual_completed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "killed_silas_bishop",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "restored_silas_bishop",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "banished_silas_bishop",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "necronomicon_stolen",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "henry_armitage_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "id": "investigators_delayed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "essex_county_express"
+    },
+    {
+      "id": "francis_morgan_kidnapped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "essex_county_express"
+    },
+    {
+      "id": "warren_rice_kidnapped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "essex_county_express"
+    },
+    {
+      "id": "students_rescued",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "id": "experiment_defeated",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "id": "unconscious_for_several_hours",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "id": "warren_rice_rescued",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "id": "failed_to_save_students",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "id": "closed_tear",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "lost_in_time_and_space"
+    },
+    {
+      "id": "yog_sothoth_fled",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "lost_in_time_and_space"
+    },
+    {
+      "id": "yog_sothoth_became_one_with_reality",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "lost_in_time_and_space"
+    },
+    {
+      "id": "warren_rice_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "francis_morgan_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "zebulon_whateley_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "earl_sawyer_survived",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "survivors"
+    },
+    {
+      "id": "bone_to_pick",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_house_always_wins"
+    },
+    {
+      "id": "naomi_has_back",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_house_always_wins"
+    },
+    {
+      "id": "francis_morgan_rescued",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_house_always_wins"
+    },
+    {
+      "id": "failed_to_recover_necronomicon",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_miskatonic_museum"
+    },
+    {
+      "id": "destroyed_necronomicon",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_miskatonic_museum"
+    },
+    {
+      "id": "took_necronomicon",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_miskatonic_museum"
+    },
+    {
+      "id": "tmm_add_chaos_token",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_miskatonic_museum",
+      "hidden": true
+    },
+    {
+      "id": "calmed_townsfolk",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "id": "warned_townsfolk",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "id": "brood_escaped",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "undimensioned_and_unseen",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "no_brood_escaped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "id": "entered_the_gate",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_doom_awaits"
+    },
+    {
+      "id": "yog_sothoth_escaped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "where_doom_awaits"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "what_is_this_stuff",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "scenario": "return_to_extracurricular_activity"
+    },
+    {
+      "id": "no_void_for_you",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "scenario": "return_to_the_miskatonic_museum"
+    },
+    {
+      "id": "first_rule_of_arkham",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.destroyed_necronomicon"
+      },
+      "scenario": "return_to_the_miskatonic_museum"
+    },
+    {
+      "id": "all_aboard",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "scenario": "return_to_the_essex_county_express"
+    },
+    {
+      "id": "gangs_all_here",
+      "type": "list",
+      "items": [
+        "armitage",
+        "morgan",
+        "rice",
+        "whateley",
+        "sawyer"
+      ],
+      "family": "dwl",
+      "shared": true,
+      "itemInfer": {
+        "armitage": {
+          "type": "log",
+          "key": "campaign_notes.henry_armitage_survived"
+        },
+        "morgan": {
+          "type": "log",
+          "key": "campaign_notes.francis_morgan_survived"
+        },
+        "rice": {
+          "type": "log",
+          "key": "campaign_notes.warren_rice_survived"
+        },
+        "whateley": {
+          "type": "log",
+          "key": "campaign_notes.zebulon_whateley_survived"
+        },
+        "sawyer": {
+          "type": "log",
+          "key": "campaign_notes.earl_sawyer_survived"
+        }
+      }
+    },
+    {
+      "id": "no_brood_left_behind",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.no_brood_escaped"
+      },
+      "scenario": "return_to_undimensioned_and_unseen"
+    },
+    {
+      "id": "remind_me_not_to_piss_her_off",
+      "type": "binary",
+      "family": "dwl"
+    },
+    {
+      "id": "eureka",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true
+    },
+    {
+      "id": "beyond_what_veil",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true
+    },
+    {
+      "id": "here_we_go_again",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true
+    },
+    {
+      "id": "bird_hunting",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true
+    },
+    {
+      "id": "they_arent_getting_away_with_this",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true
+    },
+    {
+      "id": "tabula_rasa",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "chaosToken",
+            "token": "tablet",
+            "max": 0
+          },
+          {
+            "type": "chaosToken",
+            "token": "elder_thing",
+            "max": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "dwl_line_in_the_sand",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "dunwich_expertise",
+      "type": "binary",
+      "family": "dwl",
+      "shared": true,
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.failed_to_recover_necronomicon",
+        "campaign_notes.destroyed_necronomicon",
+        "campaign_notes.took_necronomicon"
+      ],
+      "scenario": "the_miskatonic_museum"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.killed_silas_bishop",
+        "campaign_notes.restored_silas_bishop",
+        "campaign_notes.banished_silas_bishop"
+      ],
+      "scenario": "blood_on_the_altar"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.warren_rice_rescued",
+        "campaign_notes.warren_rice_kidnapped"
+      ],
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.students_rescued",
+        "campaign_notes.failed_to_save_students"
+      ],
+      "scenario": "extracurricular_activity"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.francis_morgan_rescued",
+        "campaign_notes.francis_morgan_kidnapped"
+      ],
+      "scenario": "the_house_always_wins"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.henry_armitage_rescued",
+        "campaign_notes.henry_armitage_kidnapped"
+      ],
+      "scenario": "armitages_fate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.calmed_townsfolk",
+        "campaign_notes.warned_townsfolk"
+      ],
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.no_brood_escaped",
+        "campaign_notes.brood_escaped"
+      ],
+      "scenario": "undimensioned_and_unseen"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.entered_the_gate",
+        "campaign_notes.yog_sothoth_escaped"
+      ],
+      "scenario": "where_doom_awaits"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.closed_tear",
+        "campaign_notes.yog_sothoth_fled",
+        "campaign_notes.yog_sothoth_became_one_with_reality"
+      ],
+      "scenario": "lost_in_time_and_space"
+    }
+  ]
+}

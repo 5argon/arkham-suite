@@ -1,0 +1,187 @@
+{
+  "code": "tdea",
+  "name": "The Dream-Quest",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "evidence_of_kadath": "Evidence of Kadath",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.dreamers_grow_weaker": {
+      "text": "the dreamers grow weaker."
+    },
+    "campaign_notes.black_cat_has_a_hunch": {
+      "text": "the black cat has a hunch."
+    },
+    "campaign_notes.black_cat_delivered_news": {
+      "text": "the black cat delivered news of your plight."
+    },
+    "campaign_notes.black_cat_at_your_side": {
+      "text": "the black cat is at your side."
+    },
+    "campaign_notes.black_cat_shared_knowledge_of_the_dreamlands": {
+      "text": "the black cat shared knowledge of the Dreamlands."
+    },
+    "campaign_notes.black_cat_warned_the_others": {
+      "text": "the black cat warned the others."
+    },
+    "campaign_notes.threaten_black_cat": {
+      "text": "okay, fine, have it your way then."
+    },
+    "campaign_notes.you_asked_for_it": {
+      "text": "you asked for it."
+    },
+    "campaign_notes.black_cat_spoke_of_nyarlathotep": {
+      "text": "the black cat spoke of Nyarlathotep."
+    },
+    "campaign_notes.black_cat_spoke_of_atlach_nacha": {
+      "text": "the black cat spoke of Atlach-Nacha."
+    },
+    "campaign_notes.possess_silver_key": {
+      "text": "the investigators possess the Silver Key.",
+      "spoiler": [
+        "the Silver Key"
+      ]
+    },
+    "campaign_notes.black_cat_knows_the_truth": {
+      "text": "the black cat knows the truth."
+    },
+    "campaign_notes.black_cat_at_your_side_2": {
+      "text": "the black cat is at your side."
+    },
+    "campaign_notes.dreamers_know_of_another_path": {
+      "text": "the dreamers know of another path."
+    },
+    "campaign_notes.saved_by_randolph_carter": {
+      "text": "the investigators were saved by Randolph Carter."
+    },
+    "campaign_notes.cats_collected_their_tribute": {
+      "text": "the cats collected their tribute from the Zoogs."
+    },
+    "campaign_notes.parleyed_with_zoogs": {
+      "text": "the investigators parleyed with the Zoogs."
+    },
+    "campaign_notes.strayed_from_the_path": {
+      "text": "the dreamers strayed from the path."
+    },
+    "campaign_notes.carried_to_the_cold_wastes": {
+      "text": "the investigators were carried to the Cold Wastes."
+    },
+    "campaign_notes.randolph_did_not_survive_the_voyage": {
+      "text": "Randolph Carter did not survive the voyage."
+    },
+    "campaign_notes.travelled_to_the_cold_wastes": {
+      "text": "the investigators traveled to the Cold Wastes."
+    },
+    "campaign_notes.randolph_survived_the_voyage": {
+      "text": "Randolph survived the voyage."
+    },
+    "campaign_notes.forced_way_into_temple": {
+      "text": "the investigators forced their way into the temple."
+    },
+    "campaign_notes.broken_the_law_of_ulthar": {
+      "text": "#name# has broken the law of Ulthar."
+    },
+    "campaign_notes.virgil_was_captured": {
+      "text": "Virgil was captured."
+    },
+    "campaign_notes.randolph_eluded_capture": {
+      "text": "Randolph eluded capture."
+    },
+    "campaign_notes.randolph_was_captured": {
+      "text": "Randolph was captured."
+    },
+    "campaign_notes.captured": {
+      "text": "#name# was captured."
+    },
+    "campaign_notes.nyarlathoteps_invasion_has_begun": {
+      "text": "Nyarlathotep's invasion has begun.",
+      "spoiler": [
+        "Nyarlathotep's"
+      ]
+    },
+    "campaign_notes.dreamers_escaped_nyarlathoteps_grasp": {
+      "text": "the dreamers escaped from Nyarlathotep's grasp.",
+      "spoiler": [
+        "Nyarlathotep's"
+      ]
+    },
+    "campaign_notes.dreamers_banished_nyarlathotep": {
+      "text": "the dreamers banished Nyarlathotep.",
+      "spoiler": [
+        "Nyarlathotep"
+      ]
+    },
+    "campaign_notes.dreamers_awoke": {
+      "text": "the dreamers awoke."
+    },
+    "campaign_notes.dreamers_stayed_in_dreamlands_forever": {
+      "text": "the dreamers stayed in the Dreamlands forever."
+    },
+    "campaign_notes.dreamers_traveled_beneath_the_monastery": {
+      "text": "the dreamers traveled beneath the monastery."
+    }
+  },
+  "achievements": {
+    "follow_orders": {
+      "title": "Do You Always Follow Orders?",
+      "text": "Do not stray from the path in <i>Beyond the Gates of Sleep</i>."
+    },
+    "so_cute": {
+      "title": "Aww, But They're So Cute",
+      "text": "Do not defeat a single [[Zoog]] enemy in <i>Beyond the Gates of Sleep</i>."
+    },
+    "losing_my_religion": {
+      "title": "Losing My Religion",
+      "text": "In a single playthrough, find and uncover all 10 Signs of the Gods in <i>The Search for Kadath</i>."
+    },
+    "cat_killer": {
+      "title": "Fantasy Flight Games (®) Does Not Condone Accomplishing This Achievement",
+      "text": "Break the law of Ulthar in <i>The Search for Kadath</i>."
+    },
+    "spy": {
+      "title": "Tactical Espionage Action",
+      "text": "Complete <i>Dark Side of the Moon</i> with each investigator's alarm level at zero."
+    },
+    "moon_lizard": {
+      "title": "Moon Lizards? I Don't Believe They Exist",
+      "text": "Defeat the Moon Lizard in <i>Dark Side of the Moon</i>."
+    },
+    "barkham": {
+      "title": "Barkham Horror Enthusiast",
+      "text": "Defeat 1 or more Cats from Saturn using a fight ability on either a cat ally or a dog ally."
+    },
+    "high_priest": {
+      "title": "Only Way To Be Sure",
+      "text": "Reduce the High Priest Not to Be Described to 1 remaining health, then shove it down a well anyway in <i>Where the Gods Dwell</i>."
+    },
+    "hidden_nylar": {
+      "title": "Give Them Something To Talk About",
+      "text": "In a single round, add every hidden form of Nyarlathotep to the victory display in <i>Where the Gods Dwell</i>."
+    },
+    "final_form": {
+      "title": "This Isn't Even My Final Form!",
+      "text": "Expose and then defeat Nyarlathotep's True Shape in <i>Where the Gods Dwell</i>."
+    },
+    "dont_tell": {
+      "title": "Don't Tell Anyone, But...",
+      "text": "Using the ability on The Great Hall, give 6 different hidden cards to another investigator in <i>Where the Gods Dwell</i>."
+    },
+    "line_in_the_sand": {
+      "title": "Line in the Sand",
+      "text": "Win <i>The Dream-Quest</i> campaign with at least three Ultimatums active."
+    },
+    "dreamlands_expertise": {
+      "title": "Dreamlands Expertise",
+      "text": "Win the <i>The Dream-Quest</i> campaign on Expert difficulty."
+    },
+    "beware_black_cat": {
+      "title": "Beware The Black Cat",
+      "text": "Complete <i>The Dream-Eaters</i> campaign with <i>okay, fine, have it your way then</i> recorded in your Campaign Log."
+    },
+    "reunited": {
+      "title": "Reunited and it Feels So Good",
+      "text": "Win <i>The Dream-Eaters</i> as an interconnected 8-part campaign, and have both groups reunite during the epilogue."
+    }
+  }
+}

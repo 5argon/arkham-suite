@@ -1,0 +1,1725 @@
+{
+  "code": "eoe",
+  "name": "Edge of the Earth",
+  "kind": "campaign",
+  "version": 2,
+  "scenarios": [
+    "eoe_prologue",
+    "ice_and_death",
+    "ice_and_death_part_1",
+    "the_disapperance",
+    "ice_and_death_part_2",
+    "the_attack",
+    "ice_and_death_part_3",
+    "restful_night",
+    "to_the_forbidden_peaks",
+    "endless_night",
+    "city_of_the_elder_things",
+    "final_night",
+    "the_heart_of_madness",
+    "the_heart_of_madness_part_1",
+    "the_other_side",
+    "the_heart_of_madness_part_2",
+    "eoe_epilogue"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "ice_and_death",
+      "type": "header"
+    },
+    {
+      "id": "locations_revealed",
+      "type": "notes"
+    },
+    {
+      "id": "supplies_recovered",
+      "type": "notes"
+    },
+    {
+      "id": "fatal_mirage",
+      "type": "header"
+    },
+    {
+      "id": "memories_discovered",
+      "type": "notes"
+    },
+    {
+      "id": "memories_banished",
+      "type": "notes"
+    },
+    {
+      "id": "the_heart_of_madness",
+      "type": "header"
+    },
+    {
+      "id": "seals_placed",
+      "type": "notes"
+    },
+    {
+      "id": "seals_recovered",
+      "type": "notes"
+    },
+    {
+      "id": "expedition_team",
+      "type": "partner",
+      "statuses": [
+        "alive",
+        "resolute",
+        "mia",
+        "eliminated",
+        "safe",
+        "victim",
+        "the_entity",
+        "cannot_take"
+      ],
+      "items": [
+        {
+          "id": "kensler",
+          "code": "08720",
+          "health": 2,
+          "sanity": 4,
+          "resoluteHealth": 3
+        },
+        {
+          "id": "dyer",
+          "code": "08714",
+          "health": 1,
+          "sanity": 5,
+          "resoluteSanity": 6
+        },
+        {
+          "id": "danforth",
+          "code": "08715",
+          "health": 2,
+          "sanity": 4,
+          "resoluteSanity": 5
+        },
+        {
+          "id": "ellsworth",
+          "code": "08721",
+          "health": 4,
+          "sanity": 2,
+          "resoluteHealth": 5
+        },
+        {
+          "id": "hiroko",
+          "code": "08722",
+          "health": 3,
+          "sanity": 3,
+          "resoluteSanity": 4
+        },
+        {
+          "id": "claypool",
+          "code": "08718",
+          "health": 3,
+          "sanity": 3,
+          "resoluteHealth": 4
+        },
+        {
+          "id": "sinha",
+          "code": "08717",
+          "health": 4,
+          "sanity": 2,
+          "resoluteSanity": 3
+        },
+        {
+          "id": "cookie",
+          "code": "08719",
+          "health": 5,
+          "sanity": 1,
+          "resoluteHealth": 6
+        },
+        {
+          "id": "ashevak",
+          "code": "08716",
+          "health": 3,
+          "sanity": 3,
+          "resoluteHealth": 4,
+          "resoluteSanity": 4
+        }
+      ]
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "city_of_the_elder_things_v1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things",
+      "hidden": true
+    },
+    {
+      "id": "city_of_the_elder_things_v2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things",
+      "hidden": true
+    },
+    {
+      "id": "city_of_the_elder_things_v3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things",
+      "hidden": true
+    },
+    {
+      "id": "gaze_into_madness",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things",
+      "hidden": true
+    },
+    {
+      "id": "photographed_the_astronomical_charts",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "discovered_an_ancient_vault",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "studied_the_mural_carvings",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "read_the_map",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "team_found_the_hidden_tunnel",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "team_was_guided_to_the_hidden_tunnel",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "endless_night_william_dyer",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_danforth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_amy_kensler",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_mala_sinha",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_james_fredericks",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_avery_claypool",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_roald_ellsworth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_takada_hiroko",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_eliyah_ashevak",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "endless_night_dyer_yes",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "dyer_dead_interlude",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_william_dyer",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_danforth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "dr_kensler_is_on_the_verge_of_understanding",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "endless_night"
+    },
+    {
+      "id": "final_night_amy_kensler",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_mala_sinha",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_james_fredericks",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_avery_claypool",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "scouted_the_city_outskirts",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "endless_night"
+    },
+    {
+      "id": "final_night_roald_ellsworth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_takada_hiroko",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "final_night_eliyah_ashevak",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
+      "id": "convinced_dyer_to_allow_the_expedition",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "eoe_prologue"
+    },
+    {
+      "id": "did_not_believe_dyers_report",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "eoe_prologue"
+    },
+    {
+      "id": "airfield",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_airfield",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "airfield",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "alaskan_wilds",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_alaskan_wilds",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "alaskan_wilds",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "cluttered_dormitory",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_cluttered_dormitory",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "cluttered_dormitory",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "dyers_classroom",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_dyers_classroom",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "dyers_classroom",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "infirmary",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_infirmary",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "infirmary",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "dr_kenslers_office",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_dr_kenslers_office",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "dr_kenslers_office",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "moai_statues",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_moai_statues",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "moai_statue",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "ottoman_front",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_ottoman_front",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "ottoman_front",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "the_black_stone",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_the_black_stone",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "the_black_stone",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "crossOut": true
+    },
+    {
+      "id": "alien_translation",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "hunt_gone_awry",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "lost_patient",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "missing_father",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "ravaged_country",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "regretful_voyage",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "terrible_discovery",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "unrequited_love",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "unspeakable_evil",
+      "section": "memories_banished",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "base_camp",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_base_camp",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "deck_of_the_theodosia",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_deck_of_the_theodosia",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "university_halls",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_university_halls",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "hedge_maze",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_hedge_maze",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "deserted_station",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_deserted_station",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "coastal_waters",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_coastal_waters",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "elder_chamber",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_elder_chamber",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "riverview_theatre",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_riverview_theatre",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "standing_stones",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "discovered_standing_stones",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fatal_mirage",
+      "hidden": true
+    },
+    {
+      "id": "moai_statues",
+      "section": "memories_discovered",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "cookie_has_confronted_his_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "danforth_has_confronted_his_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "dyer_has_confronted_his_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "eliyah_has_confronted_his_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "ellsworth_has_confronted_his_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "dr_kensler_has_confronted_her_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "dr_sinha_has_confronted_her_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "takada_has_confronted_her_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "claypool_has_confronted_his_demons",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "final_night_dyer_yes",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "final_night",
+      "hidden": true
+    },
+    {
+      "id": "dr_kensler_understands_the_true_nature_of_the_miasma",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "final_night"
+    },
+    {
+      "id": "scouted_the_forked_passage",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "final_night"
+    },
+    {
+      "id": "killed_in_plane_crash",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "ice_and_death_part_1",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "camp_icebreaker_landing",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_shelter",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "ice_and_death_part_1",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "camp_icy_wastes",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_barrier_camp",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_rocky_crags",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_frigid_cave",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_precarious_ice_sheet",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_treacherous_path",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_crash_site",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_remnants_of_lakes_camp",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_frozen_shores",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_crystalline_cavern",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_broad_snowdrifts",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "camp_snow_graves",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "green_soapstone",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "wooden_sledge",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "dynamite",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "miasmic_crystal",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "mineral_specimen",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "small_radio",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "spare_parts",
+      "section": "supplies_recovered",
+      "kind": "note",
+      "scenario": "ice_and_death_part_1",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "team_barely_escaped_the_ice_shelf",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_3"
+    },
+    {
+      "id": "killed_seeping_nightmare",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ice_and_death_part_3",
+      "hidden": true
+    },
+    {
+      "id": "team_defeated_the_hunting_creatures",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_3"
+    },
+    {
+      "id": "team_fled_to_the_mountains",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ice_and_death_part_3"
+    },
+    {
+      "id": "restful_night_william_dyer",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_danforth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_amy_kensler",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_mala_sinha",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_james_fredericks",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_avery_claypool",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_roald_ellsworth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_takada_hiroko",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_eliyah_ashevak",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "restful_night_dyer_yes",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "dr_kensler_is_sharing_her_research_with_you",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "restful_night"
+    },
+    {
+      "id": "scouted_the_mountain_pass",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "restful_night"
+    },
+    {
+      "id": "continue_ice_and_death_part_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_attack",
+      "hidden": true
+    },
+    {
+      "id": "icebreaker_landing",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "icy_wastes",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "barrier_camp",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "rocky_crags",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "frigid_cave",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "precarious_ice_sheet",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "treacherous_path",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "crash_site",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "remnants_of_lakes_camp",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "frozen_shores",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "crystalline_cavern",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "broad_snowdrifts",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "snow_graves",
+      "section": "locations_revealed",
+      "kind": "note",
+      "scenario": "the_attack"
+    },
+    {
+      "id": "continue_ice_and_death_part_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_disappearance",
+      "hidden": true
+    },
+    {
+      "id": "played_the_heart_of_madness_part_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_1",
+      "hidden": true
+    },
+    {
+      "id": "the_final_straw",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_1",
+      "hidden": true
+    },
+    {
+      "id": "final_straw_victim",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "the_heart_of_madness_part_1",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "the_seal_was_used_improperly",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_1"
+    },
+    {
+      "id": "dr_kensler_has_a_plan",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "truth_of_the_mirage_eludes_you",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "nameless_madness_escaped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "nameless_madness_is_contained_safely_within_its_host_for_now",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "team_escaped_the_facility",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "facility_was_destroyed",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "surviving_members_header",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "continue_the_heard_of_madness_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_other_side",
+      "hidden": true
+    },
+    {
+      "id": "seal_a",
+      "section": "seals_placed",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_b",
+      "section": "seals_placed",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_c",
+      "section": "seals_placed",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_d",
+      "section": "seals_placed",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_e",
+      "section": "seals_placed",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_a",
+      "section": "seals_recovered",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_b",
+      "section": "seals_recovered",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_c",
+      "section": "seals_recovered",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_d",
+      "section": "seals_recovered",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "seal_e",
+      "section": "seals_recovered",
+      "kind": "note",
+      "scenario": "the_other_side"
+    },
+    {
+      "id": "tragedy_strikes",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "green_soapstone_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "wooden_sledge_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "dynamite_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "miasmic_crystal_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "mineral_specimen_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "small_radio_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "spare_parts_recovered",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks",
+      "hidden": true
+    },
+    {
+      "id": "team_climbed_to_the_summit",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks"
+    },
+    {
+      "id": "team_found_another_way_through_the_mountains",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "to_the_forbidden_peaks"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "safe_bet",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.camp_crystalline_cavern"
+      },
+      "scenario": "ice_and_death_part_1"
+    },
+    {
+      "id": "look_at_all_this_stuff",
+      "type": "binary",
+      "family": "eoe",
+      "scenario": "to_the_forbidden_peaks"
+    },
+    {
+      "id": "in_your_head",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "sectionCount",
+        "section": "memories_banished",
+        "min": 9
+      },
+      "scenario": "fatal_mirage"
+    },
+    {
+      "id": "chaos_chaos",
+      "type": "count",
+      "max": 10,
+      "family": "eoe",
+      "scenario": "city_of_the_elder_things"
+    },
+    {
+      "id": "knock_knock",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "seals_placed.seal_a"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_b"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_c"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_d"
+          },
+          {
+            "type": "log",
+            "key": "seals_placed.seal_e"
+          }
+        ]
+      },
+      "scenario": "the_heart_of_madness_part_1"
+    },
+    {
+      "id": "mad_with_power",
+      "type": "binary",
+      "family": "eoe",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "construct_additional_pylons",
+      "type": "binary",
+      "family": "eoe",
+      "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "the_sound_of_madness",
+      "type": "count",
+      "max": 10,
+      "family": "eoe"
+    },
+    {
+      "id": "sorry_im_all_out_of_dog_puns",
+      "type": "binary",
+      "family": "eoe"
+    },
+    {
+      "id": "kind_of_a_hat_on_a_hat",
+      "type": "binary",
+      "family": "eoe"
+    },
+    {
+      "id": "this_was_your_idea",
+      "type": "count",
+      "max": 4,
+      "family": "eoe"
+    },
+    {
+      "id": "no_respect_for_the_dead",
+      "type": "binary",
+      "family": "eoe"
+    },
+    {
+      "id": "wuk_wuk_boom",
+      "type": "binary",
+      "family": "eoe"
+    },
+    {
+      "id": "the_cold_never_bothered_me",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "chaosToken",
+        "token": "frost",
+        "min": 8
+      }
+    },
+    {
+      "id": "hell_froze_over",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "chaosToken",
+        "token": "frost",
+        "max": 0
+      }
+    },
+    {
+      "id": "abandoned_and_alone",
+      "type": "binary",
+      "family": "eoe"
+    },
+    {
+      "id": "friends_forever",
+      "type": "binary",
+      "family": "eoe"
+    },
+    {
+      "id": "there_and_back_again",
+      "type": "list",
+      "items": [
+        "kensler",
+        "dyer",
+        "danforth",
+        "cookie",
+        "ashevak",
+        "sinha",
+        "hiroko",
+        "claypool",
+        "ellsworth"
+      ],
+      "family": "eoe",
+      "itemInfer": {
+        "kensler": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "kensler",
+          "status": "alive"
+        },
+        "dyer": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "dyer",
+          "status": "alive"
+        },
+        "danforth": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "danforth",
+          "status": "alive"
+        },
+        "cookie": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "cookie",
+          "status": "alive"
+        },
+        "ashevak": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "ashevak",
+          "status": "alive"
+        },
+        "sinha": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "sinha",
+          "status": "alive"
+        },
+        "hiroko": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "hiroko",
+          "status": "alive"
+        },
+        "claypool": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "claypool",
+          "status": "alive"
+        },
+        "ellsworth": {
+          "type": "partnerStatus",
+          "section": "expedition_team",
+          "partner": "ellsworth",
+          "status": "alive"
+        }
+      }
+    },
+    {
+      "id": "line_in_the_snow",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "ultimatums",
+        "min": 3
+      }
+    },
+    {
+      "id": "antarctic_expertise",
+      "type": "binary",
+      "family": "eoe",
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.convinced_dyer_to_allow_the_expedition",
+        "campaign_notes.did_not_believe_dyers_report"
+      ],
+      "scenario": "Prologue: The Side Effects of the Past"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.team_barely_escaped_the_ice_shelf",
+        "campaign_notes.team_defeated_the_hunting_creatures",
+        "campaign_notes.team_fled_to_the_mountains"
+      ],
+      "scenario": "Ice and Death, Part III"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.team_climbed_to_the_summit",
+        "campaign_notes.team_found_another_way_through_the_mountains"
+      ],
+      "scenario": "To the Forbidden Peaks"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.team_found_the_hidden_tunnel",
+        "campaign_notes.team_was_guided_to_the_hidden_tunnel"
+      ],
+      "scenario": "City of the Elder Things"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.dr_kensler_has_a_plan",
+        "campaign_notes.truth_of_the_mirage_eludes_you"
+      ],
+      "scenario": "The Heart of Madness, Part II"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.nameless_madness_escaped",
+        "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now",
+        "campaign_notes.facility_was_destroyed",
+        "campaign_notes.team_escaped_the_facility"
+      ],
+      "scenario": "The Heart of Madness, Part II"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.airfield",
+        "memories_banished.airfield"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.alaskan_wilds",
+        "memories_banished.alaskan_wilds"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.cluttered_dormitory",
+        "memories_banished.cluttered_dormitory"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.dr_kenslers_office",
+        "memories_banished.dr_kenslers_office"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.dyers_classroom",
+        "memories_banished.dyers_classroom"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.infirmary",
+        "memories_banished.infirmary"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.ottoman_front",
+        "memories_banished.ottoman_front"
+      ],
+      "scenario": "Fatal Mirage"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "memories_discovered.the_black_stone",
+        "memories_banished.the_black_stone"
+      ],
+      "scenario": "Fatal Mirage"
+    }
+  ]
+}

@@ -1,0 +1,273 @@
+{
+  "code": "fof",
+  "name": "Fortune and Folly",
+  "kind": "campaign",
+  "version": 1,
+  "scenarios": [
+    "fortune_and_folly_part_1"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "continue_fortune_and_folly_part_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_stashed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_alarm_level",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_wellspring_clues",
+      "section": "campaign_notes",
+      "kind": "count",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "count"
+      }
+    },
+    {
+      "id": "fof_found_a_vent",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_impersonated_a_high_roller",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_convinced_isamara",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_obtained_an_uniform",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_stole_keys",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_cleaned_out_the_house",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_found_a_vent",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_impersonated_a_high_roller",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_convinced_isamara",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_obtained_an_uniform",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_stole_keys",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_cleaned_out_the_house",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_need_time_to_rest",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan",
+      "hidden": true
+    },
+    {
+      "id": "fof_need_time_to_rest",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "checkpoint_the_plan"
+    },
+    {
+      "id": "fof_the_face",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_muscle",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_thief",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_grifter",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_face_practiced",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_muscle_practiced",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_thief_practiced",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_the_grifter_practiced",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "checkpoint_the_plan",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "fof_skip_part_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fortune_and_folly_part_1",
+      "hidden": true
+    },
+    {
+      "id": "fof_heist_tasks",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "fortune_and_folly_part_2",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "cell_meddled_in_abarrans_affairs",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "fortune_and_folly_part_2"
+    }
+  ],
+  "achievements": []
+}

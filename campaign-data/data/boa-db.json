@@ -1,0 +1,214 @@
+{
+  "code": "boa",
+  "name": "Brethren of Ash",
+  "kind": "campaign",
+  "version": 0,
+  "scenarios": [
+    "spreading_flames",
+    "smoke_and_mirrors",
+    "queen_of_ash"
+  ],
+  "sections": [
+    {
+      "id": "campaign_notes",
+      "type": "notes"
+    },
+    {
+      "id": "hidden",
+      "type": "notes",
+      "hidden": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "miskatonic_university_burned",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "01_spreading_flames"
+    },
+    {
+      "id": "defeated_their_masked_pursuer",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "01_spreading_flames"
+    },
+    {
+      "id": "saved_miskatonic_university",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "01_spreading_flames"
+    },
+    {
+      "id": "smoke_and_mirrors_phi",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "killed_servant_of_flame",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "servant_of_flame_beaneath_act",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "david_harbinger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "cornelia_harbinger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "naomi_harbinger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "earl_harbinger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "abigail_harbinger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "margaret_harbinger",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "enemy_is_harbinger",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "discovered_the_cults_whereabouts",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "failed_in_their_search",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "killed_the_servant_of_flame",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "scoured_arkham_for_answers",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "stirred_up_trouble",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "the_servant_of_flame_escaped",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "id": "queen_of_ash_phi",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "03_queen_of_ash",
+      "hidden": true
+    },
+    {
+      "id": "elokoss_was_reborn",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_queen_of_ash"
+    },
+    {
+      "id": "defeated_elokoss_and_the_brethren_of_ash",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_queen_of_ash"
+    },
+    {
+      "id": "stopped_elokoss_glorious_rebirth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_queen_of_ash"
+    },
+    {
+      "id": "flooded_the_ritual",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "03_queen_of_ash"
+    }
+  ],
+  "achievements": [],
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.miskatonic_university_burned",
+        "campaign_notes.saved_miskatonic_university"
+      ],
+      "scenario": "01_spreading_flames"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.david_harbinger",
+        "campaign_notes.cornelia_harbinger",
+        "campaign_notes.naomi_harbinger",
+        "campaign_notes.earl_harbinger",
+        "campaign_notes.abigail_harbinger",
+        "campaign_notes.margaret_harbinger"
+      ],
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.discovered_the_cults_whereabouts",
+        "campaign_notes.failed_in_their_search"
+      ],
+      "scenario": "02_smoke_and_mirrors"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.elokoss_was_reborn",
+        "campaign_notes.defeated_elokoss_and_the_brethren_of_ash",
+        "campaign_notes.stopped_elokoss_glorious_rebirth",
+        "campaign_notes.flooded_the_ritual"
+      ],
+      "scenario": "03_queen_of_ash"
+    }
+  ]
+}

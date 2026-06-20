@@ -1,0 +1,365 @@
+{
+  "code": "rttcu",
+  "_notes": "Verified all 8 spans are exact substrings of their entry texts. No sibling collisions: the four Azathoth-section entries (devoured/slumbers/joins-pipers/signed-black-book) remain distinct after blurring via their non-blurred remainders. No over-blur: visible NPC/faction names (Anette Mason, Carl Sanford, the coven, Silver Twilight Lodge) stay visible per front-loaded-setup rule; Azathoth blurred only in endgame outcome entries and not present in any section title. Under-blur check: genuine endgame/twist reveals (Keziah world domination, Anette/Sanford transformations, Azathoth final boss, Pipers/Black Book endgame, 'true work') are all blurred. No exotic roster sections needed (hidden/$input_value/missing-persons sections all 'notes' type, matching reference). Curation accepted unchanged.",
+  "spoilers": {
+    "campaign_notes.coven_of_keziah_holds_the_world_in_its_grasp": [
+      "Keziah holds the world in its grasp"
+    ],
+    "campaign_notes.anette_mason_is_possessed_by_evil": [
+      "possessed by evil"
+    ],
+    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": [
+      "the secrets of the universe"
+    ],
+    "campaign_notes.azathoth_devoured_the_universe": [
+      "Azathoth"
+    ],
+    "campaign_notes.lead_investigator_joins_pipers": [
+      "the pipers of Azathoth"
+    ],
+    "campaign_notes.azathoth_slumbers": [
+      "Azathoth"
+    ],
+    "campaign_notes.signed_the_black_book": [
+      "the Black Book of Azathoth"
+    ],
+    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": [
+      "the true work"
+    ]
+  },
+  "achievements": {
+    "speak_the_words_aloud": {
+      "requires": {
+        "type": "allOf",
+        "of": [
+          { "type": "log", "key": "campaign_notes.azathoth_slumbers" },
+          { "type": "log", "key": "mementos.strange_incantation" },
+          { "type": "log", "key": "mementos.bloody_tree_carvings" }
+        ]
+      }
+    },
+    "carl_shmarl": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.inducted_into_the_inner_circle"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.sided_with_the_coven"
+          }
+        ]
+      },
+      "scenario": "union_and_disillusion",
+      "shared": true
+    },
+    "threefold_rule": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.erynn_joined_investigators"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.sided_with_the_lodge"
+          }
+        ]
+      },
+      "scenario": "union_and_disillusion"
+    },
+    "new_world_order": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.sided_with_the_lodge"
+      },
+      "shared": true
+    },
+    "immortality_sounds_nice": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.sided_with_the_coven"
+      }
+    },
+    "member_these": {
+      "shared": true,
+      "itemInfer": {
+        "mesmerizing_flute": {
+          "type": "log",
+          "key": "mementos.mesmerizing_flute"
+        },
+        "ritual_components": {
+          "type": "log",
+          "key": "mementos.ritual_components"
+        },
+        "scrap_of_torn_shadow": {
+          "type": "log",
+          "key": "mementos.scrap_of_torn_shadow"
+        },
+        "strange_incantation": {
+          "type": "log",
+          "key": "mementos.strange_incantation"
+        },
+        "gilmans_journal": {
+          "type": "log",
+          "key": "mementos.gilmans_journal"
+        },
+        "keziahs_formulae": {
+          "type": "log",
+          "key": "mementos.keziahs_formulae"
+        },
+        "worn_crucifix": {
+          "type": "log",
+          "key": "mementos.worn_crucific"
+        },
+        "wisp_of_spectral_mist": {
+          "type": "log",
+          "key": "mementos.wisp_of_spectral_mist"
+        },
+        "corn_husk_doll": {
+          "type": "log",
+          "key": "mementos.corn_husk_doll"
+        },
+        "bloody_tree_carvings": {
+          "type": "log",
+          "key": "mementos.bloody_tree_carvings"
+        }
+      }
+    },
+    "case_closed": {
+      "shared": true,
+      "itemInfer": {
+        "valentino": {
+          "type": "log",
+          "key": "05048.alive"
+        },
+        "gavriella": {
+          "type": "log",
+          "key": "05046.alive"
+        },
+        "penny": {
+          "type": "log",
+          "key": "05049.alive"
+        },
+        "jerome": {
+          "type": "log",
+          "key": "05047.alive"
+        }
+      }
+    },
+    "music_of_the_outer_gods": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.accepted_fate"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.lead_investigator_joins_pipers"
+          }
+        ]
+      },
+      "shared": true
+    },
+    "weaver_of_shadow_and_mist": {
+      "infer": {
+        "type": "allOf",
+        "of": [
+          {
+            "type": "log",
+            "key": "campaign_notes.rejected_fate"
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.azathoth_slumbers"
+          }
+        ]
+      },
+      "shared": true
+    },
+    "fine_print": {
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.signed_the_black_book"
+      },
+      "shared": true
+    },
+    "circle_expertise": {
+      "infer": {
+        "type": "difficulty",
+        "is": "expert"
+      },
+      "shared": true
+    },
+    "savior_of_humanity": {
+      "scenario": "at_deaths_doorstep",
+      "shared": true
+    },
+    "more_like_excursion": {
+      "scenario": "in_the_clutches_of_chaos",
+      "shared": true
+    },
+    "who_you_gonna_call": {
+      "shared": true
+    },
+    "would_read_again": {
+      "shared": true
+    }
+  },
+  "validators": [
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05046.taken_by_the_watcher",
+        "05046.claimed_by_specters",
+        "05046.disappeared_into_the_mist",
+        "05046.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05047.taken_by_the_watcher",
+        "05047.claimed_by_specters",
+        "05047.disappeared_into_the_mist",
+        "05047.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05048.taken_by_the_watcher",
+        "05048.claimed_by_specters",
+        "05048.disappeared_into_the_mist",
+        "05048.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05049.taken_by_the_watcher",
+        "05049.claimed_by_specters",
+        "05049.disappeared_into_the_mist",
+        "05049.pulled_into_the_spectral_realm"
+      ],
+      "scenario": "disappearance_at_the_twilight_estate"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.accepted_fate",
+        "campaign_notes.rejected_fate"
+      ],
+      "scenario": "the_witching_hour"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.witches_spell_broken",
+        "campaign_notes.witches_spell_cast"
+      ],
+      "scenario": "the_witching_hour"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.guardian_of_the_trap_emerged",
+        "campaign_notes.discovered_how_to_open_the_puzzle_box",
+        "campaign_notes.guardian_of_the_trap_defeated"
+      ],
+      "scenario": "for_the_greater_good"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.members_of_the_lodge",
+        "campaign_notes.enemies_of_the_lodge"
+      ],
+      "scenario": "the_price_of_progress"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.investigators_escaped_the_spectral_realm",
+        "campaign_notes.learned_nothing_of_the_lodges_schemes",
+        "campaign_notes.never_seen_again"
+      ],
+      "scenario": "at_deaths_doorstep"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.asked_anette_for_assistance",
+        "campaign_notes.arrested_anette",
+        "campaign_notes.anette_taught_you_the_spells_of_old"
+      ],
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.asked_sanford_for_assistance",
+        "campaign_notes.arrested_sanford",
+        "campaign_notes.assumed_control_of_the_silver_twilight_lodge"
+      ],
+      "scenario": "in_the_clutches_of_chaos"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.sided_with_the_lodge",
+        "campaign_notes.sided_with_the_coven"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "campaign_notes.azathoth_devoured_the_universe",
+        "campaign_notes.lead_investigator_joins_pipers",
+        "campaign_notes.signed_the_black_book"
+      ],
+      "scenario": "before_the_black_throne"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05046.alive",
+        "05046.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05047.alive",
+        "05047.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05048.alive",
+        "05048.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    },
+    {
+      "type": "mutuallyExclusive",
+      "entries": [
+        "05049.alive",
+        "05049.dead"
+      ],
+      "scenario": "union_and_disillusion"
+    }
+  ]
+}

@@ -5,6 +5,9 @@
       "path": "./kohaku"
     },
     {
+      "path": "./campaign-data"
+    },
+    {
       "path": "./string"
     },
     {

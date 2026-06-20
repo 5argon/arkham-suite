@@ -1,0 +1,232 @@
+{
+  "code": "tdc",
+  "name": "The Drowned City",
+  "sections": {
+    "campaign_notes": "Campaign Notes",
+    "glyphs": "Alien Glyphs",
+    "task_progress": "Task progress",
+    "artifacts_earned": "Artifacts Earned",
+    "locations": "Locations of R'lyeh",
+    "flooded_neighborhoods": "Flooded Neighborhoods",
+    "hidden": "Hidden"
+  },
+  "entries": {
+    "campaign_notes.discovered_an_alien_language": {
+      "text": "the investigators discovered an alien language."
+    },
+    "campaign_notes.ruby_won_the_bet": {
+      "text": "Ruby won the bet."
+    },
+    "campaign_notes.ruby_lost_the_bet": {
+      "text": "Ruby lost the bet."
+    },
+    "glyphs.tdc_rune_a": {
+      "text": "Depths"
+    },
+    "campaign_notes.expedition_headed_west": {
+      "text": "the expedition headed west."
+    },
+    "campaign_notes.expedition_headed_east": {
+      "text": "the expedition headed east."
+    },
+    "campaign_notes.the_creature_was_defeated": {
+      "text": "the creature was defeated."
+    },
+    "artifacts_earned.barrier_node": {
+      "text": "Barrier Node"
+    },
+    "campaign_notes.the_power_was_diverted": {
+      "text": "the power was diverted."
+    },
+    "artifacts_earned.grisly_mask": {
+      "text": "Grisly Mask"
+    },
+    "campaign_notes.pilgrims_were_saved": {
+      "text": "the pilgrims were saved."
+    },
+    "campaign_notes.pilgrims_were_devoured": {
+      "text": "the pilgrims were devoured."
+    },
+    "campaign_notes.exterminated_the_alien_parasites": {
+      "text": "the investigators exterminated the alien parasites.",
+      "spoiler": [
+        "the alien parasites"
+      ]
+    },
+    "glyphs.tdc_rune_s": {
+      "text": "Machine"
+    },
+    "campaign_notes.the_inner_sanctum_was_unsealed": {
+      "text": "the inner sanctum was unsealed."
+    },
+    "artifacts_earned.tidal_tablet": {
+      "text": "Tidal Tablet"
+    },
+    "artifacts_earned.shard": {
+      "text": "Shard of Y'ch'lecht"
+    },
+    "artifacts_earned.obsidian_claw": {
+      "text": "Obsidian Claw"
+    },
+    "campaign_notes.halted_cthulhus_awakening": {
+      "text": "the investigators halted Cthulhu's awakening.",
+      "spoiler": [
+        "Cthulhu's awakening"
+      ]
+    },
+    "artifacts_earned.clah_horror": {
+      "text": "Horror in Clay"
+    },
+    "flooded_neighborhoods.downtown": {
+      "text": "Downtown"
+    },
+    "flooded_neighborhoods.easttown": {
+      "text": "Easttown"
+    },
+    "flooded_neighborhoods.miskatonic_university": {
+      "text": "Miskatonic University"
+    },
+    "flooded_neighborhoods.northside": {
+      "text": "Northside"
+    },
+    "flooded_neighborhoods.rivertown": {
+      "text": "Rivertown"
+    },
+    "flooded_neighborhoods.southside": {
+      "text": "Southside"
+    },
+    "flooded_neighborhoods.st_marys_hospital": {
+      "text": "St. Mary's Hospital"
+    },
+    "campaign_notes.stood_together": {
+      "text": "the investigators stood together."
+    },
+    "campaign_notes.your_allies_have_a_plan": {
+      "text": "your allies have a plan."
+    },
+    "campaign_notes.cthulhu_annihilated_the_city_of_arkham": {
+      "text": "Cthulhu annihilated the city of Arkham.",
+      "spoiler": [
+        "Cthulhu"
+      ]
+    },
+    "campaign_notes.cthulhu_was_driven_away": {
+      "text": "Cthulhu was driven away.",
+      "spoiler": [
+        "Cthulhu"
+      ]
+    },
+    "campaign_notes.cthulhu_was_banished": {
+      "text": "Cthulhu was banished.",
+      "spoiler": [
+        "Cthulhu"
+      ]
+    },
+    "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed": {
+      "text": "Cthulhu was banished, but Arkham was destroyed.",
+      "spoiler": [
+        "Cthulhu"
+      ]
+    }
+  },
+  "achievements": {
+    "one_first_last_job": {
+      "title": "One First Last Job",
+      "text": "Complete <i>The Drowned City</i> campaign once on any difficulty."
+    },
+    "season_two": {
+      "title": "Season Two",
+      "text": "Play through the campaign on hard or expert mode using 4 investigators from 4 different previous campaigns."
+    },
+    "cliff": {
+      "title": "Cliff Diver",
+      "text": "Complete the campaign without ever bringing a diving suit along."
+    },
+    "coup": {
+      "title": "This is a Coup",
+      "text": "Defeat both Naomi O’Bannion and Sadie Sheldon in <i>One Last Job</i> using only the act 3a parley ability."
+    },
+    "search": {
+      "title": "Thorough Search",
+      "text": "End <i>The Western Wall</i> with every location revealed."
+    },
+    "tidal_flip": {
+      "title": "Tidal Flip Minigame",
+      "text": "Complete <i>The Drowned Quarter</i> with each location revealed and not flooded."
+    },
+    "acolyte": {
+      "title": "No Acolyte Left Behind",
+      "text": "Rescue 5 cultists in <i>The Apiary</i>."
+    },
+    "kill_the_adds": {
+      "title": "Kill the Adds",
+      "text": "Defeat Mother in <i>The Apiary</i> using only her <b>Forced</b> effect."
+    },
+    "deep_end": {
+      "title": "In The Deep End",
+      "text": "Escape <i>The Grand Vault</i> with the Tidal Tablet after every location has been fully flooded."
+    },
+    "sorry": {
+      "title": "Sorry, Didn’t See You There",
+      "text": "Beat <i>Court of the Ancients</i> without moving the Great Lift after the Colossal Tyrant spawns."
+    },
+    "sky_rider": {
+      "title": "Sky Rider",
+      "text": "End your turn in open sky at least 5 times during a single game of <i>Obsidian Canyons</i>."
+    },
+    "skip_to_the_end": {
+      "title": "Skip to the End",
+      "text": "Defeat Cthulhu in <i>Sepulchre of the Sleeper</i>."
+    },
+    "alien_dropout": {
+      "title": "Alien School Dropout",
+      "text": "Complete the campaign without translating a single alien glyph."
+    },
+    "alien_grad": {
+      "title": "Alien School Graduate",
+      "text": "Translate all 26 alien glyphs during a single playthrough of <i>The Drowned City</i> campaign."
+    },
+    "empty_handed": {
+      "title": "Empty Handed",
+      "text": "Return from R'lyeh without having collected any [[Artifact]] story assets."
+    },
+    "stay_dead": {
+      "title": "WHY. WON’T. YOU. STAY. DEAD?!",
+      "text": "Add The Inescapable to the victory display at least 20 times during a single campaign."
+    },
+    "powers_combined": {
+      "title": "With Your Powers Combined…",
+      "text": "Finish <i>The Drowned City</i> campaign having earned the following artifacts:",
+      "items": {
+        "barrier_node": "Barrier Node",
+        "obsidian_claw": "Obsidian Claw",
+        "shard": "Shard of Y'ch'lecht",
+        "mask": "Grisly \"Mask\"",
+        "tablet": "Tidal Tablet",
+        "horror": "Horror in Clay"
+      }
+    },
+    "obligations": {
+      "title": "Obligations",
+      "text": "Finish <i>The Drowned City</i> campaign with the following tasks completed:",
+      "items": {
+        "walk_in_faith": "Walk in Faith",
+        "toe_the_line": "Toe the Line",
+        "good_money": "Good Money",
+        "prove_your_worth": "Prove Your Worth",
+        "dreams_of_destruction": "Dreams of Destruction",
+        "do_no_harm": "Do No Harm",
+        "no_place_like_home": "No Place Like Home",
+        "plumb_the_depths": "Plumb the Depths"
+      }
+    },
+    "line_in_the_sand": {
+      "title": "Line in the Sand",
+      "text": "Win <i>The Drowned City</i> campaign with at least three Ultimatums active."
+    },
+    "expertise": {
+      "title": "R’lyeh Expertise",
+      "text": "Win <i>The Drowned City</i> campaign on Expert difficulty."
+    }
+  }
+}

@@ -1,0 +1,8 @@
+dist/
+node_modules/
+# Vendored ArkhamCards reference data (build-time only; not shipped)
+references/
+# Intermediate build artifacts — regenerate with tools/extract.mjs
+data/*.draft.json
+*.log
+*.tsbuildinfo
