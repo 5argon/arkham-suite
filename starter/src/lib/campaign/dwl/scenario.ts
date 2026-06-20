@@ -392,12 +392,12 @@ export const returnToTheHouseAlwaysWinsScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: hideousAbominations,
-				what: 'The entire **Hideous Abominations** encounter set is set aside, out of play.'
-			},
-			{
 				encounterSet: erraticFear,
 				what: 'The entire **Erratic Fear** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: hideousAbominations,
+				what: 'The entire **Hideous Abominations** encounter set is set aside, out of play.'
 			}
 		]
 	}

@@ -114,16 +114,16 @@ export const theWitchingHourScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: theDevourerBelow,
-				what: 'Only gather 6x **Arkham Woods** locations.'
-			},
-			{
 				encounterSet: agentsOfAzathoth,
 				what: 'The entire **Agents of Azathoth** encounter set is set aside, out of play.'
 			},
 			{
 				encounterSet: agentsOfShubNiggurath,
 				what: 'The entire **Agents of Shub-Niggurath** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: theDevourerBelow,
+				what: 'Only gather 6x **Arkham Woods** locations.'
 			}
 		]
 	},
@@ -238,12 +238,12 @@ export const theWagesOfSinScenario: Scenario = {
 				what: 'The entire **Realm of Death** set in the spectral encounter deck. (4 cards)'
 			},
 			{
-				encounterSet: trappedSpirits,
-				what: 'The entire **Trapped Spirits** set in the spectral encounter deck. (4 cards)'
-			},
-			{
 				encounterSet: theWatcher,
 				what: 'The entire **The Watcher** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: trappedSpirits,
+				what: 'The entire **Trapped Spirits** set in the spectral encounter deck. (4 cards)'
 			}
 		]
 	},
@@ -341,6 +341,9 @@ export const unionAndDisillusionScenario: Scenario = {
 		],
 		notes: [
 			{
+				what: 'For each heretic that was unleashed unto Arkham, place 1 doom on agenda 1a.'
+			},
+			{
 				encounterSet: unionAndDisillusion,
 				what: "**The Watcher's Gaze** treachery is set aside, out of play."
 			},
@@ -355,9 +358,6 @@ export const unionAndDisillusionScenario: Scenario = {
 			{
 				encounterSet: theWatcher,
 				what: 'The entire **The Watcher** encounter set is set aside, out of play.'
-			},
-			{
-				what: 'For each heretic that was unleashed unto Arkham, place 1 doom on agenda 1a.'
 			}
 		]
 	},
@@ -408,11 +408,11 @@ export const inTheClutchesOfChaosScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: agentsOfAzathoth,
-				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
+				what: "Gather **Silver Twilight Lodge** and **Hangman's Hill** from the other variant for breach randomization."
 			},
 			{
-				what: "Gather **Silver Twilight Lodge** and **Hangman's Hill** from the other variant for breach randomization."
+				encounterSet: agentsOfAzathoth,
+				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
 			}
 		]
 	},
@@ -460,11 +460,11 @@ export const beforeTheBlackThroneScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: agentsOfAzathoth,
-				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
+				what: "Don't forget potential chaos bag changes in the prior Interlude IV."
 			},
 			{
-				what: "Don't forget potential chaos bag changes in the prior Interlude IV."
+				encounterSet: agentsOfAzathoth,
+				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
 			}
 		]
 	},

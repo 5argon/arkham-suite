@@ -76,10 +76,9 @@ export const theUntamedWildsScenario: Scenario = {
 				what: '5x Treacheries, 5x Locations'
 			},
 			{
-				encounterSet: rainforest,
-				what: '**Overgrown Ruins** and **Temple of the Fang** are set aside. 1x **Overgrowth** and 5 remaining locations are in the exploration deck.'
+				encounterSet: agentsOfYig,
+				what: 'The entire **Agents of Yig** encounter set is set aside, out of play.'
 			},
-			{ encounterSet: serpents, what: '1x **Snake Bite** is in the exploration deck.' },
 			{
 				encounterSet: expedition,
 				what: '1x **Lost in the Wilds** and 1x **Low on Supplies** are in the exploration deck.'
@@ -89,9 +88,10 @@ export const theUntamedWildsScenario: Scenario = {
 				what: '1x **Arrows from the Trees** is in the exploration deck.'
 			},
 			{
-				encounterSet: agentsOfYig,
-				what: 'The entire **Agents of Yig** encounter set is set aside, out of play.'
-			}
+				encounterSet: rainforest,
+				what: '**Overgrown Ruins** and **Temple of the Fang** are set aside. 1x **Overgrowth** and 5 remaining locations are in the exploration deck.'
+			},
+			{ encounterSet: serpents, what: '1x **Snake Bite** is in the exploration deck.' }
 		]
 	},
 	extraInfo: {
@@ -264,20 +264,20 @@ export const heartOfTheEldersPart1Scenario: Scenario = {
 				what: '1x **Pitfall** is in the exploration deck.'
 			},
 			{
-				encounterSet: expedition,
-				what: '1x **Lost in the Wild** and 1x **Low on Supplies** are in the exploration deck.'
-			},
-			{
 				encounterSet: pillarsOfJudgement,
 				what: '1x **Time-Wracked Woods** (*Jungle*) and 1x **Ants!** are in the exploration deck.'
 			},
 			{
-				encounterSet: rainforest,
-				what: '5x *Jungle* locations are all in the exploration deck.'
-			},
-			{
 				encounterSet: pillarsOfJudgement,
 				what: '**Stone Altar** (*Ruins*) is a part of 3 *Ruins* randomization, 2 other *Ruins* in the **Rainforest** set.'
+			},
+			{
+				encounterSet: expedition,
+				what: '1x **Lost in the Wild** and 1x **Low on Supplies** are in the exploration deck.'
+			},
+			{
+				encounterSet: rainforest,
+				what: '5x *Jungle* locations are all in the exploration deck.'
 			},
 			{
 				encounterSet: rainforest,
@@ -676,12 +676,12 @@ export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
 				what: '5x Locations (no Treacheries; they start in the encounter deck)'
 			},
 			{
-				encounterSet: knyan,
-				what: '5 locations other than **Descent to Yoth** are in the exploration deck; **No Turning Back** starts in the encounter deck.'
-			},
-			{
 				encounterSet: returnToKnyan,
 				what: '**Forced**: After a successful exploration ends, Shuffle the top card of the encounter deck into the exploration deck.'
+			},
+			{
+				encounterSet: knyan,
+				what: '5 locations other than **Descent to Yoth** are in the exploration deck; **No Turning Back** starts in the encounter deck.'
 			}
 		]
 	}
@@ -705,12 +705,12 @@ export const returnToTheCityOfArchivesScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: agentsOfYogSothoth,
-				what: '1x **Yithian Observer** is either spawned or in the victory display.'
-			},
-			{
 				encounterSet: returnToTheCityOfArchives,
 				what: '2x **Captive Subjects** are shuffled into the encounter deck.'
+			},
+			{
+				encounterSet: agentsOfYogSothoth,
+				what: '1x **Yithian Observer** is either spawned or in the victory display.'
 			}
 		]
 	}

@@ -84,12 +84,12 @@ export const wakingNightmareScenario: Scenario = {
 				what: '2x **Suspicious Orderly** in the starting encounter deck.'
 			},
 			{
-				encounterSet: spiders,
-				what: 'The entire **Spiders** encounter set is set aside, out of play.'
-			},
-			{
 				encounterSet: agentsOfAtlachNacha,
 				what: 'The entire **Agents of Atlach-Nacha** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: spiders,
+				what: 'The entire **Spiders** encounter set is set aside, out of play.'
 			}
 		]
 	}
@@ -145,12 +145,12 @@ export const theSearchForKadathScenario: Scenario = {
 				what: 'For enemy cards, only 2x **Nightriders** and 0~1x **Pack of Vooniths** in the encounter deck. Other enemy cards of **The Search for Kadath** encounter set are set aside.'
 			},
 			{
-				encounterSet: corsairs,
-				what: '2x **Corsair of Leng** are set aside, out of play.'
-			},
-			{
 				encounterSet: agentsOfNyarlathotep,
 				what: '**The Crawling Mist** is set aside, out of play.'
+			},
+			{
+				encounterSet: corsairs,
+				what: '2x **Corsair of Leng** are set aside, out of play.'
 			}
 		]
 	}
@@ -222,24 +222,24 @@ export const pointOfNoReturnScenario: Scenario = {
 		],
 		notes: [
 			{
-				encounterSet: pointOfNoReturn,
-				what: '6 treachery cards in the starting encounter deck : 2x **Unexpected Ambush**, 2x **Taste of Lifeblood**, 2x **Lit by Death-Fire**.'
-			},
-			{
 				encounterSet: descentIntoThePitch,
 				what: 'The entire **Descent into the Pitch** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: pointOfNoReturn,
+				what: '6 treachery cards in the starting encounter deck : 2x **Unexpected Ambush**, 2x **Taste of Lifeblood**, 2x **Lit by Death-Fire**.'
 			},
 			{
 				encounterSet: terrorOfTheVale,
 				what: 'The entire **Terror of the Vale** encounter set is set aside, out of play.'
 			},
 			{
-				encounterSet: nightgaunts,
-				what: 'The entire **Nightgaunts** encounter set is set aside, out of play.'
-			},
-			{
 				encounterSet: agentsOfAtlachNacha,
 				what: 'The entire **Agents of Atlach-Nacha** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: nightgaunts,
+				what: 'The entire **Nightgaunts** encounter set is set aside, out of play.'
 			}
 		]
 	}

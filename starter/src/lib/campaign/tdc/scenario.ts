@@ -98,12 +98,12 @@ export const theWesternWallWesternScenario: Scenario = {
 				what: 'Only 3x **Look Out!** and 1x **Deep One Matron** enter the encounter deck.'
 			},
 			{
-				encounterSet: theInescapable,
-				what: 'Only 3x **Still Behind You** enter the encounter deck.'
-			},
-			{
 				encounterSet: starSpawn,
 				what: 'Only the **Coral Star Spawn** is gathered, set aside out of play.'
+			},
+			{
+				encounterSet: theInescapable,
+				what: 'Only 3x **Still Behind You** enter the encounter deck.'
 			}
 		]
 	}
@@ -297,12 +297,12 @@ export const theGrandVaultScenario: Scenario = {
 				what: 'Only 1x **Slitherer in Darkness** and 3x **Deadly Mechanisms** enter the encounter deck; the **Vault Attendant** enemies are set aside, out of play.'
 			},
 			{
-				encounterSet: theInescapable,
-				what: 'Only 3x **Still Behind You** enter the encounter deck.'
-			},
-			{
 				encounterSet: starSpawn,
 				what: 'Shuffle the **Star Spawn** enemies, remove two at random from the game, and set the rest aside, out of play.'
+			},
+			{
+				encounterSet: theInescapable,
+				what: 'Only 3x **Still Behind You** enter the encounter deck.'
 			}
 		]
 	}
@@ -453,6 +453,10 @@ export const obsidianCanyonsScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
+				encounterSet: starSpawn,
+				what: 'Shuffle the **Star Spawn** enemies and remove two at random from the game; the rest enter the encounter deck.'
+			},
+			{
 				encounterSet: ancientEvils,
 				what: 'The **Ancient Evils** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
 			},
@@ -463,10 +467,6 @@ export const obsidianCanyonsScenario: Scenario = {
 			{
 				encounterSet: strikingFear,
 				what: 'The **Striking Fear** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			},
-			{
-				encounterSet: starSpawn,
-				what: 'Shuffle the **Star Spawn** enemies and remove two at random from the game; the rest enter the encounter deck.'
 			}
 		]
 	}
@@ -535,15 +535,15 @@ export const theDoomOfArkhamPart1Scenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
+				what: 'Place starting doom on the agenda equal to the number of investigators.'
+			},
+			{
 				encounterSet: theDoomOfArkhamPt1,
 				what: '**Randall Tillinghast** is set aside, out of play; none of this set’s cards enter the encounter deck.'
 			},
 			{
 				encounterSet: theMidnightMasks,
 				what: 'Gather only the **location** and **treachery** cards. Locations are placed in play and the treacheries go face-down under locations, so none enter the encounter deck.'
-			},
-			{
-				what: 'Place starting doom on the agenda equal to the number of investigators.'
 			}
 		]
 	}

@@ -79,20 +79,16 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: theVanishingOfElinaHarper,
-				what: 'The suspects are placed as leads; none of **The Vanishing of Elina Harper** enters the encounter deck.'
+				encounterSet: fogOverInnsmouth,
+				what: 'The **Winged One** enemy is set aside, out of play.'
 			},
 			{
 				encounterSet: nightgaunts,
 				what: '2x **Hunting Nightgaunt** enemies are set aside, out of play.'
 			},
 			{
-				encounterSet: fogOverInnsmouth,
-				what: 'The **Winged One** enemy is set aside, out of play.'
-			},
-			{
 				encounterSet: theMidnightMasks,
-				what: 'Only its 5 treacheries are gathered.'
+				what: 'Only its 5 treacheries are gathered: 2x **False Lead** and 3x **Hunting Shadow**.'
 			}
 		]
 	}
@@ -117,7 +113,25 @@ export const inTooDeepScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: inTooDeep,
-				what: 'The **Innsmouth Shoggoth** and 2x **Ravager from the Deep** are set aside; Deep One enemies spawn at flooded locations during the chase.'
+				what: 'The **Innsmouth Shoggoth** and 2x **Ravager from the Deep** are set aside, out of play.'
+			}
+		]
+	},
+	extraInfo: {
+		back: [
+			{
+				heading: 'Barriers'
+			},
+			{
+				paragraph:
+					'Barriers are resource tokens placed between two locations and block investigator movement along that path.'
+			},
+			{
+				bullets: [
+					'If 1 or more barriers sit between two locations, investigators cannot move between them, even if they are connected.',
+					'Barriers are removed by certain location abilities or the act 1a ability; more barriers between two locations require more uses to clear the path.',
+					'A hunter enemy moves along the shortest path not blocked by barriers (ignoring barriers only if no such path exists); all other enemy movement ignores barriers.'
+				]
 			}
 		]
 	}

@@ -328,7 +328,7 @@ export const theLongestNightScenario: Scenario = {
 			},
 			{
 				encounterSet: theMidnightMasks,
-				what: 'Gather only 3x **Hunting Shadow** and 2x **False Lead**.'
+				what: 'Gather only 2x **False Lead** and 3x **Hunting Shadow**.'
 			}
 		]
 	}
@@ -359,24 +359,24 @@ export const fateOfTheValeScenario: Scenario = {
 				what: '**The Abyss** replaces the encounter deck. The count shown is the encounter portion only; it does not include the top 5 cards of each investigator’s deck or each investigator card, which are also shuffled into **The Abyss**.'
 			},
 			{
+				encounterSet: dayOfTheFeast,
+				what: 'The entire **Day of the Feast** set is set aside, out of play.'
+			},
+			{
 				encounterSet: fateOfTheVale,
 				what: '2x **Crystal Mimic** and the 6 treacheries (2x **Sublimation**, 2x **Fragmentation**, 2x **Euphoria**) are shuffled into **The Abyss**.'
+			},
+			{
+				encounterSet: fire,
+				what: 'The entire **Fire!** set is set aside, out of play.'
 			},
 			{
 				encounterSet: horrorsInTheRock,
 				what: 'Its locations and both **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled into **The Abyss**.'
 			},
 			{
-				encounterSet: dayOfTheFeast,
-				what: 'The entire **Day of the Feast** set is set aside, out of play.'
-			},
-			{
 				encounterSet: residents,
 				what: 'The entire **Residents** set is set aside, out of play.'
-			},
-			{
-				encounterSet: fire,
-				what: 'The entire **Fire!** set is set aside, out of play.'
 			},
 			{
 				encounterSet: theVale,

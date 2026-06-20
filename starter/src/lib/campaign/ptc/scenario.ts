@@ -200,20 +200,20 @@ export const theUnspeakableOathScenario: Scenario = {
 				what: 'Set aside two piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
 			},
 			{
-				encounterSet: agentsOfHastur,
-				what: '2x **Screeching Byakhee** ***(Monster)*** are set aside; only 2x **The Yellow Sign** enter the encounter deck.'
-			},
-			{
-				encounterSet: inhabitantsOfCarcosa,
-				what: '1x **Beast of Aldebaran** and 2x **Spawn of Hali** ***(Monster)*** are set aside.'
+				encounterSet: theUnspeakableOath,
+				what: '2x **Asylum Gorger** ***(Monster)*** and 3x **Haunted Patient** ***(Possessed)*** are set aside.'
 			},
 			{
 				encounterSet: hastursGift,
 				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
 			},
 			{
-				encounterSet: theUnspeakableOath,
-				what: '2x **Asylum Gorger** ***(Monster)*** and 3x **Haunted Patient** ***(Possessed)*** are set aside.'
+				encounterSet: inhabitantsOfCarcosa,
+				what: '1x **Beast of Aldebaran** and 2x **Spawn of Hali** ***(Monster)*** are set aside.'
+			},
+			{
+				encounterSet: agentsOfHastur,
+				what: '2x **Screeching Byakhee** ***(Monster)*** are set aside; only 2x **The Yellow Sign** enter the encounter deck.'
 			}
 		]
 	}
@@ -587,24 +587,24 @@ export const returnToTheUnspeakableOathScenario: Scenario = {
 				what: 'Set aside two piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
 			},
 			{
-				encounterSet: hastursEnvoys,
-				what: '2x **Preying Byakhee** ***(Monster)*** are set aside; only 2x **The Sign of Hastur** enter the encounter deck.'
-			},
-			{
-				encounterSet: inhabitantsOfCarcosa,
-				what: '1x **Beast of Aldebaran** and 2x **Spawn of Hali** ***(Monster)*** are set aside.'
-			},
-			{
-				encounterSet: hastursGift,
-				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
+				encounterSet: returnToTheUnspeakableOath,
+				what: '**Clouded Memory** is shuffled into the encounter deck (**Host of Insanity** and **Radical Treatment** are set aside).'
 			},
 			{
 				encounterSet: theUnspeakableOath,
 				what: '2x **Asylum Gorger** ***(Monster)*** and 3x **Haunted Patient** ***(Possessed)*** are set aside.'
 			},
 			{
-				encounterSet: returnToTheUnspeakableOath,
-				what: '**Clouded Memory** is shuffled into the encounter deck (**Host of Insanity** and **Radical Treatment** are set aside).'
+				encounterSet: hastursEnvoys,
+				what: '2x **Preying Byakhee** ***(Monster)*** are set aside; only 2x **The Sign of Hastur** enter the encounter deck.'
+			},
+			{
+				encounterSet: hastursGift,
+				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: '1x **Beast of Aldebaran** and 2x **Spawn of Hali** ***(Monster)*** are set aside.'
 			}
 		]
 	}
@@ -767,12 +767,12 @@ export const returnToBlackStarsRiseScenario: Scenario = {
 				what: 'If **Ashleigh Clarke** is under **VIPs Interviewed**: once per game, an investigator may remove 1 doom from an agenda in play as a [fast] ability. Use the back of this card as a reminder.'
 			},
 			{
-				encounterSet: inhabitantsOfCarcosa,
-				what: 'The **Beast of Aldebaran** is set aside, out of play.'
-			},
-			{
 				encounterSet: returnToBlackStarsRise,
 				what: '**Hastur’s Gaze** and **Hastur’s Grasp** are shuffled into the encounter deck.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: 'The **Beast of Aldebaran** is set aside, out of play.'
 			}
 		]
 	},
@@ -814,12 +814,12 @@ export const returnToDimCarcosaScenario: Scenario = {
 				what: 'Each investigator takes direct horror equal to half their sanity, rounded down (cannot be prevented). In the Realm of Carcosa, horror cannot defeat investigators.'
 			},
 			{
-				encounterSet: inhabitantsOfCarcosa,
-				what: 'The **Beast of Aldebaran** is set aside, out of play.'
-			},
-			{
 				encounterSet: returnToDimCarcosa,
 				what: '**High Priest of Hastur** is shuffled into the encounter deck.'
+			},
+			{
+				encounterSet: inhabitantsOfCarcosa,
+				what: 'The **Beast of Aldebaran** is set aside, out of play.'
 			}
 		]
 	}
