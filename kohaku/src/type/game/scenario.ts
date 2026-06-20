@@ -121,8 +121,8 @@ export enum Scenario {
   CityOfTheElderThings1 = 'city_of_the_elder_things_1',
   CityOfTheElderThings2 = 'city_of_the_elder_things_2',
   CityOfTheElderThings3 = 'city_of_the_elder_things_3',
-  TheHeartOfMadness1 = 'the_heart_of_madness_1',
-  TheHeartOfMadness2 = 'the_heart_of_madness_2',
+  TheHeartOfMadnessPart1 = 'the_heart_of_madness_part_1',
+  TheHeartOfMadnessPart2 = 'the_heart_of_madness_part_2',
 
   // The Scarlet Keys
   RiddlesAndRain = 'riddles_and_rain',
@@ -156,6 +156,11 @@ export enum Scenario {
   ObsidianCanyons = 'obsidian_canyons',
   SepulchreOfTheSleeper = 'sepulchre_of_the_sleeper',
   TheDoomOfArkham = 'the_doom_of_arkham',
+
+  // Brethren of Ash
+  SpreadingFlames = 'spreading_flames',
+  SmokeAndMirrors = 'smoke_and_mirrors',
+  QueenOfAsh = 'queen_of_ash',
 }
 
 /**
@@ -696,13 +701,13 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
     index: 9,
     representativeSet: EncounterSet.CityOfTheElderThings,
   },
-  [Scenario.TheHeartOfMadness1]: {
-    scenario: Scenario.TheHeartOfMadness1,
+  [Scenario.TheHeartOfMadnessPart1]: {
+    scenario: Scenario.TheHeartOfMadnessPart1,
     index: 10,
     representativeSet: EncounterSet.TheHeartOfMadness,
   },
-  [Scenario.TheHeartOfMadness2]: {
-    scenario: Scenario.TheHeartOfMadness2,
+  [Scenario.TheHeartOfMadnessPart2]: {
+    scenario: Scenario.TheHeartOfMadnessPart2,
     index: 11,
     representativeSet: EncounterSet.TheHeartOfMadness,
   },
@@ -847,6 +852,23 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
     index: 9,
     representativeSet: EncounterSet.TheDoomOfArkhamPart1,
   },
+
+  // Brethren of Ash
+  [Scenario.SpreadingFlames]: {
+    scenario: Scenario.SpreadingFlames,
+    index: 1,
+    representativeSet: EncounterSet.SpreadingFlames,
+  },
+  [Scenario.SmokeAndMirrors]: {
+    scenario: Scenario.SmokeAndMirrors,
+    index: 2,
+    representativeSet: EncounterSet.SmokeAndMirrors,
+  },
+  [Scenario.QueenOfAsh]: {
+    scenario: Scenario.QueenOfAsh,
+    index: 3,
+    representativeSet: EncounterSet.QueenOfAsh,
+  },
 };
 
 /**
@@ -855,4 +877,57 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
  */
 export function getScenarioData(scenario: Scenario): ScenarioData {
   return scenarioData[scenario];
+}
+
+/**
+ * Overrides where a kohaku {@link Scenario} code differs from the scenario id
+ * used by the ArkhamCards `arkham-cards-data` repository. Any scenario not
+ * listed here maps to itself (the kohaku code is already identical).
+ *
+ * A value of `null` means the scenario has no direct ArkhamCards scenario id —
+ * the Scarlet Keys scenarios are modelled by travel location there, not by the
+ * named scenario, so they need bespoke handling.
+ */
+const arkhamCardsScenarioIdOverrides: Partial<Record<Scenario, string | null>> = {
+  // Night of the Zealot — ArkhamCards keys these by encounter-set codename.
+  [Scenario.TheGathering]: 'torch',
+  [Scenario.TheMidnightMasks]: 'arkham',
+  [Scenario.TheDevourerBelow]: 'tentacles',
+  // ArkhamCards drops the leading "the" / uses the short id.
+  [Scenario.TheEssexCountyExpress]: 'essex_county_express',
+  [Scenario.ReturnToTheEssexCountyExpress]: 'return_to_essex_county_express',
+  [Scenario.WhereTheGodsDwell]: 'where_gods_dwell',
+  [Scenario.TheUntamedWilds]: 'wilds',
+  [Scenario.TheDoomOfEztli]: 'eztli',
+  // ArkhamCards keeps City of the Elder Things a single scenario (no parts).
+  [Scenario.CityOfTheElderThings1]: 'city_of_the_elder_things',
+  [Scenario.CityOfTheElderThings2]: 'city_of_the_elder_things',
+  [Scenario.CityOfTheElderThings3]: 'city_of_the_elder_things',
+  // ArkhamCards reuses the base id / keeps these single.
+  [Scenario.ReturnToDisappearanceAtTheTwilightEstate]: 'disappearance_at_the_twilight_estate',
+  [Scenario.ReturnToInTheClutchesOfChaos1]: 'return_to_in_the_clutches_of_chaos',
+  [Scenario.ReturnToInTheClutchesOfChaos2]: 'return_to_in_the_clutches_of_chaos',
+  // The Scarlet Keys — modelled by location in ArkhamCards; no 1:1 id.
+  [Scenario.DeadHeat]: null,
+  [Scenario.SanguineShadows]: null,
+  [Scenario.DealingsInTheDark]: null,
+  [Scenario.DancingMad]: null,
+  [Scenario.OnThinIce]: null,
+  [Scenario.DogsOfWar]: null,
+  [Scenario.ShadesOfSuffering]: null,
+  [Scenario.WithoutATrace]: null,
+  [Scenario.CongressOfTheKeys]: null,
+};
+
+/**
+ * Converts a kohaku {@link Scenario} into the scenario id used by the
+ * ArkhamCards `arkham-cards-data` repository, for a future ArkhamCards
+ * integration (e.g. importing a player's campaign log).
+ *
+ * Returns `null` when the scenario has no direct ArkhamCards equivalent
+ * (some Scarlet Keys scenarios). Most scenarios map to their own code string.
+ */
+export function scenarioToArkhamCardsId(scenario: Scenario): string | null {
+  const override = arkhamCardsScenarioIdOverrides[scenario];
+  return override === undefined ? scenario : override;
 }

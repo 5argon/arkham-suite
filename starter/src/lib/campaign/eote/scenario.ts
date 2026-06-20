@@ -256,7 +256,7 @@ export const cityOfTheElderThings3Scenario: Scenario = {
 };
 
 export const theHeartOfMadness1Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.TheHeartOfMadness1,
+	kohakuScenario: KohakuScenario.TheHeartOfMadnessPart1,
 	shortName: 'IV (Pt. I)',
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioTheHeartOfMadnessPartI(),
 	setups: [
@@ -276,7 +276,7 @@ export const theHeartOfMadness1Scenario: Scenario = {
 };
 
 export const theHeartOfMadness2Scenario: Scenario = {
-	kohakuScenario: KohakuScenario.TheHeartOfMadness2,
+	kohakuScenario: KohakuScenario.TheHeartOfMadnessPart2,
 	shortName: 'IV (Pt. II)',
 	overrideName: m.campaignRegularEdgeOfTheEarthScenarioTheHeartOfMadnessPartII(),
 	setups: [
