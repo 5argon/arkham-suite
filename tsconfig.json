@@ -11,6 +11,9 @@
       "path": "./string"
     },
     {
+      "path": "./tsk-solver"
+    },
+    {
       "path": "./icon"
     },
     {

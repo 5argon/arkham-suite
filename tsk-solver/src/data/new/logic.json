@@ -1,0 +1,5884 @@
+{
+  "campaign": "The Scarlet Keys",
+  "schemaVersion": "2.0",
+  "split": "logic",
+  "localizations": [
+    "en"
+  ],
+  "_schema": {
+    "bridge": "Every id here has matching display text in en.json (and other locale files). logic.json is language-independent.",
+    "conditionLogic": "Structured precondition. Predicates: recorded/notRecorded(logId); time{lt,lte,gt,gte,min,max}; timeSinceMarker{symbol,...}; timeMarkerReached(symbol); countRecorded{anyOf[logId],gte/lt/...}; tally{entry,gte}; tallyCompare{left,op,right}; visited/notVisited(fileCode); voteTally('yeaWinsOrTie'|'nayWins'); votedNay[characterId]; eerilySilentCount{gte}; noResolution; allDefeated; perDefeatedInvestigator; atOtherCity; random; scenarioState(enum); default. Combinators: all[],any[],not{}.",
+    "scenarioState": "Per-scenario board outcomes the planner sets, e.g. seeingRedActive, reachedKeyFirst, thorneHasKey, thorneDefeated, winHoldingKey, nullified, failAct3, defeatedAct1or2, winCooperating, winV2, winV3Sirry, defeatV1, defeatV2, defeatV3, winBlewWhistle, winThrewWhistle, survivedBlewWhistle, survivedThrewWhistle, desiReal, desiImpostor.",
+    "judgmentOrder": [
+      "COTK.judgment.spared",
+      "COTK.judgment.destroyed",
+      "COTK.judgment.overthrow",
+      "COTK.judgment.join",
+      "COTK.judgment.asset",
+      "COTK.judgment.liability"
+    ],
+    "voteTally": "Tally member votes from finale voteTable: yea=wants you killed, nay=wants you spared, abstain/silent=neither. A tie counts as yea. 'overthrow' and 'join' additionally require their named trio all voted nay and the player opting in.",
+    "effects": "See en.json legend.effects for human descriptions. record/crossOff/tally reference campaignLog ids via entryId. note/variable-xp carry textRef/amountRef into en.effectText.",
+    "identifiers": "Proper nouns are ids resolved via en.json: keyId->en.keys, bearer/voter ids->en.characters (the literal 'investigator' means the player's chosen investigator, not a character), locationIds->en.locations. file.keyAtStakeId and unlock.locationIds use the same ids.",
+    "locations": "Registry: locationId -> {fileCodes:[...]}. Resolve a location's three display facets without duplication: city NAME = en.locations[locId]; PAGE CODE(s) = the fileCodes themselves; SCENARIO NAME(s) = en.files[fileCode].title. (london maps to several files because the prologue, the Foundation interlude, and the revisit all occur there.)",
+    "timeMarkers": "Time-track markers. symbol is what's printed in the time box; id bridges to en.timeMarkers for a succinct label; reportOptionId points to the StatusReports option whose effects/fullText fire when reached (null for δ, which is a silent timer used by the Dr. Irawan deadline). box = the printed box on the 35-box track where this marker sits and fires (α7 ε10 β15 ζ20 γ24 ω35); markers WITHOUT a box (Θ/ψ/δ) are written onto the track at runtime by statusMarker effects and fire when that written box is reached. Flags: unlocksFinale (β makes Tunguska travellable), forcesFinale (ω sends you straight to the finale). See timeTrack for the track length.",
+    "sideStories": "Standalone scenarios playable at green side-story nodes. timeCost = the side story's normal XP cost, spent as time here instead. grantsKeyId/bearer present when the side story awards a campaign Key (Fortune and Folly grants The Wellspring of Fortune). Product display names are in en.sideStoryProducts.",
+    "connections": "Undirected adjacency from the official ArkhamCards map data. locations[id].connections lists directly-travellable neighbors (1 time each). wrapEdges cross the Pacific seam: the 'west' node runs off the LEFT edge to its westSeam point (x=0), and the 'east' node runs off the RIGHT edge to its eastSeam point (x=1); both seam points share a latitude (y) so the line reads as continuous wrap-around. Render each wrap leg as two half-curves (west->westSeam and east->eastSeam), not a straight line across the map.",
+    "reachableInVersions": "On a resolution option in a scenario that has a scenario_version decision: the version option id(s) in which this resolution can occur. Use it to filter the resolution dropdown by the selected version. Absent = reachable regardless of version.",
+    "isNoResolution": "true on a resolution option that represents the 'no resolution reached' (all investigators resigned/were defeated) outcome. The campaign guide routes no-resolution to these; some scenarios fold it into a numbered resolution (e.g. Dogs of War R3/R4/R7 by version, Sanguine Shadows R3, Dealings R6).",
+    "gatesResolutions": "On a scenario_version decision: true if the version played restricts which resolutions are reachable (use options' reachableInVersions to filter). false if all versions share the same finishing act/agenda and can reach the same resolutions. Verified against the campaign's act/agenda cards: Dogs of War gates (each version's act routes to different resolutions: v.I->R1->R8, v.II->R2, v.III->R5/R6, with no-resolution R3/R4/R7 by version); Dancing Mad and Congress of the Keys do NOT gate (shared finishers route to R1/R2 regardless of version).",
+    "requires": "Plannable precondition for a resolution: predicates the planner can evaluate from the player's planned CHOICES, time, and version. Use it to HIDE resolutions that can't be reached given the plan. null = no choice/time gate. Predicates: recorded/notRecorded(logId), choseOption/notChoseOption(decision option id), time{...}, plus all/any/not. (Version gating stays in reachableInVersions; a UI hides a resolution if requires fails OR—when the scenario gatesResolutions—the chosen version isn't in reachableInVersions.)",
+    "playOutcome": "How the session must go for this resolution: 'win' | 'partial' (completed but suboptimal, e.g. a Key lost to the Coterie) | 'loss' | 'noResolution'. NOT plannable — the UI should show these as outcome-dependent rather than hide them.",
+    "choseOption": "Predicate referencing an upstream decision option id the planner selected (and notChoseOption for its negation). Used where a choice gates resolutions without setting a campaign-log entry (e.g. Sanguine Shadows believe/refuse, Without a Trace blow/throw the whistle).",
+    "achievements": "id bridges to en.achievements for name/description. detect = the machine rule a planner uses to decide whether a plan earns the achievement; kinds: visitFile{fileCode,maxEntryTime?}, resolution{fileCode,optionId}, version{fileCode,optionId} (the scenario_version/finale-version option that fired), finaleJudgment{judgmentId}, timeCap{maxTime}, chaos{token,count}, epilogue{optionId}, visitLocations{locationIds}, allKeys, difficulty{difficulty}, tableFeat (pure in-play feat, no routing). inSession:true => routing only POSITIONS the player; the feat itself is unverifiable by the planner. planning:false => not a single-run planning goal (key collection / difficulty)."
+  },
+  "files": [
+    {
+      "fileCode": "5-A",
+      "mapCode": "5-A",
+      "kind": "prologue",
+      "decisions": [
+        {
+          "decisionId": "RR.intro.travel",
+          "decisionType": "pre_scenario",
+          "selectable": true,
+          "options": [
+            {
+              "id": "RR.intro.accept",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "trust"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "RR.intro.ownterms",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "deception"
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
+          "decisionId": "RR.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "RR.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "eyeOfRavens"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenRedGlovedMan"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "RR.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "eyeOfRavens"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenRedGlovedMan"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "RR.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "redGlovedMan",
+                  "keyId": "eyeOfRavens"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenRedGlovedMan"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "partial"
+            },
+            {
+              "id": "RR.R4",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "redGlovedMan",
+                  "keyId": "eyeOfRavens"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenRedGlovedMan"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "partial"
+            },
+            {
+              "id": "RR.noRes",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "RR.noRes.0"
+                },
+                {
+                  "type": "key",
+                  "bearer": "redGlovedMan",
+                  "keyId": "eyeOfRavens"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenRedGlovedMan"
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "noResolution": true
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "london"
+      ]
+    },
+    {
+      "fileCode": "Foundation",
+      "mapCode": null,
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "FND.tellTaylor",
+          "decisionType": "interlude_directive",
+          "selectable": true,
+          "options": [
+            {
+              "id": "FND.tell",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.toldTruthTaylor"
+                },
+                {
+                  "type": "trust"
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "FND.hide",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.hidTruthTaylor"
+                },
+                {
+                  "type": "deception"
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "london"
+      ]
+    },
+    {
+      "fileCode": "11-B",
+      "mapCode": "11-B",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "DH.timeScaling",
+          "decisionType": "time_scaling",
+          "selectable": false,
+          "options": [
+            {
+              "id": "DH.t.early",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "lt": 11
+                }
+              }
+            },
+            {
+              "id": "DH.t.11",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DH.t.11.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 11,
+                  "max": 14
+                }
+              }
+            },
+            {
+              "id": "DH.t.15",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DH.t.15.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 15,
+                  "max": 17
+                }
+              }
+            },
+            {
+              "id": "DH.t.18",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DH.t.18.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 18,
+                  "max": 24
+                }
+              }
+            },
+            {
+              "id": "DH.t.late",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DH.t.late.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "DH.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DH.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "amaranth",
+                  "keyId": "lastBlossom"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.loversReunited"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "partial"
+            },
+            {
+              "id": "DH.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "amaranth",
+                  "keyId": "lastBlossom"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenAmaranth"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "partial"
+            },
+            {
+              "id": "DH.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "lastBlossom"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.amaranthLeftCoterie"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.knowsAmaranthName"
+              },
+              "requires": {
+                "all": [
+                  {
+                    "time": {
+                      "lt": 25
+                    }
+                  },
+                  {
+                    "recorded": "log.knowsAmaranthName"
+                  }
+                ]
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DH.R4",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "lastBlossom"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenAmaranth"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DH.R5",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenAmaranth"
+                },
+                {
+                  "type": "trauma",
+                  "scope": "each",
+                  "physical": 0,
+                  "mental": 1
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 3
+                },
+                {
+                  "type": "key",
+                  "bearer": "amaranth",
+                  "keyId": "lastBlossom"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 25
+                }
+              },
+              "requires": {
+                "time": {
+                  "gte": 25
+                }
+              },
+              "playOutcome": "partial"
+            },
+            {
+              "id": "DH.noRes",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DH.noRes.0"
+                }
+              ],
+              "conditionLogic": {
+                "noResolution": true
+              },
+              "isNoResolution": true,
+              "requires": {
+                "time": {
+                  "lt": 25
+                }
+              },
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "marrakesh"
+      ],
+      "keyAtStakeId": "lastBlossom"
+    },
+    {
+      "fileCode": "14-C",
+      "mapCode": "14-C",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "RAR.search",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "RAR.wrong",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "tally",
+                  "delta": 1,
+                  "entryId": "log.wrongLeads"
+                }
+              ],
+              "conditionLogic": {
+                "random": true
+              }
+            },
+            {
+              "id": "RAR.found",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "RAR.found.0"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "variable": true,
+                  "amountRef": "RAR.found.2"
+                },
+                {
+                  "type": "note",
+                  "textRef": "RAR.found.3"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "any": [
+                  {
+                    "random": true
+                  },
+                  {
+                    "tally": {
+                      "entry": "log.wrongLeads",
+                      "gte": 3
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "quito",
+        "sanJuan",
+        "reykjavik",
+        "kabul"
+      ]
+    },
+    {
+      "fileCode": "16-D",
+      "mapCode": "16-D",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "SS.intro.bolivar",
+          "decisionType": "pre_scenario",
+          "selectable": true,
+          "options": [
+            {
+              "id": "SS.intro.tellAll",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.bolivarTrusts"
+                },
+                {
+                  "type": "trust"
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "SS.intro.breadcrumbs",
+              "selectable": true,
+              "effects": [],
+              "conditionLogic": null
+            },
+            {
+              "id": "SS.intro.insist",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.bolivarDistrusts"
+                },
+                {
+                  "type": "deception"
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
+          "decisionId": "SS.castALight.believe",
+          "decisionType": "scenario_interlude",
+          "selectable": true,
+          "options": [
+            {
+              "id": "SS.cal.believe",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SS.cal.believe.0"
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "SS.cal.refuse",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SS.cal.refuse.0"
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
+          "decisionId": "SS.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "SS.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "weepingLady"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenLaChicaRoja"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "variable": true,
+                  "amountRef": "SS.R1.3"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": {
+                "notChoseOption": "SS.cal.believe"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "SS.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "weepingLady"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.laChicaOnYourSide"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenSanguineWatcher"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 3
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": null,
+              "requires": {
+                "choseOption": "SS.cal.believe"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "SS.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "laChicaRoja",
+                  "keyId": "weepingLady"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenLaChicaRoja"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "variable": true,
+                  "amountRef": "SS.R3.3"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "isNoResolution": true,
+              "requires": {
+                "notChoseOption": "SS.cal.believe"
+              },
+              "playOutcome": "loss"
+            },
+            {
+              "id": "SS.noRes.seeingRed",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.laChicaOnYourSide"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.watcherTormentContinues"
+                },
+                {
+                  "type": "key",
+                  "bearer": "sanguineWatcher",
+                  "keyId": "weepingLady"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 3
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "noResolution": true
+                  },
+                  {
+                    "scenarioState": "seeingRedActive"
+                  }
+                ]
+              },
+              "isNoResolution": true,
+              "requires": {
+                "choseOption": "SS.cal.believe"
+              },
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "buenosAires"
+      ],
+      "keyAtStakeId": "weepingLady"
+    },
+    {
+      "fileCode": "52-U",
+      "mapCode": "52-U",
+      "kind": "location",
+      "decisions": [
+        {
+          "decisionId": "SAFE.arrival",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "SAFE.in",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "mirroringBlade"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 2
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.knowPassphrase"
+                  },
+                  {
+                    "timeMarkerReached": "Θ"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "SAFE.out",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "default": true
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "yborCity"
+      ],
+      "keyAtStakeId": "mirroringBlade"
+    },
+    {
+      "fileCode": "20-E",
+      "mapCode": "20-E",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "GW.arrival",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "GW.ally",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.tuwileOnYourSide"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "baleEngine"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.tuwileFledBermuda"
+                  },
+                  {
+                    "countRecorded": {
+                      "anyOf": [
+                        "log.laChicaOnYourSide",
+                        "log.aidedKnight",
+                        "log.alikiOnYourSide",
+                        "log.desiInDebt",
+                        "log.dealWithThorne",
+                        "log.eceTrusts"
+                      ],
+                      "lt": 2
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "GW.hostile",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 3
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.tuwileFledBermuda"
+                  },
+                  {
+                    "countRecorded": {
+                      "anyOf": [
+                        "log.laChicaOnYourSide",
+                        "log.aidedKnight",
+                        "log.alikiOnYourSide",
+                        "log.desiInDebt",
+                        "log.dealWithThorne",
+                        "log.eceTrusts"
+                      ],
+                      "gte": 2
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "GW.absent",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "GW.absent.0"
+                }
+              ],
+              "conditionLogic": {
+                "notRecorded": "log.tuwileFledBermuda"
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "bermuda"
+      ],
+      "keyAtStakeId": "baleEngine"
+    },
+    {
+      "fileCode": "21-F",
+      "mapCode": "21-F",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "DD.timeScaling",
+          "decisionType": "time_scaling",
+          "selectable": false,
+          "options": [
+            {
+              "id": "DD.t.early",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "lte": 10
+                }
+              }
+            },
+            {
+              "id": "DD.t.11",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DD.t.11.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 11,
+                  "max": 17
+                }
+              }
+            },
+            {
+              "id": "DD.t.18",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DD.t.18.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 18,
+                  "max": 24
+                }
+              }
+            },
+            {
+              "id": "DD.t.25",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DD.t.25.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "DD.intro.ece",
+          "decisionType": "pre_scenario",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DD.intro.work",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.workingWithEce"
+                },
+                {
+                  "type": "trust"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Ece Şahin",
+                  "action": "add",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "DD.intro.deceive",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.deceivingEce"
+                },
+                {
+                  "type": "deception"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Ece Şahin",
+                  "action": "add",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "DD.intro.refuse",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.refusedEce"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Ece Şahin",
+                  "action": "remove",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
+          "decisionId": "DD.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DD.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "twistedAntiprism"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.refusedEce"
+              },
+              "requires": {
+                "recorded": "log.refusedEce"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DD.R4",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.eceTrusts"
+                },
+                {
+                  "type": "key",
+                  "bearer": "ece",
+                  "keyId": "twistedAntiprism"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.workingWithEce"
+              },
+              "requires": {
+                "recorded": "log.workingWithEce"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DD.R5",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.eceDistrusts"
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "twistedAntiprism"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.deceivingEce"
+              },
+              "requires": {
+                "recorded": "log.deceivingEce"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DD.R6",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "redGlovedMan",
+                  "keyId": "twistedAntiprism"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "failAct3"
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
+            },
+            {
+              "id": "DD.noRes.early",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "redGlovedMan",
+                  "keyId": "twistedAntiprism"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "defeatedAct1or2"
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "istanbul"
+      ],
+      "keyAtStakeId": "twistedAntiprism"
+    },
+    {
+      "fileCode": "26-G",
+      "mapCode": "26-G",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "QPQ.sanfrancisco",
+          "decisionType": "interlude_directive",
+          "selectable": true,
+          "options": [
+            {
+              "id": "QPQ.sf.ticket",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "card",
+                  "card": "Expedited Ticket",
+                  "action": "add",
+                  "scope": "lead",
+                  "deckFree": true,
+                  "weakness": false
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "QPQ.sf.supplies",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "QPQ.sf.intel",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.knowsAmaranthName"
+                }
+              ],
+              "conditionLogic": {
+                "notVisited": "11-B"
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "QPQ.moscow",
+          "decisionType": "interlude_directive",
+          "selectable": true,
+          "options": [
+            {
+              "id": "QPQ.mos.ticket",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "card",
+                  "card": "Expedited Ticket",
+                  "action": "add",
+                  "scope": "lead",
+                  "deckFree": true,
+                  "weakness": false
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "QPQ.mos.supplies",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "QPQ.mos.intel",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.knowsDesiPast"
+                }
+              ],
+              "conditionLogic": {
+                "notVisited": "28-I"
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "sanFrancisco",
+        "moscow"
+      ]
+    },
+    {
+      "fileCode": "27-H",
+      "mapCode": "27-H",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "DAG.tellQuinn",
+          "decisionType": "interlude_directive",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DAG.tell",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "crossOff",
+                  "entryId": "log.quinnDistrusts"
+                },
+                {
+                  "type": "trust"
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.quinnDistrusts"
+              }
+            },
+            {
+              "id": "DAG.keep",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.foundationInDark"
+                },
+                {
+                  "type": "deception"
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.quinnDistrusts"
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "DAG.outcome",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "DAG.offmission",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.offMission"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "notRecorded": "log.quinnDistrusts"
+                  },
+                  {
+                    "recorded": "log.possessWhistle"
+                  },
+                  {
+                    "time": {
+                      "lte": 30
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "DAG.research",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 2
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "default": true
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "london"
+      ]
+    },
+    {
+      "fileCode": "28-I",
+      "mapCode": "28-I",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "DM.version",
+          "decisionType": "scenario_version",
+          "selectable": false,
+          "options": [
+            {
+              "id": "DM.v1",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.dealWithDesi"
+                },
+                {
+                  "type": "note",
+                  "textRef": "DM.v1.1"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "lt": 20
+                }
+              }
+            },
+            {
+              "id": "DM.v2",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.ambushed"
+                },
+                {
+                  "type": "note",
+                  "textRef": "DM.v2.1"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 20
+                }
+              }
+            }
+          ],
+          "gatesResolutions": false,
+          "gatingSource": "card-verified (tskc.json act/agenda routing)"
+        },
+        {
+          "decisionId": "DM.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DM.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.desiInDebt"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.knowPassphrase"
+                },
+                {
+                  "type": "statusMarker",
+                  "symbol": "Θ",
+                  "offsetFromNow": 6
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                },
+                {
+                  "type": "note",
+                  "textRef": "DM.R1.5"
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "DM.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.noTruthHavana"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenDesi"
+                },
+                {
+                  "type": "key",
+                  "bearer": "desi",
+                  "keyId": "mirroringBlade"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "partial"
+            },
+            {
+              "id": "DM.noRes",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.noTruthHavana"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenDesi"
+                },
+                {
+                  "type": "key",
+                  "bearer": "desi",
+                  "keyId": "mirroringBlade"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "noResolution": true
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "havana"
+      ],
+      "keyAtStakeId": "mirroringBlade"
+    },
+    {
+      "fileCode": "32-J",
+      "mapCode": "32-J",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "CS.toldTruth",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "CS.solo",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.flintSolo"
+                },
+                {
+                  "type": "statusMarker",
+                  "symbol": "ψ",
+                  "offsetFromNow": 6
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.toldTruthTaylor"
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "CS.hidTruth",
+          "decisionType": "interlude_directive",
+          "selectable": true,
+          "options": [
+            {
+              "id": "CS.inquire",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.flintSolo"
+                },
+                {
+                  "type": "statusMarker",
+                  "symbol": "ψ",
+                  "offsetFromNow": 6
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.hidTruthTaylor"
+              }
+            },
+            {
+              "id": "CS.help",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.aidedFlint"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "50-S",
+                  "locationIds": [
+                    "hongKong"
+                  ]
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.hidTruthTaylor"
+              }
+            },
+            {
+              "id": "CS.forget",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.flintAbandoned"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Inspector Flint",
+                  "action": "add",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.hidTruthTaylor"
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "shanghai"
+      ]
+    },
+    {
+      "fileCode": "33-K",
+      "mapCode": "33-K",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "OTI.timeScaling",
+          "decisionType": "time_scaling",
+          "selectable": false,
+          "options": [
+            {
+              "id": "OTI.t.0",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "lt": 5
+                }
+              }
+            },
+            {
+              "id": "OTI.t.5",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 5,
+                  "max": 9
+                }
+              }
+            },
+            {
+              "id": "OTI.t.10",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 10,
+                  "max": 14
+                }
+              }
+            },
+            {
+              "id": "OTI.t.15",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 15,
+                  "max": 19
+                }
+              }
+            },
+            {
+              "id": "OTI.t.20",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 20,
+                  "max": 24
+                }
+              }
+            },
+            {
+              "id": "OTI.t.25",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "min": 25,
+                  "max": 29
+                }
+              }
+            },
+            {
+              "id": "OTI.t.30",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "gte": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "OTI.rawDeal",
+          "decisionType": "scenario_interlude",
+          "selectable": true,
+          "options": [
+            {
+              "id": "OTI.deal",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.dealWithThorne"
+                },
+                {
+                  "type": "trust"
+                },
+                {
+                  "type": "note",
+                  "textRef": "OTI.deal.2"
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "OTI.refuse.youHaveKey",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "deception"
+                },
+                {
+                  "type": "note",
+                  "textRef": "OTI.refuse.youHaveKey.1"
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "reachedKeyFirst"
+              }
+            },
+            {
+              "id": "OTI.refuse.thorneHasKey",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "deception"
+                },
+                {
+                  "type": "note",
+                  "textRef": "OTI.refuse.thorneHasKey.1"
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "thorneHasKey"
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "OTI.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "OTI.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "key",
+                  "bearer": "thorne",
+                  "keyId": "sableGlass"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.dealWithThorne"
+              },
+              "requires": {
+                "recorded": "log.dealWithThorne"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "OTI.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenThorne"
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "sableGlass"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "winHoldingKey"
+              },
+              "requires": {
+                "notRecorded": "log.dealWithThorne"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "OTI.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.thorneDisappeared"
+                },
+                {
+                  "type": "note",
+                  "textRef": "OTI.R3.1"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "thorneDefeated"
+              },
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "OTI.R4",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.nothingAnchorage"
+                },
+                {
+                  "type": "note",
+                  "textRef": "OTI.R4.1"
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "nullified"
+              },
+              "requires": null,
+              "playOutcome": "loss"
+            },
+            {
+              "id": "OTI.noRes",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.voidChimeraEscaped"
+                },
+                {
+                  "type": "note",
+                  "textRef": "OTI.noRes.1"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "noResolution": true
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "anchorage"
+      ],
+      "keyAtStakeId": "sableGlass"
+    },
+    {
+      "fileCode": "36-L",
+      "mapCode": "36-L",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "SA.visit",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "SA.first",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.appreciatedArchitecture"
+                }
+              ],
+              "conditionLogic": {
+                "notRecorded": "log.appreciatedArchitecture"
+              }
+            },
+            {
+              "id": "SA.second",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "crossOff",
+                  "entryId": "log.appreciatedArchitecture"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 2
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.appreciatedArchitecture"
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "bombay",
+        "stockholm"
+      ]
+    },
+    {
+      "fileCode": "37-M",
+      "mapCode": "37-M",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "SD.courier",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "SD.pickup",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.deliveringIntel"
+                },
+                {
+                  "type": "card",
+                  "card": "Foundation Intel",
+                  "action": "add",
+                  "scope": "each",
+                  "deckFree": true,
+                  "weakness": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "notRecorded": "log.deliveringIntel"
+              }
+            },
+            {
+              "id": "SD.deliver",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "crossOff",
+                  "entryId": "log.deliveringIntel"
+                },
+                {
+                  "type": "card",
+                  "card": "Foundation Intel",
+                  "action": "remove",
+                  "scope": "each",
+                  "deckFree": true,
+                  "weakness": true
+                },
+                {
+                  "type": "chaosTokenAdjust",
+                  "delta": 1,
+                  "choose": true
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.deliveringIntel"
+                  },
+                  {
+                    "atOtherCity": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "lagos",
+        "tokyo"
+      ]
+    },
+    {
+      "fileCode": "38-N",
+      "mapCode": "38-N",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "DOW.knightBargain",
+          "decisionType": "pre_scenario",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DOW.accept",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.dealWithKnight"
+                },
+                {
+                  "type": "trust"
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "DOW.refuse",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.assistingSirry"
+                },
+                {
+                  "type": "deception"
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
+          "decisionId": "DOW.version",
+          "decisionType": "scenario_version",
+          "selectable": false,
+          "options": [
+            {
+              "id": "DOW.v1",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DOW.v1.0"
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "time": {
+                      "lt": 20
+                    }
+                  },
+                  {
+                    "recorded": "log.dealWithKnight"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "DOW.v2",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DOW.v2.0"
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "time": {
+                      "lt": 20
+                    }
+                  },
+                  {
+                    "recorded": "log.assistingSirry"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "DOW.v3",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "DOW.v3.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 20
+                }
+              }
+            }
+          ],
+          "gatesResolutions": true,
+          "gatingSource": "card-verified (tskc.json act/agenda routing)"
+        },
+        {
+          "decisionId": "DOW.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "DOW.R8",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.aidedKnight"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenBeast"
+                },
+                {
+                  "type": "key",
+                  "bearer": "claretKnight",
+                  "keyId": "lightOfPharos"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "winCooperating"
+              },
+              "reachableInVersions": [
+                "DOW.v1",
+                "DOW.v3"
+              ],
+              "requires": {
+                "recorded": "log.dealWithKnight"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DOW.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenClaretKnight"
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "lightOfPharos"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "winV2"
+              },
+              "reachableInVersions": [
+                "DOW.v2"
+              ],
+              "requires": {
+                "recorded": "log.assistingSirry"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DOW.R6",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenBeast"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenClaretKnight"
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "lightOfPharos"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "winV3Sirry"
+              },
+              "reachableInVersions": [
+                "DOW.v3"
+              ],
+              "requires": {
+                "recorded": "log.assistingSirry"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "DOW.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "trauma",
+                  "scope": "each",
+                  "physical": 0,
+                  "mental": 1
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.failedBeast"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenBeast"
+                },
+                {
+                  "type": "key",
+                  "bearer": "beast",
+                  "keyId": "lightOfPharos"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "defeatV1"
+              },
+              "reachableInVersions": [
+                "DOW.v1"
+              ],
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            },
+            {
+              "id": "DOW.R4",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenClaretKnight"
+                },
+                {
+                  "type": "key",
+                  "bearer": "claretKnight",
+                  "keyId": "lightOfPharos"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "defeatV2"
+              },
+              "reachableInVersions": [
+                "DOW.v2"
+              ],
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            },
+            {
+              "id": "DOW.R7",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.dogsAtWar"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "defeatV3"
+              },
+              "reachableInVersions": [
+                "DOW.v3"
+              ],
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "alexandria"
+      ],
+      "keyAtStakeId": "lightOfPharos"
+    },
+    {
+      "fileCode": "44-O",
+      "mapCode": "44-O",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "TOA.meet",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "TOA.first",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.metIrawan"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                }
+              ],
+              "conditionLogic": {
+                "notRecorded": "log.metIrawan"
+              }
+            },
+            {
+              "id": "TOA.second",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.irawanNewGuinea"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "statusMarker",
+                  "symbol": "δ",
+                  "offsetFromNow": 0
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "45-P",
+                  "locationIds": [
+                    "manokwari"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.metIrawan"
+                  },
+                  {
+                    "time": {
+                      "lt": 25
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "TOA.tooLate",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.irawanVanished"
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.metIrawan"
+                  },
+                  {
+                    "time": {
+                      "gte": 25
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "rioDeJaneiro"
+      ]
+    },
+    {
+      "fileCode": "45-P",
+      "mapCode": "45-P",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "MET.arrival",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "MET.intime",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.irawanJoined"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Dr. Dewi Irawan",
+                  "action": "add",
+                  "deckFree": true
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "ruinousChime"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "timeSinceMarker": {
+                  "symbol": "δ",
+                  "lte": 10
+                }
+              }
+            },
+            {
+              "id": "MET.late",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.irawanVanished"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 2
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "timeSinceMarker": {
+                  "symbol": "δ",
+                  "gte": 11
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "manokwari"
+      ],
+      "keyAtStakeId": "ruinousChime"
+    },
+    {
+      "fileCode": "46-Q",
+      "mapCode": "46-Q",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "SOS.flint",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "SOS.flint.here",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.flintRejoined"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Inspector Flint",
+                  "action": "add",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.flintToKL"
+              }
+            },
+            {
+              "id": "SOS.flint.missing",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "crossOff",
+                  "entryId": "log.flintMissing"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.flintDead"
+                },
+                {
+                  "type": "note",
+                  "textRef": "SOS.flint.missing.2"
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.flintMissing"
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "SOS.timeScaling",
+          "decisionType": "time_scaling",
+          "selectable": false,
+          "options": [
+            {
+              "id": "SOS.t.0",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "time": {
+                  "lte": 11
+                }
+              }
+            },
+            {
+              "id": "SOS.t.12",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SOS.t.12.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 12,
+                  "max": 18
+                }
+              }
+            },
+            {
+              "id": "SOS.t.19",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SOS.t.19.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "min": 19,
+                  "max": 26
+                }
+              }
+            },
+            {
+              "id": "SOS.t.27",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SOS.t.27.0"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "SOS.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "SOS.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.tzuUnderYourSway"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "trauma",
+                  "scope": "each",
+                  "physical": 1,
+                  "mental": 0
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "shadeReaper"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "SOS.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenTzu"
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "shadeReaper"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "SOS.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.tzuHasYouUnderSway"
+                },
+                {
+                  "type": "key",
+                  "bearer": "tzuSanNiang",
+                  "keyId": "shadeReaper"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "loss"
+            },
+            {
+              "id": "SOS.noRes",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenTzu"
+                },
+                {
+                  "type": "key",
+                  "bearer": "tzuSanNiang",
+                  "keyId": "shadeReaper"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": null,
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "noResolution"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "kualaLumpur"
+      ],
+      "keyAtStakeId": "shadeReaper"
+    },
+    {
+      "fileCode": "49-R",
+      "mapCode": "49-R",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "RH.meet",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "RH.trusts",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "unlock",
+                  "fileCode": "27-H",
+                  "locationIds": [
+                    "london"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "time": {
+                      "lt": 20
+                    }
+                  },
+                  {
+                    "recorded": "log.toldTruthTaylor"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "RH.distrusts",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.quinnDistrusts"
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "27-H",
+                  "locationIds": [
+                    "london"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "time": {
+                      "lt": 20
+                    }
+                  },
+                  {
+                    "recorded": "log.hidTruthTaylor"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "RH.vanished",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.quinnVanished"
+                }
+              ],
+              "conditionLogic": {
+                "time": {
+                  "gte": 20
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "sydney"
+      ]
+    },
+    {
+      "fileCode": "50-S",
+      "mapCode": "50-S",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "BST.meet",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "BST.withFlint",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.flintToKL"
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "46-Q",
+                  "locationIds": [
+                    "kualaLumpur"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "any": [
+                  {
+                    "recorded": "log.aidedFlint"
+                  },
+                  {
+                    "all": [
+                      {
+                        "recorded": "log.flintSolo"
+                      },
+                      {
+                        "timeSinceMarker": {
+                          "symbol": "ψ",
+                          "lte": 10
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "BST.flintMissing",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.flintMissing"
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "46-Q",
+                  "locationIds": [
+                    "kualaLumpur"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.flintSolo"
+                  },
+                  {
+                    "timeSinceMarker": {
+                      "symbol": "ψ",
+                      "gte": 11
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "hongKong"
+      ]
+    },
+    {
+      "fileCode": "51-T",
+      "mapCode": "51-T",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "RAR2.visit",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "RAR2.offmission",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "unlock",
+                  "fileCode": "56-Y",
+                  "locationIds": [
+                    "bermudaTriangle"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.offMission"
+              }
+            },
+            {
+              "id": "RAR2.rest",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "RAR2.rest.0"
+                }
+              ],
+              "conditionLogic": {
+                "notRecorded": "log.offMission"
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "rome"
+      ]
+    },
+    {
+      "fileCode": "53-V",
+      "mapCode": "53-V",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "WW.whistle",
+          "decisionType": "interlude_directive",
+          "selectable": true,
+          "options": [
+            {
+              "id": "WW.accept",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.possessWhistle"
+                },
+                {
+                  "type": "trauma",
+                  "scope": "each",
+                  "amount": 1,
+                  "kind": "physicalOrMental"
+                },
+                {
+                  "type": "trust"
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "WW.refuse",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.refusedAliki"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "deception"
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "kathmandu"
+      ]
+    },
+    {
+      "fileCode": "54-W",
+      "mapCode": "54-W",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "IM.meet",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "IM.ally",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.tuwileOnYourSide"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "key",
+                  "bearer": "investigator",
+                  "keyId": "baleEngine"
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "countRecorded": {
+                  "anyOf": [
+                    "log.laChicaOnYourSide",
+                    "log.aidedKnight",
+                    "log.alikiOnYourSide",
+                    "log.desiInDebt",
+                    "log.dealWithThorne",
+                    "log.eceTrusts"
+                  ],
+                  "gte": 3
+                }
+              }
+            },
+            {
+              "id": "IM.flees",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.tuwileFledBermuda"
+                }
+              ],
+              "conditionLogic": {
+                "countRecorded": {
+                  "anyOf": [
+                    "log.laChicaOnYourSide",
+                    "log.aidedKnight",
+                    "log.alikiOnYourSide",
+                    "log.desiInDebt",
+                    "log.dealWithThorne",
+                    "log.eceTrusts"
+                  ],
+                  "lt": 3
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "nairobi"
+      ],
+      "keyAtStakeId": "baleEngine"
+    },
+    {
+      "fileCode": "55-X",
+      "mapCode": "55-X",
+      "kind": "interlude",
+      "decisions": [
+        {
+          "decisionId": "PS.meet",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "PS.first",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.metIrawan"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                }
+              ],
+              "conditionLogic": {
+                "notRecorded": "log.metIrawan"
+              }
+            },
+            {
+              "id": "PS.second",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.irawanNewGuinea"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "statusMarker",
+                  "symbol": "δ",
+                  "offsetFromNow": 0
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "45-P",
+                  "locationIds": [
+                    "manokwari"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.metIrawan"
+                  },
+                  {
+                    "time": {
+                      "lt": 25
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PS.tooLate",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.irawanVanished"
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "recorded": "log.metIrawan"
+                  },
+                  {
+                    "time": {
+                      "gte": 25
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "perth"
+      ],
+      "keyAtStakeId": "ruinousChime"
+    },
+    {
+      "fileCode": "56-Y",
+      "mapCode": "56-Y",
+      "kind": "scenario",
+      "decisions": [
+        {
+          "decisionId": "WAT.whistle",
+          "decisionType": "pre_scenario",
+          "selectable": true,
+          "options": [
+            {
+              "id": "WAT.blow",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.blewWhistle"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Aliki Zoni Uperetria",
+                  "action": "add",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": null
+            },
+            {
+              "id": "WAT.throw",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.quinnHasYourBack"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Agent Ari Quinn",
+                  "action": "add",
+                  "deckFree": true
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.threwWhistle"
+                },
+                {
+                  "type": "storyAsset",
+                  "asset": "Aliki Zoni Uperetria",
+                  "action": "remove",
+                  "deckFree": true
+                }
+              ],
+              "conditionLogic": null
+            }
+          ]
+        },
+        {
+          "decisionId": "WAT.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "WAT.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.knowsTrueNature"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.alikiOnYourSide"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "time",
+                  "delta": 3
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "winBlewWhistle"
+              },
+              "requires": {
+                "choseOption": "WAT.blow"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "WAT.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.knowsTrueNature"
+                },
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenAliki"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 1
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "winThrewWhistle"
+              },
+              "requires": {
+                "choseOption": "WAT.throw"
+              },
+              "playOutcome": "win"
+            },
+            {
+              "id": "WAT.R3",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.alikiOnYourSide"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 2
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "survivedBlewWhistle"
+              },
+              "requires": {
+                "choseOption": "WAT.blow"
+              },
+              "playOutcome": "noResolution"
+            },
+            {
+              "id": "WAT.R4",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.notSeenAliki"
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "time",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "scenarioState": "survivedThrewWhistle"
+              },
+              "requires": {
+                "choseOption": "WAT.throw"
+              },
+              "playOutcome": "noResolution"
+            },
+            {
+              "id": "WAT.hollowed",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.cellHollowed"
+                },
+                {
+                  "type": "campaign",
+                  "result": "lose"
+                }
+              ],
+              "conditionLogic": {
+                "allDefeated": true
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "bermudaTriangle"
+      ]
+    },
+    {
+      "fileCode": "59-Z",
+      "mapCode": "59-Z",
+      "kind": "finale",
+      "decisions": [
+        {
+          "decisionId": "COTK.judgment",
+          "decisionType": "vote_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "COTK.judgment.liability",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.escapedCoterie"
+                }
+              ],
+              "conditionLogic": {
+                "voteTally": "yeaWinsOrTie"
+              }
+            },
+            {
+              "id": "COTK.judgment.asset",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.coterieSpared"
+                }
+              ],
+              "conditionLogic": {
+                "voteTally": "nayWins"
+              }
+            },
+            {
+              "id": "COTK.judgment.overthrow",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.overthrewCoterie"
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "voteTally": "nayWins"
+                  },
+                  {
+                    "votedNay": [
+                      "laChicaRoja",
+                      "ece",
+                      "desi"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "COTK.judgment.join",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.joinedCoterie"
+                },
+                {
+                  "type": "note",
+                  "textRef": "COTK.judgment.join.1"
+                }
+              ],
+              "conditionLogic": {
+                "all": [
+                  {
+                    "voteTally": "nayWins"
+                  },
+                  {
+                    "votedNay": [
+                      "thorne",
+                      "tuwileMasai",
+                      "claretKnight"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "COTK.judgment.spared",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.coterieSpared"
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.knowsTrueNature"
+              }
+            },
+            {
+              "id": "COTK.judgment.destroyed",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.coterieDestroyed"
+                }
+              ],
+              "conditionLogic": {
+                "eerilySilentCount": {
+                  "gte": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "decisionId": "COTK.memberVotes",
+          "decisionType": "vote_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "COTK.vote.knightBeast",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.aidedKnight"
+                  },
+                  "votes": {
+                    "claretKnight": "nay",
+                    "beast": "abstain"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.failedBeast"
+                  },
+                  "votes": {
+                    "claretKnight": "abstain",
+                    "beast": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.notSeenClaretKnight"
+                  },
+                  "votes": {
+                    "claretKnight": "yea",
+                    "beast": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.dogsAtWar"
+                  },
+                  "votes": {
+                    "claretKnight": "abstain",
+                    "beast": "abstain"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "claretKnight": "nay",
+                    "beast": "yea"
+                  },
+                  "note": "coinFlipLightOfPharosBearer"
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.ece",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.eceTrusts"
+                  },
+                  "votes": {
+                    "ece": "nay"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.eceDistrusts"
+                  },
+                  "votes": {
+                    "ece": "abstain"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "ece": "nay"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.amaranth",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.loversReunited"
+                  },
+                  "votes": {
+                    "amaranth": "yea",
+                    "razinFarhi": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.notSeenAmaranth"
+                  },
+                  "votes": {
+                    "amaranth": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.amaranthLeftCoterie"
+                  },
+                  "votes": {
+                    "amaranth": "abstain"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "amaranth": "yea"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.thorne",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.dealWithThorne"
+                  },
+                  "votes": {
+                    "thorne": "nay"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.notSeenThorne"
+                  },
+                  "votes": {
+                    "thorne": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.thorneDisappeared"
+                  },
+                  "votes": {
+                    "thorne": "silent"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "thorne": "abstain"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.aliki",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.alikiOnYourSide"
+                  },
+                  "votes": {
+                    "aliki": "nay"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.notSeenAliki"
+                  },
+                  "votes": {
+                    "aliki": "silent"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "aliki": "yea"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.desi",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "all": [
+                      {
+                        "recorded": "log.desiInDebt"
+                      },
+                      {
+                        "scenarioState": "desiReal"
+                      }
+                    ]
+                  },
+                  "votes": {
+                    "desi": "nay"
+                  }
+                },
+                {
+                  "when": {
+                    "any": [
+                      {
+                        "recorded": "log.notSeenDesi"
+                      },
+                      {
+                        "scenarioState": "desiImpostor"
+                      }
+                    ]
+                  },
+                  "votes": {
+                    "desi": "silent"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "desi": "yea"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.laChicaWatcher",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.notSeenSanguineWatcher"
+                  },
+                  "votes": {
+                    "laChicaRoja": "nay",
+                    "sanguineWatcher": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.watcherTormentContinues"
+                  },
+                  "votes": {
+                    "laChicaRoja": "nay",
+                    "sanguineWatcher": "abstain"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.notSeenLaChicaRoja"
+                  },
+                  "votes": {
+                    "laChicaRoja": "abstain",
+                    "sanguineWatcher": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "laChicaRoja": "abstain",
+                    "sanguineWatcher": "abstain"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.tzu",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.tzuHasYouUnderSway"
+                  },
+                  "votes": {
+                    "tzuSanNiang": "yea"
+                  },
+                  "note": "leadInvestigatorForcedToVoteYea"
+                },
+                {
+                  "when": {
+                    "recorded": "log.notSeenTzu"
+                  },
+                  "votes": {
+                    "tzuSanNiang": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "recorded": "log.tzuUnderYourSway"
+                  },
+                  "votes": {
+                    "tzuSanNiang": "abstain"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "tzuSanNiang": "yea"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.tuwile",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.tuwileOnYourSide"
+                  },
+                  "votes": {
+                    "tuwileMasai": "nay"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "tuwileMasai": "yea"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.abarran",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "recorded": "log.meddledAbarran"
+                  },
+                  "votes": {
+                    "abarran": "yea"
+                  }
+                },
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "abarran": "abstain"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "COTK.vote.redGlovedMan",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": null,
+              "voteTable": [
+                {
+                  "when": {
+                    "default": true
+                  },
+                  "votes": {
+                    "redGlovedMan": "silent"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "decisionId": "COTK.version",
+          "decisionType": "scenario_version",
+          "selectable": false,
+          "options": [
+            {
+              "id": "COTK.v1",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "any": [
+                  {
+                    "recorded": "log.escapedCoterie"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "COTK.v2",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "any": [
+                  {
+                    "recorded": "log.coterieSpared"
+                  },
+                  {
+                    "recorded": "log.overthrewCoterie"
+                  },
+                  {
+                    "recorded": "log.joinedCoterie"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "COTK.v3",
+              "selectable": false,
+              "effects": [],
+              "conditionLogic": {
+                "any": [
+                  {
+                    "recorded": "log.coterieSpared"
+                  },
+                  {
+                    "recorded": "log.coterieDestroyed"
+                  }
+                ]
+              }
+            }
+          ],
+          "gatesResolutions": false,
+          "gatingSource": "card-verified (tskc.json act/agenda routing)"
+        },
+        {
+          "decisionId": "COTK.resolution",
+          "decisionType": "resolution",
+          "selectable": true,
+          "options": [
+            {
+              "id": "COTK.R1",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.outsidersStopped"
+                },
+                {
+                  "type": "trauma",
+                  "scope": "each",
+                  "physical": 2,
+                  "mental": 2
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "victoryDisplay": true
+                },
+                {
+                  "type": "xp",
+                  "scope": "each",
+                  "amount": 5
+                },
+                {
+                  "type": "campaign",
+                  "result": "win"
+                }
+              ],
+              "conditionLogic": null,
+              "requires": null,
+              "playOutcome": "win"
+            },
+            {
+              "id": "COTK.R2",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.cellHollowed"
+                },
+                {
+                  "type": "campaign",
+                  "result": "lose"
+                }
+              ],
+              "conditionLogic": {
+                "allDefeated": true
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
+            },
+            {
+              "id": "COTK.defeat",
+              "selectable": true,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "COTK.defeat.0"
+                }
+              ],
+              "conditionLogic": {
+                "perDefeatedInvestigator": true
+              },
+              "isNoResolution": true,
+              "requires": null,
+              "playOutcome": "loss"
+            }
+          ]
+        }
+      ],
+      "locationIds": [
+        "tunguska"
+      ]
+    },
+    {
+      "fileCode": "Epilogue",
+      "mapCode": null,
+      "kind": "epilogue",
+      "decisions": [
+        {
+          "decisionId": "EP.outcome",
+          "decisionType": "vote_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "EP.joined",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.coterieFoundationAlly"
+                }
+              ],
+              "conditionLogic": {
+                "recorded": "log.joinedCoterie"
+              }
+            },
+            {
+              "id": "EP.permanent",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.permanentPosition"
+                }
+              ],
+              "conditionLogic": {
+                "tallyCompare": {
+                  "left": "log.foundationTrust",
+                  "op": "gte",
+                  "right": "log.cellDeception"
+                }
+              }
+            },
+            {
+              "id": "EP.dismantled",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "record",
+                  "entryId": "log.cellDismantled"
+                }
+              ],
+              "conditionLogic": {
+                "tallyCompare": {
+                  "left": "log.cellDeception",
+                  "op": "gt",
+                  "right": "log.foundationTrust"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": []
+    },
+    {
+      "fileCode": "StatusReports",
+      "mapCode": null,
+      "kind": "status_reports",
+      "decisions": [
+        {
+          "decisionId": "SR.events",
+          "decisionType": "conditional_outcome",
+          "selectable": false,
+          "options": [
+            {
+              "id": "SR.alpha",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "token",
+                  "token": "cultist",
+                  "delta": 1
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "α"
+              }
+            },
+            {
+              "id": "SR.beta",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "token",
+                  "token": "cultist",
+                  "delta": 1
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "59-Z",
+                  "locationIds": [
+                    "tunguska"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "β"
+              }
+            },
+            {
+              "id": "SR.gamma",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "token",
+                  "token": "cultist",
+                  "delta": 1
+                },
+                {
+                  "type": "card",
+                  "card": "Paradimensional Understanding",
+                  "action": "add",
+                  "scope": "each",
+                  "deckFree": true,
+                  "weakness": true
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "γ"
+              }
+            },
+            {
+              "id": "SR.epsilon",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SR.epsilon.0"
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "ε"
+              }
+            },
+            {
+              "id": "SR.zeta",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SR.zeta.0"
+                },
+                {
+                  "type": "unlock",
+                  "fileCode": "14-C",
+                  "locationIds": [
+                    "quito",
+                    "sanJuan",
+                    "reykjavik",
+                    "kabul"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "ζ"
+              }
+            },
+            {
+              "id": "SR.theta",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "note",
+                  "textRef": "SR.theta.0"
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "Θ"
+              }
+            },
+            {
+              "id": "SR.psi",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "unlock",
+                  "fileCode": "50-S",
+                  "locationIds": [
+                    "hongKong"
+                  ]
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "ψ"
+              }
+            },
+            {
+              "id": "SR.omega",
+              "selectable": false,
+              "effects": [
+                {
+                  "type": "token",
+                  "token": "cultist",
+                  "delta": 1
+                },
+                {
+                  "type": "note",
+                  "textRef": "SR.omega.1"
+                }
+              ],
+              "conditionLogic": {
+                "timeMarkerReached": "ω"
+              }
+            }
+          ]
+        }
+      ],
+      "locationIds": []
+    }
+  ],
+  "campaignLog": [
+    {
+      "id": "log.notSeenRedGlovedMan"
+    },
+    {
+      "id": "log.toldTruthTaylor"
+    },
+    {
+      "id": "log.hidTruthTaylor"
+    },
+    {
+      "id": "log.bolivarTrusts"
+    },
+    {
+      "id": "log.bolivarDistrusts"
+    },
+    {
+      "id": "log.notSeenLaChicaRoja"
+    },
+    {
+      "id": "log.laChicaOnYourSide"
+    },
+    {
+      "id": "log.notSeenSanguineWatcher"
+    },
+    {
+      "id": "log.watcherTormentContinues"
+    },
+    {
+      "id": "log.loversReunited"
+    },
+    {
+      "id": "log.notSeenAmaranth"
+    },
+    {
+      "id": "log.amaranthLeftCoterie"
+    },
+    {
+      "id": "log.knowsAmaranthName"
+    },
+    {
+      "id": "log.workingWithEce"
+    },
+    {
+      "id": "log.deceivingEce"
+    },
+    {
+      "id": "log.refusedEce"
+    },
+    {
+      "id": "log.eceTrusts"
+    },
+    {
+      "id": "log.eceDistrusts"
+    },
+    {
+      "id": "log.wrongLeads",
+      "type": "tally"
+    },
+    {
+      "id": "log.dealWithDesi"
+    },
+    {
+      "id": "log.ambushed"
+    },
+    {
+      "id": "log.desiInDebt"
+    },
+    {
+      "id": "log.knowPassphrase"
+    },
+    {
+      "id": "log.noTruthHavana"
+    },
+    {
+      "id": "log.notSeenDesi"
+    },
+    {
+      "id": "log.knowsDesiPast"
+    },
+    {
+      "id": "log.flintSolo"
+    },
+    {
+      "id": "log.aidedFlint"
+    },
+    {
+      "id": "log.flintAbandoned"
+    },
+    {
+      "id": "log.dealWithThorne"
+    },
+    {
+      "id": "log.notSeenThorne"
+    },
+    {
+      "id": "log.thorneDisappeared"
+    },
+    {
+      "id": "log.voidChimeraEscaped"
+    },
+    {
+      "id": "log.nothingAnchorage"
+    },
+    {
+      "id": "log.appreciatedArchitecture"
+    },
+    {
+      "id": "log.deliveringIntel"
+    },
+    {
+      "id": "log.dealWithKnight"
+    },
+    {
+      "id": "log.assistingSirry"
+    },
+    {
+      "id": "log.notSeenClaretKnight"
+    },
+    {
+      "id": "log.failedBeast"
+    },
+    {
+      "id": "log.notSeenBeast"
+    },
+    {
+      "id": "log.aidedKnight"
+    },
+    {
+      "id": "log.dogsAtWar"
+    },
+    {
+      "id": "log.irawanNewGuinea"
+    },
+    {
+      "id": "log.irawanVanished"
+    },
+    {
+      "id": "log.metIrawan"
+    },
+    {
+      "id": "log.irawanJoined"
+    },
+    {
+      "id": "log.flintRejoined"
+    },
+    {
+      "id": "log.flintToKL"
+    },
+    {
+      "id": "log.flintMissing"
+    },
+    {
+      "id": "log.flintDead"
+    },
+    {
+      "id": "log.tzuUnderYourSway"
+    },
+    {
+      "id": "log.notSeenTzu"
+    },
+    {
+      "id": "log.tzuHasYouUnderSway"
+    },
+    {
+      "id": "log.quinnDistrusts"
+    },
+    {
+      "id": "log.foundationInDark"
+    },
+    {
+      "id": "log.offMission"
+    },
+    {
+      "id": "log.quinnVanished"
+    },
+    {
+      "id": "log.possessWhistle"
+    },
+    {
+      "id": "log.refusedAliki"
+    },
+    {
+      "id": "log.tuwileOnYourSide"
+    },
+    {
+      "id": "log.tuwileFledBermuda"
+    },
+    {
+      "id": "log.alikiOnYourSide"
+    },
+    {
+      "id": "log.notSeenAliki"
+    },
+    {
+      "id": "log.blewWhistle"
+    },
+    {
+      "id": "log.quinnHasYourBack"
+    },
+    {
+      "id": "log.threwWhistle"
+    },
+    {
+      "id": "log.knowsTrueNature"
+    },
+    {
+      "id": "log.meddledAbarran"
+    },
+    {
+      "id": "log.cellHollowed"
+    },
+    {
+      "id": "log.escapedCoterie"
+    },
+    {
+      "id": "log.overthrewCoterie"
+    },
+    {
+      "id": "log.joinedCoterie"
+    },
+    {
+      "id": "log.coterieSpared"
+    },
+    {
+      "id": "log.coterieDestroyed"
+    },
+    {
+      "id": "log.outsidersStopped"
+    },
+    {
+      "id": "log.coterieFoundationAlly"
+    },
+    {
+      "id": "log.permanentPosition"
+    },
+    {
+      "id": "log.cellDismantled"
+    },
+    {
+      "id": "log.foundationTrust",
+      "type": "tally"
+    },
+    {
+      "id": "log.cellDeception",
+      "type": "tally"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach.cluedIn",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "5-A",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.takeThatGhulat",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "11-B",
+        "maxEntryTime": 10,
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.whatsInAName",
+      "detect": {
+        "kind": "resolution",
+        "fileCode": "11-B",
+        "optionId": "DH.R3"
+      }
+    },
+    {
+      "id": "ach.porqueNoLosDos",
+      "detect": {
+        "kind": "version",
+        "fileCode": "28-I",
+        "optionId": "DM.v2",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.lostAndFound",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "21-F",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.towerDefense",
+      "detect": {
+        "kind": "version",
+        "fileCode": "38-N",
+        "optionId": "DOW.v1",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.playWithYourFood",
+      "detect": {
+        "kind": "version",
+        "fileCode": "38-N",
+        "optionId": "DOW.v2",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.destroyedChimera",
+      "detect": {
+        "kind": "resolution",
+        "fileCode": "33-K",
+        "optionId": "OTI.R2",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.whoWatchesWatcher",
+      "detect": {
+        "kind": "resolution",
+        "fileCode": "16-D",
+        "optionId": "SS.R2",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.underMyUmbrella",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "46-Q",
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.allHollow",
+      "detect": {
+        "kind": "visitFile",
+        "fileCode": "56-Y"
+      }
+    },
+    {
+      "id": "ach.redLooksGood",
+      "detect": {
+        "kind": "finaleJudgment",
+        "judgmentId": "COTK.judgment.join"
+      }
+    },
+    {
+      "id": "ach.bloodyRedRevolution",
+      "detect": {
+        "kind": "finaleJudgment",
+        "judgmentId": "COTK.judgment.overthrow"
+      }
+    },
+    {
+      "id": "ach.powersCombined",
+      "detect": {
+        "kind": "tableFeat"
+      }
+    },
+    {
+      "id": "ach.giftOfGab",
+      "detect": {
+        "kind": "tableFeat"
+      }
+    },
+    {
+      "id": "ach.localCuisine",
+      "detect": {
+        "kind": "visitLocations",
+        "locationIds": [
+          "marrakesh",
+          "havana",
+          "buenosAires",
+          "tokyo",
+          "kualaLumpur"
+        ]
+      }
+    },
+    {
+      "id": "ach.speedDemon",
+      "detect": {
+        "kind": "timeCap",
+        "maxTime": 17
+      }
+    },
+    {
+      "id": "ach.trustNobody",
+      "detect": {
+        "kind": "chaos",
+        "token": "elderThing",
+        "count": 4,
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.trustEverybody",
+      "detect": {
+        "kind": "chaos",
+        "token": "tablet",
+        "count": 4,
+        "inSession": true
+      }
+    },
+    {
+      "id": "ach.hereIsYourBadge",
+      "detect": {
+        "kind": "epilogue",
+        "optionId": "EP.permanent"
+      }
+    },
+    {
+      "id": "ach.keyToMyHeart",
+      "detect": {
+        "kind": "allKeys"
+      },
+      "planning": false
+    },
+    {
+      "id": "ach.lineInTheSand",
+      "detect": {
+        "kind": "tableFeat"
+      }
+    },
+    {
+      "id": "ach.globalExpertise",
+      "detect": {
+        "kind": "difficulty",
+        "difficulty": "expert"
+      },
+      "planning": false
+    }
+  ],
+  "epilogueTally": {
+    "foundationTrust": [
+      "log.assistingSirry",
+      "log.toldTruthTaylor",
+      "log.quinnHasYourBack",
+      "log.deliveringIntel"
+    ],
+    "cellDeception": [
+      "log.hidTruthTaylor",
+      "log.offMission",
+      "log.aidedKnight",
+      "log.eceTrusts",
+      "log.dealWithThorne",
+      "log.alikiOnYourSide",
+      "log.desiInDebt",
+      "log.tuwileOnYourSide"
+    ]
+  },
+  "locations": {
+    "alexandria": {
+      "fileCodes": [
+        "38-N"
+      ],
+      "position": {
+        "x": 0.562,
+        "y": 0.314
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "cairo",
+        "istanbul",
+        "rome"
+      ]
+    },
+    "anchorage": {
+      "fileCodes": [
+        "33-K"
+      ],
+      "position": {
+        "x": 0.077,
+        "y": 0.146
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "arkham",
+        "sanFrancisco"
+      ]
+    },
+    "arkham": {
+      "fileCodes": [],
+      "position": {
+        "x": 0.257,
+        "y": 0.2514
+      },
+      "markerType": "sideStory",
+      "positionConfidence": "verified",
+      "connections": [
+        "anchorage",
+        "bermuda",
+        "reykjavik",
+        "yborCity"
+      ]
+    },
+    "bermuda": {
+      "fileCodes": [
+        "20-E"
+      ],
+      "position": {
+        "x": 0.271,
+        "y": 0.307
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "arkham",
+        "bermudaTriangle",
+        "london",
+        "sanJuan",
+        "yborCity"
+      ]
+    },
+    "bermudaTriangle": {
+      "fileCodes": [
+        "56-Y"
+      ],
+      "position": {
+        "x": 0.243,
+        "y": 0.3467
+      },
+      "markerType": "secret",
+      "positionConfidence": "verified",
+      "connections": [
+        "bermuda",
+        "sanJuan",
+        "yborCity"
+      ]
+    },
+    "bombay": {
+      "fileCodes": [
+        "36-L"
+      ],
+      "position": {
+        "x": 0.704,
+        "y": 0.389
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "cairo",
+        "kabul",
+        "kathmandu",
+        "kualaLumpur"
+      ]
+    },
+    "buenosAires": {
+      "fileCodes": [
+        "16-D"
+      ],
+      "position": {
+        "x": 0.288,
+        "y": 0.706
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "quito",
+        "rioDeJaneiro",
+        "sydney"
+      ]
+    },
+    "cairo": {
+      "fileCodes": [],
+      "position": {
+        "x": 0.5672,
+        "y": 0.3307
+      },
+      "markerType": "sideStory",
+      "positionConfidence": "verified",
+      "connections": [
+        "alexandria",
+        "bombay",
+        "kabul",
+        "lagos",
+        "nairobi"
+      ]
+    },
+    "havana": {
+      "fileCodes": [
+        "28-I"
+      ],
+      "position": {
+        "x": 0.206,
+        "y": 0.363
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "quito",
+        "sanFrancisco",
+        "sanJuan",
+        "yborCity"
+      ]
+    },
+    "hongKong": {
+      "fileCodes": [
+        "50-S"
+      ],
+      "position": {
+        "x": 0.836,
+        "y": 0.3683
+      },
+      "markerType": "locked",
+      "positionConfidence": "verified",
+      "connections": [
+        "kualaLumpur",
+        "shanghai"
+      ]
+    },
+    "istanbul": {
+      "fileCodes": [
+        "21-F"
+      ],
+      "position": {
+        "x": 0.557,
+        "y": 0.257
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "alexandria",
+        "kabul",
+        "moscow",
+        "rome",
+        "venice"
+      ]
+    },
+    "kabul": {
+      "fileCodes": [
+        "14-C"
+      ],
+      "position": {
+        "x": 0.687,
+        "y": 0.291
+      },
+      "markerType": "locked",
+      "positionConfidence": "detected",
+      "connections": [
+        "bombay",
+        "cairo",
+        "istanbul",
+        "kathmandu",
+        "moscow",
+        "tunguska"
+      ]
+    },
+    "kathmandu": {
+      "fileCodes": [
+        "53-V"
+      ],
+      "position": {
+        "x": 0.744,
+        "y": 0.345
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "bombay",
+        "kabul",
+        "kualaLumpur",
+        "shanghai",
+        "tunguska"
+      ]
+    },
+    "kualaLumpur": {
+      "fileCodes": [
+        "46-Q"
+      ],
+      "position": {
+        "x": 0.8019,
+        "y": 0.4825
+      },
+      "markerType": "locked",
+      "positionConfidence": "verified",
+      "connections": [
+        "bombay",
+        "hongKong",
+        "kathmandu",
+        "manokwari",
+        "perth"
+      ]
+    },
+    "lagos": {
+      "fileCodes": [
+        "37-M"
+      ],
+      "position": {
+        "x": 0.478,
+        "y": 0.462
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "cairo",
+        "marrakesh",
+        "nairobi",
+        "rioDeJaneiro"
+      ]
+    },
+    "london": {
+      "fileCodes": [
+        "5-A",
+        "Foundation",
+        "27-H"
+      ],
+      "position": {
+        "x": 0.473,
+        "y": 0.196
+      },
+      "markerType": "locked",
+      "positionConfidence": "detected",
+      "connections": [
+        "bermuda",
+        "monteCarlo",
+        "sanJuan",
+        "stockholm",
+        "venice"
+      ]
+    },
+    "manokwari": {
+      "fileCodes": [
+        "45-P"
+      ],
+      "position": {
+        "x": 0.9091,
+        "y": 0.505
+      },
+      "markerType": "locked",
+      "positionConfidence": "verified",
+      "connections": [
+        "kualaLumpur",
+        "quito",
+        "shanghai",
+        "sydney"
+      ]
+    },
+    "marrakesh": {
+      "fileCodes": [
+        "11-B"
+      ],
+      "position": {
+        "x": 0.444,
+        "y": 0.313
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "lagos",
+        "monteCarlo",
+        "rome",
+        "sanJuan"
+      ]
+    },
+    "monteCarlo": {
+      "fileCodes": [],
+      "position": {
+        "x": 0.4944,
+        "y": 0.2408
+      },
+      "markerType": "sideStory",
+      "positionConfidence": "verified",
+      "connections": [
+        "london",
+        "marrakesh",
+        "rome"
+      ]
+    },
+    "moscow": {
+      "fileCodes": [
+        "26-G"
+      ],
+      "position": {
+        "x": 0.58,
+        "y": 0.17
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "istanbul",
+        "kabul",
+        "stockholm",
+        "tunguska",
+        "venice"
+      ]
+    },
+    "nairobi": {
+      "fileCodes": [
+        "54-W"
+      ],
+      "position": {
+        "x": 0.59,
+        "y": 0.506
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "cairo",
+        "lagos",
+        "perth"
+      ]
+    },
+    "newOrleans": {
+      "fileCodes": [],
+      "position": {
+        "x": 0.1838,
+        "y": 0.3241
+      },
+      "markerType": "sideStory",
+      "positionConfidence": "verified",
+      "connections": [
+        "sanFrancisco",
+        "yborCity"
+      ]
+    },
+    "perth": {
+      "fileCodes": [
+        "55-X"
+      ],
+      "position": {
+        "x": 0.833,
+        "y": 0.688
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "kualaLumpur",
+        "nairobi",
+        "sydney"
+      ]
+    },
+    "quito": {
+      "fileCodes": [
+        "14-C"
+      ],
+      "position": {
+        "x": 0.208,
+        "y": 0.5
+      },
+      "markerType": "locked",
+      "positionConfidence": "detected",
+      "connections": [
+        "buenosAires",
+        "havana",
+        "manokwari",
+        "sanJuan"
+      ]
+    },
+    "reykjavik": {
+      "fileCodes": [
+        "14-C"
+      ],
+      "position": {
+        "x": 0.419,
+        "y": 0.127
+      },
+      "markerType": "locked",
+      "positionConfidence": "detected",
+      "connections": [
+        "arkham",
+        "stockholm"
+      ]
+    },
+    "rioDeJaneiro": {
+      "fileCodes": [
+        "44-O"
+      ],
+      "position": {
+        "x": 0.331,
+        "y": 0.633
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "buenosAires",
+        "lagos",
+        "sanJuan"
+      ]
+    },
+    "rome": {
+      "fileCodes": [
+        "51-T"
+      ],
+      "position": {
+        "x": 0.509,
+        "y": 0.255
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "alexandria",
+        "istanbul",
+        "marrakesh",
+        "monteCarlo",
+        "venice"
+      ]
+    },
+    "sanFrancisco": {
+      "fileCodes": [
+        "26-G"
+      ],
+      "position": {
+        "x": 0.092,
+        "y": 0.277
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "anchorage",
+        "havana",
+        "newOrleans",
+        "tokyo"
+      ]
+    },
+    "sanJuan": {
+      "fileCodes": [
+        "14-C"
+      ],
+      "position": {
+        "x": 0.252,
+        "y": 0.391
+      },
+      "markerType": "locked",
+      "positionConfidence": "detected",
+      "connections": [
+        "bermuda",
+        "bermudaTriangle",
+        "havana",
+        "london",
+        "marrakesh",
+        "quito",
+        "rioDeJaneiro",
+        "yborCity"
+      ]
+    },
+    "shanghai": {
+      "fileCodes": [
+        "32-J"
+      ],
+      "position": {
+        "x": 0.852,
+        "y": 0.316
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "hongKong",
+        "kathmandu",
+        "manokwari",
+        "tokyo",
+        "tunguska"
+      ]
+    },
+    "stockholm": {
+      "fileCodes": [
+        "36-L"
+      ],
+      "position": {
+        "x": 0.522,
+        "y": 0.153
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "london",
+        "moscow",
+        "reykjavik"
+      ]
+    },
+    "sydney": {
+      "fileCodes": [
+        "49-R"
+      ],
+      "position": {
+        "x": 0.943,
+        "y": 0.697
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "buenosAires",
+        "manokwari",
+        "perth"
+      ]
+    },
+    "tokyo": {
+      "fileCodes": [
+        "37-M"
+      ],
+      "position": {
+        "x": 0.902,
+        "y": 0.293
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "sanFrancisco",
+        "shanghai"
+      ]
+    },
+    "tunguska": {
+      "fileCodes": [
+        "59-Z"
+      ],
+      "position": {
+        "x": 0.764,
+        "y": 0.151
+      },
+      "markerType": "locked",
+      "positionConfidence": "detected",
+      "connections": [
+        "kabul",
+        "kathmandu",
+        "moscow",
+        "shanghai"
+      ]
+    },
+    "venice": {
+      "fileCodes": [],
+      "position": {
+        "x": 0.5072,
+        "y": 0.2313
+      },
+      "markerType": "sideStory",
+      "positionConfidence": "verified",
+      "connections": [
+        "istanbul",
+        "london",
+        "moscow",
+        "rome"
+      ]
+    },
+    "yborCity": {
+      "fileCodes": [
+        "52-U"
+      ],
+      "position": {
+        "x": 0.206,
+        "y": 0.335
+      },
+      "markerType": "scenario",
+      "positionConfidence": "detected",
+      "connections": [
+        "arkham",
+        "bermuda",
+        "bermudaTriangle",
+        "havana",
+        "newOrleans",
+        "sanJuan"
+      ]
+    }
+  },
+  "timeMarkers": [
+    {
+      "symbol": "α",
+      "id": "alpha",
+      "hasReport": true,
+      "reportOptionId": "SR.alpha",
+      "box": 7
+    },
+    {
+      "symbol": "β",
+      "id": "beta",
+      "hasReport": true,
+      "reportOptionId": "SR.beta",
+      "unlocksFinale": true,
+      "box": 15
+    },
+    {
+      "symbol": "γ",
+      "id": "gamma",
+      "hasReport": true,
+      "reportOptionId": "SR.gamma",
+      "box": 24
+    },
+    {
+      "symbol": "δ",
+      "id": "delta",
+      "hasReport": false,
+      "reportOptionId": null,
+      "timerOnly": true
+    },
+    {
+      "symbol": "ε",
+      "id": "epsilon",
+      "hasReport": true,
+      "reportOptionId": "SR.epsilon",
+      "box": 10
+    },
+    {
+      "symbol": "ζ",
+      "id": "zeta",
+      "hasReport": true,
+      "reportOptionId": "SR.zeta",
+      "box": 20
+    },
+    {
+      "symbol": "Θ",
+      "id": "theta",
+      "hasReport": true,
+      "reportOptionId": "SR.theta"
+    },
+    {
+      "symbol": "ψ",
+      "id": "psi",
+      "hasReport": true,
+      "reportOptionId": "SR.psi"
+    },
+    {
+      "symbol": "ω",
+      "id": "omega",
+      "hasReport": true,
+      "reportOptionId": "SR.omega",
+      "forcesFinale": true,
+      "box": 35
+    }
+  ],
+  "mapImage": {
+    "file": "ahc70_world_map_sheet_for_web.jpg",
+    "width": 5100,
+    "height": 3300,
+    "note": "position {x,y} are fractions of width/height (0-1). markerType: scenario(blue star)/locked(red dot)/sideStory(green ring)/secret. positionConfidence 'approx' = eyeballed, verify in an editor."
+  },
+  "sideStories": [
+    {
+      "id": "fortuneAndFolly",
+      "locationId": "monteCarlo",
+      "grantsKeyId": "wellspringOfFortune",
+      "bearer": "investigator",
+      "products": [
+        {
+          "id": "fortuneAndFolly",
+          "timeCost": 3
+        }
+      ]
+    },
+    {
+      "id": "curseOfTheRougarou",
+      "locationId": "newOrleans",
+      "products": [
+        {
+          "id": "curseOfTheRougarou",
+          "timeCost": 1
+        }
+      ]
+    },
+    {
+      "id": "sideArkham",
+      "locationId": "arkham",
+      "products": [
+        {
+          "id": "murderExcelsior",
+          "timeCost": 3
+        },
+        {
+          "id": "blobThatAteEverything",
+          "timeCost": 2
+        },
+        {
+          "id": "warOfTheOuterGods",
+          "timeCost": 3
+        },
+        {
+          "id": "machinationsThroughTime",
+          "timeCost": 2
+        },
+        {
+          "id": "midwinterGala",
+          "timeCost": 2
+        },
+        {
+          "id": "filmFatale",
+          "timeCost": 3
+        }
+      ]
+    },
+    {
+      "id": "sideCairo",
+      "locationId": "cairo",
+      "products": [
+        {
+          "id": "guardiansEternalSlumber",
+          "timeCost": 2
+        },
+        {
+          "id": "guardiansNightsUsurper",
+          "timeCost": 2
+        }
+      ]
+    },
+    {
+      "id": "sideVenice",
+      "locationId": "venice",
+      "products": [
+        {
+          "id": "carnevaleOfHorrors",
+          "timeCost": 3
+        }
+      ]
+    }
+  ],
+  "routing": {
+    "curve": {
+      "type": "quadratic",
+      "k": 0.15,
+      "bow": "canonical",
+      "sign": 1,
+      "samplesHint": 30,
+      "_doc": "Direction-independent: order the two endpoints canonically (endpoint ids sorted A<B), take perpendicular of A->B, offset control point by sign*k*chordLength. Same arc regardless of travel direction; reverse the sampled points if you traverse B->A (for arrowheads)."
+    },
+    "arrow": {
+      "placement": "perSegmentEnd",
+      "sizePxAtReferenceScale": 18
+    },
+    "warp": {
+      "id": "expeditedTicket",
+      "timeCost": 0,
+      "style": "dashed",
+      "glyphId": "warp"
+    },
+    "_doc": "Planned course = uniform quadratic beziers between consecutive route nodes over locations[*].connections. Control point per curve.{k,sign}; flip or retune individual edges via routing.edgeOverrides keyed by the two location ids sorted and joined with '|'. Wrap legs (see wrapEdges) draw as two half-curves to the seam anchors. Expedited Ticket leg: dashed, warp glyph, timeCost 0.",
+    "edgeOverrides": {
+      "kualaLumpur|manokwari": {
+        "sign": -1
+      },
+      "manokwari|sydney": {
+        "sign": -1,
+        "k": 0.45
+      },
+      "nairobi|perth": {
+        "sign": -1
+      },
+      "bombay|cairo": {
+        "sign": -1,
+        "k": 0.95
+      },
+      "istanbul|kabul": {
+        "sign": -1,
+        "k": 0.25
+      },
+      "istanbul|rome": {
+        "sign": -1
+      },
+      "alexandria|rome": {
+        "sign": -1
+      },
+      "lagos|marrakesh": {
+        "sign": -1,
+        "k": 0.45
+      },
+      "lagos|nairobi": {
+        "sign": -1,
+        "k": 0.35
+      },
+      "bermuda|london": {
+        "sign": -1,
+        "k": 0.05
+      },
+      "anchorage|arkham": {
+        "sign": -1
+      },
+      "havana|sanFrancisco": {
+        "sign": -1
+      },
+      "quito|sanJuan": {
+        "sign": -1,
+        "k": 0.35
+      },
+      "buenosAires|quito": {
+        "sign": -1,
+        "k": 0.45
+      },
+      "lagos|rioDeJaneiro": {
+        "sign": -1
+      },
+      "cairo|lagos": {
+        "sign": -1
+      },
+      "kabul|tunguska": {
+        "sign": -1
+      },
+      "kathmandu|tunguska": {
+        "sign": -1
+      },
+      "kathmandu|shanghai": {
+        "sign": -1
+      },
+      "hongKong|shanghai": {
+        "sign": -1
+      },
+      "hongKong|kualaLumpur": {
+        "sign": -1
+      },
+      "rioDeJaneiro|sanJuan": {
+        "k": 0.35
+      },
+      "arkham|reykjavik": {
+        "k": 0.25
+      },
+      "bombay|kualaLumpur": {
+        "k": 0.35
+      },
+      "perth|sydney": {
+        "k": 0.35
+      },
+      "shanghai|tunguska": {
+        "k": 0.45
+      },
+      "cairo|kabul": {
+        "k": 0.65
+      }
+    },
+    "wrap": {
+      "bowUpK": 0.12,
+      "_doc": "Each wrap half (node -> seam point) is a quadratic bezier bowing UPWARD: control = midpoint(node,seam) with y reduced by bowUpK*|node.x - seam.x|. Seam points sit on the left/right image edge (x=0 or 1)."
+    }
+  },
+  "wrapEdges": [
+    {
+      "west": "sanFrancisco",
+      "east": "tokyo",
+      "westSeam": {
+        "x": 0,
+        "y": 0.2633
+      },
+      "eastSeam": {
+        "x": 1,
+        "y": 0.2633
+      },
+      "seamConfidence": "verified"
+    },
+    {
+      "west": "quito",
+      "east": "manokwari",
+      "westSeam": {
+        "x": 0,
+        "y": 0.4724
+      },
+      "eastSeam": {
+        "x": 1,
+        "y": 0.4724
+      },
+      "seamConfidence": "verified"
+    },
+    {
+      "west": "buenosAires",
+      "east": "sydney",
+      "westSeam": {
+        "x": 0,
+        "y": 0.6906
+      },
+      "eastSeam": {
+        "x": 1,
+        "y": 0.6906
+      },
+      "seamConfidence": "verified"
+    }
+  ],
+  "timeTrack": {
+    "boxes": 35,
+    "note": "The global time track is 35 boxes. Printed Greek markers fire their status report when their box is filled; written markers (Θ/ψ/δ) are placed onto the track at runtime by statusMarker effects and fire when reached. ω is the final box and forces the finale."
+  }
+}

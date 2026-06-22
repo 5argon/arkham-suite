@@ -16,7 +16,8 @@
         "icon",
         "cards-json",
         "tags",
-        "card-collection-manager"
+        "card-collection-manager",
+        "tsk-solver"
     ],
     "packageManager": "yarn@4.12.0",
     "resolutions": {

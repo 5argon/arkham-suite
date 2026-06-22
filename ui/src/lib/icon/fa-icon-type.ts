@@ -88,4 +88,7 @@ export enum FaIconType {
 	AchievementManual,
 	/** Achievement auto-derived from the recorded campaign log. */
 	AchievementInferred,
+
+	// World map (TSK solver map tool)
+	Map,
 }

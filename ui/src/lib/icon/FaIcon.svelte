@@ -79,6 +79,7 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Achievement]: 'fa-trophy',
 		[FaIconType.AchievementManual]: 'fa-pencil',
 		[FaIconType.AchievementInferred]: 'fa-gears',
+		[FaIconType.Map]: 'fa-map-location-dot',
 	};
 </script>
 

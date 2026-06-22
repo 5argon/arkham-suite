@@ -182,4 +182,10 @@
 		onClick="/tsk-document"
 		title="The Scarlet Keys : Printable Documents"
 	/>
+	<ThumbnailCardButton
+		description="SPOILER-HEAVY. Plan a Scarlet Keys playthrough backwards from your goals: pick constraints (achievements, keys, scenarios, narrative chains, endings) and get distinct, playable routes — or a proof they can't all be satisfied. For replays and achievement runs."
+		imageUrl="image/resource/tskdoc.webp"
+		onClick="/tool/tsk"
+		title="The Scarlet Keys : Route Solver"
+	/>
 </div>
