@@ -16,6 +16,7 @@
     {
       "id": "one_last_job",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -32,6 +33,7 @@
     {
       "id": "the_western_wall",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -41,6 +43,7 @@
     {
       "id": "the_drowned_quarter",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -50,6 +53,7 @@
     {
       "id": "the_apiary",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -60,6 +64,7 @@
     {
       "id": "the_grand_vault",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -69,6 +74,7 @@
     {
       "id": "court_of_the_ancients",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -78,6 +84,7 @@
     {
       "id": "obsidian_canyons",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -87,10 +94,15 @@
     {
       "id": "sepulchre_of_the_sleeper",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution": "neutral"
+      }
     },
     {
       "id": "return_to_arkham",
@@ -103,6 +115,7 @@
     {
       "id": "the_doom_of_arkham_part_1",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -112,6 +125,7 @@
     {
       "id": "the_doom_of_arkham_part_2",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -128,6 +142,12 @@
           ],
           "result": "lose"
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "win",
+        "no_resolution": "loss"
       }
     },
     {

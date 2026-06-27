@@ -29,6 +29,7 @@
     {
       "id": "the_witching_hour",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -38,6 +39,7 @@
     {
       "id": "at_deaths_doorstep",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -70,6 +72,7 @@
     {
       "id": "the_secret_name",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -79,6 +82,7 @@
     {
       "id": "the_wages_of_sin",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "no_resolution_resigned",
@@ -89,6 +93,7 @@
     {
       "id": "for_the_greater_good",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -103,6 +108,7 @@
     {
       "id": "union_and_disillusion",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -113,6 +119,7 @@
     {
       "id": "in_the_clutches_of_chaos",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -128,6 +135,7 @@
     {
       "id": "before_the_black_throne",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -182,6 +190,7 @@
     {
       "id": "return_to_the_witching_hour",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -193,15 +202,18 @@
     },
     {
       "id": "return_to_at_deaths_doorstep",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_the_secret_name",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_the_wages_of_sin",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "no_resolution_resigned",
@@ -212,11 +224,13 @@
     },
     {
       "id": "return_to_for_the_greater_good",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_union_and_disillusion",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -226,11 +240,13 @@
     },
     {
       "id": "return_to_in_the_clutches_of_chaos",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_before_the_black_throne",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",

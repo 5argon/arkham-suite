@@ -18,8 +18,10 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 		tskBagActLabel,
 		type CampaignTsk,
 		type TskBagRun
-	} from '$lib/campaign/tsk-profile';
-	import WidgetTable, { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	} from '$lib/campaign/campaigns/tsk-profile';
+	import WidgetTable, {
+		widgetTableCell
+	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
 
 	let { tsk }: { tsk: CampaignTsk | null } = $props();
@@ -31,23 +33,54 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 	const bagRows = $derived(
 		tsk?.mostTabletRun && tsk.mostElderThingRun && tsk.leastCombinedRun
 			? [
-					{ id: 'tablet', label: m.campaign_tsk_token_most_tablet_run(), run: tsk.mostTabletRun, lead: 'tablet' as const },
-					{ id: 'elder', label: m.campaign_tsk_token_most_elder_run(), run: tsk.mostElderThingRun, lead: 'elder' as const },
-					{ id: 'least', label: m.campaign_tsk_token_least_combined_run(), run: tsk.leastCombinedRun, lead: 'tablet' as const }
+					{
+						id: 'tablet',
+						label: m.campaign_tsk_token_most_tablet_run(),
+						run: tsk.mostTabletRun,
+						lead: 'tablet' as const
+					},
+					{
+						id: 'elder',
+						label: m.campaign_tsk_token_most_elder_run(),
+						run: tsk.mostElderThingRun,
+						lead: 'elder' as const
+					},
+					{
+						id: 'least',
+						label: m.campaign_tsk_token_least_combined_run(),
+						run: tsk.leastCombinedRun,
+						lead: 'tablet' as const
+					}
 				]
 			: []
 	);
 
 	// Per-source act table: every Trust / Deception swap (scenario + action) and how many plays did it.
 	// How each one is DETECTED lives in the widget's header doc (the ? icon), not here.
-	const trustActs = $derived(TSK_BAG_ACTS.filter((a) => a.kind === 'trust').map((a) => ({ id: a.id, label: tskBagActLabel(a), count: tsk?.bagActCounts[a.id] ?? 0 })));
-	const deceptionActs = $derived(TSK_BAG_ACTS.filter((a) => a.kind === 'deception').map((a) => ({ id: a.id, label: tskBagActLabel(a), count: tsk?.bagActCounts[a.id] ?? 0 })));
-	const anyActs = $derived(trustActs.some((a) => a.count > 0) || deceptionActs.some((a) => a.count > 0));
+	const trustActs = $derived(
+		TSK_BAG_ACTS.filter((a) => a.kind === 'trust').map((a) => ({
+			id: a.id,
+			label: tskBagActLabel(a),
+			count: tsk?.bagActCounts[a.id] ?? 0
+		}))
+	);
+	const deceptionActs = $derived(
+		TSK_BAG_ACTS.filter((a) => a.kind === 'deception').map((a) => ({
+			id: a.id,
+			label: tskBagActLabel(a),
+			count: tsk?.bagActCounts[a.id] ?? 0
+		}))
+	);
+	const anyActs = $derived(
+		trustActs.some((a) => a.count > 0) || deceptionActs.some((a) => a.count > 0)
+	);
 	const hasData = $derived(tsk != null && (tsk.mostTabletRun != null || anyActs));
 </script>
 
 {#snippet coins(token: ChaosToken, count: number)}
-	{#each Array(count) as _, i (i)}<span class="text-xl"><ChaosTokenDisplay {token} hideLabel /></span>{/each}
+	{#each Array(count) as _, i (i)}<span class="text-xl"
+			><ChaosTokenDisplay {token} hideLabel sealed={false} /></span
+		>{/each}
 {/snippet}
 
 {#snippet bagCell(run: TskBagRun, lead: 'tablet' | 'elder')}
@@ -87,7 +120,9 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 					<td class={widgetTableCell}>{@render bagCell(r.run, r.lead)}</td>
 					<td class="{widgetTableCell} tabular-nums">
 						{#if r.run.bonusXp > 0}
-							<span class="text-secondary-700 dark:text-secondary-300 font-semibold">+{r.run.bonusXp}</span>
+							<span class="text-secondary-700 dark:text-secondary-300 font-semibold"
+								>+{r.run.bonusXp}</span
+							>
 						{:else}
 							<span class="text-primary-400">—</span>
 						{/if}
@@ -108,16 +143,30 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 		{#if anyActs}
 			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				<div>
-					<p class="text-primary-700 dark:text-primary-300 mb-1 flex items-center gap-1 text-xs font-semibold">
+					<p
+						class="text-primary-700 dark:text-primary-300 mb-1 flex items-center gap-1 text-xs font-semibold"
+					>
 						{m.campaign_tsk_acts_of_trust()} (+
-						<span class="inline-flex text-sm"><ChaosTokenDisplay token={ChaosToken.TokenTablet} hideLabel /></span>
+						<span class="inline-flex text-sm"
+							><ChaosTokenDisplay sealed={false} token={ChaosToken.TokenTablet} hideLabel /></span
+						>
 						/ −
-						<span class="inline-flex text-sm"><ChaosTokenDisplay token={ChaosToken.TokenElderThing} hideLabel /></span>
+						<span class="inline-flex text-sm"
+							><ChaosTokenDisplay
+								sealed={false}
+								token={ChaosToken.TokenElderThing}
+								hideLabel
+							/></span
+						>
 						)
 					</p>
 					<ul class="space-y-0.5 text-xs">
 						{#each trustActs as a (a.id)}
-							<li class="flex justify-between gap-2 {a.count > 0 ? 'text-black dark:text-white' : 'text-primary-400'}">
+							<li
+								class="flex justify-between gap-2 {a.count > 0
+									? 'text-black dark:text-white'
+									: 'text-primary-400'}"
+							>
 								<span class="truncate">{a.label}</span>
 								<span class="shrink-0 tabular-nums">{a.count > 0 ? `×${a.count}` : '—'}</span>
 							</li>
@@ -125,16 +174,30 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 					</ul>
 				</div>
 				<div>
-					<p class="text-primary-700 dark:text-primary-300 mb-1 flex items-center gap-1 text-xs font-semibold">
+					<p
+						class="text-primary-700 dark:text-primary-300 mb-1 flex items-center gap-1 text-xs font-semibold"
+					>
 						{m.campaign_tsk_acts_of_secrecy()} (−
-						<span class="inline-flex text-sm"><ChaosTokenDisplay token={ChaosToken.TokenTablet} hideLabel /></span>
+						<span class="inline-flex text-sm"
+							><ChaosTokenDisplay sealed={false} token={ChaosToken.TokenTablet} hideLabel /></span
+						>
 						/ +
-						<span class="inline-flex text-sm"><ChaosTokenDisplay token={ChaosToken.TokenElderThing} hideLabel /></span>
+						<span class="inline-flex text-sm"
+							><ChaosTokenDisplay
+								sealed={false}
+								token={ChaosToken.TokenElderThing}
+								hideLabel
+							/></span
+						>
 						)
 					</p>
 					<ul class="space-y-0.5 text-xs">
 						{#each deceptionActs as a (a.id)}
-							<li class="flex justify-between gap-2 {a.count > 0 ? 'text-black dark:text-white' : 'text-primary-400'}">
+							<li
+								class="flex justify-between gap-2 {a.count > 0
+									? 'text-black dark:text-white'
+									: 'text-primary-400'}"
+							>
 								<span class="truncate">{a.label}</span>
 								<span class="shrink-0 tabular-nums">{a.count > 0 ? `×${a.count}` : '—'}</span>
 							</li>

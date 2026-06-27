@@ -7,9 +7,9 @@ log-derived (the "Dr. Irawan joined the cell" note). Numbers come from the share
 (`ruinousChime`); the Obtained count hovers to its per-difficulty breakdown.
 -->
 <script lang="ts">
-	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { RUINOUS_CHIME_CARD } from '$lib/campaign/tsk-solver';
-	import type { CampaignTsk } from '$lib/campaign/tsk-profile';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
+	import { RUINOUS_CHIME_CARD } from '$lib/campaign/campaigns/tsk-solver';
+	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
 	import * as m from '$lib/paraglide/messages.js';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 
@@ -29,17 +29,11 @@ log-derived (the "Dr. Irawan joined the cell" note). Numbers come from the share
 				]
 			: []
 	);
-	const img = getCardImagePath(RUINOUS_CHIME_CARD, 'square');
 </script>
 
 {#if anyData}
 	<div class="flex items-start gap-4">
-		<img
-			src={img}
-			alt="The Ruinous Chime"
-			class="border-primary-300 dark:border-primary-600 h-16 w-16 shrink-0 rounded border object-cover object-top shadow"
-			loading="lazy"
-		/>
+		<CardThumb code={RUINOUS_CHIME_CARD} alt="The Ruinous Chime" objectTop />
 		<div class="flex-1"><StatNumbers {rows} /></div>
 	</div>
 {:else}

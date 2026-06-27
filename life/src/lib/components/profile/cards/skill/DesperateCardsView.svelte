@@ -7,7 +7,7 @@ SkillSpotlightView fixed to the Desperate spotlight set.
 <script lang="ts">
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import type { InsightDeck } from '$lib/profile/profile-types';
-	import { desperateCards } from '$lib/campaign/card-filters';
+	import { desperateCards } from '$lib/campaign/utils/card-filters';
 	import SkillSpotlightView from '$lib/components/profile/cards/skill/SkillSpotlightView.svelte';
 
 	let {

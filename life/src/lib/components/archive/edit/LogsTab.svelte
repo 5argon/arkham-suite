@@ -9,8 +9,8 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 <script lang="ts">
 	import type { Card } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { CampaignLog } from '$lib/campaign/campaign-log-source';
-	import { sectionTitle, visibleSections } from '$lib/campaign/campaign-log-source';
+	import type { CampaignLog } from '$lib/campaign/records/campaign-log-source';
+	import { sectionTitle, visibleSections } from '$lib/campaign/records/campaign-log-source';
 	import type { LogSectionDef, ResolvedLogEntry } from '@5argon/arkham-campaign-data';
 	import { standaloneScenarios } from '@5argon/arkham-campaign-data';
 	import {
@@ -18,11 +18,12 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 		replaceSection,
 		standalonesFromLogs,
 		type LocalLog
-	} from '$lib/campaign/recorded-state';
-	import { standaloneResolvedEntries } from '$lib/campaign/standalone-logs';
-	import type { InvestigatorRef } from '$lib/campaign/investigators';
+	} from '$lib/campaign/records/recorded-state';
+	import { standaloneResolvedEntries } from '$lib/campaign/outcomes/standalone-logs';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
 	import SectionDispatch from './sections/SectionDispatch.svelte';
 	import TskEditNote from './TskEditNote.svelte';
+	import FhvEditNote from './FhvEditNote.svelte';
 
 	interface Props {
 		log: CampaignLog | undefined;
@@ -30,13 +31,32 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 		cards: Card[];
 		investigators: InvestigatorRef[];
 		localLogs: LocalLog[];
+		/**
+		 * Standalone archive: scope the log to this single scenario — only sections
+		 * that carry one of its entries are shown (the `side` catalogue / host campaign
+		 * collapses to just this scenario's sheet). Absent ⇒ the whole campaign log.
+		 */
+		onlyScenario?: string;
 		/** Autosave callback: receives the next logs after each edit. */
 		onLogsChange: (next: LocalLog[]) => void;
 	}
 
-	let { log, canEdit, cards, investigators, localLogs, onLogsChange }: Props = $props();
+	let { log, canEdit, cards, investigators, localLogs, onlyScenario, onLogsChange }: Props = $props();
 
-	const sections = $derived(log ? visibleSections(log) : []);
+	const allSections = $derived(log ? visibleSections(log) : []);
+	// For a standalone, the sections that carry an entry tagged to the chosen scenario
+	// (headers pass through so their group framing survives the filter).
+	const scenarioSectionIds = $derived.by(() => {
+		if (!onlyScenario || !log) return null;
+		const ids = new Set<string>();
+		for (const e of log.db.entries) if (e.scenario === onlyScenario) ids.add(e.section);
+		return ids;
+	});
+	const sections = $derived(
+		scenarioSectionIds
+			? allSections.filter((s) => s.type === 'header' || scenarioSectionIds!.has(s.id))
+			: allSections
+	);
 
 	// campaign-data `header` sections (e.g. EotE's "The Ice and Death") are group
 	// titles, not data: each one opens a group whose following sections belong
@@ -95,6 +115,7 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 
 <div class="mt-2 max-w-xl space-y-4">
 	<TskEditNote {log} tab="logs" />
+	<FhvEditNote {log} tab="logs" />
 	{#if !log || sections.length === 0}
 		<p class="text-primary-400 dark:text-primary-500 text-sm">{m.archive_logs_no_data()}</p>
 	{:else}
@@ -118,6 +139,7 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 						{cards}
 						{investigators}
 						{canEdit}
+						standalone={!!onlyScenario}
 						entries={entriesInSection(localLogs, section.id)}
 						extraEntries={standaloneExtra.entriesBySection.get(section.id) ?? []}
 						extraSource={standaloneExtra.sourceByKey}

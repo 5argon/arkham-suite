@@ -12,7 +12,7 @@ each hoverable for its per-difficulty breakdown. Then one bespoke section:
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import type { TskRoute } from '$lib/campaign/tsk-profile';
+	import type { TskRoute } from '$lib/campaign/campaigns/tsk-profile';
 	import TskScenarioInfo from '$lib/components/profile/campaigns/campaign/tsk/TskScenarioInfo.svelte';
 	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
 	import CountWithBreakdown from '$lib/components/profile/_primitives/CountWithBreakdown.svelte';

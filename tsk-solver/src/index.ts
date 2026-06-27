@@ -65,6 +65,7 @@ export {
 	resolutionOffers,
 	type PlayableFile,
 	type ChosenOption,
+	type BranchAlternative,
 	type GateViolation,
 	type FileResolution,
 	type ResolutionOffer,

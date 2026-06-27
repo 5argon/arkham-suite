@@ -1,17 +1,307 @@
 {
   "code": "ptc",
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario Succeed/Failed (curation judgement). Success = you escaped / met the objective / defeated the threat; loss = defeated or failed the objective. Pure doubt-vs-conviction sub-choices within a success both count as success (e.g. Curtain Call warn/not). Dim Carcosa R2 (you take the stage — possessed) is `win` like R1/R3: all three record `prevented_hasturs_escape` and end on a `win` step in ArkhamCards (R2's text closes with 'The investigators win the campaign!'); only R4 (Carcosa merged) and R5 (Hastur has you) are `loss`. `record_possessed_investigators` fires in all three win endings, so possession marks no distinct outcome. The Last King: survived = win, all-defeated = loss, resigned = neutral (a voluntary early exit).",
+    "curtain_call": { "R1": "win", "R2": "win", "no_resolution": "loss" },
+    "the_last_king": { "R3": "win", "no_resolution_defeated": "loss", "no_resolution_resigned": "neutral" },
+    "echoes_of_the_past": { "R1": "win", "R2": "win", "R3": "win", "R4": "loss", "no_resolution": "loss" },
+    "the_unspeakable_oath": { "R2": "win", "R3": "win", "no_resolution": "loss" },
+    "a_phantom_of_truth": { "R1": "win", "R2": "win", "R3": "loss", "no_resolution": "loss" },
+    "the_pallid_mask": { "R1": "win", "R2": "win", "no_resolution": "loss" },
+    "black_stars_rise": { "R1": "win", "R2": "win", "R3": "loss", "no_resolution": "loss" },
+    "dim_carcosa": { "R1": "win", "R2": "win", "R3": "win", "R4": "loss", "R5": "loss", "no_resolution": "loss" }
+  },
+  "scenarioMaxXp": {
+    "_notes": "Maximum victory-display XP awardable per scenario — the reference 'Max' column. 0 means the victory display awards nothing here (the scenario grants its XP some other way), shown as a dash rather than a number.",
+    "curtain_call": 8,
+    "the_last_king": 0,
+    "echoes_of_the_past": 5,
+    "the_unspeakable_oath": 7,
+    "a_phantom_of_truth": 6,
+    "the_pallid_mask": 7,
+    "black_stars_rise": 6,
+    "dim_carcosa": 4
+  },
+  "sections": {
+    "vips_interviewed": {
+      "type": "cards",
+      "items": [
+        { "id": "03076a", "code": "03076a" },
+        { "id": "03077", "code": "03077" },
+        { "id": "03078", "code": "03078" },
+        { "id": "03079", "code": "03079" },
+        { "id": "03080", "code": "03080" }
+      ],
+      "_note": "Whitelist the picker to the five VIP guest ASSETS (03076a Constance, 03077 Jordan, 03078 Haruko, 03079 Sebastien, 03080 Ashleigh). ArkhamCards the_last_king records VIPs Interviewed via card_choice query [03076a,03077,03078,03079,03080], and its own branches check vips_interviewed for these asset codes. Extract captured vips_slain's whitelist (the 03065b-03069b ENEMY sides) but not this one. Without it the picker offered the whole card pool incl. the enemy sides."
+    },
+    "doubt": {
+      "type": "count",
+      "max": 9,
+      "_note": "7 doubt/conviction sources campaign-wide (Curtain Call, Reality's Shadow [R1 only], Echoes, Lost Soul +2, Phantom, Pallid Mask +2, Black Stars Rise). Single-side max is 8 on a normal path (= the 'win with 8 Doubt' achievement) but 9 if you resigned at The Last King and thus also played Reality's Shadow. Cap at 9 so the resign-path edge isn't blocked."
+    },
+    "conviction": {
+      "type": "count",
+      "max": 9,
+      "_note": "See doubt: single-side max 8 normal / 9 on the resign->Reality's Shadow path. Cap 9 ('win with 8 Conviction' achievement still triggers at >=8)."
+    },
+    "_chasing_the_stranger_note": "chasing_the_stranger is intentionally NOT capped (no override). The Man in the Pallid Mask is DISCARDED (not removed) when defeated, so a deck reshuffle can resurface him for another defeat in the same scenario — the tally is unbounded. Dim Carcosa's 6-8 doom bracket is just where the effect plateaus, not a hard ceiling. This key matches no real section id, so apply.mjs ignores it."
+  },
+  "entryOverrides": {
+    "_note": "The Pallid Mask resolution records '#name# read Act 2 of The King in Yellow.' PER INVESTIGATOR — every investigator present reads it, so it must be recordable multiple times (once per investigator). The extractor can't infer repeatability from the tree, so mark it repeatable and restrict the #name# card picker to investigators (the default pool is all unique player cards). Same pattern as side.json's Fortune and Folly Stashed/Alarm level.",
+    "campaign_notes.read_act_2": {
+      "repeatable": true,
+      "cardFilter": { "types": ["investigator"] }
+    },
+    "campaign_notes.possessed": {
+      "repeatable": true,
+      "cardFilter": { "types": ["investigator"] },
+      "_note": "Dim Carcosa records the name of each investigator who ended the game possessed (a Possession treachery in hand). The source captures names via investigator_choice but extract flattened it to a presence-only note — so mark it repeatable (one entry per possessed investigator) and restrict the #name# picker to investigators (NotesSection then scopes it to the party). The WHO now rides the log: life reads the repeated picks as possessedInvestigators, so the old Extra possessed_investigators picker is dropped."
+    }
+  },
   "specialInteractions": {
-    "check_lola_hayes": { "text": "Lola starts the campaign backstage." }
+    "check_lola_hayes": {
+      "text": "Lola starts the campaign backstage."
+    }
   },
   "scenarioChoices": {
+    "curtain_call": [
+      {
+        "id": "act_2b",
+        "label": "Act 2b advanced",
+        "control": "dropdown",
+        "options": ["a_city_aflame", "the_path_is_mine", "the_shores_of_hali"],
+        "optionLabels": {
+          "a_city_aflame": "A City Aflame (+2 cultist)",
+          "the_path_is_mine": "The Path is Mine (+2 tablet)",
+          "the_shores_of_hali": "The Shores of Hali (+2 elder thing)"
+        },
+        "_note": "Which Act 2b advanced — sets the campaign's mid-game chaos-token mix (2 cultist / tablet / elder thing). Adds tokens only, no campaign-log entry -> Extra. Return-to-PtC adds 3 more (Alaran Mists, Under the City, Here Is My Reply) on return_to_curtain_call; parity TODO."
+      }
+    ],
+    "the_last_king": [
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      },
+      {
+        "id": "slain_vips",
+        "label": "VIPs slain at the party",
+        "after": "resolution",
+        "control": "cards",
+        "options": [],
+        "cardFilter": { "codes": ["03076a", "03077", "03078", "03079", "03080"] },
+        "_note": "The 5 VIP guests first appear at The Last King's dinner party and can be slain HERE. VIPs Slain is campaign-wide and can't tell a party slaying from a Reality's Shadow house-burning or a later home-scenario kill, so attribute party kills explicitly -> Extra. Picker = the guest ASSET codes (03076a Constance, 03077 Jordan, 03078 Haruko, 03079 Sebastien, 03080 Ashleigh), same recognizable names as vips_interviewed; multi-pick joins with commas. Stats: how many times each VIP was slain at the party (NOT investigator-scoped — a party kill, not a player's own investigator)."
+      }
+    ],
+    "echoes_of_the_past": [
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      },
+      {
+        "id": "slew_vip",
+        "label": "Slew Sebastien Moreau here?",
+        "after": "resolution",
+        "control": "radio",
+        "options": ["slain"],
+        "optionLabels": { "slain": "Slain here" },
+        "_note": "Sebastien Moreau reappears here and can be slain (recorded campaign-wide in VIPs Slain). This flag attributes the slaying to its home scenario; a VIP in VIPs Slain but NOT flagged in their home scenario was slain by burning the house in Reality's Shadow."
+      }
+    ],
+    "the_unspeakable_oath": [
+      {
+        "id": "daniel_fate",
+        "label": "Lost Soul — Daniel's fate",
+        "after": "victory",
+        "control": "radio",
+        "options": ["survived", "possessed", "neither"],
+        "optionLabels": {
+          "survived": "If an investigator resigned with the asset version of Daniel Chesterfield under their control.",
+          "possessed": "If the enemy version of Daniel Chesterfield was in play when the scenario ended.",
+          "neither": "If neither of the above are true."
+        },
+        "_note": "Asked in Interlude II: Lost Soul (an interlude, not in the Extra scenario list — so it rides The Unspeakable Oath, where the Cuckoo's Nest achievement is scored). Option ids + labels mirror ArkhamCards' lost_soul.json daniel_choice VERBATIM (survived/possessed/neither) so the player sees the same wording they chose in-app. 'survived' = the Cuckoo's Nest condition (resign with the ASSET Daniel under an investigator's control). Board state, not logged -> Extra; now also auto-derives cuckoos_nest. (Renamed the third id did_not_survive -> neither to match the source; ptc.ts only reads 'survived'/'possessed', so unaffected.)"
+      },
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      },
+      {
+        "id": "insane_investigators",
+        "label": "Investigators who went insane",
+        "after": "resolution",
+        "control": "cards",
+        "options": [],
+        "cardFilter": { "types": ["investigator"] },
+        "_note": "The Unspeakable Oath's asylum can drive part of the party insane (board state — horror >= sanity — not logged) -> Extra investigator picker; multiple picks join with commas. The widget intersects these with the play's subjectInvestigators so a profile only ever surfaces the viewed player's OWN investigator, never a teammate's. Mirrors dim_carcosa.possessed_investigators."
+      },
+      {
+        "id": "slew_vip",
+        "label": "Slew Constance Dumaine here?",
+        "after": "resolution",
+        "control": "radio",
+        "options": ["slain"],
+        "optionLabels": { "slain": "Slain here" },
+        "_note": "Constance Dumaine reappears here and can be slain (recorded campaign-wide in VIPs Slain). See echoes_of_the_past.slew_vip for the home-vs-Reality's-Shadow attribution rationale."
+      }
+    ],
     "dim_carcosa": [
-      { "id": "hastur_version", "label": "Hastur version", "options": ["I", "II", "III"] }
+      {
+        "id": "hastur_version",
+        "label": "Hastur version",
+        "options": [
+          "I",
+          "II",
+          "III"
+        ]
+      },
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      }
+    ],
+    "a_phantom_of_truth": [
+      {
+        "id": "doubt_conviction",
+        "label": "Doubt / Conviction (the vision)",
+        "control": "radio",
+        "options": ["conviction", "doubt"],
+        "optionLabels": {
+          "conviction": "“How could any of this be beautiful to you?” (+1 Conviction)",
+          "doubt": "“What exactly am I looking at?” (+1 Doubt)"
+        },
+        "_note": "Phantom's vision dialogue grants +1 Conviction or +1 Doubt with no campaign-log entry (only the meter) -> Extra. Part of the doubt/conviction chain reconstruction."
+      },
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      },
+      {
+        "id": "slew_vip",
+        "label": "Slew Jordan Perry here?",
+        "after": "resolution",
+        "control": "radio",
+        "options": ["slain"],
+        "optionLabels": { "slain": "Slain here" },
+        "_note": "Jordan Perry reappears here and can be slain (recorded campaign-wide in VIPs Slain). See echoes_of_the_past.slew_vip for the home-vs-Reality's-Shadow attribution rationale."
+      }
+    ],
+    "the_pallid_mask": [
+      {
+        "id": "doubt_conviction",
+        "label": "Doubt / Conviction (how Act 2 advanced)",
+        "control": "radio",
+        "options": ["conviction", "doubt"],
+        "optionLabels": {
+          "conviction": "2 Conviction",
+          "doubt": "2 Doubt"
+        },
+        "_note": "Pallid Mask marks +2 Conviction or +2 Doubt via the mark_conviction_or_doubt button, gated by the hidden tpm_conviction_or_doubt flag (how Act 2 advanced) -> not logged -> Extra. The +2 is encoded in the bare '2 Conviction'/'2 Doubt' choice labels; buildDcRun applies amount 2 for this scenario."
+      },
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      },
+      {
+        "id": "randomized_weakness",
+        "label": "Random basic weakness added (read Act 2)",
+        "after": "resolution",
+        "control": "cards",
+        "options": [],
+        "cardFilter": {
+          "subtypes": ["basicweakness"],
+          "traits": ["Madness", "Pact"]
+        },
+        "_note": "Pallid Mask: each investigator who read Act II of The King in Yellow searches the collection for a random basic Madness or Pact weakness and adds it to their deck (and earns 2 XP). A card draw, not logged -> Extra. Filtered card picker (subtype basicweakness + Madness/Pact traits); multiple picks join with commas. Mirrors black_stars_rise.randomized_weakness but narrower (BSR allows Cultist/Detective too). WHO read Act II is the repeatable read_act_2 campaign-log entry; this records the weakness each drew. Slotted after the resolution but BEFORE slew_vip + the victory display (the Act II read is a mid-scenario card draw)."
+      },
+      {
+        "id": "randomized_weakness_investigator",
+        "label": "Investigator who drew each (same order as above)",
+        "control": "cards",
+        "options": [],
+        "cardFilter": { "types": ["investigator"] },
+        "_note": "Pairs BY INDEX with randomized_weakness: the investigator who drew each random weakness, listed in the same order (each investigator who read Act II draws one). Investigator card picker, mirrors insane_investigators; multi-pick comma-joined. ptc.ts zips the two lists to attribute each weakness to its bearer and groups by (weakness, bearer). Optional — when empty the weakness still shows, just without a bearer. Folded into randomized_weakness's per-investigator field (never a standalone field), so its own slot is moot."
+      },
+      {
+        "id": "slew_vip",
+        "label": "Slew Ishimaru Haruko here?",
+        "after": "resolution",
+        "control": "radio",
+        "options": ["slain"],
+        "optionLabels": { "slain": "Slain here" },
+        "_note": "Ishimaru Haruko reappears here and can be slain (recorded campaign-wide in VIPs Slain). See echoes_of_the_past.slew_vip for the home-vs-Reality's-Shadow attribution rationale."
+      }
+    ],
+    "black_stars_rise": [
+      {
+        "id": "randomized_weakness",
+        "label": "Random basic weakness added",
+        "control": "cards",
+        "options": [],
+        "cardFilter": {
+          "subtypes": ["basicweakness"],
+          "traits": ["Madness", "Pact", "Cultist", "Detective"]
+        },
+        "_note": "BSR setup (BEFORE the resolution): 'Each investigator searches the collection for a random basic Madness/Pact/Cultist/Detective weakness and adds it to their deck.' A card draw, not logged -> Extra. Filtered card picker (subtype basicweakness + those 4 traits); multiple picks join with commas in the stored value."
+      },
+      {
+        "id": "randomized_weakness_investigator",
+        "label": "Investigator who drew each (same order as above)",
+        "control": "cards",
+        "options": [],
+        "cardFilter": { "types": ["investigator"] },
+        "_note": "Pairs BY INDEX with randomized_weakness: the investigator who drew each random weakness, listed in the same order (each investigator draws one at setup). Investigator card picker, mirrors insane_investigators; multi-pick comma-joined. ptc.ts zips the two lists to attribute each weakness to its bearer and groups by (weakness, bearer). Optional — when empty the weakness still shows, just without a bearer."
+      },
+      {
+        "id": "doubt_conviction",
+        "label": "Doubt / Conviction",
+        "control": "radio",
+        "options": ["conviction", "doubt"],
+        "optionLabels": {
+          "conviction": "Conviction",
+          "doubt": "Doubt"
+        },
+        "_note": "BSR's Blue Star's Demise agenda marks +1 Conviction (doom on agenda 1a <=2) or +1 Doubt (>=3), and neither if 1a wasn't the current agenda — board state, not logged -> Extra. Radio auto-prepends a '—' (blank) option, which stands in for the neither/not-applicable case, so only Conviction/Doubt are explicit choices. buildDcRun ignores anything that isn't 'conviction'/'doubt'."
+      },
+      {
+        "id": "stranger_defeats",
+        "label": "Stranger defeated (this scenario)",
+        "control": "counter",
+        "min": 0,
+        "options": []
+      },
+      {
+        "id": "slew_vip",
+        "label": "Slew Ashleigh Clarke here?",
+        "after": "resolution",
+        "control": "radio",
+        "options": ["slain"],
+        "optionLabels": { "slain": "Slain here" },
+        "_note": "Ashleigh Clarke reappears here and can be slain (recorded campaign-wide in VIPs Slain). See echoes_of_the_past.slew_vip for the home-vs-Reality's-Shadow attribution rationale."
+      }
     ]
   },
   "outcomes": {
-    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "_notes": "Auto-proposed by tools/outcomes.mjs, then CORRECTED: dropped campaign_notes.possessed from win. Dim Carcosa has exactly ONE winning log — prevented_hasturs_escape. `possessed` is NOT a win/loss ending; it merely flags that investigators ended possessed, which makes the Epilogue occur (and co-occurs with the win resolutions R1-R3). Listing it as a win made a bogus 'someone was possessed.' ending appear in the coverage passport. If outcomes.mjs is re-run it will re-propose it — keep it out. (R4 carcosa_merged / R5 hastur_has_you are the genuine losses.)",
     "win": [
-      "campaign_notes.possessed",
       "campaign_notes.prevented_hasturs_escape"
     ],
     "loss": [
@@ -20,35 +310,6 @@
     ]
   },
   "_notes": "Verified all 9 spans are exact substrings of their entry texts in ptc-en.draft.json. All entries live in the single campaign_notes section. No sibling collisions: onyx-clasp pair distinguished by took/left+\"behind\"; Nigel trio distinguished by \"Nigel's home\"/\"Nigel ___\"/\"find Nigel\"; three Hastur entries have distinct surrounding text. Blur choices are correct: Hastur (endgame boss), the oathspeaker, the phantom, onyx clasp, and Engram (Stranger's true surname) are genuine reveals; Carcosa (campaign name) and \"the King\"/\"the Stranger\" (early recurring titles) correctly left visible. Card sections (vips_interviewed/vips_slain/possessed/read_act_2) are roster cards not in the entries map and out of scope. No changes required.",
-  "spoilers": {
-    "campaign_notes.took_onyx_clasp": [
-      "the onyx clasp"
-    ],
-    "campaign_notes.left_onyx_clasp": [
-      "the onyx clasp"
-    ],
-    "campaign_notes.did_not_escape_gaze": [
-      "the phantom"
-    ],
-    "campaign_notes.found_nigel_engram": [
-      "Engram"
-    ],
-    "campaign_notes.carcosa_merged": [
-      "Hastur"
-    ],
-    "campaign_notes.prevented_hasturs_escape": [
-      "Hastur"
-    ],
-    "campaign_notes.hastur_has_you": [
-      "Hastur"
-    ],
-    "campaign_notes.destroyed_the_oathspeaker": [
-      "the oathspeaker"
-    ],
-    "campaign_notes.followers_of_sign_found_way": [
-      "the followers of the sign"
-    ]
-  },
   "validators": [
     {
       "type": "mutuallyExclusive",

@@ -8,21 +8,25 @@ Without `byTier` (or an all-zero one) it renders as a plain span, no hover.
 -->
 <script lang="ts">
 	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import { difficultyBreakdown, times } from '$lib/campaign/difficulty';
+	import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
 
 	let {
 		value,
 		byTier = null,
-		class: klass = ''
+		class: klass = '',
+		format = times
 	}: {
 		/** The display string/number (e.g. `×3`). */
 		value: number | string;
 		/** Per-difficulty counts; enables the hover breakdown when present. */
 		byTier?: Record<string, number> | null;
 		class?: string;
+		/** How each per-difficulty value is rendered in the breakdown — defaults to the count form
+		 *  (`×3`). Pass a unit formatter (e.g. `n => "${n} VP"`) when the number isn't a count. */
+		format?: (n: number) => string;
 	} = $props();
 
-	const breakdown = $derived(byTier ? difficultyBreakdown(byTier, times) : '');
+	const breakdown = $derived(byTier ? difficultyBreakdown(byTier, format) : '');
 	let tipVisible = $state(false);
 	let tipRef = $state<HTMLElement | null>(null);
 </script>

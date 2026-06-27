@@ -100,7 +100,7 @@ export function needsBackup(doc: DatabaseDocument): boolean {
 	if (s.lastExportedDocUpdatedAt != null) return doc.updatedAt > s.lastExportedDocUpdatedAt;
 	// Never backed up and no tracked changes (e.g. just created, or the localStorage
 	// checkpoint was cleared): only nag once there's real content to lose.
-	return doc.campaigns.length > 0;
+	return doc.campaigns.length > 0 || (doc.standalones?.length ?? 0) > 0;
 }
 
 /** Whether the reminder should be shown more insistently. */

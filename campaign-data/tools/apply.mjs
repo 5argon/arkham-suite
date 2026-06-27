@@ -217,27 +217,7 @@ function apply(code) {
         warnings.push(`${code}: entryOverride key "${k}" matches no entry`);
   }
 
-  // ---- en: spoilers ----
   const en = clean(enDraft);
-  const spoilers = cur.spoilers || {};
-  for (const [key, entry] of Object.entries(en.entries)) {
-    const spans = spoilers[key];
-    if (spans && spans.length) {
-      const valid = [];
-      for (const span of spans) {
-        if (entry.text.includes(span)) valid.push(span);
-        else warnings.push(`${code}: spoiler "${span}" not a substring of "${key}" text`);
-      }
-      if (valid.length) entry.spoiler = valid;
-      else delete entry.spoiler;
-    } else {
-      delete entry.spoiler; // no spoiler -> omit field
-    }
-  }
-  // flag spoiler keys that don't match any entry
-  for (const key of Object.keys(spoilers)) {
-    if (!en.entries[key]) warnings.push(`${code}: spoiler key "${key}" matches no entry`);
-  }
   // drop dropped entries from en too
   if (dropSet.size) {
     for (const k of Object.keys(en.entries)) if (dropSet.has(k)) delete en.entries[k];
@@ -247,11 +227,19 @@ function apply(code) {
   // ---- validators (story-branch consistency rules) ----
   if (Array.isArray(cur.validators) && cur.validators.length) {
     const enKeys = new Set(Object.keys(en.entries));
+    const sectionIds = new Set(db.sections.map((s) => s.id));
     db.validators = cur.validators.map((v) => {
+      if (v.type === 'disjointSections') {
+        for (const sec of v.sections || []) {
+          if (!sectionIds.has(sec))
+            warnings.push(`${code}: validator references unknown section "${sec}"`);
+        }
+        return { type: 'disjointSections', sections: v.sections, scenario: v.scenario || undefined };
+      }
       for (const key of v.entries || []) {
         if (!enKeys.has(key)) warnings.push(`${code}: validator references unknown entry "${key}"`);
       }
-      return { type: v.type || 'mutuallyExclusive', entries: v.entries, scenario: v.scenario || undefined };
+      return { type: 'mutuallyExclusive', entries: v.entries, scenario: v.scenario || undefined };
     });
   }
 
@@ -330,6 +318,58 @@ function apply(code) {
     }
   }
 
+  // ---- scenarioResolutionOutcomes: per-scenario per-resolution Succeed/Failed ----
+  // Curation shape: "scenarioResolutionOutcomes": { "<scenarioId>": { "R1": "win", "R2": "loss", ... } }.
+  // Stamps `scenarioMeta.resolutionOutcomes` — the win/loss judgement for each ending (which
+  // isn't always a mechanical campaign-level result effect), so the app can show per-scenario
+  // Succeed / Failed counts for ANY campaign from the recorded resolution. Runs AFTER the
+  // scenario-tags remap above so it keys off the canonical kohaku scenarioMeta ids.
+  const scenarioResOutcomes = cur.scenarioResolutionOutcomes || {};
+  if (Object.keys(scenarioResOutcomes).length) {
+    const metaById = new Map((db.scenarioMeta || []).map((m) => [m.id, m]));
+    for (const [scenarioId, map] of Object.entries(scenarioResOutcomes)) {
+      if (scenarioId === '_notes') continue;
+      const sm = metaById.get(scenarioId);
+      if (!sm) {
+        warnings.push(`${code}: scenarioResolutionOutcomes -> unknown scenario "${scenarioId}"`);
+        continue;
+      }
+      const out = {};
+      for (const [res, outcome] of Object.entries(map)) {
+        if (res === '_notes') continue;
+        if (!['win', 'loss', 'neutral'].includes(outcome)) {
+          warnings.push(`${code}: scenarioResolutionOutcomes ${scenarioId}.${res} bad value "${outcome}" (expected win/loss/neutral)`);
+          continue;
+        }
+        out[res] = outcome;
+      }
+      if (Object.keys(out).length) sm.resolutionOutcomes = out;
+    }
+  }
+
+  // ---- scenarioMaxXp: per-scenario victory-display XP ceiling (reference) ----
+  // Curation shape: "scenarioMaxXp": { "<scenarioId>": <number>, ... }. Stamps `scenarioMeta.maxXp`
+  // — the most XP the victory display can award here, a reference for the Scenario XP Highscore
+  // widget. Not mechanically derivable, so hand-curated; 0 means "the victory display awards
+  // nothing here" (shown as a dash). Keys off the canonical kohaku scenarioMeta ids (post-remap).
+  const scenarioMaxXp = cur.scenarioMaxXp || {};
+  if (Object.keys(scenarioMaxXp).length) {
+    const metaById = new Map((db.scenarioMeta || []).map((m) => [m.id, m]));
+    for (const [scenarioId, xp] of Object.entries(scenarioMaxXp)) {
+      if (scenarioId === '_notes') continue;
+      const sm = metaById.get(scenarioId);
+      if (!sm) {
+        warnings.push(`${code}: scenarioMaxXp -> unknown scenario "${scenarioId}"`);
+        continue;
+      }
+      if (typeof xp !== 'number' || !Number.isFinite(xp) || xp < 0) {
+        warnings.push(`${code}: scenarioMaxXp ${scenarioId} bad value "${xp}" (expected a non-negative number)`);
+        continue;
+      }
+      sm.maxXp = xp;
+    }
+  }
+
   // ---- clear scenario attribution for AMBIGUOUS entries ----
   // Curation shape: "clearScenario": ["<entryId>", ...].
   // Some campaign-log entries are recorded in MORE THAN ONE scenario — e.g. TSK's
@@ -393,6 +433,8 @@ function apply(code) {
         if (c.control) out.control = c.control;
         if (c.min !== undefined) out.min = c.min;
         if (c.max !== undefined) out.max = c.max;
+        if (c.cardFilter) out.cardFilter = c.cardFilter;
+        if (c.after) out.after = c.after;
         return out;
       });
       for (const c of choices) {
@@ -509,11 +551,10 @@ function apply(code) {
     const siDb = Array.isArray(db.specialInteractions) ? db.specialInteractions : [];
     db.specialInteractions = undefined;
     en.specialInteractions = en.specialInteractions || {};
-    // Tidy seeds: drop empty spoiler arrays + the auto-seeded `title` (the widget
-    // leads with the gating condition, so we keep only the curated "why" `text`;
-    // curation may re-add a title via override below if ever wanted).
+    // Tidy seeds: drop the auto-seeded `title` (the widget leads with the gating
+    // condition, so we keep only the curated "why" `text`; curation may re-add a
+    // title via override below if ever wanted).
     for (const v of Object.values(en.specialInteractions)) {
-      if (Array.isArray(v.spoiler) && !v.spoiler.length) delete v.spoiler;
       delete v.title;
     }
     const byId = new Map(siDb.map((s) => [s.id, s]));
@@ -536,11 +577,10 @@ function apply(code) {
       const en0 = en.specialInteractions[id] || {};
       if (ov.title !== undefined) en0.title = ov.title;
       if (ov.text !== undefined) en0.text = ov.text;
-      if (ov.spoiler !== undefined) en0.spoiler = ov.spoiler;
       en.specialInteractions[id] = en0;
     }
     const finalSi = order.filter((id) => byId.has(id)).map((id) => byId.get(id));
-    // Validate: scenario resolves, match present, en text present, spoiler spans valid.
+    // Validate: scenario resolves, match present, en text present.
     const scenarioIds = new Set([
       ...db.entries.map((e) => e.scenario),
       ...(Array.isArray(db.scenarioMeta) ? db.scenarioMeta.map((m) => m.id) : []),
@@ -552,12 +592,6 @@ function apply(code) {
       if (s.infer) checkInfer(s.infer, en, db, code, warnings, `specialInteraction ${s.id}`);
       const e = en.specialInteractions[s.id];
       if (!e || !e.text) warnings.push(`${code}: specialInteraction "${s.id}" missing en text (the "why")`);
-      else if (Array.isArray(e.spoiler)) {
-        const valid = e.spoiler.filter((sp) => e.text.includes(sp));
-        for (const sp of e.spoiler) if (!e.text.includes(sp)) warnings.push(`${code}: specialInteraction "${s.id}" spoiler "${sp}" not in text`);
-        if (valid.length) e.spoiler = valid;
-        else delete e.spoiler;
-      }
     }
     // Flag curation keys that reference nothing.
     for (const id of Object.keys(siOverrides)) {
@@ -575,13 +609,10 @@ function apply(code) {
   fs.writeFileSync(path.join(DATA_DIR, `${code}-db.json`), JSON.stringify(db, null, 2) + '\n');
   fs.writeFileSync(path.join(DATA_DIR, `${code}-en.json`), JSON.stringify(en, null, 2) + '\n');
 
-  const spoileredCount = Object.values(en.entries).filter((e) => e.spoiler).length;
   console.log(
-    `${code.padEnd(8)} entries=${String(db.entries.length).padStart(4)} spoilered=${String(
-      spoileredCount
-    ).padStart(4)} curation=${exists(curPath) ? 'yes' : 'NONE'}${
-      warnings.length ? ` warnings=${warnings.length}` : ''
-    }`
+    `${code.padEnd(8)} entries=${String(db.entries.length).padStart(4)} curation=${
+      exists(curPath) ? 'yes' : 'NONE'
+    }${warnings.length ? ` warnings=${warnings.length}` : ''}`
   );
   warnings.forEach((w) => console.warn('  ! ' + w));
   return warnings.length;

@@ -7,8 +7,8 @@ the precomputed standalone usage recorded in the editor's Extra tab.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { resolutionLabel, resolutionShort } from '$lib/campaign/resolutions';
-	import type { StandaloneUsageRow } from '$lib/campaign/standalone-usage';
+	import { resolutionLabel, resolutionShort } from '$lib/campaign/utils/resolutions';
+	import type { StandaloneUsageRow } from '$lib/campaign/outcomes/standalone-usage';
 
 	let { rows, family = null }: { rows: StandaloneUsageRow[]; family?: string | null } = $props();
 

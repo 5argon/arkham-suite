@@ -1,13 +1,36 @@
 {
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario Succeed/Failed (curation judgement), verified against the authoritative ArkhamCards source `steps` arrays (references/arkham-cards-data-master/campaigns/tdc). The Drowned City's expedition scenarios (one_last_job, the_western_wall, the_drowned_quarter, the_apiary, the_grand_vault, court_of_the_ancients, obsidian_canyons) are pure ROUTE FORKS — every resolution earns XP and just routes to the next dive site (R1->next_x / R2->other_x), with no win/loss axis — so they are omitted. the_doom_of_arkham_part_1 is finale setup (interludes, all continue) — omitted. Only two scenarios carry a genuine win/loss: the_doom_of_arkham_part_2 (no_resolution steps=lose_campaign => loss; R1 drove Cthulhu off=win_campaign_maybe, R2 banished=win_campaign, R3 banished-but-Arkham-destroyed=win_campaign_in_ruins — all three are campaign wins, R3 a bittersweet ruined-city win), and sepulchre_of_the_sleeper, the optional secret-better-ending gate (R1 halted_cthulhus_awakening=win_campaign => win; no_resolution has empty steps — you failed the gate and simply proceed to the regular finale with no campaign consequence => neutral, a non-ending rather than a loss).",
+    "sepulchre_of_the_sleeper": {
+      "R1": "win",
+      "no_resolution": "neutral"
+    },
+    "the_doom_of_arkham_part_2": {
+      "R1": "win",
+      "R2": "win",
+      "R3": "win",
+      "no_resolution": "loss"
+    }
+  },
   "code": "tdc",
   "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). the_doom_of_arkham_part_1: drop R3 (read only from inside R1; not a standalone first-choice ending).",
   "scenarioResolutions": {
-    "the_doom_of_arkham_part_1": ["no_resolution", "R1", "R2"]
+    "the_doom_of_arkham_part_1": [
+      "no_resolution",
+      "R1",
+      "R2"
+    ]
   },
   "specialInteractions": {
-    "check_wendy_adams": { "text": "Andy mentions Wendy's father." },
-    "check_detective": { "text": "Reads the relic as stolen." },
-    "check_ursula": { "text": "Ursula recalls her Amazon expedition." }
+    "check_wendy_adams": {
+      "text": "Andy mentions Wendy's father."
+    },
+    "check_detective": {
+      "text": "Reads the relic as stolen."
+    },
+    "check_ursula": {
+      "text": "Ursula recalls her Amazon expedition."
+    }
   },
   "scenarios": {
     "02_one_last_job": "one_last_job",
@@ -36,26 +59,6 @@
     ]
   },
   "_notes": "Verified all 6 spoiler spans are exact substrings of their entry texts in tdc-en.draft.json: \"the alien parasites\" in \"the investigators exterminated the alien parasites.\"; \"Cthulhu's awakening\" in \"the investigators halted Cthulhu's awakening.\"; \"Cthulhu\" in each of the four endgame outcome entries. No invalid spans.\n\nSibling-collision check on campaign_notes endgame outcomes after blurring Cthulhu: \"[X] annihilated the city of Arkham.\" / \"[X] was driven away.\" / \"[X] was banished.\" / \"[X] was banished, but Arkham was destroyed.\" — all remain distinguishable by their outcome verbs. No collisions.\n\nglyphs roster: db lists 26 rune entries tdc_rune_a..z all in the glyphs section (rune_a/rune_s from scenarios, rune_b..r,t..z from core); roster enumerates all 26 in a..z order, labeled with the [tdc_rune_X] marker so the UI renders the glyph symbol. resolve.mjs does not apply (glyphs are rune slots, not card codes; resolve tdc returns not-found, as expected). Correct.\n\nNo changes required — the proposed curation is valid as-is. Kept artifacts_earned, flooded_neighborhoods, locations, the Depths/Machine glyph translations, and generic scaffolding unblurred per the curator's reasoning, which is sound (whole-text-only sibling entries under visible section titles; no boss/twist reveals left exposed beyond the central Cthulhu reveal which IS blurred).",
-  "spoilers": {
-    "campaign_notes.exterminated_the_alien_parasites": [
-      "the alien parasites"
-    ],
-    "campaign_notes.halted_cthulhus_awakening": [
-      "Cthulhu's awakening"
-    ],
-    "campaign_notes.cthulhu_annihilated_the_city_of_arkham": [
-      "Cthulhu"
-    ],
-    "campaign_notes.cthulhu_was_driven_away": [
-      "Cthulhu"
-    ],
-    "campaign_notes.cthulhu_was_banished": [
-      "Cthulhu"
-    ],
-    "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed": [
-      "Cthulhu"
-    ]
-  },
   "sections": {
     "glyphs": {
       "type": "glyphs",

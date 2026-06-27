@@ -947,7 +947,9 @@ export const campaignEncounterSetsMap: Record<Campaign, EncounterSet[]> = {
 };
 
 /**
- * Maps StandaloneScenarios to their associated EncounterSets.
+ * Maps each standalone scenario to its associated EncounterSets. Single-scenario
+ * packs inherit the whole product's sets; Guardians of the Abyss' two scenarios
+ * each get their own scenario set plus the shared Guardians support sets.
  */
 export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet[]> = {
   [StandaloneScenario.CurseOfTheRougarou]:
@@ -956,8 +958,20 @@ export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet
     productEncounterSetsMap[Product.CarnevaleOfHorrors] || [],
   [StandaloneScenario.TheLabyrinthsOfLunacy]:
     productEncounterSetsMap[Product.TheLabyrinthsOfLunacy] || [],
-  [StandaloneScenario.GuardiansOfTheAbyss]:
-    productEncounterSetsMap[Product.GuardiansOfTheAbyss] || [],
+  [StandaloneScenario.GuardiansEternalSlumber]: [
+    EncounterSet.TheEternalSlumber,
+    EncounterSet.BrotherhoodOfTheBeast,
+    EncounterSet.SandsOfEgypt,
+    EncounterSet.AbyssalGifts,
+    EncounterSet.AbyssalTribute,
+  ],
+  [StandaloneScenario.GuardiansNightsUsurper]: [
+    EncounterSet.TheNightsUsurper,
+    EncounterSet.BrotherhoodOfTheBeast,
+    EncounterSet.SandsOfEgypt,
+    EncounterSet.AbyssalGifts,
+    EncounterSet.AbyssalTribute,
+  ],
   [StandaloneScenario.MurderAtTheExcelsiorHotel]:
     productEncounterSetsMap[Product.MurderAtTheExcelsiorHotel] || [],
   [StandaloneScenario.TheBlobThatAteEverything]:
@@ -971,6 +985,26 @@ export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet
   [StandaloneScenario.TheMidwinterGala]: productEncounterSetsMap[Product.TheMidwinterGala] || [],
   [StandaloneScenario.FilmFatale]: productEncounterSetsMap[Product.FilmFatale] || [],
   [StandaloneScenario.TracesToNowhere]: productEncounterSetsMap[Product.TracesToNowhere] || [],
+};
+
+/**
+ * The single representative encounter set for each standalone scenario — the icon
+ * / art used to identify it (mirrors {@link ScenarioData.representativeSet}).
+ */
+export const standaloneScenarioRepresentativeSet: Record<StandaloneScenario, EncounterSet> = {
+  [StandaloneScenario.CurseOfTheRougarou]: EncounterSet.CurseOfTheRougarou,
+  [StandaloneScenario.CarnevaleOfHorrors]: EncounterSet.CarnevaleOfHorrors,
+  [StandaloneScenario.TheLabyrinthsOfLunacy]: EncounterSet.TheLabyrinthsOfLunacy,
+  [StandaloneScenario.GuardiansEternalSlumber]: EncounterSet.TheEternalSlumber,
+  [StandaloneScenario.GuardiansNightsUsurper]: EncounterSet.TheNightsUsurper,
+  [StandaloneScenario.MurderAtTheExcelsiorHotel]: EncounterSet.MurderAtTheExcelsiorHotel,
+  [StandaloneScenario.TheBlobThatAteEverything]: EncounterSet.TheBlobThatAteEverything,
+  [StandaloneScenario.TheBlobThatAteEverythingElse]: EncounterSet.TheBlobThatAteEverythingElse,
+  [StandaloneScenario.WarOfTheOuterGods]: EncounterSet.WarOfTheOuterGods,
+  [StandaloneScenario.MachinationsThroughTime]: EncounterSet.MachinationsThroughTime,
+  [StandaloneScenario.FortuneAndFolly]: EncounterSet.FortuneAndFolly,
+  [StandaloneScenario.TheMidwinterGala]: EncounterSet.TheMidwinterGala,
+  [StandaloneScenario.FilmFatale]: EncounterSet.FilmFatale,
 };
 
 /**

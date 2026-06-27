@@ -15,7 +15,7 @@ qualifying route exists.
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { HoverTooltip, parseArkhamMarkup } from '@5argon/arkham-life-ui';
-	import { TSK_ROUTE_ACHIEVEMENTS, type CampaignTsk, type TskRoute } from '$lib/campaign/tsk-profile';
+	import { TSK_ROUTE_ACHIEVEMENTS, type CampaignTsk, type TskRoute } from '$lib/campaign/campaigns/tsk-profile';
 	import * as m from '$lib/paraglide/messages.js';
 	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
 	import WidgetTable, { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';

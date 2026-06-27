@@ -22,6 +22,7 @@
     {
       "id": "the_pit_of_despair",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1"
@@ -34,6 +35,7 @@
     {
       "id": "the_vanishing_of_elina_harper",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -52,18 +54,28 @@
     {
       "id": "in_too_deep",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution_defeated": "loss"
+      }
     },
     {
       "id": "devil_reef",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "beneath_the_waves",
@@ -72,14 +84,20 @@
     {
       "id": "horror_in_high_gear",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "a_light_in_the_fog",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1",
@@ -106,15 +124,26 @@
           ],
           "result": "lose"
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss",
+        "no_resolution_defeated": "loss"
       }
     },
     {
       "id": "the_lair_of_dagon",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "hidden_truths",
@@ -123,6 +152,7 @@
     {
       "id": "into_the_maelstrom",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -147,6 +177,11 @@
           ],
           "result": "lose"
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R8": "loss",
+        "no_resolution": "loss"
       }
     },
     {

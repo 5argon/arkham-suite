@@ -17,7 +17,7 @@ disappeared, and the scenario never happening ("there is nothing of note in Anch
 
 	// Made a deal / Refused — counted from the recorded `raw_deal` Extra choice (accept / reject).
 	const rawDeal = $derived.by(() => {
-		const stat = props.scenarioXp.flatMap((c) => c.scenarios).find((s) => s.scenario === SCENARIO);
+		const stat = (props.scenarios?.scenarios ?? []).find((s) => s.scenario === SCENARIO);
 		const byValue = new Map(
 			(stat?.choices?.find((c) => c.id === 'raw_deal')?.values ?? []).map((v) => [v.value, v.played])
 		);

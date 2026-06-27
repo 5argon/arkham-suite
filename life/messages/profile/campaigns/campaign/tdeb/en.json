@@ -1,0 +1,43 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_tdeb_steps_max": "Most Steps",
+	"campaign_tdeb_steps_avg": "Average",
+	"campaign_tdeb_steps_tier0": "0 doom (0–2)",
+	"campaign_tdeb_steps_tier1": "1 doom (3–5)",
+	"campaign_tdeb_steps_tier2": "2 doom (6–8)",
+	"campaign_tdeb_steps_tier3": "3 doom (9–11)",
+	"campaign_tdeb_steps_tier4": "4 doom (12+)",
+	"campaign_tdeb_steps_note": "Weaver of the Cosmos places doom by band — the higher your Steps, the harder the finale.",
+	"campaign_tdeb_steps_empty": "Play Waking Nightmare to start the Steps of the Bridge.",
+
+	"campaign_tdeb_waking_doctor_heading": "Dr. Maheswaran",
+	"campaign_tdeb_waking_randolph_heading": "Randolph's escape",
+	"campaign_tdeb_waking_joined": "Doctor joined",
+	"campaign_tdeb_waking_stayed": "Stayed with patients",
+	"campaign_tdeb_waking_alive": "Doctor alive",
+	"campaign_tdeb_waking_missing": "Doctor missing",
+	"campaign_tdeb_waking_unknown": "Fate unknown",
+	"campaign_tdeb_waking_escaped_alone": "Randolph escaped alone",
+	"campaign_tdeb_waking_escaped_with": "Randolph escaped with you",
+	"campaign_tdeb_waking_empty": "Play Waking Nightmare to record the doctor's fate.",
+
+	"campaign_tdeb_shapes_descent_heading": "Randolph's descent",
+	"campaign_tdeb_shapes_key_heading": "The Silver Key",
+	"campaign_tdeb_shapes_survived": "Randolph survived descent",
+	"campaign_tdeb_shapes_died": "Randolph died on descent",
+	"campaign_tdeb_shapes_key": "Silver Key obtained",
+	"campaign_tdeb_shapes_empty": "Play A Thousand Shapes of Horror to record the descent.",
+
+	"campaign_tdeb_pnr_found": "Found a way out",
+	"campaign_tdeb_pnr_empty": "Play Point of No Return to record the escape.",
+
+	"campaign_tdeb_weaver_returned": "Returned to reality",
+	"campaign_tdeb_weaver_never": "Never escaped",
+	"campaign_tdeb_weaver_still": "Still in Dreamlands",
+	"campaign_tdeb_weaver_completed": "Bridge completed",
+	"campaign_tdeb_weaver_destroyed": "Bridge destroyed",
+	"campaign_tdeb_weaver_trapped": "Trapped in the realm",
+	"campaign_tdeb_weaver_spider": "The Spider Queen",
+	"campaign_tdeb_weaver_empty": "Reach Weaver of the Cosmos to see your finale."
+}

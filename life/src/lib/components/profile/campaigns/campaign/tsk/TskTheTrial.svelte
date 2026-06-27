@@ -8,20 +8,21 @@ Eerily Silent votes among the Coterie, each with the route that achieved it.
 
 The transitions come straight from the finale vote table (tsk-solver `coterieVoteRows`), so they
 never drift; the counts are inferred from the campaign log (Desi's split additionally reads the
-Congress real/impostor Extra — the stored copy you flip at the Trial). This replaces the old "members on your side" art + finale-outcome
-tally — the latter duplicated Congress of the Keys' Meeting Routes.
+Congress real/impostor Extra — the stored copy you flip at the Trial). No finale-outcome tally
+here — that would duplicate Congress of the Keys' Meeting Routes.
 -->
 <script lang="ts">
 	import { CardStrip } from '@5argon/arkham-life-ui';
 	import type { Card } from '@5argon/arkham-kohaku';
-	import { coterieVoteRows } from '$lib/campaign/tsk-solver';
-	import type { CoterieVoteRow } from '$lib/campaign/tsk-solver';
-	import type { CampaignTsk } from '$lib/campaign/tsk-profile';
+	import { coterieVoteRows } from '$lib/campaign/campaigns/tsk-solver';
+	import type { CoterieVoteRow } from '$lib/campaign/campaigns/tsk-solver';
+	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
 	import { getAllCards } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import WidgetTable, {
 		widgetTableCell
 	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
 
 	let { tsk, logOnly = false }: { tsk: CampaignTsk | null; logOnly?: boolean } = $props();
@@ -108,7 +109,7 @@ tally — the latter duplicated Congress of the Keys' Meeting Routes.
 
 		{#if anyVoteHigh && !logOnly}
 			<div>
-				<p class="text-primary-500 mb-1 text-xs font-medium">{m.campaign_tsk_coterie_highs_heading()}</p>
+				<SectionLabel>{m.campaign_tsk_coterie_highs_heading()}</SectionLabel>
 				<WidgetTable
 					columns={[
 						{ label: '' },

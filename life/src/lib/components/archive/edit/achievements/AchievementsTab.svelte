@@ -21,7 +21,7 @@ ticked and persisted. Read-only when the player cannot edit.
 		type ResolvedAchievement,
 	} from '@5argon/arkham-campaign-data';
 	import { SectionSeparator } from '@5argon/arkham-life-ui';
-	import { tskTrustAchievementConditions, tskTrustAchievements } from '$lib/campaign/tsk-profile';
+	import { tskTrustAchievementConditions, tskTrustAchievements } from '$lib/campaign/campaigns/tsk-profile';
 	import AchievementRow from './AchievementRow.svelte';
 
 	interface Props {

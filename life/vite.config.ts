@@ -4,7 +4,8 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { mdsvex } from 'mdsvex';
 import { sveltePreprocess } from 'svelte-preprocess';
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig } from 'vitest/config';
+import type { Plugin } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { syncDocImages } from './scripts/sync-doc-images.mjs';
 import { remarkDocImages } from './src/lib/docs/remark-doc-images.js';
@@ -66,5 +67,11 @@ export default defineConfig({
 			outdir: "./src/lib/paraglide",
 			strategy: ['url', 'cookie', 'baseLocale']
 		})
-	]
+	],
+	test: {
+		// Unit tests live under src/. Scoping the glob here keeps Vitest from sweeping in the
+		// Playwright e2e suite (e2e/*.test.ts), which uses a different runner (@playwright/test)
+		// and otherwise fails to import under Vitest. Run e2e separately via `playwright test`.
+		include: ['src/**/*.{test,spec}.{js,ts}']
+	}
 });

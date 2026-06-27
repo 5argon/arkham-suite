@@ -14,7 +14,7 @@ Card data + the deck-derived `customizableUsage` (parsed from deck meta).
 	import { CardLine, CardStrip, HoverTooltip, parseArkhamMarkup } from '@5argon/arkham-life-ui';
 	import type { Card, CardCode } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import { inCardClass, isCustomizable } from '$lib/campaign/card-filters';
+	import { inCardClass, isCustomizable } from '$lib/campaign/utils/card-filters';
 	import type { CustomizableUsage } from '$lib/profile/profile-types';
 
 	let {

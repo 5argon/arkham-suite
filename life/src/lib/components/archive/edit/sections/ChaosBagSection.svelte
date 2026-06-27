@@ -9,7 +9,7 @@ canonical sheet order via the shared ChaosTokenDisplay.
 	import { ChaosToken, chaosTokenCode, chaosTokenOrder } from '@5argon/arkham-kohaku';
 	import type { CampaignLog } from '@5argon/arkham-campaign-data';
 	import { Button, ChaosTokenDisplay } from '@5argon/arkham-life-ui';
-	import { RESERVED, makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { RESERVED, makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog | undefined;
@@ -17,48 +17,33 @@ canonical sheet order via the shared ChaosTokenDisplay.
 		difficulty: string;
 		entries: LocalLog[];
 		canEdit: boolean;
+		/**
+		 * Override the per-difficulty starting bags (token -> count). Pass for a
+		 * standalone archive (the scenario's standalone setup); `null` = no starting
+		 * bag (manual entry only). `undefined` (default) uses the campaign log's bag.
+		 */
+		startingChaosBag?: Record<string, Record<string, number>> | null;
 		onChange: (next: LocalLog[]) => void;
 	}
 
-	let { log, difficulty, entries, canEdit, onChange }: Props = $props();
+	let { log, difficulty, entries, canEdit, startingChaosBag, onChange }: Props = $props();
 
-	// Canonical-ish token colors so the bag reads at a glance like the game's coding
-	// (defined here so life's Tailwind generates the classes). Numeric tokens share a
-	// blue; symbol tokens get their game colors.
-	const TOKEN_COLOR: Record<ChaosToken, string> = {
-		[ChaosToken.TokenP1]: 'text-amber-400',
-		[ChaosToken.Token0]: 'text-sky-400',
-		[ChaosToken.TokenM1]: 'text-sky-400',
-		[ChaosToken.TokenM2]: 'text-sky-400',
-		[ChaosToken.TokenM3]: 'text-sky-400',
-		[ChaosToken.TokenM4]: 'text-sky-400',
-		[ChaosToken.TokenM5]: 'text-sky-400',
-		[ChaosToken.TokenM6]: 'text-sky-400',
-		[ChaosToken.TokenM7]: 'text-sky-400',
-		[ChaosToken.TokenM8]: 'text-sky-400',
-		[ChaosToken.TokenSkull]: 'text-rose-500',
-		[ChaosToken.TokenCultist]: 'text-emerald-500',
-		[ChaosToken.TokenTablet]: 'text-teal-400',
-		[ChaosToken.TokenElderThing]: 'text-fuchsia-500',
-		[ChaosToken.TokenAutofail]: 'text-red-700',
-		[ChaosToken.TokenElderSign]: 'text-blue-500',
-		[ChaosToken.TokenFrost]: 'text-cyan-400',
-		[ChaosToken.TokenBless]: 'text-amber-300',
-		[ChaosToken.TokenCurse]: 'text-purple-500'
-	};
+	// The per-difficulty starting bags in effect — a standalone override when given,
+	// otherwise the campaign log's.
+	const bags = $derived(
+		startingChaosBag !== undefined ? startingChaosBag : (log?.db.startingChaosBag ?? null)
+	);
 
-	// The campaign's starting bag for this difficulty (tokenCode -> count). A
-	// fresh, untouched bag is shown seeded with this so the player adjusts from
-	// the real opening composition rather than from empty. The first edit
-	// materialises it (see `set`); we never write on load.
-	const startingBag = $derived(log?.db.startingChaosBag?.[difficulty] ?? null);
+	// The starting bag for this difficulty (tokenCode -> count). A fresh, untouched
+	// bag is shown seeded with this so the player adjusts from the real opening
+	// composition rather than from empty. The first edit materialises it (see `set`).
+	const startingBag = $derived(bags?.[difficulty] ?? null);
 	const isFresh = $derived(entries.length === 0);
 
-	// Every token any of this campaign's starting bags uses — lets us scope
-	// special tokens (frost is Edge of the Earth only). Bless/Curse are never part
-	// of a persistent bag (they're added and removed during play).
+	// Every token any starting bag uses — lets us scope special tokens (frost is
+	// Edge of the Earth only). Bless/Curse are never part of a persistent bag.
 	const campaignTokenCodes = $derived(
-		new Set(Object.values(log?.db.startingChaosBag ?? {}).flatMap((b) => Object.keys(b)))
+		new Set(Object.values(bags ?? {}).flatMap((b) => Object.keys(b)))
 	);
 	const SCOPED: ChaosToken[] = [ChaosToken.TokenFrost];
 	const visibleTokens = $derived(
@@ -105,9 +90,7 @@ canonical sheet order via the shared ChaosTokenDisplay.
 		class="border-primary-200 dark:border-primary-700 mb-3 flex flex-wrap items-center gap-1.5 rounded-lg border p-2"
 	>
 		{#each bagCoins as token, i (i)}
-			<span class="text-xl"
-				><ChaosTokenDisplay {token} hideLabel fillColor={TOKEN_COLOR[token]} /></span
-			>
+			<span class="text-xl"><ChaosTokenDisplay {token} sealed={false} hideLabel /></span>
 		{/each}
 	</div>
 {/if}
@@ -124,9 +107,7 @@ canonical sheet order via the shared ChaosTokenDisplay.
 			]}
 		>
 			<div class="flex items-center gap-1.5">
-				<span class="text-lg"
-					><ChaosTokenDisplay {token} hideLabel fillColor={TOKEN_COLOR[token]} /></span
-				>
+				<span class="text-lg"><ChaosTokenDisplay {token} sealed={false} hideLabel /></span>
 				<span
 					class="text-primary-600 dark:text-primary-300 min-w-5 text-center text-sm font-bold tabular-nums"
 					>{c}</span

@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { BorderedContainer, SectionSeparator } from '@5argon/arkham-life-ui';
-	import { playedCampaignList } from '$lib/campaign/profile-slugs';
+	import { playedCampaignList } from '$lib/campaign/profile/profile-slugs';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';
 	import { LOCAL_PROFILE_KEY, type LocalProfileContext } from '$lib/database/profile-local';

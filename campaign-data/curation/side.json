@@ -5,15 +5,47 @@
   },
   "entryOverrides": {
     "_note": "Fortune and Folly's 'Stashed' and 'Alarm level' are keyed by their card + number, so the player records them repeatedly (one per card). Mark them repeatable and restrict the #name# picker: stash an ASSET, track an INVESTIGATOR's alarm level.",
-    "campaign_notes.fof_stashed": { "repeatable": true, "cardFilter": { "types": ["asset"] } },
-    "campaign_notes.fof_alarm_level": { "repeatable": true, "cardFilter": { "types": ["investigator"] } }
+    "campaign_notes.fof_stashed": {
+      "repeatable": true,
+      "cardFilter": {
+        "types": [
+          "asset"
+        ]
+      }
+    },
+    "campaign_notes.fof_alarm_level": {
+      "repeatable": true,
+      "cardFilter": {
+        "types": [
+          "investigator"
+        ]
+      }
+    },
+    "_note_brotherhood": "The Eternal Slumber records each unique Brotherhood (Cultist) enemy that escaped — the 6 double-sided agents (Layla El Masri 83031a, Wentworth Moore 83032a, Nadia Nimr 83033a, Farid 83034a, Nassor 83035a, Nathaniel Taylor 83036a). Repeatable so every escaped agent can be recorded; the #name# picker is restricted to those 6.",
+    "campaign_notes.tes_escaped_brotherhood": {
+      "repeatable": true,
+      "cardFilter": {
+        "codes": ["83031a", "83032a", "83033a", "83034a", "83035a", "83036a"]
+      }
+    }
   },
   "scenarioResolutions": {
     "_note": "The catalogue entry 'Fortune and Folly' (keyed fortune_and_folly_part_1) should record Part II's outcomes, not the Part I 'Stakeout' resolutions that extract pulls from the part-1 file. Part II (fortune_and_folly_part_2.json) resolves to no_resolution / R1 / R2 / R3.",
-    "fortune_and_folly_part_1": ["no_resolution", "R1", "R2", "R3"],
+    "fortune_and_folly_part_1": [
+      "no_resolution",
+      "R1",
+      "R2",
+      "R3"
+    ],
     "_hiddenflag_patch_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). extract trusts ArkhamCards' `hidden` flag, but these leave non-choosable resolutions non-hidden so they leak into the first-choice list. enthralling_encore: drop R2 (read only from inside the no_resolution_defeated outcome). the_midwinter_gala: drop R7 (sub-resolution of the already-hidden R2-R6, themselves sub of R1). NOTE: war_of_the_outer_gods is NOT patched — its R5/R6/R7 are card-reachable via the per-faction encounter sets (swarm_of_assimilation/death_of_stars/children_of_paradise), so they are legit endings.",
-    "enthralling_encore": ["no_resolution_defeated", "R1"],
-    "the_midwinter_gala": ["no_resolution", "R1"]
+    "enthralling_encore": [
+      "no_resolution_defeated",
+      "R1"
+    ],
+    "the_midwinter_gala": [
+      "no_resolution",
+      "R1"
+    ]
   },
   "scenarioChoices": {
     "fortune_and_folly_part_1": [
@@ -35,52 +67,5 @@
       "campaign_notes.blob_devoured_universe"
     ]
   },
-  "_notes": "Verified all 15 spans are exact substrings of their entry texts (note \"Ignis\" entries use a curly apostrophe in \"Ignis' spirit\" but the blurred token \"Ignis\" itself matches; \"Hanninah's\" and \"Dario's\"/sibling use straight apostrophe). No sibling collisions: within Carnevale the three Cnidathqua entries stay distinguishable by surrounding text; the two Ignis entries differ; Xzharah appears in two different scenario entries within campaign_notes but reads differently. No over-blur of scenario-title creatures (Wendigo, Rougarou, Excelsior, Constellation, House of Usher) or disambiguating NPCs. No under-blur found: hidden gods Ithaqua/Cnidathqua/Ignis/Shax/Xzharah and reveal outcomes (Subject 8L-08, eldrich god of fire, Hanninah's gold, solid-gold transformations) are all blurred. No exotic roster sections needed — only notes/cards/count kinds; the cards-bearing section (\"hidden\") is itself hidden. Curation accepted unchanged.",
-  "spoilers": {
-    "campaign_notes.blob_devoured_universe": [
-      "Subject 8L-08"
-    ],
-    "campaign_notes.coh_many_were_sacrificed_to_cnidathqua": [
-      "Cnidathqua"
-    ],
-    "campaign_notes.coh_sun_banished_cnidathqua": [
-      "Cnidathqua"
-    ],
-    "campaign_notes.coh_cnidathqua_retreated": [
-      "Cnidathqua"
-    ],
-    "campaign_notes.zlf_ignis_destroy_humanity": [
-      "Ignis"
-    ],
-    "campaign_notes.zlf_ignis_spirit_has_been_crushed": [
-      "Ignis"
-    ],
-    "campaign_notes.zlf_slain_the_eldrich_god": [
-      "the eldrich god of fire"
-    ],
-    "campaign_notes.banished_shax": [
-      "Shax"
-    ],
-    "campaign_notes.tes_aware_of_xzharahs_plan": [
-      "Xzharah"
-    ],
-    "campaign_notes.tnu_joined_xzharah": [
-      "Xzharah"
-    ],
-    "campaign_notes.dario_was_turned_into_solid_gold": [
-      "solid gold"
-    ],
-    "campaign_notes.banished_the_gilded_spirit": [
-      "the gilded spirit"
-    ],
-    "campaign_notes.repaired_the_golden_artifact": [
-      "the golden artifact"
-    ],
-    "campaign_notes.atw_defeated_the_wendigo": [
-      "the Wendigo"
-    ],
-    "campaign_notes.atw_wendigo_still_roams": [
-      "the Wendigo"
-    ]
-  }
+  "_notes": "Verified all 15 spans are exact substrings of their entry texts (note \"Ignis\" entries use a curly apostrophe in \"Ignis' spirit\" but the blurred token \"Ignis\" itself matches; \"Hanninah's\" and \"Dario's\"/sibling use straight apostrophe). No sibling collisions: within Carnevale the three Cnidathqua entries stay distinguishable by surrounding text; the two Ignis entries differ; Xzharah appears in two different scenario entries within campaign_notes but reads differently. No over-blur of scenario-title creatures (Wendigo, Rougarou, Excelsior, Constellation, House of Usher) or disambiguating NPCs. No under-blur found: hidden gods Ithaqua/Cnidathqua/Ignis/Shax/Xzharah and reveal outcomes (Subject 8L-08, eldrich god of fire, Hanninah's gold, solid-gold transformations) are all blurred. No exotic roster sections needed — only notes/cards/count kinds; the cards-bearing section (\"hidden\") is itself hidden. Curation accepted unchanged."
 }

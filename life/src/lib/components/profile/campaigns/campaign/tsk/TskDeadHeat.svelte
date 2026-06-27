@@ -15,6 +15,7 @@ All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
 	import * as m from '$lib/paraglide/messages.js';
 	import TskScenarioInfo from '$lib/components/profile/campaigns/campaign/tsk/TskScenarioInfo.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import WidgetTable, {
 		widgetTableCell
 	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
@@ -120,9 +121,7 @@ All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
 
 	{#if netRows.length && !props.logOnly}
 		<div>
-			<p class="text-primary-500 mb-1 text-xs font-medium">
-				{m.campaign_tsk_deadheat_best_net_title()}
-			</p>
+			<SectionLabel>{m.campaign_tsk_deadheat_best_net_title()}</SectionLabel>
 			<WidgetTable columns={netColumns} rows={netRows} key={(r) => r.pc}>
 				{#snippet row(r)}{@render civCells(r, 'net')}{/snippet}
 			</WidgetTable>
@@ -131,9 +130,7 @@ All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
 
 	{#if doubleRows.length && !props.logOnly}
 		<div>
-			<p class="text-primary-500 mb-1 text-xs font-medium">
-				{m.campaign_tsk_deadheat_best_double_title()}
-			</p>
+			<SectionLabel>{m.campaign_tsk_deadheat_best_double_title()}</SectionLabel>
 			<WidgetTable columns={doubleColumns} rows={doubleRows} key={(r) => r.pc}>
 				{#snippet row(r)}{@render civCells(r, 'double')}{/snippet}
 			</WidgetTable>

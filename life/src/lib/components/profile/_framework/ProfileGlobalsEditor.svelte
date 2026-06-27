@@ -9,7 +9,7 @@ per-page.
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { Checkbox, SectionSeparator, TextButton } from '@5argon/arkham-life-ui';
-	import { difficultyLabel } from '$lib/campaign/difficulty';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
 	import { u as stringUtils } from '@5argon/arkham-string';
 	import {
 		productChapterOneCampaignExpansions,
@@ -23,7 +23,7 @@ per-page.
 		productStandalone,
 		type Product,
 	} from '@5argon/arkham-kohaku';
-	import { ALL_TIERS, ALL_CAMPAIGN_GROUPS, type CampaignGroup, type DifficultyTier, type ProfileSettings } from '$lib/campaign/profile-settings';
+	import { ALL_TIERS, ALL_CAMPAIGN_GROUPS, type CampaignGroup, type DifficultyTier, type ProfileSettings } from '$lib/campaign/profile/profile-settings';
 	import { untrack } from 'svelte';
 
 	let { initialSettings }: { initialSettings: ProfileSettings } = $props();

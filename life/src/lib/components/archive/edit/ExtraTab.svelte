@@ -11,6 +11,7 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 	import type { CampaignLog } from '@5argon/arkham-campaign-data';
 	import { standaloneScenarios } from '@5argon/arkham-campaign-data';
 	import {
+		CardFormMultiple,
 		Checkbox,
 		Dropdown,
 		EncounterSetIcon,
@@ -23,15 +24,24 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 	} from '@5argon/arkham-life-ui';
 	import Doc from '$lib/docs/Doc.svelte';
 	import TskEditNote from './TskEditNote.svelte';
+	import FhvEditNote from './FhvEditNote.svelte';
+	import InvestigatorCardPicker from './InvestigatorCardPicker.svelte';
 	import { getScenarioData, Scenario } from '@5argon/arkham-kohaku';
-	import { campaignScenarios } from '$lib/campaign/campaign-log-source';
-	import { choicesForScenario, choicesForStandalone } from '$lib/campaign/scenario-extras';
+	import { getAllCards } from '$lib/card-data';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
+	import { campaignScenarios } from '$lib/campaign/records/campaign-log-source';
+	import {
+		choicesForScenario,
+		choicesForStandalone,
+		type ScenarioChoiceDef
+	} from '$lib/campaign/stats/scenario-extras';
 	import {
 		isVersionLogInferable,
 		scenarioTiersByName,
 		tierOptionLabel
-	} from '$lib/campaign/tsk-solver';
-	import { resolutionLabel } from '$lib/campaign/resolutions';
+	} from '$lib/campaign/campaigns/tsk-solver';
+	import { resolutionLabel } from '$lib/campaign/utils/resolutions';
+	import { rewardKindLabel } from '$lib/campaign/utils/scenario-reward';
 	import {
 		entriesInSection,
 		makeEntry,
@@ -41,20 +51,37 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 		RESERVED,
 		type LocalLog,
 		type StandaloneEntry
-	} from '$lib/campaign/recorded-state';
+	} from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;
 		canEdit: boolean;
 		localLogs: LocalLog[];
+		/** The campaign's investigator roster (from the decks) — scopes investigator card pickers to
+		 *  only the campaign's own investigators. Empty (no decks) → the picker offers all investigators. */
+		investigators: InvestigatorRef[];
+		/**
+		 * Standalone archive: record ONLY this scenario (no scenario list, and no
+		 * in-campaign "Side Story" section). Absent ⇒ the normal per-campaign Extra tab.
+		 */
+		onlyScenario?: string;
+		/**
+		 * Standalone archive: always show an "Experience earned" box (the score), even
+		 * for a Victory-display scenario where it normally wouldn't appear.
+		 */
+		alwaysShowExperience?: boolean;
 		/** Autosave callback: receives the next logs after each edit. */
 		onLogsChange: (next: LocalLog[]) => void;
 	}
-	let { log, canEdit, localLogs, onLogsChange }: Props = $props();
+	let { log, canEdit, localLogs, investigators, onlyScenario, alwaysShowExperience = false, onLogsChange }: Props = $props();
 
 	let docOpen = $state(false);
 
-	const scenarios = $derived(campaignScenarios(log));
+	const allScenarios = $derived(campaignScenarios(log));
+	// A standalone archive scopes the tab to its single scenario.
+	const scenarios = $derived(
+		onlyScenario ? allScenarios.filter((s) => s === onlyScenario) : allScenarios
+	);
 
 	// Scenarios that can be SKIPPED — a manual flag (not inferrable from the log).
 	// EotE's Ice and Death Part II / Part III can be bypassed.
@@ -74,6 +101,9 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 	// The catalogue (names + resolutions) is campaign-data's Side Scenarios.
 	const standaloneCatalog = standaloneScenarios();
 	const standaloneName = new Map(standaloneCatalog.map((s) => [s.scenario, s.name]));
+	// scenario id → reward kind (Victory display vs Experience), so the input label reads as the app
+	// does. Standalones carry their own flag in the catalogue; campaign scenarios come from the log.
+	const standaloneVd = new Map(standaloneCatalog.map((s) => [s.scenario, s.victoryDisplay]));
 	const standaloneOptions = [
 		{ value: '', label: '— pick a standalone —' },
 		...standaloneCatalog.map((s) => ({ value: s.scenario, label: s.name }))
@@ -139,11 +169,29 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 	const resolutionsByScenario = $derived(
 		new Map((log.db.scenarioMeta ?? []).map((m) => [m.id, m.resolutions ?? []]))
 	);
+	// scenario id -> reward kind (Victory display vs Experience) for the campaign's own scenarios.
+	const vdByScenario = $derived(
+		new Map((log.db.scenarioMeta ?? []).map((m) => [m.id, m.victoryDisplay ?? true]))
+	);
+	// scenario id -> the XP-screen instruction (Experience scenarios only), shown as a help note on
+	// the Experience input so the player knows what the entered total comprises.
+	const xpNoteByScenario = $derived(
+		new Map((log.db.scenarioMeta ?? []).map((m) => [m.id, m.xpNote]))
+	);
 
 	// Victory display rides the historic `__xp` reserved section (key = scenario id).
 	const vpByScenario = $derived.by(() => {
 		const m = new Map<string, string>();
 		for (const l of entriesInSection(localLogs, RESERVED.scenarioXp)) {
+			m.set(l.key, l.args.find((a) => a.type === 'number')?.value ?? '');
+		}
+		return m;
+	});
+	// Standalone "score": experience earned, in addition to the victory display
+	// (reserved `__earned_xp`). Only surfaced for standalone Victory-display scenarios.
+	const earnedXpByScenario = $derived.by(() => {
+		const m = new Map<string, string>();
+		for (const l of entriesInSection(localLogs, RESERVED.standaloneEarnedXp)) {
 			m.set(l.key, l.args.find((a) => a.type === 'number')?.value ?? '');
 		}
 		return m;
@@ -202,6 +250,22 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 					];
 		onLogsChange(replaceSection(localLogs, RESERVED.scenarioXp, next));
 	}
+	function setEarnedXp(scenario: string, value: string) {
+		const others = entriesInSection(localLogs, RESERVED.standaloneEarnedXp).filter(
+			(l) => l.key !== scenario
+		);
+		const trimmed = value.trim();
+		const next =
+			trimmed === ''
+				? others
+				: [
+						...others,
+						makeEntry(RESERVED.standaloneEarnedXp, scenario, [
+							{ type: 'number', value: String(Number(trimmed) || 0) }
+						])
+					];
+		onLogsChange(replaceSection(localLogs, RESERVED.standaloneEarnedXp, next));
+	}
 	function setResolution(scenario: string, value: string) {
 		const others = entriesInSection(localLogs, RESERVED.scenarioResolution).filter(
 			(l) => l.key !== scenario
@@ -240,6 +304,35 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 	function choiceOptionLabel(ch: { options: { value: string; label: string }[] }, value: string) {
 		return ch.options.find((o) => o.value === value)?.label ?? value;
 	}
+
+	// ── `cards` choice control: a filtered card-search picker (e.g. PtC Black Stars
+	// Rise's random basic weakness). The selected code(s) ride the `__choice` string,
+	// joined by commas. ──────────────────────────────────────────────────────────────
+	const allCards = getAllCards();
+	const cardNameByCode = new Map(allCards.map((c) => [c.code, c.name]));
+	// A pure investigator picker (PtC random-weakness bearer, insane / possessed investigators) offers
+	// ONLY the campaign's own investigators (from the decks); fall back to all when no roster is recorded.
+	const investigatorCodes = $derived(new Set(investigators.map((i) => i.code)));
+	function pickableForFilter(filter: ScenarioChoiceDef['cardFilter']): typeof allCards {
+		if (!filter) return allCards;
+		let pool = allCards;
+		if (filter.types?.length) pool = pool.filter((c) => filter.types!.includes(c.cardType));
+		if (filter.types?.length === 1 && filter.types[0] === 'investigator' && investigatorCodes.size)
+			pool = pool.filter((c) => investigatorCodes.has(c.code));
+		if (filter.subtypes?.length)
+			pool = pool.filter((c) => c.subtypeCode && filter.subtypes!.includes(c.subtypeCode));
+		if (filter.traits?.length || filter.codes?.length) {
+			const traits = filter.traits?.map((t) => t.toLowerCase());
+			const codes = filter.codes ? new Set(filter.codes) : undefined;
+			pool = pool.filter(
+				(c) =>
+					codes?.has(c.code) ||
+					(traits && c.traits?.some((t) => traits.includes(t.toLowerCase())))
+			);
+		}
+		return pool;
+	}
+	const splitCodes = (recorded: string) => (recorded ? recorded.split(',').filter(Boolean) : []);
 
 	// ── TSK-solver scenario tiers (level = time-scaling, version = variant) ──────
 	const tierByKey = $derived.by(() => {
@@ -311,29 +404,38 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 {#snippet glyphLabel(text: string)}{@html parseArkhamMarkup(text)}{/snippet}
 
 <div class="mt-4 max-w-xl space-y-2">
-	<TskEditNote {log} tab="extra" />
-	<div class="mb-2 flex items-start justify-between gap-2">
-		<p class="text-primary-500 text-sm">
-			Extra per-scenario data that will enrich certain widgets in the profile. These can't be known
-			from the campaign log, but if you use ArkhamCards guided campaign, you can go into each
-			scenario and see them.
-		</p>
+	<!-- Tab-level help, top-right just below the tab bar (was an easily-missed inline icon). -->
+	<div class="flex justify-end">
 		<button
 			type="button"
 			onclick={() => (docOpen = true)}
 			aria-label="About the Extra tab"
 			title="About the Extra tab"
-			class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-200 shrink-0 cursor-pointer leading-none"
+			class="text-secondary-600 dark:text-secondary-400 hover:text-secondary-800 dark:hover:text-secondary-200 inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium"
 		>
 			<FaIcon icon={FaIconType.NoticeInfo} />
+			Help
 		</button>
 	</div>
+	<TskEditNote {log} tab="extra" />
+	<FhvEditNote {log} tab="extra" />
+	<p class="text-primary-500 mb-2 text-sm">
+		Extra per-scenario data that will enrich certain widgets in the profile. These can't be known
+		from the campaign log, but if you use ArkhamCards guided campaign, you can go into each scenario
+		and see them.
+	</p>
 	{#each scenarios as s (s)}
 		{@const choices = choicesForScenario(log, s)}
+		{@const choiceIds = new Set(choices.map((c) => c.id))}
 		{@const resolutions = resolutionsByScenario.get(s) ?? []}
 		{@const iconSet = scenarioIconSet(s)}
 		{@const tiers = scenarioTiersByName(scenarioName(s))}
 		{@const touched = scenarioHasData(s)}
+		<!-- Flow order (ArkhamCards): most choices ask BEFORE the resolution; `after` slots the rest
+		     between the resolution and the victory display, or after it. -->
+		{@const beforeChoices = choices.filter((c) => !c.after)}
+		{@const afterResChoices = choices.filter((c) => c.after === 'resolution')}
+		{@const afterVicChoices = choices.filter((c) => c.after === 'victory')}
 		<div class="border-primary-100 dark:border-primary-800 rounded border p-3">
 			<div class="mb-2 flex items-center justify-between gap-2">
 				<!-- Only the name dims while the form is empty — dimming the inputs too would
@@ -362,45 +464,6 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 				{/if}
 			</div>
 
-			<!-- The two universal per-scenario extras, on one line. -->
-			<div class="flex flex-wrap items-start gap-4">
-				<div class="w-28 shrink-0">
-					{#if canEdit}
-						<TextInput
-							label="Victory display"
-							value={vpByScenario.get(s) ?? ''}
-							placeholder="—"
-							oninput={(v) => setVp(s, v)}
-						/>
-					{:else}
-						<p class="text-primary-500 text-xs">Victory display</p>
-						<p class="text-primary-700 dark:text-primary-300 tabular-nums">
-							{vpByScenario.get(s) || '—'}
-						</p>
-					{/if}
-				</div>
-				{#if resolutions.length}
-					<div class="min-w-0 flex-1">
-						{#if canEdit}
-							<Dropdown
-								label="Resolution"
-								value={resolutionByScenario.get(s) ?? ''}
-								options={[
-									{ value: '', label: '—' },
-									...resolutions.map((r) => ({ value: r, label: resolutionLabel(r) }))
-								]}
-								onchange={(v) => setResolution(s, v)}
-							/>
-						{:else}
-							<p class="text-primary-500 text-xs">Resolution</p>
-							<p class="text-primary-700 dark:text-primary-300">
-								{resolutionLabel(resolutionByScenario.get(s) ?? '') || '—'}
-							</p>
-						{/if}
-					</div>
-				{/if}
-			</div>
-
 			<!-- Skipped flag (manual; e.g. EotE Ice and Death Part II / Part III). -->
 			{#if SKIPPABLE.has(s)}
 				<div class="mt-2">
@@ -416,13 +479,42 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 				</div>
 			{/if}
 
-			<!-- Campaign-specific named choices (e.g. PtC's Hastur version, TSK's Act 2
-			     Setup radio / Sanguine Shadows targets counter), each its own field. -->
-			{#each choices as ch (ch.id)}
+			<!-- Campaign-specific named choices (e.g. PtC's Hastur version, TSK's Act 2 Setup radio /
+			     Sanguine Shadows targets counter), each its own field — rendered via this snippet so they
+			     slot into the ArkhamCards flow order around the two universal fields below. -->
+			{#snippet choiceField(ch: ScenarioChoiceDef)}
 				{@const recorded = choiceByKey.get(`${s}.${ch.id}`) ?? ''}
-				<div class="mt-2 max-w-xs">
-					{#if canEdit}
-						{#if ch.control === 'counter'}
+				{#if ch.id.endsWith('_investigator') && choiceIds.has(ch.id.slice(0, -'_investigator'.length))}
+					<!-- The bearer companion list — rendered inside its base choice's per-investigator
+					     picker below, so it gets no separate field. -->
+				{:else if ch.control === 'cards' && choiceIds.has(`${ch.id}_investigator`)}
+					<!-- A card choice paired with an "<id>_investigator" bearer list becomes ONE
+					     roster-driven control: a card box per campaign investigator, writing both
+					     index-paired lists (card[i] ↔ investigator[i]) the precompute already reads. -->
+					<div class="mt-2 max-w-md">
+						{#if canEdit}
+							<p class="text-primary-600 dark:text-primary-300 mb-1 text-xs font-medium">
+								{ch.label}
+							</p>
+						{:else}
+							<p class="text-primary-500 text-xs">{ch.label}</p>
+						{/if}
+						<InvestigatorCardPicker
+							{investigators}
+							cards={pickableForFilter(ch.cardFilter)}
+							cardCsv={recorded}
+							investigatorCsv={choiceByKey.get(`${s}.${ch.id}_investigator`) ?? ''}
+							{canEdit}
+							onChange={(cardCsv, invCsv) => {
+								setChoice(s, ch.id, cardCsv);
+								setChoice(s, `${ch.id}_investigator`, invCsv);
+							}}
+						/>
+					</div>
+				{:else}
+					<div class="mt-2 {ch.control === 'cards' ? 'max-w-md' : 'max-w-xs'}">
+						{#if canEdit}
+							{#if ch.control === 'counter'}
 							<div class="w-28">
 								<TextInput
 									label={ch.label}
@@ -440,6 +532,14 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 								choices={[{ value: '', label: '—' }, ...ch.options]}
 								renderLabel={glyphLabel}
 							/>
+						{:else if ch.control === 'cards'}
+							<CardFormMultiple
+								label={ch.label}
+								cards={pickableForFilter(ch.cardFilter)}
+								selectedCodes={splitCodes(recorded)}
+								onSelectionChange={(codes) => setChoice(s, ch.id, codes.join(','))}
+								allowDuplicates={false}
+							/>
 						{:else}
 							<Dropdown
 								label={ch.label}
@@ -451,14 +551,20 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 					{:else}
 						<p class="text-primary-500 text-xs">{ch.label}</p>
 						<p class="text-primary-700 dark:text-primary-300">
-							{#if ch.control === 'counter'}{recorded || '—'}{:else}<!--
+							{#if ch.control === 'counter'}{recorded || '—'}{:else if ch.control === 'cards'}{splitCodes(
+									recorded
+								)
+									.map((code) => cardNameByCode.get(code) ?? code)
+									.join(', ') || '—'}{:else}<!--
 								-->{@html parseArkhamMarkup(
 									choiceOptionLabel(ch, recorded) || '—'
 								)}{/if}
 						</p>
 					{/if}
-				</div>
-			{/each}
+					</div>
+				{/if}
+			{/snippet}
+			{#each beforeChoices as ch (ch.id)}{@render choiceField(ch)}{/each}
 
 			<!-- TSK-solver tiers the log can't reveal: the time-scaling "level" and the
 			     scenario "version" played (e.g. On Thin Ice's doom-per-5-time tier). -->
@@ -508,14 +614,84 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 					{/if}
 				</div>
 			{/if}
+
+			<!-- The universal anchors — resolution reached, then the victory-display / experience total —
+			     with the `after`-slotted choices interleaved to match ArkhamCards. The victory field is
+			     always its own line. -->
+			{#if resolutions.length}
+				<div class="mt-2 max-w-xs">
+					{#if canEdit}
+						<Dropdown
+							label="Resolution"
+							value={resolutionByScenario.get(s) ?? ''}
+							options={[
+								{ value: '', label: '—' },
+								...resolutions.map((r) => ({ value: r, label: resolutionLabel(r) }))
+							]}
+							onchange={(v) => setResolution(s, v)}
+						/>
+					{:else}
+						<p class="text-primary-500 text-xs">Resolution</p>
+						<p class="text-primary-700 dark:text-primary-300">
+							{resolutionLabel(resolutionByScenario.get(s) ?? '') || '—'}
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			<!-- Choices recorded between the resolution and the victory display (e.g. PtC's slain VIP). -->
+			{#each afterResChoices as ch (ch.id)}{@render choiceField(ch)}{/each}
+
+			<!-- Victory display / Experience — always its own line. -->
+			<div class="mt-2 w-28">
+				{#if canEdit}
+					<TextInput
+						label={rewardKindLabel(vdByScenario.get(s) ?? true)}
+						helpMd={xpNoteByScenario.get(s)}
+						value={vpByScenario.get(s) ?? ''}
+						placeholder="—"
+						oninput={(v) => setVp(s, v)}
+					/>
+				{:else}
+					<p class="text-primary-500 text-xs">{rewardKindLabel(vdByScenario.get(s) ?? true)}</p>
+					<p class="text-primary-700 dark:text-primary-300 tabular-nums">
+						{vpByScenario.get(s) || '—'}
+					</p>
+				{/if}
+			</div>
+
+			<!-- Standalone "score": experience earned, in addition to the victory display.
+			     (Experience scenarios already record their earned XP in the box above.) -->
+			{#if alwaysShowExperience && (vdByScenario.get(s) ?? true)}
+				<div class="mt-2 w-28">
+					{#if canEdit}
+						<TextInput
+							label="Experience earned"
+							value={earnedXpByScenario.get(s) ?? ''}
+							placeholder="—"
+							oninput={(v) => setEarnedXp(s, v)}
+						/>
+					{:else}
+						<p class="text-primary-500 text-xs">Experience earned</p>
+						<p class="text-primary-700 dark:text-primary-300 tabular-nums">
+							{earnedXpByScenario.get(s) || '—'}
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			<!-- Choices recorded after the victory display (e.g. PtC's Lost Soul, random weakness). -->
+			{#each afterVicChoices as ch (ch.id)}{@render choiceField(ch)}{/each}
 		</div>
 	{/each}
 
-	<!-- Standalone scenarios played somewhere inside this campaign (ordered list). -->
+	<!-- Side Story: standalone scenarios played somewhere inside this campaign (ordered
+	     list). Hidden for a standalone archive, which records a single scenario. -->
+	{#if !onlyScenario}
 	<div class="border-primary-200 dark:border-primary-700 mt-6 border-t pt-4">
-		<p class="mb-1 font-medium text-black dark:text-white">Standalone scenarios played</p>
+		<p class="mb-1 font-medium text-black dark:text-white">Side Story scenarios played</p>
 		<p class="text-primary-500 mb-3 text-sm">
-			Side / standalone scenarios you played at some point during this campaign. We record what you
+			Side Story scenarios you played at some point during this campaign. We record what you
 			played (in order), not where. Note each one's victory display and resolution like a regular
 			scenario.
 		</p>
@@ -536,20 +712,20 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 										onchange={(v) => setStandalone(i, v)}
 									/>
 								</div>
-								<div class="-mb-2 w-24 shrink-0">
-									<TextInput
-										label="Victory display"
-										value={st.victoryDisplay != null ? String(st.victoryDisplay) : ''}
-										placeholder="—"
-										oninput={(v) => setStandaloneVictory(i, v)}
-									/>
-								</div>
 								<div class="w-40 shrink-0">
 									<Dropdown
 										label="Resolution"
 										value={st.resolution ?? ''}
 										options={resolutionOptionsFor(st.standalone)}
 										onchange={(v) => setStandaloneResolution(i, v)}
+									/>
+								</div>
+								<div class="-mb-2 w-24 shrink-0">
+									<TextInput
+										label={rewardKindLabel(standaloneVd.get(st.standalone) ?? true)}
+										value={st.victoryDisplay != null ? String(st.victoryDisplay) : ''}
+										placeholder="—"
+										oninput={(v) => setStandaloneVictory(i, v)}
 									/>
 								</div>
 								<button
@@ -645,6 +821,7 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 			</button>
 		{/if}
 	</div>
+	{/if}
 </div>
 
 <Modal isOpen={docOpen} onClose={() => (docOpen = false)} title="The Extra tab" maxWidth="lg">

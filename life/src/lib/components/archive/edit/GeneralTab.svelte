@@ -7,13 +7,15 @@
 		TextInput
 	} from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { CampaignLog } from '$lib/campaign/campaign-log-source';
-	import type { LocalLog } from '$lib/campaign/recorded-state';
+	import type { CampaignLog } from '$lib/campaign/records/campaign-log-source';
+	import type { LocalLog } from '$lib/campaign/records/recorded-state';
 	import ChaosBagSection from './sections/ChaosBagSection.svelte';
 	import Doc from '$lib/docs/Doc.svelte';
 
 	interface Props {
 		canEdit: boolean;
+		/** Standalone archive — swaps campaign-specific labels for standalone wording. */
+		isStandalone?: boolean;
 		title: string;
 		difficulty: 'easy' | 'standard' | 'hard' | 'expert';
 		draft: boolean;
@@ -22,6 +24,10 @@
 		finishDate: string;
 		/** Campaign log — drives the chaos bag's starting-bag seeding. */
 		log: CampaignLog | undefined;
+		/** Limit the difficulty radio to these (standalone setup); absent ⇒ all four. */
+		difficultyOptions?: string[];
+		/** Standalone override for the chaos-bag starting bags; `undefined` ⇒ use the campaign log's. */
+		startingChaosBag?: Record<string, Record<string, number>> | null;
 		/** Chaos bag entries (reserved `__chaos_bag` log section). */
 		chaosBagEntries: LocalLog[];
 		onChaosBagChange: (next: LocalLog[]) => void;
@@ -33,6 +39,7 @@
 
 	let {
 		canEdit,
+		isStandalone = false,
 		title = $bindable(),
 		difficulty = $bindable(),
 		draft = $bindable(),
@@ -40,11 +47,27 @@
 		startDate = $bindable(),
 		finishDate = $bindable(),
 		log,
+		difficultyOptions,
+		startingChaosBag,
 		chaosBagEntries,
 		onChaosBagChange,
 		onDifficultyChange,
 		onGeneralChange
 	}: Props = $props();
+
+	const allDifficultyChoices: { value: 'easy' | 'standard' | 'hard' | 'expert'; label: string }[] = [
+		{ value: 'easy', label: 'Easy' },
+		{ value: 'standard', label: 'Standard' },
+		{ value: 'hard', label: 'Hard' },
+		{ value: 'expert', label: 'Expert' }
+	];
+	// A standalone scenario allows only a subset of difficulties; a single allowed
+	// difficulty is shown as a fixed label rather than a radio.
+	const difficultyChoices = $derived(
+		difficultyOptions && difficultyOptions.length
+			? allDifficultyChoices.filter((c) => difficultyOptions.includes(c.value))
+			: allDifficultyChoices
+	);
 </script>
 
 {#snippet difficultyHelp()}<Doc path="archive/edit/difficulty" />{/snippet}
@@ -55,24 +78,28 @@
 
 <div class="mt-4 max-w-xl space-y-4">
 	<TextInput
-		label={m.archive_campaign_name()}
+		label={isStandalone ? 'Title' : m.archive_campaign_name()}
 		bind:value={title}
 		oninput={() => onGeneralChange()}
-		placeholder={m.archive_campaign_name_placeholder()}
+		placeholder={isStandalone ? 'e.g. Carnevale solo run' : m.archive_campaign_name_placeholder()}
 	/>
 
-	<RadioButtons
-		label={m.archive_difficulty()}
-		bind:selectedValue={difficulty}
-		onChange={onDifficultyChange}
-		helpContent={difficultyHelp}
-		choices={[
-			{ value: 'easy', label: 'Easy' },
-			{ value: 'standard', label: 'Standard' },
-			{ value: 'hard', label: 'Hard' },
-			{ value: 'expert', label: 'Expert' }
-		]}
-	/>
+	{#if difficultyChoices.length <= 1}
+		<div>
+			<p class="text-primary-500 text-xs">{m.archive_difficulty()}</p>
+			<p class="text-primary-700 dark:text-primary-300">
+				{difficultyChoices[0]?.label ?? 'Standard'}
+			</p>
+		</div>
+	{:else}
+		<RadioButtons
+			label={m.archive_difficulty()}
+			bind:selectedValue={difficulty}
+			onChange={onDifficultyChange}
+			helpContent={difficultyHelp}
+			choices={difficultyChoices}
+		/>
+	{/if}
 
 	<DateField
 		label={m.archive_start_date()}
@@ -119,6 +146,7 @@
 				{log}
 				{difficulty}
 				{canEdit}
+				{startingChaosBag}
 				entries={chaosBagEntries}
 				onChange={onChaosBagChange}
 			/>

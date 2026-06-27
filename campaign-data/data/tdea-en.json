@@ -91,10 +91,7 @@
       "text": "the black cat spoke of Atlach-Nacha."
     },
     "campaign_notes.possess_silver_key": {
-      "text": "the investigators possess the Silver Key.",
-      "spoiler": [
-        "the Silver Key"
-      ]
+      "text": "the investigators possess the Silver Key."
     },
     "campaign_notes.black_cat_knows_the_truth": {
       "text": "the black cat knows the truth."
@@ -106,22 +103,13 @@
       "text": "the dreamers know of another path."
     },
     "campaign_notes.nyarlathoteps_invasion_has_begun": {
-      "text": "Nyarlathotep's invasion has begun.",
-      "spoiler": [
-        "Nyarlathotep's"
-      ]
+      "text": "Nyarlathotep's invasion has begun."
     },
     "campaign_notes.dreamers_escaped_nyarlathoteps_grasp": {
-      "text": "the dreamers escaped from Nyarlathotep's grasp.",
-      "spoiler": [
-        "Nyarlathotep's"
-      ]
+      "text": "the dreamers escaped from Nyarlathotep's grasp."
     },
     "campaign_notes.dreamers_banished_nyarlathotep": {
-      "text": "the dreamers banished Nyarlathotep.",
-      "spoiler": [
-        "Nyarlathotep"
-      ]
+      "text": "the dreamers banished Nyarlathotep."
     },
     "campaign_notes.dreamers_awoke": {
       "text": "the dreamers awoke."

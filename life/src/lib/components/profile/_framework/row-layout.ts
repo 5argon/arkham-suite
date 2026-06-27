@@ -9,7 +9,7 @@
  * All mutations are PURE: they return a new array, leaving the input untouched,
  * so the owning component can drive `$state` by reassignment.
  */
-import type { ProfileRow, SplitSide, WidgetSlot } from '$lib/campaign/profile-settings';
+import type { ProfileRow, SplitSide, WidgetSlot } from '$lib/campaign/profile/profile-settings';
 
 export type SlotSide = 'full' | SplitSide;
 

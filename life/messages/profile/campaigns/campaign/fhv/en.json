@@ -1,0 +1,49 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_fhv_relationship": "relationship",
+	"campaign_fhv_saved": "Saved in the finale",
+	"campaign_fhv_villager_empty": "Build a relationship with this villager to track it.",
+
+	"campaign_fhv_sc_written_in_rock": "Written in Rock",
+	"campaign_fhv_sc_silent_heath": "The Silent Heath",
+	"campaign_fhv_sc_lost_sister": "The Lost Sister",
+	"campaign_fhv_sc_thing_depths": "The Thing in the Depths",
+	"campaign_fhv_sc_twisted_hollow": "The Twisted Hollow",
+	"campaign_fhv_sc_longest_night": "The Longest Night",
+	"campaign_fhv_sc_first_evening": "The First Evening",
+	"campaign_fhv_sc_second_day": "Dawn of the Second Day",
+	"campaign_fhv_sc_second_evening": "The Second Evening",
+	"campaign_fhv_sc_final_day": "Dawn of the Final Day",
+	"campaign_fhv_sc_final_evening": "The Final Evening",
+
+	"campaign_fhv_rachel_showed": "Showed the way (Twisted Hollow)",
+	"campaign_fhv_rachel_lost": "Lost the path (Twisted Hollow)",
+	"campaign_fhv_rachel_believed": "Believed her (Final Evening)",
+	"campaign_fhv_rachel_lied": "Lied to her (Final Evening)",
+	"campaign_fhv_simeon_plan": "His plan is underway",
+	"campaign_fhv_simeon_fireworks": "The Vale is full of fireworks",
+
+	"campaign_fhv_scenario_empty": "Play this scenario to record its outcome.",
+
+	"campaign_fhv_curse_max": "Most cursed (one play)",
+	"campaign_fhv_curse_plays": "Plays with the curse",
+	"campaign_fhv_curse_empty": "The Hemlock curse has not taken hold yet.",
+
+	"campaign_fhv_fate_v1": "Let's end this",
+	"campaign_fhv_fate_v2": "Save the Vale",
+	"campaign_fhv_fate_v3": "Burn it all",
+	"campaign_fhv_fate_v4": "Escape with our lives",
+	"campaign_fhv_fate_version_heading": "Finale version played",
+	"campaign_fhv_fate_ending_heading": "Ending reached",
+	"campaign_fhv_fate_empty": "Reach Fate of the Vale to see how it ends.",
+
+	"campaign_fhv_areas_heading": "Areas surveyed",
+	"campaign_fhv_area_surveyed": "Surveyed",
+	"campaign_fhv_area_not": "Not surveyed",
+	"campaign_fhv_played_th": "Played The Twisted Hollow",
+	"campaign_fhv_played_ln": "Played The Longest Night",
+	"campaign_fhv_skipped_both": "Defied both canon nights",
+	"campaign_fhv_matrix_heading": "Day / Night played (Extra)",
+	"campaign_fhv_schedule_empty": "Survey the Vale to chart your three days."
+}

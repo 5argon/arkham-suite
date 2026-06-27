@@ -8,7 +8,7 @@ the placed and recovered sections (each an independent set of toggles).
 -->
 <script lang="ts">
 	import { sectionEntries, type CampaignLog, type LogSectionDef } from '@5argon/arkham-campaign-data';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;

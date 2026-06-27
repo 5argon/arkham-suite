@@ -8,8 +8,8 @@ back to a single shared counter.
 <script lang="ts">
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { Button } from '@5argon/arkham-life-ui';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
-	import type { InvestigatorRef } from '$lib/campaign/investigators';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
 
 	interface Props {
 		log: CampaignLog;

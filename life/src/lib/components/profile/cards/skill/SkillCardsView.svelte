@@ -5,7 +5,7 @@ around the shared CardUtilizationView, fixed to the `isSkillCard` predicate.
 -->
 <script lang="ts">
 	import type { CardCode, Product } from '@5argon/arkham-kohaku';
-	import { isSkillCard } from '$lib/campaign/card-filters';
+	import { isSkillCard } from '$lib/campaign/utils/card-filters';
 	import CardUtilizationView from '$lib/components/profile/cards/CardUtilizationView.svelte';
 
 	let {

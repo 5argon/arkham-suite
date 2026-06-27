@@ -3,7 +3,7 @@
 	import { getContext } from 'svelte';
 	import { BorderedContainer, HelpParagraph } from '@5argon/arkham-life-ui';
 	import { u as stringUtils } from '@5argon/arkham-string';
-	import { resolveClassSlug } from '$lib/campaign/profile-slugs';
+	import { resolveClassSlug } from '$lib/campaign/profile/profile-slugs';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import CategoryHiddenNotice from '$lib/components/profile/_primitives/CategoryHiddenNotice.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';

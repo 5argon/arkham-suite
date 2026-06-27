@@ -65,14 +65,6 @@ function validate(code) {
   const dbKeys = new Set(db.entries.map((e) => `${e.section}.${e.id}`));
   for (const key of Object.keys(en.entries)) {
     if (!dbKeys.has(key)) errs.push(`en entry ${key} has no db entry`);
-    const sp = en.entries[key].spoiler;
-    if (sp) {
-      if (!Array.isArray(sp)) errs.push(`spoiler not array: ${key}`);
-      else for (const span of sp) {
-        if (typeof span !== 'string' || !span) errs.push(`empty spoiler span: ${key}`);
-        else if (!en.entries[key].text.includes(span)) errs.push(`spoiler "${span}" not in text: ${key}`);
-      }
-    }
   }
   // achievements parity + inference validity
   // `bucket` = where unknown-key problems go. `infer` rules feed errs (fatal);
@@ -134,20 +126,24 @@ function validate(code) {
     if (s.infer) checkInfer(s.infer, `specialInteraction ${s.id}`);
     const e = enSi[s.id];
     if (!e || !e.text) errs.push(`specialInteraction ${s.id} has no en text`);
-    else if (e.spoiler) {
-      if (!Array.isArray(e.spoiler)) errs.push(`specialInteraction ${s.id}: spoiler not array`);
-      else for (const sp of e.spoiler) if (!e.text.includes(sp)) errs.push(`specialInteraction ${s.id}: spoiler "${sp}" not in text`);
-    }
   }
   for (const id of Object.keys(enSi)) {
     if (!dbSiIds.has(id)) errs.push(`en specialInteraction ${id} has no db`);
   }
 
-  // validators: entries must resolve and be a set of ≥2
+  // validators: each references real entries/sections and is a set of ≥2
   for (const v of db.validators || []) {
-    if (!Array.isArray(v.entries) || v.entries.length < 2) errs.push(`validator has <2 entries`);
-    for (const key of v.entries || []) {
-      if (!(key in en.entries)) errs.push(`validator references unknown entry "${key}"`);
+    if (v.type === 'disjointSections') {
+      if (!Array.isArray(v.sections) || v.sections.length < 2)
+        errs.push(`disjointSections validator needs >=2 sections`);
+      for (const sec of v.sections || []) {
+        if (!sectionIds.has(sec)) errs.push(`validator references unknown section "${sec}"`);
+      }
+    } else {
+      if (!Array.isArray(v.entries) || v.entries.length < 2) errs.push(`validator has <2 entries`);
+      for (const key of v.entries || []) {
+        if (!(key in en.entries)) errs.push(`validator references unknown entry "${key}"`);
+      }
     }
   }
 

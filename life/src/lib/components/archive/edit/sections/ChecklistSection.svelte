@@ -1,14 +1,13 @@
 <!--
 @component
 A `checklist` section (FHV "Areas Surveyed"): every valid entry is visible at
-once as a toggle, since there is no spoiler concern and the player ticks boxes
-directly off the sheet. Each ticked item is a recorded entry keyed by its
-composite `"section.id"`.
+once as a toggle, and the player ticks boxes directly off the sheet. Each ticked
+item is a recorded entry keyed by its composite `"section.id"`.
 -->
 <script lang="ts">
 	import { sectionEntries, type CampaignLog, type LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { Checkbox } from '@5argon/arkham-life-ui';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;

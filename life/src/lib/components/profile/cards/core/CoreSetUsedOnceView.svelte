@@ -13,7 +13,8 @@ icon, its difficulty, and the finish date.
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { card as cardUtils, convert, Campaign, type Product } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import { slugForFamily } from '$lib/campaign/profile-slugs';
+	import { slugForFamily } from '$lib/campaign/profile/profile-slugs';
+	import { familyOf } from '$lib/campaign/records/campaign-family';
 	import type { UsedOnceMap } from '$lib/profile/profile-types';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -41,7 +42,7 @@ icon, its difficulty, and the finish date.
 	/** The Product enum that represents this campaign (drives its ProductIcon glyph). */
 	function campaignProduct(code: string): Product | null {
 		const log = getCampaignLog(code);
-		const slug = log ? slugForFamily(log.db.originalId ?? log.db.code) : null;
+		const slug = log ? slugForFamily(familyOf(log)) : null;
 		if (!slug || !CAMPAIGNS.has(slug)) return null;
 		return convert.campaignToProduct(slug as Campaign);
 	}

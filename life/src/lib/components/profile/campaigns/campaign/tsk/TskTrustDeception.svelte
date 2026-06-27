@@ -13,7 +13,7 @@ of the player's plays recorded it. Fully inferred from the campaign log.
 		TSK_CELL_DECEPTION,
 		tskTallyLabel,
 		type CampaignTsk
-	} from '$lib/campaign/tsk-profile';
+	} from '$lib/campaign/campaigns/tsk-profile';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 

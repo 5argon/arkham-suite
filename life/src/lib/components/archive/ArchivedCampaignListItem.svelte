@@ -8,7 +8,7 @@ and a badge indicating whether the user owns this campaign or is a participant.
 	import { FaIcon, FaIconType, CardSquare, UserDisplay } from '@5argon/arkham-life-ui';
 	import { u } from '@5argon/arkham-string';
 	import type { Campaign, Card } from '@5argon/arkham-kohaku';
-	import type { ClearState } from '$lib/campaign/clear-status';
+	import type { ClearState } from '$lib/campaign/outcomes/clear-status';
 	import type { SoloType } from '$lib/database/document';
 
 	interface PlayerStub {
@@ -20,6 +20,9 @@ and a badge indicating whether the user owns this campaign or is a participant.
 	}
 
 	interface DeckStub {
+		/** Unique deck record id — the keyed-each key, so two decks on the SAME investigator (a
+		 *  mid-campaign swap-back, or two players on one investigator) both render instead of collapsing. */
+		id: string;
 		investigatorCode: string;
 		alternateFrontCode: string | null;
 		ownerUserId: string | null;
@@ -198,8 +201,10 @@ and a badge indicating whether the user owns this campaign or is a participant.
 		<!-- Decks row: investigator cards used -->
 		{#if campaign.decks.length > 0}
 			<div class="mt-1 flex flex-wrap gap-1">
-				{#each campaign.decks as deck (deck.investigatorCode)}
-					{@const cardCode = deck.alternateFrontCode ?? deck.investigatorCode}
+				{#each campaign.decks as deck (deck.id)}
+					<!-- `|| ` not `?? `: an absent alternate front is often an EMPTY string (not null), which
+					     `??` would keep — leaving the parallel-front lookup blank and dropping the deck. -->
+					{@const cardCode = deck.alternateFrontCode || deck.investigatorCode}
 					{@const card = cardsByCode[cardCode]}
 					{#if card}
 						<CardSquare {card} small />

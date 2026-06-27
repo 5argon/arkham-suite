@@ -11,6 +11,7 @@
     {
       "id": "the_eternal_slumber",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -20,6 +21,7 @@
     {
       "id": "the_nights_usurper",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",

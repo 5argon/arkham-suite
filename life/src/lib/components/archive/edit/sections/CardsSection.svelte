@@ -11,7 +11,7 @@ offers the full searchable card list.
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { CardFormMultiple } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;

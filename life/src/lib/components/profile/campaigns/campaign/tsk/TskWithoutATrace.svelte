@@ -14,6 +14,7 @@ Each number hovers to its per-difficulty breakdown. See the widget's ⓘ doc.
 	import * as m from '$lib/paraglide/messages.js';
 	import TskScenarioInfo from '$lib/components/profile/campaigns/campaign/tsk/TskScenarioInfo.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import type { TskScenarioWidgetProps } from '$lib/components/profile/campaigns/campaign/tsk/tsk-scenario';
 
 	let props: TskScenarioWidgetProps = $props();
@@ -66,7 +67,7 @@ Each number hovers to its per-difficulty breakdown. See the widget's ⓘ doc.
 		<!-- The secret-scenario quest that unlocks & enters Without a Trace (Dead and Gone). -->
 		{#if anyPath}
 			<div class="mt-3 flex flex-col gap-2">
-				<p class="text-primary-500 text-xs font-medium">{m.campaign_tsk_dag_heading()}</p>
+				<SectionLabel>{m.campaign_tsk_dag_heading()}</SectionLabel>
 				<StatNumbers rows={pathRows} />
 			</div>
 		{/if}

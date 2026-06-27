@@ -9,7 +9,7 @@ it is clamped to the section's min/max when committed (on blur / Enter).
 	import { untrack } from 'svelte';
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { TextInput } from '@5argon/arkham-life-ui';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;

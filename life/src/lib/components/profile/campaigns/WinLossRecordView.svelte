@@ -6,8 +6,8 @@ counts, with a per-difficulty breakdown — e.g. "The Forgotten Age — 4 plays 
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { difficultyAbbr } from '$lib/campaign/difficulty';
-	import type { WinLossRecord } from '$lib/campaign/clear-status';
+	import { difficultyAbbr } from '$lib/campaign/utils/difficulty';
+	import type { WinLossRecord } from '$lib/campaign/outcomes/clear-status';
 
 	let { records, showFamilyName = true }: { records: WinLossRecord[]; showFamilyName?: boolean } =
 		$props();

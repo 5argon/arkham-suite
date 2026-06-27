@@ -29,15 +29,22 @@
     {
       "id": "the_witching_hour",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "win"
+      }
     },
     {
       "id": "at_deaths_doorstep",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -61,6 +68,11 @@
             }
           ]
         }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R3": "loss"
       }
     },
     {
@@ -70,25 +82,39 @@
     {
       "id": "the_secret_name",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "win"
+      }
     },
     {
       "id": "the_wages_of_sin",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "no_resolution_resigned",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution_defeated": "loss",
+        "no_resolution_resigned": "neutral",
+        "R1": "win",
+        "R2": "win"
+      }
     },
     {
       "id": "for_the_greater_good",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -103,23 +129,38 @@
     {
       "id": "union_and_disillusion",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R4",
         "R5"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R4": "win",
+        "R5": "win"
+      }
     },
     {
       "id": "in_the_clutches_of_chaos",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2",
         "R3",
         "R4"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss",
+        "R4": "loss"
+      }
     },
     {
       "id": "twist_of_fate",
@@ -128,6 +169,7 @@
     {
       "id": "before_the_black_throne",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -173,6 +215,13 @@
           ],
           "result": "mixed"
         }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "loss",
+        "R2": "win",
+        "R3": "win",
+        "R4": "win"
       }
     },
     {

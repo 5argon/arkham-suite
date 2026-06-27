@@ -29,6 +29,7 @@
     {
       "id": "the_untamed_wilds",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -42,6 +43,7 @@
     {
       "id": "the_doom_of_eztli",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "no_resolution_resigned",
@@ -56,14 +58,37 @@
     {
       "id": "threads_of_fate",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 3,
+            "+1": 1,
+            "-1": 1,
+            "-2": 2,
+            "-3": 1,
+            "-5": 1,
+            "skull": 2,
+            "cultist": 1,
+            "tablet": 1,
+            "elder_thing": 1,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      }
     },
     {
       "id": "the_boundary_beyond",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -77,6 +102,7 @@
     {
       "id": "heart_of_the_elders_part_1",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -85,6 +111,7 @@
     {
       "id": "heart_of_the_elders_part_2",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -94,6 +121,7 @@
     {
       "id": "the_city_of_archives",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -117,11 +145,34 @@
     {
       "id": "the_depths_of_yoth",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "hard"
+        ],
+        "chaosBag": {
+          "hard": {
+            "0": 3,
+            "+1": 1,
+            "-1": 1,
+            "-2": 2,
+            "-3": 1,
+            "-5": 1,
+            "skull": 2,
+            "cultist": 1,
+            "tablet": 1,
+            "elder_thing": 1,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      },
+      "standaloneUnwinnable": true
     },
     {
       "id": "tfa_interlude5",
@@ -130,6 +181,7 @@
     {
       "id": "shattered_aeons",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -165,15 +217,18 @@
     },
     {
       "id": "return_to_the_untamed_wilds",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_the_doom_of_eztli",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_threads_of_fate",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -181,11 +236,13 @@
     },
     {
       "id": "return_to_the_boundary_beyond",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_heart_of_the_elders_part_1",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -194,15 +251,18 @@
     },
     {
       "id": "return_to_heart_of_the_elders_part_2",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_the_city_of_archives",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_the_depths_of_yoth",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -211,11 +271,13 @@
     },
     {
       "id": "return_to_shattered_aeons",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "turn_back_time",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"

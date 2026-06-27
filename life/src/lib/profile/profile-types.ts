@@ -5,23 +5,32 @@
  */
 
 import type { CardCode } from '@5argon/arkham-kohaku';
-import type { ProfileFamily } from '$lib/campaign/achievement-aggregate';
-import type { CampaignCoverage, CustomAchievement } from '$lib/campaign/custom-achievements';
+import type { ProfileFamily } from '$lib/campaign/achievements/achievement-aggregate';
+import type { CampaignCoverage, CustomAchievement } from '$lib/campaign/achievements/custom-achievements';
 import type {
 	CampaignEndings,
 	WinLossRecord,
 	ClearGridRow,
 	ClearState,
-} from '$lib/campaign/clear-status';
-import type { CampaignCollections } from '$lib/campaign/collections';
-import type { CampaignScenarioXp } from '$lib/campaign/extra-imports';
-import type { CampaignResolutionCoverage } from '$lib/campaign/resolution-coverage';
-import type { CampaignStandaloneUsage } from '$lib/campaign/standalone-usage';
-import type { TraumaTally } from '$lib/campaign/trauma';
-import type { CampaignEoeCity } from '$lib/campaign/eoe-city';
-import type { CampaignEoe } from '$lib/campaign/eoe';
-import type { CampaignTsk } from '$lib/campaign/tsk-profile';
-import type { CampaignSpecialInteractions } from '$lib/campaign/special-interactions';
+} from '$lib/campaign/outcomes/clear-status';
+import type { CampaignCollections } from '$lib/campaign/stats/collections';
+import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
+import type { CampaignStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
+import type { StandaloneArchiveStat } from '$lib/campaign/outcomes/standalone-archives';
+import type { TraumaTally } from '$lib/campaign/outcomes/trauma';
+import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
+import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
+import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
+import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
+import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
+import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
+import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
+import type { CampaignTic } from '$lib/campaign/campaigns/tic';
+import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
+import type { CampaignTdc } from '$lib/campaign/campaigns/tdc';
+import type { CampaignNotz } from '$lib/campaign/campaigns/notz';
+import type { CampaignSpecialInteractions } from '$lib/campaign/outcomes/special-interactions';
 
 /** Who/what a profile is about. Baked into the payload so a "compiled profile"
  *  renders its own header (avatar, name, group members) with no access to the live
@@ -242,17 +251,38 @@ export interface ProfileData {
 	endings: CampaignEndings[];
 	collections: CampaignCollections[];
 	investigators: InvestigatorStat[];
-	scenarioXp: CampaignScenarioXp[];
-	resolutionCoverage: CampaignResolutionCoverage[];
+	/** Unified per-scenario records — the single per-scenario source: plays / Succeed / Failed /
+	 *  resolutions reached + verdicts / VP highscore / choices. */
+	scenarios: CampaignScenarios[];
 	standaloneUsage: CampaignStandaloneUsage[];
+	/** First-class Standalone Archive aggregates (per scenario), for the `/standalones` section. */
+	standalones: StandaloneArchiveStat[];
 	traumaTally: TraumaTally;
-	/** Edge of the Earth "City of the Elder Things" per-version matrix (eoe only). */
-	eoeCity: CampaignEoeCity[];
 	/** Edge of the Earth bespoke tallies — crash / demons / survivors / supplies /
 	 *  camps, all keyed by member or item id (eoe only). */
 	eoe: CampaignEoe[];
 	/** The Scarlet Keys bespoke aggregate — Trust/Deception acts + Coterie outcomes (tskc only). */
 	tsk: CampaignTsk[];
+	/** The Dunwich Legacy bespoke per-scenario tallies (dwl only). */
+	dwl: CampaignDwl[];
+	/** The Path to Carcosa bespoke per-scenario tallies (ptc only). */
+	ptc: CampaignPtc[];
+	/** The Forgotten Age bespoke per-scenario tallies (tfa only). */
+	tfa: CampaignTfa[];
+	/** The Circle Undone bespoke per-scenario tallies (tcu only). */
+	tcu: CampaignTcu[];
+	/** The Dream-Eaters · The Dream-Quest bespoke tallies + shared interconnected view (tdea only). */
+	tdea: CampaignTdea[];
+	/** The Dream-Eaters · The Web of Dreams bespoke tallies + shared interconnected view (tdeb only). */
+	tdeb: CampaignTdeb[];
+	/** The Innsmouth Conspiracy bespoke per-scenario tallies (tic only). */
+	tic: CampaignTic[];
+	/** The Feast of Hemlock Vale bespoke per-scenario tallies (fhv only). */
+	fhv: CampaignFhv[];
+	/** The Drowned City bespoke per-scenario tallies (tdc only). */
+	tdc: CampaignTdc[];
+	/** The Night of the Zealot bespoke per-scenario tallies (notz only). */
+	notz: CampaignNotz[];
 	/** Roster-gated flavor moments per campaign family, with lifetime triggered state. */
 	specialInteractions: CampaignSpecialInteractions[];
 	cardUsage: Record<CardCode, number>;

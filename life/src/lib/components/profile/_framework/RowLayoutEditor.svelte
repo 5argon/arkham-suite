@@ -20,8 +20,8 @@ uid so moving/deleting never mis-associates config inputs.
 	import type { Snippet } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { BorderedContainer, Button, FaIcon, FaIconType, Modal } from '@5argon/arkham-life-ui';
-	import { widgetLabel } from '$lib/campaign/profile-widgets';
-	import type { WidgetSlot } from '$lib/campaign/profile-settings';
+	import { widgetLabel } from '$lib/campaign/profile/profile-widgets';
+	import type { WidgetSlot } from '$lib/campaign/profile/profile-settings';
 	import WidgetPickerModal from '$lib/components/profile/_framework/WidgetPickerModal.svelte';
 	import {
 		deleteRow,

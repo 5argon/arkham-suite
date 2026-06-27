@@ -1,14 +1,57 @@
 {
   "code": "rtptc",
+  "sections": {
+    "vips_interviewed": {
+      "type": "cards",
+      "items": [
+        { "id": "03076a", "code": "03076a" },
+        { "id": "03077", "code": "03077" },
+        { "id": "03078", "code": "03078" },
+        { "id": "03079", "code": "03079" },
+        { "id": "03080", "code": "03080" }
+      ],
+      "_note": "Same whitelist as base ptc: the five VIP guest ASSETS, not the enemy sides. See curation/ptc.json for the rationale."
+    },
+    "doubt": { "type": "count", "max": 9, "_note": "Max 9 on the resign->Reality's Shadow path, 8 normal (7 sources; see ptc.json)." },
+    "conviction": { "type": "count", "max": 9, "_note": "Max 9 on the resign->Reality's Shadow path, 8 normal (see ptc.json)." }
+  },
+  "entryOverrides": {
+    "_note": "'#name# read Act 2 of The King in Yellow.' is recorded per investigator, so it must repeat (once per investigator). Mark repeatable + restrict the #name# picker to investigators. Mirrors base ptc.json; see there for rationale.",
+    "campaign_notes.read_act_2": {
+      "repeatable": true,
+      "cardFilter": { "types": ["investigator"] }
+    }
+  },
   "scenarioChoices": {
+    "the_unspeakable_oath": [
+      {
+        "id": "daniel_fate",
+        "label": "Lost Soul — Daniel's fate",
+        "control": "radio",
+        "options": ["survived", "possessed", "neither"],
+        "optionLabels": {
+          "survived": "If an investigator resigned with the asset version of Daniel Chesterfield under their control.",
+          "possessed": "If the enemy version of Daniel Chesterfield was in play when the scenario ended.",
+          "neither": "If neither of the above are true."
+        },
+        "_note": "Option ids + labels mirror ArkhamCards' lost_soul.json daniel_choice verbatim (survived/possessed/neither). See ptc.json for rationale."
+      }
+    ],
     "dim_carcosa": [
-      { "id": "hastur_version", "label": "Hastur version", "options": ["I", "II", "III"] }
+      {
+        "id": "hastur_version",
+        "label": "Hastur version",
+        "options": [
+          "I",
+          "II",
+          "III"
+        ]
+      }
     ]
   },
   "outcomes": {
-    "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
+    "_notes": "Auto-proposed then CORRECTED: dropped campaign_notes.possessed from win (see ptc.json). Dim Carcosa's only winning log is prevented_hasturs_escape; `possessed` just flags investigators ended possessed (triggers the Epilogue), not a win.",
     "win": [
-      "campaign_notes.possessed",
       "campaign_notes.prevented_hasturs_escape"
     ],
     "loss": [
@@ -17,35 +60,6 @@
     ]
   },
   "_notes": "Verified all 9 spans are exact substrings of their entry text. No changes needed. Sibling-collision check on campaign_notes (single notes section): took_onyx_clasp (\"you took [blur].\") vs left_onyx_clasp (\"you left [blur] behind.\") remain distinguishable via took/left + \"behind\"; the three Hastur entries differ in surrounding text; no two entries collapse to identical readable text. Over-blur avoided: \"Carcosa\" (title), \"the Stranger\" (visible section title \"Chasing the Stranger\"), \"The King in Yellow\" in read_act_2 (front-loaded signature play), and Nigel/Daniel NPC names (needed to disambiguate sibling entries) correctly left visible. Under-blur covered: all Hastur/King reveals, onyx clasp artifact, oathspeaker, phantom, followers of the sign are blurred. db section types match reference; cards sections (vips_interviewed/vips_slain) are roster cards, not spoiler note entries, so no card-code resolution required. No structural overrides or drops.",
-  "spoilers": {
-    "campaign_notes.king_claimed_victims": [
-      "the King"
-    ],
-    "campaign_notes.took_onyx_clasp": [
-      "the onyx clasp"
-    ],
-    "campaign_notes.did_not_escape_gaze": [
-      "the phantom"
-    ],
-    "campaign_notes.carcosa_merged": [
-      "Hastur"
-    ],
-    "campaign_notes.prevented_hasturs_escape": [
-      "Hastur"
-    ],
-    "campaign_notes.hastur_has_you": [
-      "Hastur"
-    ],
-    "campaign_notes.destroyed_the_oathspeaker": [
-      "the oathspeaker"
-    ],
-    "campaign_notes.left_onyx_clasp": [
-      "the onyx clasp"
-    ],
-    "campaign_notes.followers_of_sign_found_way": [
-      "the followers of the sign"
-    ]
-  },
   "achievements": {
     "path_is_false": {
       "infer": {
@@ -84,31 +98,32 @@
     "first_steps": {
       "scenario": "the_last_king",
       "shared": true,
+      "_note": "VIPs Interviewed records the guest ASSET codes (03076a/03077/03078/03079/03080), NOT the enemy slain sides (03065b-03069b). Inferring on the enemy codes never matched. See curation/ptc.json sections.vips_interviewed.",
       "itemInfer": {
         "constance": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03065b"
+          "item": "03076a"
         },
         "jordan": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03066b"
+          "item": "03077"
         },
         "haruko": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03067b"
+          "item": "03078"
         },
         "sebastien": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03068b"
+          "item": "03079"
         },
         "ashleigh": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03069b"
+          "item": "03080"
         }
       }
     },
@@ -122,7 +137,14 @@
     },
     "cuckoos_nest": {
       "scenario": "the_unspeakable_oath",
-      "shared": true
+      "shared": true,
+      "_note": "Resign with Daniel Chesterfield under an investigator's control in The Unspeakable Oath. Board state, not in the log — now derivable from the the_unspeakable_oath.daniel_fate Extra choice ('survived' = resigned with Daniel under control).",
+      "infer": {
+        "type": "scenarioChoice",
+        "scenario": "the_unspeakable_oath",
+        "choice": "daniel_fate",
+        "is": "survived"
+      }
     },
     "take_a_look_at_this": {
       "scenario": "the_unspeakable_oath"

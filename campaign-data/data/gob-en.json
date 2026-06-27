@@ -20,25 +20,16 @@
       "text": "the Brotherhood’s schemes continue unabated."
     },
     "campaign_notes.tes_aware_of_xzharahs_plan": {
-      "text": "you are aware of Xzharah’s plans.",
-      "spoiler": [
-        "Xzharah"
-      ]
+      "text": "you are aware of Xzharah’s plans."
     },
     "campaign_notes.tes_curse_of_slumber_lifted": {
-      "text": "the curse of slumber was lifted.",
-      "spoiler": [
-        "the curse of slumber"
-      ]
+      "text": "the curse of slumber was lifted."
     },
     "campaign_notes.tes_taken_by_the_abyss": {
       "text": "#name# was taken by the abyss."
     },
     "campaign_notes.tnu_day_of_reckoning_is_coming": {
-      "text": "the Day of Reckoning is coming.",
-      "spoiler": [
-        "the Day of Reckoning"
-      ]
+      "text": "the Day of Reckoning is coming."
     },
     "campaign_notes.tnu_the_abyss_was_saved": {
       "text": "the Abyss was saved."
@@ -47,10 +38,7 @@
       "text": "#name# was taken by the abyss."
     },
     "campaign_notes.tnu_joined_xzharah": {
-      "text": "you joined forces with Xzharah.",
-      "spoiler": [
-        "Xzharah"
-      ]
+      "text": "you joined forces with Xzharah."
     }
   },
   "achievements": {}

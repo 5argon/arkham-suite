@@ -1,4 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"layout_not_signed_in": "Not Signed In"
+	"layout_not_signed_in": "Not Signed In",
+	"layout_unsaved_changes": "Unsaved changes",
+	"layout_saved": "Saved",
+	"layout_saving": "Saving…",
+	"layout_save": "Save",
+	"layout_why_save_aria": "Why saving matters"
 }

@@ -9,10 +9,10 @@ Campaign Overview widget. Unowned products are hidden. Used on both the home pag
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { FaIcon, FaIconType, HoverTooltip } from '@5argon/arkham-life-ui';
-	import type { ClearGridRow, CampaignEndings, EndingKind } from '$lib/campaign/clear-status';
-	import type { DifficultyTier } from '$lib/campaign/profile-settings';
-	import { capitalizeFirst } from '$lib/campaign/entry-text';
-	import { difficultyLabel } from '$lib/campaign/difficulty';
+	import type { ClearGridRow, CampaignEndings, EndingKind } from '$lib/campaign/outcomes/clear-status';
+	import type { DifficultyTier } from '$lib/campaign/profile/profile-settings';
+	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
 
 	let {
 		grid,

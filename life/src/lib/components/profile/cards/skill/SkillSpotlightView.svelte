@@ -10,7 +10,7 @@ has one "Used …" row per card; pass `rows` to override it with bespoke conditi
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
 	import type { InsightDeck } from '$lib/profile/profile-types';
-	import { qualifyingInvestigators, type SpotlightCard } from '$lib/campaign/card-filters';
+	import { qualifyingInvestigators, type SpotlightCard } from '$lib/campaign/utils/card-filters';
 	import InsightTable from '$lib/components/profile/cards/InsightTable.svelte';
 
 	// total → "X Decks (Y%)" (denominator on hover; showTotal prints it inline); omit → "X Decks".

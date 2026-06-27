@@ -10,7 +10,7 @@ three qualifying investigators.
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
 	import type { DeckTopEntry, InsightDeck } from '$lib/profile/profile-types';
-	import { charismaRelicCards, qualifyingInvestigators } from '$lib/campaign/card-filters';
+	import { charismaRelicCards, qualifyingInvestigators } from '$lib/campaign/utils/card-filters';
 	import InsightTable from '$lib/components/profile/cards/InsightTable.svelte';
 	import DeckTopTable from '$lib/components/profile/cards/DeckTopTable.svelte';
 

@@ -11,7 +11,7 @@ full upgrade chain — happens at the precompute step (`eligibilityInsights`); t
 <script lang="ts">
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import type { EligibilityInsight, InsightDeck } from '$lib/profile/profile-types';
-	import { viciousBlowDeductionCards } from '$lib/campaign/card-filters';
+	import { viciousBlowDeductionCards } from '$lib/campaign/utils/card-filters';
 	import SkillSpotlightView from '$lib/components/profile/cards/skill/SkillSpotlightView.svelte';
 
 	let {

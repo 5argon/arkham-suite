@@ -88,16 +88,10 @@
       "text": "you have rejected your fate."
     },
     "campaign_notes.witches_spell_broken": {
-      "text": "the witches' spell was broken.",
-      "spoiler": [
-        "witches'"
-      ]
+      "text": "the witches' spell was broken."
     },
     "campaign_notes.witches_spell_cast": {
-      "text": "the witches' spell was cast.",
-      "spoiler": [
-        "witches'"
-      ]
+      "text": "the witches' spell was cast."
     },
     "mementos.mesmerizing_flute": {
       "text": "Mesmerizing Flute"
@@ -148,16 +142,10 @@
       "text": "the investigators are deceiving the Lodge."
     },
     "campaign_notes.told_lodge_about_coven": {
-      "text": "the investigators told the Lodge about the coven.",
-      "spoiler": [
-        "the coven"
-      ]
+      "text": "the investigators told the Lodge about the coven."
     },
     "campaign_notes.hid_knowledge_of_coven": {
-      "text": "the investigators hid their knowledge of the coven.",
-      "spoiler": [
-        "the coven"
-      ]
+      "text": "the investigators hid their knowledge of the coven."
     },
     "mementos.gilmans_journal": {
       "text": "Gilman's Journal"
@@ -199,10 +187,7 @@
       "text": "the investigators sided with the Lodge."
     },
     "campaign_notes.sided_with_the_coven": {
-      "text": "the investigators sided with the coven.",
-      "spoiler": [
-        "the coven"
-      ]
+      "text": "the investigators sided with the coven."
     },
     "05046.alive": {
       "text": "Gavriella is alive."
@@ -217,22 +202,13 @@
       "text": "Valentino is alive."
     },
     "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
-      "text": "the true work of the Silver Twilight Lodge has begun.",
-      "spoiler": [
-        "true work"
-      ]
+      "text": "the true work of the Silver Twilight Lodge has begun."
     },
     "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
-      "text": "Carl Sanford possesses the secrets of the universe.",
-      "spoiler": [
-        "the secrets of the universe"
-      ]
+      "text": "Carl Sanford possesses the secrets of the universe."
     },
     "campaign_notes.anette_mason_is_possessed_by_evil": {
-      "text": "Anette Mason is possessed by evil.",
-      "spoiler": [
-        "possessed by evil"
-      ]
+      "text": "Anette Mason is possessed by evil."
     },
     "05046.dead": {
       "text": "Gavriella Mizrah is dead."
@@ -274,28 +250,16 @@
       "text": "the path winds before you: #X#"
     },
     "campaign_notes.azathoth_devoured_the_universe": {
-      "text": "Azathoth devoured the universe.",
-      "spoiler": [
-        "Azathoth"
-      ]
+      "text": "Azathoth devoured the universe."
     },
     "campaign_notes.lead_investigator_joins_pipers": {
-      "text": "#name# has joined the pipers of Azathoth.",
-      "spoiler": [
-        "the pipers of Azathoth"
-      ]
+      "text": "#name# has joined the pipers of Azathoth."
     },
     "campaign_notes.azathoth_slumbers": {
-      "text": "Azathoth slumbers… for now.",
-      "spoiler": [
-        "Azathoth"
-      ]
+      "text": "Azathoth slumbers… for now."
     },
     "campaign_notes.signed_the_black_book": {
-      "text": "the investigators signed the Black Book of Azathoth.",
-      "spoiler": [
-        "the Black Book of Azathoth"
-      ]
+      "text": "the investigators signed the Black Book of Azathoth."
     }
   },
   "achievements": {

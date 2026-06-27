@@ -7,8 +7,8 @@ branches are highlighted so the player can see paths still to take.
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
-	import type { CampaignCoverage } from '$lib/campaign/custom-achievements';
-	import { capitalizeFirst } from '$lib/campaign/entry-text';
+	import type { CampaignCoverage } from '$lib/campaign/achievements/custom-achievements';
+	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
 
 	let {
 		coverage,

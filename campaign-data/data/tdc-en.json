@@ -93,10 +93,7 @@
       "text": "the pilgrims were devoured."
     },
     "campaign_notes.exterminated_the_alien_parasites": {
-      "text": "the investigators exterminated the alien parasites.",
-      "spoiler": [
-        "the alien parasites"
-      ]
+      "text": "the investigators exterminated the alien parasites."
     },
     "glyphs.tdc_rune_s": {
       "text": "Machine"
@@ -117,10 +114,7 @@
       "text": "the investigators did not confront the nightmare."
     },
     "campaign_notes.halted_cthulhus_awakening": {
-      "text": "the investigators halted Cthulhu's awakening.",
-      "spoiler": [
-        "Cthulhu's awakening"
-      ]
+      "text": "the investigators halted Cthulhu's awakening."
     },
     "artifacts_earned.clah_horror": {
       "text": "Horror in Clay"
@@ -153,28 +147,16 @@
       "text": "your allies have a plan."
     },
     "campaign_notes.cthulhu_annihilated_the_city_of_arkham": {
-      "text": "Cthulhu annihilated the city of Arkham.",
-      "spoiler": [
-        "Cthulhu"
-      ]
+      "text": "Cthulhu annihilated the city of Arkham."
     },
     "campaign_notes.cthulhu_was_driven_away": {
-      "text": "Cthulhu was driven away.",
-      "spoiler": [
-        "Cthulhu"
-      ]
+      "text": "Cthulhu was driven away."
     },
     "campaign_notes.cthulhu_was_banished": {
-      "text": "Cthulhu was banished.",
-      "spoiler": [
-        "Cthulhu"
-      ]
+      "text": "Cthulhu was banished."
     },
     "campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed": {
-      "text": "Cthulhu was banished, but Arkham was destroyed.",
-      "spoiler": [
-        "Cthulhu"
-      ]
+      "text": "Cthulhu was banished, but Arkham was destroyed."
     }
   },
   "achievements": {

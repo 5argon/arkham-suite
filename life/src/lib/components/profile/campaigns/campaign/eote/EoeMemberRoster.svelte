@@ -11,8 +11,8 @@ campaign-log roster items). 3×3 when narrow, 1×9 when wide. Built on LitTileGr
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { itemLabel } from '$lib/campaign/campaign-log-source';
-	import type { CampaignEoe } from '$lib/campaign/eoe';
+	import { itemLabel } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
 	import { times } from '$lib/profile/plural';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';

@@ -11,7 +11,6 @@
 	const keyCount = $derived([...fs.keys.entries()].filter(([, b]) => bearerIsInvestigator(b)).length);
 	const judgmentLabel = $derived(catalog().judgments.find((j) => j.id === finale.judgment)?.label ?? finale.judgment);
 	const epilogueLabel = $derived(catalog().epilogues.find((e) => e.id === finale.epilogue)?.label ?? finale.epilogue);
-	const tk = 'text-primary-700 dark:text-primary-200';
 </script>
 
 <div class="flex flex-col gap-3 rounded-lg border border-primary-200 dark:border-primary-800 p-4">
@@ -33,10 +32,10 @@
 			<i class="fa-solid fa-star text-secondary-500"></i>{fs.xpBonus} min XP
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="Foundation Trust (feeds the epilogue)">
-			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} circular={false} fillColor={tk} /></span>{finale.trust} trust
+			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} noColor /></span>{finale.trust} trust
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="Cell Deception (feeds the epilogue)">
-			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} circular={false} fillColor={tk} /></span>{finale.deception} dec
+			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} noColor /></span>{finale.deception} dec
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="predicted Coterie judgment">
 			<i class="fa-solid fa-gavel text-primary-400"></i>{judgmentLabel}
@@ -46,8 +45,8 @@
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="chaos bag">
 			bag
-			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} circular fillColor={tk} /></span>{fs.tablet}
-			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} circular fillColor={tk} /></span>{fs.elderThing}
+			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} sealed noColor /></span>{fs.tablet}
+			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} sealed noColor /></span>{fs.elderThing}
 		</span>
 	</div>
 

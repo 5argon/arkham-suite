@@ -34,7 +34,6 @@
 	const neither = $derived(fd.members.filter((m) => m.vote === 'abstain' || m.vote === 'silent'));
 	const silentCount = $derived(byVote('silent').length);
 
-	const tk = 'text-primary-700 dark:text-primary-200';
 
 	const attemptText: Record<CoterieAttempt, string> = {
 		overthrow: 'Attempt to overthrow the Coterie',
@@ -101,10 +100,10 @@
 		<div class="mt-2 flex flex-wrap gap-4 text-sm text-primary-700 dark:text-primary-300">
 			<span class="flex items-center gap-1.5"><i class="fa-solid fa-flag-checkered text-primary-400"></i>{epilogueLabel(pred.epilogue)}</span>
 			<span class="flex items-center gap-1.5" title="Foundation Trust">
-				<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} circular={false} fillColor={tk} /></span>{pred.trust} Foundation Trust
+				<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} noColor /></span>{pred.trust} Foundation Trust
 			</span>
 			<span class="flex items-center gap-1.5" title="Cell Deception">
-				<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} circular={false} fillColor={tk} /></span>{pred.deception} Cell Deception
+				<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} noColor /></span>{pred.deception} Cell Deception
 			</span>
 		</div>
 	</div>
@@ -159,7 +158,7 @@
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<div>
 				<div class="mb-1 flex items-center gap-1.5 text-sm font-semibold text-primary-800 dark:text-primary-200">
-					<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} circular={false} fillColor={tk} /></span>Foundation Trust · {pred.trust}
+					<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} noColor /></span>Foundation Trust · {pred.trust}
 				</div>
 				<ul class="flex flex-col gap-0.5 text-sm">
 					{#each fd.foundationTrust as c (c.log)}
@@ -171,7 +170,7 @@
 			</div>
 			<div>
 				<div class="mb-1 flex items-center gap-1.5 text-sm font-semibold text-primary-800 dark:text-primary-200">
-					<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} circular={false} fillColor={tk} /></span>Cell Deception · {pred.deception}
+					<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} noColor /></span>Cell Deception · {pred.deception}
 				</div>
 				<ul class="flex flex-col gap-0.5 text-sm">
 					{#each fd.cellDeception as c (c.log)}

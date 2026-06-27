@@ -1,0 +1,78 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_tfa_vengeance_max": "Most Yig's Fury",
+	"campaign_tfa_vengeance_min": "Least Yig's Fury",
+	"campaign_tfa_vengeance_lifetime": "Lifetime fury",
+	"campaign_tfa_vengeance_agenda": "Agenda {n}",
+	"campaign_tfa_vengeance_agenda_special": "Special (Yig seeded)",
+	"campaign_tfa_vengeance_refused": "Ichtaca refused (16+)",
+	"campaign_tfa_vengeance_agenda_heading": "Depths of Yoth start",
+	"campaign_tfa_vengeance_empty": "Record Yig's Fury in your plays to track Yig's wrath.",
+
+	"campaign_tfa_supplies_empty": "Record your expedition supplies to see what you pack.",
+	"campaign_tfa_supplies_took": "Took {times}",
+	"campaign_tfa_supplies_never": "Never packed",
+
+	"campaign_tfa_companion_ichtaca": "Ichtaca",
+	"campaign_tfa_companion_alejandro": "Alejandro Vela",
+	"campaign_tfa_companions_empty": "Play The Forgotten Age to track your companions.",
+	"campaign_tfa_ichtaca_detail": "Trust {trust} · Bond {bond} · Wary {wary}",
+	"campaign_tfa_alejandro_detail": "Trust {trust} · Rescued {rescued} · Missing {missing}",
+	"campaign_tfa_companion_none": "No standing recorded",
+
+	"campaign_tfa_harbinger_max": "Most HP left",
+	"campaign_tfa_harbinger_min": "Least HP left",
+	"campaign_tfa_harbinger_empty": "Record the Harbinger of Valusia's remaining health at The Doom of Eztli.",
+
+	"campaign_tfa_wilds_cleared": "Cleared the path",
+	"campaign_tfa_wilds_ichtaca_trust": "Earned Ichtaca's trust",
+	"campaign_tfa_wilds_ichtaca_wary": "Ichtaca is wary",
+	"campaign_tfa_wilds_alejandro_followed": "Alejandro followed",
+	"campaign_tfa_wilds_alejandro_remained": "Alejandro stayed at camp",
+	"campaign_tfa_wilds_empty": "Play The Untamed Wilds to track it.",
+
+	"campaign_tfa_eztli_investigators_relic": "You recovered the relic",
+	"campaign_tfa_eztli_alejandro_relic": "Alejandro recovered it",
+	"campaign_tfa_eztli_retries": "Most replays",
+	"campaign_tfa_eztli_empty": "Play The Doom of Eztli to track it.",
+
+	"campaign_tfa_threads_relic_alejandro": "Relic to Alejandro",
+	"campaign_tfa_threads_relic_harlan": "Relic to Harlan",
+	"campaign_tfa_threads_listened": "Listened to Ichtaca",
+	"campaign_tfa_threads_forging": "Forged your own path",
+	"campaign_tfa_threads_rescued": "Rescued Alejandro",
+	"campaign_tfa_threads_missing": "Alejandro is missing",
+	"campaign_tfa_threads_empty": "Play Threads of Fate to track the branch.",
+
+	"campaign_tfa_boundary_paths": "Most paths known",
+	"campaign_tfa_boundary_skip": "Skipped Heart of the Elders, Part 1",
+	"campaign_tfa_boundary_confidence": "Ichtaca has confidence",
+	"campaign_tfa_boundary_empty": "Play The Boundary Beyond to track the paths.",
+
+	"campaign_tfa_hote_ichtaca": "Consulted Ichtaca",
+	"campaign_tfa_hote_alejandro": "Consulted Alejandro",
+	"campaign_tfa_hote_journal": "Consulted the journal",
+	"campaign_tfa_hote_empty": "Play Heart of the Elders to track whom you consulted.",
+
+	"campaign_tfa_archives_cooperated": "Cooperated",
+	"campaign_tfa_archives_resisted": "Resisted captivity",
+	"campaign_tfa_archives_expunged": "Memories expunged",
+	"campaign_tfa_archives_perfected": "Process perfected",
+	"campaign_tfa_archives_successful": "Process successful",
+	"campaign_tfa_archives_backfired": "Process backfired",
+	"campaign_tfa_archives_backfired_spec": "Backfired spectacularly",
+	"campaign_tfa_archives_empty": "Play The City of Archives to track the Yithian process.",
+
+	"campaign_tfa_yoth_depth_max": "Deepest reached",
+	"campaign_tfa_yoth_depth_min": "Shallowest",
+	"campaign_tfa_yoth_empty": "Play The Depths of Yoth to track how deep you descended.",
+
+	"campaign_tfa_aeons_mended": "Mended the tear",
+	"campaign_tfa_aeons_serpents": "Saved the serpents",
+	"campaign_tfa_aeons_yithians": "Saved the Yithians",
+	"campaign_tfa_aeons_unwoven": "Fabric of time unwoven",
+	"campaign_tfa_aeons_sealed": "Sealed the Relic forever",
+	"campaign_tfa_aeons_empty": "Reach the finale to tally its endings.",
+	"campaign_tfa_turn_back_time_empty": "Rewind time at Shattered Aeons and seal the Relic of Ages forever to record the true ending."
+}

@@ -21,11 +21,12 @@
 	import GeneralTab from '$lib/components/archive/edit/GeneralTab.svelte';
 	import PlayersAndDecksTab from '$lib/components/archive/edit/PlayersAndDecksTab.svelte';
 	import LogsTab from '$lib/components/archive/edit/LogsTab.svelte';
+	import TdeLinkedLog from '$lib/components/archive/edit/TdeLinkedLog.svelte';
 	import AchievementsTab from '$lib/components/archive/edit/achievements/AchievementsTab.svelte';
 	import ExtraTab from '$lib/components/archive/edit/ExtraTab.svelte';
 	import ValidationBanner from '$lib/components/archive/edit/ValidationBanner.svelte';
-	import { investigatorCodesFromDecks, type InvestigatorRef } from '$lib/campaign/investigators';
-	import { loadCampaignLog } from '$lib/campaign/campaign-log-source';
+	import { investigatorCodesFromDecks, type InvestigatorRef } from '$lib/campaign/utils/investigators';
+	import { loadCampaignLog } from '$lib/campaign/records/campaign-log-source';
 	import {
 		RESERVED,
 		entriesInSection,
@@ -36,9 +37,10 @@
 		toRecordedState,
 		toSavePayload,
 		type LocalLog
-	} from '$lib/campaign/recorded-state';
+	} from '$lib/campaign/records/recorded-state';
 	import {
 		findValidatorConflicts,
+		standaloneSetup,
 		type AchievementDef,
 		type RecordedCampaignState
 	} from '@5argon/arkham-campaign-data';
@@ -102,6 +104,19 @@
 			: ''
 	);
 
+	// ─── Standalone-mode awareness ───────────────────────────────────────────────
+	// A standalone archive records ONE scenario (data.campaign.scenario); its
+	// difficulty + chaos bag come from campaign-data's standalone setup, the Logs +
+	// Extra tabs scope to that single scenario, and Achievements / Change-campaign /
+	// TDE-linked don't apply.
+	const isStandalone = $derived(data.campaign.kind === 'standalone');
+	const standaloneScenario = $derived(data.campaign.scenario);
+	const standaloneInfo = $derived(
+		isStandalone && standaloneScenario
+			? standaloneSetup(data.campaign.campaignCode, standaloneScenario)
+			: undefined
+	);
+
 	// ─── Campaign log + lifted editor state (shared by Logs + Achievements) ──────
 	const campaignLog = $derived(loadCampaignLog(data.campaign.campaignCode));
 
@@ -144,14 +159,52 @@
 		databaseStore.setCampaignLogs(data.campaign.id, toSavePayload(localLogs));
 	}
 
+	// ─── The Dream-Eaters: Linked Campaign Log (interconnected play) ─────────────
+	// TDE is two separate records; for interconnected play the sibling's relevant final
+	// notes are transcribed into a SEPARATE `linkedLog` field (own logs stay untouched).
+	const tdeFamily = $derived(campaignLog ? (campaignLog.db.originalId ?? campaignLog.db.code) : '');
+	const isTde = $derived(tdeFamily === 'tdea' || tdeFamily === 'tdeb');
+	let linkedLogs = $state<LocalLog[]>(untrack(() => hydrate(data.linkedLog)));
+	const interconnected = $derived(
+		localLogs.some((l) => l.key === 'hidden.interconnected_campaign')
+	);
+	// The checkbox flips between the two hidden setup flags (interconnected ⇄ half).
+	function handleInterconnectedChange(next: boolean) {
+		const without = localLogs.filter(
+			(l) => l.key !== 'hidden.interconnected_campaign' && l.key !== 'hidden.half_campaign'
+		);
+		const flag = next ? 'interconnected_campaign' : 'half_campaign';
+		handleLogsChange([...without, makeEntry('hidden', `hidden.${flag}`, [])]);
+	}
+	function handleLinkedChange(next: LocalLog[]) {
+		linkedLogs = next;
+		databaseStore.setCampaignLinkedLogs(data.campaign.id, toSavePayload(next));
+	}
+
 	// Leaving the editor → stash an invisible autosave snapshot of this campaign.
 	beforeNavigate(() => {
 		void databaseStore.snapshotCampaign(data.campaign.id);
 	});
 
 	// ─── Tabs ──────────────────────────────────────────────────────────────────
-	// Autosave means switching tabs is free — no unsaved-changes prompt.
+	// Autosave means switching tabs is free — no unsaved-changes prompt. Tabs are
+	// keyed (not positional) so a standalone archive can drop the Achievements tab
+	// without index drift.
+	type TabKey = 'general' | 'decks' | 'logs' | 'achievements' | 'extra';
+	const tabDefs = $derived<{ key: TabKey; label: string }[]>([
+		{ key: 'general', label: m.archive_tab_general() },
+		{ key: 'decks', label: m.archive_tab_players_and_decks() },
+		{ key: 'logs', label: m.archive_tab_logs() },
+		...(isStandalone
+			? []
+			: ([{ key: 'achievements', label: m.archive_tab_achievements() }] as {
+					key: TabKey;
+					label: string;
+				}[])),
+		{ key: 'extra', label: 'Extra' }
+	]);
 	let activeTab = $state(0);
+	const activeKey = $derived(tabDefs[activeTab]?.key ?? 'general');
 	function requestTabChange(newTab: number) {
 		activeTab = newTab;
 	}
@@ -162,9 +215,15 @@
 		handleLogsChange(replaceSection(localLogs, RESERVED.chaosBag, next));
 	}
 
+	// The starting chaos bag for a difficulty — the scenario's standalone setup for a
+	// standalone archive, otherwise the campaign's per-difficulty starting bag.
+	function startingBagFor(diff: string): Record<string, number> | undefined {
+		return isStandalone ? standaloneInfo?.chaosBag?.[diff] : campaignLog?.db.startingChaosBag?.[diff];
+	}
+
 	// Write a difficulty's starting chaos bag into the reserved section (materialises it).
 	function applyStartingChaosBag(diff: string) {
-		const starting = campaignLog?.db.startingChaosBag?.[diff];
+		const starting = startingBagFor(diff);
 		if (!starting) return;
 		handleChaosBagChange(
 			Object.entries(starting).map(([code, cnt]) =>
@@ -184,7 +243,7 @@
 		const old = prevDifficulty;
 		prevDifficulty = newValue;
 		if (newValue === old) return;
-		if (campaignLog?.db.startingChaosBag) {
+		if (startingBagFor(newValue)) {
 			if (confirm(m.archive_chaos_reinit_confirm())) {
 				applyStartingChaosBag(newValue);
 			} else if (entriesInSection(localLogs, RESERVED.chaosBag).length === 0) {
@@ -222,9 +281,11 @@
 
 	// ─── Campaign display ──────────────────────────────────────────────────────
 	const campaignDisplayName = $derived(
-		data.campaign.campaignCode
-			? u.campaignName(data.campaign.campaignCode as Campaign)
-			: m.archive_campaign_unspecified()
+		isStandalone
+			? (data.campaign.title || 'Standalone')
+			: data.campaign.campaignCode
+				? u.campaignName(data.campaign.campaignCode as Campaign)
+				: m.archive_campaign_unspecified()
 	);
 
 	// ─── Change campaign modal ─────────────────────────────────────────────────
@@ -265,7 +326,8 @@
 
 	async function handleDelete() {
 		confirmDeleteOpen = false;
-		databaseStore.removeCampaign(data.campaign.id);
+		if (isStandalone) databaseStore.removeStandalone(data.campaign.id);
+		else databaseStore.removeCampaign(data.campaign.id);
 		await databaseStore.saveNow();
 		goto('/archive');
 	}
@@ -294,7 +356,7 @@
 	<div class="mb-4 flex items-center justify-between gap-4">
 		<div>
 			<p class="text-primary-500 dark:text-primary-400 text-xs tracking-wider uppercase">
-				{m.archive_campaign_label()}
+				{isStandalone ? 'Standalone' : m.archive_campaign_label()}
 			</p>
 			<p class="text-base font-semibold text-black dark:text-white">
 				{campaignDisplayName}{title && title !== campaignDisplayName ? ` — ${title}` : ''}
@@ -315,7 +377,7 @@
 					onClick={openHistory}
 				/>
 			{/if}
-			{#if data.isOwner}
+			{#if data.isOwner && !isStandalone}
 				<Button
 					label={m.archive_change_campaign()}
 					icon={FaIconType.Edit}
@@ -341,20 +403,16 @@
 		direction="horizontal"
 		activeTabIndex={activeTab}
 		onTabChange={requestTabChange}
-		tabs={[
-			{ label: m.archive_tab_general() },
-			{ label: m.archive_tab_players_and_decks() },
-			{ label: m.archive_tab_logs() },
-			{ label: m.archive_tab_achievements() },
-			{ label: 'Extra' }
-		]}
+		tabs={tabDefs.map((t) => ({ label: t.label }))}
 	/>
 
 	<!-- ── General tab ──────────────────────────────────────────────────────── -->
-	{#if activeTab === 0}
+	{#if activeKey === 'general'}
 		<GeneralTab
 			canEdit={data.canEdit}
+			{isStandalone}
 			log={campaignLog}
+			difficultyOptions={standaloneInfo?.difficulties}
 			bind:title
 			bind:difficulty
 			bind:draft
@@ -362,16 +420,19 @@
 			bind:startDate
 			bind:finishDate
 			chaosBagEntries={entriesInSection(localLogs, RESERVED.chaosBag)}
+			startingChaosBag={isStandalone ? (standaloneInfo?.chaosBag ?? null) : undefined}
 			onChaosBagChange={handleChaosBagChange}
 			onDifficultyChange={handleDifficultyChange}
 			onGeneralChange={persistGeneral}
 		/>
 
 		<!-- ── Players & Decks tab ──────────────────────────────────────────────────── -->
-	{:else if activeTab === 1}
+	{:else if activeKey === 'decks'}
 		<PlayersAndDecksTab
 			campaignId={data.campaign.id}
 			canEdit={data.canEdit}
+			singleDeck={isStandalone}
+			{isStandalone}
 			players={data.players}
 			decks={data.decks}
 			{cardResolver}
@@ -379,7 +440,7 @@
 		/>
 
 		<!-- ── Logs tab ──────────────────────────────────────────────────────────────────── -->
-	{:else if activeTab === 2}
+	{:else if activeKey === 'logs'}
 		{#if !data.campaign.campaignCode}
 			<p class="text-primary-400 dark:text-primary-500 mt-4 text-sm">
 				{m.archive_logs_no_campaign()}
@@ -390,18 +451,35 @@
 					<ValidationBanner log={campaignLog} conflicts={logConflicts} />
 				</div>
 			{/if}
+			{#if isStandalone}
+				<p class="text-primary-500 mt-3 mb-1 text-sm">
+					In Standalone Mode the guide says to "remember" these instead of recording them — but you
+					can still record this scenario's entries here if you like.
+				</p>
+			{/if}
 			<LogsTab
 				log={campaignLog}
 				canEdit={data.canEdit}
 				cards={allCards}
 				{investigators}
 				{localLogs}
+				onlyScenario={isStandalone ? standaloneScenario : undefined}
 				onLogsChange={handleLogsChange}
 			/>
+			{#if isTde && !isStandalone}
+				<TdeLinkedLog
+					family={tdeFamily}
+					{interconnected}
+					{linkedLogs}
+					canEdit={data.canEdit}
+					onInterconnectedChange={handleInterconnectedChange}
+					onLinkedChange={handleLinkedChange}
+				/>
+			{/if}
 		{/if}
 
-		<!-- ── Achievements tab ──────────────────────────────────────────────────────── -->
-	{:else if activeTab === 3}
+		<!-- ── Achievements tab (campaign only) ──────────────────────────────────────── -->
+	{:else if activeKey === 'achievements'}
 		{#if campaignLog && recorded}
 			<AchievementsTab
 				log={campaignLog}
@@ -415,12 +493,15 @@
 				{m.archive_logs_no_campaign()}
 			</p>
 		{/if}
-	{:else if activeTab === 4}
+	{:else if activeKey === 'extra'}
 		{#if campaignLog}
 			<ExtraTab
 				log={campaignLog}
 				canEdit={data.canEdit}
 				{localLogs}
+				{investigators}
+				onlyScenario={isStandalone ? standaloneScenario : undefined}
+				alwaysShowExperience={isStandalone}
 				onLogsChange={handleLogsChange}
 			/>
 		{:else}

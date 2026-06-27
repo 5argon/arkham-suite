@@ -17,7 +17,7 @@ card; see profile-local `buildCardsSegment`).
 		type Product,
 	} from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import { isCardOwned } from '$lib/campaign/ownership';
+	import { isCardOwned } from '$lib/campaign/utils/ownership';
 
 	let {
 		cardUsage,

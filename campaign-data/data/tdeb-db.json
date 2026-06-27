@@ -22,6 +22,7 @@
     {
       "id": "waking_nightmare",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_resigned",
         "no_resolution_defeated",
@@ -29,7 +30,15 @@
         "R2",
         "R3",
         "R4"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "win",
+        "R4": "win",
+        "no_resolution_defeated": "loss",
+        "no_resolution_resigned": "neutral"
+      }
     },
     {
       "id": "the_black_cat",
@@ -38,11 +47,17 @@
     {
       "id": "a_thousand_shapes_of_horror",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "no_resolution_defeated": "loss"
+      }
     },
     {
       "id": "the_oneironauts",
@@ -51,11 +66,17 @@
     {
       "id": "point_of_no_return",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "no_resolution_defeated": "loss"
+      }
     },
     {
       "id": "the_great_ones",
@@ -64,6 +85,7 @@
     {
       "id": "weaver_of_the_cosmos",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -86,6 +108,11 @@
             }
           ]
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
       }
     },
     {
@@ -275,7 +302,8 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "weaver_of_the_cosmos",
-      "outcome": "win"
+      "outcome": "win",
+      "outcomeQuality": "best"
     },
     {
       "id": "never_escaped",
@@ -288,7 +316,8 @@
       "id": "still_in_the_dreamlands",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "weaver_of_the_cosmos"
+      "scenario": "weaver_of_the_cosmos",
+      "outcome": "win"
     },
     {
       "id": "on_your_own",

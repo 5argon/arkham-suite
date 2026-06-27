@@ -25,19 +25,13 @@
       "text": "the investigators impersonated a high roller."
     },
     "campaign_notes.fof_convinced_isamara": {
-      "text": "the investigators convinced Isamara to participate in the heist.",
-      "spoiler": [
-        "Isamara"
-      ]
+      "text": "the investigators convinced Isamara to participate in the heist."
     },
     "campaign_notes.fof_obtained_an_uniform": {
       "text": "the investigators obtained an employee uniform."
     },
     "campaign_notes.fof_stole_keys": {
-      "text": "the investigators stole Abarran's keys.",
-      "spoiler": [
-        "Abarran"
-      ]
+      "text": "the investigators stole Abarran's keys."
     },
     "campaign_notes.fof_cleaned_out_the_house": {
       "text": "the investigators cleaned out the house."
@@ -70,10 +64,7 @@
       "text": "#name#: The Grifter (Practiced)"
     },
     "campaign_notes.cell_meddled_in_abarrans_affairs": {
-      "text": "the cell meddled in Abarran’s affairs.",
-      "spoiler": [
-        "Abarran"
-      ]
+      "text": "the cell meddled in Abarran’s affairs."
     }
   },
   "achievements": {}

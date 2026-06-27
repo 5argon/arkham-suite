@@ -25,6 +25,7 @@
     {
       "id": "extracurricular_activity",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -36,6 +37,7 @@
     {
       "id": "the_house_always_wins",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -51,30 +53,59 @@
     {
       "id": "the_miskatonic_museum",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "approach",
+          "options": [
+            "broke_in",
+            "spoke_to_adam"
+          ],
+          "control": "radio"
+        }
       ]
     },
     {
       "id": "the_essex_county_express",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "blood_on_the_altar",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2",
         "R3"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "R3": "loss",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "dwl_interlude2",
@@ -83,15 +114,22 @@
     {
       "id": "undimensioned_and_unseen",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "win",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "where_doom_awaits",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -116,11 +154,17 @@
           ],
           "result": "lose"
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
       }
     },
     {
       "id": "lost_in_time_and_space",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -146,7 +190,24 @@
           ],
           "result": "win"
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R3": "loss",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "final_act",
+          "options": [
+            "act_1",
+            "act_2",
+            "act_3",
+            "act_4"
+          ],
+          "control": "radio"
+        }
+      ]
     },
     {
       "id": "dwl_epilogue",
@@ -408,15 +469,15 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "lost_in_time_and_space",
-      "outcome": "win",
-      "outcomeQuality": "best"
+      "outcome": "win"
     },
     {
       "id": "yog_sothoth_fled",
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "lost_in_time_and_space",
-      "outcome": "win"
+      "outcome": "win",
+      "outcomeQuality": "best"
     },
     {
       "id": "yog_sothoth_became_one_with_reality",
@@ -623,34 +684,10 @@
     {
       "type": "mutuallyExclusive",
       "entries": [
-        "campaign_notes.warren_rice_rescued",
-        "campaign_notes.warren_rice_kidnapped"
-      ],
-      "scenario": "extracurricular_activity"
-    },
-    {
-      "type": "mutuallyExclusive",
-      "entries": [
         "campaign_notes.students_rescued",
         "campaign_notes.failed_to_save_students"
       ],
       "scenario": "extracurricular_activity"
-    },
-    {
-      "type": "mutuallyExclusive",
-      "entries": [
-        "campaign_notes.francis_morgan_rescued",
-        "campaign_notes.francis_morgan_kidnapped"
-      ],
-      "scenario": "the_house_always_wins"
-    },
-    {
-      "type": "mutuallyExclusive",
-      "entries": [
-        "campaign_notes.henry_armitage_rescued",
-        "campaign_notes.henry_armitage_kidnapped"
-      ],
-      "scenario": "armitages_fate"
     },
     {
       "type": "mutuallyExclusive",

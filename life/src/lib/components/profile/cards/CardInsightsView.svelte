@@ -8,7 +8,7 @@ doesn't count).
 <script lang="ts">
 	import { card as cardUtils, type Card, type CardCode, type Product } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import { isCardOwned } from '$lib/campaign/ownership';
+	import { isCardOwned } from '$lib/campaign/utils/ownership';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {

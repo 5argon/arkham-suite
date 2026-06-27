@@ -16,6 +16,7 @@
     {
       "id": "curtain_call",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -25,19 +26,40 @@
     {
       "id": "the_last_king",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_resigned",
         "no_resolution_defeated",
         "R3"
-      ]
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 3,
+            "-2": 2,
+            "-3": 1,
+            "-4": 1,
+            "skull": 3,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      }
     },
     {
       "id": "return_to_curtain_call",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "return_to_the_last_king",
-      "type": "story"
+      "type": "story",
+      "victoryDisplay": true
     },
     {
       "id": "ptc_interlude1",
@@ -50,6 +72,7 @@
     {
       "id": "echoes_of_the_past",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -61,10 +84,40 @@
     {
       "id": "the_unspeakable_oath",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R2",
         "R3"
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 3,
+            "-2": 2,
+            "-3": 2,
+            "-4": 1,
+            "skull": 3,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      },
+      "choices": [
+        {
+          "id": "daniel_fate",
+          "options": [
+            "survived",
+            "possessed",
+            "neither"
+          ],
+          "control": "radio"
+        }
       ]
     },
     {
@@ -74,6 +127,7 @@
     {
       "id": "a_phantom_of_truth",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -84,15 +138,35 @@
     {
       "id": "the_pallid_mask",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 3,
+            "-2": 2,
+            "-3": 2,
+            "-4": 1,
+            "skull": 3,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      }
     },
     {
       "id": "black_stars_rise",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -123,6 +197,7 @@
     {
       "id": "dim_carcosa",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -224,7 +299,29 @@
     },
     {
       "id": "vips_interviewed",
-      "type": "cards"
+      "type": "cards",
+      "items": [
+        {
+          "id": "03076a",
+          "code": "03076a"
+        },
+        {
+          "id": "03077",
+          "code": "03077"
+        },
+        {
+          "id": "03078",
+          "code": "03078"
+        },
+        {
+          "id": "03079",
+          "code": "03079"
+        },
+        {
+          "id": "03080",
+          "code": "03080"
+        }
+      ]
     },
     {
       "id": "vips_slain",
@@ -254,11 +351,13 @@
     },
     {
       "id": "doubt",
-      "type": "count"
+      "type": "count",
+      "max": 9
     },
     {
       "id": "conviction",
-      "type": "count"
+      "type": "count",
+      "max": 9
     },
     {
       "id": "hidden",
@@ -379,8 +478,7 @@
         "cards": {
           "mode": "choice"
         }
-      },
-      "outcome": "win"
+      }
     },
     {
       "id": "hastur_has_you",
@@ -478,6 +576,12 @@
         "cards": {
           "mode": "choice"
         }
+      },
+      "repeatable": true,
+      "cardFilter": {
+        "types": [
+          "investigator"
+        ]
       }
     },
     {
@@ -523,27 +627,27 @@
         "constance": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03065b"
+          "item": "03076a"
         },
         "jordan": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03066b"
+          "item": "03077"
         },
         "haruko": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03067b"
+          "item": "03078"
         },
         "sebastien": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03068b"
+          "item": "03079"
         },
         "ashleigh": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03069b"
+          "item": "03080"
         }
       },
       "scenario": "return_to_the_last_king"
@@ -567,6 +671,12 @@
       "type": "binary",
       "family": "ptc",
       "shared": true,
+      "infer": {
+        "type": "scenarioChoice",
+        "scenario": "the_unspeakable_oath",
+        "choice": "daniel_fate",
+        "is": "survived"
+      },
       "scenario": "return_to_the_unspeakable_oath"
     },
     {

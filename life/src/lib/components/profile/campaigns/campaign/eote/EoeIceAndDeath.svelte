@@ -6,7 +6,7 @@ creatures; the two escape routes. The max / min Shelter come from a manual
 Extra-tab count. Built on the shared StatNumbers.
 -->
 <script lang="ts">
-	import type { CampaignEoe } from '$lib/campaign/eoe';
+	import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 

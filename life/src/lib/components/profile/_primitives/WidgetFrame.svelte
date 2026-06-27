@@ -14,7 +14,8 @@ silently disappearing.
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { FaIcon, FaIconType, Modal } from '@5argon/arkham-life-ui';
+	import { EncounterSetIcon, FaIcon, FaIconType, Modal } from '@5argon/arkham-life-ui';
+	import { getScenarioData, Scenario } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
 	import Doc from '$lib/docs/Doc.svelte';
 
@@ -22,6 +23,7 @@ silently disappearing.
 		title = null,
 		image = null,
 		noteDoc = null,
+		scenario = null,
 		children
 	}: {
 		/** The card's header-tab title. When null, the card has no tab (just the boundary). */
@@ -32,12 +34,27 @@ silently disappearing.
 		 *  (and the card has a title), a clickable info icon in the header opens a modal rendering
 		 *  the doc. The generic "this widget's data has caveats" hook. */
 		noteDoc?: string | null;
+		/** For a per-scenario widget: the kohaku scenario id, so the tab shows its encounter-set
+		 *  icon next to the title (the body omits the scenario name/icon — the frame shows them). */
+		scenario?: string | null;
 		children: Snippet;
 	} = $props();
 
 	// Hide a broken image gracefully so a missing asset degrades to the plain tab.
 	let imageFailed = $state(false);
 	const showImage = $derived(!!image && !imageFailed);
+
+	// The scenario's representative encounter set (when this is a per-scenario widget) — drives
+	// the title-tab icon. Guarded: only kohaku-known scenarios resolve.
+	const KOHAKU = new Set<string>(Object.values(Scenario));
+	const iconSet = $derived.by(() => {
+		if (!scenario || !KOHAKU.has(scenario)) return null;
+		try {
+			return getScenarioData(scenario as Scenario)?.representativeSet ?? null;
+		} catch {
+			return null;
+		}
+	});
 
 	let noteOpen = $state(false);
 </script>
@@ -65,8 +82,13 @@ silently disappearing.
 			<h3
 				class="text-secondary-900 dark:text-secondary-100 dark:text-shadow-primary-900/50 relative z-10 text-lg leading-tight font-semibold"
 			>
-				<div class="bg-primary-100/90 dark:bg-primary-800/80 rounded px-2">
-					{title}
+				<div class="bg-primary-100/90 dark:bg-primary-800/80 flex items-center gap-1.5 rounded px-2">
+					{#if iconSet}
+						<span class="leading-none">
+							<EncounterSetIcon encounterSet={iconSet} />
+						</span>
+					{/if}
+					<span>{title}</span>
 				</div>
 			</h3>
 			{#if noteDoc}

@@ -39,7 +39,7 @@ Mutually-exclusive log sets — at most one of each set should ever be recorded.
   - `campaign_notes.banished_silas_bishop` — the investigators banished Silas Bishop.
   - ✏️
 
-- _extracurricular_activity_ — Warren Rice's fate at Extracurricular Activity: only R1 records warren_rice_rescued; no_resolution/R2/R3/R4 all record warren_rice_kidnapped. These are alternate outcomes of the same scenario, so only one of the two log keys can be true for the character.
+- _extracurricular_activity_ — ❌ **REMOVED (not mutually exclusive).** At EA the fate is set once (R1 rescued; else kidnapped), BUT The Essex County Express `investigator_defeat` re-kidnaps any rescued ally still held (`has_card` 02061 → records warren_rice_kidnapped). So rescued **and** kidnapped legally co-occur (rescue at EA → re-kidnap at ECE), and `findValidatorConflicts` ignores the per-validator `scenario` field. Validator dropped.
   - `campaign_notes.warren_rice_rescued` — the investigators rescued Professor Warren Rice.
   - `campaign_notes.warren_rice_kidnapped` — Professor Warren Rice was kidnapped.
   - ✏️
@@ -49,12 +49,12 @@ Mutually-exclusive log sets — at most one of each set should ever be recorded.
   - `campaign_notes.failed_to_save_students` — the investigators failed to save the students.
   - ✏️
 
-- _the_house_always_wins_ — Francis Morgan's fate at The House Always Wins: only R2 records francis_morgan_rescued while R1/R3/R4/no_resolution record francis_morgan_kidnapped. Alternate outcomes of the same scenario; only one of the two status keys can be recorded.
+- _the_house_always_wins_ — ❌ **REMOVED (not mutually exclusive).** Fate set once at THAW (R2 rescued; else kidnapped), BUT The Essex County Express `investigator_defeat` re-kidnaps a rescued Morgan still held (`has_card` 02080 → records francis_morgan_kidnapped). Rescue at THAW → re-kidnap at ECE → both recorded. Validator dropped.
   - `campaign_notes.francis_morgan_rescued` — the investigators rescued Dr. Francis Morgan.
   - `campaign_notes.francis_morgan_kidnapped` — Dr. Francis Morgan was kidnapped.
   - ✏️
 
-- _armitages_fate_ — Armitage's Fate (Interlude I) is a single branch on unconscious_for_several_hours: the false branch records henry_armitage_rescued, the true branch records henry_armitage_kidnapped. Exactly one branch is taken, so these are mutually exclusive.
+- _armitages_fate_ — ❌ **REMOVED (not mutually exclusive).** Fate set once at Armitage's Fate (rescued vs kidnapped branch), BUT both The Miskatonic Museum and The Essex County Express `investigator_defeat` re-kidnap a rescued Armitage still held (`has_card` 02040 → records henry_armitage_kidnapped). Rescue → re-kidnap → both recorded. Validator dropped.
   - `campaign_notes.henry_armitage_rescued` — the investigators rescued Dr. Henry Armitage.
   - `campaign_notes.henry_armitage_kidnapped` — Dr. Henry Armitage was kidnapped.
   - ✏️

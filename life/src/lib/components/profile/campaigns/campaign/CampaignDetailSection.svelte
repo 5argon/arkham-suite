@@ -3,8 +3,8 @@
 	import { page } from '$app/state';
 	import { getContext } from 'svelte';
 	import { BorderedContainer, HelpParagraph } from '@5argon/arkham-life-ui';
-	import { playedFamiliesFrom, resolveCampaignSlug } from '$lib/campaign/profile-slugs';
-	import { defaultCampaignLayout } from '$lib/campaign/profile-settings';
+	import { playedFamiliesFrom, resolveCampaignSlug } from '$lib/campaign/profile/profile-slugs';
+	import { defaultCampaignLayout } from '$lib/campaign/profile/profile-settings';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import CampaignBanner from '$lib/components/profile/campaigns/campaign/CampaignBanner.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';

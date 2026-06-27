@@ -52,10 +52,7 @@
       "text": "the investigators recovered the Relic of Ages."
     },
     "campaign_notes.harbinger_alive": {
-      "text": "the Harbinger is still alive (#X# damage).",
-      "spoiler": [
-        "the Harbinger"
-      ]
+      "text": "the Harbinger is still alive (#X# damage)."
     },
     "campaign_notes.alejandro_recovered_relic": {
       "text": "Alejandro recovered the Relic of Ages."
@@ -221,6 +218,11 @@
     "binoculars": "Binoculars",
     "chalk": "Chalk",
     "pendant": "Pendant"
+  },
+  "scenarioChoices": {
+    "the_doom_of_eztli.retries": {
+      "label": "Times you replayed The Doom of Eztli"
+    }
   },
   "specialInteractions": {
     "expedition_leader": {

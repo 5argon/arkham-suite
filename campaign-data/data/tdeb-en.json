@@ -43,25 +43,16 @@
       "text": "Randolph survived the descent."
     },
     "campaign_notes.possess_silver_key": {
-      "text": "the investigators possess the Silver Key.",
-      "spoiler": [
-        "the Silver Key"
-      ]
+      "text": "the investigators possess the Silver Key."
     },
     "campaign_notes.randolph_did_not_survive_descent": {
       "text": "Randolph did not survive the descent."
     },
     "campaign_notes.found_a_way_out_of_the_underworld": {
-      "text": "the investigators found a way out of the Underworld.",
-      "spoiler": [
-        "the Underworld"
-      ]
+      "text": "the investigators found a way out of the Underworld."
     },
     "campaign_notes.trapped_in_atlach_nachas_realm": {
-      "text": "the investigators are trapped in Atlach-Nacha's realm.",
-      "spoiler": [
-        "Atlach-Nacha's"
-      ]
+      "text": "the investigators are trapped in Atlach-Nacha's realm."
     },
     "campaign_notes.bridge_was_completed": {
       "text": "the bridge was completed."
@@ -100,10 +91,7 @@
       "text": "the black cat requested aid from the others."
     },
     "campaign_notes.black_cat_shared_knowledge_of_the_underworld": {
-      "text": "the black cat shared knowledge of the Underworld.",
-      "spoiler": [
-        "the Underworld"
-      ]
+      "text": "the black cat shared knowledge of the Underworld."
     },
     "campaign_notes.black_cat_warned_the_others": {
       "text": "the black cat warned the others."

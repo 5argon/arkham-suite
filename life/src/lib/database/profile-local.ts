@@ -31,37 +31,48 @@ import {
 	scenarioTiersFromLogs,
 	scarletKeyBearersFromLogs,
 	erasedFromExistenceFromLogs,
+	possessedInvestigatorsFromLogs,
 	type LocalLog,
-} from '$lib/campaign/recorded-state';
+} from '$lib/campaign/records/recorded-state';
 import {
 	aggregateOfficialTiered,
 	type CampaignRecord,
 	type ProfileFamily,
-} from '$lib/campaign/achievement-aggregate';
+} from '$lib/campaign/achievements/achievement-aggregate';
 import {
 	buildFullClearGrid,
 	buildWinLossRecord,
 	buildEndings,
 	playClearState,
-} from '$lib/campaign/clear-status';
-import { filterTrackedRecords, groupTracked, tierTracked } from '$lib/campaign/tracking';
-import { buildCollections } from '$lib/campaign/collections';
-import { buildScenarioXp } from '$lib/campaign/extra-imports';
-import { buildResolutionCoverage } from '$lib/campaign/resolution-coverage';
-import { buildStandaloneUsage } from '$lib/campaign/standalone-usage';
-import { buildTraumaTally, attributeTraumaInvestigators } from '$lib/campaign/trauma';
-import { buildEoeCity } from '$lib/campaign/eoe-city';
-import { buildEoe, countEoeMementosEarned } from '$lib/campaign/eoe';
-import { buildTsk } from '$lib/campaign/tsk-profile';
-import { applyTskTierResolutionInference } from '$lib/campaign/tsk-solver';
+} from '$lib/campaign/outcomes/clear-status';
+import { filterTrackedRecords, groupTracked, tierTracked } from '$lib/campaign/records/tracking';
+import { buildCollections } from '$lib/campaign/stats/collections';
+import { buildScenarioStats } from '$lib/campaign/stats/scenario-stats';
+import { buildStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
+import { buildStandaloneArchives } from '$lib/campaign/outcomes/standalone-archives';
+import { buildTraumaTally, attributeTraumaInvestigators } from '$lib/campaign/outcomes/trauma';
+import { buildEoe, countEoeMementosEarned } from '$lib/campaign/campaigns/eoe';
+import { buildTsk } from '$lib/campaign/campaigns/tsk-profile';
+import { buildDwl } from '$lib/campaign/campaigns/dwl';
+import { buildPtc } from '$lib/campaign/campaigns/ptc';
+import { buildTfa } from '$lib/campaign/campaigns/tfa';
+import { buildTcu } from '$lib/campaign/campaigns/tcu';
+import { buildTdea } from '$lib/campaign/campaigns/tdea';
+import { buildTdeb } from '$lib/campaign/campaigns/tdeb';
+import { buildTic } from '$lib/campaign/campaigns/tic';
+import { buildFhv } from '$lib/campaign/campaigns/fhv';
+import { buildTdc } from '$lib/campaign/campaigns/tdc';
+import { buildNotz } from '$lib/campaign/campaigns/notz';
+import { familyOf } from '$lib/campaign/records/campaign-family';
+import { applyTskTierResolutionInference } from '$lib/campaign/campaigns/tsk-solver';
 import {
 	buildSpecialInteractions,
 	resolveSpecialInteractions,
 	type CardLookup,
-} from '$lib/campaign/special-interactions';
+} from '$lib/campaign/outcomes/special-interactions';
 import { createCardResolver, getAllCards } from '$lib/card-data';
-import { buildCoverage, evaluateCustomAchievements } from '$lib/campaign/custom-achievements';
-import { resolveProfileSettings, type CampaignGroup, type DifficultyTier, type ProfileSettings } from '$lib/campaign/profile-settings';
+import { buildCoverage, evaluateCustomAchievements } from '$lib/campaign/achievements/custom-achievements';
+import { resolveProfileSettings, type CampaignGroup, type DifficultyTier, type ProfileSettings } from '$lib/campaign/profile/profile-settings';
 import {
 	accessorySlotCodeSet,
 	allySlotCodeSet,
@@ -72,7 +83,7 @@ import {
 	insightTrackedCodeSet,
 	specialistCodeSet,
 	viciousBlowDeductionEligibility,
-} from '$lib/campaign/card-filters';
+} from '$lib/campaign/utils/card-filters';
 import type {
 	CalendarEntry,
 	InvestigatorStat,
@@ -124,7 +135,8 @@ interface AhdbSlots {
 
 // Keep `[token]` icon markers (rendered as glyphs by parseArkhamMarkup at display —
 // e.g. Trust Nobody's [elder_thing]); only strip HTML emphasis + unwrap card links.
-function cleanText(t: string): string {
+// Exported so the compiled-profile HYDRATOR re-cleans achievement text identically.
+export function cleanText(t: string): string {
 	return t
 		.replace(/<\/?[ib]>/g, '')
 		.replace(/\[\[([^\]]+)\]\]/g, '$1')
@@ -223,10 +235,14 @@ function recordFor(
 		scenarioTiers,
 		scarletKeyBearers: scarletKeyBearersFromLogs(log, localLogs),
 		erasedCards: erasedFromExistenceFromLogs(localLogs),
+		possessedInvestigators: possessedInvestigatorsFromLogs(localLogs),
 		subjectInvestigators: subjectInvestigators(c, uids),
 		finishDate: c.finishDate ?? null,
 		playerCount: resolvePlayerCount(c.playerCount, c.participants.length),
 		multiHanded: c.multiHanded,
+		// The Dream-Eaters Linked Campaign Log: project the transcribed sibling entries to a
+		// composite-key set the shared TDE widgets read as the other-campaign axis.
+		linked: new Set((c.linkedLog ?? []).map((e) => e.key)),
 	};
 }
 
@@ -241,6 +257,13 @@ function subjectRecords(doc: DatabaseDocument, uids: Set<string> | null): Campai
 	}
 	return records;
 }
+
+/** The subject's standalone-mode plays (the separate `doc.standalones` array). Raw
+ *  records — the standalone aggregate reads their logs + decks directly. */
+function subjectStandaloneRecords(doc: DatabaseDocument, uids: Set<string> | null) {
+	return (doc.standalones ?? []).filter((s) => campaignInSubject(s, uids));
+}
+
 
 /** Build achievements data (families / custom / coverage). */
 function buildAchievementsData(records: CampaignRecord[]): ProfileAchievementsData {
@@ -329,18 +352,19 @@ function buildMetaSegment(
 			!groupTracked(c.campaignCode, trackedGroups)
 		)
 			continue;
-		const recorded = toRecordedState(log, toLocalLogs(c), { difficulty: c.difficulty });
+		const localLogs = toLocalLogs(c);
+		const recorded = toRecordedState(log, localLogs, { difficulty: c.difficulty });
 		const finish = c.finishDate ?? null;
 		const start = c.startDate ?? null;
 		calendar.push({
 			campaignId: c.id,
 			title: c.title,
 			campaignCode: c.campaignCode,
-			family: log.db.originalId ?? log.db.code,
+			family: familyOf(log),
 			difficulty: c.difficulty,
 			date: finish ?? start,
 			dateKind: finish !== null ? 'finish' : start !== null ? 'start' : null,
-			state: playClearState(log, recorded),
+			state: playClearState(log, recorded, scenarioChoicesFromLogs(localLogs)),
 		});
 	}
 	calendar.sort((a, b) => (a.date ?? Infinity) - (b.date ?? Infinity));
@@ -374,13 +398,28 @@ function buildLogsSegment(
 		winLossRecord: buildWinLossRecord(records),
 		endings: buildEndings(records),
 		collections: buildCollections(records),
-		scenarioXp: buildScenarioXp(records),
-		resolutionCoverage: buildResolutionCoverage(records),
+		scenarios: buildScenarioStats(records),
 		standaloneUsage: buildStandaloneUsage(records),
+		// First-class Standalone Archives — a SEPARATE record array, so campaign builders
+		// above never see them (and aren't tier/group-filtered: standalones are their own dimension).
+		// Card XP map built from the already-cached getAllCards() (cheap; only runs on rebuild).
+		standalones: buildStandaloneArchives(
+			subjectStandaloneRecords(doc, uids),
+			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0])),
+		),
 		traumaTally: buildTraumaTally(records),
-		eoeCity: buildEoeCity(records),
 		eoe: buildEoe(records),
 		tsk: buildTsk(records),
+		dwl: buildDwl(records),
+		ptc: buildPtc(records),
+		tfa: buildTfa(records),
+		tcu: buildTcu(records),
+		tdea: buildTdea(records),
+		tdeb: buildTdeb(records),
+		tic: buildTic(records),
+		fhv: buildFhv(records),
+		tdc: buildTdc(records),
+		notz: buildNotz(records),
 		specialInteractions: buildSpecialInteractions(records),
 	};
 }
@@ -462,7 +501,11 @@ function buildCardsSegment(doc: DatabaseDocument, uids: Set<string> | null): Car
 	// folded after the loop into each option's count + 3 most-recent distinct investigators.
 	const custOptEvents = new Map<string, { inv: CardCode; date: number }[]>();
 
-	for (const c of doc.campaigns) {
+	// Card + investigator usage spans BOTH campaign and standalone-mode decks — a card
+	// you played is a card you played, regardless of mode. (Campaign-only stats live in
+	// the logs/meta segments, which never see standalone records.) usedOnce context that
+	// lands on a standalone id is simply skipped at assembly (resolveUsedOnce).
+	for (const c of [...doc.campaigns, ...(doc.standalones ?? [])]) {
 		if (c.draft || !campaignInSubject(c, uids)) continue;
 		const campaignInvs = subjectInvestigators(c, uids);
 		if (campaignInvs.length) investigatorsByCampaign[c.id] = campaignInvs;
@@ -779,12 +822,21 @@ function logsSig(doc: DatabaseDocument, uids: Set<string> | null, ownedProducts:
 			[c.id, c.campaignCode, c.difficulty, c.playerCount ?? 'auto', c.multiHanded ?? false, logsToken(c), manual].join('§'),
 		);
 	}
+	// Standalone archives feed the logs segment's `standalones` aggregate — fold in their
+	// logs (resolution / score) AND decks (the XP-range tier) so any edit rebuilds it.
+	for (const s of doc.standalones ?? []) {
+		if (!campaignInSubject(s, uids)) continue;
+		const decks = s.decks.map((d) => d.versions.map((v) => v.ahdbJson).join('~')).join('|');
+		parts.push(['SA', s.id, s.scenario, s.campaignCode, s.difficulty, logsToken(s), decks].join('§'));
+	}
 	return hashString(parts.join('¶'));
 }
 
 function cardsSig(doc: DatabaseDocument, uids: Set<string> | null): string {
 	const parts: string[] = [];
-	for (const c of doc.campaigns) {
+	// Card/investigator usage spans campaign AND standalone decks (see buildCardsSegment),
+	// so a standalone deck edit must invalidate this segment too.
+	for (const c of [...doc.campaigns, ...(doc.standalones ?? [])]) {
 		if (c.draft || !campaignInSubject(c, uids)) continue;
 		for (const d of c.decks) {
 			if (!deckInSubject(d.ownerUid, uids)) continue;
@@ -952,9 +1004,9 @@ export function assemblePayload(
 		winLossRecord: seg.logs.winLossRecord,
 		endings: seg.logs.endings,
 		collections: seg.logs.collections,
-		scenarioXp: seg.logs.scenarioXp,
-		resolutionCoverage: seg.logs.resolutionCoverage,
+		scenarios: seg.logs.scenarios,
 		standaloneUsage: seg.logs.standaloneUsage,
+		standalones: seg.logs.standalones,
 		// Per-investigator trauma joins the logs segment's events (campaignId +
 		// all-target flags) with the cards segment's per-campaign investigator map.
 		traumaTally: {
@@ -964,7 +1016,6 @@ export function assemblePayload(
 				seg.cards.investigatorsByCampaign,
 			),
 		},
-		eoeCity: seg.logs.eoeCity,
 		// `mementosEarned` is deck-derived (the eoe builder has no card data), so it's
 		// filled here from the cards segment's cardUsage — like traumaTally's perInvestigator.
 		eoe: seg.logs.eoe.map((e) => ({
@@ -972,6 +1023,16 @@ export function assemblePayload(
 			mementosEarned: countEoeMementosEarned(seg.cards.cardUsage),
 		})),
 		tsk: seg.logs.tsk,
+		dwl: seg.logs.dwl,
+		ptc: seg.logs.ptc,
+		tfa: seg.logs.tfa,
+		tcu: seg.logs.tcu,
+		tdea: seg.logs.tdea,
+		tdeb: seg.logs.tdeb,
+		tic: seg.logs.tic,
+		fhv: seg.logs.fhv,
+		tdc: seg.logs.tdc,
+		notz: seg.logs.notz,
 		// Special interactions join the logs partial with the per-campaign roster
 		// (cards segment) + card class/traits, exactly like per-investigator trauma.
 		specialInteractions: resolveSpecialInteractions(

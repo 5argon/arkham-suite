@@ -26,7 +26,7 @@ Campaign Archive's chaos-bag editor) followed by `×count`.
 
 <div class="flex items-center gap-3">
 	<span
-		class="text-primary-600 dark:text-primary-300 {labelClass} shrink-0 text-sm font-semibold leading-tight"
+		class="text-primary-600 dark:text-primary-300 {labelClass} shrink-0 text-sm leading-tight font-semibold"
 	>
 		{label}
 	</span>

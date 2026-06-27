@@ -8,7 +8,7 @@ the default per-card rows with deck-diversity conditions: ran 3 different / all 
 <script lang="ts">
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import type { InsightDeck } from '$lib/profile/profile-types';
-	import { coreCantripCards, qualifyingInvestigators } from '$lib/campaign/card-filters';
+	import { coreCantripCards, qualifyingInvestigators } from '$lib/campaign/utils/card-filters';
 	import SkillSpotlightView from '$lib/components/profile/cards/skill/SkillSpotlightView.svelte';
 
 	let {

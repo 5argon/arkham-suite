@@ -31,16 +31,25 @@ import type {
 	ProfileAchievementsData,
 	ProfileCampaign,
 } from '$lib/profile/profile-types';
-import type { ClearGridRow, WinLossRecord, CampaignEndings } from '$lib/campaign/clear-status';
-import type { CampaignCollections } from '$lib/campaign/collections';
-import type { CampaignScenarioXp } from '$lib/campaign/extra-imports';
-import type { CampaignResolutionCoverage } from '$lib/campaign/resolution-coverage';
-import type { CampaignStandaloneUsage } from '$lib/campaign/standalone-usage';
-import type { TraumaTally } from '$lib/campaign/trauma';
-import type { CampaignEoeCity } from '$lib/campaign/eoe-city';
-import type { CampaignEoe } from '$lib/campaign/eoe';
-import type { CampaignTsk } from '$lib/campaign/tsk-profile';
-import type { SpecialInteractionsPartial } from '$lib/campaign/special-interactions';
+import type { ClearGridRow, WinLossRecord, CampaignEndings } from '$lib/campaign/outcomes/clear-status';
+import type { CampaignCollections } from '$lib/campaign/stats/collections';
+import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
+import type { CampaignStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
+import type { StandaloneArchiveStat } from '$lib/campaign/outcomes/standalone-archives';
+import type { TraumaTally } from '$lib/campaign/outcomes/trauma';
+import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
+import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
+import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
+import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
+import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
+import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
+import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
+import type { CampaignTic } from '$lib/campaign/campaigns/tic';
+import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
+import type { CampaignTdc } from '$lib/campaign/campaigns/tdc';
+import type { CampaignNotz } from '$lib/campaign/campaigns/notz';
+import type { SpecialInteractionsPartial } from '$lib/campaign/outcomes/special-interactions';
 
 /** Bump to invalidate EVERY cached segment at once (e.g. when a builder's
  *  output shape or logic changes). Stored alongside the cache; a mismatch
@@ -237,7 +246,85 @@ import type { SpecialInteractionsPartial } from '$lib/campaign/special-interacti
  *  76→77: each `InsightDeck` now carries `cantripMax` (most distinct core cantrips in a SINGLE
  *  deck version) so the cantrip-diversity rows count per-version, not across the upgrade-chain
  *  union. Rebuild. */
-export const CACHE_VERSION = 77;
+/*  77→78: added the `dwl` blob — The Dunwich Legacy bespoke per-scenario tallies (openers
+ *  order, kidnapped scholars, sacrifices, Necronomicon, broods, Ascending the Hill, finale). */
+/*  78→79: added the `ptc` blob — The Path to Carcosa bespoke per-scenario tallies. */
+/*  79→80: added the `tfa` blob — The Forgotten Age bespoke per-scenario tallies. */
+/*  80→81: added the `tcu` blob — The Circle Undone bespoke per-scenario tallies. */
+/*  81→82: added the `tdea` + `tdeb` blobs — The Dream-Eaters (The Dream-Quest + The Web of
+ *  Dreams) bespoke per-scenario tallies, each carrying the shared interconnected view
+ *  (play mode, the Black Cat, the Silver Key, Randolph, the epilogue matrix). */
+/*  82→83: added the `tic` blob — The Innsmouth Conspiracy bespoke per-scenario tallies
+ *  (memories, the seven-key finale gate, equipment, Harper, per-scenario, finale). */
+/*  83→84: added the `fhv` blob — The Feast of Hemlock Vale bespoke per-scenario tallies
+ *  (areas/schedule, 8 villager relationships, Fate of the Vale, the Hemlock curse). */
+/*  84→85: added the `tdc` blob — The Drowned City bespoke per-scenario tallies
+ *  (the Fold, 26 glyphs by scenario, 6 artifacts, side tasks, the Sepulchre better
+ *  ending, per-scenario forks, the Doom of Arkham finale). */
+/*  85→86: Return-to campaigns are now FIRST-CLASS families (keyed by their own code,
+ *  no longer folded into the base via `originalId`) — family values across the payload
+ *  change (rtdwl/rtptc/rttfa/rttcu/rtnotz become their own families). */
+/*  86→87: added the `notz` blob — The Night of the Zealot bespoke per-scenario tallies
+ *  (The Gathering / The Midnight Masks / The Devourer Below). */
+/*  87→88: PtC blob extended (Unspeakable Oath insanity, Echoes per-player-count table,
+ *  Last King slain-at-party VIPs) + Dim Carcosa `possessed` removed from win endings. */
+/*  88→89: resolutionCoverage scenarios gained per-scenario `succeed`/`failed` tallies
+ *  (generic, from campaign-data `resolutionOutcomes`) — feeds the scenario passport. */
+/*  89→90: added the unified `scenarios` structure (one per-scenario record per campaign) — the
+ *  single per-scenario source superseding scenarioXp + resolutionCoverage. */
+/*  90→91: removed the now-redundant scenarioXp + resolutionCoverage structures — `scenarios` is
+ *  the sole per-scenario source. */
+/*  91→92: PtC runs gained tokenRoute / outcome / difficulty; added dcSources +
+ *  tokenScenarioMixes (Doubt/Conviction per-change + chaos-token per-scenario coverage). */
+/*  94→95: PtC Act-version serialization (runs' phantomVersion/oathVersion, per-version tallies on
+ *  Phantom + Unspeakable Oath) and `vipHelp` (per home scenario: interview-bonus + slain-here). */
+/*  95→96: `ScenarioStat` gained the unified `versions` per-version breakdown (the shared version table source). */
+/*  96→97: retired the bespoke per-version blobs (eoeCity matrix, PtC phantom/oath versions, DWL
+ *  ascendingHill) — all superseded by `ScenarioStat.versions`. */
+/*  97→98: PtC `vipHelp` bonus / slainHere are now `{ total, byTier }` (per-difficulty hover on the
+ *  VIP header counts). */
+/*  98→99: retired TSK's `scenarioVariant{Tallies,Plays,Outcomes}` — its version + tier rows now ride
+ *  the unified `ScenarioStat.versions` (multi-axis registry entry). */
+/*  99→100: PtC `randomizedWeaknesses` is now `{ weakness, bearer, count }[]` (grouped by weakness +
+ *  drawing investigator) instead of a `code→count` map. */
+/*  100→101: PtC chaos-token route ends at the terminal scenario (Carcosa merged ⇒ Black Stars Rise);
+ *  coverage counts only completed (win/loss) runs and no longer lists a receiver "base" mix. */
+/*  101→102: PtC random-weakness draws are scoped to the viewed subject's investigators (a teammate's
+ *  attributed weakness no longer shows on a single-player profile). */
+/*  102→103: PtC Echoes `byPlayerCount` carries resolution-derived `{ succeed, failed, tallies }` per
+ *  player count (Succeed / Failed via the shared version breakdown) instead of `{ plays, resolutions }`. */
+/*  103→104: PtC Doubt/Conviction runs dropped the chain-vs-meter consistency fields (`consistent` /
+ *  `recordedConviction` / `recordedDoubt`) — the mismatch warning is gone from the profile UI. */
+/*  104→105: logs segment gained `standalones` — per-scenario aggregation of the first-class
+ *  Standalone Archives (the separate `doc.standalones` array): plays, Standalone-Mode win/loss,
+ *  resolution coverage, best score, and the deck XP-range distribution. `logsSig` now also folds in
+ *  the standalone records. Old caches lack the field → rebuild. */
+/*  105→106: PtC Curtain Call's Stranger-defeat highscore is derived from the warn-police resolution
+ *  (no longer a manual Extra counter), so the `ptc` blob's `strangerByScenario` recomputes. */
+/*  106→107: PtC investigator codes (insane / possessed / weakness bearer) canonicalized to the base
+ *  printing — parallel / promo investigators match the roster instead of falling through. */
+/*  107→108: PtC chaos-token route carries the bag forward (a no-token transition keeps the previous
+ *  mix), so the `ptc` blob's tokenRoute + tokenScenarioMixes recompute. */
+/*  108→109: PtC Dim Carcosa blob gained `strangerArrivalDoom` (plays per agenda-1a doom tier from the
+ *  Chasing-the-Stranger tally at arrival), so the `ptc` blob recomputes. */
+/*  109→110: PtC `ptc` blob reshaped — Curtain Call `didntReachAct2b` (was `strangerOnToYou`),
+ *  `strangerByScenario` lists every scenario (0 defeats included), and Pallid Mask / Black Stars Rise
+ *  `randomizedWeaknesses` are per-draw dated entries (newest first) — so the blob recomputes. */
+/*  110→111: PtC Dim Carcosa `strangerArrivalDoom` reshaped to per-doom-tier `{ succeed, failed, tallies }`
+ *  (Succeed / Failed / Resolutions per-version breakdown, doom tier as the axis), so the blob recomputes. */
+/*  111→112: campaign-data fix — PtC Dim Carcosa R2 verdict corrected `neutral` → `win` (it records
+ *  prevented_hasturs_escape + ends on a `win` step; "you take the stage" is still a campaign win). The
+ *  resolution verdict feeds the doom table + Hastur version table Succeed/Failed, so the blob recomputes. */
+/*  112→113: PtC A Phantom of Truth version values corrected to match the game's check_doubt_and_conviction
+ *  branch — Doubt/tie lean → v.I (was mislabeled v.II), Conviction lean → v.II — so the `scenarios`
+ *  version buckets flip and recompute. (The per-version resolution filtering itself is render-time.) */
+/*  113→114: PtC possessed investigators move to the log (the repeatable `possessed` #name# picks) +
+ *  reshape to a dated `{ code, finishDate }[]`; the record gained `possessedInvestigators`, so recompute. */
+/*  114→115: PtC VIP tallies widened to `TierCount` (per-difficulty hover) + `lastKing.mostSlainInRun`
+ *  added, so the `ptc` blob recomputes. */
+/*  115→116: PtC blob trimmed/reshaped — Curtain Call didntReachAct2b + Pallid knowSiteOfGate removed,
+ *  Oath insane list dated, BSR/Dim Carcosa carcosa_merged discriminated by resolution — so it recomputes. */
+export const CACHE_VERSION = 116;
 
 /** The cache key for the account-wide profile. */
 export const ACCOUNT_SUBJECT = '__account__';
@@ -257,13 +344,23 @@ export interface LogsSegmentData {
 	winLossRecord: WinLossRecord[];
 	endings: CampaignEndings[];
 	collections: CampaignCollections[];
-	scenarioXp: CampaignScenarioXp[];
-	resolutionCoverage: CampaignResolutionCoverage[];
+	scenarios: CampaignScenarios[];
 	standaloneUsage: CampaignStandaloneUsage[];
+	/** First-class Standalone Archive aggregates (the separate `doc.standalones` array). */
+	standalones: StandaloneArchiveStat[];
 	traumaTally: TraumaTally;
-	eoeCity: CampaignEoeCity[];
 	eoe: CampaignEoe[];
 	tsk: CampaignTsk[];
+	dwl: CampaignDwl[];
+	ptc: CampaignPtc[];
+	tfa: CampaignTfa[];
+	tcu: CampaignTcu[];
+	tdea: CampaignTdea[];
+	tdeb: CampaignTdeb[];
+	tic: CampaignTic[];
+	fhv: CampaignFhv[];
+	tdc: CampaignTdc[];
+	notz: CampaignNotz[];
 	/** Roster-free special-interactions partials; roster joined at assembly. */
 	specialInteractions: SpecialInteractionsPartial[];
 }

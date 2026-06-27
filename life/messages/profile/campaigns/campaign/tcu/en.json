@@ -1,5 +1,80 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"campaign_tcu_rare_endings_triggered": "triggered",
-	"campaign_tcu_rare_endings_never_seen": "never seen"
+
+	"campaign_tcu_alleg_lodge": "Sided with the Lodge",
+	"campaign_tcu_alleg_coven": "Sided with the Coven",
+	"campaign_tcu_alleg_members": "Members of the Lodge",
+	"campaign_tcu_alleg_enemies": "Enemies of the Lodge",
+	"campaign_tcu_alleg_deceiving": "Deceiving the Lodge",
+	"campaign_tcu_alleg_told": "Told the Lodge about the Coven",
+	"campaign_tcu_alleg_hid": "Hid the Coven from the Lodge",
+	"campaign_tcu_alleg_empty": "Play The Circle Undone to see where your loyalties fall.",
+
+	"campaign_tcu_person_05046": "Gavriella Mizrah",
+	"campaign_tcu_person_05047": "Jerome Davids",
+	"campaign_tcu_person_05048": "Valentino Rivas",
+	"campaign_tcu_person_05049": "Penny White",
+	"campaign_tcu_fate_taken_by_the_watcher": "Taken by the Watcher",
+	"campaign_tcu_fate_claimed_by_specters": "Claimed by specters",
+	"campaign_tcu_fate_disappeared_into_the_mist": "Disappeared into the mist",
+	"campaign_tcu_fate_pulled_into_the_spectral_realm": "Pulled into the spectral realm",
+	"campaign_tcu_person_trail": "Trail picked up {times}",
+	"campaign_tcu_person_none": "No record yet",
+	"campaign_tcu_persons_empty": "Play the prologue to track the missing.",
+
+	"campaign_tcu_mementos_empty": "Discover mementos to fill the collection.",
+	"campaign_tcu_mementos_coverage": "Mementos discovered",
+	"campaign_tcu_memento_mesmerizing_flute": "Mesmerizing Flute",
+	"campaign_tcu_memento_ritual_components": "Ritual Components",
+	"campaign_tcu_memento_scrap_of_torn_shadow": "Scrap of Torn Shadow",
+	"campaign_tcu_memento_gilmans_journal": "Gilman's Journal",
+	"campaign_tcu_memento_keziahs_formulae": "Keziah's Formulae",
+	"campaign_tcu_memento_worn_crucific": "Worn Crucifix",
+	"campaign_tcu_memento_corn_husk_doll": "Corn Husk Doll",
+	"campaign_tcu_memento_wisp_of_spectral_mist": "Wisp of Spectral Mist",
+	"campaign_tcu_memento_strange_incantation": "Strange Incantation",
+	"campaign_tcu_memento_bloody_tree_carvings": "Bloody Tree Carvings",
+
+	"campaign_tcu_witch_accepted": "Accepted your fate",
+	"campaign_tcu_witch_rejected": "Rejected your fate",
+	"campaign_tcu_witch_broken": "Broke the witches' spell",
+	"campaign_tcu_witch_cast": "The spell was cast",
+	"campaign_tcu_witch_empty": "Play The Witching Hour to track it.",
+
+	"campaign_tcu_doorstep_escaped": "Escaped the spectral realm",
+	"campaign_tcu_doorstep_learned_nothing": "Learned nothing of the schemes",
+	"campaign_tcu_doorstep_never_seen": "Party lost (never seen again)",
+	"campaign_tcu_doorstep_empty": "Play At Death's Doorstep to track it.",
+
+	"campaign_tcu_secret_told": "Told the Lodge about the Coven",
+	"campaign_tcu_secret_hid": "Hid the Coven",
+	"campaign_tcu_secret_empty": "Play The Secret Name to track it.",
+
+	"campaign_tcu_wages_heretics": "Most heretics released",
+	"campaign_tcu_wages_watcher": "Survived the Watcher's embrace",
+	"campaign_tcu_wages_empty": "Play The Wages of Sin to track it.",
+
+	"campaign_tcu_greater_box": "Opened the puzzle box",
+	"campaign_tcu_greater_emerged": "Guardian emerged",
+	"campaign_tcu_greater_defeated": "Guardian defeated",
+	"campaign_tcu_greater_empty": "Play For the Greater Good to track it.",
+
+	"campaign_tcu_clutches_asked_anette": "Asked Anette",
+	"campaign_tcu_clutches_asked_sanford": "Asked Sanford",
+	"campaign_tcu_clutches_arrested_anette": "Arrested Anette",
+	"campaign_tcu_clutches_arrested_sanford": "Arrested Sanford",
+	"campaign_tcu_clutches_control": "Assumed control of the Lodge",
+	"campaign_tcu_clutches_empty": "Play In the Clutches of Chaos to track it.",
+
+	"campaign_tcu_union_sanford": "Sanford possesses the secrets",
+	"campaign_tcu_union_anette": "Anette possessed by evil",
+	"campaign_tcu_union_empty": "Reach Union and Disillusion to track it.",
+
+	"campaign_tcu_end_lodge": "Lodge victory (ended early)",
+	"campaign_tcu_end_coven": "Coven victory (ended early)",
+	"campaign_tcu_end_devoured": "Azathoth devoured the universe",
+	"campaign_tcu_end_pipers": "Slumbers — joined the Pipers",
+	"campaign_tcu_end_black_book": "Slumbers — signed the Black Book",
+	"campaign_tcu_end_clean": "Azathoth slumbers",
+	"campaign_tcu_end_empty": "Reach an ending to tally it."
 }

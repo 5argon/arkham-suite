@@ -458,7 +458,7 @@
       }
     },
     "congress_of_the_keys.desi_identity": {
-      "label": "(If Desi is in your debt) The back side of Desi is:",
+      "label": "The back side of Desi is",
       "options": {
         "real": "Story asset",
         "impostor": "Encounter card"

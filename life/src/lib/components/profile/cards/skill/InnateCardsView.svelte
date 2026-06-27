@@ -7,7 +7,7 @@ SkillSpotlightView fixed to the Innate spotlight set.
 <script lang="ts">
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import type { InsightDeck } from '$lib/profile/profile-types';
-	import { innateCards } from '$lib/campaign/card-filters';
+	import { innateCards } from '$lib/campaign/utils/card-filters';
 	import SkillSpotlightView from '$lib/components/profile/cards/skill/SkillSpotlightView.svelte';
 
 	let {

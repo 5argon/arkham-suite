@@ -112,10 +112,7 @@
       "text": "the investigators made it safely to their vehicles."
     },
     "campaign_notes.innsmouth_was_consumed_by_the_rising_tide": {
-      "text": "Innsmouth was consumed by the rising tide.",
-      "spoiler": [
-        "consumed by the rising tide"
-      ]
+      "text": "Innsmouth was consumed by the rising tide."
     },
     "campaign_notes.tide_has_grown_stronger": {
       "text": "the tide has grown stronger."
@@ -130,16 +127,10 @@
       "text": "discovery of a mystical relic"
     },
     "campaign_notes.terror_of_devil_reef_is_still_alive": {
-      "text": "the Terror of Devil Reef is still alive.",
-      "spoiler": [
-        "the Terror of Devil Reef"
-      ]
+      "text": "the Terror of Devil Reef is still alive."
     },
     "campaign_notes.terror_of_devil_reef_is_dead": {
-      "text": "the Terror of Devil Reef is dead.",
-      "spoiler": [
-        "the Terror of Devil Reef"
-      ]
+      "text": "the Terror of Devil Reef is dead."
     },
     "campaign_notes.idol_brought_to_the_lighthouse": {
       "text": "the idol was brought to the lighthouse."
@@ -166,67 +157,40 @@
       "text": "#name# possesses a diving suit."
     },
     "campaign_notes.possess_a_map_of_yhanthlei": {
-      "text": "the investigators possess a map of Y'ha-nthlei.",
-      "spoiler": [
-        "Y'ha-nthlei"
-      ]
+      "text": "the investigators possess a map of Y'ha-nthlei."
     },
     "campaign_notes.possess_the_key_to_yhanthlei": {
-      "text": "the investigators possess the key to Y'ha-nthlei.",
-      "spoiler": [
-        "Y'ha-nthlei"
-      ]
+      "text": "the investigators possess the key to Y'ha-nthlei."
     },
     "campaign_notes.dagon_has_awakened": {
-      "text": "Dagon has awakened.",
-      "spoiler": [
-        "Dagon"
-      ]
+      "text": "Dagon has awakened."
     },
     "campaign_notes.gatekeeper_has_been_defeated": {
-      "text": "the gatekeeper has been defeated.",
-      "spoiler": [
-        "the gatekeeper"
-      ]
+      "text": "the gatekeeper has been defeated."
     },
     "campaign_notes.orders_ritual_was_disrupted": {
       "text": "the Order's ritual was disrupted."
     },
     "campaign_notes.dagon_still_slumbers": {
-      "text": "Dagon still slumbers.",
-      "spoiler": [
-        "Dagon"
-      ]
+      "text": "Dagon still slumbers."
     },
     "campaign_notes.guardian_of_yhanthlei_is_dispatched": {
-      "text": "the guardian of Y’ha-nthlei is dispatched.",
-      "spoiler": [
-        "the guardian of Y’ha-nthlei"
-      ]
+      "text": "the guardian of Y’ha-nthlei is dispatched."
     },
     "campaign_notes.gateway_to_yhanthlei_recognizes_you_as_its_rightful_keeper": {
-      "text": "the gateway to Y’ha-nthlei recognizes you as its rightful keeper",
-      "spoiler": [
-        "Y’ha-nthlei"
-      ]
+      "text": "the gateway to Y’ha-nthlei recognizes you as its rightful keeper"
     },
     "memories_recovered.stinging_betrayal": {
       "text": "a stinging betrayal"
     },
     "campaign_notes.escaped_yhanthlei": {
-      "text": "the investigators escaped Y'ha-nthlei.",
-      "spoiler": [
-        "Y'ha-nthlei"
-      ]
+      "text": "the investigators escaped Y'ha-nthlei."
     },
     "campaign_notes.flood_has_begun": {
       "text": "the flood has begun."
     },
     "campaign_notes.plot_of_the_deep_ones_was_thwarted": {
-      "text": "the plot of the Deep Ones was thwarted.",
-      "spoiler": [
-        "the Deep Ones"
-      ]
+      "text": "the plot of the Deep Ones was thwarted."
     },
     "campaign_notes.agent_harpers_mission_is_complete": {
       "text": "Agent Harper's mission is complete."
@@ -241,10 +205,7 @@
       "text": "the riches of the deep are destroyed… but at what cost?"
     },
     "campaign_notes.deep_ones_have_flooded_the_earth": {
-      "text": "the Deep Ones have flooded the Earth.",
-      "spoiler": [
-        "the Deep Ones"
-      ]
+      "text": "the Deep Ones have flooded the Earth."
     },
     "memories_recovered.horrific_truth": {
       "text": "the horrific truth"

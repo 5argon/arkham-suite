@@ -36,10 +36,7 @@
       "text": "the students were rescued."
     },
     "campaign_notes.experiment_defeated": {
-      "text": "the Experiment was defeated.",
-      "spoiler": [
-        "the Experiment"
-      ]
+      "text": "the Experiment was defeated."
     },
     "campaign_notes.unconscious_for_several_hours": {
       "text": "the investigators were unconscious for several hours."
@@ -51,49 +48,31 @@
       "text": "the investigators failed to save the students."
     },
     "campaign_notes.bone_to_pick": {
-      "text": "the O'Bannion gang has a bone to pick with the investigators.",
-      "spoiler": [
-        "O'Bannion"
-      ]
+      "text": "the O'Bannion gang has a bone to pick with the investigators."
     },
     "campaign_notes.francis_morgan_kidnapped": {
       "text": "Dr. Francis Morgan was kidnapped."
     },
     "campaign_notes.naomi_has_back": {
-      "text": "Naomi has the investigators' back.",
-      "spoiler": [
-        "Naomi"
-      ]
+      "text": "Naomi has the investigators' back."
     },
     "campaign_notes.francis_morgan_rescued": {
       "text": "the investigators rescued Dr. Francis Morgan."
     },
     "campaign_notes.failed_to_recover_necronomicon": {
-      "text": "the investigators failed to recover the Necronomicon.",
-      "spoiler": [
-        "the Necronomicon"
-      ]
+      "text": "the investigators failed to recover the Necronomicon."
     },
     "campaign_notes.destroyed_necronomicon": {
-      "text": "the investigators destroyed the Necronomicon.",
-      "spoiler": [
-        "the Necronomicon"
-      ]
+      "text": "the investigators destroyed the Necronomicon."
     },
     "campaign_notes.took_necronomicon": {
-      "text": "the investigators took custody of the Necronomicon.",
-      "spoiler": [
-        "the Necronomicon"
-      ]
+      "text": "the investigators took custody of the Necronomicon."
     },
     "campaign_notes.investigators_delayed": {
       "text": "the investigators were delayed on their way to Dunwich."
     },
     "campaign_notes.necronomicon_stolen": {
-      "text": "the Necronomicon was stolen.",
-      "spoiler": [
-        "the Necronomicon"
-      ]
+      "text": "the Necronomicon was stolen."
     },
     "campaign_notes.henry_armitage_kidnapped": {
       "text": "Dr. Henry Armitage was kidnapped."
@@ -102,22 +81,13 @@
       "text": "the ritual was completed."
     },
     "campaign_notes.killed_silas_bishop": {
-      "text": "the investigators put Silas Bishop out of his misery.",
-      "spoiler": [
-        "Silas Bishop"
-      ]
+      "text": "the investigators put Silas Bishop out of his misery."
     },
     "campaign_notes.restored_silas_bishop": {
-      "text": "the investigators restored Silas Bishop.",
-      "spoiler": [
-        "Silas Bishop"
-      ]
+      "text": "the investigators restored Silas Bishop."
     },
     "campaign_notes.banished_silas_bishop": {
-      "text": "the investigators banished Silas Bishop.",
-      "spoiler": [
-        "Silas Bishop"
-      ]
+      "text": "the investigators banished Silas Bishop."
     },
     "campaign_notes.henry_armitage_survived": {
       "text": "Dr. Henry Armitage survived The Dunwich Legacy."
@@ -138,25 +108,16 @@
       "text": "the investigators entered the gate."
     },
     "campaign_notes.yog_sothoth_escaped": {
-      "text": "Yog-Sothoth tore apart the barrier between worlds, and became one with all reality.",
-      "spoiler": [
-        "Yog-Sothoth"
-      ]
+      "text": "Yog-Sothoth tore apart the barrier between worlds, and became one with all reality."
     },
     "campaign_notes.closed_tear": {
       "text": "the investigators closed the tear in reality."
     },
     "campaign_notes.yog_sothoth_fled": {
-      "text": "Yog-Sothoth has fled to another dimension.",
-      "spoiler": [
-        "Yog-Sothoth"
-      ]
+      "text": "Yog-Sothoth has fled to another dimension."
     },
     "campaign_notes.yog_sothoth_became_one_with_reality": {
-      "text": "Yog-Sothoth tore apart the barriers between worlds, and became one with all reality.",
-      "spoiler": [
-        "Yog-Sothoth"
-      ]
+      "text": "Yog-Sothoth tore apart the barriers between worlds, and became one with all reality."
     },
     "campaign_notes.henry_armitage_rescued": {
       "text": "the investigators rescued Dr. Henry Armitage."
@@ -241,6 +202,24 @@
     "dunwich_expertise": {
       "title": "Dunwich Expertise",
       "text": "Win <i>The Dunwich Legacy</i> campaign on Expert difficulty."
+    }
+  },
+  "scenarioChoices": {
+    "the_miskatonic_museum.approach": {
+      "label": "How you got into the museum",
+      "options": {
+        "broke_in": "Broke in",
+        "spoke_to_adam": "Spoke to Adam Lynch"
+      }
+    },
+    "lost_in_time_and_space.final_act": {
+      "label": "Act reached when it ended (decides the no-resolution ending)",
+      "options": {
+        "act_1": "Act 1",
+        "act_2": "Act 2",
+        "act_3": "Act 3",
+        "act_4": "Act 4"
+      }
     }
   }
 }

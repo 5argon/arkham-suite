@@ -12,7 +12,7 @@ campaign log (a recorded note, its crossed-off status, or a count):
 Each block appears only when it has data. Completion counts hover to a per-difficulty breakdown.
 -->
 <script lang="ts">
-	import type { CampaignTsk } from '$lib/campaign/tsk-profile';
+	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
 	import * as m from '$lib/paraglide/messages.js';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 

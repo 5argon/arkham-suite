@@ -11,7 +11,7 @@ they live in their own campaign-specific widgets (see bespoke/LifetimeTallies).
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { FaIcon, FaIconType, parseArkhamMarkup } from '@5argon/arkham-life-ui';
-	import type { ProfileFamily } from '$lib/campaign/achievement-aggregate';
+	import type { ProfileFamily } from '$lib/campaign/achievements/achievement-aggregate';
 
 	let {
 		families,

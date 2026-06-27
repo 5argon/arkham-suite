@@ -20,12 +20,12 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 		type ProfileSettings,
 		type SharedPaneId,
 		type WidgetSlot
-	} from '$lib/campaign/profile-settings';
+	} from '$lib/campaign/profile/profile-settings';
 	import {
 		campaignDetailWidgetIds,
 		sharedWidgetsForPane,
 		WIDGET_BY_ID
-	} from '$lib/campaign/profile-widgets';
+	} from '$lib/campaign/profile/profile-widgets';
 	import { Checkbox, RadioButtons } from '@5argon/arkham-life-ui';
 	import RowLayoutEditor from '$lib/components/profile/_framework/RowLayoutEditor.svelte';
 	import {

@@ -11,7 +11,7 @@ qualifying investigators.
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
 	import type { InsightDeck } from '$lib/profile/profile-types';
-	import { coreNeutralL0Cards, qualifyingInvestigators } from '$lib/campaign/card-filters';
+	import { coreNeutralL0Cards, qualifyingInvestigators } from '$lib/campaign/utils/card-filters';
 	import InsightTable from '$lib/components/profile/cards/InsightTable.svelte';
 
 	let {

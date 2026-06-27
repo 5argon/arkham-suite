@@ -21,7 +21,7 @@ import {
 } from './backup-file';
 import { recordBackup } from './backup-status';
 import { rebakeManaged, type DatabaseDocument } from './document';
-import { makeCompiledProfileFile } from './compiled-profile';
+import { makeCompiledProfileFile, type CompiledProfileFile } from './compiled-profile';
 import type { LocalProfilePayload } from './profile-local';
 import type { ProfileSubject } from '$lib/profile/profile-types';
 
@@ -91,7 +91,22 @@ export async function downloadCompiledProfile(
 	payload: LocalProfilePayload,
 	format: 'gzip' | 'json',
 ): Promise<void> {
-	const file = makeCompiledProfileFile(subject, payload, new Date().toISOString());
+	await downloadCompiledProfileFile(
+		makeCompiledProfileFile(subject, payload, new Date().toISOString()),
+		format,
+	);
+}
+
+/**
+ * Save an already-built {@link CompiledProfileFile} (e.g. an externally LOADED
+ * `.ahlifepro` the user kept) as `gzip` (`.ahlifepro`) or plain `json`. Re-emits the
+ * stored file verbatim — no re-compilation — so a kept copy round-trips unchanged.
+ */
+export async function downloadCompiledProfileFile(
+	file: CompiledProfileFile,
+	format: 'gzip' | 'json',
+): Promise<void> {
+	const subject = file.subject;
 	const text = JSON.stringify(file, null, 2);
 	// One .ahlifepro is exactly one subject. The name is for humans, but include the
 	// stable UID by default — names can repeat or change; the UID identifies the subject.

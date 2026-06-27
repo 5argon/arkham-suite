@@ -9,7 +9,7 @@ until a winning play recorded a final chaos bag).
 -->
 <script lang="ts">
 	import { ChaosToken } from '@5argon/arkham-kohaku';
-	import type { CampaignEoe } from '$lib/campaign/eoe';
+	import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
 	import TokenCoinRow from '$lib/components/profile/_primitives/TokenCoinRow.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 

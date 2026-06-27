@@ -3,14 +3,13 @@
 Bespoke per-campaign widget for the life-local "lifetime tally" custom
 achievements — running totals nothing official tracks, aggregated across every
 play of one campaign family. Edge of the Earth surfaces "Memories Banished" /
-"Memories Discovered"; The Forgotten Age surfaces "Yig's Fury". These used to
-ride inside the generic Achievements widget; they are now their own
+"Memories Discovered"; The Forgotten Age surfaces "Yig's Fury". A
 campaign-specific widget so they only show on the campaign they belong to.
 
 `custom` is already sliced to the campaign's family by the widget renderer.
 -->
 <script lang="ts">
-	import type { CustomAchievement } from '$lib/campaign/custom-achievements';
+	import type { CustomAchievement } from '$lib/campaign/achievements/custom-achievements';
 
 	let { custom }: { custom: CustomAchievement[] } = $props();
 </script>

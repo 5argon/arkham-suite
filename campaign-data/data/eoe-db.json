@@ -34,10 +34,12 @@
     {
       "id": "ice_and_death_part_1",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "maxXp": 1
     },
     {
       "id": "the_disapperance",
@@ -46,10 +48,12 @@
     {
       "id": "ice_and_death_part_2",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "maxXp": 8
     },
     {
       "id": "the_attack",
@@ -58,11 +62,13 @@
     {
       "id": "ice_and_death_part_3",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "maxXp": 0
     },
     {
       "id": "restful_night",
@@ -71,11 +77,13 @@
     {
       "id": "to_the_forbidden_peaks",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "maxXp": 7
     },
     {
       "id": "endless_night",
@@ -84,11 +92,19 @@
     {
       "id": "city_of_the_elder_things",
       "type": "story",
+      "victoryDisplay": false,
+      "xpNote": "Each investigator earns experience equal the Victory X value of each card in the victory display. Each investigator also earns 1 additional experience for each pair of chaos tokens spent during this scenario.",
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 13,
       "choices": [
         {
           "id": "city_version",
@@ -111,6 +127,8 @@
     {
       "id": "the_heart_of_madness_part_1",
       "type": "story",
+      "victoryDisplay": false,
+      "xpNote": "Each investigator earns experience equal the Victory X value of each card in the victory display. Each investigator also earns 1 bonus experience for each activated seal in play.",
       "resolutions": [
         "no_resolution",
         "R1",
@@ -126,7 +144,8 @@
           ],
           "result": "lose"
         }
-      }
+      },
+      "maxXp": 6
     },
     {
       "id": "the_other_side",
@@ -135,6 +154,7 @@
     {
       "id": "the_heart_of_madness_part_2",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -151,7 +171,8 @@
           ],
           "result": "lose"
         }
-      }
+      },
+      "maxXp": 2
     },
     {
       "id": "eoe_epilogue",
@@ -160,14 +181,17 @@
     {
       "id": "fatal_mirage",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "maxXp": 0
     },
     {
       "id": "fatal_mirage_2",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -176,6 +200,7 @@
     {
       "id": "fatal_mirage_3",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"

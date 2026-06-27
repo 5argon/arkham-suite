@@ -29,6 +29,7 @@
  */
 import { generateUniqueUid, normalizeUid } from './uid';
 import type { ProfileCache } from './profile-cache';
+import type { CompiledProfileFile } from './compiled-profile';
 
 /** Bumped only on a breaking change to this document's shape. */
 export const DATABASE_FORMAT_VERSION = 3;
@@ -218,7 +219,35 @@ export interface CampaignRecord {
 	participants: CampaignParticipant[];
 	decks: DeckRecord[];
 	logs: CampaignLogEntry[];
+	/** Cross-campaign log entries transcribed from a SIBLING campaign for The Dream-Eaters
+	 *  interconnected play (the "Linked Campaign Log"): the handful of the other campaign's
+	 *  final-state notes the interconnected widgets need — the epilogue-matrix axis, the Black
+	 *  Cat arc, the Silver Key, Randolph. These are genuine campaign-log entries (not Extra),
+	 *  so they survive Log-only mode. Keyed by composite "section.id" exactly like {@link logs};
+	 *  round-trips verbatim via campaign-share. Absent for non-interconnected / non-TDE plays. */
+	linkedLog?: CampaignLogEntry[];
 	manualAchievements: ManualAchievement[];
+}
+
+/**
+ * One recorded STANDALONE-mode play — a single scenario played as a one-off (a
+ * dedicated "Scenario Pack", or a campaign scenario played out of its campaign).
+ * Reuses the whole {@link CampaignRecord} shape (decks, participants, logs, chaos
+ * bag, difficulty, dates) but is scoped to ONE scenario and lives in its own
+ * {@link DatabaseDocument.standalones} array, so campaign compilation never sees it.
+ *
+ * `campaignCode` is repurposed as the campaign-data CATALOGUE to load: `'side'` for
+ * a Scenario Pack, or the host campaign code (e.g. `'tcu'`) for a campaign scenario.
+ */
+export interface StandaloneRecord extends CampaignRecord {
+	/** A dedicated Scenario Pack (`'pack'`) vs a campaign scenario played standalone (`'campaign'`). */
+	source: 'pack' | 'campaign';
+	/**
+	 * The single scenario being recorded — a campaign-data scenario id (the `side`
+	 * catalogue id for a pack, the host campaign's scenario id for a campaign play).
+	 * For Guardians of the Abyss, one of its two scenarios.
+	 */
+	scenario: string;
 }
 
 /** The whole database — one of these per file / per IndexedDB entry. */
@@ -232,6 +261,14 @@ export interface DatabaseDocument {
 	playGroups: LocalPlayGroup[];
 	campaigns: CampaignRecord[];
 	/**
+	 * Recorded STANDALONE-mode plays (see {@link StandaloneRecord}). Optional/additive
+	 * (like {@link profileSettings}/{@link profileCache}): absent on pre-standalone
+	 * files → treated as `[]`, so no `formatVersion` bump or migration is needed.
+	 * Deliberately SEPARATE from {@link campaigns} so campaign compilation never sees
+	 * standalone records.
+	 */
+	standalones?: StandaloneRecord[];
+	/**
 	 * Profile composer layout (the `ProfileSettings` JSON string). Optional and
 	 * additive: absent → resolves to defaults.
 	 */
@@ -242,6 +279,16 @@ export interface DatabaseDocument {
 	 * `.arkhamlife` files and recomputed on import. Optional/additive.
 	 */
 	profileCache?: ProfileCache;
+	/**
+	 * Externally LOADED compiled profiles — `.ahlifepro` files of OTHER people the
+	 * user opened to view (the External Profiles tab). Stored under their own UID,
+	 * deliberately SEPARATE from the managed roster (owner/players/playGroups): they
+	 * are immutable, never recomputed, and never participate in the precompute cache.
+	 * Unlike `profileCache`, they ARE persisted (IndexedDB + `.ahlifedb`) so a kept
+	 * copy of someone's profile survives offline. Optional/additive — keyed/deduped by
+	 * `subject.uid`, so re-loading a newer file for the same person overwrites cleanly.
+	 */
+	loadedProfiles?: CompiledProfileFile[];
 }
 
 // ─── Construction ──────────────────────────────────────────────────────────────
@@ -511,6 +558,21 @@ export function findCampaign(doc: DatabaseDocument, id: string): CampaignRecord 
 	return doc.campaigns.find((c) => c.id === id);
 }
 
+/** A recorded standalone-mode play by id (see {@link StandaloneRecord}). */
+export function findStandalone(doc: DatabaseDocument, id: string): StandaloneRecord | undefined {
+	return doc.standalones?.find((s) => s.id === id);
+}
+
+/**
+ * An editable record by id from EITHER array (campaign or standalone). Used by the
+ * in-place editor mutations (general / logs / decks / participants), which apply
+ * identically to both — campaign-only iteration (listing, precompute) keeps using
+ * {@link findCampaign} so standalone records never leak into campaign stats.
+ */
+export function findRecord(doc: DatabaseDocument, id: string): CampaignRecord | undefined {
+	return findCampaign(doc, id) ?? findStandalone(doc, id);
+}
+
 /**
  * Create a campaign played by the database owner (added as the first participant so
  * deck assignment works uniformly). Returns the new record.
@@ -550,6 +612,55 @@ export function removeCampaign(doc: DatabaseDocument, id: string): void {
 	if (doc.campaigns.length !== before) doc.updatedAt = now();
 }
 
+// ─── Standalone operations ─────────────────────────────────────────────────────
+
+/**
+ * Create a standalone-mode play (one scenario) owned by the database owner. Mirrors
+ * {@link createCampaign} but writes into {@link DatabaseDocument.standalones}.
+ */
+export function createStandalone(
+	doc: DatabaseDocument,
+	input: {
+		source: 'pack' | 'campaign';
+		/** The campaign-data catalogue code to load (`'side'` for a pack, host campaign code otherwise). */
+		campaignCode: string;
+		scenario: string;
+		title: string;
+		difficulty?: Difficulty;
+	}
+): StandaloneRecord {
+	const ts = now();
+	const standalone: StandaloneRecord = {
+		id: newId(),
+		title: input.title,
+		campaignCode: input.campaignCode,
+		source: input.source,
+		scenario: input.scenario,
+		difficulty: input.difficulty ?? 'standard',
+		playerCount: 'auto',
+		draft: false,
+		displayInProfile: 'default',
+		startDate: null,
+		finishDate: ts,
+		createdAt: ts,
+		updatedAt: ts,
+		participants: [bakeParticipant(doc.owner)],
+		decks: [],
+		logs: [],
+		manualAchievements: []
+	};
+	(doc.standalones ??= []).push(standalone);
+	doc.updatedAt = ts;
+	return standalone;
+}
+
+export function removeStandalone(doc: DatabaseDocument, id: string): void {
+	if (!doc.standalones) return;
+	const before = doc.standalones.length;
+	doc.standalones = doc.standalones.filter((s) => s.id !== id);
+	if (doc.standalones.length !== before) doc.updatedAt = now();
+}
+
 /** Patch general campaign fields (title/difficulty/draft/dates). */
 export function updateCampaignGeneral(
 	doc: DatabaseDocument,
@@ -568,7 +679,7 @@ export function updateCampaignGeneral(
 		>
 	>
 ): void {
-	const c = findCampaign(doc, id);
+	const c = findRecord(doc, id);
 	if (!c) return;
 	if (fields.title !== undefined) c.title = fields.title;
 	if (fields.difficulty !== undefined) c.difficulty = fields.difficulty;
@@ -587,7 +698,7 @@ export function updateCampaignGeneral(
  * achievements no longer apply, so they are cleared.
  */
 export function changeCampaignCode(doc: DatabaseDocument, id: string, campaignCode: string): void {
-	const c = findCampaign(doc, id);
+	const c = findRecord(doc, id);
 	if (!c) return;
 	c.campaignCode = campaignCode;
 	c.logs = [];
@@ -610,9 +721,27 @@ export function setCampaignLogs(
 	id: string,
 	entries: CampaignLogEntry[]
 ): void {
-	const c = findCampaign(doc, id);
+	const c = findRecord(doc, id);
 	if (!c) return;
 	c.logs = entries.map((e) => ({
+		key: e.key,
+		section: e.section,
+		args: e.args.map((a) => ({ ...a }))
+	}));
+	c.updatedAt = now();
+	doc.updatedAt = c.updatedAt;
+}
+
+/** Wholesale-replace a campaign's transcribed sibling (Linked Campaign Log) entries —
+ *  The Dream-Eaters interconnected play. Empty array clears them. */
+export function setCampaignLinkedLogs(
+	doc: DatabaseDocument,
+	id: string,
+	entries: CampaignLogEntry[]
+): void {
+	const c = findRecord(doc, id);
+	if (!c) return;
+	c.linkedLog = entries.map((e) => ({
 		key: e.key,
 		section: e.section,
 		args: e.args.map((a) => ({ ...a }))
@@ -628,7 +757,7 @@ export function setManualAchievement(
 	tick: ManualAchievement,
 	earned: boolean
 ): void {
-	const c = findCampaign(doc, id);
+	const c = findRecord(doc, id);
 	if (!c) return;
 	const same = (a: ManualAchievement) =>
 		a.family === tick.family && a.achievementId === tick.achievementId && a.itemId === tick.itemId;
@@ -656,7 +785,7 @@ export function addParticipant(
 	campaignId: string,
 	fields: { uid: string; name: string; iconCardCode?: string }
 ): CampaignParticipant | undefined {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return undefined;
 	const uid = normalizeUid(fields.uid);
 	if (!uid) return undefined;
@@ -685,7 +814,7 @@ export function addOneOffGuest(
 	campaignId: string,
 	fields: { name: string; iconCardCode?: string }
 ): CampaignParticipant | undefined {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return undefined;
 	const entry: CampaignParticipant = {
 		uid: generateUniqueUid(doc),
@@ -709,7 +838,7 @@ export function updateParticipant(
 	uid: string,
 	fields: Partial<Pick<CampaignParticipant, 'name' | 'iconCardCode'>>
 ): void {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return;
 	const p = c.participants.find((x) => x.uid === uid);
 	if (!p) return;
@@ -725,7 +854,7 @@ export function updateParticipant(
  * owned by that uid in this campaign are orphaned (owner cleared).
  */
 export function removeParticipant(doc: DatabaseDocument, campaignId: string, uid: string): void {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return;
 	const before = c.participants.length;
 	c.participants = c.participants.filter((p) => p.uid !== uid);
@@ -750,7 +879,7 @@ export function reassignParticipant(
 	toUid: string,
 	snap?: { name: string; iconCardCode: string }
 ): void {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return;
 	const normalized = normalizeUid(toUid);
 	if (!normalized || fromUid === normalized) return;
@@ -810,7 +939,7 @@ export function addDeck(
 		versions: DeckVersion[];
 	}
 ): DeckRecord | undefined {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return undefined;
 	const investigator =
 		typeof deck.investigator === 'string'
@@ -833,7 +962,7 @@ export function addDeck(
 }
 
 export function removeDeck(doc: DatabaseDocument, campaignId: string, deckId: string): void {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return;
 	const before = c.decks.length;
 	c.decks = c.decks.filter((d) => d.id !== deckId);
@@ -849,7 +978,7 @@ export function assignDeckOwner(
 	deckId: string,
 	ownerUid: string | null
 ): void {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return;
 	const d = c.decks.find((x) => x.id === deckId);
 	if (!d) return;
@@ -866,7 +995,7 @@ export function assignDeckHand(
 	deckId: string,
 	hand: number | null
 ): void {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return;
 	const d = c.decks.find((x) => x.id === deckId);
 	if (!d) return;
@@ -916,4 +1045,34 @@ export function parseDatabaseDocument(value: unknown): DatabaseDocument {
 		);
 	}
 	return value;
+}
+
+// ─── Externally loaded compiled profiles (the External Profiles tab) ─────────────
+
+/** The loaded compiled profile stored under `uid`, or undefined. */
+export function findLoadedProfile(doc: DatabaseDocument, uid: string): CompiledProfileFile | undefined {
+	return (doc.loadedProfiles ?? []).find((f) => f.subject.uid === uid);
+}
+
+/**
+ * Store an externally loaded `.ahlifepro` under its subject uid, replacing any
+ * existing entry for the same person (so re-loading a fresher file overwrites in
+ * place instead of duplicating). Returns the stored file.
+ */
+export function addLoadedProfile(doc: DatabaseDocument, file: CompiledProfileFile): CompiledProfileFile {
+	const list = (doc.loadedProfiles ??= []);
+	const idx = list.findIndex((f) => f.subject.uid === file.subject.uid);
+	if (idx >= 0) list[idx] = file;
+	else list.push(file);
+	doc.updatedAt = now();
+	return file;
+}
+
+/** Remove the loaded compiled profile stored under `uid` (no-op if absent). */
+export function removeLoadedProfile(doc: DatabaseDocument, uid: string): void {
+	if (!doc.loadedProfiles) return;
+	const idx = doc.loadedProfiles.findIndex((f) => f.subject.uid === uid);
+	if (idx < 0) return;
+	doc.loadedProfiles.splice(idx, 1);
+	doc.updatedAt = now();
 }

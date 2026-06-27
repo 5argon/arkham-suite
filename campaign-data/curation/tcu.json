@@ -1,11 +1,65 @@
 {
+  "scenarioResolutionOutcomes": {
+    "_notes": "No mid-campaign TCU scenario carries explicit win/lose tokens (the campaign continues regardless), so verdicts are curation judgement from the ArkhamCards resolution text/steps — matching the DWL/PtC convention. Witching Hour R1/R2 both fire witches_spell_broken (objective met) = win; no_resolution = spell cast / failure = loss. At Death's Doorstep R1 = investigators_escaped_the_spectral_realm = win; R3 = never_seen_again (party killed and replaced) = loss; no_resolution = loss. Secret Name R1/R2 = you escape the Witch House alive (R1 survives with regret, R2 the cleaner escape) = win; no_resolution (dragged into the vortex) = loss. Wages of Sin R1 = mist dispelled = win, R2 = survived_the_watchers_embrace (a spared survival the widget celebrates) = win, no_resolution_defeated = loss, no_resolution_resigned = neutral (voluntary resign). Clutches of Chaos R1/R2 = you contain the immediate threat (choose Anette's/Carl's fate) and press on = win, R3/R4 = doom_draws_ever_closer (a faction completes its apocalyptic rite, the threat prevails) = loss, no_resolution = loss. Before the Black Throne is the one with authoritative effect flags: R1 azathoth_devoured = loss, R2 lead_investigator_joins_pipers+azathoth_slumbers = win, R3 azathoth_slumbers (clean) = win, R4→R5 signed_the_black_book = win_question_mark (a dark/pyrrhic win — universe spared) = win, no_resolution = loss. Union and Disillusion R1/R4/R5 (Sanford binds the revenant; Anette and her coven claim it; or the third branch) all = win — you complete the climactic veil-parting ritual and survive (not an easy scenario to finish), even though which faction ascends is a special campaign branch; no_resolution (you flee in a fit of madness) = loss. Omitted two scenarios as branch-only / pure setup (still wrapped as passports, chips render without verdicts): disappearance_at_the_twilight_estate (forced prologue, no_resolution-only setup — the four are always taken) and for_the_greater_good (Lodge-allegiance branch: open box / hide it / slay guardian — all survive, no win/lose).",
+    "the_witching_hour": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win"
+    },
+    "at_deaths_doorstep": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R3": "loss"
+    },
+    "the_secret_name": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win"
+    },
+    "the_wages_of_sin": {
+      "no_resolution_defeated": "loss",
+      "no_resolution_resigned": "neutral",
+      "R1": "win",
+      "R2": "win"
+    },
+    "in_the_clutches_of_chaos": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win",
+      "R3": "loss",
+      "R4": "loss"
+    },
+    "before_the_black_throne": {
+      "no_resolution": "loss",
+      "R1": "loss",
+      "R2": "win",
+      "R3": "win",
+      "R4": "win"
+    },
+    "union_and_disillusion": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R4": "win",
+      "R5": "win"
+    }
+  },
   "code": "tcu",
   "specialInteractions": {
-    "check_silver_twilight_investigator": { "text": "Sanford recognizes a Lodge member." },
-    "check_mystic_investigator": { "text": "A mystic reads the ritual." },
-    "under_arrest": { "text": "Arrest Anette." },
-    "learn_spells": { "text": "Learn the spells of old." },
-    "seize_control": { "text": "Seize control of the Lodge." }
+    "check_silver_twilight_investigator": {
+      "text": "Sanford recognizes a Lodge member."
+    },
+    "check_mystic_investigator": {
+      "text": "A mystic reads the ritual."
+    },
+    "under_arrest": {
+      "text": "Arrest Anette."
+    },
+    "learn_spells": {
+      "text": "Learn the spells of old."
+    },
+    "seize_control": {
+      "text": "Seize control of the Lodge."
+    }
   },
   "outcomes": {
     "_notes": "Verified against before_the_black_throne.json resolution->step graph: R2/R3/R5 fire `win`/`win_question_mark` (azathoth_slumbers, signed_the_black_book, lead_investigator_joins_pipers — dark/pyrrhic wins count as win); R1 fires `lose` (azathoth_devoured_the_universe).",
@@ -24,44 +78,6 @@
     ]
   },
   "_notes": "Verified all 12 spans as exact substrings of their entry `text` in tcu-en.draft.json — all valid, no repairs needed. Sibling-collision check in campaign_notes: sided_with_the_coven (blurred \"the coven\") stays distinguishable from sided_with_the_lodge (Lodge visible); witches_spell_broken/cast remain distinguishable (broken vs cast visible) despite both blurring \"witches'\"; told_lodge_about_coven vs hid_knowledge_of_coven have distinct surrounding text. No over-blur: campaign name, Lodge/Inner Circle (visible scenario title), Watcher, spectral realm, guardian of the trap, puzzle box, heretics count, mementos, and the missing-persons #name#/outcome entries (names appear in visible section titles) correctly left unblurred. Under-blur covered: Azathoth/Black Throne endgame reveals and the coven/witches/possessed/secrets-of-the-universe/true-work twists all blurred. No exotic sections (partner/supplies/scarletKeys/glyphs) — all db section types are notes/header, matching the en draft. Curation accepted unchanged.",
-  "spoilers": {
-    "campaign_notes.azathoth_devoured_the_universe": [
-      "Azathoth"
-    ],
-    "campaign_notes.lead_investigator_joins_pipers": [
-      "the pipers of Azathoth"
-    ],
-    "campaign_notes.azathoth_slumbers": [
-      "Azathoth"
-    ],
-    "campaign_notes.signed_the_black_book": [
-      "the Black Book of Azathoth"
-    ],
-    "campaign_notes.anette_mason_is_possessed_by_evil": [
-      "possessed by evil"
-    ],
-    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": [
-      "the secrets of the universe"
-    ],
-    "campaign_notes.told_lodge_about_coven": [
-      "the coven"
-    ],
-    "campaign_notes.hid_knowledge_of_coven": [
-      "the coven"
-    ],
-    "campaign_notes.sided_with_the_coven": [
-      "the coven"
-    ],
-    "campaign_notes.witches_spell_broken": [
-      "witches'"
-    ],
-    "campaign_notes.witches_spell_cast": [
-      "witches'"
-    ],
-    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": [
-      "true work"
-    ]
-  },
   "validators": [
     {
       "type": "mutuallyExclusive",

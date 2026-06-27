@@ -117,12 +117,31 @@ export function defaultOptionId(fileCode: FileCode, decisionId: DecisionId): Opt
 
 // --- choice resolution ------------------------------------------------------
 
+/**
+ * A non-fired sibling of an auto-resolved `conditional_outcome` decision: an outcome that *could*
+ * have happened at this stop, surfaced so the player sees what else was possible and under what
+ * condition (e.g. the conditions that would have kept Agent Quinn from vanishing). `conditionHolds`
+ * is whether its `conditionLogic` currently holds — the fired branch is the first that held, so a
+ * later sibling may also hold but lost the file-order tie-break. Render its prose from
+ * `optionText(...).condition`.
+ */
+export interface BranchAlternative {
+	option: LogicOption;
+	conditionHolds: boolean;
+}
+
 export interface ChosenOption {
 	decisionId: DecisionId;
 	decisionType: DecisionType;
 	option: LogicOption;
 	/** true => the player picked it; false => the game auto-resolved it from state. */
 	selectable: boolean;
+	/**
+	 * For an auto-resolved `conditional_outcome` only: the branches that did NOT fire, so the UI can
+	 * show "what else could have happened here, and when". Omitted for player choices (the player
+	 * already saw the alternatives as dropdown options) and for non-`conditional_outcome` decisions.
+	 */
+	alternatives?: BranchAlternative[];
 }
 
 /** An unmet derivable prerequisite on a chosen resolution option (a flaggable problem). */
@@ -203,7 +222,15 @@ export function resolveFile(file: LogicFile, choices: Record<DecisionId, OptionI
 			if (option.requires && !evalCondition(option.requires, running)) gates.push({ decisionId: d.decisionId, option, reason: 'requires', requires: option.requires });
 			if (!reachableInVersion(option, gatesResolutions, version)) gates.push({ decisionId: d.decisionId, option, reason: 'version', version });
 		}
-		chosen.push({ decisionId: d.decisionId, decisionType: d.decisionType, option, selectable: d.selectable });
+		const co: ChosenOption = { decisionId: d.decisionId, decisionType: d.decisionType, option, selectable: d.selectable };
+		// For an auto-resolved outcome, surface the branches that did NOT fire (and whether each would
+		// hold now) so the player can see what else could have happened. Evaluated against `running` —
+		// the same pre-thread state `autoResolve` used to pick the fired branch.
+		if (!d.selectable && d.decisionType === 'conditional_outcome') {
+			const others = d.options.filter((o) => o.id !== option.id);
+			if (others.length) co.alternatives = others.map((o) => ({ option: o, conditionHolds: evalCondition(o.conditionLogic, running) }));
+		}
+		chosen.push(co);
 		running = thread(running, option);
 	}
 	return { chosen, gates };

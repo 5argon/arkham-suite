@@ -8,7 +8,7 @@ summary. Narrows to one class on a class-detail page (`classFilter`).
 <script lang="ts">
 	import { FlexibleCardDisplay } from '@5argon/arkham-life-ui';
 	import type { Card, CardCode, Product } from '@5argon/arkham-kohaku';
-	import { utilizationItems } from '$lib/campaign/card-filters';
+	import { utilizationItems } from '$lib/campaign/utils/card-filters';
 
 	let {
 		predicate,

@@ -40,10 +40,7 @@
       "text": "the investigators recruited the help of another expedition."
     },
     "campaign_notes.harbinger_alive": {
-      "text": "the Harbinger is still alive (#X# damage).",
-      "spoiler": [
-        "the Harbinger"
-      ]
+      "text": "the Harbinger is still alive (#X# damage)."
     },
     "campaign_notes.process_was_perfected": {
       "text": "the process was perfected."
@@ -136,10 +133,7 @@
       "text": "the investigators fell into the depths."
     },
     "campaign_notes.nexus_is_near": {
-      "text": "the nexus is near.",
-      "spoiler": [
-        "the nexus"
-      ]
+      "text": "the nexus is near."
     },
     "campaign_notes.mended_tear_in_time": {
       "text": "the investigators mended the tear in time."

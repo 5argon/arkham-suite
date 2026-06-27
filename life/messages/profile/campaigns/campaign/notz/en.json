@@ -1,0 +1,12 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"campaign_notz_house_heading": "Your House",
+	"campaign_notz_aftermath_heading": "Aftermath",
+	"campaign_notz_gathering_empty": "The Gathering has not been recorded yet.",
+	"campaign_notz_cultists_heading": "The Cultist Deck",
+	"campaign_notz_interrogated": "Interrogated",
+	"campaign_notz_escaped": "Escaped",
+	"campaign_notz_masks_empty": "The Midnight Masks has not been recorded yet.",
+	"campaign_notz_devourer_heading": "The Fate of Arkham",
+	"campaign_notz_devourer_empty": "The Devourer Below has not been recorded yet."
+}

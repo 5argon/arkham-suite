@@ -28,7 +28,7 @@
 	// them from the nav (a profile with no imported decks has nothing there).
 	const campaignOnly = $derived(data?.settings.campaignCategoriesOnly ?? false);
 	const navCards = $derived.by(() => {
-		const all = [
+		const all: { label: string; href: string; blurb: string }[] = [
 			{
 				label: m.home_nav_campaigns_label(),
 				href: `${base}/campaigns`,
@@ -41,7 +41,16 @@
 				blurb: m.home_nav_investigators_blurb(),
 			},
 		];
-		return campaignOnly ? all.slice(0, 1) : all;
+		const shown = campaignOnly ? all.slice(0, 1) : all;
+		// Standalones are a separate dimension — surface them whenever any are recorded.
+		if ((data?.standalones?.length ?? 0) > 0) {
+			shown.push({
+				label: 'Standalones',
+				href: `${base}/standalones`,
+				blurb: 'One-off Standalone Mode plays',
+			});
+		}
+		return shown;
 	});
 </script>
 

@@ -2,17 +2,19 @@
 @component
 TSK — Dealings in the Dark. The shared scenario passport, plus a bespoke Act 2
 Setup tableau: the five possible Grand Bazaar token layouts (the revealed chaos
-token decides which), shown as art on a white card and lit when the player has
-revealed that layout across their plays.
+token decides which), shown as art lit when the player has revealed that layout
+across their plays. Rendered through the shared LitTileGrid (contain-fit so the
+diagrams aren't cropped; the token label is Arkham markup).
 -->
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import { HoverTooltip, parseArkhamMarkup } from '@5argon/arkham-life-ui';
-	import { choicesForScenario } from '$lib/campaign/scenario-extras';
+	import { choicesForScenario } from '$lib/campaign/stats/scenario-extras';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
 	import TskScenarioInfo from '$lib/components/profile/campaigns/campaign/tsk/TskScenarioInfo.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import type { TskScenarioWidgetProps } from '$lib/components/profile/campaigns/campaign/tsk/tsk-scenario';
 
 	let props: TskScenarioWidgetProps = $props();
@@ -42,42 +44,35 @@ revealed that layout across their plays.
 
 	// Times the player revealed each Act 2 Setup, across their plays (value → plays).
 	const playsByValue = $derived.by(() => {
-		const stat = props.scenarioXp.flatMap((c) => c.scenarios).find((s) => s.scenario === SCENARIO);
+		const stat = (props.scenarios?.scenarios ?? []).find((s) => s.scenario === SCENARIO);
 		const agg = stat?.choices?.find((c) => c.id === CHOICE);
-		const m = new Map<string, number>();
-		for (const v of agg?.values ?? []) m.set(v.value, v.played);
-		return m;
+		const counts = new Map<string, number>();
+		for (const v of agg?.values ?? []) counts.set(v.value, v.played);
+		return counts;
 	});
 
-	// The five setups in catalogue order, labels resolved from campaign-data.
-	const setups = $derived.by(() => {
+	// The five setups in catalogue order, labels resolved from campaign-data, as lit tiles. The
+	// label is the token group that triggers the layout (Arkham markup → glyphs); the tooltip adds
+	// the play count.
+	const setupTiles = $derived.by((): LitTile[] => {
 		const log = getCampaignLog(props.family ?? 'tskc');
 		const def = log ? choicesForScenario(log, SCENARIO).find((c) => c.id === CHOICE) : undefined;
 		return (def?.options ?? [])
 			.filter((o) => ART[o.value])
-			.map((o) => ({
-				value: o.value,
-				label: o.label,
-				img: ART[o.value],
-				plays: playsByValue.get(o.value) ?? 0
-			}));
+			.map((o) => {
+				const plays = playsByValue.get(o.value) ?? 0;
+				return {
+					id: o.value,
+					image: ART[o.value],
+					label: o.label,
+					count: plays,
+					detail:
+						plays > 0
+							? m.campaign_tsk_dealings_tip_played({ plays: times(plays) })
+							: m.campaign_tsk_dealings_tip_never()
+				};
+			});
 	});
-
-	// One shared tooltip for the setup tiles — the layout's token list (e.g. "Cultist,
-	// Tablet, Elder Thing"), plus the play count.
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipText = $state('');
-	function showTip(s: { label: string; plays: number }, e: MouseEvent) {
-		// i18n: s.label is package-sourced (campaign-data choice option)
-		tipText =
-			s.plays > 0
-				? m.campaign_tsk_dealings_tip_played({ label: s.label, plays: times(s.plays) })
-				: m.campaign_tsk_dealings_tip_never({ label: s.label });
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
 </script>
 
 <div class="flex flex-col gap-3">
@@ -91,49 +86,10 @@ revealed that layout across their plays.
 		{/snippet}
 	</TskScenarioInfo>
 
-	{#if setups.length && !props.logOnly}
+	{#if setupTiles.length && !props.logOnly}
 		<div>
-			<p class="text-primary-500 mb-1 text-xs font-medium">{m.campaign_tsk_dealings_act2_setup()}</p>
-			<div class="flex flex-wrap gap-2">
-				{#each setups as s (s.value)}
-					<div
-						role="img"
-						aria-label={s.label}
-						class="flex flex-col items-center gap-1"
-						onmouseenter={(e) => showTip(s, e)}
-						onmouseleave={hideTip}
-					>
-						<div
-							class="bg-primary-100 dark:bg-primary-800 flex h-16 w-16 items-center justify-center rounded border p-1 {s.plays >
-							0
-								? 'border-secondary-400 shadow'
-								: 'border-primary-200 dark:border-primary-700'}"
-						>
-							<img
-								src={s.img}
-								alt={s.label}
-								class="max-h-full max-w-full object-contain {s.plays > 0
-									? ''
-									: 'opacity-30 grayscale'}"
-								loading="lazy"
-							/>
-						</div>
-						{#if s.plays > 0}
-							<span class="text-secondary-600 dark:text-secondary-400 text-[0.6rem] tabular-nums"
-								>×{s.plays}</span
-							>
-						{:else}
-							<span class="text-primary-400 text-[0.6rem]">—</span>
-						{/if}
-					</div>
-				{/each}
-			</div>
+			<SectionLabel>{m.campaign_tsk_dealings_act2_setup()}</SectionLabel>
+			<LitTileGrid tiles={setupTiles} layout="flex" fit="contain" markup />
 		</div>
 	{/if}
 </div>
-
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block py-1 text-xs text-neutral-700 dark:text-neutral-200"
-		>{@html parseArkhamMarkup(tipText)}</span
-	>
-</HoverTooltip>

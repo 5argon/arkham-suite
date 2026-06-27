@@ -57,21 +57,30 @@ function payload(): LocalProfilePayload {
 		collections: [
 			{ family: 'eoe', name: 'Edge of the Earth', collections: [{ sectionId: 'mementos', title: 'Mementos', items: [{ id: 'flute', label: 'Mesmerizing Flute', collected: true }], collectedCount: 1 }] } as never,
 		],
-		scenarioXp: [{ family: 'eoe', name: 'Edge of the Earth', scenarios: [], totalBest: 0 }],
-		resolutionCoverage: [
+		scenarios: [
 			{
 				family: 'eoe',
 				name: 'Edge of the Earth',
 				scenarios: [
 					{
 						scenario: 'ice_and_death_part_1',
-						all: ['no_resolution', 'R1'],
+						name: 'Ice and Death, Part I',
+						best: 0,
+						total: 0,
+						bestByTier: {},
+						plays: 3,
+						playsByTier: { standard: 2, hard: 1 },
+						resolutions: ['no_resolution', 'R1'],
 						visited: ['R1'],
 						tallies: { R1: { total: 3, byTier: { standard: 2, hard: 1 } } },
+						verdicts: {},
+						succeed: null,
+						failed: null,
 					},
 				],
-				visitedCount: 1,
-				totalCount: 2,
+				totalBest: 0,
+				resolutionsVisited: 1,
+				resolutionsTotal: 2,
 			},
 		],
 		standaloneUsage: [
@@ -82,6 +91,7 @@ function payload(): LocalProfilePayload {
 				totalPlays: 1,
 			},
 		],
+		standalones: [],
 		traumaTally: {
 				killed: 0,
 				insane: 1,
@@ -95,18 +105,6 @@ function payload(): LocalProfilePayload {
 					{ family: 'eoe', campaignId: 'c1', scenario: 'the_heart_of_madness_part_2', resolution: 'no_resolution', killed: null, insane: 'yes', targets: ['all'], allKilled: false, allInsane: true, result: 'lose', pyrrhic: false, difficulty: 'hard' },
 				],
 			},
-			eoeCity: [
-				{
-					family: 'eoe',
-					allResolutions: ['no_resolution', 'R1', 'R2'],
-					versions: [
-						{ version: 'I', plays: 2, playsByTier: { standard: 1, hard: 1 }, vpBest: 5, vpBestByTier: { standard: 5, hard: 3 }, resolutions: { R1: { total: 2, byTier: { standard: 1, hard: 1 } } } },
-						{ version: 'II', plays: 0, playsByTier: {}, vpBest: null, vpBestByTier: {}, resolutions: {} },
-						{ version: 'III', plays: 0, playsByTier: {}, vpBest: null, vpBestByTier: {}, resolutions: {} },
-					],
-					totalPlays: 2,
-				},
-			],
 			eoe: [
 				{
 					family: 'eoe',
@@ -141,6 +139,16 @@ function payload(): LocalProfilePayload {
 				},
 			],
 			tsk: [],
+			dwl: [],
+			ptc: [],
+			tfa: [],
+			tcu: [],
+			tdea: [],
+			tdeb: [],
+			tic: [],
+			fhv: [],
+			tdc: [],
+			notz: [],
 			specialInteractions: [],
 			investigators: [{ code: '09004', count: 1, options: ['guardian · 30 cards'] }],
 		cardUsage: { '01087': 1 }, usedOnce: {}, specialistUsage: {}, insightDecks: [], eligibilityInsights: {}, totalDecks: 1, charismaTopDecks: [], relicTopDecks: [], customizableUsage: {},
@@ -180,10 +188,11 @@ describe('stripCompiledProfile', () => {
 		// structure + numbers preserved
 		expect(out.achievements).toBeTruthy();
 		expect(out.clearGrid[0].plays).toBe(2);
-		// resolution coverage is included, with the per-difficulty tally counts kept
-		// (numbers, not re-derivable) but the family name stripped (re-derivable).
-		expect(out.resolutionCoverage[0].family).toBe('eoe');
-		expect(out.resolutionCoverage[0]).not.toHaveProperty('name');
+		// the unified scenarios record is included, with the per-difficulty tally counts kept
+		// (numbers, not re-derivable) but the family + scenario names stripped (re-derivable).
+		expect(out.scenarios[0].family).toBe('eoe');
+		expect(out.scenarios[0]).not.toHaveProperty('name');
+		expect(out.scenarios[0].scenarios[0]).not.toHaveProperty('name');
 		// Standalone usage is included: ids + counts kept, family + scenario names stripped.
 		expect(out.standaloneUsage[0].family).toBe('eoe');
 		expect(out.standaloneUsage[0]).not.toHaveProperty('name');
@@ -200,7 +209,7 @@ describe('stripCompiledProfile', () => {
 		expect(out.summary.achievementsTotal).toBe(1);
 		expect(out.eoe[0].memoriesBanishedLocationsCount).toBe(1);
 		expect(out.eoe[0].fatalMiragePlayCounts).toEqual({ once: 1, twice: 0, thrice: 1 });
-		expect(out.resolutionCoverage[0].scenarios[0].tallies.R1).toEqual({
+		expect(out.scenarios[0].scenarios[0].tallies.R1).toEqual({
 			total: 3,
 			byTier: { standard: 2, hard: 1 },
 		});
@@ -208,16 +217,6 @@ describe('stripCompiledProfile', () => {
 		expect(out.eoe[0].killed.dyer).toBe(2);
 		expect(out.eoe[0].survived.kensler).toBe(3);
 		expect(out.eoe[0].camped.camp_icy_wastes).toBe(1);
-		// EotE City matrix is included verbatim (no English; all ids/keys/numbers).
-		expect(out.eoeCity[0].family).toBe('eoe');
-		expect(out.eoeCity[0].versions[0]).toEqual({
-			version: 'I',
-			plays: 2,
-			playsByTier: { standard: 1, hard: 1 },
-			vpBest: 5,
-			vpBestByTier: { standard: 5, hard: 3 },
-			resolutions: { R1: { total: 2, byTier: { standard: 1, hard: 1 } } },
-		});
 	});
 });
 

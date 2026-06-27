@@ -90,6 +90,11 @@ export function stripCompiledProfile(p: LocalProfilePayload) {
 			})),
 		},
 		clearGrid: p.clearGrid.map((r) => omit(r, ['name'])),
+		// Solo / true-solo clear grids: 1-player-filtered variants of clearGrid. NOT
+		// re-derivable from the lean artifact (they need the source plays), so they must
+		// be carried; only each row's re-derivable `name` is dropped (like clearGrid).
+		soloClearGrid: p.soloClearGrid.map((r) => omit(r, ['name'])),
+		trueSoloClearGrid: p.trueSoloClearGrid.map((r) => omit(r, ['name'])),
 		winLossRecord: p.winLossRecord.map((r) => omit(r, ['name'])),
 		endings: p.endings.map((e) => ({
 			...omit(e, ['name']),
@@ -102,10 +107,12 @@ export function stripCompiledProfile(p: LocalProfilePayload) {
 				items: col.items.map((i) => omit(i, ['label'])),
 			})),
 		})),
-		scenarioXp: p.scenarioXp.map((s) => ({
-			...omit(s, ['name']),
-			scenarios: s.scenarios.map((sc) => ({
-				// scenario `name` is re-derivable from its id (campaign-data scenarioNames).
+		// Unified per-scenario records (the single per-scenario source: plays / Succeed / Failed /
+		// resolutions reached + verdicts / VP highscore / choices). Numbers, ids and win/loss
+		// verdicts are the contract and stay; family + scenario `name` and choice `label` re-derive.
+		scenarios: p.scenarios.map((c) => ({
+			...omit(c, ['name']),
+			scenarios: c.scenarios.map((sc) => ({
 				...omit(sc, ['name']),
 				choices: sc.choices?.map((ch) => omit(ch, ['label'])),
 			})),
@@ -117,21 +124,44 @@ export function stripCompiledProfile(p: LocalProfilePayload) {
 			...omit(s, ['name']),
 			standalones: s.standalones.map((sa) => omit(sa, ['name'])),
 		})),
-		// Resolution coverage: per-scenario endings reached + per-difficulty tally
-		// counts (user stats, kept). Only the family `name` is re-derivable → dropped.
-		resolutionCoverage: p.resolutionCoverage.map((rc) => omit(rc, ['name'])),
+		// First-class Standalone Archive aggregates (per scenario): scenario id / source /
+		// catalogue code / counts / verdicts / resolution tallies / XP-tier distribution are
+		// the contract and stay; only the scenario `name` re-derives from its id.
+		standalones: p.standalones.map((s) => omit(s, ['name'])),
 		// Trauma tally: per-ending/-investigator death & insanity counts (user stats,
 		// kept). Carries only ids/keys/numbers — the campaign name re-derives from `family`.
 		traumaTally: p.traumaTally,
-		// EotE City of the Elder Things matrix: version + resolution ids + per-difficulty
-		// counts (user stats, all keys/numbers — nothing re-derivable to strip).
-		eoeCity: p.eoeCity,
 		// EotE bespoke tallies (crash / demons / survivors / supplies / camps): member &
 		// item ids + counts (all keys/numbers — labels re-derive from the ids).
 		eoe: p.eoe,
 		// The Scarlet Keys aggregate: trust/deception act counts, Coterie outcomes, routes
 		// — all keys/numbers/dates (user stats), nothing English to strip. Kept whole.
 		tsk: p.tsk,
+		// The Dunwich Legacy bespoke tallies (openers order / kidnapped scholars / sacrifices /
+		// Necronomicon / broods / Ascending the Hill / finale): ids + counts only, labels re-derive.
+		dwl: p.dwl,
+		// The Path to Carcosa bespoke tallies (doubt/conviction, VIPs, per-scenario): ids + counts.
+		ptc: p.ptc,
+		// The Forgotten Age bespoke tallies (Yig's Fury, provisions, companions, per-scenario): ids + counts.
+		tfa: p.tfa,
+		// The Circle Undone bespoke tallies (allegiance, missing persons, mementos, endings): ids + counts.
+		tcu: p.tcu,
+		// The Dream-Eaters bespoke tallies (Evidence of Kadath / Steps of the Bridge / per-scenario +
+		// the shared interconnected view: Black Cat, Silver Key, Randolph, epilogue matrix): ids + counts.
+		tdea: p.tdea,
+		tdeb: p.tdeb,
+		// The Innsmouth Conspiracy bespoke tallies (memories, the seven-key finale gate, equipment,
+		// Harper, per-scenario, finale): ids + counts only, labels re-derive.
+		tic: p.tic,
+		// The Feast of Hemlock Vale bespoke tallies (areas/schedule, villager relationships, Fate of
+		// the Vale, the curse): ids + counts only, labels re-derive.
+		fhv: p.fhv,
+		// The Drowned City bespoke tallies (the Fold, glyphs by scenario, artifacts, side tasks,
+		// the Sepulchre better ending, per-scenario forks, the Doom finale): ids + counts only.
+		tdc: p.tdc,
+		// The Night of the Zealot bespoke tallies (the 3 scenarios' notes + cultist counts):
+		// ids + counts only, labels re-derive.
+		notz: p.notz,
 		// Special interactions: interaction id + triggered state + the investigators who
 		// triggered it (codes). The "why"/scenario/condition all re-derive from
 		// `(family, id)` via campaign-data, so nothing English to strip — kept whole.
@@ -181,8 +211,95 @@ export type CompiledProfile = ReturnType<typeof stripCompiledProfile>;
  *  7→8: `eligibilityInsights` entries also carry the never-removed investigators (complement of
  *  removed among the used decks).
  *  8→9: each `insightDecks` entry carries `cantripMax` (per-version distinct-cantrip max) for the
- *  corrected cantrip-diversity rows. */
-export const COMPILED_PROFILE_VERSION = 9;
+ *  corrected cantrip-diversity rows.
+ *  9→10: added the `dwl` blob — The Dunwich Legacy bespoke per-scenario tallies.
+ *  10→11: added the `ptc` blob — The Path to Carcosa bespoke per-scenario tallies.
+ *  11→12: added the `tfa` blob — The Forgotten Age bespoke per-scenario tallies.
+ *  12→13: added the `tcu` blob — The Circle Undone bespoke per-scenario tallies.
+ *  13→14: added the `tdea` + `tdeb` blobs — The Dream-Eaters bespoke per-scenario tallies +
+ *  the shared interconnected view (Black Cat, Silver Key, Randolph, epilogue matrix).
+ *  14→15: added `soloClearGrid` + `trueSoloClearGrid` — the 1-player-filtered clear grids
+ *  (previously dropped, so a loaded/compiled-profile viewer couldn't render the Solo / True
+ *  Solo Campaign Clears widgets). Each row's `name` is still re-derivable → dropped.
+ *  15→16: added the `tic` blob — The Innsmouth Conspiracy bespoke per-scenario tallies.
+ *  16→17: added the `fhv` blob — The Feast of Hemlock Vale bespoke per-scenario tallies. */
+/*  17→18: added the `tdc` blob — The Drowned City bespoke per-scenario tallies. */
+/*  18→19: Return-to campaigns are now first-class families (own code, not folded into
+ *  the base) — the artifact's `family` keys change for rt* plays. */
+/*  19→20: added the `notz` blob — The Night of the Zealot bespoke per-scenario tallies. */
+/*  20→21: PtC blob extended — Unspeakable Oath insane-investigators (subject-scoped),
+ *  Echoes per-player-count resolution table, Last King slain-at-the-party VIPs; and Dim
+ *  Carcosa `possessed` dropped as a win ending (epilogue trigger, not a win). */
+/*  21→22: resolutionCoverage scenarios gained per-scenario `succeed`/`failed` tallies, derived
+ *  generically from campaign-data `scenarioMeta.resolutionOutcomes` (the shared per-scenario
+ *  Succeed/Failed source the scenario passport reads). */
+/*  22→23: added the unified `scenarios` structure — one per-scenario record per campaign
+ *  (plays / Succeed / Failed / resolutions reached + verdicts / VP highscore / choices), the
+ *  single per-scenario source that supersedes `scenarioXp` + `resolutionCoverage`. */
+/*  23→24: removed the now-redundant `scenarioXp` + `resolutionCoverage` structures — `scenarios`
+ *  is the sole per-scenario source in the contract. */
+/*  24→25: PtC `doubtConvictionRuns` gained per-play `tokenRoute` (chaos-token mix per scenario),
+ *  `outcome` (win/loss/abandoned) + `difficulty`; plus new `dcSources` (per-change Conviction/
+ *  Doubt/Neutral by difficulty) and `tokenScenarioMixes` (per-scenario token coverage). */
+/*  25→26: PtC runs gained `outcomeKey` (the finale ending log key → shared outcome-face text) and
+ *  `dcSources` rows gained `canNeutral` (sources that never go neutral show a dash). */
+/*  27→28: PtC runs gained `phantomVersion` / `oathVersion` (serialized Act-version per play); the
+ *  Phantom + Unspeakable Oath blobs gained per-version `versions` tallies; `vipSlainHome` replaced
+ *  by richer `vipHelp` (per home scenario: VIP card pair + interview-bonus + slain-here counts). */
+/*  28→29: `ScenarioStat` gained the unified `versions` per-version breakdown (plays / Succeed /
+ *  Failed / resolutions / XP per version), the single source for the shared version table. */
+/*  29→30: removed the now-redundant bespoke per-version blobs — the EotE `eoeCity` matrix, PtC
+ *  `phantom`/`unspeakableOath` `versions`, and DWL `ascendingHill` — all superseded by
+ *  `ScenarioStat.versions` (every versioned scenario reads the one structure). */
+/*  30→31: PtC `vipHelp` bonus / slainHere widened from a plain count to `{ total, byTier }` so the
+ *  VIP header's two numbers hover to a per-difficulty breakdown like every other count. */
+/*  31→32: retired TSK's bespoke per-variant blobs (`scenarioVariant{Tallies,Plays,Outcomes}`) — its
+ *  version + tier rows now live in `ScenarioStat.versions` via a MULTI-AXIS registry entry, so the
+ *  whole per-version model is unified (every versioned scenario, TSK included, reads one structure). */
+/*  32→33: PtC `pallidMask`/`blackStarsRise` `randomizedWeaknesses` changed from a `code→count` map to
+ *  a `{ weakness, bearer, count }[]` grouped by (weakness, drawing investigator) — the new
+ *  `randomized_weakness_investigator` Extra picker attributes each random weakness to its bearer. */
+/*  33→34: PtC chaos-token route/coverage corrected — the route ends at the TERMINAL scenario (Carcosa
+ *  merged ⇒ Black Stars Rise, not Dim Carcosa); only completed (win/loss) runs count; and the
+ *  receiver "base" mix is dropped (a receiver always gets a mix; an empty one is unknown data). */
+/*  34→35: PtC random-weakness draws (Pallid Mask / Black Stars Rise) are scoped to the viewed
+ *  subject's investigators — a weakness attributed to a teammate's investigator no longer shows on a
+ *  single-player profile (a play group still merges every member's). */
+/*  35→36: PtC Echoes `byPlayerCount` entries hold resolution-derived `{ succeed, failed, tallies }`
+ *  (per-player-count Succeed / Failed via the shared version breakdown) instead of `{ plays,
+ *  resolutions }`; no_resolution counts as a Failed rather than vanishing into the play total. */
+/*  36→37: PtC Doubt/Conviction runs dropped `consistent` / `recordedConviction` / `recordedDoubt` —
+ *  the chain-vs-recorded-meter mismatch check is no longer surfaced in the profile UI. */
+/*  37→38: added `standalones` — the first-class Standalone Archive aggregates (per scenario:
+ *  plays / win-loss / resolution coverage / best score / deck XP-range tier distribution). Only
+ *  each scenario's `name` is stripped (re-derived from its catalogue); everything else is the contract. */
+/*  38→39: PtC Curtain Call's Stranger-defeat count is derived from the warn-police resolution (2 if you
+ *  went to the police either way, else 1) instead of a manual Extra counter, which is no longer asked. */
+/*  39→40: PtC investigator codes (insane / possessed / random-weakness bearer) are canonicalized to
+ *  their base printing, so a parallel / promo investigator matches the roster + groups as one. */
+/*  40→41: PtC chaos-token route carries the bag forward — a scenario whose transition adds no special
+ *  tokens keeps the previous mix (the persisted bag) instead of an empty step, in the chain + coverage. */
+/*  41→42: PtC Dim Carcosa blob gained `strangerArrivalDoom` — plays per agenda-1a doom tier set by the
+ *  Chasing-the-Stranger tally at arrival (final tally minus the marks earned within Dim Carcosa). */
+/*  42→43: PtC widget-table batch — Curtain Call's `strangerOnToYou` became `didntReachAct2b` (plays that
+ *  ended Curtain Call before the theater turned); `strangerByScenario` now lists EVERY Stranger scenario
+ *  (0-defeat ones included, shown as a dash); and Pallid Mask / Black Stars Rise `randomizedWeaknesses`
+ *  are per-draw `{ weakness, bearer, finishDate }` (newest first, cap 7) instead of (weakness, bearer)-
+ *  grouped counts — the lists are now a dated chronological log. */
+/*  43→44: PtC Dim Carcosa `strangerArrivalDoom` is now per-doom-tier `{ succeed, failed, tallies }`
+ *  (the shared per-version breakdown, doom tier as the axis — Succeed / Failed / Resolutions, no Plays)
+ *  instead of a plain doom → play count; only plays that recorded a Dim Carcosa resolution. */
+/*  44→45: PtC Dim Carcosa `possessedInvestigators` is now LOG-derived — read from the repeatable
+ *  `possessed` campaign-note `#name#` picks (a new `possessedInvestigators` record field) instead of the
+ *  dropped Extra picker — and reshaped to a subject-scoped, newest-first `{ code, finishDate }[]` list. */
+/*  45→46: PtC VIP tallies (`vipsInterviewed`, `vipsSlain`, `lastKing.slainVips`) widened from plain
+ *  counts to `TierCount` (per-difficulty split for the portrait hovers), and `lastKing` gained
+ *  `mostSlainInRun` (the highest single-run party-slain count + the most-recent such run's guests). */
+/*  46→47: PtC trimmed + corrected — dropped Curtain Call `didntReachAct2b` and Pallid Mask
+ *  `knowSiteOfGate` (always-true / unreliable); Oath `insaneInvestigators` reshaped to dated
+ *  `{ code, finishDate }[]` (newest first); Black Stars Rise `carcosaMerged` is discriminated from Dim
+ *  Carcosa's R4 by explicit resolution (naive note → BSR); Dim Carcosa gained `carcosaMerged` (R4). */
+export const COMPILED_PROFILE_VERSION = 47;
 
 /**
  * The on-disk/over-the-wire compiled-profile file (`.ahlifepro`, or its plain

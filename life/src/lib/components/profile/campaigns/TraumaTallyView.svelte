@@ -13,8 +13,8 @@ is sliced to that family.
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { getAllCards } from '$lib/card-data';
-	import { resolutionShort, resolutionLabel } from '$lib/campaign/resolutions';
-	import type { TraumaTally, TraumaEvent } from '$lib/campaign/trauma';
+	import { resolutionShort, resolutionLabel } from '$lib/campaign/utils/resolutions';
+	import type { TraumaTally, TraumaEvent } from '$lib/campaign/outcomes/trauma';
 
 	let { tally, family = null }: { tally: TraumaTally; family?: string | null } = $props();
 

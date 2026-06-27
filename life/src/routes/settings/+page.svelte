@@ -4,7 +4,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
-	import { resolveProfileSettings } from '$lib/campaign/profile-settings';
+	import { resolveProfileSettings } from '$lib/campaign/profile/profile-settings';
 	import ProfileGlobalsEditor from '$lib/components/profile/_framework/ProfileGlobalsEditor.svelte';
 
 	// Idempotent: resolves the store's loading status on a direct visit.

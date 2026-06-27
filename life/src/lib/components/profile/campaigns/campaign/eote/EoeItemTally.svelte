@@ -9,14 +9,14 @@ Built on LitTileGrid (`rows` layout). Fed by the shared `eoe` aggregate.
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { entryLabel } from '$lib/campaign/campaign-log-source';
+	import { entryLabel } from '$lib/campaign/records/campaign-log-source';
 	import {
 		eoeSupplyIds,
 		EOE_CAMP_ROWS,
 		EOE_SUPPLY_CARD,
 		EOE_CAMP_CARD,
 		type CampaignEoe
-	} from '$lib/campaign/eoe';
+	} from '$lib/campaign/campaigns/eoe';
 	import { times } from '$lib/profile/plural';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';

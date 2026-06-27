@@ -48,10 +48,7 @@
       "text": "you chose not to go to the police."
     },
     "campaign_notes.did_not_escape_gaze": {
-      "text": "you did not escape the gaze of the phantom.",
-      "spoiler": [
-        "the phantom"
-      ]
+      "text": "you did not escape the gaze of the phantom."
     },
     "campaign_notes.found_nigels_home": {
       "text": "you found Nigel's home."
@@ -69,49 +66,28 @@
       "text": "you opened the path above."
     },
     "campaign_notes.carcosa_merged": {
-      "text": "the realm of Carcosa merged with our own, and Hastur rules over them both.",
-      "spoiler": [
-        "Hastur"
-      ]
+      "text": "the realm of Carcosa merged with our own, and Hastur rules over them both."
     },
     "campaign_notes.prevented_hasturs_escape": {
-      "text": "the investigators prevented Hastur from escaping his prison.",
-      "spoiler": [
-        "Hastur"
-      ]
+      "text": "the investigators prevented Hastur from escaping his prison."
     },
     "campaign_notes.possessed": {
       "text": "#name# was possessed."
     },
     "campaign_notes.hastur_has_you": {
-      "text": "Hastur has you in his grasp.",
-      "spoiler": [
-        "Hastur"
-      ]
+      "text": "Hastur has you in his grasp."
     },
     "campaign_notes.took_onyx_clasp": {
-      "text": "you took the onyx clasp.",
-      "spoiler": [
-        "the onyx clasp"
-      ]
+      "text": "you took the onyx clasp."
     },
     "campaign_notes.destroyed_the_oathspeaker": {
-      "text": "you destroyed the oathspeaker.",
-      "spoiler": [
-        "the oathspeaker"
-      ]
+      "text": "you destroyed the oathspeaker."
     },
     "campaign_notes.left_onyx_clasp": {
-      "text": "you left the onyx clasp behind.",
-      "spoiler": [
-        "the onyx clasp"
-      ]
+      "text": "you left the onyx clasp behind."
     },
     "campaign_notes.followers_of_sign_found_way": {
-      "text": "the followers of the sign have found the way forward.",
-      "spoiler": [
-        "the followers of the sign"
-      ]
+      "text": "the followers of the sign have found the way forward."
     },
     "campaign_notes.ignored_daniels_warning": {
       "text": "you ignored Daniel’s warning."
@@ -147,10 +123,7 @@
       "text": "the investigators escaped the Asylum."
     },
     "campaign_notes.king_claimed_victims": {
-      "text": "the King claimed its victims.",
-      "spoiler": [
-        "the King"
-      ]
+      "text": "the King claimed its victims."
     }
   },
   "achievements": {
@@ -232,6 +205,14 @@
     }
   },
   "scenarioChoices": {
+    "the_unspeakable_oath.daniel_fate": {
+      "label": "Lost Soul — Daniel's fate",
+      "options": {
+        "survived": "If an investigator resigned with the asset version of Daniel Chesterfield under their control.",
+        "possessed": "If the enemy version of Daniel Chesterfield was in play when the scenario ended.",
+        "neither": "If neither of the above are true."
+      }
+    },
     "dim_carcosa.hastur_version": {
       "label": "Hastur version"
     }

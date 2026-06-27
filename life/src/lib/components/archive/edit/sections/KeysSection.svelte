@@ -9,10 +9,10 @@ means the key is unassigned.
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { Dropdown, FaIcon, FaIconType, type OptionOrGroup } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import { itemLabel } from '$lib/campaign/campaign-log-source';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
-	import type { InvestigatorRef } from '$lib/campaign/investigators';
-	import { SCARLET_KEY_NPC_BEARERS, SCARLET_KEY_NPC_CODES } from '$lib/campaign/tsk';
+	import { itemLabel } from '$lib/campaign/records/campaign-log-source';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
+	import { SCARLET_KEY_NPC_BEARERS, SCARLET_KEY_NPC_CODES } from '$lib/campaign/campaigns/tsk';
 
 	interface Props {
 		log: CampaignLog;

@@ -8,9 +8,9 @@ section lines up one-to-one with the paper sheet.
 	import type { CampaignLog, LogSectionDef, ResolvedLogEntry } from '@5argon/arkham-campaign-data';
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { SectionSeparator } from '@5argon/arkham-life-ui';
-	import { sectionTitle } from '$lib/campaign/campaign-log-source';
-	import type { LocalLog } from '$lib/campaign/recorded-state';
-	import type { InvestigatorRef } from '$lib/campaign/investigators';
+	import { sectionTitle } from '$lib/campaign/records/campaign-log-source';
+	import type { LocalLog } from '$lib/campaign/records/recorded-state';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
 	import NotesSection from './NotesSection.svelte';
 	import CounterSection from './CounterSection.svelte';
 	import InvestigatorCounterSection from './InvestigatorCounterSection.svelte';
@@ -35,6 +35,8 @@ section lines up one-to-one with the paper sheet.
 		extraEntries?: ResolvedLogEntry[];
 		/** Standalone source name per extra-entry key (for the marker). */
 		extraSource?: Map<string, string>;
+		/** Standalone archive: drop the campaign-centric "Campaign " prefix from section titles. */
+		standalone?: boolean;
 	}
 
 	let {
@@ -47,9 +49,13 @@ section lines up one-to-one with the paper sheet.
 		onChange,
 		extraEntries = [],
 		extraSource,
+		standalone = false,
 	}: Props = $props();
 
-	const title = $derived(sectionTitle(log, section.id));
+	const title = $derived.by(() => {
+		const t = sectionTitle(log, section.id);
+		return standalone ? t.replace(/^Campaign /, '') : t;
+	});
 </script>
 
 <div class="space-y-3">
@@ -58,7 +64,7 @@ section lines up one-to-one with the paper sheet.
 	{#if section.type === 'header'}
 		<!-- divider only -->
 	{:else if section.type === 'notes'}
-		<NotesSection {log} {section} {entries} {canEdit} {onChange} {extraEntries} {extraSource} />
+		<NotesSection {log} {section} {entries} {investigators} {canEdit} {onChange} {extraEntries} {extraSource} />
 	{:else if section.type === 'count'}
 		<CounterSection {log} {section} {entries} {canEdit} {onChange} />
 	{:else if section.type === 'investigatorCount'}
@@ -81,6 +87,6 @@ section lines up one-to-one with the paper sheet.
 		<SealsSection {log} {section} {entries} {canEdit} {onChange} />
 	{:else}
 		<!-- calendar or any future type: render valid entries as a notes-style fallback -->
-		<NotesSection {log} {section} {entries} {canEdit} {onChange} />
+		<NotesSection {log} {section} {entries} {investigators} {canEdit} {onChange} />
 	{/if}
 </div>

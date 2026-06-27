@@ -67,20 +67,81 @@ export const chapterTwoSmallCampaigns: Campaign[] = [
   Campaign.ChildrenOfBlood,
 ];
 
+/**
+ * An individual official standalone scenario (the FFG "Side Scenarios" / Scenario
+ * Packs). One member PER SCENARIO, not per product: Guardians of the Abyss provides
+ * two scenarios ({@link StandaloneScenario.GuardiansEternalSlumber} +
+ * {@link StandaloneScenario.GuardiansNightsUsurper}); Fortune and Folly is a single
+ * scenario played in two parts (one member, see {@link standaloneScenarioParts}).
+ *
+ * Enum VALUES are the campaign-data `side` catalogue scenario ids verbatim, so the
+ * app joins kohaku ↔ campaign-data on identity (no alias table). Use
+ * {@link productToStandaloneScenarios} for the product→scenarios direction.
+ */
 export enum StandaloneScenario {
-  CurseOfTheRougarou = 'cotr',
-  CarnevaleOfHorrors = 'coh',
-  TheLabyrinthsOfLunacy = 'lol',
-  GuardiansOfTheAbyss = 'guardians',
-  MurderAtTheExcelsiorHotel = 'hotel',
-  TheBlobThatAteEverything = 'blob',
-  TheBlobThatAteEverythingElse = 'blbe',
-  WarOfTheOuterGods = 'wog',
-  MachinationsThroughTime = 'mtt',
-  FortuneAndFolly = 'fof',
-  TheMidwinterGala = 'tmg',
+  CurseOfTheRougarou = 'curse_of_the_rougarou',
+  CarnevaleOfHorrors = 'carnevale_of_horrors',
+  TheLabyrinthsOfLunacy = 'in_the_labyrinths_of_lunacy',
+  // Guardians of the Abyss — two scenarios in one product.
+  GuardiansEternalSlumber = 'the_eternal_slumber',
+  GuardiansNightsUsurper = 'the_nights_usurper',
+  MurderAtTheExcelsiorHotel = 'murder_at_the_excelsior_hotel',
+  TheBlobThatAteEverything = 'blob_that_ate_everything',
+  TheBlobThatAteEverythingElse = 'blob_that_ate_everything_else',
+  WarOfTheOuterGods = 'war_of_the_outer_gods',
+  MachinationsThroughTime = 'machinations_through_time',
+  // Fortune and Folly — one scenario, two parts (canonical id = the `side` story entry).
+  FortuneAndFolly = 'fortune_and_folly_part_1',
+  TheMidwinterGala = 'the_midwinter_gala',
   FilmFatale = 'film_fatale',
   TracesToNowhere = 'traces_to_nowhere_pack',
+}
+
+/**
+ * Which standalone scenarios each standalone {@link Product} provides, in book
+ * order. Most packs provide one scenario; Guardians of the Abyss provides two.
+ * Source of truth for the product→scenario direction (the creator's pack grid).
+ */
+export const productToStandaloneScenarios: Partial<Record<Product, StandaloneScenario[]>> = {
+  [Product.CurseOfTheRougarou]: [StandaloneScenario.CurseOfTheRougarou],
+  [Product.CarnevaleOfHorrors]: [StandaloneScenario.CarnevaleOfHorrors],
+  [Product.TheLabyrinthsOfLunacy]: [StandaloneScenario.TheLabyrinthsOfLunacy],
+  [Product.GuardiansOfTheAbyss]: [
+    StandaloneScenario.GuardiansEternalSlumber,
+    StandaloneScenario.GuardiansNightsUsurper,
+  ],
+  [Product.MurderAtTheExcelsiorHotel]: [StandaloneScenario.MurderAtTheExcelsiorHotel],
+  [Product.TheBlobThatAteEverything]: [StandaloneScenario.TheBlobThatAteEverything],
+  [Product.TheBlobThatAteEverythingElse]: [StandaloneScenario.TheBlobThatAteEverythingElse],
+  [Product.WarOfTheOuterGods]: [StandaloneScenario.WarOfTheOuterGods],
+  [Product.MachinationsThroughTime]: [StandaloneScenario.MachinationsThroughTime],
+  [Product.FortuneAndFolly]: [StandaloneScenario.FortuneAndFolly],
+  [Product.TheMidwinterGala]: [StandaloneScenario.TheMidwinterGala],
+  [Product.FilmFatale]: [StandaloneScenario.FilmFatale],
+};
+
+/**
+ * Number of parts a standalone scenario is played across (absent ⇒ 1). Fortune
+ * and Folly is "one scenario, two parts" — a single {@link StandaloneScenario}
+ * scored once, but the guide splits play into Part I (Fortune) + Part II (Folly).
+ */
+export const standaloneScenarioParts: Partial<Record<StandaloneScenario, number>> = {
+  [StandaloneScenario.FortuneAndFolly]: 2,
+};
+
+const standaloneScenarioToProductMap: Record<string, Product> = {};
+for (const [product, scenarios] of Object.entries(productToStandaloneScenarios)) {
+  for (const scenario of scenarios ?? []) standaloneScenarioToProductMap[scenario] = product as Product;
+}
+
+/** The standalone {@link Product} a given standalone scenario belongs to. */
+export function standaloneScenarioToProduct(scenario: StandaloneScenario): Product {
+  return standaloneScenarioToProductMap[scenario];
+}
+
+/** Standalone scenarios a {@link Product} provides (empty for non-standalone products). */
+export function productStandaloneScenarios(product: Product): StandaloneScenario[] {
+  return productToStandaloneScenarios[product] ?? [];
 }
 
 /**

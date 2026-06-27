@@ -12,10 +12,10 @@ Reads the `keys` collection roster + the `tsk` aggregate's per-key tallies.
 <script lang="ts">
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { CampaignCollections } from '$lib/campaign/collections';
-	import { difficultyBreakdown, times } from '$lib/campaign/difficulty';
-	import type { CampaignTsk } from '$lib/campaign/tsk-profile';
-	import { keyCardCodeForName } from '$lib/campaign/tsk-solver';
+	import type { CampaignCollections } from '$lib/campaign/stats/collections';
+	import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
+	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
+	import { keyCardCodeForName } from '$lib/campaign/campaigns/tsk-solver';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 
 	let {

@@ -18,7 +18,7 @@ achievementsForScenario(log!, Scenario.EchoesOfThePast); // -> [{ def, en }]  "F
 ```
 
 Exports (see `src/index.ts`): `getCampaignLog`, `availableCampaignLogCodes`,
-`sectionEntries`, `spoilerSegments`, `achievementsFor`, `achievementsForScenario`,
+`sectionEntries`, `achievementsFor`, `achievementsForScenario`,
 `evaluateAchievement`, `evaluateInference`, `findValidatorConflicts`, and all types.
 
 **Live consumer:** `starter`'s `/campaign` page Scenario tab renders
@@ -71,9 +71,9 @@ Generated from the ArkhamCards `arkham-cards-data` reference in
 hand-edited:
 
 ```
-references/…  --extract.mjs-->  <code>-{db,en}.draft.json   (complete, no spoilers)
+references/…  --extract.mjs-->  <code>-{db,en}.draft.json   (complete draft)
                                           +
-                                curation/<code>.json        (spoilers + exotic sections)
+                                curation/<code>.json        (exotic sections + overrides)
                                           |
                                      apply.mjs
                                           v
@@ -84,13 +84,12 @@ references/…  --extract.mjs-->  <code>-{db,en}.draft.json   (complete, no spoi
   Deterministic; captures **every** `campaign_log*` effect, resolves card codes
   to names, groups card-marker entries into their section's `items`. Never holds
   curation, so it is always safe to re-run.
-- `curation/<code>.json` — the only hand-authored input: spoiler spans and any
-  exotic-section structure. See [`curation/dwl.json`](./curation/dwl.json) for
-  the worked example.
-- `node tools/apply.mjs --all` — merges drafts + curation → final files,
-  validating that every spoiler span is a real substring.
+- `curation/<code>.json` — the only hand-authored input: exotic-section structure,
+  validators, outcomes, and achievement overrides. See
+  [`curation/dwl.json`](./curation/dwl.json) for the worked example.
+- `node tools/apply.mjs --all` — merges drafts + curation → final files.
 - `node tools/validate.mjs --all` — checks db/en consistency, key linkage,
-  spoiler validity, achievement parity, and completeness vs the draft.
+  achievement parity, and completeness vs the draft.
 
 `*.draft.json` files are intermediate and git-ignored; commit the finals and the
 curation.
@@ -100,9 +99,6 @@ curation.
 ```jsonc
 {
   "code": "dwl",
-  "spoilers": {
-    "campaign_notes.took_necronomicon": ["the Necronomicon"]
-  },
   "sections": {                       // optional: structure/override exotic sections
     "expedition_team": {
       "type": "partner",
@@ -203,27 +199,3 @@ into the base as the **subset** whose links resolve there — base Circle Undone
 gets 8 mementos, rttcu keeps 10, and per-item earned-state stays synchronized by
 item id (key your storage off `(family, achievementId, itemId)`). Evaluate with
 `evaluateAchievement` (returns per-item state + overall `earned`).
-
-## Spoiler rule
-
-Each entry's `text` is shown in the dropdown. `spoiler` is a list of substrings
-to **blur until revealed**. The goal: someone browsing who hasn't finished the
-campaign isn't shown major plot beats, yet a player transcribing their physical
-log can still recognise each entry.
-
-1. **Blur the plot-revealing part** — the specific noun/outcome the entry
-   records (named bosses & twist NPCs, artifacts, faction reveals, endgame
-   outcomes). E.g. `the investigators took custody of the Necronomicon.` →
-   blur `the Necronomicon`.
-2. **Keep it distinguishable** — leave enough of the sentence that the entry is
-   still unique among its **siblings in the same section**. If blurring the noun
-   would make two siblings collide, blur the differing outcome term instead, or
-   blur less. E.g. the three professors who can be _kidnapped_ are told apart by
-   name, so their names stay visible and only a deeper twist (Silas Bishop, the
-   Experiment) is blurred.
-3. **Don't over-blur** — front-loaded setup NPCs/places named in the intro or in
-   a visible section title are not spoilers. Generic scaffolding (`the
-   investigators were delayed…`) needs no spoiler at all.
-4. Each span must be an **exact substring** of `text` (validated by `apply.mjs`).
-
-See `curation/dwl.json` for the canonical demonstration of all four points.

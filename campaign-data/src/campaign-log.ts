@@ -13,9 +13,11 @@ import type {
   AchievementInference,
   EnAchievement,
   LogValidator,
+  ValidatorConflict,
   ResolutionEffect,
   SpecialInteractionDef,
   EnSpecialInteraction,
+  StandaloneSetup,
 } from './types.js';
 import { DB, EN } from './generated.js';
 
@@ -80,6 +82,9 @@ export interface StandaloneScenario {
   name: string;
   /** First-choice resolutions in book order (empty when the scenario records none). */
   resolutions: string[];
+  /** How the app presents the reward — Victory display (VP, `true`) vs flat Experience (XP,
+   *  `false`); see {@link ScenarioMeta.victoryDisplay}. Defaults to `true` when unknown. */
+  victoryDisplay: boolean;
 }
 
 function deslugScenario(id: string): string {
@@ -104,7 +109,22 @@ export function standaloneScenarios(): StandaloneScenario[] {
       scenario: m.id,
       name: log.en.scenarioNames?.[m.id] ?? deslugScenario(m.id),
       resolutions: m.resolutions ?? [],
+      victoryDisplay: m.victoryDisplay ?? true,
     }));
+}
+
+/**
+ * The standalone-mode setup (allowed difficulties + chaos bag) for a scenario, or
+ * undefined when none is curated/extracted. `code` is `'side'` for Scenario-Pack
+ * scenarios, or the host campaign code for a campaign scenario played standalone.
+ * Drives a Standalone Archive's difficulty radio + chaos-bag seed.
+ */
+export function standaloneSetup(
+  code: Campaign | string,
+  scenario: string,
+): StandaloneSetup | undefined {
+  const log = getCampaignLog(code);
+  return log?.db.scenarioMeta?.find((m) => m.id === scenario)?.standaloneSetup;
 }
 
 export interface ResolvedLogEntry {
@@ -132,17 +152,35 @@ export function sectionEntries(log: CampaignLog, sectionId: string): ResolvedLog
 }
 
 /**
- * Returns the validators that are violated by the recorded set — i.e. a
- * `mutuallyExclusive` rule with two or more of its entries recorded together.
- * The UI can warn with each conflict's entry texts.
+ * Returns the validators violated by the recorded set, resolved for display:
+ *  - `mutuallyExclusive`: two or more of its entries recorded together.
+ *  - `disjointSections`: a card recorded in MORE THAN ONE of its `cards` sections (the
+ *    recorded card sets overlap) — reports the offending card codes.
  */
 export function findValidatorConflicts(
   log: CampaignLog,
   recordedKeys: ReadonlySet<string>
-): LogValidator[] {
-  return (log.db.validators ?? []).filter(
-    (v) => v.entries.filter((e) => recordedKeys.has(e)).length >= 2
-  );
+): ValidatorConflict[] {
+  const out: ValidatorConflict[] = [];
+  for (const v of log.db.validators ?? []) {
+    if (v.type === 'disjointSections') {
+      // The card codes recorded under EVERY listed section — i.e. cards living in two
+      // places at once (a cultist can't be both interrogated and got away).
+      const codeSets = v.sections.map((sec) => {
+        const prefix = sec + '.';
+        const codes = new Set<string>();
+        for (const k of recordedKeys) if (k.startsWith(prefix)) codes.add(k.slice(prefix.length));
+        return codes;
+      });
+      const [first, ...rest] = codeSets;
+      const cards = first ? [...first].filter((c) => rest.every((s) => s.has(c))) : [];
+      if (cards.length)
+        out.push({ type: 'disjointSections', scenario: v.scenario, sections: v.sections, cards });
+    } else if (v.entries.filter((e) => recordedKeys.has(e)).length >= 2) {
+      out.push({ type: 'mutuallyExclusive', scenario: v.scenario, entries: v.entries });
+    }
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------------------
@@ -554,34 +592,3 @@ export function isCleared(log: CampaignLog, state: RecordedCampaignState): boole
   return win.some((key) => state.recordedLogs!.has(key));
 }
 
-/**
- * Splits an entry's text into ordered segments marked as spoiler or not, so the
- * UI can blur the spoiler segments. Spans are matched left-to-right.
- */
-export function spoilerSegments(en: EnEntry): { text: string; spoiler: boolean }[] {
-  const spans = en.spoiler ?? [];
-  if (!spans.length) return [{ text: en.text, spoiler: false }];
-  const segments: { text: string; spoiler: boolean }[] = [];
-  let rest = en.text;
-  // Repeatedly find the earliest occurrence of any span.
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    let bestIdx = -1;
-    let bestSpan = '';
-    for (const span of spans) {
-      const i = rest.indexOf(span);
-      if (i !== -1 && (bestIdx === -1 || i < bestIdx)) {
-        bestIdx = i;
-        bestSpan = span;
-      }
-    }
-    if (bestIdx === -1) {
-      if (rest) segments.push({ text: rest, spoiler: false });
-      break;
-    }
-    if (bestIdx > 0) segments.push({ text: rest.slice(0, bestIdx), spoiler: false });
-    segments.push({ text: bestSpan, spoiler: true });
-    rest = rest.slice(bestIdx + bestSpan.length);
-  }
-  return segments;
-}

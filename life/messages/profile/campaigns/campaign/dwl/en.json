@@ -1,0 +1,68 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_dwl_opening_ea": "Extracurricular Activity first",
+	"campaign_dwl_opening_thaw": "The House Always Wins first",
+	"campaign_dwl_opening_empty": "Play the two opening cases to see which you tackle first.",
+
+	"campaign_dwl_person_warren_rice": "Warren Rice",
+	"campaign_dwl_person_francis_morgan": "Francis Morgan",
+	"campaign_dwl_person_henry_armitage": "Henry Armitage",
+	"campaign_dwl_person_zebulon_whateley": "Zebulon Whateley",
+	"campaign_dwl_person_earl_sawyer": "Earl Sawyer",
+
+	"campaign_dwl_persons_empty": "Play the opening cases to track the missing scholars.",
+	"campaign_dwl_persons_empty_tile": "No record yet",
+	"campaign_dwl_persons_rescued": "Rescued {times}",
+	"campaign_dwl_persons_rescued_never": "Never rescued",
+	"campaign_dwl_persons_kidnapped": "Kidnapped {times}",
+	"campaign_dwl_persons_snatched": "Snatched again {times}",
+
+	"campaign_dwl_sacrifices_empty": "Reach Blood on the Altar to tally the fallen.",
+	"campaign_dwl_sacrifices_survived": "Survived {times}",
+	"campaign_dwl_sacrifices_sacrificed": "Sacrificed {times}",
+	"campaign_dwl_sacrifices_safe": "Never sacrificed",
+
+	"campaign_dwl_necronomicon_took": "Took custody",
+	"campaign_dwl_necronomicon_destroyed": "Destroyed it",
+	"campaign_dwl_necronomicon_failed": "Failed to recover",
+	"campaign_dwl_necronomicon_stolen": "Stolen on the train",
+	"campaign_dwl_necronomicon_empty": "Reach the Miskatonic Museum to track the Necronomicon.",
+
+	"campaign_dwl_miskatonic_broke_in": "Broke in",
+	"campaign_dwl_miskatonic_spoke_to_adam": "Spoke to Adam Lynch",
+	"campaign_dwl_miskatonic_nec_heading": "The Necronomicon",
+	"campaign_dwl_miskatonic_approach_heading": "Opening approach",
+	"campaign_dwl_miskatonic_empty": "Reach the Miskatonic Museum to track the Necronomicon and your way in.",
+
+	"campaign_dwl_essex_empty": "Reach the Essex County Express to see what the train takes back.",
+	"campaign_dwl_essex_safe": "Not taken here",
+
+	"campaign_dwl_silas_killed": "Put out of his misery",
+	"campaign_dwl_silas_restored": "Restored",
+	"campaign_dwl_silas_banished": "Banished",
+	"campaign_dwl_silas_empty": "Reach Blood on the Altar to decide Silas Bishop's fate.",
+
+	"campaign_dwl_broods_label": "{n} escaped",
+	"campaign_dwl_broods_none": "None escaped",
+	"campaign_dwl_townsfolk_calmed": "Calmed the townsfolk",
+	"campaign_dwl_townsfolk_warned": "Warned the townsfolk",
+	"campaign_dwl_broods_empty": "Play Undimensioned and Unseen to tally the brood.",
+
+	"campaign_dwl_hill_v1": "Ascending the Hill v. I",
+	"campaign_dwl_hill_v2": "Ascending the Hill v. II",
+	"campaign_dwl_hill_v3": "Ascending the Hill v. III",
+	"campaign_dwl_wda_entered": "Entered the gate",
+	"campaign_dwl_wda_escaped": "Yog-Sothoth escaped",
+	"campaign_dwl_hill_empty": "Reach Where Doom Awaits to see which hill you climbed.",
+
+	"campaign_dwl_finale_closed": "Closed the tear",
+	"campaign_dwl_finale_fled": "Yog-Sothoth fled",
+	"campaign_dwl_finale_became_one": "Became one with reality",
+	"campaign_dwl_finale_lost_forever": "Won, lost forever (Act 4)",
+	"campaign_dwl_finale_empty": "Reach Lost in Time and Space to tally its endings.",
+
+	"campaign_dwl_epilogue_peaceful": "Life returned to normal",
+	"campaign_dwl_epilogue_ominous": "The sign in the dirt",
+	"campaign_dwl_epilogue_empty": "Win the campaign to reach an epilogue."
+}

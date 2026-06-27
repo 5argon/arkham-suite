@@ -1,9 +1,70 @@
 {
+  "scenarioResolutionOutcomes": {
+    "_notes": "Success = expedition advanced / relic recovered / threat escaped; loss = defeated, mind-wiped, or time unravelled. Exploration scenarios (Untamed Wilds, Boundary Beyond, Heart of the Elders 1 and 2, Depths of Yoth) treat every numbered resolution as a win since each just records how far you got before escaping — only no_resolution (resign / agenda out) is a loss. Doom of Eztli R1/R3 both = relic recovered + escaped (win); no_resolution_defeated = loss, no_resolution_resigned = neutral (voluntary early exit). Threads of Fate judged R1=win / no_resolution=loss (act completed vs time-out) rather than omitted, to match every other scenario's no_resolution=loss. City of Archives confirmed by db: had_memories_expunged carries outcome:loss, so no_resolution=loss, R1 (escaped/resisted)=win. Shattered Aeons grounded in db outcome flags: R1 mended-tear, R2 saved-serpents, R3 saved-Yithians = win; R4 fabric-of-time-unwoven = loss; R5 turned-back-time = neutral (the secret rewind branch into the alternate finale, deliberately not a clean win nor a defeat, and the only Shattered Aeons resolution with no db outcome flag); no_resolution=loss. Turn Back Time (alternate finale, no widget): R1 sealed-relic-forever carries outcome:win/best, no_resolution=loss.",
+    "the_untamed_wilds": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win"
+    },
+    "the_doom_of_eztli": {
+      "no_resolution_defeated": "loss",
+      "no_resolution_resigned": "neutral",
+      "R1": "win",
+      "R3": "win"
+    },
+    "threads_of_fate": {
+      "no_resolution": "loss",
+      "R1": "win"
+    },
+    "the_boundary_beyond": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win"
+    },
+    "heart_of_the_elders_part_1": {
+      "no_resolution": "loss",
+      "R1": "win"
+    },
+    "heart_of_the_elders_part_2": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win"
+    },
+    "the_city_of_archives": {
+      "no_resolution": "loss",
+      "R1": "win"
+    },
+    "the_depths_of_yoth": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win"
+    },
+    "shattered_aeons": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win",
+      "R3": "win",
+      "R4": "loss",
+      "R5": "neutral"
+    },
+    "turn_back_time": {
+      "no_resolution": "loss",
+      "R1": "win"
+    }
+  },
   "code": "tfa",
   "specialInteractions": {
     "expedition_leader": {
       "scenario": "the_untamed_wilds",
-      "match": { "kind": "code", "codes": ["04001", "04002", "08007", "90062"] },
+      "match": {
+        "kind": "code",
+        "codes": [
+          "04001",
+          "04002",
+          "08007",
+          "90062"
+        ]
+      },
       "scope": "any",
       "role": "lead",
       "text": "Becomes lead investigator for Scenarios I–II."
@@ -29,11 +90,6 @@
     ]
   },
   "_notes": "Verified against tfa-en.draft.json and tfa-db.draft.json. Span \"the Harbinger\" is an exact substring of \"the Harbinger is still alive (#X# damage).\" and is the only Harbinger/count-style sibling in campaign_notes, so blurring leaves it distinguishable (\"is still alive (#X# damage).\"). No sibling collisions: Alejandro/Harlan/Relic of Ages/Eztli are front-loaded in the prologue and left visible (rule 3); Ichtaca is an early recurring companion left visible to keep siblings distinct; Serpents/Yithians faction pairs (investigators_saved_serpents/investigators_saved_yithians, cooperated_with_yithians) differ only by the faction noun so it stays visible (rule 2). nexus/depths/tear in time/fabric of time are generic endgame scaffolding, each the sole sibling of its kind, so left unblurred. The en draft contains ONLY campaign_notes entries, so no hidden-section bookkeeping entries to drop. Supplies roster: the published tfa-en/db and rttfa references do not enumerate the items, so the 11-item list is taken from the canonical TFA prologue supplies step (Provisions x2 and Medicine x2 are the multiple-allowed ones). Labels/ids verified internally consistent; none are spoilers (visible prologue section). No changes needed.",
-  "spoilers": {
-    "campaign_notes.harbinger_alive": [
-      "the Harbinger"
-    ]
-  },
   "sections": {
     "supplies": {
       "type": "supplies",
@@ -114,6 +170,18 @@
       "min": 0,
       "_note": "Campaign-wide 'Yig's Fury' counter (campaign.json section title 'Yig's Fury', type 'count'). Accumulates across scenarios. No fixed cap in the reference; achievement 'bane_of_yig' infers logCount min 25 and 'dont_tread_on_me' infers logCount max 0, so it can range from 0 upward with no max set. Not per-investigator."
     }
+  },
+  "scenarioChoices": {
+    "the_doom_of_eztli": [
+      {
+        "id": "retries",
+        "label": "Times you replayed The Doom of Eztli",
+        "control": "counter",
+        "min": 0,
+        "max": 12,
+        "options": []
+      }
+    ]
   },
   "validators": [
     {

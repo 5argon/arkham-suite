@@ -9,9 +9,9 @@ the ticked notes under their composite `"section.id"` keys.
 	import { sectionEntries, type CampaignLog, type LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { Button, Checkbox } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import { itemLabel, portraitUrl } from '$lib/campaign/campaign-log-source';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
-	import SpoilerEntryText from '../SpoilerEntryText.svelte';
+	import { itemLabel, portraitUrl } from '$lib/campaign/records/campaign-log-source';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
+	import EntryText from '../EntryText.svelte';
 
 	interface Props {
 		log: CampaignLog;
@@ -91,7 +91,7 @@ the ticked notes under their composite `"section.id"` keys.
 					onChange={() => toggleNote(note.key)}
 				/>
 				{#if recorded.has(note.key)}
-					<SpoilerEntryText class="text-primary-500 ml-6 text-xs" en={note.en} reveal />
+					<EntryText class="text-primary-500 ml-6 text-xs" en={note.en} />
 				{/if}
 			{/each}
 		</div>

@@ -1,25 +1,167 @@
 <script lang="ts">
   import { ChaosToken } from "@5argon/arkham-kohaku";
-  import type { ComponentType } from "svelte";
+  import type { Component } from "svelte";
 
   interface Prop {
     chaosToken: ChaosToken;
-    fillColor?: string;
-    overlayColor?: string;
-    highlightColor?: string;
-    circular?: boolean;
+    /** Render the sealed (outline ring + symbol) variant instead of the layered token face. */
+    sealed?: boolean;
+    /**
+     * Matches the RN `border` prop semantics:
+     *  - Non-sealed: draws a thin ring around the token (only for number/symbol/frost tokens).
+     *  - Sealed: INVERTED — `false` (default) uses the bordered outline tinted with the token
+     *    accent color; `true` uses the no-border outline tinted with the neutral D20 color.
+     */
+    border?: boolean;
+    /**
+     * Ignore the built-in token colors and render every layer in the inherited font color
+     * (currentColor). Useful for monochrome contexts where the token should follow the text.
+     */
+    noColor?: boolean;
+    /**
+     * Skip the circular gradient disc behind the non-sealed token face, leaving just the layered
+     * glyph (the disc is already absent in sealed / noColor modes).
+     */
+    noDisc?: boolean;
   }
   const {
     chaosToken,
-    fillColor = "",
-    overlayColor = "",
-    highlightColor = "",
-    circular = false,
+    sealed = false,
+    border = false,
+    noColor = false,
+    noDisc = false,
   }: Prop = $props();
+
+  // ---------------------------------------------------------------------------
+  // Built-in colors (ported from the React Native reference implementation).
+  // ---------------------------------------------------------------------------
+  const BONE = "#E6E1D3"; // overlay tone shared by almost every token
+  const WHITE = "#FFFBF2"; // highlight tone shared by number/symbol tokens
+  const NUMBER_FILL = "#394852"; // symbol-fill tone behind the number tokens
+  const D20 = "#475259"; // theme fallback used by sealed number tokens
+
+  interface TokenColors {
+    fill?: string;
+    overlay?: string;
+    highlight?: string;
+    /** Color of the outline ring + symbol in sealed mode. */
+    sealed: string;
+  }
+
+  function getColors(token: ChaosToken): TokenColors {
+    switch (token) {
+      case ChaosToken.TokenP1:
+        return {
+          fill: NUMBER_FILL,
+          overlay: "#ECBA59",
+          highlight: WHITE,
+          sealed: D20,
+        };
+      case ChaosToken.Token0:
+      case ChaosToken.TokenM1:
+      case ChaosToken.TokenM2:
+      case ChaosToken.TokenM3:
+      case ChaosToken.TokenM4:
+      case ChaosToken.TokenM5:
+      case ChaosToken.TokenM6:
+      case ChaosToken.TokenM7:
+      case ChaosToken.TokenM8:
+        return {
+          fill: NUMBER_FILL,
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: D20,
+        };
+      case ChaosToken.TokenFrost:
+        return {
+          fill: "#3D3A63",
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: "#3D3A63",
+        };
+      case ChaosToken.TokenSkull:
+        return {
+          fill: "#552D2D",
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: "#552D2D",
+        };
+      case ChaosToken.TokenCultist:
+        return {
+          fill: "#314629",
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: "#314629",
+        };
+      case ChaosToken.TokenTablet:
+        return {
+          fill: "#294146",
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: "#294146",
+        };
+      case ChaosToken.TokenElderThing:
+        return {
+          fill: "#442946",
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: "#442946",
+        };
+      case ChaosToken.TokenAutofail:
+        // No fill layer.
+        return { overlay: BONE, highlight: "#8D181E", sealed: "#7D1318" };
+      case ChaosToken.TokenElderSign:
+        return {
+          fill: "#427DAD",
+          overlay: BONE,
+          highlight: BONE,
+          sealed: "#4477A1",
+        };
+      case ChaosToken.TokenBless:
+        // No highlight layer.
+        return { fill: "#9D702A", overlay: BONE, sealed: "#9D702A" };
+      case ChaosToken.TokenCurse:
+        // No highlight layer.
+        return { fill: "#35232F", overlay: BONE, sealed: "#3A2342" };
+      case ChaosToken.TokenBlood:
+        // The fill artwork carries its own red; keep the accent in sync with it.
+        return {
+          fill: "#C22026",
+          overlay: BONE,
+          highlight: WHITE,
+          sealed: "#C22026",
+        };
+      default:
+        const _exhaustive: never = token;
+        throw new Error(`Unhandled chaos token: ${_exhaustive}`);
+    }
+  }
+
+  // The non-sealed token sits on a circular radial-gradient "disc" backdrop.
+  // Ported from DEFAULT_GRADIENT / GRADIENTS in the RN reference.
+  function getDiscGradient(token: ChaosToken): string {
+    switch (token) {
+      case ChaosToken.TokenFrost:
+        return "radial-gradient(circle at 50% 50%, #3D3A63 66%, #495483 100%)";
+      case ChaosToken.TokenAutofail:
+        return "radial-gradient(circle at 50% 50%, #8D181E 75%, #6A0B10 100%)";
+      case ChaosToken.TokenElderSign:
+        return "radial-gradient(circle at 50% 50%, #33A1FB 0%, #3C8AC9 50%, #457398 100%)";
+      case ChaosToken.TokenBless:
+        return "radial-gradient(circle at 50% 50%, #9C702A 25%, #695823 100%)";
+      case ChaosToken.TokenCurse:
+        return "radial-gradient(circle at 50% 50%, #362330 25%, #3B224A 100%)";
+      case ChaosToken.TokenBlood:
+        return "radial-gradient(circle at 50% 50%, #C22026 40%, #7A1418 100%)";
+      default:
+        // Cream disc shared by the number and symbol tokens.
+        return "radial-gradient(circle at 50% 50%, #FFFBF2 60%, #D6CFB9 100%)";
+    }
+  }
 
   function getFillComponent(token: ChaosToken) {
     switch (token) {
-      // Number tokens and Frost use TokenNumberFill
+      // Number tokens use the SYMBOL fill shape (matches token_symbol_fill in the RN reference).
       case ChaosToken.TokenP1:
       case ChaosToken.Token0:
       case ChaosToken.TokenM1:
@@ -30,6 +172,9 @@
       case ChaosToken.TokenM6:
       case ChaosToken.TokenM7:
       case ChaosToken.TokenM8:
+        return import("../individual/svelte/TokenSymbolFill.svelte");
+
+      // Frost is the only token that uses the NUMBER fill shape (token_number_fill).
       case ChaosToken.TokenFrost:
         return import("../individual/svelte/TokenNumberFill.svelte");
 
@@ -42,8 +187,9 @@
         return import("../individual/svelte/TokenTabletFill.svelte");
       case ChaosToken.TokenElderThing:
         return import("../individual/svelte/TokenElderThingFill.svelte");
+      // Auto-fail has NO fill layer (only overlay + highlight in the RN reference).
       case ChaosToken.TokenAutofail:
-        return import("../individual/svelte/TokenSymbolFill.svelte");
+        return null;
       case ChaosToken.TokenElderSign:
         return import("../individual/svelte/TokenElderSignFill.svelte");
       case ChaosToken.TokenBless:
@@ -138,10 +284,10 @@
         return import("../individual/svelte/TokenFrostHighlight.svelte");
       case ChaosToken.TokenBlood:
         return import("../individual/svelte/TokenBloodHighlight.svelte");
+      // Bless and Curse have NO highlight layer (only fill + overlay in the RN reference).
       case ChaosToken.TokenBless:
-        return import("../individual/svelte/TokenBlessOverlay.svelte");
       case ChaosToken.TokenCurse:
-        return import("../individual/svelte/TokenCurseOverlay.svelte");
+        return null;
       default:
         const _exhaustive: never = token;
         throw new Error(`Unhandled chaos token: ${_exhaustive}`);
@@ -196,19 +342,111 @@
     }
   }
 
-  // Derived reactive values
-  const fillComponent = $derived(getFillComponent(chaosToken));
-  const overlayComponent = $derived(getOverlayComponent(chaosToken));
-  const highlightComponent = $derived(getHighlightComponent(chaosToken));
+  // Each token assembles a different set of layers, in a token-specific paint order.
+  // We build an ordered list (bottom -> top) so missing layers are simply absent and
+  // unusual orderings (e.g. Elder Sign paints its fill ON TOP of the overlay) are data.
+  type Layer = {
+    kind: "fill" | "overlay" | "highlight";
+    component: Promise<{ default: Component }>;
+    color?: string;
+  };
+
+  const layers = $derived.by((): Layer[] => {
+    const fill = getFillComponent(chaosToken);
+    const overlay = getOverlayComponent(chaosToken);
+    const highlight = getHighlightComponent(chaosToken);
+    const colors = getColors(chaosToken);
+
+    // Elder Sign is the exception: its symbol fill paints above the overlay.
+    const fillAboveOverlay = chaosToken === ChaosToken.TokenElderSign;
+
+    const result: Layer[] = [];
+    const fillLayer: Layer | null = fill
+      ? { kind: "fill", component: fill, color: colors.fill }
+      : null;
+    const overlayLayer: Layer | null = overlay
+      ? { kind: "overlay", component: overlay, color: colors.overlay }
+      : null;
+
+    if (fillAboveOverlay) {
+      if (overlayLayer) result.push(overlayLayer);
+      if (fillLayer) result.push(fillLayer);
+    } else {
+      if (fillLayer) result.push(fillLayer);
+      if (overlayLayer) result.push(overlayLayer);
+    }
+    if (highlight) {
+      result.push({
+        kind: "highlight",
+        component: highlight,
+        color: colors.highlight,
+      });
+    }
+    return result;
+  });
+
+  // The non-sealed border ring (RN's ChaosTokenBordeer) is only drawn for the
+  // number/symbol/frost tokens — not for auto_fail/elder_sign/bless/curse.
+  function tokenSupportsBorderRing(token: ChaosToken): boolean {
+    switch (token) {
+      case ChaosToken.TokenP1:
+      case ChaosToken.Token0:
+      case ChaosToken.TokenM1:
+      case ChaosToken.TokenM2:
+      case ChaosToken.TokenM3:
+      case ChaosToken.TokenM4:
+      case ChaosToken.TokenM5:
+      case ChaosToken.TokenM6:
+      case ChaosToken.TokenM7:
+      case ChaosToken.TokenM8:
+      case ChaosToken.TokenSkull:
+      case ChaosToken.TokenCultist:
+      case ChaosToken.TokenTablet:
+      case ChaosToken.TokenElderThing:
+      case ChaosToken.TokenFrost:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  const BORDER_RING_COLOR = "#9B9B9B"; // COLORS.M in the RN reference
+
+  const showBorderRing = $derived(
+    !sealed && border && tokenSupportsBorderRing(chaosToken),
+  );
+
+  // Sealed mode inverts `border`: default uses the bordered outline tinted with the
+  // token accent color; border=true uses the no-border outline tinted with neutral D20.
+  // Disc backdrop for non-sealed tokens (suppressed in noColor / sealed / noDisc modes).
+  const discGradient = $derived(
+    !sealed && !noColor && !noDisc ? getDiscGradient(chaosToken) : null,
+  );
+
+  const sealedColor = $derived(border ? D20 : getColors(chaosToken).sealed);
+
   const sealedOutlineComponent = $derived(
-    circular ? import("../individual/svelte/TokenSealedOutline.svelte") : null,
+    sealed
+      ? border
+        ? import("../individual/svelte/TokenSealedOutlineNoBorder.svelte")
+        : import("../individual/svelte/TokenSealedOutline.svelte")
+      : null,
   );
   const sealedComponent = $derived(
-    circular ? getSealedComponent(chaosToken) : null,
+    sealed ? getSealedComponent(chaosToken) : null,
   );
+
+  // Build the inline style for a layer, honoring the noColor escape hatch.
+  // `display: flex` lays the inline-block `.icon` svg out as a flex item so the
+  // span's box equals the glyph box exactly — without it the svg's baseline slack
+  // makes the wrapper taller than the symbol and the disc backdrop sits off-center.
+  function layerStyle(position: string, color?: string): string {
+    const base = `${position} line-height: 0; display: flex;`;
+    return noColor || !color ? base : `${base} color: ${color};`;
+  }
 </script>
 
-{#if circular}
+{#if sealed}
   <span
     class="relative inline-block"
     style="line-height: 0; vertical-align: middle;"
@@ -219,10 +457,7 @@
         <div class="icon-loading" aria-label="Loading icon"></div>
       {:then module}
         {@const OutlineIcon = module.default}
-        <span
-          class={`absolute inset-0 ${fillColor}`}
-          style="line-height: 0; display: block;"
-        >
+        <span style={layerStyle("position: absolute; inset: 0;", sealedColor)}>
           <OutlineIcon />
         </span>
       {/await}
@@ -234,10 +469,7 @@
         <!-- Loading -->
       {:then module}
         {@const SealedIcon = module.default}
-        <span
-          class={`relative ${fillColor}`}
-          style="line-height: 0; display: block;"
-        >
+        <span style={layerStyle("position: relative;", sealedColor)}>
           <SealedIcon />
         </span>
       {:catch error}
@@ -252,49 +484,44 @@
     class="relative inline-block"
     style="line-height: 0; vertical-align: middle;"
   >
-    <!-- Fill Layer -->
-    {#if fillComponent}
-      {#await fillComponent}
-        <div class="icon-loading" aria-label="Loading icon"></div>
-      {:then module}
-        {@const FillIcon = module.default}
-        <span
-          class={`absolute inset-0 ${fillColor}`}
-          style="line-height: 0; display: block;"
-        >
-          <FillIcon />
-        </span>
-      {/await}
+    <!-- Disc backdrop: the circular radial-gradient body behind the symbol layers. -->
+    {#if discGradient}
+      <span
+        aria-hidden="true"
+        style={`position: absolute; inset: 0; border-radius: 50%; background: ${discGradient};`}
+      ></span>
     {/if}
 
-    <!-- Overlay Layer -->
-    {#if overlayComponent}
-      {#await overlayComponent}
-        <!-- Loading -->
+    <!--
+      Layers paint bottom -> top in array order. The last layer is `relative` so it
+      gives the wrapper its intrinsic size; the rest are absolutely stacked on top of it.
+    -->
+    {#each layers as layer, i (layer.kind)}
+      {#await layer.component}
+        {#if i === 0}
+          <div class="icon-loading" aria-label="Loading icon"></div>
+        {/if}
       {:then module}
-        {@const OverlayIcon = module.default}
+        {@const LayerIcon = module.default}
         <span
-          class={`absolute inset-0 ${overlayColor}`}
-          style="line-height: 0; display: block;"
+          style={layerStyle(
+            i === layers.length - 1
+              ? "position: relative;"
+              : "position: absolute; inset: 0;",
+            layer.color,
+          )}
         >
-          <OverlayIcon />
+          <LayerIcon />
         </span>
       {/await}
-    {/if}
+    {/each}
 
-    <!-- Highlight Layer -->
-    {#if highlightComponent}
-      {#await highlightComponent}
-        <!-- Loading -->
-      {:then module}
-        {@const HighlightIcon = module.default}
-        <span
-          class={`relative ${highlightColor}`}
-          style="line-height: 0; display: block;"
-        >
-          <HighlightIcon />
-        </span>
-      {/await}
+    <!-- Border ring (RN's ChaosTokenBordeer): a thin circle drawn on top. -->
+    {#if showBorderRing}
+      <span
+        aria-hidden="true"
+        style={`position: absolute; inset: 0; border-radius: 50%; line-height: 0; display: block; border: 1px solid ${noColor ? "currentColor" : BORDER_RING_COLOR};`}
+      ></span>
     {/if}
   </span>
 {/if}

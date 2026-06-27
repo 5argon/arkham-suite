@@ -75,10 +75,7 @@
       "text": "Corn Husk Doll"
     },
     "campaign_notes.coven_of_keziah_holds_the_world_in_its_grasp": {
-      "text": "the coven of Keziah holds the world in its grasp.",
-      "spoiler": [
-        "Keziah holds the world in its grasp"
-      ]
+      "text": "the coven of Keziah holds the world in its grasp."
     },
     "campaign_notes.path_winds_before_you": {
       "text": "the path winds before you: #X#"
@@ -153,22 +150,13 @@
       "text": "Valentino is alive."
     },
     "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
-      "text": "the true work of the Silver Twilight Lodge has begun.",
-      "spoiler": [
-        "the true work"
-      ]
+      "text": "the true work of the Silver Twilight Lodge has begun."
     },
     "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
-      "text": "Carl Sanford possesses the secrets of the universe.",
-      "spoiler": [
-        "the secrets of the universe"
-      ]
+      "text": "Carl Sanford possesses the secrets of the universe."
     },
     "campaign_notes.anette_mason_is_possessed_by_evil": {
-      "text": "Anette Mason is possessed by evil.",
-      "spoiler": [
-        "possessed by evil"
-      ]
+      "text": "Anette Mason is possessed by evil."
     },
     "05046.dead": {
       "text": "Gavriella Mizrah is dead."
@@ -207,28 +195,16 @@
       "text": "doom draws ever closer."
     },
     "campaign_notes.azathoth_devoured_the_universe": {
-      "text": "Azathoth devoured the universe.",
-      "spoiler": [
-        "Azathoth"
-      ]
+      "text": "Azathoth devoured the universe."
     },
     "campaign_notes.lead_investigator_joins_pipers": {
-      "text": "#name# has joined the pipers of Azathoth.",
-      "spoiler": [
-        "the pipers of Azathoth"
-      ]
+      "text": "#name# has joined the pipers of Azathoth."
     },
     "campaign_notes.azathoth_slumbers": {
-      "text": "Azathoth slumbers… for now.",
-      "spoiler": [
-        "Azathoth"
-      ]
+      "text": "Azathoth slumbers… for now."
     },
     "campaign_notes.signed_the_black_book": {
-      "text": "the investigators signed the Black Book of Azathoth.",
-      "spoiler": [
-        "the Black Book of Azathoth"
-      ]
+      "text": "the investigators signed the Black Book of Azathoth."
     },
     "campaign_notes.pieces_of_evidence": {
       "text": "#X# pieces of evidence were left behind."

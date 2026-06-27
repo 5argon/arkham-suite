@@ -9,7 +9,6 @@
 	let { trajectory }: { trajectory: PlanTrajectory } = $props();
 	const trail = $derived(chaosTokenTrail(trajectory));
 	const actLabel = (e: ChaosTokenEvent) => optionText(e.fileCode, e.decisionId, e.optionId)?.dropdownText ?? e.optionId;
-	const tk = 'text-primary-700 dark:text-primary-300';
 </script>
 
 {#if trail.length}
@@ -26,14 +25,14 @@
 					>
 				{:else}
 					<span class="flex items-center gap-1">
-						{#if e.tabletDelta}<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} circular fillColor={tk} /></span>{e.tabletDelta > 0 ? '+' : ''}{e.tabletDelta}{/if}
-						{#if e.elderThingDelta}<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} circular fillColor={tk} /></span>{e.elderThingDelta > 0 ? '+' : ''}{e.elderThingDelta}{/if}
+						{#if e.tabletDelta}<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} sealed noColor /></span>{e.tabletDelta > 0 ? '+' : ''}{e.tabletDelta}{/if}
+						{#if e.elderThingDelta}<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} sealed noColor /></span>{e.elderThingDelta > 0 ? '+' : ''}{e.elderThingDelta}{/if}
 					</span>
 				{/if}
 				<span class="text-primary-400">→</span>
 				<span class="flex items-center gap-1 text-primary-700 dark:text-primary-200">
-					<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} circular fillColor={tk} /></span>{e.tablet}
-					<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} circular fillColor={tk} /></span>{e.elderThing}
+					<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenTablet} sealed noColor /></span>{e.tablet}
+					<span class="flex text-sm"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} sealed noColor /></span>{e.elderThing}
 				</span>
 			</li>
 		{/each}

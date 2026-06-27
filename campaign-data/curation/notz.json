@@ -1,5 +1,30 @@
 {
+  "scenarioResolutionOutcomes": {
+    "_notes": "Verified against ArkhamCards torch/arkham/tentacles.json resolution text. Gathering: R3 (trapped, horde closes in, nowhere to run) is the defeat; R1/R2/no_resolution all escape alive so are wins (objective = survive the ghoul attack). Midnight Masks: R1 obtained intel in time = win; no_resolution redirects to \"Read Resolution 1\" = win; R2 (twelve bells, out of time, too late) = loss. Devourer Below: no_resolution {lose} (Lita flees, failed, vengeance pursues); R1 (ritual broken, Arkham safe) and R2 (repelled Umordhoth, the best campaign outcome) = wins; R3 (sacrifice Lita to survive) is also a win — you survive the scenario, just a worse campaign outcome than slaying Umordhoth.",
+    "the_gathering": {
+      "no_resolution": "win",
+      "R1": "win",
+      "R2": "win",
+      "R3": "loss"
+    },
+    "the_midnight_masks": {
+      "no_resolution": "win",
+      "R1": "win",
+      "R2": "loss"
+    },
+    "the_devourer_below": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win",
+      "R3": "win"
+    }
+  },
   "code": "notz",
+  "sections": {
+    "_notes": "The Midnight Masks card-log pickers record the unique Cultist enemies (ArkhamCards query traits:cultist, unique, source:scenario) — the 5 Cult of Umôrdhoth conspirators (Wolf-Man Drew 01137, Herman Collins 01138, Peter Warren 01139, Victoria Devereux 01140, Ruth Turner 01141) plus The Masked Hunter (01121b, recorded under Got Away at Agenda 1). The non-unique Acolyte is excluded. Restrict both pickers to those 6 so they aren't the whole card pool.",
+    "cultists_interrogated": { "cardFilter": { "codes": ["01137", "01138", "01139", "01140", "01141", "01121b"] } },
+    "cultists_escaped": { "cardFilter": { "codes": ["01137", "01138", "01139", "01140", "01141", "01121b"] } }
+  },
   "scenarios": {
     "arkham": "the_midnight_masks",
     "tentacles": "the_devourer_below",
@@ -18,23 +43,6 @@
     ]
   },
   "_notes": "Verified against both drafts; no changes needed. All 5 spans are exact substrings of their entry text. The three tentacles-ending siblings sharing 'Umôrdhoth' (arkham_succumbed/ritual_broken/umordhoth_repelled/lita_sacrificed) stay distinguishable by their differing verbs after blur, so no collision. Lita Chantler correctly left unblurred in lita_sacrificed (front-loaded intro companion). Generic scaffolding (house_burned/house_standing/lita_finds_others/past_midnight) correctly unblurred. The Ghoul Priest (scenario-2 boss) and Umôrdhoth (hidden final antagonist) are genuine reveals and blurred. cultists_interrogated/cultists_escaped (cards sections) and hidden section have no en text entries. No exotic roster sections. No section overrides or drops.",
-  "spoilers": {
-    "campaign_notes.ghoul_priest_alive": [
-      "the Ghoul Priest"
-    ],
-    "campaign_notes.arkham_succumbed": [
-      "Umôrdhoth"
-    ],
-    "campaign_notes.ritual_broken": [
-      "Umôrdhoth"
-    ],
-    "campaign_notes.umordhoth_repelled": [
-      "Umôrdhoth"
-    ],
-    "campaign_notes.lita_sacrificed": [
-      "Umôrdhoth"
-    ]
-  },
   "validators": [
     {
       "type": "mutuallyExclusive",
@@ -53,6 +61,11 @@
         "campaign_notes.lita_sacrificed"
       ],
       "scenario": "tentacles"
+    },
+    {
+      "type": "disjointSections",
+      "sections": ["cultists_interrogated", "cultists_escaped"],
+      "scenario": "arkham"
     }
   ]
 }

@@ -9,9 +9,9 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 <script lang="ts">
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { Button, Checkbox } from '@5argon/arkham-life-ui';
-	import { itemLabel } from '$lib/campaign/campaign-log-source';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
-	import type { InvestigatorRef } from '$lib/campaign/investigators';
+	import { itemLabel } from '$lib/campaign/records/campaign-log-source';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
 
 	interface Props {
 		log: CampaignLog;

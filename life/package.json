@@ -12,6 +12,7 @@
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"test": "vitest",
+		"test:e2e": "playwright test",
 		"docs:sync": "node scripts/sync-doc-images.mjs",
 		"paraglide-compile": "npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide"
 	},

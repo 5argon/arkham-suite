@@ -19,8 +19,8 @@ Survival for "There and Back Again" = the name was never crossed off.
 	import type { CampaignLog, LogSectionDef, SectionItem } from '@5argon/arkham-campaign-data';
 	import { Button, CardScanFullSmall, Checkbox, getCardImagePath } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import { itemLabel, portraitUrl } from '$lib/campaign/campaign-log-source';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { itemLabel, portraitUrl } from '$lib/campaign/records/campaign-log-source';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;

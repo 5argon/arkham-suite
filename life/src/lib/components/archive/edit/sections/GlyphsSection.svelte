@@ -8,7 +8,7 @@ label is the tile content — when art lands, drop it behind the label here.
 -->
 <script lang="ts">
 	import { sectionEntries, type CampaignLog, type LogSectionDef } from '@5argon/arkham-campaign-data';
-	import { makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
+	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 
 	interface Props {
 		log: CampaignLog;

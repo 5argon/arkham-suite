@@ -14,11 +14,15 @@ import {
 } from '@5argon/arkham-campaign-data';
 
 import { createCardResolver } from '$lib/card-data';
-import { playClearState, type ClearState } from '$lib/campaign/clear-status';
+import { playClearState, type ClearState } from '$lib/campaign/outcomes/clear-status';
+import { standaloneVerdict, type StandaloneVerdict } from '$lib/campaign/outcomes/standalone-clear';
+import { RESERVED } from '$lib/campaign/records/recorded-state';
+import { DIFFICULTY_ORDER } from '$lib/campaign/utils/difficulty';
 
 import {
 	distinctHands,
 	findCampaign,
+	findStandalone,
 	resolveParticipant,
 	resolvePlayerCount,
 	resolveSoloType,
@@ -43,6 +47,9 @@ interface PlayerStub {
 }
 
 interface DeckStub {
+	/** Unique deck record id — used as the card's keyed-each key so decks on the same investigator
+	 *  (a mid-campaign swap-back, or two players on one investigator) don't collapse into one. */
+	id: string;
 	investigatorCode: string;
 	alternateFrontCode: string | null;
 	ownerUserId: string | null;
@@ -299,6 +306,7 @@ export function listData(doc: DatabaseDocument, params: ListParams): ListResult 
 			decks: sortDecksByParticipants(sortedParticipants, c.decks).map((d) => {
 				const o = resolveOwner(doc, c, d.ownerUid);
 				return {
+					id: d.id,
 					investigatorCode: d.investigator.investigatorCode,
 					alternateFrontCode: d.investigator.alternateFrontCode,
 					ownerUserId: d.ownerUid,
@@ -359,6 +367,12 @@ export interface CampaignDetail {
 		finishDate: Date | null;
 		createdAt: Date;
 		updatedAt: Date;
+		/** Whether this record is a campaign archive or a standalone-mode play. */
+		kind: 'campaign' | 'standalone';
+		/** Standalone only: a dedicated Scenario Pack vs a campaign scenario played standalone. */
+		source?: 'pack' | 'campaign';
+		/** Standalone only: the single scenario id being recorded (campaignCode is the catalogue to load). */
+		scenario?: string;
 	};
 	players: {
 		id: string;
@@ -384,6 +398,12 @@ export interface CampaignDetail {
 		section: string;
 		params: { valueString: string | null; valueNumber: number | null }[];
 	}[];
+	/** Transcribed sibling-campaign entries (The Dream-Eaters Linked Campaign Log). Same shape as logs. */
+	linkedLog: {
+		key: string;
+		section: string;
+		params: { valueString: string | null; valueNumber: number | null }[];
+	}[];
 	achievements: { family: string; achievementId: string; itemId: string | null }[];
 	isOwner: boolean;
 	canEdit: boolean;
@@ -391,9 +411,10 @@ export interface CampaignDetail {
 	currentUser: { id: string; username: string; iconCardCode: string };
 }
 
-/** Project one campaign of the database into the editor's data shape. */
+/** Project one campaign OR standalone of the database into the editor's data shape. */
 export function campaignDetail(doc: DatabaseDocument, id: string): CampaignDetail | null {
-	const c = findCampaign(doc, id);
+	const standalone = findStandalone(doc, id);
+	const c = standalone ?? findCampaign(doc, id);
 	if (!c) return null;
 	const owner = doc.owner;
 	// Display order: you → roster → guests; decks follow their owner's order.
@@ -411,7 +432,10 @@ export function campaignDetail(doc: DatabaseDocument, id: string): CampaignDetai
 			startDate: c.startDate != null ? new Date(c.startDate) : null,
 			finishDate: c.finishDate != null ? new Date(c.finishDate) : null,
 			createdAt: new Date(c.createdAt),
-			updatedAt: new Date(c.updatedAt)
+			updatedAt: new Date(c.updatedAt),
+			kind: standalone ? 'standalone' : 'campaign',
+			source: standalone?.source,
+			scenario: standalone?.scenario
 		},
 		players: sortedParticipants.map((p) => {
 			const r = resolveParticipant(doc, p);
@@ -437,6 +461,14 @@ export function campaignDetail(doc: DatabaseDocument, id: string): CampaignDetai
 			};
 		}),
 		logs: c.logs.map((l) => ({
+			key: l.key,
+			section: l.section,
+			params: l.args.map((a) => ({
+				valueString: a.type === 'string' ? a.value : null,
+				valueNumber: a.type === 'number' ? Number(a.value) || 0 : null
+			}))
+		})),
+		linkedLog: (c.linkedLog ?? []).map((l) => ({
 			key: l.key,
 			section: l.section,
 			params: l.args.map((a) => ({
@@ -478,4 +510,156 @@ export function investigatorFromAhdbDeck(deck: AhdbDeck): DeckInvestigator {
 		deckSizeSelected:
 			typeof meta['deck_size_selected'] === 'number' ? (meta['deck_size_selected'] as number) : null
 	};
+}
+
+// ─── Standalone archive list ───────────────────────────────────────────────────
+
+/** A standalone-mode play projected for the archive list (lightweight; no filters). */
+export interface ListStandalone {
+	id: string;
+	title: string;
+	/** The single scenario id recorded. */
+	scenario: string;
+	/** The scenario's display name (campaign-data), for the card. */
+	scenarioName: string;
+	/** A dedicated Scenario Pack vs a campaign scenario played standalone. */
+	source: 'pack' | 'campaign';
+	/** campaign-data catalogue code the scenario loads from (`'side'` or a campaign code). */
+	catalogueCode: string;
+	difficulty: Difficulty;
+	finishDate: number | null;
+	/** Standalone Mode verdict (numbered resolution = won), or null when unrecorded. */
+	verdict: StandaloneVerdict | null;
+	/** Investigator codes across the play's decks (for the card portraits). */
+	investigatorCodes: string[];
+	/** Baked participant display names. */
+	participantNames: string[];
+}
+
+export type StandaloneVerdictFilter = 'won' | 'lost' | 'unknown';
+
+export interface StandaloneListParams {
+	page: number;
+	pageSize: number;
+	name: string;
+	sort: 'date' | 'name' | 'difficulty';
+	/** Facet filters (empty/absent = no constraint). */
+	sources?: string[];
+	difficulties?: string[];
+	verdicts?: string[];
+}
+
+/** Distinct facet values across all standalone plays, for the filter modal. */
+export interface StandaloneFilterOptions {
+	sources: ('pack' | 'campaign')[];
+	difficulties: Difficulty[];
+	verdicts: StandaloneVerdictFilter[];
+}
+
+export interface StandaloneListResult {
+	items: ListStandalone[];
+	totalCount: number;
+	filteredIds: string[];
+	cardsByCode: Record<string, Card>;
+	filterOptions: StandaloneFilterOptions;
+}
+
+function buildStandaloneFilterOptions(all: ListStandalone[]): StandaloneFilterOptions {
+	const sources = new Set<'pack' | 'campaign'>();
+	const difficulties = new Set<Difficulty>();
+	const verdicts = new Set<StandaloneVerdictFilter>();
+	for (const s of all) {
+		sources.add(s.source);
+		difficulties.add(s.difficulty);
+		verdicts.add(s.verdict ?? 'unknown');
+	}
+	return {
+		sources: [...sources].sort(),
+		difficulties: DIFFICULTY_ORDER.filter((d) => difficulties.has(d)),
+		verdicts: (['won', 'lost', 'unknown'] as StandaloneVerdictFilter[]).filter((v) => verdicts.has(v)),
+	};
+}
+
+function resolveStandaloneCards(items: ListStandalone[]): Record<string, Card> {
+	const codes = new Set<string>();
+	for (const s of items) for (const c of s.investigatorCodes) codes.add(c);
+	const resolver = createCardResolver();
+	const out: Record<string, Card> = {};
+	for (const code of codes) {
+		try {
+			out[code] = resolver.resolve(code);
+		} catch {
+			/* unknown code — skip */
+		}
+	}
+	return out;
+}
+
+/** Build the `/archive/standalone` list payload (filter → sort → paginate → enrich) —
+ *  the uniform shape the shared ArchiveListView consumes. */
+export function standaloneListData(
+	doc: DatabaseDocument,
+	params: StandaloneListParams,
+): StandaloneListResult {
+	const all = standaloneList(doc); // newest-first, enriched
+	let items = all;
+	if (params.name) {
+		const n = params.name.toLowerCase();
+		items = items.filter(
+			(s) => s.title.toLowerCase().includes(n) || s.scenarioName.toLowerCase().includes(n),
+		);
+	}
+	if (params.sources?.length) {
+		const set = new Set(params.sources);
+		items = items.filter((s) => set.has(s.source));
+	}
+	if (params.difficulties?.length) {
+		const set = new Set(params.difficulties);
+		items = items.filter((s) => set.has(s.difficulty));
+	}
+	if (params.verdicts?.length) {
+		const set = new Set(params.verdicts);
+		items = items.filter((s) => set.has(s.verdict ?? 'unknown'));
+	}
+	const sorted = items.slice();
+	if (params.sort === 'name') sorted.sort((a, b) => a.title.localeCompare(b.title));
+	else if (params.sort === 'difficulty')
+		sorted.sort((a, b) => DIFFICULTY_ORDER.indexOf(a.difficulty) - DIFFICULTY_ORDER.indexOf(b.difficulty));
+	// 'date' keeps standaloneList's newest-first order.
+
+	const totalCount = sorted.length;
+	const filteredIds = sorted.map((s) => s.id);
+	const start = (params.page - 1) * params.pageSize;
+	const pageItems = sorted.slice(start, start + params.pageSize);
+	return {
+		items: pageItems,
+		totalCount,
+		filteredIds,
+		cardsByCode: resolveStandaloneCards(pageItems),
+		filterOptions: buildStandaloneFilterOptions(all),
+	};
+}
+
+/** All standalone-mode plays, newest first. Separate from the campaign list. */
+export function standaloneList(doc: DatabaseDocument): ListStandalone[] {
+	return (doc.standalones ?? [])
+		.map((s): ListStandalone => {
+			const res = s.logs
+				.find((l) => l.section === RESERVED.scenarioResolution && l.key === s.scenario)
+				?.args.find((a) => a.type === 'string')?.value;
+			return {
+				id: s.id,
+				title: s.title,
+				scenario: s.scenario,
+				scenarioName: getCampaignLog(s.campaignCode)?.en.scenarioNames?.[s.scenario] ?? s.scenario,
+				source: s.source,
+				catalogueCode: s.campaignCode,
+				difficulty: s.difficulty,
+				finishDate: s.finishDate,
+				verdict: standaloneVerdict(res),
+				investigatorCodes: s.decks.map((d) => d.investigator.investigatorCode),
+				participantNames: s.participants.map((p) => p.name)
+			};
+		})
+		.sort((a, b) => (b.finishDate ?? 0) - (a.finishDate ?? 0));
 }

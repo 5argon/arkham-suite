@@ -12,7 +12,7 @@ so they can be interleaved freely. Selecting an enabled widget fills the slot.
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { FaIcon, FaIconType, HelpParagraph, Modal } from '@5argon/arkham-life-ui';
-	import { WIDGET_BY_ID, isFullWidth, widgetLabel } from '$lib/campaign/profile-widgets';
+	import { WIDGET_BY_ID, isFullWidth, widgetLabel } from '$lib/campaign/profile/profile-widgets';
 	import type { SlotSide } from '$lib/components/profile/_framework/row-layout';
 
 	let {

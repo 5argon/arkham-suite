@@ -10,6 +10,7 @@
     {
       "id": "fortune_and_folly_part_1",
       "type": "story",
+      "victoryDisplay": false,
       "resolutions": [
         "no_resolution",
         "R1",

@@ -20,9 +20,14 @@ import {
 	assignDeckHand as docAssignDeckHand,
 	changeCampaignCode as docChangeCampaignCode,
 	createCampaign as docCreateCampaign,
+	createStandalone as docCreateStandalone,
+	removeStandalone as docRemoveStandalone,
+	findRecord,
 	createEmptyDatabase,
 	createPlayGroup as docCreatePlayGroup,
-	findCampaign,
+	addLoadedProfile as docAddLoadedProfile,
+	removeLoadedProfile as docRemoveLoadedProfile,
+	findLoadedProfile,
 	parseDatabaseDocument,
 	reassignParticipant as docReassignParticipant,
 	removeCampaign as docRemoveCampaign,
@@ -31,6 +36,7 @@ import {
 	removePlayer as docRemovePlayer,
 	removePlayGroup as docRemovePlayGroup,
 	setCampaignLogs as docSetCampaignLogs,
+	setCampaignLinkedLogs as docSetCampaignLinkedLogs,
 	setManualAchievement as docSetManualAchievement,
 	setProfileSettings as docSetProfileSettings,
 	updateCampaignGeneral as docUpdateCampaignGeneral,
@@ -39,6 +45,7 @@ import {
 	updatePlayGroup as docUpdatePlayGroup,
 	type CampaignParticipant,
 	type CampaignRecord,
+	type StandaloneRecord,
 	type DeckRecord,
 	type DatabaseDocument,
 	type CampaignLogEntry,
@@ -51,10 +58,12 @@ import {
 } from './document';
 import { importCampaignShare } from './campaign-share';
 import { loadSnapshotCampaign, recordCampaignSnapshot } from './snapshots';
-import { downloadDatabase, downloadDatabaseJson, downloadCompiledProfile } from './export';
+import { downloadDatabase, downloadDatabaseJson, downloadCompiledProfile, downloadCompiledProfileFile } from './export';
+import { hydrateCompiledProfile } from './hydrate-compiled-profile';
+import type { CompiledProfileFile } from './compiled-profile';
 import { clearBackup, noteChange, recordBackup } from './backup-status';
 import type { PersistenceAdapter } from './persistence';
-import { DEFAULT_PROFILE_SETTINGS, resolveProfileSettings, type DifficultyTier } from '$lib/campaign/profile-settings';
+import { DEFAULT_PROFILE_SETTINGS, resolveProfileSettings, type DifficultyTier } from '$lib/campaign/profile/profile-settings';
 import {
 	assemblePayload,
 	buildCardsSegmentFor,
@@ -79,6 +88,9 @@ export class DatabaseStore {
 	#adapter: PersistenceAdapter | null = null;
 	#saveTimer: ReturnType<typeof setTimeout> | null = null;
 	#recomputeTimer: ReturnType<typeof setTimeout> | null = null;
+	/** Memoized hydration of externally loaded compiled profiles (uid → payload). They
+	 *  are immutable once loaded, so a plain Map suffices; cleared per uid on load/remove. */
+	#hydratedLoaded = new Map<string, LocalProfilePayload>();
 
 	doc = $state<DatabaseDocument | null>(null);
 	// Starts 'loading' (not 'empty'): until init() has read IndexedDB we don't yet
@@ -163,7 +175,7 @@ export class DatabaseStore {
 	/** Stash an invisible snapshot of one campaign into the global 20-slot history. */
 	async snapshotCampaign(campaignId: string): Promise<void> {
 		if (!this.doc) return;
-		const c = findCampaign(this.doc, campaignId);
+		const c = findRecord(this.doc, campaignId);
 		if (c) await recordCampaignSnapshot(c);
 	}
 
@@ -175,9 +187,18 @@ export class DatabaseStore {
 		if (!restored) return false;
 		const ts = Date.now();
 		const next = { ...restored, updatedAt: ts };
-		const idx = this.doc.campaigns.findIndex((c) => c.id === restored.id);
-		if (idx >= 0) this.doc.campaigns[idx] = next;
-		else this.doc.campaigns.push(next);
+		// A snapshot may be a campaign or a standalone (which reuses the CampaignRecord
+		// shape). Route by the same structural discriminator as campaign-share's import
+		// (`source` + `scenario`), so a snapshot of a since-deleted standalone is restored
+		// into standalones[] — never campaigns[], where campaign compilation would see it.
+		const sa = next as Partial<StandaloneRecord>;
+		const arr: CampaignRecord[] =
+			typeof sa.source === 'string' && typeof sa.scenario === 'string'
+				? (this.doc.standalones ??= [])
+				: this.doc.campaigns;
+		const idx = arr.findIndex((r) => r.id === restored.id);
+		if (idx >= 0) arr[idx] = next;
+		else arr.push(next);
 		this.doc.updatedAt = ts;
 		noteChange();
 		await this.saveNow();
@@ -216,6 +237,52 @@ export class DatabaseStore {
 		const payload = this.getProfilePayload(subjectUid);
 		if (!payload) return;
 		await downloadCompiledProfile(payload.subject, payload, format);
+	}
+
+	// ─── Externally loaded compiled profiles (the External Profiles tab) ───────────
+
+	/** Identities of the loaded external profiles, for the External Profiles list. */
+	loadedSubjects(): { subject: ProfileSubject; exportedAt: string }[] {
+		return (this.doc?.loadedProfiles ?? []).map((f) => ({ subject: f.subject, exportedAt: f.exportedAt }));
+	}
+
+	/** Adopt an opened `.ahlifepro` into the External Profiles section (overwriting any
+	 *  prior file for the same person). Persisted to IndexedDB + `.ahlifedb`; never enters
+	 *  the precompute cache. */
+	loadCompiledProfile(file: CompiledProfileFile): void {
+		this.#hydratedLoaded.delete(file.subject.uid);
+		this.#mutate((d) => docAddLoadedProfile(d, file));
+	}
+
+	/** Forget a loaded external profile. */
+	removeLoadedProfile(uid: string): void {
+		this.#hydratedLoaded.delete(uid);
+		this.#mutate((d) => docRemoveLoadedProfile(d, uid));
+	}
+
+	/**
+	 * The render-ready payload for a LOADED external profile — hydrated (stripped English
+	 * re-resolved) from the stored file, never rebuilt. Returns null when `uid` is not in
+	 * the loaded section (e.g. a managed uid typed into a `/p/loaded/...` URL). PURE w.r.t.
+	 * the document; memoizes into a non-reactive Map, so it is safe from a `$derived`.
+	 */
+	getLoadedProfilePayload(uid: string): LocalProfilePayload | null {
+		const doc = this.doc;
+		if (!doc) return null;
+		const cached = this.#hydratedLoaded.get(uid);
+		if (cached) return cached;
+		const file = findLoadedProfile(doc, uid);
+		if (!file) return null;
+		const payload = hydrateCompiledProfile(file);
+		this.#hydratedLoaded.set(uid, payload);
+		return payload;
+	}
+
+	/** Re-download a kept external profile verbatim (`gzip` `.ahlifepro` / plain `json`). */
+	async exportLoadedProfile(uid: string, format: 'gzip' | 'json'): Promise<void> {
+		const file = this.doc ? findLoadedProfile(this.doc, uid) : undefined;
+		if (!file) return;
+		await downloadCompiledProfileFile(file, format);
 	}
 
 	/**
@@ -276,6 +343,18 @@ export class DatabaseStore {
 	removeCampaign(id: string): void {
 		this.#mutate((d) => docRemoveCampaign(d, id));
 	}
+	createStandalone(input: {
+		source: 'pack' | 'campaign';
+		campaignCode: string;
+		scenario: string;
+		title: string;
+		difficulty?: Difficulty;
+	}): StandaloneRecord | undefined {
+		return this.#mutate((d) => docCreateStandalone(d, input));
+	}
+	removeStandalone(id: string): void {
+		this.#mutate((d) => docRemoveStandalone(d, id));
+	}
 	updateCampaignGeneral(
 		id: string,
 		fields: Partial<
@@ -299,6 +378,9 @@ export class DatabaseStore {
 	}
 	setCampaignLogs(id: string, entries: CampaignLogEntry[]): void {
 		this.#mutate((d) => docSetCampaignLogs(d, id, entries));
+	}
+	setCampaignLinkedLogs(id: string, entries: CampaignLogEntry[]): void {
+		this.#mutate((d) => docSetCampaignLinkedLogs(d, id, entries));
 	}
 	setManualAchievement(id: string, tick: ManualAchievement, earned: boolean): void {
 		this.#mutate((d) => docSetManualAchievement(d, id, tick, earned));

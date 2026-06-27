@@ -29,9 +29,11 @@ Optionally highlights the currently selected campaign.
 		selected?: Campaign | null;
 		/** Called immediately when the user clicks a campaign or "Unspecified". */
 		onSelect: (campaign: Campaign | null) => void;
+		/** Show the "Unspecified" option (campaign creation). Off for the standalone picker. */
+		showUnspecified?: boolean;
 	}
 
-	const { selected = undefined, onSelect }: Props = $props();
+	const { selected = undefined, onSelect, showUnspecified = true }: Props = $props();
 
 	function getCampaignImage(campaign: Campaign): string {
 		return `/image/expansion/campaign/${campaign}.webp`;
@@ -46,14 +48,16 @@ Optionally highlights the currently selected campaign.
 
 <div>
 	<!-- Unspecified option -->
-	<div class="mb-4">
-		<Button
-			label={m.archive_campaign_unspecified()}
-			icon={FaIconType.NoticeInfo}
-			highlighted={selected === null}
-			onClick={() => onSelect(null)}
-		/>
-	</div>
+	{#if showUnspecified}
+		<div class="mb-4">
+			<Button
+				label={m.archive_campaign_unspecified()}
+				icon={FaIconType.NoticeInfo}
+				highlighted={selected === null}
+				onClick={() => onSelect(null)}
+			/>
+		</div>
+	{/if}
 
 	<SectionSeparator title={m.archive_chapter_one()} />
 	<div class="campaign-grid">

@@ -4,15 +4,13 @@
  * content, but they all forward this same bundle into the common
  * `TskScenarioInfo` passport — this type just spares the repetition.
  */
-import type { ProfileFamilyAchievement } from '$lib/campaign/achievement-aggregate';
-import type { CampaignScenarioXp } from '$lib/campaign/extra-imports';
-import type { CampaignResolutionCoverage } from '$lib/campaign/resolution-coverage';
-import type { CampaignTsk } from '$lib/campaign/tsk-profile';
+import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
+import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
+import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
 
 export interface TskScenarioWidgetProps {
 	family: string | null;
-	scenarioXp: CampaignScenarioXp[];
-	coverage: CampaignResolutionCoverage | null;
+	scenarios: CampaignScenarios | null;
 	tsk: CampaignTsk | null;
 	/** The campaign family's official achievements (with earned state) — the passport filters
 	 *  these to the ones tagged with its scenario and shows them as a row. */

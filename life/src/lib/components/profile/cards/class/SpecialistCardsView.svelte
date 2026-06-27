@@ -17,7 +17,7 @@ Pure card-data + the deck-derived `specialistUsage` (card code → investigator 
 	import { CardSquare } from '@5argon/arkham-life-ui';
 	import { card as cardUtils, type Card, type CardCode } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import { isSpecialist, specialistTraitsOf, traitsOf } from '$lib/campaign/card-filters';
+	import { isSpecialist, specialistTraitsOf, traitsOf } from '$lib/campaign/utils/card-filters';
 
 	let { specialistUsage }: { specialistUsage: Record<CardCode, CardCode[]> } = $props();
 

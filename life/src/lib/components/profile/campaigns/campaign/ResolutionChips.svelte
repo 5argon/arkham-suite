@@ -12,14 +12,15 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import { difficultyBreakdown, times } from '$lib/campaign/difficulty';
-	import { resolutionLabel, resolutionShort } from '$lib/campaign/resolutions';
-	import type { ResolutionTally } from '$lib/campaign/resolution-coverage';
+	import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
+	import { resolutionLabel, resolutionShort } from '$lib/campaign/utils/resolutions';
+	import type { ResolutionTally } from '$lib/campaign/outcomes/resolution-coverage';
 
 	let {
 		ids,
 		visited,
 		tallies = null,
+		verdicts = null,
 		nowrap = false,
 	}: {
 		/** Resolution ids to render, in order. */
@@ -28,6 +29,10 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 		visited: ReadonlySet<string>;
 		/** Per-resolution reach counts; enables the per-difficulty hover breakdown. */
 		tallies?: Record<string, ResolutionTally> | null;
+		/** Per-resolution Success/Failure verdict (campaign-data `resolutionOutcomes`); when set, a
+		 *  win/loss chip's hover label is suffixed "(Success)" / "(Failure)" so the player sees how
+		 *  each ending is scored. */
+		verdicts?: Record<string, 'win' | 'loss' | 'neutral'> | null;
 		/** Keep the chips on ONE line (no wrapping) — for tight table cells that scroll instead. */
 		nowrap?: boolean;
 	} = $props();
@@ -39,6 +44,18 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 			: m.campaign_chips_total({ count: times(t.total) });
 	}
 
+	/** Full resolution name suffixed with its verdict — "Resolution 1 (Success)" — when classified. */
+	function labelWithVerdict(id: string): string {
+		const v = verdicts?.[id];
+		const suffix =
+			v === 'win'
+				? ` (${m.campaign_scenario_verdict_success()})`
+				: v === 'loss'
+					? ` (${m.campaign_scenario_verdict_failure()})`
+					: '';
+		return resolutionLabel(id) + suffix;
+	}
+
 	// One shared tooltip for every chip this component renders.
 	let tipVisible = $state(false);
 	let tipRef = $state<HTMLElement | null>(null);
@@ -46,7 +63,7 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 	let tipTally = $state<ResolutionTally | null>(null);
 
 	function showTip(id: string, e: MouseEvent) {
-		tipLabel = resolutionLabel(id);
+		tipLabel = labelWithVerdict(id);
 		tipTally = tallies?.[id] ?? null;
 		tipRef = e.currentTarget as HTMLElement;
 		tipVisible = true;
@@ -59,7 +76,7 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 		{@const tally = tallies?.[id] ?? null}
 		<span
 			role="img"
-			aria-label="{resolutionLabel(id)}{tally ? ` — ${tallyText(tally)}` : ''}"
+			aria-label="{labelWithVerdict(id)}{tally ? ` — ${tallyText(tally)}` : ''}"
 			onmouseenter={(e) => showTip(id, e)}
 			onmouseleave={hideTip}
 			class={[

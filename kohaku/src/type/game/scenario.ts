@@ -1,8 +1,10 @@
 import { EncounterSet } from './encounter-set.js';
 
 /**
- * Comprehensive enum of all scenarios in Arkham Horror: The Card Game.
- * This includes core campaign scenarios, return to campaigns, and standalone scenarios.
+ * Comprehensive enum of all CAMPAIGN scenarios in Arkham Horror: The Card Game —
+ * core campaign scenarios and their Return-To variants. Standalone "Scenario Pack"
+ * scenarios are NOT here; they live in {@link StandaloneScenario} (campaign.ts),
+ * since this enum's {@link scenarioData} carries a campaign-only index / set.
  */
 export enum Scenario {
   // Night of the Zealot
@@ -108,7 +110,7 @@ export enum Scenario {
   AThousandShapesOfHorror = 'a_thousand_shapes_of_horror',
   DarkSideOfTheMoon = 'dark_side_of_the_moon',
   PointOfNoReturn = 'point_of_no_return',
-  WhereTheGodsDwell = 'where_the_gods_dwell',
+  WhereTheGodsDwell = 'where_gods_dwell',
   WeaverOfTheCosmos = 'weaver_of_the_cosmos',
 
   // Edge of the Earth
@@ -940,7 +942,6 @@ const arkhamCardsScenarioIdOverrides: Partial<Record<Scenario, string | null>> =
   // ArkhamCards drops the leading "the" / uses the short id.
   [Scenario.TheEssexCountyExpress]: 'essex_county_express',
   [Scenario.ReturnToTheEssexCountyExpress]: 'return_to_essex_county_express',
-  [Scenario.WhereTheGodsDwell]: 'where_gods_dwell',
   [Scenario.TheUntamedWilds]: 'wilds',
   [Scenario.TheDoomOfEztli]: 'eztli',
   // ArkhamCards reuses the base id / keeps these single.

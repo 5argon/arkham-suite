@@ -1,12 +1,24 @@
 {
   "code": "tskc",
   "specialInteractions": {
-    "check_criminal_trait": { "text": "Black-market insight." },
-    "check_cop_trait": { "text": "Smoother reception from the locals." },
-    "check_wayfarer": { "text": "Follow the river upstream." },
-    "check_scholar": { "text": "Dates the knight's portrait." },
-    "check_sorcerer": { "text": "Senses the spell on Melati." },
-    "check_drifter": { "text": "Attempts the local language." }
+    "check_criminal_trait": {
+      "text": "Black-market insight."
+    },
+    "check_cop_trait": {
+      "text": "Smoother reception from the locals."
+    },
+    "check_wayfarer": {
+      "text": "Follow the river upstream."
+    },
+    "check_scholar": {
+      "text": "Dates the knight's portrait."
+    },
+    "check_sorcerer": {
+      "text": "Senses the spell on Melati."
+    },
+    "check_drifter": {
+      "text": "Attempts the local language."
+    }
   },
   "_scenarios_note": "Two key namespaces both normalize to the canonical kohaku Scenario id: the NN_-prefixed keys map entry.scenario (set by extract from the source filename); the bare location keys map scenarioMeta.id (ArkhamCards labels TSK scenarios by location, e.g. buenos_aires=Sanguine Shadows). Aligning scenarioMeta.id to the kohaku Scenario lets the editor resolve each scenario's representative encounter-set icon. Only the 10 playable (type=story) scenarios have a kohaku Scenario; interludes/location-variants stay as-is.",
   "scenarios": {
@@ -30,6 +42,32 @@
     "tunguska": "congress_of_the_keys",
     "kuala_lampur": "shades_of_suffering"
   },
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario per-resolution Succeed/Failed, migrated from life's former hardcoded SCENARIO_RESULT (cross-referenced against the scenario guide + tsk-solver resolution descriptions). neutral = neither (e.g. Dead Heat R5 'arrived too late').",
+    "riddles_and_rain": { "R1": "win", "R2": "win", "R3": "loss", "R4": "loss", "no_resolution": "loss" },
+    "dead_heat": { "R1": "loss", "R2": "loss", "R3": "win", "R4": "win", "R5": "neutral", "no_resolution": "loss" },
+    "sanguine_shadows": { "R1": "win", "R2": "win", "R3": "loss", "no_resolution": "loss" },
+    "dealings_in_the_dark": { "R1": "win", "R6": "loss", "no_resolution": "loss" },
+    "dancing_mad": { "R1": "win", "R2": "loss", "no_resolution": "loss" },
+    "on_thin_ice": { "R1": "win", "R2": "win", "R3": "win", "R4": "loss", "no_resolution": "loss" },
+    "dogs_of_war": { "R1": "win", "R2": "win", "R5": "win", "R6": "win", "R3": "loss", "no_resolution": "loss" },
+    "shades_of_suffering": { "R1": "win", "R2": "win", "R3": "loss", "no_resolution": "loss" },
+    "without_a_trace": { "R1": "win", "R2": "win", "R3": "loss", "R4": "loss", "no_resolution": "loss" },
+    "congress_of_the_keys": { "R1": "win", "no_resolution": "loss" }
+  },
+  "scenarioMaxXp": {
+    "_notes": "Maximum victory-display Victory Points awardable per scenario — the reference 'Max' column. On Thin Ice is keyed by its scenario id (its location is Anchorage); Congress of the Keys by its id (location Tunguska).",
+    "riddles_and_rain": 5,
+    "sanguine_shadows": 2,
+    "dealings_in_the_dark": 7,
+    "dead_heat": 2,
+    "shades_of_suffering": 8,
+    "dancing_mad": 5,
+    "dogs_of_war": 6,
+    "on_thin_ice": 6,
+    "without_a_trace": 7,
+    "congress_of_the_keys": 5
+  },
   "outcomes": {
     "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
     "win": [
@@ -40,15 +78,19 @@
     ]
   },
   "_notes": "Spoiler blur intentionally removed for TSK at the user's request — no entry-level spoiler spans are curated for this campaign.",
-  "spoilers": {},
   "_clearScenario_note": "cell_was_hollowed (the 'the cell was hollowed.' loss) is recorded at BOTH Without a Trace (26) and Congress of the Keys (27). extract stamps it with the first-in-flow scenario (without_a_trace), which mis-attributes the derived route when the hollowing actually happened at the Congress finale. Dropping its scenario tag keeps it out of route attribution; Without a Trace is still inferred from the whistle logs and Congress from the Coterie-vote logs.",
-  "clearScenario": ["cell_was_hollowed"],
+  "clearScenario": [
+    "cell_was_hollowed"
+  ],
   "scenarioChoices": {
     "riddles_and_rain": [
       {
         "id": "intro_offer",
         "control": "radio",
-        "options": ["take_offer", "reject_offer"],
+        "options": [
+          "take_offer",
+          "reject_offer"
+        ],
         "label": "Travel to London (chaos-bag swap)",
         "optionLabels": {
           "take_offer": "Took Flint's offer — Trust (remove [elder_thing], add [tablet])",
@@ -61,7 +103,10 @@
       {
         "id": "raw_deal",
         "control": "radio",
-        "options": ["accept", "reject"],
+        "options": [
+          "accept",
+          "reject"
+        ],
         "label": "Raw Deal — Thorne's offer (chaos-bag swap)",
         "optionLabels": {
           "accept": "Worked with Thorne — Trust (remove [elder_thing], add [tablet])",
@@ -103,7 +148,11 @@
       {
         "id": "bolivar",
         "control": "radio",
-        "options": ["all", "some", "nada"],
+        "options": [
+          "all",
+          "some",
+          "nada"
+        ],
         "label": "What you told Oficial Bolívar (chaos-bag swap)",
         "optionLabels": {
           "all": "Told him everything — Trust (remove [elder_thing], add [tablet])",
@@ -117,7 +166,10 @@
       {
         "id": "desi_identity",
         "control": "radio",
-        "options": ["real", "impostor"],
+        "options": [
+          "real",
+          "impostor"
+        ],
         "label": "The back side of Desi is",
         "optionLabels": {
           "real": "Story asset",
@@ -130,7 +182,13 @@
       {
         "id": "act_2_setup",
         "control": "radio",
-        "options": ["odd", "even", "skull", "spooky", "extreme"],
+        "options": [
+          "odd",
+          "even",
+          "skull",
+          "spooky",
+          "extreme"
+        ],
         "label": "Act 2 Setup (revealed token)",
         "optionLabels": {
           "odd": "-1, -3, -5, -7",
@@ -145,10 +203,31 @@
   },
   "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (tracked by the cross-campaign hidden-flag audit). extract trusts ArkhamCards' `hidden` flag to drop sub-resolutions and no-resolution outcomes, but several TSK scenarios leave non-choosable resolutions non-hidden, so they leak into the first-choice list. Each override below restricts the scenario to no_resolution + the card-arrowed (→Rn) resolutions. dogs_of_war: drop R4/R7 (reached only via the no_resolution version-branch, count==2/3) and R8 (sub-resolution read from inside R1/R5). dealings_in_the_dark: drop R2 (sub-resolution of R1, gated on 'refused Ece's offer'; upstream hides its siblings R3/R4/R5 but not R2). congress_of_the_keys: drop R2 (no_resolution.steps routes straight to resolution_2). dead_heat: the OPPOSITE direction — ADD R5 (not a bug fix). R5 is correctly `hidden` in ArkhamCards because the intro auto-routes to it at time>=25 (check_more_than_25_time → dead_heat_skipped → resolution_5), but it is a distinct recordable outcome (the scenario was skipped), so arkham.life must offer it. R5 <=> time>=25; arkham.life always offers it and lets the user pick.",
   "scenarioResolutions": {
-    "dogs_of_war": ["no_resolution", "R1", "R2", "R3", "R5", "R6"],
-    "dealings_in_the_dark": ["no_resolution", "R1", "R6"],
-    "congress_of_the_keys": ["no_resolution", "R1"],
-    "dead_heat": ["no_resolution", "R1", "R2", "R3", "R4", "R5"]
+    "dogs_of_war": [
+      "no_resolution",
+      "R1",
+      "R2",
+      "R3",
+      "R5",
+      "R6"
+    ],
+    "dealings_in_the_dark": [
+      "no_resolution",
+      "R1",
+      "R6"
+    ],
+    "congress_of_the_keys": [
+      "no_resolution",
+      "R1"
+    ],
+    "dead_heat": [
+      "no_resolution",
+      "R1",
+      "R2",
+      "R3",
+      "R4",
+      "R5"
+    ]
   },
   "sections": {
     "keys": {
@@ -262,11 +341,19 @@
     },
     "take_that": {
       "scenario": "dead_heat",
-      "infer": { "type": "scenarioChoice", "scenario": "dead_heat", "choice": "slain_civilians", "max": 0 }
+      "infer": {
+        "type": "scenarioChoice",
+        "scenario": "dead_heat",
+        "choice": "slain_civilians",
+        "max": 0
+      }
     },
     "whats_in_a_name": {
       "scenario": "dead_heat",
-      "infer": { "type": "log", "key": "campaign_notes.amaranth_has_left_the_coterie" }
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.amaranth_has_left_the_coterie"
+      }
     },
     "porque": {
       "scenario": "dancing_mad"
@@ -285,15 +372,25 @@
     },
     "watch_watcher": {
       "scenario": "sanguine_shadows",
-      "infer": { "type": "log", "key": "campaign_notes.chica_roja_is_on_your_side" }
+      "infer": {
+        "type": "log",
+        "key": "campaign_notes.chica_roja_is_on_your_side"
+      }
     },
     "gift_of_gab": {
       "_note": "NOT a Congress-specific achievement (no `scenario` tag): it spans the campaign — the cell delivers intel across scenarios (then that note is crossed off) and the campaign is won (outsiders_were_stopped). Tagging it to Congress would mis-file it under the Congress scenario card.",
       "infer": {
         "type": "allOf",
         "of": [
-          { "type": "log", "key": "campaign_notes.cell_is_delivering_foundation_intel", "crossed": true },
-          { "type": "log", "key": "campaign_notes.outsiders_were_stopped" }
+          {
+            "type": "log",
+            "key": "campaign_notes.cell_is_delivering_foundation_intel",
+            "crossed": true
+          },
+          {
+            "type": "log",
+            "key": "campaign_notes.outsiders_were_stopped"
+          }
         ]
       }
     },

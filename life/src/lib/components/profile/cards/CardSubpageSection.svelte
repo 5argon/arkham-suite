@@ -9,8 +9,8 @@ shows a placeholder rather than a blank page.
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import { BorderedContainer, HelpParagraph } from '@5argon/arkham-life-ui';
-	import { resolveCardSubpageSlug, type CardSubpageSlug } from '$lib/campaign/profile-card-subpages';
-	import { sharedWidgetsForPane } from '$lib/campaign/profile-widgets';
+	import { resolveCardSubpageSlug, type CardSubpageSlug } from '$lib/campaign/profile/profile-card-subpages';
+	import { sharedWidgetsForPane } from '$lib/campaign/profile/profile-widgets';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import CategoryHiddenNotice from '$lib/components/profile/_primitives/CategoryHiddenNotice.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';

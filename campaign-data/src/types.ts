@@ -61,20 +61,41 @@ export interface CampaignLogDb {
 }
 
 /**
- * A consistency rule the recording UI can check. Currently the story-branch
- * case: a set of entries that are alternate outcomes of one decision, so at most
- * one may be recorded. Be careful to scope each rule to a SINGLE decision point —
- * e.g. a character can be kidnapped at one juncture and rescued at another, which
- * are different decisions, not a conflict.
+ * A consistency rule the recording UI can check. Two shapes:
+ *  - `mutuallyExclusive`: entries that are alternate outcomes of ONE decision, so at most
+ *    one may be recorded (e.g. house burned vs house standing).
+ *  - `disjointSections`: two `cards` sections whose recorded card sets must not overlap — the
+ *    SAME card can't appear in both (e.g. a Midnight Masks cultist recorded as both
+ *    Interrogated and Got Away). Splitting DIFFERENT cards across the sections is fine.
+ * Scope each rule to a SINGLE decision point — e.g. a character kidnapped at one juncture and
+ * rescued at another are different decisions, not a conflict.
  */
-export interface LogValidator {
-  /** At most one of `entries` may be recorded together. */
-  type: 'mutuallyExclusive';
-  /** Composite `"<section>.<id>"` keys that conflict. */
-  entries: string[];
-  /** The scenario the decision belongs to (context for the warning). */
-  scenario?: string;
-}
+export type LogValidator =
+  | {
+      type: 'mutuallyExclusive';
+      /** Composite `"<section>.<id>"` keys; at most one may be recorded together. */
+      entries: string[];
+      /** The scenario the decision belongs to (context for the warning). */
+      scenario?: string;
+    }
+  | {
+      type: 'disjointSections';
+      /** `cards` section ids whose recorded card sets must be disjoint (no shared card). */
+      sections: string[];
+      scenario?: string;
+    };
+
+/** A violated {@link LogValidator}, resolved for the recording UI to display. */
+export type ValidatorConflict =
+  | { type: 'mutuallyExclusive'; scenario?: string; entries: string[] }
+  | {
+      type: 'disjointSections';
+      scenario?: string;
+      /** The overlapping sections (for labelling the warning). */
+      sections: string[];
+      /** The card codes recorded in BOTH sections — the conflict. */
+      cards: string[];
+    };
 
 export type SectionType =
   /** A list of checkable note entries (the common case). */
@@ -122,6 +143,31 @@ export interface ScenarioMeta {
    */
   resolutions?: string[];
   /**
+   * Maximum victory-display XP this scenario can award — the reference "ceiling" for the Scenario
+   * XP Highscore widget. Hand-curated per campaign (`scenarioMaxXp` in curation), since it isn't
+   * mechanically derivable. `0` means the victory display awards nothing here (the scenario grants
+   * its XP some other way) and the app shows a dash rather than a number. Absent when unknown.
+   */
+  maxXp?: number;
+  /**
+   * How ArkhamCards presents this scenario's end-of-scenario XP, derived from its flow (the presence
+   * of a "Victory display:" counter input): `true` → the app tallies the **victory display** itself
+   * (the recorded value is Victory Points / VP); `false` → it asks the player for a flat
+   * **Experience** total, because the scenario adds XP the app can't count (e.g. "+1 per clue on X")
+   * so the value is total XP. Drives the editor input label + the profile widgets' VP/XP wording, so
+   * they read exactly what the player sees in the app. Present on story scenarios only.
+   */
+  victoryDisplay?: boolean;
+  /**
+   * For an Experience scenario (`victoryDisplay: false`), the verbatim "Each investigator earns
+   * experience equal to…" instruction ArkhamCards shows at the XP screen — what the manually-entered
+   * Experience total comprises (e.g. City of the Elder Things: "the victory display, plus 1 per pair
+   * of chaos tokens spent"). Surfaced as a help note on the editor's Experience input so the player
+   * knows what to add up. Extracted from the scenario's `earn_xp` step; absent when the scenario has
+   * no such instruction (or is a Victory-display scenario, whose value the app counts itself).
+   */
+  xpNote?: string;
+  /**
    * Curated per-scenario "Extra" choices the campaign log never records — e.g.
    * PtC Dim Carcosa's "Hastur version" (which Act 2 you faced). The player picks
    * one option in the editor's Extra tab; the English labels live in
@@ -145,6 +191,53 @@ export interface ScenarioMeta {
    * resolutions ({@link ScenarioChoice}/reserved `__resolution`).
    */
   resolutionEffects?: Record<string, ResolutionEffect>;
+  /**
+   * Per-resolution scenario outcome — whether reaching this resolution counts as a SUCCEED
+   * (`win`), FAILED (`loss`), or neither (`neutral`) for this scenario. Keyed by resolution
+   * id (a subset of {@link resolutions}; resolutions with no entry are unknown and count
+   * toward neither). Unlike {@link resolutionEffects} (mechanically derived), this is a
+   * curation judgement — a scenario can be a "success" without firing a campaign-level win
+   * effect (e.g. EotE City R1: you found the hidden tunnel yourself). Lives in
+   * `curation/<code>.json` under `scenarioResolutionOutcomes`. Lets the app show per-scenario
+   * Succeed / Failed counts across a player's plays, for ANY campaign.
+   */
+  resolutionOutcomes?: Record<string, 'win' | 'loss' | 'neutral'>;
+  /**
+   * Standalone-mode setup for this scenario — the allowed difficulties and the
+   * chaos bag(s) to assemble when playing it as a one-off (NOT in a campaign).
+   * Present on scenarios playable in Standalone Mode: the `side` catalogue's
+   * Scenario Packs, and campaign scenarios whose guide ships a Standalone appendix
+   * ("Assemble the chaos bag using the following tokens:"). Many campaign scenarios
+   * give a single fixed bag → `{ difficulties: ['standard'] }`. Drives the editor's
+   * difficulty radio + chaos-bag seed for a Standalone Archive. Absent when the
+   * scenario has no curated/extractable standalone setup (editor degrades to manual
+   * empty bag + Standard). See {@link standaloneSetup}.
+   */
+  standaloneSetup?: StandaloneSetup;
+  /**
+   * The scenario cannot be "won" in Standalone Mode / deliberately blurs win-loss
+   * (ArkhamCards `standalone_unwinnable`). The profile surfaces such plays as
+   * neutral rather than forcing a win/loss verdict (the rules say "use discretion").
+   */
+  standaloneUnwinnable?: boolean;
+}
+
+/**
+ * Standalone-mode setup for a scenario (see {@link ScenarioMeta.standaloneSetup}).
+ */
+export interface StandaloneSetup {
+  /**
+   * Difficulties the scenario offers in Standalone Mode, in `easy→expert` order.
+   * A single fixed bag (no difficulty choice in the guide) ⇒ `['standard']`, and
+   * the editor shows Standard as a non-selectable label.
+   */
+  difficulties: string[];
+  /**
+   * The standalone chaos bag per difficulty, as `difficulty -> { tokenCode: count }`
+   * (token codes match kohaku's `chaosTokenCode`). Every id in {@link difficulties}
+   * should have a bag; absent difficulties fall back to manual entry.
+   */
+  chaosBag: Record<string, Record<string, number>>;
 }
 
 /**
@@ -207,11 +300,28 @@ export interface ScenarioChoice {
    * "Targets" tally) — `options` is empty and the value is bounded by
    * {@link min}/{@link max}.
    */
-  control?: 'dropdown' | 'radio' | 'counter';
+  control?: 'dropdown' | 'radio' | 'counter' | 'cards';
   /** For `counter` control: inclusive lower bound (default 0). */
   min?: number;
   /** For `counter` control: inclusive upper bound. */
   max?: number;
+  /**
+   * For the `cards` control: restricts the searchable card pool. A card qualifies
+   * if (no `subtypes` given OR its subtype is listed) AND (no `traits`/`codes` given
+   * OR its trait set intersects `traits` OR its code is in `codes`). e.g. PtC's Black
+   * Stars Rise random basic weakness → `{ subtypes: ['basicweakness'], traits:
+   * ['Madness', 'Pact', 'Cultist', 'Detective'] }`. The picker stores the chosen card
+   * code(s); multiple selections are joined with commas in the recorded value.
+   */
+  cardFilter?: { types?: string[]; subtypes?: string[]; traits?: string[]; codes?: string[] };
+  /**
+   * Where this choice sits in the editor's end-of-scenario flow, relative to the two universal
+   * fields (the resolution reached + the victory-display / experience total) — mirroring the order
+   * ArkhamCards asks them in. Absent → before both (the default); `'resolution'` → between the
+   * resolution and the victory display; `'victory'` → after the victory display. e.g. PtC records a
+   * slain VIP after the resolution, and a random basic weakness after the XP.
+   */
+  after?: 'resolution' | 'victory';
 }
 
 export interface LogSectionDef {
@@ -549,8 +659,6 @@ export interface EnSpecialInteraction {
    * it is not required.
    */
   title?: string;
-  /** Spoiler spans within `text` to blur until revealed (same convention as EnEntry). */
-  spoiler?: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -592,12 +700,6 @@ export interface EnScenarioChoice {
 export interface EnEntry {
   /** Display text; may contain ArkhamDB markup like `[skull]` and `<i>…</i>`. */
   text: string;
-  /**
-   * Substrings of `text` to blur as spoilers until revealed. Hide the
-   * spoiler-sensitive nouns only — leave enough surrounding text that the
-   * entry stays distinguishable from its siblings in the dropdown.
-   */
-  spoiler?: string[];
 }
 
 export interface EnAchievement {

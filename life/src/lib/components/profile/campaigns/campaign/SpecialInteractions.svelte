@@ -21,7 +21,7 @@ be derived without input the archive doesn't collect.
 	import { getCampaignLog, type SpecialInteractionMatch } from '@5argon/arkham-campaign-data';
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import type { CampaignSpecialInteractions } from '$lib/campaign/special-interactions';
+	import type { CampaignSpecialInteractions } from '$lib/campaign/outcomes/special-interactions';
 
 	let { special }: { special: CampaignSpecialInteractions | null } = $props();
 

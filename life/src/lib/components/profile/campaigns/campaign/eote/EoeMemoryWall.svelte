@@ -11,8 +11,8 @@ at wider containers. Both read `memories_banished` logs; fed by the `eoe` aggreg
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { entryLabel } from '$lib/campaign/campaign-log-source';
-	import { EOE_MEMORY_LOCATIONS, EOE_MEMORY_ENEMIES, type CampaignEoe } from '$lib/campaign/eoe';
+	import { entryLabel } from '$lib/campaign/records/campaign-log-source';
+	import { EOE_MEMORY_LOCATIONS, EOE_MEMORY_ENEMIES, type CampaignEoe } from '$lib/campaign/campaigns/eoe';
 	import { times } from '$lib/profile/plural';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';

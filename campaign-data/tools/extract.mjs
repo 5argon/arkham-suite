@@ -155,6 +155,54 @@ function scenarioName(file) {
   return path.basename(file, '.json');
 }
 
+// True when the scenario's end-of-scenario flow contains a "Victory display:" counter input — the
+// signal that ArkhamCards tallies the victory-display XP itself (vs asking for a flat "Experience"
+// total). Scans the whole step tree for a `counter` input whose text mentions the victory display.
+function hasVictoryDisplayCounter(json) {
+  let found = false;
+  const visit = (o) => {
+    if (found || !o || typeof o !== 'object') return;
+    if (
+      o.type === 'counter' &&
+      typeof o.text === 'string' &&
+      /victory display/i.test(o.text)
+    ) {
+      found = true;
+      return;
+    }
+    if (Array.isArray(o)) {
+      for (const x of o) visit(x);
+      return;
+    }
+    for (const v of Object.values(o)) visit(v);
+  };
+  visit(json);
+  return found;
+}
+
+// The "Each investigator earns experience equal to…" instruction shown at the end-of-scenario XP
+// screen — the dedicated `earn_xp` step's text. Kept only for Experience scenarios (see the meta
+// build below), where it explains what the manually-entered Experience total comprises (the victory
+// display plus whatever extra the app can't count). Returns the step text, or undefined when the
+// scenario has no `earn_xp` step (interludes, and side scenarios that grant XP some other way).
+function earnXpNote(json) {
+  let text;
+  const visit = (o) => {
+    if (text != null || !o || typeof o !== 'object') return;
+    if (o.id === 'earn_xp' && typeof o.text === 'string' && o.text.trim()) {
+      text = o.text.trim();
+      return;
+    }
+    if (Array.isArray(o)) {
+      for (const x of o) visit(x);
+      return;
+    }
+    for (const v of Object.values(o)) visit(v);
+  };
+  visit(json);
+  return text;
+}
+
 // The resolutions a player can be sent to DIRECTLY when this scenario ends — the
 // "first choice" set, in book order. ArkhamCards lists every resolution (incl.
 // sub-resolutions reached only from within another, flagged `hidden`, and the
@@ -259,36 +307,105 @@ function resolutionEffectsFor(json) {
   return Object.keys(out).length ? out : undefined;
 }
 
+const ORDERED_DIFFICULTIES = ['easy', 'standard', 'hard', 'expert'];
+const DIFFICULTIES = new Set(ORDERED_DIFFICULTIES);
+
+function countTokens(tokens) {
+  const counts = {};
+  for (const t of tokens) counts[t] = (counts[t] ?? 0) + 1;
+  return counts;
+}
+
+// From a difficulty `choose_one` input's choices, the per-difficulty bag
+// (`difficulty -> { tokenCode: count }`): each choice either tags a difficulty
+// (`campaign_data`/`difficulty`) or is named one, and carries the `tokens` it adds.
+function difficultyBagsFromChoices(choices) {
+  const bags = {};
+  for (const ch of choices) {
+    const setsDifficulty = (ch.effects || []).some(
+      (e) => e && e.type === 'campaign_data' && e.setting === 'difficulty'
+    );
+    const tokens =
+      (Array.isArray(ch.tokens) && ch.tokens) ||
+      (ch.effects || []).find((e) => e && e.type === 'add_chaos_token')?.tokens;
+    if ((setsDifficulty || DIFFICULTIES.has(ch.id)) && Array.isArray(tokens) && ch.id) {
+      bags[ch.id] = countTokens(tokens);
+    }
+  }
+  return bags;
+}
+
 // The per-difficulty starting chaos bag, read from the campaign's difficulty
-// `choose_one` input: each choice is a difficulty (easy/standard/hard/expert)
-// and carries the `tokens` it adds. Returned as difficulty -> { tokenCode: count }
-// so the app can seed the chaos-bag editor (and scope special tokens like frost
-// to the campaigns that actually use them). Undefined when not found.
-const DIFFICULTIES = new Set(['easy', 'standard', 'hard', 'expert']);
+// `choose_one` input. Returned as difficulty -> { tokenCode: count } so the app can
+// seed the chaos-bag editor (and scope special tokens like frost to the campaigns
+// that actually use them). Undefined when not found.
 function startingChaosBags(campaign) {
   const bags = {};
   const visit = (n) => {
     if (Array.isArray(n)) return n.forEach(visit);
     if (!n || typeof n !== 'object') return;
     if (n.type === 'input' && n.input && Array.isArray(n.input.choices)) {
-      for (const ch of n.input.choices) {
-        const setsDifficulty = (ch.effects || []).some(
-          (e) => e && e.type === 'campaign_data' && e.setting === 'difficulty'
-        );
-        const tokens =
-          (Array.isArray(ch.tokens) && ch.tokens) ||
-          (ch.effects || []).find((e) => e && e.type === 'add_chaos_token')?.tokens;
-        if ((setsDifficulty || DIFFICULTIES.has(ch.id)) && Array.isArray(tokens) && ch.id) {
-          const counts = {};
-          for (const t of tokens) counts[t] = (counts[t] ?? 0) + 1;
-          bags[ch.id] = counts;
-        }
-      }
+      Object.assign(bags, difficultyBagsFromChoices(n.input.choices));
     }
     for (const v of Object.values(n)) visit(v);
   };
   visit(campaign);
   return Object.keys(bags).length ? bags : undefined;
+}
+
+// Campaign codes whose scenario files ARE standalone scenarios (the Scenario-Pack
+// catalogue + dedicated product folders). For these, the whole file describes the
+// one-off, so we read the chaos bag from any of its steps. For a normal campaign /
+// return campaign, we ONLY trust an explicit `standalone_setup` flow — scanning a
+// campaign scenario's regular steps would wrongly grab mid-scenario token additions
+// ("add 1 [elder_thing] for the rest of the campaign") as if they were the bag.
+const STANDALONE_CATALOGUE_CODES = new Set(['side', 'gob', 'fof']);
+
+// Standalone-mode setup for ONE scenario file: the allowed difficulties + chaos
+// bag(s) to assemble when playing it as a one-off. Two shapes handled:
+//   • a `choose_difficulty`-style input whose choices each set a difficulty and
+//     add that difficulty's tokens (like startingChaosBags, but per-scenario).
+//   • a fixed `setup_standalone_bag` step (a single add_chaos_token; difficulty
+//     from its campaign_data tag → else 'standard'): "Assemble the chaos bag…".
+// Returns { difficulties, chaosBag } or undefined (→ editor degrades to manual).
+function standaloneSetupFor(json, isCatalogue) {
+  if (!json || typeof json !== 'object') return undefined;
+  const steps = Array.isArray(json.steps) ? json.steps : [];
+  const byId = new Map(steps.filter((s) => s && s.id).map((s) => [s.id, s]));
+  const flowIds = Array.isArray(json.standalone_setup) ? json.standalone_setup : null;
+  // Trust the explicit standalone flow; else only scan all steps for catalogue files.
+  const flowSteps = flowIds ? flowIds.map((id) => byId.get(id)).filter(Boolean) : isCatalogue ? steps : null;
+  if (!flowSteps) return undefined;
+
+  const bags = {};
+  for (const step of flowSteps) {
+    if (!step || typeof step !== 'object') continue;
+    // (a) per-difficulty chooser
+    if (step.type === 'input' && step.input && Array.isArray(step.input.choices)) {
+      Object.assign(bags, difficultyBagsFromChoices(step.input.choices));
+    }
+    // (b) fixed bag — only the canonical bag step (or one that tags a difficulty),
+    // never a stray mid-flow "add 1 token" effect.
+    const diffTag = (step.effects || []).find(
+      (e) => e && e.type === 'campaign_data' && e.setting === 'difficulty'
+    )?.value;
+    if (step.id === 'setup_standalone_bag' || DIFFICULTIES.has(diffTag)) {
+      const fixedTokens = (step.effects || []).find((e) => e && e.type === 'add_chaos_token')?.tokens;
+      if (Array.isArray(fixedTokens)) {
+        bags[DIFFICULTIES.has(diffTag) ? diffTag : 'standard'] = countTokens(fixedTokens);
+      }
+    }
+  }
+  const difficulties = ORDERED_DIFFICULTIES.filter((d) => bags[d]);
+  if (!difficulties.length) return undefined;
+  return { difficulties, chaosBag: bags };
+}
+
+// A scenario flagged `standalone_unwinnable` cannot be "won" as a one-off (its
+// score is how long you survive). ArkhamCards ships a step with this exact id.
+function standaloneUnwinnableFor(json) {
+  const steps = Array.isArray(json?.steps) ? json.steps : [];
+  return steps.some((s) => s && s.id === 'standalone_unwinnable');
 }
 
 // ---- Special interactions (roster-gated flavor moments) -------------------
@@ -507,6 +624,22 @@ function extract(code) {
   const scenarioNameByFile = new Map();
   const scenarioFanMade = new Set();
   const scenarioFilesSeen = new Set();
+  // Scenarios whose end-of-scenario XP screen tallies the VICTORY DISPLAY itself — ArkhamCards shows
+  // a "Victory display:" counter input only when it can count the XP deterministically; otherwise it
+  // asks the player for a flat "Experience" total (the scenario adds something the app can't detect,
+  // e.g. "+1 per clue on X"). So this counter's presence is exactly the Victory-display-vs-Experience
+  // signal — drives whether the app (and our widgets) label the recorded value "Victory display" / VP
+  // or "Experience" / XP.
+  const scenarioVictoryDisplayByFile = new Set();
+  // Return-to scenarios point at the base they extend (`original_id`) and ship only their NEW steps,
+  // inheriting the rest of the flow (incl. the XP screen) from the base — so a return-to file rarely
+  // carries the "Victory display:" counter itself. Track the link to inherit the base's flag below.
+  const scenarioOriginalIdByFile = new Map();
+  // The `earn_xp` instruction text per scenario file, kept as a help note for Experience scenarios.
+  const scenarioXpNoteByFile = new Map();
+  // Standalone-mode setup (difficulties + chaos bag) + the unwinnable flag, per scenario file.
+  const scenarioStandaloneSetupByFile = new Map();
+  const scenarioStandaloneUnwinnableByFile = new Set();
   const specialRaw = [];
   for (const d of dirs) {
     for (const file of inFlowOrder(listJsonFiles(d))) {
@@ -561,6 +694,32 @@ function extract(code) {
         if (json && json.custom) {
           scenarioFanMade.add(base);
           if (sid !== base) scenarioFanMade.add(sid);
+        }
+        // Victory-display vs Experience (see the Set's declaration).
+        if (hasVictoryDisplayCounter(json)) {
+          scenarioVictoryDisplayByFile.add(base);
+          if (sid !== base) scenarioVictoryDisplayByFile.add(sid);
+        }
+        // Remember the base a return-to scenario extends, so it can inherit the base's XP flag.
+        if (json && typeof json.original_id === 'string') {
+          scenarioOriginalIdByFile.set(base, json.original_id);
+          if (sid !== base) scenarioOriginalIdByFile.set(sid, json.original_id);
+        }
+        // The XP-screen instruction, kept as a help note on Experience scenarios (see the meta build).
+        const xpNote = earnXpNote(json);
+        if (xpNote) {
+          scenarioXpNoteByFile.set(base, xpNote);
+          if (sid !== base) scenarioXpNoteByFile.set(sid, xpNote);
+        }
+        // Standalone-mode setup (difficulties + chaos bag) and the unwinnable flag.
+        const standaloneSetup = standaloneSetupFor(json, STANDALONE_CATALOGUE_CODES.has(code));
+        if (standaloneSetup) {
+          scenarioStandaloneSetupByFile.set(base, standaloneSetup);
+          if (sid !== base) scenarioStandaloneSetupByFile.set(sid, standaloneSetup);
+        }
+        if (standaloneUnwinnableFor(json)) {
+          scenarioStandaloneUnwinnableByFile.add(base);
+          if (sid !== base) scenarioStandaloneUnwinnableByFile.add(sid);
         }
       }
       collectEffects(json, base, raw);
@@ -684,7 +843,6 @@ function extract(code) {
       title: s.title || deslug(s.stepId),
       // Seed the blurb from the gating prompt; curation rewrites it in our words.
       text: s.prompt || s.story || s.title || '',
-      spoiler: [],
       _story: s.story || undefined, // curation hint (stripped on apply)
     };
   }
@@ -712,11 +870,31 @@ function extract(code) {
     metaSeen.add(s);
     const type = scenarioFilesSeen.has(s) ? scenarioTypeByFile.get(s) ?? 'story' : 'other';
     const meta = { id: s, type };
+    // Story scenarios get an explicit Victory-display-vs-Experience flag (true = the app tallies the
+    // victory display itself; false = it asks the player for a flat "Experience"). Non-story slots
+    // (interludes / epilogues) earn no scenario XP, so the flag is omitted.
+    if (type === 'story') {
+      // The scenario's own "Victory display:" counter, OR — for a return-to scenario that ships only
+      // new steps — the BASE scenario's, whose XP flow it inherits (e.g. Return to Union and
+      // Disillusion shows "Victory display" via the base, though its own file has no counter).
+      const orig = scenarioOriginalIdByFile.get(s);
+      meta.victoryDisplay =
+        scenarioVictoryDisplayByFile.has(s) || (!!orig && scenarioVictoryDisplayByFile.has(orig));
+      // For an Experience scenario, keep the XP-screen instruction as a note explaining what the
+      // entered total comprises. Inherit the base's text for a return-to scenario, like the flag.
+      if (meta.victoryDisplay === false) {
+        const note = scenarioXpNoteByFile.get(s) ?? (orig ? scenarioXpNoteByFile.get(orig) : undefined);
+        if (note) meta.xpNote = note;
+      }
+    }
     const resolutions = scenarioResolutionsByFile.get(s);
     if (resolutions) meta.resolutions = resolutions;
     if (scenarioFanMade.has(s)) meta.fanMade = true;
     const resEffects = scenarioResolutionEffectsByFile.get(s);
     if (resEffects) meta.resolutionEffects = resEffects;
+    const standaloneSetup = scenarioStandaloneSetupByFile.get(s);
+    if (standaloneSetup) meta.standaloneSetup = standaloneSetup;
+    if (scenarioStandaloneUnwinnableByFile.has(s)) meta.standaloneUnwinnable = true;
     scenarioMeta.push(meta);
   }
   // Order scenarioMeta by the physical book order (source-file rank); scenarios
@@ -890,8 +1068,6 @@ function extract(code) {
           `${e.section}.${e.id}`,
           {
             text: e.text,
-            // spoiler spans to be filled in by the per-campaign agent
-            spoiler: [],
             // surface alternate phrasings so the agent can see cross-out wording etc.
             _altTexts: e._texts.size > 1 ? [...e._texts].filter((t) => t !== e.text) : undefined,
           },

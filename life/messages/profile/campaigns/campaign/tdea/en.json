@@ -1,0 +1,41 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_tdea_evidence_max": "Most Evidence",
+	"campaign_tdea_evidence_avg": "Average",
+	"campaign_tdea_evidence_all_signs": "All 10 Signs",
+	"campaign_tdea_evidence_note": "Linear, not tiered: the Where the Gods Dwell scenario card removes 1 clue from the Onyx Gates per tally. 10 = the \"Losing My Religion\" achievement.",
+	"campaign_tdea_evidence_empty": "Play The Search for Kadath to gather Evidence of Kadath.",
+
+	"campaign_tdea_gates_saved": "Saved by Randolph",
+	"campaign_tdea_gates_tribute": "Cats collected tribute",
+	"campaign_tdea_gates_zoogs": "Parleyed with the Zoogs",
+	"campaign_tdea_gates_strayed": "Strayed from the path",
+	"campaign_tdea_gates_empty": "Play Beyond the Gates of Sleep to record its choices.",
+
+	"campaign_tdea_search_route_heading": "Route through the Dreamlands",
+	"campaign_tdea_search_temple_heading": "At the temple",
+	"campaign_tdea_search_oriab": "Oriab",
+	"campaign_tdea_search_minar": "Mnar",
+	"campaign_tdea_search_forbidden": "Forbidden Lands",
+	"campaign_tdea_search_timeless": "Timeless Realm",
+	"campaign_tdea_search_escaped": "Someone escaped",
+	"campaign_tdea_search_all_captured": "Everyone captured",
+	"campaign_tdea_search_ulthar": "Broke the law of Ulthar",
+	"campaign_tdea_search_empty": "Play The Search for Kadath to chart your route.",
+
+	"campaign_tdea_moon_carried": "Carried to the Cold Wastes",
+	"campaign_tdea_moon_travelled": "Travelled to the Cold Wastes",
+	"campaign_tdea_moon_survived": "Randolph survived",
+	"campaign_tdea_moon_died": "Randolph died",
+	"campaign_tdea_moon_empty": "Play Dark Side of the Moon to record the voyage.",
+
+	"campaign_tdea_gods_awoke": "The dreamers awoke",
+	"campaign_tdea_gods_stayed": "Stayed forever",
+	"campaign_tdea_gods_monastery": "Beneath the monastery",
+	"campaign_tdea_gods_invasion": "Invasion began",
+	"campaign_tdea_gods_banished": "Banished Nyarlathotep",
+	"campaign_tdea_gods_escaped": "Escaped the grasp",
+	"campaign_tdea_gods_another_path": "Knew another path",
+	"campaign_tdea_gods_empty": "Reach Where the Gods Dwell to see your finale."
+}

@@ -6,7 +6,7 @@
  */
 
 import type { CardCode, Product } from '@5argon/arkham-kohaku';
-import type { DifficultyTier, ProfileSettings } from '$lib/campaign/profile-settings';
+import type { DifficultyTier, ProfileSettings } from '$lib/campaign/profile/profile-settings';
 import {
 	emptyProfileSummary,
 	type ProfileCampaign,
@@ -20,16 +20,24 @@ import {
 	type ProfileSummary,
 	type UsedOnceMap,
 } from '$lib/profile/profile-types';
-import type { ClearGridRow, WinLossRecord, CampaignEndings } from '$lib/campaign/clear-status';
-import type { CampaignCollections } from '$lib/campaign/collections';
-import type { CampaignScenarioXp } from '$lib/campaign/extra-imports';
-import type { CampaignResolutionCoverage } from '$lib/campaign/resolution-coverage';
-import type { CampaignStandaloneUsage } from '$lib/campaign/standalone-usage';
-import type { TraumaTally } from '$lib/campaign/trauma';
-import type { CampaignEoeCity } from '$lib/campaign/eoe-city';
-import type { CampaignEoe } from '$lib/campaign/eoe';
-import type { CampaignTsk } from '$lib/campaign/tsk-profile';
-import type { CampaignSpecialInteractions } from '$lib/campaign/special-interactions';
+import type { ClearGridRow, WinLossRecord, CampaignEndings } from '$lib/campaign/outcomes/clear-status';
+import type { CampaignCollections } from '$lib/campaign/stats/collections';
+import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
+import type { CampaignStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
+import type { TraumaTally } from '$lib/campaign/outcomes/trauma';
+import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
+import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
+import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
+import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
+import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
+import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
+import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
+import type { CampaignTic } from '$lib/campaign/campaigns/tic';
+import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
+import type { CampaignTdc } from '$lib/campaign/campaigns/tdc';
+import type { CampaignNotz } from '$lib/campaign/campaigns/notz';
+import type { CampaignSpecialInteractions } from '$lib/campaign/outcomes/special-interactions';
 
 export interface ProfileWidgetData {
 	/** Cross-family lifetime headline totals (precomputed; see ProfileSummary). */
@@ -42,13 +50,21 @@ export interface ProfileWidgetData {
 	calendar: CalendarEntry[];
 	endings: CampaignEndings[];
 	collections: CampaignCollections[];
-	scenarioXp: CampaignScenarioXp[];
-	resolutionCoverage: CampaignResolutionCoverage[];
+	scenarios: CampaignScenarios[];
 	standaloneUsage: CampaignStandaloneUsage[];
 	traumaTally: TraumaTally;
-	eoeCity: CampaignEoeCity[];
 	eoe: CampaignEoe[];
 	tsk: CampaignTsk[];
+	dwl: CampaignDwl[];
+	ptc: CampaignPtc[];
+	tfa: CampaignTfa[];
+	tcu: CampaignTcu[];
+	tdea: CampaignTdea[];
+	tdeb: CampaignTdeb[];
+	tic: CampaignTic[];
+	fhv: CampaignFhv[];
+	tdc: CampaignTdc[];
+	notz: CampaignNotz[];
 	specialInteractions: CampaignSpecialInteractions[];
 	achievements: ProfileAchievementsData;
 	investigators: InvestigatorStat[];
@@ -90,13 +106,21 @@ export interface ProfilePayload {
 	calendar: CalendarEntry[];
 	endings: CampaignEndings[];
 	collections: CampaignCollections[];
-	scenarioXp: CampaignScenarioXp[];
-	resolutionCoverage: CampaignResolutionCoverage[];
+	scenarios: CampaignScenarios[];
 	standaloneUsage: CampaignStandaloneUsage[];
 	traumaTally: TraumaTally;
-	eoeCity: CampaignEoeCity[];
 	eoe: CampaignEoe[];
 	tsk: CampaignTsk[];
+	dwl: CampaignDwl[];
+	ptc: CampaignPtc[];
+	tfa: CampaignTfa[];
+	tcu: CampaignTcu[];
+	tdea: CampaignTdea[];
+	tdeb: CampaignTdeb[];
+	tic: CampaignTic[];
+	fhv: CampaignFhv[];
+	tdc: CampaignTdc[];
+	notz: CampaignNotz[];
 	specialInteractions: CampaignSpecialInteractions[];
 	achievements: ProfileAchievementsData;
 	investigators: InvestigatorStat[];
@@ -126,13 +150,30 @@ export function toWidgetData(d: ProfilePayload): ProfileWidgetData {
 		calendar: d.calendar,
 		endings: d.endings,
 		collections: d.collections,
-		scenarioXp: d.scenarioXp,
-		resolutionCoverage: d.resolutionCoverage,
+		scenarios: d.scenarios,
 		standaloneUsage: d.standaloneUsage,
 		traumaTally: d.traumaTally,
-		eoeCity: d.eoeCity,
 		eoe: d.eoe,
 		tsk: d.tsk,
+		// Default for payloads compiled/shared before the dwl blob existed.
+		dwl: d.dwl ?? [],
+		// Default for payloads compiled/shared before the ptc blob existed.
+		ptc: d.ptc ?? [],
+		// Default for payloads compiled/shared before the tfa blob existed.
+		tfa: d.tfa ?? [],
+		// Default for payloads compiled/shared before the tcu blob existed.
+		tcu: d.tcu ?? [],
+		// Defaults for payloads compiled/shared before the tdea/tdeb blobs existed.
+		tdea: d.tdea ?? [],
+		tdeb: d.tdeb ?? [],
+		// Default for payloads compiled/shared before the tic blob existed.
+		tic: d.tic ?? [],
+		// Default for payloads compiled/shared before the fhv blob existed.
+		fhv: d.fhv ?? [],
+		// Default for payloads compiled/shared before the tdc blob existed.
+		tdc: d.tdc ?? [],
+		// Default for payloads compiled/shared before the notz blob existed.
+		notz: d.notz ?? [],
 		// Default for payloads compiled/shared before this field existed.
 		specialInteractions: d.specialInteractions ?? [],
 		achievements: d.achievements,

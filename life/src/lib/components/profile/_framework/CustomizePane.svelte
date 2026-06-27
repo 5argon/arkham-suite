@@ -12,7 +12,7 @@ being customized (the current path minus the trailing `/customize`).
 	import { BackButton, BorderedContainer, Button, HelpParagraph, MarginFull, SmallPageLead, getToastContext } from '@5argon/arkham-life-ui';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
-	import { resolveProfileSettings, type PaneId } from '$lib/campaign/profile-settings';
+	import { resolveProfileSettings, type PaneId } from '$lib/campaign/profile/profile-settings';
 	import PaneWidgetEditor from '$lib/components/profile/_framework/PaneWidgetEditor.svelte';
 
 	let { pane, campaign = null, title }: { pane: PaneId; campaign?: string | null; title: string } = $props();
@@ -22,6 +22,12 @@ being customized (the current path minus the trailing `/customize`).
 
 	const initialSettings = $derived(resolveProfileSettings(databaseStore.doc?.profileSettings));
 	const backHref = $derived(page.url.pathname.replace(/\/customize\/?$/, ''));
+	// Only a MANAGED (`private`) profile has a live document to persist layout into. A loaded
+	// snapshot or a (future) public vanity profile — anything where the optional `scope` segment
+	// isn't `private` — is read-only; customizing it would silently overwrite the viewer's OWN
+	// settings. These `customize` pages are `+page@.svelte` (they reset past the profile layout),
+	// so this guard, not the layout, is what blocks them.
+	const isReadOnly = $derived((page.params as { scope?: string }).scope !== 'private');
 
 	const toast = getToastContext();
 	let editor = $state<{ currentPayload(): string }>();
@@ -37,7 +43,7 @@ being customized (the current path minus the trailing `/customize`).
 <MarginFull>
 	<div class="mb-4 flex items-center justify-between gap-3">
 		<BackButton label={m.framework_back()} onClick={backHref} />
-		{#if databaseStore.doc}
+		{#if databaseStore.doc && !isReadOnly}
 			<Button highlighted label={m.framework_save_layout()} onClick={save} />
 		{/if}
 	</div>
@@ -51,6 +57,10 @@ being customized (the current path minus the trailing `/customize`).
 	{:else if !databaseStore.doc}
 		<BorderedContainer>
 			<div class="p-8"><HelpParagraph>{m.framework_no_database()}</HelpParagraph></div>
+		</BorderedContainer>
+	{:else if isReadOnly}
+		<BorderedContainer>
+			<div class="p-8"><HelpParagraph>{m.framework_customize_loaded_forbidden()}</HelpParagraph></div>
 		</BorderedContainer>
 	{:else}
 		{#key `${pane}:${campaign ?? ''}`}

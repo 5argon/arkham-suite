@@ -13,8 +13,8 @@
 		UserDisplay,
 	} from '@5argon/arkham-life-ui';
 	import { card, type Card } from '@5argon/arkham-kohaku';
-	import { ALL_TIERS, type DifficultyTier } from '$lib/campaign/profile-settings';
-	import { difficultyLabel } from '$lib/campaign/difficulty';
+	import { ALL_TIERS, type DifficultyTier } from '$lib/campaign/profile/profile-settings';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
 	import PlayerIconSelector from '$lib/components/PlayerIconSelector.svelte';
 	import FilePickerButton from '$lib/components/FilePickerButton.svelte';
 	import { getAllCards } from '$lib/card-data';

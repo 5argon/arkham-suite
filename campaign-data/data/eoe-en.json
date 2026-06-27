@@ -192,10 +192,7 @@
       "text": "the team was guided to the hidden tunnel."
     },
     "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": {
-      "text": "Dr. Kensler understands the true nature of the miasma.",
-      "spoiler": [
-        "the true nature of the miasma"
-      ]
+      "text": "Dr. Kensler understands the true nature of the miasma."
     },
     "campaign_notes.scouted_the_forked_passage": {
       "text": "the investigators scouted the forked passage."
@@ -240,16 +237,10 @@
       "text": "the truth of the mirage eludes you."
     },
     "campaign_notes.nameless_madness_escaped": {
-      "text": "the nameless madness escaped.",
-      "spoiler": [
-        "the nameless madness"
-      ]
+      "text": "the nameless madness escaped."
     },
     "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now": {
-      "text": "the nameless madness is contained safely within its host… for now.",
-      "spoiler": [
-        "the nameless madness"
-      ]
+      "text": "the nameless madness is contained safely within its host… for now."
     },
     "campaign_notes.team_escaped_the_facility": {
       "text": "the team escaped the facility."

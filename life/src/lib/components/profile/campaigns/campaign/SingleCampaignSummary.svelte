@@ -16,28 +16,31 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 		ClearGridRow,
 		CampaignEndings,
 		EndingKind
-	} from '$lib/campaign/clear-status';
-	import type { DifficultyTier } from '$lib/campaign/profile-settings';
-	import { difficultyLabel } from '$lib/campaign/difficulty';
-	import { capitalizeFirst } from '$lib/campaign/entry-text';
+	} from '$lib/campaign/outcomes/clear-status';
+	import type { DifficultyTier } from '$lib/campaign/profile/profile-settings';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
+	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
 
 	let {
 		record,
 		clear,
 		endings,
-		trackedTiers
+		trackedTiers,
+		logOnly = false
 	}: {
 		record: WinLossRecord | null;
 		clear: ClearGridRow | null;
 		endings: CampaignEndings | null;
 		trackedTiers: DifficultyTier[];
+		/** Log-only mode (global or per-campaign): hide Extra-derived endings (e.g. DWL's Act-4 R2). */
+		logOnly?: boolean;
 	} = $props();
 
 	const tiers = $derived(
 		trackedTiers.length ? trackedTiers : (['standard', 'hard'] as DifficultyTier[])
 	);
 	// Cleared = Rogue green, Attempted = Survivor red (the highest clear's face icon
-	// stands in for the old checkmark; an attempt shows no icon).
+	// marks a clear; an attempt shows no icon).
 	const stateMeta: Record<string, { label: string; cls: string }> = {
 		cleared: {
 			label: m.campaign_summary_state_cleared(),
@@ -70,7 +73,11 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 	const order: EndingKind[] = ['best', 'win', 'special', 'loss'];
 	const sortedEndings = $derived(
 		endings
-			? [...endings.endings].sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
+			? endings.endings
+					// Log-only mode: drop endings the log alone can't establish (Extra-derived,
+					// e.g. DWL's Act-4 R2 win) so they don't show as permanently-unreachable.
+					.filter((e) => !(logOnly && e.nonLog))
+					.sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
 			: []
 	);
 	const reachDetail = (n: number): string =>

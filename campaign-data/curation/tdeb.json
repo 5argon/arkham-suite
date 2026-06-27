@@ -1,31 +1,47 @@
 {
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario Succeed/Failed (curation judgement). Success = you escaped / completed the dream-passage / destroyed Atlach-Nacha's web; loss = defeated, or the web was completed/you never escaped. Waking Nightmare R1-R4 are all successful hospital-escape branches (they differ only on Dr. Maheswaran's fate and how Randolph escaped, not win/loss) -> all win; no_resolution_defeated -> loss, no_resolution_resigned -> neutral (a voluntary early exit, per the no_resolution_resigned convention). A Thousand Shapes R1/R2 and Point of No Return R1/R2 both complete the Underworld leg and advance (sub-branches on Randolph's survival / Silver Key / the black cat's knowledge), so both = win; no_resolution_defeated -> loss. Weaver of the Cosmos finale (verified against campaign-data outcomes + resolutionEffects): R1 = bridge destroyed -> returned to reality, the clean win; R2 = bridge completed (all investigators driven insane) -> loss; no_resolution = never escaped (all killed) -> loss. (still_in_the_dreamlands is the bittersweet sub-flavor of the R1 web-destroyed win, not a separate resolution id.)",
+    "waking_nightmare": {
+      "R1": "win",
+      "R2": "win",
+      "R3": "win",
+      "R4": "win",
+      "no_resolution_defeated": "loss",
+      "no_resolution_resigned": "neutral"
+    },
+    "a_thousand_shapes_of_horror": {
+      "R1": "win",
+      "R2": "win",
+      "no_resolution_defeated": "loss"
+    },
+    "point_of_no_return": {
+      "R1": "win",
+      "R2": "win",
+      "no_resolution_defeated": "loss"
+    },
+    "weaver_of_the_cosmos": {
+      "R1": "win",
+      "R2": "loss",
+      "no_resolution": "loss"
+    }
+  },
   "code": "tdeb",
   "outcomes": {
-    "_notes": "Authored from game knowledge — no ArkhamCards result effect. weaver_of_the_cosmos: returned_to_reality / bridge_was_destroyed = win, bridge_was_completed / never_escaped = loss. Lower confidence.",
+    "_notes": "weaver_of_the_cosmos resolutions (verified against the step graph): R3 returned_to_reality = win (the clean 'got home' — the better win) and R5 still_in_the_dreamlands = win (bittersweet — stopped the web but stuck); R1 bridge_was_destroyed = win (you destroyed Atlach-Nacha's web); no_resolution/R2 bridge_was_completed = loss (the web finished) and R4 never_escaped = loss (trapped). (Single-sided reading; the interconnected verdict is the epilogue matrix.)",
     "win": [
       "campaign_notes.returned_to_reality",
+      "campaign_notes.still_in_the_dreamlands",
       "campaign_notes.bridge_was_destroyed"
     ],
     "loss": [
       "campaign_notes.bridge_was_completed",
       "campaign_notes.never_escaped"
+    ],
+    "betterWin": [
+      "campaign_notes.returned_to_reality"
     ]
   },
   "_notes": "Verified all 4 spans are exact substrings of their entry text (Atlach-Nacha's uses a straight apostrophe matching the source). No sibling collisions: the two Underworld entries remain distinguishable ('the black cat shared knowledge of [BLUR]' vs 'the investigators found a way out of [BLUR]'). Genuine reveals blurred: Silver Key (artifact), the Underworld (endgame location), Atlach-Nacha's (final Great Old One). Black cat (campaign framing companion), Randolph Carter, and Dr. Maheswaran correctly left visible as setup NPCs; 'the bridge'/Dreamlands are the campaign's own visible concepts. No exotic rosters needed (count + hidden sections only). Curation accepted unchanged.",
-  "spoilers": {
-    "campaign_notes.possess_silver_key": [
-      "the Silver Key"
-    ],
-    "campaign_notes.black_cat_shared_knowledge_of_the_underworld": [
-      "the Underworld"
-    ],
-    "campaign_notes.found_a_way_out_of_the_underworld": [
-      "the Underworld"
-    ],
-    "campaign_notes.trapped_in_atlach_nachas_realm": [
-      "Atlach-Nacha's"
-    ]
-  },
   "achievements": {
     "remember_this_place": {
       "infer": {

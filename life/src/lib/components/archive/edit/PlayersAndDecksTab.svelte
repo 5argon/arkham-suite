@@ -8,6 +8,7 @@
 		DeckDisplay,
 		FaIconType,
 		FormLabelWithHelp,
+		getToastContext,
 		ImportDecksModal,
 		Modal,
 		RadioButtons,
@@ -28,9 +29,16 @@
 	} from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
 	import { databaseStore } from '$lib/database/database.svelte';
-	import { distinctHands, findPlayer, resolvePlayerCount, type PlayerCount } from '$lib/database/document';
+	import {
+		distinctHands,
+		findPlayer,
+		findRecord,
+		resolvePlayerCount,
+		type PlayerCount
+	} from '$lib/database/document';
 	import { investigatorFromAhdbDeck } from '$lib/database/repository';
 	import { getAllCards, type createCardResolver, type loadAllTabooLists } from '$lib/card-data.js';
+	import { deckExperience, xpRangeTier } from '$lib/campaign/utils/deck-experience';
 	import PlayerIconSelector from '$lib/components/PlayerIconSelector.svelte';
 	import AddParticipantModal from './AddParticipantModal.svelte';
 	import Doc from '$lib/docs/Doc.svelte';
@@ -58,13 +66,30 @@
 	interface Props {
 		campaignId: string;
 		canEdit: boolean;
+		/** Standalone archive: a single deck with no upgrade chain (validated on import). */
+		singleDeck?: boolean;
+		/** Standalone archive — swaps campaign-specific labels for standalone wording. */
+		isStandalone?: boolean;
 		players: Player[];
 		decks: DeckRow[];
 		cardResolver: ReturnType<typeof createCardResolver>;
 		tabooLists: ReturnType<typeof loadAllTabooLists>;
 	}
 
-	let { campaignId, canEdit, players, decks, cardResolver, tabooLists }: Props = $props();
+	let { campaignId, canEdit, singleDeck = false, isStandalone = false, players, decks, cardResolver, tabooLists }: Props = $props();
+
+	const toast = getToastContext();
+
+	// code → printed XP, for the standalone deck-experience tier (Standalone Mode).
+	const xpByCode = $derived(new Map(getAllCards().map((c) => [c.code, c.xp ?? 0])));
+
+	// The Standalone-Mode XP tier of a deck (its latest version's higher-level XP).
+	function deckXpInfo(versions: { sequenceIndex: number; ahdbJson: string }[]) {
+		if (!versions.length) return null;
+		const latest = [...versions].sort((a, b) => a.sequenceIndex - b.sequenceIndex).at(-1)!;
+		const total = deckExperience(latest.ahdbJson, xpByCode);
+		return { total, tier: xpRangeTier(total) };
+	}
 
 	// ─── Players ──────────────────────────────────────────────────────────────
 	let localPlayers = $state(untrack(() => players.map((p) => ({ ...p }))));
@@ -75,7 +100,9 @@
 
 	// ─── Considered player count (auto-saved like the other participant edits) ───
 	// Read straight from the reactive doc so the radio reflects the persisted value.
-	const campaign = $derived(databaseStore.doc?.campaigns.find((c) => c.id === campaignId));
+	const campaign = $derived(
+		databaseStore.doc ? findRecord(databaseStore.doc, campaignId) : undefined
+	);
 	const playerCountSetting: PlayerCount = $derived(campaign?.playerCount ?? 'auto');
 	const participantCount = $derived(campaign?.participants.length ?? localPlayers.length);
 	const playerCountResolved = $derived(resolvePlayerCount(playerCountSetting, participantCount));
@@ -283,9 +310,15 @@
 				if (!d.compressedJson) throw new Error('Missing compressedJson on deck version');
 				return deckUtility.decompressDeck(d.compressedJson);
 			});
+			// A standalone deck must be exactly one deck (no upgrades). If the import has an
+			// upgrade chain, keep only the latest version and tell the player.
+			if (singleDeck && versions.length > 1) {
+				toast.error('A standalone deck must be a single deck with no upgrades — kept the latest version only.');
+			}
+			const useVersions = singleDeck ? [versions[versions.length - 1]] : versions;
 			databaseStore.addDeck(campaignId, {
-				investigator: investigatorFromAhdbDeck(versions[0]),
-				versions: versions.map((v, i) => ({ sequenceIndex: i, ahdbJson: JSON.stringify(v) }))
+				investigator: investigatorFromAhdbDeck(useVersions[0]),
+				versions: useVersions.map((v, i) => ({ sequenceIndex: i, ahdbJson: JSON.stringify(v) }))
 			});
 		}
 		importingDecks = false;
@@ -342,7 +375,7 @@
 </p>
 
 <!-- ── Players ──────────────────────────────────────────────── -->
-<SectionSeparator title={m.archive_players()} />
+<SectionSeparator title={isStandalone ? 'Players' : m.archive_players()} />
 
 <div class="mb-4 flex flex-col gap-2">
 	{#each localPlayers as player (player.id)}
@@ -487,6 +520,27 @@
 					>
 						{invCard?.name ?? deckRow.investigatorCode}
 					</div>
+				{/if}
+
+				{#if singleDeck && !deckLess}
+					{@const xp = deckXpInfo(deckRow.versions)}
+					{#if xp}
+						{#if xp.tier}
+							<span
+								class="bg-secondary-100 text-secondary-800 dark:bg-secondary-900/40 dark:text-secondary-200 inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold"
+								title="Higher-level XP in this deck: {xp.total}"
+							>
+								{xp.tier.label}
+							</span>
+						{:else}
+							<span
+								class="inline-flex items-center rounded bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-800 dark:bg-red-900/40 dark:text-red-200"
+								title="A standalone deck may not include 50+ XP worth of cards."
+							>
+								⚠ {xp.total} XP — over the 49-XP limit
+							</span>
+						{/if}
+					{/if}
 				{/if}
 
 				{#if deckRow.owner}

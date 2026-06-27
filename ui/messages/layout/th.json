@@ -1,4 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"layout_not_signed_in": "ไม่ได้ล็อคอิน"
+	"layout_not_signed_in": "ไม่ได้ล็อคอิน",
+	"layout_unsaved_changes": "มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
+	"layout_saved": "บันทึกแล้ว",
+	"layout_saving": "กำลังบันทึก…",
+	"layout_save": "บันทึก",
+	"layout_why_save_aria": "ทำไมการบันทึกจึงสำคัญ"
 }

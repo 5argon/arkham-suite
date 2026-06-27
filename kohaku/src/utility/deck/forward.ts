@@ -13,10 +13,20 @@ import { applyTabooToDeck, TabooToDeckApplicationResult } from './taboo.js';
  */
 export function forwardDeckToRcore(deck: Deck, cardResolver: CardResolver): Deck {
   function forwardCardQuantities(cardQuantities: CardQuantity[]): CardQuantity[] {
-    return cardQuantities.map((cq) => ({
-      card: coreCardToRcoreCard(cq.card, cardResolver),
-      quantity: cq.quantity,
-    }));
+    // Forwarding can map distinct codes onto the same Revised Core code (e.g. a
+    // deck holding both the Core 01088 and Revised Core 01588 printings). Merge
+    // entries that collide after forwarding so a card never appears twice.
+    const merged = new Map<string, CardQuantity>();
+    for (const cq of cardQuantities) {
+      const card = coreCardToRcoreCard(cq.card, cardResolver);
+      const existing = merged.get(card.code);
+      if (existing) {
+        existing.quantity += cq.quantity;
+      } else {
+        merged.set(card.code, { card, quantity: cq.quantity });
+      }
+    }
+    return [...merged.values()];
   }
 
   return {

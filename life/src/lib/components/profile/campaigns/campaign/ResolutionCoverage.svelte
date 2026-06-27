@@ -11,11 +11,15 @@ widget render endings identically.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import type { CampaignResolutionCoverage } from '$lib/campaign/resolution-coverage';
+	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import ResolutionChips from '$lib/components/profile/campaigns/campaign/ResolutionChips.svelte';
 	import WidgetTable, { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
 
-	let { coverage }: { coverage: CampaignResolutionCoverage } = $props();
+	let { scenarios }: { scenarios: CampaignScenarios | null } = $props();
+
+	// Only scenarios that actually define resolutions (skips interludes / setup scenarios).
+	const rows = $derived((scenarios?.scenarios ?? []).filter((s) => s.resolutions.length > 0));
 
 	function scenarioName(id: string): string {
 		return id
@@ -27,7 +31,8 @@ widget render endings identically.
 
 <div>
 	<p class="text-primary-700 dark:text-primary-300 mb-3 text-sm">
-		<b class="text-black dark:text-white">{coverage.visitedCount}</b> / {coverage.totalCount}
+		<b class="text-black dark:text-white">{scenarios?.resolutionsVisited ?? 0}</b> / {scenarios?.resolutionsTotal ??
+			0}
 		{m.campaign_resolution_coverage_seen()}
 	</p>
 	<WidgetTable
@@ -35,15 +40,25 @@ widget render endings identically.
 			{ label: m.campaign_resolution_coverage_col_scenario() },
 			{ label: m.campaign_resolution_coverage_col_resolutions() }
 		]}
-		rows={coverage.scenarios}
+		{rows}
 		key={(sc) => sc.scenario}
 	>
 		{#snippet row(sc)}
 			<td class="{widgetTableCell} text-primary-600 dark:text-primary-300 whitespace-nowrap">
-				{scenarioName(sc.scenario)}
+				<span class="flex items-center gap-1.5">
+					<span class="shrink-0" style="font-size:1.1rem">
+						<ScenarioSetIcon scenarioId={sc.scenario} />
+					</span>
+					<span>{scenarioName(sc.scenario)}</span>
+				</span>
 			</td>
 			<td class={widgetTableCell}>
-				<ResolutionChips ids={sc.all} visited={new Set(sc.visited)} tallies={sc.tallies} />
+				<ResolutionChips
+					ids={sc.resolutions}
+					visited={new Set(sc.visited)}
+					tallies={sc.tallies}
+					verdicts={sc.verdicts}
+				/>
 			</td>
 		{/snippet}
 	</WidgetTable>

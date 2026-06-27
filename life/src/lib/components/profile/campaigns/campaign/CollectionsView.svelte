@@ -5,7 +5,7 @@ Scarlet Keys vault, FHV areas surveyed, … Collected items light up; the rest a
 greyed targets still to find across future plays.
 -->
 <script lang="ts">
-	import type { CampaignCollections } from '$lib/campaign/collections';
+	import type { CampaignCollections } from '$lib/campaign/stats/collections';
 
 	let {
 		collections,

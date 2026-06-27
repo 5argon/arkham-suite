@@ -6,6 +6,11 @@ rows so the grouping is fixed on every screen size (rather than one flex-wrap th
 reflows unpredictably). Each row is a centred group; cells are width-capped so long
 labels wrap inside a cell instead of the row breaking apart.
 
+A row may be a plain `Stat[]` OR a `{ heading, stats }` group — the optional `heading`
+renders as a centred topic line above that row, so a group of numbers can say what
+they're about (e.g. "The Necronomicon" over took / destroyed / failed). Backward
+compatible: existing `Stat[][]` callers are unaffected.
+
 A stat may carry a `byTier` map (per-difficulty counts); when present the number
 becomes hoverable and reveals a per-difficulty breakdown tooltip — the shared "see
 this number by difficulty" feature, matching the resolution-chip hover.
@@ -18,13 +23,24 @@ this number by difficulty" feature, matching the resolution-chip hover.
 		/** Optional per-difficulty breakdown; enables the difficulty hover on this number. */
 		byTier?: Record<string, number>;
 	}
+	/** A labelled group of stats: an optional centred topic line above the row. */
+	export interface StatGroup {
+		heading?: string;
+		stats: Stat[];
+	}
 </script>
 
 <script lang="ts">
 	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import { difficultyBreakdown, times } from '$lib/campaign/difficulty';
+	import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 
-	let { rows }: { rows: Stat[][] } = $props();
+	let { rows }: { rows: (Stat[] | StatGroup)[] } = $props();
+
+	// Normalise each row to a {heading?, stats} group (a bare array = no heading).
+	const groups = $derived(
+		rows.map((r): StatGroup => (Array.isArray(r) ? { stats: r } : r))
+	);
 
 	const breakdownOf = (s: Stat): string =>
 		s.byTier ? difficultyBreakdown(s.byTier, times) : '';
@@ -43,34 +59,39 @@ this number by difficulty" feature, matching the resolution-chip hover.
 	const hideTip = () => (tipVisible = false);
 </script>
 
-{#if rows.some((r) => r.length)}
+{#if groups.some((g) => g.stats.length)}
 	<div class="space-y-4">
-		{#each rows as row, i (i)}
-			{#if row.length}
-				<div class="flex flex-wrap justify-center gap-x-6 gap-y-3">
-					{#each row as s (s.label)}
-						{@const breakdown = breakdownOf(s)}
-						<div class="max-w-32 text-center">
-							{#if breakdown}
-								<div
-									role="img"
-									aria-label="{s.label}: {s.value ?? '—'} — {breakdown}"
-									class="cursor-default text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
-									onmouseenter={(e) => showTip(s, e)}
-									onmouseleave={hideTip}
-								>
-									{s.value ?? '—'}
-								</div>
-							{:else}
-								<div
-									class="text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
-								>
-									{s.value ?? '—'}
-								</div>
-							{/if}
-							<div class="text-primary-500 mt-1.5 text-sm">{s.label}</div>
-						</div>
-					{/each}
+		{#each groups as g, i (i)}
+			{#if g.stats.length}
+				<div>
+					{#if g.heading}
+						<SectionLabel variant="heading" align="center">{g.heading}</SectionLabel>
+					{/if}
+					<div class="flex flex-wrap justify-center gap-x-6 gap-y-3">
+						{#each g.stats as s (s.label)}
+							{@const breakdown = breakdownOf(s)}
+							<div class="max-w-32 text-center">
+								{#if breakdown}
+									<div
+										role="img"
+										aria-label="{s.label}: {s.value ?? '—'} — {breakdown}"
+										class="cursor-default text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
+										onmouseenter={(e) => showTip(s, e)}
+										onmouseleave={hideTip}
+									>
+										{s.value ?? '—'}
+									</div>
+								{:else}
+									<div
+										class="text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
+									>
+										{s.value ?? '—'}
+									</div>
+								{/if}
+								<div class="text-primary-500 mt-1.5 text-sm">{s.label}</div>
+							</div>
+						{/each}
+					</div>
 				</div>
 			{/if}
 		{/each}

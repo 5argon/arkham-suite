@@ -3,7 +3,7 @@
 	import { BorderedContainer, SectionSeparator } from '@5argon/arkham-life-ui';
 	import { u as stringUtils } from '@5argon/arkham-string';
 	import { CardClass } from '@5argon/arkham-kohaku';
-	import { CARD_SUBPAGES } from '$lib/campaign/profile-card-subpages';
+	import { CARD_SUBPAGES } from '$lib/campaign/profile/profile-card-subpages';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import CategoryHiddenNotice from '$lib/components/profile/_primitives/CategoryHiddenNotice.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';

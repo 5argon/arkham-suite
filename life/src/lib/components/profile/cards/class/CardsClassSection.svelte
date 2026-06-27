@@ -3,7 +3,7 @@
 	import { getContext } from 'svelte';
 	import { BorderedContainer, HelpParagraph } from '@5argon/arkham-life-ui';
 	import { u as stringUtils } from '@5argon/arkham-string';
-	import { resolveClassSlug } from '$lib/campaign/profile-slugs';
+	import { resolveClassSlug } from '$lib/campaign/profile/profile-slugs';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import CategoryHiddenNotice from '$lib/components/profile/_primitives/CategoryHiddenNotice.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';
@@ -12,7 +12,8 @@
 
 	const ctx = getContext<LocalProfileContext>(LOCAL_PROFILE_KEY);
 	const data = $derived(ctx.payload);
-	const cardClass = $derived(resolveClassSlug(page.params.class ?? ''));
+	// Under the unified cards route the class slug arrives as the `[section]` param.
+	const cardClass = $derived(resolveClassSlug(page.params.section ?? ''));
 	const rows = $derived(data ? data.settings.panes.cardClassDetail : []);
 </script>
 

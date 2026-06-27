@@ -25,12 +25,6 @@ for (const c of curations) {
   if (!c || !c.code) continue;
   const out = { code: c.code };
   if (c.notes) out._notes = c.notes;
-  if (Array.isArray(c.spoilers) && c.spoilers.length) {
-    out.spoilers = {};
-    for (const s of c.spoilers) {
-      if (s && s.key && Array.isArray(s.spans) && s.spans.length) out.spoilers[s.key] = s.spans;
-    }
-  }
   if (Array.isArray(c.sections) && c.sections.length) {
     out.sections = {};
     for (const s of c.sections) {
@@ -41,5 +35,5 @@ for (const c of curations) {
   }
   if (Array.isArray(c.drop) && c.drop.length) out.drop = c.drop;
   fs.writeFileSync(path.join(CURATION_DIR, `${c.code}.json`), JSON.stringify(out, null, 2) + '\n');
-  console.log(`wrote _curation/${c.code}.json (spoilers=${Object.keys(out.spoilers || {}).length})`);
+  console.log(`wrote _curation/${c.code}.json`);
 }

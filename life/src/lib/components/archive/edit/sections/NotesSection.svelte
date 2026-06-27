@@ -8,9 +8,8 @@ flat editor model; the component owns its section's slice and pushes a whole
 replacement up via `onChange`.
 
 Per-entry kind drives the input: `note` → presence checkbox; `count`/`task` →
-a number (with optional min/max); `text` → free text. Spoiler-protected text is
-rendered via SpoilerEntryText (blurred in the picker, revealed once recorded —
-the player already knows it).
+a number (with optional min/max); `text` → free text. Entry text is rendered via
+EntryText (plain Arkham markup).
 -->
 <script lang="ts">
 	import {
@@ -31,15 +30,19 @@ the player already knows it).
 	import { card, type Card } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
 	import { getAllCards, createCardResolver } from '$lib/card-data';
-	import { itemLabel, portraitUrl } from '$lib/campaign/campaign-log-source';
-	import { CROSSED_MARK, hasCrossedMark, makeEntry, type LocalLog } from '$lib/campaign/recorded-state';
-	import SpoilerEntryText from '../SpoilerEntryText.svelte';
+	import { itemLabel, portraitUrl } from '$lib/campaign/records/campaign-log-source';
+	import { CROSSED_MARK, hasCrossedMark, makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
+	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
+	import EntryText from '../EntryText.svelte';
 
 	interface Props {
 		log: CampaignLog;
 		section: LogSectionDef;
 		/** This section's current slice of the flat editor model. */
 		entries: LocalLog[];
+		/** The campaign's investigator roster — scopes an investigator `#name#` picker (e.g. PtC's
+		 *  "read Act 2") to the campaign's own investigators instead of every printing of every one. */
+		investigators: InvestigatorRef[];
 		canEdit: boolean;
 		onChange: (next: LocalLog[]) => void;
 		/** Extra recordable entries contributed by standalones played inside this
@@ -50,7 +53,7 @@ the player already knows it).
 		extraSource?: Map<string, string>;
 	}
 
-	let { log, section, entries, canEdit, onChange, extraEntries = [], extraSource }: Props = $props();
+	let { log, section, entries, investigators, canEdit, onChange, extraEntries = [], extraSource }: Props = $props();
 
 	// This section's own entries PLUS any standalone-contributed ones (offered + resolved here).
 	const available = $derived([
@@ -79,11 +82,17 @@ the player already knows it).
 	/** The card pool offered for the PENDING entry's `#name#`: when the entry declares a
 	 *  `cardFilter` (e.g. Stashed → assets, Alarm level → investigators) use that; otherwise
 	 *  the default unique-player-card pool. */
+	const rosterCodes = $derived(new Set(investigators.map((i) => i.code)));
 	const pendingCardPool = $derived.by(() => {
 		const cf = pending?.def.cardFilter;
 		if (!cf) return uniquePlayerCards;
 		let pool = getAllCards();
 		if (cf.types?.length) pool = pool.filter((c) => cf.types!.includes(c.cardType));
+		// An investigator-only `#name#` (e.g. PtC "read Act 2") offers ONLY the campaign's own
+		// investigators (from the decks), not every printing of every investigator; fall back to all
+		// when no roster is recorded.
+		if (cf.types?.length === 1 && cf.types[0] === 'investigator' && rosterCodes.size)
+			pool = pool.filter((c) => rosterCodes.has(c.code));
 		if (cf.codes?.length) pool = pool.filter((c) => cf.codes!.includes(c.code));
 		return pool;
 	});
@@ -224,14 +233,14 @@ the player already knows it).
 			onSelect={handleSelect}
 		>
 			{#snippet renderItem(item)}
-				<SpoilerEntryText class="text-sm text-black dark:text-white" en={item.en} />
+				<EntryText class="text-sm text-black dark:text-white" en={item.en} />
 			{/snippet}
 		</SearchableDropdown>
 
 		{#if pending}
 			{@const pt = paramType(pending)}
 			<div class="bg-primary-50 dark:bg-primary-900 space-y-2 rounded border p-3">
-				<SpoilerEntryText class="text-sm font-semibold text-black dark:text-white" en={pending.en} reveal />
+				<EntryText class="text-sm font-semibold text-black dark:text-white" en={pending.en} />
 				{#if pt === 'name' && nameMode === 'card'}
 					<CardFormSingle
 						label="Search a card"
@@ -287,11 +296,10 @@ the player already knows it).
 							</span>
 						{/if}
 						{#if resolved}
-							<SpoilerEntryText
+							<EntryText
 								class={`text-sm font-semibold text-black dark:text-white${crossed ? ' line-through opacity-60' : ''}`}
 								en={resolved.en}
 								text={displayText(entry)}
-								reveal
 							/>
 						{:else}
 							<span

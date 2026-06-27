@@ -11,6 +11,7 @@
     {
       "id": "riddles_and_rain",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -18,6 +19,14 @@
         "R3",
         "R4"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss",
+        "R4": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 5,
       "choices": [
         {
           "id": "intro_offer",
@@ -36,6 +45,7 @@
     {
       "id": "dead_heat",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -44,6 +54,15 @@
         "R4",
         "R5"
       ],
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "loss",
+        "R3": "win",
+        "R4": "win",
+        "R5": "neutral",
+        "no_resolution": "loss"
+      },
+      "maxXp": 2,
       "choices": [
         {
           "id": "rescued_civilians",
@@ -80,12 +99,20 @@
     {
       "id": "sanguine_shadows",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2",
         "R3"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 2,
       "choices": [
         {
           "id": "targets",
@@ -112,11 +139,18 @@
     {
       "id": "dealings_in_the_dark",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R6"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R6": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 7,
       "choices": [
         {
           "id": "act_2_setup",
@@ -146,11 +180,18 @@
     {
       "id": "dancing_mad",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 5
     },
     {
       "id": "shanghai",
@@ -159,6 +200,7 @@
     {
       "id": "on_thin_ice",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -166,6 +208,14 @@
         "R3",
         "R4"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "win",
+        "R4": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 6,
       "choices": [
         {
           "id": "raw_deal",
@@ -196,6 +246,7 @@
     {
       "id": "dogs_of_war",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
@@ -203,7 +254,16 @@
         "R3",
         "R5",
         "R6"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R5": "win",
+        "R6": "win",
+        "R3": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 6
     },
     {
       "id": "rio_de_janiero",
@@ -216,12 +276,20 @@
     {
       "id": "shades_of_suffering",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2",
         "R3"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 8
     },
     {
       "id": "sydney",
@@ -254,21 +322,36 @@
     {
       "id": "without_a_trace",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2",
         "R3",
         "R4"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss",
+        "R4": "loss",
+        "no_resolution": "loss"
+      },
+      "maxXp": 7
     },
     {
       "id": "congress_of_the_keys",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution": "loss"
+      },
+      "maxXp": 5,
       "choices": [
         {
           "id": "desi_identity",

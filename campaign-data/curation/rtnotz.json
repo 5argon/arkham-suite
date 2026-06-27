@@ -18,23 +18,6 @@
     ]
   },
   "_notes": "Verified all 5 spans as exact substrings of their entry texts (Umôrdhoth confirmed with circumflex ô; right-single-quote in arkham_succumbed does not affect the span). All entries are in the single `campaign_notes` section. Sibling-collision check passed: the four Umôrdhoth-blurred entries remain distinct (\"Arkham succumbed to ___'s terrible vengeance\", \"the ritual to summon ___ was broken\", \"the investigators repelled ___\", \"the investigators sacrificed Lita Chantler to ___\"). Lita Chantler correctly left unblurred (front-loaded ally NPC; also keeps lita_sacrificed distinguishable). Generic scaffolding (house_burned, house_standing, lita_finds_others, past_midnight) correctly unblurred. No exotic roster section needed: only sections are notes + two dynamic-input cards sections (cultists_interrogated/escaped, no fixed roster) + hidden. No changes required to the proposed curation.",
-  "spoilers": {
-    "campaign_notes.ghoul_priest_alive": [
-      "the Ghoul Priest"
-    ],
-    "campaign_notes.arkham_succumbed": [
-      "Umôrdhoth"
-    ],
-    "campaign_notes.ritual_broken": [
-      "Umôrdhoth"
-    ],
-    "campaign_notes.umordhoth_repelled": [
-      "Umôrdhoth"
-    ],
-    "campaign_notes.lita_sacrificed": [
-      "Umôrdhoth"
-    ]
-  },
   "achievements": {
     "dont_trust_her": {
       "infer": {

@@ -16,7 +16,14 @@
  */
 import { saveBinaryFile, saveTextFile } from '$lib/save-file';
 import { BACKUP_MIME, CAMPAIGN_SHARE_EXTENSION, CAMPAIGN_SHARE_FILE_DESCRIPTION, gzipJsonText } from './backup-file';
-import { findCampaign, rebakeManaged, rosterByUid, type CampaignRecord, type DatabaseDocument } from './document';
+import {
+	findRecord,
+	rebakeManaged,
+	rosterByUid,
+	type CampaignRecord,
+	type DatabaseDocument,
+	type StandaloneRecord
+} from './document';
 
 /** Bumped only on a breaking change to the share file's shape. */
 export const CAMPAIGN_SHARE_VERSION = 1;
@@ -32,7 +39,7 @@ export class CampaignShareError extends Error {}
 
 /** Serialize one campaign for sharing, with managed participants re-baked fresh. */
 export function serializeCampaignShare(doc: DatabaseDocument, campaignId: string): string | null {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	if (!c) return null;
 	// JSON round-trip (not structuredClone) so a Svelte $state proxy is handled.
 	const campaign = JSON.parse(JSON.stringify(c)) as CampaignRecord;
@@ -72,7 +79,7 @@ export function campaignShareFileName(c: { title: string }): string {
 /** Inner entry name for a campaign inside a multi-campaign zip — no prefix/date
  *  (the outer zip carries those), just `<Title>.ahlifecam`. */
 export function campaignShareEntryName(doc: DatabaseDocument, campaignId: string): string {
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	return `${safeCampaignTitle(c?.title ?? 'campaign')}${CAMPAIGN_SHARE_EXTENSION}`;
 }
 
@@ -88,7 +95,7 @@ export async function downloadCampaignShare(
 ): Promise<boolean> {
 	const json = serializeCampaignShare(doc, campaignId);
 	if (!json) return false;
-	const c = findCampaign(doc, campaignId);
+	const c = findRecord(doc, campaignId);
 	const stem = campaignShareStem(c?.title ?? 'campaign');
 	if (format === 'gzip') {
 		return saveBinaryFile({
@@ -138,7 +145,14 @@ export function importCampaignShare(doc: DatabaseDocument, value: unknown): Camp
 		createdAt: ts,
 		updatedAt: ts,
 	};
-	doc.campaigns.push(imported);
+	// A shared STANDALONE round-trips the whole record (carrying `source`/`scenario`),
+	// so it lands in the separate standalones array — never the campaign list.
+	const asStandalone = imported as Partial<StandaloneRecord>;
+	if (typeof asStandalone.source === 'string' && typeof asStandalone.scenario === 'string') {
+		(doc.standalones ??= []).push(imported as StandaloneRecord);
+	} else {
+		doc.campaigns.push(imported);
+	}
 	doc.updatedAt = ts;
 	// Defensive: if any imported participant happens to match the importer's roster
 	// (e.g. their own entry), refresh that snapshot to their live identity.

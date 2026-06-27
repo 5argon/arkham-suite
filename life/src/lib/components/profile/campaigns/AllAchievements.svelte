@@ -6,7 +6,7 @@ details. Use the full `ProfileAchievements` on a campaign's own detail page.
 -->
 <script lang="ts">
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
-	import type { ProfileFamily } from '$lib/campaign/achievement-aggregate';
+	import type { ProfileFamily } from '$lib/campaign/achievements/achievement-aggregate';
 
 	let { families }: { families: ProfileFamily[] } = $props();
 

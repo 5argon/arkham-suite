@@ -5,7 +5,7 @@ glyph; the ones you've ever decrypted across your plays are lit. Reads the
 campaign's `glyphs` collection (already unioned across plays).
 -->
 <script lang="ts">
-	import type { CampaignCollections } from '$lib/campaign/collections';
+	import type { CampaignCollections } from '$lib/campaign/stats/collections';
 
 	let { collections }: { collections: CampaignCollections[] } = $props();
 

@@ -12,6 +12,7 @@
     {
       "id": "spreading_flames",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -20,6 +21,7 @@
     {
       "id": "smoke_and_mirrors",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1"
@@ -28,6 +30,7 @@
     {
       "id": "queen_of_ash",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",

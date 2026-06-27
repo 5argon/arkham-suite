@@ -22,11 +22,17 @@
     {
       "id": "beyond_the_gates_of_sleep",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "no_resolution": "loss"
+      }
     },
     {
       "id": "the_black_cat",
@@ -35,11 +41,37 @@
     {
       "id": "the_search_for_kadath",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_resigned",
         "no_resolution_defeated",
         "R1"
-      ]
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 2,
+            "-2": 2,
+            "-3": 1,
+            "-4": 1,
+            "skull": 3,
+            "cultist": 1,
+            "tablet": 2,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution_resigned": "neutral",
+        "no_resolution_defeated": "loss"
+      }
     },
     {
       "id": "the_oneironauts",
@@ -48,10 +80,15 @@
     {
       "id": "dark_side_of_the_moon",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution_defeated": "loss"
+      }
     },
     {
       "id": "the_great_ones",
@@ -60,11 +97,17 @@
     {
       "id": "where_gods_dwell",
       "type": "story",
+      "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
         "R1",
         "R2"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "no_resolution_defeated": "loss"
+      }
     },
     {
       "id": "tde_epilogue",
@@ -406,13 +449,16 @@
       "id": "dreamers_escaped_nyarlathoteps_grasp",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_the_gods_dwell",
+      "outcome": "win"
     },
     {
       "id": "dreamers_banished_nyarlathotep",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_the_gods_dwell",
+      "outcome": "win",
+      "outcomeQuality": "best"
     },
     {
       "id": "dreamers_awoke",
@@ -425,13 +471,15 @@
       "id": "dreamers_stayed_in_dreamlands_forever",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_the_gods_dwell",
+      "outcome": "special"
     },
     {
       "id": "dreamers_traveled_beneath_the_monastery",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_the_gods_dwell",
+      "outcome": "special"
     }
   ],
   "achievements": [
@@ -494,25 +542,25 @@
       "id": "high_priest",
       "type": "binary",
       "family": "tdea",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "id": "hidden_nylar",
       "type": "binary",
       "family": "tdea",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "id": "final_form",
       "type": "binary",
       "family": "tdea",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "id": "dont_tell",
       "type": "binary",
       "family": "tdea",
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "id": "line_in_the_sand",
@@ -816,7 +864,7 @@
         "campaign_notes.dreamers_escaped_nyarlathoteps_grasp",
         "campaign_notes.dreamers_banished_nyarlathotep"
       ],
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "type": "mutuallyExclusive",
@@ -825,7 +873,7 @@
         "campaign_notes.dreamers_stayed_in_dreamlands_forever",
         "campaign_notes.dreamers_traveled_beneath_the_monastery"
       ],
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "type": "mutuallyExclusive",

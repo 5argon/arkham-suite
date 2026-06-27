@@ -6,22 +6,15 @@ heroic) are highlighted, and unreached losses surface as endings still to see.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
-	import type { CampaignEndings, Ending, EndingKind } from '$lib/campaign/clear-status';
-	import { capitalizeFirst } from '$lib/campaign/entry-text';
+	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
+	import type { CampaignEndings, Ending, EndingKind } from '$lib/campaign/outcomes/clear-status';
+	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
 
 	let { endings, showFamilyName = true }: { endings: CampaignEndings[]; showFamilyName?: boolean } =
 		$props();
 
 	const withData = $derived(endings.filter((e) => e.endings.length > 0));
 
-	// Each ending kind → its face icon (shared with the Campaign Overview widget).
-	const endingIcon: Record<EndingKind, FaIconType> = {
-		best: FaIconType.EndingBetterWin,
-		win: FaIconType.EndingWin,
-		special: FaIconType.EndingSpecial,
-		loss: FaIconType.EndingLoss,
-	};
 	const order: EndingKind[] = ['best', 'win', 'special', 'loss'];
 	function sorted(list: Ending[]): Ending[] {
 		return [...list].sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind));
@@ -46,12 +39,7 @@ heroic) are highlighted, and unreached losses surface as endings still to see.
 				<ul class="mt-3 space-y-1">
 					{#each sorted(camp.endings) as e (e.key)}
 						<li class="flex items-center gap-2 text-sm">
-							<FaIcon
-								icon={endingIcon[e.kind]}
-								class="shrink-0 text-lg {e.reached
-									? 'text-primary-700 dark:text-primary-200'
-									: 'text-primary-300 dark:text-primary-700'}"
-							/>
+							<OutcomeFace kind={e.kind} label={capitalizeFirst(e.text)} reached={e.reached} />
 							<span
 								class="text-black dark:text-white {e.reached ? '' : 'opacity-45'}"
 								title={capitalizeFirst(e.text)}>{capitalizeFirst(e.text)}</span

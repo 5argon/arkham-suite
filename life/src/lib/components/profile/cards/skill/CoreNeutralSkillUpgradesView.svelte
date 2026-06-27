@@ -7,7 +7,7 @@ row per card. Thin wrapper over SkillSpotlightView fixed to that spotlight set.
 <script lang="ts">
 	import type { CardCode } from '@5argon/arkham-kohaku';
 	import type { InsightDeck } from '$lib/profile/profile-types';
-	import { coreNeutralSkillUpgradeCards } from '$lib/campaign/card-filters';
+	import { coreNeutralSkillUpgradeCards } from '$lib/campaign/utils/card-filters';
 	import SkillSpotlightView from '$lib/components/profile/cards/skill/SkillSpotlightView.svelte';
 
 	let {

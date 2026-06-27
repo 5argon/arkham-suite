@@ -1,9 +1,27 @@
 {
+  "scenarioResolutionOutcomes": {
+    "_notes": "Only the finale Fate of the Vale carries win/loss meaning, so it is the sole classified scenario; the 6 vale-day scenarios (written_in_rock, the_silent_heath, the_lost_sister, the_thing_in_the_depths, the_twisted_hollow, the_longest_night) are exploration forks with no clean win/loss and are omitted (wrapped as chips-only passports). For Fate of the Vale the authoritative db resolutionEffects flags only R2=win and no_resolution=lose; no_resolution is the all-killed wipe / ran-out-of-time loss. The finale spans 4 versions (v1-v4) that reuse R1-R5 with different narratives and no fixed id->ending map, so the remaining reached endings (R1, R3, R4, R5) are classed win: surviving to any resolution is the good outcome, while the only failure path is the no_resolution wipe (R2's win flag confirms even the heroic-sacrifice ending counts as a win despite all-killed). Conservative judgement, leaning on the data's win/lose flags.",
+    "fate_of_the_vale": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win",
+      "R3": "win",
+      "R4": "win",
+      "R5": "win"
+    }
+  },
   "code": "fhv",
   "_scenarioResolutions_note": "TEMPORARY PATCH — remove once arkham-cards-data sets the missing upstream `hidden` flags (cross-campaign hidden-flag audit). extract trusts ArkhamCards' `hidden` flag, but these leave sub-resolutions non-hidden so they leak into the first-choice list. the_silent_heath: drop R3 (read only from inside R1/R2; its sibling R4 IS already hidden). the_lost_sister: drop R2/R3 (read only from inside R1; sibling R4 hidden). NOTE: the_final_evening is NOT patched — it is a day_of_the_feast scenario whose R3 IS card-reachable (agenda 'Lambs to the Slaughter' → R3; R1 = 'Around the Table', R2 = 'All is Full of Love'), so R1/R2/R3 are all legit first choices.",
   "scenarioResolutions": {
-    "the_silent_heath": ["no_resolution", "R1", "R2"],
-    "the_lost_sister": ["no_resolution", "R1"]
+    "the_silent_heath": [
+      "no_resolution",
+      "R1",
+      "R2"
+    ],
+    "the_lost_sister": [
+      "no_resolution",
+      "R1"
+    ]
   },
   "scenarios": {
     "02_written_in_rock": "written_in_rock",
@@ -14,6 +32,89 @@
     "08_the_twisted_hollow": "the_twisted_hollow",
     "11_the_longest_night": "the_longest_night",
     "14_fate_of_the_vale": "fate_of_the_vale"
+  },
+  "_scenarioChoices_note": "FHV plays over 3 days, each with a Day and a Night phase. Night 1 is always The Twisted Hollow and Night 2 always The Longest Night (log-derived, not asked here); the 5 flexible scenarios can be slotted into different phases, which the log never records — so each gets a `played_on` Extra pick. All 6 slots are offered for faithfulness (variant configs exist). Keyed by scenarioMeta id (unprefixed); the life `fhv` blob reads `<scenario>.played_on`.",
+  "scenarioChoices": {
+    "written_in_rock": [
+      {
+        "id": "played_on",
+        "label": "Which day/night you played this on",
+        "control": "radio",
+        "options": ["day_1_day", "day_1_night", "day_2_day", "day_2_night", "day_3_day", "day_3_night"],
+        "optionLabels": {
+          "day_1_day": "Day 1 — Day",
+          "day_1_night": "Day 1 — Night",
+          "day_2_day": "Day 2 — Day",
+          "day_2_night": "Day 2 — Night",
+          "day_3_day": "Day 3 — Day",
+          "day_3_night": "Day 3 — Night"
+        }
+      }
+    ],
+    "hemlock_house": [
+      {
+        "id": "played_on",
+        "label": "Which day/night you played this on",
+        "control": "radio",
+        "options": ["day_1_day", "day_1_night", "day_2_day", "day_2_night", "day_3_day", "day_3_night"],
+        "optionLabels": {
+          "day_1_day": "Day 1 — Day",
+          "day_1_night": "Day 1 — Night",
+          "day_2_day": "Day 2 — Day",
+          "day_2_night": "Day 2 — Night",
+          "day_3_day": "Day 3 — Day",
+          "day_3_night": "Day 3 — Night"
+        }
+      }
+    ],
+    "the_silent_heath": [
+      {
+        "id": "played_on",
+        "label": "Which day/night you played this on",
+        "control": "radio",
+        "options": ["day_1_day", "day_1_night", "day_2_day", "day_2_night", "day_3_day", "day_3_night"],
+        "optionLabels": {
+          "day_1_day": "Day 1 — Day",
+          "day_1_night": "Day 1 — Night",
+          "day_2_day": "Day 2 — Day",
+          "day_2_night": "Day 2 — Night",
+          "day_3_day": "Day 3 — Day",
+          "day_3_night": "Day 3 — Night"
+        }
+      }
+    ],
+    "the_lost_sister": [
+      {
+        "id": "played_on",
+        "label": "Which day/night you played this on",
+        "control": "radio",
+        "options": ["day_1_day", "day_1_night", "day_2_day", "day_2_night", "day_3_day", "day_3_night"],
+        "optionLabels": {
+          "day_1_day": "Day 1 — Day",
+          "day_1_night": "Day 1 — Night",
+          "day_2_day": "Day 2 — Day",
+          "day_2_night": "Day 2 — Night",
+          "day_3_day": "Day 3 — Day",
+          "day_3_night": "Day 3 — Night"
+        }
+      }
+    ],
+    "the_thing_in_the_depths": [
+      {
+        "id": "played_on",
+        "label": "Which day/night you played this on",
+        "control": "radio",
+        "options": ["day_1_day", "day_1_night", "day_2_day", "day_2_night", "day_3_day", "day_3_night"],
+        "optionLabels": {
+          "day_1_day": "Day 1 — Day",
+          "day_1_night": "Day 1 — Night",
+          "day_2_day": "Day 2 — Day",
+          "day_2_night": "Day 2 — Night",
+          "day_3_day": "Day 3 — Day",
+          "day_3_night": "Day 3 — Night"
+        }
+      }
+    ]
   },
   "outcomes": {
     "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
@@ -31,74 +132,6 @@
     ]
   },
   "_notes": "Verified all 22 spans are exact substrings of their entry text (incl. curly apostrophe in \"Madame Pearl’s diary\"). No sibling collisions: the 3 Chelydran Hybrid entries (perished/lived/was devoured), 4 Bertie entries (lost/rescued/epiphany/perished), and 2 Dr. Marquez entries (plan/hunch) all stay distinct by their remaining verbs after blurring. Resident names left unblurred (visible relationship section titles, needed to disambiguate shared-a-dance/stood-by-you/sacrificed siblings). Endgame/twist reveals (Pearl Ruins/Family, Madame Pearl's diary, Captain Hemlock, Annabelle Lee, true Feast of Hemlock Vale, Dr. Marquez, Helen, Bertie) are blurred. No exotic sections present (only notes/relationship/checklist/investigator_count). Curation accepted unchanged — no invalid spans, no collisions, no over/under-blur found.",
-  "spoilers": {
-    "leah.searched_the_pearl_ruins": [
-      "the Pearl Ruins"
-    ],
-    "campaign_notes.laid_the_pearl_family_to_rest": [
-      "the Pearl Family"
-    ],
-    "campaign_notes.madame_pearls_diary_was_recovered": [
-      "Madame Pearl’s diary"
-    ],
-    "theo.theo_reconciled_with_helen": [
-      "Helen"
-    ],
-    "campaign_notes.the_peters_family_was_reunited": [
-      "Peters family"
-    ],
-    "campaign_notes.elizabeth_peters_was_saved": [
-      "Elizabeth Peters"
-    ],
-    "campaign_notes.chelydran_hybrid_perished": [
-      "Chelydran Hybrid"
-    ],
-    "campaign_notes.chelydran_hybrid_lived": [
-      "Chelydran Hybrid"
-    ],
-    "campaign_notes.chelydran_hybrid_devoured": [
-      "Chelydran Hybrid"
-    ],
-    "gideon.gideon_told_the_story_of_captain_hemlock": [
-      "Captain Hemlock"
-    ],
-    "campaign_notes.helen_peters_joined_the_survey": [
-      "Helen Peters"
-    ],
-    "campaign_notes.bertie_was_lost_in_the_woods": [
-      "Bertie"
-    ],
-    "campaign_notes.bertie_was_rescued": [
-      "Bertie"
-    ],
-    "gideon.gideon_told_the_tale_of_the_annabelle_lee": [
-      "the Annabelle Lee"
-    ],
-    "campaign_notes.helen_shared_a_dance": [
-      "Helen"
-    ],
-    "campaign_notes.bertie_had_an_epiphany": [
-      "Bertie"
-    ],
-    "campaign_notes.dr_marquez_has_a_plan": [
-      "Dr. Marquez"
-    ],
-    "campaign_notes.dr_marquez_has_a_hunch": [
-      "Dr. Marquez"
-    ],
-    "campaign_notes.bertie_perished": [
-      "Bertie"
-    ],
-    "gideon.gideon_finished_the_tale_of_the_annabelle_lee": [
-      "the Annabelle Lee"
-    ],
-    "campaign_notes.became_the_true_feast_of_hemlock_vale": [
-      "the true Feast of Hemlock Vale"
-    ],
-    "campaign_notes.dr_marquez_sacrificed_herself_for_the_vale": [
-      "Dr. Marquez"
-    ]
-  },
   "achievements": {
     "apertif": {
       "infer": {

@@ -59,9 +59,10 @@ class Preloader {
 	/**
 	 * Warm one profile subject's whole viewing subtree, and assemble its compiled
 	 * payload once (the load-bearing step — the sub-pages all read that one payload
-	 * via context). `base` is `/p/private/${uid}`, already computed by the layout.
+	 * via context). `base` is `/p/<scope>/${uid}`, already computed by the layout;
+	 * `scope` picks the payload source (managed rebuild vs. loaded-snapshot hydration).
 	 */
-	warmProfile(uid: string, base: string): void {
+	warmProfile(uid: string, base: string, scope: 'private' | 'loaded' = 'private'): void {
 		const hrefs = [
 			base,
 			`${base}/campaigns`,
@@ -75,7 +76,11 @@ class Preloader {
 		const firstCampaign = databaseStore.doc?.campaigns?.[0]?.campaignCode;
 		if (firstCampaign) hrefs.push(`${base}/campaigns/${firstCampaign}`);
 
-		this.#warm(`profile:${uid}`, hrefs, () => void databaseStore.getProfilePayload(uid));
+		const warmPayload =
+			scope === 'loaded'
+				? () => void databaseStore.getLoadedProfilePayload(uid)
+				: () => void databaseStore.getProfilePayload(uid);
+		this.#warm(`profile:${scope}:${uid}`, hrefs, warmPayload);
 	}
 
 	/** Schedule a section's warm if it hasn't run yet this session. */

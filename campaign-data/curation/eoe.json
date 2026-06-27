@@ -1,13 +1,44 @@
 {
   "code": "eoe",
   "specialInteractions": {
-    "check_wini": { "text": "Winifred pilots the plane." }
+    "check_wini": {
+      "text": "Winifred pilots the plane."
+    }
   },
-  "unhideSections": ["supplies_recovered"],
+  "unhideSections": [
+    "supplies_recovered"
+  ],
   "scenarioChoices": {
     "city_of_the_elder_things": [
-      { "id": "city_version", "label": "City version", "options": ["I", "II", "III"] }
+      {
+        "id": "city_version",
+        "label": "City version",
+        "options": [
+          "I",
+          "II",
+          "III"
+        ]
+      }
     ]
+  },
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario per-resolution Succeed/Failed (curation judgement, not always a mechanical campaign-level result). City of the Elder Things: R1 = you found the hidden tunnel yourself (win); R2 and no resolution = loss.",
+    "city_of_the_elder_things": {
+      "R1": "win",
+      "R2": "loss",
+      "no_resolution": "loss"
+    }
+  },
+  "scenarioMaxXp": {
+    "_notes": "Maximum reward awardable per scenario — the reference 'Max' column, in the scenario's own unit: max Victory Points for a victory-display scenario, max total Experience for an Experience scenario (City of the Elder Things 13 XP, Heart of Madness I 6 XP — higher than the victory-display portion since they add uncountable XP). 0 = nothing awarded, shown as a dash. Fatal Mirage's replay variants (fatal_mirage_2/3) share the base fatal_mirage value.",
+    "ice_and_death_part_1": 1,
+    "ice_and_death_part_2": 8,
+    "ice_and_death_part_3": 0,
+    "to_the_forbidden_peaks": 7,
+    "city_of_the_elder_things": 13,
+    "the_heart_of_madness_part_1": 6,
+    "the_heart_of_madness_part_2": 2,
+    "fatal_mirage": 0
   },
   "outcomes": {
     "_notes": "the_heart_of_madness_part_2 R1/R2/R3 = win, part_1 R3 = lose, part_2 no_resolution = lose. surviving_members_header dropped (header noise, not a clear-signal).",
@@ -24,17 +55,6 @@
     ]
   },
   "_notes": "Verified all spans are exact substrings of their entry texts: \"the true nature of the miasma\" in \"Dr. Kensler understands the true nature of the miasma.\"; \"the nameless madness\" in both \"the nameless madness escaped.\" and \"the nameless madness is contained safely within its host… for now.\". No sibling collision: the two nameless_madness entries remain distinguishable after blur (\"...escaped.\" vs \"...is contained safely within its host… for now.\"). The Nameless Madness is the campaign's final boss (confirmed in achievement \"Simultaneously exhaust fifteen copies of The Nameless Madness in The Heart of Madness, Part II\") so blurring it is correct under-blur protection. All 9 partner codes resolved via resolve.mjs and labels match exactly. Partner \"confronted demons\" entries, memories, location, and camp labels left unblurred as they are named/visible-section disambiguators. No changes needed to the proposed curation; it is correct as submitted.",
-  "spoilers": {
-    "campaign_notes.dr_kensler_understands_the_true_nature_of_the_miasma": [
-      "the true nature of the miasma"
-    ],
-    "campaign_notes.nameless_madness_escaped": [
-      "the nameless madness"
-    ],
-    "campaign_notes.nameless_madness_is_contained_safely_within_its_host_for_now": [
-      "the nameless madness"
-    ]
-  },
   "sections": {
     "seals_placed": {
       "type": "seals"
@@ -186,13 +206,41 @@
       "infer": {
         "type": "allOf",
         "of": [
-          { "type": "log", "key": "supplies_recovered.green_soapstone", "crossed": false },
-          { "type": "log", "key": "supplies_recovered.wooden_sledge", "crossed": false },
-          { "type": "log", "key": "supplies_recovered.dynamite", "crossed": false },
-          { "type": "log", "key": "supplies_recovered.miasmic_crystal", "crossed": false },
-          { "type": "log", "key": "supplies_recovered.mineral_specimen", "crossed": false },
-          { "type": "log", "key": "supplies_recovered.small_radio", "crossed": false },
-          { "type": "log", "key": "supplies_recovered.spare_parts", "crossed": false }
+          {
+            "type": "log",
+            "key": "supplies_recovered.green_soapstone",
+            "crossed": false
+          },
+          {
+            "type": "log",
+            "key": "supplies_recovered.wooden_sledge",
+            "crossed": false
+          },
+          {
+            "type": "log",
+            "key": "supplies_recovered.dynamite",
+            "crossed": false
+          },
+          {
+            "type": "log",
+            "key": "supplies_recovered.miasmic_crystal",
+            "crossed": false
+          },
+          {
+            "type": "log",
+            "key": "supplies_recovered.mineral_specimen",
+            "crossed": false
+          },
+          {
+            "type": "log",
+            "key": "supplies_recovered.small_radio",
+            "crossed": false
+          },
+          {
+            "type": "log",
+            "key": "supplies_recovered.spare_parts",
+            "crossed": false
+          }
         ]
       }
     },
