@@ -1,0 +1,617 @@
+diff --git a/life/src/lib/campaign/campaigns/tcu.ts b/life/src/lib/campaign/campaigns/tcu.ts
+index cab49637..03986d3a 100644
+--- a/life/src/lib/campaign/campaigns/tcu.ts
++++ b/life/src/lib/campaign/campaigns/tcu.ts
+@@ -1,24 +1,43 @@
+ /**
+  * tcu.ts — The Circle Undone bespoke per-campaign tallies. ONE builder, ONE payload
+- * blob (`tcu`), mirroring `dwl.ts` / `ptc.ts` / `tfa.ts`. Fully log-derived: TCU's
+- * spine (Lodge vs Coven allegiance) is recorded as discrete choices, so there's no
+- * running-count problem (the clean case — see tcu-widgets-plan.md).
++ * blob (`tcu`), mirroring `ptc.ts` / `dwl.ts`. Fully log-derived: TCU records its whole
++ * arc as discrete campaign-log choices (confirmed by scanning the ArkhamCards decision
++ * trees — every prompt that matters lands in the log), so there is no running-count
++ * problem and no Extra-tab input is needed (the clean case).
+  *
+- *   • allegiance — Silver Twilight Lodge vs the Coven (the campaign spine).
+- *   • missingPersons — the four who vanish (Gavriella/Jerome/Valentino/Penny): their
+- *     fate (per-person `0504x` section) + whether you picked up their trail.
+- *   • mementos — the collectibles (0–8 base; rttcu adds 2).
++ *   • allegiance — the Silver Twilight Lodge vs the Coven spine. Each play is a chain of
++ *     lean beads at the campaign's allegiance decision points (Price of Progress → Secret
++ *     Name → Inner Circle → Union side-taking → Clutches), summarised into signature runs
++ *     + a per-source breakdown, mirroring PtC's Doubt & Conviction.
++ *   • missingPersons — the four who vanish (Gavriella/Jerome/Valentino/Penny): their fate
++ *     at the estate, whose trail you picked up, and whether they were alive or dead by Union.
++ *   • mementos — the collectibles (8 base; rttcu adds 2).
+  *   • per-scenario — each story scenario's logged decisions/outcomes.
+- *   • endings — Union and Disillusion's early faction victories (special) + the
+- *     Before the Black Throne finale (incl. the slumber variants).
++ *   • endings — the Before the Black Throne finale (devoured / slumbers variants) and the
++ *     Union faction states (true work / Sanford / Anette) that set the finale up; plus the
++ *     Twist of Fate `path_winds` tally → how the finale went.
+  */
+ import { getCampaignLog } from '@5argon/arkham-campaign-data';
+ import type { CampaignRecord } from '../achievements/achievement-aggregate';
++import type { ResolutionTally } from '../outcomes/resolution-coverage';
+ import { filterFamilyRecords } from '../records/campaign-family';
++import { bumpCount, emptyTally, bumpTally } from '../utils/tally';
++import { noteKey, noteReader } from '../utils/notes';
+ 
+ const TCU_FAMILY = 'tcu';
+-const NOTES = 'campaign_notes';
+-const k = (id: string) => `${NOTES}.${id}`;
++const k = noteKey;
++
++/** The eight TCU story scenarios in play order — for "how far a play reached" checks. */
++const TCU_STORY_SCENARIOS = [
++	'the_witching_hour',
++	'at_deaths_doorstep',
++	'the_secret_name',
++	'the_wages_of_sin',
++	'for_the_greater_good',
++	'union_and_disillusion',
++	'in_the_clutches_of_chaos',
++	'before_the_black_throne'
++];
+ 
+ /** The four missing persons: section id (their card code) → name + trail note. */
+ export const TCU_MISSING: { id: string; name: string; trail: string }[] = [
+@@ -48,54 +67,281 @@ export const TCU_MEMENTOS = [
+ 	'bloody_tree_carvings'
+ ];
+ 
++/** The finale endings (Before the Black Throne), each with the log note that records it and its
++ *  outcome face kind. `azathoth_slumbers` is the clean best win; it is counted only when NEITHER
++ *  the pipers sacrifice NOR the Black Book pact fired (those are their own endings). */
++export const TCU_FINALE_ENDINGS: { id: string; note: string; kind: 'best' | 'win' | 'loss' }[] = [
++	{ id: 'slumbersClean', note: 'azathoth_slumbers', kind: 'best' },
++	{ id: 'signedBlackBook', note: 'signed_the_black_book', kind: 'best' },
++	{ id: 'joinedPipers', note: 'lead_investigator_joins_pipers', kind: 'win' },
++	{ id: 'azathothDevoured', note: 'azathoth_devoured_the_universe', kind: 'loss' }
++];
++
++/** The Union & Disillusion faction states that set up the finale (which threat you then face). */
++export const TCU_UNION_STATES: { id: string; note: string }[] = [
++	{ id: 'lodgeTrueWork', note: 'true_work_of_silver_twilight_lodge_has_begun' },
++	{ id: 'sanfordPossesses', note: 'carl_sanford_possesses_the_secrets_of_the_universe' },
++	{ id: 'anettePossessed', note: 'anette_mason_is_possessed_by_evil' }
++];
++
++/** The five allegiance decision points, in campaign-book order — the spine's chain slots. Each
++ *  leans Lodge or Coven from the play's logged notes; the two interludes borrow a scenario icon
++ *  in the chain/source-table widgets (Price of Progress ← At Death's Doorstep, Inner Circle ←
++ *  For the Greater Good). Clutches nets its Anette + Sanford fates and can go neutral. */
++export const TCU_ALLEGIANCE_SOURCES = [
++	'the_price_of_progress',
++	'the_secret_name',
++	'the_inner_circle',
++	'union_and_disillusion',
++	'in_the_clutches_of_chaos'
++];
++/** Which decision point CAN resolve to neutral (reached it but no net lean) — only Clutches, whose
++ *  Anette + Sanford picks can cancel out (or be "we'll handle this alone"). */
++const ALLEGIANCE_NEUTRAL_CAPABLE = new Set(['in_the_clutches_of_chaos']);
++/** Clutches leans: arresting Anette / siding with or seizing the Lodge → Lodge; asking or learning
++ *  from Anette / arresting Sanford → Coven. */
++const CLUTCHES_LODGE_NOTES = [
++	'arrested_anette',
++	'asked_sanford_for_assistance',
++	'assumed_control_of_the_silver_twilight_lodge'
++];
++const CLUTCHES_COVEN_NOTES = [
++	'asked_anette_for_assistance',
++	'anette_taught_you_the_spells_of_old',
++	'arrested_sanford'
++];
++
++export type AllegianceSide = 'lodge' | 'coven';
++
++/** One allegiance decision in a single play, in campaign order. */
++export interface AllegianceBead {
++	scenario: string;
++	side: AllegianceSide;
++	/** 1, or 2 at Union and Disillusion (the campaign's pivot). */
++	amount: number;
++	/** Price of Progress: you sided Lodge but are secretly against them — flavours the tooltip. */
++	deceiving?: boolean;
++}
++
++/** One play's full allegiance run — the ordered chain plus its tallies and finale outcome. */
++export interface TcuAllegianceRun {
++	beads: AllegianceBead[];
++	lodge: number;
++	coven: number;
++	/** The finale ending LOG KEY this play reached (e.g. `campaign_notes.azathoth_slumbers`), or
++	 *  null when the campaign wasn't finished — resolved to the shared ending text + face kind. */
++	outcomeKey: string | null;
++	outcome: 'win' | 'loss' | 'abandoned';
++	difficulty: string;
++	finishDate: number | null;
++}
++
++/** One allegiance decision point tallied across plays: Lodge / Coven / neutral counts by difficulty. */
++export interface AllegianceSourceTally {
++	scenario: string;
++	lodge: Record<string, number>;
++	coven: Record<string, number>;
++	neutral: Record<string, number>;
++	canNeutral: boolean;
++}
++
+ export interface TcuMissingTally {
+ 	/** Times you picked up this person's trail (At Death's Doorstep). */
+ 	trail: number;
+ 	/** fate id → plays that met that fate. */
+ 	fates: Record<string, number>;
++	/** Their standing when the veil parted at Union and Disillusion. */
++	union: { alive: number; dead: number };
++}
++
++/** A finale resolution slice bucketed by some axis (the Twist-of-Fate tally) — Succeed / Failed +
++ *  the per-resolution reach, for the shared per-version breakdown table. */
++interface FinaleSlice {
++	succeed: ResolutionTally | null;
++	failed: ResolutionTally | null;
++	tallies: Record<string, ResolutionTally>;
+ }
+ 
+ export interface CampaignTcu {
+ 	family: string;
+ 	plays: number;
++	// ── the spine ──
++	allegianceRuns: TcuAllegianceRun[];
++	allegianceSources: AllegianceSourceTally[];
+ 	allegiance: {
+-		sidedLodge: number;
+-		sidedCoven: number;
+-		membersOfLodge: number;
+-		enemiesOfLodge: number;
++		/** Plays whose chain leaned Lodge / Coven overall / balanced (equal, ≥1 bead). */
++		lodgeLed: number;
++		covenLed: number;
++		balanced: number;
++		/** Deceiving the Lodge (member in name, enemy in secret) — a Price-of-Progress flavour count. */
+ 		deceivingLodge: number;
+-		toldLodgeAboutCoven: number;
+-		hidKnowledgeOfCoven: number;
++		/** Josef Meiger's fate (The Price of Progress): rescued / left alive / lost to the mist. */
++		rescuedJosef: number;
++		josefAlive: number;
++		josefLostToMist: number;
+ 	};
+-	/** person code → trail + fate tally. */
++	// ── recurring ──
++	/** person code → trail + fate + Union-survival tally. */
+ 	missingPersons: Record<string, TcuMissingTally>;
+ 	/** memento id → plays discovered. */
+ 	mementos: Record<string, number>;
++	/** Distinct mementos discovered at least once (coverage numerator). */
++	mementosCount: number;
++	// ── per scenario ──
+ 	witchingHour: { acceptedFate: number; rejectedFate: number; spellBroken: number; spellCast: number };
+ 	/** neverSeenAgain = party-wipe (originals lost, fresh party continues — not a campaign end). */
+ 	atDeathsDoorstep: { escaped: number; learnedNothing: number; neverSeenAgain: number };
++	/** Most pieces of evidence left behind at the estate in a single play (the prologue counter). */
++	evidenceMax: number | null;
+ 	secretName: { toldLodge: number; hidCoven: number };
+-	wagesOfSin: { hereticsReleasedMax: number | null; survivedWatcher: number };
++	wagesOfSin: {
++		/** heretics-released count → plays that released exactly that many. */
++		hereticsReleased: Record<number, number>;
++		hereticsReleasedMax: number | null;
++		survivedWatcher: number;
++	};
+ 	forTheGreaterGood: { openedPuzzleBox: number; guardianEmerged: number; guardianDefeated: number };
++	innerCircle: { inducted: number; keptHidden: number };
++	union: {
++		sidedLodge: number;
++		sidedCoven: number;
++		lodgeTrueWork: number;
++		sanfordPossesses: number;
++		anettePossessed: number;
++	};
+ 	clutchesOfChaos: {
+ 		askedAnette: number;
+-		askedSanford: number;
+ 		arrestedAnette: number;
++		anetteTaughtSpells: number;
++		askedSanford: number;
+ 		arrestedSanford: number;
+ 		assumedControl: number;
++		continuedAlone: number;
+ 	};
+ 	endings: {
+-		// Union and Disillusion early faction victories (campaign ends there — `special`).
+-		lodgeVictory: number;
+-		covenVictory: number;
+-		sanfordPossesses: number;
+-		anettePossessed: number;
+-		// Before the Black Throne finale.
+ 		azathothDevoured: number;
+-		slumbersJoinedPipers: number;
+-		slumbersBlackBook: number;
++		joinedPipers: number;
++		signedBlackBook: number;
+ 		slumbersClean: number;
+ 	};
++	/** The Twist of Fate tally (`path_winds_before_you`) per play → how the Before the Black Throne
++	 *  finale went with that tally (Succeed / Failed + per-resolution reach). Keyed by the tally value. */
++	pathWinds: Record<string, FinaleSlice>;
++}
++
++/** Furthest story-scenario index this play recorded a resolution for (−1 if none). */
++function furthestResolvedTcu(res: Record<string, string>): number {
++	let f = -1;
++	for (let i = 0; i < TCU_STORY_SCENARIOS.length; i++)
++		if (res[TCU_STORY_SCENARIOS[i]] !== undefined) f = i;
++	return f;
++}
++
++/** Which Beyond-the-Mist Cosmos version (Act 3 v.I–v.IV) a play faced at Union and Disillusion —
++ *  auto-selected by the log per ArkhamCards' setup branch (union_and_disillusion.json):
++ *    v.I  (The Binding Rite)  — sided with the Lodge.
++ *    v.II (The Broken Rite)   — sided with the coven, deceiving the Lodge AND inducted into the Inner Circle.
++ *    v.III(The Broken Rite)   — sided with the coven and ≥2 of {deceiving, hid coven, kept mementos hidden}.
++ *    v.IV (The Broken Rite)   — sided with the coven (none of the above).
++ *  Null unless the play sided at all (log-derived, so log-only-safe). The version axis the shared
++ *  per-version breakdown table buckets by (see version-stats' VERSION_AXES). */
++export function unionCosmosVersionFromRecord(rec: CampaignRecord): 'I' | 'II' | 'III' | 'IV' | null {
++	const logs = rec.recorded.recordedLogs ?? new Set<string>();
++	const has = noteReader(logs);
++	if (has('sided_with_the_lodge')) return 'I';
++	if (!has('sided_with_the_coven')) return null;
++	if (has('deceiving_the_lodge') && has('inducted_into_the_inner_circle')) return 'II';
++	const deceptions = ['deceiving_the_lodge', 'hid_knowledge_of_coven', 'kept_mementos_hidden'].filter(
++		has
++	).length;
++	if (deceptions >= 2) return 'III';
++	return 'IV';
++}
++
++/** One play's ordered allegiance chain + its finale outcome. Every bead is log-derived. */
++function buildAllegianceRun(rec: CampaignRecord): TcuAllegianceRun {
++	const logs = rec.recorded.recordedLogs ?? new Set<string>();
++	const has = noteReader(logs);
++	const beads: AllegianceBead[] = [];
++
++	// Price of Progress — Members of the Lodge (Lodge) vs Enemies of the Lodge (Coven).
++	if (has('members_of_the_lodge'))
++		beads.push({ scenario: 'the_price_of_progress', side: 'lodge', amount: 1, deceiving: has('deceiving_the_lodge') });
++	else if (has('enemies_of_the_lodge'))
++		beads.push({ scenario: 'the_price_of_progress', side: 'coven', amount: 1 });
++
++	// The Secret Name — told the Lodge (Lodge) vs hid the coven (Coven).
++	if (has('told_lodge_about_coven')) beads.push({ scenario: 'the_secret_name', side: 'lodge', amount: 1 });
++	else if (has('hid_knowledge_of_coven')) beads.push({ scenario: 'the_secret_name', side: 'coven', amount: 1 });
++
++	// The Inner Circle — inducted (Lodge) vs kept mementos hidden (Coven).
++	if (has('inducted_into_the_inner_circle')) beads.push({ scenario: 'the_inner_circle', side: 'lodge', amount: 1 });
++	else if (has('kept_mementos_hidden')) beads.push({ scenario: 'the_inner_circle', side: 'coven', amount: 1 });
++
++	// Union and Disillusion — the pivot (weighted ×2).
++	if (has('sided_with_the_lodge')) beads.push({ scenario: 'union_and_disillusion', side: 'lodge', amount: 2 });
++	else if (has('sided_with_the_coven')) beads.push({ scenario: 'union_and_disillusion', side: 'coven', amount: 2 });
++
++	// In the Clutches of Chaos — net of the Anette + Sanford fates.
++	const lodgePts = CLUTCHES_LODGE_NOTES.filter(has).length;
++	const covenPts = CLUTCHES_COVEN_NOTES.filter(has).length;
++	if (lodgePts > covenPts) beads.push({ scenario: 'in_the_clutches_of_chaos', side: 'lodge', amount: 1 });
++	else if (covenPts > lodgePts) beads.push({ scenario: 'in_the_clutches_of_chaos', side: 'coven', amount: 1 });
++
++	const sum = (side: AllegianceSide) =>
++		beads.filter((b) => b.side === side).reduce((s, b) => s + b.amount, 0);
++
++	// Finale outcome (Before the Black Throne) — the loss vs the win variants.
++	const ending = TCU_FINALE_ENDINGS.find((e) =>
++		e.id === 'slumbersClean'
++			? has('azathoth_slumbers') &&
++				!has('lead_investigator_joins_pipers') &&
++				!has('signed_the_black_book')
++			: has(e.note)
++	);
++	const outcomeKey = ending ? k(ending.note) : null;
++	const outcome: 'win' | 'loss' | 'abandoned' = ending
++		? ending.kind === 'loss'
++			? 'loss'
++			: 'win'
++		: 'abandoned';
++
++	return {
++		beads,
++		lodge: sum('lodge'),
++		coven: sum('coven'),
++		outcomeKey,
++		outcome,
++		difficulty: rec.recorded.difficulty ?? 'standard',
++		finishDate: rec.finishDate ?? null
++	};
++}
++
++/** Per allegiance decision point: Lodge / Coven / neutral counts across plays, by difficulty. */
++function buildAllegianceSources(records: CampaignRecord[], runs: TcuAllegianceRun[]): AllegianceSourceTally[] {
++	const tallies: AllegianceSourceTally[] = TCU_ALLEGIANCE_SOURCES.map((scenario) => ({
++		scenario,
++		lodge: {},
++		coven: {},
++		neutral: {},
++		canNeutral: ALLEGIANCE_NEUTRAL_CAPABLE.has(scenario)
++	}));
++	records.forEach((rec, i) => {
++		const run = runs[i];
++		if (!run) return;
++		const diff = run.difficulty;
++		const bySc = new Map(run.beads.map((b) => [b.scenario, b] as const));
++		const furthest = furthestResolvedTcu(rec.scenarioResolutions ?? {});
++		for (const t of tallies) {
++			const bead = bySc.get(t.scenario);
++			if (bead?.side === 'lodge') bumpCount(t.lodge, diff);
++			else if (bead?.side === 'coven') bumpCount(t.coven, diff);
++			else if (t.canNeutral && furthest >= TCU_STORY_SCENARIOS.indexOf(t.scenario))
++				// reached Clutches but the Anette/Sanford picks cancelled (or "handle it alone").
++				bumpCount(t.neutral, diff);
++		}
++	});
++	return tallies;
+ }
+ 
+ export function buildTcu(records: CampaignRecord[]): CampaignTcu[] {
+@@ -103,135 +349,183 @@ export function buildTcu(records: CampaignRecord[]): CampaignTcu[] {
+ 	if (!baseLog) return [];
+ 	const tcuRecords = filterFamilyRecords(records, TCU_FAMILY);
+ 	if (tcuRecords.length === 0) return [];
++	// The finale's resolution → win/loss verdicts feed the Twist-of-Fate tally table's Succeed / Failed.
++	const finaleOutcomes = (baseLog.db.scenarioMeta?.find((m) => m.id === 'before_the_black_throne')
++		?.resolutionOutcomes ?? {}) as Record<string, 'win' | 'loss' | 'neutral'>;
+ 
++	const allegianceRuns = tcuRecords.map(buildAllegianceRun);
++	const allegianceSources = buildAllegianceSources(tcuRecords, allegianceRuns);
+ 	const allegiance = {
+-		sidedLodge: 0,
+-		sidedCoven: 0,
+-		membersOfLodge: 0,
+-		enemiesOfLodge: 0,
++		lodgeLed: 0,
++		covenLed: 0,
++		balanced: 0,
+ 		deceivingLodge: 0,
+-		toldLodgeAboutCoven: 0,
+-		hidKnowledgeOfCoven: 0
++		rescuedJosef: 0,
++		josefAlive: 0,
++		josefLostToMist: 0
+ 	};
++	for (const run of allegianceRuns) {
++		if (run.beads.length === 0) continue;
++		if (run.lodge > run.coven) allegiance.lodgeLed += 1;
++		else if (run.coven > run.lodge) allegiance.covenLed += 1;
++		else allegiance.balanced += 1;
++	}
++
+ 	const missingPersons: Record<string, TcuMissingTally> = {};
+-	for (const p of TCU_MISSING) missingPersons[p.id] = { trail: 0, fates: {} };
++	for (const p of TCU_MISSING) missingPersons[p.id] = { trail: 0, fates: {}, union: { alive: 0, dead: 0 } };
+ 	const mementos: Record<string, number> = {};
+ 	const witchingHour = { acceptedFate: 0, rejectedFate: 0, spellBroken: 0, spellCast: 0 };
+ 	const atDeathsDoorstep = { escaped: 0, learnedNothing: 0, neverSeenAgain: 0 };
++	let evidenceMax: number | null = null;
+ 	const secretName = { toldLodge: 0, hidCoven: 0 };
+-	const wagesOfSin = { hereticsReleasedMax: null as number | null, survivedWatcher: 0 };
++	const wagesOfSin = {
++		hereticsReleased: {} as Record<number, number>,
++		hereticsReleasedMax: null as number | null,
++		survivedWatcher: 0
++	};
+ 	const forTheGreaterGood = { openedPuzzleBox: 0, guardianEmerged: 0, guardianDefeated: 0 };
++	const innerCircle = { inducted: 0, keptHidden: 0 };
++	const union = { sidedLodge: 0, sidedCoven: 0, lodgeTrueWork: 0, sanfordPossesses: 0, anettePossessed: 0 };
+ 	const clutchesOfChaos = {
+ 		askedAnette: 0,
+-		askedSanford: 0,
+ 		arrestedAnette: 0,
++		anetteTaughtSpells: 0,
++		askedSanford: 0,
+ 		arrestedSanford: 0,
+-		assumedControl: 0
+-	};
+-	const endings = {
+-		lodgeVictory: 0,
+-		covenVictory: 0,
+-		sanfordPossesses: 0,
+-		anettePossessed: 0,
+-		azathothDevoured: 0,
+-		slumbersJoinedPipers: 0,
+-		slumbersBlackBook: 0,
+-		slumbersClean: 0
++		assumedControl: 0,
++		continuedAlone: 0
+ 	};
++	const endings = { azathothDevoured: 0, joinedPipers: 0, signedBlackBook: 0, slumbersClean: 0 };
++	const pathWinds: Record<string, FinaleSlice> = {};
+ 
+ 	for (const rec of tcuRecords) {
+ 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
+-		const has = (key: string) => logs.has(key);
++		const has = noteReader(logs);
+ 		const counts = rec.recorded.logCounts ?? {};
+ 		const items = rec.recorded.recordedSectionItems ?? {};
++		const tier = rec.recorded.difficulty ?? 'standard';
++		const count = (id: string) => counts[k(id)] ?? counts[id];
+ 
+-		// Allegiance (the spine).
+-		if (has(k('sided_with_the_lodge'))) allegiance.sidedLodge += 1;
+-		if (has(k('sided_with_the_coven'))) allegiance.sidedCoven += 1;
+-		if (has(k('members_of_the_lodge'))) allegiance.membersOfLodge += 1;
+-		if (has(k('enemies_of_the_lodge'))) allegiance.enemiesOfLodge += 1;
+-		if (has(k('deceiving_the_lodge'))) allegiance.deceivingLodge += 1;
+-		if (has(k('told_lodge_about_coven'))) allegiance.toldLodgeAboutCoven += 1;
+-		if (has(k('hid_knowledge_of_coven'))) allegiance.hidKnowledgeOfCoven += 1;
++		// Allegiance flavour (the chain + source table hold the per-decision leans).
++		if (has('deceiving_the_lodge')) allegiance.deceivingLodge += 1;
++		// Josef Meiger (The Price of Progress).
++		if (has('rescued_josef')) allegiance.rescuedJosef += 1;
++		if (has('josef_is_alive')) allegiance.josefAlive += 1;
++		if (has('josef_disappeared_into_the_mist')) allegiance.josefLostToMist += 1;
+ 
+-		// Missing persons — fate (their 0504x section) + trail.
++		// Missing persons — fate (their 0504x section), trail (a campaign note), Union survival.
+ 		for (const p of TCU_MISSING) {
+-			if (has(k(p.trail))) missingPersons[p.id].trail += 1;
+-			const fateSet = items[p.id];
+-			if (fateSet)
+-				for (const fate of TCU_FATES)
+-					if (fateSet.has(fate))
+-						missingPersons[p.id].fates[fate] = (missingPersons[p.id].fates[fate] ?? 0) + 1;
++			const mp = missingPersons[p.id];
++			if (has(p.trail)) mp.trail += 1;
++			const section = items[p.id];
++			if (section) {
++				for (const fate of TCU_FATES) if (section.has(fate)) mp.fates[fate] = (mp.fates[fate] ?? 0) + 1;
++				if (section.has('alive')) mp.union.alive += 1;
++				if (section.has('dead')) mp.union.dead += 1;
++			}
+ 		}
+ 
+ 		// Mementos discovered.
+-		for (const mem of TCU_MEMENTOS) if (has(`mementos.${mem}`)) mementos[mem] = (mementos[mem] ?? 0) + 1;
++		for (const mem of TCU_MEMENTOS) if (logs.has(`mementos.${mem}`)) mementos[mem] = (mementos[mem] ?? 0) + 1;
+ 
+ 		// The Witching Hour.
+-		if (has(k('accepted_fate'))) witchingHour.acceptedFate += 1;
+-		if (has(k('rejected_fate'))) witchingHour.rejectedFate += 1;
+-		if (has(k('witches_spell_broken'))) witchingHour.spellBroken += 1;
+-		if (has(k('witches_spell_cast'))) witchingHour.spellCast += 1;
++		if (has('accepted_fate')) witchingHour.acceptedFate += 1;
++		if (has('rejected_fate')) witchingHour.rejectedFate += 1;
++		if (has('witches_spell_broken')) witchingHour.spellBroken += 1;
++		if (has('witches_spell_cast')) witchingHour.spellCast += 1;
+ 
+-		// At Death's Doorstep.
+-		if (has(k('investigators_escaped_the_spectral_realm'))) atDeathsDoorstep.escaped += 1;
+-		if (has(k('learned_nothing_of_the_lodges_schemes'))) atDeathsDoorstep.learnedNothing += 1;
+-		if (has(k('never_seen_again'))) atDeathsDoorstep.neverSeenAgain += 1;
++		// At Death's Doorstep + the prologue evidence tally.
++		if (has('investigators_escaped_the_spectral_realm')) atDeathsDoorstep.escaped += 1;
++		if (has('learned_nothing_of_the_lodges_schemes')) atDeathsDoorstep.learnedNothing += 1;
++		if (has('never_seen_again')) atDeathsDoorstep.neverSeenAgain += 1;
++		const evidence = count('pieces_of_evidence');
++		if (evidence !== undefined)
++			evidenceMax = evidenceMax === null ? evidence : Math.max(evidenceMax, evidence);
+ 
+ 		// The Secret Name.
+-		if (has(k('told_lodge_about_coven'))) secretName.toldLodge += 1;
+-		if (has(k('hid_knowledge_of_coven'))) secretName.hidCoven += 1;
++		if (has('told_lodge_about_coven')) secretName.toldLodge += 1;
++		if (has('hid_knowledge_of_coven')) secretName.hidCoven += 1;
+ 
+-		// The Wages of Sin.
+-		const heretics = counts[k('heretics_released')] ?? counts['heretics_released'];
+-		if (heretics !== undefined)
++		// The Wages of Sin — heretics released (a distribution) + surviving the Watcher's embrace.
++		const heretics = count('heretics_released');
++		if (heretics !== undefined) {
++			bumpCount(wagesOfSin.hereticsReleased as Record<string, number>, String(heretics));
+ 			wagesOfSin.hereticsReleasedMax =
+ 				wagesOfSin.hereticsReleasedMax === null
+ 					? heretics
+ 					: Math.max(wagesOfSin.hereticsReleasedMax, heretics);
+-		if (has(k('survived_the_watchers_embrace'))) wagesOfSin.survivedWatcher += 1;
++		}
++		if (has('survived_the_watchers_embrace')) wagesOfSin.survivedWatcher += 1;
+ 
+ 		// For the Greater Good.
+-		if (has(k('discovered_how_to_open_the_puzzle_box'))) forTheGreaterGood.openedPuzzleBox += 1;
+-		if (has(k('guardian_of_the_trap_emerged'))) forTheGreaterGood.guardianEmerged += 1;
+-		if (has(k('guardian_of_the_trap_defeated'))) forTheGreaterGood.guardianDefeated += 1;
+-
+-		// In the Clutches of Chaos.
+-		if (has(k('asked_anette_for_assistance'))) clutchesOfChaos.askedAnette += 1;
+-		if (has(k('asked_sanford_for_assistance'))) clutchesOfChaos.askedSanford += 1;
+-		if (has(k('arrested_anette'))) clutchesOfChaos.arrestedAnette += 1;
+-		if (has(k('arrested_sanford'))) clutchesOfChaos.arrestedSanford += 1;
+-		if (has(k('assumed_control_of_the_silver_twilight_lodge'))) clutchesOfChaos.assumedControl += 1;
+-
+-		// Endings — Union and Disillusion early faction victories (special).
+-		if (has(k('true_work_of_silver_twilight_lodge_has_begun'))) endings.lodgeVictory += 1;
+-		if (has(k('coven_of_keziah_holds_the_world_in_its_grasp'))) endings.covenVictory += 1;
+-		if (has(k('carl_sanford_possesses_the_secrets_of_the_universe'))) endings.sanfordPossesses += 1;
+-		if (has(k('anette_mason_is_possessed_by_evil'))) endings.anettePossessed += 1;
+-
+-		// Endings — Before the Black Throne finale (slumber variants).
+-		if (has(k('azathoth_devoured_the_universe'))) endings.azathothDevoured += 1;
+-		if (has(k('azathoth_slumbers'))) {
+-			if (has(k('lead_investigator_joins_pipers'))) endings.slumbersJoinedPipers += 1;
+-			else if (has(k('signed_the_black_book'))) endings.slumbersBlackBook += 1;
+-			else endings.slumbersClean += 1;
++		if (has('discovered_how_to_open_the_puzzle_box')) forTheGreaterGood.openedPuzzleBox += 1;
++		if (has('guardian_of_the_trap_emerged')) forTheGreaterGood.guardianEmerged += 1;
++		if (has('guardian_of_the_trap_defeated')) forTheGreaterGood.guardianDefeated += 1;
++
++		// The Inner Circle (interlude).
++		if (has('inducted_into_the_inner_circle')) innerCircle.inducted += 1;
++		if (has('kept_mementos_hidden')) innerCircle.keptHidden += 1;
++
++		// Union and Disillusion — the side taken + the faction state that sets up the finale.
++		if (has('sided_with_the_lodge')) union.sidedLodge += 1;
++		if (has('sided_with_the_coven')) union.sidedCoven += 1;
++		if (has('true_work_of_silver_twilight_lodge_has_begun')) union.lodgeTrueWork += 1;
++		if (has('carl_sanford_possesses_the_secrets_of_the_universe')) union.sanfordPossesses += 1;
++		if (has('anette_mason_is_possessed_by_evil')) union.anettePossessed += 1;
++
++		// In the Clutches of Chaos — the Anette + Sanford fates.
++		if (has('asked_anette_for_assistance')) clutchesOfChaos.askedAnette += 1;
++		if (has('arrested_anette')) clutchesOfChaos.arrestedAnette += 1;
++		if (has('anette_taught_you_the_spells_of_old')) clutchesOfChaos.anetteTaughtSpells += 1;
++		if (has('asked_sanford_for_assistance')) clutchesOfChaos.askedSanford += 1;
++		if (has('arrested_sanford')) clutchesOfChaos.arrestedSanford += 1;
++		if (has('assumed_control_of_the_silver_twilight_lodge')) clutchesOfChaos.assumedControl += 1;
++		if (has('continued_alone')) clutchesOfChaos.continuedAlone += 1;
++
++		// Before the Black Throne — the four endings, counted independently.
++		if (has('azathoth_devoured_the_universe')) endings.azathothDevoured += 1;
++		if (has('lead_investigator_joins_pipers')) endings.joinedPipers += 1;
++		if (has('signed_the_black_book')) endings.signedBlackBook += 1;
++		if (has('azathoth_slumbers') && !has('lead_investigator_joins_pipers') && !has('signed_the_black_book'))
++			endings.slumbersClean += 1;
++
++		// Twist of Fate tally → how the finale went. `path_winds_before_you` is the sum of your
++		// campaign-long choices; it sets the finale's starting doom. Bucket the finale resolution
++		// reached by that tally (Succeed / Failed off the verdict), for the shared per-version table.
++		const pw = count('path_winds_before_you');
++		const finRes = rec.scenarioResolutions?.['before_the_black_throne'];
++		if (pw !== undefined && finRes) {
++			const bucket = (pathWinds[String(pw)] ??= { succeed: null, failed: null, tallies: {} });
++			bumpTally((bucket.tallies[finRes] ??= emptyTally()), tier);
++			const verdict = finaleOutcomes[finRes];
++			if (verdict === 'win') bumpTally((bucket.succeed ??= emptyTally()), tier);
++			else if (verdict === 'loss') bumpTally((bucket.failed ??= emptyTally()), tier);
+ 		}
+ 	}
+ 
++	const mementosCount = TCU_MEMENTOS.filter((m) => (mementos[m] ?? 0) > 0).length;
++
+ 	return [
+ 		{
+ 			family: TCU_FAMILY,
+ 			plays: tcuRecords.length,
++			allegianceRuns,
++			allegianceSources,
+ 			allegiance,
+ 			missingPersons,
+ 			mementos,
++			mementosCount,
+ 			witchingHour,
+ 			atDeathsDoorstep,
++			evidenceMax,
+ 			secretName,
+ 			wagesOfSin,
+ 			forTheGreaterGood,
++			innerCircle,
++			union,
+ 			clutchesOfChaos,
+-			endings
++			endings,
++			pathWinds
+ 		}
+ 	];
+ }

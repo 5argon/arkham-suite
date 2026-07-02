@@ -20,6 +20,35 @@
       "resolutions": [
         "no_resolution",
         "R1"
+      ],
+      "choices": [
+        {
+          "id": "task_assignment",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "11753a",
+              "11754a",
+              "11755a",
+              "11756a",
+              "11757a",
+              "11758a",
+              "11759a",
+              "11760a"
+            ]
+          }
+        },
+        {
+          "id": "task_assignment_investigator",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "types": [
+              "investigator"
+            ]
+          }
+        }
       ]
     },
     {

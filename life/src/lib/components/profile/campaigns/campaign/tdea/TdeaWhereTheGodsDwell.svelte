@@ -11,7 +11,7 @@ lives in the Epilogue matrix widget. Built on StatNumbers.
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -29,23 +29,37 @@ lives in the Epilogue matrix widget. Built on StatNumbers.
 	} = $props();
 	const g = $derived(tdea?.whereTheGodsDwell);
 	const hasData = $derived(!!g && g.reached > 0);
-	const rows = $derived<Stat[][]>(
+	// Grouped by the single-sided verdict (curation outcomes): banished is the better win.
+	const rows = $derived<StatGroup[]>(
 		hasData && g
 			? [
-					[
-						{ value: g.awoke, label: m.campaign_tdea_gods_awoke() },
-						{ value: g.stayedForever, label: m.campaign_tdea_gods_stayed() }
-					],
-					[
-						{ value: g.traveledMonastery, label: m.campaign_tdea_gods_monastery() },
-						{ value: g.invasion, label: m.campaign_tdea_gods_invasion() }
-					],
-					[
-						{ value: g.banished, label: m.campaign_tdea_gods_banished() },
-						{ value: g.escapedGrasp, label: m.campaign_tdea_gods_escaped() },
-						{ value: g.knowAnotherPath, label: m.campaign_tdea_gods_another_path() }
-					]
-				]
+					{
+						heading: m.campaign_tdea_gods_victory_heading(),
+						stats: [
+							{ value: g.banished, label: m.campaign_tdea_gods_banished() },
+							{ value: g.escapedGrasp, label: m.campaign_tdea_gods_escaped() },
+							{ value: g.awoke, label: m.campaign_tdea_gods_awoke() }
+						]
+					},
+					{
+						heading: m.campaign_tdea_gods_bittersweet_heading(),
+						stats: [
+							{ value: g.stayedForever, label: m.campaign_tdea_gods_stayed() },
+							{ value: g.traveledMonastery, label: m.campaign_tdea_gods_monastery() }
+						]
+					},
+					{
+						heading: m.campaign_tdea_gods_defeat_heading(),
+						stats: [{ value: g.invasion, label: m.campaign_tdea_gods_invasion() }]
+					},
+					{
+						heading: m.campaign_tdea_gods_details_heading(),
+						stats: [
+							{ value: g.knowAnotherPath, label: m.campaign_tdea_gods_another_path() },
+							{ value: g.grandDesign, label: m.campaign_tdea_gods_grand_design() }
+						]
+					}
+				].filter((grp) => grp.stats.some((st) => (st.value as number) > 0))
 			: []
 	);
 </script>

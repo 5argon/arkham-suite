@@ -42,6 +42,8 @@ export interface CampaignTdeb {
 		max: number | null;
 		min: number | null;
 		total: number;
+		/** Mean Steps per recorded play, rounded to 1 decimal (null when no plays). */
+		avg: number | null;
 		/** count value → plays that ended with exactly that many. */
 		distribution: Record<number, number>;
 		/** doom tier (0–4) → plays that landed in that finale band. */
@@ -70,7 +72,7 @@ export function buildTdeb(records: CampaignRecord[]): CampaignTdeb[] {
 	const tdebRecords = filterFamilyRecords(records, TDEB_FAMILY);
 	if (tdebRecords.length === 0) return [];
 
-	const steps = { plays: 0, max: null as number | null, min: null as number | null, total: 0, distribution: {} as Record<number, number>, tiers: {} as Record<number, number> };
+	const steps = { plays: 0, max: null as number | null, min: null as number | null, total: 0, avg: null as number | null, distribution: {} as Record<number, number>, tiers: {} as Record<number, number> };
 	const wakingNightmare = { doctorJoined: 0, doctorStayed: 0, doctorFateUnknown: 0, doctorAlive: 0, doctorMissing: 0 };
 	const pointOfNoReturn = { foundWayOut: 0 };
 	const weaver = { reached: 0, bridgeCompleted: 0, returnedToReality: 0, neverEscaped: 0, stillInDreamlands: 0, bridgeDestroyed: 0, trappedInRealm: 0, spiderQueen: 0 };
@@ -115,6 +117,8 @@ export function buildTdeb(records: CampaignRecord[]): CampaignTdeb[] {
 		if (has(k('trapped_in_atlach_nachas_realm'))) weaver.trappedInRealm += 1;
 		if (has('hidden.spider_queen')) weaver.spiderQueen += 1;
 	}
+
+	steps.avg = steps.plays > 0 ? Math.round((steps.total / steps.plays) * 10) / 10 : null;
 
 	return [
 		{

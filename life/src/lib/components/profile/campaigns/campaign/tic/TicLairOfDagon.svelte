@@ -27,17 +27,32 @@ Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const d = $derived(tic?.lairOfDagon);
-	const hasData = $derived(!!d && d.awoke + d.slumbers + d.gatekeeperDefeated + d.ritualDisrupted > 0);
+	const hasData = $derived(
+		!!d &&
+			d.awoke.total + d.slumbers.total + d.gatekeeperDefeated.total + d.ritualDisrupted.total > 0
+	);
 	const rows = $derived<Stat[][]>(
 		hasData && d
 			? [
 					[
-						{ value: d.slumbers, label: m.campaign_tic_lod_slumbers() },
-						{ value: d.awoke, label: m.campaign_tic_lod_awoke() }
+						{
+							value: d.slumbers.total,
+							label: m.campaign_tic_lod_slumbers(),
+							byTier: d.slumbers.byTier
+						},
+						{ value: d.awoke.total, label: m.campaign_tic_lod_awoke(), byTier: d.awoke.byTier }
 					],
 					[
-						{ value: d.gatekeeperDefeated, label: m.campaign_tic_lod_gatekeeper() },
-						{ value: d.ritualDisrupted, label: m.campaign_tic_lod_ritual() }
+						{
+							value: d.gatekeeperDefeated.total,
+							label: m.campaign_tic_lod_gatekeeper(),
+							byTier: d.gatekeeperDefeated.byTier
+						},
+						{
+							value: d.ritualDisrupted.total,
+							label: m.campaign_tic_lod_ritual(),
+							byTier: d.ritualDisrupted.byTier
+						}
 					]
 				]
 			: []

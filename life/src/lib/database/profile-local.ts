@@ -63,6 +63,7 @@ import { buildTic } from '$lib/campaign/campaigns/tic';
 import { buildFhv } from '$lib/campaign/campaigns/fhv';
 import { buildTdc } from '$lib/campaign/campaigns/tdc';
 import { buildNotz } from '$lib/campaign/campaigns/notz';
+import { isCoreOnlyCampaign } from '$lib/campaign/utils/deck-purity';
 import { familyOf } from '$lib/campaign/records/campaign-family';
 import { applyTskTierResolutionInference } from '$lib/campaign/campaigns/tsk-solver';
 import {
@@ -237,6 +238,7 @@ function recordFor(
 		erasedCards: erasedFromExistenceFromLogs(localLogs),
 		possessedInvestigators: possessedInvestigatorsFromLogs(localLogs),
 		subjectInvestigators: subjectInvestigators(c, uids),
+		coreOnly: isCoreOnlyCampaign(c.decks.filter((d) => deckInSubject(d.ownerUid, uids))),
 		finishDate: c.finishDate ?? null,
 		playerCount: resolvePlayerCount(c.playerCount, c.participants.length),
 		multiHanded: c.multiHanded,

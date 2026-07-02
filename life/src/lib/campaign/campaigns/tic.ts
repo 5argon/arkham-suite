@@ -1,7 +1,7 @@
 /**
  * tic.ts — The Innsmouth Conspiracy bespoke per-campaign tallies. ONE builder, ONE
- * payload blob (`tic`), mirroring `tcu.ts` / `dwl.ts`. Fully log-derived. See
- * `tic-widgets-plan.md`.
+ * payload blob (`tic`), mirroring `tcu.ts` / `dwl.ts`. Fully log-derived. Every count is
+ * a per-difficulty `ResolutionTally` so the widgets can show the shared difficulty hover.
  *
  *   • memories — the 15 flashbacks (`memories_recovered`), the campaign's collectible
  *     spine + the "You Wake Up In A Room…" achievement (all 15). No card art.
@@ -11,13 +11,16 @@
  *   • equipment — the 3 story assets (Waveworn Idol / Awakened Mantle / Headdress)
  *     brought to the lighthouse (Devil Reef) — the `full_build` achievement.
  *   • harper — The Vanishing of Elina Harper: the suspect + hideout accused
- *     (`hidden.accuse_*`) and the rescue (mission succeeded / failed).
+ *     (`hidden.accuse_*`) and the rescue (mission succeeded / failed). Suspects (enemies)
+ *     and hideouts (locations) carry their card codes so the widget shows real art.
  *   • per-scenario — In Too Deep / Devil Reef / Horror in High Gear / A Light in the
  *     Fog / The Lair of Dagon decisions; finale = flood axis + Harper-mission branches.
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { ResolutionTally } from '../outcomes/resolution-coverage';
 import { filterFamilyRecords } from '../records/campaign-family';
+import { bumpTally, emptyTally, ensureTally } from '../utils/tally';
 
 const TIC_FAMILY = 'tic';
 const N = 'campaign_notes';
@@ -51,57 +54,84 @@ export const TIC_KEYS: { id: string; note: string }[] = [
 	{ id: 'yellow', note: 'gateway_to_yhanthlei_recognizes_you_as_its_rightful_keeper' }
 ];
 
-/** The 3 equipment items (Devil Reef → the lighthouse) — the `full_build` achievement. */
-export const TIC_EQUIPMENT: { id: string; note: string }[] = [
-	{ id: 'idol', note: 'idol_brought_to_the_lighthouse' },
-	{ id: 'mantle', note: 'mantle_brought_to_the_lighthouse' },
-	{ id: 'headdress', note: 'headdress_brought_to_the_lighthouse' }
+/** The 3 equipment items (Devil Reef → the lighthouse) — the `full_build` achievement.
+ *  Codes are the real story-asset cards (Devil Reef pack) for the artifact art wall. */
+export const TIC_EQUIPMENT: { id: string; note: string; code: string }[] = [
+	{ id: 'idol', note: 'idol_brought_to_the_lighthouse', code: '07179' },
+	{ id: 'mantle', note: 'mantle_brought_to_the_lighthouse', code: '07180' },
+	{ id: 'headdress', note: 'headdress_brought_to_the_lighthouse', code: '07181' }
 ];
 
-export const TIC_SUSPECTS = ['burnham', 'gilman', 'little', 'marsh', 'allen', 'friendly'];
-/** Hideout display id → its `hidden.accuse_*` id (two differ: prison / slums). */
-export const TIC_HIDEOUTS: { id: string; accuse: string }[] = [
-	{ id: 'innsmouth_jail', accuse: 'prison' },
-	{ id: 'shoreward_slums', accuse: 'slums' },
-	{ id: 'sawbone_alley', accuse: 'sawbone_alley' },
-	{ id: 'house_on_water_street', accuse: 'house_on_water_street' },
-	{ id: 'order_of_dagon', accuse: 'order_of_dagon' },
-	{ id: 'new_church_green', accuse: 'new_church_green' }
+/** The 6 suspects (enemy cards) — id + its `hidden.accuse_<id>` id + card code for the art wall. */
+export const TIC_SUSPECTS: { id: string; code: string }[] = [
+	{ id: 'burnham', code: '07078' },
+	{ id: 'gilman', code: '07081' },
+	{ id: 'little', code: '07080' },
+	{ id: 'marsh', code: '07079' },
+	{ id: 'allen', code: '07077' },
+	{ id: 'friendly', code: '07076' }
 ];
+/** Hideout display id → its `hidden.accuse_*` id (two differ: prison / slums) + card code. */
+export const TIC_HIDEOUTS: { id: string; accuse: string; code: string }[] = [
+	{ id: 'innsmouth_jail', accuse: 'prison', code: '07074' },
+	{ id: 'shoreward_slums', accuse: 'slums', code: '07072' },
+	{ id: 'sawbone_alley', accuse: 'sawbone_alley', code: '07071' },
+	{ id: 'house_on_water_street', accuse: 'house_on_water_street', code: '07073' },
+	{ id: 'order_of_dagon', accuse: 'order_of_dagon', code: '07070' },
+	{ id: 'new_church_green', accuse: 'new_church_green', code: '07075' }
+];
+
+/** The Amalgam (the Pit of Despair boss) + Agent Harper — passport header art codes. */
+export const TIC_AMALGAM_CODE = '07053';
+export const TIC_HARPER_CODE = '07083';
 
 export interface CampaignTic {
 	/** Always 'tic'. */
 	family: string;
 	plays: number;
-	/** memory id → plays that recovered it; everRecovered = distinct memories seen; allFifteen = full set. */
-	memories: { recovered: Record<string, number>; everRecovered: number; allFifteen: number };
-	/** key id → plays that secured it; allFour = plays with all 4 (secret-ending branch reachable). */
-	sevenKeys: { obtainable: Record<string, number>; allFour: number };
-	/** equipment id → plays secured; allThree = plays with all three (full_build). */
-	equipment: { secured: Record<string, number>; allThree: number };
-	harper: {
-		missionSucceeded: number;
-		missionFailed: number;
-		/** suspect id → plays accused. */
-		suspect: Record<string, number>;
-		/** hideout id → plays accused. */
-		hideout: Record<string, number>;
+	/** memory id → plays that recovered it (per-difficulty); everRecovered = distinct memories seen;
+	 *  allFifteen = plays with the full set (the "You Wake Up In A Room…" achievement). */
+	memories: {
+		recovered: Record<string, ResolutionTally>;
+		everRecovered: number;
+		allFifteen: ResolutionTally;
 	};
-	inTooDeep: { safe: number; consumed: number };
-	devilReef: { terrorAlive: number; terrorDead: number; tideGrown: number };
-	horror: { beforeSunrise: number; afterSunrise: number };
-	lightInTheFog: { map: number; key: number; divingSuit: number };
-	lairOfDagon: { awoke: number; slumbers: number; gatekeeperDefeated: number; ritualDisrupted: number };
+	/** key id → plays that secured it; allFour = plays with all 4 (secret-ending branch reachable). */
+	sevenKeys: { obtainable: Record<string, ResolutionTally>; allFour: ResolutionTally };
+	/** equipment id → plays secured; allThree = plays with all three (full_build). */
+	equipment: { secured: Record<string, ResolutionTally>; allThree: ResolutionTally };
+	harper: {
+		missionSucceeded: ResolutionTally;
+		missionFailed: ResolutionTally;
+		/** suspect id → plays accused. */
+		suspect: Record<string, ResolutionTally>;
+		/** hideout id → plays accused. */
+		hideout: Record<string, ResolutionTally>;
+	};
+	inTooDeep: { safe: ResolutionTally; consumed: ResolutionTally };
+	devilReef: {
+		terrorAlive: ResolutionTally;
+		terrorDead: ResolutionTally;
+		tideGrown: ResolutionTally;
+	};
+	horror: { beforeSunrise: ResolutionTally; afterSunrise: ResolutionTally };
+	lightInTheFog: { map: ResolutionTally; key: ResolutionTally; divingSuit: ResolutionTally };
+	lairOfDagon: {
+		awoke: ResolutionTally;
+		slumbers: ResolutionTally;
+		gatekeeperDefeated: ResolutionTally;
+		ritualDisrupted: ResolutionTally;
+	};
 	/** Into the Maelstrom — flood axis + Harper-mission branches (single-sided finale outcomes). */
 	finale: {
-		escaped: number;
-		plotThwarted: number;
-		floodBegun: number;
-		floodedEarth: number;
-		harperComplete: number;
-		harperCompleteCost: number;
-		richesLost: number;
-		richesDestroyed: number;
+		escaped: ResolutionTally;
+		plotThwarted: ResolutionTally;
+		floodBegun: ResolutionTally;
+		floodedEarth: ResolutionTally;
+		harperComplete: ResolutionTally;
+		harperCompleteCost: ResolutionTally;
+		richesLost: ResolutionTally;
+		richesDestroyed: ResolutionTally;
 	};
 }
 
@@ -111,96 +141,123 @@ export function buildTic(records: CampaignRecord[]): CampaignTic[] {
 	const ticRecords = filterFamilyRecords(records, TIC_FAMILY);
 	if (ticRecords.length === 0) return [];
 
-	const memRecovered: Record<string, number> = {};
-	let allFifteen = 0;
-	const keyObtainable: Record<string, number> = {};
-	let allFour = 0;
-	const equipSecured: Record<string, number> = {};
-	let allThree = 0;
-	const harper = { missionSucceeded: 0, missionFailed: 0, suspect: {} as Record<string, number>, hideout: {} as Record<string, number> };
-	const inTooDeep = { safe: 0, consumed: 0 };
-	const devilReef = { terrorAlive: 0, terrorDead: 0, tideGrown: 0 };
-	const horror = { beforeSunrise: 0, afterSunrise: 0 };
-	const lightInTheFog = { map: 0, key: 0, divingSuit: 0 };
-	const lairOfDagon = { awoke: 0, slumbers: 0, gatekeeperDefeated: 0, ritualDisrupted: 0 };
-	const finale = { escaped: 0, plotThwarted: 0, floodBegun: 0, floodedEarth: 0, harperComplete: 0, harperCompleteCost: 0, richesLost: 0, richesDestroyed: 0 };
+	const memRecovered: Record<string, ResolutionTally> = {};
+	const allFifteen = emptyTally();
+	const keyObtainable: Record<string, ResolutionTally> = {};
+	const allFour = emptyTally();
+	const equipSecured: Record<string, ResolutionTally> = {};
+	const allThree = emptyTally();
+	const harper = {
+		missionSucceeded: emptyTally(),
+		missionFailed: emptyTally(),
+		suspect: {} as Record<string, ResolutionTally>,
+		hideout: {} as Record<string, ResolutionTally>
+	};
+	const inTooDeep = { safe: emptyTally(), consumed: emptyTally() };
+	const devilReef = {
+		terrorAlive: emptyTally(),
+		terrorDead: emptyTally(),
+		tideGrown: emptyTally()
+	};
+	const horror = { beforeSunrise: emptyTally(), afterSunrise: emptyTally() };
+	const lightInTheFog = { map: emptyTally(), key: emptyTally(), divingSuit: emptyTally() };
+	const lairOfDagon = {
+		awoke: emptyTally(),
+		slumbers: emptyTally(),
+		gatekeeperDefeated: emptyTally(),
+		ritualDisrupted: emptyTally()
+	};
+	const finale = {
+		escaped: emptyTally(),
+		plotThwarted: emptyTally(),
+		floodBegun: emptyTally(),
+		floodedEarth: emptyTally(),
+		harperComplete: emptyTally(),
+		harperCompleteCost: emptyTally(),
+		richesLost: emptyTally(),
+		richesDestroyed: emptyTally()
+	};
 
 	for (const rec of ticRecords) {
 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
-		const has = (key: string) => logs.has(key);
+		const tier = rec.recorded.difficulty ?? 'standard';
+		const on = (key: string, t: ResolutionTally) => {
+			if (logs.has(key)) bumpTally(t, tier);
+		};
 
 		// Memories (the 15 flashbacks).
 		let memCount = 0;
 		for (const m of TIC_MEMORIES) {
-			if (has(mem(m.id))) {
-				memRecovered[m.id] = (memRecovered[m.id] ?? 0) + 1;
+			if (logs.has(mem(m.id))) {
+				bumpTally(ensureTally(memRecovered, m.id), tier);
 				memCount += 1;
 			}
 		}
-		if (memCount === TIC_MEMORIES.length) allFifteen += 1;
+		if (memCount === TIC_MEMORIES.length) bumpTally(allFifteen, tier);
 
 		// The 4 obtainable finale keys → the secret-ending gate.
 		let keyCount = 0;
 		for (const key of TIC_KEYS) {
-			if (has(k(key.note))) {
-				keyObtainable[key.id] = (keyObtainable[key.id] ?? 0) + 1;
+			if (logs.has(k(key.note))) {
+				bumpTally(ensureTally(keyObtainable, key.id), tier);
 				keyCount += 1;
 			}
 		}
-		if (keyCount === TIC_KEYS.length) allFour += 1;
+		if (keyCount === TIC_KEYS.length) bumpTally(allFour, tier);
 
 		// The 3 equipment items.
 		let equipCount = 0;
 		for (const eq of TIC_EQUIPMENT) {
-			if (has(k(eq.note))) {
-				equipSecured[eq.id] = (equipSecured[eq.id] ?? 0) + 1;
+			if (logs.has(k(eq.note))) {
+				bumpTally(ensureTally(equipSecured, eq.id), tier);
 				equipCount += 1;
 			}
 		}
-		if (equipCount === TIC_EQUIPMENT.length) allThree += 1;
+		if (equipCount === TIC_EQUIPMENT.length) bumpTally(allThree, tier);
 
 		// The Vanishing of Elina Harper — rescue + the accusation (hidden section).
-		if (has(k('mission_succeeded'))) harper.missionSucceeded += 1;
-		if (has(k('mission_failed'))) harper.missionFailed += 1;
-		for (const s of TIC_SUSPECTS) if (has(`hidden.accuse_${s}`)) harper.suspect[s] = (harper.suspect[s] ?? 0) + 1;
-		for (const h of TIC_HIDEOUTS) if (has(`hidden.accuse_${h.accuse}`)) harper.hideout[h.id] = (harper.hideout[h.id] ?? 0) + 1;
+		on(k('mission_succeeded'), harper.missionSucceeded);
+		on(k('mission_failed'), harper.missionFailed);
+		for (const s of TIC_SUSPECTS) on(`hidden.accuse_${s.id}`, ensureTally(harper.suspect, s.id));
+		for (const h of TIC_HIDEOUTS)
+			on(`hidden.accuse_${h.accuse}`, ensureTally(harper.hideout, h.id));
 
 		// In Too Deep — the flooding fork.
-		if (has(k('made_it_safely_to_their_vehicles'))) inTooDeep.safe += 1;
-		if (has(k('innsmouth_was_consumed_by_the_rising_tide'))) inTooDeep.consumed += 1;
+		on(k('made_it_safely_to_their_vehicles'), inTooDeep.safe);
+		on(k('innsmouth_was_consumed_by_the_rising_tide'), inTooDeep.consumed);
 
 		// Devil Reef.
-		if (has(k('terror_of_devil_reef_is_still_alive'))) devilReef.terrorAlive += 1;
-		if (has(k('terror_of_devil_reef_is_dead'))) devilReef.terrorDead += 1;
-		if (has(k('tide_has_grown_stronger'))) devilReef.tideGrown += 1;
+		on(k('terror_of_devil_reef_is_still_alive'), devilReef.terrorAlive);
+		on(k('terror_of_devil_reef_is_dead'), devilReef.terrorDead);
+		on(k('tide_has_grown_stronger'), devilReef.tideGrown);
 
 		// Horror in High Gear.
-		if (has(k('reached_falcon_point_before_sunrise'))) horror.beforeSunrise += 1;
-		if (has(k('reached_falcon_point_after_sunrise'))) horror.afterSunrise += 1;
+		on(k('reached_falcon_point_before_sunrise'), horror.beforeSunrise);
+		on(k('reached_falcon_point_after_sunrise'), horror.afterSunrise);
 
 		// A Light in the Fog.
-		if (has(k('possess_a_map_of_yhanthlei'))) lightInTheFog.map += 1;
-		if (has(k('possess_the_key_to_yhanthlei'))) lightInTheFog.key += 1;
-		if (has(k('possesses_a_diving_suit'))) lightInTheFog.divingSuit += 1;
+		on(k('possess_a_map_of_yhanthlei'), lightInTheFog.map);
+		on(k('possess_the_key_to_yhanthlei'), lightInTheFog.key);
+		on(k('possesses_a_diving_suit'), lightInTheFog.divingSuit);
 
 		// The Lair of Dagon (defeating Dagon is NOT logged — only awoke vs slumbers).
-		if (has(k('dagon_has_awakened'))) lairOfDagon.awoke += 1;
-		if (has(k('dagon_still_slumbers'))) lairOfDagon.slumbers += 1;
-		if (has(k('gatekeeper_has_been_defeated'))) lairOfDagon.gatekeeperDefeated += 1;
-		if (has(k('orders_ritual_was_disrupted'))) lairOfDagon.ritualDisrupted += 1;
+		on(k('dagon_has_awakened'), lairOfDagon.awoke);
+		on(k('dagon_still_slumbers'), lairOfDagon.slumbers);
+		on(k('gatekeeper_has_been_defeated'), lairOfDagon.gatekeeperDefeated);
+		on(k('orders_ritual_was_disrupted'), lairOfDagon.ritualDisrupted);
 
 		// Into the Maelstrom — flood axis + Harper-mission branches.
-		if (has(k('escaped_yhanthlei'))) finale.escaped += 1;
-		if (has(k('plot_of_the_deep_ones_was_thwarted'))) finale.plotThwarted += 1;
-		if (has(k('flood_has_begun'))) finale.floodBegun += 1;
-		if (has(k('deep_ones_have_flooded_the_earth'))) finale.floodedEarth += 1;
-		if (has(k('agent_harpers_mission_is_complete'))) finale.harperComplete += 1;
-		if (has(k('agent_harpers_mission_is_complete_at_what_cost'))) finale.harperCompleteCost += 1;
-		if (has(k('riches_of_the_deep_are_lost_forever'))) finale.richesLost += 1;
-		if (has(k('riches_of_the_deep_are_destroyed_at_what_cost'))) finale.richesDestroyed += 1;
+		on(k('escaped_yhanthlei'), finale.escaped);
+		on(k('plot_of_the_deep_ones_was_thwarted'), finale.plotThwarted);
+		on(k('flood_has_begun'), finale.floodBegun);
+		on(k('deep_ones_have_flooded_the_earth'), finale.floodedEarth);
+		on(k('agent_harpers_mission_is_complete'), finale.harperComplete);
+		on(k('agent_harpers_mission_is_complete_at_what_cost'), finale.harperCompleteCost);
+		on(k('riches_of_the_deep_are_lost_forever'), finale.richesLost);
+		on(k('riches_of_the_deep_are_destroyed_at_what_cost'), finale.richesDestroyed);
 	}
 
-	const everRecovered = TIC_MEMORIES.filter((m) => (memRecovered[m.id] ?? 0) > 0).length;
+	const everRecovered = TIC_MEMORIES.filter((m) => (memRecovered[m.id]?.total ?? 0) > 0).length;
 
 	return [
 		{

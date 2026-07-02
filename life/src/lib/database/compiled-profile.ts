@@ -299,7 +299,37 @@ export type CompiledProfile = ReturnType<typeof stripCompiledProfile>;
  *  `knowSiteOfGate` (always-true / unreliable); Oath `insaneInvestigators` reshaped to dated
  *  `{ code, finishDate }[]` (newest first); Black Stars Rise `carcosaMerged` is discriminated from Dim
  *  Carcosa's R4 by explicit resolution (naive note → BSR); Dim Carcosa gained `carcosaMerged` (R4). */
-export const COMPILED_PROFILE_VERSION = 47;
+/*  47→48: TCU blob rebuilt to PtC parity — the Lodge-vs-Coven allegiance spine (`allegianceRuns`
+ *  per-play lean chains + `allegianceSources` per-decision Lodge/Coven/neutral by difficulty +
+ *  `allegiance` lean summary/Josef), missing-persons Union survival, mementos coverage, Wages-of-Sin
+ *  heretics distribution, the Inner Circle + Union faction states, the four-ending finale, and the
+ *  Twist-of-Fate `pathWinds` → finale table; Union and Disillusion gained a derived Cosmos version
+ *  axis in `ScenarioStat.versions`. Removed the phantom `covenVictory` (a non-existent log id). */
+/*  48→49: The Dream-Eaters — precomputed `evidenceOfKadath.avg` (tdea) and `stepsOfTheBridge.avg`
+ *  (tdeb) so the widgets read a serialized mean instead of computing it hot. Render-only otherwise. */
+/*  49→50: The Forgotten Age `tfa` blob rebuilt to PtC parity — per-play `runs`, the Poisoned/Venom
+ *  aggregate, the Harbinger per-appearance trajectory + `neverDamaged`, `suppliesEmptyRuns`, the
+ *  Yithian aftermath, and re-sourced hidden-log facts (Ichtaca conversation, HotE consult, final
+ *  depth) + fixed composite-keyed counts (harbinger_alive, paths_known) — so the blob recomputes. */
+/*  50→51: The Innsmouth Conspiracy `tic` blob widened from flat counts to per-difficulty
+ *  `ResolutionTally` on every field (memories/keys/equipment/harper + all per-scenario branches),
+ *  powering the shared difficulty hovers; suspect/hideout/equipment gained card codes — recompute. */
+/*  51→52: NotZ blob rebuilt to full parity — every count widened to a per-difficulty `ResolutionTally`;
+ *  The Gathering gained `litaRecruited` + Ghoul Priest `slain` (crossed-off) vs `survived`; The Midnight
+ *  Masks gained per-cultist caught/escaped tallies, `playsWithEscapes`, and a best-single-play `bestHaul`
+ *  highscore; the finale endings are tallies; and a new `purist` blob counts Core-Set-only clears
+ *  (deck-derived via `CampaignRecord.coreOnly`) + the investigators who achieved them — so it recomputes. */
+/*  52→53: The Drowned City `tdc` blob rebuilt for per-scenario passports — the flat fork objects give
+ *  way to a `scenarios` note-tally map; artifacts gained `kept` (carried into the finale), tasks gained
+ *  `picked`/`obligations` + the per-investigator `assignments` (Extra one_last_job.task_assignment), and
+ *  the doom gained `flooded` neighborhoods — so the blob recomputes. */
+/*  53→54: The Feast of Hemlock Vale `fhv` blob rebuilt for the full widget suite — villager tallies
+ *  gained the danced/stood/sacrificed arc; new `dance`, `hemlockHouse` (Argument + Little Sylvie),
+ *  `longestNight` (captives + Rachel stance + captives-damage Extras), `finalEvening`, and `bertie`
+ *  blobs; and `scenarios` re-keyed by full `section.id` — so the blob recomputes. */
+/*  54→55: TCU Union and Disillusion — the missing-persons Union survival totals (alive/dead) are
+ *  summed into a `union.survivors` field at precompute instead of hot in the widget — recompute. */
+export const COMPILED_PROFILE_VERSION = 55;
 
 /**
  * The on-disk/over-the-wire compiled-profile file (`.ahlifepro`, or its plain

@@ -1,6 +1,8 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 
+	"campaign_tdea_evidence_signs_heading": "Signs of the Gods · best run",
+	"campaign_tdea_evidence_sign_tip": "Sign {n} of 10",
 	"campaign_tdea_evidence_max": "Most Evidence",
 	"campaign_tdea_evidence_avg": "Average",
 	"campaign_tdea_evidence_all_signs": "All 10 Signs",
@@ -19,8 +21,10 @@
 	"campaign_tdea_search_minar": "Mnar",
 	"campaign_tdea_search_forbidden": "Forbidden Lands",
 	"campaign_tdea_search_timeless": "Timeless Realm",
+	"campaign_tdea_search_virgil": "Virgil captured",
 	"campaign_tdea_search_escaped": "Someone escaped",
 	"campaign_tdea_search_all_captured": "Everyone captured",
+	"campaign_tdea_search_forced": "Forced the temple",
 	"campaign_tdea_search_ulthar": "Broke the law of Ulthar",
 	"campaign_tdea_search_empty": "Play The Search for Kadath to chart your route.",
 
@@ -28,8 +32,13 @@
 	"campaign_tdea_moon_travelled": "Travelled to the Cold Wastes",
 	"campaign_tdea_moon_survived": "Randolph survived",
 	"campaign_tdea_moon_died": "Randolph died",
+	"campaign_tdea_moon_grow_weaker": "Dreamers grew weaker",
 	"campaign_tdea_moon_empty": "Play Dark Side of the Moon to record the voyage.",
 
+	"campaign_tdea_gods_victory_heading": "Victory",
+	"campaign_tdea_gods_bittersweet_heading": "Bittersweet",
+	"campaign_tdea_gods_defeat_heading": "Defeat",
+	"campaign_tdea_gods_details_heading": "Along the way",
 	"campaign_tdea_gods_awoke": "The dreamers awoke",
 	"campaign_tdea_gods_stayed": "Stayed forever",
 	"campaign_tdea_gods_monastery": "Beneath the monastery",
@@ -37,5 +46,6 @@
 	"campaign_tdea_gods_banished": "Banished Nyarlathotep",
 	"campaign_tdea_gods_escaped": "Escaped the grasp",
 	"campaign_tdea_gods_another_path": "Knew another path",
+	"campaign_tdea_gods_grand_design": "The grand design",
 	"campaign_tdea_gods_empty": "Reach Where the Gods Dwell to see your finale."
 }

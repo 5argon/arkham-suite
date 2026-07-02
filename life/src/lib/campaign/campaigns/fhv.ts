@@ -1,17 +1,24 @@
 /**
  * fhv.ts — The Feast of Hemlock Vale bespoke per-campaign tallies. ONE builder, ONE
- * payload blob (`fhv`), mirroring `tic.ts`. See `fhv-widgets-plan.md`.
+ * payload blob (`fhv`). FHV is a relationship "life-sim": eight villagers you befriend,
+ * each running the same arc — met → shared a dance → stood by you → sacrificed himself →
+ * saved in the finale.
  *
  *   • areas / schedule — the 7 surveyable areas (`areas_surveyed`) + whether the two
- *     canon-night scenarios were played; the full Day/Night slot matrix is Extra-tab
- *     (`<scenario>.played_on`), read here and rendered nonLog:'partial'.
- *   • villagers — 8 dedicated per-character views: relationship score
- *     (`logCounts[<section>]`) + every milestone (`<section>.<id>`, annotated by scenario)
- *     + saved-in-the-finale; Mother Rachel & Simeon carry extra story-relevant notes.
- *   • fate — Fate of the Vale: which of 4 versions (`hidden.fate_of_the_vale_act_3a_v*`),
- *     the ending reached + class, and which villagers were saved.
+ *     canon-night scenarios were played; the Day/Night slot matrix is Extra-tab
+ *     (`<scenario>.played_on`), rendered nonLog:'partial'.
+ *   • villagers — relationship level (`logCounts[<section>]`) + every milestone
+ *     (`<section>.<id>`) + the danced/stood/sacrificed arc + saved-in-the-finale.
+ *   • dance — The Second Evening: per-resident dance partners + the best single-play
+ *     spread (the Dancing Queen four) + Helen + Mother Rachel's doubts.
+ *   • hemlockHouse — The Argument (Extra `hemlock_house.the_argument`) + Little Sylvie.
+ *   • longestNight — the captives outcome, Mother Rachel's stance (Extra) and the
+ *     captives' damage (Extra highscore, 0 = flawless).
+ *   • finalEvening — believed/lied to Rachel, the Hemlocks' truce, Bertie & the fireworks payoff.
+ *   • bertie — Bertie Musgrave's cross-scenario rescue arc.
+ *   • fate — Fate of the Vale: which of 4 versions, the ending, and which villagers were saved.
  *   • curse — the Hemlock curse (`hemlock_curse_count`, per-investigator).
- *   • scenarios — per-scenario fork outcomes (dedicated widgets + folded into the schedule).
+ *   • scenarios — per-scenario fork outcomes, keyed by full `section.id` (the bespoke widgets).
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
@@ -34,6 +41,11 @@ export function fhvScenarioName(id: string): string {
 	return getCampaignLog(FHV_FAMILY)?.en.scenarioNames?.[id] ?? id;
 }
 
+/** A villager's display name (the campaign-log relationship-section title, e.g. "Leah Atwood"). */
+export function fhvVillagerName(id: string): string {
+	return getCampaignLog(FHV_FAMILY)?.en.sections?.[id] ?? id;
+}
+
 /** The 7 surveyable areas (`areas_surveyed` checklist). */
 export const FHV_AREAS = [
 	'north_point_mine', 'hemlock_harbor', 'pearl_ridge', 'akwan_shoreline',
@@ -48,7 +60,8 @@ export interface FhvVillagerDef {
 	max: number;
 	milestones: FhvMilestone[];
 }
-/** The 8 villagers: relationship section, relationship-level max (3/6/7), and every milestone (with its scenario). */
+/** The 8 villagers, in dinner-seat order: relationship section, relationship-level max (3/6/7),
+ *  and every milestone (with its scenario). Mother Rachel is first (she anchors the campaign). */
 export const FHV_VILLAGERS: FhvVillagerDef[] = [
 	{ id: 'rachel', max: 3, milestones: [
 		{ id: 'mother_rachel_intervened', scenario: 'the_twisted_hollow' },
@@ -116,6 +129,9 @@ export const FHV_VILLAGERS: FhvVillagerDef[] = [
 	] },
 ];
 
+/** The 7 residents who can dance / stand by you / sacrifice themselves (Mother Rachel never does). */
+export const FHV_DANCERS = ['leah', 'simeon', 'william', 'river', 'gideon', 'judith', 'theo'];
+
 /** Fate of the Vale endings (campaign_notes) → outcome class. */
 export const FHV_FATE_ENDINGS: { id: string; cls: 'win' | 'best' | 'loss' }[] = [
 	{ id: 'dr_marquez_sacrificed_herself_for_the_vale', cls: 'win' },
@@ -126,20 +142,56 @@ export const FHV_FATE_ENDINGS: { id: string; cls: 'win' | 'best' | 'loss' }[] = 
 	{ id: 'became_the_true_feast_of_hemlock_vale', cls: 'loss' },
 ];
 
-/** Per-scenario fork outcomes (dedicated widgets + folded into the schedule). */
-export const FHV_SCENARIOS: { id: string; notes: string[] }[] = [
-	{ id: 'written_in_rock', notes: ['survived_the_horrors_in_the_rock'] },
-	{ id: 'the_silent_heath', notes: ['laid_the_pearl_family_to_rest', 'remains_were_partially_recovered', 'madame_pearls_diary_was_recovered'] },
-	{ id: 'the_lost_sister', notes: ['the_peters_family_was_reunited', 'elizabeth_peters_was_saved'] },
-	{ id: 'the_thing_in_the_depths', notes: ['chelydran_hybrid_perished', 'chelydran_hybrid_lived', 'chelydran_hybrid_devoured', 'thing_in_the_depths_was_defeated'] },
-	{ id: 'the_twisted_hollow', notes: ['mother_rachel_showed_the_way', 'lost_the_path', 'bertie_was_rescued', 'bertie_was_lost_in_the_woods', 'the_bear_was_wounded'] },
-	{ id: 'the_longest_night', notes: ['faced_the_night_alone', 'captives_were_saved', 'many_captives_were_lost', 'all_the_captives_were_lost', 'dr_marquez_has_a_plan'] },
+/** Per-scenario fork outcomes, keyed by FULL composite key (`section.id`) — the bespoke widgets
+ *  read `scenarios[<id>][<key>]`. Grouping/theming is decided per-widget. Hemlock House and the
+ *  preludes carry their signature moments in dedicated blobs instead (Argument / dance / fireworks). */
+export const FHV_SCENARIOS: { id: string; outcomes: string[] }[] = [
+	{ id: 'written_in_rock', outcomes: [
+		'simeon.simeon_survived', 'leah.leah_saw_something_in_the_mine',
+		'simeon.simeon_disappeared', 'leah.leah_and_simeon_were_reunited',
+		'campaign_notes.survived_the_horrors_in_the_rock',
+	] },
+	{ id: 'the_silent_heath', outcomes: [
+		'campaign_notes.laid_the_pearl_family_to_rest',
+		'campaign_notes.remains_were_partially_recovered',
+		'campaign_notes.madame_pearls_diary_was_recovered',
+		'leah.searched_the_pearl_ruins',
+	] },
+	{ id: 'the_lost_sister', outcomes: [
+		'campaign_notes.the_peters_family_was_reunited',
+		'campaign_notes.elizabeth_peters_was_saved',
+		'theo.theo_reconciled_with_helen',
+		'gideon.gideon_found_his_treasure',
+	] },
+	{ id: 'the_thing_in_the_depths', outcomes: [
+		'campaign_notes.thing_in_the_depths_was_defeated',
+		'campaign_notes.chelydran_hybrid_lived',
+		'campaign_notes.chelydran_hybrid_perished',
+		'campaign_notes.chelydran_hybrid_devoured',
+		'judith.judith_shared_a_grudge',
+	] },
+	{ id: 'the_twisted_hollow', outcomes: [
+		'campaign_notes.bertie_was_rescued',
+		'campaign_notes.bertie_was_lost_in_the_woods',
+		'campaign_notes.mother_rachel_showed_the_way',
+		'campaign_notes.lost_the_path',
+		'campaign_notes.the_bear_was_wounded',
+		'judith.judith_saved_your_ass',
+		'theo.theo_distracted_the_bear',
+		'rachel.mother_rachel_intervened',
+	] },
+	{ id: 'the_longest_night', outcomes: [
+		'campaign_notes.captives_were_saved',
+		'campaign_notes.many_captives_were_lost',
+		'campaign_notes.all_the_captives_were_lost',
+		'campaign_notes.faced_the_night_alone',
+		'campaign_notes.dr_marquez_has_a_plan',
+	] },
 ];
 
-/** Scenarios that carry a `<scenario>.played_on` Extra pick — the 5 FLEXIBLE ones whose
- *  day/phase the log never records. The two locked nights (The Twisted Hollow = Day 1 Night,
- *  The Longest Night = Day 2 Night) are derived from the log instead (see `schedule`), so they
- *  have no curation choice and are intentionally excluded here. Must mirror the curation
+/** Scenarios that carry a `<scenario>.played_on` Extra pick — the FLEXIBLE ones whose day/phase
+ *  the log never records. The two locked nights (The Twisted Hollow = Day 1 Night, The Longest
+ *  Night = Day 2 Night) are derived from the log instead (see `schedule`). Mirrors the curation
  *  `scenarioChoices` keys in campaign-data `curation/fhv.json`. */
 export const FHV_SCHEDULABLE = [
 	'written_in_rock', 'hemlock_house', 'the_silent_heath', 'the_lost_sister',
@@ -155,6 +207,12 @@ export interface FhvVillagerTally {
 	milestones: Record<string, number>;
 	/** Plays where this villager was saved in the finale. */
 	saved: number;
+	/** Plays where this villager shared a dance (The Second Evening). */
+	danced: number;
+	/** Plays where this villager stood by you (The Longest Night). */
+	stood: number;
+	/** Plays where this villager sacrificed themself (The Longest Night). */
+	sacrificed: number;
 }
 
 export interface CampaignFhv {
@@ -167,15 +225,60 @@ export interface CampaignFhv {
 		playedLongestNight: number;
 		/** Skipped/defied BOTH canon nights (the "colour outside the lines" play). */
 		skippedBothNights: number;
-		/** Extra-tab Day/Night matrix: scenario id → slot → plays (empty until the Extra input exists). */
+		/** Extra-tab Day/Night matrix: scenario id → slot → plays. */
 		playedOn: Record<string, Record<string, number>>;
 	};
 	/** villager id → tally. */
 	villagers: Record<string, FhvVillagerTally>;
-	/** Mother Rachel's cross-scenario story notes (she anchors both canon nights). */
+	/** Mother Rachel's cross-scenario story notes (she anchors both canon nights + the Final Evening). */
 	rachelExtra: { showedTheWay: number; lostThePath: number; believed: number; liedTo: number };
 	/** Simeon's fireworks-plan arc (his plan → the "Burn it all" finale). */
 	simeonExtra: { planUnderway: number; fireworks: number };
+	/** The Second Evening — the dance. */
+	dance: {
+		/** villager id → plays they shared a dance. */
+		partners: Record<string, number>;
+		/** Plays Helen Peters danced (needs the Peters family reunited). */
+		helen: number;
+		/** Plays Mother Rachel shared her doubts (she never dances). */
+		rachelDoubts: number;
+		/** Best single-play dance spread (distinct residents) — the Dancing Queen four. */
+		best: number;
+		/** Plays that reached the dance (any dance recorded). */
+		plays: number;
+	};
+	/** Hemlock House — The Argument (Extra) + Little Sylvie. */
+	hemlockHouse: {
+		/** Extra `hemlock_house.the_argument` → plays. */
+		argument: { william: number; judith: number; neither: number };
+		/** Plays that found Little Sylvie (`hidden.found_little_sylvie`). */
+		littleSylvie: number;
+	};
+	/** The Longest Night — captives + Mother Rachel's stance (Extra) + captives damage (Extra). */
+	longestNight: {
+		facedAlone: number;
+		captivesSaved: number;
+		captivesManyLost: number;
+		captivesAllLost: number;
+		drMarquezPlan: number;
+		/** Extra `the_longest_night.rachel_stance`. */
+		rachel: { confront: number; hide: number };
+		/** Extra `the_longest_night.captives_damage`: the LOWEST recorded (0 = flawless), or null. */
+		damageBest: number | null;
+		/** Plays with a recorded captives-damage value. */
+		damagePlays: number;
+	};
+	/** The Final Evening — belief/lie, the Hemlocks' truce, and the fireworks payoff. */
+	finalEvening: {
+		believed: number;
+		lied: number;
+		interrupted: number;
+		truce: number;
+		gideonTale: number;
+		fireworks: number;
+	};
+	/** Bertie Musgrave's cross-scenario arc. */
+	bertie: { rescued: number; lost: number; epiphany: number; perished: number };
 	fate: {
 		/** version id (v1..v4) → plays. */
 		version: Record<string, number>;
@@ -186,7 +289,7 @@ export interface CampaignFhv {
 	};
 	/** Hemlock curse (per-investigator count). */
 	curse: { plays: number; maxCursed: number };
-	/** scenario id → fork note id → plays (per-scenario fork outcomes; also folded into the schedule). */
+	/** scenario id → full composite key → plays (per-scenario fork outcomes). */
 	scenarios: Record<string, Record<string, number>>;
 }
 
@@ -199,13 +302,24 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
 	const areas: Record<string, number> = {};
 	const schedule = { playedTwistedHollow: 0, playedLongestNight: 0, skippedBothNights: 0, playedOn: {} as Record<string, Record<string, number>> };
 	const villagers: Record<string, FhvVillagerTally> = {};
-	for (const v of FHV_VILLAGERS) villagers[v.id] = { maxScore: null, milestones: {}, saved: 0 };
+	for (const v of FHV_VILLAGERS) villagers[v.id] = { maxScore: null, milestones: {}, saved: 0, danced: 0, stood: 0, sacrificed: 0 };
 	const rachelExtra = { showedTheWay: 0, lostThePath: 0, believed: 0, liedTo: 0 };
 	const simeonExtra = { planUnderway: 0, fireworks: 0 };
+	const dance = { partners: {} as Record<string, number>, helen: 0, rachelDoubts: 0, best: 0, plays: 0 };
+	const hemlockHouse = { argument: { william: 0, judith: 0, neither: 0 }, littleSylvie: 0 };
+	const longestNight = {
+		facedAlone: 0, captivesSaved: 0, captivesManyLost: 0, captivesAllLost: 0, drMarquezPlan: 0,
+		rachel: { confront: 0, hide: 0 }, damageBest: null as number | null, damagePlays: 0,
+	};
+	const finalEvening = { believed: 0, lied: 0, interrupted: 0, truce: 0, gideonTale: 0, fireworks: 0 };
+	const bertie = { rescued: 0, lost: 0, epiphany: 0, perished: 0 };
 	const fate = { version: {} as Record<string, number>, endings: {} as Record<string, number>, saved: {} as Record<string, number> };
 	const curse = { plays: 0, maxCursed: 0 };
 	const scenarios: Record<string, Record<string, number>> = {};
 	for (const sc of FHV_SCENARIOS) scenarios[sc.id] = {};
+
+	const thOutcomes = FHV_SCENARIOS.find((s) => s.id === 'the_twisted_hollow')!.outcomes;
+	const lnOutcomes = FHV_SCENARIOS.find((s) => s.id === 'the_longest_night')!.outcomes;
 
 	for (const rec of fhvRecords) {
 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
@@ -215,29 +329,65 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
 		// Areas surveyed.
 		for (const a of FHV_AREAS) if (has(`areas_surveyed.${a}`)) areas[a] = (areas[a] ?? 0) + 1;
 
-		// Villagers — score (logCounts[<section>]) + milestones + saved-in-finale.
+		// Villagers — relationship level + milestones + the arc + saved-in-finale.
 		for (const v of FHV_VILLAGERS) {
 			const t = villagers[v.id];
 			const score = counts[v.id];
 			if (score !== undefined) t.maxScore = t.maxScore === null ? score : Math.max(t.maxScore, score);
 			for (const ms of v.milestones) if (has(`${v.id}.${ms.id}`)) t.milestones[ms.id] = (t.milestones[ms.id] ?? 0) + 1;
+			if (has(`${v.id}.${v.id}_shared_a_dance`)) t.danced += 1;
+			if (has(`${v.id}.${v.id}_stood_by_you`)) t.stood += 1;
+			if (has(`${v.id}.${v.id}_sacrificed_himself`)) t.sacrificed += 1;
 			if (has(`${H}.fate_of_the_vale_saved_${v.id}`)) {
 				t.saved += 1;
 				fate.saved[v.id] = (fate.saved[v.id] ?? 0) + 1;
 			}
 		}
 
-		// Mother Rachel + Simeon extras.
+		// Mother Rachel + Simeon extras / The Final Evening forks.
+		const believed = has(k('believed'));
+		const lied = has(k('lied_to_mother_rachel'));
 		if (has(k('mother_rachel_showed_the_way'))) rachelExtra.showedTheWay += 1;
 		if (has(k('lost_the_path'))) rachelExtra.lostThePath += 1;
-		if (has(k('believed'))) rachelExtra.believed += 1;
-		if (has(k('lied_to_mother_rachel'))) rachelExtra.liedTo += 1;
+		if (believed) rachelExtra.believed += 1;
+		if (lied) rachelExtra.liedTo += 1;
 		if (has(`${H}.simeon_plan_is_underway`)) simeonExtra.planUnderway += 1;
-		if (has(k('the_vale_is_full_of_fireworks'))) simeonExtra.fireworks += 1;
+		const fireworks = has(k('the_vale_is_full_of_fireworks'));
+		if (fireworks) simeonExtra.fireworks += 1;
+		if (believed) finalEvening.believed += 1;
+		if (lied) finalEvening.lied += 1;
+		if (has(k('interrupted_the_feast'))) finalEvening.interrupted += 1;
+		if (has(k('the_hemlocks_made_a_truce'))) finalEvening.truce += 1;
+		if (has('gideon.gideon_finished_the_tale_of_the_annabelle_lee')) finalEvening.gideonTale += 1;
+		if (fireworks) finalEvening.fireworks += 1;
+
+		// Bertie's arc.
+		if (has(k('bertie_was_rescued'))) bertie.rescued += 1;
+		if (has(k('bertie_was_lost_in_the_woods'))) bertie.lost += 1;
+		if (has(k('bertie_had_an_epiphany'))) bertie.epiphany += 1;
+		if (has(k('bertie_perished'))) bertie.perished += 1;
+
+		// The Second Evening — the dance (count from the durable per-resident flags).
+		let danceSpread = 0;
+		for (const d of FHV_DANCERS) {
+			if (has(`${d}.${d}_shared_a_dance`)) {
+				dance.partners[d] = (dance.partners[d] ?? 0) + 1;
+				danceSpread += 1;
+			}
+		}
+		if (has(k('helen_shared_a_dance'))) { dance.helen += 1; danceSpread += 1; }
+		if (has('rachel.mother_rachel_shared_her_doubts')) dance.rachelDoubts += 1;
+		if (danceSpread > 0) dance.plays += 1;
+		dance.best = Math.max(dance.best, danceSpread);
+
+		// Hemlock House — The Argument (Extra) + Little Sylvie.
+		const arg = rec.scenarioChoices?.['hemlock_house.the_argument'];
+		if (arg === 'william' || arg === 'judith' || arg === 'neither') hemlockHouse.argument[arg] += 1;
+		if (has(`${H}.found_little_sylvie`)) hemlockHouse.littleSylvie += 1;
 
 		// Schedule — canon nights played + the Extra Day/Night matrix.
-		const playedTH = FHV_SCENARIOS.find((s) => s.id === 'the_twisted_hollow')!.notes.some((n) => has(k(n)));
-		const playedLN = FHV_SCENARIOS.find((s) => s.id === 'the_longest_night')!.notes.some((n) => has(k(n)));
+		const playedTH = thOutcomes.some((key) => has(key));
+		const playedLN = lnOutcomes.some((key) => has(key));
 		if (playedTH) schedule.playedTwistedHollow += 1;
 		if (playedLN) schedule.playedLongestNight += 1;
 		if (!playedTH && !playedLN) schedule.skippedBothNights += 1;
@@ -245,6 +395,23 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
 			const slot = rec.scenarioChoices?.[`${sc}.played_on`];
 			if (slot) {
 				(schedule.playedOn[sc] ??= {})[slot] = (schedule.playedOn[sc][slot] ?? 0) + 1;
+			}
+		}
+
+		// The Longest Night — captives outcome + Mother Rachel's stance + captives damage (Extra).
+		if (has(k('faced_the_night_alone'))) longestNight.facedAlone += 1;
+		if (has(k('captives_were_saved'))) longestNight.captivesSaved += 1;
+		if (has(k('many_captives_were_lost'))) longestNight.captivesManyLost += 1;
+		if (has(k('all_the_captives_were_lost'))) longestNight.captivesAllLost += 1;
+		if (has(k('dr_marquez_has_a_plan'))) longestNight.drMarquezPlan += 1;
+		const stance = rec.scenarioChoices?.['the_longest_night.rachel_stance'];
+		if (stance === 'confront' || stance === 'hide') longestNight.rachel[stance] += 1;
+		const dmgRaw = rec.scenarioChoices?.['the_longest_night.captives_damage'];
+		if (dmgRaw !== undefined && dmgRaw !== '') {
+			const dmg = Number(dmgRaw);
+			if (Number.isFinite(dmg)) {
+				longestNight.damagePlays += 1;
+				longestNight.damageBest = longestNight.damageBest === null ? dmg : Math.min(longestNight.damageBest, dmg);
 			}
 		}
 
@@ -261,9 +428,9 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
 			curse.maxCursed = Math.max(curse.maxCursed, cursed);
 		}
 
-		// Per-scenario fork outcomes.
+		// Per-scenario fork outcomes (full composite keys).
 		for (const sc of FHV_SCENARIOS) {
-			for (const note of sc.notes) if (has(k(note))) scenarios[sc.id][note] = (scenarios[sc.id][note] ?? 0) + 1;
+			for (const key of sc.outcomes) if (has(key)) scenarios[sc.id][key] = (scenarios[sc.id][key] ?? 0) + 1;
 		}
 	}
 
@@ -276,6 +443,11 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
 			villagers,
 			rachelExtra,
 			simeonExtra,
+			dance,
+			hemlockHouse,
+			longestNight,
+			finalEvening,
+			bertie,
 			fate,
 			curse,
 			scenarios,

@@ -1,11 +1,12 @@
 <!--
 @component
-TDE shared widget — "Randolph Carter". His fate across both campaigns: the Dream-Quest
-(saved you / eluded or was captured / survived or died on the voyage) and the Web of Dreams
-(escaped the hospital alone or with you / survived or died on the descent). Built on StatNumbers.
+TDE shared widget — "Randolph Carter". His fate across both campaigns: the Dream-Quest (saved you /
+eluded or was captured / survived or died on the voyage) and the Web of Dreams (escaped the hospital
+alone or with you / survived or died on the descent). His two arc-specific cards anchor the widget.
 -->
 <script lang="ts">
 	import type { CampaignTdeShared } from '$lib/campaign/campaigns/tde-shared';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, {
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
@@ -47,6 +48,10 @@ TDE shared widget — "Randolph Carter". His fate across both campaigns: the Dre
 </script>
 
 {#if hasData}
+	<div class="mb-4 flex items-center justify-center gap-2">
+		<CardThumb code="06059" alt="Randolph Carter — the Dream-Quest" size="h-14 w-14" objectTop />
+		<CardThumb code="06079" alt="Randolph Carter — the Web of Dreams" size="h-14 w-14" objectTop />
+	</div>
 	<StatNumbers {rows} />
 {:else}
 	<p class="text-primary-500 text-sm">{m.campaign_tde_randolph_empty()}</p>

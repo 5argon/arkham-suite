@@ -1,20 +1,21 @@
 <!--
 @component
-TFA secret finale — "Turn Back Time". The true ending: rewind time at Shattered Aeons (its
-Resolution 5), then seal the Relic of Ages forever. A LOSS here logs identically to a Shattered
-Aeons loss, so the campaign log can only confirm the WIN (`sealed_relic_of_ages_forever`); the
-played count celebrates every time you came all the way here — the authoritative seal count, or
-any reach you recorded yourself in the Extra tab, whichever is higher. Wrapped in the shared
-`ScenarioInfo` passport (resolutions reached + verdicts, victory-display highscore, achievements).
+TFA secret finale — "Turn Back Time". The true ending: rewind time at Shattered Aeons (its Resolution
+5), then seal the Relic of Ages forever. A LOSS here logs identically to a Shattered Aeons loss, so the
+campaign log can only confirm the WIN (`sealed_relic_of_ages_forever`); the played count celebrates
+every time you came all the way here — the authoritative seal count, or any reach you recorded in the
+Extra tab, whichever is higher. Wrapped in the shared `ScenarioInfo` passport (Relic of Ages header
+art; the If I Could Turn Back Time achievement surfaces here).
 -->
 <script lang="ts">
-	import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+	import { TFA_RELIC_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo, {
 		type CornerStat
 	} from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
+	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -42,9 +43,6 @@ any reach you recorded yourself in the Extra tab, whichever is higher. Wrapped i
 	const playsStat = $derived<CornerStat | null>(
 		reached > 0 ? { total: reached, byTier: stat?.playsByTier ?? {} } : null
 	);
-	const sealedRows = $derived<Stat[][]>(
-		sealed > 0 ? [[{ value: sealed, label: m.campaign_tfa_aeons_sealed() }]] : []
-	);
 </script>
 
 <ScenarioInfo
@@ -55,9 +53,16 @@ any reach you recorded yourself in the Extra tab, whichever is higher. Wrapped i
 	{logOnly}
 	plays={playsStat}
 >
+	{#snippet headerArt()}
+		<CardThumb code={TFA_RELIC_CODE} alt={m.campaign_tfa_relic_name()} objectTop />
+	{/snippet}
 	{#snippet stats()}
 		{#if sealed > 0}
-			<StatNumbers rows={sealedRows} />
+			<div class="flex items-center justify-center gap-2">
+				<OutcomeFace kind="best" label={m.campaign_tfa_aeons_sealed()} size="text-2xl" />
+				<span class="text-4xl leading-none font-bold text-black tabular-nums dark:text-white">×{sealed}</span>
+				<span class="text-primary-500 text-sm">{m.campaign_tfa_aeons_sealed()}</span>
+			</div>
 		{:else if reached === 0}
 			<p class="text-primary-500 text-sm">{m.campaign_tfa_turn_back_time_empty()}</p>
 		{/if}

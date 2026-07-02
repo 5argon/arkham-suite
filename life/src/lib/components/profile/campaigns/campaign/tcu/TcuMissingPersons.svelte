@@ -1,9 +1,10 @@
 <!--
 @component
-TCU bespoke widget — "The Missing Persons". The four who vanish at the Twilight Estate
-(Gavriella, Jerome, Valentino, Penny), each lit by how often you picked up their trail,
-with a hover for how they were lost (Taken by the Watcher / Claimed by specters / …).
-Portraits are their cards. Built on LitTileGrid.
+TCU bespoke widget — "The Missing Persons". The four who vanish at the Twilight Estate (Gavriella,
+Jerome, Valentino, Penny) as card portraits, lit by how often you picked up their trail. Each tile's
+hover tells their whole arc: how they were lost at the estate (Taken by the Watcher / Claimed by
+specters / …), whose trail you found at Death's Doorstep, and whether they were alive or dead when
+the veil parted at Union and Disillusion. Built on LitTileGrid, inside the prologue passport.
 -->
 <script lang="ts">
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
@@ -45,11 +46,13 @@ Portraits are their cards. Built on LitTileGrid.
 	const tiles = $derived<LitTile[]>(
 		tcu
 			? TCU_MISSING.map((p): LitTile => {
-					const t = tcu.missingPersons[p.id] ?? { trail: 0, fates: {} };
+					const t = tcu.missingPersons[p.id] ?? { trail: 0, fates: {}, union: { alive: 0, dead: 0 } };
 					const parts: string[] = [];
-					if (t.trail > 0) parts.push(m.campaign_tcu_person_trail({ times: times(t.trail) }));
 					for (const f of TCU_FATES)
 						if ((t.fates[f] ?? 0) > 0) parts.push(`${FATE[f]()} ×${t.fates[f]}`);
+					if (t.trail > 0) parts.push(m.campaign_tcu_person_trail({ times: times(t.trail) }));
+					if (t.union.alive > 0) parts.push(`${m.campaign_tcu_person_alive()} ×${t.union.alive}`);
+					if (t.union.dead > 0) parts.push(`${m.campaign_tcu_person_dead()} ×${t.union.dead}`);
 					return {
 						id: p.id,
 						image: getCardImagePath(p.id, 'square'),
@@ -74,7 +77,7 @@ Portraits are their cards. Built on LitTileGrid.
 >
 	{#snippet children()}
 		{#if hasData}
-			<LitTileGrid {tiles} colsClass="grid-cols-2 @3xl:grid-cols-4" />
+			<LitTileGrid {tiles} colsClass="grid-cols-2 @3xl:grid-cols-4" countPosition="below" />
 		{:else}
 			<p class="text-primary-500 text-sm">{m.campaign_tcu_persons_empty()}</p>
 		{/if}

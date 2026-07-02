@@ -1,10 +1,11 @@
 <!--
 @component
-TDE shared widget — "The Silver Key". Times obtained, and (interconnected) times it ended
-in the Dream-Quest after passing across at The Great Ones. Built on StatNumbers.
+TDE shared widget — "The Silver Key". Times obtained, and (interconnected) times it ended in the
+Dream-Quest after passing across at The Great Ones. The artifact's own card anchors the widget.
 -->
 <script lang="ts">
 	import type { CampaignTdeShared } from '$lib/campaign/campaigns/tde-shared';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -24,7 +25,10 @@ in the Dream-Quest after passing across at The Great Ones. Built on StatNumbers.
 </script>
 
 {#if hasData}
-	<StatNumbers {rows} />
+	<div class="flex items-center justify-center gap-4">
+		<CardThumb code="06189" alt="The Silver Key" />
+		<StatNumbers {rows} />
+	</div>
 {:else}
 	<p class="text-primary-500 text-sm">{m.campaign_tde_key_empty()}</p>
 {/if}

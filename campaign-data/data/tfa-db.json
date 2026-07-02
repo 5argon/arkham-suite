@@ -39,7 +39,20 @@
         "no_resolution": "loss",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "choices": [
+        {
+          "id": "poisoned",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "types": [
+              "investigator"
+            ]
+          },
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "tfa_interlude1",
@@ -68,6 +81,25 @@
           "control": "counter",
           "min": 0,
           "max": 12
+        },
+        {
+          "id": "harbinger_damage",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 7,
+          "after": "resolution"
+        },
+        {
+          "id": "poisoned",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "types": [
+              "investigator"
+            ]
+          },
+          "after": "resolution"
         }
       ]
     },
@@ -107,7 +139,17 @@
       "resolutionOutcomes": {
         "no_resolution": "loss",
         "R1": "win"
-      }
+      },
+      "choices": [
+        {
+          "id": "ichtaca_conversation",
+          "options": [
+            "stop_her",
+            "let_her_leave"
+          ],
+          "control": "radio"
+        }
+      ]
     },
     {
       "id": "the_boundary_beyond",
@@ -139,7 +181,30 @@
       "resolutionOutcomes": {
         "no_resolution": "loss",
         "R1": "win"
-      }
+      },
+      "choices": [
+        {
+          "id": "consult",
+          "options": [
+            "ichtaca",
+            "alejandro",
+            "journal",
+            "nothing"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "poisoned",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "types": [
+              "investigator"
+            ]
+          },
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "heart_of_the_elders_part_2",
@@ -154,7 +219,28 @@
         "no_resolution": "loss",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "choices": [
+        {
+          "id": "harbinger_damage",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 7,
+          "after": "resolution"
+        },
+        {
+          "id": "poisoned",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "types": [
+              "investigator"
+            ]
+          },
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "the_city_of_archives",
@@ -178,7 +264,20 @@
       "resolutionOutcomes": {
         "no_resolution": "loss",
         "R1": "win"
-      }
+      },
+      "choices": [
+        {
+          "id": "yithian_aftermath",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "types": [
+              "investigator"
+            ]
+          },
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "tfa_interlude4",
@@ -219,7 +318,17 @@
         "no_resolution": "loss",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "choices": [
+        {
+          "id": "final_depth",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 15,
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "tfa_interlude5",

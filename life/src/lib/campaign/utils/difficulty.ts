@@ -10,6 +10,7 @@
  */
 import * as m from '$lib/paraglide/messages.js';
 import { ALL_TIERS, type DifficultyTier } from '../profile/profile-settings';
+import type { ResolutionTally } from '../outcomes/resolution-coverage';
 
 /** The difficulty tiers, easiest → hardest. */
 export const DIFFICULTY_ORDER: readonly DifficultyTier[] = ALL_TIERS;
@@ -57,4 +58,25 @@ export function difficultyBreakdown(
 		.filter((t) => (byTier[t] ?? 0) > 0)
 		.map((t) => `${difficultyLabel(t)} ${fmt(byTier[t])}`)
 		.join(sep);
+}
+
+/**
+ * A resolution-tally detail line: the label for "never reached" when the total
+ * is 0, otherwise the "reached ×N" label suffixed with a `×N`-per-tier breakdown
+ * (only when more than one tier is present). Callers pass the two campaign-specific
+ * labels; the count/breakdown formatting stays consistent across every widget.
+ */
+export function tallyDetail(
+	t: ResolutionTally | undefined,
+	zero: () => string,
+	some: (times: string) => string,
+): string {
+	const c = t?.total ?? 0;
+	if (c === 0) return zero();
+	const base = some(times(c));
+	const bd =
+		t && Object.keys(t.byTier).length > 1
+			? difficultyBreakdown(t.byTier, (n) => `×${n}`, ' · ')
+			: '';
+	return bd ? `${base} · ${bd}` : base;
 }

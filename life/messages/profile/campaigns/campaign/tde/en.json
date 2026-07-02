@@ -3,6 +3,7 @@
 
 	"campaign_tde_mode_interconnected": "Interconnected (8-part)",
 	"campaign_tde_mode_half": "Half campaign (4-part)",
+	"campaign_tde_mode_unspecified": "Unspecified",
 	"campaign_tde_mode_empty": "Record a Dream-Eaters play to see how you played it.",
 
 	"campaign_tde_cat_with_dream_quest": "At your side · Dream-Quest",
@@ -12,6 +13,8 @@
 	"campaign_tde_cat_on_your_own": "On your own",
 	"campaign_tde_cat_hunch": "Had a hunch",
 	"campaign_tde_cat_searched": "Searched for the truth",
+	"campaign_tde_cat_unresolved": "Fate unresolved",
+	"campaign_tde_cat_trail_heading": "The cat's messages",
 	"campaign_tde_cat_note": "The cat sides with the Dream-Quest party (cultist) or the Web of Dreams party (tablet). In interconnected play, link the other campaign's log to complete the arc.",
 	"campaign_tde_cat_empty": "Play through the Black Cat interludes to follow the companion.",
 

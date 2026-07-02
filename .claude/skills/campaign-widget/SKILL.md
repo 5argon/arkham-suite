@@ -43,6 +43,7 @@ All under `$lib/components/profile/_primitives/` unless noted.
 | A small section heading / table caption | `SectionLabel` | `variant` heading (sm semibold) vs label (xs muted); `align` left/center. Replaces every hand-rolled `<p class="text-primary-500 … text-xs font-medium">`. |
 | "Which endings?" resolution chips | `ResolutionChips` | ids / visited / tallies / verdicts. |
 | A win/loss outcome face icon | `OutcomeFace` | better-win / win / special / loss, with a naming hover. |
+| A "● lit / ○ greyed" story-fork outcome list | `OutcomeList` | Items are `{ label, hit, count?, note? }`; ●=hit ○=miss, optional ×count + muted trailing note. Used by FHV scenario passports + TDC dive-site passports. |
 | Chaos-token glyph(s) | `ColoredChaosToken`, `TokenCoinRow` | Single token vs a labelled coin row with ×count. |
 | The "hidden in log-only mode" placeholder | `NonLogPlaceholder` | Pair with the widget's `nonLog` classification. |
 

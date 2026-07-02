@@ -62,6 +62,15 @@
             "day_3_night"
           ],
           "control": "radio"
+        },
+        {
+          "id": "the_argument",
+          "options": [
+            "william",
+            "judith",
+            "neither"
+          ],
+          "control": "radio"
         }
       ]
     },
@@ -207,7 +216,25 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "choices": [
+        {
+          "id": "rachel_stance",
+          "options": [
+            "confront",
+            "hide"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "captives_damage",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 9,
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "dawn_of_the_final_day",

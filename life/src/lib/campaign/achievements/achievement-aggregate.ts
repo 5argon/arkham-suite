@@ -51,6 +51,10 @@ export interface CampaignRecord {
 	/** Investigator codes the profile SUBJECT ran in this campaign — splits a Key BORNE by
 	 *  your own investigator from one merely OBTAINED by the cell (a teammate bears it). */
 	subjectInvestigators?: string[];
+	/** Deck-derived: every subject deck used only Core / Revised Core / Core 2026 cards with a
+	 *  non-parallel investigator — the NotZ "Core-Set purist" feat. Absent (⇒ falsy) in unit-test
+	 *  records and when no verifiable decks exist. */
+	coreOnly?: boolean;
 	/** Recorded finish date (ms epoch), for "most recent" ordering. null when unset. */
 	finishDate?: number | null;
 	/** Resolved player count for the play (`auto` resolved from participants); null when unknown.

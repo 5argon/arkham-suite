@@ -340,18 +340,21 @@ function ptcCampaignLayout(): ProfileRow[] {
 }
 
 /**
- * The Forgotten Age's bespoke layout: the Yig's Fury spine + provisions on full rows,
- * the companions/Harbinger and the per-scenario stat widgets paired into split rows in
- * campaign-book order, the City of Archives on its own full row.
+ * The Forgotten Age's bespoke layout: generic + overarching widgets up top (the Yig's Fury spine
+ * on a full row, the Harbinger nemesis + Venom survival pair, the full-width Expedition Kit), then
+ * the per-scenario widgets in campaign-book order — the wide flagships (Threads branch map, City of
+ * Archives ladder, the secret Turn Back Time) on full rows, the rest paired into split rows so every
+ * row is fully filled — and the achievements widget last.
  */
 function tfaCampaignLayout(): ProfileRow[] {
 	return [
 		split('overview', 'tfaCompanions'),
 		full('tfaVengeance'),
 		split('scenarioXp', 'resolutionCoverage'),
+		split('tfaHarbinger', 'tfaPoison'),
 		full('tfaSupplies'),
-		split('tfaHarbinger', 'tfaWilds'),
-		split('tfaEztli', 'tfaThreads'),
+		split('tfaWilds', 'tfaEztli'),
+		full('tfaThreads'),
 		split('tfaBoundary', 'tfaHote'),
 		full('tfaArchives'),
 		split('tfaYoth', 'tfaAeons'),
@@ -361,20 +364,21 @@ function tfaCampaignLayout(): ProfileRow[] {
 }
 
 /**
- * The Circle Undone's bespoke layout: the Lodge-vs-Coven spine + the missing persons +
- * mementos on full rows, the per-scenario stat widgets paired into split rows in
- * campaign-book order, the Before the Black Throne finale near the end.
+ * The Circle Undone's bespoke layout: the Lodge-vs-Coven allegiance spine paired with the
+ * overview up top, the missing persons + mementos walls on full rows, the lighter per-scenario
+ * stat widgets paired into split rows in campaign-book order, and the content-rich Union and
+ * Disillusion (Cosmos versions) + the Before the Black Throne finale on full rows to close.
  */
 function tcuCampaignLayout(): ProfileRow[] {
 	return [
-		split('overview', 'tcuWitchingHour'),
-		full('tcuAllegiance'),
+		split('overview', 'tcuAllegiance'),
 		split('scenarioXp', 'resolutionCoverage'),
 		full('tcuMissingPersons'),
 		full('tcuMementos'),
-		split('tcuDoorstep', 'tcuSecretName'),
-		split('tcuWagesOfSin', 'tcuGreaterGood'),
-		split('tcuUnion', 'tcuClutches'),
+		split('tcuWitchingHour', 'tcuDoorstep'),
+		split('tcuSecretName', 'tcuWagesOfSin'),
+		split('tcuGreaterGood', 'tcuClutches'),
+		full('tcuUnion'),
 		full('tcuEndings'),
 		full('achievements')
 	];
@@ -387,9 +391,8 @@ function tdeaCampaignLayout(): ProfileRow[] {
 	return [
 		split('overview', 'tdeaPlayMode'),
 		split('scenarioXp', 'resolutionCoverage'),
-		full('tdeaEvidence'),
-		split('tdeaBeyondGates', 'tdeaDarkSide'),
-		full('tdeaSearchForKadath'),
+		split('tdeaEvidence', 'tdeaBeyondGates'),
+		split('tdeaSearchForKadath', 'tdeaDarkSide'),
 		full('tdeaGodsDwell'),
 		full('tdeaBlackCat'),
 		split('tdeaSilverKey', 'tdeaRandolph'),
@@ -404,8 +407,7 @@ function tdebCampaignLayout(): ProfileRow[] {
 	return [
 		split('overview', 'tdebPlayMode'),
 		split('scenarioXp', 'resolutionCoverage'),
-		full('tdebSteps'),
-		full('tdebWakingNightmare'),
+		split('tdebSteps', 'tdebWakingNightmare'),
 		split('tdebThousandShapes', 'tdebPointOfNoReturn'),
 		full('tdebWeaver'),
 		full('tdebBlackCat'),
@@ -415,64 +417,76 @@ function tdebCampaignLayout(): ProfileRow[] {
 	];
 }
 
-/** The Innsmouth Conspiracy (tic): the memories collectible (marquee), the seven-key finale
- *  gate, the Harper investigation, the (non-linear) scenarios, and the finale near the end. */
+/** The Innsmouth Conspiracy (tic): the memories collectible (marquee) + the seven-key finale
+ *  gate up top, then the eight scenarios in story order — the low-content stat widgets paired
+ *  into split rows, with the climactic Lair of Dagon → Into the Maelstrom on their own full
+ *  rows (Dagon full keeps the six preceding halves paired cleanly, no one-sided row). */
 function ticCampaignLayout(): ProfileRow[] {
 	return [
 		split('overview', 'ticKeys'),
 		split('scenarioXp', 'resolutionCoverage'),
 		full('ticMemories'),
-		full('ticHarper'),
-		split('ticInTooDeep', 'ticHorror'),
-		full('ticDevilReef'),
-		split('ticLightInTheFog', 'ticDagon'),
+		split('ticPit', 'ticHarper'),
+		split('ticInTooDeep', 'ticDevilReef'),
+		split('ticHorror', 'ticLightInTheFog'),
+		full('ticDagon'),
 		full('ticMaelstrom'),
 		full('achievements')
 	];
 }
 
-/** The Feast of Hemlock Vale (fhv): the Day/Night schedule (replay hook), the 8 villager
- *  relationships laid out 2×4 (half-width), Fate of the Vale, the curse, then per-scenario forks. */
+/** The Feast of Hemlock Vale (fhv): the relationship spine (The Vale roster) up top, then the 8
+ *  villager deep-dives (2x4), the Day/Night schedule, the survey scenarios + Night One paired in
+ *  story order, the dance (The Second Evening), Night Two (The Longest Night), the Final Evening,
+ *  and the Fate of the Vale finale before the achievements. */
 function fhvCampaignLayout(): ProfileRow[] {
 	return [
 		split('overview', 'fhvCurse'),
 		split('scenarioXp', 'resolutionCoverage'),
-		full('fhvSchedule'),
+		full('fhvVale'),
 		split('fhvRachel', 'fhvLeah'),
 		split('fhvSimeon', 'fhvWilliam'),
 		split('fhvRiver', 'fhvGideon'),
 		split('fhvJudith', 'fhvTheo'),
+		full('fhvSchedule'),
+		split('fhvScWrittenInRock', 'fhvScHemlockHouse'),
+		split('fhvScSilentHeath', 'fhvScLostSister'),
+		split('fhvScThingDepths', 'fhvScTwistedHollow'),
+		full('fhvDance'),
+		full('fhvScLongestNight'),
+		full('fhvFinalEvening'),
 		full('fhvFate'),
-		split('fhvScWrittenInRock', 'fhvScSilentHeath'),
-		split('fhvScLostSister', 'fhvScThingDepths'),
-		split('fhvScTwistedHollow', 'fhvScLongestNight'),
 		full('achievements')
 	];
 }
 
-/** The Drowned City (tdc): the Fold (direction), the glyph trackers (per-scenario +
- *  card-art wall), the artifacts/tasks spine, the Sepulchre better-ending gate, the
- *  per-scenario forks, then the Doom of Arkham finale. */
+/** The Drowned City (tdc): the Fold (direction) beside the overview, the alien-glyph wall marquee,
+ *  the artifacts/tasks spine, then a passport per expedition scenario (book order) paired into split
+ *  rows, the Sepulchre better-ending gate, and the Doom of Arkham finale on its own full row. */
 function tdcCampaignLayout(): ProfileRow[] {
 	return [
 		split('overview', 'tdcFold'),
 		split('scenarioXp', 'resolutionCoverage'),
-		full('tdcGlyphsScenario'),
 		full('tdcGlyphWall'),
 		split('tdcArtifacts', 'tdcTasks'),
-		split('tdcSepulchre', null),
-		full('tdcForks'),
+		split('tdcOneLastJob', 'tdcWesternWall'),
+		split('tdcDrownedQuarter', 'tdcApiary'),
+		split('tdcGrandVault', 'tdcCourtOfAncients'),
+		split('tdcObsidianCanyons', 'tdcSepulchre'),
 		full('tdcDoom'),
 		full('achievements')
 	];
 }
 
-/** The Night of the Zealot (notz): the three core-set scenarios. */
+/** The Night of the Zealot (notz): generics + the "threats carried below" spine on top, the three
+ *  core-set scenarios in story order, the Core-Set purist capstone, then achievements. Every split
+ *  row is fully filled — the NotZ widgets are all half-width. */
 function notzCampaignLayout(): ProfileRow[] {
 	return [
-		split('overview', 'notzGathering'),
+		split('overview', 'notzThreatsBelow'),
 		split('scenarioXp', 'resolutionCoverage'),
-		split('notzMidnightMasks', 'notzDevourerBelow'),
+		split('notzGathering', 'notzMidnightMasks'),
+		split('notzDevourerBelow', 'notzCoreOnly'),
 		full('achievements')
 	];
 }

@@ -18,8 +18,14 @@
 	"campaign_tic_mem_truth": "The horrific truth",
 	"campaign_tic_mem_recovered": "Recovered {times}",
 	"campaign_tic_mem_not_yet": "Not recovered",
-	"campaign_tic_mem_headline": "{count} / 15 memories recovered",
-	"campaign_tic_mem_all": "all 15 recovered ×{count}",
+	"campaign_tic_mem_distinct": "Memories recovered",
+	"campaign_tic_mem_all_label": "All 15 recovered",
+	"campaign_tic_mem_grp_pit": "The Pit of Despair",
+	"campaign_tic_mem_grp_itd": "In Too Deep",
+	"campaign_tic_mem_grp_dr": "Devil Reef",
+	"campaign_tic_mem_grp_lif": "A Light in the Fog",
+	"campaign_tic_mem_grp_itm": "Into the Maelstrom",
+	"campaign_tic_mem_grp_epilogue": "Epilogue",
 	"campaign_tic_mem_empty": "Play The Innsmouth Conspiracy to recover your memories.",
 
 	"campaign_tic_key_blue": "Key to Y'ha-nthlei",
@@ -28,7 +34,7 @@
 	"campaign_tic_key_yellow": "Gateway recognizes you",
 	"campaign_tic_key_secured": "Secured {times}",
 	"campaign_tic_key_not_yet": "Not secured",
-	"campaign_tic_keys_reachable": "Secret ending reachable in {count} play(s) — all 4 keys secured.",
+	"campaign_tic_keys_reachable_label": "Secret ending set up",
 	"campaign_tic_keys_unreachable": "Secure all 4 obtainable keys for the seven-key secret ending.",
 	"campaign_tic_keys_empty": "Reach the late scenarios to earn the keys to Y'ha-nthlei.",
 
@@ -50,7 +56,11 @@
 	"campaign_tic_harper_not_accused": "Not accused",
 	"campaign_tic_harper_suspect_heading": "Suspect accused",
 	"campaign_tic_harper_hideout_heading": "Hideout accused",
+	"campaign_tic_harper_agent": "Agent Harper",
 	"campaign_tic_harper_empty": "Play The Vanishing of Elina Harper to track the investigation.",
+
+	"campaign_tic_pit_amalgam": "The Amalgam",
+	"campaign_tic_pit_memories_heading": "Flashbacks recovered here",
 
 	"campaign_tic_itd_safe": "Made it to the vehicles",
 	"campaign_tic_itd_consumed": "Consumed by the tide",
@@ -65,7 +75,9 @@
 	"campaign_tic_equip_idol": "Waveworn Idol",
 	"campaign_tic_equip_mantle": "Awakened Mantle",
 	"campaign_tic_equip_headdress": "Headdress of Y'ha-nthlei",
-	"campaign_tic_equip_full_build": "Full build (all three) ×{count}",
+	"campaign_tic_equip_secured": "Secured {times}",
+	"campaign_tic_equip_not_secured": "Not secured",
+	"campaign_tic_equip_full_build_label": "Full build (all three)",
 
 	"campaign_tic_hhg_before": "Before sunrise",
 	"campaign_tic_hhg_after": "After sunrise",

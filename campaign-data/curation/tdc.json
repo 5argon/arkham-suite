@@ -32,6 +32,26 @@
       "text": "Ursula recalls her Amazon expedition."
     }
   },
+  "scenarioChoices": {
+    "one_last_job": [
+      {
+        "id": "task_assignment",
+        "label": "Which side task each investigator took",
+        "control": "cards",
+        "options": [],
+        "cardFilter": { "codes": ["11753a", "11754a", "11755a", "11756a", "11757a", "11758a", "11759a", "11760a"] },
+        "_note": "At 'An Offer You Can't Refuse' each investigator is assigned exactly one of 8 personal tasks. Which task each investigator took writes only to the hidden picked_* set (per-group, not per-investigator) -> Extra. Card picker = the 8 task front-face codes (11753a No Place Like Home … 11760a Plumb the Depths); paired BY INDEX with task_assignment_investigator into a per-investigator roster (mirrors PtC randomized_weakness). Anchored to one_last_job, the story scenario played immediately before the interlude, so it slots into that record's Extra card."
+      },
+      {
+        "id": "task_assignment_investigator",
+        "label": "Task holder",
+        "control": "cards",
+        "options": [],
+        "cardFilter": { "types": ["investigator"] },
+        "_note": "Pairs BY INDEX with task_assignment: the investigator who took each task, in the same order. Investigator card picker; life's tdc.ts zips the two lists to attribute each task to its holder, scoped to the play's subjectInvestigators. Folded into task_assignment's per-investigator roster (never a standalone field)."
+      }
+    ]
+  },
   "scenarios": {
     "02_one_last_job": "one_last_job",
     "05_the_western_wall": "the_western_wall",

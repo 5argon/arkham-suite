@@ -1,9 +1,9 @@
 <!--
 @component
-TDC bespoke widget — "Eldritch Artifacts". The 6 story artifacts recovered across the
-expedition (`artifacts_earned`). Carrying all 6 unlocks the strongest finale (the "repel"
-approach) and the `powers_combined` achievement. A lit tile per artifact; counts = plays
-recovered. Built on LitTileGrid (labelled placeholders — no card art mapping).
+TDC bespoke widget — "Eldritch Artifacts". The 6 story artifacts recovered across the expedition
+(`artifacts_earned`); the hover notes how many plays each was carried into the finale (`hidden.kept_*`).
+Carrying all 6 unlocks the strongest finale (the "repel" approach) and the `powers_combined`
+achievement. A lit tile per artifact; counts = plays recovered. Built on LitTileGrid. Half-width.
 -->
 <script lang="ts">
 	import { TDC_ARTIFACTS, tdcText, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
@@ -16,13 +16,14 @@ recovered. Built on LitTileGrid (labelled placeholders — no card art mapping).
 		tdc
 			? TDC_ARTIFACTS.map((id): LitTile => {
 					const c = tdc.artifacts.earned[id] ?? 0;
-					return {
-						id,
-						image: '',
-						label: tdcText(`artifacts_earned.${id}`),
-						count: c,
-						detail: c > 0 ? m.campaign_tdc_artifact_earned({ times: times(c) }) : m.campaign_tdc_artifact_not_yet()
-					};
+					const kept = tdc.artifacts.kept[id] ?? 0;
+					const detail =
+						c > 0
+							? kept > 0
+								? m.campaign_tdc_artifact_earned_kept({ times: times(c), kept: times(kept) })
+								: m.campaign_tdc_artifact_earned({ times: times(c) })
+							: m.campaign_tdc_artifact_not_yet();
+					return { id, image: '', label: tdcText(`artifacts_earned.${id}`), count: c, detail };
 				})
 			: []
 	);

@@ -11,7 +11,9 @@ Built on StatNumbers.
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import StatNumbers, {
+		type StatGroup
+	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -28,9 +30,16 @@ Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const f = $derived(tic?.finale);
-	const floodTotal = $derived(f ? f.escaped + f.plotThwarted + f.floodBegun + f.floodedEarth : 0);
+	const floodTotal = $derived(
+		f ? f.escaped.total + f.plotThwarted.total + f.floodBegun.total + f.floodedEarth.total : 0
+	);
 	const harperTotal = $derived(
-		f ? f.harperComplete + f.harperCompleteCost + f.richesLost + f.richesDestroyed : 0
+		f
+			? f.harperComplete.total +
+					f.harperCompleteCost.total +
+					f.richesLost.total +
+					f.richesDestroyed.total
+			: 0
 	);
 	const hasData = $derived(!!f && floodTotal + harperTotal > 0);
 	const rows = $derived<StatGroup[]>(
@@ -39,10 +48,26 @@ Built on StatNumbers.
 					{
 						heading: m.campaign_tic_itm_flood_heading(),
 						stats: [
-							{ value: f.plotThwarted, label: m.campaign_tic_itm_thwarted() },
-							{ value: f.escaped, label: m.campaign_tic_itm_escaped() },
-							{ value: f.floodBegun, label: m.campaign_tic_itm_flood() },
-							{ value: f.floodedEarth, label: m.campaign_tic_itm_flooded() }
+							{
+								value: f.plotThwarted.total,
+								label: m.campaign_tic_itm_thwarted(),
+								byTier: f.plotThwarted.byTier
+							},
+							{
+								value: f.escaped.total,
+								label: m.campaign_tic_itm_escaped(),
+								byTier: f.escaped.byTier
+							},
+							{
+								value: f.floodBegun.total,
+								label: m.campaign_tic_itm_flood(),
+								byTier: f.floodBegun.byTier
+							},
+							{
+								value: f.floodedEarth.total,
+								label: m.campaign_tic_itm_flooded(),
+								byTier: f.floodedEarth.byTier
+							}
 						]
 					},
 					...(harperTotal > 0
@@ -50,10 +75,26 @@ Built on StatNumbers.
 								{
 									heading: m.campaign_tic_itm_harper_heading(),
 									stats: [
-										{ value: f.harperComplete, label: m.campaign_tic_itm_harper_complete() },
-										{ value: f.richesLost, label: m.campaign_tic_itm_riches_lost() },
-										{ value: f.harperCompleteCost, label: m.campaign_tic_itm_harper_cost() },
-										{ value: f.richesDestroyed, label: m.campaign_tic_itm_riches_destroyed() }
+										{
+											value: f.harperComplete.total,
+											label: m.campaign_tic_itm_harper_complete(),
+											byTier: f.harperComplete.byTier
+										},
+										{
+											value: f.richesLost.total,
+											label: m.campaign_tic_itm_riches_lost(),
+											byTier: f.richesLost.byTier
+										},
+										{
+											value: f.harperCompleteCost.total,
+											label: m.campaign_tic_itm_harper_cost(),
+											byTier: f.harperCompleteCost.byTier
+										},
+										{
+											value: f.richesDestroyed.total,
+											label: m.campaign_tic_itm_riches_destroyed(),
+											byTier: f.richesDestroyed.byTier
+										}
 									]
 								}
 							]

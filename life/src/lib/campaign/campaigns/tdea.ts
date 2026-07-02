@@ -45,6 +45,8 @@ export interface CampaignTdea {
 		max: number | null;
 		min: number | null;
 		total: number;
+		/** Mean Evidence per recorded play, rounded to 1 decimal (null when no plays). */
+		avg: number | null;
 		/** count value → plays that ended with exactly that many. */
 		distribution: Record<number, number>;
 		/** Plays that uncovered all 10 Signs (the achievement breakpoint). */
@@ -84,7 +86,7 @@ export function buildTdea(records: CampaignRecord[]): CampaignTdea[] {
 	const tdeaRecords = filterFamilyRecords(records, TDEA_FAMILY);
 	if (tdeaRecords.length === 0) return [];
 
-	const evidence = { plays: 0, max: null as number | null, min: null as number | null, total: 0, distribution: {} as Record<number, number>, allSigns: 0 };
+	const evidence = { plays: 0, max: null as number | null, min: null as number | null, total: 0, avg: null as number | null, distribution: {} as Record<number, number>, allSigns: 0 };
 	const beyondGates = { savedByRandolph: 0, catsCollectedTribute: 0, parleyedZoogs: 0, strayedFromPath: 0 };
 	const searchForKadath = { route: {} as Record<string, number>, forcedIntoTemple: 0, brokeLawOfUlthar: 0, captures: { virgil: 0, randolph: 0, someoneEscaped: 0, everyoneCaptured: 0 } };
 	const darkSideOfMoon = { carried: 0, travelled: 0, randolphSurvivedVoyage: 0, randolphDiedVoyage: 0 };
@@ -144,6 +146,8 @@ export function buildTdea(records: CampaignRecord[]): CampaignTdea[] {
 
 		if (has(k('dreamers_grow_weaker'))) dreamersGrowWeaker += 1;
 	}
+
+	evidence.avg = evidence.plays > 0 ? Math.round((evidence.total / evidence.plays) * 10) / 10 : null;
 
 	return [
 		{

@@ -1,14 +1,15 @@
 <!--
 @component
-TCU bespoke widget — "For the Greater Good". Opened the puzzle box, and whether the
-Guardian of the Trap emerged vs was defeated. Built on StatNumbers.
+TCU bespoke widget — "For the Greater Good". How the Lodge's puzzle box went (opened it / the
+Guardian of the Trap emerged / the Guardian was defeated), plus the following Inner Circle interlude
+— inducted into the Inner Circle vs kept your mementos hidden. Built on grouped StatNumbers.
 -->
 <script lang="ts">
 	import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -25,15 +26,36 @@ Guardian of the Trap emerged vs was defeated. Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const g = $derived(tcu?.forTheGreaterGood);
-	const hasData = $derived(!!g && g.openedPuzzleBox + g.guardianEmerged + g.guardianDefeated > 0);
-	const rows = $derived<Stat[][]>(
-		hasData && g
+	const ic = $derived(tcu?.innerCircle);
+	const hasGreater = $derived(!!g && g.openedPuzzleBox + g.guardianEmerged + g.guardianDefeated > 0);
+	const hasInner = $derived(!!ic && ic.inducted + ic.keptHidden > 0);
+	const hasData = $derived(hasGreater || hasInner);
+	const rows = $derived<StatGroup[]>(
+		hasData
 			? [
-					[
-						{ value: g.openedPuzzleBox, label: m.campaign_tcu_greater_box() },
-						{ value: g.guardianEmerged, label: m.campaign_tcu_greater_emerged() },
-						{ value: g.guardianDefeated, label: m.campaign_tcu_greater_defeated() }
-					]
+					...(hasGreater && g
+						? [
+								{
+									heading: m.campaign_tcu_greater_heading(),
+									stats: [
+										{ value: g.openedPuzzleBox, label: m.campaign_tcu_greater_box() },
+										{ value: g.guardianEmerged, label: m.campaign_tcu_greater_emerged() },
+										{ value: g.guardianDefeated, label: m.campaign_tcu_greater_defeated() }
+									]
+								}
+							]
+						: []),
+					...(hasInner && ic
+						? [
+								{
+									heading: m.campaign_tcu_inner_heading(),
+									stats: [
+										{ value: ic.inducted, label: m.campaign_tcu_inner_inducted() },
+										{ value: ic.keptHidden, label: m.campaign_tcu_inner_hidden() }
+									]
+								}
+							]
+						: [])
 				]
 			: []
 	);

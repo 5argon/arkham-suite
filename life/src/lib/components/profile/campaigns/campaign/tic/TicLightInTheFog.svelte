@@ -26,14 +26,18 @@ achievement). Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const l = $derived(tic?.lightInTheFog);
-	const hasData = $derived(!!l && l.map + l.key + l.divingSuit > 0);
+	const hasData = $derived(!!l && l.map.total + l.key.total + l.divingSuit.total > 0);
 	const rows = $derived<Stat[][]>(
 		hasData && l
 			? [
 					[
-						{ value: l.key, label: m.campaign_tic_lif_key() },
-						{ value: l.map, label: m.campaign_tic_lif_map() },
-						{ value: l.divingSuit, label: m.campaign_tic_lif_suit() }
+						{ value: l.key.total, label: m.campaign_tic_lif_key(), byTier: l.key.byTier },
+						{ value: l.map.total, label: m.campaign_tic_lif_map(), byTier: l.map.byTier },
+						{
+							value: l.divingSuit.total,
+							label: m.campaign_tic_lif_suit(),
+							byTier: l.divingSuit.byTier
+						}
 					]
 				]
 			: []

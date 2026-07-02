@@ -1,58 +1,65 @@
 <!--
 @component
 TIC bespoke widget — "Memories Recovered". The 15 flashbacks scattered across the campaign
-(the "You Wake Up In A Room…" achievement = all 15), as labelled tiles (the memories have no
-card art) lit by recovery, grouped by scenario. Built on LitTileGrid.
+(the "You Wake Up In A Room…" achievement = all 15), grouped by the scenario they're found in
+and lit by recovery (the memories have no card art). A summary up top counts distinct memories
+seen and the plays that recovered the whole set (with the per-difficulty hover). Built on
+LitTileGrid + StatNumbers.
 -->
 <script lang="ts">
-	import { TIC_MEMORIES, type CampaignTic } from '$lib/campaign/campaigns/tic';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
-	import { times } from '$lib/profile/plural';
+	import { type CampaignTic } from '$lib/campaign/campaigns/tic';
+	import { ticMemoryTiles } from './tic-memory-tiles';
+	import LitTileGrid from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { tic }: { tic: CampaignTic | null } = $props();
 
-	const LABEL: Record<string, () => string> = {
-		meeting_with_thomas_dawson: m.campaign_tic_mem_dawson,
-		battle_with_a_horrifying_devil: m.campaign_tic_mem_devil,
-		decision_to_stick_together: m.campaign_tic_mem_stick_together,
-		encounter_with_a_secret_cult: m.campaign_tic_mem_cult,
-		a_deal_with_joe_sargent: m.campaign_tic_mem_sargent,
-		a_followed_lead: m.campaign_tic_mem_lead,
-		an_intervention: m.campaign_tic_mem_intervention,
-		a_jailbreak: m.campaign_tic_mem_jailbreak,
-		discovery_of_a_strange_idol: m.campaign_tic_mem_idol,
-		discovery_of_an_unholy_mantle: m.campaign_tic_mem_mantle,
-		discovery_of_a_mystical_relic: m.campaign_tic_mem_relic,
-		conversation_with_mr_moore: m.campaign_tic_mem_moore,
-		lifecycle_of_a_deep_one: m.campaign_tic_mem_lifecycle,
-		stinging_betrayal: m.campaign_tic_mem_betrayal,
-		horrific_truth: m.campaign_tic_mem_truth
-	};
+	// The 15 flashbacks grouped by the scenario they're found in (display order).
+	const GROUPS: { scenario: string; heading: () => string }[] = [
+		{ scenario: 'the_pit_of_despair', heading: m.campaign_tic_mem_grp_pit },
+		{ scenario: 'in_too_deep', heading: m.campaign_tic_mem_grp_itd },
+		{ scenario: 'devil_reef', heading: m.campaign_tic_mem_grp_dr },
+		{ scenario: 'a_light_in_the_fog', heading: m.campaign_tic_mem_grp_lif },
+		{ scenario: 'into_the_maelstrom', heading: m.campaign_tic_mem_grp_itm },
+		{ scenario: 'tic_epilogue', heading: m.campaign_tic_mem_grp_epilogue }
+	];
 
-	const tiles = $derived<LitTile[]>(
+	const groups = $derived(
+		GROUPS.map((g) => ({ heading: g.heading(), tiles: ticMemoryTiles(tic, g.scenario) }))
+	);
+	const summary = $derived<Stat[][]>(
 		tic
-			? TIC_MEMORIES.map((mm): LitTile => {
-					const c = tic.memories.recovered[mm.id] ?? 0;
-					return {
-						id: mm.id,
-						image: '',
-						label: (LABEL[mm.id] ?? (() => mm.id))(),
-						count: c,
-						detail: c > 0 ? m.campaign_tic_mem_recovered({ times: times(c) }) : m.campaign_tic_mem_not_yet()
-					};
-				})
+			? [
+					[
+						{ value: `${tic.memories.everRecovered} / 15`, label: m.campaign_tic_mem_distinct() },
+						...(tic.memories.allFifteen.total > 0
+							? [
+									{
+										value: tic.memories.allFifteen.total,
+										label: m.campaign_tic_mem_all_label(),
+										byTier: tic.memories.allFifteen.byTier
+									}
+								]
+							: [])
+					]
+				]
 			: []
 	);
 	const hasData = $derived(!!tic && tic.memories.everRecovered > 0);
 </script>
 
 {#if hasData && tic}
-	<p class="text-primary-500 mb-3 text-center text-sm">
-		{m.campaign_tic_mem_headline({ count: tic.memories.everRecovered })}{#if tic.memories.allFifteen > 0}
-			· {m.campaign_tic_mem_all({ count: tic.memories.allFifteen })}{/if}
-	</p>
-	<LitTileGrid {tiles} colsClass="grid-cols-3 @3xl:grid-cols-5" />
+	<div class="space-y-4">
+		<StatNumbers rows={summary} />
+		{#each groups as g (g.heading)}
+			<div>
+				<SectionLabel variant="heading" align="center">{g.heading}</SectionLabel>
+				<LitTileGrid tiles={g.tiles} colsClass="grid-cols-4" />
+			</div>
+		{/each}
+	</div>
 {:else}
 	<p class="text-primary-500 text-sm">{m.campaign_tic_mem_empty()}</p>
 {/if}

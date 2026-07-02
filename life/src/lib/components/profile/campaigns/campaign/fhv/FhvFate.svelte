@@ -1,15 +1,20 @@
 <!--
 @component
-FHV bespoke widget — "Fate of the Vale". Which of the 4 finale versions you played and the
-ending reached (single-sided classes ride the campaign endings widget separately). Built on
-StatNumbers (grouped).
+FHV bespoke widget — "Fate of the Vale", the finale. Which of the 4 Act-3a versions you played
+(Marquez's plan / save the Vale / burn it all / flee), the ending reached, and — the finale's
+emotional ledger — which residents you carried out alive. The endings' win/loss classes ride the
+campaign endings widget separately. Built on FhvScenarioInfo + StatNumbers + LitTileGrid.
 -->
 <script lang="ts">
-	import { FHV_FATE_ENDINGS, fhvText, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
+	import { FHV_FATE_ENDINGS, FHV_VILLAGERS, fhvText, fhvVillagerName, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
+	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
+	import FhvScenarioInfo from './FhvScenarioInfo.svelte';
 	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -34,7 +39,8 @@ StatNumbers (grouped).
 	];
 	const versionTotal = $derived(f ? Object.values(f.version).reduce((a, b) => a + b, 0) : 0);
 	const endingTotal = $derived(f ? Object.values(f.endings).reduce((a, b) => a + b, 0) : 0);
-	const hasData = $derived(!!f && versionTotal + endingTotal > 0);
+	const savedTotal = $derived(f ? Object.values(f.saved).reduce((a, b) => a + b, 0) : 0);
+	const hasData = $derived(!!f && versionTotal + endingTotal + savedTotal > 0);
 	const rows = $derived<StatGroup[]>(
 		hasData && f
 			? [
@@ -47,14 +53,37 @@ StatNumbers (grouped).
 				]
 			: []
 	);
+	const savedTiles = $derived<LitTile[]>(
+		f
+			? FHV_VILLAGERS.map((v): LitTile => {
+					const c = f.saved[v.id] ?? 0;
+					const name = fhvVillagerName(v.id);
+					return {
+						id: v.id,
+						image: portraitUrl('fhv', v.id),
+						label: name,
+						count: c,
+						detail: c > 0 ? m.campaign_fhv_fate_saved_tile({ name, times: times(c) }) : m.campaign_fhv_fate_lost_tile({ name })
+					};
+				})
+			: []
+	);
 </script>
 
-<ScenarioInfo scenarioId="fate_of_the_vale" {family} {achievements} {scenarios} {logOnly}>
+<FhvScenarioInfo scenarioId="fate_of_the_vale" {family} {achievements} {scenarios} {logOnly}>
 	{#snippet stats()}
-		{#if hasData}
+		{#if rows.length}
 			<StatNumbers {rows} />
-		{:else}
+		{/if}
+	{/snippet}
+	{#snippet children()}
+		{#if savedTotal > 0}
+			<div>
+				<SectionLabel variant="heading" align="center">{m.campaign_fhv_fate_saved_heading()}</SectionLabel>
+				<LitTileGrid tiles={savedTiles} layout="flex" objectTop />
+			</div>
+		{:else if !hasData}
 			<p class="text-primary-500 text-sm">{m.campaign_fhv_fate_empty()}</p>
 		{/if}
 	{/snippet}
-</ScenarioInfo>
+</FhvScenarioInfo>

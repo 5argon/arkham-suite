@@ -25,13 +25,21 @@ Point before sunrise vs after. Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const h = $derived(tic?.horror);
-	const hasData = $derived(!!h && h.beforeSunrise + h.afterSunrise > 0);
+	const hasData = $derived(!!h && h.beforeSunrise.total + h.afterSunrise.total > 0);
 	const rows = $derived<Stat[][]>(
 		hasData && h
 			? [
 					[
-						{ value: h.beforeSunrise, label: m.campaign_tic_hhg_before() },
-						{ value: h.afterSunrise, label: m.campaign_tic_hhg_after() }
+						{
+							value: h.beforeSunrise.total,
+							label: m.campaign_tic_hhg_before(),
+							byTier: h.beforeSunrise.byTier
+						},
+						{
+							value: h.afterSunrise.total,
+							label: m.campaign_tic_hhg_after(),
+							byTier: h.afterSunrise.byTier
+						}
 					]
 				]
 			: []

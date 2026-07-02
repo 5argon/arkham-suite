@@ -324,7 +324,25 @@ import type { SpecialInteractionsPartial } from '$lib/campaign/outcomes/special-
  *  added, so the `ptc` blob recomputes. */
 /*  115→116: PtC blob trimmed/reshaped — Curtain Call didntReachAct2b + Pallid knowSiteOfGate removed,
  *  Oath insane list dated, BSR/Dim Carcosa carcosa_merged discriminated by resolution — so it recomputes. */
-export const CACHE_VERSION = 116;
+/*  116→117: TCU blob rebuilt to PtC parity (allegiance spine runs/sources, missing-persons Union
+ *  survival, heretics distribution, Inner Circle + Union faction states, four-ending finale, Twist-of-
+ *  Fate pathWinds table, derived Union Cosmos version) — so the `tcu` blob + `scenarios` recompute. */
+/*  117→118: The Dream-Eaters `tdea`/`tdeb` blobs gained a precomputed Evidence/Steps `avg` — recompute. */
+/*  118→119: The Forgotten Age `tfa` blob rebuilt (per-play runs, Poison/Venom, Harbinger trajectory,
+ *  supplies-empty runs, Yithian aftermath, hidden-log facts re-sourced via Extra inputs) — recompute. */
+/*  119→120: The Innsmouth Conspiracy `tic` blob widened to per-difficulty `ResolutionTally` on every
+ *  field (+ suspect/hideout/equipment card codes) for the difficulty hovers — so the blob recomputes. */
+/*  120→121: NotZ blob rebuilt (per-difficulty tallies everywhere, per-cultist manhunt + best-haul
+ *  highscore, Lita recruited / Ghoul Priest slain-vs-survived, and the deck-derived Core-Set purist
+ *  feat via `CampaignRecord.coreOnly`) — the subject cache must rebuild. */
+/*  121→122: The Drowned City `tdc` blob rebuilt (per-scenario `scenarios` note tallies, artifacts
+ *  `kept`, tasks `picked`/`obligations`/`assignments`, doom `flooded`) — the subject cache must rebuild. */
+/*  122→123: The Feast of Hemlock Vale `fhv` blob rebuilt for the full widget suite (villager arc,
+ *  dance / hemlockHouse / longestNight / finalEvening / bertie blobs, `scenarios` re-keyed by full
+ *  `section.id`, + the Argument / Rachel-stance / captives-damage Extras) — the subject cache must rebuild. */
+/*  123→124: TCU `union.survivors` (missing-persons alive/dead) summed at precompute instead of hot in
+ *  the Union and Disillusion widget — the subject cache must rebuild. */
+export const CACHE_VERSION = 124;
 
 /** The cache key for the account-wide profile. */
 export const ACCOUNT_SUBJECT = '__account__';

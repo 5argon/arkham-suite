@@ -25,13 +25,17 @@ Innsmouth consumed by the rising tide. Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const d = $derived(tic?.inTooDeep);
-	const hasData = $derived(!!d && d.safe + d.consumed > 0);
+	const hasData = $derived(!!d && d.safe.total + d.consumed.total > 0);
 	const rows = $derived<Stat[][]>(
 		hasData && d
 			? [
 					[
-						{ value: d.safe, label: m.campaign_tic_itd_safe() },
-						{ value: d.consumed, label: m.campaign_tic_itd_consumed() }
+						{ value: d.safe.total, label: m.campaign_tic_itd_safe(), byTier: d.safe.byTier },
+						{
+							value: d.consumed.total,
+							label: m.campaign_tic_itd_consumed(),
+							byTier: d.consumed.byTier
+						}
 					]
 				]
 			: []

@@ -220,8 +220,48 @@
     "pendant": "Pendant"
   },
   "scenarioChoices": {
+    "the_untamed_wilds.poisoned": {
+      "label": "Investigators who gained the Poisoned weakness"
+    },
     "the_doom_of_eztli.retries": {
       "label": "Times you replayed The Doom of Eztli"
+    },
+    "the_doom_of_eztli.harbinger_damage": {
+      "label": "Damage on the Harbinger of Valusia"
+    },
+    "the_doom_of_eztli.poisoned": {
+      "label": "Investigators who gained the Poisoned weakness"
+    },
+    "threads_of_fate.ichtaca_conversation": {
+      "label": "When Ichtaca confronted you",
+      "options": {
+        "stop_her": "“You're not going anywhere until you tell me what is going on.”",
+        "let_her_leave": "“Have it your way.”"
+      }
+    },
+    "heart_of_the_elders_part_1.consult": {
+      "label": "Whom you consulted",
+      "options": {
+        "ichtaca": "Let's consult with Ichtaca.",
+        "alejandro": "Let's consult with Alejandro.",
+        "journal": "Let's consult the expedition journal.",
+        "nothing": "I wish we knew more about this…"
+      }
+    },
+    "heart_of_the_elders_part_1.poisoned": {
+      "label": "Investigators who gained the Poisoned weakness"
+    },
+    "heart_of_the_elders_part_2.harbinger_damage": {
+      "label": "Damage on the Harbinger of Valusia"
+    },
+    "heart_of_the_elders_part_2.poisoned": {
+      "label": "Investigators who gained the Poisoned weakness"
+    },
+    "the_city_of_archives.yithian_aftermath": {
+      "label": "Investigators who suffered the Yithian aftermath"
+    },
+    "the_depths_of_yoth.final_depth": {
+      "label": "Final depth reached"
     }
   },
   "specialInteractions": {

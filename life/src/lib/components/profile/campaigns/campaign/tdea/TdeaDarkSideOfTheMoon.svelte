@@ -25,8 +25,9 @@ whether Randolph survived the voyage. Built on StatNumbers.
 		logOnly?: boolean;
 	} = $props();
 	const d = $derived(tdea?.darkSideOfMoon);
+	const growWeaker = $derived(tdea?.dreamersGrowWeaker ?? 0);
 	const hasData = $derived(
-		!!d && d.carried + d.travelled + d.randolphSurvivedVoyage + d.randolphDiedVoyage > 0
+		!!d && d.carried + d.travelled + d.randolphSurvivedVoyage + d.randolphDiedVoyage + growWeaker > 0
 	);
 	const rows = $derived<Stat[][]>(
 		hasData && d
@@ -38,7 +39,10 @@ whether Randolph survived the voyage. Built on StatNumbers.
 					[
 						{ value: d.randolphSurvivedVoyage, label: m.campaign_tdea_moon_survived() },
 						{ value: d.randolphDiedVoyage, label: m.campaign_tdea_moon_died() }
-					]
+					],
+					...(growWeaker > 0
+						? [[{ value: growWeaker, label: m.campaign_tdea_moon_grow_weaker() }]]
+						: [])
 				]
 			: []
 	);

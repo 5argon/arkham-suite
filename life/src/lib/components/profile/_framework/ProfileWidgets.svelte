@@ -119,6 +119,7 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	import TdebWeaverOfTheCosmos from '$lib/components/profile/campaigns/campaign/tdeb/TdebWeaverOfTheCosmos.svelte';
 	import TicMemories from '$lib/components/profile/campaigns/campaign/tic/TicMemories.svelte';
 	import TicSevenKeys from '$lib/components/profile/campaigns/campaign/tic/TicSevenKeys.svelte';
+	import TicPit from '$lib/components/profile/campaigns/campaign/tic/TicPit.svelte';
 	import TicHarper from '$lib/components/profile/campaigns/campaign/tic/TicHarper.svelte';
 	import TicInTooDeep from '$lib/components/profile/campaigns/campaign/tic/TicInTooDeep.svelte';
 	import TicDevilReef from '$lib/components/profile/campaigns/campaign/tic/TicDevilReef.svelte';
@@ -126,25 +127,36 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	import TicLightInTheFog from '$lib/components/profile/campaigns/campaign/tic/TicLightInTheFog.svelte';
 	import TicLairOfDagon from '$lib/components/profile/campaigns/campaign/tic/TicLairOfDagon.svelte';
 	import TicIntoTheMaelstrom from '$lib/components/profile/campaigns/campaign/tic/TicIntoTheMaelstrom.svelte';
+	import FhvVale from '$lib/components/profile/campaigns/campaign/fhv/FhvVale.svelte';
 	import FhvSchedule from '$lib/components/profile/campaigns/campaign/fhv/FhvSchedule.svelte';
 	import FhvVillager from '$lib/components/profile/campaigns/campaign/fhv/FhvVillager.svelte';
 	import FhvFate from '$lib/components/profile/campaigns/campaign/fhv/FhvFate.svelte';
 	import FhvCurse from '$lib/components/profile/campaigns/campaign/fhv/FhvCurse.svelte';
-	import FhvScenario from '$lib/components/profile/campaigns/campaign/fhv/FhvScenario.svelte';
+	import FhvDance from '$lib/components/profile/campaigns/campaign/fhv/FhvDance.svelte';
+	import FhvFinalEvening from '$lib/components/profile/campaigns/campaign/fhv/FhvFinalEvening.svelte';
+	import FhvWrittenInRock from '$lib/components/profile/campaigns/campaign/fhv/FhvWrittenInRock.svelte';
+	import FhvHemlockHouse from '$lib/components/profile/campaigns/campaign/fhv/FhvHemlockHouse.svelte';
+	import FhvSilentHeath from '$lib/components/profile/campaigns/campaign/fhv/FhvSilentHeath.svelte';
+	import FhvLostSister from '$lib/components/profile/campaigns/campaign/fhv/FhvLostSister.svelte';
+	import FhvThingDepths from '$lib/components/profile/campaigns/campaign/fhv/FhvThingDepths.svelte';
+	import FhvTwistedHollow from '$lib/components/profile/campaigns/campaign/fhv/FhvTwistedHollow.svelte';
+	import FhvLongestNight from '$lib/components/profile/campaigns/campaign/fhv/FhvLongestNight.svelte';
 	import TdcFold from '$lib/components/profile/campaigns/campaign/tdc/TdcFold.svelte';
-	import TdcGlyphsByScenario from '$lib/components/profile/campaigns/campaign/tdc/TdcGlyphsByScenario.svelte';
 	import TdcArtifacts from '$lib/components/profile/campaigns/campaign/tdc/TdcArtifacts.svelte';
 	import TdcTasks from '$lib/components/profile/campaigns/campaign/tdc/TdcTasks.svelte';
 	import TdcSepulchre from '$lib/components/profile/campaigns/campaign/tdc/TdcSepulchre.svelte';
-	import TdcForks from '$lib/components/profile/campaigns/campaign/tdc/TdcForks.svelte';
+	import TdcScenario from '$lib/components/profile/campaigns/campaign/tdc/TdcScenario.svelte';
+	import NotzThreatsBelow from '$lib/components/profile/campaigns/campaign/notz/NotzThreatsBelow.svelte';
 	import NotzGathering from '$lib/components/profile/campaigns/campaign/notz/NotzGathering.svelte';
 	import NotzMidnightMasks from '$lib/components/profile/campaigns/campaign/notz/NotzMidnightMasks.svelte';
 	import NotzDevourerBelow from '$lib/components/profile/campaigns/campaign/notz/NotzDevourerBelow.svelte';
+	import NotzCoreOnly from '$lib/components/profile/campaigns/campaign/notz/NotzCoreOnly.svelte';
 	import TdcDoom from '$lib/components/profile/campaigns/campaign/tdc/TdcDoom.svelte';
 	import TfaVengeance from '$lib/components/profile/campaigns/campaign/tfa/TfaVengeance.svelte';
 	import TfaSupplies from '$lib/components/profile/campaigns/campaign/tfa/TfaSupplies.svelte';
 	import TfaCompanions from '$lib/components/profile/campaigns/campaign/tfa/TfaCompanions.svelte';
 	import TfaHarbinger from '$lib/components/profile/campaigns/campaign/tfa/TfaHarbinger.svelte';
+	import TfaPoison from '$lib/components/profile/campaigns/campaign/tfa/TfaPoison.svelte';
 	import TfaUntamedWilds from '$lib/components/profile/campaigns/campaign/tfa/TfaUntamedWilds.svelte';
 	import TfaDoomOfEztli from '$lib/components/profile/campaigns/campaign/tfa/TfaDoomOfEztli.svelte';
 	import TfaThreadsOfFate from '$lib/components/profile/campaigns/campaign/tfa/TfaThreadsOfFate.svelte';
@@ -808,7 +820,7 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 				hideAchievements={widget.config?.hideAchievements === true}
 			/>
 		{:else if widget.id === 'tdcGlyphWall'}
-			<TdcGlyphWall {collections} />
+			<TdcGlyphWall tdc={familyTdc} />
 		{:else if widget.id === 'ptcDoubtConviction'}
 			<PtcDoubtConviction ptc={familyPtc} />
 		{:else if widget.id === 'ptcVips'}
@@ -901,6 +913,8 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<TicMemories tic={familyTic} />
 		{:else if widget.id === 'ticKeys'}
 			<TicSevenKeys tic={familyTic} />
+		{:else if widget.id === 'ticPit'}
+			<TicPit tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticHarper'}
 			<TicHarper tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticInTooDeep'}
@@ -915,6 +929,8 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<TicLairOfDagon tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticMaelstrom'}
 			<TicIntoTheMaelstrom tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'fhvVale'}
+			<FhvVale fhv={familyFhv} />
 		{:else if widget.id === 'fhvSchedule'}
 			<FhvSchedule fhv={familyFhv} logOnly={lo} />
 		{:else if widget.id === 'fhvRachel'}
@@ -937,38 +953,58 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<FhvFate fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvCurse'}
 			<FhvCurse fhv={familyFhv} />
+		{:else if widget.id === 'fhvDance'}
+			<FhvDance fhv={familyFhv} />
+		{:else if widget.id === 'fhvFinalEvening'}
+			<FhvFinalEvening fhv={familyFhv} />
 		{:else if widget.id === 'fhvScWrittenInRock'}
-			<FhvScenario scenario="written_in_rock" fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvWrittenInRock fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'fhvScHemlockHouse'}
+			<FhvHemlockHouse fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvScSilentHeath'}
-			<FhvScenario scenario="the_silent_heath" fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvSilentHeath fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvScLostSister'}
-			<FhvScenario scenario="the_lost_sister" fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvLostSister fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvScThingDepths'}
-			<FhvScenario scenario="the_thing_in_the_depths" fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvThingDepths fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvScTwistedHollow'}
-			<FhvScenario scenario="the_twisted_hollow" fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvTwistedHollow fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvScLongestNight'}
-			<FhvScenario scenario="the_longest_night" fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvLongestNight fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcFold'}
 			<TdcFold tdc={familyTdc} />
-		{:else if widget.id === 'tdcGlyphsScenario'}
-			<TdcGlyphsByScenario tdc={familyTdc} />
 		{:else if widget.id === 'tdcArtifacts'}
 			<TdcArtifacts tdc={familyTdc} />
 		{:else if widget.id === 'tdcTasks'}
-			<TdcTasks tdc={familyTdc} />
+			<TdcTasks tdc={familyTdc} logOnly={lo} />
+		{:else if widget.id === 'tdcOneLastJob'}
+			<TdcScenario scenario="one_last_job" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'tdcWesternWall'}
+			<TdcScenario scenario="the_western_wall" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'tdcDrownedQuarter'}
+			<TdcScenario scenario="the_drowned_quarter" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'tdcApiary'}
+			<TdcScenario scenario="the_apiary" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'tdcGrandVault'}
+			<TdcScenario scenario="the_grand_vault" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'tdcCourtOfAncients'}
+			<TdcScenario scenario="court_of_the_ancients" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'tdcObsidianCanyons'}
+			<TdcScenario scenario="obsidian_canyons" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcSepulchre'}
 			<TdcSepulchre tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
-		{:else if widget.id === 'tdcForks'}
-			<TdcForks tdc={familyTdc} />
 		{:else if widget.id === 'tdcDoom'}
-			<TdcDoom tdc={familyTdc} />
+			<TdcDoom tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'notzThreatsBelow'}
+			<NotzThreatsBelow notz={familyNotz} />
 		{:else if widget.id === 'notzGathering'}
 			<NotzGathering notz={familyNotz} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'notzMidnightMasks'}
 			<NotzMidnightMasks notz={familyNotz} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'notzDevourerBelow'}
 			<NotzDevourerBelow notz={familyNotz} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'notzCoreOnly'}
+			<NotzCoreOnly notz={familyNotz} />
 		{:else if widget.id === 'eoeCity'}
 			<EoeCityMatrix {family} achievements={tskScenarioAch} scenarios={familyScenarios} />
 		{:else if widget.id === 'eoeCrash'}
@@ -1007,7 +1043,9 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'tfaCompanions'}
 			<TfaCompanions tfa={familyTfa} />
 		{:else if widget.id === 'tfaHarbinger'}
-			<TfaHarbinger tfa={familyTfa} />
+			<TfaHarbinger tfa={familyTfa} logOnly={lo} />
+		{:else if widget.id === 'tfaPoison'}
+			<TfaPoison tfa={familyTfa} />
 		{:else if widget.id === 'tfaWilds'}
 			<TfaUntamedWilds tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaEztli'}

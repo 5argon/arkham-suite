@@ -1,15 +1,17 @@
 <!--
 @component
-TFA bespoke widget — "The Doom of Eztli". Who recovered the relic (you vs Alejandro),
-and how many times you had to replay the temple (an Extra-tab counter — the log never
-records replays). Built on StatNumbers.
+TFA scenario — "The Doom of Eztli". Who recovered the Relic (you vs Alejandro), the Harbinger of
+Valusia's first blood (the damage you left on it here, from the Extra tab), how many times you had to
+replay the temple, and who Yig's venom struck. Wrapped in the shared TFA passport (Harbinger header
+art — its first appearance).
 -->
 <script lang="ts">
-	import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+	import { TFA_HARBINGER_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import TfaScenarioInfo from './TfaScenarioInfo.svelte';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
+	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -25,25 +27,53 @@ records replays). Built on StatNumbers.
 		scenarios?: CampaignScenarios | null;
 		logOnly?: boolean;
 	} = $props();
+
 	const e = $derived(tfa?.doomOfEztli);
+	const eztliDmg = $derived(tfa?.harbinger.eztli ?? null);
+	const poisoned = $derived(tfa?.poison.byScenario['the_doom_of_eztli'] ?? 0);
 	const retriesMax = $derived(e && e.retries.length ? Math.max(...e.retries) : null);
 	const hasData = $derived(
-		!!e && (e.investigatorsRelic > 0 || e.alejandroRelic > 0 || e.retries.length > 0)
+		!!e &&
+			(e.investigatorsRelic > 0 ||
+				e.alejandroRelic > 0 ||
+				(!logOnly &&
+					(e.retries.length > 0 || (eztliDmg?.recorded ?? 0) > 0 || poisoned > 0)))
 	);
-	const rows = $derived<Stat[][]>(
-		hasData && e
+
+	// Harbinger damage / retries / venom are Extra-tab data — hidden in Log-only mode.
+	const bottom = $derived<Stat[]>(
+		logOnly
+			? []
+			: (() => {
+					const out: Stat[] = [];
+					if (eztliDmg && eztliDmg.recorded > 0)
+						out.push({ value: eztliDmg.max, label: m.campaign_tfa_eztli_harbinger() });
+					if (retriesMax !== null)
+						out.push({ value: retriesMax, label: m.campaign_tfa_eztli_retries() });
+					if (poisoned > 0) out.push({ value: poisoned, label: m.campaign_tfa_poisoned_gained() });
+					return out;
+				})()
+	);
+	const rows = $derived<(Stat[] | StatGroup)[]>(
+		e
 			? [
-					[
-						{ value: e.investigatorsRelic, label: m.campaign_tfa_eztli_investigators_relic() },
-						{ value: e.alejandroRelic, label: m.campaign_tfa_eztli_alejandro_relic() }
-					],
-					retriesMax !== null ? [{ value: retriesMax, label: m.campaign_tfa_eztli_retries() }] : []
-				].filter((r) => r.length)
+					{
+						heading: m.campaign_tfa_eztli_relic_heading(),
+						stats: [
+							{ value: e.investigatorsRelic, label: m.campaign_tfa_eztli_investigators_relic() },
+							{ value: e.alejandroRelic, label: m.campaign_tfa_eztli_alejandro_relic() }
+						]
+					},
+					bottom
+				]
 			: []
 	);
 </script>
 
-<ScenarioInfo scenarioId="the_doom_of_eztli" {family} {achievements} {scenarios} {logOnly}>
+<TfaScenarioInfo scenarioId="the_doom_of_eztli" {family} {achievements} {scenarios} {logOnly}>
+	{#snippet headerArt()}
+		<CardThumb code={TFA_HARBINGER_CODE} alt={m.campaign_tfa_harbinger_name()} tone="danger" objectTop />
+	{/snippet}
 	{#snippet stats()}
 		{#if hasData}
 			<StatNumbers {rows} />
@@ -51,4 +81,4 @@ records replays). Built on StatNumbers.
 			<p class="text-primary-500 text-sm">{m.campaign_tfa_eztli_empty()}</p>
 		{/if}
 	{/snippet}
-</ScenarioInfo>
+</TfaScenarioInfo>

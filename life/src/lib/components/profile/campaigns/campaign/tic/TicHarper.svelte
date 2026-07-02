@@ -2,16 +2,29 @@
 @component
 TIC bespoke widget — "The Vanishing of Elina Harper". The deduction: which suspect + hideout
 you accused (`hidden.accuse_*`), and whether the rescue succeeded. Guessing both correctly is
-the "Elementary, Dear Dawson" achievement. Suspects/hideouts are labelled tiles (no art).
+the "Elementary, Dear Dawson" achievement. Suspects (enemy cards) and hideouts (location cards)
+render as real card art, lit by how often you accused each; Agent Harper is the passport header.
+Built on ScenarioInfo + StatNumbers + LitTileGrid.
 -->
 <script lang="ts">
-	import { TIC_SUSPECTS, TIC_HIDEOUTS, type CampaignTic } from '$lib/campaign/campaigns/tic';
+	import { getCardImagePath } from '@5argon/arkham-life-ui';
+	import {
+		TIC_SUSPECTS,
+		TIC_HIDEOUTS,
+		TIC_HARPER_CODE,
+		type CampaignTic
+	} from '$lib/campaign/campaigns/tic';
+	import type { ResolutionTally } from '$lib/campaign/outcomes/resolution-coverage';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
+	import { tallyDetail } from '$lib/campaign/utils/difficulty';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
+	import LitTileGrid, {
+		type LitTile
+	} from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
-	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -47,49 +60,98 @@ the "Elementary, Dear Dawson" achievement. Suspects/hideouts are labelled tiles 
 	};
 
 	const missionRows = $derived<Stat[][]>(
-		h && h.missionSucceeded + h.missionFailed > 0
+		h && h.missionSucceeded.total + h.missionFailed.total > 0
 			? [
 					[
-						{ value: h.missionSucceeded, label: m.campaign_tic_harper_succeeded() },
-						{ value: h.missionFailed, label: m.campaign_tic_harper_failed() }
+						{
+							value: h.missionSucceeded.total,
+							label: m.campaign_tic_harper_succeeded(),
+							byTier: h.missionSucceeded.byTier
+						},
+						{
+							value: h.missionFailed.total,
+							label: m.campaign_tic_harper_failed(),
+							byTier: h.missionFailed.byTier
+						}
 					]
 				]
 			: []
 	);
-	const tileOf = (id: string, label: string, c: number): LitTile => ({
-		id,
-		image: '',
-		label,
-		count: c,
-		detail: c > 0 ? m.campaign_tic_harper_accused({ times: times(c) }) : m.campaign_tic_harper_not_accused()
-	});
+	const detailOf = (t: ResolutionTally | undefined): string =>
+		tallyDetail(t, m.campaign_tic_harper_not_accused, (times) =>
+			m.campaign_tic_harper_accused({ times })
+		);
 	const suspects = $derived<LitTile[]>(
-		h ? TIC_SUSPECTS.map((s) => tileOf(s, (SUSPECT[s] ?? (() => s))(), h.suspect[s] ?? 0)) : []
+		h
+			? TIC_SUSPECTS.map((s): LitTile => {
+					const t = h.suspect[s.id];
+					return {
+						id: s.id,
+						image: getCardImagePath(s.code, 'square'),
+						label: (SUSPECT[s.id] ?? (() => s.id))(),
+						count: t?.total ?? 0,
+						detail: detailOf(t)
+					};
+				})
+			: []
 	);
 	const hideouts = $derived<LitTile[]>(
-		h ? TIC_HIDEOUTS.map((x) => tileOf(x.id, (HIDEOUT[x.id] ?? (() => x.id))(), h.hideout[x.id] ?? 0)) : []
+		h
+			? TIC_HIDEOUTS.map((x): LitTile => {
+					const t = h.hideout[x.id];
+					return {
+						id: x.id,
+						image: getCardImagePath(x.code, 'square'),
+						label: (HIDEOUT[x.id] ?? (() => x.id))(),
+						count: t?.total ?? 0,
+						detail: detailOf(t)
+					};
+				})
+			: []
 	);
 	const accusedAny = $derived(
 		!!h && (suspects.some((t) => t.count > 0) || hideouts.some((t) => t.count > 0))
 	);
-	const hasData = $derived(!!h && (h.missionSucceeded + h.missionFailed > 0 || accusedAny));
+	const hasData = $derived(
+		!!h && (h.missionSucceeded.total + h.missionFailed.total > 0 || accusedAny)
+	);
 </script>
 
-<ScenarioInfo scenarioId="the_vanishing_of_elina_harper" {family} {achievements} {scenarios} {logOnly}>
+<ScenarioInfo
+	scenarioId="the_vanishing_of_elina_harper"
+	{family}
+	{achievements}
+	{scenarios}
+	{logOnly}
+>
+	{#snippet headerArt()}
+		<CardThumb
+			code={TIC_HARPER_CODE}
+			alt={m.campaign_tic_harper_agent()}
+			title={m.campaign_tic_harper_agent()}
+			objectTop
+		/>
+	{/snippet}
+	{#snippet stats()}
+		{#if missionRows.length}<StatNumbers rows={missionRows} />{/if}
+	{/snippet}
 	{#snippet children()}
-		{#if hasData}
-			{#if missionRows.length}<StatNumbers rows={missionRows} />{/if}
-			{#if accusedAny}
-				<p class="text-primary-500 mt-3 mb-1.5 text-center text-xs font-semibold tracking-wide uppercase">
-					{m.campaign_tic_harper_suspect_heading()}
-				</p>
-				<LitTileGrid tiles={suspects} colsClass="grid-cols-3 @3xl:grid-cols-6" />
-				<p class="text-primary-500 mt-3 mb-1.5 text-center text-xs font-semibold tracking-wide uppercase">
-					{m.campaign_tic_harper_hideout_heading()}
-				</p>
-				<LitTileGrid tiles={hideouts} colsClass="grid-cols-3 @3xl:grid-cols-6" />
-			{/if}
-		{:else}
+		{#if accusedAny}
+			<div class="space-y-3">
+				<div>
+					<SectionLabel variant="heading" align="center"
+						>{m.campaign_tic_harper_suspect_heading()}</SectionLabel
+					>
+					<LitTileGrid tiles={suspects} colsClass="grid-cols-3 @3xl:grid-cols-6" objectTop />
+				</div>
+				<div>
+					<SectionLabel variant="heading" align="center"
+						>{m.campaign_tic_harper_hideout_heading()}</SectionLabel
+					>
+					<LitTileGrid tiles={hideouts} colsClass="grid-cols-3 @3xl:grid-cols-6" objectTop />
+				</div>
+			</div>
+		{:else if !missionRows.length}
 			<p class="text-primary-500 text-sm">{m.campaign_tic_harper_empty()}</p>
 		{/if}
 	{/snippet}

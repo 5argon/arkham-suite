@@ -460,6 +460,14 @@
         "day_3_night": "Day 3 — Night"
       }
     },
+    "hemlock_house.the_argument": {
+      "label": "The Argument (Codex Σ): whose side did you take?",
+      "options": {
+        "william": "Respected William's wishes",
+        "judith": "Sided with Judith",
+        "neither": "The Argument never happened"
+      }
+    },
     "the_silent_heath.played_on": {
       "label": "Which day/night you played this on",
       "options": {
@@ -492,6 +500,16 @@
         "day_3_day": "Day 3 — Day",
         "day_3_night": "Day 3 — Night"
       }
+    },
+    "the_longest_night.rachel_stance": {
+      "label": "At the farm, did you confront or hide from Mother Rachel?",
+      "options": {
+        "confront": "Confronted her",
+        "hide": "Hid from her"
+      }
+    },
+    "the_longest_night.captives_damage": {
+      "label": "Damage on the Captives at the end (0 = flawless defense)"
     }
   }
 }

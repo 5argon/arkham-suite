@@ -34,11 +34,11 @@ the path. Built on StatNumbers.
 			? [
 					[
 						{ value: b.savedByRandolph, label: m.campaign_tdea_gates_saved() },
-						{ value: b.catsCollectedTribute, label: m.campaign_tdea_gates_tribute() }
+						{ value: b.strayedFromPath, label: m.campaign_tdea_gates_strayed() }
 					],
 					[
-						{ value: b.parleyedZoogs, label: m.campaign_tdea_gates_zoogs() },
-						{ value: b.strayedFromPath, label: m.campaign_tdea_gates_strayed() }
+						{ value: b.catsCollectedTribute, label: m.campaign_tdea_gates_tribute() },
+						{ value: b.parleyedZoogs, label: m.campaign_tdea_gates_zoogs() }
 					]
 				]
 			: []

@@ -269,5 +269,13 @@
     "check_ursula": {
       "text": "Ursula recalls her Amazon expedition."
     }
+  },
+  "scenarioChoices": {
+    "one_last_job.task_assignment": {
+      "label": "Which side task each investigator took"
+    },
+    "one_last_job.task_assignment_investigator": {
+      "label": "Task holder"
+    }
   }
 }

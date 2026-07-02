@@ -9,6 +9,7 @@ tracks — the Key passes to the Dream-Quest in interconnected play). Built on S
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, {
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
@@ -54,7 +55,12 @@ tracks — the Key passes to the Dream-Quest in interconnected play). Built on S
 <ScenarioInfo scenarioId="a_thousand_shapes_of_horror" {family} {achievements} {scenarios} {logOnly}>
 	{#snippet stats()}
 		{#if hasData}
-			<StatNumbers {rows} />
+			<div class="flex items-start justify-center gap-4">
+				{#if (key?.obtained ?? 0) > 0}
+					<CardThumb code="06189" alt="The Silver Key" />
+				{/if}
+				<StatNumbers {rows} />
+			</div>
 		{:else}
 			<p class="text-primary-500 text-sm">{m.campaign_tdeb_shapes_empty()}</p>
 		{/if}

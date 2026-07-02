@@ -1,15 +1,17 @@
 <!--
 @component
-TFA bespoke widget — "The Depths of Yoth". How deep you descended, and which agenda
-you began on — the headline Yig's Fury breakpoint ("Fury N → started on agenda X").
-The agenda distribution is derived from each play's final Yig's Fury. Built on StatNumbers.
+TFA flagship — "The Depths of Yoth". How far you descended (final depth reached, from the Extra tab)
+and the headline Yig's Fury breakpoint that shaped the descent: which agenda you began on ("Fury N →
+agenda X"), derived from each play's final Fury. Built on StatNumbers, wrapped in the shared TFA
+passport (Yig header art; the Patricide achievement surfaces here).
 -->
 <script lang="ts">
-	import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+	import { TFA_YIG_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import TfaScenarioInfo from './TfaScenarioInfo.svelte';
+	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
+	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -25,11 +27,10 @@ The agenda distribution is derived from each play's final Yig's Fury. Built on S
 		scenarios?: CampaignScenarios | null;
 		logOnly?: boolean;
 	} = $props();
+
 	const d = $derived(tfa?.depthsOfYoth);
 	const agenda = $derived(tfa?.vengeance.depthsAgenda ?? {});
-	const hasData = $derived(!!d && d.finalDepthMax !== null);
-
-	const agendaRow = $derived<Stat[]>(
+	const agendaStats = $derived<Stat[]>(
 		Object.keys(agenda)
 			.map(Number)
 			.sort((a, b) => a - b)
@@ -39,20 +40,26 @@ The agenda distribution is derived from each play's final Yig's Fury. Built on S
 					n === 0 ? m.campaign_tfa_vengeance_agenda_special() : m.campaign_tfa_vengeance_agenda({ n })
 			}))
 	);
-	const rows = $derived<Stat[][]>(
-		hasData && d
+	const hasData = $derived((!logOnly && !!d && d.recorded > 0) || agendaStats.length > 0);
+
+	// Final depth is an Extra-tab value — hidden in Log-only mode; the Yig's Fury agenda is log-derived.
+	const rows = $derived<(Stat[] | StatGroup)[]>([
+		!logOnly && d && d.recorded > 0
 			? [
-					[
-						{ value: d.finalDepthMax, label: m.campaign_tfa_yoth_depth_max() },
-						{ value: d.finalDepthMin, label: m.campaign_tfa_yoth_depth_min() }
-					],
-					agendaRow
-				].filter((r) => r.length)
-			: []
-	);
+					{ value: d.finalDepthMax, label: m.campaign_tfa_yoth_depth_max() },
+					{ value: d.finalDepthMin, label: m.campaign_tfa_yoth_depth_min() }
+				]
+			: [],
+		agendaStats.length
+			? { heading: m.campaign_tfa_yoth_agenda_heading(), stats: agendaStats }
+			: { stats: [] }
+	]);
 </script>
 
-<ScenarioInfo scenarioId="the_depths_of_yoth" {family} {achievements} {scenarios} {logOnly}>
+<TfaScenarioInfo scenarioId="the_depths_of_yoth" {family} {achievements} {scenarios} {logOnly}>
+	{#snippet headerArt()}
+		<CardThumb code={TFA_YIG_CODE} alt={m.campaign_tfa_yig_name()} tone="danger" objectTop />
+	{/snippet}
 	{#snippet stats()}
 		{#if hasData}
 			<StatNumbers {rows} />
@@ -60,4 +67,4 @@ The agenda distribution is derived from each play's final Yig's Fury. Built on S
 			<p class="text-primary-500 text-sm">{m.campaign_tfa_yoth_empty()}</p>
 		{/if}
 	{/snippet}
-</ScenarioInfo>
+</TfaScenarioInfo>

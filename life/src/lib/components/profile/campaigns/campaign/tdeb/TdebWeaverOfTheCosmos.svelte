@@ -11,7 +11,7 @@ StatNumbers.
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -29,23 +29,33 @@ StatNumbers.
 	} = $props();
 	const w = $derived(tdeb?.weaver);
 	const hasData = $derived(!!w && w.reached > 0);
-	const rows = $derived<Stat[][]>(
+	// Grouped by the single-sided verdict (curation outcomes): returned to reality is the better win.
+	const rows = $derived<StatGroup[]>(
 		hasData && w
 			? [
-					[
-						{ value: w.returnedToReality, label: m.campaign_tdeb_weaver_returned() },
-						{ value: w.neverEscaped, label: m.campaign_tdeb_weaver_never() },
-						{ value: w.stillInDreamlands, label: m.campaign_tdeb_weaver_still() }
-					],
-					[
-						{ value: w.bridgeCompleted, label: m.campaign_tdeb_weaver_completed() },
-						{ value: w.bridgeDestroyed, label: m.campaign_tdeb_weaver_destroyed() }
-					],
-					[
-						{ value: w.trappedInRealm, label: m.campaign_tdeb_weaver_trapped() },
-						{ value: w.spiderQueen, label: m.campaign_tdeb_weaver_spider() }
-					]
-				]
+					{
+						heading: m.campaign_tdeb_weaver_victory_heading(),
+						stats: [
+							{ value: w.returnedToReality, label: m.campaign_tdeb_weaver_returned() },
+							{ value: w.stillInDreamlands, label: m.campaign_tdeb_weaver_still() },
+							{ value: w.bridgeDestroyed, label: m.campaign_tdeb_weaver_destroyed() }
+						]
+					},
+					{
+						heading: m.campaign_tdeb_weaver_defeat_heading(),
+						stats: [
+							{ value: w.bridgeCompleted, label: m.campaign_tdeb_weaver_completed() },
+							{ value: w.neverEscaped, label: m.campaign_tdeb_weaver_never() }
+						]
+					},
+					{
+						heading: m.campaign_tdeb_weaver_details_heading(),
+						stats: [
+							{ value: w.trappedInRealm, label: m.campaign_tdeb_weaver_trapped() },
+							{ value: w.spiderQueen, label: m.campaign_tdeb_weaver_spider() }
+						]
+					}
+				].filter((grp) => grp.stats.some((st) => (st.value as number) > 0))
 			: []
 	);
 </script>

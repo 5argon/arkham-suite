@@ -10,13 +10,16 @@ Shown on both Dream-Eaters campaign pages from that side's records. Built on Sta
 
 	let { shared }: { shared: CampaignTdeShared | null } = $props();
 	const p = $derived(shared?.playMode);
-	const hasData = $derived(!!p && p.interconnected + p.half > 0);
+	const hasData = $derived(!!p && p.interconnected + p.half + p.unspecified > 0);
 	const rows = $derived<Stat[][]>(
 		hasData && p
 			? [
 					[
 						{ value: p.interconnected, label: m.campaign_tde_mode_interconnected() },
-						{ value: p.half, label: m.campaign_tde_mode_half() }
+						{ value: p.half, label: m.campaign_tde_mode_half() },
+						...(p.unspecified > 0
+							? [{ value: p.unspecified, label: m.campaign_tde_mode_unspecified() }]
+							: [])
 					]
 				]
 			: []

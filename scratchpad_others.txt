@@ -1,0 +1,1722 @@
+diff --git a/life/src/lib/campaign/campaigns/fhv.ts b/life/src/lib/campaign/campaigns/fhv.ts
+index 4763703b..ecadb1e7 100644
+--- a/life/src/lib/campaign/campaigns/fhv.ts
++++ b/life/src/lib/campaign/campaigns/fhv.ts
+@@ -1,17 +1,24 @@
+ /**
+  * fhv.ts — The Feast of Hemlock Vale bespoke per-campaign tallies. ONE builder, ONE
+- * payload blob (`fhv`), mirroring `tic.ts`. See `fhv-widgets-plan.md`.
++ * payload blob (`fhv`). FHV is a relationship "life-sim": eight villagers you befriend,
++ * each running the same arc — met → shared a dance → stood by you → sacrificed himself →
++ * saved in the finale.
+  *
+  *   • areas / schedule — the 7 surveyable areas (`areas_surveyed`) + whether the two
+- *     canon-night scenarios were played; the full Day/Night slot matrix is Extra-tab
+- *     (`<scenario>.played_on`), read here and rendered nonLog:'partial'.
+- *   • villagers — 8 dedicated per-character views: relationship score
+- *     (`logCounts[<section>]`) + every milestone (`<section>.<id>`, annotated by scenario)
+- *     + saved-in-the-finale; Mother Rachel & Simeon carry extra story-relevant notes.
+- *   • fate — Fate of the Vale: which of 4 versions (`hidden.fate_of_the_vale_act_3a_v*`),
+- *     the ending reached + class, and which villagers were saved.
++ *     canon-night scenarios were played; the Day/Night slot matrix is Extra-tab
++ *     (`<scenario>.played_on`), rendered nonLog:'partial'.
++ *   • villagers — relationship level (`logCounts[<section>]`) + every milestone
++ *     (`<section>.<id>`) + the danced/stood/sacrificed arc + saved-in-the-finale.
++ *   • dance — The Second Evening: per-resident dance partners + the best single-play
++ *     spread (the Dancing Queen four) + Helen + Mother Rachel's doubts.
++ *   • hemlockHouse — The Argument (Extra `hemlock_house.the_argument`) + Little Sylvie.
++ *   • longestNight — the captives outcome, Mother Rachel's stance (Extra) and the
++ *     captives' damage (Extra highscore, 0 = flawless).
++ *   • finalEvening — believed/lied to Rachel, the Hemlocks' truce, Bertie & the fireworks payoff.
++ *   • bertie — Bertie Musgrave's cross-scenario rescue arc.
++ *   • fate — Fate of the Vale: which of 4 versions, the ending, and which villagers were saved.
+  *   • curse — the Hemlock curse (`hemlock_curse_count`, per-investigator).
+- *   • scenarios — per-scenario fork outcomes (dedicated widgets + folded into the schedule).
++ *   • scenarios — per-scenario fork outcomes, keyed by full `section.id` (the bespoke widgets).
+  */
+ import { getCampaignLog } from '@5argon/arkham-campaign-data';
+ import type { CampaignRecord } from '../achievements/achievement-aggregate';
+@@ -34,6 +41,11 @@ export function fhvScenarioName(id: string): string {
+ 	return getCampaignLog(FHV_FAMILY)?.en.scenarioNames?.[id] ?? id;
+ }
+ 
++/** A villager's display name (the campaign-log relationship-section title, e.g. "Leah Atwood"). */
++export function fhvVillagerName(id: string): string {
++	return getCampaignLog(FHV_FAMILY)?.en.sections?.[id] ?? id;
++}
++
+ /** The 7 surveyable areas (`areas_surveyed` checklist). */
+ export const FHV_AREAS = [
+ 	'north_point_mine', 'hemlock_harbor', 'pearl_ridge', 'akwan_shoreline',
+@@ -48,7 +60,8 @@ export interface FhvVillagerDef {
+ 	max: number;
+ 	milestones: FhvMilestone[];
+ }
+-/** The 8 villagers: relationship section, relationship-level max (3/6/7), and every milestone (with its scenario). */
++/** The 8 villagers, in dinner-seat order: relationship section, relationship-level max (3/6/7),
++ *  and every milestone (with its scenario). Mother Rachel is first (she anchors the campaign). */
+ export const FHV_VILLAGERS: FhvVillagerDef[] = [
+ 	{ id: 'rachel', max: 3, milestones: [
+ 		{ id: 'mother_rachel_intervened', scenario: 'the_twisted_hollow' },
+@@ -116,6 +129,9 @@ export const FHV_VILLAGERS: FhvVillagerDef[] = [
+ 	] },
+ ];
+ 
++/** The 7 residents who can dance / stand by you / sacrifice themselves (Mother Rachel never does). */
++export const FHV_DANCERS = ['leah', 'simeon', 'william', 'river', 'gideon', 'judith', 'theo'];
++
+ /** Fate of the Vale endings (campaign_notes) → outcome class. */
+ export const FHV_FATE_ENDINGS: { id: string; cls: 'win' | 'best' | 'loss' }[] = [
+ 	{ id: 'dr_marquez_sacrificed_herself_for_the_vale', cls: 'win' },
+@@ -126,20 +142,56 @@ export const FHV_FATE_ENDINGS: { id: string; cls: 'win' | 'best' | 'loss' }[] =
+ 	{ id: 'became_the_true_feast_of_hemlock_vale', cls: 'loss' },
+ ];
+ 
+-/** Per-scenario fork outcomes (dedicated widgets + folded into the schedule). */
+-export const FHV_SCENARIOS: { id: string; notes: string[] }[] = [
+-	{ id: 'written_in_rock', notes: ['survived_the_horrors_in_the_rock'] },
+-	{ id: 'the_silent_heath', notes: ['laid_the_pearl_family_to_rest', 'remains_were_partially_recovered', 'madame_pearls_diary_was_recovered'] },
+-	{ id: 'the_lost_sister', notes: ['the_peters_family_was_reunited', 'elizabeth_peters_was_saved'] },
+-	{ id: 'the_thing_in_the_depths', notes: ['chelydran_hybrid_perished', 'chelydran_hybrid_lived', 'chelydran_hybrid_devoured', 'thing_in_the_depths_was_defeated'] },
+-	{ id: 'the_twisted_hollow', notes: ['mother_rachel_showed_the_way', 'lost_the_path', 'bertie_was_rescued', 'bertie_was_lost_in_the_woods', 'the_bear_was_wounded'] },
+-	{ id: 'the_longest_night', notes: ['faced_the_night_alone', 'captives_were_saved', 'many_captives_were_lost', 'all_the_captives_were_lost', 'dr_marquez_has_a_plan'] },
++/** Per-scenario fork outcomes, keyed by FULL composite key (`section.id`) — the bespoke widgets
++ *  read `scenarios[<id>][<key>]`. Grouping/theming is decided per-widget. Hemlock House and the
++ *  preludes carry their signature moments in dedicated blobs instead (Argument / dance / fireworks). */
++export const FHV_SCENARIOS: { id: string; outcomes: string[] }[] = [
++	{ id: 'written_in_rock', outcomes: [
++		'simeon.simeon_survived', 'leah.leah_saw_something_in_the_mine',
++		'simeon.simeon_disappeared', 'leah.leah_and_simeon_were_reunited',
++		'campaign_notes.survived_the_horrors_in_the_rock',
++	] },
++	{ id: 'the_silent_heath', outcomes: [
++		'campaign_notes.laid_the_pearl_family_to_rest',
++		'campaign_notes.remains_were_partially_recovered',
++		'campaign_notes.madame_pearls_diary_was_recovered',
++		'leah.searched_the_pearl_ruins',
++	] },
++	{ id: 'the_lost_sister', outcomes: [
++		'campaign_notes.the_peters_family_was_reunited',
++		'campaign_notes.elizabeth_peters_was_saved',
++		'theo.theo_reconciled_with_helen',
++		'gideon.gideon_found_his_treasure',
++	] },
++	{ id: 'the_thing_in_the_depths', outcomes: [
++		'campaign_notes.thing_in_the_depths_was_defeated',
++		'campaign_notes.chelydran_hybrid_lived',
++		'campaign_notes.chelydran_hybrid_perished',
++		'campaign_notes.chelydran_hybrid_devoured',
++		'judith.judith_shared_a_grudge',
++	] },
++	{ id: 'the_twisted_hollow', outcomes: [
++		'campaign_notes.bertie_was_rescued',
++		'campaign_notes.bertie_was_lost_in_the_woods',
++		'campaign_notes.mother_rachel_showed_the_way',
++		'campaign_notes.lost_the_path',
++		'campaign_notes.the_bear_was_wounded',
++		'judith.judith_saved_your_ass',
++		'theo.theo_distracted_the_bear',
++		'rachel.mother_rachel_intervened',
++	] },
++	{ id: 'the_longest_night', outcomes: [
++		'campaign_notes.captives_were_saved',
++		'campaign_notes.many_captives_were_lost',
++		'campaign_notes.all_the_captives_were_lost',
++		'campaign_notes.faced_the_night_alone',
++		'campaign_notes.dr_marquez_has_a_plan',
++	] },
+ ];
+ 
+-/** Scenarios that carry a `<scenario>.played_on` Extra pick — the 5 FLEXIBLE ones whose
+- *  day/phase the log never records. The two locked nights (The Twisted Hollow = Day 1 Night,
+- *  The Longest Night = Day 2 Night) are derived from the log instead (see `schedule`), so they
+- *  have no curation choice and are intentionally excluded here. Must mirror the curation
++/** Scenarios that carry a `<scenario>.played_on` Extra pick — the FLEXIBLE ones whose day/phase
++ *  the log never records. The two locked nights (The Twisted Hollow = Day 1 Night, The Longest
++ *  Night = Day 2 Night) are derived from the log instead (see `schedule`). Mirrors the curation
+  *  `scenarioChoices` keys in campaign-data `curation/fhv.json`. */
+ export const FHV_SCHEDULABLE = [
+ 	'written_in_rock', 'hemlock_house', 'the_silent_heath', 'the_lost_sister',
+@@ -155,6 +207,12 @@ export interface FhvVillagerTally {
+ 	milestones: Record<string, number>;
+ 	/** Plays where this villager was saved in the finale. */
+ 	saved: number;
++	/** Plays where this villager shared a dance (The Second Evening). */
++	danced: number;
++	/** Plays where this villager stood by you (The Longest Night). */
++	stood: number;
++	/** Plays where this villager sacrificed themself (The Longest Night). */
++	sacrificed: number;
+ }
+ 
+ export interface CampaignFhv {
+@@ -167,15 +225,60 @@ export interface CampaignFhv {
+ 		playedLongestNight: number;
+ 		/** Skipped/defied BOTH canon nights (the "colour outside the lines" play). */
+ 		skippedBothNights: number;
+-		/** Extra-tab Day/Night matrix: scenario id → slot → plays (empty until the Extra input exists). */
++		/** Extra-tab Day/Night matrix: scenario id → slot → plays. */
+ 		playedOn: Record<string, Record<string, number>>;
+ 	};
+ 	/** villager id → tally. */
+ 	villagers: Record<string, FhvVillagerTally>;
+-	/** Mother Rachel's cross-scenario story notes (she anchors both canon nights). */
++	/** Mother Rachel's cross-scenario story notes (she anchors both canon nights + the Final Evening). */
+ 	rachelExtra: { showedTheWay: number; lostThePath: number; believed: number; liedTo: number };
+ 	/** Simeon's fireworks-plan arc (his plan → the "Burn it all" finale). */
+ 	simeonExtra: { planUnderway: number; fireworks: number };
++	/** The Second Evening — the dance. */
++	dance: {
++		/** villager id → plays they shared a dance. */
++		partners: Record<string, number>;
++		/** Plays Helen Peters danced (needs the Peters family reunited). */
++		helen: number;
++		/** Plays Mother Rachel shared her doubts (she never dances). */
++		rachelDoubts: number;
++		/** Best single-play dance spread (distinct residents) — the Dancing Queen four. */
++		best: number;
++		/** Plays that reached the dance (any dance recorded). */
++		plays: number;
++	};
++	/** Hemlock House — The Argument (Extra) + Little Sylvie. */
++	hemlockHouse: {
++		/** Extra `hemlock_house.the_argument` → plays. */
++		argument: { william: number; judith: number; neither: number };
++		/** Plays that found Little Sylvie (`hidden.found_little_sylvie`). */
++		littleSylvie: number;
++	};
++	/** The Longest Night — captives + Mother Rachel's stance (Extra) + captives damage (Extra). */
++	longestNight: {
++		facedAlone: number;
++		captivesSaved: number;
++		captivesManyLost: number;
++		captivesAllLost: number;
++		drMarquezPlan: number;
++		/** Extra `the_longest_night.rachel_stance`. */
++		rachel: { confront: number; hide: number };
++		/** Extra `the_longest_night.captives_damage`: the LOWEST recorded (0 = flawless), or null. */
++		damageBest: number | null;
++		/** Plays with a recorded captives-damage value. */
++		damagePlays: number;
++	};
++	/** The Final Evening — belief/lie, the Hemlocks' truce, and the fireworks payoff. */
++	finalEvening: {
++		believed: number;
++		lied: number;
++		interrupted: number;
++		truce: number;
++		gideonTale: number;
++		fireworks: number;
++	};
++	/** Bertie Musgrave's cross-scenario arc. */
++	bertie: { rescued: number; lost: number; epiphany: number; perished: number };
+ 	fate: {
+ 		/** version id (v1..v4) → plays. */
+ 		version: Record<string, number>;
+@@ -186,7 +289,7 @@ export interface CampaignFhv {
+ 	};
+ 	/** Hemlock curse (per-investigator count). */
+ 	curse: { plays: number; maxCursed: number };
+-	/** scenario id → fork note id → plays (per-scenario fork outcomes; also folded into the schedule). */
++	/** scenario id → full composite key → plays (per-scenario fork outcomes). */
+ 	scenarios: Record<string, Record<string, number>>;
+ }
+ 
+@@ -199,14 +302,25 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
+ 	const areas: Record<string, number> = {};
+ 	const schedule = { playedTwistedHollow: 0, playedLongestNight: 0, skippedBothNights: 0, playedOn: {} as Record<string, Record<string, number>> };
+ 	const villagers: Record<string, FhvVillagerTally> = {};
+-	for (const v of FHV_VILLAGERS) villagers[v.id] = { maxScore: null, milestones: {}, saved: 0 };
++	for (const v of FHV_VILLAGERS) villagers[v.id] = { maxScore: null, milestones: {}, saved: 0, danced: 0, stood: 0, sacrificed: 0 };
+ 	const rachelExtra = { showedTheWay: 0, lostThePath: 0, believed: 0, liedTo: 0 };
+ 	const simeonExtra = { planUnderway: 0, fireworks: 0 };
++	const dance = { partners: {} as Record<string, number>, helen: 0, rachelDoubts: 0, best: 0, plays: 0 };
++	const hemlockHouse = { argument: { william: 0, judith: 0, neither: 0 }, littleSylvie: 0 };
++	const longestNight = {
++		facedAlone: 0, captivesSaved: 0, captivesManyLost: 0, captivesAllLost: 0, drMarquezPlan: 0,
++		rachel: { confront: 0, hide: 0 }, damageBest: null as number | null, damagePlays: 0,
++	};
++	const finalEvening = { believed: 0, lied: 0, interrupted: 0, truce: 0, gideonTale: 0, fireworks: 0 };
++	const bertie = { rescued: 0, lost: 0, epiphany: 0, perished: 0 };
+ 	const fate = { version: {} as Record<string, number>, endings: {} as Record<string, number>, saved: {} as Record<string, number> };
+ 	const curse = { plays: 0, maxCursed: 0 };
+ 	const scenarios: Record<string, Record<string, number>> = {};
+ 	for (const sc of FHV_SCENARIOS) scenarios[sc.id] = {};
+ 
++	const thOutcomes = FHV_SCENARIOS.find((s) => s.id === 'the_twisted_hollow')!.outcomes;
++	const lnOutcomes = FHV_SCENARIOS.find((s) => s.id === 'the_longest_night')!.outcomes;
++
+ 	for (const rec of fhvRecords) {
+ 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
+ 		const counts = rec.recorded.logCounts ?? {};
+@@ -215,29 +329,65 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
+ 		// Areas surveyed.
+ 		for (const a of FHV_AREAS) if (has(`areas_surveyed.${a}`)) areas[a] = (areas[a] ?? 0) + 1;
+ 
+-		// Villagers — score (logCounts[<section>]) + milestones + saved-in-finale.
++		// Villagers — relationship level + milestones + the arc + saved-in-finale.
+ 		for (const v of FHV_VILLAGERS) {
+ 			const t = villagers[v.id];
+ 			const score = counts[v.id];
+ 			if (score !== undefined) t.maxScore = t.maxScore === null ? score : Math.max(t.maxScore, score);
+ 			for (const ms of v.milestones) if (has(`${v.id}.${ms.id}`)) t.milestones[ms.id] = (t.milestones[ms.id] ?? 0) + 1;
++			if (has(`${v.id}.${v.id}_shared_a_dance`)) t.danced += 1;
++			if (has(`${v.id}.${v.id}_stood_by_you`)) t.stood += 1;
++			if (has(`${v.id}.${v.id}_sacrificed_himself`)) t.sacrificed += 1;
+ 			if (has(`${H}.fate_of_the_vale_saved_${v.id}`)) {
+ 				t.saved += 1;
+ 				fate.saved[v.id] = (fate.saved[v.id] ?? 0) + 1;
+ 			}
+ 		}
+ 
+-		// Mother Rachel + Simeon extras.
++		// Mother Rachel + Simeon extras / The Final Evening forks.
++		const believed = has(k('believed'));
++		const lied = has(k('lied_to_mother_rachel'));
+ 		if (has(k('mother_rachel_showed_the_way'))) rachelExtra.showedTheWay += 1;
+ 		if (has(k('lost_the_path'))) rachelExtra.lostThePath += 1;
+-		if (has(k('believed'))) rachelExtra.believed += 1;
+-		if (has(k('lied_to_mother_rachel'))) rachelExtra.liedTo += 1;
++		if (believed) rachelExtra.believed += 1;
++		if (lied) rachelExtra.liedTo += 1;
+ 		if (has(`${H}.simeon_plan_is_underway`)) simeonExtra.planUnderway += 1;
+-		if (has(k('the_vale_is_full_of_fireworks'))) simeonExtra.fireworks += 1;
++		const fireworks = has(k('the_vale_is_full_of_fireworks'));
++		if (fireworks) simeonExtra.fireworks += 1;
++		if (believed) finalEvening.believed += 1;
++		if (lied) finalEvening.lied += 1;
++		if (has(k('interrupted_the_feast'))) finalEvening.interrupted += 1;
++		if (has(k('the_hemlocks_made_a_truce'))) finalEvening.truce += 1;
++		if (has('gideon.gideon_finished_the_tale_of_the_annabelle_lee')) finalEvening.gideonTale += 1;
++		if (fireworks) finalEvening.fireworks += 1;
++
++		// Bertie's arc.
++		if (has(k('bertie_was_rescued'))) bertie.rescued += 1;
++		if (has(k('bertie_was_lost_in_the_woods'))) bertie.lost += 1;
++		if (has(k('bertie_had_an_epiphany'))) bertie.epiphany += 1;
++		if (has(k('bertie_perished'))) bertie.perished += 1;
++
++		// The Second Evening — the dance (count from the durable per-resident flags).
++		let danceSpread = 0;
++		for (const d of FHV_DANCERS) {
++			if (has(`${d}.${d}_shared_a_dance`)) {
++				dance.partners[d] = (dance.partners[d] ?? 0) + 1;
++				danceSpread += 1;
++			}
++		}
++		if (has(k('helen_shared_a_dance'))) { dance.helen += 1; danceSpread += 1; }
++		if (has('rachel.mother_rachel_shared_her_doubts')) dance.rachelDoubts += 1;
++		if (danceSpread > 0) dance.plays += 1;
++		dance.best = Math.max(dance.best, danceSpread);
++
++		// Hemlock House — The Argument (Extra) + Little Sylvie.
++		const arg = rec.scenarioChoices?.['hemlock_house.the_argument'];
++		if (arg === 'william' || arg === 'judith' || arg === 'neither') hemlockHouse.argument[arg] += 1;
++		if (has(`${H}.found_little_sylvie`)) hemlockHouse.littleSylvie += 1;
+ 
+ 		// Schedule — canon nights played + the Extra Day/Night matrix.
+-		const playedTH = FHV_SCENARIOS.find((s) => s.id === 'the_twisted_hollow')!.notes.some((n) => has(k(n)));
+-		const playedLN = FHV_SCENARIOS.find((s) => s.id === 'the_longest_night')!.notes.some((n) => has(k(n)));
++		const playedTH = thOutcomes.some((key) => has(key));
++		const playedLN = lnOutcomes.some((key) => has(key));
+ 		if (playedTH) schedule.playedTwistedHollow += 1;
+ 		if (playedLN) schedule.playedLongestNight += 1;
+ 		if (!playedTH && !playedLN) schedule.skippedBothNights += 1;
+@@ -248,6 +398,23 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
+ 			}
+ 		}
+ 
++		// The Longest Night — captives outcome + Mother Rachel's stance + captives damage (Extra).
++		if (has(k('faced_the_night_alone'))) longestNight.facedAlone += 1;
++		if (has(k('captives_were_saved'))) longestNight.captivesSaved += 1;
++		if (has(k('many_captives_were_lost'))) longestNight.captivesManyLost += 1;
++		if (has(k('all_the_captives_were_lost'))) longestNight.captivesAllLost += 1;
++		if (has(k('dr_marquez_has_a_plan'))) longestNight.drMarquezPlan += 1;
++		const stance = rec.scenarioChoices?.['the_longest_night.rachel_stance'];
++		if (stance === 'confront' || stance === 'hide') longestNight.rachel[stance] += 1;
++		const dmgRaw = rec.scenarioChoices?.['the_longest_night.captives_damage'];
++		if (dmgRaw !== undefined && dmgRaw !== '') {
++			const dmg = Number(dmgRaw);
++			if (Number.isFinite(dmg)) {
++				longestNight.damagePlays += 1;
++				longestNight.damageBest = longestNight.damageBest === null ? dmg : Math.min(longestNight.damageBest, dmg);
++			}
++		}
++
+ 		// Fate of the Vale — version + ending + saved villagers.
+ 		for (const ver of ['v1', 'v2', 'v3', 'v4']) {
+ 			if (has(`${H}.fate_of_the_vale_act_3a_${ver}`)) fate.version[ver] = (fate.version[ver] ?? 0) + 1;
+@@ -261,9 +428,9 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
+ 			curse.maxCursed = Math.max(curse.maxCursed, cursed);
+ 		}
+ 
+-		// Per-scenario fork outcomes.
++		// Per-scenario fork outcomes (full composite keys).
+ 		for (const sc of FHV_SCENARIOS) {
+-			for (const note of sc.notes) if (has(k(note))) scenarios[sc.id][note] = (scenarios[sc.id][note] ?? 0) + 1;
++			for (const key of sc.outcomes) if (has(key)) scenarios[sc.id][key] = (scenarios[sc.id][key] ?? 0) + 1;
+ 		}
+ 	}
+ 
+@@ -276,6 +443,11 @@ export function buildFhv(records: CampaignRecord[]): CampaignFhv[] {
+ 			villagers,
+ 			rachelExtra,
+ 			simeonExtra,
++			dance,
++			hemlockHouse,
++			longestNight,
++			finalEvening,
++			bertie,
+ 			fate,
+ 			curse,
+ 			scenarios,
+diff --git a/life/src/lib/campaign/campaigns/notz.ts b/life/src/lib/campaign/campaigns/notz.ts
+index f7e8d0fe..66f86ed5 100644
+--- a/life/src/lib/campaign/campaigns/notz.ts
++++ b/life/src/lib/campaign/campaigns/notz.ts
+@@ -1,23 +1,28 @@
+ /**
+  * notz.ts — The Night of the Zealot bespoke per-campaign tallies. ONE builder, ONE
+- * payload blob (`notz`), mirroring `tic.ts` / `tdc.ts`. Fully log-derived. The core
+- * set's three-scenario intro campaign:
++ * payload blob (`notz`). The core set's three-scenario intro campaign, fully log- and
++ * deck-derived (the core-only feat reads `rec.coreOnly`, computed at assembly from the
++ * imported decks). Every count is a per-difficulty `ResolutionTally` so the widgets can
++ * offer the shared difficulty-breakdown hover:
+  *
+- *   • gathering — The Gathering: your house (standing vs burned to the ground), whether
+- *     the Ghoul Priest survives (a threat carried into later scenarios), and whether Lita
+- *     was forced to find others.
+- *   • midnightMasks — The Midnight Masks: whether it ran past midnight (the Masked Hunter
+- *     time-pressure), plus how many cultists were interrogated vs got away (the Cultist
+- *     deck; `cultists_interrogated` / `cultists_escaped` are freeform card sections, so
+- *     this is a lifetime COUNT, not a fixed roster).
+- *   • devourerBelow — The Devourer Below finale: the ritual broken (win), Umôrdhoth
+- *     repelled (the better ending), Arkham succumbed (loss), and whether Lita was sacrificed.
++ *   • gathering — The Gathering: your house (standing vs burned), Lita recruited vs forced
++ *     to find others, and the Ghoul Priest slain here (recorded ∧ crossed off) vs left
++ *     alive to follow you into the finale (recorded ∧ not crossed).
++ *   • midnightMasks — The Midnight Masks: past midnight (the Masked Hunter time-pressure),
++ *     the per-cultist manhunt (each of the 6 unique Cultists interrogated vs got away), the
++ *     best single-play haul, and how many plays let cultists escape (they swell the finale's doom).
++ *   • devourerBelow — The Devourer Below finale: Umôrdhoth repelled (the better ending),
++ *     the ritual broken (a win), Lita sacrificed (a distinct, hard-won win), Arkham succumbed (loss).
++ *   • purist — the Core-Set-only clears (the tutorial bundled with the box): wins achieved with a
++ *     Core / Revised Core-only deck and a non-parallel investigator, and who achieved them.
+  *
+  * `buildNotz` is family-parameterized so a future Return-to-NotZ suite reuses it.
+  */
+ import { getCampaignLog } from '@5argon/arkham-campaign-data';
+ import type { CampaignRecord } from '../achievements/achievement-aggregate';
+ import { familyOf } from '../records/campaign-family';
++import type { ResolutionTally } from '../outcomes/resolution-coverage';
++import { emptyTally, bumpTally, ensureTally } from '../utils/tally';
+ 
+ const NOTZ_FAMILY = 'notz';
+ const N = 'campaign_notes';
+@@ -25,22 +30,61 @@ const k = (id: string) => `${N}.${id}`;
+ const INTERROGATED = 'cultists_interrogated';
+ const ESCAPED = 'cultists_escaped';
+ 
++/** The six unique Cultist enemies of The Midnight Masks, in encounter order — the roster the
++ *  `cultists_interrogated` / `cultists_escaped` sections draw from (incl. the Masked Hunter). */
++export const NOTZ_CULTISTS = ['01137', '01138', '01139', '01140', '01141', '01121b'] as const;
++
+ /** Resolve a NotZ campaign-data entry's English text by composite key (e.g.
+  *  `campaign_notes.ritual_broken`). Falls back to the key when no entry exists. */
+ export function notzText(compositeKey: string): string {
+ 	return getCampaignLog(NOTZ_FAMILY)?.en.entries[compositeKey]?.text ?? compositeKey;
+ }
+ 
++/** One unique cultist across plays: times interrogated vs times it got away. */
++export interface NotzCultist {
++	caught: ResolutionTally;
++	escaped: ResolutionTally;
++}
++
+ export interface CampaignNotz {
+ 	/** The campaign family (its own code) — 'notz' (or 'rtnotz' for the Return-to suite). */
+ 	family: string;
+ 	plays: number;
+-	/** The Gathering. */
+-	gathering: { houseStanding: number; houseBurned: number; ghoulPriestAlive: number; litaFindsOthers: number };
+-	/** The Midnight Masks — `interrogated` / `escaped` are lifetime cultist counts summed across plays. */
+-	midnightMasks: { pastMidnight: number; interrogated: number; escaped: number };
+-	/** The Devourer Below — the finale outcomes. */
+-	devourerBelow: { ritualBroken: number; umordhothRepelled: number; arkhamSuccumbed: number; litaSacrificed: number };
++	/** Finale won — ritual broken / Umôrdhoth repelled / Lita sacrificed all count as clears. */
++	wins: number;
++	gathering: {
++		houseStanding: ResolutionTally;
++		houseBurned: ResolutionTally;
++		litaRecruited: ResolutionTally;
++		litaFindsOthers: ResolutionTally;
++		/** Recorded ∧ crossed off — the Ghoul Priest was slain during The Gathering. */
++		ghoulPriestSlain: ResolutionTally;
++		/** Recorded ∧ not crossed — the Ghoul Priest survives to stalk you into the finale. */
++		ghoulPriestSurvived: ResolutionTally;
++	};
++	midnightMasks: {
++		pastMidnight: ResolutionTally;
++		/** Per unique cultist (NOTZ_CULTISTS): plays interrogated vs plays it got away. */
++		perCultist: Record<string, NotzCultist>;
++		totalInterrogated: number;
++		totalEscaped: number;
++		/** Plays where at least one cultist got away (they add doom to the finale's Agenda 1a). */
++		playsWithEscapes: ResolutionTally;
++		/** Best single-play cultist haul (max interrogated); `byTier` is the best per difficulty. */
++		bestHaul: ResolutionTally;
++	};
++	devourerBelow: {
++		umordhothRepelled: ResolutionTally;
++		ritualBroken: ResolutionTally;
++		litaSacrificed: ResolutionTally;
++		arkhamSuccumbed: ResolutionTally;
++	};
++	purist: {
++		/** Clears (wins) achieved with a Core / Revised Core-only deck + non-parallel investigator. */
++		coreOnlyClears: ResolutionTally;
++		/** Investigator code → the core-only clears they took part in. */
++		investigators: Record<string, ResolutionTally>;
++	};
+ }
+ 
+ export function buildNotz(records: CampaignRecord[], family: string = NOTZ_FAMILY): CampaignNotz[] {
+@@ -52,40 +96,89 @@ export function buildNotz(records: CampaignRecord[], family: string = NOTZ_FAMIL
+ 	});
+ 	if (notzRecords.length === 0) return [];
+ 
+-	const gathering = { houseStanding: 0, houseBurned: 0, ghoulPriestAlive: 0, litaFindsOthers: 0 };
+-	const midnightMasks = { pastMidnight: 0, interrogated: 0, escaped: 0 };
+-	const devourerBelow = { ritualBroken: 0, umordhothRepelled: 0, arkhamSuccumbed: 0, litaSacrificed: 0 };
++	const gathering = {
++		houseStanding: emptyTally(),
++		houseBurned: emptyTally(),
++		litaRecruited: emptyTally(),
++		litaFindsOthers: emptyTally(),
++		ghoulPriestSlain: emptyTally(),
++		ghoulPriestSurvived: emptyTally()
++	};
++	const perCultist: Record<string, NotzCultist> = {};
++	for (const code of NOTZ_CULTISTS) perCultist[code] = { caught: emptyTally(), escaped: emptyTally() };
++	const midnightMasks = {
++		pastMidnight: emptyTally(),
++		perCultist,
++		totalInterrogated: 0,
++		totalEscaped: 0,
++		playsWithEscapes: emptyTally(),
++		bestHaul: emptyTally()
++	};
++	const devourerBelow = {
++		umordhothRepelled: emptyTally(),
++		ritualBroken: emptyTally(),
++		litaSacrificed: emptyTally(),
++		arkhamSuccumbed: emptyTally()
++	};
++	const purist = {
++		coreOnlyClears: emptyTally(),
++		investigators: {} as Record<string, ResolutionTally>
++	};
++	let wins = 0;
+ 
+ 	for (const rec of notzRecords) {
+ 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
++		const crossed = rec.recorded.crossedLogs ?? new Set<string>();
+ 		const items = rec.recorded.recordedSectionItems ?? {};
+-		const has = (key: string) => logs.has(key);
++		const tier = rec.recorded.difficulty ?? 'standard';
++		const has = (id: string) => logs.has(k(id));
++		const isCrossed = (id: string) => crossed.has(k(id));
+ 
+-		// The Gathering.
+-		if (has(k('house_standing'))) gathering.houseStanding += 1;
+-		if (has(k('house_burned'))) gathering.houseBurned += 1;
+-		if (has(k('ghoul_priest_alive'))) gathering.ghoulPriestAlive += 1;
+-		if (has(k('lita_finds_others'))) gathering.litaFindsOthers += 1;
++		// ── The Gathering ──
++		const gatheringReached = has('house_standing') || has('house_burned');
++		if (has('house_standing')) bumpTally(gathering.houseStanding, tier);
++		if (has('house_burned')) bumpTally(gathering.houseBurned, tier);
++		if (has('lita_finds_others')) bumpTally(gathering.litaFindsOthers, tier);
++		else if (gatheringReached) bumpTally(gathering.litaRecruited, tier);
++		if (has('ghoul_priest_alive')) {
++			if (isCrossed('ghoul_priest_alive')) bumpTally(gathering.ghoulPriestSlain, tier);
++			else bumpTally(gathering.ghoulPriestSurvived, tier);
++		}
+ 
+-		// The Midnight Masks.
+-		if (has(k('past_midnight'))) midnightMasks.pastMidnight += 1;
+-		midnightMasks.interrogated += (items[INTERROGATED]?.size ?? 0);
+-		midnightMasks.escaped += (items[ESCAPED]?.size ?? 0);
++		// ── The Midnight Masks ──
++		if (has('past_midnight')) bumpTally(midnightMasks.pastMidnight, tier);
++		const caught = items[INTERROGATED] ?? new Set<string>();
++		const gotAway = items[ESCAPED] ?? new Set<string>();
++		for (const code of caught) bumpTally(ensureCultist(perCultist, code).caught, tier);
++		for (const code of gotAway) bumpTally(ensureCultist(perCultist, code).escaped, tier);
++		midnightMasks.totalInterrogated += caught.size;
++		midnightMasks.totalEscaped += gotAway.size;
++		if (gotAway.size > 0) bumpTally(midnightMasks.playsWithEscapes, tier);
++		// Best haul = max interrogated in a single play, overall (`total`) + per difficulty (`byTier`).
++		if (caught.size > midnightMasks.bestHaul.total) midnightMasks.bestHaul.total = caught.size;
++		midnightMasks.bestHaul.byTier[tier] = Math.max(midnightMasks.bestHaul.byTier[tier] ?? 0, caught.size);
+ 
+-		// The Devourer Below.
+-		if (has(k('ritual_broken'))) devourerBelow.ritualBroken += 1;
+-		if (has(k('umordhoth_repelled'))) devourerBelow.umordhothRepelled += 1;
+-		if (has(k('arkham_succumbed'))) devourerBelow.arkhamSuccumbed += 1;
+-		if (has(k('lita_sacrificed'))) devourerBelow.litaSacrificed += 1;
+-	}
++		// ── The Devourer Below ──
++		if (has('umordhoth_repelled')) bumpTally(devourerBelow.umordhothRepelled, tier);
++		if (has('ritual_broken')) bumpTally(devourerBelow.ritualBroken, tier);
++		if (has('lita_sacrificed')) bumpTally(devourerBelow.litaSacrificed, tier);
++		if (has('arkham_succumbed')) bumpTally(devourerBelow.arkhamSuccumbed, tier);
+ 
+-	return [
+-		{
+-			family,
+-			plays: notzRecords.length,
+-			gathering,
+-			midnightMasks,
+-			devourerBelow
++		// ── Clear (win) + the Core-Set purist feat ──
++		const won = has('umordhoth_repelled') || has('ritual_broken') || has('lita_sacrificed');
++		if (won) {
++			wins += 1;
++			if (rec.coreOnly) {
++				bumpTally(purist.coreOnlyClears, tier);
++				for (const code of rec.subjectInvestigators ?? [])
++					bumpTally(ensureTally(purist.investigators, code), tier);
++			}
+ 		}
+-	];
++	}
++
++	return [{ family, plays: notzRecords.length, wins, gathering, midnightMasks, devourerBelow, purist }];
++}
++
++function ensureCultist(map: Record<string, NotzCultist>, code: string): NotzCultist {
++	return (map[code] ??= { caught: emptyTally(), escaped: emptyTally() });
+ }
+diff --git a/life/src/lib/campaign/campaigns/tdc.ts b/life/src/lib/campaign/campaigns/tdc.ts
+index ff5edfde..4d2295cf 100644
+--- a/life/src/lib/campaign/campaigns/tdc.ts
++++ b/life/src/lib/campaign/campaigns/tdc.ts
+@@ -1,39 +1,41 @@
+ /**
+  * tdc.ts — The Drowned City bespoke per-campaign tallies. ONE builder, ONE
+- * payload blob (`tdc`), mirroring `tic.ts` / `fhv.ts`. Fully log-derived. See
+- * `tdc-widgets-plan.md`.
++ * payload blob (`tdc`), mirroring `fhv.ts` / `tic.ts`. See `tdc-widgets-plan.md`.
+  *
+  *   • fold — The Fold: which way the expedition headed at Expedition to R'lyeh
+  *     (`expedition_headed_west` / `_east`). The campaign's mirrored core: the same
+  *     five sites are reached from either side, harder from the long way round.
+  *   • glyphs — the 26 alien glyphs (`tdc_rune_a..z`, projected to
+  *     `recordedSectionItems['glyphs']`), grouped by the scenario they're decrypted
+- *     in. Complements the card-art `tdcGlyphWall`; this is the per-scenario tally +
+- *     the all-26 gate (one half of the better-ending requirement).
+- *   • artifacts — the 6 eldritch artifacts (`artifacts_earned`); all 6 ⇒ the
+- *     `powers_combined` achievement and the Part-II "repel" approach.
+- *   • tasks — the side tasks taken at "An Offer You Can't Refuse"
+- *     (`logCounts['task_progress']`): best single-play progress + lifetime total.
+- *   • sepulchre — Sepulchre of the Sleeper (west-only, skippable): the
+- *     `halted_cthulhus_awakening` BETTER ending (all 5 artifacts + all 26 glyphs +
+- *     the inner sanctum unsealed) vs `did_not_confront_the_nightmare` (skipped).
+- *   • per-scenario forks — One Last Job / Western Wall / Drowned Quarter / Apiary /
+- *     Grand Vault decisions.
+- *   • doom — The Doom of Arkham finale: Part I interludes + the four Part-II
+- *     endings (drove off / banished / banished-but-Arkham-destroyed / annihilated).
++ *     in. All 26 ⇒ `alien_grad` + one half of the better-ending gate.
++ *   • artifacts — the 6 eldritch artifacts (`artifacts_earned`); all 6 ⇒
++ *     `powers_combined` + the Part-II "repel" approach. `kept` = the ones carried
++ *     into the finale (`hidden.kept_*`).
++ *   • tasks — the side tasks taken at "An Offer You Can't Refuse": which of the 8
++ *     were picked (`hidden.picked_*`), best/lifetime progress (`task_progress`),
++ *     the `obligations` gate (≥5), and the per-investigator assignment (Extra:
++ *     `one_last_job.task_assignment` ⨯ `_investigator`, mirroring PtC weaknesses).
++ *   • scenarios — per expedition-scenario fork outcomes (One Last Job … Obsidian
++ *     Canyons), each a note-key → plays tally, rendered by the generic passport.
++ *   • sepulchre — Sepulchre of the Sleeper (the better-ending gate): the
++ *     `halted_cthulhus_awakening` ending vs `did_not_confront_the_nightmare`.
++ *   • doom — The Doom of Arkham finale: the Part-II approach fork, the four endings,
++ *     and the flooded Arkham neighborhoods.
+  */
+ import { getCampaignLog } from '@5argon/arkham-campaign-data';
+ import type { CampaignRecord } from '../achievements/achievement-aggregate';
+ import { filterFamilyRecords } from '../records/campaign-family';
++import { canonInvestigatorCode } from '../utils/card-filters';
+ 
+ const TDC_FAMILY = 'tdc';
+ const N = 'campaign_notes';
+ const k = (id: string) => `${N}.${id}`;
+ const GLYPHS = 'glyphs';
++const H = 'hidden';
+ 
+ /** Resolve a TDC campaign-data entry's English text by composite key (e.g.
+- *  `campaign_notes.cthulhu_was_driven_away`, `artifacts_earned.barrier_node`).
+- *  Falls back to the key itself when no entry exists. */
++ *  `campaign_notes.cthulhu_was_driven_away`, `artifacts_earned.barrier_node`,
++ *  `glyphs.tdc_rune_a`). Falls back to the key itself when no entry exists. */
+ export function tdcText(compositeKey: string): string {
+ 	return getCampaignLog(TDC_FAMILY)?.en.entries[compositeKey]?.text ?? compositeKey;
+ }
+@@ -68,6 +70,89 @@ export const TDC_ARTIFACTS: string[] = [
+ 	'clah_horror'
+ ];
+ 
++/** The 5 artifacts that can be CARRIED into the finale (`hidden.kept_*`). The sixth,
++ *  `clah_horror`, is earned during Part II itself, so it has no `kept_` twin. */
++export const TDC_KEPT_ARTIFACTS: string[] = [
++	'barrier_node',
++	'grisly_mask',
++	'tidal_tablet',
++	'shard',
++	'obsidian_claw'
++];
++
++/** The 8 side tasks assigned at "An Offer You Can't Refuse": the `hidden.picked_*`
++ *  log id ⨯ the task's player-card code (the Extra picker's pool, and the tile art). */
++export const TDC_TASKS: { id: string; code: string }[] = [
++	{ id: 'no_place_like_home', code: '11753a' },
++	{ id: 'walk_in_faith', code: '11754a' },
++	{ id: 'toe_the_line', code: '11755a' },
++	{ id: 'good_money', code: '11756a' },
++	{ id: 'prove_your_worth', code: '11757a' },
++	{ id: 'do_no_harm', code: '11758a' },
++	{ id: 'dreams_of_destruction', code: '11759a' },
++	{ id: 'plumb_the_depths', code: '11760a' }
++];
++
++/** The 7 Arkham neighborhoods that can flood in the finale (`flooded_neighborhoods`). */
++export const TDC_FLOODED: string[] = [
++	'downtown',
++	'easttown',
++	'miskatonic_university',
++	'northside',
++	'rivertown',
++	'southside',
++	'st_marys_hospital'
++];
++
++/**
++ * Per expedition-scenario fork outcomes, rendered by the generic `TdcScenario`
++ * passport. `notes` are FULL composite log keys (mixed sections — `campaign_notes.*`,
++ * `artifacts_earned.*`, `hidden.*`), each a lit/greyed line resolved via {@link tdcText}.
++ * The Doom finale and the Sepulchre are handled by their own bespoke widgets.
++ */
++export const TDC_SCENARIOS: { id: string; notes: string[] }[] = [
++	{ id: 'one_last_job', notes: [
++		'campaign_notes.discovered_an_alien_language',
++		'campaign_notes.ruby_won_the_bet',
++		'campaign_notes.ruby_lost_the_bet'
++	] },
++	{ id: 'the_western_wall', notes: [
++		'campaign_notes.the_creature_was_defeated',
++		'campaign_notes.expedition_helped_pilgrim',
++		'campaign_notes.expedition_abandoned_pilgrim'
++	] },
++	{ id: 'the_drowned_quarter', notes: [
++		'artifacts_earned.barrier_node',
++		'campaign_notes.the_power_was_diverted'
++	] },
++	{ id: 'the_apiary', notes: [
++		'campaign_notes.pilgrims_were_saved',
++		'campaign_notes.pilgrims_were_devoured',
++		'campaign_notes.exterminated_the_alien_parasites',
++		'artifacts_earned.grisly_mask'
++	] },
++	{ id: 'the_grand_vault', notes: [
++		'campaign_notes.the_inner_sanctum_was_unsealed',
++		'artifacts_earned.tidal_tablet'
++	] },
++	{ id: 'court_of_the_ancients', notes: [
++		'artifacts_earned.shard'
++	] },
++	{ id: 'obsidian_canyons', notes: [
++		'artifacts_earned.obsidian_claw',
++		'hidden.tdc_helped_with_the_ropes'
++	] }
++];
++
++/** One recorded side-task assignment: the task's player-card code, the investigator who
++ *  took it (Extra `_investigator` companion; null when unrecorded — the task still shows),
++ *  and the finish date of the play. ONE entry per pick, newest-first. */
++export interface TdcTaskAssignment {
++	code: string;
++	investigator: string | null;
++	finishDate: number | null;
++}
++
+ export interface CampaignTdc {
+ 	/** Always 'tdc'. */
+ 	family: string;
+@@ -76,18 +161,27 @@ export interface CampaignTdc {
+ 	fold: { west: number; east: number };
+ 	/** Glyphs — rune id → plays decrypted; everCollected = distinct runes; allTwentySix = full-set plays. */
+ 	glyphs: { collected: Record<string, number>; everCollected: number; allTwentySix: number };
+-	/** Artifacts — artifact id → plays earned; everEarned distinct; allSix = full-set plays. */
+-	artifacts: { earned: Record<string, number>; everEarned: number; allSix: number };
+-	/** Side tasks (An Offer You Can't Refuse) — best single-play progress + lifetime total. */
+-	tasks: { best: number; total: number };
+-	/** Sepulchre of the Sleeper (west-only, skippable) — the better-ending gate. */
++	/** Artifacts — id → plays earned; kept = plays carried into the finale; allSix = full-set plays. */
++	artifacts: {
++		earned: Record<string, number>;
++		kept: Record<string, number>;
++		everEarned: number;
++		allSix: number;
++	};
++	/** Side tasks — best single-play progress + lifetime total, plays reaching the `obligations`
++	 *  gate (≥5), which of the 8 were picked, and the per-investigator assignment (Extra). */
++	tasks: {
++		best: number;
++		total: number;
++		obligations: number;
++		picked: Record<string, number>;
++		assignments: TdcTaskAssignment[];
++	};
++	/** Sepulchre of the Sleeper (the better-ending gate). */
+ 	sepulchre: { halted: number; didNotConfront: number };
+-	oneLastJob: { discoveredLanguage: number; rubyWon: number; rubyLost: number };
+-	westernWall: { creatureDefeated: number; helpedPilgrim: number; abandonedPilgrim: number };
+-	drownedQuarter: { powerDiverted: number };
+-	apiary: { pilgrimsSaved: number; pilgrimsDevoured: number; exterminatedParasites: number };
+-	grandVault: { innerSanctumUnsealed: number };
+-	/** The Doom of Arkham — Part I interludes + the four Part-II endings. */
++	/** Per expedition-scenario fork outcomes: scenario id → note key → plays. */
++	scenarios: Record<string, Record<string, number>>;
++	/** The Doom of Arkham — the Part-II approach fork, four endings, and flooded neighborhoods. */
+ 	doom: {
+ 		stoodTogether: number;
+ 		alliesPlan: number;
+@@ -99,6 +193,8 @@ export interface CampaignTdc {
+ 		banishedButDestroyed: number;
+ 		/** loss — Cthulhu annihilated Arkham. */
+ 		annihilated: number;
++		/** neighborhood id → plays flooded. */
++		flooded: Record<string, number>;
+ 	};
+ }
+ 
+@@ -112,22 +208,33 @@ export function buildTdc(records: CampaignRecord[]): CampaignTdc[] {
+ 	const glyphCollected: Record<string, number> = {};
+ 	let allTwentySix = 0;
+ 	const artifactEarned: Record<string, number> = {};
++	const artifactKept: Record<string, number> = {};
+ 	let allSix = 0;
+ 	let taskBest = 0;
+ 	let taskTotal = 0;
++	let obligations = 0;
++	const taskPicked: Record<string, number> = {};
++	const assignments: TdcTaskAssignment[] = [];
+ 	const sepulchre = { halted: 0, didNotConfront: 0 };
+-	const oneLastJob = { discoveredLanguage: 0, rubyWon: 0, rubyLost: 0 };
+-	const westernWall = { creatureDefeated: 0, helpedPilgrim: 0, abandonedPilgrim: 0 };
+-	const drownedQuarter = { powerDiverted: 0 };
+-	const apiary = { pilgrimsSaved: 0, pilgrimsDevoured: 0, exterminatedParasites: 0 };
+-	const grandVault = { innerSanctumUnsealed: 0 };
+-	const doom = { stoodTogether: 0, alliesPlan: 0, drivenAway: 0, banished: 0, banishedButDestroyed: 0, annihilated: 0 };
++	const scenarios: Record<string, Record<string, number>> = {};
++	for (const sc of TDC_SCENARIOS) scenarios[sc.id] = {};
++	const doom = {
++		stoodTogether: 0,
++		alliesPlan: 0,
++		drivenAway: 0,
++		banished: 0,
++		banishedButDestroyed: 0,
++		annihilated: 0,
++		flooded: {} as Record<string, number>
++	};
+ 
+ 	for (const rec of tdcRecords) {
+ 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
+ 		const counts = rec.recorded.logCounts ?? {};
+ 		const items = rec.recorded.recordedSectionItems ?? {};
+ 		const has = (key: string) => logs.has(key);
++		const subjCanon = new Set((rec.subjectInvestigators ?? []).map(canonInvestigatorCode));
++		const when = rec.finishDate ?? null;
+ 
+ 		// The Fold.
+ 		if (has(k('expedition_headed_west'))) fold.west += 1;
+@@ -144,7 +251,7 @@ export function buildTdc(records: CampaignRecord[]): CampaignTdc[] {
+ 		}
+ 		if (glyphCount === TDC_GLYPH_IDS.length) allTwentySix += 1;
+ 
+-		// Artifacts.
++		// Artifacts (earned + carried into the finale).
+ 		let artifactCount = 0;
+ 		for (const id of TDC_ARTIFACTS) {
+ 			if (has(`artifacts_earned.${id}`)) {
+@@ -153,32 +260,41 @@ export function buildTdc(records: CampaignRecord[]): CampaignTdc[] {
+ 			}
+ 		}
+ 		if (artifactCount === TDC_ARTIFACTS.length) allSix += 1;
++		for (const id of TDC_KEPT_ARTIFACTS) {
++			if (has(`${H}.kept_${id}`)) artifactKept[id] = (artifactKept[id] ?? 0) + 1;
++		}
+ 
+-		// Side tasks (count-kind → logCounts['task_progress']).
++		// Side tasks — progress (count) + which picked (hidden) + assignment (Extra).
+ 		const taskN = counts['task_progress'] ?? 0;
+ 		if (taskN > taskBest) taskBest = taskN;
+ 		taskTotal += taskN;
++		if (taskN >= 5) obligations += 1;
++		for (const t of TDC_TASKS) {
++			if (has(`${H}.picked_${t.id}`)) taskPicked[t.id] = (taskPicked[t.id] ?? 0) + 1;
++		}
++		{
++			const codes = (rec.scenarioChoices?.['one_last_job.task_assignment'] ?? '')
++				.split(',')
++				.filter(Boolean);
++			const invs = (rec.scenarioChoices?.['one_last_job.task_assignment_investigator'] ?? '')
++				.split(',')
++				.filter(Boolean);
++			for (let i = 0; i < codes.length; i++) {
++				const inv = invs[i] ? canonInvestigatorCode(invs[i]) : null;
++				// Keep unattributed picks (can't scope); drop a teammate's known investigator.
++				if (inv && !subjCanon.has(inv)) continue;
++				assignments.push({ code: codes[i], investigator: inv, finishDate: when });
++			}
++		}
+ 
+ 		// Sepulchre of the Sleeper (the better-ending gate).
+ 		if (has(k('halted_cthulhus_awakening'))) sepulchre.halted += 1;
+ 		if (has(k('did_not_confront_the_nightmare'))) sepulchre.didNotConfront += 1;
+ 
+-		// Per-scenario forks.
+-		if (has(k('discovered_an_alien_language'))) oneLastJob.discoveredLanguage += 1;
+-		if (has(k('ruby_won_the_bet'))) oneLastJob.rubyWon += 1;
+-		if (has(k('ruby_lost_the_bet'))) oneLastJob.rubyLost += 1;
+-
+-		if (has(k('the_creature_was_defeated'))) westernWall.creatureDefeated += 1;
+-		if (has(k('expedition_helped_pilgrim'))) westernWall.helpedPilgrim += 1;
+-		if (has(k('expedition_abandoned_pilgrim'))) westernWall.abandonedPilgrim += 1;
+-
+-		if (has(k('the_power_was_diverted'))) drownedQuarter.powerDiverted += 1;
+-
+-		if (has(k('pilgrims_were_saved'))) apiary.pilgrimsSaved += 1;
+-		if (has(k('pilgrims_were_devoured'))) apiary.pilgrimsDevoured += 1;
+-		if (has(k('exterminated_the_alien_parasites'))) apiary.exterminatedParasites += 1;
+-
+-		if (has(k('the_inner_sanctum_was_unsealed'))) grandVault.innerSanctumUnsealed += 1;
++		// Per expedition-scenario fork outcomes.
++		for (const sc of TDC_SCENARIOS) {
++			for (const note of sc.notes) if (has(note)) scenarios[sc.id][note] = (scenarios[sc.id][note] ?? 0) + 1;
++		}
+ 
+ 		// The Doom of Arkham.
+ 		if (has(k('stood_together'))) doom.stoodTogether += 1;
+@@ -187,10 +303,15 @@ export function buildTdc(records: CampaignRecord[]): CampaignTdc[] {
+ 		if (has(k('cthulhu_was_banished'))) doom.banished += 1;
+ 		if (has(k('cthulhu_was_banished_but_arkham_was_destroyed'))) doom.banishedButDestroyed += 1;
+ 		if (has(k('cthulhu_annihilated_the_city_of_arkham'))) doom.annihilated += 1;
++		for (const id of TDC_FLOODED) {
++			if (has(`flooded_neighborhoods.${id}`)) doom.flooded[id] = (doom.flooded[id] ?? 0) + 1;
++		}
+ 	}
+ 
+ 	const everCollected = TDC_GLYPH_IDS.filter((id) => (glyphCollected[id] ?? 0) > 0).length;
+ 	const everEarned = TDC_ARTIFACTS.filter((id) => (artifactEarned[id] ?? 0) > 0).length;
++	// Assignments newest-first (the roster is a chronological log; date both orders and labels).
++	assignments.sort((a, b) => (b.finishDate ?? 0) - (a.finishDate ?? 0));
+ 
+ 	return [
+ 		{
+@@ -198,14 +319,10 @@ export function buildTdc(records: CampaignRecord[]): CampaignTdc[] {
+ 			plays: tdcRecords.length,
+ 			fold,
+ 			glyphs: { collected: glyphCollected, everCollected, allTwentySix },
+-			artifacts: { earned: artifactEarned, everEarned, allSix },
+-			tasks: { best: taskBest, total: taskTotal },
++			artifacts: { earned: artifactEarned, kept: artifactKept, everEarned, allSix },
++			tasks: { best: taskBest, total: taskTotal, obligations, picked: taskPicked, assignments },
+ 			sepulchre,
+-			oneLastJob,
+-			westernWall,
+-			drownedQuarter,
+-			apiary,
+-			grandVault,
++			scenarios,
+ 			doom
+ 		}
+ 	];
+diff --git a/life/src/lib/campaign/campaigns/tfa.ts b/life/src/lib/campaign/campaigns/tfa.ts
+index 80a1c773..f14e7da0 100644
+--- a/life/src/lib/campaign/campaigns/tfa.ts
++++ b/life/src/lib/campaign/campaigns/tfa.ts
+@@ -1,18 +1,24 @@
+ /**
+  * tfa.ts — The Forgotten Age bespoke per-campaign tallies. ONE builder, ONE payload
+- * blob (`tfa`), mirroring `dwl.ts` / `ptc.ts`. Mostly log-derived; the Harbinger
+- * per-scenario trajectory + the Doom of Eztli retry count need Extra-tab counters
+- * (the latter is wired here via a `scenarioChoice`, see `tfa-widgets-plan.md`).
++ * blob (`tfa`), mirroring `dwl.ts` / `ptc.ts`. Log-derived where the campaign log
++ * carries the fact; ArkhamCards-mirroring Extra inputs fill the genuinely-unlogged gaps.
+  *
+  *   • vengeance — Yig's Fury (`count`): final per play (max/min) + lifetime, and the
+  *     campaign-spanning breakpoints it crosses (most visibly The Depths of Yoth's
+  *     starting agenda). The log holds only the FINAL total; since Fury only rises it's
+  *     an upper bound, reliable for the late checks.
+- *   • supplies  — provisions, tied to the PROFILE SUBJECT's investigators (the supply
++ *   • runs — one entry per play (final Fury, seeded Depths agenda, final depth, the
++ *     finale ending), for the Yig's Fury threshold meter + signature runs.
++ *   • supplies — provisions, tied to the PROFILE SUBJECT's investigators (the supply
+  *     key is `supplies.<inv>.<id>`), counting how many times the subject took each.
+- *   • companions— Ichtaca & Alejandro standing across scenarios.
+- *   • harbinger — the recurring Harbinger of Valusia's remaining health (`harbinger_alive`).
+- *   • per-scenario — each story scenario's logged decisions/outcomes.
++ *   • companions — Ichtaca & Alejandro standing across scenarios.
++ *   • harbinger — the recurring Harbinger of Valusia's damage: the log's final
++ *     `campaign_notes.harbinger_alive` value plus each tracked appearance (Extra).
++ *   • poison — the Poisoned weakness gained per exploration scenario (Extra), the
++ *     campaign's signature survival tax, subject-scoped.
++ *   • per-scenario — each story scenario's logged decisions/outcomes, with the hidden
++ *     log entries (`hote_consult_*`, `listened_to_ichtaca`, `final_depth`) our editor
++ *     never surfaces re-sourced from the matching ArkhamCards Extra inputs.
+  */
+ import { getCampaignLog } from '@5argon/arkham-campaign-data';
+ import type { CampaignRecord } from '../achievements/achievement-aggregate';
+@@ -38,9 +44,21 @@ export const TFA_PROVISIONS = [
+ 	'pendant'
+ ];
+ 
+-/** Ichtaca / Alejandro ally story-asset cards (human side) for the companions widget. */
++/** The four exploration scenarios ArkhamCards asks "did any investigator gain Poisoned?" after. */
++export const TFA_POISON_SCENARIOS = [
++	'the_untamed_wilds',
++	'the_doom_of_eztli',
++	'heart_of_the_elders_part_1',
++	'heart_of_the_elders_part_2'
++];
++
++/** Story-card codes used for bespoke header art. */
+ export const TFA_ICHTACA_CODE = '04147';
+ export const TFA_ALEJANDRO_CODE = '04051';
++export const TFA_HARBINGER_CODE = '04062';
++export const TFA_YIG_CODE = '04296';
++export const TFA_RELIC_CODE = '04061';
++export const TFA_POISONED_CODE = '04102';
+ 
+ /** The Depths of Yoth starting agenda for a given final Yig's Fury (the verified breakpoints).
+  *  0 = the special (Yig seeded) setup; 1..6 = which agenda you begin on. */
+@@ -54,9 +72,40 @@ export function depthsAgendaFor(fury: number): number {
+ 	return 6;
+ }
+ 
++/** The finale each play reached, in resolved order (Turn Back Time's seal outranks the rewind). */
++export type TfaEnding =
++	| 'sealed_forever'
++	| 'mended_tear'
++	| 'saved_serpents'
++	| 'saved_yithians'
++	| 'fabric_unwoven'
++	| 'turned_back_time';
++
++/** One recorded TFA play — the spine of the Yig's Fury meter and the signature-run picks. */
++export interface TfaRun {
++	finishDate: number | null;
++	/** Final Yig's Fury for this play (null if not recorded). */
++	yigsFury: number | null;
++	/** Depths-of-Yoth starting agenda seeded by this play's Fury (null if no Fury). */
++	depthsAgenda: number | null;
++	/** Final depth reached in The Depths of Yoth (Extra; null if not recorded). */
++	finalDepth: number | null;
++	/** The finale this play reached (null if the campaign didn't reach an ending). */
++	ending: TfaEnding | null;
++}
++
++/** A max/min/count triple over recorded values. */
++interface Extent {
++	max: number | null;
++	min: number | null;
++	recorded: number;
++}
++
+ export interface CampaignTfa {
+ 	family: string;
+ 	plays: number;
++	/** One entry per play, most-recent orderable by `finishDate`. */
++	runs: TfaRun[];
+ 	vengeance: {
+ 		max: number | null;
+ 		min: number | null;
+@@ -71,22 +120,51 @@ export interface CampaignTfa {
+ 	};
+ 	/** provision id → times the profile subject took it (across their investigator-runs). */
+ 	supplies: Record<string, number>;
++	/** Plays where the subject packed nothing (the "Who Needs Any of This Junk?" line). */
++	suppliesEmptyRuns: number;
++	/** Plays that recorded any supply data for the subject (denominator for the empty count). */
++	suppliesRuns: number;
+ 	ichtaca: { trust: number; wary: number; bond: number; inTheDark: number };
+ 	alejandro: { followed: number; remained: number; rescued: number; missing: number; trust: number };
+-	/** Harbinger of Valusia's remaining health when last recorded (`harbinger_alive`). */
+-	harbinger: { max: number | null; min: number | null; recorded: number };
++	/** Harbinger of Valusia's damage. `max/min/recorded` = the log's final
++	 *  `campaign_notes.harbinger_alive`; `eztli`/`hote2` = each tracked appearance (Extra);
++	 *  `neverDamaged` = plays where every recorded Harbinger damage value was 0. */
++	harbinger: Extent & {
++		eztli: Extent;
++		hote2: Extent;
++		neverDamaged: number;
++	};
++	/** The Poisoned weakness (Extra): the campaign's signature survival tax, subject-scoped. */
++	poison: {
++		/** Total poisonings recorded across the subject's investigators. */
++		total: number;
++		/** investigator code → times poisoned. */
++		byInvestigator: Record<string, number>;
++		/** scenario id → poisonings recorded there. */
++		byScenario: Record<string, number>;
++		/** Plays that recorded at least one poisoning. */
++		runsRecorded: number;
++	};
+ 	untamedWilds: { clearedPath: number };
+ 	doomOfEztli: { investigatorsRelic: number; alejandroRelic: number; retries: number[] };
+ 	threadsOfFate: {
+ 		relicToAlejandro: number;
+ 		relicToHarlan: number;
++		/** Extra `ichtaca_conversation` = 'stop_her' (you listened before she left). */
+ 		listenedIchtaca: number;
++		/** Extra `ichtaca_conversation` = 'let_her_leave'. */
++		letHerLeave: number;
+ 		forgingOwnPath: number;
+ 		rescuedAlejandro: number;
+ 		alejandroMissing: number;
+ 	};
+ 	boundaryBeyond: { pathsKnownMax: number | null; part1Skipped: number; ichtacaConfidence: number };
+-	heartOfElders: { consultIchtaca: number; consultAlejandro: number; consultJournal: number };
++	heartOfElders: {
++		consultIchtaca: number;
++		consultAlejandro: number;
++		consultJournal: number;
++		consultNothing: number;
++	};
+ 	cityOfArchives: {
+ 		cooperated: number;
+ 		resisted: number;
+@@ -95,8 +173,10 @@ export interface CampaignTfa {
+ 		successful: number;
+ 		backfired: number;
+ 		backfiredSpectacularly: number;
++		/** Subject's investigators who suffered the Yithian aftermath (Extra), total across plays. */
++		yithianAftermath: number;
+ 	};
+-	depthsOfYoth: { finalDepthMax: number | null; finalDepthMin: number | null };
++	depthsOfYoth: { finalDepthMax: number | null; finalDepthMin: number | null; recorded: number };
+ 	shatteredAeons: {
+ 		mendedTear: number;
+ 		savedSerpents: number;
+@@ -107,12 +187,30 @@ export interface CampaignTfa {
+ 	turnBackTime: { sealedForever: number };
+ }
+ 
++const emptyExtent = (): Extent => ({ max: null, min: null, recorded: 0 });
++function bumpExtent(e: Extent, v: number) {
++	e.recorded += 1;
++	e.max = e.max === null ? v : Math.max(e.max, v);
++	e.min = e.min === null ? v : Math.min(e.min, v);
++}
++
++/** Comma-joined investigator codes from a `cards` Extra input, scoped to the subject when known. */
++function subjectCodes(raw: string | undefined, subject: string[]): string[] {
++	if (!raw) return [];
++	const codes = raw
++		.split(',')
++		.map((s) => s.trim())
++		.filter(Boolean);
++	return subject.length === 0 ? codes : codes.filter((c) => subject.includes(c));
++}
++
+ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 	const baseLog = getCampaignLog(TFA_FAMILY);
+ 	if (!baseLog) return [];
+ 	const tfaRecords = filterFamilyRecords(records, TFA_FAMILY);
+ 	if (tfaRecords.length === 0) return [];
+ 
++	const runs: TfaRun[] = [];
+ 	const vengeance = {
+ 		max: null as number | null,
+ 		min: null as number | null,
+@@ -122,21 +220,35 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		ichtacaRefused: 0
+ 	};
+ 	const supplies: Record<string, number> = {};
++	let suppliesEmptyRuns = 0;
++	let suppliesRuns = 0;
+ 	const ichtaca = { trust: 0, wary: 0, bond: 0, inTheDark: 0 };
+ 	const alejandro = { followed: 0, remained: 0, rescued: 0, missing: 0, trust: 0 };
+-	const harbinger = { max: null as number | null, min: null as number | null, recorded: 0 };
++	const harbinger = {
++		...emptyExtent(),
++		eztli: emptyExtent(),
++		hote2: emptyExtent(),
++		neverDamaged: 0
++	};
++	const poison = {
++		total: 0,
++		byInvestigator: {} as Record<string, number>,
++		byScenario: {} as Record<string, number>,
++		runsRecorded: 0
++	};
+ 	const untamedWilds = { clearedPath: 0 };
+ 	const doomOfEztli = { investigatorsRelic: 0, alejandroRelic: 0, retries: [] as number[] };
+ 	const threadsOfFate = {
+ 		relicToAlejandro: 0,
+ 		relicToHarlan: 0,
+ 		listenedIchtaca: 0,
++		letHerLeave: 0,
+ 		forgingOwnPath: 0,
+ 		rescuedAlejandro: 0,
+ 		alejandroMissing: 0
+ 	};
+ 	const boundaryBeyond = { pathsKnownMax: null as number | null, part1Skipped: 0, ichtacaConfidence: 0 };
+-	const heartOfElders = { consultIchtaca: 0, consultAlejandro: 0, consultJournal: 0 };
++	const heartOfElders = { consultIchtaca: 0, consultAlejandro: 0, consultJournal: 0, consultNothing: 0 };
+ 	const cityOfArchives = {
+ 		cooperated: 0,
+ 		resisted: 0,
+@@ -144,9 +256,14 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		perfected: 0,
+ 		successful: 0,
+ 		backfired: 0,
+-		backfiredSpectacularly: 0
++		backfiredSpectacularly: 0,
++		yithianAftermath: 0
++	};
++	const depthsOfYoth = {
++		finalDepthMax: null as number | null,
++		finalDepthMin: null as number | null,
++		recorded: 0
+ 	};
+-	const depthsOfYoth = { finalDepthMax: null as number | null, finalDepthMin: null as number | null };
+ 	const shatteredAeons = {
+ 		mendedTear: 0,
+ 		savedSerpents: 0,
+@@ -160,32 +277,38 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
+ 		const has = (key: string) => logs.has(key);
+ 		const counts = rec.recorded.logCounts ?? {};
++		const choice = (key: string) => rec.scenarioChoices?.[key];
++		const subjectInvs = rec.subjectInvestigators ?? [];
+ 
+-		// Yig's Fury — final count + breakpoints (the count is the lifetime-summable value).
++		// Yig's Fury — final count (a `count` section, keyed bare) + breakpoints.
+ 		const fury = counts['yigs_fury'];
++		let depthsAgenda: number | null = null;
+ 		if (fury !== undefined) {
+ 			vengeance.recorded += 1;
+ 			vengeance.lifetime += fury;
+ 			vengeance.max = vengeance.max === null ? fury : Math.max(vengeance.max, fury);
+ 			vengeance.min = vengeance.min === null ? fury : Math.min(vengeance.min, fury);
+-			const agenda = depthsAgendaFor(fury);
+-			vengeance.depthsAgenda[agenda] = (vengeance.depthsAgenda[agenda] ?? 0) + 1;
++			depthsAgenda = depthsAgendaFor(fury);
++			vengeance.depthsAgenda[depthsAgenda] = (vengeance.depthsAgenda[depthsAgenda] ?? 0) + 1;
+ 			if (fury >= 16) vengeance.ichtacaRefused += 1;
+ 		}
+ 
+ 		// Provisions — tied to the profile subject's investigators (key = supplies.<inv>.<id>).
+ 		const supplySet = rec.recorded.recordedSectionItems?.[SUPPLIES];
+-		const subjectInvs = rec.subjectInvestigators ?? [];
++		let runSupplies = 0;
+ 		if (supplySet) {
++			suppliesRuns += 1;
+ 			for (const item of supplySet) {
+ 				const dot = item.indexOf('.');
+ 				if (dot < 0) continue;
+ 				const inv = item.slice(0, dot);
+ 				const provision = item.slice(dot + 1);
+-				// Subject-only when we know the subject's investigators; else count all.
+-				if (subjectInvs.length === 0 || subjectInvs.includes(inv))
++				if (subjectInvs.length === 0 || subjectInvs.includes(inv)) {
+ 					supplies[provision] = (supplies[provision] ?? 0) + 1;
++					runSupplies += 1;
++				}
+ 			}
++			if (runSupplies === 0) suppliesEmptyRuns += 1;
+ 		}
+ 
+ 		// Companions.
+@@ -199,33 +322,60 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		if (has(k('alejandro_is_missing'))) alejandro.missing += 1;
+ 		if (has(k('earned_alejandros_trust'))) alejandro.trust += 1;
+ 
+-		// Harbinger of Valusia — remaining health.
+-		const hp = counts['harbinger_alive'];
+-		if (hp !== undefined) {
+-			harbinger.recorded += 1;
+-			harbinger.max = harbinger.max === null ? hp : Math.max(harbinger.max, hp);
+-			harbinger.min = harbinger.min === null ? hp : Math.min(harbinger.min, hp);
++		// Harbinger of Valusia — the log's final damage (a count entry in `campaign_notes`,
++		// keyed by its composite key) + each tracked appearance (Extra counters).
++		const hpFinal = counts[k('harbinger_alive')];
++		if (hpFinal !== undefined) bumpExtent(harbinger, hpFinal);
++		const hpEztli = Number(choice('the_doom_of_eztli.harbinger_damage'));
++		const hasEztliDmg = choice('the_doom_of_eztli.harbinger_damage') !== undefined && Number.isFinite(hpEztli);
++		if (hasEztliDmg) bumpExtent(harbinger.eztli, hpEztli);
++		const hpHote2 = Number(choice('heart_of_the_elders_part_2.harbinger_damage'));
++		const hasHote2Dmg =
++			choice('heart_of_the_elders_part_2.harbinger_damage') !== undefined && Number.isFinite(hpHote2);
++		if (hasHote2Dmg) bumpExtent(harbinger.hote2, hpHote2);
++		// "We have an understanding" — a play that recorded Harbinger damage, all of it zero.
++		const dmgValues = [
++			hpFinal,
++			hasEztliDmg ? hpEztli : undefined,
++			hasHote2Dmg ? hpHote2 : undefined
++		].filter((v): v is number => v !== undefined);
++		if (dmgValues.length > 0 && dmgValues.every((v) => v === 0)) harbinger.neverDamaged += 1;
++
++		// Poisoned weakness (Extra) — subject-scoped, per exploration scenario.
++		let runPoisoned = 0;
++		for (const scenario of TFA_POISON_SCENARIOS) {
++			const codes = subjectCodes(choice(`${scenario}.poisoned`), subjectInvs);
++			for (const code of codes) {
++				poison.total += 1;
++				poison.byInvestigator[code] = (poison.byInvestigator[code] ?? 0) + 1;
++				poison.byScenario[scenario] = (poison.byScenario[scenario] ?? 0) + 1;
++				runPoisoned += 1;
++			}
+ 		}
++		if (runPoisoned > 0) poison.runsRecorded += 1;
+ 
+ 		// The Untamed Wilds.
+ 		if (has(k('cleared_path_to_temple'))) untamedWilds.clearedPath += 1;
+ 
+-		// The Doom of Eztli — relic + retries (Extra-tab counter).
++		// The Doom of Eztli — relic + retries (Extra counter).
+ 		if (has(k('investigators_recovered_relic'))) doomOfEztli.investigatorsRelic += 1;
+ 		if (has(k('alejandro_recovered_relic'))) doomOfEztli.alejandroRelic += 1;
+-		const retry = Number(rec.scenarioChoices?.['the_doom_of_eztli.retries']);
++		const retry = Number(choice('the_doom_of_eztli.retries'));
+ 		if (Number.isFinite(retry) && retry > 0) doomOfEztli.retries.push(retry);
+ 
+-		// Threads of Fate — the big branch.
++		// Threads of Fate — the big branch. The Ichtaca conversation lives in the hidden log,
++		// so it is re-sourced from the matching Extra input.
+ 		if (has(k('gave_relic_to_alejandro'))) threadsOfFate.relicToAlejandro += 1;
+ 		if (has(k('gave_relic_to_harlan'))) threadsOfFate.relicToHarlan += 1;
+-		if (has(k('listened_to_ichtaca'))) threadsOfFate.listenedIchtaca += 1;
++		const conversation = choice('threads_of_fate.ichtaca_conversation');
++		if (conversation === 'stop_her') threadsOfFate.listenedIchtaca += 1;
++		if (conversation === 'let_her_leave') threadsOfFate.letHerLeave += 1;
+ 		if (has(k('forging_own_path'))) threadsOfFate.forgingOwnPath += 1;
+ 		if (has(k('rescued_alejandro'))) threadsOfFate.rescuedAlejandro += 1;
+ 		if (has(k('alejandro_is_missing'))) threadsOfFate.alejandroMissing += 1;
+ 
+-		// The Boundary Beyond — paths known (6 skips Heart of the Elders Part 1).
+-		const paths = counts['paths_known'];
++		// The Boundary Beyond — paths known (a count entry in `campaign_notes`; 6 skips HotE Part 1).
++		const paths = counts[k('paths_known')];
+ 		if (paths !== undefined) {
+ 			boundaryBeyond.pathsKnownMax =
+ 				boundaryBeyond.pathsKnownMax === null ? paths : Math.max(boundaryBeyond.pathsKnownMax, paths);
+@@ -233,12 +383,14 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		}
+ 		if (has(k('ichtaca_has_confidence'))) boundaryBeyond.ichtacaConfidence += 1;
+ 
+-		// Heart of the Elders — whom you consulted.
+-		if (has(k('hote_consult_ichtaca'))) heartOfElders.consultIchtaca += 1;
+-		if (has(k('hote_consult_alejandro'))) heartOfElders.consultAlejandro += 1;
+-		if (has(k('hote_consult_journal'))) heartOfElders.consultJournal += 1;
++		// Heart of the Elders — whom you consulted (hidden log → Extra radio).
++		const consult = choice('heart_of_the_elders_part_1.consult');
++		if (consult === 'ichtaca') heartOfElders.consultIchtaca += 1;
++		else if (consult === 'alejandro') heartOfElders.consultAlejandro += 1;
++		else if (consult === 'journal') heartOfElders.consultJournal += 1;
++		else if (consult === 'nothing') heartOfElders.consultNothing += 1;
+ 
+-		// The City of Archives — the Yithian process.
++		// The City of Archives — the Yithian process + the body-swap aftermath (Extra).
+ 		if (has(k('cooperated_with_yithians'))) cityOfArchives.cooperated += 1;
+ 		if (has(k('resisted_captivity'))) cityOfArchives.resisted += 1;
+ 		if (has(k('had_memories_expunged'))) cityOfArchives.memoriesExpunged += 1;
+@@ -246,10 +398,18 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		if (has(k('process_was_successful'))) cityOfArchives.successful += 1;
+ 		if (has(k('process_backfired'))) cityOfArchives.backfired += 1;
+ 		if (has(k('process_backfired_spectacularly'))) cityOfArchives.backfiredSpectacularly += 1;
++		cityOfArchives.yithianAftermath += subjectCodes(
++			choice('the_city_of_archives.yithian_aftermath'),
++			subjectInvs
++		).length;
+ 
+-		// The Depths of Yoth — how deep.
+-		const depth = counts['final_depth'];
+-		if (depth !== undefined) {
++		// The Depths of Yoth — how deep (hidden log → Extra counter).
++		const depthRaw = choice('the_depths_of_yoth.final_depth');
++		const depth = Number(depthRaw);
++		let finalDepth: number | null = null;
++		if (depthRaw !== undefined && Number.isFinite(depth)) {
++			finalDepth = depth;
++			depthsOfYoth.recorded += 1;
+ 			depthsOfYoth.finalDepthMax =
+ 				depthsOfYoth.finalDepthMax === null ? depth : Math.max(depthsOfYoth.finalDepthMax, depth);
+ 			depthsOfYoth.finalDepthMin =
+@@ -263,17 +423,38 @@ export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+ 		if (has(k('fabric_of_time_unwoven'))) shatteredAeons.fabricUnwoven += 1;
+ 		if (has(k('turned_back_time'))) shatteredAeons.turnedBackTime += 1;
+ 		if (has(k('sealed_relic_of_ages_forever'))) turnBackTime.sealedForever += 1;
++
++		// The finale this play reached — the seal outranks the rewind that unlocks it.
++		let ending: TfaEnding | null = null;
++		if (has(k('sealed_relic_of_ages_forever'))) ending = 'sealed_forever';
++		else if (has(k('mended_tear_in_time'))) ending = 'mended_tear';
++		else if (has(k('investigators_saved_serpents'))) ending = 'saved_serpents';
++		else if (has(k('investigators_saved_yithians'))) ending = 'saved_yithians';
++		else if (has(k('fabric_of_time_unwoven'))) ending = 'fabric_unwoven';
++		else if (has(k('turned_back_time'))) ending = 'turned_back_time';
++
++		runs.push({
++			finishDate: rec.finishDate ?? null,
++			yigsFury: fury ?? null,
++			depthsAgenda,
++			finalDepth,
++			ending
++		});
+ 	}
+ 
+ 	return [
+ 		{
+ 			family: TFA_FAMILY,
+ 			plays: tfaRecords.length,
++			runs,
+ 			vengeance,
+ 			supplies,
++			suppliesEmptyRuns,
++			suppliesRuns,
+ 			ichtaca,
+ 			alejandro,
+ 			harbinger,
++			poison,
+ 			untamedWilds,
+ 			doomOfEztli,
+ 			threadsOfFate,
+diff --git a/life/src/lib/campaign/campaigns/tic.ts b/life/src/lib/campaign/campaigns/tic.ts
+index 038e5eb4..7a50a411 100644
+--- a/life/src/lib/campaign/campaigns/tic.ts
++++ b/life/src/lib/campaign/campaigns/tic.ts
+@@ -1,7 +1,7 @@
+ /**
+  * tic.ts — The Innsmouth Conspiracy bespoke per-campaign tallies. ONE builder, ONE
+- * payload blob (`tic`), mirroring `tcu.ts` / `dwl.ts`. Fully log-derived. See
+- * `tic-widgets-plan.md`.
++ * payload blob (`tic`), mirroring `tcu.ts` / `dwl.ts`. Fully log-derived. Every count is
++ * a per-difficulty `ResolutionTally` so the widgets can show the shared difficulty hover.
+  *
+  *   • memories — the 15 flashbacks (`memories_recovered`), the campaign's collectible
+  *     spine + the "You Wake Up In A Room…" achievement (all 15). No card art.
+@@ -11,13 +11,16 @@
+  *   • equipment — the 3 story assets (Waveworn Idol / Awakened Mantle / Headdress)
+  *     brought to the lighthouse (Devil Reef) — the `full_build` achievement.
+  *   • harper — The Vanishing of Elina Harper: the suspect + hideout accused
+- *     (`hidden.accuse_*`) and the rescue (mission succeeded / failed).
++ *     (`hidden.accuse_*`) and the rescue (mission succeeded / failed). Suspects (enemies)
++ *     and hideouts (locations) carry their card codes so the widget shows real art.
+  *   • per-scenario — In Too Deep / Devil Reef / Horror in High Gear / A Light in the
+  *     Fog / The Lair of Dagon decisions; finale = flood axis + Harper-mission branches.
+  */
+ import { getCampaignLog } from '@5argon/arkham-campaign-data';
+ import type { CampaignRecord } from '../achievements/achievement-aggregate';
++import type { ResolutionTally } from '../outcomes/resolution-coverage';
+ import { filterFamilyRecords } from '../records/campaign-family';
++import { bumpTally, emptyTally, ensureTally } from '../utils/tally';
+ 
+ const TIC_FAMILY = 'tic';
+ const N = 'campaign_notes';
+@@ -51,57 +54,84 @@ export const TIC_KEYS: { id: string; note: string }[] = [
+ 	{ id: 'yellow', note: 'gateway_to_yhanthlei_recognizes_you_as_its_rightful_keeper' }
+ ];
+ 
+-/** The 3 equipment items (Devil Reef → the lighthouse) — the `full_build` achievement. */
+-export const TIC_EQUIPMENT: { id: string; note: string }[] = [
+-	{ id: 'idol', note: 'idol_brought_to_the_lighthouse' },
+-	{ id: 'mantle', note: 'mantle_brought_to_the_lighthouse' },
+-	{ id: 'headdress', note: 'headdress_brought_to_the_lighthouse' }
++/** The 3 equipment items (Devil Reef → the lighthouse) — the `full_build` achievement.
++ *  Codes are the real story-asset cards (Devil Reef pack) for the artifact art wall. */
++export const TIC_EQUIPMENT: { id: string; note: string; code: string }[] = [
++	{ id: 'idol', note: 'idol_brought_to_the_lighthouse', code: '07179' },
++	{ id: 'mantle', note: 'mantle_brought_to_the_lighthouse', code: '07180' },
++	{ id: 'headdress', note: 'headdress_brought_to_the_lighthouse', code: '07181' }
+ ];
+ 
+-export const TIC_SUSPECTS = ['burnham', 'gilman', 'little', 'marsh', 'allen', 'friendly'];
+-/** Hideout display id → its `hidden.accuse_*` id (two differ: prison / slums). */
+-export const TIC_HIDEOUTS: { id: string; accuse: string }[] = [
+-	{ id: 'innsmouth_jail', accuse: 'prison' },
+-	{ id: 'shoreward_slums', accuse: 'slums' },
+-	{ id: 'sawbone_alley', accuse: 'sawbone_alley' },
+-	{ id: 'house_on_water_street', accuse: 'house_on_water_street' },
+-	{ id: 'order_of_dagon', accuse: 'order_of_dagon' },
+-	{ id: 'new_church_green', accuse: 'new_church_green' }
++/** The 6 suspects (enemy cards) — id + its `hidden.accuse_<id>` id + card code for the art wall. */
++export const TIC_SUSPECTS: { id: string; code: string }[] = [
++	{ id: 'burnham', code: '07078' },
++	{ id: 'gilman', code: '07081' },
++	{ id: 'little', code: '07080' },
++	{ id: 'marsh', code: '07079' },
++	{ id: 'allen', code: '07077' },
++	{ id: 'friendly', code: '07076' }
+ ];
++/** Hideout display id → its `hidden.accuse_*` id (two differ: prison / slums) + card code. */
++export const TIC_HIDEOUTS: { id: string; accuse: string; code: string }[] = [
++	{ id: 'innsmouth_jail', accuse: 'prison', code: '07074' },
++	{ id: 'shoreward_slums', accuse: 'slums', code: '07072' },
++	{ id: 'sawbone_alley', accuse: 'sawbone_alley', code: '07071' },
++	{ id: 'house_on_water_street', accuse: 'house_on_water_street', code: '07073' },
++	{ id: 'order_of_dagon', accuse: 'order_of_dagon', code: '07070' },
++	{ id: 'new_church_green', accuse: 'new_church_green', code: '07075' }
++];
++
++/** The Amalgam (the Pit of Despair boss) + Agent Harper — passport header art codes. */
++export const TIC_AMALGAM_CODE = '07053';
++export const TIC_HARPER_CODE = '07083';
+ 
+ export interface CampaignTic {
+ 	/** Always 'tic'. */
+ 	family: string;
+ 	plays: number;
+-	/** memory id → plays that recovered it; everRecovered = distinct memories seen; allFifteen = full set. */
+-	memories: { recovered: Record<string, number>; everRecovered: number; allFifteen: number };
++	/** memory id → plays that recovered it (per-difficulty); everRecovered = distinct memories seen;
++	 *  allFifteen = plays with the full set (the "You Wake Up In A Room…" achievement). */
++	memories: {
++		recovered: Record<string, ResolutionTally>;
++		everRecovered: number;
++		allFifteen: ResolutionTally;
++	};
+ 	/** key id → plays that secured it; allFour = plays with all 4 (secret-ending branch reachable). */
+-	sevenKeys: { obtainable: Record<string, number>; allFour: number };
++	sevenKeys: { obtainable: Record<string, ResolutionTally>; allFour: ResolutionTally };
+ 	/** equipment id → plays secured; allThree = plays with all three (full_build). */
+-	equipment: { secured: Record<string, number>; allThree: number };
++	equipment: { secured: Record<string, ResolutionTally>; allThree: ResolutionTally };
+ 	harper: {
+-		missionSucceeded: number;
+-		missionFailed: number;
++		missionSucceeded: ResolutionTally;
++		missionFailed: ResolutionTally;
+ 		/** suspect id → plays accused. */
+-		suspect: Record<string, number>;
++		suspect: Record<string, ResolutionTally>;
+ 		/** hideout id → plays accused. */
+-		hideout: Record<string, number>;
++		hideout: Record<string, ResolutionTally>;
++	};
++	inTooDeep: { safe: ResolutionTally; consumed: ResolutionTally };
++	devilReef: {
++		terrorAlive: ResolutionTally;
++		terrorDead: ResolutionTally;
++		tideGrown: ResolutionTally;
++	};
++	horror: { beforeSunrise: ResolutionTally; afterSunrise: ResolutionTally };
++	lightInTheFog: { map: ResolutionTally; key: ResolutionTally; divingSuit: ResolutionTally };
++	lairOfDagon: {
++		awoke: ResolutionTally;
++		slumbers: ResolutionTally;
++		gatekeeperDefeated: ResolutionTally;
++		ritualDisrupted: ResolutionTally;
+ 	};
+-	inTooDeep: { safe: number; consumed: number };
+-	devilReef: { terrorAlive: number; terrorDead: number; tideGrown: number };
+-	horror: { beforeSunrise: number; afterSunrise: number };
+-	lightInTheFog: { map: number; key: number; divingSuit: number };
+-	lairOfDagon: { awoke: number; slumbers: number; gatekeeperDefeated: number; ritualDisrupted: number };
+ 	/** Into the Maelstrom — flood axis + Harper-mission branches (single-sided finale outcomes). */
+ 	finale: {
+-		escaped: number;
+-		plotThwarted: number;
+-		floodBegun: number;
+-		floodedEarth: number;
+-		harperComplete: number;
+-		harperCompleteCost: number;
+-		richesLost: number;
+-		richesDestroyed: number;
++		escaped: ResolutionTally;
++		plotThwarted: ResolutionTally;
++		floodBegun: ResolutionTally;
++		floodedEarth: ResolutionTally;
++		harperComplete: ResolutionTally;
++		harperCompleteCost: ResolutionTally;
++		richesLost: ResolutionTally;
++		richesDestroyed: ResolutionTally;
+ 	};
+ }
+ 
+@@ -111,96 +141,123 @@ export function buildTic(records: CampaignRecord[]): CampaignTic[] {
+ 	const ticRecords = filterFamilyRecords(records, TIC_FAMILY);
+ 	if (ticRecords.length === 0) return [];
+ 
+-	const memRecovered: Record<string, number> = {};
+-	let allFifteen = 0;
+-	const keyObtainable: Record<string, number> = {};
+-	let allFour = 0;
+-	const equipSecured: Record<string, number> = {};
+-	let allThree = 0;
+-	const harper = { missionSucceeded: 0, missionFailed: 0, suspect: {} as Record<string, number>, hideout: {} as Record<string, number> };
+-	const inTooDeep = { safe: 0, consumed: 0 };
+-	const devilReef = { terrorAlive: 0, terrorDead: 0, tideGrown: 0 };
+-	const horror = { beforeSunrise: 0, afterSunrise: 0 };
+-	const lightInTheFog = { map: 0, key: 0, divingSuit: 0 };
+-	const lairOfDagon = { awoke: 0, slumbers: 0, gatekeeperDefeated: 0, ritualDisrupted: 0 };
+-	const finale = { escaped: 0, plotThwarted: 0, floodBegun: 0, floodedEarth: 0, harperComplete: 0, harperCompleteCost: 0, richesLost: 0, richesDestroyed: 0 };
++	const memRecovered: Record<string, ResolutionTally> = {};
++	const allFifteen = emptyTally();
++	const keyObtainable: Record<string, ResolutionTally> = {};
++	const allFour = emptyTally();
++	const equipSecured: Record<string, ResolutionTally> = {};
++	const allThree = emptyTally();
++	const harper = {
++		missionSucceeded: emptyTally(),
++		missionFailed: emptyTally(),
++		suspect: {} as Record<string, ResolutionTally>,
++		hideout: {} as Record<string, ResolutionTally>
++	};
++	const inTooDeep = { safe: emptyTally(), consumed: emptyTally() };
++	const devilReef = {
++		terrorAlive: emptyTally(),
++		terrorDead: emptyTally(),
++		tideGrown: emptyTally()
++	};
++	const horror = { beforeSunrise: emptyTally(), afterSunrise: emptyTally() };
++	const lightInTheFog = { map: emptyTally(), key: emptyTally(), divingSuit: emptyTally() };
++	const lairOfDagon = {
++		awoke: emptyTally(),
++		slumbers: emptyTally(),
++		gatekeeperDefeated: emptyTally(),
++		ritualDisrupted: emptyTally()
++	};
++	const finale = {
++		escaped: emptyTally(),
++		plotThwarted: emptyTally(),
++		floodBegun: emptyTally(),
++		floodedEarth: emptyTally(),
++		harperComplete: emptyTally(),
++		harperCompleteCost: emptyTally(),
++		richesLost: emptyTally(),
++		richesDestroyed: emptyTally()
++	};
+ 
+ 	for (const rec of ticRecords) {
+ 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
+-		const has = (key: string) => logs.has(key);
++		const tier = rec.recorded.difficulty ?? 'standard';
++		const on = (key: string, t: ResolutionTally) => {
++			if (logs.has(key)) bumpTally(t, tier);
++		};
+ 
+ 		// Memories (the 15 flashbacks).
+ 		let memCount = 0;
+ 		for (const m of TIC_MEMORIES) {
+-			if (has(mem(m.id))) {
+-				memRecovered[m.id] = (memRecovered[m.id] ?? 0) + 1;
++			if (logs.has(mem(m.id))) {
++				bumpTally(ensureTally(memRecovered, m.id), tier);
+ 				memCount += 1;
+ 			}
+ 		}
+-		if (memCount === TIC_MEMORIES.length) allFifteen += 1;
++		if (memCount === TIC_MEMORIES.length) bumpTally(allFifteen, tier);
+ 
+ 		// The 4 obtainable finale keys → the secret-ending gate.
+ 		let keyCount = 0;
+ 		for (const key of TIC_KEYS) {
+-			if (has(k(key.note))) {
+-				keyObtainable[key.id] = (keyObtainable[key.id] ?? 0) + 1;
++			if (logs.has(k(key.note))) {
++				bumpTally(ensureTally(keyObtainable, key.id), tier);
+ 				keyCount += 1;
+ 			}
+ 		}
+-		if (keyCount === TIC_KEYS.length) allFour += 1;
++		if (keyCount === TIC_KEYS.length) bumpTally(allFour, tier);
+ 
+ 		// The 3 equipment items.
+ 		let equipCount = 0;
+ 		for (const eq of TIC_EQUIPMENT) {
+-			if (has(k(eq.note))) {
+-				equipSecured[eq.id] = (equipSecured[eq.id] ?? 0) + 1;
++			if (logs.has(k(eq.note))) {
++				bumpTally(ensureTally(equipSecured, eq.id), tier);
+ 				equipCount += 1;
+ 			}
+ 		}
+-		if (equipCount === TIC_EQUIPMENT.length) allThree += 1;
++		if (equipCount === TIC_EQUIPMENT.length) bumpTally(allThree, tier);
+ 
+ 		// The Vanishing of Elina Harper — rescue + the accusation (hidden section).
+-		if (has(k('mission_succeeded'))) harper.missionSucceeded += 1;
+-		if (has(k('mission_failed'))) harper.missionFailed += 1;
+-		for (const s of TIC_SUSPECTS) if (has(`hidden.accuse_${s}`)) harper.suspect[s] = (harper.suspect[s] ?? 0) + 1;
+-		for (const h of TIC_HIDEOUTS) if (has(`hidden.accuse_${h.accuse}`)) harper.hideout[h.id] = (harper.hideout[h.id] ?? 0) + 1;
++		on(k('mission_succeeded'), harper.missionSucceeded);
++		on(k('mission_failed'), harper.missionFailed);
++		for (const s of TIC_SUSPECTS) on(`hidden.accuse_${s.id}`, ensureTally(harper.suspect, s.id));
++		for (const h of TIC_HIDEOUTS)
++			on(`hidden.accuse_${h.accuse}`, ensureTally(harper.hideout, h.id));
+ 
+ 		// In Too Deep — the flooding fork.
+-		if (has(k('made_it_safely_to_their_vehicles'))) inTooDeep.safe += 1;
+-		if (has(k('innsmouth_was_consumed_by_the_rising_tide'))) inTooDeep.consumed += 1;
++		on(k('made_it_safely_to_their_vehicles'), inTooDeep.safe);
++		on(k('innsmouth_was_consumed_by_the_rising_tide'), inTooDeep.consumed);
+ 
+ 		// Devil Reef.
+-		if (has(k('terror_of_devil_reef_is_still_alive'))) devilReef.terrorAlive += 1;
+-		if (has(k('terror_of_devil_reef_is_dead'))) devilReef.terrorDead += 1;
+-		if (has(k('tide_has_grown_stronger'))) devilReef.tideGrown += 1;
++		on(k('terror_of_devil_reef_is_still_alive'), devilReef.terrorAlive);
++		on(k('terror_of_devil_reef_is_dead'), devilReef.terrorDead);
++		on(k('tide_has_grown_stronger'), devilReef.tideGrown);
+ 
+ 		// Horror in High Gear.
+-		if (has(k('reached_falcon_point_before_sunrise'))) horror.beforeSunrise += 1;
+-		if (has(k('reached_falcon_point_after_sunrise'))) horror.afterSunrise += 1;
++		on(k('reached_falcon_point_before_sunrise'), horror.beforeSunrise);
++		on(k('reached_falcon_point_after_sunrise'), horror.afterSunrise);
+ 
+ 		// A Light in the Fog.
+-		if (has(k('possess_a_map_of_yhanthlei'))) lightInTheFog.map += 1;
+-		if (has(k('possess_the_key_to_yhanthlei'))) lightInTheFog.key += 1;
+-		if (has(k('possesses_a_diving_suit'))) lightInTheFog.divingSuit += 1;
++		on(k('possess_a_map_of_yhanthlei'), lightInTheFog.map);
++		on(k('possess_the_key_to_yhanthlei'), lightInTheFog.key);
++		on(k('possesses_a_diving_suit'), lightInTheFog.divingSuit);
+ 
+ 		// The Lair of Dagon (defeating Dagon is NOT logged — only awoke vs slumbers).
+-		if (has(k('dagon_has_awakened'))) lairOfDagon.awoke += 1;
+-		if (has(k('dagon_still_slumbers'))) lairOfDagon.slumbers += 1;
+-		if (has(k('gatekeeper_has_been_defeated'))) lairOfDagon.gatekeeperDefeated += 1;
+-		if (has(k('orders_ritual_was_disrupted'))) lairOfDagon.ritualDisrupted += 1;
++		on(k('dagon_has_awakened'), lairOfDagon.awoke);
++		on(k('dagon_still_slumbers'), lairOfDagon.slumbers);
++		on(k('gatekeeper_has_been_defeated'), lairOfDagon.gatekeeperDefeated);
++		on(k('orders_ritual_was_disrupted'), lairOfDagon.ritualDisrupted);
+ 
+ 		// Into the Maelstrom — flood axis + Harper-mission branches.
+-		if (has(k('escaped_yhanthlei'))) finale.escaped += 1;
+-		if (has(k('plot_of_the_deep_ones_was_thwarted'))) finale.plotThwarted += 1;
+-		if (has(k('flood_has_begun'))) finale.floodBegun += 1;
+-		if (has(k('deep_ones_have_flooded_the_earth'))) finale.floodedEarth += 1;
+-		if (has(k('agent_harpers_mission_is_complete'))) finale.harperComplete += 1;
+-		if (has(k('agent_harpers_mission_is_complete_at_what_cost'))) finale.harperCompleteCost += 1;
+-		if (has(k('riches_of_the_deep_are_lost_forever'))) finale.richesLost += 1;
+-		if (has(k('riches_of_the_deep_are_destroyed_at_what_cost'))) finale.richesDestroyed += 1;
++		on(k('escaped_yhanthlei'), finale.escaped);
++		on(k('plot_of_the_deep_ones_was_thwarted'), finale.plotThwarted);
++		on(k('flood_has_begun'), finale.floodBegun);
++		on(k('deep_ones_have_flooded_the_earth'), finale.floodedEarth);
++		on(k('agent_harpers_mission_is_complete'), finale.harperComplete);
++		on(k('agent_harpers_mission_is_complete_at_what_cost'), finale.harperCompleteCost);
++		on(k('riches_of_the_deep_are_lost_forever'), finale.richesLost);
++		on(k('riches_of_the_deep_are_destroyed_at_what_cost'), finale.richesDestroyed);
+ 	}
+ 
+-	const everRecovered = TIC_MEMORIES.filter((m) => (memRecovered[m.id] ?? 0) > 0).length;
++	const everRecovered = TIC_MEMORIES.filter((m) => (memRecovered[m.id]?.total ?? 0) > 0).length;
+ 
+ 	return [
+ 		{

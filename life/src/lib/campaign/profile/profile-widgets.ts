@@ -582,19 +582,26 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 		campaign: 'tdc',
 		fullWidth: true
 	},
-	// TDC: the Fold (direction) + glyphs/artifacts/tasks spine, the Sepulchre better-ending gate,
-	// the per-scenario forks, then the Doom of Arkham finale.
-	{ id: 'tdcFold', label: 'The Fold', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc', fullWidth: true },
-	{ id: 'tdcGlyphsScenario', label: 'Glyphs by Scenario', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc', fullWidth: true },
+	// TDC: the Fold (direction) + glyphs/artifacts/tasks spine, one passport per expedition scenario
+	// (book order), the Sepulchre better-ending gate, then the Doom of Arkham finale.
+	{ id: 'tdcFold', label: 'The Fold', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
 	{ id: 'tdcArtifacts', label: 'Eldritch Artifacts', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
-	{ id: 'tdcTasks', label: 'Side Tasks', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcTasks', label: 'Side Tasks', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc', nonLog: 'partial' },
+	{ id: 'tdcOneLastJob', scenario: 'one_last_job', label: 'One Last Job', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcWesternWall', scenario: 'the_western_wall', label: 'The Western Wall', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcDrownedQuarter', scenario: 'the_drowned_quarter', label: 'The Drowned Quarter', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcApiary', scenario: 'the_apiary', label: 'The Apiary', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcGrandVault', scenario: 'the_grand_vault', label: 'The Grand Vault', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcCourtOfAncients', scenario: 'court_of_the_ancients', label: 'Court of the Ancients', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
+	{ id: 'tdcObsidianCanyons', scenario: 'obsidian_canyons', label: 'Obsidian Canyons', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
 	{ id: 'tdcSepulchre', scenario: 'sepulchre_of_the_sleeper', label: 'Sepulchre of the Sleeper', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc' },
-	{ id: 'tdcForks', label: 'Expedition Forks', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc', fullWidth: true },
 	{ id: 'tdcDoom', label: 'The Doom of Arkham', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdc', fullWidth: true },
-	// NotZ: the three core-set scenarios.
+	// NotZ: the "threats carried below" spine, the three core-set scenarios, and the Core-Set purist feat.
+	{ id: 'notzThreatsBelow', label: 'Threats Carried Below', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'notz' },
 	{ id: 'notzGathering', scenario: 'the_gathering', label: 'The Gathering', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'notz' },
 	{ id: 'notzMidnightMasks', scenario: 'the_midnight_masks', label: 'The Midnight Masks', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'notz' },
 	{ id: 'notzDevourerBelow', scenario: 'the_devourer_below', label: 'The Devourer Below', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'notz' },
+	{ id: 'notzCoreOnly', label: 'Core Set Only', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'notz', nonLog: 'full' },
 	// PtC: the Doubt/Conviction spine, the VIP roster, the Stranger, then per scenario.
 	{ id: 'ptcDoubtConviction', label: 'Doubt & Conviction', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'ptc' },
 	{ id: 'ptcVips', label: 'VIPs', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'ptc' },
@@ -610,7 +617,7 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 	{ id: 'ptcBlackStarsRise', scenario: 'black_stars_rise', label: 'Black Stars Rise', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'ptc' },
 	{ id: 'ptcDimCarcosa', scenario: 'dim_carcosa', label: 'Dim Carcosa', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'ptc', nonLog: 'partial', fullWidth: true },
 	// TCU: the Lodge-vs-Coven spine, the missing persons, mementos, then per scenario.
-	{ id: 'tcuAllegiance', label: 'Lodge vs Coven', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu', fullWidth: true },
+	{ id: 'tcuAllegiance', label: 'Lodge vs Coven', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
 	{ id: 'tcuMissingPersons', scenario: 'disappearance_at_the_twilight_estate', label: 'The Missing Persons', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu', fullWidth: true },
 	{ id: 'tcuMementos', label: 'Mementos', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu', fullWidth: true },
 	{ id: 'tcuWitchingHour', scenario: 'the_witching_hour', label: 'The Witching Hour', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
@@ -618,16 +625,16 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 	{ id: 'tcuSecretName', scenario: 'the_secret_name', label: 'The Secret Name', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
 	{ id: 'tcuWagesOfSin', scenario: 'the_wages_of_sin', label: 'The Wages of Sin', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
 	{ id: 'tcuGreaterGood', scenario: 'for_the_greater_good', label: 'For the Greater Good', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
-	{ id: 'tcuUnion', scenario: 'union_and_disillusion', label: 'Union and Disillusion', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
+	{ id: 'tcuUnion', scenario: 'union_and_disillusion', label: 'Union and Disillusion', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu', fullWidth: true },
 	{ id: 'tcuClutches', scenario: 'in_the_clutches_of_chaos', label: 'In the Clutches of Chaos', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
-	{ id: 'tcuEndings', scenario: 'before_the_black_throne', label: 'Before the Black Throne', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu' },
+	{ id: 'tcuEndings', scenario: 'before_the_black_throne', label: 'Before the Black Throne', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tcu', fullWidth: true },
 	// TDE · The Dream-Quest (tdea): the Evidence-of-Kadath spine, per-scenario decisions, and the
 	// shared interconnected view (play mode, Black Cat, Silver Key, Randolph, the epilogue matrix).
 	// All log-derived (the cross-campaign data lives in the Logs tab's Linked Campaign Log).
 	{ id: 'tdeaPlayMode', label: 'How You Played It', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea' },
-	{ id: 'tdeaEvidence', label: 'Evidence of Kadath', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea', fullWidth: true },
+	{ id: 'tdeaEvidence', label: 'Evidence of Kadath', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea' },
 	{ id: 'tdeaBeyondGates', scenario: 'beyond_the_gates_of_sleep', label: 'Beyond the Gates of Sleep', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea' },
-	{ id: 'tdeaSearchForKadath', scenario: 'the_search_for_kadath', label: 'The Search for Kadath', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea', fullWidth: true },
+	{ id: 'tdeaSearchForKadath', scenario: 'the_search_for_kadath', label: 'The Search for Kadath', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea' },
 	{ id: 'tdeaDarkSide', scenario: 'dark_side_of_the_moon', label: 'Dark Side of the Moon', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea' },
 	{ id: 'tdeaGodsDwell', scenario: 'where_gods_dwell', label: 'Where the Gods Dwell', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea', fullWidth: true },
 	{ id: 'tdeaBlackCat', label: 'The Black Cat', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdea', fullWidth: true },
@@ -637,8 +644,8 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 	// TDE · The Web of Dreams (tdeb): the Steps-of-the-Bridge spine, per-scenario decisions, and the
 	// same shared interconnected view. All log-derived.
 	{ id: 'tdebPlayMode', label: 'How You Played It', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb' },
-	{ id: 'tdebSteps', label: 'Steps of the Bridge', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb', fullWidth: true },
-	{ id: 'tdebWakingNightmare', scenario: 'waking_nightmare', label: 'Waking Nightmare', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb', fullWidth: true },
+	{ id: 'tdebSteps', label: 'Steps of the Bridge', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb' },
+	{ id: 'tdebWakingNightmare', scenario: 'waking_nightmare', label: 'Waking Nightmare', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb' },
 	{ id: 'tdebThousandShapes', scenario: 'a_thousand_shapes_of_horror', label: 'A Thousand Shapes of Horror', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb' },
 	{ id: 'tdebPointOfNoReturn', scenario: 'point_of_no_return', label: 'Point of No Return', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb' },
 	{ id: 'tdebWeaver', scenario: 'weaver_of_the_cosmos', label: 'Weaver of the Cosmos', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tdeb', fullWidth: true },
@@ -650,15 +657,18 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 	// Harper investigation, per-scenario decisions, and the finale. All log-derived.
 	{ id: 'ticMemories', label: 'Memories Recovered', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic', fullWidth: true },
 	{ id: 'ticKeys', label: 'The Seven Keys', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
-	{ id: 'ticHarper', scenario: 'the_vanishing_of_elina_harper', label: 'The Vanishing of Elina Harper', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic', fullWidth: true },
+	{ id: 'ticPit', scenario: 'the_pit_of_despair', label: 'The Pit of Despair', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
+	{ id: 'ticHarper', scenario: 'the_vanishing_of_elina_harper', label: 'The Vanishing of Elina Harper', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
 	{ id: 'ticInTooDeep', scenario: 'in_too_deep', label: 'In Too Deep', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
-	{ id: 'ticDevilReef', scenario: 'devil_reef', label: 'Devil Reef', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic', fullWidth: true },
+	{ id: 'ticDevilReef', scenario: 'devil_reef', label: 'Devil Reef', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
 	{ id: 'ticHorror', scenario: 'horror_in_high_gear', label: 'Horror in High Gear', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
 	{ id: 'ticLightInTheFog', scenario: 'a_light_in_the_fog', label: 'A Light in the Fog', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
-	{ id: 'ticDagon', scenario: 'the_lair_of_dagon', label: 'The Lair of Dagon', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic' },
+	{ id: 'ticDagon', scenario: 'the_lair_of_dagon', label: 'The Lair of Dagon', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic', fullWidth: true },
 	{ id: 'ticMaelstrom', scenario: 'into_the_maelstrom', label: 'Into the Maelstrom', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tic', fullWidth: true },
-	// FHV · The Feast of Hemlock Vale: the Day/Night schedule (replay hook), 8 dedicated villager
-	// widgets (2×4 half-width), Fate of the Vale, the Hemlock curse, and per-scenario forks.
+	// FHV · The Feast of Hemlock Vale: the relationship spine (The Vale roster) + 8 villager
+	// deep-dives, the Day/Night schedule, the dance and per-scenario passports in story order,
+	// the Final Evening, Fate of the Vale, and the Hemlock curse.
+	{ id: 'fhvVale', label: 'The Vale', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
 	{ id: 'fhvSchedule', label: 'Day/Night Schedule', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true, nonLog: 'partial' },
 	{ id: 'fhvRachel', label: 'Mother Rachel', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvLeah', label: 'Leah Atwood', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
@@ -668,14 +678,17 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 	{ id: 'fhvGideon', label: 'Gideon Mizrah', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvJudith', label: 'Judith Park', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvTheo', label: 'Theo Peters', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
-	{ id: 'fhvFate', scenario: 'fate_of_the_vale', label: 'Fate of the Vale', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
-	{ id: 'fhvCurse', label: 'The Hemlock Curse', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvScWrittenInRock', scenario: 'written_in_rock', label: 'Written in Rock', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
+	{ id: 'fhvScHemlockHouse', scenario: 'hemlock_house', label: 'Hemlock House', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', nonLog: 'partial' },
 	{ id: 'fhvScSilentHeath', scenario: 'the_silent_heath', label: 'The Silent Heath', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvScLostSister', scenario: 'the_lost_sister', label: 'The Lost Sister', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvScThingDepths', scenario: 'the_thing_in_the_depths', label: 'The Thing in the Depths', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	{ id: 'fhvScTwistedHollow', scenario: 'the_twisted_hollow', label: 'The Twisted Hollow', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
-	{ id: 'fhvScLongestNight', scenario: 'the_longest_night', label: 'The Longest Night', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
+	{ id: 'fhvDance', label: 'The Second Evening', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
+	{ id: 'fhvScLongestNight', scenario: 'the_longest_night', label: 'The Longest Night', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true, nonLog: 'partial' },
+	{ id: 'fhvFinalEvening', label: 'The Final Evening', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
+	{ id: 'fhvFate', scenario: 'fate_of_the_vale', label: 'Fate of the Vale', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
+	{ id: 'fhvCurse', label: 'The Hemlock Curse', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
 	// DWL: per-scenario tallies (all log-derived) for The Dunwich Legacy.
 	{
 		id: 'dwlOpening',
@@ -922,20 +935,24 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 		fullWidth: true,
 		image: '/image/widget/campaign/eote/memories-banished.webp'
 	},
-	// TFA: Yig's Fury spine, provisions, companions, the recurring Harbinger, then per scenario.
+	// TFA: Yig's Fury spine, provisions, companions, the recurring Harbinger + venom, then per scenario.
+	// `nonLog` flags are best-effort (TFA is not yet in the audited Log-only guard set): Venom is
+	// Extra-only ('full'); the Harbinger and the per-scenario widgets keep log-derived content and gate
+	// their own Extra sections on the forwarded `logOnly` ('partial').
 	{ id: 'tfaVengeance', label: "Yig's Fury", panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true },
 	{ id: 'tfaSupplies', label: 'Provisions', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true },
 	{ id: 'tfaCompanions', label: 'Ichtaca & Alejandro', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
-	{ id: 'tfaHarbinger', label: 'The Harbinger of Valusia', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
-	{ id: 'tfaWilds', scenario: 'the_untamed_wilds', label: 'The Untamed Wilds', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
+	{ id: 'tfaHarbinger', label: 'The Harbinger of Valusia', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', nonLog: 'partial' },
+	{ id: 'tfaPoison', label: 'Venom of Yig', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', nonLog: 'full' },
+	{ id: 'tfaWilds', scenario: 'the_untamed_wilds', label: 'The Untamed Wilds', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', nonLog: 'partial' },
 	{ id: 'tfaEztli', scenario: 'the_doom_of_eztli', label: 'The Doom of Eztli', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', nonLog: 'partial' },
-	{ id: 'tfaThreads', scenario: 'threads_of_fate', label: 'Threads of Fate', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
+	{ id: 'tfaThreads', scenario: 'threads_of_fate', label: 'Threads of Fate', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true, nonLog: 'partial' },
 	{ id: 'tfaBoundary', scenario: 'the_boundary_beyond', label: 'The Boundary Beyond', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
-	{ id: 'tfaHote', scenario: 'heart_of_the_elders_part_1', label: 'Heart of the Elders', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
-	{ id: 'tfaArchives', scenario: 'the_city_of_archives', label: 'The City of Archives', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true },
-	{ id: 'tfaYoth', scenario: 'the_depths_of_yoth', label: 'The Depths of Yoth', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
+	{ id: 'tfaHote', scenario: 'heart_of_the_elders_part_1', label: 'Heart of the Elders', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', nonLog: 'partial' },
+	{ id: 'tfaArchives', scenario: 'the_city_of_archives', label: 'The City of Archives', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true, nonLog: 'partial' },
+	{ id: 'tfaYoth', scenario: 'the_depths_of_yoth', label: 'The Depths of Yoth', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', nonLog: 'partial' },
 	{ id: 'tfaAeons', scenario: 'shattered_aeons', label: 'Shattered Aeons', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' },
-	{ id: 'tfaTurnBackTime', scenario: 'turn_back_time', label: 'Turn Back Time', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa' }
+	{ id: 'tfaTurnBackTime', scenario: 'turn_back_time', label: 'Turn Back Time', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true, nonLog: 'partial' }
 ];
 
 export const WIDGET_BY_ID: Record<string, WidgetDef> = Object.fromEntries(
@@ -992,15 +1009,22 @@ const WIDGET_LABEL_MSG: Record<string, () => string> = {
 	tskSideQuests: m.framework_label_tsk_side_quests,
 	tdcGlyphWall: m.framework_label_tdc_glyph_wall,
 	tdcFold: m.framework_label_tdc_fold,
-	tdcGlyphsScenario: m.framework_label_tdc_glyphs_scenario,
 	tdcArtifacts: m.framework_label_tdc_artifacts,
 	tdcTasks: m.framework_label_tdc_tasks,
+	tdcOneLastJob: m.framework_label_tdc_one_last_job,
+	tdcWesternWall: m.framework_label_tdc_western_wall,
+	tdcDrownedQuarter: m.framework_label_tdc_drowned_quarter,
+	tdcApiary: m.framework_label_tdc_apiary,
+	tdcGrandVault: m.framework_label_tdc_grand_vault,
+	tdcCourtOfAncients: m.framework_label_tdc_court_of_the_ancients,
+	tdcObsidianCanyons: m.framework_label_tdc_obsidian_canyons,
 	tdcSepulchre: m.framework_label_tdc_sepulchre,
-	tdcForks: m.framework_label_tdc_forks,
 	tdcDoom: m.framework_label_tdc_doom,
+	notzThreatsBelow: m.framework_label_notz_threats,
 	notzGathering: m.framework_label_notz_gathering,
 	notzMidnightMasks: m.framework_label_notz_midnight_masks,
 	notzDevourerBelow: m.framework_label_notz_devourer,
+	notzCoreOnly: m.framework_label_notz_core_only,
 	ptcDoubtConviction: m.framework_label_ptc_doubt_conviction,
 	ptcVips: m.framework_label_ptc_vips,
 	ptcStranger: m.framework_label_ptc_stranger,
@@ -1054,6 +1078,8 @@ const WIDGET_LABEL_MSG: Record<string, () => string> = {
 	ticLightInTheFog: m.framework_label_tic_light_in_the_fog,
 	ticDagon: m.framework_label_tic_dagon,
 	ticMaelstrom: m.framework_label_tic_maelstrom,
+	ticPit: m.framework_label_tic_pit,
+	fhvVale: m.framework_label_fhv_vale,
 	fhvSchedule: m.framework_label_fhv_schedule,
 	fhvRachel: m.framework_label_fhv_rachel,
 	fhvLeah: m.framework_label_fhv_leah,
@@ -1066,11 +1092,14 @@ const WIDGET_LABEL_MSG: Record<string, () => string> = {
 	fhvFate: m.framework_label_fhv_fate,
 	fhvCurse: m.framework_label_fhv_curse,
 	fhvScWrittenInRock: m.framework_label_fhv_sc_written_in_rock,
+	fhvScHemlockHouse: m.framework_label_fhv_sc_hemlock_house,
 	fhvScSilentHeath: m.framework_label_fhv_sc_silent_heath,
 	fhvScLostSister: m.framework_label_fhv_sc_lost_sister,
 	fhvScThingDepths: m.framework_label_fhv_sc_thing_depths,
 	fhvScTwistedHollow: m.framework_label_fhv_sc_twisted_hollow,
+	fhvDance: m.framework_label_fhv_dance,
 	fhvScLongestNight: m.framework_label_fhv_sc_longest_night,
+	fhvFinalEvening: m.framework_label_fhv_final_evening,
 	dwlOpening: m.framework_label_dwl_opening,
 	dwlMissingPersons: m.framework_label_dwl_missing_persons,
 	dwlMiskatonic: m.framework_label_dwl_miskatonic,
@@ -1098,6 +1127,7 @@ const WIDGET_LABEL_MSG: Record<string, () => string> = {
 	tfaSupplies: m.framework_label_tfa_supplies,
 	tfaCompanions: m.framework_label_tfa_companions,
 	tfaHarbinger: m.framework_label_tfa_harbinger,
+	tfaPoison: m.framework_label_tfa_poison,
 	tfaWilds: m.framework_label_tfa_wilds,
 	tfaEztli: m.framework_label_tfa_eztli,
 	tfaThreads: m.framework_label_tfa_threads,
@@ -1105,7 +1135,8 @@ const WIDGET_LABEL_MSG: Record<string, () => string> = {
 	tfaHote: m.framework_label_tfa_hote,
 	tfaArchives: m.framework_label_tfa_archives,
 	tfaYoth: m.framework_label_tfa_yoth,
-	tfaAeons: m.framework_label_tfa_aeons
+	tfaAeons: m.framework_label_tfa_aeons,
+	tfaTurnBackTime: m.framework_label_tfa_turn_back_time
 };
 
 /** Localized catalogue label for a widget id; per-class variants interpolate the

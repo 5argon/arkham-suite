@@ -15,6 +15,7 @@ import type { CampaignRecord } from '../achievements/achievement-aggregate';
 import type { ResolutionTally } from '../outcomes/resolution-coverage';
 import { oathVersionFromRecord, phantomVersionFromRecord, pallidVersionFromRecord } from '../campaigns/ptc';
 import { ascendingHillVersionFromRecord } from '../campaigns/dwl';
+import { unionCosmosVersionFromRecord } from '../campaigns/tcu';
 import { TSK_VARIANT_SCENARIOS, tskRecordedVariant } from '../campaigns/tsk-profile';
 import { scenarioReference, scenarioResultFromResolution } from '../campaigns/tsk-solver';
 
@@ -153,6 +154,14 @@ export const VERSION_AXES: Record<string, VersionAxis | VersionAxis[]> = {
 	a_phantom_of_truth: { order: ['I', 'II'], classify: phantomVersionFromRecord, versionFromLog: true },
 	the_pallid_mask: { order: ['conviction', 'doubt'], classify: pallidVersionFromRecord, versionFromLog: false },
 	the_unspeakable_oath: { order: ['I', 'II'], classify: oathVersionFromRecord, versionFromLog: false },
+	// TCU Union and Disillusion — the Beyond-the-Mist Cosmos version (Act 3 v.I–v.IV) auto-selected by
+	// the log from the side taken + deception/induction flags (see unionCosmosVersionFromRecord). Fully
+	// log-derived, so log-only-safe.
+	union_and_disillusion: {
+		order: ['I', 'II', 'III', 'IV'],
+		classify: unionCosmosVersionFromRecord,
+		versionFromLog: true
+	},
 	where_doom_awaits: {
 		order: ['v1', 'v2', 'v3'],
 		classify: ascendingHillVersionFromRecord,
