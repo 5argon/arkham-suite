@@ -19,6 +19,7 @@ import {
 import {
   TagTypeBuffAssetStats,
   TagTypeBuffCannot,
+  TagTypeBuffInvestigatorStats,
   TagTypeBuffStatsReplace,
 } from "./tags/buff/index.js";
 import {
@@ -193,7 +194,7 @@ const enumsByCategory: Record<string, object[]> = {
   "aoo": [TagTypeAoo],
   "attach": [TagTypeAttach],
   "auto": [TagTypeAuto],
-  "buff": [TagTypeBuffAssetStats, TagTypeBuffCannot, TagTypeBuffStatsReplace],
+  "buff": [TagTypeBuffAssetStats, TagTypeBuffCannot, TagTypeBuffInvestigatorStats, TagTypeBuffStatsReplace],
   "cancel": [TagTypeCancel],
   "chaos": [TagTypeChaosBag, TagTypeChaosDownside, TagTypeChaosEffect, TagTypeChaosPredict, TagTypeChaosReveal, TagTypeChaosSeal],
   "clue": [TagTypeClueAdditional, TagTypeClueDiscover, TagTypeCluePlace],

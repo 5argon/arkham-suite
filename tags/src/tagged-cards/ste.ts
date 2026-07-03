@@ -10,9 +10,11 @@ import {
   TagTypeCostReaction,
   TagTypeDamage,
   TagTypeDeckDraw,
+  TagTypeDeckMisc,
   TagTypeDiscardFromPlay,
   TagTypeDuration,
   TagTypeEnemyElite,
+  TagTypeEnemyEngage,
   TagTypeEnemyMitigation,
   TagTypeExile,
   TagTypeGainResource,
@@ -27,6 +29,7 @@ import {
   TagTypeStatsModBoostInTest,
   TagTypeStatsModBoostLasting,
   TagTypeStatsModBoostPassive,
+  TagTypeStatsModPump,
   TagTypeTestDifficulty,
   TagTypeTestInitiate,
   TagTypeTestMisc,
@@ -36,13 +39,14 @@ import {
   TagTypeTimingAfter,
   TagTypeTimingDuring,
   TagTypeTimingForced,
+  TagTypeTimingSkill,
   TagTypeTimingWhen,
   TagTypeUsesReplenish,
   TagTypeUsesStarting,
   TagTypeUsesSupport,
 } from "../tags/index.js";
 import { BasicAction } from "../kohaku.js";
-import { TaggedCard } from "../type.js";
+import { TaggedCard, TimingQualifier } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -65,6 +69,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "skill",
     icons: ["wild", "wild", "wild"],
     tags: [
+      { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCancel.CancelFailedTestEffects },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
@@ -77,6 +82,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After },
       { type: TagTypeDamage.DamageToInvestigator, value: 1 },
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
@@ -136,6 +142,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect"],
     tags: [
+      { type: TagTypeUsesStarting.UsesStartingKey, value: 2 },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeLocationShroud.LocationShroudMinus2 },
@@ -150,6 +157,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
       { type: TagTypeSoak.SoakSanity, value: 3 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeTimingWhen.TimingWhenWouldFailTest },
@@ -165,6 +173,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeCostFree.CostFreeHorrorSelf },
@@ -179,6 +188,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["wild"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
       { type: TagTypeSkillCommit.SkillCommitWildIcon },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
@@ -193,10 +203,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1 },
     ],
   },
   {
@@ -207,7 +217,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeChaosEffect.ChaosEffectDoNotReveal },
       { type: TagTypeDuration.DurationNextSkillTestThisTurn },
@@ -265,6 +275,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["wild"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeTestRepeat.TestRepeatFailed },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 },
@@ -279,6 +290,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "intellect"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
+      { type: TagTypeTestless.TestlessClue, value: 2 },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 },
@@ -293,6 +306,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "combat"],
     tags: [
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 },
@@ -348,13 +363,13 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
+      { type: TagTypeUsesReplenish.UsesReplenish, useType: "ammo", conditional: true },
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
     ],
   },
@@ -381,6 +396,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "intellect", "agility"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
+      { type: TagTypeTestless.TestlessClue, value: 2 },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 3 },
       { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 2 },
@@ -395,6 +412,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "agility", "agility"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 3 },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
@@ -423,6 +441,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 },
       { type: TagTypeSoak.SoakSanity, value: 3 },
@@ -440,6 +459,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: [],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
       { type: TagTypeSkillCommit.SkillCommitNoIcons },
       { type: TagTypeTimingWhen.TimingWhenWouldFailTest },
       { type: TagTypeLocationYour.LocationYourInvestigator },
@@ -455,6 +475,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "combat", "combat"],
     tags: [
+      { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeUsesStarting.UsesStartingSupply, value: 3 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeCostAction.CostActionSpendSupply },
@@ -462,7 +483,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeUsesReplenish.UsesReplenish, useType: "supply", conditional: true },
-      { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 },
     ],
   },
   {

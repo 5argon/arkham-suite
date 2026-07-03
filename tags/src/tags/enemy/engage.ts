@@ -8,6 +8,7 @@ export enum TagTypeEnemyEngage {
   EnemyEngageRelated = "engage-related",
   EnemyEngageWithAnother = "engage-with-another",
   EnemyEngageWithYou = "engage-with-you",
+  EnemyEngageTargetEngaged = "engage-target-engaged",
   EnemyEngageDisengage = "engage-disengage",
   EnemyEngageEvadeMultiple = "evade-multiple",
   EnemyEngageWithYouMultiple = "engage-with-you-multiple",
@@ -39,8 +40,22 @@ export interface TagEnemyEngageWithAnother extends TagEnemyEngageBase {
   type: TagTypeEnemyEngage.EnemyEngageWithAnother;
 }
 
+/**
+ * FORCE an enemy to become engaged with you (Taunt, Heroic Rescue, On the Hunt,
+ * "Get over here!") — the tank pull. Feeds Engagement. For effects that merely
+ * TARGET an enemy already engaged with you, use engage-target-engaged instead.
+ */
 export interface TagEnemyEngageWithYou extends TagEnemyEngageBase {
   type: TagTypeEnemyEngage.EnemyEngageWithYou;
+}
+
+/**
+ * Targets or conditions on "an enemy engaged with you" (Flamethrower, Mano a Mano,
+ * Oops!) — a targeting scope, not an engage effect. Split from engage-with-you so
+ * the Engagement compound only collects genuine force-engages.
+ */
+export interface TagEnemyEngageTargetEngaged extends TagEnemyEngageBase {
+  type: TagTypeEnemyEngage.EnemyEngageTargetEngaged;
 }
 
 /**

@@ -9,10 +9,15 @@ export enum TagTypeUsesStarting {
   UsesStartingOffering = "uses-starting-offering",
   UsesStartingResource = "uses-starting-resource",
   UsesStartingInspiration = "uses-starting-inspiration",
+  UsesStartingTry = "uses-starting-try",
+  UsesStartingKey = "uses-starting-key",
+  UsesStartingLock = "uses-starting-lock",
 }
 
 interface TagUsesStartingBase extends TagBase {
     value: number;
+    /** True when the printed amount is per investigator ("Uses (1 [per_investigator] locks)"). */
+    perInvestigator?: boolean;
 }
 
 export interface TagUsesStartingAmmo extends TagUsesStartingBase {
@@ -51,4 +56,19 @@ export interface TagUsesStartingResource extends TagUsesStartingBase {
 /** New printed use-token type "inspiration" (tdc). */
 export interface TagUsesStartingInspiration extends TagUsesStartingBase {
   type: TagTypeUsesStarting.UsesStartingInspiration;
+}
+
+/** Printed use-token type "try" (Try and Try Again). */
+export interface TagUsesStartingTry extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingTry;
+}
+
+/** Printed use-token type "key" (Old Keyring). */
+export interface TagUsesStartingKey extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingKey;
+}
+
+/** Printed use-token type "lock" (The Council's Coffer). */
+export interface TagUsesStartingLock extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingLock;
 }
