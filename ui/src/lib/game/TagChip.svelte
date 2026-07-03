@@ -4,6 +4,9 @@ A richly-styled, clickable chip for a game-effect tag or compound archetype: an 
 tag name, any arguments rendered as distinct key/value pills (so the argument is easy to
 read apart from the name), and an optional card-count badge. Presentational only — pass
 already-resolved strings; this has no dependency on the tags package.
+
+Pass a URL string as `onClick` to render a real <a> anchor (so open-in-new-tab / middle-click
+work); pass a function to render a <button>. Mirrors the Button component's onClick contract.
 -->
 <script lang="ts" module>
 	export interface TagChipArg {
@@ -29,7 +32,12 @@ already-resolved strings; this has no dependency on the tags package.
 		count?: number;
 		/** Draw attention with a ring — e.g. this base tag drives a hovered compound. */
 		emphasized?: boolean;
-		onClick?: () => void;
+		/**
+		 * A URL string → renders a real <a> anchor (so open-in-new-tab / middle-click work); a
+		 * function → renders a <button>. In-app URLs get client-side SPA navigation without a
+		 * scroll reset, matching the previous button behavior.
+		 */
+		onClick?: string | (() => void);
 		onMouseEnter?: () => void;
 		onMouseLeave?: () => void;
 		/** Optional tooltip. */
@@ -48,22 +56,22 @@ already-resolved strings; this has no dependency on the tags package.
 		onMouseLeave,
 		title
 	}: Prop = $props();
+
+	const href = $derived(typeof onClick === 'string' ? onClick : undefined);
+	const clickHandler = $derived(typeof onClick === 'function' ? onClick : undefined);
+
+	const chipClass = $derived(
+		clsx(
+			'inline-flex cursor-pointer items-center gap-1.5 rounded border py-1 pr-1.5 pl-2 text-sm shadow-sm transition hover:brightness-105 active:brightness-100 dark:hover:brightness-110',
+			highlighted
+				? 'border-secondary-300 bg-secondary-50 dark:border-secondary-600 dark:bg-secondary-900'
+				: 'border-primary-300 bg-primary-50 dark:border-primary-600 dark:bg-primary-800',
+			emphasized && 'ring-secondary-400 dark:ring-secondary-400 ring-2 ring-offset-1 brightness-105'
+		)
+	);
 </script>
 
-<button
-	type="button"
-	{title}
-	onclick={onClick}
-	onmouseenter={onMouseEnter}
-	onmouseleave={onMouseLeave}
-	class={clsx(
-		'inline-flex cursor-pointer items-center gap-1.5 rounded border py-1 pr-1.5 pl-2 text-sm shadow-sm transition hover:brightness-105 active:brightness-100 dark:hover:brightness-110',
-		highlighted
-			? 'border-secondary-300 bg-secondary-50 dark:border-secondary-600 dark:bg-secondary-900'
-			: 'border-primary-300 bg-primary-50 dark:border-primary-600 dark:bg-primary-800',
-		emphasized && 'ring-secondary-400 dark:ring-secondary-400 ring-2 ring-offset-1 brightness-105'
-	)}
->
+{#snippet chipInner()}
 	{#if icon !== undefined}
 		<FaIcon duotone {icon} />
 	{/if}
@@ -116,4 +124,28 @@ already-resolved strings; this has no dependency on the tags package.
 			)}>{count}</span
 		>
 	{/if}
-</button>
+{/snippet}
+
+{#if href !== undefined}
+	<a
+		{href}
+		{title}
+		data-sveltekit-noscroll
+		onmouseenter={onMouseEnter}
+		onmouseleave={onMouseLeave}
+		class={chipClass}
+	>
+		{@render chipInner()}
+	</a>
+{:else}
+	<button
+		type="button"
+		{title}
+		onclick={clickHandler}
+		onmouseenter={onMouseEnter}
+		onmouseleave={onMouseLeave}
+		class={chipClass}
+	>
+		{@render chipInner()}
+	</button>
+{/if}

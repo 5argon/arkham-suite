@@ -115,11 +115,31 @@
 			{ push: true }
 		);
 	}
-	function showCompound(type: CompoundTagType) {
-		apply(
-			{ tab: null, pack: null, focus: null, compound: type, tag: null, where: null },
-			{ push: true }
-		);
+	// Tag/compound chips render as real <a> anchors (so middle-click / open-in-new-tab work).
+	// These build the exact URLs the old showTag/showCompound handlers navigated to; SvelteKit
+	// intercepts a plain click for SPA navigation, and `data-sveltekit-noscroll` on the chip
+	// preserves the previous no-scroll behavior.
+	function hrefForTag(type: TagType, w?: Record<string, unknown>): string {
+		const url = withParams(page.url, {
+			tab: null,
+			pack: null,
+			focus: null,
+			tag: type,
+			compound: null,
+			where: w && Object.keys(w).length ? serializeWhere(w) : null
+		});
+		return url.pathname + url.search;
+	}
+	function hrefForCompound(type: CompoundTagType): string {
+		const url = withParams(page.url, {
+			tab: null,
+			pack: null,
+			focus: null,
+			compound: type,
+			tag: null,
+			where: null
+		});
+		return url.pathname + url.search;
 	}
 	function showIndex() {
 		apply({ tag: null, compound: null, where: null }, { push: true });
@@ -357,7 +377,7 @@
 									count={tagRepo.tagTypeCount(tag.type)}
 									icon={FaIconType.Tag}
 									emphasized={hoveredCompound !== null && tagMatchesCompound(tag, hoveredCompound)}
-									onClick={() => showTag(tag.type, tagArguments(tag))}
+									onClick={hrefForTag(tag.type, tagArguments(tag))}
 								/>
 							{/each}
 						</div>
@@ -373,7 +393,7 @@
 										count={tagRepo.compoundTagCount(c)}
 										highlighted
 										icon={FaIconType.Tags}
-										onClick={() => showCompound(c)}
+										onClick={hrefForCompound(c)}
 										onMouseEnter={() => (hoveredCompound = c)}
 										onMouseLeave={() => (hoveredCompound = null)}
 									/>
@@ -476,7 +496,7 @@
 							label={t.label}
 							count={t.count}
 							icon={FaIconType.Tag}
-							onClick={() => showTag(t.type)}
+							onClick={hrefForTag(t.type)}
 						/>
 					{/each}
 				</div>
@@ -495,7 +515,7 @@
 						count={c.count}
 						highlighted
 						icon={FaIconType.Tags}
-						onClick={() => showCompound(c.type)}
+						onClick={hrefForCompound(c.type)}
 					/>
 				{/each}
 			</div>
@@ -545,7 +565,7 @@
 						count={tagRepo.compoundTagCount(c.type)}
 						highlighted
 						icon={FaIconType.Tags}
-						onClick={() => showCompound(c.type)}
+						onClick={hrefForCompound(c.type)}
 					/>
 				{/each}
 			</div>
@@ -585,7 +605,7 @@
 					args={whereArgPairs(member.where)}
 					count={member.count}
 					icon={FaIconType.Tag}
-					onClick={() => showTag(member.type, member.where)}
+					onClick={hrefForTag(member.type, member.where)}
 				/>
 			{/each}
 		</div>
