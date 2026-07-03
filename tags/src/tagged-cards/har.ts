@@ -459,6 +459,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 2 },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
     ],

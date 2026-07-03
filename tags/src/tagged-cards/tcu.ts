@@ -818,7 +818,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeDamage.DamagePlus, value: 1 },
     ],
@@ -1062,7 +1061,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect"],
     tags: [
-      { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
+      { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 1 } },
+      { type: TagTypeDeckSearch.DeckSearchInvestigator, range: { type: "top", cards: 1 } },
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 4 },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeCostAction.CostActionSpendSecret },
@@ -1108,7 +1108,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeEnemyElite.EnemyEliteReducedEffect },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeAuto.AutoEvade },
     ],
   },
@@ -1157,6 +1157,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
+      { type: TagTypeTimingSkill.TimingSkillSt2CommitCards, timing: TimingQualifier.After },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeCommit.CommitBenefitsPerformer },
     ],
@@ -1171,6 +1172,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
+      { type: TagTypeTimingSkill.TimingSkillSt2CommitCards, timing: TimingQualifier.After },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeRecursion.RecursionSkill },
     ],
@@ -1338,7 +1340,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["wild"],
     tags: [
-      { type: TagTypeTimingPhaseSequence.PhaseMythosPlaceDoom, timing: TimingQualifier.When },
       { type: TagTypeDoom.DoomRemove },
       { type: TagTypeExile.ExileSelf },
     ],
@@ -1446,7 +1447,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 3 },
       { type: TagTypeSoak.SoakHealth, value: 3 },
-      { type: TagTypeAttach.AttachAsset },
       { type: TagTypeTraitSupport.TraitSupportSpell },
       { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "attached" },
       { type: TagTypeRecursion.RecursionReplay },
@@ -1687,6 +1687,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAttach.AttachLocation },
       { type: TagTypeLocationMove.LocationMoveEnemyControl },
       { type: TagTypeDuration.DurationUntilEndRound },
+      { type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
     ],
   },
   {

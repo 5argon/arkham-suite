@@ -58,6 +58,7 @@ import {
   TagTypeStatsModBoostInTest,
   TagTypeStatsModBoostLasting,
   TagTypeStatsModBoostPassive,
+  TagTypeStatsModPump,
   TagTypeStatsModUseInstead,
   TagTypeTank,
   TagTypeTestInitiate,
@@ -426,9 +427,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
     ],
   },
   {
@@ -689,9 +691,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "combat"],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
     ],
   },
   {
@@ -936,9 +939,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "agility"],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
     ],
   },
   {
@@ -1213,8 +1217,9 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
       { type: TagTypeTraitSupport.TraitSupportSpell },
     ],
   },
@@ -1467,9 +1472,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect"],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
     ],
   },
   {

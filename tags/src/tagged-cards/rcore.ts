@@ -196,6 +196,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingSupply, value: 3 },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
+      { type: TagTypeCostAction.CostActionSpendSupply },
       { type: TagTypeHeal.HealDamageInvestigator, value: 1 },
       { type: TagTypeHeal.HealHorrorInvestigator, value: 1 },
       { type: TagTypeLocationYour.LocationYourInvestigator },

@@ -41,7 +41,6 @@ import {
   TagTypeTimingForced,
   TagTypeTimingSkill,
   TagTypeTimingWhen,
-  TagTypeUsesReplenish,
   TagTypeUsesStarting,
   TagTypeUsesSupport,
 } from "../tags/index.js";
@@ -114,7 +113,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeUsesReplenish.UsesReplenish, useType: "ammo", conditional: true },
+      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place", self: true },
     ],
   },
   {
@@ -363,7 +362,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeUsesReplenish.UsesReplenish, useType: "ammo", conditional: true },
+      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place", self: true },
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldFight },
@@ -482,7 +481,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeUsesReplenish.UsesReplenish, useType: "supply", conditional: true },
+      { type: TagTypeUsesSupport.UsesSupportSupply, supportType: "place", self: true },
     ],
   },
   {

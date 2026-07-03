@@ -31,6 +31,7 @@ import {
   TagTypeSoak,
   TagTypeStatsModBoostInTest,
   TagTypeStatsModBoostPassive,
+  TagTypeStatsModPump,
   TagTypeStatsModUseInstead,
   TagTypeTestMisc,
   TagTypeTestless,
@@ -343,6 +344,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["wild"],
     tags: [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
+      { type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreEffect },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
@@ -442,6 +444,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 2 },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
     ],
@@ -515,9 +518,10 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingResource, value: 2 },
       { type: TagTypeUsesReplenish.UsesReplenish, useType: "resource", conditional: false },
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
     ],
   },
   {

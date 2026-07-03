@@ -698,7 +698,9 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "willpower"],
     tags: [
       { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 2 },
       { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 2 },
+      { type: TagTypeGainResource.GainResourceYou, value: 2 },
       { type: TagTypeGainResource.GainResourceInvestigator, value: 2 },
     ],
   },
@@ -898,9 +900,10 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeHandSize.HandSizeDependent },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 5 },
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
     ],
   },
   {
@@ -923,9 +926,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: [],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 3 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 3 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 3 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
     ],
   },
   {
@@ -979,9 +983,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: [],
     tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1 },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
     ],
   },
   {
@@ -1324,6 +1329,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "intellect"],
     tags: [
+      { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
       { type: TagTypePlayArea.PlayAreaFromInvestigator },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard },
       { type: TagTypeTraitSupport.TraitSupportAlly },
