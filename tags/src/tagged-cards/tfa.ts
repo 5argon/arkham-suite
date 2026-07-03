@@ -806,6 +806,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower"],
     tags: [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
