@@ -19,6 +19,7 @@ import {
 import {
   TagTypeBuffAssetStats,
   TagTypeBuffCannot,
+  TagTypeBuffInvestigatorStats,
   TagTypeBuffStatsReplace,
 } from "./tags/buff/index.js";
 import {
@@ -198,6 +199,7 @@ export type TagType =
   | TagTypeAuto
   | TagTypeBuffAssetStats
   | TagTypeBuffCannot
+  | TagTypeBuffInvestigatorStats
   | TagTypeBuffStatsReplace
   | TagTypeCancel
   | TagTypeChaosBag

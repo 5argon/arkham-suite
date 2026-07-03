@@ -12,6 +12,8 @@ export enum TagTypeTimingAfter {
   TimingAfterEngageEnemy = "timing-after-engage-enemy",
   TimingAfterEvadeEnemy = "timing-after-evade-enemy",
   TimingAfterPlayCardOfTrait = "timing-after-play-card-of-trait",
+  TimingAfterHealHorror = "timing-after-heal-horror",
+  TimingAfterDiscoverClue = "timing-after-discover-clue",
 }
 
 interface TagTimingAfterBase extends TagBase {}
@@ -58,9 +60,34 @@ export interface TagTimingAfterEvadeEnemy extends TagTimingAfterBase {
   type: TagTypeTimingAfter.TimingAfterEvadeEnemy;
 }
 
-/** Reaction/forced trigger firing 'after you play a card of trait X' (Heirloom of Hyperborea). Distinct from trait-support-X (synergy, not a timing window). */
+/**
+ * Reaction/forced trigger firing 'after you play a card of trait X' (Heirloom of
+ * Hyperborea) or of card type Y (Wendy's Amulet, Double Double: "after you play an
+ * event"). Give at least one of `trait` / `cardType`. Distinct from trait-support-X
+ * (synergy, not a timing window).
+ */
 export interface TagTimingAfterPlayCardOfTrait extends TagTimingAfterBase {
   type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait;
   /** The played card's trait, e.g. "Spell", "Item", "Tactic". */
-  trait: string;
+  trait?: string;
+  /** The played card's type, when the trigger keys on type instead of trait. */
+  cardType?: "event" | "asset" | "skill";
+}
+
+/**
+ * Reaction window "after a card effect heals horror" (Carolyn Fern, Hypnotic
+ * Therapy) — the heal-payoff trigger, distinct from the heal effect itself
+ * (TagTypeHeal, which these cards reward rather than perform).
+ */
+export interface TagTimingAfterHealHorror extends TagTimingAfterBase {
+  type: TagTypeTimingAfter.TimingAfterHealHorror;
+}
+
+/**
+ * Reaction window "after you discover a clue" (Alice Luxley, Hawk-Eye Folding
+ * Camera). Fires on clue DISCOVERY by any means, including testless — distinct
+ * from timing-after-successfully-investigate, which keys on the investigate test.
+ */
+export interface TagTimingAfterDiscoverClue extends TagTimingAfterBase {
+  type: TagTypeTimingAfter.TimingAfterDiscoverClue;
 }

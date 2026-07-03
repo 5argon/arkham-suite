@@ -4,7 +4,7 @@
  *     card, e.g. undefined xp, is NOT level 0 — Search for the Truth).
  *   - two-effective means TWO icons toward the SAME skill: max(count of one skill) + wild
  *     >= 2. Two DIFFERENT icons (Taunt: willpower + combat) do NOT qualify.
- * Strips tags that no longer qualify; adds those that now do. Scope below = rcore + dwl.
+ * Strips tags that no longer qualify; adds those that now do. Set SCOPE to the packs to rescan.
  *
  *   node ./script/rederive-icons-scoped.ts
  */
@@ -15,7 +15,7 @@ import { allTaggedCards } from "../dist/tagged-cards/index.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dir = join(here, "..", "src", "tagged-cards");
-const SCOPE = ["rcore", "dwl"];
+const SCOPE = ["tcu"];
 
 const NONSKILL = new Set(["asset", "event"]);
 const byCode = new Map(allTaggedCards.map((c) => [c.code, c]));
@@ -70,4 +70,4 @@ for (const pack of SCOPE) {
   }
   await writeFile(path, out.join("\n"));
 }
-console.log(`Re-derived (rcore+dwl): +${added} adds, -${stripped} strips.`);
+console.log(`Re-derived (${SCOPE.join("+")}): +${added} adds, -${stripped} strips.`);

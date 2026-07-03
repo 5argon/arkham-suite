@@ -15,6 +15,7 @@ import {
   TagTypeDamage,
   TagTypeDeckDraw,
   TagTypeDeckLook,
+  TagTypeDeckMisc,
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
@@ -34,6 +35,7 @@ import {
   TagTypeTestMisc,
   TagTypeTestless,
   TagTypeTimingAfter,
+  TagTypeTimingPhaseSequence,
   TagTypeTimingSkill,
   TagTypeTimingWhen,
   TagTypeTraitSupport,
@@ -52,13 +54,12 @@ const taggedCards: TaggedCard[] = [
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "willpower", "willpower", "intellect", "intellect", "intellect", "combat", "combat", "agility", "agility"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeChaosReveal.ChaosRevealMore },
       { type: TagTypeCancel.CancelChaos },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
-      { type: TagTypeChaosEffect.ChaosEffectModifier, treatAs: 1 },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -68,6 +69,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "agility", "wild"],
     tags: [
+      { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
     ],
   },
@@ -78,6 +80,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
+      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
       { type: TagTypeChaosReveal.ChaosRevealManual },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
@@ -90,6 +93,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+      { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeDamage.DamageToInvestigator, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
@@ -120,11 +125,11 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect"],
     tags: [
+      { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 4 },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeCostReaction.CostReactionSpendSecret },
       { type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect },
-      { type: TagTypeChaosReveal.ChaosRevealManual },
       { type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After },
     ],
   },
@@ -154,6 +159,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect"],
     tags: [
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldInvestigate },
@@ -203,6 +209,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
+      { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeChaosPredict.ChaosPredict },
@@ -235,8 +242,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "agility"],
     tags: [
+      { type: TagTypeActionBold.ActionBoldMove },
       { type: TagTypeChaosDownside.ChaosDownsideDiscard },
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeRemote.RemoteMove },
       { type: TagTypeChaosReveal.ChaosRevealManual },
@@ -257,7 +264,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
       { type: TagTypeCancel.CancelAttack },
       { type: TagTypeChaosReveal.ChaosRevealManual },
@@ -317,7 +324,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeChaosReveal.ChaosRevealMore },
       { type: TagTypeChaosEffect.ChaosEffectResolveChoose },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
@@ -325,7 +332,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -336,13 +342,13 @@ const taggedCards: TaggedCard[] = [
     cardType: "skill",
     icons: ["wild"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreEffect },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
       { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
       { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -356,7 +362,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeChaosPredict.ChaosPredict },
       { type: TagTypeDiscardPile.DiscardPileToHand },
-      { type: TagTypeRecursion.RecursionEvent },
       { type: TagTypeTraitSupport.TraitSupportSpell },
       { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
     ],
@@ -381,12 +386,12 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "agility"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
       { type: TagTypeCostReaction.CostReactionSpendCharge },
       { type: TagTypeChaosReveal.ChaosRevealMore },
       { type: TagTypeChaosEffect.ChaosEffectResolveChoose },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -413,6 +418,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "agility", "agility"],
     tags: [
+      { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
       { type: TagTypeCancel.CancelAttack },
       { type: TagTypeChaosReveal.ChaosRevealManual },
@@ -448,6 +454,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "combat"],
     tags: [
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 4 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldFight },
@@ -466,6 +473,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect"],
     tags: [
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldInvestigate },
@@ -484,13 +493,14 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "agility"],
     tags: [
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
+      { type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Evade },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
-      { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeChaosDownside.ChaosDownsideResource, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
@@ -539,6 +549,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "combat", "combat"],
     tags: [
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 4 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldFight },
@@ -557,6 +568,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect", "intellect"],
     tags: [
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
@@ -576,13 +588,14 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "agility", "agility"],
     tags: [
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
+      { type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 2 },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 3, action: BasicAction.Evade },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
-      { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeChaosDownside.ChaosDownsideResource, value: 2 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],

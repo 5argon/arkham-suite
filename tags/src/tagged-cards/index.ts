@@ -8,6 +8,7 @@ import har from "./har.js";
 import win from "./win.js";
 import jac from "./jac.js";
 import ste from "./ste.js";
+import tcu from "./tcu.js";
 
 /**
  * Every tagged card across all packs, in pack/position order.
@@ -25,4 +26,5 @@ export const allTaggedCards: TaggedCard[] = [
   ...win,
   ...jac,
   ...ste,
+  ...tcu,
 ];

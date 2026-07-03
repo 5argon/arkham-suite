@@ -24,6 +24,7 @@ import type {
 import type {
   TagAttachAsset,
   TagAttachEnemy,
+  TagAttachInvestigator,
   TagAttachLocation,
 } from "./tags/attach/index.js";
 
@@ -36,6 +37,8 @@ import type {
   TagBuffAssetHealth,
   TagBuffAssetSanity,
   TagBuffCannotAttackYou,
+  TagBuffInvestigatorHealth,
+  TagBuffInvestigatorSanity,
   TagBuffStatsReplace,
 } from "./tags/buff/index.js";
 
@@ -170,6 +173,7 @@ import type {
 } from "./tags/damage/index.js";
 
 import type {
+  TagDeckBonded,
   TagDeckDiscardCardChoose,
   TagDeckDiscardCardRandom,
   TagDeckDiscardDeck,
@@ -245,6 +249,7 @@ import type {
   TagEnemyEngageNone,
   TagEnemyEngageNotWithYou,
   TagEnemyEngageRelated,
+  TagEnemyEngageTargetEngaged,
   TagEnemyEngageWithAnother,
   TagEnemyEngageWithYou,
   TagEnemyEngageWithYouMultiple,
@@ -260,6 +265,7 @@ import type {
   TagEnemyValueEvadeReduction,
   TagEnemyValueFight,
   TagEnemyValueFightReduction,
+  TagEnemyValueHealthReduction,
   TagEnemyValueHorror,
 } from "./tags/enemy/index.js";
 
@@ -450,6 +456,7 @@ import type {
 } from "./tags/testless/index.js";
 
 import type {
+  TagTimingAfterDiscoverClue,
   TagTimingAfterEnemyAttacks,
   TagTimingAfterEnemyDealDamageInvestigator,
   TagTimingAfterEnemyDealDamageSelf,
@@ -458,6 +465,7 @@ import type {
   TagTimingAfterEntersPlay,
   TagTimingAfterEvadeEnemy,
   TagTimingAfterFailSkillTest,
+  TagTimingAfterHealHorror,
   TagTimingAfterPlayCardOfTrait,
   TagTimingAfterSuccessfullyInvestigate,
   TagTimingDuringYourTurn,
@@ -531,10 +539,13 @@ import type {
   TagUsesStartingCharge,
   TagUsesStartingEvidence,
   TagUsesStartingInspiration,
+  TagUsesStartingKey,
+  TagUsesStartingLock,
   TagUsesStartingOffering,
   TagUsesStartingResource,
   TagUsesStartingSecret,
   TagUsesStartingSupply,
+  TagUsesStartingTry,
   TagUsesSupportAmmo,
   TagUsesSupportCharge,
   TagUsesSupportEvidence,
@@ -570,6 +581,7 @@ export type Tag =
   // Attach tags
   | TagAttachAsset
   | TagAttachEnemy
+  | TagAttachInvestigator
   | TagAttachLocation
   // Auto tags
   | TagAutoEvade
@@ -578,6 +590,8 @@ export type Tag =
   | TagBuffAssetHealth
   | TagBuffAssetSanity
   | TagBuffCannotAttackYou
+  | TagBuffInvestigatorHealth
+  | TagBuffInvestigatorSanity
   | TagBuffStatsReplace
   // Cancel tags
   | TagCancelAttack
@@ -696,6 +710,7 @@ export type Tag =
   | TagDamageSpread
   | TagDamageToInvestigator
   // Deck tags
+  | TagDeckBonded
   | TagDeckDiscardCardChoose
   | TagDeckDiscardCardRandom
   | TagDeckDiscardDeck
@@ -759,6 +774,7 @@ export type Tag =
   | TagEnemyEngageNone
   | TagEnemyEngageNotWithYou
   | TagEnemyEngageRelated
+  | TagEnemyEngageTargetEngaged
   | TagEnemyEngageWithAnother
   | TagEnemyEngageWithYou
   | TagEnemyEngageWithYouMultiple
@@ -774,6 +790,7 @@ export type Tag =
   | TagEnemyValueEvadeReduction
   | TagEnemyValueFight
   | TagEnemyValueFightReduction
+  | TagEnemyValueHealthReduction
   | TagEnemyValueHorror
   // Exile tags
   | TagExileSelf
@@ -920,6 +937,7 @@ export type Tag =
   | TagTestlessDamageYourLocationMultiple
   | TagTestlessEvade
   // Timing tags
+  | TagTimingAfterDiscoverClue
   | TagTimingAfterEnemyAttacks
   | TagTimingAfterEnemyDealDamageInvestigator
   | TagTimingAfterEnemyDealDamageSelf
@@ -928,6 +946,7 @@ export type Tag =
   | TagTimingAfterEntersPlay
   | TagTimingAfterEvadeEnemy
   | TagTimingAfterFailSkillTest
+  | TagTimingAfterHealHorror
   | TagTimingAfterPlayCardOfTrait
   | TagTimingAfterSuccessfullyInvestigate
   | TagTimingDuringYourTurn
@@ -997,10 +1016,13 @@ export type Tag =
   | TagUsesStartingCharge
   | TagUsesStartingEvidence
   | TagUsesStartingInspiration
+  | TagUsesStartingKey
+  | TagUsesStartingLock
   | TagUsesStartingOffering
   | TagUsesStartingResource
   | TagUsesStartingSecret
   | TagUsesStartingSupply
+  | TagUsesStartingTry
   | TagUsesSupportAmmo
   | TagUsesSupportCharge
   | TagUsesSupportEvidence

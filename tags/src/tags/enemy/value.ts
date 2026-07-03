@@ -6,6 +6,7 @@ export enum TagTypeEnemyValue {
   EnemyValueEvadeReduction = "enemy-value-evade-reduction",
   EnemyValueFight = "enemy-value-fight",
   EnemyValueFightReduction = "enemy-value-fight-reduction",
+  EnemyValueHealthReduction = "enemy-value-health-reduction",
   EnemyValueHorror = "enemy-value-horror",
 }
 
@@ -29,6 +30,11 @@ export interface TagEnemyValueFight extends TagEnemyValueBase {
 
 export interface TagEnemyValueFightReduction extends TagEnemyValueBase {
   type: TagTypeEnemyValue.EnemyValueFightReduction;
+}
+
+/** Reduces an enemy's printed health ("attacked enemy gets -1 health" — Wither (4)). */
+export interface TagEnemyValueHealthReduction extends TagEnemyValueBase {
+  type: TagTypeEnemyValue.EnemyValueHealthReduction;
 }
 
 export interface TagEnemyValueHorror extends TagEnemyValueBase {

@@ -11,6 +11,7 @@ import {
   TagTypeCostReaction,
   TagTypeDamage,
   TagTypeDeckDraw,
+  TagTypeDeckMisc,
   TagTypeDeckSearch,
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
@@ -64,6 +65,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect", "wild"],
     tags: [
+      { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeSoak.SoakSanity, value: 3 },
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeHeal.HealDamageYou, value: 3 },
@@ -136,7 +138,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "combat"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeSoak.SoakHealth, value: 3 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 },
@@ -153,7 +154,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "combat"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 1 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1 },
@@ -167,7 +167,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "generic" },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
@@ -183,6 +182,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
+      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeLocationYour.LocationYourInvestigator },
@@ -196,7 +196,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeGainResource.GainResourceYou, value: 2 },
     ],
@@ -209,7 +208,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingAfter.TimingAfterEnemyAttacks },
       { type: TagTypeActionBold.ActionBoldFight },
     ],
@@ -222,7 +220,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "agility"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
       { type: TagTypeCancel.CancelAttack },
       { type: TagTypeLocationYour.LocationYourInvestigator },
@@ -236,7 +233,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat"],
     tags: [
-      { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeActionBold.ActionBoldEngage },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
@@ -387,8 +383,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat"],
     tags: [
-      { type: TagTypeLocationYour.LocationYourEnemy },
-      { type: TagTypeEnemyEngage.EnemyEngageWithYou },
+      { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
       { type: TagTypeAoo.AooNoProvoke },
       { type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 2 },
     ],
@@ -463,9 +458,11 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "willpower", "combat", "agility"],
     tags: [
+      { type: TagTypeDeckDraw.DeckDrawYou, value: -1 },
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeEnemyEngage.EnemyEngageWithYouMultiple },
       { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 1 },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
     ],
   },
   {
