@@ -388,7 +388,7 @@ export const compoundTagBigMoney: CompoundTagBase = {
   tags: [
     TagTypeSkillValueSource.SkillValueFromResource,
     TagTypeUsesAccumulate.UsesAccumulate,
-    TagTypeCondition.ConditionResource,
+    { type: TagTypeCondition.ConditionResource, where: { comparison: "min" } },
   ],
 };
 
@@ -661,10 +661,6 @@ export const compoundTagEfficientClue: CompoundTagBase = {
     TagTypeClueAdditional.ClueAdditionalThisLocation,
     TagTypeClueAdditional.ClueAdditionalAdjacentLocations,
     TagTypeClueAdditional.ClueAdditionalRevealedLocations,
-    TagTypeClueDiscover.ClueDiscoverAnyLocation,
-    TagTypeClueDiscover.ClueDiscoverConnectingLocation,
-    TagTypeClueDiscover.ClueDiscoverYourLocation,
-    TagTypeTestless.TestlessClue,
   ],
 };
 
@@ -805,6 +801,7 @@ export const compoundTagMobility: CompoundTagBase = {
   tags: [
     TagTypeLocationMove.LocationMoveInvestigatorSelf,
     TagTypeLocationMove.LocationMoveInvestigatorPerformer,
+    TagTypeLocationMove.LocationMoveInvestigatorAny,
   ],
 };
 
@@ -862,7 +859,7 @@ export const compoundTagDraw: CompoundTagBase = {
 export const compoundTagBigHand: CompoundTagBase = {
   type: CompoundTagType.BigHand,
   tags: [
-    TagTypeCondition.ConditionHandSize,
+    { type: TagTypeCondition.ConditionHandSize, where: { comparison: "min" } },
     TagTypeHandSize.HandSizeDependent,
     TagTypeHandSize.HandSizeMaxIncrease,
   ],

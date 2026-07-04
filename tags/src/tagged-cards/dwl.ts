@@ -1435,7 +1435,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckShuffle.DeckShuffleEncounter },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
-      { type: TagTypeCostReaction.CostReactionSpendClue },
       { type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 },
     ],
   },
