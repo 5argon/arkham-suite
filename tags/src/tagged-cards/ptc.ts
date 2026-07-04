@@ -5,6 +5,7 @@ import {
   TagTypeAoo,
   TagTypeAttach,
   TagTypeAuto,
+  TagTypeBuffCannot,
   TagTypeCancel,
   TagTypeChaosDownside,
   TagTypeChaosEffect,
@@ -219,7 +220,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypePlayArea.PlayAreaToHand },
-      { type: TagTypeGainResource.GainResourceYou, value: -1, dynamic: true },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
     ],
   },
   {
@@ -366,6 +367,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationYour.LocationYourInvestigator },
@@ -397,6 +399,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "combat"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeTimingPhaseSequence.PhaseMythosDrawEncounter, timing: TimingQualifier.When },
       { type: TagTypeCancel.CancelEncounterDraw },
       { type: TagTypeDeckSearch.DeckSearchEncounter, range: { type: "top", cards: 9 } },
@@ -810,7 +813,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeEnemyValue.EnemyValueEvadeReduction },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, withoutExhaust: true },
-      { type: TagTypeEnemyDebuff.EnemyCannotEngage },
+      { type: TagTypeBuffCannot.CannotEngageYou },
       { type: TagTypeDuration.DurationUntilEndTurn },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
     ],
@@ -912,7 +915,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 },
-      { type: TagTypeGainResource.GainResourceYou, value: -1, dynamic: true },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
     ],
   },
   {
@@ -1068,7 +1071,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
-      { type: TagTypeGainResource.GainResourceYou, value: -1, dynamic: true },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
       { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
       { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
@@ -1091,7 +1094,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeCostOther.CostAddDoomSelf, value: 1 },
-      { type: TagTypeGainResource.GainResourceYou, value: -1, dynamic: true },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
     ],
   },
   {
@@ -1431,7 +1434,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
-      { type: TagTypeTestInitiate.TestInitiateAgility, difficulty: -1 },
+      { type: TagTypeTestInitiate.TestInitiateAgility, difficulty: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueEvade },
       { type: TagTypeEnemyRestriction.EnemyTargetExhausted },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
@@ -1590,7 +1593,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 9 } },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDeck },
-      { type: TagTypeCostDiscount.CostDiscount, amount: -1 },
+      { type: TagTypeCostDiscount.CostDiscount, amount: "dynamic" },
       { type: TagTypeTraitSupport.TraitSupportAlly },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
     ],

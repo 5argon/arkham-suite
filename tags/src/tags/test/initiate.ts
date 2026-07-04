@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeTestInitiate {
   TestInitiateAgility = "test-initiate-agility",
@@ -8,7 +9,7 @@ export enum TagTypeTestInitiate {
 }
 
 interface TagTestInitiateBase extends TagBase {
-  difficulty: number;
+  difficulty: DynamicValue;
 }
 
 export interface TagTestInitiateAgility extends TagTestInitiateBase {

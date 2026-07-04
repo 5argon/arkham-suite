@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeHeal {
   HealDamageYou = "heal-damage-you",
@@ -12,7 +13,7 @@ export enum TagTypeHeal {
 }
 
 interface TagHealBase extends TagBase {
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagHealDamageYou extends TagHealBase {

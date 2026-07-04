@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeDeckDraw {
   DeckDrawYou = "deck-draw-you",
@@ -9,7 +10,7 @@ export enum TagTypeDeckDraw {
 }
 
 interface TagDeckDrawBase extends TagBase {
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagDeckDrawYou extends TagDeckDrawBase {
@@ -30,7 +31,7 @@ export interface TagDeckDrawReplaceSelf extends TagDeckDrawBase {
 
 /**
  * Draw cards until you reach your maximum hand size (variable bulk draw). The
- * base "value" is dynamic here, so set it to -1.
+ * base "value" is dynamic here, so set it to "dynamic".
  */
 export interface TagDeckDrawFillHand extends TagDeckDrawBase {
   type: TagTypeDeckDraw.DeckDrawFillHand;

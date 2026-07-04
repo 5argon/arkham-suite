@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeDeckSearch {
   DeckSearchDiscard = "deck-search-discard",
@@ -13,11 +14,11 @@ interface TagDeckSearchBase extends TagBase {
     | "all"
     | {
         type: "top";
-        cards: number;
+        cards: DynamicValue;
       }
     | {
         type: "bottom";
-        cards: number;
+        cards: DynamicValue;
       };
 }
 

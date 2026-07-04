@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeGainResource {
   GainResourceYou = "gain-resource-you",
@@ -7,18 +8,11 @@ export enum TagTypeGainResource {
 }
 
 interface TagGainResourceBase extends TagBase {
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagGainResourceYou extends TagGainResourceBase {
   type: TagTypeGainResource.GainResourceYou;
-
-  /**
-   * True when the amount gained is a DYNAMIC amount rather than the fixed
-   * `value` (e.g. "gain resources equal to that enemy's printed health").
-   * Set `value` to -1 in that case.
-   */
-  dynamic?: boolean;
 }
 
 export interface TagGainResourceInvestigator extends TagGainResourceBase {

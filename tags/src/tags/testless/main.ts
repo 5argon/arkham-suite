@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeTestless {
   TestlessDamageYourLocation = "testless-damage-your-location",
@@ -14,7 +15,7 @@ export enum TagTypeTestless {
 interface TagTestlessBase extends TagBase {}
 
 interface TagTestlessWithValueBase extends TagTestlessBase {
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagTestlessDamageYourLocation extends TagTestlessWithValueBase {

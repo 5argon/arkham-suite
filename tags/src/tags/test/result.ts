@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeTestResult {
   TestSucceedBy = "test-succeed-by",
@@ -11,7 +12,7 @@ interface TagTestResultBase extends TagBase {
    * Use -1 or a special value for variable amounts.
    * Use 0 for "succeed by 0" or exact success.
    */
-  amount: number;
+  amount: DynamicValue;
 }
 
 export interface TagTestSucceedBy extends TagTestResultBase {

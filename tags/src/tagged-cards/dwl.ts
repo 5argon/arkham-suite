@@ -100,7 +100,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCondition.ConditionClueHeld },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: -1 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
     ],
   },
   {
@@ -111,7 +111,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["agility", "agility", "wild"],
     tags: [
       { type: TagTypeDeckMisc.DeckRestriction },
-      { type: TagTypeUsesStarting.UsesStartingAmmo, value: -1 },
+      { type: TagTypeUsesStarting.UsesStartingAmmo, value: "dynamic" },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
@@ -162,6 +162,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeEnemyEngage.EnemyEngageWithAnother },
@@ -175,6 +176,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeLocationYour.LocationYourEnemy },
@@ -204,10 +206,11 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat", "agility"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeLocationYour.LocationYourEnemy },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: -1 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
       { type: TagTypeEnemyEngage.EnemyEngageWithYouMultiple },
     ],
   },
@@ -517,7 +520,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "combat"],
     tags: [
       { type: TagTypeCondition.ConditionClueHeld },
-      { type: TagTypeDamage.DamagePlus, value: -1 },
+      { type: TagTypeDamage.DamagePlus, value: "dynamic" },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight },
     ],
@@ -775,7 +778,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
-      { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: -1 },
+      { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
@@ -1012,7 +1015,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
       { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeHeal.HealHorrorInvestigator, value: -1 },
+      { type: TagTypeHeal.HealHorrorInvestigator, value: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueHorror },
       { type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: "Monster" },
     ],
@@ -1054,9 +1057,9 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "combat", "combat"],
     tags: [
       { type: TagTypeLocationYour.LocationYourEnemy },
-      { type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: -1 },
+      { type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueFight },
-      { type: TagTypeTestResult.TestSucceedBy, amount: -1 },
+      { type: TagTypeTestResult.TestSucceedBy, amount: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueFightReduction },
       { type: TagTypeDuration.DurationUntilEndPhase },
     ],
@@ -1201,7 +1204,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingForced.TimingForcedWhenTakeDamage },
       { type: TagTypeCancel.CancelDamage },
       { type: TagTypeCancel.CancelHorror },
-      { type: TagTypeGainResource.GainResourceYou, value: -1, dynamic: true },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
     ],
   },
   {

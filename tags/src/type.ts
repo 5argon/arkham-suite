@@ -19,7 +19,8 @@ export interface TaggedCard {
   tags: Tag[];
 }
 
-export type BoostValue = number | "dynamic";
+export type DynamicValue = number | "dynamic";
+export type BoostValue = DynamicValue;
 
 export enum HealTarget {
   Self = "self",

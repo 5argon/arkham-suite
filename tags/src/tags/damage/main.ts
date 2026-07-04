@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeDamage {
   DamagePlus = "damage-plus",
@@ -13,7 +14,7 @@ interface TagDamageBase extends TagBase {}
 
 export interface TagDamagePlus extends TagDamageBase {
   type: TagTypeDamage.DamagePlus;
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagDamageInsteadRange extends TagDamageBase {
@@ -30,7 +31,7 @@ export interface TagDamageInsteadFailRange extends TagDamageBase {
 
 export interface TagDamageToInvestigator extends TagDamageBase {
   type: TagTypeDamage.DamageToInvestigator;
-  value: number;
+  value: DynamicValue;
 }
 
 /**
@@ -50,5 +51,5 @@ export interface TagDamageRedirectAttack extends TagDamageBase {
  */
 export interface TagDamageSpread extends TagDamageBase {
   type: TagTypeDamage.DamageSpread;
-  value: number;
+  value: DynamicValue;
 }

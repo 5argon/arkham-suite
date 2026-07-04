@@ -82,6 +82,8 @@ const COMPOUND_DESCRIPTIONS: Record<string, string> = {
   "clue-tech":
     "Clue-finding technology: discover extra clues, reach other locations, lower shroud, or grab clues with no test.",
   "shroud-reduction": "Lowers the shroud value of locations, making them easier to investigate.",
+  "difficulty-reduction":
+    "Every way to lower the effective difficulty (target number) of a test — a direct difficulty cut or a location's shroud reduction. The target-lowering counterpart to boosting your own skill value.",
   "spend-resource": "Spends resources as a cost — a payoff for a 'big money' economy.",
   "attack-mitigation": "Cancels or prevents an enemy attack outright.",
   "succeed-by": "Rewards succeeding a skill test by a margin (succeed by 2 or more, etc.).",

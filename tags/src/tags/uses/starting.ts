@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeUsesStarting {
   UsesStartingAmmo = "uses-starting-ammo",
@@ -15,7 +16,7 @@ export enum TagTypeUsesStarting {
 }
 
 interface TagUsesStartingBase extends TagBase {
-    value: number;
+    value: DynamicValue;
     /** True when the printed amount is per investigator ("Uses (1 [per_investigator] locks)"). */
     perInvestigator?: boolean;
 }

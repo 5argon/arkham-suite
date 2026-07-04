@@ -5,7 +5,6 @@ export enum TagTypeEnemyDebuff {
   EnemyCannotMoveIntoLocation = "enemy-cannot-move-into-location",
   EnemyCannotAttack = "enemy-cannot-attack",
   EnemyCannotMove = "enemy-cannot-move",
-  EnemyCannotEngage = "enemy-cannot-engage",
   EnemyExhaust = "enemy-exhaust",
 }
 
@@ -30,11 +29,6 @@ export interface TagEnemyCannotAttack extends TagEnemyDebuffBase {
  */
 export interface TagEnemyCannotMove extends TagEnemyDebuffBase {
   type: TagTypeEnemyDebuff.EnemyCannotMove;
-}
-
-/** "That enemy cannot engage you" — evasion-lock (Stealth). */
-export interface TagEnemyCannotEngage extends TagEnemyDebuffBase {
-  type: TagTypeEnemyDebuff.EnemyCannotEngage;
 }
 
 /** Force an enemy to exhaust (tempo/lockdown). */

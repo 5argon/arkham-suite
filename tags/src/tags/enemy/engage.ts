@@ -16,6 +16,12 @@ export enum TagTypeEnemyEngage {
 
 interface TagEnemyEngageBase extends TagBase {}
 
+/**
+ * The card ENGAGES enemies as an effect — it causes one or more enemies to become engaged
+ * (with you or another investigator) through an ability, not the [Engage] basic action.
+ * The base "you engage them" effect; the with-you / with-you-multiple / with-another tags
+ * qualify WHO and HOW MANY. (Taunt, Get over here!, Heroic Rescue, On the Hunt, …)
+ */
 export interface TagEnemyEngageEffect extends TagEnemyEngageBase {
   type: TagTypeEnemyEngage.EnemyEngageEffect;
 }
