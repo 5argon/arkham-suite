@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeDeckLook {
   DeckLookYou = "deck-look-you",
@@ -8,8 +9,8 @@ export enum TagTypeDeckLook {
 }
 
 interface TagDeckLookBase extends TagBase {
-  /** Number of cards looked at (-1 for a variable/dynamic amount). */
-  value: number;
+  /** Number of cards looked at ("dynamic" for a variable amount). */
+  value: DynamicValue;
   /** Whether the looked-at cards may be reordered (vs. only looked at). */
   reorder: boolean;
 }

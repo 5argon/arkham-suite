@@ -178,7 +178,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostAction.CostActionSpendSecret },
       { type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: -1 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
     ],
   },
   {
@@ -283,7 +283,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "intellect"],
     tags: [
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
-      { type: TagTypeCostDiscount.CostDiscount, amount: -1 },
+      { type: TagTypeCostDiscount.CostDiscount, amount: "dynamic" },
       { type: TagTypeHandSize.HandSizeDependent },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
     ],
@@ -300,7 +300,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic", action: BasicAction.Fight },
-      { type: TagTypeDamage.DamagePlus, value: -1 },
+      { type: TagTypeDamage.DamagePlus, value: "dynamic" },
     ],
   },
   {
@@ -352,7 +352,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: -1 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
     ],
   },
   {
@@ -416,7 +416,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2, action: BasicAction.Fight },
-      { type: TagTypeDamage.DamagePlus, value: -1 },
+      { type: TagTypeDamage.DamagePlus, value: "dynamic" },
     ],
   },
   {

@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeCostDiscount {
   CostDiscount = "cost-discount",
@@ -6,9 +7,9 @@ export enum TagTypeCostDiscount {
 
 interface TagCostDiscountBase extends TagBase {
   /**
-   * The amount of discount. Use -1 or a special value for X.
+   * The amount of discount. Use "dynamic" for a variable (X) amount.
    */
-  amount: number;
+  amount: DynamicValue;
 }
 
 export interface TagCostDiscount extends TagCostDiscountBase {

@@ -422,7 +422,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
-      { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: -1 } },
+      { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: "dynamic" } },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
     ],

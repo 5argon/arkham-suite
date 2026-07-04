@@ -37,6 +37,7 @@ import type {
   TagBuffAssetHealth,
   TagBuffAssetSanity,
   TagBuffCannotAttackYou,
+  TagBuffCannotEngageYou,
   TagBuffInvestigatorHealth,
   TagBuffInvestigatorSanity,
   TagBuffStatsReplace,
@@ -235,7 +236,6 @@ import type {
 import type {
   TagEnemyBlankText,
   TagEnemyCannotAttack,
-  TagEnemyCannotEngage,
   TagEnemyCannotMove,
   TagEnemyCannotMoveIntoLocation,
   TagEnemyDefeatOnAttackSuccess,
@@ -258,6 +258,7 @@ import type {
   TagEnemyMitigationBackToEncounterDeck,
   TagEnemyMitigationDefeat,
   TagEnemyMitigationDiscard,
+  TagEnemyNonWeakness,
   TagEnemyTargetExhausted,
   TagEnemyTraitRestriction,
   TagEnemyValueDamage,
@@ -590,6 +591,7 @@ export type Tag =
   | TagBuffAssetHealth
   | TagBuffAssetSanity
   | TagBuffCannotAttackYou
+  | TagBuffCannotEngageYou
   | TagBuffInvestigatorHealth
   | TagBuffInvestigatorSanity
   | TagBuffStatsReplace
@@ -760,7 +762,6 @@ export type Tag =
   // Enemy tags
   | TagEnemyBlankText
   | TagEnemyCannotAttack
-  | TagEnemyCannotEngage
   | TagEnemyCannotMove
   | TagEnemyCannotMoveIntoLocation
   | TagEnemyDefeatOnAttackSuccess
@@ -783,6 +784,7 @@ export type Tag =
   | TagEnemyMitigationBackToEncounterDeck
   | TagEnemyMitigationDefeat
   | TagEnemyMitigationDiscard
+  | TagEnemyNonWeakness
   | TagEnemyTargetExhausted
   | TagEnemyTraitRestriction
   | TagEnemyValueDamage

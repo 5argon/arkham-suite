@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeSkillValue {
   SkillValueSucceedByDynamic = "skill-value-succeed-by-dynamic",
@@ -17,12 +18,12 @@ export interface TagSkillValueSucceedByDynamic extends TagSkillValueBase {
 
 export interface TagSkillValueSucceedByOrMore extends TagSkillValueBase {
   type: TagTypeSkillValue.SkillValueSucceedByOrMore;
-  amount: number;
+  amount: DynamicValue;
 }
 
 export interface TagSkillValueFailByOrLess extends TagSkillValueBase {
   type: TagTypeSkillValue.SkillValueFailByOrLess;
-  amount: number;
+  amount: DynamicValue;
 }
 
 export interface TagSkillValueFailByDynamic extends TagSkillValueBase {
@@ -31,10 +32,10 @@ export interface TagSkillValueFailByDynamic extends TagSkillValueBase {
 
 export interface TagSkillValueSucceedByExactly extends TagSkillValueBase {
   type: TagTypeSkillValue.SkillValueSucceedByExactly;
-  amount: number;
+  amount: DynamicValue;
 }
 
 export interface TagSkillValueFailByExactly extends TagSkillValueBase {
   type: TagTypeSkillValue.SkillValueFailByExactly;
-  amount: number;
+  amount: DynamicValue;
 }

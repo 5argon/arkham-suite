@@ -1,6 +1,7 @@
 import { CompoundTagBase } from "../base.js";
 import { TagTypeClueAdditional } from "../tags/clue/additional.js";
 import { TagTypeLocationShroud } from "../tags/location/shroud.js";
+import { TagTypeTestDifficulty } from "../tags/test-difficulty/main.js";
 import { TagTypeTestless } from "../tags/testless/index.js";
 import { TagTypeClueDiscover } from "../tags/clue/discover.js";
 import { TagTypeCostFree, TagTypeCostReaction } from "../tags/cost/index.js";
@@ -72,6 +73,7 @@ export enum CompoundTagType {
   Support = "c-support",
   ClueTech = "c-clue-tech",
   ShroudReduction = "c-shroud-reduction",
+  DifficultyReduction = "c-difficulty-reduction",
   SpendResource = "c-spend-resource",
   AttackMitigation = "c-attack-mitigation",
   SucceedBy = "c-succeed-by",
@@ -260,6 +262,23 @@ export const compoundTagClueTech: CompoundTagBase = {
 export const compoundTagShroudReduction: CompoundTagBase = {
   type: CompoundTagType.ShroudReduction,
   tags: [
+    TagTypeLocationShroud.LocationShroudMinus1,
+    TagTypeLocationShroud.LocationShroudMinus2,
+    TagTypeLocationShroud.LocationShroudReduction,
+  ],
+};
+
+/**
+ * Compound tag for difficulty reduction — every way to lower the effective difficulty
+ * (target number) of a test: a direct cut (test-difficulty-reduce) or reducing a
+ * location's shroud (which is the difficulty of an investigation). The target-lowering
+ * counterpart to boosting your own skill value. Broader than Shroud Reduction, which is
+ * only the location-shroud subset.
+ */
+export const compoundTagDifficultyReduction: CompoundTagBase = {
+  type: CompoundTagType.DifficultyReduction,
+  tags: [
+    TagTypeTestDifficulty.TestDifficultyReduce,
     TagTypeLocationShroud.LocationShroudMinus1,
     TagTypeLocationShroud.LocationShroudMinus2,
     TagTypeLocationShroud.LocationShroudReduction,
@@ -602,7 +621,7 @@ export const compoundTagEnemyMitigation: CompoundTagBase = {
     TagTypeEnemyMitigation.EnemyMitigationBackToEncounterDeck,
     TagTypeBuffCannot.CannotAttackYou,
     TagTypeEnemyDebuff.EnemyCannotAttack,
-    TagTypeEnemyDebuff.EnemyCannotEngage,
+    TagTypeBuffCannot.CannotEngageYou,
     TagTypeEnemyDebuff.EnemyExhaust,
   ],
 };
@@ -1022,7 +1041,6 @@ export const compoundTagEnemyNerf: CompoundTagBase = {
     TagTypeEnemyDebuff.EnemyCannotMoveIntoLocation,
     TagTypeEnemyDebuff.EnemyCannotAttack,
     TagTypeEnemyDebuff.EnemyCannotMove,
-    TagTypeEnemyDebuff.EnemyCannotEngage,
     TagTypeEnemyDebuff.EnemyExhaust,
     TagTypeEnemyRestriction.EnemyBlankText,
   ],
@@ -1073,6 +1091,7 @@ export const compoundTags: CompoundTagBase[] = [
   compoundTagSupport,
   compoundTagClueTech,
   compoundTagShroudReduction,
+  compoundTagDifficultyReduction,
   compoundTagSpendResource,
   compoundTagAttackMitigation,
   compoundTagSucceedBy,

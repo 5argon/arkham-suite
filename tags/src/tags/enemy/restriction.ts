@@ -2,22 +2,30 @@ import { TagBase } from "../../base.js";
 
 export enum TagTypeEnemyRestriction {
   EnemyTraitRestriction = "enemy-trait-restriction",
+  EnemyNonWeakness = "enemy-nonweakness",
   EnemyTargetExhausted = "enemy-target-exhausted",
   EnemyBlankText = "enemy-blank-text",
   EnemyIgnoreKeyword = "enemy-ignore-keyword",
 }
 
 /**
- * The effect/trigger is limited to enemies of a specified TRAIT (Monster, Humanoid, …)
- * and/or to NON-WEAKNESS enemies. The only other enemy-classification carve-out today is
- * Elite / non-Elite (see enemy/elite.ts).
+ * The effect/trigger is limited to enemies of a specified printed TRAIT (Monster,
+ * Humanoid, …). "Trait" means the card's printed trait line ONLY — "Weakness"
+ * (enemy-nonweakness) and Elite / non-Elite (enemy/elite.ts) are card-classification
+ * carve-outs, not traits, and carry their own tags.
  */
 export interface TagEnemyTraitRestriction extends TagBase {
   type: TagTypeEnemyRestriction.EnemyTraitRestriction;
-  /** Required enemy trait, e.g. "Monster". Omit when the only restriction is non-weakness. */
-  trait?: string;
-  /** True when the effect only applies to non-weakness enemies. */
-  nonWeakness?: boolean;
+  /** Required enemy trait, e.g. "Monster". */
+  trait: string;
+}
+
+/**
+ * The effect/trigger is limited to NON-WEAKNESS enemies. "Weakness" is a card
+ * designation, not a printed trait, so it is kept out of enemy-trait-restriction.
+ */
+export interface TagEnemyNonWeakness extends TagBase {
+  type: TagTypeEnemyRestriction.EnemyNonWeakness;
 }
 
 /**

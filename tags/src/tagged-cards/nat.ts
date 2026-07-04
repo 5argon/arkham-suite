@@ -173,7 +173,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "generic" },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeGainResource.GainResourceYou, value: -1, dynamic: true },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
     ],
   },
   {
@@ -235,6 +235,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "combat"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeActionBold.ActionBoldEngage },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
@@ -357,6 +358,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "willpower", "combat"],
     tags: [
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeActionBold.ActionBoldEngage },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
@@ -461,11 +463,12 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "willpower", "combat", "agility"],
     tags: [
-      { type: TagTypeDeckDraw.DeckDrawYou, value: -1 },
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeEnemyEngage.EnemyEngageWithYouMultiple },
-      { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 1 },
+      { type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 },
     ],
   },
   {
