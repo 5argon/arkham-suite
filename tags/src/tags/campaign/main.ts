@@ -1,7 +1,7 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeCampaign {
-  DeckSwapBetweenGames = "deck-swap-between-games",
+  DeckSwapBetweenGames = "campaign-deck-swap-between-games",
 }
 
 interface TagCampaignBase extends TagBase {}

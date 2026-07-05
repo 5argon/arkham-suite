@@ -1,9 +1,9 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeClueDiscover {
-  ClueDiscoverAnyLocation = "discover-clue-any-location",
-  ClueDiscoverConnectingLocation = "discover-clue-connecting-location",
-  ClueDiscoverYourLocation = "discover-clue-your-location",
+  ClueDiscoverAnyLocation = "clue-discover-any-location",
+  ClueDiscoverConnectingLocation = "clue-discover-connecting-location",
+  ClueDiscoverYourLocation = "clue-discover-your-location",
 }
 
 interface TagClueDiscoverBase extends TagBase {

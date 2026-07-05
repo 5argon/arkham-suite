@@ -5,51 +5,51 @@ import type { TimingQualifier } from "../../type.js";
 export enum TagTypeTimingPhaseSequence {
   // I. Mythos phase
   // 1.1 Mythos phase begins
-  PhaseMythosBegins = "phase-mythos-begins",
+  PhaseMythosBegins = "timing-phase-mythos-begins",
   // 1.2 Place 1 doom on current agenda
-  PhaseMythosPlaceDoom = "phase-mythos-place-doom",
+  PhaseMythosPlaceDoom = "timing-phase-mythos-place-doom",
   // 1.3 Check doom threshold (agenda may advance)
-  PhaseMythosCheckDoom = "phase-mythos-check-doom",
+  PhaseMythosCheckDoom = "timing-phase-mythos-check-doom",
   // 1.4 Each investigator draws 1 encounter card
-  PhaseMythosDrawEncounter = "phase-mythos-draw-encounter",
+  PhaseMythosDrawEncounter = "timing-phase-mythos-draw-encounter",
   // 1.5 Mythos phase ends
-  PhaseMythosEnds = "phase-mythos-ends",
+  PhaseMythosEnds = "timing-phase-mythos-ends",
   
   // II. Investigation phase
   // 2.1 Investigation phase begins
-  PhaseInvestigationBegins = "phase-investigation-begins",
+  PhaseInvestigationBegins = "timing-phase-investigation-begins",
   // 2.2 Next investigator's turn begins
-  PhaseInvestigationTurnBegins = "phase-investigation-turn-begins",
+  PhaseInvestigationTurnBegins = "timing-phase-investigation-turn-begins",
   // 2.2.1 Investigator takes an action
-  PhaseInvestigationTakeAction = "phase-investigation-take-action",
+  PhaseInvestigationTakeAction = "timing-phase-investigation-take-action",
   // 2.2.2 Investigator's turn ends
-  PhaseInvestigationTurnEnds = "phase-investigation-turn-ends",
+  PhaseInvestigationTurnEnds = "timing-phase-investigation-turn-ends",
   // 2.3 Investigation phase ends
-  PhaseInvestigationEnds = "phase-investigation-ends",
+  PhaseInvestigationEnds = "timing-phase-investigation-ends",
   
   // III. Enemy phase
   // 3.1 Enemy phase begins
-  PhaseEnemyBegins = "phase-enemy-begins",
+  PhaseEnemyBegins = "timing-phase-enemy-begins",
   // 3.2 Hunter enemies move
-  PhaseEnemyHunterMove = "phase-enemy-hunter-move",
+  PhaseEnemyHunterMove = "timing-phase-enemy-hunter-move",
   // 3.3 Next investigator resolves engaged enemy attacks
-  PhaseEnemyAttacks = "phase-enemy-attacks",
+  PhaseEnemyAttacks = "timing-phase-enemy-attacks",
   // 3.4 Enemy phase ends
-  PhaseEnemyEnds = "phase-enemy-ends",
+  PhaseEnemyEnds = "timing-phase-enemy-ends",
   
   // IV. Upkeep phase
   // 4.1 Upkeep phase begins
-  PhaseUpkeepBegins = "phase-upkeep-begins",
+  PhaseUpkeepBegins = "timing-phase-upkeep-begins",
   // 4.2 Reset actions
-  PhaseUpkeepResetActions = "phase-upkeep-reset-actions",
+  PhaseUpkeepResetActions = "timing-phase-upkeep-reset-actions",
   // 4.3 Ready exhausted cards
-  PhaseUpkeepReadyCards = "phase-upkeep-ready-cards",
+  PhaseUpkeepReadyCards = "timing-phase-upkeep-ready-cards",
   // 4.4 Each investigator draws 1 card and gains 1 resource
-  PhaseUpkeepDrawResource = "phase-upkeep-draw-resource",
+  PhaseUpkeepDrawResource = "timing-phase-upkeep-draw-resource",
   // 4.5 Each investigator checks hand size
-  PhaseUpkeepCheckHandSize = "phase-upkeep-check-hand-size",
+  PhaseUpkeepCheckHandSize = "timing-phase-upkeep-check-hand-size",
   // 4.6 Upkeep phase ends (also formalizes end of round)
-  PhaseUpkeepEnds = "phase-upkeep-ends",
+  PhaseUpkeepEnds = "timing-phase-upkeep-ends",
 }
 
 interface TagTimingPhaseSequenceBase extends TagBase {

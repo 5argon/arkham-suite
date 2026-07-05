@@ -1,14 +1,14 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeLocationMove {
-  LocationMoveClue = "move-clue",
-  LocationMoveDamage = "move-damage",
-  LocationMoveEnemyControl = "move-enemy-control",
-  LocationMoveEnemyDisplace = "move-enemy-displace",
-  LocationMoveEnemyToYou = "move-enemy-to-you",
-  LocationMoveInvestigatorAny = "move-investigator-any",
-  LocationMoveInvestigatorSelf = "move-investigator-self",
-  LocationMoveInvestigatorPerformer = "move-investigator-performer",
+  LocationMoveClue = "location-move-clue",
+  LocationMoveDamage = "location-move-damage",
+  LocationMoveEnemyControl = "location-move-enemy-control",
+  LocationMoveEnemyDisplace = "location-move-enemy-displace",
+  LocationMoveEnemyToYou = "location-move-enemy-to-you",
+  LocationMoveInvestigatorAny = "location-move-investigator-any",
+  LocationMoveInvestigatorSelf = "location-move-investigator-self",
+  LocationMoveInvestigatorPerformer = "location-move-investigator-performer",
 }
 
 interface TagLocationMoveBase extends TagBase {}

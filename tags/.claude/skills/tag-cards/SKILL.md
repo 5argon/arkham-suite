@@ -137,6 +137,22 @@ not the noun in the text. Groups that have caused confusion (some were regrouped
   picks the family, and the **use-token type matters**: `-spend-ammo` (firearms), `-spend-charge`
   (spells/charges), `-spend-supply`, `-spend-secret`, `-spend-resource`, `-spend-clue`.
 
+## Tag naming convention — group-prefixed, but a FLAT namespace
+
+- **Every tag id is `<group>-<meaning>`**, where `<group>` is exactly its folder under `src/tags/`:
+  `enemy-elite-noneliteonly`, `location-connecting-enemy`, `location-move-investigator-self`,
+  `timing-phase-mythos-draw-encounter`, `clue-discover-your-location`, `heal-damage-ally`. The
+  English display name mirrors it as **`Group/Meaning`** ("Enemy/Elite Noneliteonly",
+  "Heal/Damage Ally", "Timing/When Take Damage").
+- **This is a FLAT namespace, not a hierarchy.** The group prefix (and the slash) is purely a
+  findability/clustering convention so same-group tags sort and browse together — the browser also
+  shows the group in its own column. `enemy-elite-noneliteonly` is NOT a child of any `enemy` tag;
+  tags have no parent/child relationships. Read the slash as "grouped by name", never as nesting.
+- **When you add a tag**, its id MUST start with its group folder and its display name is
+  `Group/Meaning`. If a concept needs a new group, that's a new folder under `src/tags/` (+ its
+  `index.ts` barrel), and the tag is `<newgroup>-<meaning>`. Never introduce an id that doesn't lead
+  with its group (that's what made `elite-noneliteonly`/`connecting-location-enemy` unfindable).
+
 ## Compound tags — derived, never written by hand
 
 - **You never put a `c-*` compound tag on a card.** A card belongs to a compound iff it carries the

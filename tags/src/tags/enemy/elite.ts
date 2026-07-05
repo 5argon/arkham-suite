@@ -1,8 +1,8 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeEnemyElite {
-  EnemyEliteNonEliteOnly = "elite-noneliteonly",
-  EnemyEliteReducedEffect = "elite-reducedeffect",
+  EnemyEliteNonEliteOnly = "enemy-elite-noneliteonly",
+  EnemyEliteReducedEffect = "enemy-elite-reducedeffect",
 }
 
 interface TagEnemyEliteBase extends TagBase {}
