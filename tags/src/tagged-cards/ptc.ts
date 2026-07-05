@@ -315,7 +315,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["combat"],
     tags: [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 6 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
     ],
@@ -401,7 +401,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeTimingPhaseSequence.PhaseMythosDrawEncounter, timing: TimingQualifier.When },
-      { type: TagTypeCancel.CancelEncounterDraw },
       { type: TagTypeDeckSearch.DeckSearchEncounter, range: { type: "top", cards: 9 } },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeDeckShuffle.DeckShuffleEncounter },
@@ -486,7 +485,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 4 },
       { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Retaliate" },
@@ -641,7 +640,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeHeal.HealHorrorInvestigator, value: 2 },
-      { type: TagTypeCancel.CancelTreacheryInPlay },
+      { type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay },
     ],
   },
   {
@@ -984,7 +983,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
       { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 },
       { type: TagTypeDamage.DamagePlus, value: 1 },
@@ -1016,9 +1015,9 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 2 },
       { type: TagTypeAoo.AooNoProvoke },
       { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeCostAction.CostActionSpendCharge },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
-      { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
+      { type: TagTypeDamage.DamagePlus, value: 2 },
     ],
   },
   {
@@ -1049,6 +1048,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["wild"],
     tags: [
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true },
+      { type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay },
       { type: TagTypeHeal.HealHorrorYou, value: 2 },
       { type: TagTypeHeal.HealDamageYou, value: 2 },
       { type: TagTypeRemote.RemoteMove },
@@ -1698,6 +1698,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+      { type: TagTypeHandSize.HandSizeMaxIncrease, value: -5 },
     ],
   },
   {

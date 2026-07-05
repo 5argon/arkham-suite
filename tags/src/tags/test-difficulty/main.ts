@@ -1,5 +1,6 @@
 import { TagBase } from "../../base.js";
 import { DynamicValue } from "../../type.js";
+import { TestingBasicAction } from "../../kohaku.js";
 
 export enum TagTypeTestDifficulty {
   TestDifficultyReduce = "test-difficulty-reduce",
@@ -8,6 +9,8 @@ export enum TagTypeTestDifficulty {
 interface TagTestDifficultyBase extends TagBase {
   /** Amount the difficulty (target number) is reduced by. "dynamic" for a dynamic amount. */
   value: DynamicValue;
+  /** Restrict to a specific action's tests (e.g. Fine Clothes = parley only). Omit = any test. */
+  action?: TestingBasicAction;
 }
 
 /**

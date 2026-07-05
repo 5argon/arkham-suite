@@ -8,6 +8,7 @@ export enum TagTypeCostAction {
   CostActionSpendResource = "cost-action-spend-resource",
   CostActionSpendSecret = "cost-action-spend-secret",
   CostActionSpendCharge = "cost-action-spend-charge",
+  CostActionSpendAmmo = "cost-action-spend-ammo",
   CostActionSpendSupply = "cost-action-spend-supply",
 }
 
@@ -41,9 +42,14 @@ export interface TagCostActionSpendSecret extends TagCostActionBase {
   type: TagTypeCostAction.CostActionSpendSecret;
 }
 
-/** [action] ability whose cost is spending a charge/ammo use-token from this card's own pool (every 'spend 1 ammo: Fight' weapon). */
+/** [action] ability whose cost is spending a CHARGE use-token from this card's own pool. Ammo firearms use cost-action-spend-ammo instead. */
 export interface TagCostActionSpendCharge extends TagCostActionBase {
   type: TagTypeCostAction.CostActionSpendCharge;
+}
+
+/** [action] ability whose cost is spending an AMMO use-token from this card's own pool (every 'spend 1 ammo: Fight' firearm). */
+export interface TagCostActionSpendAmmo extends TagCostActionBase {
+  type: TagTypeCostAction.CostActionSpendAmmo;
 }
 
 /** [action] ability whose cost is spending a supply use-token from this card's pool. */

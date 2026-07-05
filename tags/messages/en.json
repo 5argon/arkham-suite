@@ -360,7 +360,6 @@
   "tag_cancel_lose_action": "Cancel Lose Action",
   "tag_cancel_lose_resource": "Cancel Lose Resource",
   "tag_cancel_discard_from_hand": "Cancel Discard From Hand",
-  "tag_cancel_treachery_in_play": "Cancel Treachery In Play",
   "tag_cancel_failed_test_effects": "Cancel Failed Test Effects",
   "tag_cancel_weakness_draw": "Cancel Weakness Draw",
   "tag_chaos_bag_add_bless": "Chaos Bag Add Bless",
@@ -524,7 +523,6 @@
   "desc_tag_cancel_lose_action": "",
   "desc_tag_cancel_lose_resource": "",
   "desc_tag_cancel_discard_from_hand": "",
-  "desc_tag_cancel_treachery_in_play": "",
   "desc_tag_cancel_failed_test_effects": "",
   "desc_tag_cancel_weakness_draw": "",
   "desc_tag_chaos_bag_add_bless": "",
@@ -955,7 +953,6 @@
   "desc_tag_cost_reaction_spend_clue": "Spend/place one of your OWN clues as a reaction cost — pay with progress rather than resources.",
   "tag_deck_look_investigator": "Deck Look Investigator",
   "desc_tag_deck_look_investigator": "Look at / reorder the top N cards of ANOTHER investigator deck (multiplayer deck smoothing).",
-  "tag_deck_look_bottom": "Deck Look Bottom",
   "desc_tag_deck_look_bottom": "Move a looked-at card to the BOTTOM of the deck — draw-smoothing distinct from reordering on top.",
   "tag_evade_multiple": "Evade Multiple",
   "desc_tag_evade_multiple": "Evade ALL / each enemy engaged with you (or at your location) at once — mass evade.",
@@ -1110,5 +1107,11 @@
   "tag_enemy_nonweakness": "Non-Weakness Only",
   "desc_tag_enemy_nonweakness": "The effect only applies to non-weakness enemies. \"Weakness\" is a card designation, not a printed trait — kept separate from Enemy Trait Restriction (and from Elite).",
   "tag_buff_cannot_engage_you": "Buff Cannot Engage You",
-  "desc_tag_buff_cannot_engage_you": "Enemies cannot engage you — a lingering benefit ON YOU (the evasion-lock / Stealth buff), the sibling of \"cannot attack you\"."
+  "desc_tag_buff_cannot_engage_you": "Enemies cannot engage you — a lingering benefit ON YOU (the evasion-lock / Stealth buff), the sibling of \"cannot attack you\".",
+  "tag_discard_treachery_in_play": "Discard Treachery In Play",
+  "desc_tag_discard_treachery_in_play": "Discard/remove a treachery already in play (threat-area cards, an in-play treachery). Removal, not a cancel — filed under discard, not the Cancel archetype.",
+  "tag_cost_action_spend_ammo": "Cost Action Spend Ammo",
+  "desc_tag_cost_action_spend_ammo": "An [action] whose cost is spending an AMMO use-token from this card (firearms). Split from cost-action-spend-charge, which is now charges only.",
+  "tag_deck_look_place_bottom": "Place Looked Card on Bottom",
+  "desc_tag_deck_look_place_bottom": "Move a looked-at card to the bottom of its deck (NOT looking at the bottom). Accompanies a deck-look-* tag; shared by Alyssa Graham and Scroll of Secrets."
 }

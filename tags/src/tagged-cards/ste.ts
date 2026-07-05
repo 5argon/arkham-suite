@@ -108,7 +108,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["combat"],
     tags: [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 2 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
@@ -250,6 +250,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeEnemyMitigation.EnemyMitigationBackToEncounterDeck },
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
     ],
   },
   {
@@ -311,6 +312,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 },
       { type: TagTypeDamage.DamageRedirectAttack },
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
     ],
   },
   {
@@ -364,7 +366,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place", self: true },
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },

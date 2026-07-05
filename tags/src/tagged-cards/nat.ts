@@ -321,6 +321,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
     ],
   },
   {

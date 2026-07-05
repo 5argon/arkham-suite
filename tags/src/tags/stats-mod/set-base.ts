@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { TestingBasicAction } from "../../kohaku.js";
 
 export enum TagTypeStatsModSetBase {
   StatsModSetBase = "stats-mod-set-base",
@@ -6,6 +7,8 @@ export enum TagTypeStatsModSetBase {
 
 interface TagStatsModSetBaseBase extends TagBase {
   value: number;
+  /** Which basic action the base value applies to (Fight/Investigate/…). */
+  action?: TestingBasicAction;
 }
 
 /**
