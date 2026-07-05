@@ -22,7 +22,7 @@ to paste back for iteration.
 		const lines = [`### Card audit: ${card.name} (\`${card.code}\`)`, '', '**Current tags:**'];
 		if (tagLines.length === 0) lines.push('- (none)');
 		for (const t of tagLines) lines.push(`- ${t}`);
-		lines.push('', '**Belongs to archetypes:**');
+		lines.push('', '**Compound Tags:**');
 		if (compoundLines.length === 0) lines.push('- (none)');
 		for (const c of compoundLines) lines.push(`- ${c}`);
 		lines.push('', "**What's wrong:**", reason.trim() || '(none given)');

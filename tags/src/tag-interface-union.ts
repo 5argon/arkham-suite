@@ -210,6 +210,10 @@ import type {
 } from "./tags/deck/index.js";
 
 import type {
+  TagDefeatSelf,
+} from "./tags/defeat/index.js";
+
+import type {
   TagDiscardFromPlaySelf,
   TagDiscardFromPlaySelfNoUses,
   TagDiscardTreacheryInPlay,
@@ -308,6 +312,10 @@ import type {
   TagHealHorrorSelf,
   TagHealHorrorYou,
 } from "./tags/heal/index.js";
+
+import type {
+  TagLimitInPlay,
+} from "./tags/limit/index.js";
 
 import type {
   TagLocationConnectingEnemy,
@@ -757,6 +765,8 @@ export type Tag =
   | TagDeckSearchYou
   | TagDeckShuffleEncounter
   | TagDeckShufflePlayer
+  // Defeat tags
+  | TagDefeatSelf
   // Discard tags
   | TagDiscardFromPlaySelf
   | TagDiscardFromPlaySelfNoUses
@@ -837,6 +847,8 @@ export type Tag =
   | TagHealHorrorInvestigator
   | TagHealHorrorSelf
   | TagHealHorrorYou
+  // Limit tags
+  | TagLimitInPlay
   // Location tags
   | TagLocationConnectingEnemy
   | TagLocationConnectingInvestigator

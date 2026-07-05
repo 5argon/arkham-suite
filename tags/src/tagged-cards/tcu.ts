@@ -73,6 +73,7 @@ import {
   TagTypeTraitSupport,
   TagTypeUsesAccumulate,
   TagTypeUsesStarting,
+  TagTypeDefeat,
 } from "../tags/index.js";
 import { BasicAction, SkillType } from "../kohaku.js";
 import { TaggedCard, TimingQualifier } from "../type.js";
@@ -1388,6 +1389,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "intellect"],
     tags: [
+      { type: TagTypeDefeat.DefeatSelf },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 3 },
       { type: TagTypeTestless.TestlessClue, value: 3 },

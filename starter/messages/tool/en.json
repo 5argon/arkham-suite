@@ -232,7 +232,7 @@
 	"tool_tag_browser_not_tagged": "Not tagged yet.",
 	"tool_tag_browser_match_args": "Match this argument exactly",
 	"tool_tag_browser_secondary_label": "Secondary",
-	"tool_tag_browser_belongs_to": "Belongs to archetypes",
+	"tool_tag_browser_belongs_to": "Compound Tags",
 	"tool_tag_browser_search_label": "Search tags",
 	"tool_tag_browser_search_placeholder": "e.g. resource, evade, heal, sanity",
 	"tool_tag_browser_include_secondary_help": "Some cards carry a tag only as a minor, incidental effect rather than their main function — these are stored as *secondary tags*. Turn this on to also include those cards in the results below.",

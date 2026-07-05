@@ -41,6 +41,28 @@ Real examples that were mistagged by word-matching (all fixed — learn the shap
 | Blackjack: conditions on "an enemy engaged with **another** investigator" | ~~`engage-effect`~~ (causes no engagement) | `engage-with-another` (a targeting scope) |
 | Intrepid: asset that discards at end of round | ~~`stats-mod-boost-passive`~~ | a boost that *expires* is lasting/duration, not passive |
 
+## Know the game rules and keywords first
+
+You cannot tag correctly from the English of the text box alone — you must know what those words
+MEAN under the Arkham Horror LCG rules. The full rules reference ships in this package at
+**`rules.html`**; read the relevant part whenever a tag's meaning hinges on a rules concept.
+
+- **Ability types.** A **Forced** ability (bold "Forced") is *mandatory* and auto-initiates on its
+  timing point. A **Triggered** ability is prefaced by an icon, and there are exactly three:
+  **[action]**, **[free]**, and **[reaction]**. A **Constant** ability is always-on. **Fast** is a
+  separate *keyword* — an event/ability playable during a player window without spending an action.
+  Consequence: a *timing window* (e.g. "when you would take damage") is neutral; how a card responds
+  to it — a Fast event (Devil's Luck), a **[reaction]** (Armor of Ardennes), or a **Forced** ability
+  (Sophie) — is a **separate axis**. Never bake "forced" into a window tag just because one member is
+  Forced (this exact mistake was fixed: `timing-forced-when-take-damage` → `timing-when-take-damage`).
+- **Keywords** (Aloof, Retaliate, Hunter, Elusive, Massive, Peril, Bonded, Exceptional, Permanent,
+  Myriad, Composure, Trap, Seal, Bless/Curse, …) each have a precise rules meaning — check the
+  glossary before tagging an effect that references one.
+- **Card designations are not traits.** "Weakness" and "Elite" are card classifications, not traits;
+  a **trait** is only what's printed in the trait line (Monster, Humanoid, Tome, Spell, …).
+- **Phase/step structure** (mythos → investigation → enemy → upkeep; skill-test steps ST1–ST8) is
+  what the timing tags reference.
+
 ## Inputs
 
 A worklist at **`json/untagged/<pack>.json`**: an array of `{ code, name, text, tags: [] }`.
@@ -128,8 +150,15 @@ not the noun in the text. Groups that have caused confusion (some were regrouped
   Chaos Token Control dropped `chaos-reveal-manual` (reveal-and-hope gambles control nothing);
   Support dropped `your-location-investigator` (looking at your location ≠ supporting others);
   BigMoney dropped `uses-accumulate` (card-local tokens ≠ your resource pool); Getaway dropped
-  `aoo-no-provoke`; Economy dropped `play-from-other-zone`. If a compound's card list contains a card
-  that clearly isn't that archetype, find the one member tag dragging it in.
+  `aoo-no-provoke`; Economy dropped `play-from-other-zone`; ProtectorTank dropped `ready-ally`
+  (readying an ally isn't tanking). If a compound's card list contains a card that clearly isn't that
+  archetype, find the one member tag dragging it in.
+- **⚠️ Editing a compound's member list re-evaluates EVERY card that carries those tags — not just
+  the card you were looking at.** Whenever you add, remove, or `where`-condition a member tag, dump
+  the compound's full card list from the JSON **before and after** and confirm every card that JOINS
+  or LEAVES is correct. Removing a member can wrongly drop legitimate cards; adding one (or a `where`)
+  can wrongly pull others in, or silently drop cards whose args don't match the filter. Do this for
+  BOTH compounds when a base tag is renamed/moved (it may be a member of several).
 
 ## Verify against the JSON export — not in your head
 

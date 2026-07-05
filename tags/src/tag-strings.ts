@@ -268,8 +268,6 @@ export const tagStrings: Record<string, Record<string, string>> = {
     "tag_timing_forced_enters_location": "Timing Forced Enters Location",
     "tag_timing_forced_leaves_play": "Timing Forced Leaves Play",
     "tag_timing_forced_spawn_your_location": "Timing Forced Spawn Your Location",
-    "tag_timing_forced_when_take_damage": "Timing Forced When Take Damage",
-    "tag_timing_forced_when_take_horror": "Timing Forced When Take Horror",
     "tag_timing_game_draw_opening_hands": "Timing Game Draw Opening Hands",
     "tag_timing_game_begins": "Timing Game Begins",
     "tag_timing_game_ends": "Timing Game Ends",
@@ -795,8 +793,6 @@ export const tagStrings: Record<string, Record<string, string>> = {
     "desc_tag_timing_forced_enters_location": "",
     "desc_tag_timing_forced_leaves_play": "",
     "desc_tag_timing_forced_spawn_your_location": "",
-    "desc_tag_timing_forced_when_take_damage": "",
-    "desc_tag_timing_forced_when_take_horror": "",
     "desc_tag_timing_game_draw_opening_hands": "",
     "desc_tag_timing_game_begins": "",
     "desc_tag_timing_game_ends": "",
@@ -1136,6 +1132,10 @@ export const tagStrings: Record<string, Record<string, string>> = {
     "tag_phase_skip": "Skip a Phase",
     "desc_tag_phase_skip": "Skip an entire game phase (Gold Pocket Watch, Deliverance).",
     "tag_phase_repeat": "Repeat a Phase",
-    "desc_tag_phase_repeat": "Repeat an entire game phase (Gold Pocket Watch, Ultimate Sacrifice)."
+    "desc_tag_phase_repeat": "Repeat an entire game phase (Gold Pocket Watch, Ultimate Sacrifice).",
+    "tag_timing_when_take_damage": "When You Take Damage",
+    "desc_tag_timing_when_take_damage": "The 'when you (would) take damage' timing WINDOW — neutral. The response can be Fast (Devil's Luck), a [reaction] (Armor of Ardennes), or Forced (Sophie); that trigger type is a separate axis (cost/fast tags).",
+    "tag_timing_when_take_horror": "When You Take Horror",
+    "desc_tag_timing_when_take_horror": "The 'when you (would) take horror' timing window — neutral (Fast / reaction / forced captured separately)."
   }
 };
