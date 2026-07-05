@@ -23,12 +23,16 @@ import {
   TagTypeBuffStatsReplace,
 } from "./tags/buff/index.js";
 import {
+  TagTypeCampaign,
+} from "./tags/campaign/index.js";
+import {
   TagTypeCancel,
 } from "./tags/cancel/index.js";
 import {
   TagTypeChaosBag,
   TagTypeChaosDownside,
   TagTypeChaosEffect,
+  TagTypeChaosPayoff,
   TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
@@ -44,6 +48,9 @@ import {
 import {
   TagTypeCondition,
 } from "./tags/condition/index.js";
+import {
+  TagTypeControl,
+} from "./tags/control/index.js";
 import {
   TagTypeCostAction,
   TagTypeCostDiscount,
@@ -108,6 +115,9 @@ import {
 import {
   TagTypeMulticlass,
 } from "./tags/multiclass/index.js";
+import {
+  TagTypePhase,
+} from "./tags/phase/index.js";
 import {
   TagTypePlayArea,
 } from "./tags/play-area/index.js";
@@ -179,6 +189,7 @@ import {
 import {
   TagTypeUsesAccumulate,
   TagTypeUsesReplenish,
+  TagTypeUsesSelfPlace,
   TagTypeUsesStarting,
   TagTypeUsesSupport,
 } from "./tags/uses/index.js";
@@ -201,10 +212,12 @@ export type TagType =
   | TagTypeBuffCannot
   | TagTypeBuffInvestigatorStats
   | TagTypeBuffStatsReplace
+  | TagTypeCampaign
   | TagTypeCancel
   | TagTypeChaosBag
   | TagTypeChaosDownside
   | TagTypeChaosEffect
+  | TagTypeChaosPayoff
   | TagTypeChaosPredict
   | TagTypeChaosReveal
   | TagTypeChaosSeal
@@ -213,6 +226,7 @@ export type TagType =
   | TagTypeCluePlace
   | TagTypeCommit
   | TagTypeCondition
+  | TagTypeControl
   | TagTypeCostAction
   | TagTypeCostDiscount
   | TagTypeCostFree
@@ -247,6 +261,7 @@ export type TagType =
   | TagTypeLocationShroud
   | TagTypeLocationYour
   | TagTypeMulticlass
+  | TagTypePhase
   | TagTypePlayArea
   | TagTypeReady
   | TagTypeRecursion
@@ -283,6 +298,7 @@ export type TagType =
   | TagTypeTraitSupport
   | TagTypeUsesAccumulate
   | TagTypeUsesReplenish
+  | TagTypeUsesSelfPlace
   | TagTypeUsesStarting
   | TagTypeUsesSupport
   | TagTypeVictory;

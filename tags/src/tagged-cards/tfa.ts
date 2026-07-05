@@ -71,7 +71,7 @@ import {
   TagTypeTimingWhen,
   TagTypeTraitSupport,
   TagTypeUsesAccumulate,
-  TagTypeUsesReplenish,
+  TagTypeUsesSelfPlace,
   TagTypeUsesStarting,
   TagTypeUsesSupport,
 } from "../tags/index.js";
@@ -1580,7 +1580,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeUsesReplenish.UsesReplenish, useType: "ammo" },
+      { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "ammo", conditional: false },
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 1 },
       { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
@@ -1599,7 +1599,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 },
-      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
     ],
   },
   {

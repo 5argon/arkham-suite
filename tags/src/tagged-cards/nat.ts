@@ -184,7 +184,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
-      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeLocationYour.LocationYourInvestigator },

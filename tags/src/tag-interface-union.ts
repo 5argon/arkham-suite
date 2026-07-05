@@ -44,6 +44,10 @@ import type {
 } from "./tags/buff/index.js";
 
 import type {
+  TagDeckSwapBetweenGames,
+} from "./tags/campaign/index.js";
+
+import type {
   TagCancelAttack,
   TagCancelChaos,
   TagCancelDamage,
@@ -102,6 +106,7 @@ import type {
   TagChaosSealTokenElderThing,
   TagChaosSealTokenSkull,
   TagChaosSealTokenTablet,
+  TagChaosSymbolPayoff,
 } from "./tags/chaos/index.js";
 
 import type {
@@ -129,6 +134,10 @@ import type {
   TagConditionResource,
   TagConditionSanity,
 } from "./tags/condition/index.js";
+
+import type {
+  TagControlYourCard,
+} from "./tags/control/index.js";
 
 import type {
   TagCostActionDiscardFromHand,
@@ -327,6 +336,11 @@ import type {
 import type {
   TagMulticlassClassCount,
 } from "./tags/multiclass/index.js";
+
+import type {
+  TagPhaseRepeat,
+  TagPhaseSkip,
+} from "./tags/phase/index.js";
 
 import type {
   TagPlayAreaFromInvestigator,
@@ -537,6 +551,7 @@ import type {
 import type {
   TagUsesAccumulate,
   TagUsesReplenish,
+  TagUsesSelfPlace,
   TagUsesStartingAmmo,
   TagUsesStartingCharge,
   TagUsesStartingEvidence,
@@ -596,6 +611,8 @@ export type Tag =
   | TagBuffInvestigatorHealth
   | TagBuffInvestigatorSanity
   | TagBuffStatsReplace
+  // Campaign tags
+  | TagDeckSwapBetweenGames
   // Cancel tags
   | TagCancelAttack
   | TagCancelChaos
@@ -653,6 +670,7 @@ export type Tag =
   | TagChaosSealTokenElderThing
   | TagChaosSealTokenSkull
   | TagChaosSealTokenTablet
+  | TagChaosSymbolPayoff
   // Clue tags
   | TagClueAdditionalAdjacentLocations
   | TagClueAdditionalRevealedLocations
@@ -673,6 +691,8 @@ export type Tag =
   | TagConditionHandSize
   | TagConditionResource
   | TagConditionSanity
+  // Control tags
+  | TagControlYourCard
   // Cost tags
   | TagCostActionDiscardFromHand
   | TagCostActionDiscardSelf
@@ -841,6 +861,9 @@ export type Tag =
   | TagLocationYourInvestigator
   // Multiclass tags
   | TagMulticlassClassCount
+  // Phase tags
+  | TagPhaseRepeat
+  | TagPhaseSkip
   // Play Area tags
   | TagPlayAreaFromInvestigator
   | TagPlayAreaIntoPlayFromDeck
@@ -1016,6 +1039,7 @@ export type Tag =
   // Uses tags
   | TagUsesAccumulate
   | TagUsesReplenish
+  | TagUsesSelfPlace
   | TagUsesStartingAmmo
   | TagUsesStartingCharge
   | TagUsesStartingEvidence
