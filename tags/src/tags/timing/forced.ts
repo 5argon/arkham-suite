@@ -4,8 +4,8 @@ export enum TagTypeTimingForced {
   TimingForcedEntersLocation = "timing-forced-enters-location",
   TimingForcedLeavesPlay = "timing-forced-leaves-play",
   TimingForcedSpawnYourLocation = "timing-forced-spawn-your-location",
-  TimingForcedWhenTakeDamage = "timing-forced-when-take-damage",
-  TimingForcedWhenTakeHorror = "timing-forced-when-take-horror",
+  TimingForcedWhenTakeDamage = "timing-when-take-damage",
+  TimingForcedWhenTakeHorror = "timing-when-take-horror",
 }
 
 interface TagTimingForcedBase extends TagBase {}

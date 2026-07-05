@@ -100,6 +100,7 @@ export enum CompoundTagType {
   WeaponSupport = "c-weapon-support",
   AllySupport = "c-ally-support",
   Healing = "c-healing",
+  AllyHealing = "c-ally-healing",
   PassiveBoost = "c-passive-boost",
   Cancel = "c-cancel",
   EnemyMitigation = "c-enemy-mitigation",
@@ -407,7 +408,6 @@ export const compoundTagProtectorTank: CompoundTagBase = {
     TagTypeTank.TankRedirectAttack,
     TagTypeTank.TankRedirectEncounter,
     TagTypeTank.TankRedirectDamageHorror,
-    TagTypeReady.ReadyAlly,
   ],
 };
 
@@ -572,6 +572,15 @@ export const compoundTagHealing: CompoundTagBase = {
     TagTypeHeal.HealHorrorInvestigator,
     TagTypeHeal.HealHorrorAlly,
     TagTypeHeal.HealHorrorSelf,
+  ],
+};
+
+/** Ally Healing: heals an ally/asset (damage or horror) — the keep-your-allies-alive package (First Aid, Emergency Aid, Inspiring Presence). */
+export const compoundTagAllyHealing: CompoundTagBase = {
+  type: CompoundTagType.AllyHealing,
+  tags: [
+    TagTypeHeal.HealDamageAlly,
+    TagTypeHeal.HealHorrorAlly,
   ],
 };
 
@@ -1108,6 +1117,7 @@ export const compoundTags: CompoundTagBase[] = [
   compoundTagWeaponSupport,
   compoundTagAllySupport,
   compoundTagHealing,
+  compoundTagAllyHealing,
   compoundTagPassiveBoost,
   compoundTagCancel,
   compoundTagEnemyMitigation,

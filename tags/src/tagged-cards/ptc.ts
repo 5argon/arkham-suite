@@ -77,6 +77,8 @@ import {
   TagTypeUsesStarting,
   TagTypeUsesSupport,
   TagTypeVictory,
+  TagTypeDefeat,
+  TagTypeLimit,
 } from "../tags/index.js";
 import { BasicAction, SkillType } from "../kohaku.js";
 import { TaggedCard, TimingQualifier } from "../type.js";
@@ -173,7 +175,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "willpower", "willpower", "willpower", "intellect", "intellect", "combat", "combat", "agility", "agility", "agility", "agility"],
     tags: [
       { type: TagTypeTimingGame.TimingGameDrawOpeningHands },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 13 },
       { type: TagTypeAoo.AooNoProvoke },
     ],
   },
@@ -206,7 +207,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "willpower", "willpower", "intellect", "intellect", "combat", "combat", "combat", "agility", "agility", "agility"],
     tags: [
-      { type: TagTypeUsesStarting.UsesStartingCharge, value: 1 },
       { type: TagTypeUsesSupport.UsesSupportCharge, supportType: "place" },
     ],
   },
@@ -230,7 +230,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
-      { type: TagTypeUsesSupport.UsesSupportCharge, supportType: "move" },
       { type: TagTypeTimingGame.TimingGameEnds },
     ],
   },
@@ -384,6 +383,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "combat"],
     tags: [
+      { type: TagTypeDefeat.DefeatSelf },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeEnemyMitigation.EnemyMitigationDefeat },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
@@ -429,6 +429,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
+      { type: TagTypeLimit.LimitInPlay, trait: "Composure", count: 1, per: "in-play" },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
@@ -693,6 +694,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "combat"],
     tags: [
+      { type: TagTypeLimit.LimitInPlay, trait: "Composure", count: 1, per: "in-play" },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
@@ -941,6 +943,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "agility"],
     tags: [
+      { type: TagTypeLimit.LimitInPlay, trait: "Composure", count: 1, per: "in-play" },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
@@ -1220,6 +1223,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
+      { type: TagTypeLimit.LimitInPlay, trait: "Composure", count: 1, per: "in-play" },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
@@ -1475,6 +1479,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "intellect"],
     tags: [
+      { type: TagTypeLimit.LimitInPlay, trait: "Composure", count: 1, per: "in-play" },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },

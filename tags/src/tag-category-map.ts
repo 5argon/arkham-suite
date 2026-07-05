@@ -70,6 +70,9 @@ import {
   TagTypeDeckShuffle,
 } from "./tags/deck/index.js";
 import {
+  TagTypeDefeat,
+} from "./tags/defeat/index.js";
+import {
   TagTypeDiscardFromPlay,
 } from "./tags/discard/index.js";
 import {
@@ -105,6 +108,9 @@ import {
 import {
   TagTypeHeal,
 } from "./tags/heal/index.js";
+import {
+  TagTypeLimit,
+} from "./tags/limit/index.js";
 import {
   TagTypeLocationConnecting,
   TagTypeLocationMove,
@@ -216,6 +222,7 @@ const enumsByCategory: Record<string, object[]> = {
   "cost": [TagTypeCostAction, TagTypeCostDiscount, TagTypeCostFree, TagTypeCostOther, TagTypeCostReaction],
   "damage": [TagTypeDamage],
   "deck": [TagTypeDeckDiscard, TagTypeDeckDraw, TagTypeDeckLook, TagTypeDeckMisc, TagTypeDeckSearch, TagTypeDeckShuffle],
+  "defeat": [TagTypeDefeat],
   "discard": [TagTypeDiscardFromPlay],
   "discard-pile": [TagTypeDiscardPile],
   "doom": [TagTypeDoom],
@@ -226,6 +233,7 @@ const enumsByCategory: Record<string, object[]> = {
   "gain": [TagTypeGainKeyword, TagTypeGainResource],
   "hand-size": [TagTypeHandSize],
   "heal": [TagTypeHeal],
+  "limit": [TagTypeLimit],
   "location": [TagTypeLocationConnecting, TagTypeLocationMove, TagTypeLocationProperty, TagTypeLocationShroud, TagTypeLocationYour],
   "multiclass": [TagTypeMulticlass],
   "phase": [TagTypePhase],

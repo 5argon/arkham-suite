@@ -70,6 +70,9 @@ import {
   TagTypeDeckShuffle,
 } from "./tags/deck/index.js";
 import {
+  TagTypeDefeat,
+} from "./tags/defeat/index.js";
+import {
   TagTypeDiscardFromPlay,
 } from "./tags/discard/index.js";
 import {
@@ -105,6 +108,9 @@ import {
 import {
   TagTypeHeal,
 } from "./tags/heal/index.js";
+import {
+  TagTypeLimit,
+} from "./tags/limit/index.js";
 import {
   TagTypeLocationConnecting,
   TagTypeLocationMove,
@@ -239,6 +245,7 @@ export type TagType =
   | TagTypeDeckMisc
   | TagTypeDeckSearch
   | TagTypeDeckShuffle
+  | TagTypeDefeat
   | TagTypeDiscardFromPlay
   | TagTypeDiscardPile
   | TagTypeDoom
@@ -255,6 +262,7 @@ export type TagType =
   | TagTypeGainResource
   | TagTypeHandSize
   | TagTypeHeal
+  | TagTypeLimit
   | TagTypeLocationConnecting
   | TagTypeLocationMove
   | TagTypeLocationProperty
