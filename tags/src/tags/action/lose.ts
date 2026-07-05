@@ -1,7 +1,7 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeActionLose {
-  ActionLoseAction = "lose-action",
+  ActionLoseAction = "action-lose",
   ActionEndTurn = "action-end-turn",
 }
 

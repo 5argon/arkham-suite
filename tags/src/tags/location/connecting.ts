@@ -1,8 +1,8 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeLocationConnecting {
-  LocationConnectingEnemy = "connecting-location-enemy",
-  LocationConnectingInvestigator = "connecting-location-investigator",
+  LocationConnectingEnemy = "location-connecting-enemy",
+  LocationConnectingInvestigator = "location-connecting-investigator",
 }
 
 interface TagLocationConnectingBase extends TagBase {}

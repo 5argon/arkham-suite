@@ -1,10 +1,10 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeLocationYour {
-  LocationYourEnemy = "your-location-enemy",
-  LocationYourInvestigator = "your-location-investigator",
-  LocationYourAlly = "your-location-ally",
-  LocationYourClue = "your-location-clue",
+  LocationYourEnemy = "location-your-enemy",
+  LocationYourInvestigator = "location-your-investigator",
+  LocationYourAlly = "location-your-ally",
+  LocationYourClue = "location-your-clue",
 }
 
 interface TagLocationYourBase extends TagBase {}

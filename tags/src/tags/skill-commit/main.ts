@@ -2,10 +2,10 @@ import { TagBase } from "../../base.js";
 
 export enum TagTypeSkillCommit {
   SkillCommitGainIcon = "skill-commit-gain-icon",
-  SkillCommitDoubleIcon = "skill-double-icon",
-  SkillCommitWildIcon = "nonskill-lv0-wild-icon",
-  SkillCommitTwoEffectiveIcons = "nonskill-lv0-two-effective-icons",
-  SkillCommitNoIcons = "no-commit-icons",
+  SkillCommitDoubleIcon = "skill-commit-skill-double-icon",
+  SkillCommitWildIcon = "skill-commit-nonskill-lv0-wild-icon",
+  SkillCommitTwoEffectiveIcons = "skill-commit-nonskill-lv0-two-effective-icons",
+  SkillCommitNoIcons = "skill-commit-no-commit-icons",
 }
 
 interface TagSkillCommitBase extends TagBase {}

@@ -1,17 +1,17 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeEnemyEngage {
-  EnemyEngageEffect = "engage-effect",
-  EnemyEngageEnemy = "engage-enemy",
-  EnemyEngageNone = "engage-none",
-  EnemyEngageNotWithYou = "engage-not-with-you",
-  EnemyEngageRelated = "engage-related",
-  EnemyEngageWithAnother = "engage-with-another",
-  EnemyEngageWithYou = "engage-with-you",
-  EnemyEngageTargetEngaged = "engage-target-engaged",
-  EnemyEngageDisengage = "engage-disengage",
-  EnemyEngageEvadeMultiple = "evade-multiple",
-  EnemyEngageWithYouMultiple = "engage-with-you-multiple",
+  EnemyEngageEffect = "enemy-engage-effect",
+  EnemyEngageEnemy = "enemy-engage",
+  EnemyEngageNone = "enemy-engage-none",
+  EnemyEngageNotWithYou = "enemy-engage-not-with-you",
+  EnemyEngageRelated = "enemy-engage-related",
+  EnemyEngageWithAnother = "enemy-engage-with-another",
+  EnemyEngageWithYou = "enemy-engage-with-you",
+  EnemyEngageTargetEngaged = "enemy-engage-target-engaged",
+  EnemyEngageDisengage = "enemy-engage-disengage",
+  EnemyEngageEvadeMultiple = "enemy-evade-multiple",
+  EnemyEngageWithYouMultiple = "enemy-engage-with-you-multiple",
 }
 
 interface TagEnemyEngageBase extends TagBase {}

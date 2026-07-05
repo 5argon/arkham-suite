@@ -461,8 +461,10 @@
 	<MarginText>
 		<HelpParagraph>
 			Cards are tagged by the game effects in their text box. Search or pick a tag to see every card
-			with it, and jump between a tag and the compound archetypes (broader groupings) that contain
-			it.
+			with it, and jump between a tag and the compound tags (broader groupings) that contain it.
+			Tags are a flat list — the <code>Group/Name</code> prefix (e.g. <code>Enemy/Elite Noneliteonly</code>)
+			just clusters related tags for browsing; it is not a hierarchy, and tags have no parent/child
+			relationships.
 		</HelpParagraph>
 	</MarginText>
 	<MarginFull>

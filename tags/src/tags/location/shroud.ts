@@ -1,10 +1,10 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeLocationShroud {
-  LocationShroudDependent = "shroud-dependent",
-  LocationShroudMinus1 = "shroud-minus-1",
-  LocationShroudMinus2 = "shroud-minus-2",
-  LocationShroudReduction = "shroud-reduction",
+  LocationShroudDependent = "location-shroud-dependent",
+  LocationShroudMinus1 = "location-shroud-minus-1",
+  LocationShroudMinus2 = "location-shroud-minus-2",
+  LocationShroudReduction = "location-shroud-reduction",
 }
 
 interface TagLocationShroudBase extends TagBase {}
