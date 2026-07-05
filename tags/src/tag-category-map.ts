@@ -23,12 +23,16 @@ import {
   TagTypeBuffStatsReplace,
 } from "./tags/buff/index.js";
 import {
+  TagTypeCampaign,
+} from "./tags/campaign/index.js";
+import {
   TagTypeCancel,
 } from "./tags/cancel/index.js";
 import {
   TagTypeChaosBag,
   TagTypeChaosDownside,
   TagTypeChaosEffect,
+  TagTypeChaosPayoff,
   TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
@@ -44,6 +48,9 @@ import {
 import {
   TagTypeCondition,
 } from "./tags/condition/index.js";
+import {
+  TagTypeControl,
+} from "./tags/control/index.js";
 import {
   TagTypeCostAction,
   TagTypeCostDiscount,
@@ -108,6 +115,9 @@ import {
 import {
   TagTypeMulticlass,
 } from "./tags/multiclass/index.js";
+import {
+  TagTypePhase,
+} from "./tags/phase/index.js";
 import {
   TagTypePlayArea,
 } from "./tags/play-area/index.js";
@@ -179,6 +189,7 @@ import {
 import {
   TagTypeUsesAccumulate,
   TagTypeUsesReplenish,
+  TagTypeUsesSelfPlace,
   TagTypeUsesStarting,
   TagTypeUsesSupport,
 } from "./tags/uses/index.js";
@@ -195,11 +206,13 @@ const enumsByCategory: Record<string, object[]> = {
   "attach": [TagTypeAttach],
   "auto": [TagTypeAuto],
   "buff": [TagTypeBuffAssetStats, TagTypeBuffCannot, TagTypeBuffInvestigatorStats, TagTypeBuffStatsReplace],
+  "campaign": [TagTypeCampaign],
   "cancel": [TagTypeCancel],
-  "chaos": [TagTypeChaosBag, TagTypeChaosDownside, TagTypeChaosEffect, TagTypeChaosPredict, TagTypeChaosReveal, TagTypeChaosSeal],
+  "chaos": [TagTypeChaosBag, TagTypeChaosDownside, TagTypeChaosEffect, TagTypeChaosPayoff, TagTypeChaosPredict, TagTypeChaosReveal, TagTypeChaosSeal],
   "clue": [TagTypeClueAdditional, TagTypeClueDiscover, TagTypeCluePlace],
   "commit": [TagTypeCommit],
   "condition": [TagTypeCondition],
+  "control": [TagTypeControl],
   "cost": [TagTypeCostAction, TagTypeCostDiscount, TagTypeCostFree, TagTypeCostOther, TagTypeCostReaction],
   "damage": [TagTypeDamage],
   "deck": [TagTypeDeckDiscard, TagTypeDeckDraw, TagTypeDeckLook, TagTypeDeckMisc, TagTypeDeckSearch, TagTypeDeckShuffle],
@@ -215,6 +228,7 @@ const enumsByCategory: Record<string, object[]> = {
   "heal": [TagTypeHeal],
   "location": [TagTypeLocationConnecting, TagTypeLocationMove, TagTypeLocationProperty, TagTypeLocationShroud, TagTypeLocationYour],
   "multiclass": [TagTypeMulticlass],
+  "phase": [TagTypePhase],
   "play-area": [TagTypePlayArea],
   "ready": [TagTypeReady],
   "recursion": [TagTypeRecursion],
@@ -232,7 +246,7 @@ const enumsByCategory: Record<string, object[]> = {
   "testless": [TagTypeTestless],
   "timing": [TagTypeTimingAfter, TagTypeTimingDuring, TagTypeTimingForced, TagTypeTimingGame, TagTypeTimingPhaseSequence, TagTypeTimingSkill, TagTypeTimingWhen],
   "trait": [TagTypeTraitSupport],
-  "uses": [TagTypeUsesAccumulate, TagTypeUsesReplenish, TagTypeUsesStarting, TagTypeUsesSupport],
+  "uses": [TagTypeUsesAccumulate, TagTypeUsesReplenish, TagTypeUsesSelfPlace, TagTypeUsesStarting, TagTypeUsesSupport],
   "victory": [TagTypeVictory],
 };
 

@@ -72,6 +72,10 @@ import {
   TagTypeUsesStarting,
   TagTypeUsesSupport,
   TagTypeVictory,
+  TagTypeCampaign,
+  TagTypeChaosPayoff,
+  TagTypeControl,
+  TagTypePhase,
 } from "../tags/index.js";
 import { BasicAction, SkillType } from "../kohaku.js";
 import { TaggedCard, TimingQualifier } from "../type.js";
@@ -149,7 +153,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeStatsModSetBase.StatsModSetBase, value: 4, action: BasicAction.Investigate },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
-      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 3 },
     ],
@@ -253,7 +256,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeLocationMove.LocationMoveInvestigatorAny },
       { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
     ],
   },
   {
@@ -297,7 +299,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingWhen.TimingWhenEnemySpawnsYourLocation },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
-      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
     ],
   },
   {
@@ -439,7 +440,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "agility"],
     tags: [
-      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
@@ -535,7 +535,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeEnemyEngage.EnemyEngageNone },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
-      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
     ],
   },
   {
@@ -559,7 +558,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: [],
     tags: [
-
+      { type: TagTypeCampaign.DeckSwapBetweenGames },
     ],
   },
   {
@@ -584,6 +583,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 5 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight },
@@ -1285,6 +1285,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "agility"],
     tags: [
+      { type: TagTypeControl.ControlYourCard },
       { type: TagTypeDoom.DoomRemove },
     ],
   },
@@ -1475,6 +1476,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "wild"],
     tags: [
+      { type: TagTypePhase.PhaseSkip },
+      { type: TagTypePhase.PhaseRepeat },
       { type: TagTypeRfg.RfgSelf },
     ],
   },

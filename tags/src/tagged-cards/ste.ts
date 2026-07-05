@@ -41,8 +41,8 @@ import {
   TagTypeTimingForced,
   TagTypeTimingSkill,
   TagTypeTimingWhen,
+  TagTypeUsesSelfPlace,
   TagTypeUsesStarting,
-  TagTypeUsesSupport,
 } from "../tags/index.js";
 import { BasicAction } from "../kohaku.js";
 import { TaggedCard, TimingQualifier } from "../type.js";
@@ -113,7 +113,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place", self: true },
+      { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "ammo", conditional: true },
     ],
   },
   {
@@ -364,7 +364,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "agility"],
     tags: [
-      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place", self: true },
+      { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "ammo", conditional: true },
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
       { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
@@ -483,7 +483,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeUsesSupport.UsesSupportSupply, supportType: "place", self: true },
+      { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "supply", conditional: true },
     ],
   },
   {

@@ -10,8 +10,6 @@ export enum TagTypeUsesSupport {
 
 interface TagUsesSupportBase extends TagBase {
   supportType: "place" | "move"
-  /** True when the card places the use-token onto ITSELF (a self-refund such as .18 Derringer or Chainsaw) rather than onto another asset (Extra Ammunition, Venturer). */
-  self?: boolean
 }
 
 export interface TagUsesSupportAmmo extends TagUsesSupportBase {
