@@ -11,7 +11,6 @@ export enum TagTypeCancel {
   CancelLoseAction = "cancel-lose-action",
   CancelLoseResource = "cancel-lose-resource",
   CancelDiscardFromHand = "cancel-discard-from-hand",
-  CancelTreacheryInPlay = "cancel-treachery-in-play",
   CancelFailedTestEffects = "cancel-failed-test-effects",
   CancelWeaknessDraw = "cancel-weakness-draw",
 }
@@ -59,14 +58,6 @@ export interface TagCancelLoseResource extends TagCancelBase {
 /** Ignore/cancel a forced hand-discard aspect of an incoming effect (e.g. Deny Existence). */
 export interface TagCancelDiscardFromHand extends TagCancelBase {
   type: TagTypeCancel.CancelDiscardFromHand;
-}
-
-/**
- * Discard/remove a treachery that is ALREADY in play (ongoing/attached),
- * distinct from the on-draw cancels.
- */
-export interface TagCancelTreacheryInPlay extends TagCancelBase {
-  type: TagTypeCancel.CancelTreacheryInPlay;
 }
 
 /** Cancel all effects/consequences of a (failed) skill test (e.g. Neither Rain nor Snow). */

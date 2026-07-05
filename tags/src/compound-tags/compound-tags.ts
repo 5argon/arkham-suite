@@ -219,8 +219,6 @@ export const compoundTagInvestigate: CompoundTagBase = {
 export const compoundTagSupport: CompoundTagBase = {
   type: CompoundTagType.Support,
   tags: [
-    TagTypeLocationYour.LocationYourInvestigator,
-    TagTypeLocationYour.LocationYourAlly,
     TagTypeDeckDraw.DeckDrawInvestigator,
     TagTypeDeckSearch.DeckSearchInvestigator,
     TagTypeDeckLook.DeckLookInvestigator,
@@ -346,7 +344,6 @@ export const compoundTagChaosTokenControl: CompoundTagBase = {
   tags: [
     TagTypeChaosReveal.ChaosRevealMore,
     TagTypeChaosReveal.ChaosRevealAnotherInstead,
-    TagTypeChaosReveal.ChaosRevealManual,
     TagTypeChaosReveal.ChaosRevealSealedInstead,
     TagTypeChaosEffect.ChaosEffectResolveChoose,
     TagTypeChaosEffect.ChaosEffectIgnoreEffect,
@@ -387,7 +384,6 @@ export const compoundTagBigMoney: CompoundTagBase = {
   type: CompoundTagType.BigMoney,
   tags: [
     TagTypeSkillValueSource.SkillValueFromResource,
-    TagTypeUsesAccumulate.UsesAccumulate,
     { type: TagTypeCondition.ConditionResource, where: { comparison: "min" } },
   ],
 };
@@ -437,7 +433,6 @@ export const compoundTagDiscardPileValue: CompoundTagBase = {
   type: CompoundTagType.DiscardPileValue,
   tags: [
     TagTypeRecursion.RecursionPlayFromDiscard,
-    TagTypeRecursion.RecursionReplay,
     TagTypeRecursion.RecursionEvent,
     TagTypeRecursion.RecursionSkill,
     TagTypeDiscardPile.DiscardPileToHand,
@@ -606,7 +601,6 @@ export const compoundTagCancel: CompoundTagBase = {
     TagTypeCancel.CancelLoseAction,
     TagTypeCancel.CancelLoseResource,
     TagTypeCancel.CancelDiscardFromHand,
-    TagTypeCancel.CancelTreacheryInPlay,
     TagTypeCancel.CancelFailedTestEffects,
     TagTypeCancel.CancelWeaknessDraw,
   ],
@@ -702,7 +696,6 @@ export const compoundTagEconomy: CompoundTagBase = {
     TagTypePlayArea.PlayAreaIntoPlayFromHand,
     TagTypePlayArea.PlayAreaIntoPlayFromDeck,
     TagTypePlayArea.PlayAreaIntoPlayFromDiscard,
-    TagTypePlayArea.PlayAreaPlayFromOtherZone,
   ],
 };
 
@@ -746,6 +739,7 @@ export const compoundTagActionChargeCost: CompoundTagBase = {
   type: CompoundTagType.ActionChargeCost,
   tags: [
     TagTypeCostAction.CostActionSpendCharge,
+    TagTypeCostAction.CostActionSpendAmmo,
     TagTypeCostAction.CostActionSpendSupply,
     TagTypeCostAction.CostActionSpendSecret,
   ],
@@ -786,7 +780,6 @@ export const compoundTagGetaway: CompoundTagBase = {
   type: CompoundTagType.Getaway,
   tags: [
     TagTypeEnemyEngage.EnemyEngageDisengage,
-    TagTypeAoo.AooNoProvoke,
   ],
 };
 
@@ -881,7 +874,7 @@ export const compoundTagTreacheryHandling: CompoundTagBase = {
   type: CompoundTagType.TreacheryHandling,
   tags: [
     TagTypeCancel.CancelRevelation,
-    TagTypeCancel.CancelTreacheryInPlay,
+    TagTypeDiscardFromPlay.DiscardTreacheryInPlay,
     TagTypeCancel.CancelEncounterEffect,
     TagTypeCancel.CancelEncounterDraw,
     TagTypeDeckDiscard.DeckDiscardTreachery,

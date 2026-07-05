@@ -583,7 +583,13 @@
 		{/if}
 
 		{#key view.type}
-			<TagErrorReport tagType={view.type} tagDisplayName={tagName(view.type)} {allCards} />
+			<TagErrorReport
+					tagType={view.type}
+					tagDisplayName={tagName(view.type)}
+					{allCards}
+					members={tagRepo.cardsByTagType(view.type)}
+					kind="Tag"
+				/>
 		{/key}
 	</MarginFull>
 {:else if view.kind === 'compound'}
@@ -620,5 +626,14 @@
 				onCardClick={(c: Card) => openCard(c.code)}
 			/>
 		{/if}
+		{#key view.type}
+			<TagErrorReport
+				tagType={view.type}
+				tagDisplayName={compoundTagName(view.type)}
+				{allCards}
+				members={tagRepo.cardsByCompoundTag(view.type)}
+				kind="Compound"
+			/>
+		{/key}
 	</MarginFull>
 {/if}

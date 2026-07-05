@@ -5,7 +5,7 @@ export enum TagTypeDeckLook {
   DeckLookYou = "deck-look-you",
   DeckLookEncounter = "deck-look-encounter",
   DeckLookInvestigator = "deck-look-investigator",
-  DeckLookBottom = "deck-look-bottom",
+  DeckLookBottom = "deck-look-place-bottom",
 }
 
 interface TagDeckLookBase extends TagBase {

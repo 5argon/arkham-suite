@@ -55,7 +55,6 @@ import type {
   TagCancelLoseAction,
   TagCancelLoseResource,
   TagCancelRevelation,
-  TagCancelTreacheryInPlay,
   TagCancelWeaknessDraw,
 } from "./tags/cancel/index.js";
 
@@ -136,6 +135,7 @@ import type {
   TagCostActionDiscardSelf,
   TagCostActionExhaustSelf,
   TagCostActionMultiple,
+  TagCostActionSpendAmmo,
   TagCostActionSpendCharge,
   TagCostActionSpendResource,
   TagCostActionSpendSecret,
@@ -203,6 +203,7 @@ import type {
 import type {
   TagDiscardFromPlaySelf,
   TagDiscardFromPlaySelfNoUses,
+  TagDiscardTreacheryInPlay,
 } from "./tags/discard/index.js";
 
 import type {
@@ -607,7 +608,6 @@ export type Tag =
   | TagCancelLoseAction
   | TagCancelLoseResource
   | TagCancelRevelation
-  | TagCancelTreacheryInPlay
   | TagCancelWeaknessDraw
   // Chaos tags
   | TagChaosBagAddBless
@@ -678,6 +678,7 @@ export type Tag =
   | TagCostActionDiscardSelf
   | TagCostActionExhaustSelf
   | TagCostActionMultiple
+  | TagCostActionSpendAmmo
   | TagCostActionSpendCharge
   | TagCostActionSpendResource
   | TagCostActionSpendSecret
@@ -739,6 +740,7 @@ export type Tag =
   // Discard tags
   | TagDiscardFromPlaySelf
   | TagDiscardFromPlaySelfNoUses
+  | TagDiscardTreacheryInPlay
   // Discard Pile tags
   | TagDiscardPileToBottomDeck
   | TagDiscardPileToDeck

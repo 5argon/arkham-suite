@@ -115,7 +115,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -144,10 +144,10 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 4 },
+      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 4, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 4 },
+      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 4, action: BasicAction.Investigate },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
       { type: TagTypeSoak.SoakHealth, value: 2 },
@@ -162,7 +162,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat"],
     tags: [
-      { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeEnemyEngage.EnemyEngageWithAnother },
@@ -280,11 +279,10 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostAction.CostActionSpendSupply },
       { type: TagTypeUsesStarting.UsesStartingSupply, value: 4 },
-      { type: TagTypeHeal.HealHorrorInvestigator, value: 1 },
+      { type: TagTypeHeal.HealHorrorInvestigator, value: 2 },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 2 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeHeal.HealHorrorInvestigator, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeDeckDiscard.DeckDiscardCardRandom },
     ],
@@ -779,6 +777,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
+      { type: TagTypeEnemyValue.EnemyValueDamage },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
@@ -1033,7 +1032,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeEnemyEngage.EnemyEngageNotWithYou },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -1361,7 +1360,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["agility"],
     tags: [
-      { type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2 },
+      { type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2, action: BasicAction.Parley },
     ],
   },
   {
@@ -1418,7 +1417,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 5, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 2 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -1430,7 +1429,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower"],
     tags: [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
-      { type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 },
+      { type: TagTypeCostReaction.CostReactionSpendClue },
       { type: TagTypeCancel.CancelEncounterDraw },
       { type: TagTypeDeckShuffle.DeckShuffleEncounter },
       { type: TagTypeSoak.SoakHealth, value: 2 },
@@ -1465,7 +1464,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 4 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeDamage.DamagePlus, value: 2 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -1513,7 +1512,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCancel.CancelRevelation },
       { type: TagTypeCostOther.CostHorrorSelf },
       { type: TagTypeCancel.CancelEncounterEffect },
-      { type: TagTypeCancel.CancelEncounterDraw },
     ],
   },
   {

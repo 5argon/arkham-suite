@@ -88,7 +88,7 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeHandSize.HandSizeDependent },
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
+      { type: TagTypeDamage.DamageToInvestigator, value: "dynamic" },
     ],
   },
   {
@@ -339,6 +339,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeTraitSupport.TraitSupportTome },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
     ],
   },
@@ -399,6 +400,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeGainResource.GainResourceYou, value: 3 },
+      { type: TagTypeGainResource.GainResourceYou, value: 4 },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 10 },
       { type: TagTypeHandSize.HandSizeDependent },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },

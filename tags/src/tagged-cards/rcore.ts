@@ -87,7 +87,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationProperty.LocationClueExist },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -153,7 +153,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -240,6 +240,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeTestless.TestlessClue, value: 1 },
     ],
   },
   {
@@ -339,7 +340,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestResult.TestSucceedBy, amount: "dynamic" },
       { type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 5 },
       { type: TagTypeTestResult.TestFailBy, amount: "dynamic" },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -588,7 +589,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
@@ -866,6 +867,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeActionLose.ActionLoseAction },
       { type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
@@ -1391,7 +1393,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 },
       { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
-      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
   {
