@@ -11,14 +11,28 @@ export enum TagTypeDeckDiscard {
 
 interface TagDeckDiscardBase extends TagBase {}
 
+/**
+ * Discard a card of your CHOICE from your HAND (Mists of R'lyeh's symbol penalty).
+ * Despite the deck- prefix (its group folder), this is a HAND discard — milling
+ * the player deck is deck-discard-deck.
+ */
 export interface TagDeckDiscardCardChoose extends TagDeckDiscardBase {
   type: TagTypeDeckDiscard.DeckDiscardCardChoose;
 }
 
+/**
+ * Discard a RANDOM card from your HAND (Obsessive, Liquid Courage's failed test).
+ * Despite the deck- prefix (its group folder), this is a HAND discard — milling
+ * the player deck is deck-discard-deck.
+ */
 export interface TagDeckDiscardCardRandom extends TagDeckDiscardBase {
   type: TagTypeDeckDiscard.DeckDiscardCardRandom;
 }
 
+/**
+ * Discard from the top of the PLAYER deck — mill (Crisis of Identity, Daredevil,
+ * Scroll of Secrets' bottom-card discard).
+ */
 export interface TagDeckDiscardDeck extends TagDeckDiscardBase {
   type: TagTypeDeckDiscard.DeckDiscardDeck;
 }

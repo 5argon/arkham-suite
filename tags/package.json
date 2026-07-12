@@ -7,6 +7,8 @@
     "build-strings": "node ./script/build-strings.ts",
     "export-json": "node ./script/export-json.ts",
     "digest": "node ./script/build-digest.ts",
+    "precedent": "node ./script/find-precedent.ts",
+    "lint-tags": "node ./script/lint-tags.ts",
     "build": "tsc -b && node ./script/export-json.ts",
     "scaffold-untagged": "node ./script/scaffold-untagged.ts"
   },

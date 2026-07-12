@@ -602,6 +602,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["combat", "combat"],
     tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 },
@@ -778,7 +779,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueDamage },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {

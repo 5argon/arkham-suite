@@ -19,6 +19,7 @@ import {
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
+  TagTypeEnemyValue,
   TagTypeGainResource,
   TagTypeLocationMove,
   TagTypeLocationYour,
@@ -254,7 +255,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -275,7 +275,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeEnemyValue.EnemyValueDamage },
     ],
   },
   {
@@ -295,7 +295,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeDeckShuffle.DeckShuffleEncounter },
       { type: TagTypeSkillCommit.SkillCommitWildIcon },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -314,7 +313,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -430,7 +428,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeEnemyValue.EnemyValueDamage },
+      { type: TagTypeEnemyValue.EnemyValueHorror },
     ],
   },
   {
@@ -542,7 +541,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportSpell },
       { type: TagTypeTraitSupport.TraitSupportRelic },
       { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
