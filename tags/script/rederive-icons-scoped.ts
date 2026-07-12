@@ -15,7 +15,7 @@ import { allTaggedCards } from "../dist/tagged-cards/index.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dir = join(here, "..", "src", "tagged-cards");
-const SCOPE = ["tcu"];
+const SCOPE = ["tde"];
 
 const NONSKILL = new Set(["asset", "event"]);
 const byCode = new Map(allTaggedCards.map((c) => [c.code, c]));
@@ -38,12 +38,18 @@ for (const c of allTaggedCards) {
     wild: lvl0 && ns && ic.includes("wild"),
     two: lvl0 && ns && twoSameIcon(ic),
     noic: c.cardType === "event" && ic.length === 0,
+    // double-icon: 2+ of the SAME printed icon, wild counting as its own type
+    // (Unexpected Courage wild×2 qualifies; 1 skill + 1 wild does not)
+    dbl:
+      c.cardType === "skill" &&
+      Math.max(0, ...[...SKILLS, "wild"].map((s) => ic.filter((i) => i === s).length)) >= 2,
   });
 }
 
 const WILD = "SkillCommitWildIcon";
 const TWO = "SkillCommitTwoEffectiveIcons";
 const NOIC = "SkillCommitNoIcons";
+const DBL = "SkillCommitDoubleIcon";
 const expr = (m) => `      { type: TagTypeSkillCommit.${m} },`;
 
 let added = 0,
@@ -63,9 +69,10 @@ for (const pack of SCOPE) {
     out.push(line);
     if (/^    tags: \[/.test(line) && code) {
       const c = byCode.get(code);
-      if (w.wild && !has(c, "nonskill-lv0-wild-icon")) { out.push(expr(WILD)); added++; }
-      if (w.two && !has(c, "nonskill-lv0-two-effective-icons")) { out.push(expr(TWO)); added++; }
-      if (w.noic && !has(c, "no-commit-icons")) { out.push(expr(NOIC)); added++; }
+      if (w.wild && !has(c, "skill-commit-nonskill-lv0-wild-icon")) { out.push(expr(WILD)); added++; }
+      if (w.two && !has(c, "skill-commit-nonskill-lv0-two-effective-icons")) { out.push(expr(TWO)); added++; }
+      if (w.noic && !has(c, "skill-commit-no-commit-icons")) { out.push(expr(NOIC)); added++; }
+      if (w.dbl && !has(c, "skill-commit-skill-double-icon")) { out.push(expr(DBL)); added++; }
     }
   }
   await writeFile(path, out.join("\n"));

@@ -211,6 +211,12 @@ for (const c of corpus) {
     report("ERROR", "stat-derived", c, `skill-commit-nonskill-lv0-two-effective-icons ${wantTwo ? "missing" : "present but rule says no"} (level=${c.level}, type=${c.cardType}, icons=${icons.join("/") || "none"})`);
   if (c.cardType === "event" && icons.length === 0 && !has(c, typeEq("skill-commit-no-commit-icons")))
     report("ERROR", "stat-derived", c, "event with zero icons missing skill-commit-no-commit-icons");
+  // double-icon: 2+ of the SAME printed icon on a skill card, wild counting as its own type
+  const wantDbl =
+    c.cardType === "skill" &&
+    Math.max(0, ...["willpower", "intellect", "combat", "agility", "wild"].map((s) => icons.filter((i) => i === s).length)) >= 2;
+  if (has(c, typeEq("skill-commit-skill-double-icon")) !== wantDbl)
+    report("ERROR", "stat-derived", c, `skill-commit-skill-double-icon ${wantDbl ? "missing" : "present but rule says no"} (icons=${icons.join("/") || "none"})`);
 }
 
 // ---------- twin divergence (corpus-wide; the level-variant drift class) ----------
@@ -224,8 +230,18 @@ for (const [name, group] of byName) {
     continue;
   }
   // identical text ⇒ tags must match exactly (ERROR, per same-text subgroup); different
-  // text (level variants) ⇒ report drift as INFO (may be a legit level difference)
-  const tagSet = (c: Card) => new Set(c.tags.map((t) => JSON.stringify(t, Object.keys(t).sort())));
+  // text (level variants) ⇒ report drift as INFO (may be a legit level difference).
+  // Stat-derived tags are excluded from the same-text comparison: they depend on
+  // level/icons, which same-text cards can still differ on (Extensive Research L0 vs L1);
+  // the dedicated stat-derived check validates them against metadata exactly.
+  const STAT_DERIVED = new Set([
+    "skill-commit-nonskill-lv0-wild-icon",
+    "skill-commit-nonskill-lv0-two-effective-icons",
+    "skill-commit-no-commit-icons",
+    "skill-commit-skill-double-icon",
+  ]);
+  const tagSet = (c: Card) =>
+    new Set(c.tags.filter((t) => !STAT_DERIVED.has(t.type)).map((t) => JSON.stringify(t, Object.keys(t).sort())));
   const setsDiffer = (cards: Card[]) => {
     const base = tagSet(cards[0]);
     return cards.some((c) => {

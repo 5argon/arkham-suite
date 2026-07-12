@@ -31,6 +31,9 @@
   { "rule": "both-values", "key": "60325", "note": "Manual Dexterity — draw 1-or-2-instead replacement" },
   { "rule": "chaos-downside", "key": "60403", "note": "Dark Future — WEAKNESS; the end-of-turn reveal's elder-sign DISCARDS the weakness (beneficial), no downside effect to tag" },
   { "rule": "chaos-downside", "key": "60404", "note": "Nihilism — WEAKNESS; forced damage/horror on autofail is not a voluntary gamble downside (mirrors the self-harm ruling)" },
+  { "rule": "margin-rider", "key": "06200", "note": "Burglary(2) — 'gain 2, +1 per point succeeded by': success condition is genuine (base 2), margin feeds the dynamic bonus (All In shape)" },
+  { "rule": "both-values", "key": "06201", "note": "Spectral Razor — '+1 damage (+2 instead if non-Elite)': literal instead-replacement" },
+  { "rule": "both-values", "key": "06281", "note": "Delilah O'Rourke — '1 damage (2 instead if exhausted)': literal instead-replacement" },
   { "rule": "manual-reveal-st3", "key": "04199", "note": "Premonition — pre-seals a token and SUBSTITUTES it into real reveal windows (incl. in-test ST.3); the st3 interaction is genuine" },
   { "rule": "manual-reveal-st3", "key": "60403", "note": "Dark Future — 'cannot cancel or ignore tokens' modifies in-test ST.3 resolution; st3 kept for that clause" }
 ]
