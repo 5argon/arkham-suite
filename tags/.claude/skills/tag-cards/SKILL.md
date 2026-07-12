@@ -27,6 +27,31 @@ definition.** Do not do this.
    actively misleading. If a tag *looks* like it fits, open its definition and confirm the mechanic
    matches. When a tag's definition doesn't fit any effect on the card, the tag is wrong — omit it.
 
+The digest carries three defenses against this failure mode — use all three:
+- **MEMBER lines** under every tag: the confirmed cards that carry it, with the text that earned it.
+- **RULING lines**: binding convention rulings from past reviews (also editable in
+  `reference/rulings.json`, keyed by tag id — see "Rulings file" below).
+- **NOT A MEMBER lines**: adjudicated anti-examples with the tag to use instead.
+
+## ⚠️ The second cardinal rule — cite a precedent, or flag it
+
+For **every tag you apply**, you must be able to point at one existing member card whose text
+earned the tag the same way (the digest's MEMBER lines, or
+`node script/find-precedent.ts <code | text…>` which prints the most similar confirmed cards with
+their tags, plus all same-named level variants). If **no precedent exists**, do not get creative:
+either the tag's definition unambiguously fits (a genuine first member — note it as such), or the
+effect goes on the **noFit list** for the user to adjudicate. New packs may only *extend* existing
+patterns; they never silently invent them. The noFit list is where genuinely-new mechanics (and
+proposals for new tags) belong.
+
+## Calibrate before tagging a new pack
+
+Before touching the new pack, blind-tag ~15 randomly sampled cards from the CONFIRMED corpus
+(pick codes from `json/export/cards.json`, hide their tags, tag from text alone) and diff your
+answers against the truth. Every miss is a convention you were about to misapply across the whole
+pack — re-read that tag's digest entry and rulings before proceeding. Report the calibration result
+to the user first.
+
 Real examples that were mistagged by word-matching (all fixed — learn the shape, don't repeat it):
 
 | Card text | Wrong (word-matched) | Right (by definition) |
@@ -78,12 +103,16 @@ Scaffolding also writes an untagged `src/tagged-cards/<pack>.ts` and registers `
 
 ## Procedure
 
+0. **Calibrate** (see above) — blind-tag a confirmed sample, diff, report.
 1. **Read the taxonomy digest** `reference/_taxonomy-digest.md` in full. It is large; rely on it
-   for the exact enum references, each tag's doc comment (the *meaning*), and its argument shape.
-   Run `yarn digest` first if it looks stale.
+   for the exact enum references, each tag's doc comment (the *meaning*), its argument shape, its
+   confirmed MEMBERS, and its RULING / NOT-A-MEMBER lines. Run `yarn build && yarn digest` first
+   if it looks stale (members come from the built corpus).
 2. **Read the worklist** `json/untagged/<pack>.json`.
-3. For **every** card, read its text, then fill its `tags` array with **TS object-literal
-   expression strings** using the EXACT enum references from the digest. Examples:
+3. For **every** card: read its text, run `node script/find-precedent.ts <code>` (same-named
+   variants + most similar confirmed cards with their tags), then fill its `tags` array with
+   **TS object-literal expression strings** using the EXACT enum references from the digest —
+   citing a precedent (or noFit-flagging) per the second cardinal rule. Examples:
    - `"{ type: TagTypeActionBold.ActionBoldFight }"`
    - `"{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }"`
    - `"{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }"`
@@ -94,8 +123,15 @@ Scaffolding also writes an untagged `src/tagged-cards/<pack>.ts` and registers `
    ```
 5. **Validate**: `yarn build` (`tsc -b`). Fix every error — a malformed discriminant or a missing/
    wrong argument means the expression doesn't match the digest. Re-assemble and rebuild until green.
-6. **Export and verify against the JSON** — see "Verify against the JSON export" below. This is not
-   optional; it's the only way to see compound memberships.
+6. **Lint**: `yarn lint-tags` (optionally `--pack <pack>`) — deterministic checks encoding every
+   past fix-class (duplicate tags, ammo-vs-charge, replenish caps, margin riders, stat-derived
+   icon tags, same-text twin drift, …) plus the **compound ratchet** (which cards joined/left each
+   archetype vs `reference/compound-membership.json`). Adjudicate every ERROR/WARN: fix the card,
+   or — only when genuinely legit — add an entry with a `note` to `reference/lint-allow.json`.
+   When the compound joins/leaves are all confirmed, re-run `node script/lint-tags.ts --snapshot`.
+7. **Tag-major review**: for each tag the new pack uses, re-read its full member list in the
+   fresh digest (`yarn digest`) — old and new members side by side is where convention drift
+   shows. Then verify against the JSON export (below).
 
 ## What a tag IS — and what it ISN'T
 
@@ -222,14 +258,27 @@ Cheap high-value checks (write a tiny node script over the JSON):
   player-facing effects; don't tag a boring weakness just because it has a cost (e.g. skip
   `cost-action-multiple` on uninteresting weaknesses).
 
+## Rulings file — where adjudicated judgment lives
+
+`reference/rulings.json` is the durable, by-tag home of every convention ruling and anti-example
+(migrated from the old session-memory ledger). The digest builder inlines each entry under its tag
+and **validates every key** (exact tag id, a `prefix-*` key, or `_general`), so a stale key after a
+rename fails the digest build. **Whenever the user makes a new ruling during review — or you
+establish one — append it here immediately**, then `yarn digest`. Cross-check
+`reference/lint-allow.json` too: if a ruling makes a lint warn class conditionally legit, the
+allowlist entry's `note` should say why.
+
 ## Notes
 
 - The taxonomy lives in `src/tags/**` + `src/compound-tags/compound-tags.ts`; the digest is generated
-  from them (`yarn digest`). This skill *points at* that taxonomy — it does not duplicate it. If you
-  add a new tag file/folder, add its `index.ts` barrel and re-run `yarn sync-unions`, then
-  `yarn build && node script/seed-strings.ts && yarn build-strings`.
+  from them + the built corpus + `reference/rulings.json` (`yarn digest`). This skill *points at*
+  that taxonomy — it does not duplicate it. If you add a new tag file/folder, add its `index.ts`
+  barrel and re-run `yarn sync-unions`, then `yarn build && node script/seed-strings.ts &&
+  yarn build-strings`.
 - Cards are tagged with **base tags only**; compound archetypes are derived, so you never tag a
-  compound directly.
+  compound directly. The digest's tail lists every compound's EVALUATED member roster; the lint
+  ratchet reports joins/leaves.
 - For a large pack, tagging in chunks is fine; the assembler accepts the whole worklist at once.
-- The running ledger of every convention ruling and taxonomy change is the project memory
-  `project_rcore_review_fix_ledger`; consult it when a tagging call feels ambiguous.
+- Tooling quick reference: `yarn digest` (regenerate the digest), `yarn precedent <code|text>`
+  (find precedent), `yarn lint-tags [--pack <p>] [--snapshot]` (fix-class checks + compound
+  ratchet), `yarn build` (typecheck + JSON export).

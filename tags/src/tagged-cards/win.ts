@@ -150,7 +150,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower"],
     tags: [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
@@ -418,7 +417,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "willpower"],
     tags: [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: "dynamic" } },

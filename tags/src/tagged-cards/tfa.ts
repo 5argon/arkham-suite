@@ -810,7 +810,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower"],
     tags: [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
@@ -870,7 +869,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Intellect, action: BasicAction.Evade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeEnemyDebuff.EnemyDoesNotReady },

@@ -680,7 +680,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect"],
     tags: [
-      { type: TagTypeActionAdditional.ActionAdditional, value: 1, target: "self" },
+      { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
     ],

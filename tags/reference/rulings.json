@@ -1,0 +1,363 @@
+{
+  "_comment": [
+    "Per-tag convention RULINGS + anti-examples (notMembers), migrated from the tagging review ledger.",
+    "This file is the durable, by-tag home of every adjudicated call — the digest builder inlines each",
+    "entry under its tag so taggers see the ruling at the moment they read the definition.",
+    "Keys: exact tag id, or a prefix key ending in '*' (applies to every tag id starting with the prefix),",
+    "or '_general' (rendered at the top of the digest). build-digest.ts validates every key resolves.",
+    "Shape: { rulings: string[], notMembers: [{ card, reason, instead? }] } — 'instead' is the tag that",
+    "DOES apply (omit when the answer is 'nothing')."
+  ],
+  "_general": {
+    "rulings": [
+      "TimingQualifier conventions: 'at the end of <phase/round/turn>' forced triggers → AtIf; 'when your turn begins' → When; 'would reveal/would advance' pre-windows → Before.",
+      "Level variants of the same card may LEGITIMATELY diverge — the higher-level card is intentionally better (Survival Instinct 01581 'disengage' vs 02235 'evade' is a real design difference, ruled 2026-07-03). Never force different-level variants to match; but DO check same-name twins for accidental divergence (values, missing halves) — that was a large bug class.",
+      "Self-harm (cost-*-damage/horror-self) is only for VOLUNTARY player-ability cards (asset/event). Treacheries/weaknesses that force horror/damage on you (Doomed, Shell Shock, Nihilism) are NOT self-harm — a 'treachery hurts you' concept has intentionally no tag yet.",
+      "A card playing itself from hand on a special trigger (Cryptic Writings) is play-from-hand, NOT recursion — recursion tags need a non-hand zone.",
+      "Discovery vs investigation payoff: timing-after-discover-clue fires on clue DISCOVERY including testless; timing-after-successfully-investigate requires a successful investigate TEST by someone."
+    ]
+  },
+  "uses-replenish": {
+    "rulings": [
+      "REQUIRES an explicit cap: either 'Replenish … at the start of each round' (Physical Training / Arcane Studies style) or a printed 'Limit N' line (Ornate Bow 04204). A weapon that merely places a use back on itself with NO written cap is uses-self-place, not replenish."
+    ],
+    "notMembers": [
+      { "card": ".18 Derringer (60505/60522)", "reason": "self-refund on a miss, no written cap", "instead": "uses-self-place" },
+      { "card": "Chainsaw (60529)", "reason": "self-refund on a miss, no written cap", "instead": "uses-self-place" }
+    ]
+  },
+  "uses-self-place": {
+    "rulings": [
+      "The card places a use-token on ITSELF (.18 Derringer, Chainsaw, Ornate Bow). Distinct from uses-support (places on OTHER cards) and uses-replenish (capped auto/triggered refill). An 'on fail' condition is carried by the card's skill-test-condition-fail, not by this tag."
+    ]
+  },
+  "uses-support-*": {
+    "rulings": [
+      "Place/move use-tokens onto OTHER cards (Extra Ammunition). A weakness DRAINING another card's uses is not support; a card placing tokens on itself is uses-self-place."
+    ],
+    "notMembers": [
+      { "card": "Angered Spirits (03015)", "reason": "weakness draining charges is not support" }
+    ]
+  },
+  "uses-starting-*": {
+    "rulings": [
+      "Printed starting pool ('Uses (X …)') only. Investigators have no printed use pool — never tag one from an ability that merely interacts with charges.",
+      "Newer kinds exist: try / key / lock; optional perInvestigator flag for 'X per investigator' pools."
+    ],
+    "notMembers": [
+      { "card": "Akachi Onyele (03004)", "reason": "investigator; no printed Uses pool" }
+    ]
+  },
+  "uses-accumulate": {
+    "rulings": [
+      "Grow a counter on the card from empty. Card-local tokens are NOT your resource pool — this tag was dropped from the Big Money compound for exactly that confusion."
+    ]
+  },
+  "stats-mod-pump-*": {
+    "rulings": [
+      "A REPEATABLE spend-resource boost (Streetwise, Higher Education, Dig Deep) = stats-mod-pump-resource PLUS the boost tag with value:\"dynamic\". valuePerPump = the boost of ONE activation (Fire Axe 1res→+2 ⇒ 2; Streetwise 2res→+3 ⇒ 3).",
+      "EXHAUST-gated boosts are NOT repeatable — no pump tag; keep the flat boost value (High Roller 04156 stays value:2)."
+    ]
+  },
+  "stats-mod-boost-in-test-*": {
+    "rulings": [
+      "Additive base + conditional bonus with EQUAL increments ('+1; +1 more if …' / 'spend a charge to empower') = ONE tag at the CEILING value plus the condition/cost tags — never two identical tags (Enchanted Blade 05118 = value:2).",
+      "'N, or M instead if …' REPLACEMENT = two tags with the DIFFERENT values (value:1 AND value:2 — Deduction, Fearless, Vicious Blow shape)."
+    ]
+  },
+  "stats-mod-boost-passive-*": {
+    "rulings": [
+      "Passive = genuinely always-on while in play. A boost that EXPIRES (asset discards at end of round, 'until end of turn') is lasting/duration, not passive (Intrepid was mistagged passive)."
+    ]
+  },
+  "stats-mod-set-base": {
+    "rulings": [
+      "Use the optional action arg to discriminate multiple base-set abilities on one card (Duke: combat-4 for Fight vs intellect-4 for Investigate must differ by action, not be two identical tags)."
+    ]
+  },
+  "timing-when-defeat-enemy": {
+    "rulings": [
+      "A PERSISTENT 'when/after you defeat an enemy' window only. A rider on the card's OWN attack ('Fight. If this attack defeats…') does NOT get this tag — the card's own success is skill-test-condition-successful territory (Meat Cleaver, Timeworn Brand, Coup de Grâce, Enchanted Blade(3), Detective's Colt 05009 all stripped)."
+    ]
+  },
+  "timing-after-successfully-investigate": {
+    "rulings": [
+      "PERSISTENT reaction firing after ANY investigation (Dr. Milan Christopher, Scavenging, Vault of Knowledge). A card's own 'Investigate. If you succeed, …' uses skill-test-condition-successful, NOT this tag (Deduction, Pilfer, Winging It, Seeking Answers, Clairvoyance were all de-tagged)."
+    ]
+  },
+  "timing-after-discover-clue": {
+    "rulings": [
+      "Fires on clue DISCOVERY including testless discovery (Alice Luxley 05151, Hawk-Eye Camera 05154) — broader than timing-after-successfully-investigate."
+    ]
+  },
+  "timing-after-heal-horror": {
+    "rulings": [
+      "The heal-payoff archetype window (Carolyn Fern 05001, Hypnotic Therapy 05007)."
+    ]
+  },
+  "timing-after-play-card-of-trait": {
+    "rulings": [
+      "trait is OPTIONAL; optional cardType (\"event\"|\"asset\"|\"skill\") covers 'after you play an event' (Wendy's Amulet 01514 {cardType:\"event\"}, Double Double 05320)."
+    ]
+  },
+  "timing-when-take-damage": {
+    "rulings": [
+      "A timing WINDOW is neutral — never bake 'forced' into it just because one member responds with a Forced ability (Sophie). How the card responds (Fast event / [reaction] / Forced) is a separate axis."
+    ]
+  },
+  "skill-value-*": {
+    "rulings": [
+      "Margin-only riders ('succeed by N or more', 'fail by N or less') get skill-value-* ONLY — never skill-test-condition-successful/fail alongside. The margin already implies the result."
+    ]
+  },
+  "skill-test-condition-*": {
+    "rulings": [
+      "Skill cards do not use timing tags; their 'if this test succeeds/fails' effects use these tags.",
+      "Conditional-upgrade values tag BOTH numbers: 'draw 1 (2 instead if you succeed by 2+)' → deck-draw-you value:1 AND value:2 (Perception 60228, Guts 60424, Overpower 60126, Manual Dexterity 60325 all fixed to match Deduction/Fearless/Vicious Blow)."
+    ]
+  },
+  "tank-redirect-damage-horror": {
+    "rulings": [
+      "Composure-style SELF-soak routing text ('…before it can be assigned to your investigator', card soaks its controller's damage) is NOT tanking — tank tags mean protecting OTHERS (removed from 03107/03109/03111/03115/05236)."
+    ]
+  },
+  "trait-support-*": {
+    "rulings": [
+      "Only when the card MECHANICALLY supports trait X: boosts/refills/cares about OTHER cards of that trait. Merely HAVING the trait is not support.",
+      "A trait-restricted extra slot does NOT also get trait-support-X — the AdditionalSlot compound already arg-matches the slot (Bandolier, Arcane Enlightenment stripped)."
+    ]
+  },
+  "enemy-trait-restriction": {
+    "rulings": [
+      "REQUIRES a real printed trait (Monster, Humanoid, …). 'Weakness' and 'Elite' are card classifications, NOT traits: non-weakness → enemy-nonweakness; Elite conditions → enemy-elite-* tags. Never emit this tag with no trait arg."
+    ]
+  },
+  "enemy-nonweakness": {
+    "rulings": [
+      "'non-weakness enemy' conditions (Close Call 01583, Persuasion 04105)."
+    ]
+  },
+  "enemy-elite-noneliteonly": {
+    "rulings": [
+      "The Monster Slayer shape: effect only works 'against a NON-Elite enemy'. Do not confuse with enemy-elite-reducedeffect (the Persuasion 'if Elite, <lesser effect> instead' shape) — Tennessee Sour Mash 05191 had wrongly copied Persuasion's pair."
+    ]
+  },
+  "enemy-engage-effect": {
+    "rulings": [
+      "The card CAUSES engagement as an effect (Taunt, 'Get over here!', Heroic Rescue, On the Hunt — the 9 force-engagers). NOT for conditions on an already-engaged enemy, and NOT the basic [Engage] action."
+    ],
+    "notMembers": [
+      { "card": "Blackjack (02016)", "reason": "conditions on an enemy engaged with ANOTHER investigator; causes no engagement", "instead": "enemy-engage-with-another" }
+    ]
+  },
+  "enemy-engage-with-you": {
+    "rulings": [
+      "FORCE an enemy to engage you, only (Taunt, Heroic Rescue, On the Hunt). Targeting/conditions on an enemy ALREADY engaged with you → enemy-engage-target-engaged (the 2026-07-03 split)."
+    ]
+  },
+  "enemy-engage-target-engaged": {
+    "rulings": [
+      "Targets or conditions on an enemy engaged with you (Oops! 02113/60518, Fire Extinguisher 02114, Flamethrower 04305, Mano a Mano, Necronomicon 60233, Trench Knife)."
+    ]
+  },
+  "location-connecting-*": {
+    "rulings": [
+      "An investigator/enemy located AT a connecting location — a targeting SCOPE only (Jim's Trumpet; 'Get over here!', Telescopic Sight, Decoy, Marksmanship). MOVING TO a connecting location is a normal location-move-* effect, never this tag (Shortcut, Pathfinder, Think on Your Feet were all stripped)."
+    ]
+  },
+  "clue-place-your-location": {
+    "rulings": [
+      "BENEFICIAL placement from the token bank onto a location. Placing one of your OWN clues as a reaction COST is cost-reaction-spend-clue — Dr. Maleson 02302 is the canonical (and once-reversed) case; final ruling: Maleson = cost-reaction-spend-clue."
+    ]
+  },
+  "cost-reaction-spend-clue": {
+    "rulings": [
+      "Includes 'place 1 of your clues on your location' as a reaction cost (Dr. William T. Maleson 02302) — you lose the clue; where it goes doesn't change that it's a cost."
+    ]
+  },
+  "cancel-encounter-draw": {
+    "rulings": [
+      "Cancels the DRAWING of an encounter card itself (Dr. Maleson). Cancelling a drawn card's EFFECTS → cancel-encounter-effect (Ward of Protection 02307, Dark Insight 05014). REPLACING the draw with something else ('Instead, search…' — On the Hunt 03263) is not a cancel at all. Discarding an in-play treachery → discard-treachery-in-play."
+    ]
+  },
+  "deck-look-place-bottom": {
+    "rulings": [
+      "Means 'MOVE a looked-at card to the bottom of the deck' (Alyssa Graham, Scroll of Secrets) — it never meant 'look at the bottom'. Renamed from deck-look-bottom for exactly this trap."
+    ]
+  },
+  "cost-action-spend-charge": {
+    "rulings": [
+      "Charges (spells/charged relics) ONLY since the 2026-07-03 split. A firearm spending AMMO is cost-action-spend-ammo — 28 guns were once embarrassingly tagged as spending charges. Match the printed use-token type: ammo/charge/supply/secret/resource are all distinct tags."
+    ]
+  },
+  "deck-draw-*": {
+    "rulings": [
+      "In-game card draw only. Opening-hand manipulation (Sefina's 13-card reveal) is NOT draw.",
+      "Conditional-upgrade draw ('draw 1, or 2 instead') → both values (see skill-test-condition rulings)."
+    ],
+    "notMembers": [
+      { "card": "Sefina Rousseau (03003)", "reason": "opening-hand setup, not in-game draw" },
+      { "card": "Scroll of Secrets (05189)", "reason": "looks at + takes specific cards — a search, not a draw", "instead": "deck-search-you" }
+    ]
+  },
+  "deck-discard-card-*": {
+    "rulings": [
+      "NAME TRAP: despite the deck- prefix (the group folder), deck-discard-card-choose/-random mean discarding from your HAND (choose vs random — Mists of R'lyeh / Obsessive, Liquid Courage). Milling the player deck is deck-discard-deck. (An earlier ruling here had this backwards and cost a calibration miss — corrected 2026-07-13.)"
+    ]
+  },
+  "deck-search-*": {
+    "rulings": [
+      "Searching your DECK (or discard, via deck-search-discard). Searching the COLLECTION/outside the game is not a deck search (Dark Pact fetching its Price is collection-search — untagged)."
+    ]
+  },
+  "deck-bonded": {
+    "rulings": [
+      "The bonded card itself lives outside the deck and returns there (Soothing Melody 05314, Blood-Rite 05317). The OWNER side that fetches bonded cards = deck-search-bonded. The Dream-Eaters will have many of these."
+    ]
+  },
+  "soak-*": {
+    "rulings": [
+      "STAT-DERIVED: printed health ≥ 2 → soak-health value:<health>; sanity ≥ 2 → soak-sanity value:<sanity>.",
+      "'Deal/place X damage/horror to IT/THIS/HER' (onto the asset itself) is SOAK routing, NOT a self-harm cost — never double-tag with cost-*-damage/horror-self (Aquinnah 01582/01691, Grete Wagner 60107/60128, Beat Cop(2) 01528)."
+    ]
+  },
+  "chaos-downside-*": {
+    "rulings": [
+      "Needs a CONCRETE loss on a bad symbol (lose actions, take horror, break the card, lose resources). A 'nothing happens' gamble (Henry Wan) stays out — chaos-reveal-manual already covers the reveal mechanic.",
+      "chaos-downside-action value is OPTIONAL ('lose all remaining actions' = no value). chaos-downside-discard covers self-break, hand-discard, and controlled-asset-discard shapes.",
+      "Manual-reveal gambles WITH a real loss (Astral Travel, Recharge) DO carry their downside tag.",
+      "Heuristics beat agents here: an agent sweep once found ZERO of these; a word-heuristic found 8. Trust the lint flag."
+    ]
+  },
+  "chaos-reveal-manual": {
+    "rulings": [
+      "Reveal-and-hope gambles (Hypnotic Gaze, Astral Travel, Recharge, Voice of Ra). This is NOT token control — it was dropped from the Chaos Token Control compound.",
+      "A manual reveal is NOT a skill-test step: do not pair with timing-skill-st3-reveal-chaos-token unless the card ALSO interacts with in-test reveals (Premonition substitutes into real reveal windows and keeps it; the pure gambles were stripped 2026-07-13)."
+    ]
+  },
+  "timing-skill-st3-reveal-chaos-token": {
+    "rulings": [
+      "ST.3 of a SKILL TEST ('the investigator performing the skill test reveals one chaos token'). A card that manually reveals tokens outside a test (chaos-reveal-manual gambles) does NOT get this timing tag (ruled 2026-07-13; 7 cards stripped)."
+    ]
+  },
+  "chaos-symbol-payoff": {
+    "rulings": [
+      "BONUS on revealing a symbol token (Song of the Dead) — the positive counterpart of chaos-downside; Shrivelling/Blinding Light-style penalties are chaos-downside instead."
+    ]
+  },
+  "skill-commit-nonskill-lv0-two-effective-icons": {
+    "rulings": [
+      "STAT-DERIVED: cardType ∈ {asset,event} AND level === 0 AND max(count of ONE skill's icons) + wild ≥ 2. Two DIFFERENT icons (willpower+combat) do NOT qualify (Taunt, Physical Training were over-tagged by the old icons.length rule). Use rederive-icons-scoped.ts — derive-stat-tags-all.ts still has the old buggy rules."
+    ]
+  },
+  "skill-commit-nonskill-lv0-wild-icon": {
+    "rulings": [
+      "STAT-DERIVED: cardType ∈ {asset,event} AND level === 0 EXACTLY AND icons include wild. A card with UNDEFINED level (Search for the Truth) is NOT level 0."
+    ]
+  },
+  "commit-benefits-performer": {
+    "rulings": [
+      "Non-move effects that benefit the PERFORMING investigator, who may be another player (Eureka!, Take Heart) → rolls into Support. Moves of the performer are location-move-investigator-performer instead."
+    ]
+  },
+  "attach-asset": {
+    "rulings": [
+      "The card ATTACHES to something. HOSTING attachments is not attaching — Dayana Esperence receives Spells but attaches nothing (removed; no 'receives-attachment' tag exists, deliberately)."
+    ]
+  },
+  "recursion-*": {
+    "rulings": [
+      "Recursion = playing/retrieving from a non-hand zone (discard, deck, exile). A card played normally from HAND — even on a special trigger like 'when you draw it' (Cryptic Writings) — is not recursion."
+    ]
+  },
+  "testless-clue": {
+    "rulings": [
+      "PAIRS WITH clue-discover-* when the discovery is test-free — the discover tag says where, testless-clue says how. Don't drop one for the other."
+    ]
+  },
+  "testless-damage-*": {
+    "rulings": [
+      "attacking-enemy vs engaged-enemy: when the card responds to an ATTACK and damages that attacker, it is testless-damage-attacking-enemy even if the card also engages the enemy first (Heroic Rescue 03106 — 'resolve its attack against you instead. Then, deal it 1 damage'; also Hypnotic Gaze). engaged-enemy is for damaging an enemy engaged with you OUTSIDE an attack context (Taunt(3) 60130)."
+    ]
+  },
+  "cost-reaction-exhaust-self": {
+    "rulings": [
+      "Includes a DEFERRED/CONDITIONAL self-exhaust written inside the [reaction] effect, not only exhaust-before-the-colon: Recall the Future 04158 exhausts only if its named token is revealed, and still carries this cost tag — the exhaust gates the ability either way."
+    ]
+  },
+  "timing-skill-st8-test-ends": {
+    "rulings": [
+      "'After this test ends' riders get this window with timing:after — even on a SKILL card (Prescient 60419). The 'skill cards use skill-test-condition-*, not timing tags' convention covers success/fail conditions only; an explicit step-boundary reference like 'after this test ends' is still this timing tag."
+    ]
+  },
+  "location-your-*": {
+    "rulings": [
+      "A pure targeting SCOPE, beneficial or harmful: Dark Pact 04038 'deal 2 damage to an investigator at your location' carries location-your-investigator despite being a weakness's self-inflicted harm. Don't drop scope tags because the effect is negative."
+    ]
+  },
+  "buff-cannot-attack-you": {
+    "rulings": [
+      "'Enemies cannot attack YOU' is a BUFF on you, not an enemy debuff (same for buff-cannot-engage-you — moved out of the enemy group for this reason)."
+    ]
+  },
+  "buff-investigator-health": {
+    "rulings": [
+      "Investigator counterpart of buff-asset-* (Five of Pentacles 05039, Hawk-Eye Camera 05154 sanity)."
+    ]
+  },
+  "test-difficulty-reduce": {
+    "rulings": [
+      "Optional action arg scopes the reduction (Fine Clothes = {action:\"parley\"})."
+    ]
+  },
+  "deck-restriction": {
+    "rulings": [
+      "Signature '<Investigator> deck only.' cards — 23 were once missing it; the scaffold/lint should catch the 'deck only' line."
+    ]
+  },
+  "defeat-self": {
+    "rulings": [
+      "The card defeats YOUR OWN investigator as an effect/cost ('I'll see you in hell!', Ghastly Revelation)."
+    ]
+  },
+  "limit-in-play": {
+    "rulings": [
+      "'Limit 1 <trait/copy> in play' style restrictions, with trait/count/per args (the 5 Composure cards)."
+    ]
+  },
+  "control-your-card": {
+    "rulings": [
+      "Targets an asset/investigator YOU CONTROL as scope (Moonlight Ritual)."
+    ]
+  },
+  "phase-skip": {
+    "rulings": [
+      "Phase-manipulation EFFECTS (skip/repeat a phase) — Gold Pocket Watch. Future members: Deliverance, Ultimate Sacrifice. Distinct from timing-phase-* which are timing POINTS."
+    ]
+  },
+  "campaign-deck-swap-between-games": {
+    "rulings": [
+      "Between-scenario deckbuilding swaps (Adaptable). Future members: Arcane Research, Down the Rabbit Hole."
+    ]
+  },
+  "enemy-value-health-reduction": {
+    "rulings": [
+      "Reduces an enemy's printed health (Wither(4) 05321)."
+    ]
+  },
+  "gain-resource-*": {
+    "rulings": [
+      "Variable amounts use value:\"dynamic\" (the old dynamic?:boolean flag is retired). Conditional-upgrade gains tag both values (Cryptic Writings 3 AND 4)."
+    ]
+  },
+  "cost-action-multiple": {
+    "rulings": [
+      "Skip on boring weaknesses — investigators and basic/story weaknesses get few or no tags; only genuine player-facing effects."
+    ]
+  },
+  "condition-resource": {
+    "rulings": [
+      "Compound note: Big Money membership is where-filtered to {comparison:\"min\"} — a 'max 0' (empty pool) condition is the OPPOSITE of big (Madame Labranche lesson; same for condition-hand-size / Big Hand)."
+    ]
+  }
+}

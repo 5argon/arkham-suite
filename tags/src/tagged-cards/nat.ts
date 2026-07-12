@@ -377,6 +377,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
+      { type: TagTypeTestless.TestlessClue, value: 2 },
     ],
   },
   {
