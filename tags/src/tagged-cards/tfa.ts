@@ -398,6 +398,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "skill",
     icons: ["wild", "wild", "wild"],
     tags: [
+      { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
+      { type: TagTypeTestMisc.TestYouPerform },
     ],
   },
   {
