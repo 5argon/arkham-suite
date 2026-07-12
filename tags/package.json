@@ -7,7 +7,7 @@
     "build-strings": "node ./script/build-strings.ts",
     "export-json": "node ./script/export-json.ts",
     "digest": "node ./script/build-digest.ts",
-    "build": "tsc -b",
+    "build": "tsc -b && node ./script/export-json.ts",
     "scaffold-untagged": "node ./script/scaffold-untagged.ts"
   },
   "main": "dist/index.js",
