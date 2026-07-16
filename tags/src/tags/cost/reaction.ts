@@ -43,6 +43,12 @@ export interface TagCostReactionSpendCharge extends TagCostReactionBase {
 
 export interface TagCostReactionSpendResource extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionSpendResource;
+  /**
+   * Where the spent resources live: your POOL (omit — the default: Zoey's Cross,
+   * Lucky Dice) or resource-USES on the card itself ("card" — Gregory Gry's
+   * Uses (9 resources)). "either" for pool-or-card costs.
+   */
+  source?: "card" | "either";
 }
 
 /** Spend/place one of your OWN clues (pay with progress) as a reaction cost. Distinct from clue-place (a beneficial placement). */

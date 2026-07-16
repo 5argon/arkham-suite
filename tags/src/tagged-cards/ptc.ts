@@ -1455,7 +1455,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "combat", "agility"],
     tags: [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
       { type: TagTypeDiscardPile.DiscardPileToHand },
     ],
   },
@@ -1553,7 +1552,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "intellect"],
     tags: [
-      { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
       { type: TagTypePlayArea.PlayAreaFromInvestigator },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard },
       { type: TagTypeTraitSupport.TraitSupportAlly },

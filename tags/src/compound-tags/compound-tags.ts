@@ -47,6 +47,11 @@ import { TagTypeEncounter } from "../tags/encounter/main.js";
 import { TagTypeCommit } from "../tags/commit/main.js";
 import { TagTypeTraitSupport } from "../tags/trait/support.js";
 import { TagTypeSlotAdditional } from "../tags/slot/additional.js";
+import { TagTypeSlotConvert } from "../tags/slot/convert.js";
+import { TagTypeSlotIgnore } from "../tags/slot/ignore.js";
+import { TagTypeSlotShare } from "../tags/slot/share.js";
+import { TagTypeVictory } from "../tags/victory/main.js";
+import { TagTypeLocationConnecting } from "../tags/location/connecting.js";
 import { TagTypeStatsModBoostPassive } from "../tags/stats-mod/boost-passive.js";
 import { TagTypeStatsModUseInstead } from "../tags/stats-mod/use-instead.js";
 import { TagTypeStatsModAddStat } from "../tags/stats-mod/add-stat.js";
@@ -144,6 +149,9 @@ export enum CompoundTagType {
   Engagement = "c-engagement",
   Mobility = "c-mobility",
   CrossDeck = "c-cross-deck",
+  SlotTech = "c-slot-tech",
+  VictoryDisplay = "c-victory-display",
+  CopiesMatter = "c-copies-matter",
 }
 
 export const compoundTagEnemyFieldControl: CompoundTagBase = {
@@ -749,7 +757,11 @@ export const compoundTagOffStatInvestigation: CompoundTagBase = {
 /** Extra actions: grants additional actions for the turn — MORE actions, not more per action (distinct from action compression). */
 export const compoundTagExtraActions: CompoundTagBase = {
   type: CompoundTagType.ExtraActions,
-  tags: [TagTypeActionAdditional.ActionAdditional],
+  tags: [
+    TagTypeActionAdditional.ActionAdditional,
+    // immediate out-of-sequence actions (Quick Thinking, Haste) are still extra actions
+    TagTypeActionAdditional.ActionTakeImmediate,
+  ],
 };
 
 
@@ -814,7 +826,34 @@ export const compoundTagMobility: CompoundTagBase = {
     TagTypeLocationMove.LocationMoveInvestigatorSelf,
     TagTypeLocationMove.LocationMoveInvestigatorPerformer,
     TagTypeLocationMove.LocationMoveInvestigatorAny,
+    // creating map connections is mobility enablement (Open Gate)
+    TagTypeLocationConnecting.LocationCreateConnection,
   ],
+};
+
+/** Slot Tech: slot juggling — converting a slot's type, copies sharing one slot, or a card ignoring its slot entirely (Abigail Foreman; Trigger Man). Granting EXTRA slots is the AdditionalSlot compound. */
+export const compoundTagSlotTech: CompoundTagBase = {
+  type: CompoundTagType.SlotTech,
+  tags: [
+    TagTypeSlotConvert.SlotConvert,
+    TagTypeSlotShare.SlotShare,
+    TagTypeSlotIgnore.SlotIgnore,
+  ],
+};
+
+/** Victory Display: banks victory points — adding itself (Delve Too Deep) or encounter cards (The Eye of Truth; Blood of K'n-yan) to the victory display. */
+export const compoundTagVictoryDisplay: CompoundTagBase = {
+  type: CompoundTagType.VictoryDisplay,
+  tags: [
+    TagTypeVictory.VictoryDisplaySelf,
+    TagTypeVictory.VictoryDisplayAddEncounter,
+  ],
+};
+
+/** Copies Matter: cares about multiple copies of a card — assembling, committing, discarding, or fetching duplicates (the Dream-Eaters Myriad-adjacent family). */
+export const compoundTagCopiesMatter: CompoundTagBase = {
+  type: CompoundTagType.CopiesMatter,
+  tags: [TagTypeCondition.ConditionCopies],
 };
 
 /** Combat Boost: makes you better at FIGHTING — any [combat] (or any-skill) boost, in-test / passive / lasting. */
@@ -1171,4 +1210,7 @@ export const compoundTags: CompoundTagBase[] = [
   compoundTagFailurePrevention,
   compoundTagEngagement,
   compoundTagCrossDeck,
+  compoundTagSlotTech,
+  compoundTagVictoryDisplay,
+  compoundTagCopiesMatter,
 ];

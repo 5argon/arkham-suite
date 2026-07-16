@@ -282,8 +282,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "intellect"],
     tags: [
+      { type: TagTypeCostDiscount.CostDiscountSelf, amount: "dynamic" },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
-      { type: TagTypeCostDiscount.CostDiscount, amount: "dynamic" },
       { type: TagTypeHandSize.HandSizeDependent },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
       { type: TagTypeTestless.TestlessClue, value: 2 },
