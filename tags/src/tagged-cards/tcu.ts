@@ -929,8 +929,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["agility", "agility"],
     tags: [
+      { type: TagTypeActionAdditional.ActionTakeImmediate },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
-      { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
     ],
   },
   {

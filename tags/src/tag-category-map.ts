@@ -155,6 +155,7 @@ import {
 import {
   TagTypeSlotAdditional,
   TagTypeSlotConvert,
+  TagTypeSlotIgnore,
   TagTypeSlotShare,
 } from "./tags/slot/index.js";
 import {
@@ -250,7 +251,7 @@ const enumsByCategory: Record<string, object[]> = {
   "skill-commit": [TagTypeSkillCommit],
   "skill-test-condition": [TagTypeSkillTestCondition],
   "skill-value": [TagTypeSkillValue, TagTypeSkillValueSource],
-  "slot": [TagTypeSlotAdditional, TagTypeSlotConvert, TagTypeSlotShare],
+  "slot": [TagTypeSlotAdditional, TagTypeSlotConvert, TagTypeSlotIgnore, TagTypeSlotShare],
   "soak": [TagTypeSoak],
   "stats-mod": [TagTypeStatsModAddStat, TagTypeStatsModBoostInTest, TagTypeStatsModBoostLasting, TagTypeStatsModBoostPassive, TagTypeStatsModPump, TagTypeStatsModSetBase, TagTypeStatsModUseInstead],
   "tank": [TagTypeTank],

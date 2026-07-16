@@ -41,6 +41,8 @@ export interface TagCostFreeSpendCharge extends TagCostFreeBase {
 
 export interface TagCostFreeSpendResource extends TagCostFreeBase {
   type: TagTypeCostFree.CostFreeSpendResource;
+  /** Where the spent resources live: pool (omit, default), the card's own uses ("card"), or pool-or-card ("either" — the Physical Training family). */
+  source?: "card" | "either";
 }
 
 export interface TagCostFreeSpendSecret extends TagCostFreeBase {

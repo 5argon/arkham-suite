@@ -52,7 +52,7 @@ import {
   TagTypeSkillTestCondition,
   TagTypeSkillValue,
   TagTypeSlotAdditional,
-  TagTypeSlotConvert,
+  TagTypeSlotIgnore,
   TagTypeSoak,
   TagTypeStatsModAddStat,
   TagTypeStatsModBoostInTest,
@@ -560,7 +560,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAttach.AttachAsset },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDeck },
       { type: TagTypeTraitSupport.TraitSupportRelic },
-      { type: TagTypeSlotConvert.SlotConvert, from: "any", to: "none" },
+      { type: TagTypeSlotIgnore.SlotIgnore, restrictedToTrait: "Relic" },
     ],
   },
   {

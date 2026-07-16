@@ -8,6 +8,7 @@ export enum TagTypeEnemyValue {
   EnemyValueFightReduction = "enemy-value-fight-reduction",
   EnemyValueHealthReduction = "enemy-value-health-reduction",
   EnemyValueHorror = "enemy-value-horror",
+  EnemyValueRemainingHealth = "enemy-value-remaining-health",
 }
 
 interface TagEnemyValueBase extends TagBase {}
@@ -39,4 +40,16 @@ export interface TagEnemyValueHealthReduction extends TagEnemyValueBase {
 
 export interface TagEnemyValueHorror extends TagEnemyValueBase {
   type: TagTypeEnemyValue.EnemyValueHorror;
+}
+
+/**
+ * Cares about damage already ON an enemy / its remaining health — a finisher
+ * gate (Garrote Wire: "exactly 1 remaining health" → comparison "exact",
+ * value 1) or a scaling payoff (Followed: +1 [intellect] per damage on the
+ * chosen enemy → args omitted).
+ */
+export interface TagEnemyValueRemainingHealth extends TagEnemyValueBase {
+  type: TagTypeEnemyValue.EnemyValueRemainingHealth;
+  comparison?: "exact" | "min" | "max";
+  value?: number;
 }

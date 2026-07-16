@@ -6,7 +6,7 @@ export enum TagTypeCondition {
   ConditionHandSize = "condition-hand-size",
   ConditionEngagedAlone = "condition-engaged-alone",
   ConditionClueHeld = "condition-clue-held",
-  ConditionOwnCopies = "condition-own-copies",
+  ConditionCopies = "condition-copies",
 }
 
 interface TagConditionBase extends TagBase {
@@ -54,13 +54,15 @@ export interface TagConditionClueHeld extends TagBase {
 }
 
 /**
- * Cares about MULTIPLE COPIES of itself — the Dream-Eaters "copies matter" family:
- * Segment of Onyx (3 in play → assemble), Three Aces (3 committed to one test),
- * Fortuitous Discovery (X = copies in your discard), Dream-Enhancing Serum
- * (duplicate copies in hand don't count toward hand size). `zone` = where the
- * copies are counted.
+ * Cares about MULTIPLE COPIES of a card — the Dream-Eaters "copies matter"
+ * family. Usually copies of ITSELF (`of` omitted): Segment of Onyx (3 in play →
+ * assemble), Three Aces (3 committed), Fortuitous Discovery (X = copies in
+ * discard), Dream-Enhancing Serum / Mind's Eye / Spiritual Resolve / Easy Mark
+ * (hand copies). `of: "chosen"` = copies of another card you pick (Lucid
+ * Dreaming fetches a duplicate). `zone` = where the copies are counted.
  */
-export interface TagConditionOwnCopies extends TagBase {
-  type: TagTypeCondition.ConditionOwnCopies;
+export interface TagConditionCopies extends TagBase {
+  type: TagTypeCondition.ConditionCopies;
   zone?: "in-play" | "hand" | "discard" | "committed";
+  of?: "self" | "chosen";
 }

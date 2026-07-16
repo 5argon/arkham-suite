@@ -155,6 +155,7 @@ import {
 import {
   TagTypeSlotAdditional,
   TagTypeSlotConvert,
+  TagTypeSlotIgnore,
   TagTypeSlotShare,
 } from "./tags/slot/index.js";
 import {
@@ -286,6 +287,7 @@ export type TagType =
   | TagTypeSkillValueSource
   | TagTypeSlotAdditional
   | TagTypeSlotConvert
+  | TagTypeSlotIgnore
   | TagTypeSlotShare
   | TagTypeSoak
   | TagTypeStatsModAddStat

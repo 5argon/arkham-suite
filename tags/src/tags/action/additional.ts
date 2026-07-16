@@ -4,6 +4,7 @@ import { TagBase } from "../../base.js";
 export enum TagTypeActionAdditional {
   ActionAdditional = "action-additional",
   ActionAdditionalAttack = "action-additional-attack",
+  ActionTakeImmediate = "action-take-immediate",
 }
 
 interface TagActionAdditionalBase extends TagBase {}
@@ -31,4 +32,20 @@ export interface TagActionAdditional extends TagActionAdditionalBase {
  */
 export interface TagActionAdditionalAttack extends TagActionAdditionalBase {
   type: TagTypeActionAdditional.ActionAdditionalAttack;
+}
+
+/**
+ * Take an action IMMEDIATELY, outside the normal action sequence ("take an
+ * action as if it were your turn" / Haste's "take another action of that type
+ * again") — Quick Thinking, Swift Reflexes, Haste, The Stars Are Right. NOT a
+ * pool of extra actions for the turn (that's action-additional — Leo De Luca);
+ * both roll into the Extra Actions compound (ruled 2026-07-17, TDE full review).
+ */
+export interface TagActionTakeImmediate extends TagActionAdditionalBase {
+  type: TagTypeActionAdditional.ActionTakeImmediate;
+  /**
+   * Who takes the immediate action: "self" (default) or a chosen "investigator"
+   * (The Stars Are Right).
+   */
+  target?: "self" | "investigator";
 }

@@ -211,7 +211,8 @@
   },
   "deck-search-*": {
     "rulings": [
-      "Searching your DECK (or discard, via deck-search-discard). Searching the COLLECTION/outside the game is not a deck search (Dark Pact fetching its Price is collection-search — untagged)."
+      "Searching your DECK (or discard, via deck-search-discard). Searching the COLLECTION/outside the game is not a deck search (Dark Pact fetching its Price is collection-search — untagged).",
+      "'Search' is a MECHANICAL term (looking through hidden cards) — apply deck-search-* ONLY when the text literally searches. Choosing a card from the OPEN discard pile ('Choose a card in your discard pile' — Scrounge for Supplies, A Chance Encounter, Resourceful) is NOT a search; discard-pile-to-* carries it (ruled 2026-07-17, full-TDE review; 4 cards stripped)."
     ]
   },
   "deck-search-reaction": {
@@ -357,6 +358,56 @@
   "testless-clue": {
     "rulings": [
       "PAIRS WITH clue-discover-* when the discovery is test-free — the discover tag says where, testless-clue says how. Don't drop one for the other."
+    ]
+  },
+  "cost-discount": {
+    "rulings": [
+      "Discounts OTHER cards (Fence, Chuck Fergus, Ever Vigilant) — the Economy sense. A card reducing only its OWN cost (Extensive Research offsetting its printed 10) is cost-discount-self and NOT economy ('you have been tricked' — ruled 2026-07-17)."
+    ]
+  },
+  "action-take-immediate": {
+    "rulings": [
+      "'Take an action as if it were your turn' / Haste's repeat = an IMMEDIATE out-of-sequence action (Quick Thinking, Swift Reflexes, Haste, The Stars Are Right), distinct from action-additional (a bigger action pool — Leo De Luca). Both are Extra Actions compound members (ruled 2026-07-17)."
+    ]
+  },
+  "condition-copies": {
+    "rulings": [
+      "Renamed from condition-own-copies (2026-07-17): also covers fetching duplicates of a CHOSEN card (Lucid Dreaming, of:'chosen'). zone = where copies are counted. All members roll into the Copies Matter compound. Myriad itself stays untagged — this tag is for copies-referencing EFFECTS."
+    ]
+  },
+  "enemy-value-remaining-health": {
+    "rulings": [
+      "Damage already ON an enemy / remaining health: finisher gates (Garrote Wire, comparison exact 1) and scaling payoffs (Followed, args omitted). Not enemy-value-health-reduction (which shrinks printed health — Wither(4))."
+    ]
+  },
+  "slot-ignore": {
+    "rulings": [
+      "A card occupies NO slot it normally would (Abigail Foreman's attached Tome). Future member: Trigger Man (TSK). Rolls into Slot Tech with slot-convert/slot-share; it is NOT slot-additional (Abigail grants no slot — mistagged in wave 1, caught by user review)."
+    ]
+  },
+  "play-area-into-play-from-*": {
+    "rulings": [
+      "For cards ENTERING PLAY out-of-band (assets cheated in — Ever Vigilant, Sleight of Hand). EVENTS just PLAY — 'play another Easy Mark at no cost' is play-area-play-ignoring-cost, not into-play (events are never 'put into play'). A self-committing skill's 'put it into play' bookkeeping (Surprising Find) is also NOT this tag (ruled 2026-07-17)."
+    ]
+  },
+  "cost-reaction-spend-resource": {
+    "rulings": [
+      "Default = pool resources. When the resources are USES printed on the card (Gregory Gry's Uses (9 resources)), set source:'card'; pool-or-card costs (Physical Training family, on the cost-free twin) may use source:'either'."
+    ]
+  },
+  "timing-after-draw-card": {
+    "rulings": [
+      "Generic 'after you draw a card' reaction windows (Dream-Enhancing Serum's duplicate trigger). NOT for drawing ITSELF (Cryptic Writings = play-from-hand trigger) and NOT encounter draws ('You handle this one!' = encounter-offload)."
+    ]
+  },
+  "location-ignore-effects": {
+    "rulings": [
+      "Ignore your location's effects/keywords during an action (Read the Signs). Future member: Mesmeric Influence (FHV) — per user 2026-07-17."
+    ]
+  },
+  "location-create-connection": {
+    "rulings": [
+      "Creates map connections (Open Gate pairs) — a Mobility compound member (ruled 2026-07-17: Open Gate's main function was untagged)."
     ]
   },
   "testless-damage-*": {

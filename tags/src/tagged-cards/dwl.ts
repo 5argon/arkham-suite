@@ -1072,8 +1072,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "skill",
     icons: ["wild"],
     tags: [
+      { type: TagTypeActionAdditional.ActionTakeImmediate },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
-      { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
     ],
   },
   {
@@ -1333,7 +1333,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "intellect"],
     tags: [
-      { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
       { type: TagTypePlayArea.PlayAreaFromInvestigator },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard },
       { type: TagTypeTraitSupport.TraitSupportAlly },

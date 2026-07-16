@@ -15,6 +15,7 @@ import type {
   TagActionBoldResign,
   TagActionEndTurn,
   TagActionLoseAction,
+  TagActionTakeImmediate,
 } from "./tags/action/index.js";
 
 import type {
@@ -138,9 +139,9 @@ import type {
 
 import type {
   TagConditionClueHeld,
+  TagConditionCopies,
   TagConditionEngagedAlone,
   TagConditionHandSize,
-  TagConditionOwnCopies,
   TagConditionResource,
   TagConditionSanity,
 } from "./tags/condition/index.js";
@@ -164,6 +165,7 @@ import type {
   TagCostDamageSelf,
   TagCostDiscardCard,
   TagCostDiscount,
+  TagCostDiscountSelf,
   TagCostFreeDamageSelf,
   TagCostFreeDiscardSelf,
   TagCostFreeExhaustSelf,
@@ -293,6 +295,7 @@ import type {
   TagEnemyValueFightReduction,
   TagEnemyValueHealthReduction,
   TagEnemyValueHorror,
+  TagEnemyValueRemainingHealth,
 } from "./tags/enemy/index.js";
 
 import type {
@@ -332,6 +335,8 @@ import type {
 import type {
   TagLocationConnectingEnemy,
   TagLocationConnectingInvestigator,
+  TagLocationCreateConnection,
+  TagLocationIgnoreEffects,
   TagLocationMoveClue,
   TagLocationMoveDamage,
   TagLocationMoveEnemyControl,
@@ -431,6 +436,7 @@ import type {
   TagSlotAdditionalHand,
   TagSlotAdditionalTarot,
   TagSlotConvert,
+  TagSlotIgnore,
   TagSlotShare,
 } from "./tags/slot/index.js";
 
@@ -497,6 +503,7 @@ import type {
 
 import type {
   TagTimingAfterDiscoverClue,
+  TagTimingAfterDrawCard,
   TagTimingAfterEnemyAttacks,
   TagTimingAfterEnemyDealDamageInvestigator,
   TagTimingAfterEnemyDealDamageSelf,
@@ -619,6 +626,7 @@ export type Tag =
   | TagActionBoldResign
   | TagActionEndTurn
   | TagActionLoseAction
+  | TagActionTakeImmediate
   // Aoo tags
   | TagAooNoProvoke
   // Attach tags
@@ -720,9 +728,9 @@ export type Tag =
   | TagCommitOtherInvestigator
   // Condition tags
   | TagConditionClueHeld
+  | TagConditionCopies
   | TagConditionEngagedAlone
   | TagConditionHandSize
-  | TagConditionOwnCopies
   | TagConditionResource
   | TagConditionSanity
   // Control tags
@@ -742,6 +750,7 @@ export type Tag =
   | TagCostDamageSelf
   | TagCostDiscardCard
   | TagCostDiscount
+  | TagCostDiscountSelf
   | TagCostFreeDamageSelf
   | TagCostFreeDiscardSelf
   | TagCostFreeExhaustSelf
@@ -853,6 +862,7 @@ export type Tag =
   | TagEnemyValueFightReduction
   | TagEnemyValueHealthReduction
   | TagEnemyValueHorror
+  | TagEnemyValueRemainingHealth
   // Exile tags
   | TagExileSelf
   // Gain tags
@@ -880,6 +890,8 @@ export type Tag =
   // Location tags
   | TagLocationConnectingEnemy
   | TagLocationConnectingInvestigator
+  | TagLocationCreateConnection
+  | TagLocationIgnoreEffects
   | TagLocationMoveClue
   | TagLocationMoveDamage
   | TagLocationMoveEnemyControl
@@ -957,6 +969,7 @@ export type Tag =
   | TagSlotAdditionalHand
   | TagSlotAdditionalTarot
   | TagSlotConvert
+  | TagSlotIgnore
   | TagSlotShare
   // Soak tags
   | TagSoakHealth
@@ -1009,6 +1022,7 @@ export type Tag =
   | TagTestlessEvade
   // Timing tags
   | TagTimingAfterDiscoverClue
+  | TagTimingAfterDrawCard
   | TagTimingAfterEnemyAttacks
   | TagTimingAfterEnemyDealDamageInvestigator
   | TagTimingAfterEnemyDealDamageSelf

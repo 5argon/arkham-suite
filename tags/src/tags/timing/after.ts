@@ -14,6 +14,7 @@ export enum TagTypeTimingAfter {
   TimingAfterPlayCardOfTrait = "timing-after-play-card-of-trait",
   TimingAfterHealHorror = "timing-after-heal-horror",
   TimingAfterDiscoverClue = "timing-after-discover-clue",
+  TimingAfterDrawCard = "timing-after-draw-card",
 }
 
 interface TagTimingAfterBase extends TagBase {}
@@ -90,4 +91,14 @@ export interface TagTimingAfterHealHorror extends TagTimingAfterBase {
  */
 export interface TagTimingAfterDiscoverClue extends TagTimingAfterBase {
   type: TagTypeTimingAfter.TimingAfterDiscoverClue;
+}
+
+/**
+ * Reaction window "after you draw a card" (conditions may narrow WHICH card —
+ * Dream-Enhancing Serum fires on drawing a duplicate). NOT for a card reacting
+ * to drawing ITSELF (Cryptic Writings — a play-from-hand trigger) and NOT for
+ * encounter draws ("You handle this one!").
+ */
+export interface TagTimingAfterDrawCard extends TagTimingAfterBase {
+  type: TagTypeTimingAfter.TimingAfterDrawCard;
 }

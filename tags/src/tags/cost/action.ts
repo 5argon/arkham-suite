@@ -32,6 +32,8 @@ export interface TagCostActionMultiple extends TagCostActionBase {
 
 export interface TagCostActionSpendResource extends TagCostActionBase {
   type: TagTypeCostAction.CostActionSpendResource;
+  /** Where the spent resources live: pool (omit, default), the card's own uses ("card"), or pool-or-card ("either"). */
+  source?: "card" | "either";
 }
 
 /**
