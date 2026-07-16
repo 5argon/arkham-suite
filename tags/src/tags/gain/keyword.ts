@@ -3,6 +3,7 @@ import { TagBase } from "../../base.js";
 export enum TagTypeGainKeyword {
   GainKeywordAloof = "gain-aloof",
   GainKeywordRetaliate = "gain-retaliate",
+  GainKeywordAlert = "gain-alert",
   GainKeywordFastOther = "gain-fast-other",
 }
 
@@ -14,6 +15,14 @@ export interface TagGainKeywordAloof extends TagGainKeywordBase {
 
 export interface TagGainKeywordRetaliate extends TagGainKeywordBase {
   type: TagTypeGainKeyword.GainKeywordRetaliate;
+}
+
+/**
+ * An enemy gains ALERT (attacks on evade attempts) — Daring's enable-the-payoff
+ * twin of gain-retaliate. Future member: String Along (TDC).
+ */
+export interface TagGainKeywordAlert extends TagGainKeywordBase {
+  type: TagTypeGainKeyword.GainKeywordAlert;
 }
 
 /**

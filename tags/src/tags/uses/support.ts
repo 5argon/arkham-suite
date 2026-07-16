@@ -10,6 +10,12 @@ export enum TagTypeUsesSupport {
 
 interface TagUsesSupportBase extends TagBase {
   supportType: "place" | "move"
+  /**
+   * True when the placement is gated on a trigger/condition (Luke Robinson's
+   * elder sign) rather than a plain play/action effect (Extra Ammunition) —
+   * mirrors the `conditional` flag on uses-self-place (Empty Vessel).
+   */
+  conditional?: boolean
 }
 
 export interface TagUsesSupportAmmo extends TagUsesSupportBase {

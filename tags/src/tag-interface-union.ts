@@ -34,6 +34,11 @@ import type {
 } from "./tags/auto/index.js";
 
 import type {
+  TagBondedCard,
+  TagBondedFetch,
+} from "./tags/bonded/index.js";
+
+import type {
   TagBuffAssetHealth,
   TagBuffAssetSanity,
   TagBuffCannotAttackYou,
@@ -59,6 +64,7 @@ import type {
   TagCancelLoseAction,
   TagCancelLoseResource,
   TagCancelRevelation,
+  TagCancelUseInstead,
   TagCancelWeaknessDraw,
 } from "./tags/cancel/index.js";
 
@@ -121,6 +127,9 @@ import type {
 
 import type {
   TagCommitBenefitsPerformer,
+  TagCommitDuringAttack,
+  TagCommitDuringBasicAction,
+  TagCommitDuringEvade,
   TagCommitFetch,
   TagCommitFromNonHand,
   TagCommitMax,
@@ -131,11 +140,13 @@ import type {
   TagConditionClueHeld,
   TagConditionEngagedAlone,
   TagConditionHandSize,
+  TagConditionOwnCopies,
   TagConditionResource,
   TagConditionSanity,
 } from "./tags/condition/index.js";
 
 import type {
+  TagControlTransferAsset,
   TagControlYourCard,
 } from "./tags/control/index.js";
 
@@ -183,7 +194,6 @@ import type {
 } from "./tags/damage/index.js";
 
 import type {
-  TagDeckBonded,
   TagDeckDiscardCardChoose,
   TagDeckDiscardCardRandom,
   TagDeckDiscardDeck,
@@ -200,10 +210,10 @@ import type {
   TagDeckLookInvestigator,
   TagDeckLookYou,
   TagDeckRestriction,
-  TagDeckSearchBonded,
   TagDeckSearchDiscard,
   TagDeckSearchEncounter,
   TagDeckSearchInvestigator,
+  TagDeckSearchReaction,
   TagDeckSearchYou,
   TagDeckShuffleEncounter,
   TagDeckShufflePlayer,
@@ -244,6 +254,7 @@ import type {
 } from "./tags/duration/index.js";
 
 import type {
+  TagEncounterOffload,
   TagEncounterRevealChoose,
 } from "./tags/encounter/index.js";
 
@@ -289,6 +300,7 @@ import type {
 } from "./tags/exile/index.js";
 
 import type {
+  TagGainKeywordAlert,
   TagGainKeywordAloof,
   TagGainKeywordFastOther,
   TagGainKeywordRetaliate,
@@ -356,6 +368,7 @@ import type {
   TagPlayAreaIntoPlayFromDiscard,
   TagPlayAreaIntoPlayFromHand,
   TagPlayAreaPlayFromOtherZone,
+  TagPlayAreaPlayIgnoringCost,
   TagPlayAreaToDeck,
   TagPlayAreaToHand,
 } from "./tags/play-area/index.js";
@@ -378,6 +391,7 @@ import type {
 import type {
   TagRemoteInvestigate,
   TagRemoteMove,
+  TagRemotePlayEvent,
 } from "./tags/remote/index.js";
 
 import type {
@@ -417,6 +431,7 @@ import type {
   TagSlotAdditionalHand,
   TagSlotAdditionalTarot,
   TagSlotConvert,
+  TagSlotShare,
 } from "./tags/slot/index.js";
 
 import type {
@@ -448,6 +463,7 @@ import type {
 } from "./tags/stats-mod/index.js";
 
 import type {
+  TagTankMoveDamageHorror,
   TagTankRedirectAttack,
   TagTankRedirectDamageHorror,
   TagTankRedirectEncounter,
@@ -532,6 +548,7 @@ import type {
   TagTimingWhenDefeatEnemy,
   TagTimingWhenEnemyAttacks,
   TagTimingWhenEnemySpawnsYourLocation,
+  TagTimingWhenSearchDeck,
   TagTimingWhenWouldFailTest,
 } from "./tags/timing/index.js";
 
@@ -579,6 +596,7 @@ import type {
 } from "./tags/uses/index.js";
 
 import type {
+  TagVictoryDisplayAddEncounter,
   TagVictoryDisplaySelf,
 } from "./tags/victory/index.js";
 
@@ -611,6 +629,9 @@ export type Tag =
   // Auto tags
   | TagAutoEvade
   | TagAutoSuccess
+  // Bonded tags
+  | TagBondedCard
+  | TagBondedFetch
   // Buff tags
   | TagBuffAssetHealth
   | TagBuffAssetSanity
@@ -633,6 +654,7 @@ export type Tag =
   | TagCancelLoseAction
   | TagCancelLoseResource
   | TagCancelRevelation
+  | TagCancelUseInstead
   | TagCancelWeaknessDraw
   // Chaos tags
   | TagChaosBagAddBless
@@ -689,6 +711,9 @@ export type Tag =
   | TagCluePlaceYourLocation
   // Commit tags
   | TagCommitBenefitsPerformer
+  | TagCommitDuringAttack
+  | TagCommitDuringBasicAction
+  | TagCommitDuringEvade
   | TagCommitFetch
   | TagCommitFromNonHand
   | TagCommitMax
@@ -697,9 +722,11 @@ export type Tag =
   | TagConditionClueHeld
   | TagConditionEngagedAlone
   | TagConditionHandSize
+  | TagConditionOwnCopies
   | TagConditionResource
   | TagConditionSanity
   // Control tags
+  | TagControlTransferAsset
   | TagControlYourCard
   // Cost tags
   | TagCostActionDiscardFromHand
@@ -741,7 +768,6 @@ export type Tag =
   | TagDamageSpread
   | TagDamageToInvestigator
   // Deck tags
-  | TagDeckBonded
   | TagDeckDiscardCardChoose
   | TagDeckDiscardCardRandom
   | TagDeckDiscardDeck
@@ -758,10 +784,10 @@ export type Tag =
   | TagDeckLookInvestigator
   | TagDeckLookYou
   | TagDeckRestriction
-  | TagDeckSearchBonded
   | TagDeckSearchDiscard
   | TagDeckSearchEncounter
   | TagDeckSearchInvestigator
+  | TagDeckSearchReaction
   | TagDeckSearchYou
   | TagDeckShuffleEncounter
   | TagDeckShufflePlayer
@@ -790,6 +816,7 @@ export type Tag =
   | TagDurationUntilEndRound
   | TagDurationUntilEndTurn
   // Encounter tags
+  | TagEncounterOffload
   | TagEncounterRevealChoose
   // Enemy tags
   | TagEnemyBlankText
@@ -829,6 +856,7 @@ export type Tag =
   // Exile tags
   | TagExileSelf
   // Gain tags
+  | TagGainKeywordAlert
   | TagGainKeywordAloof
   | TagGainKeywordFastOther
   | TagGainKeywordRetaliate
@@ -882,6 +910,7 @@ export type Tag =
   | TagPlayAreaIntoPlayFromDiscard
   | TagPlayAreaIntoPlayFromHand
   | TagPlayAreaPlayFromOtherZone
+  | TagPlayAreaPlayIgnoringCost
   | TagPlayAreaToDeck
   | TagPlayAreaToHand
   // Ready tags
@@ -898,6 +927,7 @@ export type Tag =
   // Remote tags
   | TagRemoteInvestigate
   | TagRemoteMove
+  | TagRemotePlayEvent
   // Rfg tags
   | TagRfgSelf
   // Skill Commit tags
@@ -927,6 +957,7 @@ export type Tag =
   | TagSlotAdditionalHand
   | TagSlotAdditionalTarot
   | TagSlotConvert
+  | TagSlotShare
   // Soak tags
   | TagSoakHealth
   | TagSoakSanity
@@ -952,6 +983,7 @@ export type Tag =
   | TagStatsModSetBase
   | TagStatsModUseInstead
   // Tank tags
+  | TagTankMoveDamageHorror
   | TagTankRedirectAttack
   | TagTankRedirectDamageHorror
   | TagTankRedirectEncounter
@@ -1028,6 +1060,7 @@ export type Tag =
   | TagTimingWhenDefeatEnemy
   | TagTimingWhenEnemyAttacks
   | TagTimingWhenEnemySpawnsYourLocation
+  | TagTimingWhenSearchDeck
   | TagTimingWhenWouldFailTest
   // Trait tags
   | TagTraitSupportAlly
@@ -1069,5 +1102,6 @@ export type Tag =
   | TagUsesSupportSecret
   | TagUsesSupportSupply
   // Victory tags
+  | TagVictoryDisplayAddEncounter
   | TagVictoryDisplaySelf
 ;

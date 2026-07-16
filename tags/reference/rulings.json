@@ -10,6 +10,10 @@
   ],
   "_general": {
     "rulings": [
+      "MYRIAD is intentionally untagged (deckbuilding keyword, like Permanent/Exceptional) — ruled 2026-07-16 during TDE wave 2.",
+      "Tony Morgan's BOUNTY economy is intentionally untagged — investigator-specific, not useful for cross-deck search (ruled 2026-07-16). Bounty Contracts' 'Uses (6 bounties)' also gets no uses-starting-* tag.",
+      "Bonded SET-ASIDE plumbing ('set it aside, out of play', return-to-set-aside instead of discard) is intentionally untagged — inherent bonded-card behavior; bonded-card + bonded-fetch carry the archetype (ruled 2026-07-16).",
+      "A timing WINDOW id must stay neutral even when most members are Forced — timing-forced-leaves-play was renamed timing-when-leaves-play when Tetsuo Mori responded with a [reaction] (2026-07-16; same precedent as timing-when-take-damage).",
       "TimingQualifier conventions: 'at the end of <phase/round/turn>' forced triggers → AtIf; 'when your turn begins' → When; 'would reveal/would advance' pre-windows → Before.",
       "Level variants of the same card may LEGITIMATELY diverge — the higher-level card is intentionally better (Survival Instinct 01581 'disengage' vs 02235 'evade' is a real design difference, ruled 2026-07-03). Never force different-level variants to match; but DO check same-name twins for accidental divergence (values, missing halves) — that was a large bug class.",
       "Self-harm (cost-*-damage/horror-self) is only for VOLUNTARY player-ability cards (asset/event). Treacheries/weaknesses that force horror/damage on you (Doomed, Shell Shock, Nihilism) are NOT self-harm — a 'treachery hurts you' concept has intentionally no tag yet.",
@@ -210,9 +214,89 @@
       "Searching your DECK (or discard, via deck-search-discard). Searching the COLLECTION/outside the game is not a deck search (Dark Pact fetching its Price is collection-search — untagged)."
     ]
   },
-  "deck-bonded": {
+  "deck-search-reaction": {
     "rulings": [
-      "The bonded card itself lives outside the deck and returns there (Soothing Melody 05314, Blood-Rite 05317). The OWNER side that fetches bonded cards = deck-search-bonded. The Dream-Eaters will have many of these."
+      "The FOUND card's own trigger ('when you search your deck and X is among the searched cards' — TDE Research archetype: Occult Evidence 06008, Astounding Revelation 06023, Surprising Find 06278). The searcher-side window is timing-when-search-deck (Mandy). Mandy's search-widening effect ('search 3 additional cards or resolve 1 additional target') deliberately has NO tag yet."
+    ]
+  },
+  "slot-share": {
+    "rulings": [
+      "Copies sharing ONE slot (Empower Self trio, copies:3). Not slot-additional (extra slot) and not slot-convert (type change)."
+    ]
+  },
+  "cancel-use-instead": {
+    "rulings": [
+      "Ignore a forced 'use X instead of Y' substitution (Empower Self trio); stat arg = the protected stat. The inverse of stats-mod-use-instead."
+    ]
+  },
+  "commit-during-basic-action": {
+    "rulings": [
+      "Committed-skill bonus gated on a BASIC action's test (Brute Force fight, Sharp Vision investigate, Expeditious Retreat evade). Cards reacting to PERFORMING basic actions in general (Close the Circle, EotE) are a DIFFERENT mechanic — new tag when that pack lands (ruled 2026-07-16)."
+    ]
+  },
+  "control-transfer-asset": {
+    "rulings": [
+      "Asset control moving between investigators: give (Teamwork 02018, Solemn Vow 06020 played under another's control) or take (Kleptomania 06036). Resource transfers = gain-resource-move-investigator (both on Teamwork/Kleptomania). Moving DAMAGE/HORROR between player cards (Solemn Vow's second ability, Tommy Muldoon) still has NO tag."
+    ]
+  },
+  "remote-play-event": {
+    "rulings": [
+      "Play an event as if at another location (Luke Robinson 06004). Becomes common in Chapter 2 (Miguel de la Cruz) — per user 2026-07-16."
+    ]
+  },
+  "victory-display-add-encounter": {
+    "rulings": [
+      "Bank an ENCOUNTER card into the victory display (The Eye of Truth 06325). Future member: Blood of K'n-yan (TDC) — per user 2026-07-16."
+    ]
+  },
+  "gain-alert": {
+    "rulings": [
+      "An enemy gains ALERT (Daring 06111, paired with gain-retaliate like Knuckleduster). Future member: String Along (TDC) — per user 2026-07-16."
+    ]
+  },
+  "play-area-play-ignoring-cost": {
+    "rulings": [
+      "Play a card WITHOUT paying its resource cost ('its resource cost is considered paid' — Shining Trapezohedron 06329). Mechanically distinct from cost-discount (user ruling 2026-07-16) but an Economy compound member. Ability-cost waivers → action-activate-ignoring-cost."
+    ]
+  },
+  "action-activate-ignoring-cost": {
+    "rulings": [
+      "Also covers RE-resolving an ability without paying its [action] cost (Abigail Foreman 06324 replaying a Tome ability — retagged off recursion-replay, whose members replay event CARDS, not abilities)."
+    ]
+  },
+  "bonded-card": {
+    "rulings": [
+      "The bonded card itself, living set aside outside the deck (Soothing Melody 05314, Blood-Rite 05317, Wish Eater). The OWNER side that fetches bonded cards = bonded-fetch. Both were deck-* prefixed until 2026-07-16 — regrouped because bonded cards are NOT deck contents (Guardian review)."
+    ]
+  },
+  "bonded-fetch": {
+    "rulings": [
+      "Fetch from the SET-ASIDE bonded pool (Gate Box, Dream Diary, Empty Vessel). NOT a deck search: no range arg, and deliberately NOT a Search-compound member (ruled 2026-07-16)."
+    ]
+  },
+  "tank-move-damage-horror": {
+    "rulings": [
+      "Relocating EXISTING damage/horror between player cards. scope 'cross-investigator' (Solemn Vow — protective, joins ProtectorTank/Support via where-filter; future members: Devil (FHV), Lucky Charm (Core 2026)) vs scope 'self' (Tommy Muldoon's elder sign — own-board bookkeeping, joins neither). Not tank-redirect-* (incoming damage) and not heal-* (removal). Ruled 2026-07-16 after the Guardian review caught Solemn Vow with its main benefit untagged."
+    ]
+  },
+  "encounter-offload": {
+    "rulings": [
+      "Another investigator resolves an encounter card you would have ('You handle this one!' 04028 — whose main feature was untagged until this review; First Watch's distribution). Taking another's card onto YOURSELF is tank-redirect-encounter ('Let me handle this!'; First Watch carries both directions)."
+    ]
+  },
+  "commit-during-attack": {
+    "rulings": [
+      "Commit restricted to / gated on ATTACK tests — any attack, not just the basic Fight action (Daring; contrast commit-during-basic-action). Marks a skill as attack support; commit-during-evade is the evasion twin (Daring carries both)."
+    ]
+  },
+  "uses-support-*": {
+    "rulings": [
+      "conditional: true when the placement is gated on a trigger/symbol (Luke Robinson's elder sign, Twila's reaction) rather than a plain play/action effect (Extra Ammunition, Recharge) — mirrors uses-self-place's flag (Empty Vessel). Ruled 2026-07-16 for Luke/Empty Vessel consistency."
+    ]
+  },
+  "chaos-symbol-payoff": {
+    "rulings": [
+      "Apply whenever a symbol reveal yields a BENEFIT even if the reveal window belongs to a defensive reaction — Wish Eater's cancel-and-heal counts (Guardian review 2026-07-16; the .35 Winchester comparison)."
     ]
   },
   "soak-*": {

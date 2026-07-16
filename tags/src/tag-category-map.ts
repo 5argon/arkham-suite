@@ -17,6 +17,9 @@ import {
   TagTypeAuto,
 } from "./tags/auto/index.js";
 import {
+  TagTypeBonded,
+} from "./tags/bonded/index.js";
+import {
   TagTypeBuffAssetStats,
   TagTypeBuffCannot,
   TagTypeBuffInvestigatorStats,
@@ -152,6 +155,7 @@ import {
 import {
   TagTypeSlotAdditional,
   TagTypeSlotConvert,
+  TagTypeSlotShare,
 } from "./tags/slot/index.js";
 import {
   TagTypeSoak,
@@ -211,6 +215,7 @@ const enumsByCategory: Record<string, object[]> = {
   "aoo": [TagTypeAoo],
   "attach": [TagTypeAttach],
   "auto": [TagTypeAuto],
+  "bonded": [TagTypeBonded],
   "buff": [TagTypeBuffAssetStats, TagTypeBuffCannot, TagTypeBuffInvestigatorStats, TagTypeBuffStatsReplace],
   "campaign": [TagTypeCampaign],
   "cancel": [TagTypeCancel],
@@ -245,7 +250,7 @@ const enumsByCategory: Record<string, object[]> = {
   "skill-commit": [TagTypeSkillCommit],
   "skill-test-condition": [TagTypeSkillTestCondition],
   "skill-value": [TagTypeSkillValue, TagTypeSkillValueSource],
-  "slot": [TagTypeSlotAdditional, TagTypeSlotConvert],
+  "slot": [TagTypeSlotAdditional, TagTypeSlotConvert, TagTypeSlotShare],
   "soak": [TagTypeSoak],
   "stats-mod": [TagTypeStatsModAddStat, TagTypeStatsModBoostInTest, TagTypeStatsModBoostLasting, TagTypeStatsModBoostPassive, TagTypeStatsModPump, TagTypeStatsModSetBase, TagTypeStatsModUseInstead],
   "tank": [TagTypeTank],

@@ -29,6 +29,7 @@ import {
   TagTypeDiscardFromPlay,
   TagTypeDoom,
   TagTypeDuration,
+  TagTypeEncounter,
   TagTypeEnemyDebuff,
   TagTypeEnemyElite,
   TagTypeEnemyEngage,
@@ -858,6 +859,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "agility"],
     tags: [
+      { type: TagTypeEncounter.EncounterOffload },
       { type: TagTypeGainResource.GainResourceYou, value: 1 },
     ],
   },
