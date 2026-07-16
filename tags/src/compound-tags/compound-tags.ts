@@ -232,6 +232,12 @@ export const compoundTagSupport: CompoundTagBase = {
     // Eureka!/Take Heart give the performer cards/resources (commit-benefits-performer).
     TagTypeLocationMove.LocationMoveInvestigatorPerformer,
     TagTypeCommit.CommitBenefitsPerformer,
+    // Protecting others IS support (ruled 2026-07-16, Guardian review — Heroic
+    // Rescue): the tank family joins, cross-investigator scope only for moves.
+    TagTypeTank.TankRedirectAttack,
+    TagTypeTank.TankRedirectEncounter,
+    TagTypeTank.TankRedirectDamageHorror,
+    { type: TagTypeTank.TankMoveDamageHorror, where: { scope: "cross-investigator" } },
   ],
 };
 
@@ -408,6 +414,8 @@ export const compoundTagProtectorTank: CompoundTagBase = {
     TagTypeTank.TankRedirectAttack,
     TagTypeTank.TankRedirectEncounter,
     TagTypeTank.TankRedirectDamageHorror,
+    // only the cross-investigator scope protects others; scope "self" (Tommy) is out
+    { type: TagTypeTank.TankMoveDamageHorror, where: { scope: "cross-investigator" } },
   ],
 };
 
@@ -690,7 +698,8 @@ export const compoundTagSearch: CompoundTagBase = {
     TagTypeDeckSearch.DeckSearchInvestigator,
     TagTypeDeckSearch.DeckSearchDiscard,
     TagTypeDeckSearch.DeckSearchEncounter,
-    TagTypeDeckSearch.DeckSearchBonded,
+    // bonded-fetch is deliberately NOT here: fetching from the set-aside bonded
+    // pool is not a deck search (ruled 2026-07-16, Guardian review).
   ],
 };
 
@@ -705,6 +714,7 @@ export const compoundTagEconomy: CompoundTagBase = {
     TagTypePlayArea.PlayAreaIntoPlayFromHand,
     TagTypePlayArea.PlayAreaIntoPlayFromDeck,
     TagTypePlayArea.PlayAreaIntoPlayFromDiscard,
+    TagTypePlayArea.PlayAreaPlayIgnoringCost,
   ],
 };
 

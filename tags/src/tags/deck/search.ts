@@ -6,7 +6,7 @@ export enum TagTypeDeckSearch {
   DeckSearchEncounter = "deck-search-encounter",
   DeckSearchYou = "deck-search-you",
   DeckSearchInvestigator = "deck-search-investigator",
-  DeckSearchBonded = "deck-search-bonded",
+  DeckSearchReaction = "deck-search-reaction",
 }
 
 interface TagDeckSearchBase extends TagBase {
@@ -43,10 +43,12 @@ export interface TagDeckSearchInvestigator extends TagDeckSearchBase {
 }
 
 /**
- * Search your BONDED cards (set aside, out of play) for a specific card — the
- * defining engine of the bonded archetype (Miss Doyle, Gate Box, Hallowed
- * Mirror, Occult Lexicon). The base "range" is typically "all".
+ * The card REACTS to being among the cards you searched — "[reaction] When you
+ * search your deck and X is among the searched cards" (the Dream-Eaters Research
+ * archetype: Occult Evidence, Astounding Revelation, Surprising Find). No range:
+ * this is the found card's own trigger, not a search effect. (No TagDeckSearchBase —
+ * its required `range` belongs to searches, not to being found.)
  */
-export interface TagDeckSearchBonded extends TagDeckSearchBase {
-  type: TagTypeDeckSearch.DeckSearchBonded;
+export interface TagDeckSearchReaction extends TagBase {
+  type: TagTypeDeckSearch.DeckSearchReaction;
 }

@@ -17,6 +17,9 @@ import {
   TagTypeAuto,
 } from "./tags/auto/index.js";
 import {
+  TagTypeBonded,
+} from "./tags/bonded/index.js";
+import {
   TagTypeBuffAssetStats,
   TagTypeBuffCannot,
   TagTypeBuffInvestigatorStats,
@@ -152,6 +155,7 @@ import {
 import {
   TagTypeSlotAdditional,
   TagTypeSlotConvert,
+  TagTypeSlotShare,
 } from "./tags/slot/index.js";
 import {
   TagTypeSoak,
@@ -214,6 +218,7 @@ export type TagType =
   | TagTypeAoo
   | TagTypeAttach
   | TagTypeAuto
+  | TagTypeBonded
   | TagTypeBuffAssetStats
   | TagTypeBuffCannot
   | TagTypeBuffInvestigatorStats
@@ -281,6 +286,7 @@ export type TagType =
   | TagTypeSkillValueSource
   | TagTypeSlotAdditional
   | TagTypeSlotConvert
+  | TagTypeSlotShare
   | TagTypeSoak
   | TagTypeStatsModAddStat
   | TagTypeStatsModBoostInTest

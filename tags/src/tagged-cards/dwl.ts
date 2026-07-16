@@ -193,6 +193,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["wild"],
     tags: [
+      { type: TagTypeControl.ControlTransferAsset },
       { type: TagTypeTraitSupport.TraitSupportAlly },
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeLocationYour.LocationYourInvestigator },

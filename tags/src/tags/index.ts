@@ -5,6 +5,7 @@ export * from "./action/index.js";
 export * from "./aoo/index.js";
 export * from "./attach/index.js";
 export * from "./auto/index.js";
+export * from "./bonded/index.js";
 export * from "./buff/index.js";
 export * from "./campaign/index.js";
 export * from "./cancel/index.js";

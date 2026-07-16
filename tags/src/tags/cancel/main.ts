@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { SkillType } from "../../kohaku.js";
 
 export enum TagTypeCancel {
   CancelAttack = "cancel-attack",
@@ -13,6 +14,7 @@ export enum TagTypeCancel {
   CancelDiscardFromHand = "cancel-discard-from-hand",
   CancelFailedTestEffects = "cancel-failed-test-effects",
   CancelWeaknessDraw = "cancel-weakness-draw",
+  CancelUseInstead = "cancel-use-instead",
 }
 
 interface TagCancelBase extends TagBase {}
@@ -68,4 +70,15 @@ export interface TagCancelFailedTestEffects extends TagCancelBase {
 /** Cancel/suppress a drawn weakness's effects (e.g. Ikiaq). */
 export interface TagCancelWeaknessDraw extends TagCancelBase {
   type: TagTypeCancel.CancelWeaknessDraw;
+}
+
+/**
+ * Ignore a FORCED stat substitution — "anytime a card effect requires you to use
+ * [willpower] instead of [combat], you may ignore that aspect" (Empower Self).
+ * The inverse of stats-mod-use-instead. `stat` = the stat being protected
+ * (the one the substitution would have replaced).
+ */
+export interface TagCancelUseInstead extends TagCancelBase {
+  type: TagTypeCancel.CancelUseInstead;
+  stat?: SkillType;
 }

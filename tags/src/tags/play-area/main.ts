@@ -8,6 +8,7 @@ export enum TagTypePlayArea {
   PlayAreaIntoPlayFromDiscard = "play-area-into-play-from-discard",
   PlayAreaPlayFromOtherZone = "play-area-play-from-other-zone",
   PlayAreaFromInvestigator = "play-area-from-investigator",
+  PlayAreaPlayIgnoringCost = "play-area-play-ignoring-cost",
 }
 
 interface TagPlayAreaBase extends TagBase {}
@@ -53,4 +54,14 @@ export interface TagPlayAreaPlayFromOtherZone extends TagPlayAreaBase {
  */
 export interface TagPlayAreaFromInvestigator extends TagPlayAreaBase {
   type: TagTypePlayArea.PlayAreaFromInvestigator;
+}
+
+/**
+ * Play a card WITHOUT paying its resource cost ("its resource cost is considered
+ * paid" — Shining Trapezohedron). An Economy-compound member: mechanically distinct
+ * from cost-discount (which reduces the price), this waives it. Ability-activation
+ * cost waivers are action-activate-ignoring-cost instead.
+ */
+export interface TagPlayAreaPlayIgnoringCost extends TagPlayAreaBase {
+  type: TagTypePlayArea.PlayAreaPlayIgnoringCost;
 }

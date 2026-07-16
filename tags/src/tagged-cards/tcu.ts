@@ -5,6 +5,7 @@ import {
   TagTypeAoo,
   TagTypeAttach,
   TagTypeAuto,
+  TagTypeBonded,
   TagTypeBuffInvestigatorStats,
   TagTypeCancel,
   TagTypeChaosEffect,
@@ -1531,7 +1532,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingForced.TimingForcedLeavesPlay },
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
-      { type: TagTypeDeckSearch.DeckSearchBonded, range: "all" },
+      { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
     ],
   },
@@ -1549,7 +1550,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeLocationYour.LocationYourAlly },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
-      { type: TagTypeDeckMisc.DeckBonded },
+      { type: TagTypeBonded.BondedCard },
     ],
   },
   {
@@ -1576,7 +1577,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect"],
     tags: [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
-      { type: TagTypeDeckSearch.DeckSearchBonded, range: "all" },
+      { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeTimingForced.TimingForcedLeavesPlay },
     ],
@@ -1593,7 +1594,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeAoo.AooNoProvoke },
-      { type: TagTypeDeckMisc.DeckBonded },
+      { type: TagTypeBonded.BondedCard },
     ],
   },
   {

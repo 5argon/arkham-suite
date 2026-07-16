@@ -6,6 +6,7 @@ export enum TagTypeCondition {
   ConditionHandSize = "condition-hand-size",
   ConditionEngagedAlone = "condition-engaged-alone",
   ConditionClueHeld = "condition-clue-held",
+  ConditionOwnCopies = "condition-own-copies",
 }
 
 interface TagConditionBase extends TagBase {
@@ -50,4 +51,16 @@ export interface TagConditionClueHeld extends TagBase {
   comparison?: "min" | "max";
   /** Threshold value for a gate; omit when scaling. */
   value?: number;
+}
+
+/**
+ * Cares about MULTIPLE COPIES of itself — the Dream-Eaters "copies matter" family:
+ * Segment of Onyx (3 in play → assemble), Three Aces (3 committed to one test),
+ * Fortuitous Discovery (X = copies in your discard), Dream-Enhancing Serum
+ * (duplicate copies in hand don't count toward hand size). `zone` = where the
+ * copies are counted.
+ */
+export interface TagConditionOwnCopies extends TagBase {
+  type: TagTypeCondition.ConditionOwnCopies;
+  zone?: "in-play" | "hand" | "discard" | "committed";
 }
