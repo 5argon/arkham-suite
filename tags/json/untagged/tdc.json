@@ -1,0 +1,1588 @@
+[
+ {
+  "code": "11001",
+  "name": "Marion Tavares",
+  "text": "You have 1 fewer hand slots.\n[reaction] After you play an event during your turn: Draw 1 card. Then, you may play a different event. (Limit once per round.)\n[elder_sign] effect: +1. Search the top 3 cards of your deck for an event and draw it. Shuffle your deck.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"event\" }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 3 } }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "11002",
+  "name": "Determined",
+  "text": "Marion Tavares deck only.\nIf this skill test is successful and it is on an event you played, you may return Determined to your hand instead of discarding it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeRecursion.RecursionSelfToHand }"
+  ]
+ },
+ {
+  "code": "11003",
+  "name": "\"I'll do it myself\"",
+  "text": "<b>Revelation</b> - Put \"I'll do it myself\" into play in your threat area.\nAs an additional cost for you to play an event, take 1 horror.\n[fast] Discard 3 events from your hand: Discard \"I'll do it myself.\"",
+  "tags": [
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "11004",
+  "name": "Lucius Galloway",
+  "text": "[reaction] After you successfully evade an enemy by 2 or more: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each enemy at your location.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "11005",
+  "name": "Book of Verse",
+  "text": "Lucius Galloway deck only.\nUses (1 inspiration). Replenish this inspiration the first time you discover a clue each round.\n[reaction] After revealing chaos tokens during a skill test, spend 1 inspiration: You get +1 skill value for this skill test. If you succeed by exactly 0, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeUsesStarting.UsesStartingInspiration, value: 1 }",
+   "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"inspiration\", conditional: true }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 0 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11006",
+  "name": "Dreams of the Flood",
+  "text": "<b>Revelation</b> - Put Dreams of the Flood into play in your threat area.\n<b>Forced</b> - The first time you discover 1 or more clues during your turn: Take 1 horror and shuffle Dreams of the Flood into your deck.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }"
+  ]
+ },
+ {
+  "code": "11007",
+  "name": "Agatha Crane",
+  "text": "[reaction] When your turn ends, if you sealed, canceled, or ignored 1 or more chaos tokens this round: Play a [[Spell]] or [[Insight]] event from your discard pile. After that event resolves, remove it from the game.\n[elder_sign] effect: +2. You may cancel this token and draw another in its place. If you do, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.When }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTraitSupport.TraitSupportInsight }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11008",
+  "name": "Agatha Crane",
+  "text": "[reaction] When your turn ends, if you sealed, canceled, or ignored 1 or more chaos tokens this round: Play a [[Spell]] or [[Insight]] event from your discard pile. After that event resolves, remove it from the game.\n[elder_sign] effect: +2. You may cancel this token and draw another in its place. If you do, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTraitSupport.TraitSupportInsight }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11009",
+  "name": "Ocula Obscura",
+  "text": "Agatha Crane deck only.\n[reaction] After you succeed at a skill test, if no tokens are sealed here and you did not release a token from Ocula Obscura during this skill test: Seal a non-symbol token revealed during this skill test on Ocula Obscura. (Limit once per phase.)\n<b>Forced</b> - When you would reveal a token from the chaos bag: Resolve the token sealed here instead, then release that token.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }",
+   "{ type: TagTypeChaosSeal.ChaosSealRevealed }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }"
+  ]
+ },
+ {
+  "code": "11010",
+  "name": "Glimpse the Void",
+  "text": "<b>Revelation</b> - Put Glimpse the Void into play in your threat area.\nThe first time you reveal 1 or more chaos tokens during each skill test, you must reveal 1 additional chaos token <i>(and resolve its effects)</i>.\n[action]: Shuffle Glimpse the Void into your deck.",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "11011",
+  "name": "Michael McGlen",
+  "text": "[reaction] After you spend 1 or more ammo from a [[Firearm]] asset: Gain 1 resource. (Limit once per [[Firearm]] asset per round.)\n[elder_sign] effect: +2. You may place 1 ammo on a [[Firearm]] asset you control.",
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\", conditional: true }"
+  ]
+ },
+ {
+  "code": "11012",
+  "name": "\"Viola\" Case",
+  "text": "Michael McGlen deck only.\nYou have 2 additional hand slots, which can only be used to hold [[Firearm]] assets.\n[reaction] After you play \"Viola\" Case: Search the top 9 cards of your deck for a [[Firearm]] asset and add it to your hand. Shuffle your deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Firearm\" }",
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 9 } }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }"
+  ]
+ },
+ {
+  "code": "11013",
+  "name": "Confiscation",
+  "text": "<b>Revelation</b> - Shuffle each [[Firearm]] asset in your play area into your deck. If no asset was shuffled into your deck by this effect, take 1 damage and shuffle Confiscation back into your deck.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "11014",
+  "name": "Gloria Goldberg",
+  "text": "You choose the investigator order during the mythos phase.\n[reaction] When you look at 1 or more cards from the encounter deck: Look at 1 additional card and choose 1 non-[[Elite]] card among them. Either discard it, put it on top of the encounter deck, or place it facedown beneath Gloria Goldberg (max 3 cards beneath her).\n[elder_sign] effect: +1. Look at the top card of the encounter deck.",
+  "tags": [
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: true }",
+   "{ type: TagTypeDeckDiscard.DeckDiscardEncounter }",
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: false }"
+  ]
+ },
+ {
+  "code": "11015",
+  "name": "Psychic Sensitivity",
+  "text": "Gloria Goldberg deck only.\nFast. Play when an investigator at any location draws an encounter card, if there is a copy of that encounter card beneath Gloria Goldberg.\nCancel all of that card's effects and discard both copies of it. Then, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCancel.CancelEncounterEffect }",
+   "{ type: TagTypeCancel.CancelRevelation }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11016",
+  "name": "Prophecy of the End",
+  "text": "Surge.\n<b>Forced</b> - If Gloria Goldberg uses her [reaction] ability and this treachery is among the looked-at cards, it must be chosen and placed facedown beneath her (if you cannot, discard a non-weakness card beneath her first). Then, if there are 3 copies of this treachery beneath her, she is defeated and suffers 1 mental trauma.",
+  "tags": []
+ },
+ {
+  "code": "11017",
+  "name": "George Barnaby",
+  "text": "Your max hand size is equal to the number of facedown cards beneath George Barnaby. (Limit 5 cards.)\nYou may commit facedown cards beneath George Barnaby to skill tests as if they were in your hand.\n[reaction] After you discard a card from your hand: Place it facedown beneath George Barnaby, then draw 1 card. (Limit once per phase.)\n[elder_sign] effect: +1. Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitFromNonHand, source: \"attached\" }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11018",
+  "name": "Grim Resolve",
+  "text": "George Barnaby deck only.\nAfter this skill test resolves, you may swap any number of cards beneath George Barnaby with the same number of non-weakness cards in your hand.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }"
+  ]
+ },
+ {
+  "code": "11019",
+  "name": "Cast Adrift",
+  "text": "<b>Revelation</b> - If there are no cards beneath George Barnaby, shuffle Cast Adrift into your deck. Otherwise, discard each card beneath George Barnaby.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "11020",
+  "name": "The Book of War",
+  "text": "Uses (3 secrets).\n[reaction] After you play a [[Tactic]] event, spend 1 secret and exhaust The Book of War: When your turn ends, return that event to your hand.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 3 }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Tactic\" }",
+   "{ type: TagTypeCostReaction.CostReactionSpendSecret }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeRecursion.RecursionEvent }",
+   "{ type: TagTypeTraitSupport.TraitSupportTactic }"
+  ]
+ },
+ {
+  "code": "11021",
+  "name": "Crowbar",
+  "text": "[action] Exhaust Crowbar: <b>Investigate.</b> This investigation attempt uses [combat] instead of [intellect].\n[action] Exhaust Crowbar: <b>Fight.</b> You get +2 [combat] for this attack.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Combat, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }"
+  ]
+ },
+ {
+  "code": "11022",
+  "name": "Remington Model 1858",
+  "text": "Uses (2 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack. This attack deals +1 damage.\n[reaction] When Remington Model 1858 leaves play: Immediately trigger the above [action] ability, ignoring all costs.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 2 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }"
+  ]
+ },
+ {
+  "code": "11023",
+  "name": "Primed for Action",
+  "text": "Play only as your first action.\nPlay a [[Firearm]] asset from your hand, reducing its cost by 2. Then, you may play an [[Upgrade]] event from your hand, attaching it to that asset if able.",
+  "tags": [
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }"
+  ]
+ },
+ {
+  "code": "11024",
+  "name": "Ready for Anything",
+  "text": "Play only as your first action.\nDraw 1 card (2 cards instead if you drew an enemy this round). Then, heal 1 horror. This action does not provoke attacks of opportunity.",
+  "tags": [
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }",
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }",
+   "{ type: TagTypeAoo.AooNoProvoke }"
+  ]
+ },
+ {
+  "code": "11025",
+  "name": "Hardboiled",
+  "text": "Max 1 committed per skill test.\nHardboiled gains [combat] [wild] for each successful attack you performed this round.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+  ]
+ },
+ {
+  "code": "11026",
+  "name": "Hunter's Mark",
+  "text": "Fast. Attach to an enemy at your location. Limit 1 per enemy.\nInvestigators get +1 [combat] while fighting this enemy.\n[reaction] When damage is dealt to attached enemy, discard Hunter's Mark: Deal 1 additional damage to that enemy. Any investigator may trigger this ability.",
+  "tags": [
+   "{ type: TagTypeAttach.AttachEnemy }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "11027",
+  "name": "Alice Luxley",
+  "text": "You get +1 [intellect].\nThe first investigate action you perform each turn does not provoke attacks of opportunity.\n[reaction] After you discover a clue, exhaust Alice Luxley: Deal 1 damage to an enemy at your location.\n<b>Card design inspired by the Council in Exile 2022.</b>",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }"
+  ]
+ },
+ {
+  "code": "11028",
+  "name": "Bulwark",
+  "text": "Limit 1 per investigator. Seal ([elder_sign] or +1). You may resolve this keyword again after you defeat an enemy.\n[reaction] When an enemy would attack an investigator at your location, exhaust Bulwark and release a token sealed here: Cancel that attack. Ready another asset you control.",
+  "tags": [
+   "{ type: TagTypeChaosSeal.ChaosSealTokenElderSign }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeCancel.CancelAttack }",
+   "{ type: TagTypeReady.ReadyAsset }"
+  ]
+ },
+ {
+  "code": "11029",
+  "name": "Inspiring Presence",
+  "text": "If this skill test is successful, ready an [[Ally]] asset at your location and heal 1 damage and 1 horror from it.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeReady.ReadyAlly }",
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypeHeal.HealDamageAlly, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }"
+  ]
+ },
+ {
+  "code": "11030",
+  "name": "Locked and Loaded",
+  "text": "Permanent. Limit 1 per deck.\nYour [[Firearm]] assets with \"Uses (ammo)\" enter play with 1 additional ammo on them.",
+  "tags": [
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\" }"
+  ]
+ },
+ {
+  "code": "11031",
+  "name": "Quick Shot",
+  "text": "Myriad. Fast. Play only during your turn.\nDeal 1 damage to an enemy at your location.\n[reaction] After you draw Quick Shot during your turn: Play it, reducing its resource cost by 2.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: 2 }"
+  ]
+ },
+ {
+  "code": "11032",
+  "name": "Remington Model 1858",
+  "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage.\n[reaction] When Remington Model 1858 enters or leaves play: Immediately trigger the above [action] ability, ignoring all costs.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }"
+  ]
+ },
+ {
+  "code": "11033",
+  "name": "Alton O'Connell",
+  "text": "You get +1 [agility].\n[reaction] After you succeed at a skill test by exactly 3: Place 1 resource on Alton O'Connell, as evidence.\n[fast] Exhaust Alton O'Connell and spend X evidence: Discover 1 clue at your location. X is the shroud value of your location.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 3 }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"evidence\" }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"card\" }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudDependent }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }"
+  ]
+ },
+ {
+  "code": "11034",
+  "name": "Artistic Inspiration",
+  "text": "Limit 1 per investigator. Uses (1 inspiration).\n[fast] Exhaust Artistic Inspiration and discard 1 card from your hand: Replenish 1 inspiration on this card.\n[reaction] After revealing chaos tokens for a skill test you are performing, spend 1 inspiration: You get +1 or -1 skill value for this skill test.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingInspiration, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"inspiration\", conditional: true }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: -1 }"
+  ]
+ },
+ {
+  "code": "11035",
+  "name": "Dial of Ancients",
+  "text": "Limit 1 per deck. Uses (0 charges).\n[reaction] After an enemy at your location is evaded: Place 1 charge on Dial of Ancients. Then, if there are 4 or more charges on Dial of Ancients, record in your campaign log that \"you have calculated the day of reckoning.\"",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 0 }",
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }"
+  ]
+ },
+ {
+  "code": "11036",
+  "name": "Forensic Kit",
+  "text": "Uses (4 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> For this investigation, you may use [agility] instead of [intellect], and you get +1 skill value. If you succeed and there is an exhausted enemy at your location, heal 1 horror.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 4 }",
+   "{ type: TagTypeCostAction.CostActionSpendSupply }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Investigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11037",
+  "name": "Mortar and Pestle",
+  "text": "Uses (0 resources).\nResources on Mortar and Pestle may be spent to pay for [[Spell]] cards.\n[reaction] After you discover 1 or more clues, exhaust Mortar and Pestle: Place 1 resource on it <i>(from the token pool)</i>.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingResource, value: 0 }",
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Spell\"] }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate }"
+  ]
+ },
+ {
+  "code": "11038",
+  "name": "Oculus Mortuum",
+  "text": "Uses (0 evidence).\n[reaction] After you seal, cancel, or ignore a chaos token, exhaust Oculus Mortuum: Place 1 evidence on it.\n[reaction] When an enemy attacks an investigator at your location, spend 1 evidence and exhaust Oculus Mortuum: Discover 1 clue at your location. If that enemy has the [[Geist]] trait, deal 1 damage to it.",
+  "tags": [
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"evidence\" }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCostReaction.CostReactionSpendEvidence }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Geist\" }"
+  ]
+ },
+ {
+  "code": "11039",
+  "name": "Uncanny Specimen",
+  "text": "Myriad. Fast.\nUp to 3 Uncanny Specimen cards take up 1 arcane slot.\n[reaction] When a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during a skill test at your location, discard Uncanny Specimen: Cancel that chaos token, return it to the chaos bag, and reveal a new one. If this test is successful, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeSlotShare.SlotShare, copies: 3 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11040",
+  "name": "Correlate All Its Contents",
+  "text": "<b>Investigate.</b> You may cancel the first chaos token revealed for this skill test, return it to the bag, and reveal a new one. If you succeed at this skill test, place 1 charge or secret on an asset controlled by an investigator at your location (if you succeed by exactly 1 or 3, place 2 charges or secrets on that asset instead).",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\" }",
+   "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"place\" }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 3 }"
+  ]
+ },
+ {
+  "code": "11041",
+  "name": "Cosmic Revelation",
+  "text": "Choose \"even\" or \"odd\".\nEach investigator reveals each non-weakness card in their hand with a cost matching the chosen option. In player order, each investigator may choose to either draw 1 card from their deck, or play 1 card they revealed from their hand <i>(paying its cost)</i>.",
+  "tags": [
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }"
+  ]
+ },
+ {
+  "code": "11042",
+  "name": "Quick-Witted",
+  "text": "Myriad.\nQuick-Witted gains [intellect] [agility] for each other copy of Quick-Witted in your discard pile.\nAfter this skill test ends, you may shuffle each other copy of Quick-Witted in your discard pile into your deck.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
+   "{ type: TagTypeRecursion.RecursionSkill }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "11043",
+  "name": "Misdirection",
+  "text": "Limit 1 per investigator. Seal (+1 or 0). You may resolve this keyword again after you discover the last clue at your location.\n[reaction] When an enemy attacks an investigator at your location, exhaust Misdirection and release a token sealed here: Cancel that attack. Then, that investigator may move to a connecting location.",
+  "tags": [
+   "{ type: TagTypeChaosSeal.ChaosSealToken0 }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeCancel.CancelAttack }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }"
+  ]
+ },
+ {
+  "code": "11044",
+  "name": "Scientific Studies Grant",
+  "text": "Limit 1 per investigator.\nYou have 2 additional hand slots, which may only be used to hold [[Science]] and/or [[Tool]] assets.",
+  "tags": [
+   "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Science\" }",
+   "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Tool\" }"
+  ]
+ },
+ {
+  "code": "11045",
+  "name": "Working a Hunch",
+  "text": "Fast. Play only during your turn.\nDiscover 1 clue from any revealed location.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "11046",
+  "name": "Dial of Ancients",
+  "text": "Researched. Limit 1 per deck. Uses (4 charges).\n[reaction] When an investigator fails a skill test at your location, exhaust Dial of Ancients: Seal 1 chaos token revealed during that test on Dial of Ancients.\n<b>Forced</b> - When the round ends: For each chaos token sealed here, you must spend 1 charge or release that token.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeChaosSeal.ChaosSealRevealed }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }"
+  ]
+ },
+ {
+  "code": "11047",
+  "name": "Dial of Ancients",
+  "text": "Researched. Limit 1 per deck. Uses (4 charges).\n[action]: <b>Fight/Evade.</b> When you reveal a chaos token during this attack or evasion attempt, you may spend 1 charge to cancel that token, return it to the bag, and reveal a new one. You may do this any number of times. If this test succeeds, deal 1 damage to the targeted enemy.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }"
+  ]
+ },
+ {
+  "code": "11048",
+  "name": "Dial of Ancients",
+  "text": "Researched. Limit 1 per deck. Uses (4 charges).\n[fast] During your turn, exhaust Dial of Ancients and spend 1 charge: <b>Investigate.</b> When revealing chaos tokens for this test, reveal X additional tokens, where X is the number of enemies at your location. Choose 1 of the revealed tokens to resolve and ignore the rest.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeCostFree.CostFreeSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }"
+  ]
+ },
+ {
+  "code": "11049",
+  "name": "Antikythera",
+  "text": "[reaction] After you succeed at a skill test, exhaust Antikythera: If you succeeded by...\n-...exactly 1 or 3, discover 1 clue at your location.\n-...exactly 2 or 4, draw 1 card and gain 1 resource.\n-...exactly 5, you may take an additional action during your next turn.",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 3 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 2 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 4 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 5 }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }"
+  ]
+ },
+ {
+  "code": "11050",
+  "name": "Luger P08",
+  "text": "Uses (2 ammo).\n[fast] Exhaust Luger P08 and spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack.\n[action] Spend 1 resource: Replenish all ammo on Luger P08 and ready it.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 2 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeCostAction.CostActionSpendResource }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"ammo\", conditional: false }",
+   "{ type: TagTypeReady.ReadySelf }"
+  ]
+ },
+ {
+  "code": "11051",
+  "name": "Robert Castaigne",
+  "text": "You get +1 [combat].\n[action] Discard a [[Firearm]] asset that takes up 1 or fewer hand slots from your hand and exhaust Robert Castaigne: Resolve a <b>Fight</b> ability on the discarded asset, ignoring all costs. This does not provoke attacks of opportunity.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11052",
+  "name": "String Along",
+  "text": "[reaction] When you attempt to evade an enemy, exhaust String Along: For this evasion attempt, you get +1 skill value and that enemy gains alert. If you succeed, draw 1 card and do not disengage from that enemy.",
+  "tags": [
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade }",
+   "{ type: TagTypeGainKeyword.GainKeywordAlert }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11053",
+  "name": "\"Where's the party?\"",
+  "text": "<b>Parley.</b> Search the encounter deck and discard pile for a non-[[Elite]] enemy and spawn it exhausted and engaged with you. Draw cards equal to that enemy's combined damage and horror values.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeDeckSearch.DeckSearchEncounter, range: \"all\" }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyDebuff.EnemyExhaust }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
+   "{ type: TagTypeEnemyValue.EnemyValueDamage }",
+   "{ type: TagTypeEnemyValue.EnemyValueHorror }"
+  ]
+ },
+ {
+  "code": "11054",
+  "name": "\"You've had worse...\"",
+  "text": "Fast. Play when an investigator at your location or a connecting location is dealt damage and/or horror.\nThat investigator may spend up to 3 resources. For each resource spent, that investigator cancels 1 damage or 1 horror just dealt.",
+  "tags": [
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingInvestigator }",
+   "{ type: TagTypeCancel.CancelDamage }",
+   "{ type: TagTypeCancel.CancelHorror }"
+  ]
+ },
+ {
+  "code": "11055",
+  "name": "Bum's Rush",
+  "text": "<b>Evade.</b> Add your [combat] value to your skill value for this evasion attempt. If you succeed by 2 or more, deal that enemy 1 damage. If that enemy is non-[[Elite]], you may move it to a connecting location.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Combat, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }"
+  ]
+ },
+ {
+  "code": "11056",
+  "name": "Intimidation",
+  "text": "<b>Parley.</b> Choose an enemy at your location and test [combat] (X), where X is the chosen enemy's remaining health. If you succeed, shuffle that enemy into the encounter deck (or deal 2 damage to it instead if it is [[Elite]]).",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeTestInitiate.TestInitiateCombat, difficulty: \"dynamic\" }",
+   "{ type: TagTypeEnemyValue.EnemyValueRemainingHealth }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeEnemyMitigation.EnemyMitigationBackToEncounterDeck }",
+   "{ type: TagTypeDeckShuffle.DeckShuffleEncounter }",
+   "{ type: TagTypeEnemyElite.EnemyEliteReducedEffect }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 2 }"
+  ]
+ },
+ {
+  "code": "11057",
+  "name": "Crack Shot",
+  "text": "Commit only to a skill test from an ability printed on a [[Firearm]] or [[Ranged]] asset you control.",
+  "tags": [
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
+   "{ type: TagTypeTraitSupport.TraitSupportRanged }"
+  ]
+ },
+ {
+  "code": "11058",
+  "name": "Doppelgänger",
+  "text": "Myriad. Fast. Play only during your turn.\nAttach to your location. Limit 1 per location.\n[reaction] After an enemy enters or leaves attached location, return Doppelgänger to your hand: Either perform an evasion attempt against that enemy, or immediately move to attached location <i>(you may trigger this ability from any location)</i>.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeAttach.AttachLocation }",
+   "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
+   "{ type: TagTypePlayArea.PlayAreaToHand }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+  ]
+ },
+ {
+  "code": "11059",
+  "name": "Mob Connections",
+  "text": "Exceptional.\n[action] Spend 2 resources: Draw the card attached to Mob Connections.\n[reaction] When an [[Illicit]] asset you control is discarded from play, exhaust Mob Connections: Attach that asset to this card, facedown. Limit 1 attached asset.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionSpendResource }",
+   "{ type: TagTypeRecursion.RecursionAsset }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
+   "{ type: TagTypeTraitSupport.TraitSupportIllicit }"
+  ]
+ },
+ {
+  "code": "11060",
+  "name": "Obscure",
+  "text": "Limit 1 per investigator.\nSeal (0). You may resolve this keyword again after you reveal a location or put a new location into play.\n[reaction] When you engage an enemy, exhaust Obscure and release a token sealed here: Immediately <b>Fight</b> or <b>Evade</b> that enemy. During this skill test, your base skill value is equal to the shroud value of your location.",
+  "tags": [
+   "{ type: TagTypeChaosSeal.ChaosSealToken0 }",
+   "{ type: TagTypeTimingAfter.TimingAfterEngageEnemy }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }"
+  ]
+ },
+ {
+  "code": "11061",
+  "name": "\"Watch this!\"",
+  "text": "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" to a skill test, spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
+  "tags": [
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "11062",
+  "name": "Robert Castaigne",
+  "text": "You get +1 [combat].\n[fast] Exhaust Robert Castaigne: <b>Fight.</b> Reveal a [[Firearm]] asset that takes up 1 or fewer hand slots from your hand. Resolve a <b>Fight</b> ability on the revealed asset, ignoring all costs. Then, you may either discard the revealed asset to draw 1 card, or play that asset <i>(paying its cost)</i>.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
+   "{ type: TagTypeActionActivate.ActionActivateFromHand }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11063",
+  "name": "\"You've had worse...\"",
+  "text": "Fast. Play when an investigator at your location or a connecting location is dealt damage and/or horror.\nThat investigator may give you up to 5 resources. For each resource given by this effect, that investigator cancels 1 damage or 1 horror just dealt.",
+  "tags": [
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingInvestigator }",
+   "{ type: TagTypeGainResource.GainResourceMoveInvestigator }",
+   "{ type: TagTypeCancel.CancelDamage }",
+   "{ type: TagTypeCancel.CancelHorror }"
+  ]
+ },
+ {
+  "code": "11064",
+  "name": "Gatling Gun",
+  "text": "Uses (12 ammo).\n[action] Spend 1-6 ammo: <b>Fight.</b> You get +X [combat] for this attack. The difficulty for this attack is equal to the combined fight values of all enemies at your location. Instead of its standard damage, this attack deals X damage divided as you choose among enemies at your location. X is the amount of ammo spent as part of this ability's cost.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 12 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModPump.StatsModPumpCharge, valuePerPump: 1 }",
+   "{ type: TagTypeDamage.DamageSpread, value: \"dynamic\" }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+  ]
+ },
+ {
+  "code": "11065",
+  "name": "Blood of Thoth",
+  "text": "[reaction] When 1 or more doom is placed on a card you control, exhaust Blood of Thoth: Place 1 resource on this card <i>(from the token pool)</i>, as an offering.\n[fast] If Blood of Thoth has 3 or more offerings on it, remove all offerings from Blood of Thoth and exhaust it: Choose an investigator at your location to immediately take an action as if it were their turn.",
+  "tags": [
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"offering\" }",
+   "{ type: TagTypeCostFree.CostFreeSpendOffering }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate, target: \"investigator\" }"
+  ]
+ },
+ {
+  "code": "11066",
+  "name": "Breath of the Sleeper",
+  "text": "Uses (9 charges).\n[action]: <b>Fight.</b> Use your [willpower] instead of your [combat] for this test. Before revealing chaos tokens for this test, you may spend up to 3 charges to reveal that many additional chaos tokens. Choose 1 of the revealed tokens to resolve and ignore the rest. If you succeed and the chosen token matches an ignored token, this attack deals +2 damage.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 9 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeDamage.DamagePlus, value: 2 }"
+  ]
+ },
+ {
+  "code": "11067",
+  "name": "Eyes of the Dreamer",
+  "text": "Uses (9 charges).\n[action]: <b>Investigate.</b> Use your [willpower] instead of your [intellect] for this test. Before revealing chaos tokens for this test, you may spend up to 3 charges to reveal that many additional chaos tokens. Choose 1 of the revealed tokens to resolve and ignore the rest. If you succeed and the chosen token matches an ignored token, discover 1 additional clue at your location.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 9 }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "11069",
+  "name": "Katarina Sojka",
+  "text": "[reaction] When you would reveal a chaos token during a skill test you are performing, exhaust Katarina Sojka: Reveal tokens from the chaos bag until a token with a symbol is revealed. Resolve that token and ignore the rest.",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11070",
+  "name": "Sign of Xelotaph",
+  "text": "Myriad. Seal ([skull], [cultist], [tablet], or [elder_thing]). Uses (3 charges).\n<b>Forced</b> - When your turn begins: You must spend 1 charge or discard Sign of Xelotaph.\n[fast] Discard a copy of Sign of Xelotaph from your hand: Replenish all charges on this copy of Sign of Xelotaph.",
+  "tags": [
+   "{ type: TagTypeChaosSeal.ChaosSealTokenSkull }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenCultist }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenTablet }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenElderThing }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeCondition.ConditionCopies, zone: \"hand\" }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\" }"
+  ]
+ },
+ {
+  "code": "11071",
+  "name": "Spectral Shield",
+  "text": "Fast. Play only during your turn. Attach to a player card with health and/or sanity at your location.\n<b>Forced</b> - When attached card takes 1 or more damage/horror: Cancel 1 of that damage/horror. The owner of Spectral Shield must remove 1 charge from an asset they control. If they cannot, discard Spectral Shield.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeAttach.AttachInvestigator }",
+   "{ type: TagTypeAttach.AttachAsset }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
+   "{ type: TagTypeCancel.CancelDamage }",
+   "{ type: TagTypeCancel.CancelHorror }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "11072",
+  "name": "Whispers of Doom",
+  "text": "<b>Parley.</b> Choose a non-weakness enemy at your location and test [willpower] (3). This test gets +X difficulty, where X is that enemy's horror value. If you succeed, defeat that enemy (or deal it 3 damage instead if it is [[Elite]]). If you fail, place 1 doom on that enemy.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyRestriction.EnemyNonWeakness }",
+   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 3 }",
+   "{ type: TagTypeEnemyValue.EnemyValueHorror }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeEnemyMitigation.EnemyMitigationDefeat }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 3 }",
+   "{ type: TagTypeEnemyElite.EnemyEliteReducedEffect }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }"
+  ]
+ },
+ {
+  "code": "11073",
+  "name": "Eye of Ghatanothoa",
+  "text": "Exceptional.\nYou get +1 [willpower].\nPlay with the top card of the encounter deck revealed.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }"
+  ]
+ },
+ {
+  "code": "11074",
+  "name": "Sword Cane",
+  "text": "Fast.\n[reaction] After Sword Cane enters play: You may deal 1 damage to an enemy engaged with you. Immediately trigger the \"[action]\" ability below without paying its cost.\n[action] Exhaust Sword Cane: <b>Fight/Evade.</b> You may use your [willpower] in place of your [combat] or [agility] for this attack or evasion attempt and you get +1 skill value for this test.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }"
+  ]
+ },
+ {
+  "code": "11075",
+  "name": "Spiritual Echo",
+  "text": "Attach to your location. Limit 1 per location.\n[reaction] After you activate an [action] or [fast] ability on a [[Spell]] or [[Ritual]] asset: Perform that ability again at attached location as if you were there, ignoring that asset's [action] cost, if any. <i>(You may trigger this ability from any location.)</i> Return Spiritual Echo to your hand.",
+  "tags": [
+   "{ type: TagTypeAttach.AttachLocation }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
+   "{ type: TagTypeRecursion.RecursionSelfToHand }"
+  ]
+ },
+ {
+  "code": "11076",
+  "name": "Transfiguration",
+  "text": "Choose another investigator card from your collection. Until the end of the game, treat the front of your investigator card as if it were the front of the chosen card, instead <i>(including your skill values, traits, abilities, and elder sign effect)</i>. Max once per game.",
+  "tags": []
+ },
+ {
+  "code": "11077",
+  "name": "Enraptured",
+  "text": "Max 1 committed per skill test.\nIf this skill test is successful during an investigation, place up to 3 charges and/or secrets on assets controlled by investigators at your location.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\" }",
+   "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"place\" }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
+  ]
+ },
+ {
+  "code": "11078",
+  "name": "Lost Arcana",
+  "text": "Uses (2 charges).\nCharges on Lost Arcana may be spent as if they were charges on [[Spell]] and [[Ritual]] assets you control.\n[reaction] After the last clue is discovered from your location, exhaust Lost Arcana: Place 1 charge on this card.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }"
+  ]
+ },
+ {
+  "code": "11079",
+  "name": "Deliverance",
+  "text": "Fast. Play when the \"draw encounter cards\" step of the mythos phase would begin.\nYou draw each encounter card that would normally be drawn this mythos phase. Cards drawn during this mythos phase cannot be cancelled, and the first card drawn gains surge.\nSkip the \"draw encounter cards\" step of the next mythos phase. Max twice per game.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseMythosDrawEncounter, timing: TimingQualifier.When }",
+   "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: \"dynamic\" }",
+   "{ type: TagTypePhase.PhaseSkip }"
+  ]
+ },
+ {
+  "code": "11080",
+  "name": "Eldritch Brand",
+  "text": "Permanent. Exceptional.\nWhen you purchase this card, choose a non-signature [[Spell]] asset in your deck and record <i>[spell's name] was branded</i> in your campaign log. This is your branded spell. Your deck cannot include more than 1 copy of your branded spell.\n[reaction] Before you draw your opening hand: Search your deck for your branded spell and play it <i>(paying its cost)</i>.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameDrawOpeningHands }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: \"all\" }",
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromDeck }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+  ]
+ },
+ {
+  "code": "11081",
+  "name": "Anchor Chain",
+  "text": "While Anchor Chain is in your hand, you may perform the below \"[action]\" ability. If you do, discard Anchor Chain instead of exhausting it.\n[action] Exhaust Anchor Chain: <b>Evade.</b> You get +1 [agility] for this evasion attempt. If you successfully evade a non-[[Elite]] enemy, you may discard 1 card from hand to prevent that enemy from readying during the next upkeep phase.",
+  "tags": [
+   "{ type: TagTypeActionActivate.ActionActivateFromHand, discardInstead: true }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }"
+  ]
+ },
+ {
+  "code": "11082",
+  "name": "Hand Hook",
+  "text": "While Hand Hook is in your hand, you may perform the below \"[action]\" ability. If you do, discard Hand Hook instead of exhausting it.\n[action] Exhaust Hand Hook: <b>Fight.</b> You get +1 [combat] for this attack. If you succeed, you may discard 1 card from hand to have this attack deal +1 damage.",
+  "tags": [
+   "{ type: TagTypeActionActivate.ActionActivateFromHand, discardInstead: true }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "11083",
+  "name": "Lawrence Carlisle",
+  "text": "You get +1 [intellect].\n[reaction] After you discard 1 or more cards from your hand during your turn, exhaust Lawrence Carlisle: Gain 1 resource.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11084",
+  "name": "Nautical Charts",
+  "text": "While Nautical Charts is in your hand, you may perform the below \"[action]\" ability. If you do, discard Nautical Charts instead of exhausting it.\n[action] Exhaust Nautical Charts: <b>Investigate.</b> You get +1 [intellect] for this investigation. If you succeed, you may discard 1 card from hand to discover 1 additional clue at your location.",
+  "tags": [
+   "{ type: TagTypeActionActivate.ActionActivateFromHand, discardInstead: true }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1, action: BasicAction.Investigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "11085",
+  "name": "Profane Idol",
+  "text": "Profane Idol can only be played from your discard pile.\n<b>Forced</b> - When Profane Idol is defeated: Shuffle it into your deck instead of discarding it.",
+  "tags": [
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }"
+  ]
+ },
+ {
+  "code": "11086",
+  "name": "\"Catch!\"",
+  "text": "As an additional cost to play \"Catch!\", choose and discard an [[Item]] asset that takes up at least 1 hand slot from your hand or play area.\n<b>Evade.</b> You get +X [agility] for this evasion attempt, where X is the chosen asset's printed resource cost. If you succeed against a non-[[Elite]] enemy and that asset was in your play area, that enemy does not ready during the next upkeep phase.",
+  "tags": [
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\", action: BasicAction.Evade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }"
+  ]
+ },
+ {
+  "code": "11087",
+  "name": "Unconventional Method",
+  "text": "As an additional cost to play Unconventional Method, choose and discard an [[Item]] asset that takes up at least 1 hand slot from your hand or play area.\n<b>Investigate.</b> You get +X [intellect] for this investigation, where X is the chosen asset's printed resource cost. If you succeed and that asset was in your play area, discover 1 additional clue at your location.",
+  "tags": [
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\", action: BasicAction.Investigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "11088",
+  "name": "Contemplative",
+  "text": "You may commit Contemplative to an investigation or skill test during a parley attempt at your location or a connecting location.\nIf this test is successful, the performing investigator discovers 1 clue at their location.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitOtherInvestigator, range: \"connecting\" }",
+   "{ type: TagTypeCommit.CommitBenefitsPerformer }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "11089",
+  "name": "Ample Supplies",
+  "text": "Limit 1 per investigator. Uses (2 supplies).\n[reaction] After you discard 1 or more cards from hand, exhaust Ample Supplies: Place 1 supply on this card.\n[fast] Discard Ample Supplies: Move each supply on this card to your resource pool, as resources.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 2 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate }",
+   "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "11090",
+  "name": "A Glimmer of Hope",
+  "text": "Myriad.\nA Glimmer of Hope can only be played from your discard pile.\nAdd all copies of A Glimmer of Hope in your discard pile to your hand <i>(including this copy)</i>.",
+  "tags": [
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeRecursion.RecursionSelfToHand }"
+  ]
+ },
+ {
+  "code": "11091",
+  "name": "Good Weather",
+  "text": "Myriad. Fast. Play after the investigation phase begins. Group limit 1 in play.\nPut Good Weather into play next to the agenda deck and choose a skill. While this card is in play, each investigator gets +2 to the chosen skill.\n<b>Forced</b> - When the investigation phase begins: Discard Good Weather.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationBegins, timing: TimingQualifier.After }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 2 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationBegins, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "11092",
+  "name": "Improvised Weapon",
+  "text": "You may play Improvised Weapon from your discard pile. If you do, shuffle it into your deck after resolving its effects and draw 1 card.\n<b>Fight.</b> The attacked enemy gets -2 fight for this attack. (If you played Improvised Weapon from your discard pile, this attack deals +1 damage.)",
+  "tags": [
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeEnemyValue.EnemyValueFightReduction }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "11093",
+  "name": "Last Chance",
+  "text": "Commit only to a skill test with no other cards committed to it. Other cards cannot be committed to this skill test.\nLast Chance loses [wild] for each card in your hand. If this test is successful while Last Chance is committed to it, draw 2 cards.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }"
+  ]
+ },
+ {
+  "code": "11094",
+  "name": "Gift of Nodens",
+  "text": "[reaction] When you commit cards to a skill test you are performing, choose a [survivor] skill card in your discard pile and discard 1 card from your hand: Commit the chosen skill to this test. After this skill test resolves, place that skill card on the bottom of your deck. (Limit once per round.)",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt2CommitCards, timing: TimingQualifier.When }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeCommit.CommitFromNonHand, source: \"discard\" }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
+   "{ type: TagTypeDiscardPile.DiscardPileToBottomDeck }"
+  ]
+ },
+ {
+  "code": "11095",
+  "name": "Ascetic",
+  "text": "Campaign mode only. Permanent. Limit 1 per deck. Purchase only at deck creation.\nWhen you purchase this card, gain 10 experience.\nFor the remainder of the campaign, you cannot earn experience.",
+  "tags": []
+ },
+ {
+  "code": "11096",
+  "name": "Short Rest",
+  "text": "Myriad.\nHeal 1 damage or 1 horror from an investigator or [[Ally]] asset at your location.\n[reaction] After an investigator at your location plays Short Rest: Play another Short Rest from your hand <i>(paying its cost)</i>.",
+  "tags": [
+   "{ type: TagTypeHeal.HealDamageInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealDamageAlly, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeCondition.ConditionCopies, zone: \"hand\" }"
+  ]
+ },
+ {
+  "code": "11097",
+  "name": "Confidence",
+  "text": "Max 1 committed per test.\nFor each additional chaos token revealed during this skill test (even if it was canceled or ignored), Confidence gains [wild] (to a maximum of +3 [wild] icons).",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }"
+  ]
+ },
+ {
+  "code": "11098",
+  "name": "Spiritual Healing",
+  "text": "Permanent. Limit 1 per deck.\nWhen you purchase Spiritual Healing, remove 1 point of physical or mental trauma from your investigator.",
+  "tags": []
+ },
+ {
+  "code": "11099",
+  "name": "Library Pass",
+  "text": "[[Miskatonic]], [[Scholar]] deck only. Limit 1 per deck.\n[fast] During your turn, if there is no asset attached to Library Pass, spend 1 resource: Attach a [[Tome]] asset from your hand to this card. Attached asset takes up no slots. Limit 1 attached asset.\n<b>Forced</b> - When your turn ends: Place attached asset on the bottom of your deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeAttach.AttachAsset }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeSlotIgnore.SlotIgnore, restrictedToTrait: \"Tome\" }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
+  ]
+ },
+ {
+  "code": "11100",
+  "name": "Dreams of the Clay",
+  "text": "[[Artist]], [[Clairvoyant]], [[Dreamer]], [[Performer]] deck only.\nCommit only to a skill test on a treachery. If this skill test is successful, put Dreams of the Clay into play in your play area instead of discarding it.\n[reaction] When you draw a non-peril treachery from the encounter deck, remove Dreams of the Clay from the game: Cancel its revelation effect and discard it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeRfg.RfgSelf }",
+   "{ type: TagTypeCancel.CancelRevelation }"
+  ]
+ },
+ {
+  "code": "11101",
+  "name": "Inquisitive",
+  "text": "[[Assistant]], [[Miskatonic]], [[Scholar]] deck only.\nIf this skill test is successful, the performing investigator may succeed by up to 2 more or down to 2 less (to a minimum of zero).",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }"
+  ]
+ },
+ {
+  "code": "11102",
+  "name": "Bound for the Horizon",
+  "text": "[[Drifter]], [[Hunter]], [[Wayfarer]] deck only.\nLimit 1 per investigator.\n[fast] During your turn, discard 1 card from your hand and exhaust Bound for the Horizon: <b>Move.</b> Move to a connecting location.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldMove }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+  ]
+ },
+ {
+  "code": "11103",
+  "name": "Forbidden Sutra",
+  "text": "[[Blessed]], [[Cursed]], [[Sorcerer]] deck only.\nYou get +1 skill value while resolving [[Spell]] events.\n[fast] During a skill test on a [[Spell]] event, take up to 3 horror: For each horror taken, reveal an additional chaos token for this test. Choose 1 of the revealed tokens to resolve and ignore the rest. (Limit once per test.)",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeCostFree.CostFreeHorrorSelf }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "11104",
+  "name": "Walter Fitzpatrick",
+  "text": "[[Civic]], [[Silver Twilight]], [[Socialite]] deck only.\nYou get +1 skill value while parleying.\n[reaction] After you successfully parley, exhaust Walter Fitzpatrick: Gain 1 resource.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1, action: BasicAction.Parley }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11105",
+  "name": "Name Your Price",
+  "text": "[[Criminal]], [[Socialite]] deck only.\n<b>Parley.</b> Deal 10 damage to an enemy at your location (5 damage instead if that enemy is [[Elite]]). Remove Name Your Price from the game.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 10 }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 5 }",
+   "{ type: TagTypeEnemyElite.EnemyEliteReducedEffect }",
+   "{ type: TagTypeRfg.RfgSelf }"
+  ]
+ },
+ {
+  "code": "11106",
+  "name": "True Awakening",
+  "text": "[[Blessed]], [[Chosen]], [[Drifter]] deck only.\nChoose and resolve two of the following, in any order:\n- Draw 2 cards.\n- Discover 1 clue at your location.\n- Heal 1 damage.\n- Heal 1 horror.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeHeal.HealDamageYou, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11107",
+  "name": "Double Down",
+  "text": "[[Criminal]], [[Entrepreneur]], [[Socialite]] deck only.\nMax 1 committed per skill test.\nAfter you commit Double Down to a skill test, spend up to 3 resources. For each resource spent, Double Down gains [wild] [wild].",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+  ]
+ },
+ {
+  "code": "11108",
+  "name": "Captivating Performance",
+  "text": "[[Dreamer]], [[Performer]], [[Sorcerer]] deck only.\nLimit 1 per investigator.\n[reaction] After you perform 3 different types of actions in a row, exhaust Captivating Performance: Take an additional action, which must be a different type from all other actions you have taken this turn <i>(types include activate, draw, engage, evade, fight, investigate, move, play, and resource)</i>.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTakeAction, timing: TimingQualifier.After }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
+  ]
+ },
+ {
+  "code": "11109",
+  "name": "Cowl of Sekhmet",
+  "text": "[[Believer]], [[Chosen]], [[Cultist]] deck only.\n[reaction] When you enter a location, exhaust Cowl of Sekhmet: Until the end of the round, each non-[[Elite]] enemy at that location cannot engage you and you cannot deal damage to those enemies.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeBuffCannot.CannotEngageYou }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11110",
+  "name": "Dakota Garofalo",
+  "text": "[[Detective]], [[Hunter]], [[Wayfarer]] deck only.\nWhile there is a [[Creature]] or [[Monster]] enemy at your location, you get +1 [willpower] and +1 [combat].\n[fast] Exhaust Dakota Garofalo: Choose an enemy at your location or a connecting location. Move to the chosen enemy's location and engage it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11111",
+  "name": "Nose to the Grindstone",
+  "text": "[[Criminal]], [[Drifter]], [[Entrepreneur]] deck only.\n[fast] During a skill test on a [[Tool]] asset, exhaust Nose to the Grindstone: You get +2 skill value for this skill test. If this skill test fails, either replenish 1 supply on that asset or gain 1 resource.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeTraitSupport.TraitSupportTool }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
+   "{ type: TagTypeUsesSupport.UsesSupportSupply, supportType: \"place\", conditional: true }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "11112",
+  "name": "Sound Support",
+  "text": "[[Assistant]], [[Medic]], [[Warden]] deck only.\nLimit 1 per investigator.\nSound Support may be assigned damage and/or horror dealt to other investigators at your location.\n[reaction] When your turn begins: Heal 1 damage or 1 horror from Sound Support.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTank.TankRedirectDamageHorror }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
+   "{ type: TagTypeHeal.HealDamageSelf, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorSelf, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "11113",
+  "name": "Trench Armor",
+  "text": "[[Agency]], [[Police]], [[Veteran]] deck only.\nCancel the first attack of opportunity made against you each round.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCancel.CancelAttack }",
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }"
+  ]
+ },
+ {
+  "code": "11114",
+  "name": "Blood of K'n-yan",
+  "text": "[[Clairvoyant]], [[Hunter]], [[Sorcerer]] deck only.\n<b>Fight.</b> You may use your [willpower] instead of your [combat] for this attack. For each empty hand slot you have, you get +2 skill value and deal +1 damage for this attack. If this attack defeats a non-[[Elite]] enemy, add that enemy to the victory display and attach Blood of K'n-yan to it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\", action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: \"dynamic\" }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeVictory.VictoryDisplayAddEncounter }",
+   "{ type: TagTypeAttach.AttachEnemy }"
+  ]
+ },
+ {
+  "code": "11115",
+  "name": "Storm Ruler",
+  "text": "[[Blessed]], [[Clairvoyant]], [[Sorcerer]] deck only.\n[action]: <b>Fight.</b> Add your [willpower] value to your skill value for this attack. If this attack is successful, in addition to its standard damage, you may exhaust Storm Ruler to deal 1 damage to an enemy at your location for each [skull], [cultist], [tablet], and [elder_thing] symbol revealed during this attack (to a maximum of 3 additional damage).",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeDamage.DamagePlus, value: 3 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "11116",
+  "name": "Motivational Speech",
+  "text": "[[Civic]], [[Performer]], [[Socialite]] deck only.\n<b>Parley.</b> Choose an investigator at your location. That investigator may play an [[Ally]] asset from their hand at no cost. Then, that investigator may trigger an [action] or [fast] ability on that asset, ignoring all costs.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeTraitSupport.TraitSupportAlly }",
+   "{ type: TagTypePlayArea.PlayAreaPlayIgnoringCost }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }"
+  ]
+ },
+ {
+  "code": "11117",
+  "name": "Archibald MacVeigh",
+  "text": "[[Assistant]], [[Reporter]], [[Scholar]] deck only. Uses (4 secrets).\nYou get +1 [intellect].\nSecrets on assets you control may be spent as resources to pay for [[Insight]] events you play.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 4 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Insight\"] }",
+   "{ type: TagTypeTraitSupport.TraitSupportInsight }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }"
+  ]
+ },
+ {
+  "code": "11118",
+  "name": "Library Pass",
+  "text": "[[Miskatonic]], [[Scholar]] deck only. Permanent. Limit 1 per deck.\n[fast] During your turn, if there is no asset attached to Library Pass, exhaust Library Pass: Attach a [[Tome]] asset from your hand to Library Pass. Attached asset takes up no slots.\n<b>Forced</b> - When your turn ends: You must either pay 1 resource or place attached asset on the bottom of your deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeAttach.AttachAsset }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeSlotIgnore.SlotIgnore, restrictedToTrait: \"Tome\" }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
+  ]
+ },
+ {
+  "code": "11119",
+  "name": "Mauser Tankgewehr M1918",
+  "text": "[[Hunter]], [[Veteran]], [[Warden]] deck only. Uses (1 shell).\n[action] If Mauser Tankgewehr M1918 is ready, spend 1 shell: <b>Fight.</b> You get +5 [combat] for this attack and this attack deals +3 damage.\n[action] Exhaust Mauser Tankgewehr M1918: Replenish 1 shell on it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 5, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"shell\", conditional: true }"
+  ]
+ },
+ {
+  "code": "11120",
+  "name": "On Their Heels",
+  "text": "[[Detective]], [[Hunter]], [[Police]], [[Reporter]] deck only.\nLimit 1 per investigator. Uses (5 leads).\n[reaction] After you enter a location with 1 or more enemies, spend 1 lead and exhaust On Their Heels: Either discover 1 clue at your location or deal 1 damage to an enemy at your location.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+  ]
+ },
+ {
+  "code": "11121",
+  "name": "Sacred Oath",
+  "text": "[[Cultist]], [[Cursed]], [[Silver Twilight]] deck only. Fast. Myriad. Limit 1 Sacred Oath <i>(Oath of Loyalty)</i> per deck.\nMax 3 copies of Sacred Oath in play. Up to 3 Sacred Oath cards take up 1 arcane slot.\n[reaction] When you draw a non-weakness [[Pact]] or [[Terror]] treachery, discard a copy of Sacred Oath from play: Cancel that treachery's revelation effect and discard it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotShare.SlotShare, copies: 3 }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeCancel.CancelRevelation }"
+  ]
+ },
+ {
+  "code": "11122",
+  "name": "Sacred Oath",
+  "text": "[[Cultist]], [[Cursed]], [[Silver Twilight]] deck only. Fast. Myriad. Limit 1 Sacred Oath <i>(Oath of Order)</i> per deck.\nMax 3 copies of Sacred Oath in play. Up to 3 Sacred Oath cards take up 1 arcane slot.\n[reaction] When you draw a non-weakness [[Curse]] or [[Hex]] treachery, discard a copy of Sacred Oath from play: Cancel that treachery's revelation effect and discard it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotShare.SlotShare, copies: 3 }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeCancel.CancelRevelation }"
+  ]
+ },
+ {
+  "code": "11123",
+  "name": "Sacred Oath",
+  "text": "[[Cultist]], [[Cursed]], [[Silver Twilight]] deck only. Fast. Myriad. Limit 1 Sacred Oath <i>(Oath of Wisdom)</i> per deck.\nMax 3 copies of Sacred Oath in play. Up to 3 Sacred Oath cards take up 1 arcane slot.\n[reaction] When you draw a non-weakness [[Omen]] or [[Power]] treachery, discard a copy of Sacred Oath from play: Cancel that treachery's revelation effect and discard it.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotShare.SlotShare, copies: 3 }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeCancel.CancelRevelation }"
+  ]
+ },
+ {
+  "code": "11124",
+  "name": "Dimensional Vortex",
+  "text": "[[Performer]], [[Sorcerer]] deck only.\nFast. Play when the investigation phase begins. Choose a location. Set aside each non-[[Elite]] enemy at the chosen location <i>(keeping all tokens and attachments)</i>. Until the end of the round, they are not at any location and are immune to player card effects. When the round ends, return each of these enemies to the chosen location, exhausted. Max once per game.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationBegins, timing: TimingQualifier.When }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeEnemyDebuff.EnemyExhaust }"
+  ]
+ },
+ {
+  "code": "11125",
+  "name": "Memories of Another Life",
+  "text": "[[Artist]], [[Believer]], [[Dreamer]], [[Sorcerer]] deck only.\nIf this skill test is successful, you may remove Memories of Another Life from the game to search your collection for any non-permanent level 0 card <i>(even if it does not meet your deckbuilding requirements)</i>. Play that card at no cost. At the end of the game, return that card to your collection.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeRfg.RfgSelf }",
+   "{ type: TagTypePlayArea.PlayAreaPlayIgnoringCost }"
+  ]
+ },
+ {
+  "code": "11126",
+  "name": "Down and Out",
+  "text": "<b>Revelation</b> - Put Down and Out into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not take either a draw or resource action this round: Take 1 horror and shuffle Down and Out back into your deck.\n[action] Either spend 3 resources or choose and discard 3 cards from your hand: Discard this card.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeCostAction.CostActionSpendResource }",
+   "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "11127",
+  "name": "Morbid Curiosity",
+  "text": "<b>Revelation</b> - Put Morbid Curiosity into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully investigate this round: Take 1 horror and shuffle Morbid Curiosity back into your deck.\n[action]: <b>Investigate.</b> You get -2 skill value for this investigation. If you succeed, discard this card.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "11128",
+  "name": "Disruptive Poltergeist",
+  "text": "<b>Revelation</b> - Put Disruptive Poltergeist into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully evade an enemy this round: Take 1 damage and shuffle Disruptive Poltergeist back into your deck.\n[action]: <b>Evade.</b> You get -2 skill value for this evasion attempt. If you succeed, discard this card.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "11129",
+  "name": "Frenzied",
+  "text": "<b>Revelation</b> - Put Frenzied into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully fight an enemy this round: Take 1 damage and shuffle Frenzied back into your deck.\n[action]: <b>Fight.</b> You get -2 skill value for this attack. If you succeed, discard this card.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ }
+]

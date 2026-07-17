@@ -19,6 +19,11 @@ export enum TagTypeTraitSupport {
   TraitSupportAlly = "trait-support-ally",
   TraitSupportTrick = "trait-support-trick",
   TraitSupportItem = "trait-support-item",
+  TraitSupportFortune = "trait-support-fortune",
+  TraitSupportCharm = "trait-support-charm",
+  TraitSupportArmor = "trait-support-armor",
+  TraitSupportTool = "trait-support-tool",
+  TraitSupportCreature = "trait-support-creature",
 }
 
 interface TagTraitSupportBase extends TagBase {}
@@ -93,4 +98,24 @@ export interface TagTraitSupportTrick extends TagTraitSupportBase {
 
 export interface TagTraitSupportItem extends TagTraitSupportBase {
   type: TagTypeTraitSupport.TraitSupportItem;
+}
+
+export interface TagTraitSupportFortune extends TagTraitSupportBase {
+  type: TagTypeTraitSupport.TraitSupportFortune;
+}
+
+export interface TagTraitSupportCharm extends TagTraitSupportBase {
+  type: TagTypeTraitSupport.TraitSupportCharm;
+}
+
+export interface TagTraitSupportArmor extends TagTraitSupportBase {
+  type: TagTypeTraitSupport.TraitSupportArmor;
+}
+
+export interface TagTraitSupportTool extends TagTraitSupportBase {
+  type: TagTypeTraitSupport.TraitSupportTool;
+}
+
+export interface TagTraitSupportCreature extends TagTraitSupportBase {
+  type: TagTypeTraitSupport.TraitSupportCreature;
 }

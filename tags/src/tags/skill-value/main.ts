@@ -5,6 +5,7 @@ export enum TagTypeSkillValue {
   SkillValueSucceedByDynamic = "skill-value-succeed-by-dynamic",
   SkillValueSucceedByOrMore = "skill-value-succeed-by-or-more",
   SkillValueFailByOrLess = "skill-value-fail-by-or-less",
+  SkillValueFailByOrMore = "skill-value-fail-by-or-more",
   SkillValueFailByDynamic = "skill-value-fail-by-dynamic",
   SkillValueSucceedByExactly = "skill-value-succeed-by-exactly",
   SkillValueFailByExactly = "skill-value-fail-by-exactly",
@@ -23,6 +24,11 @@ export interface TagSkillValueSucceedByOrMore extends TagSkillValueBase {
 
 export interface TagSkillValueFailByOrLess extends TagSkillValueBase {
   type: TagTypeSkillValue.SkillValueFailByOrLess;
+  amount: DynamicValue;
+}
+
+export interface TagSkillValueFailByOrMore extends TagSkillValueBase {
+  type: TagTypeSkillValue.SkillValueFailByOrMore;
   amount: DynamicValue;
 }
 

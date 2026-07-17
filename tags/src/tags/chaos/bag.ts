@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeChaosBag {
   ChaosBagAddBless = "chaos-bag-add-bless",
@@ -9,7 +10,7 @@ export enum TagTypeChaosBag {
 }
 
 interface TagChaosBagBase extends TagBase {
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagChaosBagAddBless extends TagChaosBagBase {

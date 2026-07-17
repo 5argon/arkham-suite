@@ -1,39 +1,362 @@
 [
-  { "rule": "margin-rider", "key": "02150", "note": "Deduction — genuine base success effect + separate 'by 2 or more … instead' upgrade; both tags correct" },
-  { "rule": "margin-rider", "key": "02268", "note": "Fearless — same Deduction shape" },
-  { "rule": "margin-rider", "key": "02299", "note": "Vicious Blow — same Deduction shape" },
-  { "rule": "margin-rider", "key": "60228", "note": "Perception — same Deduction shape" },
-  { "rule": "margin-rider", "key": "60424", "note": "Guts — same Deduction shape" },
-  { "rule": "margin-rider", "key": "60126", "note": "Overpower — same Deduction shape" },
-  { "rule": "margin-rider", "key": "60325", "note": "Manual Dexterity — same Deduction shape" },
-  { "rule": "margin-rider", "key": "04309", "note": "All In — 'if successful, draw 1 per point succeeded by': success condition is genuine, margin feeds the dynamic amount" },
-  { "rule": "margin-rider", "key": "60328", "note": "Pilfer(3) — success effect (2 clues) + separate by-2 rider (return to hand)" },
-  { "rule": "both-values", "key": "02150", "note": "Deduction — 1-or-2-instead replacement (canonical both-values card)" },
-  { "rule": "both-values", "key": "02268", "note": "Fearless — 1-or-2-instead replacement" },
-  { "rule": "both-values", "key": "02299", "note": "Vicious Blow — 1-or-2-instead replacement" },
-  { "rule": "both-values", "key": "60224", "note": "Cryptic Writings — gain 3 or 4 instead (ledger-ruled both-values)" },
-  { "rule": "both-values", "key": "60228", "note": "Perception — draw 1-or-2-instead replacement" },
-  { "rule": "both-values", "key": "60424", "note": "Guts — draw 1-or-2-instead replacement" },
-  { "rule": "both-values", "key": "60117", "note": "One-Two Punch — two SEPARATE fights (+1 then +2); different values, not additive" },
-  { "rule": "both-values", "key": "60120", "note": "Evidence! — discover 1/2 (ledger-ruled both-values)" },
-  { "rule": "both-values", "key": "60126", "note": "Overpower — draw 1-or-2-instead replacement" },
-  { "rule": "both-values", "key": "60132", "note": "One-Two Punch(5) — two separate fights, different damage" },
-  { "rule": "both-values", "key": "01506", "note": "Roland's .38 Special — +1, or +3 instead if clues at your location (replacement)" },
-  { "rule": "both-values", "key": "01586", "note": "Knife — two SEPARATE abilities (+1; discard-to-+2)" },
-  { "rule": "both-values", "key": "60522", "note": ".18 Derringer(2) — two different-value combat boosts (separate ability shapes)" },
-  { "rule": "both-values", "key": "05111", "note": "Intel Report — discover 1, or spend more for 2 (replacement choice)" },
-  { "rule": "both-values", "key": "05114", "note": "Meat Cleaver — +1, or +2 instead at low sanity (replacement)" },
-  { "rule": "both-values", "key": "04017", "note": "Survival Knife — base +1 and a separate enemy-phase reaction attack +2" },
-  { "rule": "both-values", "key": "04103", "note": "Scene of the Crime — discover 1, 2 instead if enemy at your location (replacement)" },
-  { "rule": "both-values", "key": "04149", "note": "Second Wind — heal 1, 2 instead if first card played (replacement)" },
-  { "rule": "both-values", "key": "04274", "note": "Thermos — heal 1/2 instead (ledger-ruled both-values; damage and horror halves)" },
-  { "rule": "both-values", "key": "04276", "note": "Timeworn Brand — base +1 damage and a separate once-per-game +3 ability" },
-  { "rule": "both-values", "key": "60325", "note": "Manual Dexterity — draw 1-or-2-instead replacement" },
-  { "rule": "chaos-downside", "key": "60403", "note": "Dark Future — WEAKNESS; the end-of-turn reveal's elder-sign DISCARDS the weakness (beneficial), no downside effect to tag" },
-  { "rule": "chaos-downside", "key": "60404", "note": "Nihilism — WEAKNESS; forced damage/horror on autofail is not a voluntary gamble downside (mirrors the self-harm ruling)" },
-  { "rule": "margin-rider", "key": "06200", "note": "Burglary(2) — 'gain 2, +1 per point succeeded by': success condition is genuine (base 2), margin feeds the dynamic bonus (All In shape)" },
-  { "rule": "both-values", "key": "06201", "note": "Spectral Razor — '+1 damage (+2 instead if non-Elite)': literal instead-replacement" },
-  { "rule": "both-values", "key": "06281", "note": "Delilah O'Rourke — '1 damage (2 instead if exhausted)': literal instead-replacement" },
-  { "rule": "manual-reveal-st3", "key": "04199", "note": "Premonition — pre-seals a token and SUBSTITUTES it into real reveal windows (incl. in-test ST.3); the st3 interaction is genuine" },
-  { "rule": "manual-reveal-st3", "key": "60403", "note": "Dark Future — 'cannot cancel or ignore tokens' modifies in-test ST.3 resolution; st3 kept for that clause" }
+  {
+    "rule": "margin-rider",
+    "key": "02150",
+    "note": "Deduction \u2014 genuine base success effect + separate 'by 2 or more \u2026 instead' upgrade; both tags correct"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "02268",
+    "note": "Fearless \u2014 same Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "02299",
+    "note": "Vicious Blow \u2014 same Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60228",
+    "note": "Perception \u2014 same Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60424",
+    "note": "Guts \u2014 same Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60126",
+    "note": "Overpower \u2014 same Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60325",
+    "note": "Manual Dexterity \u2014 same Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "04309",
+    "note": "All In \u2014 'if successful, draw 1 per point succeeded by': success condition is genuine, margin feeds the dynamic amount"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60328",
+    "note": "Pilfer(3) \u2014 success effect (2 clues) + separate by-2 rider (return to hand)"
+  },
+  {
+    "rule": "both-values",
+    "key": "02150",
+    "note": "Deduction \u2014 1-or-2-instead replacement (canonical both-values card)"
+  },
+  {
+    "rule": "both-values",
+    "key": "02268",
+    "note": "Fearless \u2014 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "02299",
+    "note": "Vicious Blow \u2014 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "60224",
+    "note": "Cryptic Writings \u2014 gain 3 or 4 instead (ledger-ruled both-values)"
+  },
+  {
+    "rule": "both-values",
+    "key": "60228",
+    "note": "Perception \u2014 draw 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "60424",
+    "note": "Guts \u2014 draw 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "60117",
+    "note": "One-Two Punch \u2014 two SEPARATE fights (+1 then +2); different values, not additive"
+  },
+  {
+    "rule": "both-values",
+    "key": "60120",
+    "note": "Evidence! \u2014 discover 1/2 (ledger-ruled both-values)"
+  },
+  {
+    "rule": "both-values",
+    "key": "60126",
+    "note": "Overpower \u2014 draw 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "60132",
+    "note": "One-Two Punch(5) \u2014 two separate fights, different damage"
+  },
+  {
+    "rule": "both-values",
+    "key": "01506",
+    "note": "Roland's .38 Special \u2014 +1, or +3 instead if clues at your location (replacement)"
+  },
+  {
+    "rule": "both-values",
+    "key": "01586",
+    "note": "Knife \u2014 two SEPARATE abilities (+1; discard-to-+2)"
+  },
+  {
+    "rule": "both-values",
+    "key": "60522",
+    "note": ".18 Derringer(2) \u2014 two different-value combat boosts (separate ability shapes)"
+  },
+  {
+    "rule": "both-values",
+    "key": "05111",
+    "note": "Intel Report \u2014 discover 1, or spend more for 2 (replacement choice)"
+  },
+  {
+    "rule": "both-values",
+    "key": "05114",
+    "note": "Meat Cleaver \u2014 +1, or +2 instead at low sanity (replacement)"
+  },
+  {
+    "rule": "both-values",
+    "key": "04017",
+    "note": "Survival Knife \u2014 base +1 and a separate enemy-phase reaction attack +2"
+  },
+  {
+    "rule": "both-values",
+    "key": "04103",
+    "note": "Scene of the Crime \u2014 discover 1, 2 instead if enemy at your location (replacement)"
+  },
+  {
+    "rule": "both-values",
+    "key": "04149",
+    "note": "Second Wind \u2014 heal 1, 2 instead if first card played (replacement)"
+  },
+  {
+    "rule": "both-values",
+    "key": "04274",
+    "note": "Thermos \u2014 heal 1/2 instead (ledger-ruled both-values; damage and horror halves)"
+  },
+  {
+    "rule": "both-values",
+    "key": "04276",
+    "note": "Timeworn Brand \u2014 base +1 damage and a separate once-per-game +3 ability"
+  },
+  {
+    "rule": "both-values",
+    "key": "60325",
+    "note": "Manual Dexterity \u2014 draw 1-or-2-instead replacement"
+  },
+  {
+    "rule": "chaos-downside",
+    "key": "60403",
+    "note": "Dark Future \u2014 WEAKNESS; the end-of-turn reveal's elder-sign DISCARDS the weakness (beneficial), no downside effect to tag"
+  },
+  {
+    "rule": "chaos-downside",
+    "key": "60404",
+    "note": "Nihilism \u2014 WEAKNESS; forced damage/horror on autofail is not a voluntary gamble downside (mirrors the self-harm ruling)"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "06200",
+    "note": "Burglary(2) \u2014 'gain 2, +1 per point succeeded by': success condition is genuine (base 2), margin feeds the dynamic bonus (All In shape)"
+  },
+  {
+    "rule": "both-values",
+    "key": "06201",
+    "note": "Spectral Razor \u2014 '+1 damage (+2 instead if non-Elite)': literal instead-replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "06281",
+    "note": "Delilah O'Rourke \u2014 '1 damage (2 instead if exhausted)': literal instead-replacement"
+  },
+  {
+    "rule": "manual-reveal-st3",
+    "key": "04199",
+    "note": "Premonition \u2014 pre-seals a token and SUBSTITUTES it into real reveal windows (incl. in-test ST.3); the st3 interaction is genuine"
+  },
+  {
+    "rule": "manual-reveal-st3",
+    "key": "60403",
+    "note": "Dark Future \u2014 'cannot cancel or ignore tokens' modifies in-test ST.3 resolution; st3 kept for that clause"
+  },
+  {
+    "rule": "both-values",
+    "key": "07001",
+    "note": "Sister Mary \u2014 setup adds 2 bless, upkeep reaction adds 1: two separate abilities"
+  },
+  {
+    "rule": "both-values",
+    "key": "07302",
+    "note": "Holy Spear \u2014 base Fight (+2/+1 dmg) vs spend-2-bless Fight (+4/+2 dmg): two separate abilities"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08038",
+    "note": "Medical Texts \u2014 heal 1 (2 instead by 2+): Deduction shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08090",
+    "note": "Brand of Cthugha \u2014 success spends charges + exactly-0 rider: separate clauses"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08092",
+    "note": "Brand of Cthugha(3) \u2014 same shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08093",
+    "note": "Cyclopean Hammer \u2014 success effect + by-3 rider: separate clauses"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08101",
+    "note": "Divination \u2014 success discovery + exactly-0 rider"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08103",
+    "note": "Divination(4) \u2014 same shape"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08109",
+    "note": "Blur \u2014 success + exactly-0 rider"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "08111",
+    "note": "Blur(4) \u2014 same shape"
+  },
+  {
+    "rule": "both-values",
+    "key": "08038",
+    "note": "Medical Texts \u2014 heal 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "08044",
+    "note": "Archive of Conduits \u2014 tiered gate effects (1 vs 2 leylines): separate modes"
+  },
+  {
+    "rule": "both-values",
+    "key": "08048",
+    "note": "21 or Bust \u2014 blackjack payout tiers (4/5/6/9): separate outcomes"
+  },
+  {
+    "rule": "both-values",
+    "key": "08093",
+    "note": "Cyclopean Hammer \u2014 +1 damage (+2 instead by 3+): replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "08094",
+    "note": "Sledgehammer \u2014 two separate Fight abilities"
+  },
+  {
+    "rule": "both-values",
+    "key": "08096",
+    "note": "Sledgehammer(4) \u2014 two separate Fight abilities (+1/+1 vs +5/+5)"
+  },
+  {
+    "rule": "both-values",
+    "key": "09022",
+    "note": "Runic Axe \u2014 base +1 combat + Accuracy inscription +2 (customizable stackable modifiers)"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "09026",
+    "note": "Breach the Door \u2014 success attaches, margin sets lead count (All In shape)"
+  },
+  {
+    "rule": "both-values",
+    "key": "09056",
+    "note": "Surgical Kit \u2014 reaction heals +1 vs [action][action] heals 3: separate abilities"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "09075",
+    "note": "Thieves' Kit \u2014 success gains 1 (2 by 2+): Deduction shape"
+  },
+  {
+    "rule": "both-values",
+    "key": "09075",
+    "note": "Thieves' Kit \u2014 gain 1-or-2-instead replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "09084",
+    "note": "Hallowed Chalice \u2014 doom-mode heals 2 vs free-mode heals 1: choice modes"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "09090",
+    "note": "Ghastly Possession \u2014 'replenish half of ITS uses' restores ANOTHER asset's pool (support), not self-replenish; correctly no uses-replenish"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "10026",
+    "note": "Hold Up \u2014 success plays asset, margin reduces its cost (All In shape)"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "10029",
+    "note": "Purified \u2014 success adds bless/removes curse per point (All In shape)"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "10073",
+    "note": "Stir the Pot \u2014 success deals 2 dmg + separate by-2 disengage rider (Deduction shape)"
+  },
+  {
+    "rule": "both-values",
+    "key": "10032",
+    "note": "Second Wind \u2014 heal 2 (3 if drew treachery): replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "10102",
+    "note": "Spectral Razor \u2014 +1 dmg (+2 if non-Elite): replacement (same as 06201)"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "10092",
+    "note": "Wicked Athame \u2014 replenishes ANOTHER asset's charge/offering (support), not self"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "10099",
+    "note": "Call the Beyond \u2014 replenishes a CHOSEN asset's uses (support), not self"
+  },
+  {
+    "rule": "both-values",
+    "key": "11024",
+    "note": "Ready for Anything \u2014 draw 1 (2 if drew enemy): replacement"
+  },
+  {
+    "rule": "chaos-downside",
+    "key": "11039",
+    "note": "Uncanny Specimen \u2014 reaction CANCELS the symbol (payoff/protection); 'discard' is its own cost, not a symbol penalty"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "11040",
+    "note": "Correlate All Its Contents \u2014 success places 1 charge + by-exactly-1/3 upgrade to 2: base success + margin rider"
+  },
+  {
+    "rule": "both-values",
+    "key": "11105",
+    "note": "Name Your Price \u2014 deal 10 (5 if Elite): replacement"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "11111",
+    "note": "Nose to the Grindstone \u2014 replenishes ANOTHER asset's supply (support), correctly uses-support-supply not self"
+  }
 ]

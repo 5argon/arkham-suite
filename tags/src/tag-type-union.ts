@@ -39,6 +39,7 @@ import {
   TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
+  TagTypeChaosTokenPool,
 } from "./tags/chaos/index.js";
 import {
   TagTypeClueAdditional,
@@ -61,6 +62,9 @@ import {
   TagTypeCostOther,
   TagTypeCostReaction,
 } from "./tags/cost/index.js";
+import {
+  TagTypeCustomizable,
+} from "./tags/customizable/index.js";
 import {
   TagTypeDamage,
 } from "./tags/damage/index.js";
@@ -199,6 +203,7 @@ import {
 } from "./tags/trait/index.js";
 import {
   TagTypeUsesAccumulate,
+  TagTypeUsesMarker,
   TagTypeUsesReplenish,
   TagTypeUsesSelfPlace,
   TagTypeUsesStarting,
@@ -233,6 +238,7 @@ export type TagType =
   | TagTypeChaosPredict
   | TagTypeChaosReveal
   | TagTypeChaosSeal
+  | TagTypeChaosTokenPool
   | TagTypeClueAdditional
   | TagTypeClueDiscover
   | TagTypeCluePlace
@@ -244,6 +250,7 @@ export type TagType =
   | TagTypeCostFree
   | TagTypeCostOther
   | TagTypeCostReaction
+  | TagTypeCustomizable
   | TagTypeDamage
   | TagTypeDeckDiscard
   | TagTypeDeckDraw
@@ -313,6 +320,7 @@ export type TagType =
   | TagTypeTimingWhen
   | TagTypeTraitSupport
   | TagTypeUsesAccumulate
+  | TagTypeUsesMarker
   | TagTypeUsesReplenish
   | TagTypeUsesSelfPlace
   | TagTypeUsesStarting

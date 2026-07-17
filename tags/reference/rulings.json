@@ -314,6 +314,61 @@
       "Heuristics beat agents here: an agent sweep once found ZERO of these; a word-heuristic found 8. Trust the lint flag."
     ]
   },
+  "cost-play-spend-action": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, FHV ingestion — REVIEW WELCOME): the 'Double' keyword — spend an action as an additional cost to PLAY (11 FHV members). A play cost, distinct from the icon-scoped ability spend-cost families."
+    ]
+  },
+  "enemy-value-health": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, FHV): completes the enemy-value family (fight/evade/horror/damage → +health) — references an enemy's PRINTED health as a value (Ancestral Token, Blackmail File). Distinct from enemy-value-remaining-health (current damage) and enemy-value-health-reduction (shrinks it)."
+    ]
+  },
+  "customizable": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, TSK ingestion — REVIEW WELCOME): marks the 17 Scarlet Keys customizable cards (upgrade-sheet system). Only base text tagged mechanically. Meta-designation like Myriad — keep for a browsable upgradeable class, or drop. OPEN for user: doom RELOCATION (move doom from card to a live destination — agenda/other card, not removal) is a ~4-card TSK cluster (Deafening Silence 09014, Sin-Eater 09094, Amina 09011, Handcuffs 09035) with ambiguous split vs the 22 corpus-wide 'move doom' cards mostly covered by doom-remove; left untagged pending your call."
+    ]
+  },
+  "uses-board-marker": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, EOTE ingestion — REVIEW WELCOME): use-tokens moved onto BOARD entities as markers for remote effects (Archive of Conduits gates, Occult Reliquary; 5 members)."
+    ]
+  },
+  "cost-alternate-payment": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, EOTE ingestion — REVIEW WELCOME): card-local resources pay for trait-X cards (the EOTE wallet family: Prophetic/Sleuth/Bruiser/Crafty/Antiquary/Schoffner's; traits arg lists what it pays for). trait-support-* enum extended with Fortune/Charm/Armor/Tool/Creature for these; Favor/Ritual/Tactic-wallet halves use existing members where available."
+    ]
+  },
+  "heal-removes-weakness": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, EOTE ingestion — REVIEW WELCOME): the injury/panic weakness family healable as damage/horror (4 members). Their action-type-lockout clauses stay untagged per the behavior-restriction convention (Promise, Self-Centered)."
+    ]
+  },
+  "chaos-recycle-token": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, TIC ingestion — REVIEW WELCOME): revealed bless/curse returns to the BAG instead of the token pool (the Innsmouth conservation mechanic; 5 TIC members)."
+    ]
+  },
+  "chaos-spend-sealed": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, TIC ingestion — REVIEW WELCOME): sealed tokens used as a RESOURCE — released/spent as costs or consumed by effects (4 TIC members)."
+    ]
+  },
+  "chaos-bag-count-condition": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, TIC ingestion — REVIEW WELCOME): gates/scales on the number of bless/curse in the bag (Favor family, 3 TIC members)."
+    ]
+  },
+  "commit-count-condition": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17, TIC ingestion — REVIEW WELCOME): gates/scales on committed-card count — the Silas/Amanda skills-matter archetype (3 TIC members)."
+    ]
+  },
+  "cost-free-spend-offering": {
+    "rulings": [
+      "AUTONOMOUS TAG (2026-07-17): systematic extension of the closed spend-cost family for offering tokens (Jacob Morrison)."
+    ]
+  },
   "chaos-reveal-manual": {
     "rulings": [
       "Reveal-and-hope gambles (Hypnotic Gaze, Astral Travel, Recharge, Voice of Ra). This is NOT token control — it was dropped from the Chaos Token Control compound.",

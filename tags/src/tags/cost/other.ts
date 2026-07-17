@@ -5,6 +5,8 @@ export enum TagTypeCostOther {
   CostHorrorSelf = "cost-horror-self",
   CostDiscardCard = "cost-discard-card",
   CostAddDoomSelf = "cost-add-doom-self",
+  CostAlternatePayment = "cost-alternate-payment",
+  CostPlaySpendAction = "cost-play-spend-action",
 }
 
 interface TagCostOtherBase extends TagBase {}
@@ -33,4 +35,25 @@ export interface TagCostDiscardCard extends TagCostOtherBase {
 export interface TagCostAddDoomSelf extends TagCostOtherBase {
   type: TagTypeCostOther.CostAddDoomSelf;
   value: number;
+}
+
+/**
+ * Resources ON this card may be spent to pay for cards of given traits — the
+ * EOTE savings-wallet family (Prophetic, Sleuth, Bruiser, Crafty, Antiquary,
+ * Schoffner's Catalogue). `traits` = which cards the wallet pays for.
+ * (Created autonomously 2026-07-17 — review welcome.)
+ */
+export interface TagCostAlternatePayment extends TagCostOtherBase {
+  type: TagTypeCostOther.CostAlternatePayment;
+  traits?: string[];
+}
+
+/**
+ * "Double" (FHV keyword): as an ADDITIONAL COST TO PLAY this card, spend an
+ * action — a play cost, not an ability cost (11 FHV members). Distinct from the
+ * cost-*-spend families (which are triggered-ability costs before a colon).
+ * (Created autonomously 2026-07-17, FHV ingestion — REVIEW WELCOME.)
+ */
+export interface TagCostPlaySpendAction extends TagCostOtherBase {
+  type: TagTypeCostOther.CostPlaySpendAction;
 }
