@@ -3,61 +3,145 @@
   "code": "52001",
   "name": ".32 Colt",
   "text": "Uses (6 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You deal +1 damage for this attack.\n[fast] Spend 1 resource: Return .32 Colt to your hand.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 6 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypePlayArea.PlayAreaToHand }"
+  ]
  },
  {
   "code": "52002",
   "name": "\"Eat lead!\"",
   "text": "Fast. Play when you activate the <b>Fight</b> ability on a [[Firearm]] asset.\nSpend 1 additional ammo token from that asset. When you reveal chaos tokens for this attack, reveal 1 additional chaos token. Choose one to resolve and ignore the other.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
  },
  {
   "code": "52003",
   "name": "Logical Reasoning",
   "text": "For each clue you have (to a maximum of 3), either heal 2 horror from an investigator at your location or discard a [[Terror]] card at your location.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCondition.ConditionClueHeld }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 2 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay }"
+  ]
  },
  {
   "code": "52004",
   "name": "Archaic Glyphs",
   "text": "Researched. Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> If you succeed, you may put an asset with printed cost of X or lower into play from your hand. X is the amount you succeeded by.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }"
+  ]
  },
  {
   "code": "52005",
   "name": "Stealth",
   "text": "[fast] During your turn, exhaust Stealth: <b>Evade.</b> The chosen enemy gets -2 evade for this evasion attempt. If you successfully evade the enemy, disengage with it but do not exhaust it. Until the end of your turn, that enemy cannot engage you.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeEnemyValue.EnemyValueEvadeReduction }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, withoutExhaust: true }",
+   "{ type: TagTypeBuffCannot.CannotEngageYou }",
+   "{ type: TagTypeDuration.DurationUntilEndTurn }"
+  ]
  },
  {
   "code": "52006",
   "name": "Suggestion",
   "text": "Uses (3 charges). If Suggestion has no charges, discard it.\n[action] Exhaust Suggestion: <b>Evade.</b> Add your [willpower] value to your skill value for this evasion attempt. If you do not succeed by at least 2, remove 1 charge from Suggestion.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }"
+  ]
  },
  {
   "code": "52007",
   "name": "Alchemical Transmutation",
   "text": "Uses (4 charges).\n[action] Exhaust Alchemical Transmutation, spend 1 charge: Test [willpower] (0). For each point you succeed by, gain 1 resource (to a maximum of 4). If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, take 1 damage.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 0 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
  },
  {
   "code": "52008",
   "name": "Storm of Spirits",
   "text": "<b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] for this attack. If you succeed, instead of its standard damage, this attack deals 3 damage to each enemy at the attacked enemy's location <i>(any additional damage is dealt to the attacked enemy)</i>. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] token is revealed during this attack, deal 2 damage to each investigator at the attacked enemy's location.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 2 }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 2 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
  },
  {
   "code": "52009",
   "name": "Lantern",
   "text": "[action]: <b>Investigate.</b> Your location gets -1 shroud for this investigation.\n[action] Discard Lantern: Deal 1 damage to an enemy at your location (or remove Lantern from the game to deal 2 damage, instead). This action does not provoke attacks of opportunity.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeCostAction.CostActionDiscardSelf }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeRfg.RfgSelf }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 2 }",
+   "{ type: TagTypeAoo.AooNoProvoke }"
+  ]
  },
  {
   "code": "52010",
   "name": "Gravedigger's Shovel",
   "text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack.\n[action] Discard Gravedigger's Shovel: Discover 1 clue at your location (or remove Gravedigger's Shovel from the game to discover 2 clues, instead).",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeCostAction.CostActionDiscardSelf }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }"
+  ]
  },
  {
   "code": "52011",
@@ -69,12 +153,17 @@
   "code": "52012",
   "name": "Unspeakable Oath",
   "text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] After you successfully investigate a location with no clues on it: Discard this card from your hand.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
  },
  {
   "code": "52013",
   "name": "Unspeakable Oath",
   "text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[action]: <b>Evade.</b> Use only on an exhausted unengaged enemy at your location. If you succeed, discard this card from your hand.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }"
+  ]
  }
 ]

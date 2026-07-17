@@ -358,5 +358,30 @@
     "rule": "replenish-cap",
     "key": "11111",
     "note": "Nose to the Grindstone \u2014 replenishes ANOTHER asset's supply (support), correctly uses-support-supply not self"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "52004",
+    "note": "Archaic Glyphs(3) \u2014 success puts asset into play + separate margin rider"
+  },
+  {
+    "rule": "both-values",
+    "key": "52009",
+    "note": "Lantern \u2014 two separate [action] abilities (investigate mode vs discard-to-damage)"
+  },
+  {
+    "rule": "both-values",
+    "key": "52010",
+    "note": "Gravedigger's Shovel \u2014 discover 1, or remove-from-game to discover 2: replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "54005",
+    "note": "Knight of Swords \u2014 +1, or discard for +3 instead: replacement"
+  },
+  {
+    "rule": "both-values",
+    "key": "54010",
+    "note": "Trial by Fire \u2014 set all skills to 5, or one skill to 7: replacement modes"
   }
 ]
