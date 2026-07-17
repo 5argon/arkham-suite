@@ -1,4 +1,54 @@
-import { TaggedCard } from "../type.js";
+import {
+  TagTypeActionAdditional,
+  TagTypeActionBold,
+  TagTypeAuto,
+  TagTypeBuffInvestigatorStats,
+  TagTypeCancel,
+  TagTypeChaosReveal,
+  TagTypeClueDiscover,
+  TagTypeCommit,
+  TagTypeCondition,
+  TagTypeCostAction,
+  TagTypeCostFree,
+  TagTypeCostReaction,
+  TagTypeDamage,
+  TagTypeDeckDraw,
+  TagTypeDeckMisc,
+  TagTypeDeckShuffle,
+  TagTypeDiscardFromPlay,
+  TagTypeDuration,
+  TagTypeEnemyDebuff,
+  TagTypeEnemyElite,
+  TagTypeEnemyEngage,
+  TagTypeEnemyRestriction,
+  TagTypeGainKeyword,
+  TagTypeGainResource,
+  TagTypeLocationConnecting,
+  TagTypeLocationMove,
+  TagTypeLocationProperty,
+  TagTypeLocationYour,
+  TagTypeReady,
+  TagTypeSkillCommit,
+  TagTypeSkillTestCondition,
+  TagTypeSkillValue,
+  TagTypeSkillValueSource,
+  TagTypeSoak,
+  TagTypeStatsModAddStat,
+  TagTypeStatsModBoostInTest,
+  TagTypeStatsModBoostLasting,
+  TagTypeStatsModBoostPassive,
+  TagTypeStatsModPump,
+  TagTypeStatsModUseInstead,
+  TagTypeTestMisc,
+  TagTypeTestless,
+  TagTypeTimingAfter,
+  TagTypeTimingPhaseSequence,
+  TagTypeTimingSkill,
+  TagTypeUsesAccumulate,
+  TagTypeUsesStarting,
+} from "../tags/index.js";
+import { BasicAction, SkillType } from "../kohaku.js";
+import { TaggedCard, TimingQualifier } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -7,7 +57,11 @@ const taggedCards: TaggedCard[] = [
     text: "[reaction] After you succeed at a skill test by 2 or more during your turn: You may take an additional action this turn. (Limit once per round.)\n[elder_sign] effect: +2. Gain 1 resource.",
     cardType: "investigator",
     icons: ["willpower", "willpower", "intellect", "intellect", "intellect", "combat", "combat", "agility", "agility", "agility", "agility", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
+      { type: TagTypeGainResource.GainResourceYou, value: 1 },
+    ],
   },
   {
     code: "60352",
@@ -15,7 +69,12 @@ const taggedCards: TaggedCard[] = [
     text: "André Patel deck only.\nWhile this card is committed to an attack or an evasion, it gains [wild] [wild].",
     cardType: "skill",
     icons: ["wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeDeckMisc.DeckRestriction },
+      { type: TagTypeCommit.CommitDuringAttack },
+      { type: TagTypeCommit.CommitDuringEvade },
+      { type: TagTypeSkillCommit.SkillCommitGainIcon },
+    ],
   },
   {
     code: "60353",
@@ -23,7 +82,10 @@ const taggedCards: TaggedCard[] = [
     text: "André Patel deck only.\nWhile this card is committed to a skill test on a scenario card, it gains [wild] [wild].",
     cardType: "skill",
     icons: ["wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeDeckMisc.DeckRestriction },
+      { type: TagTypeSkillCommit.SkillCommitGainIcon },
+    ],
   },
   {
     code: "60354",
@@ -31,7 +93,12 @@ const taggedCards: TaggedCard[] = [
     text: "André Patel deck only.\nWhile this card is committed to an investigation or parley, it gains [wild] [wild].",
     cardType: "skill",
     icons: ["wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeDeckMisc.DeckRestriction },
+      { type: TagTypeCommit.CommitDuringBasicAction, action: BasicAction.Investigate },
+      { type: TagTypeCommit.CommitDuringBasicAction, action: BasicAction.Parley },
+      { type: TagTypeSkillCommit.SkillCommitGainIcon },
+    ],
   },
   {
     code: "60355",
@@ -39,7 +106,10 @@ const taggedCards: TaggedCard[] = [
     text: "<b>Revelation</b> - Put Weight of the World into play in your threat area.\n<b>Forced</b> - When you fail a skill test while Weight of the World is in play, take 1 horror and shuffle it back into your deck.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+    ],
   },
   {
     code: "60356",
@@ -47,7 +117,11 @@ const taggedCards: TaggedCard[] = [
     text: "<b>Revelation</b> - Put Unaware into play in your threat area.\n<b>Forced</b> - The first time you fail a skill test during your turn: Draw the top card of the encounter deck. If that card is an enemy, discard Unaware.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
+      { type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+    ],
   },
   {
     code: "60357",
@@ -56,7 +130,10 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeCostFree.CostFreeExhaustSelf },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
+    ],
   },
   {
     code: "60358",
@@ -65,7 +142,12 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeActionBold.ActionBoldParley },
+      { type: TagTypeGainResource.GainResourceYou, value: 2 },
+    ],
   },
   {
     code: "60359",
@@ -74,7 +156,15 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
+      { type: TagTypeActionBold.ActionBoldParley },
+      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
+      { type: TagTypeEnemyEngage.EnemyEngageWithYou },
+    ],
   },
   {
     code: "60360",
@@ -83,7 +173,11 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 },
+    ],
   },
   {
     code: "60361",
@@ -92,7 +186,13 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Investigate },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+    ],
   },
   {
     code: "60362",
@@ -101,7 +201,10 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeGainResource.GainResourceYou, value: 1 },
+      { type: TagTypeSoak.SoakSanity, value: 2 },
+    ],
   },
   {
     code: "60363",
@@ -110,7 +213,13 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Fight },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeAuto.AutoEvade },
+    ],
   },
   {
     code: "60364",
@@ -119,7 +228,12 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "event",
     icons: ["intellect", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2, action: BasicAction.Investigate },
+      { type: TagTypeLocationProperty.LocationClueZero },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+    ],
   },
   {
     code: "60365",
@@ -128,7 +242,15 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "event",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldParley },
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeEnemyEngage.EnemyEngageDisengage },
+      { type: TagTypeGainKeyword.GainKeywordAloof },
+      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeTestless.TestlessClue, value: 1 },
+    ],
   },
   {
     code: "60366",
@@ -137,7 +259,13 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "event",
     icons: ["willpower", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldEvade },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 2, action: BasicAction.Evade },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeEnemyDebuff.EnemyDoesNotReady },
+    ],
   },
   {
     code: "60367",
@@ -146,7 +274,12 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "event",
     icons: ["combat", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
+      { type: TagTypeEnemyRestriction.EnemyTargetExhausted },
+      { type: TagTypeDamage.DamagePlus, value: 1 },
+    ],
   },
   {
     code: "60368",
@@ -155,7 +288,12 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "event",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterEvadeEnemy },
+      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 },
+    ],
   },
   {
     code: "60369",
@@ -164,7 +302,11 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "skill",
     icons: ["wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeTestMisc.TestYouPerform },
+      { type: TagTypeCommit.CommitMax, value: 1 },
+      { type: TagTypeSkillCommit.SkillCommitGainIcon },
+    ],
   },
   {
     code: "60370",
@@ -173,7 +315,11 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "skill",
     icons: ["agility", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeCommit.CommitBenefitsPerformer },
+      { type: TagTypeGainResource.GainResourceInvestigator, value: 2 },
+      { type: TagTypeSkillTestCondition.SkillTestConditionFail },
+    ],
   },
   {
     code: "60371",
@@ -182,7 +328,11 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "skill",
     icons: ["willpower", "combat", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeTestMisc.TestYouPerform },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
+    ],
   },
   {
     code: "60372",
@@ -191,7 +341,14 @@ const taggedCards: TaggedCard[] = [
     level: 1,
     cardType: "asset",
     icons: ["intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeUsesStarting.UsesStartingSupply, value: 3 },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
+      { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Investigate },
+    ],
   },
   {
     code: "60373",
@@ -200,7 +357,11 @@ const taggedCards: TaggedCard[] = [
     level: 1,
     cardType: "skill",
     icons: ["agility", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeCommit.CommitBenefitsPerformer },
+      { type: TagTypeGainResource.GainResourceInvestigator, value: 4 },
+      { type: TagTypeSkillTestCondition.SkillTestConditionFail },
+    ],
   },
   {
     code: "60374",
@@ -209,7 +370,15 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["intellect", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeCostAction.CostActionExhaustSelf },
+      { type: TagTypeActionBold.ActionBoldParley },
+      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeEnemyEngage.EnemyEngageEffect },
+      { type: TagTypeEnemyEngage.EnemyEngageWithYou },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+    ],
   },
   {
     code: "60375",
@@ -218,7 +387,10 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeGainResource.GainResourceYou, value: 1 },
+      { type: TagTypeSoak.SoakSanity, value: 3 },
+    ],
   },
   {
     code: "60376",
@@ -227,7 +399,13 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["intellect", "intellect", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Intellect, action: BasicAction.Investigate },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Intellect, action: BasicAction.Investigate },
+      { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+    ],
   },
   {
     code: "60377",
@@ -236,7 +414,13 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["willpower", "willpower", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldEvade },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Evade },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeEnemyDebuff.EnemyDoesNotReady },
+    ],
   },
   {
     code: "60378",
@@ -245,7 +429,13 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["combat", "combat", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Combat, action: BasicAction.Fight },
+      { type: TagTypeEnemyRestriction.EnemyTargetExhausted },
+      { type: TagTypeDamage.DamagePlus, value: 2 },
+    ],
   },
   {
     code: "60379",
@@ -254,7 +444,13 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["intellect", "agility", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeCondition.ConditionResource, comparison: "min", value: 10 },
+      { type: TagTypeBuffInvestigatorStats.BuffInvestigatorHealth, value: 1 },
+      { type: TagTypeBuffInvestigatorStats.BuffInvestigatorSanity, value: 1 },
+      { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
+      { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 },
+    ],
   },
   {
     code: "60380",
@@ -263,7 +459,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["intellect", "agility", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
+    ],
   },
   {
     code: "60381",
@@ -272,7 +473,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["intellect", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeCostFree.CostFreeExhaustSelf },
+      { type: TagTypeSkillValueSource.SkillValueFromResource, per: 4 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeReady.ReadySelf },
+    ],
   },
   {
     code: "60382",
@@ -281,7 +487,13 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "event",
     icons: ["willpower", "intellect", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterEvadeEnemy },
+      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeTestless.TestlessClue, value: 1 },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+      { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 },
+    ],
   },
   {
     code: "60383",
@@ -290,7 +502,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "skill",
     icons: ["wild", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeCancel.CancelChaos },
+      { type: TagTypeChaosReveal.ChaosRevealAnotherInstead },
+    ],
   },
   {
     code: "60384",
@@ -299,7 +516,16 @@ const taggedCards: TaggedCard[] = [
     level: 5,
     cardType: "asset",
     icons: ["wild", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 0 },
+      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.After },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
+      { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "charge" },
+      { type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 4 },
+      { type: TagTypeDuration.DurationNext },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeActionAdditional.ActionAdditional, value: 2 },
+    ],
   },
 ];
 export default taggedCards;

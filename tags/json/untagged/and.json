@@ -3,204 +3,380 @@
   "code": "60351",
   "name": "André Patel",
   "text": "[reaction] After you succeed at a skill test by 2 or more during your turn: You may take an additional action this turn. (Limit once per round.)\n[elder_sign] effect: +2. Gain 1 resource.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }"
+  ]
  },
  {
   "code": "60352",
   "name": "Know the Exit",
   "text": "André Patel deck only.\nWhile this card is committed to an attack or an evasion, it gains [wild] [wild].",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCommit.CommitDuringAttack }",
+   "{ type: TagTypeCommit.CommitDuringEvade }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+  ]
  },
  {
   "code": "60353",
   "name": "Know the Line",
   "text": "André Patel deck only.\nWhile this card is committed to a skill test on a scenario card, it gains [wild] [wild].",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+  ]
  },
  {
   "code": "60354",
   "name": "Know the Scene",
   "text": "André Patel deck only.\nWhile this card is committed to an investigation or parley, it gains [wild] [wild].",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCommit.CommitDuringBasicAction, action: BasicAction.Investigate }",
+   "{ type: TagTypeCommit.CommitDuringBasicAction, action: BasicAction.Parley }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+  ]
  },
  {
   "code": "60355",
   "name": "Weight of the World",
   "text": "<b>Revelation</b> - Put Weight of the World into play in your threat area.\n<b>Forced</b> - When you fail a skill test while Weight of the World is in play, take 1 horror and shuffle it back into your deck.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
  },
  {
   "code": "60356",
   "name": "Unaware",
   "text": "<b>Revelation</b> - Put Unaware into play in your threat area.\n<b>Forced</b> - The first time you fail a skill test during your turn: Draw the top card of the encounter deck. If that card is an enemy, discard Unaware.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
  },
  {
   "code": "60357",
   "name": "Center Stage",
   "text": "Limit 1 per investigator. Uses (3 renown). If there is no renown on Center Stage, discard it.\n[fast] During a skill test, spend 1 renown and exhaust Center Stage: You get +1 skill value for each action you have spent this round <i>(including this one, if this is triggered during one of your actions)</i>.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "60358",
   "name": "Fame",
   "text": "Uses (4 renown). If there is no renown on Fame, discard it.\n[action] If there is an enemy at your location, spend 1 renown: <b>Parley.</b> Gain 2 resources.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 2 }"
+  ]
  },
  {
   "code": "60359",
   "name": "The Grapevine",
   "text": "Uses (3 rumors). If there are no rumors on The Grapevine, discard it.\n[action] Spend 1 rumor and exhaust The Grapevine: <b>Parley.</b> Choose an enemy at a revealed location up to 2 connections away. Move (one location at a time) along the shortest path to that enemy's location and engage it.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }"
+  ]
  },
  {
   "code": "60360",
   "name": "Extravagant Ring",
   "text": "Uses (3 renown).\n[reaction] When you would succeed at a skill test, spend 1 renown and exhaust Extravagant Ring: You get +2 skill value for this test.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }"
+  ]
  },
  {
   "code": "60361",
   "name": "Lockpicks",
   "text": "[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, discard Lockpicks.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Investigate }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
  },
  {
   "code": "60362",
   "name": "Marcus Sengstacke",
   "text": "You gain 1 additional resource during the upkeep phase.\n<b>Forced</b> - After you fail a skill test: Deal 1 horror to Marcus Sengstacke.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
  },
  {
   "code": "60363",
   "name": "Polished Cane",
   "text": "[action]: <b>Fight</b> ([combat]). Add your [agility] to your [combat] for this attack. If this attack succeeds by 2 or more against a non-[[Elite]] enemy, you may exhaust Polished Cane to automatically evade that enemy.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeAuto.AutoEvade }"
+  ]
  },
  {
   "code": "60364",
   "name": "Clean Sweep",
   "text": "<b>Investigate</b> ([intellect]). You get +2 [intellect] for this investigation. If you discover the last clue at your location, you may move to a connecting location.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2, action: BasicAction.Investigate }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+  ]
  },
  {
   "code": "60365",
   "name": "Pay Your Dues",
   "text": "<b>Parley.</b> Choose a non-[[Elite]] enemy at your location with X remaining health. That enemy disengages from each investigator and gains aloof until the end of the round. Discover 1 clue at your location.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage }",
+   "{ type: TagTypeGainKeyword.GainKeywordAloof }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }"
+  ]
  },
  {
   "code": "60366",
   "name": "Quick Exit",
   "text": "<b>Evade</b> ([agility]). You get +2 [agility] for this evasion. If you succeed by 2 or more and the evaded enemy is non-[[Elite]], that enemy does not ready during the next upkeep phase.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 2, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }"
+  ]
  },
  {
   "code": "60367",
   "name": "A Sudden Fall",
   "text": "<b>Fight</b> ([combat]). You get +2 [combat] for this attack. If the targeted enemy is exhausted, this attack deals +1 damage.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetExhausted }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
  },
  {
   "code": "60368",
   "name": "Right Under Their Noses",
   "text": "Fast. Play after you successfully evade an enemy.\nDiscover 1 clue at your location (if you succeeded by 2 or more, you may discover 1 clue at a connecting location, instead).",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }"
+  ]
  },
  {
   "code": "60369",
   "name": "Easy Street",
   "text": "Commit only to a skill test you are performing. Max 1 committed per skill test.\nEasy Street gains [wild] for every 3 resources you have (to a maximum of [wild] [wild] [wild]).",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+  ]
  },
  {
   "code": "60370",
   "name": "Out the Door",
   "text": "After Out the Door is committed to a skill test, the performing investigator gains 2 resources. If this skill test fails, that investigator loses 2 resources.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCommit.CommitBenefitsPerformer }",
+   "{ type: TagTypeGainResource.GainResourceInvestigator, value: 2 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }"
+  ]
  },
  {
   "code": "60371",
   "name": "\"Watch this!\"",
   "text": "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" to a skill test, spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "60372",
   "name": "Lockpicks",
   "text": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Investigate }"
+  ]
  },
  {
   "code": "60373",
   "name": "Out the Door",
   "text": "After Out the Door is committed to a skill test, the performing investigator gains 4 resources. If this skill test fails, that investigator loses 4 resources.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCommit.CommitBenefitsPerformer }",
+   "{ type: TagTypeGainResource.GainResourceInvestigator, value: 4 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }"
+  ]
  },
  {
   "code": "60374",
   "name": "The Grapevine",
   "text": "Uses (3 rumors). If there are no rumors on The Grapevine, discard it.\n[action] Spend 1 rumor and exhaust The Grapevine: <b>Parley.</b> Choose an enemy at a revealed location up to 3 connections away. Move (one location at a time) along the shortest path to that enemy's location and engage it. Draw 1 card.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
  },
  {
   "code": "60375",
   "name": "Marcus Sengstacke",
   "text": "You gain 1 additional resource during the upkeep phase.\n<b>Forced</b> - After you fail a skill test: Deal 1 horror to Marcus Sengstacke.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }"
+  ]
  },
  {
   "code": "60376",
   "name": "Clean Sweep",
   "text": "<b>Investigate</b> ([agility]). Add your [intellect] to your [agility] for this test. After this test resolves, you may move to a connecting location.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+  ]
  },
  {
   "code": "60377",
   "name": "Quick Exit",
   "text": "<b>Evade</b> ([agility]). Add your [willpower] to your [agility] for this test. If you succeed and the evaded enemy is non-[[Elite]], that enemy does not ready during the next upkeep phase.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }"
+  ]
  },
  {
   "code": "60378",
   "name": "A Sudden Fall",
   "text": "<b>Fight</b> ([agility]). Add your [combat] to your [agility] for this test. If the targeted enemy is exhausted, this attack deals +2 damage.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetExhausted }",
+   "{ type: TagTypeDamage.DamagePlus, value: 2 }"
+  ]
  },
  {
   "code": "60379",
   "name": "The Black Fan",
   "text": "Exceptional.\nWhile you have...\n- ...10+ resources, you get +1 health and +1 sanity.\n- ...15+ resources, you may take one additional action during your turn.\n- ...20+ resources, you get +1 to each of your skills.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCondition.ConditionResource, comparison: \"min\", value: 10 }",
+   "{ type: TagTypeBuffInvestigatorStats.BuffInvestigatorHealth, value: 1 }",
+   "{ type: TagTypeBuffInvestigatorStats.BuffInvestigatorSanity, value: 1 }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 }"
+  ]
  },
  {
   "code": "60380",
   "name": "Silver Tongue",
   "text": "Starting. <i>(You may begin the game with 1 copy of a starting card in your opening hand.)</i>\n[fast] Spend 1 resource: You get +1 [intellect] for this skill test (+2 [intellect] instead if this is an evasion or parley).\n[fast] Spend 1 resource: You get +1 [agility] for this skill test (+2 [agility] instead if this is an evasion or parley).",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "60381",
   "name": "Well Connected",
   "text": "Limit 1 per investigator.\n[fast] Exhaust Well Connected: You get +1 skill value for this skill test for every 4 resources you have.\n[fast] Spend 2 resources: Ready Well Connected. (Limit once per round.)",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeSkillValueSource.SkillValueFromResource, per: 4 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeReady.ReadySelf }"
+  ]
  },
  {
   "code": "60382",
   "name": "Right Under Their Noses",
   "text": "Fast. Play after you successfully evade an enemy.\nDiscover 1 clue at your location (if you succeeded by 2 or more, you may discover 1 clue at a connecting location, as well).",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }"
+  ]
  },
  {
   "code": "60383",
   "name": "Contingency",
   "text": "While Contingency is committed to a skill test targeting an enemy, after revealing chaos tokens, you may spend 3 resources to cancel a revealed token, return it to the chaos bag, and reveal a new one. <i>(You may do this any number of times.)</i>",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }"
+  ]
  },
  {
   "code": "60384",
   "name": "The Red Clock",
   "text": "Exceptional. Uses (0 charges).\n<b>Forced</b> - After your turn begins: You may take all charges here, as resources. Place 1 charge here. If it has exactly...\n- 1 charge, you get +4 skill value for your next skill test.\n- 2 charges, you may move up to 3 times.\n- 3 charges, you may take 2 additional actions this turn.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 0 }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.After }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"charge\" }",
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 4 }",
+   "{ type: TagTypeDuration.DurationNext }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 2 }"
+  ]
  }
 ]

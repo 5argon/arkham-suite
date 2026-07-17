@@ -383,5 +383,95 @@
     "rule": "both-values",
     "key": "54010",
     "note": "Trial by Fire \u2014 set all skills to 5, or one skill to 7: replacement modes"
+  },
+  {
+    "rule": "both-values",
+    "key": "12024",
+    "note": "Scene of the Crime \u2014 discover 1/2 (matches base 04103)"
+  },
+  {
+    "rule": "both-values",
+    "key": "12028",
+    "note": "Sledgehammer \u2014 two separate Fight abilities (matches base 08094)"
+  },
+  {
+    "rule": "both-values",
+    "key": "12043",
+    "note": "Unbridled Knowledge \u2014 reveal 5, or 8 if 2+ clues: conditional replacement"
+  },
+  {
+    "rule": "manual-reveal-st3",
+    "key": "12064",
+    "note": "Premonition \u2014 pre-seals + substitutes into real reveals (matches base 04199)"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "12069",
+    "note": "Fearless \u2014 Deduction shape (reprint of 02268)"
+  },
+  {
+    "rule": "both-values",
+    "key": "12069",
+    "note": "Fearless \u2014 heal 1-or-2-instead (reprint of 02268)"
+  },
+  {
+    "rule": "both-values",
+    "key": "12077",
+    "note": "Meat Cleaver \u2014 +1/+2 at low sanity replacement (reprint of 05114)"
+  },
+  {
+    "rule": "both-values",
+    "key": "12085",
+    "note": "Meat Cleaver(upgrade) \u2014 +2/+3 low-sanity replacement"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "60269",
+    "note": "Literary Analysis \u2014 replenishes a Tome asset's secret (support), correctly uses-support-secret"
+  },
+  {
+    "rule": "both-values",
+    "key": "60273",
+    "note": "Caustic Reaction \u2014 +1 dmg, +2 if 2+ clues: replacement"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60275",
+    "note": "Deduction \u2014 canonical Deduction shape"
+  },
+  {
+    "rule": "both-values",
+    "key": "60275",
+    "note": "Deduction \u2014 discover 1-or-2 replacement (canonical)"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "60452",
+    "note": "Grand-M\u00e8re's Charm \u2014 replenishes another asset's charge (support), correctly uses-support-charge"
+  },
+  {
+    "rule": "selfharm-soak",
+    "key": "60452",
+    "note": "Grand-M\u00e8re's Charm \u2014 'Take 1 direct damage' is genuine self-harm cost to the investigator; soak-health is stat-derived (health>=2); both correct"
+  },
+  {
+    "rule": "chaos-downside",
+    "key": "60458",
+    "note": "Sacrificial Doll \u2014 reveal reaction CANCELS the token (protective); 'take damage' is its own cost, not a symbol penalty"
+  },
+  {
+    "rule": "replenish-cap",
+    "key": "60580",
+    "note": "Longbow \u2014 single-arrow self-refill; uses-self-place is a defensible read (review: self-place vs replenish)"
+  },
+  {
+    "rule": "margin-rider",
+    "key": "60176",
+    "note": "Vicious Blow(2 reprint) \u2014 canonical Deduction/both-values shape"
+  },
+  {
+    "rule": "both-values",
+    "key": "60176",
+    "note": "Vicious Blow(2 reprint) \u2014 +1/+2 replacement (matches 02299)"
   }
 ]

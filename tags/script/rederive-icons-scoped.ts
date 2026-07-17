@@ -15,7 +15,7 @@ import { allTaggedCards } from "../dist/tagged-cards/index.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dir = join(here, "..", "src", "tagged-cards");
-const SCOPE = ["rtnotz","rtdwl","rtptc","rttfa","rttcu"];
+const SCOPE = ["and","car","mar","mig","tom"];
 
 const NONSKILL = new Set(["asset", "event"]);
 const byCode = new Map(allTaggedCards.map((c) => [c.code, c]));
