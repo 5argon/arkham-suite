@@ -1,4 +1,40 @@
-import { TaggedCard } from "../type.js";
+import {
+  TagTypeActionBold,
+  TagTypeAoo,
+  TagTypeBuffCannot,
+  TagTypeChaosDownside,
+  TagTypeChaosEffect,
+  TagTypeChaosReveal,
+  TagTypeClueDiscover,
+  TagTypeCondition,
+  TagTypeCostAction,
+  TagTypeCostFree,
+  TagTypeDamage,
+  TagTypeDiscardFromPlay,
+  TagTypeDuration,
+  TagTypeEnemyEngage,
+  TagTypeEnemyValue,
+  TagTypeGainResource,
+  TagTypeHeal,
+  TagTypeLocationShroud,
+  TagTypeLocationYour,
+  TagTypePlayArea,
+  TagTypeRfg,
+  TagTypeSkillTestCondition,
+  TagTypeSkillValue,
+  TagTypeStatsModAddStat,
+  TagTypeStatsModBoostInTest,
+  TagTypeStatsModUseInstead,
+  TagTypeTestInitiate,
+  TagTypeTestless,
+  TagTypeTimingDuring,
+  TagTypeTimingGame,
+  TagTypeTimingSkill,
+  TagTypeTraitSupport,
+  TagTypeUsesStarting,
+} from "../tags/index.js";
+import { BasicAction, SkillType } from "../kohaku.js";
+import { TaggedCard, TimingQualifier } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -8,7 +44,14 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["combat", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingAmmo, value: 6 },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypePlayArea.PlayAreaToHand },
+    ],
   },
   {
     code: "52002",
@@ -17,7 +60,12 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "event",
     icons: ["combat", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeChaosReveal.ChaosRevealMore },
+      { type: TagTypeChaosEffect.ChaosEffectResolveChoose },
+      { type: TagTypeTraitSupport.TraitSupportFirearm },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+    ],
   },
   {
     code: "52003",
@@ -26,7 +74,12 @@ const taggedCards: TaggedCard[] = [
     level: 4,
     cardType: "event",
     icons: ["willpower", "willpower", "willpower"],
-    tags: [],
+    tags: [
+      { type: TagTypeCondition.ConditionClueHeld },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeHeal.HealHorrorInvestigator, value: 2 },
+      { type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay },
+    ],
   },
   {
     code: "52004",
@@ -35,7 +88,14 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["intellect", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
+      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+      { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
+    ],
   },
   {
     code: "52005",
@@ -44,7 +104,16 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["agility", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingDuring.TimingDuringYourTurn },
+      { type: TagTypeCostFree.CostFreeExhaustSelf },
+      { type: TagTypeActionBold.ActionBoldEvade },
+      { type: TagTypeEnemyValue.EnemyValueEvadeReduction },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeEnemyEngage.EnemyEngageDisengage, withoutExhaust: true },
+      { type: TagTypeBuffCannot.CannotEngageYou },
+      { type: TagTypeDuration.DurationUntilEndTurn },
+    ],
   },
   {
     code: "52006",
@@ -53,7 +122,14 @@ const taggedCards: TaggedCard[] = [
     level: 1,
     cardType: "asset",
     icons: ["willpower"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
+      { type: TagTypeActionBold.ActionBoldEvade },
+      { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Evade },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
+    ],
   },
   {
     code: "52007",
@@ -62,7 +138,21 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 4 },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
+      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 0 },
+      { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
+      { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
+      { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+    ],
   },
   {
     code: "52008",
@@ -71,7 +161,22 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "event",
     icons: ["willpower", "combat", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 },
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Fight },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
+      { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeChaosDownside.ChaosDownsideDamage, value: 2 },
+      { type: TagTypeDamage.DamageToInvestigator, value: 2 },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+    ],
   },
   {
     code: "52009",
@@ -80,7 +185,16 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["intellect", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeLocationShroud.LocationShroudMinus1 },
+      { type: TagTypeCostAction.CostActionDiscardSelf },
+      { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
+      { type: TagTypeRfg.RfgSelf },
+      { type: TagTypeTestless.TestlessDamageYourLocation, value: 2 },
+      { type: TagTypeAoo.AooNoProvoke },
+    ],
   },
   {
     code: "52010",
@@ -89,7 +203,13 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["combat", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
+      { type: TagTypeCostAction.CostActionDiscardSelf },
+      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
+    ],
   },
   {
     code: "52011",
@@ -97,7 +217,9 @@ const taggedCards: TaggedCard[] = [
     text: "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] When you deal damage to an enemy in excess of its remaining health: Discard this card from your hand.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
   {
     code: "52012",
@@ -105,7 +227,9 @@ const taggedCards: TaggedCard[] = [
     text: "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] After you successfully investigate a location with no clues on it: Discard this card from your hand.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingGame.TimingGameEnds },
+    ],
   },
   {
     code: "52013",
@@ -113,7 +237,10 @@ const taggedCards: TaggedCard[] = [
     text: "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[action]: <b>Evade.</b> Use only on an exhausted unengaged enemy at your location. If you succeed, discard this card from your hand.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldEvade },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+    ],
   },
 ];
 export default taggedCards;

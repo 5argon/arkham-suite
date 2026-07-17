@@ -1,4 +1,30 @@
-import { TaggedCard } from "../type.js";
+import {
+  TagTypeActionActivate,
+  TagTypeBonded,
+  TagTypeBuffAssetStats,
+  TagTypeCancel,
+  TagTypeCondition,
+  TagTypeCostDiscount,
+  TagTypeCostFree,
+  TagTypeCostReaction,
+  TagTypeDeckDraw,
+  TagTypeDeckShuffle,
+  TagTypeDuration,
+  TagTypePlayArea,
+  TagTypeReady,
+  TagTypeSkillCommit,
+  TagTypeSkillValueSource,
+  TagTypeSlotAdditional,
+  TagTypeSlotConvert,
+  TagTypeStatsModBoostInTest,
+  TagTypeStatsModSetBase,
+  TagTypeTimingAfter,
+  TagTypeTimingDuring,
+  TagTypeTimingGame,
+  TagTypeTimingSkill,
+  TagTypeTraitSupport,
+} from "../tags/index.js";
+import { TaggedCard, TimingQualifier } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -8,7 +34,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeBuffAssetStats.BuffAssetHealth, value: 1 },
+      { type: TagTypeBuffAssetStats.BuffAssetSanity, value: 1 },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54002",
@@ -17,7 +48,11 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["willpower", "willpower"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterEntersPlay },
+      { type: TagTypeBonded.BondedFetch },
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+    ],
   },
   {
     code: "54003",
@@ -26,7 +61,13 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeCostFree.CostFreeExhaustSelf },
+      { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 8 },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54004",
@@ -35,7 +76,11 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["intellect", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterEntersPlay },
+      { type: TagTypeBonded.BondedFetch },
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+    ],
   },
   {
     code: "54005",
@@ -44,7 +89,14 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 3 },
+      { type: TagTypeCostReaction.CostReactionDiscardSelf },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54006",
@@ -53,7 +105,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["intellect", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeCostFree.CostFreeExhaustSelf },
+      { type: TagTypeSkillValueSource.SkillValueFromResource, per: 4 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeReady.ReadySelf },
+    ],
   },
   {
     code: "54007",
@@ -62,7 +119,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeSlotAdditional.SlotAdditionalArcane },
+      { type: TagTypeSlotConvert.SlotConvert, from: "arcane", to: "accessory" },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54008",
@@ -71,7 +133,13 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeSlotAdditional.SlotAdditionalArcane, restrictedToTrait: "Spell" },
+      { type: TagTypeSlotAdditional.SlotAdditionalArcane, restrictedToTrait: "Ritual" },
+      { type: TagTypeTraitSupport.TraitSupportSpell },
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeActionActivate.ActionActivateIgnoringCost },
+    ],
   },
   {
     code: "54009",
@@ -80,7 +148,15 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeCancel.CancelRevelation },
+      { type: TagTypeCancel.CancelEncounterEffect },
+      { type: TagTypeDeckShuffle.DeckShuffleEncounter },
+      { type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54010",
@@ -89,7 +165,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "event",
     icons: ["wild", "wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingDuring.TimingDuringYourTurn },
+      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 5 },
+      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 7 },
+      { type: TagTypeDuration.DurationUntilEndTurn },
+    ],
   },
   {
     code: "54011",
@@ -98,7 +179,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeCostDiscount.CostDiscount, amount: 1 },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54012",
@@ -107,7 +193,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeSlotAdditional.SlotAdditionalTarot },
+      { type: TagTypeSkillCommit.SkillCommitGainIcon },
+      { type: TagTypeTimingGame.TimingGameBegins },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+    ],
   },
   {
     code: "54013",
@@ -116,7 +207,9 @@ const taggedCards: TaggedCard[] = [
     level: 4,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
   {
     code: "54014",
@@ -124,7 +217,9 @@ const taggedCards: TaggedCard[] = [
     text: "Permanent.\nBefore setting up each game, draw a random card from the tarot deck and place the chosen card in front of you, in the reverse position. Each other investigator ignores its effects.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
   {
     code: "54015",
@@ -132,7 +227,9 @@ const taggedCards: TaggedCard[] = [
     text: "You cannot play assets other than The Devil • XV while it is in your hand.\nIf The Devil • XV is drawn in your opening hand during setup <i>(before or after taking a mulligan)</i>, you cannot replace it. It must stay in your opening hand.",
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
 ];
 export default taggedCards;

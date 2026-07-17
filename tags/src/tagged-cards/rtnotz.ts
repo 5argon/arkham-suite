@@ -1,4 +1,27 @@
-import { TaggedCard } from "../type.js";
+import {
+  TagTypeAoo,
+  TagTypeAttach,
+  TagTypeCostFree,
+  TagTypeCostReaction,
+  TagTypeDamage,
+  TagTypeDeckDraw,
+  TagTypeDeckSearch,
+  TagTypeDeckShuffle,
+  TagTypeDiscardFromPlay,
+  TagTypeDuration,
+  TagTypeEnemyDebuff,
+  TagTypeEnemyElite,
+  TagTypeEnemyRestriction,
+  TagTypeGainResource,
+  TagTypeLocationYour,
+  TagTypeSkillValue,
+  TagTypeStatsModBoostInTest,
+  TagTypeStatsModPump,
+  TagTypeTestless,
+  TagTypeTimingAfter,
+  TagTypeTimingSkill,
+} from "../tags/index.js";
+import { TaggedCard, TimingQualifier } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -8,7 +31,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["willpower", "willpower", "combat", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+    ],
   },
   {
     code: "50002",
@@ -17,7 +45,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["willpower", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 },
+      { type: TagTypeTestless.TestlessDamageConnectingLocation, value: 3 },
+      { type: TagTypeDamage.DamageToInvestigator, value: 3 },
+      { type: TagTypeAoo.AooNoProvoke },
+    ],
   },
   {
     code: "50003",
@@ -26,7 +59,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["intellect", "intellect", "agility", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
+    ],
   },
   {
     code: "50004",
@@ -35,7 +73,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "event",
     icons: ["willpower", "intellect", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeAttach.AttachLocation },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeEnemyDebuff.EnemyCannotMoveIntoLocation },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+    ],
   },
   {
     code: "50005",
@@ -44,7 +87,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["combat", "combat", "agility", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
+    ],
   },
   {
     code: "50006",
@@ -53,7 +101,9 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["willpower"],
-    tags: [],
+    tags: [
+      { type: TagTypeGainResource.GainResourceYou, value: 10 },
+    ],
   },
   {
     code: "50007",
@@ -62,7 +112,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["willpower", "willpower", "intellect", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
+    ],
   },
   {
     code: "50008",
@@ -71,7 +126,12 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "event",
     icons: ["willpower", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeDuration.DurationUntilEndPhase },
+      { type: TagTypeEnemyRestriction.EnemyBlankText },
+    ],
   },
   {
     code: "50009",
@@ -80,7 +140,12 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["willpower", "willpower", "agility", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
+      { type: TagTypeCostFree.CostFreeSpendResource },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
+    ],
   },
   {
     code: "50010",
@@ -89,7 +154,15 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["wild"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: "dynamic" } },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeSkillValue.SkillValueFailByDynamic },
+      { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
+    ],
   },
 ];
 export default taggedCards;

@@ -3,60 +3,110 @@
   "code": "50001",
   "name": "Physical Training",
   "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [combat] for this skill test.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "50002",
   "name": "Dynamite Blast",
   "text": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location. This action does not provoke attacks of opportunity.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 }",
+   "{ type: TagTypeTestless.TestlessDamageConnectingLocation, value: 3 }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 3 }",
+   "{ type: TagTypeAoo.AooNoProvoke }"
+  ]
  },
  {
   "code": "50003",
   "name": "Hyperawareness",
   "text": "[fast] Spend 1 resource: You get +1 [intellect] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "50004",
   "name": "Barricade",
   "text": "Attach to your location.\nNon-[[Elite]] enemies cannot move into or spawn at attached location. Each time a non-[[Elite]] enemy would spawn at attached location, spawn it at a connecting location instead, if able.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeAttach.AttachLocation }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyDebuff.EnemyCannotMoveIntoLocation }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
  },
  {
   "code": "50005",
   "name": "Hard Knocks",
   "text": "[fast] Spend 1 resource: You get +1 [combat] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "50006",
   "name": "Hot Streak",
   "text": "Gain 10 resources.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceYou, value: 10 }"
+  ]
  },
  {
   "code": "50007",
   "name": "Arcane Studies",
   "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [intellect] for this skill test.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "50008",
   "name": "Mind Wipe",
   "text": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy in your location. Until the end of the phase, reduce the chosen enemy's damage and horror values by 1, and treat its printed text box as if it were blank (except for [[Traits]]).",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeDuration.DurationUntilEndPhase }",
+   "{ type: TagTypeEnemyRestriction.EnemyBlankText }"
+  ]
  },
  {
   "code": "50009",
   "name": "Dig Deep",
   "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
+  ]
  },
  {
   "code": "50010",
   "name": "Rabbit's Foot",
   "text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Search the top X cards of your deck for a card, draw it, and shuffle the remaining cards into your deck. X is the amount you failed by.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: \"dynamic\" } }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeSkillValue.SkillValueFailByDynamic }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }"
+  ]
  }
 ]

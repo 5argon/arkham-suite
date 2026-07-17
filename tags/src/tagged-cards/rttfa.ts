@@ -1,4 +1,39 @@
-import { TaggedCard } from "../type.js";
+import {
+  TagTypeActionBold,
+  TagTypeChaosDownside,
+  TagTypeChaosReveal,
+  TagTypeChaosSeal,
+  TagTypeCostAction,
+  TagTypeCostDiscount,
+  TagTypeCostFree,
+  TagTypeCostOther,
+  TagTypeCostReaction,
+  TagTypeDamage,
+  TagTypeDeckDiscard,
+  TagTypeDeckDraw,
+  TagTypeDeckSearch,
+  TagTypeDeckShuffle,
+  TagTypeDiscardFromPlay,
+  TagTypeEnemyElite,
+  TagTypeGainResource,
+  TagTypeLocationMove,
+  TagTypeLocationProperty,
+  TagTypeLocationYour,
+  TagTypePlayArea,
+  TagTypeSkillTestCondition,
+  TagTypeStatsModBoostInTest,
+  TagTypeStatsModUseInstead,
+  TagTypeTimingAfter,
+  TagTypeTimingPhaseSequence,
+  TagTypeTimingSkill,
+  TagTypeTimingWhen,
+  TagTypeTraitSupport,
+  TagTypeUsesAccumulate,
+  TagTypeUsesStarting,
+  TagTypeUsesSupport,
+} from "../tags/index.js";
+import { BasicAction, SkillType } from "../kohaku.js";
+import { TaggedCard, TimingQualifier } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -8,7 +43,13 @@ const taggedCards: TaggedCard[] = [
     level: 1,
     cardType: "event",
     icons: ["willpower", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeDamage.DamagePlus, value: 2 },
+      { type: TagTypeCostOther.CostDamageSelf },
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Fight },
+    ],
   },
   {
     code: "53002",
@@ -17,7 +58,13 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["combat", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
+      { type: TagTypeDamage.DamagePlus, value: 1 },
+    ],
   },
   {
     code: "53003",
@@ -26,7 +73,11 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["intellect", "intellect", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesSupport.UsesSupportSecret, supportType: "place" },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeLocationProperty.LocationClueExist },
+    ],
   },
   {
     code: "53004",
@@ -35,7 +86,11 @@ const taggedCards: TaggedCard[] = [
     level: 4,
     cardType: "asset",
     icons: ["agility", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingSecret, value: "dynamic" },
+      { type: TagTypeCostReaction.CostReactionSpendSecret },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+    ],
   },
   {
     code: "53005",
@@ -44,7 +99,17 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["willpower", "combat"],
-    tags: [],
+    tags: [
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 0 },
+      { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "charge" },
+      { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
+      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
+      { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
+      { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeLocationYour.LocationYourAlly },
+    ],
   },
   {
     code: "53006",
@@ -53,7 +118,15 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["combat", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf },
+      { type: TagTypeUsesStarting.UsesStartingAmmo, value: 5 },
+      { type: TagTypeCostAction.CostActionSpendAmmo },
+      { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
+      { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+    ],
   },
   {
     code: "53007",
@@ -62,7 +135,23 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
+      { type: TagTypeChaosDownside.ChaosDownsideDiscard },
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 5 },
+      { type: TagTypeCostAction.CostActionSpendCharge },
+      { type: TagTypeActionBold.ActionBoldEvade },
+      { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 1, action: BasicAction.Evade },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
+      { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeDeckDiscard.DeckDiscardCardChoose },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+    ],
   },
   {
     code: "53008",
@@ -71,7 +160,16 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: ["willpower", "intellect"],
-    tags: [],
+    tags: [
+      { type: TagTypeChaosSeal.ChaosSealTokenSkull },
+      { type: TagTypeChaosSeal.ChaosSealTokenCultist },
+      { type: TagTypeChaosSeal.ChaosSealTokenTablet },
+      { type: TagTypeChaosSeal.ChaosSealTokenElderThing },
+      { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
+      { type: TagTypePlayArea.PlayAreaToHand },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+    ],
   },
   {
     code: "53009",
@@ -80,7 +178,10 @@ const taggedCards: TaggedCard[] = [
     level: 1,
     cardType: "event",
     icons: ["willpower", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+    ],
   },
   {
     code: "53010",
@@ -89,7 +190,11 @@ const taggedCards: TaggedCard[] = [
     level: 3,
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: "event" },
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
+    ],
   },
   {
     code: "53011",
@@ -98,7 +203,14 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: ["combat", "agility"],
-    tags: [],
+    tags: [
+      { type: TagTypeTraitSupport.TraitSupportItem },
+      { type: TagTypeTimingAfter.TimingAfterEntersPlay },
+      { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 12 } },
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "attached" },
+      { type: TagTypeTraitSupport.TraitSupportSupply },
+    ],
   },
   {
     code: "53012",
@@ -106,7 +218,9 @@ const taggedCards: TaggedCard[] = [
     text: "<b>Revelation</b> - Put Dendromorphosis into play in your threat area. It cannot leave play while it has no damage on it.\n[fast] Take 1 direct damage: Deal 1 damage to Dendromorphosis.\n<b>Card design by the Botanists at Arkham Nights 2018.</b>",
     cardType: "asset",
     icons: [],
-    tags: [],
+    tags: [
+      { type: TagTypeCostFree.CostFreeDamageSelf },
+    ],
   },
   {
     code: "53013",
@@ -114,7 +228,9 @@ const taggedCards: TaggedCard[] = [
     text: "Campaign Mode only.\nWhen you become the bearer of this weakness, gain 2 experience.\n<b>Revelation</b> - Lose 5 resources. If you cannot, instead remove Offer You Cannot Refuse from your deck, search the collection for Fine Print, and place it in your discard pile.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
   {
     code: "53014",
@@ -122,7 +238,9 @@ const taggedCards: TaggedCard[] = [
     text: "<b>Revelation</b> - Lose 7 resources. If you cannot, instead remove Fine Print from your deck, search the collection for Sell Your Soul, and place it in your discard pile.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
   {
     code: "53015",
@@ -130,7 +248,9 @@ const taggedCards: TaggedCard[] = [
     text: "<b>Revelation</b> - Lose 10 resources. If you cannot, your dark patron tears your consciousness from your body. You are driven <b>insane</b>.",
     cardType: "treachery",
     icons: [],
-    tags: [],
+    tags: [
+
+    ],
   },
 ];
 export default taggedCards;
