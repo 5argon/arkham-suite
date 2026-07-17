@@ -234,11 +234,16 @@ for (const [name, group] of byName) {
   // Stat-derived tags are excluded from the same-text comparison: they depend on
   // level/icons, which same-text cards can still differ on (Extensive Research L0 vs L1);
   // the dedicated stat-derived check validates them against metadata exactly.
+  // Stat-derived tags come from printed level/icons/health/sanity, which legitimately
+  // differ between same-text level variants (Marcus Sengstacke L0 soak-sanity:2 vs L2 :3);
+  // exclude them so a pure stat difference never trips the same-text ERROR.
   const STAT_DERIVED = new Set([
     "skill-commit-nonskill-lv0-wild-icon",
     "skill-commit-nonskill-lv0-two-effective-icons",
     "skill-commit-no-commit-icons",
     "skill-commit-skill-double-icon",
+    "soak-health",
+    "soak-sanity",
   ]);
   const tagSet = (c: Card) =>
     new Set(c.tags.filter((t) => !STAT_DERIVED.has(t.type)).map((t) => JSON.stringify(t, Object.keys(t).sort())));
