@@ -13,6 +13,8 @@ export enum TagTypeUsesStarting {
   UsesStartingTry = "uses-starting-try",
   UsesStartingKey = "uses-starting-key",
   UsesStartingLock = "uses-starting-lock",
+  UsesStartingLeyline = "uses-starting-leyline",
+  UsesStartingDurability = "uses-starting-durability",
 }
 
 interface TagUsesStartingBase extends TagBase {
@@ -72,4 +74,14 @@ export interface TagUsesStartingKey extends TagUsesStartingBase {
 /** Printed use-token type "lock" (The Council's Coffer). */
 export interface TagUsesStartingLock extends TagUsesStartingBase {
   type: TagTypeUsesStarting.UsesStartingLock;
+}
+
+/** Printed use-token type "leyline" (the EOTE gate family — Archive of Conduits). */
+export interface TagUsesStartingLeyline extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingLeyline;
+}
+
+/** Printed use-token type "durability" (EOTE tools). */
+export interface TagUsesStartingDurability extends TagUsesStartingBase {
+  type: TagTypeUsesStarting.UsesStartingDurability;
 }

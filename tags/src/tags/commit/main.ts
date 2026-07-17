@@ -10,6 +10,7 @@ export enum TagTypeCommit {
   CommitDuringBasicAction = "commit-during-basic-action",
   CommitDuringAttack = "commit-during-attack",
   CommitDuringEvade = "commit-during-evade",
+  CommitCountCondition = "commit-count-condition",
 }
 
 interface TagCommitBase extends TagBase {}
@@ -81,4 +82,13 @@ export interface TagCommitDuringAttack extends TagCommitBase {
  */
 export interface TagCommitDuringEvade extends TagCommitBase {
   type: TagTypeCommit.CommitDuringEvade;
+}
+
+/**
+ * Gates or scales on the NUMBER of cards/skills committed to the test ("if you
+ * committed 1 or more skills to this skill test") — the Innsmouth Silas/Amanda
+ * skills-matter archetype. (Created autonomously 2026-07-17 — review welcome.)
+ */
+export interface TagCommitCountCondition extends TagCommitBase {
+  type: TagTypeCommit.CommitCountCondition;
 }

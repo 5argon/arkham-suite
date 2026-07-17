@@ -1,0 +1,194 @@
+[
+ {
+  "code": "60251",
+  "name": "Carolyn Fern",
+  "text": "[reaction] After you heal 1 or more horror from an investigator or [[Ally]] asset: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1. Heal 1 horror from an investigator at your location.",
+  "tags": []
+ },
+ {
+  "code": "60252",
+  "name": "Experimental Psychology",
+  "text": "Carolyn Fern deck only.\n[action]: Test [intellect] (2). If you succeed, heal 1 horror from an investigator or [[Ally]] asset at your location.\n[reaction] After you heal horror from an investigator, exhaust Experimental Psychology: That investigator gets +2 skill value to their next skill test this round.",
+  "tags": []
+ },
+ {
+  "code": "60253",
+  "name": "Unbroken Web",
+  "text": "<b>Revelation</b> - Put this card into play in your threat area.\n[reaction] When you would discover any number of clues: Place that much horror on Unbroken Web, instead. Then, discard this card if there is 4 or more horror on it.\n<b>Forced</b> - When the game ends or you are eliminated: You earn 2 fewer experience.",
+  "tags": []
+ },
+ {
+  "code": "60254",
+  "name": "Lethal Curiosity",
+  "text": "<b>Revelation</b> - Test [willpower] (4). For each point you fail by, you must either take 1 damage or place 1 of your clues on your location.",
+  "tags": []
+ },
+ {
+  "code": "60255",
+  "name": "Dreamer's Chronicle",
+  "text": "Uses (4 secrets).\n[action] Spend 1 secret: <b>Investigate</b> ([intellect]). The first card you commit to this investigation gains [wild]. If you succeed, you may take 1 horror to discover 1 additional clue at your location.",
+  "tags": []
+ },
+ {
+  "code": "60256",
+  "name": "Occult Records",
+  "text": "Uses (3 secrets).\n[fast] During your turn, spend 1 secret and exhaust Occult Records: Heal 2 horror from an investigator at your location. Then, test [willpower] (2). If you fail, discard 1 card at random from your hand.",
+  "tags": []
+ },
+ {
+  "code": "60257",
+  "name": "Private Practice",
+  "text": "Limit 1 per investigator.\n[reaction] After you heal 1 or more horror, exhaust Private Practice: Gain 1 resource.",
+  "tags": []
+ },
+ {
+  "code": "60258",
+  "name": "Psychology Student",
+  "text": "[reaction] After you play Psychology Student: Heal 2 horror from an investigator or [[Ally]] asset at your location.",
+  "tags": []
+ },
+ {
+  "code": "60259",
+  "name": "Scroll of the Pharaohs",
+  "text": "Uses (4 secrets).\n[action] Spend 1 secret and exhaust Scroll of the Pharaohs: Deal 1 horror to an investigator or [[Ally]] asset at your location. Then, if there are no secrets on Scroll of the Pharaohs, discard it, draw 3 cards, and record \"you have unearthed the secrets of the Pharaohs\" in your campaign log.",
+  "tags": []
+ },
+ {
+  "code": "60260",
+  "name": "University Archivist",
+  "text": "You have 1 additional hand slot, which can only be used to hold a [[Tome]] asset.\n[reaction] After University Archivist enters play: Search the top 6 cards of your deck for a [[Tome]] asset and add it to your hand. Shuffle your deck.",
+  "tags": []
+ },
+ {
+  "code": "60261",
+  "name": "Caustic Reaction",
+  "text": "<b>Fight</b> ([intellect]). You get +1 [intellect] for this attack. If you control 2 or more clues, this attack deals +1 damage.",
+  "tags": []
+ },
+ {
+  "code": "60262",
+  "name": "Unflappable",
+  "text": "<b>Evade</b> ([agility]). You get +2 [agility] for this evasion. If you succeed and you control 2 or more clues, heal 1 horror.",
+  "tags": []
+ },
+ {
+  "code": "60263",
+  "name": "Preposterous Sketches",
+  "text": "Play only if there is a clue on your location.\nDraw 3 cards.",
+  "tags": []
+ },
+ {
+  "code": "60264",
+  "name": "Psychoanalysis",
+  "text": "Choose an investigator at your location and reveal the top 3 cards of their deck. That investigator may choose to either draw 1 revealed card and shuffle the rest into their deck, or heal 2 horror and return the revealed cards to the top of their owner's deck in any order.",
+  "tags": []
+ },
+ {
+  "code": "60265",
+  "name": "De-Escalate",
+  "text": "<b>Parley.</b> Choose an enemy at your location. Heal horror equal to that enemy's horror value.",
+  "tags": []
+ },
+ {
+  "code": "60266",
+  "name": "Insidious Truths",
+  "text": "As an additional cost to play Insidious Truths, you may discard up to 2 cards from hand.\n<b>Fight</b> ([combat]). For each card discarded as part of this card's cost, you get +2 [combat] and deal +1 damage for this attack.",
+  "tags": []
+ },
+ {
+  "code": "60267",
+  "name": "Deduction",
+  "text": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+  "tags": []
+ },
+ {
+  "code": "60268",
+  "name": "Establish Motive",
+  "text": "If this skill test is successful, the performing investigator searches the top 6 cards of their deck for an [[Insight]] event, draws it, and shuffles their deck.",
+  "tags": []
+ },
+ {
+  "code": "60269",
+  "name": "Literary Analysis",
+  "text": "If this skill test is successful, replenish 1 secret on a [[Tome]] asset at your location.",
+  "tags": []
+ },
+ {
+  "code": "60270",
+  "name": "Magnifying Glass",
+  "text": "Fast.\nYou get +1 [intellect] while investigating.\n[fast] If there are no clues on your location: Return Magnifying Glass to your hand.",
+  "tags": []
+ },
+ {
+  "code": "60271",
+  "name": "Unflappable",
+  "text": "<b>Evade</b> ([agility]). You get +3 [agility] for this evasion. If you succeed, heal 2 horror from among cards you control.",
+  "tags": []
+ },
+ {
+  "code": "60272",
+  "name": "Typewriter",
+  "text": "Uses (3 secrets). If there are no secrets on Typewriter, discard it.\nSecrets on Typewriter may be spent as if they were on [[Tome]] assets you control.",
+  "tags": []
+ },
+ {
+  "code": "60273",
+  "name": "Caustic Reaction",
+  "text": "<b>Fight</b> ([intellect]). You get +2 [intellect] and deal +1 damage for this attack. If you succeed and you control 2 or more clues, this attack deals +2 damage instead.",
+  "tags": []
+ },
+ {
+  "code": "60274",
+  "name": "Hypnotize",
+  "text": "<b>Parley</b> ([intellect]). You get +2 [intellect] for this parley. Choose a non-[[Elite]] enemy at your location. This test's difficulty is equal to that enemy's remaining health. If you succeed, shuffle that enemy into the encounter deck.",
+  "tags": []
+ },
+ {
+  "code": "60275",
+  "name": "Deduction",
+  "text": "If this skill test is successful while investigating a location, discover 1 additional clue at that location (2 additional clues instead if it succeeds by 2 or more).",
+  "tags": []
+ },
+ {
+  "code": "60276",
+  "name": "Autopsy Report",
+  "text": "[reaction] After an enemy at your location is defeated, exhaust Autopsy Report: <b>Investigate</b> ([intellect]). You get +X [intellect] for this investigation, where X is the defeated enemy's printed health (to a maximum of +5).",
+  "tags": []
+ },
+ {
+  "code": "60277",
+  "name": "Sharp Rhetoric",
+  "text": "Starting. <i>(You may begin the game with 1 copy of a starting card in your opening hand.)</i>\n[fast] Spend 1 resource: You get +1 [intellect] for this skill test (+2 [intellect] instead if this is an investigation or parley).\n[fast] Spend 1 resource: You get +1 [willpower] for this skill test (+2 [willpower] instead if this is an investigation or parley).",
+  "tags": []
+ },
+ {
+  "code": "60278",
+  "name": "Psychoanalysis",
+  "text": "One at a time, each investigator at your location reveals the top 3 cards of their deck, draws 1 of those cards, shuffles the remaining cards into their deck, and heals 2 horror.",
+  "tags": []
+ },
+ {
+  "code": "60279",
+  "name": "Scroll of the Pharaohs",
+  "text": "Researched. Uses (4 secrets).\n[action] Take 1 horror and spend 1 or 2 secrets: For each secret you spent as part of this ability's cost, reveal 3 cards from the top of the encounter deck. Choose and discard 1 non-peril, non-[[Elite]] card among them, then return the rest to the top of the encounter deck in any order.",
+  "tags": []
+ },
+ {
+  "code": "60280",
+  "name": "Scroll of the Pharaohs",
+  "text": "Researched. Uses (4 secrets).\n[action] Take 1 horror and spend 1 or 2 secrets: <b>Fight</b> ([intellect]). You get +3 [intellect] for this attack. If you succeed, this attack deals +1 damage for each secret you spent as part of this ability's cost.",
+  "tags": []
+ },
+ {
+  "code": "60281",
+  "name": "Scroll of the Pharaohs",
+  "text": "Researched. Uses (4 secrets).\n[action] Take 1 horror and spend 1 or 2 secrets: <b>Investigate</b> ([intellect]). You get +3 [intellect] for this investigation. If you succeed, discover 1 additional clue at your location for each secret you spent as part of this ability's cost.",
+  "tags": []
+ },
+ {
+  "code": "60282",
+  "name": "Commune with the Cosmos",
+  "text": "When you play Commune with the Cosmos, you may take up to 3 horror.\n<b>Investigate</b> ([intellect]). You get +2 [intellect] for this investigation. If you succeed, discover X additional clues at your location, where X is the amount of horror on you (to a maximum of 4 additional clues).",
+  "tags": []
+ }
+]

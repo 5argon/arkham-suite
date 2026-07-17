@@ -72,6 +72,7 @@ import type {
 import type {
   TagChaosBagAddBless,
   TagChaosBagAddCurse,
+  TagChaosBagCountCondition,
   TagChaosBagRemoveBless,
   TagChaosBagRemoveCurse,
   TagChaosBagReplace,
@@ -90,6 +91,7 @@ import type {
   TagChaosEffectTreatAsElderSign,
   TagChaosEffectTreatTokenAs,
   TagChaosPredict,
+  TagChaosRecycleToken,
   TagChaosRevealAnotherInstead,
   TagChaosRevealManual,
   TagChaosRevealMore,
@@ -113,6 +115,7 @@ import type {
   TagChaosSealTokenElderThing,
   TagChaosSealTokenSkull,
   TagChaosSealTokenTablet,
+  TagChaosSpendSealed,
   TagChaosSymbolPayoff,
 } from "./tags/chaos/index.js";
 
@@ -128,6 +131,7 @@ import type {
 
 import type {
   TagCommitBenefitsPerformer,
+  TagCommitCountCondition,
   TagCommitDuringAttack,
   TagCommitDuringBasicAction,
   TagCommitDuringEvade,
@@ -162,6 +166,7 @@ import type {
   TagCostActionSpendSecret,
   TagCostActionSpendSupply,
   TagCostAddDoomSelf,
+  TagCostAlternatePayment,
   TagCostDamageSelf,
   TagCostDiscardCard,
   TagCostDiscount,
@@ -172,19 +177,28 @@ import type {
   TagCostFreeHorrorSelf,
   TagCostFreeSpendCharge,
   TagCostFreeSpendClue,
+  TagCostFreeSpendDurability,
+  TagCostFreeSpendOffering,
   TagCostFreeSpendResource,
   TagCostFreeSpendSecret,
   TagCostFreeSpendSupply,
   TagCostHorrorSelf,
+  TagCostPlaySpendAction,
   TagCostReactionDamageSelf,
   TagCostReactionDiscardSelf,
   TagCostReactionExhaustSelf,
   TagCostReactionHorrorSelf,
   TagCostReactionSpendCharge,
   TagCostReactionSpendClue,
+  TagCostReactionSpendEvidence,
   TagCostReactionSpendResource,
   TagCostReactionSpendSecret,
+  TagCostReactionSpendSupply,
 } from "./tags/cost/index.js";
+
+import type {
+  TagCustomizable,
+} from "./tags/customizable/index.js";
 
 import type {
   TagDamageInsteadFailRange,
@@ -293,6 +307,7 @@ import type {
   TagEnemyValueEvadeReduction,
   TagEnemyValueFight,
   TagEnemyValueFightReduction,
+  TagEnemyValueHealth,
   TagEnemyValueHealthReduction,
   TagEnemyValueHorror,
   TagEnemyValueRemainingHealth,
@@ -326,6 +341,7 @@ import type {
   TagHealHorrorInvestigator,
   TagHealHorrorSelf,
   TagHealHorrorYou,
+  TagHealRemovesWeakness,
 } from "./tags/heal/index.js";
 
 import type {
@@ -422,6 +438,7 @@ import type {
   TagSkillValueFailByDynamic,
   TagSkillValueFailByExactly,
   TagSkillValueFailByOrLess,
+  TagSkillValueFailByOrMore,
   TagSkillValueFromResource,
   TagSkillValueSucceedByDynamic,
   TagSkillValueSucceedByExactly,
@@ -561,7 +578,11 @@ import type {
 
 import type {
   TagTraitSupportAlly,
+  TagTraitSupportArmor,
+  TagTraitSupportCharm,
+  TagTraitSupportCreature,
   TagTraitSupportFirearm,
+  TagTraitSupportFortune,
   TagTraitSupportIllicit,
   TagTraitSupportInnate,
   TagTraitSupportInsight,
@@ -576,19 +597,23 @@ import type {
   TagTraitSupportSupply,
   TagTraitSupportTactic,
   TagTraitSupportTome,
+  TagTraitSupportTool,
   TagTraitSupportTrick,
   TagTraitSupportWeapon,
 } from "./tags/trait/index.js";
 
 import type {
   TagUsesAccumulate,
+  TagUsesBoardMarker,
   TagUsesReplenish,
   TagUsesSelfPlace,
   TagUsesStartingAmmo,
   TagUsesStartingCharge,
+  TagUsesStartingDurability,
   TagUsesStartingEvidence,
   TagUsesStartingInspiration,
   TagUsesStartingKey,
+  TagUsesStartingLeyline,
   TagUsesStartingLock,
   TagUsesStartingOffering,
   TagUsesStartingResource,
@@ -667,6 +692,7 @@ export type Tag =
   // Chaos tags
   | TagChaosBagAddBless
   | TagChaosBagAddCurse
+  | TagChaosBagCountCondition
   | TagChaosBagRemoveBless
   | TagChaosBagRemoveCurse
   | TagChaosBagReplace
@@ -685,6 +711,7 @@ export type Tag =
   | TagChaosEffectTreatAsElderSign
   | TagChaosEffectTreatTokenAs
   | TagChaosPredict
+  | TagChaosRecycleToken
   | TagChaosRevealAnotherInstead
   | TagChaosRevealManual
   | TagChaosRevealMore
@@ -708,6 +735,7 @@ export type Tag =
   | TagChaosSealTokenElderThing
   | TagChaosSealTokenSkull
   | TagChaosSealTokenTablet
+  | TagChaosSpendSealed
   | TagChaosSymbolPayoff
   // Clue tags
   | TagClueAdditionalAdjacentLocations
@@ -719,6 +747,7 @@ export type Tag =
   | TagCluePlaceYourLocation
   // Commit tags
   | TagCommitBenefitsPerformer
+  | TagCommitCountCondition
   | TagCommitDuringAttack
   | TagCommitDuringBasicAction
   | TagCommitDuringEvade
@@ -747,6 +776,7 @@ export type Tag =
   | TagCostActionSpendSecret
   | TagCostActionSpendSupply
   | TagCostAddDoomSelf
+  | TagCostAlternatePayment
   | TagCostDamageSelf
   | TagCostDiscardCard
   | TagCostDiscount
@@ -757,18 +787,25 @@ export type Tag =
   | TagCostFreeHorrorSelf
   | TagCostFreeSpendCharge
   | TagCostFreeSpendClue
+  | TagCostFreeSpendDurability
+  | TagCostFreeSpendOffering
   | TagCostFreeSpendResource
   | TagCostFreeSpendSecret
   | TagCostFreeSpendSupply
   | TagCostHorrorSelf
+  | TagCostPlaySpendAction
   | TagCostReactionDamageSelf
   | TagCostReactionDiscardSelf
   | TagCostReactionExhaustSelf
   | TagCostReactionHorrorSelf
   | TagCostReactionSpendCharge
   | TagCostReactionSpendClue
+  | TagCostReactionSpendEvidence
   | TagCostReactionSpendResource
   | TagCostReactionSpendSecret
+  | TagCostReactionSpendSupply
+  // Customizable tags
+  | TagCustomizable
   // Damage tags
   | TagDamageInsteadFailRange
   | TagDamageInsteadRange
@@ -860,6 +897,7 @@ export type Tag =
   | TagEnemyValueEvadeReduction
   | TagEnemyValueFight
   | TagEnemyValueFightReduction
+  | TagEnemyValueHealth
   | TagEnemyValueHealthReduction
   | TagEnemyValueHorror
   | TagEnemyValueRemainingHealth
@@ -885,6 +923,7 @@ export type Tag =
   | TagHealHorrorInvestigator
   | TagHealHorrorSelf
   | TagHealHorrorYou
+  | TagHealRemovesWeakness
   // Limit tags
   | TagLimitInPlay
   // Location tags
@@ -957,6 +996,7 @@ export type Tag =
   | TagSkillValueFailByDynamic
   | TagSkillValueFailByExactly
   | TagSkillValueFailByOrLess
+  | TagSkillValueFailByOrMore
   | TagSkillValueFromResource
   | TagSkillValueSucceedByDynamic
   | TagSkillValueSucceedByExactly
@@ -1078,7 +1118,11 @@ export type Tag =
   | TagTimingWhenWouldFailTest
   // Trait tags
   | TagTraitSupportAlly
+  | TagTraitSupportArmor
+  | TagTraitSupportCharm
+  | TagTraitSupportCreature
   | TagTraitSupportFirearm
+  | TagTraitSupportFortune
   | TagTraitSupportIllicit
   | TagTraitSupportInnate
   | TagTraitSupportInsight
@@ -1093,17 +1137,21 @@ export type Tag =
   | TagTraitSupportSupply
   | TagTraitSupportTactic
   | TagTraitSupportTome
+  | TagTraitSupportTool
   | TagTraitSupportTrick
   | TagTraitSupportWeapon
   // Uses tags
   | TagUsesAccumulate
+  | TagUsesBoardMarker
   | TagUsesReplenish
   | TagUsesSelfPlace
   | TagUsesStartingAmmo
   | TagUsesStartingCharge
+  | TagUsesStartingDurability
   | TagUsesStartingEvidence
   | TagUsesStartingInspiration
   | TagUsesStartingKey
+  | TagUsesStartingLeyline
   | TagUsesStartingLock
   | TagUsesStartingOffering
   | TagUsesStartingResource

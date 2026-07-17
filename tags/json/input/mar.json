@@ -1,0 +1,407 @@
+[
+ {
+  "code": "60451",
+  "name": "Marie Lambeau",
+  "text": "[reaction] After damage is placed on Marie Lambeau: Draw 2 cards and discard 1 of them. (Limit once per phase.)\n[elder_sign] effect: +0. If you succeed, heal 1 damage.",
+  "type": "investigator",
+  "traits": "Performer. Witch.",
+  "health": 8,
+  "sanity": 7,
+  "icons": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "60452",
+  "name": "Grand-Mère's Charm",
+  "text": "Marie Lambeau deck only.\n[fast] Take 1 direct damage and exhaust Grand-Mère's Charm: Replenish 1 charge on an asset at your location.",
+  "type": "asset",
+  "traits": "Item. Charm. Occult. Blessed.",
+  "health": 3,
+  "icons": [
+   "willpower",
+   "willpower",
+   "wild"
+  ]
+ },
+ {
+  "code": "60453",
+  "name": "Called to Guinée",
+  "text": "<b>Revelation</b> - Put Called to Guinée into play in your threat area.\nYou cannot heal damage.\n[action] Choose and discard 3 cards from your hand: Discard Called to Guinée.",
+  "type": "treachery",
+  "traits": "Curse. Pact.",
+  "icons": []
+ },
+ {
+  "code": "60454",
+  "name": "Hemophobia",
+  "text": "<b>Revelation</b> - Put Hemophobia into play in your threat area.\n<b>Forced</b> - The first time each round an investigator at your location takes damage: Take 1 horror.\n[action] [action]: Discard Hemophobia.",
+  "type": "treachery",
+  "traits": "Terror.",
+  "icons": []
+ },
+ {
+  "code": "60455",
+  "name": "Arcane Initiate",
+  "text": "<b>Forced</b> - After Arcane Initiate enters play: Place 1 doom on it.\n[fast] Exhaust Arcane Initiate: Search the top 3 cards of your deck for a [[Spell]] card and draw it. Shuffle your deck.",
+  "type": "asset",
+  "traits": "Ally. Sorcerer.",
+  "xp": 0,
+  "health": 1,
+  "sanity": 2,
+  "duplicateOf": "01063",
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "60456",
+  "name": "Offering Bowl",
+  "text": "Uses (3 offerings). If there are no offerings on Offering Bowl, discard it.\n[fast] Spend 1 offering and exhaust Offering Bowl: Take 1 damage and gain 2 resources.",
+  "type": "asset",
+  "traits": "Item. Occult.",
+  "xp": 0,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "60457",
+  "name": "Bloodstone",
+  "text": "You get +1 [willpower].",
+  "type": "asset",
+  "traits": "Item. Charm. Cursed.",
+  "xp": 0,
+  "health": 2,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "60458",
+  "name": "Sacrificial Doll",
+  "text": "While you have 3 or fewer remaining health, Sacrificial Doll does not take up a hand slot.\n[reaction] After you reveal a non-[auto_fail] chaos token during a skill test, take 1 damage and exhaust Sacrificial Doll: Cancel that token and reveal tokens from the chaos bag until a symbol token is revealed. Resolve that token and ignore the rest.",
+  "type": "asset",
+  "traits": "Item. Charm. Occult.",
+  "xp": 0,
+  "health": 1,
+  "icons": [
+   "willpower",
+   "combat"
+  ]
+ },
+ {
+  "code": "60459",
+  "name": "Cosmic Flame",
+  "text": "Uses (3 charges).\n[action]: <b>Fight</b> ([willpower]). If you succeed, you may spend 1 charge to deal +1 damage for this attack. If you reveal a [skull] token during this test, remove 1 charge from Cosmic Flame (if you cannot, take 1 damage and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 0,
+  "duplicateOf": "12059",
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "60460",
+  "name": "Second Sight",
+  "text": "Uses (3 charges).\n[action]: <b>Investigate</b> ([willpower]). If you succeed, you may spend 1 charge to discover 1 additional clue at your location. If you reveal a [cultist] token during this test, remove 1 charge from Second Sight (if you cannot, take 1 horror and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 0,
+  "duplicateOf": "12062",
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "60461",
+  "name": "Shadowmeld",
+  "text": "Uses (4 charges).\n[action]: <b>Evade</b> ([willpower]). If you succeed, you may spend 1 charge to move to a connecting location. If you reveal a [tablet] token during this test, remove 1 charge from Shadowmeld (if you cannot, lose 1 action and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "60462",
+  "name": "Consume Life",
+  "text": "<b>Fight</b> ([willpower]). This attack deals +1 damage. If this attack defeats an enemy, heal 1 damage from an investigator or [[Ally]] asset at your location.",
+  "type": "event",
+  "traits": "Spell.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "combat"
+  ]
+ },
+ {
+  "code": "60463",
+  "name": "Favor of Baalshandor",
+  "text": "As an additional cost to play Favor of Baalshandor, take 1 damage.\nPlay a [[Spell]] or [[Ritual]] asset from your hand, reducing its cost by 3. Playing this card does not provoke attacks of opportunity.",
+  "type": "event",
+  "traits": "Ritual.",
+  "xp": 0,
+  "icons": []
+ },
+ {
+  "code": "60464",
+  "name": "Infuse Life",
+  "text": "Heal 3 damage from among investigators and/or [[Ally]] assets at your location.",
+  "type": "event",
+  "traits": "Spell.",
+  "xp": 0,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "60465",
+  "name": "Mirror Form",
+  "text": "Fast. Play only during your turn.\nChoose a [[Spell]] or [[Charm]] asset in your hand and put it into play under your control. When the round ends, shuffle that asset into your deck if it is still in play.",
+  "type": "event",
+  "traits": "Spell.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "agility"
+  ]
+ },
+ {
+  "code": "60466",
+  "name": "Spiritual Charm",
+  "text": "<b>Parley</b>. Choose a non-[[Elite]] enemy at your location or at a connecting location. Move that enemy to your location, engage it, and gain resources equal to its combined damage/horror values.",
+  "type": "event",
+  "traits": "Spell. Trick.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "agility"
+  ]
+ },
+ {
+  "code": "60467",
+  "name": "Blood Curse",
+  "text": "Max 1 committed per skill test.\nIf this skill test is successful, take 1 direct damage.",
+  "type": "skill",
+  "traits": "Spell. Cursed.",
+  "xp": 0,
+  "icons": [
+   "wild",
+   "wild",
+   "wild",
+   "wild"
+  ]
+ },
+ {
+  "code": "60468",
+  "name": "Cosmic Guidance",
+  "text": "If this skill test is successful, heal 1 damage from the performing investigator.",
+  "type": "skill",
+  "traits": "Augury.",
+  "xp": 0,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "60469",
+  "name": "Torrent of Power",
+  "text": "As an additional cost to commit Torrent of Power to a skill test, spend up to 3 charges from among assets you control.\nFor each charge spent in this way, Torrent of Power gains [willpower] [wild].",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "duplicateOf": "03235",
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "60470",
+  "name": "Ceremonial Robes",
+  "text": "Reduce the cost of the first [[Spell]] or [[Ritual]] card you play each round by 1.",
+  "type": "asset",
+  "traits": "Item. Clothing.",
+  "xp": 1,
+  "health": 1,
+  "sanity": 1,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "60471",
+  "name": "Eldritch Whispers",
+  "text": "Max 1 committed per skill test.\nIf a symbol token is revealed during this test, place up to 2 charges or 2 secrets among assets you control.",
+  "type": "skill",
+  "traits": "Innate.",
+  "xp": 1,
+  "icons": [
+   "willpower",
+   "willpower"
+  ]
+ },
+ {
+  "code": "60472",
+  "name": "Blood Ward",
+  "text": "Fast. Play when a non-[[Elite]] enemy attacks an investigator at your location.\nCancel that attack and heal 2 damage from the targeted investigator.",
+  "type": "event",
+  "traits": "Spell.",
+  "xp": 2,
+  "icons": [
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "60473",
+  "name": "Retribution",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nYou take all damage and horror from this attack. For each point of damage/horror taken, deal 1 damage to an enemy at your location.",
+  "type": "event",
+  "traits": "Spell. Spirit.",
+  "xp": 2,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "60474",
+  "name": "Dread Curse of Azathoth",
+  "text": "Exceptional.\n[action] Place 1 doom on Dread Curse of Azathoth: <b>Fight</b> ([willpower]). You get +2 [willpower] and deal +1 damage for this attack. If this attack defeats an enemy, remove 1 doom from Dread Curse of Azathoth. If a [skull] or [elder_thing] token is revealed during this test, remove all doom from this card.",
+  "type": "asset",
+  "traits": "Spell. Cursed.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "combat"
+  ]
+ },
+ {
+  "code": "60475",
+  "name": "Ritual Dagger",
+  "text": "[action]: <b>Fight</b> ([combat]). Add your [willpower] to your [combat] for this attack.\n[reaction] After you play a [[Spell]] event, take 1 damage and exhaust Ritual Dagger: Shuffle that event into your deck instead of discarding it.",
+  "type": "asset",
+  "traits": "Item. Weapon. Melee. Cursed.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "60476",
+  "name": "Spiritual Intuition",
+  "text": "Starting. <i>(You may begin the game with 1 copy of a starting card in your opening hand.)</i>\n[fast] Spend 1 resource: You get +1 [willpower] for this skill test (+2 [willpower] instead if this test is on a [[Spell]] or [[Ritual]] card).\n[fast] Spend 1 resource: You get +1 [combat] for this skill test (+2 [combat] instead if this test is on a [[Spell]] or [[Ritual]] card).",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "60477",
+  "name": "Blood Curse",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, deal 1 damage to a card with health at your location.",
+  "type": "skill",
+  "traits": "Spell. Cursed.",
+  "xp": 3,
+  "icons": [
+   "wild",
+   "wild",
+   "wild",
+   "wild",
+   "wild"
+  ]
+ },
+ {
+  "code": "60478",
+  "name": "Arcane Experience",
+  "text": "Permanent. Limit 1 per deck.\nYou have 1 additional arcane slot.",
+  "type": "asset",
+  "traits": "Condition.",
+  "xp": 4,
+  "icons": []
+ },
+ {
+  "code": "60479",
+  "name": "Jim Culver",
+  "text": "You get +1 [willpower].\n[reaction] After you take damage and/or horror, exhaust Jim Culver: Draw 1 card and gain 1 resource.",
+  "type": "asset",
+  "traits": "Ally. Performer.",
+  "xp": 4,
+  "health": 3,
+  "sanity": 3,
+  "icons": [
+   "willpower",
+   "willpower"
+  ]
+ },
+ {
+  "code": "60480",
+  "name": "Ultimate Sacrifice",
+  "text": "Fast. Play when the investigation phase ends.\nRepeat the investigation phase. At the end of that phase, you are defeated and suffer 1 physical trauma. Max once per game.",
+  "type": "event",
+  "traits": "Spell. Spirit.",
+  "xp": 4,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "60481",
+  "name": "Second Sight",
+  "text": "Uses (4 charges).\n[action]: <b>Investigate</b> ([willpower]). You get +2 [willpower] for this investigation. If you succeed, you may spend 1 charge to discover 1 additional clue at your location or 1 clue at a connecting location. If you reveal a [cultist] token during this test, remove 1 charge from Second Sight (if you cannot, take 1 horror and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 5,
+  "icons": [
+   "willpower",
+   "intellect",
+   "wild"
+  ]
+ },
+ {
+  "code": "60482",
+  "name": "Shadowmeld",
+  "text": "Uses (5 charges).\n[action]: <b>Evade</b> ([willpower]). You get +2 [willpower] for this evasion. If you succeed, you may spend 1 charge to move to a location up to 2 connections away. If you reveal a [tablet] token during this test, remove 1 charge from Shadowmeld (if you cannot, lose 1 action and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 5,
+  "icons": [
+   "willpower",
+   "agility",
+   "wild"
+  ]
+ },
+ {
+  "code": "60483",
+  "name": "Bend Blood",
+  "text": "<b>Fight</b> ([willpower]). You get +3 [willpower] and deal +1 damage for this attack. If you succeed, deal 1 damage to each other enemy at your location. Each enemy dealt damage by Bend Blood cannot attack you for the remainder of the round.",
+  "type": "event",
+  "traits": "Spell. Cursed.",
+  "xp": 5,
+  "icons": [
+   "willpower",
+   "willpower",
+   "combat",
+   "combat"
+  ]
+ }
+]

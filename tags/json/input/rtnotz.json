@@ -1,0 +1,131 @@
+[
+ {
+  "code": "50001",
+  "name": "Physical Training",
+  "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [combat] for this skill test.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 2,
+  "icons": [
+   "willpower",
+   "willpower",
+   "combat",
+   "combat"
+  ]
+ },
+ {
+  "code": "50002",
+  "name": "Dynamite Blast",
+  "text": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location. This action does not provoke attacks of opportunity.",
+  "type": "event",
+  "traits": "Tactic.",
+  "xp": 2,
+  "icons": [
+   "willpower",
+   "combat"
+  ]
+ },
+ {
+  "code": "50003",
+  "name": "Hyperawareness",
+  "text": "[fast] Spend 1 resource: You get +1 [intellect] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 2,
+  "icons": [
+   "intellect",
+   "intellect",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "50004",
+  "name": "Barricade",
+  "text": "Attach to your location.\nNon-[[Elite]] enemies cannot move into or spawn at attached location. Each time a non-[[Elite]] enemy would spawn at attached location, spawn it at a connecting location instead, if able.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade.",
+  "type": "event",
+  "traits": "Insight. Tactic.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "intellect",
+   "agility"
+  ]
+ },
+ {
+  "code": "50005",
+  "name": "Hard Knocks",
+  "text": "[fast] Spend 1 resource: You get +1 [combat] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 2,
+  "icons": [
+   "combat",
+   "combat",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "50006",
+  "name": "Hot Streak",
+  "text": "Gain 10 resources.",
+  "type": "event",
+  "traits": "Fortune.",
+  "xp": 2,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "50007",
+  "name": "Arcane Studies",
+  "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [intellect] for this skill test.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 2,
+  "icons": [
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect"
+  ]
+ },
+ {
+  "code": "50008",
+  "name": "Mind Wipe",
+  "text": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy in your location. Until the end of the phase, reduce the chosen enemy's damage and horror values by 1, and treat its printed text box as if it were blank (except for [[Traits]]).",
+  "type": "event",
+  "traits": "Spell.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "combat"
+  ]
+ },
+ {
+  "code": "50009",
+  "name": "Dig Deep",
+  "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 2,
+  "icons": [
+   "willpower",
+   "willpower",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "50010",
+  "name": "Rabbit's Foot",
+  "text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Search the top X cards of your deck for a card, draw it, and shuffle the remaining cards into your deck. X is the amount you failed by.",
+  "type": "asset",
+  "traits": "Item. Charm.",
+  "xp": 3,
+  "icons": [
+   "wild"
+  ]
+ }
+]

@@ -9,6 +9,7 @@ export enum TagTypeEnemyValue {
   EnemyValueHealthReduction = "enemy-value-health-reduction",
   EnemyValueHorror = "enemy-value-horror",
   EnemyValueRemainingHealth = "enemy-value-remaining-health",
+  EnemyValueHealth = "enemy-value-health",
 }
 
 interface TagEnemyValueBase extends TagBase {}
@@ -52,4 +53,9 @@ export interface TagEnemyValueRemainingHealth extends TagEnemyValueBase {
   type: TagTypeEnemyValue.EnemyValueRemainingHealth;
   comparison?: "exact" | "min" | "max";
   value?: number;
+}
+
+/** References an enemy's PRINTED health as a value (Ancestral Token: bless = health; Blackmail File: difficulty = health) — the health member of the enemy-value family, parallel to fight/evade/horror/damage. */
+export interface TagEnemyValueHealth extends TagEnemyValueBase {
+  type: TagTypeEnemyValue.EnemyValueHealth;
 }

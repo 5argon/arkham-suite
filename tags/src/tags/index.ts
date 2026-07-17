@@ -15,6 +15,7 @@ export * from "./commit/index.js";
 export * from "./condition/index.js";
 export * from "./control/index.js";
 export * from "./cost/index.js";
+export * from "./customizable/index.js";
 export * from "./damage/index.js";
 export * from "./deck/index.js";
 export * from "./defeat/index.js";

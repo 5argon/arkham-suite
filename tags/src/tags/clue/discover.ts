@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeClueDiscover {
   ClueDiscoverAnyLocation = "clue-discover-any-location",
@@ -7,7 +8,7 @@ export enum TagTypeClueDiscover {
 }
 
 interface TagClueDiscoverBase extends TagBase {
-  value: number;
+  value: DynamicValue;
 }
 
 export interface TagClueDiscoverAnyLocation extends TagClueDiscoverBase {

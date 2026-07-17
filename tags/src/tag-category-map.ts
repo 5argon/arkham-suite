@@ -39,6 +39,7 @@ import {
   TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
+  TagTypeChaosTokenPool,
 } from "./tags/chaos/index.js";
 import {
   TagTypeClueAdditional,
@@ -61,6 +62,9 @@ import {
   TagTypeCostOther,
   TagTypeCostReaction,
 } from "./tags/cost/index.js";
+import {
+  TagTypeCustomizable,
+} from "./tags/customizable/index.js";
 import {
   TagTypeDamage,
 } from "./tags/damage/index.js";
@@ -199,6 +203,7 @@ import {
 } from "./tags/trait/index.js";
 import {
   TagTypeUsesAccumulate,
+  TagTypeUsesMarker,
   TagTypeUsesReplenish,
   TagTypeUsesSelfPlace,
   TagTypeUsesStarting,
@@ -220,12 +225,13 @@ const enumsByCategory: Record<string, object[]> = {
   "buff": [TagTypeBuffAssetStats, TagTypeBuffCannot, TagTypeBuffInvestigatorStats, TagTypeBuffStatsReplace],
   "campaign": [TagTypeCampaign],
   "cancel": [TagTypeCancel],
-  "chaos": [TagTypeChaosBag, TagTypeChaosDownside, TagTypeChaosEffect, TagTypeChaosPayoff, TagTypeChaosPredict, TagTypeChaosReveal, TagTypeChaosSeal],
+  "chaos": [TagTypeChaosBag, TagTypeChaosDownside, TagTypeChaosEffect, TagTypeChaosPayoff, TagTypeChaosPredict, TagTypeChaosReveal, TagTypeChaosSeal, TagTypeChaosTokenPool],
   "clue": [TagTypeClueAdditional, TagTypeClueDiscover, TagTypeCluePlace],
   "commit": [TagTypeCommit],
   "condition": [TagTypeCondition],
   "control": [TagTypeControl],
   "cost": [TagTypeCostAction, TagTypeCostDiscount, TagTypeCostFree, TagTypeCostOther, TagTypeCostReaction],
+  "customizable": [TagTypeCustomizable],
   "damage": [TagTypeDamage],
   "deck": [TagTypeDeckDiscard, TagTypeDeckDraw, TagTypeDeckLook, TagTypeDeckMisc, TagTypeDeckSearch, TagTypeDeckShuffle],
   "defeat": [TagTypeDefeat],
@@ -260,7 +266,7 @@ const enumsByCategory: Record<string, object[]> = {
   "testless": [TagTypeTestless],
   "timing": [TagTypeTimingAfter, TagTypeTimingDuring, TagTypeTimingForced, TagTypeTimingGame, TagTypeTimingPhaseSequence, TagTypeTimingSkill, TagTypeTimingWhen],
   "trait": [TagTypeTraitSupport],
-  "uses": [TagTypeUsesAccumulate, TagTypeUsesReplenish, TagTypeUsesSelfPlace, TagTypeUsesStarting, TagTypeUsesSupport],
+  "uses": [TagTypeUsesAccumulate, TagTypeUsesMarker, TagTypeUsesReplenish, TagTypeUsesSelfPlace, TagTypeUsesStarting, TagTypeUsesSupport],
   "victory": [TagTypeVictory],
 };
 

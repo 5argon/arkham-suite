@@ -25,11 +25,30 @@ let cache: Map<string, CardMetadata> | null = null;
 /**
  * code → {level, cardType, icons}. Best-effort: returns an empty map if the resolved
  * card database can't be read (so the ingress never hard-fails for a volunteer whose
- * checkout lacks it — the cards just go un-enriched).
+ * checkout lacks it — the cards just go un-enriched). Codes absent from the resolved
+ * DB (new sets it doesn't know yet) fall back to this package's json/input/<pack>.json
+ * files, whose stats come from the raw pack data.
  */
 export async function loadCardMetadata(): Promise<Map<string, CardMetadata>> {
   if (cache) return cache;
   const map = new Map<string, CardMetadata>();
+  // fallback layer first, so the resolved DB overrides it where both exist
+  try {
+    const inputDir = join(here, "..", "json", "input");
+    const { readdir } = await import("node:fs/promises");
+    for (const f of (await readdir(inputDir)).filter((f) => f.endsWith(".json"))) {
+      for (const c of JSON.parse(await readFile(join(inputDir, f), "utf8")) as Record<string, unknown>[]) {
+        if (!c.code) continue;
+        map.set(c.code as string, {
+          level: c.xp as number | undefined,
+          cardType: c.type as string | undefined,
+          icons: (c.icons as string[]) ?? [],
+        });
+      }
+    }
+  } catch {
+    /* input files are optional */
+  }
   try {
     const cards: Record<string, unknown>[] = JSON.parse(await readFile(CARDS_JSON, "utf8"));
     for (const c of cards) {

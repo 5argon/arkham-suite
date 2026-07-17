@@ -10,6 +10,8 @@ export enum TagTypeCostReaction {
   CostReactionSpendResource = "cost-reaction-spend-resource",
   CostReactionSpendClue = "cost-reaction-spend-clue",
   CostReactionSpendSecret = "cost-reaction-spend-secret",
+  CostReactionSpendSupply = "cost-reaction-spend-supply",
+  CostReactionSpendEvidence = "cost-reaction-spend-evidence",
 }
 
 interface TagCostReactionBase extends TagBase {
@@ -59,4 +61,12 @@ export interface TagCostReactionSpendClue extends TagCostReactionBase {
 /** Spend a secret use-token as the cost of a [reaction] triggered ability. */
 export interface TagCostReactionSpendSecret extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionSpendSecret;
+}
+
+export interface TagCostReactionSpendSupply extends TagCostReactionBase {
+  type: TagTypeCostReaction.CostReactionSpendSupply;
+}
+
+export interface TagCostReactionSpendEvidence extends TagCostReactionBase {
+  type: TagTypeCostReaction.CostReactionSpendEvidence;
 }

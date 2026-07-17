@@ -1,0 +1,1262 @@
+[
+ {
+  "code": "12001",
+  "name": "Daniela Reyes",
+  "text": "[reaction] After an enemy attacks an investigator at your location: Fight that enemy <i>(using either a basic fight action or a </i><b>Fight</b><i> ability on a card)</i>. (Limit once per round.)\n[elder_sign] effect: +1. Deal 1 damage to an enemy at your location.",
+  "type": "investigator",
+  "traits": "Warden. Worker.",
+  "health": 9,
+  "sanity": 5,
+  "icons": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "combat",
+   "combat",
+   "combat",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12002",
+  "name": "Daniela's Wrench",
+  "text": "Daniela Reyes deck only.\n[fast] Exhaust Daniela's Wrench: Choose an enemy at your location. That enemy engages you and makes an immediate attack.\n[action]: <b>Fight</b> ([combat]). You get +2 [combat] for this attack. If this enemy attacked you this round, this attack deals +1 damage.",
+  "type": "asset",
+  "traits": "Item. Tool. Weapon. Melee.",
+  "icons": [
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "12003",
+  "name": "In Harm's Way",
+  "text": "<b>Revelation</b> - Put In Harm's Way into play in your threat area.\n<b>Forced</b> - After you deal damage to an enemy: Take 1 damage and place 1 damage on In Harm's Way. If there is 3 or more damage on this card, discard it.\n<b>Forced</b> - When the game ends: Suffer 1 physical trauma.",
+  "type": "treachery",
+  "traits": "Flaw.",
+  "icons": []
+ },
+ {
+  "code": "12004",
+  "name": "Joe Diamond",
+  "text": "[reaction] After you successfully investigate: Draw 1 card. (Limit once per round.)\n[elder_sign] effect: +1. If you succeed, draw 1 card and gain 1 resource.",
+  "type": "investigator",
+  "traits": "Detective.",
+  "health": 7,
+  "sanity": 7,
+  "icons": [
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "combat",
+   "combat",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12005",
+  "name": "Detective's Intuition",
+  "text": "Joe Diamond deck only.\nGain 2 resources and heal 1 damage or 1 horror.\n[reaction] After you draw Detective's Intuition during your turn: Reveal it and draw 2 additional cards.",
+  "type": "event",
+  "traits": "Insight.",
+  "icons": [
+   "willpower",
+   "intellect",
+   "wild"
+  ]
+ },
+ {
+  "code": "12006",
+  "name": "Dead Ends",
+  "text": "<b>Forced</b> - When you search your deck and Dead Ends is among the searched cards: Draw it, cancel the effects of the search, and shuffle your deck.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.",
+  "type": "event",
+  "traits": "Blunder.",
+  "icons": []
+ },
+ {
+  "code": "12007",
+  "name": "Trish Scarborough",
+  "text": "You may take an additional action during your turn, which can only be used to evade.\n[elder_sign] effect: +0. After this test resolves, you may disengage from each enemy and move to a connecting location.",
+  "type": "investigator",
+  "traits": "Agency. Criminal.",
+  "health": 8,
+  "sanity": 6,
+  "icons": [
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12008",
+  "name": "Covert Ops",
+  "text": "Trish Scarborough deck only.\n[reaction] After you evade an enemy, exhaust Covert Ops: Either draw 1 card, or move to a connecting location.",
+  "type": "asset",
+  "traits": "Talent. Illicit.",
+  "icons": [
+   "intellect",
+   "agility",
+   "wild"
+  ]
+ },
+ {
+  "code": "12009",
+  "name": "Black Chamber Operative",
+  "text": "Hunter. Prey (Trish Scarborough only).\n<b>Forced</b> - After you evade Black Chamber Operative: Place 1 of your clues on your location. If you cannot, this enemy readies, engages you, and makes an immediate attack.",
+  "type": "enemy",
+  "traits": "Humanoid. Coterie.",
+  "health": 2,
+  "icons": []
+ },
+ {
+  "code": "12010",
+  "name": "Dexter Drake",
+  "text": "[reaction] After you play an asset: Either return another non-story asset you control to your hand, or play a different asset from your hand <i>(paying its cost)</i>. (Limit once per round.)\n[elder_sign] effect: +1. You may return a non-story asset at your location to its owner's hand.",
+  "type": "investigator",
+  "traits": "Performer. Sorcerer.",
+  "health": 6,
+  "sanity": 8,
+  "icons": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12011",
+  "name": "\"For my next trick...\"",
+  "text": "Dexter Drake deck only.\nSearch your deck for a [[Spell]] or [[Item]] asset and play it, reducing its cost by 2 <i>(shuffle your deck)</i>. This action does not provoke attacks of opportunity.",
+  "type": "event",
+  "traits": "Spell. Trick.",
+  "icons": [
+   "willpower",
+   "agility",
+   "wild"
+  ]
+ },
+ {
+  "code": "12012",
+  "name": "The Necronomicon",
+  "text": "<b>Revelation</b> - Put The Necronomicon into play in your threat area. It cannot leave play except by the [action] ability below.\nYou cannot play assets or trigger abilities on other assets you control.\n[action]: Test [willpower] (5). If you succeed, discard The Necronomicon. If you fail, shuffle it into your deck and take 1 horror.",
+  "type": "asset",
+  "traits": "Item. Tome. Cursed.",
+  "icons": []
+ },
+ {
+  "code": "12013",
+  "name": "Isabelle Barnes",
+  "text": "[fast] During a skill test you are performing, take 1 direct horror: Commit an eligible skill from your discard pile to this test. After this test resolves, shuffle that card into your deck. (Limit once per round.)\n[elder_sign] effect: +1. If you succeed, heal 1 horror.",
+  "type": "investigator",
+  "traits": "Chosen. Hunter.",
+  "health": 5,
+  "sanity": 9,
+  "icons": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12014",
+  "name": "Isabelle's Twin .45s",
+  "text": "Isabelle Barnes deck only. Uses (6 ammo).\n[action] Spend 1 ammo: <b>Fight</b> ([combat]). You get +1 [combat] and deal +1 damage for this attack.\n[reaction] After you resolve the above ability, spend 1 ammo and exhaust Isabelle's Twin .45s: <b>Fight</b> ([agility]). You get +1 [agility] and deal +1 damage for this attack.",
+  "type": "asset",
+  "traits": "Item. Weapon. Firearm.",
+  "icons": [
+   "combat",
+   "agility",
+   "wild"
+  ]
+ },
+ {
+  "code": "12015",
+  "name": "Breaking Point",
+  "text": "<b>Revelation</b> - Take 1 direct damage. Then, if you have 6 or fewer remaining sanity, take 1 direct damage. Then, if you have 3 or fewer remaining sanity, take 1 direct damage.",
+  "type": "treachery",
+  "traits": "Hardship.",
+  "icons": []
+ },
+ {
+  "code": "12016",
+  "name": "Bodyguard",
+  "text": "Bodyguard may be assigned damage dealt to other investigators at your location.\n[reaction] When Bodyguard is defeated: Deal 1 damage to an enemy at your location.",
+  "type": "asset",
+  "traits": "Ally.",
+  "xp": 0,
+  "health": 2,
+  "sanity": 1,
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12017",
+  "name": "Endurance",
+  "text": "[fast] Spend 1 resource: You get +1 [combat] for this skill test (+2 [combat] instead if this is an attack or evasion).\n[fast] Spend 1 resource: You get +1 [agility] for this skill test (+2 [agility] instead if this is an attack or evasion).",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "combat",
+   "agility"
+  ]
+ },
+ {
+  "code": "12018",
+  "name": "Logan Hastings",
+  "text": "You get +1 [combat].\n[reaction] After you defeat an enemy, exhaust Logan Hastings: Gain 1 resource.",
+  "type": "asset",
+  "traits": "Ally. Hunter.",
+  "xp": 0,
+  "health": 2,
+  "sanity": 1,
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12019",
+  "name": "M1911",
+  "text": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight</b> ([combat]). You get +1 [combat] and deal +1 damage for this attack.",
+  "type": "asset",
+  "traits": "Item. Weapon. Firearm.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12020",
+  "name": "Machete",
+  "text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack. If the attacked enemy is the only enemy engaged with you, this attack deals +1 damage.",
+  "type": "asset",
+  "traits": "Item. Weapon. Melee.",
+  "xp": 0,
+  "duplicateOf": "01020",
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12021",
+  "name": "Resilience",
+  "text": "",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "health": 2,
+  "sanity": 2,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12022",
+  "name": "Lesson Learned",
+  "text": "Fast. Play after an enemy attacks you.\nDiscover 1 clue at your location.",
+  "type": "event",
+  "traits": "Insight. Spirit.",
+  "xp": 0,
+  "icons": [
+   "intellect",
+   "combat"
+  ]
+ },
+ {
+  "code": "12023",
+  "name": "Right Tool for the Job",
+  "text": "Search the top 9 cards of your deck for a [[Tool]] or [[Weapon]] asset and add it to your hand. Shuffle your deck.",
+  "type": "event",
+  "traits": "Insight.",
+  "xp": 0,
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12024",
+  "name": "Scene of the Crime",
+  "text": "Play only as your first action.\nDiscover 1 clue at your location (2 clues instead if there is an enemy at that location). This action does not provoke attacks of opportunity.",
+  "type": "event",
+  "traits": "Insight. Bold.",
+  "xp": 0,
+  "duplicateOf": "04103",
+  "icons": [
+   "intellect",
+   "combat"
+  ]
+ },
+ {
+  "code": "12025",
+  "name": "Vicious Blow",
+  "text": "If this skill test is successful during an attack, that attack deals +1 damage.",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "duplicateOf": "01025",
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12026",
+  "name": "Counterattack",
+  "text": "Fast. Play when an enemy attacks an investigator at your location <i>(before resolving that attack)</i>.\nCancel that attack. Deal 1 damage to that enemy.",
+  "type": "event",
+  "traits": "Spirit. Tactic.",
+  "xp": 1,
+  "icons": [
+   "combat",
+   "agility"
+  ]
+ },
+ {
+  "code": "12027",
+  "name": "Bodyguard",
+  "text": "Bodyguard may be assigned damage dealt to other investigators at your location.\n[reaction] When Bodyguard is defeated: Deal 2 damage to an enemy at your location.",
+  "type": "asset",
+  "traits": "Ally.",
+  "xp": 2,
+  "health": 3,
+  "sanity": 2,
+  "icons": [
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "12028",
+  "name": "Sledgehammer",
+  "text": "[action]: <b>Fight</b> ([combat]). This attack deals + 1 damage.\n[action][action]: <b>Fight</b> ([combat]). You get +3 [combat] for this attack. If you succeed, you may exhaust Sledgehammer for this attack to deal +2 damage.",
+  "type": "asset",
+  "traits": "Item. Tool. Weapon. Melee.",
+  "xp": 3,
+  "icons": [
+   "combat",
+   "combat"
+  ]
+ },
+ {
+  "code": "12029",
+  "name": "Winchester Model 12",
+  "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight</b> ([combat]). You get +3 [combat] for this attack. If you succeed, this attack deals +1 damage for each point you succeed by (to a maximum of +4). If you fail and would deal damage to another investigator, this attack deals 1 damage for each point you fail by (to a maximum of 5 damage).",
+  "type": "asset",
+  "traits": "Item. Weapon. Firearm.",
+  "xp": 5,
+  "icons": [
+   "combat",
+   "combat"
+  ]
+ },
+ {
+  "code": "12030",
+  "name": "Dorothy Simmons",
+  "text": "You get +1 [intellect].\n[reaction] After you successfully investigate by exactly 1 or 3, exhaust Dorothy Simmons: Gain 1 resource.",
+  "type": "asset",
+  "traits": "Ally. Miskatonic.",
+  "xp": 0,
+  "health": 1,
+  "sanity": 1,
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12031",
+  "name": "Fingerprint Kit",
+  "text": "Uses (3 supplies).\n[action] Exhaust Fingerprint Kit and spend 1 supply: <b>Investigate.</b> You get +1 [intellect] for this investigation. If you succeed, you discover 1 additional clue at your location.",
+  "type": "asset",
+  "traits": "Item. Tool.",
+  "xp": 0,
+  "duplicateOf": "05024",
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12032",
+  "name": "Laboratory Assistant",
+  "text": "Your maximum hand size is increased by 2.\n[reaction] After Laboratory Assistant enters play: Draw 2 cards.",
+  "type": "asset",
+  "traits": "Ally. Miskatonic. Science.",
+  "xp": 0,
+  "health": 1,
+  "sanity": 2,
+  "duplicateOf": "02020",
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12033",
+  "name": "Local Map",
+  "text": "Uses (4 secrets).\n[action] Spend 1 secret: <b>Investigate</b> ([intellect]). Investigate a revealed connecting location. You get +1 [intellect] for this investigation. If you succeed, you may exhaust Local Map to move to that location.",
+  "type": "asset",
+  "traits": "Item.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12034",
+  "name": "Magnifying Glass",
+  "text": "Fast.\nYou get +1 [intellect] while investigating.",
+  "type": "asset",
+  "traits": "Item. Tool.",
+  "xp": 0,
+  "duplicateOf": "01030",
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12035",
+  "name": "Sharp Rhetoric",
+  "text": "[fast] Spend 1 resource: You get +1 [intellect] for this skill test (+2 [intellect] instead if this is an investigation or parley).\n[fast] Spend 1 resource: You get +1 [willpower] for this skill test (+2 [willpower] instead if this is an investigation or parley).",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "intellect"
+  ]
+ },
+ {
+  "code": "12036",
+  "name": "Gather Intel",
+  "text": "Fast. Play when an enemy enters your location.\nDraw 2 cards.",
+  "type": "event",
+  "traits": "Insight.",
+  "xp": 0,
+  "icons": [
+   "intellect",
+   "agility"
+  ]
+ },
+ {
+  "code": "12037",
+  "name": "Through the Cracks",
+  "text": "<b>Evade</b> ([agility]). You get +1 [agility] for this evasion for each clue you control (to a maximum of +3). If you succeed, you may disengage from each enemy engaged with you and move to a revealed connecting location.",
+  "type": "event",
+  "traits": "Insight. Trick.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12038",
+  "name": "Working a Hunch",
+  "text": "Fast. Play only during your turn.\nDiscover 1 clue at your location.",
+  "type": "event",
+  "traits": "Insight.",
+  "xp": 0,
+  "duplicateOf": "01037",
+  "icons": [
+   "intellect",
+   "intellect"
+  ]
+ },
+ {
+  "code": "12039",
+  "name": "Deduction",
+  "text": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "duplicateOf": "01039",
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12040",
+  "name": "Mysterious Grimoire",
+  "text": "Uses (4 secrets).\n[fast] During your turn, spend 1 or 2 secrets and exhaust Mysterious Grimoire: Search the top 3 cards (or 6 cards instead if you spent 2 secrets) of your deck for a card and draw it. If 1 or more weaknesses are among the searched cards, draw them as well. Shuffle your deck.",
+  "type": "asset",
+  "traits": "Item. Tome.",
+  "xp": 2,
+  "icons": [
+   "intellect",
+   "intellect"
+  ]
+ },
+ {
+  "code": "12041",
+  "name": "Through the Cracks",
+  "text": "<b>Evade</b> ([agility]). You get +2 [agility] for this evasion for each clue you control (to a maximum of +6). If you succeed, you may disengage from each enemy engaged with you and move to a revealed connecting location.",
+  "type": "event",
+  "traits": "Insight. Trick.",
+  "xp": 2,
+  "icons": [
+   "agility",
+   "wild"
+  ]
+ },
+ {
+  "code": "12042",
+  "name": "Studious",
+  "text": "Permanent.\nYou begin each game with 1 additional card in your opening hand.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 3,
+  "duplicateOf": "05276",
+  "icons": []
+ },
+ {
+  "code": "12043",
+  "name": "Unbridled Knowledge",
+  "text": "Reveal the top 5 cards of your deck (8 cards instead if you control 2 or more clues). Draw 3 of them and place the rest of those cards on the top and/or bottom of your deck in any order.",
+  "type": "event",
+  "traits": "Insight.",
+  "xp": 5,
+  "icons": [
+   "intellect",
+   "intellect",
+   "wild"
+  ]
+ },
+ {
+  "code": "12044",
+  "name": "Lucky Cigarette Case",
+  "text": "[reaction] After you succeed at a skill test by 2 or more, exhaust Lucky Cigarette Case: Draw 1 card.",
+  "type": "asset",
+  "traits": "Item. Charm.",
+  "xp": 0,
+  "duplicateOf": "04107",
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12045",
+  "name": "M1903 Hammerless",
+  "text": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight</b> ([agility]). If the targeted enemy is exhausted, this attack deals +1 damage.",
+  "type": "asset",
+  "traits": "Item. Weapon. Firearm.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12046",
+  "name": "Olivier Bishop",
+  "text": "You get +1 [agility].\n[fast] During your turn, exhaust Olivier Bishop: Move to a connecting location.",
+  "type": "asset",
+  "traits": "Ally. Criminal. Socialite.",
+  "xp": 0,
+  "health": 2,
+  "sanity": 1,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12047",
+  "name": "Silver Tongue",
+  "text": "[fast] Spend 1 resource: You get +1 [intellect] for this skill test (+2 [intellect] instead if this is an evasion or parley).\n[fast] Spend 1 resource: You get +1 [agility] for this skill test (+2 [agility] instead if this is an evasion or parley).",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "intellect",
+   "agility"
+  ]
+ },
+ {
+  "code": "12048",
+  "name": "Sticky Fingers",
+  "text": "Limit 1 per investigator.\n[reaction] After you successfully evade an enemy, exhaust Sticky Fingers: Gain 1 resource.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12049",
+  "name": "Thieves' Kit",
+  "text": "Uses (6 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> You may use [agility] instead of [intellect] for this investigation. If you succeed, gain 1 resource.",
+  "type": "asset",
+  "traits": "Item. Tool. Illicit.",
+  "xp": 0,
+  "duplicateOf": "09064",
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12050",
+  "name": "Breaking and Entering",
+  "text": "<b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you succeed by 2 or more, you may automatically evade an enemy at this location. This action does not provoke attacks of opportunity.",
+  "type": "event",
+  "traits": "Trick.",
+  "xp": 0,
+  "duplicateOf": "07114",
+  "icons": [
+   "intellect",
+   "agility"
+  ]
+ },
+ {
+  "code": "12051",
+  "name": "Paint the Town Red",
+  "text": "<b>Parley.</b> Search the top 9 cards of the encounter deck for a non-[[Elite]] enemy, draw it, and gain resources equal to that enemy's printed health. Shuffle the encounter deck.",
+  "type": "event",
+  "traits": "Fortune. Gambit.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "agility"
+  ]
+ },
+ {
+  "code": "12052",
+  "name": "Prestidigitation",
+  "text": "Fast. Play only during your turn.\nPlay an [[Item]] asset from your hand, reducing its cost by 2. When your turn ends, return an [[Item]] asset you control to your hand.",
+  "type": "event",
+  "traits": "Trick.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "agility"
+  ]
+ },
+ {
+  "code": "12053",
+  "name": "Out of Sight",
+  "text": "Max 1 committed per skill test.\nIf this test is successful by 2 or more, the performing investigator may disengage from each enemy and move to a revealed connecting location.",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12054",
+  "name": "Sticky Fingers",
+  "text": "Fast. Limit 1 per investigator.\n[reaction] After you successfully evade an enemy, exhaust Sticky Fingers: Gain 1 resource.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 2,
+  "icons": [
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12055",
+  "name": "Decisive Strike",
+  "text": "<b>Fight</b> ([combat]). You get +2 [combat] and deal +1 damage for this attack. If this attack defeats an enemy, gain 5 resources.",
+  "type": "event",
+  "traits": "Tactic. Gambit.",
+  "xp": 2,
+  "icons": [
+   "combat",
+   "agility"
+  ]
+ },
+ {
+  "code": "12056",
+  "name": "Another Day, Another Dollar",
+  "text": "Permanent.\nYou begin each game with 2 additional resources.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 3,
+  "duplicateOf": "05278",
+  "icons": []
+ },
+ {
+  "code": "12057",
+  "name": "Out of Sight",
+  "text": "Max 1 committed per skill test.\nIf this test is successful by 1 or more, the performing investigator may disengage from each enemy and move to a revealed location up to 2 connections away.",
+  "type": "skill",
+  "traits": "Practiced. Expert.",
+  "xp": 3,
+  "icons": [
+   "agility",
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12058",
+  "name": "Cloak of Resonance",
+  "text": "[reaction] When horror is placed on Cloak of Resonance, exhaust it: Deal 1 damage to an enemy at your location.",
+  "type": "asset",
+  "traits": "Item. Clothing. Alchemy.",
+  "xp": 0,
+  "sanity": 3,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12059",
+  "name": "Cosmic Flame",
+  "text": "Uses (3 charges).\n[action]: <b>Fight</b> ([willpower]). If you succeed, you may spend 1 charge to deal +1 damage for this attack. If you reveal a [skull] token during this test, remove 1 charge from Cosmic Flame (if you cannot, take 1 damage and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 0,
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12060",
+  "name": "Jim Culver",
+  "text": "You get +1 [willpower].\n[reaction] After you take damage and/or horror, exhaust Jim Culver: Draw 1 card.",
+  "type": "asset",
+  "traits": "Ally. Performer.",
+  "xp": 0,
+  "health": 2,
+  "sanity": 2,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12061",
+  "name": "Lucky Charm",
+  "text": "Uses (4 charges).\n[fast] Spend 1 charge and exhaust Lucky Charm: Move 1 damage or 1 horror from a card at your location to a card you control <i>(with a health or sanity value)</i>.",
+  "type": "asset",
+  "traits": "Item. Charm. Blessed.",
+  "xp": 0,
+  "sanity": 2,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12062",
+  "name": "Second Sight",
+  "text": "Uses (3 charges).\n[action]: <b>Investigate</b> ([willpower]). If you succeed, you may spend 1 charge to discover 1 additional clue at your location. If you reveal a [cultist] token during this test, remove 1 charge from Second Sight (if you cannot, take 1 horror and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 0,
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12063",
+  "name": "Spiritual Intuition",
+  "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test (+2 [willpower] instead if this test is on a [[Spell]] or [[Ritual]] card).\n[fast] Spend 1 resource: You get +1 [combat] for this skill test (+2 [combat] instead if this test is on a [[Spell]] or [[Ritual]] card).",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "combat"
+  ]
+ },
+ {
+  "code": "12064",
+  "name": "Premonition",
+  "text": "Fast. Play during any [fast] player window.\nPut Premonition into play, reveal a random chaos token from the chaos bag, and seal it on Premonition.\n<b>Forced</b> - When a chaos token would be revealed from the chaos bag: Resolve the token sealed here as if it were just revealed from the chaos bag, instead. Then, discard Premonition.",
+  "type": "event",
+  "traits": "Augury.",
+  "xp": 0,
+  "duplicateOf": "04199",
+  "icons": [
+   "intellect",
+   "agility"
+  ]
+ },
+ {
+  "code": "12065",
+  "name": "Ward of Protection",
+  "text": "Fast. Play when you draw a non-weakness treachery card.\nCancel that card's revelation effect. Then, take 1 horror.",
+  "type": "event",
+  "traits": "Spell. Spirit.",
+  "xp": 0,
+  "duplicateOf": "01065",
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "12066",
+  "name": "Will of the Cosmos",
+  "text": "Place 1 doom on a player card you control. Then, discover 1 clue at your location and 1 clue at another revealed location.",
+  "type": "event",
+  "traits": "Insight. Augury.",
+  "xp": 0,
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12067",
+  "name": "Soul Link",
+  "text": "As an additional cost to commit Soul Link, take 1 horror.",
+  "type": "skill",
+  "traits": "Innate. Spell.",
+  "xp": 0,
+  "icons": [
+   "wild",
+   "wild",
+   "wild"
+  ]
+ },
+ {
+  "code": "12068",
+  "name": "Mask of Silenus",
+  "text": "Uses (3 charges).\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 1 additional token. Choose 1 of those tokens to resolve and ignore the other. If you resolved a token with a symbol, take 1 horror.",
+  "type": "asset",
+  "traits": "Item. Mask. Relic. Cursed.",
+  "xp": 1,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "12069",
+  "name": "Fearless",
+  "text": "If this skill test is successful, heal 1 horror (2 horror instead if it succeeds by 2 or more).",
+  "type": "skill",
+  "traits": "Innate. Developed.",
+  "xp": 2,
+  "duplicateOf": "02268",
+  "icons": [
+   "willpower",
+   "willpower"
+  ]
+ },
+ {
+  "code": "12070",
+  "name": "Augur of Elokoss",
+  "text": "<b>Investigate</b> ([intellect]). Add your [willpower] to your [intellect] for this investigation. If you succeed, discover 1 additional clue at your location. If you succeed and a token with a symbol was revealed during this test, you may discard a [[Terror]] or [[Hex]] treachery from any investigator's threat area.",
+  "type": "event",
+  "traits": "Spell. Augury.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "intellect",
+   "wild"
+  ]
+ },
+ {
+  "code": "12071",
+  "name": "Cosmic Flame",
+  "text": "Uses (4 charges).\n[action]: <b>Fight</b> ([willpower]). You get +2 [willpower] and deal +1 damage for this attack. If you succeed, you may spend 1 charge to deal 1 damage to an enemy at your location. If you reveal a [skull] token during this test, remove 1 charge from Cosmic Flame (if you cannot, take 1 damage and discard this card).",
+  "type": "asset",
+  "traits": "Spell.",
+  "xp": 5,
+  "icons": [
+   "willpower",
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "12072",
+  "name": "Aleksey Saburov",
+  "text": "[reaction] When your turn begins: Heal 1 damage or 1 horror from Aleksey Saburov.",
+  "type": "asset",
+  "traits": "Ally.",
+  "xp": 0,
+  "health": 2,
+  "sanity": 2,
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12073",
+  "name": "Bandages",
+  "text": "Uses (3 supplies). If Bandages has no supplies, discard it.\n[reaction] After an investigator or [[Ally]] asset at your location takes 1 or more damage, spend 1 supply: Heal 1 damage from that card.",
+  "type": "asset",
+  "traits": "Item.",
+  "xp": 0,
+  "duplicateOf": "08073",
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12074",
+  "name": "Hunter's Instinct",
+  "text": "Limit 1 per investigator. Uses (3 supplies). If there are no supplies on Hunter's Instinct, discard it.\n[reaction] After you engage an enemy, spend 1 supply and exhaust Hunter's Instinct: Add a level 0 event in your discard pile to your hand.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "combat",
+   "agility"
+  ]
+ },
+ {
+  "code": "12075",
+  "name": "Jumpsuit",
+  "text": "[fast] During your turn, discard Jumpsuit: Choose a [[Tool]] or [[Weapon]] asset in your discard pile and add it to your hand.",
+  "type": "asset",
+  "traits": "Item. Clothing.",
+  "xp": 0,
+  "health": 2,
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12076",
+  "name": "Levelheaded",
+  "text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test (+2 [willpower] instead if this test is on a scenario card).\n[fast] Spend 1 resource: You get +1 [agility] for this skill test (+2 [agility] instead if this test is on a scenario card).",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "agility"
+  ]
+ },
+ {
+  "code": "12077",
+  "name": "Meat Cleaver",
+  "text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack (+2 [combat] instead if you have 3 or fewer remaining sanity). If this attack defeats an enemy, you may heal 1 horror. As an additional cost to initiate this ability, you may take 1 horror to have this attack deal +1 damage.",
+  "type": "asset",
+  "traits": "Item. Weapon. Melee.",
+  "xp": 0,
+  "duplicateOf": "05114",
+  "icons": [
+   "willpower"
+  ]
+ },
+ {
+  "code": "12078",
+  "name": "\"Look what I found!\"",
+  "text": "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location.",
+  "type": "event",
+  "traits": "Fortune.",
+  "xp": 0,
+  "duplicateOf": "01079",
+  "icons": [
+   "intellect",
+   "intellect"
+  ]
+ },
+ {
+  "code": "12079",
+  "name": "\"Shove off!\"",
+  "text": "<b>Evade</b> ([agility]). If you succeed, deal 1 damage to the evaded enemy. If you fail, return \"Shove off!\" to your hand at the end of your turn.",
+  "type": "event",
+  "traits": "Tactic.",
+  "xp": 0,
+  "icons": [
+   "combat",
+   "agility"
+  ]
+ },
+ {
+  "code": "12080",
+  "name": "Slippery",
+  "text": "If this skill test is successful while evading a non-[[Elite]] enemy, that enemy does not ready during the next upkeep phase.",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12081",
+  "name": "Timely Intervention",
+  "text": "Max 1 committed per skill test.\nYou may commit Timely Intervention from your hand after revealing chaos tokens during a skill test you are performing.",
+  "type": "skill",
+  "traits": "Fortune.",
+  "xp": 0,
+  "icons": [
+   "willpower",
+   "agility",
+   "wild"
+  ]
+ },
+ {
+  "code": "12082",
+  "name": "Scrape By",
+  "text": "Fast. Play when you would fail a skill test during which a non-[auto_fail] token was revealed.\nYou succeed at that skill test instead. If a token with a symbol was revealed during that skill test, take 1 horror.",
+  "type": "event",
+  "traits": "Fortune.",
+  "xp": 1,
+  "icons": [
+   "wild"
+  ]
+ },
+ {
+  "code": "12083",
+  "name": "Old Compass",
+  "text": "[action]: <b>Investigate</b> ([intellect]). Your location gets -1 shroud for this investigation. If you fail, you may exhaust Old Compass to attempt this test again. If you do, your location gets -2 shroud for this investigation, instead.",
+  "type": "asset",
+  "traits": "Item. Tool.",
+  "xp": 2,
+  "icons": [
+   "intellect",
+   "intellect"
+  ]
+ },
+ {
+  "code": "12084",
+  "name": "On the Brink",
+  "text": "Max 1 committed per skill test.\nIf this test fails, return each other card committed to this test to its owner's hand and draw 1 card.",
+  "type": "skill",
+  "traits": "Gambit. Desperate.",
+  "xp": 2,
+  "icons": [
+   "wild",
+   "wild"
+  ]
+ },
+ {
+  "code": "12085",
+  "name": "Meat Cleaver",
+  "text": "[action]: <b>Fight</b> ([combat]). You get +2 [combat] for this attack (+3 [combat] instead if you have 3 or fewer remaining sanity). If this attack defeats an enemy, you may heal 1 horror.\n[reaction] When you trigger the above [action] ability, take 1 horror: This attack deals +1 damage.",
+  "type": "asset",
+  "traits": "Item. Weapon. Melee.",
+  "xp": 3,
+  "icons": [
+   "willpower",
+   "combat",
+   "wild"
+  ]
+ },
+ {
+  "code": "12086",
+  "name": "Broken Bottle",
+  "text": "[action]: <b>Fight</b> ([combat]). You get +1 [combat] for this attack. If you succeed, you may discard Broken Bottle to deal +1 damage for this attack.",
+  "type": "asset",
+  "traits": "Item. Weapon. Melee. Improvised.",
+  "xp": 0,
+  "icons": [
+   "combat"
+  ]
+ },
+ {
+  "code": "12087",
+  "name": "Fedora",
+  "text": "",
+  "type": "asset",
+  "traits": "Item. Apparel. Headwear.",
+  "xp": 0,
+  "health": 1,
+  "sanity": 1,
+  "icons": [
+   "agility"
+  ]
+ },
+ {
+  "code": "12088",
+  "name": "Hand-Crank Flashlight",
+  "text": "[action]: <b>Investigate</b> ([intellect]). You get +1 [intellect] for this test. If you succeed, you may discard Hand-Crank Flashlight for your location to get -1 shroud until the end of the round.",
+  "type": "asset",
+  "traits": "Item. Tool.",
+  "xp": 0,
+  "icons": [
+   "intellect"
+  ]
+ },
+ {
+  "code": "12089",
+  "name": "Emergency Cache",
+  "text": "Gain 3 resources.",
+  "type": "event",
+  "traits": "Supply.",
+  "xp": 0,
+  "duplicateOf": "01088",
+  "icons": []
+ },
+ {
+  "code": "12090",
+  "name": "Guts",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "type": "skill",
+  "traits": "Innate.",
+  "xp": 0,
+  "duplicateOf": "01089",
+  "icons": [
+   "willpower",
+   "willpower"
+  ]
+ },
+ {
+  "code": "12091",
+  "name": "Manual Dexterity",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "type": "skill",
+  "traits": "Innate.",
+  "xp": 0,
+  "duplicateOf": "01092",
+  "icons": [
+   "agility",
+   "agility"
+  ]
+ },
+ {
+  "code": "12092",
+  "name": "Overpower",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "duplicateOf": "01091",
+  "icons": [
+   "combat",
+   "combat"
+  ]
+ },
+ {
+  "code": "12093",
+  "name": "Perception",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "type": "skill",
+  "traits": "Practiced.",
+  "xp": 0,
+  "duplicateOf": "01090",
+  "icons": [
+   "intellect",
+   "intellect"
+  ]
+ },
+ {
+  "code": "12094",
+  "name": "Unexpected Courage",
+  "text": "Max 1 committed per skill test.",
+  "type": "skill",
+  "traits": "Innate.",
+  "xp": 0,
+  "duplicateOf": "01093",
+  "icons": [
+   "wild",
+   "wild"
+  ]
+ },
+ {
+  "code": "12095",
+  "name": "Charisma",
+  "text": "Permanent.\nYou have 1 additional ally slot.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 3,
+  "duplicateOf": "02158",
+  "icons": []
+ },
+ {
+  "code": "12096",
+  "name": "Relic Hunter",
+  "text": "Permanent.\nYou have 1 additional accessory slot.",
+  "type": "asset",
+  "traits": "Talent.",
+  "xp": 3,
+  "duplicateOf": "02157",
+  "icons": []
+ },
+ {
+  "code": "12097",
+  "name": "Amnesia",
+  "text": "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
+  "type": "treachery",
+  "traits": "Madness.",
+  "duplicateOf": "01096",
+  "icons": []
+ },
+ {
+  "code": "12098",
+  "name": "The Gold Bug",
+  "text": "<b>Revelation</b> - Put The Gold Bug into play in your threat area. It cannot leave play except by the [action] ability below.\nYou get -1 health and -1 sanity.\n[action]: Shuffle the Gold Bug into your deck.",
+  "type": "asset",
+  "traits": "Item. Relic. Alchemy. Cursed.",
+  "icons": []
+ },
+ {
+  "code": "12099",
+  "name": "The Nameless Lurker",
+  "text": "Aloof.\n<b>Spawn</b> - Farthest empty location.\n<b>Forced</b> - When the investigation phase ends, if The Nameless Lurker is ready and has no doom on it: Place 1 doom on it.",
+  "type": "enemy",
+  "traits": "Humanoid. Monster.",
+  "health": 1,
+  "icons": []
+ },
+ {
+  "code": "12100",
+  "name": "Overzealous",
+  "text": "<b>Revelation</b> - Draw the top card of the encounter deck. That card gains surge.",
+  "type": "treachery",
+  "traits": "Flaw.",
+  "duplicateOf": "03040",
+  "icons": []
+ },
+ {
+  "code": "12101",
+  "name": "Paranoia",
+  "text": "<b>Revelation</b> - Discard all your resources.",
+  "type": "treachery",
+  "traits": "Madness.",
+  "duplicateOf": "01097",
+  "icons": []
+ },
+ {
+  "code": "12102",
+  "name": "Pursued",
+  "text": "<b>Revelation</b> - Put Pursued into play in your threat area.\n<b>Forced</b> - After an enemy enters <i>(moves into or spawns at)</i> your location: Take 1 horror.\n[action][action]: Discard Pursued.",
+  "type": "treachery",
+  "traits": "Terror.",
+  "icons": []
+ },
+ {
+  "code": "12103",
+  "name": "Syndicate Obligations",
+  "text": "<b>Revelation</b> - Put Syndicate Obligations into play in your threat area.\n<b>Forced</b> - After you spend 1 or more resources: Take 1 damage.\n[action][action]: Discard Syndicate Obligations.",
+  "type": "treachery",
+  "traits": "Pact. Syndicate.",
+  "icons": []
+ },
+ {
+  "code": "12104",
+  "name": "Wounded",
+  "text": "<b>Revelation</b> - Put Wounded into play in your threat area.\n<b>Forced</b> - The first time you move each turn: Take 1 damage.\n[action][action]: Discard Wounded.",
+  "type": "treachery",
+  "traits": "Injury.",
+  "icons": []
+ }
+]

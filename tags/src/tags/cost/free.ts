@@ -19,6 +19,8 @@ export enum TagTypeCostFree {
   CostFreeSpendSupply = "cost-free-spend-supply",
   CostFreeHorrorSelf = "cost-free-horror-self",
   CostFreeSpendClue = "cost-free-spend-clue",
+  CostFreeSpendOffering = "cost-free-spend-offering",
+  CostFreeSpendDurability = "cost-free-spend-durability",
 }
 
 interface TagCostFreeBase extends TagBase {}
@@ -62,4 +64,13 @@ export interface TagCostFreeHorrorSelf extends TagCostFreeBase {
 /** Spend/place one of your OWN clues as the cost of a [free] triggered ability (pay with progress). */
 export interface TagCostFreeSpendClue extends TagCostFreeBase {
   type: TagTypeCostFree.CostFreeSpendClue;
+}
+
+/** Spend an offering use-token as the cost of a [free]/[fast] ability (Jacob Morrison — the offering counterpart of the other spend costs). */
+export interface TagCostFreeSpendOffering extends TagCostFreeBase {
+  type: TagTypeCostFree.CostFreeSpendOffering;
+}
+
+export interface TagCostFreeSpendDurability extends TagCostFreeBase {
+  type: TagTypeCostFree.CostFreeSpendDurability;
 }
