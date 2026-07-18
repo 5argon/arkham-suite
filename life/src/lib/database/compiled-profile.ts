@@ -332,7 +332,12 @@ export type CompiledProfile = ReturnType<typeof stripCompiledProfile>;
 /*  56→57: Dunwich `dwl.broodCounts` re-keyed from `Record<number, number>` to a per-difficulty
  *  `Record<string, ResolutionTally>` so the Undimensioned and Unseen brood counts hover to a
  *  per-tier breakdown — so the blob recomputes. */
-export const COMPILED_PROFILE_VERSION = 57;
+/*  57→58: Return-to merge — the new `mergeReturnToStats` setting (default ON) folds each Return-to
+ *  campaign's plays into its BASE family too, so clears / win-loss / endings / scenarios (and the
+ *  bespoke blobs) now include Return-to plays under the base family, with Return-to scenarios kept as
+ *  their own rows. `hideReturnToCampaigns` (default OFF) additionally drops the separate Return-to
+ *  pages. The family keys + per-family tallies change, so the artifact recomputes. */
+export const COMPILED_PROFILE_VERSION = 58;
 
 /**
  * The on-disk/over-the-wire compiled-profile file (`.ahlifepro`, or its plain

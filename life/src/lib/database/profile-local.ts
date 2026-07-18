@@ -381,6 +381,8 @@ function buildLogsSegment(
 	ownedProducts: Product[] | null,
 	trackedCampaignGroups: CampaignGroup[],
 	trackedTiers: DifficultyTier[],
+	mergeReturnTo: boolean,
+	hideReturnTo: boolean,
 ): LogsSegmentData {
 	// The single "which plays count" gate: every aggregate below inherits it (totals AND
 	// per-difficulty breakdowns), so no widget needs to know about tier/group tracking.
@@ -394,13 +396,13 @@ function buildLogsSegment(
 		achievements: records.length
 			? buildAchievementsData(records)
 			: { families: [], custom: [], coverage: [] },
-		clearGrid: buildFullClearGrid(records, ownedProducts, trackedCampaignGroups),
-		soloClearGrid: buildFullClearGrid(soloRecords, ownedProducts, trackedCampaignGroups),
-		trueSoloClearGrid: buildFullClearGrid(trueSoloRecords, ownedProducts, trackedCampaignGroups),
-		winLossRecord: buildWinLossRecord(records),
-		endings: buildEndings(records),
+		clearGrid: buildFullClearGrid(records, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
+		soloClearGrid: buildFullClearGrid(soloRecords, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
+		trueSoloClearGrid: buildFullClearGrid(trueSoloRecords, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
+		winLossRecord: buildWinLossRecord(records, mergeReturnTo, hideReturnTo),
+		endings: buildEndings(records, mergeReturnTo),
 		collections: buildCollections(records),
-		scenarios: buildScenarioStats(records),
+		scenarios: buildScenarioStats(records, mergeReturnTo),
 		standaloneUsage: buildStandaloneUsage(records),
 		// First-class Standalone Archives — a SEPARATE record array, so campaign builders
 		// above never see them (and aren't tier/group-filtered: standalones are their own dimension).
@@ -412,16 +414,16 @@ function buildLogsSegment(
 		traumaTally: buildTraumaTally(records),
 		eoe: buildEoe(records),
 		tsk: buildTsk(records),
-		dwl: buildDwl(records),
-		ptc: buildPtc(records),
-		tfa: buildTfa(records),
-		tcu: buildTcu(records),
+		dwl: buildDwl(records, mergeReturnTo),
+		ptc: buildPtc(records, mergeReturnTo),
+		tfa: buildTfa(records, mergeReturnTo),
+		tcu: buildTcu(records, mergeReturnTo),
 		tdea: buildTdea(records),
 		tdeb: buildTdeb(records),
 		tic: buildTic(records),
 		fhv: buildFhv(records),
 		tdc: buildTdc(records),
-		notz: buildNotz(records),
+		notz: buildNotz(records, undefined, mergeReturnTo),
 		specialInteractions: buildSpecialInteractions(records),
 	};
 }
@@ -804,13 +806,15 @@ function metaSig(doc: DatabaseDocument, uids: Set<string> | null, defaultViz: 'v
 	return hashString(parts.join('¶'));
 }
 
-function logsSig(doc: DatabaseDocument, uids: Set<string> | null, ownedProducts: Product[] | null, trackedCampaignGroups: CampaignGroup[], trackedTiers: DifficultyTier[]): string {
+function logsSig(doc: DatabaseDocument, uids: Set<string> | null, ownedProducts: Product[] | null, trackedCampaignGroups: CampaignGroup[], trackedTiers: DifficultyTier[], mergeReturnTo: boolean, hideReturnTo: boolean): string {
 	// The whole logs segment is scoped by owned products + tracked campaign groups + tracked tiers
-	// (records outside a tracked tier/group are filtered out before every aggregate).
+	// (records outside a tracked tier/group are filtered out before every aggregate), plus the
+	// Return-to merge settings (they change which families each play folds into).
 	const parts: string[] = [
 		ownedProducts === null ? 'ALL' : [...ownedProducts].sort().join(','),
 		[...trackedCampaignGroups].sort().join(','),
 		[...trackedTiers].sort().join(','),
+		`merge:${mergeReturnTo ? 1 : 0}:${hideReturnTo ? 1 : 0}`,
 	];
 	for (const c of doc.campaigns) {
 		if (!c.campaignCode || !getCampaignLog(c.campaignCode) || !campaignInSubject(c, uids)) continue;
@@ -873,7 +877,7 @@ export function segmentSignatures(
 	const ownedProducts = settings.ownedProducts as Product[] | null;
 	return {
 		meta: metaSig(doc, uids, settings.defaultArchiveDisplayInProfile, settings.trackedTiers, settings.trackedCampaignGroups),
-		logs: logsSig(doc, uids, ownedProducts, settings.trackedCampaignGroups, settings.trackedTiers),
+		logs: logsSig(doc, uids, ownedProducts, settings.trackedCampaignGroups, settings.trackedTiers, settings.mergeReturnToStats !== false, settings.mergeReturnToStats !== false && settings.hideReturnToCampaigns === true),
 		cards: cardsSig(doc, uids),
 	};
 }
@@ -893,7 +897,18 @@ export function buildMetaSegmentFor(doc: DatabaseDocument, key: string): MetaSeg
 
 export function buildLogsSegmentFor(doc: DatabaseDocument, key: string): LogsSegmentData {
 	const settings = resolveProfileSettings(doc.profileSettings);
-	return buildLogsSegment(doc, subjectUids(doc, key), settings.ownedProducts as Product[] | null, settings.trackedCampaignGroups, settings.trackedTiers);
+	// `hideReturnTo` only bites when merging (else hiding a Return-to box would orphan its plays).
+	const mergeReturnTo = settings.mergeReturnToStats !== false;
+	const hideReturnTo = mergeReturnTo && settings.hideReturnToCampaigns === true;
+	return buildLogsSegment(
+		doc,
+		subjectUids(doc, key),
+		settings.ownedProducts as Product[] | null,
+		settings.trackedCampaignGroups,
+		settings.trackedTiers,
+		mergeReturnTo,
+		hideReturnTo,
+	);
 }
 
 export function buildCardsSegmentFor(doc: DatabaseDocument, key: string): CardsSegmentData {
@@ -1066,7 +1081,15 @@ export function buildSubjectPayload(doc: DatabaseDocument, key: string): LocalPr
 	return assemblePayload(
 		{
 			meta: buildMetaSegment(doc, uids, settings.defaultArchiveDisplayInProfile, settings.trackedTiers, settings.trackedCampaignGroups),
-			logs: buildLogsSegment(doc, uids, ownedProducts, settings.trackedCampaignGroups, settings.trackedTiers),
+			logs: buildLogsSegment(
+				doc,
+				uids,
+				ownedProducts,
+				settings.trackedCampaignGroups,
+				settings.trackedTiers,
+				settings.mergeReturnToStats !== false,
+				settings.mergeReturnToStats !== false && settings.hideReturnToCampaigns === true,
+			),
 			cards: buildCardsSegment(doc, uids),
 		},
 		settings,

@@ -8,7 +8,7 @@
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { contributingFamilies, familyScenarioMeta } from '../records/campaign-family';
 
 /** How many times one resolution was reached, broken down by difficulty tier. */
 export interface ResolutionTally {
@@ -45,35 +45,39 @@ export interface CampaignResolutionCoverage {
 	totalCount: number;
 }
 
-export function buildResolutionCoverage(records: CampaignRecord[]): CampaignResolutionCoverage[] {
+export function buildResolutionCoverage(
+	records: CampaignRecord[],
+	mergeReturnTo = true
+): CampaignResolutionCoverage[] {
 	// family -> scenario -> resolution id -> tally (count + per-difficulty), across plays.
 	const talliesByFamily = new Map<string, Map<string, Map<string, ResolutionTally>>>();
 	const familiesSeen = new Set<string>();
 	for (const rec of records) {
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
-		const family = familyOf(log);
-		familiesSeen.add(family);
 		const tier = rec.recorded.difficulty ?? 'standard'; // match clear-status bucketing
 		const res = rec.scenarioResolutions ?? {};
-		for (const [scenario, resolution] of Object.entries(res)) {
-			let fam = talliesByFamily.get(family);
-			if (!fam) {
-				fam = new Map();
-				talliesByFamily.set(family, fam);
+		for (const family of contributingFamilies(log, mergeReturnTo)) {
+			familiesSeen.add(family);
+			for (const [scenario, resolution] of Object.entries(res)) {
+				let fam = talliesByFamily.get(family);
+				if (!fam) {
+					fam = new Map();
+					talliesByFamily.set(family, fam);
+				}
+				let sc = fam.get(scenario);
+				if (!sc) {
+					sc = new Map();
+					fam.set(scenario, sc);
+				}
+				let t = sc.get(resolution);
+				if (!t) {
+					t = { total: 0, byTier: {} };
+					sc.set(resolution, t);
+				}
+				t.total += 1;
+				t.byTier[tier] = (t.byTier[tier] ?? 0) + 1;
 			}
-			let sc = fam.get(scenario);
-			if (!sc) {
-				sc = new Map();
-				fam.set(scenario, sc);
-			}
-			let t = sc.get(resolution);
-			if (!t) {
-				t = { total: 0, byTier: {} };
-				sc.set(resolution, t);
-			}
-			t.total += 1;
-			t.byTier[tier] = (t.byTier[tier] ?? 0) + 1;
 		}
 	}
 
@@ -86,7 +90,7 @@ export function buildResolutionCoverage(records: CampaignRecord[]): CampaignReso
 		const scenarios: ScenarioResolutionCoverage[] = [];
 		let visitedCount = 0;
 		let totalCount = 0;
-		for (const sm of baseLog.db.scenarioMeta ?? []) {
+		for (const sm of familyScenarioMeta(family, mergeReturnTo)) {
 			const all = sm.resolutions ?? [];
 			if (!all.length) continue;
 			const scTallies = famTallies.get(sm.id) ?? new Map<string, ResolutionTally>();

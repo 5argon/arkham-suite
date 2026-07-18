@@ -20,7 +20,7 @@
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { filterFamilyRecords } from '../records/campaign-family';
 import type { ResolutionTally } from '../outcomes/resolution-coverage';
 import { emptyTally, bumpTally, ensureTally } from '../utils/tally';
 
@@ -89,13 +89,14 @@ export interface CampaignNotz {
 	};
 }
 
-export function buildNotz(records: CampaignRecord[], family: string = NOTZ_FAMILY): CampaignNotz[] {
+export function buildNotz(
+	records: CampaignRecord[],
+	family: string = NOTZ_FAMILY,
+	mergeReturnTo = true
+): CampaignNotz[] {
 	const baseLog = getCampaignLog(family);
 	if (!baseLog) return [];
-	const notzRecords = records.filter((r) => {
-		const log = getCampaignLog(r.campaignCode);
-		return log ? familyOf(log) === family : false;
-	});
+	const notzRecords = filterFamilyRecords(records, family, mergeReturnTo);
 	if (notzRecords.length === 0) return [];
 
 	const gathering = {

@@ -29,22 +29,31 @@ describe('playClearState', () => {
 });
 
 describe('buildClearGrid', () => {
-	it('keeps Return-to as its own family and keeps the strongest state per tier', () => {
-		const grid = buildClearGrid([
-			rec('tcu', { difficulty: 'standard', recordedLogs: new Set([WIN]) }), // cleared @ standard
-			rec('tcu', { difficulty: 'hard', recordedLogs: new Set([LOSS]) }), // attempted @ hard
-			rec('tcu', { difficulty: 'standard', recordedLogs: new Set([LODGE]) }), // special @ standard (weaker than cleared)
-			rec('rttcu', { difficulty: 'standard', recordedLogs: new Set([COVEN]) }), // RT is its own family now
-		]);
+	const records = () => [
+		rec('tcu', { difficulty: 'standard', recordedLogs: new Set([WIN]) }), // cleared @ standard
+		rec('tcu', { difficulty: 'hard', recordedLogs: new Set([LOSS]) }), // attempted @ hard
+		rec('tcu', { difficulty: 'standard', recordedLogs: new Set([LODGE]) }), // special @ standard (weaker than cleared)
+		rec('rttcu', { difficulty: 'standard', recordedLogs: new Set([COVEN]) }), // rttcu special @ standard
+	];
+
+	it('merging (default): Return-to stays its own family AND folds into the base', () => {
+		const grid = buildClearGrid(records());
 		expect(grid).toHaveLength(2);
 		const tcu = grid.find((g) => g.family === 'tcu')!;
-		expect(tcu.plays).toBe(3);
+		expect(tcu.plays).toBe(4); // 3 tcu + the folded rttcu play
 		expect(tcu.byTier.standard).toBe('cleared'); // cleared beats special at the same tier
 		expect(tcu.byTier.hard).toBe('attempted');
 		expect(tcu.byTier.expert).toBeUndefined();
 		const rttcu = grid.find((g) => g.family === 'rttcu')!;
-		expect(rttcu.plays).toBe(1);
+		expect(rttcu.plays).toBe(1); // still first-class as its own family
 		expect(rttcu.byTier.standard).toBe('special');
+	});
+
+	it('mergeReturnTo=false keeps Return-to fully separate from the base', () => {
+		const grid = buildClearGrid(records(), false);
+		expect(grid).toHaveLength(2);
+		expect(grid.find((g) => g.family === 'tcu')!.plays).toBe(3); // rttcu no longer folds in
+		expect(grid.find((g) => g.family === 'rttcu')!.plays).toBe(1);
 	});
 
 	it('separates distinct families and defaults missing difficulty to standard', () => {

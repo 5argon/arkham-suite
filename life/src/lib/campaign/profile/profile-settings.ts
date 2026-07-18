@@ -158,6 +158,19 @@ export interface ProfileSettings {
 	 * profile with no imported decks then shows only campaign-related content.
 	 */
 	campaignCategoriesOnly?: boolean;
+	/**
+	 * Compile setting — fold each Return-to campaign's plays into its BASE campaign's stats too.
+	 * The base page then exists even with only Return-to plays, and RT plays count toward the base's
+	 * outcome coverage / clears / bespoke widgets (RT scenarios stay their own rows — distinct ids).
+	 * Return-to remains first-class with its own page. Default ON.
+	 */
+	mergeReturnToStats?: boolean;
+	/**
+	 * When {@link mergeReturnToStats} is ON, additionally HIDE the separate Return-to campaign pages,
+	 * so their plays surface ONLY on the base page. Ignored when merge is OFF (hiding RT would orphan
+	 * those plays). Default OFF.
+	 */
+	hideReturnToCampaigns?: boolean;
 }
 
 // ── Fresh defaults (hand-authored row layouts; no catalogue derivation) ───────
@@ -529,7 +542,9 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
 	campaigns: {},
 	logOnly: false,
 	campaignLogOnly: {},
-	campaignCategoriesOnly: false
+	campaignCategoriesOnly: false,
+	mergeReturnToStats: true,
+	hideReturnToCampaigns: false
 };
 
 function fresh(globals?: Partial<ProfileSettings>): ProfileSettings {
@@ -544,7 +559,9 @@ function fresh(globals?: Partial<ProfileSettings>): ProfileSettings {
 		campaigns: {},
 		logOnly: globals?.logOnly ?? false,
 		campaignLogOnly: globals?.campaignLogOnly ?? {},
-		campaignCategoriesOnly: globals?.campaignCategoriesOnly ?? false
+		campaignCategoriesOnly: globals?.campaignCategoriesOnly ?? false,
+		mergeReturnToStats: globals?.mergeReturnToStats ?? true,
+		hideReturnToCampaigns: globals?.hideReturnToCampaigns ?? false
 	};
 }
 
@@ -685,7 +702,9 @@ export function resolveProfileSettings(
 		defaultArchiveDisplayInProfile: normalizeArchiveDisplay(p.defaultArchiveDisplayInProfile),
 		logOnly: p.logOnly === true,
 		campaignLogOnly: normalizeCampaignLogOnly(p.campaignLogOnly),
-		campaignCategoriesOnly: p.campaignCategoriesOnly === true
+		campaignCategoriesOnly: p.campaignCategoriesOnly === true,
+		mergeReturnToStats: p.mergeReturnToStats !== false,
+		hideReturnToCampaigns: p.hideReturnToCampaigns === true
 	};
 
 	// No layout migration: anything that isn't a v4 doc resets the layout only.

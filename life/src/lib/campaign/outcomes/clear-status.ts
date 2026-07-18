@@ -29,7 +29,13 @@ import {
 } from '@5argon/arkham-kohaku';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
 import type { CampaignGroup } from '../profile/profile-settings';
-import { familyOf, baseFamilyOf, baseFamilyOfCode } from '../records/campaign-family';
+import {
+  familyOf,
+  baseFamilyOf,
+  baseFamilyOfCode,
+  contributingFamilies,
+  isReturnToCode,
+} from '../records/campaign-family';
 
 /** Per-play campaign outcome, strongest first. */
 export type ClearState = 'cleared' | 'special' | 'attempted';
@@ -79,24 +85,30 @@ export interface CampaignClear {
  * attempted). The home grid then renders rows = families, columns = tracked
  * difficulty tiers, flagging "unfinished" only where the player wants.
  */
-export function buildClearGrid(records: CampaignRecord[]): CampaignClear[] {
+export function buildClearGrid(
+  records: CampaignRecord[],
+  mergeReturnTo = true,
+): CampaignClear[] {
   const byFamily = new Map<string, CampaignClear>();
   for (const rec of records) {
     const log = getCampaignLog(rec.campaignCode);
     if (!log) continue;
-    const family = familyOf(log);
-    let entry = byFamily.get(family);
-    if (!entry) {
-      const baseLog = getCampaignLog(family) ?? log;
-      entry = { family, name: baseLog.db.name, byTier: {}, plays: 0 };
-      byFamily.set(family, entry);
-    }
-    entry.plays += 1;
     const state = playClearState(log, rec.recorded, rec.scenarioChoices);
-    if (!state) continue;
     const tier = rec.recorded.difficulty ?? 'standard';
-    const prev = entry.byTier[tier];
-    if (!prev || RANK[state] > RANK[prev]) entry.byTier[tier] = state;
+    // A Return-to play adds a play (and its clear-state) to its OWN family and, when merging, the
+    // BASE family too — so the base box appears / clears even from Return-to-only records.
+    for (const family of contributingFamilies(log, mergeReturnTo)) {
+      let entry = byFamily.get(family);
+      if (!entry) {
+        const baseLog = getCampaignLog(family) ?? log;
+        entry = { family, name: baseLog.db.name, byTier: {}, plays: 0 };
+        byFamily.set(family, entry);
+      }
+      entry.plays += 1;
+      if (!state) continue;
+      const prev = entry.byTier[tier];
+      if (!prev || RANK[state] > RANK[prev]) entry.byTier[tier] = state;
+    }
   }
   return [...byFamily.values()];
 }
@@ -130,9 +142,11 @@ export function buildFullClearGrid(
   records: CampaignRecord[],
   ownedProducts: Product[] | null,
   trackedGroups: CampaignGroup[],
+  mergeReturnTo = true,
+  hideReturnTo = false,
 ): ClearGridRow[] {
   const tracked = new Set(trackedGroups);
-  const played = new Map(buildClearGrid(records).map((c) => [c.family, c]));
+  const played = new Map(buildClearGrid(records, mergeReturnTo).map((c) => [c.family, c]));
   const seen = new Set<string>();
   const rows: ClearGridRow[] = [];
   for (const campaign of [...chapterOneCampaigns, ...chapterOneReturnToCampaigns, ...chapterTwoSmallCampaigns]) {
@@ -141,6 +155,9 @@ export function buildFullClearGrid(
     const log = getCampaignLog(campaign);
     if (!log) continue;
     const family = familyOf(log);
+    // When merging with Return-to boxes hidden, their plays already fold into the base row — drop the
+    // separate Return-to boxes so they don't show as their own (now-redundant) grid rows.
+    if (hideReturnTo && isReturnToCode(family)) continue;
     if (seen.has(family)) continue;
     seen.add(family);
     const product = campaignToProductMap[campaign as Campaign];
@@ -178,29 +195,37 @@ export interface WinLossRecord {
  * counts, both overall and per difficulty tier — the data behind the "Win/Loss
  * Record" widget (e.g. *TFA: 4 plays — 3 W / 1 L · 2× Hard*).
  */
-export function buildWinLossRecord(records: CampaignRecord[]): WinLossRecord[] {
+export function buildWinLossRecord(
+  records: CampaignRecord[],
+  mergeReturnTo = true,
+  hideReturnTo = false,
+): WinLossRecord[] {
   const byFamily = new Map<string, WinLossRecord>();
   for (const rec of records) {
     const log = getCampaignLog(rec.campaignCode);
     if (!log) continue;
-    const family = familyOf(log);
-    let e = byFamily.get(family);
-    if (!e) {
-      const baseLog = getCampaignLog(family) ?? log;
-      e = { family, name: baseLog.db.name, plays: 0, wins: 0, losses: 0, special: 0, inProgress: 0, byTier: {} };
-      byFamily.set(family, e);
-    }
-    e.plays += 1;
     const tier = rec.recorded.difficulty ?? 'standard';
-    const t = (e.byTier[tier] ??= { plays: 0, wins: 0, losses: 0, special: 0 });
-    t.plays += 1;
     const state = playClearState(log, rec.recorded, rec.scenarioChoices);
-    if (state === 'cleared') (e.wins += 1), (t.wins += 1);
-    else if (state === 'attempted') (e.losses += 1), (t.losses += 1);
-    else if (state === 'special') (e.special += 1), (t.special += 1);
-    else e.inProgress += 1;
+    for (const family of contributingFamilies(log, mergeReturnTo)) {
+      let e = byFamily.get(family);
+      if (!e) {
+        const baseLog = getCampaignLog(family) ?? log;
+        e = { family, name: baseLog.db.name, plays: 0, wins: 0, losses: 0, special: 0, inProgress: 0, byTier: {} };
+        byFamily.set(family, e);
+      }
+      e.plays += 1;
+      const t = (e.byTier[tier] ??= { plays: 0, wins: 0, losses: 0, special: 0 });
+      t.plays += 1;
+      if (state === 'cleared') (e.wins += 1), (t.wins += 1);
+      else if (state === 'attempted') (e.losses += 1), (t.losses += 1);
+      else if (state === 'special') (e.special += 1), (t.special += 1);
+      else e.inProgress += 1;
+    }
   }
-  return [...byFamily.values()];
+  // With Return-to hidden, its plays already fold into the base row (merge is on) — drop the separate
+  // Return-to rows so this record (which drives the campaign-index page list) no longer surfaces them.
+  const rows = [...byFamily.values()];
+  return hideReturnTo ? rows.filter((e) => !isReturnToCode(e.family)) : rows;
 }
 
 /** DWL's synthetic R2 "win… lost forever" ending key + its (non-log-derivable) text.
@@ -260,7 +285,7 @@ export function endingText(log: CampaignLog, key: string): string {
  * "better wins" highlight and "losses I haven't hit" coverage in one block.
  * Includes endings from any Return-to variant the player has recorded.
  */
-export function buildEndings(records: CampaignRecord[]): CampaignEndings[] {
+export function buildEndings(records: CampaignRecord[], mergeReturnTo = true): CampaignEndings[] {
   const fam = new Map<
     string,
     {
@@ -273,43 +298,46 @@ export function buildEndings(records: CampaignRecord[]): CampaignEndings[] {
   for (const rec of records) {
     const log = getCampaignLog(rec.campaignCode);
     if (!log) continue;
-    const family = familyOf(log);
-    let info = fam.get(family);
-    if (!info) {
-      const baseLog = getCampaignLog(family) ?? log;
-      info = {
-        name: baseLog.db.name,
-        counts: new Map<string, number>(),
-        byTier: new Map<string, Record<string, number>>(),
-        codes: new Set([family]),
-      };
-      fam.set(family, info);
-    }
-    info.codes.add(log.db.code);
     const tier = rec.recorded.difficulty ?? 'standard';
-    // Count how many plays reached each ending (a play either recorded the key or
-    // not) — overall and per difficulty tier.
-    for (const k of rec.recorded.recordedLogs ?? []) {
-      info.counts.set(k, (info.counts.get(k) ?? 0) + 1);
-      const bt = info.byTier.get(k) ?? {};
-      bt[tier] = (bt[tier] ?? 0) + 1;
-      info.byTier.set(k, bt);
-    }
-    // DWL: the silent R2 "win… lost forever" (no-resolution + Act 4) writes no outcome
-    // note — count it as a synthetic win ending from the Extra `final_act` choice.
-    if (baseFamilyOf(log) === 'dwl' && rec.scenarioChoices?.['lost_in_time_and_space.final_act'] === 'act_4') {
-      const ls = rec.recorded.recordedLogs;
-      const finaleNote =
-        !!ls &&
-        (ls.has('campaign_notes.closed_tear') ||
-          ls.has('campaign_notes.yog_sothoth_fled') ||
-          ls.has('campaign_notes.yog_sothoth_became_one_with_reality') ||
-          ls.has('campaign_notes.yog_sothoth_escaped'));
-      if (!finaleNote) {
-        info.counts.set(DWL_WIN_LOST_FOREVER_KEY, (info.counts.get(DWL_WIN_LOST_FOREVER_KEY) ?? 0) + 1);
-        const bt = info.byTier.get(DWL_WIN_LOST_FOREVER_KEY) ?? {};
+    // A Return-to play's endings fold into the base family too (when merging) — they're keyed by
+    // shared ending ids, so base outcome coverage counts the Return-to plays that reached them.
+    for (const family of contributingFamilies(log, mergeReturnTo)) {
+      let info = fam.get(family);
+      if (!info) {
+        const baseLog = getCampaignLog(family) ?? log;
+        info = {
+          name: baseLog.db.name,
+          counts: new Map<string, number>(),
+          byTier: new Map<string, Record<string, number>>(),
+          codes: new Set([family]),
+        };
+        fam.set(family, info);
+      }
+      info.codes.add(log.db.code);
+      // Count how many plays reached each ending (a play either recorded the key or
+      // not) — overall and per difficulty tier.
+      for (const k of rec.recorded.recordedLogs ?? []) {
+        info.counts.set(k, (info.counts.get(k) ?? 0) + 1);
+        const bt = info.byTier.get(k) ?? {};
         bt[tier] = (bt[tier] ?? 0) + 1;
-        info.byTier.set(DWL_WIN_LOST_FOREVER_KEY, bt);
+        info.byTier.set(k, bt);
+      }
+      // DWL: the silent R2 "win… lost forever" (no-resolution + Act 4) writes no outcome
+      // note — count it as a synthetic win ending from the Extra `final_act` choice.
+      if (baseFamilyOf(log) === 'dwl' && rec.scenarioChoices?.['lost_in_time_and_space.final_act'] === 'act_4') {
+        const ls = rec.recorded.recordedLogs;
+        const finaleNote =
+          !!ls &&
+          (ls.has('campaign_notes.closed_tear') ||
+            ls.has('campaign_notes.yog_sothoth_fled') ||
+            ls.has('campaign_notes.yog_sothoth_became_one_with_reality') ||
+            ls.has('campaign_notes.yog_sothoth_escaped'));
+        if (!finaleNote) {
+          info.counts.set(DWL_WIN_LOST_FOREVER_KEY, (info.counts.get(DWL_WIN_LOST_FOREVER_KEY) ?? 0) + 1);
+          const bt = info.byTier.get(DWL_WIN_LOST_FOREVER_KEY) ?? {};
+          bt[tier] = (bt[tier] ?? 0) + 1;
+          info.byTier.set(DWL_WIN_LOST_FOREVER_KEY, bt);
+        }
       }
     }
   }

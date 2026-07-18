@@ -346,10 +346,10 @@ function buildAllegianceSources(records: CampaignRecord[], runs: TcuAllegianceRu
 	return tallies;
 }
 
-export function buildTcu(records: CampaignRecord[]): CampaignTcu[] {
+export function buildTcu(records: CampaignRecord[], mergeReturnTo = true): CampaignTcu[] {
 	const baseLog = getCampaignLog(TCU_FAMILY);
 	if (!baseLog) return [];
-	const tcuRecords = filterFamilyRecords(records, TCU_FAMILY);
+	const tcuRecords = filterFamilyRecords(records, TCU_FAMILY, mergeReturnTo);
 	if (tcuRecords.length === 0) return [];
 	// The finale's resolution → win/loss verdicts feed the Twist-of-Fate tally table's Succeed / Failed.
 	const finaleOutcomes = (baseLog.db.scenarioMeta?.find((m) => m.id === 'before_the_black_throne')

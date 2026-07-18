@@ -168,10 +168,10 @@ export function ascendingHillVersionFromRecord(rec: CampaignRecord): 'v1' | 'v2'
 	return 'v3';
 }
 
-export function buildDwl(records: CampaignRecord[]): CampaignDwl[] {
+export function buildDwl(records: CampaignRecord[], mergeReturnTo = true): CampaignDwl[] {
 	const baseLog = getCampaignLog(DWL_FAMILY);
 	if (!baseLog) return [];
-	const dwlRecords = filterFamilyRecords(records, DWL_FAMILY);
+	const dwlRecords = filterFamilyRecords(records, DWL_FAMILY, mergeReturnTo);
 	if (dwlRecords.length === 0) return [];
 
 	const persons: Record<string, DwlPersonTally> = {};

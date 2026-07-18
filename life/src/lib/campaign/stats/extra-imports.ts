@@ -6,9 +6,14 @@
  * a choice value is "won" when the play that recorded it also cleared the
  * campaign (the choice AND-ed with the winning-outcome log).
  */
-import { getCampaignLog, isCleared, playableScenarios } from '@5argon/arkham-campaign-data';
+import {
+  getCampaignLog,
+  isCleared,
+  playableScenarios,
+  type CampaignLog,
+} from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { contributingFamilies, RT_PAIRS } from '../records/campaign-family';
 import { choiceLabel } from './scenario-extras';
 
 export interface ChoiceValueStat {
@@ -94,7 +99,32 @@ export function scenarioDisplayName(
  *  the Elder Things widget), so they don't also clutter the shared XP view. */
 const WIDGET_CONSUMED_CHOICES = new Set(['city_version']);
 
-export function buildScenarioXp(records: CampaignRecord[]): CampaignScenarioXp[] {
+/** Build a family's empty scenario aggregate. For a BASE family that has a Return-to variant, and when
+ *  merging, union the Return-to catalogue (scenario order / names / known-ids) in AFTER the base ones,
+ *  so Return-to plays folded into this family pass the `known` filter and render as their OWN rows,
+ *  appended after the base scenarios. */
+function makeScenarioXpAgg(family: string, fallbackLog: CampaignLog, mergeReturnTo: boolean): FamilyAgg {
+  const baseLog = getCampaignLog(family) ?? fallbackLog;
+  const order = [...playableScenarios(baseLog)];
+  const known = new Set((baseLog.db.scenarioMeta ?? []).map((m) => m.id));
+  let names = baseLog.en.scenarioNames ?? {};
+  if (mergeReturnTo) {
+    const rtCode = RT_PAIRS.find((p) => p.base === family)?.rt;
+    const rtLog = rtCode ? getCampaignLog(rtCode) : null;
+    if (rtLog) {
+      for (const id of playableScenarios(rtLog)) if (!known.has(id)) order.push(id);
+      for (const m of rtLog.db.scenarioMeta ?? []) known.add(m.id);
+      // Base names win for any shared id; the Return-to's own `return_to_*` names fill in the rest.
+      names = { ...(rtLog.en.scenarioNames ?? {}), ...names };
+    }
+  }
+  return { name: baseLog.db.name, order, names, known, xp: new Map(), ch: new Map() };
+}
+
+export function buildScenarioXp(
+  records: CampaignRecord[],
+  mergeReturnTo = true,
+): CampaignScenarioXp[] {
   const byFamily = new Map<string, FamilyAgg>();
   for (const rec of records) {
     const xp = rec.scenarioXp ?? {};
@@ -102,58 +132,52 @@ export function buildScenarioXp(records: CampaignRecord[]): CampaignScenarioXp[]
     if (Object.keys(xp).length === 0 && Object.keys(choices).length === 0) continue;
     const log = getCampaignLog(rec.campaignCode);
     if (!log) continue;
-    const family = familyOf(log);
-    let info = byFamily.get(family);
-    if (!info) {
-      const baseLog = getCampaignLog(family) ?? log;
-      info = {
-        name: baseLog.db.name,
-        order: playableScenarios(baseLog),
-        names: baseLog.en.scenarioNames ?? {},
-        known: new Set((baseLog.db.scenarioMeta ?? []).map((m) => m.id)),
-        xp: new Map(),
-        ch: new Map(),
-      };
-      byFamily.set(family, info);
-    }
     const tier = rec.recorded.difficulty ?? 'standard';
-    for (const [scenario, val] of Object.entries(xp)) {
-      let s = info.xp.get(scenario);
-      if (!s) {
-        s = { best: 0, total: 0, plays: 0, byTier: {}, playsByTier: {} };
-        info.xp.set(scenario, s);
-      }
-      s.best = Math.max(s.best, val);
-      s.total += val;
-      s.plays += 1;
-      s.byTier[tier] = Math.max(s.byTier[tier] ?? 0, val);
-      s.playsByTier[tier] = (s.playsByTier[tier] ?? 0) + 1;
-    }
     // A choice value is "won" iff this play cleared the campaign.
     const won = isCleared(log, rec.recorded) === true;
-    for (const [key, value] of Object.entries(choices)) {
-      const dot = key.indexOf('.');
-      if (dot < 0) continue;
-      const scenario = key.slice(0, dot);
-      const choiceId = key.slice(dot + 1);
-      if (WIDGET_CONSUMED_CHOICES.has(choiceId)) continue;
-      let cm = info.ch.get(scenario);
-      if (!cm) {
-        cm = new Map();
-        info.ch.set(scenario, cm);
+    // A Return-to play contributes to its OWN family and (when merging) its BASE family too.
+    for (const family of contributingFamilies(log, mergeReturnTo)) {
+      let info = byFamily.get(family);
+      if (!info) {
+        info = makeScenarioXpAgg(family, log, mergeReturnTo);
+        byFamily.set(family, info);
       }
-      let c = cm.get(choiceId);
-      if (!c) {
-        c = { label: choiceLabel(log, scenario, choiceId), byValue: new Map() };
-        cm.set(choiceId, c);
+      for (const [scenario, val] of Object.entries(xp)) {
+        let s = info.xp.get(scenario);
+        if (!s) {
+          s = { best: 0, total: 0, plays: 0, byTier: {}, playsByTier: {} };
+          info.xp.set(scenario, s);
+        }
+        s.best = Math.max(s.best, val);
+        s.total += val;
+        s.plays += 1;
+        s.byTier[tier] = Math.max(s.byTier[tier] ?? 0, val);
+        s.playsByTier[tier] = (s.playsByTier[tier] ?? 0) + 1;
       }
-      let v = c.byValue.get(value);
-      if (!v) {
-        v = { played: 0, won: 0 };
-        c.byValue.set(value, v);
+      for (const [key, value] of Object.entries(choices)) {
+        const dot = key.indexOf('.');
+        if (dot < 0) continue;
+        const scenario = key.slice(0, dot);
+        const choiceId = key.slice(dot + 1);
+        if (WIDGET_CONSUMED_CHOICES.has(choiceId)) continue;
+        let cm = info.ch.get(scenario);
+        if (!cm) {
+          cm = new Map();
+          info.ch.set(scenario, cm);
+        }
+        let c = cm.get(choiceId);
+        if (!c) {
+          c = { label: choiceLabel(log, scenario, choiceId), byValue: new Map() };
+          cm.set(choiceId, c);
+        }
+        let v = c.byValue.get(value);
+        if (!v) {
+          v = { played: 0, won: 0 };
+          c.byValue.set(value, v);
+        }
+        v.played += 1;
+        if (won) v.won += 1;
       }
-      v.played += 1;
-      if (won) v.won += 1;
     }
   }
 

@@ -684,10 +684,10 @@ function buildDcRun(rec: CampaignRecord): DcRun {
 	};
 }
 
-export function buildPtc(records: CampaignRecord[]): CampaignPtc[] {
+export function buildPtc(records: CampaignRecord[], mergeReturnTo = true): CampaignPtc[] {
 	const baseLog = getCampaignLog(PTC_FAMILY);
 	if (!baseLog) return [];
-	const ptcRecords = filterFamilyRecords(records, PTC_FAMILY);
+	const ptcRecords = filterFamilyRecords(records, PTC_FAMILY, mergeReturnTo);
 	if (ptcRecords.length === 0) return [];
 	// Echoes' per-player-count Succeed / Failed split keys off the scenario's resolution verdicts.
 	const echoesOutcomes = (baseLog.db.scenarioMeta?.find((m) => m.id === 'echoes_of_the_past')

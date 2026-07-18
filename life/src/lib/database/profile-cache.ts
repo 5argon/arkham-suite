@@ -345,7 +345,11 @@ import type { SpecialInteractionsPartial } from '$lib/campaign/outcomes/special-
 /*  125→126: Dunwich `dwl.broodCounts` re-keyed to a per-difficulty `Record<string, ResolutionTally>`
  *  so Undimensioned and Unseen's brood counts hover to a per-tier breakdown — the subject cache must
  *  rebuild. */
-export const CACHE_VERSION = 126;
+/*  126→127: Return-to merge — `mergeReturnToStats` (default ON) folds Return-to plays into the base
+ *  family across clears / win-loss / endings / scenarios / bespoke blobs; `hideReturnToCampaigns`
+ *  (default OFF) drops the separate Return-to pages. Both ride the logs-segment signature; the subject
+ *  cache must rebuild. */
+export const CACHE_VERSION = 127;
 
 /** The cache key for the account-wide profile. */
 export const ACCOUNT_SUBJECT = '__account__';

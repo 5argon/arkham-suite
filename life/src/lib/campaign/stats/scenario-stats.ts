@@ -14,7 +14,7 @@
  */
 import { getCampaignLog, playableScenarios } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { contributingFamilies, familyScenarioMeta, familyScenarioNames } from '../records/campaign-family';
 import {
 	buildScenarioXp,
 	scenarioDisplayName,
@@ -67,50 +67,56 @@ export interface CampaignScenarios {
  *  per difficulty. This is the accurate generic "played" count (XP alone undershoots when a play
  *  recorded only a resolution). */
 function playsByFamilyScenario(
-	records: CampaignRecord[]
+	records: CampaignRecord[],
+	mergeReturnTo: boolean
 ): Map<string, Map<string, ResolutionTally>> {
 	const out = new Map<string, Map<string, ResolutionTally>>();
 	for (const rec of records) {
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
-		const family = familyOf(log);
 		const tier = rec.recorded.difficulty ?? 'standard';
 		const touched = new Set([
 			...Object.keys(rec.scenarioXp ?? {}),
 			...Object.keys(rec.scenarioResolutions ?? {})
 		]);
 		if (!touched.size) continue;
-		let fam = out.get(family);
-		if (!fam) {
-			fam = new Map();
-			out.set(family, fam);
-		}
-		for (const scenario of touched) {
-			let p = fam.get(scenario);
-			if (!p) {
-				p = { total: 0, byTier: {} };
-				fam.set(scenario, p);
+		for (const family of contributingFamilies(log, mergeReturnTo)) {
+			let fam = out.get(family);
+			if (!fam) {
+				fam = new Map();
+				out.set(family, fam);
 			}
-			p.total += 1;
-			p.byTier[tier] = (p.byTier[tier] ?? 0) + 1;
+			for (const scenario of touched) {
+				let p = fam.get(scenario);
+				if (!p) {
+					p = { total: 0, byTier: {} };
+					fam.set(scenario, p);
+				}
+				p.total += 1;
+				p.byTier[tier] = (p.byTier[tier] ?? 0) + 1;
+			}
 		}
 	}
 	return out;
 }
 
-export function buildScenarioStats(records: CampaignRecord[]): CampaignScenarios[] {
-	const xp = buildScenarioXp(records);
-	const coverage = buildResolutionCoverage(records);
-	const plays = playsByFamilyScenario(records);
+export function buildScenarioStats(
+	records: CampaignRecord[],
+	mergeReturnTo = true
+): CampaignScenarios[] {
+	const xp = buildScenarioXp(records, mergeReturnTo);
+	const coverage = buildResolutionCoverage(records, mergeReturnTo);
+	const plays = playsByFamilyScenario(records, mergeReturnTo);
 	// Records grouped by family — the per-version builder buckets a family's plays by version.
 	const recordsByFamily = new Map<string, CampaignRecord[]>();
 	for (const rec of records) {
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
-		const fam = familyOf(log);
-		let list = recordsByFamily.get(fam);
-		if (!list) recordsByFamily.set(fam, (list = []));
-		list.push(rec);
+		for (const fam of contributingFamilies(log, mergeReturnTo)) {
+			let list = recordsByFamily.get(fam);
+			if (!list) recordsByFamily.set(fam, (list = []));
+			list.push(rec);
+		}
 	}
 	const xpByFamily = new Map(xp.map((c) => [c.family, c]));
 	const covByFamily = new Map(coverage.map((c) => [c.family, c]));
@@ -120,7 +126,7 @@ export function buildScenarioStats(records: CampaignRecord[]): CampaignScenarios
 		const cx = xpByFamily.get(family) ?? null;
 		const cov = covByFamily.get(family) ?? null;
 		const log = getCampaignLog(family);
-		const meta = log?.db.scenarioMeta ?? [];
+		const meta = familyScenarioMeta(family, mergeReturnTo);
 		const verdictsById = new Map(
 			meta.map((m) => [m.id, (m.resolutionOutcomes ?? {}) as Record<string, ResolutionVerdict>])
 		);
@@ -162,10 +168,15 @@ export function buildScenarioStats(records: CampaignRecord[]): CampaignScenarios
 			totalBest = cx.totalBest;
 		} else {
 			// Rare: a campaign played with ONLY resolutions recorded (no XP / choices), so the XP
-			// aggregation skipped it. Build the scenario list from the campaign-data playable order.
-			const order = log ? playableScenarios(log) : (cov?.scenarios ?? []).map((s) => s.scenario);
+			// aggregation skipped it. Build the scenario list from the campaign-data playable order —
+			// unioned with the Return-to variant's scenarios (when merging) so its rows still appear.
+			const order = log
+				? familyScenarioMeta(family, mergeReturnTo)
+						.filter((m) => m.type === 'story')
+						.map((m) => m.id)
+				: (cov?.scenarios ?? []).map((s) => s.scenario);
 			const orderIndex = new Map(order.map((id, i) => [id, i]));
-			const names = log?.en.scenarioNames ?? {};
+			const names = log ? familyScenarioNames(family, mergeReturnTo) : {};
 			scenarios = order.map((scenario) =>
 				merge({
 					scenario,

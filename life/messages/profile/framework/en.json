@@ -307,5 +307,9 @@
 	"framework_globals_log_only_title": "Log-only mode",
 	"framework_globals_log_only_description": "For pen-and-paper players without a companion app or deck imports: hide everything that can only come from the Extra tab or a deck, so the profile shows only what the campaign log can fill.",
 	"framework_globals_log_only_toggle": "Hide widgets and sections that need the Extra tab or imported decks",
-	"framework_globals_campaign_only_toggle": "Show only campaign categories (hide Player Cards and Investigators)"
+	"framework_globals_campaign_only_toggle": "Show only campaign categories (hide Player Cards and Investigators)",
+	"framework_globals_return_to_title": "Return-to campaigns",
+	"framework_globals_return_to_description": "A Return-to box is its own campaign, but it replays the base one. Fold its plays into the base campaign's stats too — the base page then exists even from Return-to-only plays, and its clears and outcome coverage count the Return-to plays (Return-to scenarios stay their own rows).",
+	"framework_globals_merge_return_to_toggle": "Count Return-to plays toward the base campaign",
+	"framework_globals_hide_return_to_toggle": "Hide the separate Return-to pages (show those plays only on the base)"
 }

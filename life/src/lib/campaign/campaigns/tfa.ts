@@ -204,10 +204,10 @@ function subjectCodes(raw: string | undefined, subject: string[]): string[] {
 	return subject.length === 0 ? codes : codes.filter((c) => subject.includes(c));
 }
 
-export function buildTfa(records: CampaignRecord[]): CampaignTfa[] {
+export function buildTfa(records: CampaignRecord[], mergeReturnTo = true): CampaignTfa[] {
 	const baseLog = getCampaignLog(TFA_FAMILY);
 	if (!baseLog) return [];
-	const tfaRecords = filterFamilyRecords(records, TFA_FAMILY);
+	const tfaRecords = filterFamilyRecords(records, TFA_FAMILY, mergeReturnTo);
 	if (tfaRecords.length === 0) return [];
 
 	const runs: TfaRun[] = [];

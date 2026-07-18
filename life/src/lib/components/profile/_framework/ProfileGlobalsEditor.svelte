@@ -54,6 +54,10 @@ per-page.
 	// imported decks (`logOnly`), and hide the deck-only Cards/Investigators categories wholesale.
 	let logOnly = $state(untrack(() => initialSettings.logOnly ?? false));
 	let campaignCategoriesOnly = $state(untrack(() => initialSettings.campaignCategoriesOnly ?? false));
+	// Return-to merge: fold each Return-to campaign's plays into its base campaign too (default ON);
+	// optionally hide the separate Return-to pages so those plays surface only on the base (default OFF).
+	let mergeReturnToStats = $state(untrack(() => initialSettings.mergeReturnToStats !== false));
+	let hideReturnToCampaigns = $state(untrack(() => initialSettings.hideReturnToCampaigns ?? false));
 
 	function toggleTier(t: DifficultyTier) {
 		const next = new Set(trackedTiers);
@@ -90,6 +94,8 @@ per-page.
 			defaultArchiveDisplayInProfile: hideArchivesByDefault ? 'hidden' : 'visible',
 			logOnly,
 			campaignCategoriesOnly,
+			mergeReturnToStats,
+			hideReturnToCampaigns: mergeReturnToStats && hideReturnToCampaigns,
 		};
 		return JSON.stringify(next);
 	});
@@ -133,6 +139,18 @@ per-page.
 		<strong>{m.framework_globals_archive_display_in_profile()}</strong> {m.framework_globals_archive_description_2()} <em>{m.framework_globals_archive_default()}</em> {m.framework_globals_archive_description_3()}
 	</p>
 	<Checkbox small label={m.framework_globals_archive_hide_default()} bind:checked={hideArchivesByDefault} />
+</div>
+
+<!-- ── Return-to campaigns ────────────────────────────────────────────────── -->
+<div class="mt-6">
+	<SectionSeparator title={m.framework_globals_return_to_title()} />
+	<p class="text-primary-500 mb-2 text-sm">{m.framework_globals_return_to_description()}</p>
+	<div class="flex flex-col items-start gap-2">
+		<Checkbox small label={m.framework_globals_merge_return_to_toggle()} bind:checked={mergeReturnToStats} />
+		{#if mergeReturnToStats}
+			<Checkbox small label={m.framework_globals_hide_return_to_toggle()} bind:checked={hideReturnToCampaigns} />
+		{/if}
+	</div>
 </div>
 
 <!-- ── Accessibility: log-only players ────────────────────────────────────── -->
