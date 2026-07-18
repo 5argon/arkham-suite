@@ -22,6 +22,7 @@
     "court_of_the_ancients": "Court of the Ancients",
     "obsidian_canyons": "Obsidian Canyons",
     "sepulchre_of_the_sleeper": "Sepulchre of the Sleeper",
+    "the_awakening": "The Awakening",
     "return_to_arkham": "Return to Arkham",
     "the_doom_of_arkham": "The Doom of Arkham",
     "the_doom_of_arkham_part_1": "The Doom of Arkham: Part I",
@@ -115,6 +116,30 @@
     },
     "campaign_notes.halted_cthulhus_awakening": {
       "text": "the investigators halted Cthulhu's awakening."
+    },
+    "campaign_notes.walk_in_faith_succeed": {
+      "text": "#name# is strong in their faith."
+    },
+    "campaign_notes.good_money_succeed": {
+      "text": "#name# made bank."
+    },
+    "campaign_notes.dreams_of_destruction_succeed": {
+      "text": "#name# understands the future."
+    },
+    "campaign_notes.no_place_like_home_succeed": {
+      "text": "#name# found her true home."
+    },
+    "campaign_notes.do_no_harm_succeed": {
+      "text": "#name# swore an oath to protect others."
+    },
+    "campaign_notes.toe_the_line_succeed": {
+      "text": "#name# found new work."
+    },
+    "campaign_notes.prove_your_worth_succeed": {
+      "text": "#name# pulled their weight."
+    },
+    "campaign_notes.plumb_the_depths_succeed": {
+      "text": "#name# learned the secret truth."
     },
     "artifacts_earned.clah_horror": {
       "text": "Horror in Clay"

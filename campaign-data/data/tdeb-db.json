@@ -260,7 +260,8 @@
       "id": "possess_silver_key",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "a_thousand_shapes_of_horror"
+      "scenario": "a_thousand_shapes_of_horror",
+      "crossOut": true
     },
     {
       "id": "randolph_did_not_survive_descent",
@@ -355,6 +356,12 @@
       "kind": "note",
       "scenario": "b_great_ones",
       "crossOut": true
+    },
+    {
+      "id": "black_cat_knows_the_truth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "b_great_ones"
     },
     {
       "id": "black_cat_at_your_side_2",

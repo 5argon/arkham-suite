@@ -66,6 +66,7 @@
         "R2": "win",
         "no_resolution": "loss"
       },
+      "maxXp": 5,
       "choices": [
         {
           "id": "approach",
@@ -75,8 +76,7 @@
           ],
           "control": "radio"
         }
-      ],
-      "maxXp": 5
+      ]
     },
     {
       "id": "the_essex_county_express",
@@ -203,6 +203,7 @@
         "R3": "loss",
         "no_resolution": "loss"
       },
+      "maxXp": 3,
       "choices": [
         {
           "id": "final_act",
@@ -214,8 +215,7 @@
           ],
           "control": "radio"
         }
-      ],
-      "maxXp": 3
+      ]
     },
     {
       "id": "dwl_epilogue",

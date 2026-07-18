@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b",
+    "sync-references": "node tools/sync-references.mjs",
     "generate": "node tools/generate.mjs",
     "regen": "node tools/extract.mjs --all && node tools/apply.mjs --all && node tools/validate.mjs --all && node tools/generate.mjs",
     "validate": "node tools/validate.mjs --all",

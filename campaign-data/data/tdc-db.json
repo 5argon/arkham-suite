@@ -134,6 +134,10 @@
       }
     },
     {
+      "id": "the_awakening",
+      "type": "interlude"
+    },
+    {
       "id": "return_to_arkham",
       "type": "interlude"
     },
@@ -604,6 +608,32 @@
       "crossOut": true
     },
     {
+      "id": "tdc_good_money_extra_resources",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "the_grand_vault",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "tdc_good_money_no_upkeep",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "the_grand_vault",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
       "id": "shard",
       "section": "artifacts_earned",
       "kind": "note",
@@ -645,6 +675,102 @@
       "kind": "note",
       "scenario": "13_return_to_arkham",
       "hidden": true
+    },
+    {
+      "id": "walk_in_faith_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "good_money_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "dreams_of_destruction_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "no_place_like_home_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "do_no_harm_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "toe_the_line_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "prove_your_worth_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
+    },
+    {
+      "id": "plumb_the_depths_succeed",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "13_return_to_arkham",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      }
     },
     {
       "id": "kept_barrier_node",

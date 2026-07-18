@@ -123,8 +123,11 @@ function collectEffects(node, file, out, inCondition = false) {
       out.push({ file, effect: node });
     }
     for (const k of Object.keys(node)) {
-      // do not descend into condition checks as if they were effects
-      collectEffects(node[k], file, out, inCondition || k === 'condition');
+      // Skip condition CHECKS (they read a value, they don't record one) — but an `effects` array
+      // is always real recordings, even for a branch option nested under `condition`, so re-enable
+      // capture when descending into `effects` (that's where option-driven campaign_log writes live).
+      const childInCondition = k === 'effects' ? false : inCondition || k === 'condition';
+      collectEffects(node[k], file, out, childInCondition);
     }
   }
 }

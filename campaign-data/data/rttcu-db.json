@@ -28,7 +28,7 @@
     },
     {
       "id": "the_witching_hour",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -38,7 +38,7 @@
     },
     {
       "id": "at_deaths_doorstep",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -71,7 +71,7 @@
     },
     {
       "id": "the_secret_name",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -81,7 +81,7 @@
     },
     {
       "id": "the_wages_of_sin",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
@@ -92,7 +92,7 @@
     },
     {
       "id": "for_the_greater_good",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -107,7 +107,7 @@
     },
     {
       "id": "union_and_disillusion",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -118,7 +118,7 @@
     },
     {
       "id": "in_the_clutches_of_chaos",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -134,7 +134,7 @@
     },
     {
       "id": "before_the_black_throne",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -203,12 +203,41 @@
     {
       "id": "return_to_at_deaths_doorstep",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "not_resigned",
+              "conditional": true
+            }
+          ]
+        },
+        "R3": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "not_resigned"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "return_to_the_secret_name",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_the_wages_of_sin",
@@ -225,7 +254,13 @@
     {
       "id": "return_to_for_the_greater_good",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
     },
     {
       "id": "return_to_union_and_disillusion",
@@ -241,7 +276,14 @@
     {
       "id": "return_to_in_the_clutches_of_chaos",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
     },
     {
       "id": "return_to_before_the_black_throne",
@@ -254,7 +296,46 @@
         "R3",
         "R4",
         "R6"
-      ]
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R1": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R2": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "lead_investigator"
+            }
+          ],
+          "result": "win"
+        },
+        "R4": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all",
+              "conditional": true
+            }
+          ],
+          "result": "mixed"
+        }
+      }
     }
   ],
   "startingChaosBag": {
@@ -687,6 +768,20 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "union_and_disillusion"
+    },
+    {
+      "id": "left_column",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
+    },
+    {
+      "id": "right_column",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
     },
     {
       "id": "dead",

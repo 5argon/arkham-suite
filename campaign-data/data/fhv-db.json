@@ -558,6 +558,27 @@
       "hidden": true
     },
     {
+      "id": "written_in_rock_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "written_in_rock_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "written_in_rock_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "written_in_rock",
+      "hidden": true
+    },
+    {
       "id": "the_cave_in",
       "section": "hidden",
       "kind": "note",
@@ -565,7 +586,21 @@
       "hidden": true
     },
     {
-      "id": "written_in_rock_codex_5",
+      "id": "written_in_rock_have_leah",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "written_in_rock_have_simeon",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "written_in_rock",
+      "hidden": true
+    },
+    {
+      "id": "written_in_rock_asked_act",
       "section": "hidden",
       "kind": "note",
       "scenario": "written_in_rock",
@@ -630,21 +665,7 @@
       "scenario": "written_in_rock"
     },
     {
-      "id": "hemlock_house_codex_8",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "hemlock_house",
-      "hidden": true
-    },
-    {
-      "id": "hemlock_house_codex_sigma",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "hemlock_house",
-      "hidden": true
-    },
-    {
-      "id": "hemlock_house_codex_theta",
+      "id": "hemlock_house_codex_6",
       "section": "hidden",
       "kind": "note",
       "scenario": "hemlock_house",
@@ -658,7 +679,35 @@
       "hidden": true
     },
     {
+      "id": "hemlock_house_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "hemlock_house",
+      "hidden": true
+    },
+    {
       "id": "hemlock_house_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_little_sylvie",
       "section": "hidden",
       "kind": "note",
       "scenario": "hemlock_house",
@@ -672,14 +721,14 @@
       "hidden": true
     },
     {
-      "id": "hemlock_house_codex_4_william_and_judith_reunited",
+      "id": "hemlock_house_codex_4_day_2_asked",
       "section": "hidden",
       "kind": "note",
       "scenario": "hemlock_house",
       "hidden": true
     },
     {
-      "id": "hemlock_house_codex_6",
+      "id": "hemlock_house_codex_4_william_and_judith_reunited",
       "section": "hidden",
       "kind": "note",
       "scenario": "hemlock_house",
@@ -694,6 +743,13 @@
     },
     {
       "id": "hemlock_house_judith_is_remodeling",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "hemlock_house",
+      "hidden": true
+    },
+    {
+      "id": "hemlock_house_codex_7_day_2_asked",
       "section": "hidden",
       "kind": "note",
       "scenario": "hemlock_house",
@@ -720,14 +776,21 @@
       "scenario": "hemlock_house"
     },
     {
-      "id": "silent_heath_codex_1",
+      "id": "silent_heath_codex_2",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_silent_heath",
       "hidden": true
     },
     {
-      "id": "silent_heath_codex_2",
+      "id": "silent_heath_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_silent_heath",
+      "hidden": true
+    },
+    {
+      "id": "silent_heath_codex_1",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_silent_heath",
@@ -768,7 +831,7 @@
       "scenario": "the_silent_heath"
     },
     {
-      "id": "silent_heath_codex_theta",
+      "id": "codex_theta_act_asked",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_silent_heath",
@@ -799,7 +862,7 @@
       "scenario": "the_silent_heath"
     },
     {
-      "id": "lost_sister_codex_4",
+      "id": "lost_sister_codex_8",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_lost_sister",
@@ -807,6 +870,13 @@
     },
     {
       "id": "lost_sister_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_lost_sister",
+      "hidden": true
+    },
+    {
+      "id": "lost_sister_codex_4",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_lost_sister",
@@ -854,13 +924,6 @@
       "scenario": "the_lost_sister"
     },
     {
-      "id": "lost_sister_codex_8",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_lost_sister",
-      "hidden": true
-    },
-    {
       "id": "the_peters_family_was_reunited",
       "section": "campaign_notes",
       "kind": "note",
@@ -891,13 +954,6 @@
       "scenario": "the_thing_in_the_depths"
     },
     {
-      "id": "thing_depths_codex_5",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_thing_in_the_depths",
-      "hidden": true
-    },
-    {
       "id": "thing_depths_codex_7",
       "section": "hidden",
       "kind": "note",
@@ -906,6 +962,13 @@
     },
     {
       "id": "thing_depths_codex_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_thing_in_the_depths",
+      "hidden": true
+    },
+    {
+      "id": "thing_depths_codex_5",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_thing_in_the_depths",
@@ -1072,6 +1135,13 @@
       "scenario": "the_twisted_hollow"
     },
     {
+      "id": "twisted_hollow_theo_set_aside",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_twisted_hollow",
+      "hidden": true
+    },
+    {
       "id": "twisted_hollow_judith_set_aside",
       "section": "hidden",
       "kind": "note",
@@ -1142,14 +1212,14 @@
       "scenario": "the_twisted_hollow"
     },
     {
-      "id": "fhv_second_day_codex_1",
+      "id": "fhv_second_day_codex_3",
       "section": "hidden",
       "kind": "note",
       "scenario": "09_dawn_of_the_second_day",
       "hidden": true
     },
     {
-      "id": "fhv_second_day_codex_3",
+      "id": "fhv_second_day_codex_1",
       "section": "hidden",
       "kind": "note",
       "scenario": "09_dawn_of_the_second_day",
@@ -1266,6 +1336,20 @@
     },
     {
       "id": "running_an_errand",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_14",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "09_dawn_of_the_second_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_second_day_codex_14_once",
       "section": "hidden",
       "kind": "note",
       "scenario": "09_dawn_of_the_second_day",
@@ -1440,13 +1524,6 @@
       "scenario": "the_longest_night"
     },
     {
-      "id": "fhv_longest_night_agenda_flip",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "the_longest_night",
-      "hidden": true
-    },
-    {
       "id": "longest_night_codex_2",
       "section": "hidden",
       "kind": "note",
@@ -1490,6 +1567,13 @@
     },
     {
       "id": "longest_night_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_longest_night",
+      "hidden": true
+    },
+    {
+      "id": "fhv_longest_night_agenda_flip",
       "section": "hidden",
       "kind": "note",
       "scenario": "the_longest_night",
@@ -1641,21 +1725,7 @@
       "scenario": "the_longest_night"
     },
     {
-      "id": "fhv_final_day_codex_1",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "12_dawn_of_the_final_day",
-      "hidden": true
-    },
-    {
       "id": "fhv_final_day_codex_2",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "12_dawn_of_the_final_day",
-      "hidden": true
-    },
-    {
-      "id": "fhv_final_day_codex_4",
       "section": "hidden",
       "kind": "note",
       "scenario": "12_dawn_of_the_final_day",
@@ -1669,13 +1739,6 @@
       "hidden": true
     },
     {
-      "id": "fhv_final_day_codex_6",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "12_dawn_of_the_final_day",
-      "hidden": true
-    },
-    {
       "id": "fhv_final_day_codex_7",
       "section": "hidden",
       "kind": "note",
@@ -1683,7 +1746,28 @@
       "hidden": true
     },
     {
+      "id": "fhv_final_day_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
       "id": "fhv_final_day_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_day_codex_1",
       "section": "hidden",
       "kind": "note",
       "scenario": "12_dawn_of_the_final_day",
@@ -1784,6 +1868,13 @@
       "scenario": "12_dawn_of_the_final_day"
     },
     {
+      "id": "dr_marquez_ready_for_fate_of_vale",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "12_dawn_of_the_final_day",
+      "hidden": true
+    },
+    {
       "id": "the_vale_is_full_of_fireworks",
       "section": "campaign_notes",
       "kind": "note",
@@ -1810,6 +1901,13 @@
       "scenario": "13_the_final_evening"
     },
     {
+      "id": "fhv_final_evening_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
       "id": "fhv_final_evening_codex_2",
       "section": "hidden",
       "kind": "note",
@@ -1817,14 +1915,7 @@
       "hidden": true
     },
     {
-      "id": "fhv_final_evening_codex_3",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "13_the_final_evening",
-      "hidden": true
-    },
-    {
-      "id": "fhv_final_evening_codex_6",
+      "id": "fhv_final_evening_codex_5",
       "section": "hidden",
       "kind": "note",
       "scenario": "13_the_final_evening",
@@ -1838,20 +1929,6 @@
       "hidden": true
     },
     {
-      "id": "fhv_final_evening_codex_8",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "13_the_final_evening",
-      "hidden": true
-    },
-    {
-      "id": "fhv_final_evening_codex_1",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "13_the_final_evening",
-      "hidden": true
-    },
-    {
       "id": "fhv_final_evening_codex_4",
       "section": "hidden",
       "kind": "note",
@@ -1859,7 +1936,28 @@
       "hidden": true
     },
     {
-      "id": "fhv_final_evening_codex_5",
+      "id": "fhv_final_evening_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "13_the_final_evening",
+      "hidden": true
+    },
+    {
+      "id": "fhv_final_evening_codex_1",
       "section": "hidden",
       "kind": "note",
       "scenario": "13_the_final_evening",
@@ -1915,13 +2013,6 @@
       "hidden": true
     },
     {
-      "id": "fhv_final_evening_codex_omega",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "13_the_final_evening",
-      "hidden": true
-    },
-    {
       "id": "fhv_final_evening_codex_sigma",
       "section": "hidden",
       "kind": "note",
@@ -1935,14 +2026,28 @@
       "scenario": "13_the_final_evening"
     },
     {
-      "id": "gideon_finished_the_tale_of_the_annabelle_lee",
-      "section": "gideon",
-      "kind": "note",
-      "scenario": "13_the_final_evening"
+      "id": "fhv_final_evening_backup_river_relationship",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "13_the_final_evening",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
     },
     {
-      "id": "the_hemlocks_made_a_truce",
-      "section": "campaign_notes",
+      "id": "fhv_final_evening_backup_william_relationship",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "13_the_final_evening",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "gideon_finished_the_tale_of_the_annabelle_lee",
+      "section": "gideon",
       "kind": "note",
       "scenario": "13_the_final_evening"
     },
@@ -1952,6 +2057,12 @@
       "kind": "note",
       "scenario": "13_the_final_evening",
       "hidden": true
+    },
+    {
+      "id": "the_hemlocks_made_a_truce",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "13_the_final_evening"
     },
     {
       "id": "the_hemlocks_are_hashing_it_out",
@@ -2004,6 +2115,69 @@
     },
     {
       "id": "fhv_fate_codex_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_7",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_8",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fhv_fate_codex_sigma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fate_of_the_vale",
+      "hidden": true
+    },
+    {
+      "id": "fate_of_the_vale_asked_codex_sigma_act",
       "section": "hidden",
       "kind": "note",
       "scenario": "fate_of_the_vale",
@@ -2122,6 +2296,7 @@
       "section": "current_day",
       "kind": "note",
       "scenario": "campaign",
+      "crossOut": true,
       "hidden": true
     },
     {
@@ -2129,6 +2304,45 @@
       "section": "hidden",
       "kind": "note",
       "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "day_1_night",
+      "section": "current_day",
+      "kind": "note",
+      "scenario": "core",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "day_2_day",
+      "section": "current_day",
+      "kind": "note",
+      "scenario": "core",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "day_2_night",
+      "section": "current_day",
+      "kind": "note",
+      "scenario": "core",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "day_3_day",
+      "section": "current_day",
+      "kind": "note",
+      "scenario": "core",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
+      "id": "day_3_night",
+      "section": "current_day",
+      "kind": "note",
+      "scenario": "core",
       "hidden": true
     }
   ],

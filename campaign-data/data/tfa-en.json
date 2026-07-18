@@ -144,6 +144,24 @@
     "campaign_notes.alejandro_on_his_own": {
       "text": "Alejandro is continuing his research on his own."
     },
+    "campaign_notes.mapped_way_forward": {
+      "text": "the investigators mapped out the way forward."
+    },
+    "campaign_notes.ichtacas_faith_restored": {
+      "text": "Ichtaca’s faith is restored."
+    },
+    "campaign_notes.braziers_are_lit": {
+      "text": "the braziers are lit."
+    },
+    "campaign_notes.braziers_remain_unlit": {
+      "text": "the braziers remain unlit."
+    },
+    "campaign_notes.alejandro_set_against": {
+      "text": "Alejandro is set against you."
+    },
+    "campaign_notes.alejandro_remembers_everything": {
+      "text": "Alejandro remembers everything."
+    },
     "campaign_notes.sealed_relic_of_ages_forever": {
       "text": "the investigators sealed the Relic of Ages forever."
     }
@@ -217,7 +235,10 @@
     "map": "Map",
     "binoculars": "Binoculars",
     "chalk": "Chalk",
-    "pendant": "Pendant"
+    "pendant": "Pendant",
+    "gasoline": "Gasoline",
+    "pocketknife": "Pocketknife",
+    "pickaxe": "Pickaxe"
   },
   "scenarioChoices": {
     "the_untamed_wilds.poisoned": {

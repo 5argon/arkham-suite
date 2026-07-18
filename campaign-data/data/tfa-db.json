@@ -40,6 +40,7 @@
         "R1": "win",
         "R2": "win"
       },
+      "maxXp": 10,
       "choices": [
         {
           "id": "poisoned",
@@ -52,8 +53,7 @@
           },
           "after": "resolution"
         }
-      ],
-      "maxXp": 10
+      ]
     },
     {
       "id": "tfa_interlude1",
@@ -75,6 +75,7 @@
         "R1": "win",
         "R3": "win"
       },
+      "maxXp": 6,
       "choices": [
         {
           "id": "retries",
@@ -102,8 +103,7 @@
           },
           "after": "resolution"
         }
-      ],
-      "maxXp": 6
+      ]
     },
     {
       "id": "tfa_interlude2",
@@ -142,6 +142,7 @@
         "no_resolution": "loss",
         "R1": "win"
       },
+      "maxXp": 10,
       "choices": [
         {
           "id": "ichtaca_conversation",
@@ -151,8 +152,7 @@
           ],
           "control": "radio"
         }
-      ],
-      "maxXp": 10
+      ]
     },
     {
       "id": "the_boundary_beyond",
@@ -186,6 +186,7 @@
         "no_resolution": "loss",
         "R1": "win"
       },
+      "maxXp": 7,
       "choices": [
         {
           "id": "consult",
@@ -208,8 +209,7 @@
           },
           "after": "resolution"
         }
-      ],
-      "maxXp": 7
+      ]
     },
     {
       "id": "heart_of_the_elders_part_2",
@@ -225,6 +225,7 @@
         "R1": "win",
         "R2": "win"
       },
+      "maxXp": 7,
       "choices": [
         {
           "id": "harbinger_damage",
@@ -245,8 +246,7 @@
           },
           "after": "resolution"
         }
-      ],
-      "maxXp": 7
+      ]
     },
     {
       "id": "the_city_of_archives",
@@ -271,6 +271,7 @@
         "no_resolution": "loss",
         "R1": "win"
       },
+      "maxXp": 12,
       "choices": [
         {
           "id": "yithian_aftermath",
@@ -283,8 +284,7 @@
           },
           "after": "resolution"
         }
-      ],
-      "maxXp": 12
+      ]
     },
     {
       "id": "tfa_interlude4",
@@ -326,6 +326,7 @@
         "R1": "win",
         "R2": "win"
       },
+      "maxXp": 13,
       "choices": [
         {
           "id": "final_depth",
@@ -335,8 +336,7 @@
           "max": 15,
           "after": "resolution"
         }
-      ],
-      "maxXp": 13
+      ]
     },
     {
       "id": "tfa_interlude5",
@@ -533,6 +533,21 @@
         {
           "id": "pendant",
           "cost": 1,
+          "repeatable": false
+        },
+        {
+          "id": "gasoline",
+          "cost": 1,
+          "repeatable": true
+        },
+        {
+          "id": "pocketknife",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "pickaxe",
+          "cost": 2,
           "repeatable": false
         }
       ]
@@ -743,7 +758,21 @@
           "mode": "choice"
         }
       },
-      "crossOut": true
+      "crossOut": true,
+      "cardFilter": {
+        "codes": [
+          "04220",
+          "04078",
+          "04079"
+        ]
+      }
+    },
+    {
+      "id": "jungle_beckons_reminder",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "heart_of_the_elders_part_1",
+      "hidden": true
     },
     {
       "id": "cooperated_with_yithians",
@@ -858,6 +887,13 @@
       "hidden": true
     },
     {
+      "id": "thc_reminder",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "hidden": true
+    },
+    {
       "id": "mended_tear_in_time",
       "section": "campaign_notes",
       "kind": "note",
@@ -918,6 +954,13 @@
       "hidden": true
     },
     {
+      "id": "mapped_way_forward",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "crossOut": true
+    },
+    {
       "id": "hote_fewer_resources",
       "section": "hidden",
       "kind": "cards",
@@ -931,6 +974,33 @@
       "hidden": true
     },
     {
+      "id": "hote_start_with_clue_true",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "hidden": true
+    },
+    {
+      "id": "hote_start_with_clue",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "jungle_beckons",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "ichtacas_faith_restored",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "crossOut": true
+    },
+    {
       "id": "eztli_fewer_resources",
       "section": "hidden",
       "kind": "cards",
@@ -941,6 +1011,41 @@
           "mode": "choice"
         }
       },
+      "hidden": true
+    },
+    {
+      "id": "braziers_are_lit",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_darkness",
+      "crossOut": true
+    },
+    {
+      "id": "braziers_remain_unlit",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_darkness",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_set_against",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "those_held_captive",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_remembers_everything",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "those_held_captive",
+      "crossOut": true
+    },
+    {
+      "id": "doy_no_mulligan",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "those_held_captive",
       "hidden": true
     },
     {

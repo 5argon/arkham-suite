@@ -251,6 +251,12 @@
     "campaign_notes.surviving_members_header": {
       "text": "the survivors of the expedition were:"
     },
+    "campaign_notes.surviving_partners": {
+      "text": "- #name#"
+    },
+    "campaign_notes.surviving_investigators": {
+      "text": "- #name#"
+    },
     "memories_banished.airfield": {
       "text": "Airfield"
     },

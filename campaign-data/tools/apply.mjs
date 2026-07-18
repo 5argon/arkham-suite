@@ -318,6 +318,46 @@ function apply(code) {
     }
   }
 
+  // ---- Return-to scenario dedup: a base scenario superseded by its "Return to …" version ----
+  // A Return-to campaign's scenarioMeta merges the base campaign's scenarios AND the return_to_*
+  // versions, so a base scenario and its return counterpart both surface as playable 'story' rows — a
+  // duplicate in the editor (e.g. "The Untamed Wilds" beside "Return to The Untamed Wilds"). The
+  // return version supersedes the base one (you play the return scenario), so demote the base to a
+  // non-playable 'other' slot. Match on DISPLAY NAME, not id: the ids are irregular across campaigns
+  // (dwl's essex has TWO return_to_ variants — return_to_the_essex_county_express named "The Essex
+  // County Express" and return_to_essex_county_express named "Return to The Essex County Express"),
+  // but the "Return to X" / "X" name pairing is uniform. Runs AFTER the scenarios-map remap so the
+  // en.scenarioNames keys are canonical. The demoted base stays in scenarioMeta (recorded entries
+  // tagged to it still resolve their meta); a base a return campaign reuses unchanged (no "Return to"
+  // counterpart) keeps its 'story' type.
+  if (Array.isArray(db.scenarioMeta) && en.scenarioNames) {
+    const names = en.scenarioNames;
+    const RET = 'Return to ';
+    // Snapshot story scenarios by display name (first wins) before demoting anything.
+    const storyByName = new Map();
+    for (const m of db.scenarioMeta) {
+      if (m.type !== 'story') continue;
+      const nm = names[m.id];
+      if (nm && !storyByName.has(nm)) storyByName.set(nm, m);
+    }
+    for (const ret of db.scenarioMeta) {
+      if (ret.type !== 'story') continue;
+      const nm = names[ret.id];
+      if (!nm || !nm.startsWith(RET)) continue;
+      const base = storyByName.get(nm.slice(RET.length));
+      if (!base || base === ret) continue;
+      base.type = 'other';
+      // A return_to_ scenario ships only its new steps and inherits the base scenario's endings, so
+      // its own file often defines no resolutions. Carry the base's resolution catalogue over (only
+      // where the return version lacks its own) so the editor's return row still shows its resolution
+      // picker / Succeed-Failed judgement instead of going blank.
+      if (!ret.resolutions && base.resolutions) ret.resolutions = base.resolutions;
+      if (!ret.resolutionEffects && base.resolutionEffects) ret.resolutionEffects = base.resolutionEffects;
+      if (!ret.resolutionOutcomes && base.resolutionOutcomes)
+        ret.resolutionOutcomes = base.resolutionOutcomes;
+    }
+  }
+
   // ---- scenarioResolutionOutcomes: per-scenario per-resolution Succeed/Failed ----
   // Curation shape: "scenarioResolutionOutcomes": { "<scenarioId>": { "R1": "win", "R2": "loss", ... } }.
   // Stamps `scenarioMeta.resolutionOutcomes` — the win/loss judgement for each ending (which

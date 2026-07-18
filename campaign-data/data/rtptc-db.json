@@ -15,7 +15,7 @@
     },
     {
       "id": "curtain_call",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -25,7 +25,7 @@
     },
     {
       "id": "the_last_king",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution_resigned",
@@ -54,12 +54,22 @@
     {
       "id": "return_to_curtain_call",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_the_last_king",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution_resigned",
+        "no_resolution_defeated",
+        "R3"
+      ]
     },
     {
       "id": "ptc_interlude1",
@@ -340,12 +350,12 @@
           "code": "03068b"
         },
         {
-          "id": "03067b",
-          "code": "03067b"
-        },
-        {
           "id": "03065b",
           "code": "03065b"
+        },
+        {
+          "id": "03067b",
+          "code": "03067b"
         }
       ]
     },

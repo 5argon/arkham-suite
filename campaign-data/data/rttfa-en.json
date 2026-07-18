@@ -33,7 +33,8 @@
     "return_to_the_city_of_archives": "Return to The City of Archives",
     "return_to_the_depths_of_yoth": "Return to The Depths of Yoth",
     "return_to_shattered_aeons": "Return to Shattered Aeons",
-    "turn_back_time": "Turn Back Time"
+    "turn_back_time": "Return to Turn Back Time",
+    "_note": "rttfa's campaign.json lists the base 'turn_back_time' in hidden_scenarios (the return_to_turn_back_time.json file exists but isn't wired into the flow), so the alternate finale surfaces under its base name. Return to The Forgotten Age plays the return version — rename it to match return_to_turn_back_time.json's own scenario_name."
   },
   "entries": {
     "campaign_notes.recruited_help_of_another_expedition": {
@@ -156,6 +157,24 @@
     "campaign_notes.alejandro_on_his_own": {
       "text": "Alejandro is continuing his research on his own."
     },
+    "campaign_notes.mapped_way_forward": {
+      "text": "the investigators mapped out the way forward."
+    },
+    "campaign_notes.ichtacas_faith_restored": {
+      "text": "Ichtaca’s faith is restored."
+    },
+    "campaign_notes.braziers_are_lit": {
+      "text": "the braziers are lit."
+    },
+    "campaign_notes.braziers_remain_unlit": {
+      "text": "the braziers remain unlit."
+    },
+    "campaign_notes.alejandro_set_against": {
+      "text": "Alejandro is set against you."
+    },
+    "campaign_notes.alejandro_remembers_everything": {
+      "text": "Alejandro remembers everything."
+    },
     "campaign_notes.sealed_relic_of_ages_forever": {
       "text": "the investigators sealed the Relic of Ages forever."
     }
@@ -237,6 +256,12 @@
     "map": "Map",
     "binoculars": "Binoculars",
     "chalk": "Chalk",
-    "pendant": "Pendant"
+    "pendant": "Pendant",
+    "gasoline": "Gasoline",
+    "pocketknife": "Pocketknife",
+    "pickaxe": "Pickaxe",
+    "sticky_goop": "Sticky Goop",
+    "key_of_eztli": "Key of Eztli",
+    "mysterious_scepter": "Mysterious Scepter"
   }
 }

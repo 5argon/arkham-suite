@@ -513,6 +513,13 @@
       "scenario": "02_the_foundation"
     },
     {
+      "id": "dead_heat_skipped",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "dead_heat",
+      "hidden": true
+    },
+    {
       "id": "lovers_are_reunited",
       "section": "campaign_notes",
       "kind": "note",
@@ -779,6 +786,16 @@
       "scenario": "11_the_coiled_serpent"
     },
     {
+      "id": "on_thin_ice_doom",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "on_thin_ice",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
       "id": "raw_deal",
       "section": "hidden",
       "kind": "note",
@@ -834,6 +851,13 @@
           "mode": "choice"
         }
       }
+    },
+    {
+      "id": "oti_swap_xp",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "on_thin_ice",
+      "hidden": true
     },
     {
       "id": "cell_appreciated_the_architecture",
@@ -1060,6 +1084,47 @@
       "hidden": true
     },
     {
+      "id": "join_votes",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "knight_nay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "yay_votes",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "beast_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "knight_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
       "id": "overthrow_vote",
       "section": "hidden",
       "kind": "count",
@@ -1070,7 +1135,28 @@
       "hidden": true
     },
     {
-      "id": "desi_nay",
+      "id": "ece_nay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "amaranth_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "thorne_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "thorne_nay",
       "section": "hidden",
       "kind": "note",
       "scenario": "congress_of_the_keys",
@@ -1087,7 +1173,80 @@
       "hidden": true
     },
     {
+      "id": "thorne_eerily_silent",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "aliki_nay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "aliki_eerily_silent",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "aliki_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "desi_nay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
       "id": "desi_eerily_silent",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "desi_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "cotk_setup",
+      "section": "hidden",
+      "kind": "count",
+      "scenario": "congress_of_the_keys",
+      "param": {
+        "type": "count"
+      },
+      "hidden": true
+    },
+    {
+      "id": "sanguine_yay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "chica_nay",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "congress_of_the_keys",
+      "hidden": true
+    },
+    {
+      "id": "niang_yay",
       "section": "hidden",
       "kind": "note",
       "scenario": "congress_of_the_keys",
@@ -1191,6 +1350,34 @@
       "scenario": "28_epilogue"
     },
     {
+      "id": "read_sr_alpha",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "read_sr_beta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "read_sr_epsilon",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "read_sr_zeta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
       "id": "eye_of_ravens_stolen",
       "section": "hidden",
       "kind": "note",
@@ -1288,6 +1475,34 @@
           ]
         }
       },
+      "hidden": true
+    },
+    {
+      "id": "read_sr_gamma",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "read_sr_theta",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "read_sr_psi",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
+      "id": "read_sr_omega",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
       "hidden": true
     }
   ],

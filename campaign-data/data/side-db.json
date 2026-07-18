@@ -2629,6 +2629,13 @@
       "scenario": "the_fall_of_the_house_of_usher"
     },
     {
+      "id": "atw_added_tablet",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "against_the_wendigo",
+      "hidden": true
+    },
+    {
       "id": "atw_discovered_the_fate_of_the_students",
       "section": "campaign_notes",
       "kind": "note",
@@ -2727,6 +2734,13 @@
     },
     {
       "id": "fof_skip_part_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fortune_and_folly_part_1",
+      "hidden": true
+    },
+    {
+      "id": "fof_play_part_1",
       "section": "hidden",
       "kind": "note",
       "scenario": "fortune_and_folly_part_1",
@@ -2958,6 +2972,27 @@
     },
     {
       "id": "film_fatale_cape",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "film_fatale",
+      "hidden": true
+    },
+    {
+      "id": "film_fatale_act_2_telescope",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "film_fatale",
+      "hidden": true
+    },
+    {
+      "id": "film_fatale_act_2_staff",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "film_fatale",
+      "hidden": true
+    },
+    {
+      "id": "film_fatale_act_2_cape",
       "section": "hidden",
       "kind": "note",
       "scenario": "film_fatale",

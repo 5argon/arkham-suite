@@ -748,6 +748,13 @@
       "hidden": true
     },
     {
+      "id": "forbidden_peaks_danforth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
       "id": "endless_night_danforth",
       "section": "hidden",
       "kind": "note",
@@ -838,6 +845,13 @@
     },
     {
       "id": "final_night_roald_ellsworth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "restful_night",
+      "hidden": true
+    },
+    {
+      "id": "forbidden_peaks_takada",
       "section": "hidden",
       "kind": "note",
       "scenario": "restful_night",
@@ -954,6 +968,13 @@
       "hidden": true
     },
     {
+      "id": "city_elder_things_danforth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
+    },
+    {
       "id": "dr_kensler_is_on_the_verge_of_understanding",
       "section": "campaign_notes",
       "kind": "note",
@@ -964,6 +985,13 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "endless_night"
+    },
+    {
+      "id": "city_elder_things_takada",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "endless_night",
+      "hidden": true
     },
     {
       "id": "city_of_the_elder_things_v1",
@@ -1037,6 +1065,14 @@
       "hidden": true
     },
     {
+      "id": "heart_of_madness_danforth",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "final_night",
+      "crossOut": true,
+      "hidden": true
+    },
+    {
       "id": "dr_kensler_understands_the_true_nature_of_the_miasma",
       "section": "campaign_notes",
       "kind": "note",
@@ -1047,6 +1083,14 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "final_night"
+    },
+    {
+      "id": "heart_of_madness_takada",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "final_night",
+      "crossOut": true,
+      "hidden": true
     },
     {
       "id": "played_the_heart_of_madness_part_1",
@@ -1195,6 +1239,39 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "the_heart_of_madness_part_2"
+    },
+    {
+      "id": "surviving_partners",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "the_heart_of_madness_part_2",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "surviving_investigators",
+      "section": "campaign_notes",
+      "kind": "cards",
+      "scenario": "the_heart_of_madness_part_2",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "investigator_survived",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_heart_of_madness_part_2",
+      "hidden": true
     },
     {
       "id": "airfield",
@@ -1606,6 +1683,19 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "fatal_mirage"
+    },
+    {
+      "id": "partner_missing",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "the_disappearance",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
     },
     {
       "id": "continue_ice_and_death_part_2",

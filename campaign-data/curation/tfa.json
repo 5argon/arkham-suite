@@ -171,10 +171,28 @@
           "label": "Pendant",
           "cost": 1,
           "repeatable": false
+        },
+        {
+          "id": "gasoline",
+          "label": "Gasoline",
+          "cost": 1,
+          "repeatable": true
+        },
+        {
+          "id": "pocketknife",
+          "label": "Pocketknife",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "pickaxe",
+          "label": "Pickaxe",
+          "cost": 2,
+          "repeatable": false
         }
       ],
       "perInvestigator": true,
-      "_note": "Recorded per investigator under each investigator's 'Supplies' section. Purchased in the prologue 'supplies' input with supply points (points array by player count: [10,7,5,4]). cost = supply 'cost' field. repeatable maps to the prologue 'multiple' flag (Provisions, Medicine only). All item ids, labels, costs, and repeatable flags verified against prologue.json and tfa-db.json."
+      "_note": "Recorded per investigator under each investigator's 'Supplies' section. The prologue 'supplies' input offers the first 11 (points array by player count: [10,7,5,4]); Threads of Fate's second 'buy_supplies' resupply (threads_of_fate.json, special_xp 'resupply_points') re-offers the multiples plus three new items — gasoline (repeatable), pocketknife, pickaxe — recorded into the same 'Supplies' section, so they're appended here. cost = supply 'cost' field. repeatable maps to the 'multiple' flag (Provisions, Medicine, Gasoline). All item ids, labels, costs, and repeatable flags verified against prologue.json / threads_of_fate.json."
     },
     "yigs_fury": {
       "type": "count",
@@ -333,6 +351,12 @@
         "_note": "ArkhamCards' Depths of Yoth resolution asks 'Final depth reached:'. It writes only to the hidden log section our editor never surfaces -> captured here. Feeds the Depths descent gauge and ties to Yig's Fury -> starting-agenda seeding."
       }
     ]
+  },
+  "entryOverrides": {
+    "_note": "campaign_notes.jungle_watches (Heart of the Elders Part 1, 'the jungle watches (#name# x#X#)') records, in parentheses, each card with Vengeance X in the victory display. Its ArkhamCards card_choice query is {vengeance:true, source:'scenario'} — the extractor can't carry a query whitelist, so the #name# picker offered the whole card pool. Whitelist it to the Vengeance enemies in HotE Part 1's encounter sets (pillars_of_judgment / serpents): 04220 Basilisk, 04078 Pit Viper, 04079 Boa Constrictor (the only Vengeance cards in this scenario's pool).",
+    "campaign_notes.jungle_watches": {
+      "cardFilter": { "codes": ["04220", "04078", "04079"] }
+    }
   },
   "validators": [
     {

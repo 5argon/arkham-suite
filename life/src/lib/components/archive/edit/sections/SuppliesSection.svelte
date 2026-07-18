@@ -8,7 +8,8 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 -->
 <script lang="ts">
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
-	import { Button, Checkbox } from '@5argon/arkham-life-ui';
+	import { Button, Checkbox, CardLine } from '@5argon/arkham-life-ui';
+	import { getAllCards } from '$lib/card-data';
 	import { itemLabel } from '$lib/campaign/records/campaign-log-source';
 	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
@@ -26,6 +27,9 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 
 	const supplies = $derived(section.items ?? []);
 	const slots = $derived(investigators.length ? investigators : [{ code: 'shared', name: 'Supplies' }]);
+	// Resolve each roster investigator to its card so the per-investigator header can be a CardLine
+	// (art + coloured name) instead of a plain label. The 'shared' fallback slot has no card.
+	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
 
 	function key(invCode: string, supplyId: string) {
 		return `${section.id}.${invCode}.${supplyId}`;
@@ -58,9 +62,14 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 	{#each slots as inv (inv.code)}
 		<div>
 			{#if slots.length > 1}
-				<p class="text-primary-600 dark:text-primary-300 mb-1 text-xs font-semibold uppercase">
-					{inv.name}
-				</p>
+				{@const invCard = byCode.get(inv.code)}
+				{#if invCard}
+					<div class="mb-1"><CardLine card={invCard} hideQuantity /></div>
+				{:else}
+					<p class="text-primary-600 dark:text-primary-300 mb-1 text-xs font-semibold uppercase">
+						{inv.name}
+					</p>
+				{/if}
 			{/if}
 			<div class="flex flex-wrap items-center gap-2">
 				{#each supplies as s (s.id)}
@@ -73,11 +82,13 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 								q > 0 ? 'border-secondary-400' : 'border-primary-300 dark:border-primary-700',
 							]}
 						>
-							<span class="text-sm">{itemLabel(log, s.id)}{costLabel}</span>
+							<span class="text-sm text-black dark:text-white">{itemLabel(log, s.id)}{costLabel}</span>
 							{#if canEdit}
 								<Button label="−" onClick={() => setQty(inv.code, s.id, q - 1)} />
 							{/if}
-							<span class="min-w-5 text-center text-sm font-bold tabular-nums">{q}</span>
+							<span class="min-w-5 text-center text-sm font-bold tabular-nums text-black dark:text-white"
+								>{q}</span
+							>
 							{#if canEdit}
 								<Button label="+" onClick={() => setQty(inv.code, s.id, q + 1)} />
 							{/if}

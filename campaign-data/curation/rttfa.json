@@ -4,6 +4,10 @@
     "eztli": "the_doom_of_eztli",
     "wilds": "the_untamed_wilds"
   },
+  "scenarioNames": {
+    "_note": "rttfa's campaign.json lists the base 'turn_back_time' in hidden_scenarios (the return_to_turn_back_time.json file exists but isn't wired into the flow), so the alternate finale surfaces under its base name. Return to The Forgotten Age plays the return version — rename it to match return_to_turn_back_time.json's own scenario_name.",
+    "turn_back_time": "Return to Turn Back Time"
+  },
   "outcomes": {
     "_notes": "Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.",
     "win": [
@@ -89,10 +93,43 @@
           "label": "Pendant",
           "cost": 1,
           "repeatable": false
+        },
+        {
+          "id": "gasoline",
+          "label": "Gasoline",
+          "cost": 1,
+          "repeatable": true
+        },
+        {
+          "id": "pocketknife",
+          "label": "Pocketknife",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "pickaxe",
+          "label": "Pickaxe",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "sticky_goop",
+          "label": "Sticky Goop",
+          "repeatable": false
+        },
+        {
+          "id": "key_of_eztli",
+          "label": "Key of Eztli",
+          "repeatable": false
+        },
+        {
+          "id": "mysterious_scepter",
+          "label": "Mysterious Scepter",
+          "repeatable": false
         }
       ],
       "perInvestigator": true,
-      "_note": "Catalog and costs read from tfa prologue 'supplies' input step (campaigns/tfa/prologue.json -> steps[].id='supplies'). Each investigator chooses supplies from a per-investigator supply-point budget (points by player count: [10,7,5,4]). cost = supply points per purchase. repeatable=true only for the two items flagged 'multiple' in the source (Provisions, Medicine); the prologue note explicitly says these can be taken more than once. All 11 db item ids preserved in source order. No partner/relationship/scarletKeys/glyphs/checklist sections exist in rttfa (campaign.json has no 'partners' array; -db.json only defines campaign_notes, yigs_fury, supplies, hidden)."
+      "_note": "Prologue 'supplies' input offers the first 11 (points by player count: [10,7,5,4]); Threads of Fate's resupply adds gasoline (repeatable) / pocketknife / pickaxe into the same 'Supplies' section. Return-to additionally GAINS three story supplies via gain_supplies effects (not purchased, so no cost): sticky_goop (Return to The Doom of Eztli), key_of_eztli, mysterious_scepter. All ids/labels verified against campaigns/tfa/prologue.json + threads_of_fate.json and return_campaigns/rttfa/*. repeatable=true only for the 'multiple' items (Provisions, Medicine, Gasoline). No partner/relationship/scarletKeys/glyphs/checklist sections exist in rttfa."
     },
     "yigs_fury": {
       "type": "count",
@@ -209,6 +246,12 @@
         "section": "supplies",
         "max": 0
       }
+    }
+  },
+  "entryOverrides": {
+    "_note": "campaign_notes.jungle_watches (Heart of the Elders Part 1, 'the jungle watches (#name# x#X#)') records each card with Vengeance X in the victory display; its card_choice query {vengeance:true, source:'scenario'} isn't carried by the extractor, so whitelist the #name# picker. Return to HotE Part 1 keeps the base encounter sets AND adds Return to the Pillars of Judgement, so the Vengeance enemies are the base three plus Feathered Serpent: 04220 Basilisk, 04078 Pit Viper, 04079 Boa Constrictor, 53047 Feathered Serpent.",
+    "campaign_notes.jungle_watches": {
+      "cardFilter": { "codes": ["04220", "04078", "04079", "53047"] }
     }
   },
   "validators": [

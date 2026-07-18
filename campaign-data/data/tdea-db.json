@@ -400,6 +400,13 @@
       "scenario": "a_black_cat"
     },
     {
+      "id": "black_cat_is_searching_for_the_truth",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "a_great_ones",
+      "crossOut": true
+    },
+    {
       "id": "black_cat_spoke_of_nyarlathotep",
       "section": "campaign_notes",
       "kind": "note",

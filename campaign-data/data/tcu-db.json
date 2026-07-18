@@ -930,6 +930,20 @@
       "scenario": "union_and_disillusion"
     },
     {
+      "id": "left_column",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
+    },
+    {
+      "id": "right_column",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "union_and_disillusion",
+      "hidden": true
+    },
+    {
       "id": "dead",
       "section": "05046",
       "kind": "note",

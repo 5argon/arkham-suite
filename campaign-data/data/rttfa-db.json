@@ -28,7 +28,7 @@
     },
     {
       "id": "the_untamed_wilds",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -42,7 +42,7 @@
     },
     {
       "id": "the_doom_of_eztli",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution_defeated",
@@ -57,7 +57,7 @@
     },
     {
       "id": "threads_of_fate",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -87,7 +87,7 @@
     },
     {
       "id": "the_boundary_beyond",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -101,7 +101,7 @@
     },
     {
       "id": "heart_of_the_elders_part_1",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -110,7 +110,7 @@
     },
     {
       "id": "heart_of_the_elders_part_2",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -120,7 +120,7 @@
     },
     {
       "id": "the_city_of_archives",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -144,7 +144,7 @@
     },
     {
       "id": "the_depths_of_yoth",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -180,7 +180,7 @@
     },
     {
       "id": "shattered_aeons",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -218,12 +218,23 @@
     {
       "id": "return_to_the_untamed_wilds",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_the_doom_of_eztli",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution_defeated",
+        "no_resolution_resigned",
+        "R1",
+        "R3"
+      ]
     },
     {
       "id": "return_to_threads_of_fate",
@@ -237,7 +248,12 @@
     {
       "id": "return_to_the_boundary_beyond",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_heart_of_the_elders_part_1",
@@ -252,12 +268,32 @@
     {
       "id": "return_to_heart_of_the_elders_part_2",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_the_city_of_archives",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
     },
     {
       "id": "return_to_the_depths_of_yoth",
@@ -272,7 +308,35 @@
     {
       "id": "return_to_shattered_aeons",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R4": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
     },
     {
       "id": "turn_back_time",
@@ -415,6 +479,33 @@
         {
           "id": "pendant",
           "cost": 1,
+          "repeatable": false
+        },
+        {
+          "id": "gasoline",
+          "cost": 1,
+          "repeatable": true
+        },
+        {
+          "id": "pocketknife",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "pickaxe",
+          "cost": 2,
+          "repeatable": false
+        },
+        {
+          "id": "sticky_goop",
+          "repeatable": false
+        },
+        {
+          "id": "key_of_eztli",
+          "repeatable": false
+        },
+        {
+          "id": "mysterious_scepter",
           "repeatable": false
         }
       ]
@@ -660,7 +751,22 @@
           "mode": "choice"
         }
       },
-      "crossOut": true
+      "crossOut": true,
+      "cardFilter": {
+        "codes": [
+          "04220",
+          "04078",
+          "04079",
+          "53047"
+        ]
+      }
+    },
+    {
+      "id": "jungle_beckons_reminder",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "heart_of_the_elders_part_1",
+      "hidden": true
     },
     {
       "id": "cooperated_with_yithians",
@@ -758,6 +864,13 @@
       "hidden": true
     },
     {
+      "id": "thc_reminder",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_depths_of_yoth",
+      "hidden": true
+    },
+    {
       "id": "mended_tear_in_time",
       "section": "campaign_notes",
       "kind": "note",
@@ -818,6 +931,13 @@
       "hidden": true
     },
     {
+      "id": "mapped_way_forward",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "crossOut": true
+    },
+    {
       "id": "hote_fewer_resources",
       "section": "hidden",
       "kind": "cards",
@@ -831,6 +951,33 @@
       "hidden": true
     },
     {
+      "id": "hote_start_with_clue_true",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "hidden": true
+    },
+    {
+      "id": "hote_start_with_clue",
+      "section": "hidden",
+      "kind": "cards",
+      "scenario": "jungle_beckons",
+      "param": {
+        "type": "cards",
+        "cards": {
+          "mode": "choice"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "id": "ichtacas_faith_restored",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "jungle_beckons",
+      "crossOut": true
+    },
+    {
       "id": "eztli_fewer_resources",
       "section": "hidden",
       "kind": "cards",
@@ -841,6 +988,41 @@
           "mode": "choice"
         }
       },
+      "hidden": true
+    },
+    {
+      "id": "braziers_are_lit",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_darkness",
+      "crossOut": true
+    },
+    {
+      "id": "braziers_remain_unlit",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_darkness",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_set_against",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "those_held_captive",
+      "crossOut": true
+    },
+    {
+      "id": "alejandro_remembers_everything",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "those_held_captive",
+      "crossOut": true
+    },
+    {
+      "id": "doy_no_mulligan",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "those_held_captive",
       "hidden": true
     },
     {

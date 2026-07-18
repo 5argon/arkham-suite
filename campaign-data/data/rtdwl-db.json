@@ -24,7 +24,7 @@
     },
     {
       "id": "extracurricular_activity",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -36,7 +36,7 @@
     },
     {
       "id": "the_house_always_wins",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -52,7 +52,7 @@
     },
     {
       "id": "the_miskatonic_museum",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -72,7 +72,7 @@
     },
     {
       "id": "return_to_the_essex_county_express",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -82,7 +82,7 @@
     },
     {
       "id": "blood_on_the_altar",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -97,7 +97,7 @@
     },
     {
       "id": "undimensioned_and_unseen",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -107,7 +107,7 @@
     },
     {
       "id": "where_doom_awaits",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -137,7 +137,7 @@
     },
     {
       "id": "lost_in_time_and_space",
-      "type": "story",
+      "type": "other",
       "victoryDisplay": true,
       "resolutions": [
         "no_resolution",
@@ -185,42 +185,128 @@
     {
       "id": "return_to_extracurricular_activity",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
     },
     {
       "id": "return_to_the_house_always_wins",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
     },
     {
       "id": "return_to_the_miskatonic_museum",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_essex_county_express",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_blood_on_the_altar",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
     },
     {
       "id": "return_to_undimensioned_and_unseen",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
     },
     {
       "id": "return_to_where_doom_awaits",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R2": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
     },
     {
       "id": "return_to_lost_in_time_and_space",
       "type": "story",
-      "victoryDisplay": true
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all",
+              "conditional": true
+            }
+          ],
+          "result": "mixed"
+        },
+        "R3": {
+          "trauma": [
+            {
+              "killed": true,
+              "target": "all"
+            }
+          ],
+          "result": "win"
+        }
+      }
     }
   ],
   "startingChaosBag": {

@@ -69,6 +69,13 @@
       "hidden": true
     },
     {
+      "id": "fof_play_part_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "fortune_and_folly_part_1",
+      "hidden": true
+    },
+    {
       "id": "continue_fortune_and_folly_part_2",
       "section": "hidden",
       "kind": "note",

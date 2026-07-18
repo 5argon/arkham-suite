@@ -165,6 +165,48 @@
       "hidden": true
     },
     {
+      "id": "smoke_and_mirrors_1",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "smoke_and_mirrors_2",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "smoke_and_mirrors_3",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "smoke_and_mirrors_4",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "smoke_and_mirrors_5",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "smoke_and_mirrors",
+      "hidden": true
+    },
+    {
+      "id": "smoke_and_mirrors_6",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "smoke_and_mirrors",
+      "hidden": true
+    },
+    {
       "id": "david_harbinger",
       "section": "campaign_notes",
       "kind": "note",

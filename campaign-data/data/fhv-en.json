@@ -321,6 +321,21 @@
     },
     "current_day.day_1_day": {
       "text": "Day 1 ([day])"
+    },
+    "current_day.day_1_night": {
+      "text": "Night 1 ([night])"
+    },
+    "current_day.day_2_day": {
+      "text": "Day 2 ([day])"
+    },
+    "current_day.day_2_night": {
+      "text": "Night 2 ([night])"
+    },
+    "current_day.day_3_day": {
+      "text": "Day 3 ([day])"
+    },
+    "current_day.day_3_night": {
+      "text": "Night 3 ([night])"
     }
   },
   "achievements": {
