@@ -30,6 +30,7 @@ import {
 } from '@5argon/arkham-campaign-data';
 import type { CardCode } from '@5argon/arkham-kohaku';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import { contributingFamilies } from '../records/campaign-family';
 
 /**
  * One special interaction's lifetime state for the subject — KEYS + USER STATE ONLY.
@@ -74,13 +75,6 @@ export interface SpecialInteractionsPartial {
 	interactions: PartialInteraction[];
 }
 
-/** The family a record aggregates under = its own campaign code (Return-to is a separate family). */
-function familyOf(rec: CampaignRecord): string | null {
-	const log = getCampaignLog(rec.campaignCode);
-	if (!log) return null;
-	return log.db.code;
-}
-
 /**
  * Scenarios a play reached: every scenario with a recorded entry/resolution, plus
  * — since you can't skip earlier scenarios — all scenarios up to the furthest one
@@ -105,13 +99,18 @@ function reachedScenarios(rec: CampaignRecord, log: CampaignLog): Set<string> {
  * Build the roster-free partial, one entry per campaign family that has special
  * interactions. `optional` (choice-gated, unrecorded) interactions are skipped.
  */
-export function buildSpecialInteractions(records: CampaignRecord[]): SpecialInteractionsPartial[] {
-	// Group plays by family.
+export function buildSpecialInteractions(
+	records: CampaignRecord[],
+	mergeReturnTo = true
+): SpecialInteractionsPartial[] {
+	// Group plays by family — a Return-to play folds into its base family too when merging.
 	const playsByFamily = new Map<string, CampaignRecord[]>();
 	for (const rec of records) {
-		const fam = familyOf(rec);
-		if (!fam) continue;
-		(playsByFamily.get(fam) ?? playsByFamily.set(fam, []).get(fam)!).push(rec);
+		const log = getCampaignLog(rec.campaignCode);
+		if (!log) continue;
+		for (const fam of contributingFamilies(log, mergeReturnTo)) {
+			(playsByFamily.get(fam) ?? playsByFamily.set(fam, []).get(fam)!).push(rec);
+		}
 	}
 
 	const out: SpecialInteractionsPartial[] = [];

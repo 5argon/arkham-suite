@@ -6,7 +6,7 @@
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import { buildUnionState, type CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { contributingFamilies } from '../records/campaign-family';
 
 const COLLECTION_TYPES = new Set(['cards', 'scarletKeys', 'glyphs', 'checklist', 'investigatorChecklist']);
 
@@ -27,18 +27,22 @@ export interface CampaignCollections {
   collections: Collection[];
 }
 
-export function buildCollections(records: CampaignRecord[]): CampaignCollections[] {
+export function buildCollections(
+  records: CampaignRecord[],
+  mergeReturnTo = true,
+): CampaignCollections[] {
   const byFamily = new Map<string, CampaignRecord[]>();
   for (const rec of records) {
     const log = getCampaignLog(rec.campaignCode);
     if (!log) continue;
-    const family = familyOf(log);
-    let arr = byFamily.get(family);
-    if (!arr) {
-      arr = [];
-      byFamily.set(family, arr);
+    for (const family of contributingFamilies(log, mergeReturnTo)) {
+      let arr = byFamily.get(family);
+      if (!arr) {
+        arr = [];
+        byFamily.set(family, arr);
+      }
+      arr.push(rec);
     }
-    arr.push(rec);
   }
 
   const out: CampaignCollections[] = [];

@@ -346,9 +346,10 @@ import type { SpecialInteractionsPartial } from '$lib/campaign/outcomes/special-
  *  so Undimensioned and Unseen's brood counts hover to a per-tier breakdown — the subject cache must
  *  rebuild. */
 /*  126→127: Return-to merge — `mergeReturnToStats` (default ON) folds Return-to plays into the base
- *  family across clears / win-loss / endings / scenarios / bespoke blobs; `hideReturnToCampaigns`
- *  (default OFF) drops the separate Return-to pages. Both ride the logs-segment signature; the subject
- *  cache must rebuild. */
+ *  family across clears / win-loss / endings / scenarios / resolution coverage / trauma / standalone
+ *  usage / collections / special interactions and the bespoke blobs; `hideReturnToCampaigns` (default
+ *  OFF) drops the separate Return-to pages. Both ride the logs-segment signature; the subject cache
+ *  must rebuild. */
 export const CACHE_VERSION = 127;
 
 /** The cache key for the account-wide profile. */

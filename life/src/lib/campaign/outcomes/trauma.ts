@@ -24,12 +24,16 @@
 import { getCampaignLog, resolutionTraumaEffects } from '@5argon/arkham-campaign-data';
 import type { CardCode } from '@5argon/arkham-kohaku';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { familyOf, contributingFamilies } from '../records/campaign-family';
 
 /** One recorded ending whose resolution kills and/or drives the party insane. */
 export interface TraumaEvent {
-	/** Base campaign code (RT folds onto its base); the campaign name re-derives from it. */
+	/** The play's OWN campaign family code — the campaign name in the cross-play list re-derives from it. */
 	family: string;
+	/** The families this event counts toward: its own, plus its base family when Return-to stats merge.
+	 *  The per-campaign trauma slice filters on this so a Return-to play also shows on the base page;
+	 *  the cross-play headline still counts each event once (events aren't duplicated). */
+	families: string[];
 	/** The doc campaign id this play belongs to — the join key for per-investigator
 	 *  attribution at assembly time. Absent when the record carried none (tests). */
 	campaignId?: string;
@@ -85,7 +89,7 @@ export interface TraumaTally {
  * {@link attributeTraumaInvestigators}, which needs deck data the logs segment
  * must not depend on.
  */
-export function buildTraumaTally(records: CampaignRecord[]): TraumaTally {
+export function buildTraumaTally(records: CampaignRecord[], mergeReturnTo = true): TraumaTally {
 	const events: TraumaEvent[] = [];
 
 	for (const rec of records) {
@@ -94,6 +98,7 @@ export function buildTraumaTally(records: CampaignRecord[]): TraumaTally {
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
 		const family = familyOf(log);
+		const families = contributingFamilies(log, mergeReturnTo);
 		const difficulty = rec.recorded.difficulty ?? 'standard';
 		const byKey = new Map(
 			resolutionTraumaEffects(log).map((e) => [`${e.scenario}.${e.resolution}`, e.effect]),
@@ -132,6 +137,7 @@ export function buildTraumaTally(records: CampaignRecord[]): TraumaTally {
 			const insane = insaneG ? 'yes' : insaneC ? 'maybe' : null;
 			events.push({
 				family,
+				families,
 				campaignId: rec.campaignId,
 				scenario,
 				resolution,

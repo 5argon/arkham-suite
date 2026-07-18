@@ -333,10 +333,11 @@ export type CompiledProfile = ReturnType<typeof stripCompiledProfile>;
  *  `Record<string, ResolutionTally>` so the Undimensioned and Unseen brood counts hover to a
  *  per-tier breakdown — so the blob recomputes. */
 /*  57→58: Return-to merge — the new `mergeReturnToStats` setting (default ON) folds each Return-to
- *  campaign's plays into its BASE family too, so clears / win-loss / endings / scenarios (and the
- *  bespoke blobs) now include Return-to plays under the base family, with Return-to scenarios kept as
- *  their own rows. `hideReturnToCampaigns` (default OFF) additionally drops the separate Return-to
- *  pages. The family keys + per-family tallies change, so the artifact recomputes. */
+ *  campaign's plays into its BASE family too, across clears / win-loss / endings / scenarios /
+ *  resolution coverage / trauma / standalone usage / collections / special interactions and the
+ *  bespoke blobs, with Return-to scenarios kept as their own rows. `hideReturnToCampaigns` (default
+ *  OFF) additionally drops the separate Return-to pages. The family keys + per-family tallies change
+ *  (trauma events gained a `families` array), so the artifact recomputes. */
 export const COMPILED_PROFILE_VERSION = 58;
 
 /**

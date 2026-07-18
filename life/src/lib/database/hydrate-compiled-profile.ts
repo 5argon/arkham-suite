@@ -36,6 +36,7 @@ import {
 	DWL_WIN_LOST_FOREVER_TEXT,
 } from '$lib/campaign/outcomes/clear-status';
 import { scenarioDisplayName } from '$lib/campaign/stats/extra-imports';
+import { familyScenarioMeta, familyScenarioNames } from '$lib/campaign/records/campaign-family';
 import { customAchievementText } from '$lib/campaign/achievements/custom-achievements';
 import { choiceLabel } from '$lib/campaign/stats/scenario-extras';
 import type { CompiledProfileFile } from './compiled-profile';
@@ -195,9 +196,14 @@ export function hydrateCompiledProfile(file: CompiledProfileFile): LocalProfileP
 
 		scenarios: p.scenarios.map((c) => {
 			const baseLog = getCampaignLog(c.family);
-			const names = baseLog?.en.scenarioNames ?? {};
+			// Resolve names/order over the merged catalogue: when Return-to stats fold into the base,
+			// the payload carries `return_to_*` scenario rows whose names live only in the Return-to log.
+			// Union is always safe here (base names win on shared ids) and matches the builder.
+			const names = familyScenarioNames(c.family, true);
 			const orderIndex = new Map(
-				(baseLog ? playableScenarios(baseLog) : []).map((id, i) => [id, i] as const)
+				familyScenarioMeta(c.family, true)
+					.filter((m) => m.type === 'story')
+					.map((m, i) => [m.id, i] as const)
 			);
 			return {
 				...c,

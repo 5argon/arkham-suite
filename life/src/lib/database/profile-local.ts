@@ -401,9 +401,9 @@ function buildLogsSegment(
 		trueSoloClearGrid: buildFullClearGrid(trueSoloRecords, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
 		winLossRecord: buildWinLossRecord(records, mergeReturnTo, hideReturnTo),
 		endings: buildEndings(records, mergeReturnTo),
-		collections: buildCollections(records),
+		collections: buildCollections(records, mergeReturnTo),
 		scenarios: buildScenarioStats(records, mergeReturnTo),
-		standaloneUsage: buildStandaloneUsage(records),
+		standaloneUsage: buildStandaloneUsage(records, mergeReturnTo),
 		// First-class Standalone Archives — a SEPARATE record array, so campaign builders
 		// above never see them (and aren't tier/group-filtered: standalones are their own dimension).
 		// Card XP map built from the already-cached getAllCards() (cheap; only runs on rebuild).
@@ -411,7 +411,7 @@ function buildLogsSegment(
 			subjectStandaloneRecords(doc, uids),
 			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0])),
 		),
-		traumaTally: buildTraumaTally(records),
+		traumaTally: buildTraumaTally(records, mergeReturnTo),
 		eoe: buildEoe(records),
 		tsk: buildTsk(records),
 		dwl: buildDwl(records, mergeReturnTo),
@@ -424,7 +424,7 @@ function buildLogsSegment(
 		fhv: buildFhv(records),
 		tdc: buildTdc(records),
 		notz: buildNotz(records, undefined, mergeReturnTo),
-		specialInteractions: buildSpecialInteractions(records),
+		specialInteractions: buildSpecialInteractions(records, mergeReturnTo),
 	};
 }
 

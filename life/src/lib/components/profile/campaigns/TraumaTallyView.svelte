@@ -21,7 +21,7 @@ is sliced to that family.
 	// Per-campaign slice: recompute the headline numbers from the family's events
 	// (per-investigator attribution can't be re-sliced from the summary, so it is
 	// shown only on the aggregate view).
-	const events = $derived(family ? tally.events.filter((e) => e.family === family) : tally.events);
+	const events = $derived(family ? tally.events.filter((e) => e.families.includes(family)) : tally.events);
 	const sliced = $derived(family);
 
 	const count = (pred: (e: TraumaEvent) => boolean): number => events.filter(pred).length;

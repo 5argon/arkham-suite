@@ -102,7 +102,7 @@ function payload(): LocalProfilePayload {
 				possible: 0,
 				perInvestigator: [{ code: '09004', killed: 0, insane: 1 }],
 				events: [
-					{ family: 'eoe', campaignId: 'c1', scenario: 'the_heart_of_madness_part_2', resolution: 'no_resolution', killed: null, insane: 'yes', targets: ['all'], allKilled: false, allInsane: true, result: 'lose', pyrrhic: false, difficulty: 'hard' },
+					{ family: 'eoe', families: ['eoe'], campaignId: 'c1', scenario: 'the_heart_of_madness_part_2', resolution: 'no_resolution', killed: null, insane: 'yes', targets: ['all'], allKilled: false, allInsane: true, result: 'lose', pyrrhic: false, difficulty: 'hard' },
 				],
 			},
 			eoe: [

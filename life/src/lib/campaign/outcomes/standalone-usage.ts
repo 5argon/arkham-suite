@@ -10,7 +10,7 @@
  */
 import { getCampaignLog, standaloneScenarios } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { contributingFamilies } from '../records/campaign-family';
 
 export interface StandaloneUsageRow {
 	/** Standalone scenario id (campaign-data `standaloneScenarios()`). */
@@ -59,7 +59,10 @@ interface Acc {
 }
 
 /** Per-family standalone usage, each family's standalones sorted by use count. */
-export function buildStandaloneUsage(records: CampaignRecord[]): CampaignStandaloneUsage[] {
+export function buildStandaloneUsage(
+	records: CampaignRecord[],
+	mergeReturnTo = true
+): CampaignStandaloneUsage[] {
 	const cat = catalog();
 	// family -> scenario -> acc
 	const byFamily = new Map<string, Map<string, Acc>>();
@@ -68,21 +71,22 @@ export function buildStandaloneUsage(records: CampaignRecord[]): CampaignStandal
 		if (!list.length) continue;
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
-		const family = familyOf(log);
-		let fam = byFamily.get(family);
-		if (!fam) {
-			fam = new Map();
-			byFamily.set(family, fam);
-		}
-		for (const s of list) {
-			if (!s.standalone) continue;
-			let acc = fam.get(s.standalone);
-			if (!acc) {
-				acc = { count: 0, resolutions: new Set() };
-				fam.set(s.standalone, acc);
+		for (const family of contributingFamilies(log, mergeReturnTo)) {
+			let fam = byFamily.get(family);
+			if (!fam) {
+				fam = new Map();
+				byFamily.set(family, fam);
 			}
-			acc.count += 1;
-			if (s.resolution) acc.resolutions.add(s.resolution);
+			for (const s of list) {
+				if (!s.standalone) continue;
+				let acc = fam.get(s.standalone);
+				if (!acc) {
+					acc = { count: 0, resolutions: new Set() };
+					fam.set(s.standalone, acc);
+				}
+				acc.count += 1;
+				if (s.resolution) acc.resolutions.add(s.resolution);
+			}
 		}
 	}
 
