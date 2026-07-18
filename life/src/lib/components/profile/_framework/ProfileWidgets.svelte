@@ -175,16 +175,14 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	import EoeMiasma from '$lib/components/profile/campaigns/campaign/eote/EoeMiasma.svelte';
 	import EoeFatalMirage from '$lib/components/profile/campaigns/campaign/eote/EoeFatalMirage.svelte';
 	import EoeIceAndDeath from '$lib/components/profile/campaigns/campaign/eote/EoeIceAndDeath.svelte';
-	import DwlOpening from '$lib/components/profile/campaigns/campaign/dwl/DwlOpening.svelte';
+	import DwlOpener from '$lib/components/profile/campaigns/campaign/dwl/DwlOpener.svelte';
 	import DwlMissingPersons from '$lib/components/profile/campaigns/campaign/dwl/DwlMissingPersons.svelte';
 	import DwlMiskatonicMuseum from '$lib/components/profile/campaigns/campaign/dwl/DwlMiskatonicMuseum.svelte';
 	import DwlEssex from '$lib/components/profile/campaigns/campaign/dwl/DwlEssex.svelte';
-	import DwlSilas from '$lib/components/profile/campaigns/campaign/dwl/DwlSilas.svelte';
 	import DwlSacrifices from '$lib/components/profile/campaigns/campaign/dwl/DwlSacrifices.svelte';
 	import DwlUndimensioned from '$lib/components/profile/campaigns/campaign/dwl/DwlUndimensioned.svelte';
 	import DwlAscendingHill from '$lib/components/profile/campaigns/campaign/dwl/DwlAscendingHill.svelte';
 	import DwlFinale from '$lib/components/profile/campaigns/campaign/dwl/DwlFinale.svelte';
-	import DwlEpilogue from '$lib/components/profile/campaigns/campaign/dwl/DwlEpilogue.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -1064,16 +1062,16 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<TfaShatteredAeons tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaTurnBackTime'}
 			<TfaTurnBackTime tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
-		{:else if widget.id === 'dwlOpening'}
-			<DwlOpening dwl={familyDwl} />
+		{:else if widget.id === 'dwlExtracurricular'}
+			<DwlOpener scenarioId="extracurricular_activity" {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+		{:else if widget.id === 'dwlHouseAlwaysWins'}
+			<DwlOpener scenarioId="the_house_always_wins" {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlMissingPersons'}
 			<DwlMissingPersons dwl={familyDwl} />
 		{:else if widget.id === 'dwlMiskatonic'}
 			<DwlMiskatonicMuseum dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlEssex'}
 			<DwlEssex dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
-		{:else if widget.id === 'dwlSilas'}
-			<DwlSilas dwl={familyDwl} />
 		{:else if widget.id === 'dwlSacrifices'}
 			<DwlSacrifices dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlUndimensioned'}
@@ -1082,8 +1080,6 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<DwlAscendingHill dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlFinale'}
 			<DwlFinale dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
-		{:else if widget.id === 'dwlEpilogue'}
-			<DwlEpilogue dwl={familyDwl} />
 		{/if}
 	</WidgetFrame>
 {/snippet}

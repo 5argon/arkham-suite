@@ -1,4 +1,11 @@
 {
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash.",
+    "beyond_the_gates_of_sleep": 13,
+    "the_search_for_kadath": 18,
+    "dark_side_of_the_moon": 10,
+    "where_gods_dwell": 14
+  },
   "scenarioResolutionOutcomes": {
     "_notes": "Per-scenario Succeed/Failed (curation judgement). Beyond the Gates: both R1 (saved by Randolph Carter / reached the path) and R2 (cats' tribute / parleyed Zoogs branch) advance you into the Dreamlands = win; no_resolution (defeated, never reached the path) = loss. Search for Kadath: R1 (reached Kadath, the search continues) = win; no_resolution_defeated = loss; no_resolution_resigned = neutral (a voluntary early exit). Dark Side of the Moon: R1 (escaped the moon, voyage onward) = win; no_resolution_defeated = loss. Where the Gods Dwell (single-sided; the interconnected verdict is the Epilogue matrix): the two non-defeat endings R1/R2 (dreamers awoke / escaped Nyarlathotep's grasp / banished Nyarlathotep — and the bittersweet stayed-forever / traveled-beneath collapse into these resolution ids too) = win; no_resolution_defeated (Nyarlathotep's invasion has begun) = loss. Matches the existing curation outcomes note: invasion = the sole loss, every other ending = a win.",
     "beyond_the_gates_of_sleep": {

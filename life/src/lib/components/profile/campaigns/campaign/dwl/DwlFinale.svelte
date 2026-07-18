@@ -4,14 +4,19 @@ DWL bespoke widget — "Lost in Time and Space". The finale's recorded endings: 
 the tear (the standard win) / Yog-Sothoth fled (the superior win — you defeated it) /
 Yog-Sothoth became one with reality (the loss). Plus the silent "won, lost forever"
 (Act 4) ending, which writes no log — it's recovered from the Extra `final_act` choice,
-so that one count hides under Log-only mode. Lifetime counts. Built on StatNumbers.
+so that one count hides under Log-only mode. Below, the epilogue reached after any win —
+"life returned to normal" (calmed townsfolk) vs "the sign in the dirt". Lifetime counts,
+built on StatNumbers.
 -->
 <script lang="ts">
 	import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import StatNumbers, {
+		type Stat,
+		type StatGroup
+	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	// `logOnly` (global or per-campaign): drop the Extra-derived "won, lost forever" count.
@@ -29,11 +34,18 @@ so that one count hides under Log-only mode. Lifetime counts. Built on StatNumbe
 		logOnly?: boolean;
 	} = $props();
 	const f = $derived(dwl?.finale);
-	const hasData = $derived(
+	const hasFinale = $derived(
 		!!f && (f.closedTear > 0 || f.yogFled > 0 || f.yogBecameOne > 0 || (!logOnly && f.wonLostForever > 0))
 	);
-	const rows = $derived<Stat[][]>(
-		hasData && f
+
+	// The epilogue reached after any win — also reconstructed here (log + Extra), so it stays visible
+	// regardless of log-only mode, matching how the standalone widget behaved before the merge.
+	const e = $derived(dwl?.epilogue);
+	const hasEpilogue = $derived(!!e && (e.peaceful > 0 || e.ominous > 0));
+
+	const hasData = $derived(hasFinale || hasEpilogue);
+	const rows = $derived<(Stat[] | StatGroup)[]>([
+		...(hasFinale && f
 			? [
 					[
 						{ value: f.closedTear, label: m.campaign_dwl_finale_closed() },
@@ -44,8 +56,19 @@ so that one count hides under Log-only mode. Lifetime counts. Built on StatNumbe
 						? [[{ value: f.wonLostForever, label: m.campaign_dwl_finale_lost_forever() }]]
 						: [])
 				]
-			: []
-	);
+			: []),
+		...(hasEpilogue && e
+			? [
+					{
+						heading: m.campaign_dwl_epilogue_heading(),
+						stats: [
+							{ value: e.peaceful, label: m.campaign_dwl_epilogue_peaceful() },
+							{ value: e.ominous, label: m.campaign_dwl_epilogue_ominous() }
+						]
+					}
+				]
+			: [])
+	]);
 </script>
 
 <ScenarioInfo

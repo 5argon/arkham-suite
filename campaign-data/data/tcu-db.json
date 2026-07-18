@@ -39,7 +39,8 @@
         "no_resolution": "loss",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "maxXp": 10
     },
     {
       "id": "at_deaths_doorstep",
@@ -73,7 +74,8 @@
         "no_resolution": "loss",
         "R1": "win",
         "R3": "loss"
-      }
+      },
+      "maxXp": 7
     },
     {
       "id": "the_price_of_progress",
@@ -92,7 +94,8 @@
         "no_resolution": "loss",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "maxXp": 4
     },
     {
       "id": "the_wages_of_sin",
@@ -109,7 +112,8 @@
         "no_resolution_resigned": "neutral",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "maxXp": 6
     },
     {
       "id": "for_the_greater_good",
@@ -120,7 +124,8 @@
         "R1",
         "R2",
         "R3"
-      ]
+      ],
+      "maxXp": 7
     },
     {
       "id": "the_inner_circle",
@@ -141,7 +146,8 @@
         "R1": "win",
         "R4": "win",
         "R5": "win"
-      }
+      },
+      "maxXp": 8
     },
     {
       "id": "in_the_clutches_of_chaos",
@@ -160,7 +166,8 @@
         "R2": "win",
         "R3": "loss",
         "R4": "loss"
-      }
+      },
+      "maxXp": 7
     },
     {
       "id": "twist_of_fate",
@@ -222,7 +229,8 @@
         "R2": "win",
         "R3": "win",
         "R4": "win"
-      }
+      },
+      "maxXp": 2
     },
     {
       "id": "tcu_epilogue",

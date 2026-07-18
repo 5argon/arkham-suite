@@ -1,4 +1,15 @@
 {
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash. Devil Reef's 12 folds in Interlude 3 (Beneath the Waves), which has no separate highscore.",
+    "the_pit_of_despair": 6,
+    "the_vanishing_of_elina_harper": 7,
+    "in_too_deep": 6,
+    "devil_reef": 12,
+    "horror_in_high_gear": 9,
+    "a_light_in_the_fog": 7,
+    "the_lair_of_dagon": 7,
+    "into_the_maelstrom": 7
+  },
   "scenarioResolutionOutcomes": {
     "_notes": "Per-scenario Succeed/Failed (curation judgement). Success = you escaped / obtained the objective / the threat was thwarted; loss = defeated, consumed by the tide, or the Deep Ones prevailed. Single R1-vs-no_resolution scenarios are the obvious escape-vs-defeat fork (in_too_deep R1 = reached the vehicles ahead of the flood; devil_reef R1 = explored the reef and returned; horror_in_high_gear R1 = reached Falcon Point; the_lair_of_dagon R1 = disrupted the Order's ritual and escaped). a_light_in_the_fog: R1/R2 = obtained the key / the map to Y'ha-nthlei (both successes), while R3 and no_resolution_defeated are authoritative losses (result:lose, all killed). into_the_maelstrom (finale): R1 = win (the plot-thwarted/escaped branch; matches curation outcomes where R1-R7 are wins), R8 and no_resolution are authoritative losses. the_vanishing_of_elina_harper is OMITTED: its R1-R7 only record which lead/suspect you locked in (pure investigation branch); the actual success/failure is carried by the separate mission_succeeded/failed campaign note, not these resolutions — so it stays a passport with no verdicts.",
     "in_too_deep": {

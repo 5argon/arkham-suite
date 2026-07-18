@@ -14,7 +14,7 @@ import type { CampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
 import type { ResolutionTally } from '../outcomes/resolution-coverage';
 import { oathVersionFromRecord, phantomVersionFromRecord, pallidVersionFromRecord } from '../campaigns/ptc';
-import { ascendingHillVersionFromRecord } from '../campaigns/dwl';
+import { ascendingHillVersionFromRecord, openerPositionFromRecord } from '../campaigns/dwl';
 import { unionCosmosVersionFromRecord } from '../campaigns/tcu';
 import { TSK_VARIANT_SCENARIOS, tskRecordedVariant } from '../campaigns/tsk-profile';
 import { scenarioReference, scenarioResultFromResolution } from '../campaigns/tsk-solver';
@@ -165,6 +165,19 @@ export const VERSION_AXES: Record<string, VersionAxis | VersionAxis[]> = {
 	where_doom_awaits: {
 		order: ['v1', 'v2', 'v3'],
 		classify: ascendingHillVersionFromRecord,
+		versionFromLog: true
+	},
+	// DWL's two openers, playable in either order — each bucketed by the position (played first vs
+	// second) it took in this play's route. The second opener is faced by stronger, already-levelled
+	// investigators, so resolution coverage + VP high score are tracked per position. Route-derived → log-known.
+	extracurricular_activity: {
+		order: ['first', 'second'],
+		classify: (rec) => openerPositionFromRecord(rec, 'extracurricular_activity'),
+		versionFromLog: true
+	},
+	the_house_always_wins: {
+		order: ['first', 'second'],
+		classify: (rec) => openerPositionFromRecord(rec, 'the_house_always_wins'),
 		versionFromLog: true
 	},
 	// TSK: each scenario carries a version axis + a tier axis (solver reference options; the variant

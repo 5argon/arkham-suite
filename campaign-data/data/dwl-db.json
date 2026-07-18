@@ -32,7 +32,8 @@
         "R2",
         "R3",
         "R4"
-      ]
+      ],
+      "maxXp": 8
     },
     {
       "id": "the_house_always_wins",
@@ -44,7 +45,8 @@
         "R2",
         "R3",
         "R4"
-      ]
+      ],
+      "maxXp": 5
     },
     {
       "id": "armitages_fate",
@@ -73,7 +75,8 @@
           ],
           "control": "radio"
         }
-      ]
+      ],
+      "maxXp": 5
     },
     {
       "id": "the_essex_county_express",
@@ -88,7 +91,8 @@
         "R1": "win",
         "R2": "loss",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 4
     },
     {
       "id": "blood_on_the_altar",
@@ -105,7 +109,8 @@
         "R2": "loss",
         "R3": "loss",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 2
     },
     {
       "id": "dwl_interlude2",
@@ -124,7 +129,8 @@
         "R1": "loss",
         "R2": "win",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 5
     },
     {
       "id": "where_doom_awaits",
@@ -159,7 +165,8 @@
         "R1": "win",
         "R2": "loss",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 6
     },
     {
       "id": "lost_in_time_and_space",
@@ -207,7 +214,8 @@
           ],
           "control": "radio"
         }
-      ]
+      ],
+      "maxXp": 3
     },
     {
       "id": "dwl_epilogue",

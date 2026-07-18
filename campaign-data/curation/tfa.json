@@ -1,4 +1,16 @@
 {
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash.",
+    "the_untamed_wilds": 10,
+    "the_doom_of_eztli": 6,
+    "threads_of_fate": 10,
+    "the_boundary_beyond": 9,
+    "heart_of_the_elders_part_1": 7,
+    "heart_of_the_elders_part_2": 7,
+    "the_city_of_archives": 12,
+    "the_depths_of_yoth": 13,
+    "shattered_aeons": 11
+  },
   "scenarioResolutionOutcomes": {
     "_notes": "Success = expedition advanced / relic recovered / threat escaped; loss = defeated, mind-wiped, or time unravelled. Exploration scenarios (Untamed Wilds, Boundary Beyond, Heart of the Elders 1 and 2, Depths of Yoth) treat every numbered resolution as a win since each just records how far you got before escaping — only no_resolution (resign / agenda out) is a loss. Doom of Eztli R1/R3 both = relic recovered + escaped (win); no_resolution_defeated = loss, no_resolution_resigned = neutral (voluntary early exit). Threads of Fate judged R1=win / no_resolution=loss (act completed vs time-out) rather than omitted, to match every other scenario's no_resolution=loss. City of Archives confirmed by db: had_memories_expunged carries outcome:loss, so no_resolution=loss, R1 (escaped/resisted)=win. Shattered Aeons grounded in db outcome flags: R1 mended-tear, R2 saved-serpents, R3 saved-Yithians = win; R4 fabric-of-time-unwoven = loss; R5 turned-back-time = neutral (the secret rewind branch into the alternate finale, deliberately not a clean win nor a defeat, and the only Shattered Aeons resolution with no db outcome flag); no_resolution=loss. Turn Back Time (alternate finale, no widget): R1 sealed-relic-forever carries outcome:win/best, no_resolution=loss.",
     "the_untamed_wilds": {

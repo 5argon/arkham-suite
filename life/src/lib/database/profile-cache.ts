@@ -342,7 +342,10 @@ import type { SpecialInteractionsPartial } from '$lib/campaign/outcomes/special-
  *  `section.id`, + the Argument / Rachel-stance / captives-damage Extras) — the subject cache must rebuild. */
 /*  123→124: TCU `union.survivors` (missing-persons alive/dead) summed at precompute instead of hot in
  *  the Union and Disillusion widget — the subject cache must rebuild. */
-export const CACHE_VERSION = 124;
+/*  125→126: Dunwich `dwl.broodCounts` re-keyed to a per-difficulty `Record<string, ResolutionTally>`
+ *  so Undimensioned and Unseen's brood counts hover to a per-tier breakdown — the subject cache must
+ *  rebuild. */
+export const CACHE_VERSION = 126;
 
 /** The cache key for the account-wide profile. */
 export const ACCOUNT_SUBJECT = '__account__';

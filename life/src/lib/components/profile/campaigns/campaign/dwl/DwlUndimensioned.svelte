@@ -1,8 +1,9 @@
 <!--
 @component
 DWL bespoke widget — "Undimensioned and Unseen". A scoreboard of how many broods
-escaped into the wild (0 = none escaped, else the recorded count) across plays,
-plus whether you calmed or warned the townsfolk. Built on StatNumbers.
+escaped into the wild (0 = none escaped, else the recorded count) across plays —
+each count hovers to a per-difficulty breakdown — plus whether you calmed or warned
+the townsfolk. Built on StatNumbers.
 -->
 <script lang="ts">
 	import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
@@ -34,7 +35,8 @@ plus whether you calmed or warned the townsfolk. Built on StatNumbers.
 					.map(Number)
 					.sort((a, b) => a - b)
 					.map((n) => ({
-						value: dwl.broodCounts[n],
+						value: dwl.broodCounts[n].total,
+						byTier: dwl.broodCounts[n].byTier,
 						label: n === 0 ? m.campaign_dwl_broods_none() : m.campaign_dwl_broods_label({ n })
 					}))
 			: []

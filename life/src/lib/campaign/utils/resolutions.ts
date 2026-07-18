@@ -21,7 +21,7 @@ export function resolutionLabel(id: string): string {
 	return id;
 }
 
-/** Compact label for a resolution chip, e.g. `R1` → "R1", `no_resolution` → "None". */
+/** Compact label for a resolution chip, e.g. `R1` → "R1", `no_resolution` → "No". */
 export function resolutionShort(id: string): string {
 	if (/^R\d+$/.test(id)) return id;
 	if (id === 'no_resolution') return m.shared_resolution_short_none();

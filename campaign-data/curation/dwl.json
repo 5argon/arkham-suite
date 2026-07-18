@@ -9,6 +9,17 @@
     "where_doom_awaits": { "R1": "win", "R2": "loss", "no_resolution": "loss" },
     "lost_in_time_and_space": { "R1": "win", "R3": "loss", "no_resolution": "loss" }
   },
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash.",
+    "extracurricular_activity": 8,
+    "the_house_always_wins": 5,
+    "the_miskatonic_museum": 5,
+    "the_essex_county_express": 4,
+    "blood_on_the_altar": 2,
+    "undimensioned_and_unseen": 5,
+    "where_doom_awaits": 6,
+    "lost_in_time_and_space": 3
+  },
   "scenarios": {
     "essex_county_express": "the_essex_county_express"
   },

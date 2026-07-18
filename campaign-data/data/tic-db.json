@@ -26,7 +26,8 @@
       "resolutions": [
         "no_resolution_defeated",
         "R1"
-      ]
+      ],
+      "maxXp": 6
     },
     {
       "id": "puzzle_pieces",
@@ -45,7 +46,8 @@
         "R5",
         "R6",
         "R7"
-      ]
+      ],
+      "maxXp": 7
     },
     {
       "id": "the_syzygy",
@@ -62,7 +64,8 @@
       "resolutionOutcomes": {
         "R1": "win",
         "no_resolution_defeated": "loss"
-      }
+      },
+      "maxXp": 6
     },
     {
       "id": "devil_reef",
@@ -75,7 +78,8 @@
       "resolutionOutcomes": {
         "R1": "win",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 12
     },
     {
       "id": "beneath_the_waves",
@@ -92,7 +96,8 @@
       "resolutionOutcomes": {
         "R1": "win",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 9
     },
     {
       "id": "a_light_in_the_fog",
@@ -130,7 +135,8 @@
         "R2": "win",
         "R3": "loss",
         "no_resolution_defeated": "loss"
-      }
+      },
+      "maxXp": 7
     },
     {
       "id": "the_lair_of_dagon",
@@ -143,7 +149,8 @@
       "resolutionOutcomes": {
         "R1": "win",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 7
     },
     {
       "id": "hidden_truths",
@@ -182,7 +189,8 @@
         "R1": "win",
         "R8": "loss",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 7
     },
     {
       "id": "tic_epilogue",

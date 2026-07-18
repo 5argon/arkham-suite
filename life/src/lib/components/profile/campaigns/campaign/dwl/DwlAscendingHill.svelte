@@ -35,7 +35,8 @@ Plays). Below it, the scenario outcome from the log: entered the gate vs Yog-Sot
 	// version is derived from log notes (Silas / Necronomicon), so it survives log-only mode.
 	const SID = 'where_doom_awaits';
 	const meta = scenarioMeta('dwl', SID);
-	const resolutionIds = (meta?.resolutions ?? []).filter((r) => r !== 'no_resolution');
+	// Include `no_resolution` so a play that reached no scored ending lights its "None" chip.
+	const resolutionIds = meta?.resolutions ?? [];
 	const verdicts = (meta?.resolutionOutcomes ?? {}) as Record<string, 'win' | 'loss' | 'neutral'>;
 	const labels: Record<string, string> = {
 		v1: m.campaign_dwl_hill_v1(),

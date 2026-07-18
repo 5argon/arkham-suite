@@ -14,6 +14,7 @@ as a lit portrait roster below. Built on StatNumbers + LitTileGrid.
 	import { times } from '$lib/profile/plural';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
@@ -73,6 +74,7 @@ as a lit portrait roster below. Built on StatNumbers + LitTileGrid.
 			{/if}
 			{#if reKidnapAny}
 				<div class:mt-4={statRows.length}>
+					<SectionLabel>{m.campaign_dwl_essex_snatched_heading()}</SectionLabel>
 					<LitTileGrid {tiles} colsClass="grid-cols-3" />
 				</div>
 			{/if}

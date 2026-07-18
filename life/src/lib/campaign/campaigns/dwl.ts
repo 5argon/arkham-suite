@@ -5,8 +5,10 @@
  *
  * Everything is derived from each play's `RecordedCampaignState` (+ the derived
  * `route`), no raw-log access:
- *   • opening   — which of the two opener scenarios was played FIRST, from `route`
- *                 (the entry-ordered scenario sequence). Either order is legal in DWL.
+ *   • openers   — the two opener scenarios (Extracurricular Activity / The House Always
+ *                 Wins), playable in EITHER order. Each opener's per-position (played
+ *                 first vs second) breakdown rides the unified scenarios record via the
+ *                 `openerPositionFromRecord` version axis, not this blob.
  *   • persons   — the three kidnapped scholars (Rice / Morgan / Armitage): rescued,
  *                 kidnapped, and "snatched again" (rescued AND kidnapped both recorded —
  *                 a rescued ally re-taken when you LOSE Essex County Express / Miskatonic
@@ -30,6 +32,8 @@
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
 import { filterFamilyRecords } from '../records/campaign-family';
+import type { ResolutionTally } from '../outcomes/resolution-coverage';
+import { bumpTally, ensureTally, emptyTally } from '../utils/tally';
 
 const DWL_FAMILY = 'dwl';
 const NOTES = 'campaign_notes';
@@ -87,8 +91,10 @@ export interface DwlPersonTally {
 	snatchedAgain: number;
 }
 export interface DwlSacrificeTally {
-	survived: number;
-	sacrificed: number;
+	/** Times this ally survived to the campaign's end, per difficulty. */
+	survived: ResolutionTally;
+	/** Times this ally was sacrificed at Blood on the Altar, per difficulty. */
+	sacrificed: ResolutionTally;
 }
 
 export interface CampaignDwl {
@@ -96,13 +102,6 @@ export interface CampaignDwl {
 	family: string;
 	/** Total DWL plays counted. */
 	plays: number;
-	// ── the two openers (either may be played first) ──
-	/** Plays where Extracurricular Activity was the first opener played. */
-	eaFirst: number;
-	/** Plays where The House Always Wins was the first opener played. */
-	thawFirst: number;
-	/** Plays where both openers appear in the route (the unambiguous denominator). */
-	bothOpeners: number;
 	// ── the kidnapped scholars ──
 	/** person id → rescue/kidnap tally. */
 	persons: Record<string, DwlPersonTally>;
@@ -116,8 +115,9 @@ export interface CampaignDwl {
 	/** The Miskatonic Museum opening approach (unlogged — recorded as an Extra-tab choice). */
 	miskatonicApproach: { brokeIn: number; spokeToAdam: number };
 	// ── Undimensioned and Unseen ──
-	/** brood-escaped count (0..n) → plays that ended with exactly that many escaped. */
-	broodCounts: Record<number, number>;
+	/** brood-escaped count (0..n, as a string key) → plays that ended with exactly that many
+	 *  escaped, with a per-difficulty breakdown (`byTier`) for the widget's hover. */
+	broodCounts: Record<string, ResolutionTally>;
 	/** Plays that reached U&U and recorded a brood outcome (no_brood OR a count). */
 	broodPlays: number;
 	townsfolk: { calmed: number; warned: number };
@@ -139,6 +139,23 @@ export interface CampaignDwl {
  * (sliced by `family` like the other per-campaign data), or empty when the
  * subject has no DWL plays.
  */
+/** Which position one of the two openers was played in this play — 'first' or 'second' — from the
+ *  route (the entry-ordered scenario sequence). Both openers must appear in the route to place them
+ *  unambiguously; otherwise null (the play is skipped from the per-position breakdown). The version
+ *  axis the shared per-position table buckets each opener by. `scenarioId` must be one of the two. */
+export function openerPositionFromRecord(
+	rec: CampaignRecord,
+	scenarioId: string
+): 'first' | 'second' | null {
+	const route = rec.route ?? [];
+	const selfIdx = route.indexOf(scenarioId);
+	if (selfIdx < 0) return null;
+	const otherId = scenarioId === EA ? THAW : EA;
+	const otherIdx = route.indexOf(otherId);
+	if (otherIdx < 0) return null;
+	return selfIdx < otherIdx ? 'first' : 'second';
+}
+
 /** The Act 2 (Ascending the Hill) version a play faced — derived from reaching Where Doom Awaits +
  *  the Silas / Necronomicon notes; null if the play never reached WDA. The version axis the shared
  *  per-version breakdown table buckets by. */
@@ -157,16 +174,14 @@ export function buildDwl(records: CampaignRecord[]): CampaignDwl[] {
 	const dwlRecords = filterFamilyRecords(records, DWL_FAMILY);
 	if (dwlRecords.length === 0) return [];
 
-	let eaFirst = 0;
-	let thawFirst = 0;
-	let bothOpeners = 0;
 	const persons: Record<string, DwlPersonTally> = {};
 	for (const p of DWL_PERSONS) persons[p.id] = { rescued: 0, kidnapped: 0, snatchedAgain: 0 };
 	const sacrifices: Record<string, DwlSacrificeTally> = {};
-	for (const a of DWL_SACRIFICE_ALLIES) sacrifices[a.id] = { survived: 0, sacrificed: 0 };
+	for (const a of DWL_SACRIFICE_ALLIES)
+		sacrifices[a.id] = { survived: emptyTally(), sacrificed: emptyTally() };
 	const silas = { killed: 0, restored: 0, banished: 0 };
 	const necronomicon = { took: 0, destroyed: 0, failed: 0, stolen: 0 };
-	const broodCounts: Record<number, number> = {};
+	const broodCounts: Record<string, ResolutionTally> = {};
 	let broodPlays = 0;
 	const townsfolk = { calmed: 0, warned: 0 };
 	const wda = { enteredGate: 0, yogEscaped: 0 };
@@ -177,17 +192,7 @@ export function buildDwl(records: CampaignRecord[]): CampaignDwl[] {
 	for (const rec of dwlRecords) {
 		const logs = rec.recorded.recordedLogs ?? new Set<string>();
 		const has = (key: string) => logs.has(key);
-
-		// Opening order — first of the two openers to appear in the play's route.
-		const route = rec.route ?? [];
-		const eaIdx = route.indexOf(EA);
-		const thawIdx = route.indexOf(THAW);
-		if (eaIdx >= 0 && thawIdx >= 0) {
-			bothOpeners += 1;
-			if (eaIdx < thawIdx) eaFirst += 1;
-			else thawFirst += 1;
-		} else if (eaIdx >= 0) eaFirst += 1;
-		else if (thawIdx >= 0) thawFirst += 1;
+		const tier = rec.recorded.difficulty ?? 'standard';
 
 		// Kidnapped scholars — rescued / kidnapped (and both = snatched again).
 		for (const p of DWL_PERSONS) {
@@ -201,8 +206,8 @@ export function buildDwl(records: CampaignRecord[]): CampaignDwl[] {
 		// Blood on the Altar — survived vs sacrificed.
 		const sacrificed = rec.recorded.recordedSectionItems?.[SACRIFICED_SECTION];
 		for (const a of DWL_SACRIFICE_ALLIES) {
-			if (has(k(`${a.id}_survived`))) sacrifices[a.id].survived += 1;
-			if (sacrificed?.has(a.code)) sacrifices[a.id].sacrificed += 1;
+			if (has(k(`${a.id}_survived`))) bumpTally(sacrifices[a.id].survived, tier);
+			if (sacrificed?.has(a.code)) bumpTally(sacrifices[a.id].sacrificed, tier);
 		}
 		if (has(SILAS_KILLED)) silas.killed += 1;
 		if (has(SILAS_RESTORED)) silas.restored += 1;
@@ -219,13 +224,13 @@ export function buildDwl(records: CampaignRecord[]): CampaignDwl[] {
 		if (approach === 'broke_in') miskatonicApproach.brokeIn += 1;
 		else if (approach === 'spoke_to_adam') miskatonicApproach.spokeToAdam += 1;
 
-		// Undimensioned and Unseen — brood distribution + townsfolk.
+		// Undimensioned and Unseen — brood distribution (per difficulty) + townsfolk.
 		if (has(NO_BROOD)) {
-			broodCounts[0] = (broodCounts[0] ?? 0) + 1;
+			bumpTally(ensureTally(broodCounts, '0'), tier);
 			broodPlays += 1;
 		} else if (has(BROOD_COUNT)) {
 			const n = rec.recorded.logCounts?.[BROOD_COUNT] ?? 0;
-			broodCounts[n] = (broodCounts[n] ?? 0) + 1;
+			bumpTally(ensureTally(broodCounts, String(n)), tier);
 			broodPlays += 1;
 		}
 		if (has(CALMED)) townsfolk.calmed += 1;
@@ -256,9 +261,6 @@ export function buildDwl(records: CampaignRecord[]): CampaignDwl[] {
 		{
 			family: DWL_FAMILY,
 			plays: dwlRecords.length,
-			eaFirst,
-			thawFirst,
-			bothOpeners,
 			persons,
 			sacrifices,
 			silas,

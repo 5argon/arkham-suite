@@ -1,9 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 
-	"campaign_dwl_opening_ea": "Extracurricular Activity first",
-	"campaign_dwl_opening_thaw": "The House Always Wins first",
-	"campaign_dwl_opening_empty": "Play the two opening cases to see which you tackle first.",
+	"campaign_dwl_opener_first": "Played first",
+	"campaign_dwl_opener_second": "Played second",
+	"campaign_dwl_opener_empty": "Play this opening case to break down first vs second.",
 
 	"campaign_dwl_person_warren_rice": "Warren Rice",
 	"campaign_dwl_person_francis_morgan": "Francis Morgan",
@@ -19,14 +19,14 @@
 	"campaign_dwl_persons_snatched": "Snatched again {times}",
 
 	"campaign_dwl_sacrifices_empty": "Reach Blood on the Altar to tally the fallen.",
-	"campaign_dwl_sacrifices_survived": "Survived {times}",
-	"campaign_dwl_sacrifices_sacrificed": "Sacrificed {times}",
-	"campaign_dwl_sacrifices_safe": "Never sacrificed",
+	"campaign_dwl_sacrifices_ally": "Ally",
+	"campaign_dwl_sacrifices_survived": "Survived",
+	"campaign_dwl_sacrifices_sacrificed": "Sacrificed",
 
 	"campaign_dwl_necronomicon_took": "Took custody",
 	"campaign_dwl_necronomicon_destroyed": "Destroyed it",
 	"campaign_dwl_necronomicon_failed": "Failed to recover",
-	"campaign_dwl_necronomicon_stolen": "Stolen on the train",
+	"campaign_dwl_necronomicon_stolen": "Necronomicon stolen",
 	"campaign_dwl_necronomicon_empty": "Reach the Miskatonic Museum to track the Necronomicon.",
 
 	"campaign_dwl_miskatonic_broke_in": "Broke in",
@@ -37,11 +37,12 @@
 
 	"campaign_dwl_essex_empty": "Reach the Essex County Express to see what the train takes back.",
 	"campaign_dwl_essex_safe": "Not taken here",
+	"campaign_dwl_essex_snatched_heading": "Snatched again",
 
+	"campaign_dwl_silas_heading": "Silas Bishop",
 	"campaign_dwl_silas_killed": "Put out of his misery",
 	"campaign_dwl_silas_restored": "Restored",
 	"campaign_dwl_silas_banished": "Banished",
-	"campaign_dwl_silas_empty": "Reach Blood on the Altar to decide Silas Bishop's fate.",
 
 	"campaign_dwl_broods_label": "{n} escaped",
 	"campaign_dwl_broods_none": "None escaped",
@@ -62,7 +63,7 @@
 	"campaign_dwl_finale_lost_forever": "Won, lost forever (Act 4)",
 	"campaign_dwl_finale_empty": "Reach Lost in Time and Space to tally its endings.",
 
+	"campaign_dwl_epilogue_heading": "The Epilogue",
 	"campaign_dwl_epilogue_peaceful": "Life returned to normal",
-	"campaign_dwl_epilogue_ominous": "The sign in the dirt",
-	"campaign_dwl_epilogue_empty": "Win the campaign to reach an epilogue."
+	"campaign_dwl_epilogue_ominous": "The sign in the dirt"
 }

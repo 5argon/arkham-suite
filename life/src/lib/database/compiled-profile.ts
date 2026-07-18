@@ -329,7 +329,10 @@ export type CompiledProfile = ReturnType<typeof stripCompiledProfile>;
  *  blobs; and `scenarios` re-keyed by full `section.id` — so the blob recomputes. */
 /*  54→55: TCU Union and Disillusion — the missing-persons Union survival totals (alive/dead) are
  *  summed into a `union.survivors` field at precompute instead of hot in the widget — recompute. */
-export const COMPILED_PROFILE_VERSION = 55;
+/*  56→57: Dunwich `dwl.broodCounts` re-keyed from `Record<number, number>` to a per-difficulty
+ *  `Record<string, ResolutionTally>` so the Undimensioned and Unseen brood counts hover to a
+ *  per-tier breakdown — so the blob recomputes. */
+export const COMPILED_PROFILE_VERSION = 57;
 
 /**
  * The on-disk/over-the-wire compiled-profile file (`.ahlifepro`, or its plain

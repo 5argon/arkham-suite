@@ -32,7 +32,8 @@
         "R1": "win",
         "R2": "win",
         "no_resolution": "loss"
-      }
+      },
+      "maxXp": 13
     },
     {
       "id": "the_black_cat",
@@ -71,7 +72,8 @@
         "R1": "win",
         "no_resolution_resigned": "neutral",
         "no_resolution_defeated": "loss"
-      }
+      },
+      "maxXp": 18
     },
     {
       "id": "the_oneironauts",
@@ -88,7 +90,8 @@
       "resolutionOutcomes": {
         "R1": "win",
         "no_resolution_defeated": "loss"
-      }
+      },
+      "maxXp": 10
     },
     {
       "id": "the_great_ones",
@@ -107,7 +110,8 @@
         "R1": "win",
         "R2": "win",
         "no_resolution_defeated": "loss"
-      }
+      },
+      "maxXp": 14
     },
     {
       "id": "tde_epilogue",

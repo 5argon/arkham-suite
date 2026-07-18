@@ -689,10 +689,22 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 	{ id: 'fhvFinalEvening', label: 'The Final Evening', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
 	{ id: 'fhvFate', scenario: 'fate_of_the_vale', label: 'Fate of the Vale', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv', fullWidth: true },
 	{ id: 'fhvCurse', label: 'The Hemlock Curse', panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'fhv' },
-	// DWL: per-scenario tallies (all log-derived) for The Dunwich Legacy.
+	// DWL: per-scenario tallies (all log-derived) for The Dunwich Legacy. The two openers are
+	// playable in either order; each is a passport whose table splits first- vs second-played.
 	{
-		id: 'dwlOpening',
-		label: 'The First Case',
+		id: 'dwlExtracurricular',
+		scenario: 'extracurricular_activity',
+		label: 'Extracurricular Activity',
+		panes: ['campaignDetail'],
+		primaryPane: 'campaignDetail',
+		scope: 'perCampaign',
+		perCampaignExtra: true,
+		campaign: 'dwl'
+	},
+	{
+		id: 'dwlHouseAlwaysWins',
+		scenario: 'the_house_always_wins',
+		label: 'The House Always Wins',
 		panes: ['campaignDetail'],
 		primaryPane: 'campaignDetail',
 		scope: 'perCampaign',
@@ -725,15 +737,6 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 		id: 'dwlEssex',
 		scenario: 'the_essex_county_express',
 		label: 'The Essex County Express',
-		panes: ['campaignDetail'],
-		primaryPane: 'campaignDetail',
-		scope: 'perCampaign',
-		perCampaignExtra: true,
-		campaign: 'dwl'
-	},
-	{
-		id: 'dwlSilas',
-		label: 'Silas Bishop',
 		panes: ['campaignDetail'],
 		primaryPane: 'campaignDetail',
 		scope: 'perCampaign',
@@ -783,15 +786,6 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 		// closed-tear / Yog-fled / became-one are log-derived; the Act-4 "won, lost forever"
 		// is recovered from the Extra `final_act` choice, so it hides under Log-only mode.
 		nonLog: 'partial'
-	},
-	{
-		id: 'dwlEpilogue',
-		label: 'The Epilogue',
-		panes: ['campaignDetail'],
-		primaryPane: 'campaignDetail',
-		scope: 'perCampaign',
-		perCampaignExtra: true,
-		campaign: 'dwl'
 	},
 	// EotE: which City of the Elder Things version (manually recorded), plays, resolutions, VP.
 	{
@@ -1100,16 +1094,15 @@ const WIDGET_LABEL_MSG: Record<string, () => string> = {
 	fhvDance: m.framework_label_fhv_dance,
 	fhvScLongestNight: m.framework_label_fhv_sc_longest_night,
 	fhvFinalEvening: m.framework_label_fhv_final_evening,
-	dwlOpening: m.framework_label_dwl_opening,
+	dwlExtracurricular: m.framework_label_dwl_extracurricular,
+	dwlHouseAlwaysWins: m.framework_label_dwl_house_always_wins,
 	dwlMissingPersons: m.framework_label_dwl_missing_persons,
 	dwlMiskatonic: m.framework_label_dwl_miskatonic,
 	dwlEssex: m.framework_label_dwl_essex,
-	dwlSilas: m.framework_label_dwl_silas,
 	dwlSacrifices: m.framework_label_dwl_sacrifices,
 	dwlUndimensioned: m.framework_label_dwl_undimensioned,
 	dwlAscendingHill: m.framework_label_dwl_ascending_hill,
 	dwlFinale: m.framework_label_dwl_finale,
-	dwlEpilogue: m.framework_label_dwl_epilogue,
 	eoeCity: m.framework_label_eoe_city,
 	eoeCrash: m.framework_label_eoe_crash,
 	eoeDemons: m.framework_label_eoe_demons,

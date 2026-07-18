@@ -300,20 +300,21 @@ function tskCampaignLayout(): ProfileRow[] {
 
 /**
  * The Dunwich Legacy's bespoke per-scenario widgets, hand-paired: the small stat
- * tallies sit in split rows, the portrait grids (the missing scholars, the altar's
- * fallen) and the brood scoreboard keep full rows — interleaved with the shared
- * Overview / XP / Resolution / Achievements rows in campaign-book order.
+ * tallies sit in split rows, Blood on the Altar (its allies + Silas) keeps a full row —
+ * interleaved with the shared Overview / XP / Resolution / Achievements rows in
+ * campaign-book order. The missing-scholars roster rides beside the overview, the two
+ * openers (played in either order) pair up just before the Miskatonic Museum, and Lost
+ * in Time and Space (finale + epilogue) closes the scenario rows.
  */
 function dwlCampaignLayout(): ProfileRow[] {
 	return [
-		split('overview', 'dwlOpening'),
+		split('overview', 'dwlMissingPersons'),
 		split('scenarioXp', 'resolutionCoverage'),
-		full('dwlMissingPersons'),
+		split('dwlExtracurricular', 'dwlHouseAlwaysWins'),
 		split('dwlMiskatonic', 'dwlEssex'),
 		full('dwlSacrifices'),
-		split('dwlSilas', 'dwlUndimensioned'),
-		split('dwlAscendingHill', 'dwlFinale'),
-		split('dwlEpilogue', null),
+		split('dwlUndimensioned', 'dwlAscendingHill'),
+		split('dwlFinale', null),
 		full('achievements')
 	];
 }

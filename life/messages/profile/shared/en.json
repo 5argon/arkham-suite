@@ -65,6 +65,6 @@
 	"shared_resolution_n": "Resolution {n}",
 	"shared_resolution_none": "No resolution was reached",
 	"shared_resolution_none_tail": "No resolution — {tail}",
-	"shared_resolution_short_none": "None",
-	"shared_resolution_short_none_tail": "None·{tail}"
+	"shared_resolution_short_none": "No",
+	"shared_resolution_short_none_tail": "No·{tail}"
 }

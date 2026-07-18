@@ -1,4 +1,11 @@
 {
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash.",
+    "waking_nightmare": 12,
+    "a_thousand_shapes_of_horror": 7,
+    "point_of_no_return": 12,
+    "weaver_of_the_cosmos": 7
+  },
   "scenarioResolutionOutcomes": {
     "_notes": "Per-scenario Succeed/Failed (curation judgement). Success = you escaped / completed the dream-passage / destroyed Atlach-Nacha's web; loss = defeated, or the web was completed/you never escaped. Waking Nightmare R1-R4 are all successful hospital-escape branches (they differ only on Dr. Maheswaran's fate and how Randolph escaped, not win/loss) -> all win; no_resolution_defeated -> loss, no_resolution_resigned -> neutral (a voluntary early exit, per the no_resolution_resigned convention). A Thousand Shapes R1/R2 and Point of No Return R1/R2 both complete the Underworld leg and advance (sub-branches on Randolph's survival / Silver Key / the black cat's knowledge), so both = win; no_resolution_defeated -> loss. Weaver of the Cosmos finale (verified against campaign-data outcomes + resolutionEffects): R1 = bridge destroyed -> returned to reality, the clean win; R2 = bridge completed (all investigators driven insane) -> loss; no_resolution = never escaped (all killed) -> loss. (still_in_the_dreamlands is the bittersweet sub-flavor of the R1 web-destroyed win, not a separate resolution id.)",
     "waking_nightmare": {

@@ -52,7 +52,8 @@
           },
           "after": "resolution"
         }
-      ]
+      ],
+      "maxXp": 10
     },
     {
       "id": "tfa_interlude1",
@@ -101,7 +102,8 @@
           },
           "after": "resolution"
         }
-      ]
+      ],
+      "maxXp": 6
     },
     {
       "id": "tfa_interlude2",
@@ -149,7 +151,8 @@
           ],
           "control": "radio"
         }
-      ]
+      ],
+      "maxXp": 10
     },
     {
       "id": "the_boundary_beyond",
@@ -164,7 +167,8 @@
         "no_resolution": "loss",
         "R1": "win",
         "R2": "win"
-      }
+      },
+      "maxXp": 9
     },
     {
       "id": "tfa_interlude3",
@@ -204,7 +208,8 @@
           },
           "after": "resolution"
         }
-      ]
+      ],
+      "maxXp": 7
     },
     {
       "id": "heart_of_the_elders_part_2",
@@ -240,7 +245,8 @@
           },
           "after": "resolution"
         }
-      ]
+      ],
+      "maxXp": 7
     },
     {
       "id": "the_city_of_archives",
@@ -277,7 +283,8 @@
           },
           "after": "resolution"
         }
-      ]
+      ],
+      "maxXp": 12
     },
     {
       "id": "tfa_interlude4",
@@ -328,7 +335,8 @@
           "max": 15,
           "after": "resolution"
         }
-      ]
+      ],
+      "maxXp": 13
     },
     {
       "id": "tfa_interlude5",
@@ -373,7 +381,8 @@
         "R3": "win",
         "R4": "loss",
         "R5": "neutral"
-      }
+      },
+      "maxXp": 11
     },
     {
       "id": "tfa_epilogue",

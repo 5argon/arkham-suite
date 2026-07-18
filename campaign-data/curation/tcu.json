@@ -1,4 +1,15 @@
 {
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash.",
+    "the_witching_hour": 10,
+    "at_deaths_doorstep": 7,
+    "the_secret_name": 4,
+    "the_wages_of_sin": 6,
+    "for_the_greater_good": 7,
+    "union_and_disillusion": 8,
+    "in_the_clutches_of_chaos": 7,
+    "before_the_black_throne": 2
+  },
   "scenarioResolutionOutcomes": {
     "_notes": "No mid-campaign TCU scenario carries explicit win/lose tokens (the campaign continues regardless), so verdicts are curation judgement from the ArkhamCards resolution text/steps — matching the DWL/PtC convention. Witching Hour R1/R2 both fire witches_spell_broken (objective met) = win; no_resolution = spell cast / failure = loss. At Death's Doorstep R1 = investigators_escaped_the_spectral_realm = win; R3 = never_seen_again (party killed and replaced) = loss; no_resolution = loss. Secret Name R1/R2 = you escape the Witch House alive (R1 survives with regret, R2 the cleaner escape) = win; no_resolution (dragged into the vortex) = loss. Wages of Sin R1 = mist dispelled = win, R2 = survived_the_watchers_embrace (a spared survival the widget celebrates) = win, no_resolution_defeated = loss, no_resolution_resigned = neutral (voluntary resign). Clutches of Chaos R1/R2 = you contain the immediate threat (choose Anette's/Carl's fate) and press on = win, R3/R4 = doom_draws_ever_closer (a faction completes its apocalyptic rite, the threat prevails) = loss, no_resolution = loss. Before the Black Throne is the one with authoritative effect flags: R1 azathoth_devoured = loss, R2 lead_investigator_joins_pipers+azathoth_slumbers = win, R3 azathoth_slumbers (clean) = win, R4→R5 signed_the_black_book = win_question_mark (a dark/pyrrhic win — universe spared) = win, no_resolution = loss. Union and Disillusion R1/R4/R5 (Sanford binds the revenant; Anette and her coven claim it; or the third branch) all = win — you complete the climactic veil-parting ritual and survive (not an easy scenario to finish), even though which faction ascends is a special campaign branch; no_resolution (you flee in a fit of madness) = loss. Omitted two scenarios as branch-only / pure setup (still wrapped as passports, chips render without verdicts): disappearance_at_the_twilight_estate (forced prologue, no_resolution-only setup — the four are always taken) and for_the_greater_good (Lodge-allegiance branch: open box / hide it / slay guardian — all survive, no win/lose).",
     "the_witching_hour": {
