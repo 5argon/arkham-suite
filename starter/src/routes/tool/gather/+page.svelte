@@ -248,9 +248,10 @@
 			searchParams.push(`p${i + 1}=${deck.id}`);
 		});
 
-		const newUrl =
-			searchParams.length > 0 ? `/tool/gather?${searchParams.join('&')}` : '/tool/gather';
-		goto(resolve(newUrl, {}), { replaceState: true });
+		// `resolve` takes a route id, so the query string has to be appended after it.
+		const base = resolve('/tool/gather');
+		const newUrl = searchParams.length > 0 ? `${base}?${searchParams.join('&')}` : base;
+		goto(newUrl, { replaceState: true });
 	}
 
 	const sharingUrl = $derived.by(() => {

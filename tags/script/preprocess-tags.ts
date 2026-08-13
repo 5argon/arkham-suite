@@ -4,7 +4,7 @@
  */
 
 import { expandGlob } from "https://deno.land/std/fs/mod.ts"
-import { join } from "https://deno.land/std/path/mod.ts"
+import { basename, join } from "https://deno.land/std/path/mod.ts"
 
 const aiFolder = "./ai"
 const rawFolder = "./raw"
@@ -159,7 +159,7 @@ async function processRawFile(filePath: string) {
   }))
 
   // Write to ai folder with same filename
-  const fileName = filePath.split("/").pop()!
+  const fileName = basename(filePath)
   const aiFilePath = join(aiFolder, fileName)
   await Deno.writeTextFile(aiFilePath, JSON.stringify(aiCards, null, 2))
 }
@@ -204,7 +204,7 @@ async function processAiFile(filePath: string) {
     })
   })
 
-  const processedFilePath = join(processedFolder, filePath.split("/").pop()!)
+  const processedFilePath = join(processedFolder, basename(filePath))
   await Deno.writeTextFile(processedFilePath, JSON.stringify(cards, null, 2))
 }
 

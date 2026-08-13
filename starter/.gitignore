@@ -3,6 +3,8 @@ node_modules
 /build
 /.svelte-kit
 /package
+# `tsc -b` from the repo root emits declarations here (emitDeclarationOnly).
+/dist
 .env
 .env.*
 !.env.example

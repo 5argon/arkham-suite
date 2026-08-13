@@ -6,6 +6,8 @@ node_modules
 .vercel
 /.svelte-kit
 /build
+# `tsc -b` from the repo root emits declarations here (emitDeclarationOnly).
+/dist
 
 # OS
 .DS_Store

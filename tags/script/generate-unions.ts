@@ -56,8 +56,10 @@ async function scanTagFiles(): Promise<Map<string, CategoryData>> {
     const content = await Deno.readTextFile(entry.path);
     const { enumTypes, interfaces } = parseTagFile(content);
 
-    // Get category folder (first level subdirectory)
-    const relativePath = relative(tagsDir, entry.path);
+    // Get category folder (first level subdirectory). `relative` returns the host
+    // separator, so normalise before splitting or on Windows the whole relative path
+    // ("action\additional.ts") becomes the folder name and the generated imports break.
+    const relativePath = relative(tagsDir, entry.path).replaceAll("\\", "/");
     const folder = relativePath.split("/")[0];
 
     if (!categoryMap.has(folder)) {

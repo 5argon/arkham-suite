@@ -7,7 +7,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"paraglide-compile": "npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide"
+		"paraglide-compile": "paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide"
 	},
 	"sideEffects": [
 		"**/*.css"

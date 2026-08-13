@@ -3,6 +3,11 @@
     "private": true,
     "version": "0.0.1",
     "scripts": {
+        "setup": "yarn install && yarn generate && yarn build",
+        "generate": "yarn generate:paraglide && yarn generate:svelte-kit && yarn generate:icon",
+        "generate:paraglide": "yarn workspace @5argon/arkham-string paraglide && yarn workspace @5argon/arkham-life-ui paraglide-compile && yarn workspace @5argon/arkham-starter paraglide-compile && yarn workspace @5argon/arkham-life paraglide-compile",
+        "generate:svelte-kit": "yarn workspace @5argon/arkham-icon exec svelte-kit sync && yarn workspace @5argon/arkham-life-ui exec svelte-kit sync && yarn workspace @5argon/arkham-life exec svelte-kit sync && yarn workspace @5argon/arkham-starter exec svelte-kit sync",
+        "generate:icon": "yarn workspace @5argon/arkham-icon package",
         "build": "tsc -b",
         "clean": "tsc -b --clean"
     },

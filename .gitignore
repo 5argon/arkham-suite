@@ -1,3 +1,7 @@
 node_modules
 tsconfig.tsbuildinfo
 deno.lock
+
+# Yarn rewrites this binary cache on every `yarn install`, so tracking it means
+# every machine dirties the tree just by installing.
+/.yarn/install-state.gz

@@ -1,3 +1,4 @@
 {
-  "nodeModulesDir": "auto"
+  "//": "Keep Deno out of Yarn's node_modules. With \"auto\", any deno command run from inside the repo replaces the Yarn-installed node_modules with Deno's own .deno layout, and a plain `yarn install` does not undo it. \"none\" makes Deno resolve npm: specifiers from its own global cache instead.",
+  "nodeModulesDir": "none"
 }

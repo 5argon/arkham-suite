@@ -2,6 +2,20 @@
 
 This is a monorepo for https://arkham-starter.com (already online) and https://arkham.life (campaign archival site, experimenting) which is facilitated by Yarn workspaces.
 
+## Getting started
+
+Needs Node 22+, Yarn 4 (`corepack enable`), plus `bun` and `deno` on `PATH`.
+
+```sh
+cp starter/.env.example starter/.env
+yarn setup
+yarn workspace @5argon/arkham-starter dev
+```
+
+`yarn setup` installs, generates the Paraglide messages / `svelte-kit sync` output /
+`icon`'s `dist` that the repo does not track, then builds. See
+[AGENTS.md](./AGENTS.md) for the per-package detail and the known-broken list.
+
 ## SvelteKit Site Packages
 
 - `/starter` : `@5argon/arkham-starter`

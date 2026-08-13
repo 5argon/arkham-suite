@@ -214,11 +214,10 @@
 			searchParams.push(`b${i + 1}=${deck.id}`);
 		});
 
-		const newUrl =
-			searchParams.length > 0
-				? `/tool/campaign-overlaps?${searchParams.join('&')}`
-				: '/tool/campaign-overlaps';
-		goto(resolve(newUrl, {}), { replaceState: true });
+		// `resolve` takes a route id, so the query string has to be appended after it.
+		const base = resolve('/tool/campaign-overlaps');
+		const newUrl = searchParams.length > 0 ? `${base}?${searchParams.join('&')}` : base;
+		goto(newUrl, { replaceState: true });
 	}
 
 	const sharingUrl = $derived.by(() => {

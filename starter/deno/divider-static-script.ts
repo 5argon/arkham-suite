@@ -16,7 +16,9 @@ interface ResultItem2 {
 const results: Result = []
 const map = new Map<string, Set<string>>()
 for await (const entry of walk('static/image/divider', { includeDirs: false })) {
-	const splitted = entry.path.split('/')
+	// `walk` yields host separators, so normalise before splitting — on Windows the
+	// path would otherwise be one segment and nothing matches the length check.
+	const splitted = entry.path.replaceAll('\\', '/').split('/')
 	if (splitted.length === 6) {
 		const folder = splitted[4]
 		const fileSplit = splitted[5].split('_')

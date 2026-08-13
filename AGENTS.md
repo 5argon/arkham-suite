@@ -7,6 +7,125 @@ A monorepository that makes up 2 sites: https://arkham-starter.com and https://a
 
 Both are SvelteKit site using Svelte 5.
 
+## Machine Setup
+
+Works on macOS and Windows. Everything below is the same on both.
+
+### Required tools
+
+| Tool | Why | Install |
+| --- | --- | --- |
+| Node 22+ | Everything | nodejs.org, or `winget install OpenJS.NodeJS.LTS` |
+| Yarn 4 | The package manager for the whole monorepo | `corepack enable` (the `packageManager` field pins the version) |
+| `bun` | `string`'s `import` script, and `publint` inside `icon`'s `package` step shells out to `bun pm pack` | `npm i -g bun` |
+| `deno` | Every script under `cards-json/scripts`, `tags/script`, `starter/deno`, and `icon/tool` | `npm i -g deno` |
+
+Optional, only for `starter`'s `screenshot:setup` script and the Playwright suites:
+
+- `yarn workspace @5argon/arkham-starter playwright install chromium`. The browser
+  build is pinned to the Playwright version, so a Chromium already on the machine
+  from some other project usually will not match.
+
+Optional, only for the card-image pipeline in `cards-json`:
+
+- `rclone`, configured with an `r2ahlcg:` remote pointing at the `arkham-card-images`
+  R2 bucket — needed by `yarn sync` only.
+- A `pack/` folder pulled from
+  [arkhamdb-json-data](https://github.com/Kamalisk/arkhamdb-json-data) — it is
+  gitignored, so it has to be placed there by hand.
+
+### First run on a new machine
+
+```sh
+cp starter/.env.example starter/.env   # PUBLIC_CARD_CDN_URL
+yarn setup
+```
+
+`yarn setup` = `yarn install` + `yarn generate` + `yarn build`, and `yarn generate`
+produces everything that is gitignored but required before anything type-checks:
+
+1. `yarn generate:paraglide` — Paraglide message functions for `string`, `ui`,
+   `starter` and `life`. Nothing compiles before this.
+2. `yarn generate:svelte-kit` — `svelte-kit sync` in `icon`, `ui`, `life` and
+   `starter`. Their `tsconfig.json` files extend `./.svelte-kit/tsconfig.json`, so
+   this has to exist first.
+3. `yarn generate:icon` — `icon`'s `dist/` via svelte-package. `ui` and `starter`
+   import `@5argon/arkham-icon` from `dist/`, so without it they report dozens of
+   "Cannot find module '@5argon/arkham-icon'" errors.
+
+Then `yarn build` (`tsc -b`) builds the `dist/` of the pre-built packages.
+
+### Checking your work
+
+- `yarn build` at the root — all pre-built packages, and type-checks `life` and
+  `starter` through project references. Expected to be clean.
+- `yarn workspace @5argon/arkham-starter check` — svelte-check on the site. Expected
+  to be clean apart from `<slot>`-deprecation warnings.
+- `yarn workspace @5argon/arkham-collection test` — the only real test suite (45 tests).
+
+### Yarn and Deno share one `node_modules`
+
+The root `deno.json` sets `nodeModulesDir: "none"` on purpose. With the previous
+`"auto"`, any `deno` command run from a directory inside the repo replaced Yarn's
+`node_modules` with Deno's own `node_modules/.deno` layout plus symlinks — so
+dependency versions came from Deno's resolver instead of `yarn.lock`, and a plain
+`yarn install` did not undo it (Yarn's install state still looked current, so the
+symlinks into `.deno` survived; only `rm -rf node_modules && yarn install` repaired
+it). With `"none"`, Deno resolves `npm:` specifiers from its own global cache and
+leaves `node_modules` alone. Don't switch it back.
+
+### Notes for Windows
+
+- Line endings are pinned to LF by `.gitattributes`. Git for Windows sets
+  `core.autocrlf=true` in its system config, so without that file a Windows checkout
+  gets CRLF everywhere. `git status` hides it (the same setting normalises on the way
+  back in), but `prettier --check` defaults to `endOfLine: "lf"` and so reports every
+  one of those files as unformatted — `yarn lint` is unusable in that state.
+  A checkout made **before** `.gitattributes` existed keeps its CRLF; renormalise it
+  once with:
+
+  ```sh
+  git rm --cached -r -q .
+  git reset --hard
+  ```
+
+  Verify with `git ls-files --eol | grep -c w/crlf`, which should print `0`.
+- On a ReFS volume, `git status` can report freshly-emitted files (the ones `tsc -b`
+  rewrites) as modified even when the content is identical. `git diff` shows nothing
+  for them; `git add <path>` clears the stale entry. Careful with the inverse too:
+  the same stale cache can make `git diff -- <path>` print nothing for a file that
+  *did* change. `git status --short` is the reliable signal.
+- The Deno tooling had three places that split paths on `/` and so mis-parsed the
+  host separator — `tags/script/generate-unions.ts` (it wrote imports like
+  `"./tags/action\additional.ts/index.js"` into the union files),
+  `tags/script/preprocess-tags.ts`, and `starter/deno/divider-static-script.ts`.
+  All three are fixed; keep normalising with `replaceAll('\\', '/')` or `basename()`
+  when adding more.
+
+### Known-broken, unrelated to platform
+
+- `yarn workspace @5argon/arkham-icon build` fails: `EncounterSetIcon.svelte`'s
+  exhaustive `switch` does not cover 22 `EncounterSet` members that exist in `kohaku`
+  (`EnthrallingEncore`, `ArcaneLock`, `ArkhamCh2`, `AshenPilgrims`, `BadWeather`,
+  `Bystanders`, … `QueenOfAsh`). Use `yarn workspace @5argon/arkham-icon package`,
+  which is what `yarn generate:icon` runs, until those icons exist.
+- `cards-json`'s `process` task cannot start: `@deno/canvas`
+  (`https://deno.land/x/canvas@v1.4.2`) fails to import under Deno 2.9 with
+  `brotli error` — Deno cannot decode the brotli-encoded response deno.land serves for
+  `src/lib.js`. Either vendor the module or move to a `jsr:`/`npm:` canvas.
+  `deno check ./scripts/patch.ts` also reports 5 `Uint8Array` vs `ArrayBuffer`
+  mismatches against the current `@jsquash/*` types; `deno run` does not type-check,
+  so it still executes.
+- `yarn workspace @5argon/arkham-starter test` exits 1 — `vitest.config.js` is there
+  but the package has no test files.
+- `yarn workspace @5argon/arkham-life-ui check` reports ~40 errors, all from
+  `ui/tsconfig.json` setting `"paths": {}` — which enforces the no-`$lib` rule for
+  `src/lib` but also stops `src/routes` (the component sandbox) from resolving its own
+  `$lib` imports. The sandbox route `/button/Button` also 500s on a real Svelte bug
+  (`snippet_without_render_tag` in `FaIcon`).
+- `yarn workspace @5argon/arkham-life check` reports ~20 errors. `life` is not being
+  worked on yet.
+
 ## Folder
 
 - `life` : The `arkham.life` site. 

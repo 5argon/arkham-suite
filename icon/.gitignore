@@ -22,3 +22,11 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# `tsc -b` from the repo root emits next to the sources here (this project is
+# `composite` for build ordering; the published output is `dist/` via
+# svelte-package). Keep those byproducts out of the tree.
+/svelte.config.d.ts
+/tool/*.d.ts
+/tool/*.js
+/tool/*.js.map

@@ -1,0 +1,25 @@
+# Keep the working tree byte-identical on macOS and Windows.
+#
+# Without this, Git for Windows ships `core.autocrlf=true` in its system config,
+# so a Windows clone checks every text file out with CRLF. That produces diffs
+# that do not exist on macOS and makes `prettier --check` (which defaults to
+# `endOfLine: "lf"`) fail on every file.
+* text=auto eol=lf
+
+# Binary assets — never touch these.
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.webp   binary
+*.avif   binary
+*.pdf    binary
+*.otf    binary
+*.ttf    binary
+*.woff   binary
+*.woff2  binary
+*.gz     binary
+*.lockb  binary
+
+# Generated / vendored: collapse in diffs and keep out of language stats.
+yarn.lock            linguist-generated -diff
+/.yarn/**            linguist-vendored

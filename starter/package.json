@@ -18,7 +18,7 @@
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"proto": "npx protoc --ts_out ./src/lib/proto/generated --proto_path ./src/lib/proto/definitions  ./src/lib/proto/definitions/*",
-		"paraglide-compile": "npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide",
+		"paraglide-compile": "paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide",
 		"screenshot:setup": "tsx scripts/screenshot-setup-cards.ts"
 	},
 	"devDependencies": {

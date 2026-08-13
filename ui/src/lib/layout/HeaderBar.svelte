@@ -41,7 +41,7 @@
 	border-secondary-400 dark:border-secondary-600 flex flex-row items-center justify-between
 	border-b-2 px-2 py-2 md:px-8 lg:px-16 mb-4"
 >
-	<a href={resolve("/", {})} class="flex flex-row items-center gap-2">
+	<a href={resolve("/")} class="flex flex-row items-center gap-2">
 		{#if iconUrl}
 			<img src={iconUrl} alt="Site icon" class="icon" />
 		{/if}
