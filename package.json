@@ -19,7 +19,7 @@
         "card-collection-manager",
         "tsk-solver"
     ],
-    "packageManager": "yarn@4.12.0",
+    "packageManager": "yarn@4.18.0",
     "resolutions": {
         "esbuild": "0.27.3"
     },
