@@ -68,6 +68,14 @@
 
 <InnerHeading title="Deckbuilding Tools" />
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+	<!-- URL access only while the tool matures.
+	<ThumbnailCardButton
+		description="Drag and drop cards from a shared Evergreen card pool into up to 4 decks at once, sharing them wisely to make the best team."
+		imageUrl="image/resource/evergreen.webp"
+		onClick="/tool/team-builder"
+		title="Evergreen Team Builder"
+	/>
+	-->
 	<ThumbnailCardButton
 		description="Query eligible investigators that could run combo cards you are interested in together in their deck."
 		imageUrl="image/resource/who.webp"

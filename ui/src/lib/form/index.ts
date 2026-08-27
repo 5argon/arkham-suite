@@ -11,6 +11,7 @@ export { default as FormHelp } from './FormHelp.svelte';
 export { default as FormLabelWithHelp } from './FormLabelWithHelp.svelte';
 export { default as FormRow } from './FormRow.svelte';
 export { default as RadioButtons } from './RadioButtons.svelte';
+export { default as CarouselRadio } from './CarouselRadio.svelte';
 export { default as SearchableDropdown } from './SearchableDropdown.svelte';
 export { default as CardForm } from './card-form/CardForm.svelte';
 export { default as CardFormSingle } from './card-form/CardFormSingle.svelte';

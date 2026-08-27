@@ -6,7 +6,9 @@
 </script>
 
 <footer>
-	<div class="p-4 max-w-3xl w-full text-center text-sm text-secondary-800 dark:text-secondary-200">
+	<div
+		class="p-2 max-w-3xl w-full text-center text-xs sm:p-4 sm:text-sm text-secondary-800 dark:text-secondary-200"
+	>
 		<SvelteMarkdown
 			renderers={{
 				link: MarkdownLink

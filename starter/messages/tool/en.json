@@ -43,22 +43,36 @@
 	"tool_assembler_page_title": "arkham-starter.com | Tool | Team Assembler",
 	"tool_gather_title": "Deck Gather",
 	"tool_gather_page_title": "arkham-starter.com | Tool | Deck Gather",
-	"tool_gather_all_cards": [{
-		"declarations": ["input count", "local countPlural = count: plural"],
-		"selectors": ["countPlural"],
-		"match": {
-			"countPlural=one": "All ({count} Card)",
-			"countPlural=other": "All ({count} Cards)"
+	"tool_gather_all_cards": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "All ({count} Card)",
+				"countPlural=other": "All ({count} Cards)"
+			}
 		}
-	}],
-	"tool_gather_overlaps_only": [{
-		"declarations": ["input count", "local countPlural = count: plural"],
-		"selectors": ["countPlural"],
-		"match": {
-			"countPlural=one": "Overlap Only ({count} Card)",
-			"countPlural=other": "Overlaps Only ({count} Cards)"
+	],
+	"tool_gather_overlaps_only": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "Overlap Only ({count} Card)",
+				"countPlural=other": "Overlaps Only ({count} Cards)"
+			}
 		}
-	}],
+	],
 	"tool_campaign_overlaps_title": "Campaign Overlaps",
 	"tool_campaign_overlaps_page_title": "arkham-starter.com | Tool | Campaign Overlaps",
 	"tool_upgrade_title": "Upgrade Planner",
@@ -67,5 +81,106 @@
 	"tool_switch_page_title": "arkham-starter.com | Tool | Campaign Switch",
 	"tool_setup_reference_card": "Setup Reference Card",
 	"tool_limited_title": "Limited Pool Fitting Room",
-	"tool_limited_page_title": "arkham-starter.com | Tool | Limited Pool Fitting Room"
+	"tool_limited_page_title": "arkham-starter.com | Tool | Limited Pool Fitting Room",
+	"tool_evergreen_team_title": "Evergreen Team Builder",
+	"tool_evergreen_team_page_title": "arkham-starter.com | Tool | Evergreen Team Builder",
+	"tool_evergreen_team_description": "Drag and drop cards freely between your collection and an ENTIRE team in this full-team deckbuilder, made for beginners just starting out with the evergreen card pool!",
+	"tool_evergreen_team_whats_evergreen": "Evergreen?",
+	"tool_evergreen_team_whats_evergreen_text": "Evergreen products refer to the always in print, never-rotated-out products within the Current Environment as outlined in the Arkham Grimoire. These investigators have simple to understand deckbuilding requirements such that when they form a team, it is clear which cards you must share or have them all to yourself, when you are just starting out. This specialized deckbuilder take advantage of that fact to let you create an ideal team free of any overlapping cards as might be the case if you built each deck in vacuum.",
+	"tool_evergreen_team_whats_evergreen_link": "Official article : Ever Investigating",
+	"tool_evergreen_team_core_box": "Select Core Set",
+	"tool_evergreen_team_include_decks": "Purchased Investigator Decks",
+	"tool_evergreen_team_include_decks_help": "Adds both usable investigator to add to the team and player cards.",
+	"tool_evergreen_team_team": "Form a Team",
+	"tool_evergreen_team_team_help": "Pick an investigators for each player. Pay attention to the class-based card access! In addition to the class matching that investigator's color there might be one more secondary access as well. Investigators not picked means you freed up those cards for others. For example: A Core 2026, 4 players team with everyone but Dexter Drake means: Isabelle player could use any Mystic cards freely, AND Trish player could use any Rogue cards freely.",
+	"tool_evergreen_team_level_range": "Lv. {min}–{max}",
+	"tool_evergreen_team_special_access": "Special access — see card",
+	"tool_evergreen_team_player_n": "Player {n}",
+	"tool_evergreen_team_proceed": "Proceed to Planning",
+	"tool_evergreen_team_start_over": "Start Over",
+	"tool_evergreen_team_start_over_confirm": "Return every drafted card back to the collection?",
+	"tool_evergreen_team_collection": "Collection",
+	"tool_evergreen_team_remaining": "{remaining} / {total} cards remaining",
+	"tool_evergreen_team_side_deck": "Side Deck",
+	"tool_evergreen_team_side_deck_xp": "{xp} XP",
+	"tool_evergreen_team_required_cards": "Required Cards",
+	"tool_evergreen_team_status_ready": "Ready",
+	"tool_evergreen_team_status_need_more": "Missing {count} more cards.",
+	"tool_evergreen_team_status_over": "Over by {count} cards.",
+	"tool_evergreen_team_status_team_ready": "Team ready! Every deck is complete.",
+	"tool_evergreen_team_add_n": "Add {n}",
+	"tool_evergreen_team_move_n": "Move {n}",
+	"tool_evergreen_team_return_to_collection": "Return to Collection",
+	"tool_evergreen_team_reason_cannot_use": "Cannot use this card",
+	"tool_evergreen_team_reason_deck_limit": "Deck limit reached",
+	"tool_evergreen_team_reason_none_remaining": "None remaining",
+	"tool_evergreen_team_to_side_deck": "to Side Deck",
+	"tool_evergreen_team_share_copy": "Copy Share Link",
+	"tool_evergreen_team_share_copied": "Copied!",
+	"tool_evergreen_team_view_mode": "View Mode",
+	"tool_evergreen_team_view_edit": "Edit This Team",
+	"tool_evergreen_team_view_invalid": "This link does not contain a valid team.",
+	"tool_evergreen_team_continue_saved": "You have a team saved in this browser from a previous visit.",
+	"tool_evergreen_team_continue_button": "Continue Saved Team",
+	"tool_evergreen_team_discard_button": "Discard Saved Team",
+	"tool_evergreen_team_advanced": "Advanced: More Products",
+	"tool_evergreen_team_advanced_help": "Add cards from any other products to the pool. To keep this tool simple and specialized for beginners, investigators from these extra products which might have more advanced deckbuilding are not added.",
+	"tool_evergreen_team_advanced_search": "Search Products",
+	"tool_evergreen_team_collapse_all": "Collapse All",
+	"tool_evergreen_team_expand_all": "Expand All",
+	"tool_evergreen_team_export": "Export Decks",
+	"tool_evergreen_team_export_help": "You can import these JSON into the recommended full-fledged deckbuilder: arkham.build. (Inside \"...\" menu, \"Import from JSON files\".) You can then sync to arkhamdb.com as well from there.",
+	"tool_evergreen_team_download_json": "Download JSON",
+	"tool_evergreen_team_download_all": "Download All",
+	"tool_evergreen_team_deck_name": "{investigator} — {team}",
+	"tool_evergreen_team_deck_description": "View Team: {url}",
+	"tool_evergreen_team_delete_team": "Delete Team",
+	"tool_evergreen_team_delete_team_confirm": "Delete this team? The setup and all decks will be discarded.",
+	"tool_evergreen_team_select_all": "Select All",
+	"tool_evergreen_team_deselect_all": "Deselect All",
+	"tool_evergreen_team_tab_lv0": "Lv. 0",
+	"tool_evergreen_team_tab_lv1plus": "Lv. 1–5",
+	"tool_evergreen_team_pick_mode": "Pick Mode",
+	"tool_evergreen_team_pick_one": "One Copy",
+	"tool_evergreen_team_pick_max": "Max Copies",
+	"tool_evergreen_team_pick_class": "Entire Class",
+	"tool_evergreen_team_merge_products": "Merge Products",
+	"tool_evergreen_team_solo": "Solo",
+	"tool_evergreen_team_clear_section": "Return all cards in this section to the collection",
+	"tool_evergreen_team_hide_collection": "Hide Collection",
+	"tool_evergreen_team_show_collection": "Show Collection",
+	"tool_evergreen_team_access_matrix_title": "Card Access Summary",
+	"tool_evergreen_team_access_lv0": "Lv. 0",
+	"tool_evergreen_team_access_lv1_2": "Lv. 1–2",
+	"tool_evergreen_team_access_lv3_5": "Lv. 3–5",
+	"tool_evergreen_team_tips_button": "Some more tips!",
+	"tool_evergreen_team_tips_title": "Some more tips to help you get started",
+	"tool_evergreen_team_tips_1": "Slot conflicts and Unique Ally assets. Sharing Ally card with unique star between different decks means once the first player play it, the other player who found it later cannot play until it is removed from play. Generally it is recommended to give maximum 2 copies of unique ally like Logan, Dorothy, Olivier, Jim, or Aleksey to the same deck.",
+	"tool_evergreen_team_tips_2": "Hand slot is also a highly contested one. For example between Joe and Trish, they have : Magnifying Glass, Fingerprint Kit, Local Map, or Hand-Crank Flashlight for investigation options. Unique to Trish is the Thieves Kit. Unique to Joe (for fighting) are M1911 and Machete.",
+	"tool_evergreen_team_tips_3": "It is relatively safe default choice to always include 2 copies of Emergency Cache, as well as the neutral 2 icons skill cards matching the stats value 3 or above. For example, Daniela could utilize Overpower or Guts effectively.",
+	"tool_evergreen_team_undo": "Undo",
+	"tool_evergreen_team_redo": "Redo",
+	"tool_evergreen_team_fewer_copies": "Fewer copies",
+	"tool_evergreen_team_more_copies": "More copies",
+	"tool_evergreen_team_return_n": "Return {n}",
+	"tool_evergreen_team_focus": "Focus",
+	"tool_evergreen_team_focus_none": "None",
+	"tool_evergreen_team_focus_hand": "Hand",
+	"tool_evergreen_team_focus_ally": "Ally",
+	"tool_evergreen_team_focus_skill": "Skill",
+	"tool_evergreen_team_compact": "Compact",
+	"tool_evergreen_team_view_deck": "View Deck",
+	"tool_evergreen_team_pool_used": "{used} / {total} cards used ({percent}%)",
+	"tool_evergreen_team_unused_cards": "Unused Cards",
+	"tool_evergreen_team_by_author": "by {author}",
+	"tool_evergreen_team_default_team_name": "Evergreen Team",
+	"tool_evergreen_team_default_team_description": "Drafted with the Evergreen Team Builder.",
+	"tool_evergreen_team_info_button": "Team Info",
+	"tool_evergreen_team_info_title": "Edit Team Info",
+	"tool_evergreen_team_info_help": "Shown in the view mode of this team's link, and copied into the exported decks.",
+	"tool_evergreen_team_info_name": "Team Name",
+	"tool_evergreen_team_info_author": "Author",
+	"tool_evergreen_team_info_description": "Team Description",
+	"tool_evergreen_team_info_chars": "{count} / {max}",
+	"tool_evergreen_team_info_save": "Save"
 }

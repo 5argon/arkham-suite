@@ -76,6 +76,8 @@ export enum FaIconType {
 	FoldoutRight,
 	FoldoutDown,
 	Reset,
+	Redo,
+	Broom,
 	Clear,
 	CloseModal,
 	ExternalLink,
@@ -90,5 +92,5 @@ export enum FaIconType {
 	AchievementInferred,
 
 	// World map (TSK solver map tool)
-	Map,
+	Map
 }

@@ -68,6 +68,8 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Import]: 'fa-file-import',
 		[FaIconType.Export]: 'fa-file-export',
 		[FaIconType.Reset]: 'fa-rotate-left',
+		[FaIconType.Redo]: 'fa-rotate-right',
+		[FaIconType.Broom]: 'fa-broom',
 		[FaIconType.Add]: 'fa-circle-plus',
 		[FaIconType.Edit]: 'fa-pen',
 		[FaIconType.Back]: 'fa-arrow-left',
@@ -79,7 +81,7 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Achievement]: 'fa-trophy',
 		[FaIconType.AchievementManual]: 'fa-pencil',
 		[FaIconType.AchievementInferred]: 'fa-gears',
-		[FaIconType.Map]: 'fa-map-location-dot',
+		[FaIconType.Map]: 'fa-map-location-dot'
 	};
 </script>
 

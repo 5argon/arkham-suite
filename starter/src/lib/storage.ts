@@ -8,7 +8,8 @@ import { browser } from '$app/environment';
  * Storage keys used throughout the application
  */
 export const STORAGE_KEYS = {
-	THEME: 'arkham-starter-theme'
+	THEME: 'arkham-starter-theme',
+	EVERGREEN_DRAFT: 'arkham-starter-evergreen-team-draft'
 } as const;
 
 /**

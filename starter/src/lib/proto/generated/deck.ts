@@ -101,9 +101,9 @@ export interface CustomizationDetails {
 // Card encoding format (stored directly as uint32):
 // - bits 0-1: deck_type (0=slots, 1=side_slots, 2=ignore_deck_limit_slots, 3=extra_deck)
 // - bits 2-3: quantity - 1 (0-3 represents quantities 1-4)
-// - bits 4-13: card (0-1023, supports up to 1024 cards per set)
-// - bits 14-20: set (0-127, supports up to 128 sets)
-// Encoding: (set << 14) | (card << 4) | ((quantity - 1) << 2) | deck_type
+// - bits 4-20: card_code as integer (0-131071, 17 bits, covers 00000-99999)
+// Encoding: (card_code << 4) | ((quantity - 1) << 2) | deck_type
+// Example: "01684" → integer 1684
 // Total per card: 1 tag + 3 varint bytes = 4 bytes (no message wrapper!)
 
 /**

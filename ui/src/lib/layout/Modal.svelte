@@ -77,22 +77,22 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 			class="bg-primary-100 dark:bg-primary-900 relative flex max-h-[90vh] w-full flex-col rounded-lg shadow-xl {maxWidthClass}"
 			transition:scale={{ duration: 200, start: 0.95 }}
 		>
-			<div class="absolute right-2 top-2 z-10">
+			<div class="absolute top-2 right-2 z-10">
 				<Button label={m.button_close()} hideLabel onClick={onClose} icon={FaIconType.Clear} />
 			</div>
 
 			{#if title}
-				<h3 class="text-secondary-900 dark:text-secondary-100 px-6 pb-2 pt-6 text-xl">
+				<h3 class="text-secondary-900 dark:text-secondary-100 px-6 pt-6 pb-2 text-xl">
 					{title}
 				</h3>
 			{/if}
 
-			<div class="flex-1 overflow-y-auto px-6 {title ? 'pt-2' : 'pt-6'}">
+			<div class="flex-1 overflow-y-auto px-6 pb-6 {title ? 'pt-2' : 'pt-6'}">
 				{@render children()}
 			</div>
 
 			{#if footer}
-				<div class="border-primary-300 dark:border-primary-700 border-t px-6 py-4 mt-2">
+				<div class="border-primary-300 dark:border-primary-700 mt-2 border-t px-6 py-4">
 					{@render footer()}
 				</div>
 			{/if}

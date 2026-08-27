@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+message EvergreenTeamProto {
+  // 0 = Revised Core Set, 1 = Core Set 2026
+  uint32 core = 1;
+  // Bitmask over the 5 prebuilt deck products matching the chosen core, in the
+  // order of kohaku's productInvestigatorStarterDeck / productInvestigatorDeck.
+  uint32 deck_products = 2;
+  repeated EvergreenDeck decks = 3;
+  // Unused: pick mode is a per-session preference and no longer travels with
+  // the link. Kept so the field number is never reused.
+  uint32 pick_mode = 4 [deprecated = true];
+  // Advanced: extra products whose cards (never investigators) join the pool,
+  // as kohaku Product string codes, e.g. "tdlotz".
+  repeated string extra_products = 5;
+  // Collection view: group by class across all products instead of per
+  // product; also widens the class pickup mode's sweep to all products.
+  bool merge_products = 6;
+  // Team metadata shown in view mode; per-deck names and descriptions are
+  // derived from these at runtime and never stored.
+  string name = 7;
+  string author = 8;
+  string description = 9;
+}
+
+message EvergreenDeck {
+  // Investigator card code as integer, e.g. "12001" -> 12001
+  uint32 investigator = 1;
+  // Card encoding format (same packing as CompactDeck in deck.proto):
+  // - bits 0-1: zone (0=main, 1=side)
+  // - bits 2-3: quantity - 1 (0-3 represents quantities 1-4)
+  // - bits 4-20: card_code as integer
+  // Encoding: (card_code << 4) | ((quantity - 1) << 2) | zone
+  repeated uint32 cards = 2;
+}
