@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Card, CardResolver, type TabooLists } from '@5argon/arkham-kohaku';
-	import { BorderedContainer, Button, FaIconType, Modal, PageLead } from '@5argon/arkham-life-ui';
+	import { BorderedContainer, Modal, PageLead } from '@5argon/arkham-life-ui';
 	import { CardInfo_CommitOptions_CommitIcon } from '$lib/proto/generated/card_info';
 	import type { ExportOptions } from '$lib/proto/generated/export_options';
 	import { GlobalSettings_PipStyle } from '$lib/proto/generated/global_settings';
@@ -35,6 +35,7 @@
 	import { convertCardClass, getProductDisplayName } from '$lib/tool/upgrade/card-helper';
 
 	import UpgradeExportModalContent from '../export/UpgradeExportModalContent.svelte';
+	import UpgradePlanView from './UpgradePlanView.svelte';
 	import StagingArea from '../staging-area/StagingArea.svelte';
 	import UpgradeTable from '../upgrade-table/UpgradeTable.svelte';
 	import UpgradeToolbar from '../upgrade-table/UpgradeToolbar.svelte';
@@ -384,9 +385,6 @@
 	let onChangeUpgradeExportOptions = (n: UpgradeExportOptions) => {
 		upgradeExportOptionsBase = n;
 	};
-	let onChangeExportOptions = (n: ExportOptions) => {
-		exportOptionsBase = n;
-	};
 </script>
 
 <PageLead
@@ -411,31 +409,15 @@
 	/>
 </Modal>
 
-{#if viewMode}
-	<div class="flex justify-center mb-4">
-		<Button
-			icon={FaIconType.Edit}
-			label="Edit Plan"
-			onClick={() => {
-				viewMode = false;
-			}}
-		/>
-	</div>
-	<div class="table-panel-outer mx-auto" class:edit-mode={editMode}>
-		<BorderedContainer>
-			<UpgradeTable
-				{viewMode}
-				{cardResolver}
-				gs={globalSettings}
-				{rows}
-				{rowActionEvents}
-				{rowEditEvents}
-				onRowDragMove={(from, to) => {
-					rows = rowMoveFromTo(rows, from, to);
-				}}
-			/>
-		</BorderedContainer>
-	</div>
+{#if viewMode && restoreResult !== null}
+	<UpgradePlanView
+		plan={restoreResult}
+		{cards}
+		{tabooLists}
+		onEdit={() => {
+			viewMode = false;
+		}}
+	/>
 {:else}
 	<BorderedContainer>
 		<UpgradeToolbar {cardResolver} {toolbarEvents} gs={globalSettings} />

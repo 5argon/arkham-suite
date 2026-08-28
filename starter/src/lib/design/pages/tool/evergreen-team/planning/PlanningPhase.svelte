@@ -7,28 +7,28 @@ rules.ts, shared by drag-drop and the click picker.
 -->
 <script lang="ts">
 	import { CardLineHoverTooltip } from '@5argon/arkham-life-ui';
-	import type { Card } from '@5argon/arkham-kohaku';
+	import type { Card, CardCode } from '@5argon/arkham-kohaku';
 	import { SvelteSet } from 'svelte/reactivity';
 
 	import { createCardResolver, getAllCards } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
-	import { buildPool } from '$lib/tool/evergreen-team/pool';
+	import { buildPool, investigatorsForSetup } from '$lib/tool/evergreen-team/pool';
 	import {
 		buildEligibility,
 		moveBetweenDecks,
 		moveToDeck,
+		overlappingCodes,
 		returnToCollection
 	} from '$lib/tool/evergreen-team/rules';
-	import { deckMetaFor } from '$lib/tool/evergreen-team/team-info';
 	import type { EvergreenFocus, EvergreenState, TeamInfo } from '$lib/tool/evergreen-team/types';
 
 	import CollectionPanel from './CollectionPanel.svelte';
 	import { DRAG_MIME, type DragSource, EvergreenDnd } from './dnd.svelte';
-	import ExportTeamModal from './ExportTeamModal.svelte';
 	import InvestigatorArea from './InvestigatorArea.svelte';
 	import ShareExportBar from './ShareExportBar.svelte';
 	import StackActionModal from './StackActionModal.svelte';
+	import SwapInvestigatorModal from './SwapInvestigatorModal.svelte';
 	import TeamInfoModal from './TeamInfoModal.svelte';
 	import TeamStatusBar from './TeamStatusBar.svelte';
 
@@ -47,23 +47,25 @@ rules.ts, shared by drag-drop and the click picker.
 
 	const allCards = getAllCards();
 	const resolver = createCardResolver();
-	// Setup is immutable once planning starts, so the pool and per-player
-	// eligibility are computed exactly once.
+	// Products are immutable once planning starts, so the pool and roster are
+	// computed exactly once; investigators can still be swapped while a deck
+	// is empty, so eligibility follows them.
 	const getFrozenSetup = () => team.setup;
 	const pool = buildPool(getFrozenSetup(), allCards);
-	const eligibility = buildEligibility(
-		getFrozenSetup().investigators.map((code) => resolver.resolve(code)),
-		pool
+	const roster = investigatorsForSetup(getFrozenSetup(), allCards);
+	const eligibility = $derived(
+		buildEligibility(
+			team.setup.investigators.map((code) => resolver.resolve(code)),
+			pool
+		)
 	);
+	let swapIndex = $state<number | null>(null);
+	const overlaps = $derived(overlappingCodes(team, pool));
 
 	const dnd = new EvergreenDnd();
 	let pickerSource = $state<DragSource | null>(null);
-	let showExport = $state(false);
 	let showInfo = $state(false);
 	const encodedNow = $derived(encodeEvergreen($state.snapshot(team) as EvergreenState));
-	const deckMeta = $derived(
-		deckMetaFor(team, resolver, `https://arkham-starter.com/tool/team-builder?t=${encodedNow}`)
-	);
 
 	function saveInfo(info: TeamInfo) {
 		team.info = info;
@@ -91,6 +93,8 @@ rules.ts, shared by drag-drop and the click picker.
 
 	function restoreDecks(snapshot: DeckSnapshot) {
 		team.decks.forEach((deck, i) => {
+			deck.investigator = snapshot[i].investigator;
+			team.setup.investigators[i] = snapshot[i].investigator;
 			deck.main = structuredClone(snapshot[i].main);
 			deck.side = structuredClone(snapshot[i].side);
 		});
@@ -186,6 +190,17 @@ rules.ts, shared by drag-drop and the click picker.
 		});
 	}
 
+	function swapInvestigator(deckIndex: number, code: CardCode) {
+		const deck = team.decks[deckIndex];
+		swapIndex = null;
+		if (deck === undefined || team.setup.investigators.includes(code)) return;
+		if (Object.keys(deck.main).length > 0 || Object.keys(deck.side).length > 0) return;
+		commit(() => {
+			deck.investigator = code;
+			team.setup.investigators[deckIndex] = code;
+		});
+	}
+
 	function clearZone(deckIndex: number, zone: 'main' | 'side') {
 		const deck = team.decks[deckIndex];
 		if (deck === undefined) return;
@@ -277,8 +292,9 @@ rules.ts, shared by drag-drop and the click picker.
 
 <!-- Counteracts the site Main's reading padding: a two-panel board wants near edge-to-edge width. -->
 <div class="sm:-mx-5 md:-mx-7 lg:-mx-11 xl:-mx-[60px]">
-	<div class="flex flex-wrap items-center justify-between gap-2">
-		<TeamStatusBar {team} {resolver} {soloIndices} onToggleSolo={toggleSolo} />
+	<!-- Status chips centered on their own row, like view mode; the toolbar below them. -->
+	<div class="flex flex-col items-center gap-2">
+		<TeamStatusBar {team} {resolver} {soloIndices} onToggleSolo={toggleSolo} {overlaps} />
 		<ShareExportBar
 			encoded={encodedNow}
 			collectionVisible={showCollection}
@@ -287,7 +303,6 @@ rules.ts, shared by drag-drop and the click picker.
 			onUndo={undo}
 			onRedo={redo}
 			onToggleCollection={() => (showCollection = !showCollection)}
-			onExport={() => (showExport = true)}
 			onEditInfo={() => (showInfo = true)}
 			onStartOver={handleStartOver}
 			{onDeleteTeam}
@@ -310,8 +325,10 @@ rules.ts, shared by drag-drop and the click picker.
 							onStackClick={(source) => (pickerSource = source)}
 							onDropFrom={applyMove}
 							onClearZone={clearZone}
+							onSwapInvestigator={(i) => (swapIndex = i)}
 							onCardHover={handleCardHover}
 							onCardHoverEnd={handleCardHoverEnd}
+							{overlaps}
 						/>
 					{/each}
 				</div>
@@ -356,6 +373,15 @@ rules.ts, shared by drag-drop and the click picker.
 	onReturn={applyReturn}
 />
 
+<SwapInvestigatorModal
+	{team}
+	{roster}
+	{resolver}
+	deckIndex={swapIndex}
+	onSwap={swapInvestigator}
+	onClose={() => (swapIndex = null)}
+/>
+
 {#if showInfo}
 	<TeamInfoModal
 		info={team.info}
@@ -364,14 +390,6 @@ rules.ts, shared by drag-drop and the click picker.
 		onClose={() => (showInfo = false)}
 	/>
 {/if}
-
-<ExportTeamModal
-	{team}
-	{resolver}
-	{deckMeta}
-	isOpen={showExport}
-	onClose={() => (showExport = false)}
-/>
 
 <style>
 	.evergreen-layout {

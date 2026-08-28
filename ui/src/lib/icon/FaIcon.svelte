@@ -70,6 +70,7 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Reset]: 'fa-rotate-left',
 		[FaIconType.Redo]: 'fa-rotate-right',
 		[FaIconType.Broom]: 'fa-broom',
+		[FaIconType.Swap]: 'fa-right-left',
 		[FaIconType.Add]: 'fa-circle-plus',
 		[FaIconType.Edit]: 'fa-pen',
 		[FaIconType.Back]: 'fa-arrow-left',

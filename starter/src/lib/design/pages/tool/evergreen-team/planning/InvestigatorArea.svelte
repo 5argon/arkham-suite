@@ -6,7 +6,7 @@ appears once Lv. 1+ cards land. The whole area is a single drop target; the
 destination zone is decided by the card's level, not the drop position.
 -->
 <script lang="ts">
-	import { Button, CardScanFullTiny, FaIconType } from '@5argon/arkham-life-ui';
+	import { Button, CardScanFullTiny, FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import { type Card, CardClass, type CardCode, type CardResolver } from '@5argon/arkham-kohaku';
 	import clsx from 'clsx';
 	import { flip } from 'svelte/animate';
@@ -20,7 +20,7 @@ destination zone is decided by the card's level, not the drop position.
 		deckLimitOf,
 		mainDeckCount,
 		matchesFocus,
-		remainingOf,
+		availableOf,
 		sideDeckXp,
 		titleCountInDeck,
 		wantOf
@@ -56,11 +56,19 @@ destination zone is decided by the card's level, not the drop position.
 		onDropFrom?: (source: DragSource, deckIndex: number) => void;
 		onClearZone?: (deckIndex: number, zone: EvergreenZone) => void;
 		/**
+		 * Offered in place of the clear button while the deck is empty.
+		 */
+		onSwapInvestigator?: (deckIndex: number) => void;
+		/**
 		 * View mode: opens this deck in a full DeckDisplay modal.
 		 */
 		onOpenDeck?: (deckIndex: number) => void;
 		onCardHover?: (card: Card, el: HTMLElement) => void;
 		onCardHoverEnd?: () => void;
+		/**
+		 * Cards claimed beyond the pool; their whole stacks render red.
+		 */
+		overlaps?: ReadonlySet<CardCode>;
 	}
 	const {
 		team,
@@ -75,9 +83,11 @@ destination zone is decided by the card's level, not the drop position.
 		onStackClick,
 		onDropFrom,
 		onClearZone,
+		onSwapInvestigator,
 		onOpenDeck,
 		onCardHover,
-		onCardHoverEnd
+		onCardHoverEnd,
+		overlaps
 	}: Prop = $props();
 
 	const deck = $derived(team.decks[deckIndex]);
@@ -127,7 +137,7 @@ destination zone is decided by the card's level, not the drop position.
 		if (entry === undefined) return 0;
 		const remainingAtSource =
 			source.kind === 'collection'
-				? remainingOf(team, pool, source.cardCode)
+				? availableOf(team, pool, source.cardCode)
 				: (team.decks[source.deckIndex]?.[source.zone][source.cardCode] ?? 0);
 		return computeMoveQuantity({
 			want: wantOf(team, entry.card),
@@ -239,7 +249,17 @@ destination zone is decided by the card's level, not the drop position.
 			>
 				{mainCount}/{deckSize}
 			</span>
-			{#if !viewMode && onClearZone}
+			{#if !viewMode && mainEntries.length === 0 && sideEntries.length === 0 && onSwapInvestigator}
+				<button
+					type="button"
+					class="clear-zone swap"
+					aria-label={m.tool_evergreen_team_swap_investigator()}
+					title={m.tool_evergreen_team_swap_investigator()}
+					onclick={() => onSwapInvestigator(deckIndex)}
+				>
+					<FaIcon icon={FaIconType.Swap} />
+				</button>
+			{:else if !viewMode && onClearZone}
 				<button
 					type="button"
 					class="clear-zone"
@@ -269,6 +289,7 @@ destination zone is decided by the card's level, not the drop position.
 		<div class="flex flex-wrap gap-1">
 			{#each focusedMainEntries as entry (entry.card.code)}
 				<div
+					class:overlap={overlaps?.has(entry.card.code) ?? false}
 					animate:flip={{ duration: 200 }}
 					in:scale={{ duration: 150 }}
 					out:fade={{ duration: 100 }}
@@ -333,6 +354,7 @@ destination zone is decided by the card's level, not the drop position.
 				<div class="mt-1 flex min-h-8 flex-wrap gap-1">
 					{#each focusedSideEntries as entry (entry.card.code)}
 						<div
+							class:overlap={overlaps?.has(entry.card.code) ?? false}
 							animate:flip={{ duration: 200 }}
 							in:scale={{ duration: 150 }}
 							out:fade={{ duration: 100 }}
@@ -403,6 +425,24 @@ destination zone is decided by the card's level, not the drop position.
 		cursor: no-drop;
 	}
 
+	/* Overlapping stack: red tint over the whole stack, the drag target of
+	   a fix (return it to the collection). */
+	.overlap {
+		position: relative;
+		border-radius: 0.25rem;
+		outline: 2px solid rgb(220, 38, 38);
+		outline-offset: 1px;
+	}
+
+	.overlap::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 0.25rem;
+		background-color: rgba(220, 38, 38, 0.35);
+		pointer-events: none;
+	}
+
 	.clear-zone {
 		cursor: pointer;
 		border-radius: 0.25rem;
@@ -416,5 +456,9 @@ destination zone is decided by the card's level, not the drop position.
 
 	.clear-zone:hover {
 		background-color: rgb(220, 38, 38);
+	}
+
+	.clear-zone.swap:hover {
+		background-color: var(--color-primary-600);
 	}
 </style>

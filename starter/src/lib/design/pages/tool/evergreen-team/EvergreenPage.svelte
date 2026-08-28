@@ -50,6 +50,7 @@
 			decks: setup.investigators.map((investigator) => ({ investigator, main: {}, side: {} })),
 			pickMode: 'max',
 			mergeProducts: false,
+			unlimited: false,
 			info: defaultTeamInfo()
 		};
 		savedDraft = null;

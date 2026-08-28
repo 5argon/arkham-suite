@@ -35,6 +35,7 @@ pool). The whole panel is the drop target for returns.
 	import {
 		deckLimitOf,
 		matchesFocus,
+		availableOf,
 		remainingOf,
 		routeZone
 	} from '$lib/tool/evergreen-team/rules';
@@ -299,6 +300,13 @@ pool). The whole panel is the drop target for returns.
 						onChange?.();
 					}}
 				/>
+				<Checkbox
+					label={m.tool_evergreen_team_unlimited_cards()}
+					checked={team.unlimited}
+					onChange={() => {
+						team.unlimited = !team.unlimited;
+					}}
+				/>
 				<!-- Pick mode only matters for drag and drop, which phones do not have. -->
 				<div class="hidden sm:block">
 					<CarouselRadio
@@ -351,23 +359,27 @@ pool). The whole panel is the drop target for returns.
 			<div class="mt-1 flex flex-wrap gap-1.5" transition:slide={{ duration: 150 }}>
 				{#each section.entries as entry (entry.card.code)}
 					{@const remaining = remainingOf(team, pool, entry.card.code)}
-					<CardStack
-						card={entry.card}
-						source={collectionSource(entry)}
-						{dnd}
-						quantity={Math.max(remaining, 1)}
-						maxQuantity={gridMaxQuantity}
-						width={72}
-						dimmed={remaining === 0}
-						badge={remaining}
-						draggable={remaining > 0}
-						dragCopies={dragCopiesFor(entry, remaining)}
-						onClick={(source) => {
-							if (remaining > 0) onStackClick(source);
-						}}
-						onHover={onCardHover}
-						onHoverEnd={onCardHoverEnd}
-					/>
+					{@const available = availableOf(team, pool, entry.card.code)}
+					<!-- Under Unlimited Cards a depleted stack stays pickable but still reads as depleted, just softer. -->
+					<div class:depleted-soft={remaining === 0 && team.unlimited}>
+						<CardStack
+							card={entry.card}
+							source={collectionSource(entry)}
+							{dnd}
+							quantity={Math.max(remaining, 1)}
+							maxQuantity={gridMaxQuantity}
+							width={72}
+							dimmed={available === 0}
+							badge={remaining}
+							draggable={available > 0}
+							dragCopies={dragCopiesFor(entry, available)}
+							onClick={(source) => {
+								if (available > 0) onStackClick(source);
+							}}
+							onHover={onCardHover}
+							onHoverEnd={onCardHoverEnd}
+						/>
+					</div>
 				{/each}
 			</div>
 		{/if}
@@ -397,5 +409,10 @@ pool). The whole panel is the drop target for returns.
 
 	.chevron {
 		display: inline-block;
+	}
+
+	.depleted-soft {
+		opacity: 0.6;
+		filter: grayscale(0.5);
 	}
 </style>

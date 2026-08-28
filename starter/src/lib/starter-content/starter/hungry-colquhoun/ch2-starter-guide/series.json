@@ -1,0 +1,167 @@
+{
+	"slug": "ch2-starter-guide",
+	"name": "Chapter 2 Starter Guide",
+	"description": "This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts).",
+	"decks": [
+		{
+			"id": 62238,
+			"slug": "blood-money",
+			"introMd": "Marie gets Cash4Blood using [Offering Bowl](/card/60456) and [Jim Culver](/card/60479), which also activates her excellent ability. She also hoovers up clues like a Seeker, while giving enemies the slip with [Shadowmeld](/card/60461) - definitely more the Witch and less the Performer!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62238.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62238.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDYwGgU2MDQ3OTAEOAQKEhIFMTIwNjAaBTYwNDc5MAQ4CAoSEgUxMjA5MBoFNjA0NzIwAjgKChISBTEyMDkwGgU2MDQ3MjACOAwKEhIFMTIwOTMaBTEyMDcwMAM4DwoSEgUxMjA5MxoFMTIwNzAwAzgSChA4EkIKUG9zdC0xOSBYUEgBChISBTEyMDYyGgU2MDQ4MTAFOBcKEhIFMTIwNjIaBTYwNDgxMAU4HAoSEgUxMjA2NBoFNjA0NzMwAjgeChISBTEyMDY0GgU2MDQ3MzACOCASTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 62386,
+			"slug": "money-buys-happiness",
+			"introMd": "Here big money André makes it rain with [Marcus](/card/60375), [Sticky Fingers](/card/12048), [Thieves' Kit](/card/12049), [Emergency Cache](/card/01088), [\"Watch this!\"](/card/60371) and [Out the Door](/card/60370). He then puts this cash to work, with [Well Connected](/card/60381) for boosts and [Black Fan](/card/60379) for a raft of benefits. Don't believe what they say - money <ins>does</ins> buy happiness!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62386.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62386.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwMzYxGgU2MDM3MjABOAEKEhIFNjAzNjEaBTYwMzcyMAE4AgoSEgUxMjA5NBoFNjAzODEwAzgFChISBTEyMDk0GgU2MDM3OTAGOAsKEhIFMTIwNDcaBTYwMzgxMAM4DgoSEgU2MDM2MhoFNjAzNzUwAjgQChISBTYwMzYyGgU2MDM3NTACOBISTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 62530,
+			"slug": "got-yourself-a-gun",
+			"introMd": "Here, Tommy uses [Winchester Model 12](/card/12029) with plenty of bullets from [Stock Ammo Reload](/card/60175) to blast away enemies, dealing up to 17 damage with two [Vicious Blows](/card/12025). Did you expect anything else?!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62530.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62530.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDI0GgU2MDE3MzABOAEKEhIFMTIwMjQaBTYwMTczMAE4AgoSEgU2MDE1OBoFMTIwMjkwBTgHChISBTYwMTU4GgU2MDE3NTACOAkKEhIFMTIwOTAaBTYwMTc1MAI4CwoSEgUxMjAxNxoFNjAxNzgwAzgOChISBTEyMDE3GgUxMjAyOTAFOBMKEDgTQgpQb3N0LTE5IFhQSAEKEhIFMTIwMTkaBTYwMTgyMAU4GAoSEgUxMjAxORoFNjAxODIwBTgdEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		},
+		{
+			"id": 62841,
+			"slug": "who-looks-inside-awakes",
+			"introMd": "Here Carolyn uses books to get clues while taking horror ([Dreamer's Chronicle](/card/60255), [Scroll of the Pharaohs](/card/60281)), and then she uses other books to heal horror and get a clue from her ability ([Experimental Psychology](/card/60252), [Occult Records](/card/60256)). *Then*, she uses another book ([Mysterious Grimoire](/card/12040)) to draw cards. Makes [Daisy](/card/01502) look like a rank, ill-educated freshman!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62841.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62841.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTEyMDk1MAM4AwoSEgU2MDI1ORoFNjAyODEwBDgHChISBTEyMDkzGgUxMjA0MDACOAkKEhIFMTIwOTMaBTEyMDQwMAI4CwoSEgU2MDI1ORoFNjAyODEwBDgPChISBTYwMjU4GgU2MDI3MjACOBEKEhIFNjAyNTgaBTYwMjcyMAI4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgU2MDI2NxoFNjAyNzUwAjgVChISBTYwMjY3GgU2MDI3NTACOBcKEhIFNjAyNjIaBTYwMjcxMAE4GAoSEgU2MDI2MhoFNjAyNzEwATgZChISBTYwMjYxGgU2MDI3MzACOBsKEhIFNjAyNjEaBTYwMjczMAI4HRJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 62680,
+			"slug": "rancher-rambo",
+			"introMd": "Using his trusty [Knapsack](/card/60552), Miguel lays fast traps like [Lie in Wait](/card/60566) or [Glassing](/card/60563) one location away and then drags enemies into them with [Loner](/card/60557). For any foes that survive the trip, this rancher Rambo uses [Longbow](/card/60580) to finish them off.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62680.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62680.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDk0GgUxMjA4MjABOAEKEhIFMTIwOTQaBTEyMDgyMAE4AgoSEgU2MDU1ORoFNjA1ODAwAzgFChISBTYwNTU5GgU2MDU4MDADOAgKEhIFMTIwNzQaBTYwNTc0MAI4CgoSEgUxMjA3NBoFNjA1NzQwAjgMChISBTYwNTY0GgU2MDU3NjACOA4KEhIFNjA1NjQaBTYwNTc2MAI4EAoSEgUxMjA5MRoFNjA1ODEwAzgTChA4E0IKUG9zdC0xOSBYUEgBChISBTEyMDkxGgU2MDU4MTADOBYKEhIFMTIwNzkaBTYwNTc4MAI4GAoSEgUxMjA3ORoFNjA1NzgwAjgaCgsaBTYwNTc5MAM4HRJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 62239,
+			"slug": "a-faustian-bargain",
+			"introMd": "If Mystics are about power at a price, then Faustian bargains don't come much more Faustian than [Dread Curse of Azathoth](/card/60474)! Here Dexter uses that and upgraded [Cosmic Flame](/card/12071) for some serious diabolic firepower - made all the more accessible with [Arcane Initiate](/card/60455) and [\"For my next trick...\"](/card/12011).",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62239.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62239.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDYzGgU2MDQ3NjADOAMKEhIFMTIwNTkaBTEyMDcxMAU4CAoSEgUxMjA1ORoFMTIwNzEwBTgNChISBTEyMDkwGgU2MDQ3NDAGOBMKEDgTQgpQb3N0LTE5IFhQSAEKCxoFNjA0NzgwBDgXChISBTEyMDk0GgU2MDQ3NzADOBoKEhIFMTIwOTQaBTYwNDc3MAM4HRJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 62387,
+			"slug": "pocket-sand",
+			"introMd": "Rather than cowering from the [Black Chamber Operative](/card/12009), Trish uses pocket sand (or [Caustic Reaction](/card/60261) if you want to get technical) and [pushing him off a roof](/card/60378) to excellent effect! She even hunts the Operative out of her deck with [Mysterious Grimoire](/card/12040) - a bold move if I ever saw one...",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62387.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62387.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTEyMDU2MAM4AwoLGgUxMjA5NTADOAYKEhIFMTIwNDUaBTYwMzc4MAI4CAoSEgUxMjA0NRoFNjAzNzgwAjgKChISBTEyMDM2GgUxMjA0MDACOAwKEhIFMTIwMzYaBTEyMDQwMAI4DgoLGgUxMjA1NjADOBEKEhIFNjAyNjIaBTYwMjcxMAE4EgoSEgU2MDI2MhoFNjAyNzEwATgTChA4E0IKUG9zdC0xOSBYUEgBChISBTEyMDk0GgU2MDM4MjADOBYKEhIFMTIwOTQaBTYwMzgyMAM4GQoSEgU2MDI2NxoFNjAyNzUwAjgbChISBTYwMjY3GgU2MDI3NTACOB0STBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 62531,
+			"slug": "hurting-for-clues",
+			"introMd": "Here Daniela uses [Stalk Prey](/card/60567) to spawn enemies, [Lesson Learned](/card/12022) and [Detective Sherman](/card/60177) to exploit those enemies for clues, and then [Hunter's Instinct](/card/12074) to recycle events. Oh, and she also still [Sledgehammers](/card/12028) bad guys into meaty paste (yes I did use \"sledgehammer\" as a verb...).",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62531.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62531.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDk0GgUxMjA4MjABOAEKEhIFMTIwOTQaBTEyMDgyMAE4AgoSEgUxMjAyMBoFMTIwMjgwAzgFChISBTYwMTU3GgU2MDE3NzADOAgKEhIFMTIwOTAaBTYwNTczMAI4CgoSEgUxMjAyMBoFMTIwMjgwAzgNChISBTYwMTU3GgU2MDE3NzADOBAKEhIFMTIwNzMaBTYwNTcwMAE4EQoSEgUxMjA3MxoFNjA1NzAwATgSChA4EkIKUG9zdC0xOSBYUEgBChISBTEyMDkyGgU2MDE4MDADOBUKEhIFMTIwOTIaBTYwMTgwMAM4GAoSEgUxMjAyNRoFNjAxNzYwAjgaChISBTEyMDI1GgU2MDE3NjACOBwSTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 62681,
+			"slug": "jennys-retribution",
+			"introMd": "Here avenging Izzie heals both damage and horror through <span class=\"icon-willpower\"></span> skill tests on Mystic assets, which allows her to readily soak attacks and so dish out [Retribution](/card/60473). #Justice4Jenny",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62681.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62681.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDY3GgUxMjA2OTACOAIKEhIFMTIwNjcaBTEyMDY5MAI4BAoSEgUxMjA1OBoFNjA0NzMwAjgGChISBTEyMDgxGgU2MDU4MjADOAkKEhIFMTIwODEaBTYwNTgyMAM4DAoSEgUxMjA3NhoFNjA1NzkwAzgPChISBTEyMDc2GgU2MDQ3MTABOBAKEhIFMTIwOTQaBTYwNDcxMAE4EQoSEgUxMjA5NBoFNjA0NzMwAjgTChA4E0IKUG9zdC0xOSBYUEgBCgsaBTEyMDk1MAM4FgoSEgU2MDU1OBoFMTIwODMwAjgYCgsaBTEyMDk2MAM4GxJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 62842,
+			"slug": "shoot-first-questions-later",
+			"introMd": "Here, Joe has had enough of your crap! Rather than quietly investigating, he's whipping out his [M1911](/card/60171) and going pow-pow-pow! He may do some sleuthing on the side, with [Sharp Rhetoric](/card/60277) or whatever, but really this PI is all about the DIY - and by DIY I mean DIY vigilantism...",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "62842.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "62842.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDM1GgU2MDI3NzADOAMKEhIFMTIwMzUaBTYwMTc1MAI4BQoSEgUxMjAyMBoFNjAxNzUwAjgHChISBTEyMDE5GgU2MDE3MTACOAkKEhIFMTIwMTkaBTYwMTcxMAI4CwoSEgU2MDE2OBoFNjAxNzIwATgMChISBTYwMTY4GgU2MDE3MjABOA0KEhIFNjAxNjAaBTYwMTczMAE4DgoSEgU2MDE2MBoFNjAxNzMwATgPChISBTEyMDI1GgU2MDE3NjACOBEKEhIFMTIwMjUaBTYwMTc2MAI4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgU2MDE2NhoFNjAyNzgwAzgWChISBTYwMTY2GgU2MDI3ODADOBkKEhIFNjAxNjQaBTYwMTc0MAI4GwoSEgU2MDE2NBoFNjAxNzQwAjgdEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		}
+	]
+}

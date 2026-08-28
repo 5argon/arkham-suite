@@ -53,6 +53,16 @@ Has three phases: input, loading, and result display with tabs.
 		 * Defaults to `'decklist'`.
 		 */
 		previewMode?: 'campaign' | 'decklist';
+		/**
+		 * Extra ways to resolve an input line that the online sources do not
+		 * recognize, e.g. a site-local deck URL. Checked in order.
+		 */
+		localSources?: LocalDeckSource[];
+	}
+
+	export interface LocalDeckSource {
+		matches: (input: string) => boolean;
+		fetch: (input: string) => Promise<service.LinkedAhdbDeck>;
 	}
 
 	const {
@@ -67,8 +77,13 @@ Has three phases: input, loading, and result display with tabs.
 		limit,
 		initialDeckIds = [],
 		batchImport = false,
-		previewMode = 'decklist'
+		previewMode = 'decklist',
+		localSources = []
 	}: Prop = $props();
+
+	function localSourceFor(input: string): LocalDeckSource | undefined {
+		return localSources.find((source) => source.matches(input.trim()));
+	}
 
 	type Phase = 'input' | 'loading' | 'result';
 	type ImportResult = { success: true; deck: Deck } | { success: false; error: string };
@@ -116,11 +131,13 @@ Has three phases: input, loading, and result display with tabs.
 	const validInputs = $derived(
 		batchImport
 			? batchLines.filter((input) => {
+					if (localSourceFor(input) !== undefined) return true;
 					const predicted = service.predictDeckInput(input);
 					return predicted.source !== DeckSource.Unknown;
 				})
 			: deckInputs.filter((input) => {
 					if (!input.trim()) return false;
+					if (localSourceFor(input) !== undefined) return true;
 					const predicted = service.predictDeckInput(input);
 					return predicted.source !== DeckSource.Unknown;
 				})
@@ -172,7 +189,11 @@ Has three phases: input, loading, and result display with tabs.
 
 		const promises = validInputs.map(async (input) => {
 			try {
-				const linkedDeck = await service.fetchDeckRecursive(noCacheFetch, input);
+				const local = localSourceFor(input);
+				const linkedDeck =
+					local !== undefined
+						? await local.fetch(input.trim())
+						: await service.fetchDeckRecursive(noCacheFetch, input);
 				const deck = linkedAhdbDeckToDeck(linkedDeck, cardResolver, taboos);
 				loadingProgress.current++;
 				return { success: true, deck } as ImportResult;
@@ -216,9 +237,7 @@ Has three phases: input, loading, and result display with tabs.
 
 	const tabs = $derived<TabItem[]>(
 		importResults.map((result, index) => ({
-			label: result.success
-				? result.deck.name
-				: `${m.form_deck()} ${index + 1}`
+			label: result.success ? result.deck.name : `${m.form_deck()} ${index + 1}`
 		}))
 	);
 

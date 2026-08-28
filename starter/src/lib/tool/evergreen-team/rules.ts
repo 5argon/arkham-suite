@@ -70,6 +70,51 @@ export function draftedOf(state: EvergreenState, code: CardCode): number {
 }
 
 /**
+ * Copies a pickup may take from the collection: what is physically left, or
+ * a full deck limit's worth when the unlimited preference is on.
+ */
+export function availableOf(
+	state: EvergreenState,
+	pool: Map<CardCode, PoolEntry>,
+	code: CardCode
+): number {
+	const entry = pool.get(code);
+	if (entry === undefined) return 0;
+	return state.unlimited ? deckLimitOf(entry.card) : remainingOf(state, pool, code);
+}
+
+/**
+ * Cards claimed by the decks beyond what the products physically contain.
+ * Only possible for teams assembled from published decks; a whole stack
+ * counts as overlapping wherever it sits.
+ */
+export function overlappingCodes(
+	state: EvergreenState,
+	pool: Map<CardCode, PoolEntry>
+): Set<CardCode> {
+	const result = new Set<CardCode>();
+	for (const deck of state.decks) {
+		for (const code of [...Object.keys(deck.main), ...Object.keys(deck.side)]) {
+			if (result.has(code)) continue;
+			const entry = pool.get(code);
+			if (entry !== undefined && draftedOf(state, code) > entry.total) result.add(code);
+		}
+	}
+	return result;
+}
+
+/**
+ * Stacks of one deck that take part in an overlap.
+ */
+export function overlappingStacksOf(
+	deck: EvergreenDeckState,
+	overlaps: ReadonlySet<CardCode>
+): number {
+	return [...Object.keys(deck.main), ...Object.keys(deck.side)].filter((code) => overlaps.has(code))
+		.length;
+}
+
+/**
  * Copies still in the collection.
  */
 export function remainingOf(
@@ -160,7 +205,7 @@ export function moveToDeck(
 	const entry = pool.get(card.code);
 	const qty = computeMoveQuantity({
 		want,
-		remainingAtSource: remainingOf(state, pool, card.code),
+		remainingAtSource: availableOf(state, pool, card.code),
 		deckLimit: deckLimitOf(card),
 		inTargetDeck: entry ? titleCountInDeck(deck, pool, entry.titleKey) : inDeckOf(deck, card.code)
 	});

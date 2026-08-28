@@ -3,6 +3,7 @@
 Complete deck display with banner, investigator cards, list view, and grid view.
 -->
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import {
 		type Deck,
 		type LocalizationResolver,
@@ -60,6 +61,31 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		 * Provided by the application layer since the route is app-specific.
 		 */
 		deckViewerUrl?: string;
+		/**
+		 * Rendered between the description / toolbar and the card lists, e.g.
+		 * tabs that switch what the lists below show.
+		 */
+		beforeList?: Snippet;
+		/**
+		 * Skips the card lists (the caller renders something else after).
+		 */
+		hideList?: boolean;
+		/**
+		 * Skips the banner, buttons, and description preview: lists only.
+		 */
+		hideHeader?: boolean;
+		/**
+		 * Passed to the banner: small attribution lines under the deck name.
+		 */
+		byline?: { label: string; href?: string }[];
+		/**
+		 * Passed to the banner: investigator stats at or above this value render emphasized.
+		 */
+		highlightStatsAtLeast?: number;
+		/**
+		 * Passed to the banner: investigator stats at or below this value render dimmed.
+		 */
+		dimStatsAtMost?: number;
 	}
 
 	let {
@@ -71,8 +97,15 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		toolbar = false,
 		getShareUrl,
 		deckViewerUrl,
-		showExportView = $bindable(false)
-	}: Prop & { showExportView?: boolean } = $props();
+		beforeList,
+		hideList = false,
+		hideHeader = false,
+		byline,
+		highlightStatsAtLeast,
+		dimStatsAtMost,
+		showExportView = $bindable(false),
+		showDescriptionReader = $bindable(false)
+	}: Prop & { showExportView?: boolean; showDescriptionReader?: boolean } = $props();
 
 	let shareUrl = $state<string | undefined>(undefined);
 
@@ -88,7 +121,6 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 
 	let advanced = $state(false);
 	let combineCards = $state(false);
-	let showDescriptionReader = $state(false);
 	let showExportModal = $state(false);
 	let showArkhamDbIncompatibilityModal = $state(false);
 
@@ -101,30 +133,24 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	const tabooEffective = $derived(forwardResult.anyChanges);
 
 	const mainCards = $derived(
-		deckLatestForwarded.mainDeck.map(
-			(cq): CardItem => ({
-				card: cq.card,
-				quantity: cq.quantity
-			})
-		)
+		deckLatestForwarded.mainDeck.map((cq): CardItem => ({
+			card: cq.card,
+			quantity: cq.quantity
+		}))
 	);
 
 	const sideCards = $derived(
-		deckLatestForwarded.sideDeck.map(
-			(cq): CardItem => ({
-				card: cq.card,
-				quantity: cq.quantity
-			})
-		)
+		deckLatestForwarded.sideDeck.map((cq): CardItem => ({
+			card: cq.card,
+			quantity: cq.quantity
+		}))
 	);
 
 	const extraCards: CardItem[] = $derived(
-		deckLatestForwarded.meta.extraDeck?.map(
-			(cq): CardItem => ({
-				card: cq.card,
-				quantity: cq.quantity
-			})
-		) ?? []
+		deckLatestForwarded.meta.extraDeck?.map((cq): CardItem => ({
+			card: cq.card,
+			quantity: cq.quantity
+		})) ?? []
 	);
 
 	// Find all linked cards (bonded and customizable upgrades) from main and side decks
@@ -161,34 +187,28 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		mainCards.map((ci, idx): CardItem => ({ ...ci, id: `main-${ci.card.code}-${idx}` }))
 	);
 	const sideCardsLabeled = $derived(
-		sideCards.map(
-			(ci, idx): CardItem => ({
-				...ci,
-				id: `side-${ci.card.code}-${idx}`,
-				quantityColor: CardClass.Survivor,
-				labels: [{ text: m.card_side(), color: CardClass.Survivor }]
-			})
-		)
+		sideCards.map((ci, idx): CardItem => ({
+			...ci,
+			id: `side-${ci.card.code}-${idx}`,
+			quantityColor: CardClass.Survivor,
+			labels: [{ text: m.card_side(), color: CardClass.Survivor }]
+		}))
 	);
 	const linkedCardsLabeled = $derived(
-		linkedCards.map(
-			(ci, idx): CardItem => ({
-				...ci,
-				id: `linked-${ci.card.code}-${idx}`,
-				quantityColor: CardClass.Seeker,
-				labels: [{ text: m.card_linked(), color: CardClass.Seeker }]
-			})
-		)
+		linkedCards.map((ci, idx): CardItem => ({
+			...ci,
+			id: `linked-${ci.card.code}-${idx}`,
+			quantityColor: CardClass.Seeker,
+			labels: [{ text: m.card_linked(), color: CardClass.Seeker }]
+		}))
 	);
 	const extraCardsLabeled = $derived(
-		extraCards.map(
-			(ci, idx): CardItem => ({
-				...ci,
-				id: `extra-${ci.card.code}-${idx}`,
-				quantityColor: CardClass.Mystic,
-				labels: [{ text: m.card_extra(), color: CardClass.Mystic }]
-			})
-		)
+		extraCards.map((ci, idx): CardItem => ({
+			...ci,
+			id: `extra-${ci.card.code}-${idx}`,
+			quantityColor: CardClass.Mystic,
+			labels: [{ text: m.card_extra(), color: CardClass.Mystic }]
+		}))
 	);
 
 	const allCombinedCards = $derived([
@@ -212,7 +232,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 			return null;
 		}
 		const descriptionPreviewLength = 400;
-		textToPreview = textToPreview.substring(0, descriptionPreviewLength) + "...";
+		textToPreview = textToPreview.substring(0, descriptionPreviewLength) + '...';
 		// Process markdown to plain text (strips HTML tags and markdown formatting)
 		return markdownToPlainText(textToPreview);
 	});
@@ -240,7 +260,16 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 
 	<div class="flex flex-wrap items-center justify-center gap-4">
 		<div class="shrink-0">
-			<DeckBanner {cardResolver} {deck} {mode} {localizationResolver} {languageCode} />
+			<DeckBanner
+				{cardResolver}
+				{deck}
+				{mode}
+				{localizationResolver}
+				{languageCode}
+				{byline}
+				{highlightStatsAtLeast}
+				{dimStatsAtMost}
+			/>
 		</div>
 		<div class="flex flex-wrap gap-2">
 			<CardScanFullSmallGridInvestigator {deck} {cardResolver} {languageCode} {mode} />
@@ -369,10 +398,12 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 {:else}
 	<!-- Normal layout -->
 	<div class="flex flex-col gap-2">
-		{@render bannerAndInvestigator()}
+		{#if !hideHeader}
+			{@render bannerAndInvestigator()}
+		{/if}
 
 		<!-- Description Preview -->
-		{#if hasDescription && descriptionPreview}
+		{#if !hideHeader && hasDescription && descriptionPreview}
 			<div
 				class="bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-700 flex items-start gap-4 rounded border p-4"
 			>
@@ -405,10 +436,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 				<Checkbox bind:checked={advanced} label={m.card_advanced()} />
 				{#if advanced}
 					<Checkbox bind:checked={combineCards} label={m.card_combine_cards()} />
-					<Button
-						label="View Deck-Card"
-						onClick={openExportView}
-					/>
+					<Button label="View Deck-Card" onClick={openExportView} />
 					<Button
 						icon={FaIconType.Export}
 						label={m.button_export_deck()}
@@ -418,8 +446,14 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 			</div>
 		{/if}
 
+		{#if beforeList}
+			{@render beforeList()}
+		{/if}
+
 		<!-- Display Sections -->
-		{#if !advanced}
+		{#if hideList}
+			<!-- The caller renders its own content in place of the lists. -->
+		{:else if !advanced}
 			<!-- Standard Display -->
 			{@render deckDisplayList()}
 			<div in:fly|global={{ duration: 250, delay: 200, easing: quintOut }}>

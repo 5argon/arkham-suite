@@ -17,6 +17,11 @@ Block element with fixed height that display some overall information about the 
 	import HealthSanity from './HealthSanity.svelte';
 	import ImageIconCommit from './ImageIconCommit.svelte';
 	import DeckXpTimeline from './DeckXpTimeline.svelte';
+	import { onMount } from 'svelte';
+
+	import FaIcon from '../icon/FaIcon.svelte';
+	import { FaIconType } from '../icon/fa-icon-type.js';
+	import ArkhamdbMarkdownRenderer from './ArkhamdbMarkdownRenderer.svelte';
 	import DeckBannerSecondColumn from './DeckBannerSecondColumn.svelte';
 	import * as m from '../paraglide/messages.js';
 	import DeckSpecificInformation from './DeckSpecificInformation.svelte';
@@ -50,6 +55,19 @@ Block element with fixed height that display some overall information about the 
 		languageCode?: string;
 
 		/**
+		 * Investigator stats at or above this value render emphasized.
+		 */
+		highlightStatsAtLeast?: number;
+		/**
+		 * Investigator stats at or below this value render dimmed.
+		 */
+		dimStatsAtMost?: number;
+		/**
+		 * Small attribution lines under the deck name (author, series, ...).
+		 * Entries with an href render as internal links.
+		 */
+		byline?: { label: string; href?: string }[];
+		/**
 		 * If true, shows only the deck name and investigator info in a compact format.
 		 */
 		small?: boolean;
@@ -62,6 +80,10 @@ Block element with fixed height that display some overall information about the 
 		 * Only works together with `small` prop.
 		 */
 		smallSingleLine?: boolean;
+		/**
+		 * If true, renders only the colored title and optional byline.
+		 */
+		headerOnly?: boolean;
 	}
 	const {
 		deck,
@@ -70,9 +92,13 @@ Block element with fixed height that display some overall information about the 
 		mode,
 		onClick,
 		cardResolver,
+		byline,
+		highlightStatsAtLeast,
+		dimStatsAtMost,
 		small = false,
 		hideTitle = false,
-		smallSingleLine = false
+		smallSingleLine = false,
+		headerOnly = false
 	}: Prop = $props();
 
 	// Generate unique ID for this component instance to avoid SVG mask ID collisions
@@ -110,6 +136,12 @@ Block element with fixed height that display some overall information about the 
 	);
 
 	const allowSideDeck = $derived(mode === 'decklist' ? true : false);
+
+	// The markdown sanitizer needs a DOM, so the excerpt renders after hydration.
+	let mounted = $state(false);
+	onMount(() => {
+		mounted = true;
+	});
 	const squareBgPath = $derived(getCardImagePath(frontInvestigator.code, 'square'));
 	const tooltip = createTooltipState<Card>();
 </script>
@@ -179,7 +211,7 @@ Block element with fixed height that display some overall information about the 
 
 <div
 	class={clsx(
-		!(small && smallSingleLine) && 'w-[330px] md:w-[550px]',
+		headerOnly ? 'w-full' : !(small && smallSingleLine) && 'w-[330px] md:w-[550px]',
 		'relative border bg-white/50 shadow-lg dark:bg-black/30',
 		borderColorClass,
 		small && 'md:w-auto'
@@ -189,7 +221,7 @@ Block element with fixed height that display some overall information about the 
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div
 			class={clsx(
-				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-left text-xs text-ellipsis text-black md:line-clamp-1 md:h-6 md:justify-start md:text-base dark:text-white',
+				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-xs text-ellipsis text-black md:line-clamp-1 md:h-6 md:justify-start md:text-left md:text-base dark:text-white',
 				bgColorClass,
 				onClick && 'cursor-pointer transition-opacity hover:opacity-80'
 			)}
@@ -206,14 +238,35 @@ Block element with fixed height that display some overall information about the 
 				: undefined}
 		>
 			{#if onClick && typeof onClick === 'string'}
-				<a href={resolve(onClick as any)} class="block w-full">{deckLatestForwarded.name}</a>
+				<a href={resolve(onClick as any, {})} class="block w-full">{deckLatestForwarded.name}</a>
 			{:else}
 				{deckLatestForwarded.name}
 			{/if}
 		</div>
+		{#if byline && byline.length > 0}
+			<div
+				class={clsx(
+					'flex flex-wrap items-center justify-center gap-x-1.5 px-2 pb-0.5 text-[0.65rem] leading-tight text-black/80 md:justify-start dark:text-white/80',
+					bgColorClass
+				)}
+			>
+				{#each byline as line, i (i)}
+					{#if i > 0}
+						<span class="opacity-60" aria-hidden="true"
+							><FaIcon icon={FaIconType.RightSingle} /></span
+						>
+					{/if}
+					{#if line.href}
+						<a class="hover:underline" href={resolve(line.href as any, {})}>{line.label}</a>
+					{:else}
+						<span>{line.label}</span>
+					{/if}
+				{/each}
+			</div>
+		{/if}
 	{/if}
 
-	{#if !small}
+	{#if !headerOnly && !small}
 		<div class="relative">
 			<div class="absolute">
 				<img
@@ -240,7 +293,13 @@ Block element with fixed height that display some overall information about the 
 						<span
 							><HealthSanity health={frontInvestigator.health} sanity={frontInvestigator.sanity} />
 						</span>
-						<span><ImageIconCommit card={frontInvestigator} /></span>
+						<span
+							><ImageIconCommit
+								card={frontInvestigator}
+								highlightAtLeast={highlightStatsAtLeast}
+								dimAtMost={dimStatsAtMost}
+							/></span
+						>
 					</div>
 					<div>
 						<DeckSpecificInformation
@@ -263,8 +322,22 @@ Block element with fixed height that display some overall information about the 
 			<div class={clsx('border-t-primary-400/20 h-8 border-t bg-white/20 dark:bg-black/20')}>
 				<DeckXpTimeline deck={deckLatestForwarded} />
 			</div>
+		{:else if deckLatestForwarded.meta.introMd}
+			<!-- Always three text lines tall: longer excerpts clip with an ellipsis, shorter ones center. -->
+			<div
+				class="intro-md border-t-primary-400/20 flex h-[4.25rem] items-center border-t bg-white/20 px-3 text-sm leading-5 dark:bg-black/20"
+			>
+				{#if mounted}
+					<div class="line-clamp-3 w-full">
+						<ArkhamdbMarkdownRenderer
+							descriptionMd={deckLatestForwarded.meta.introMd}
+							{cardResolver}
+						/>
+					</div>
+				{/if}
+			</div>
 		{/if}
-	{:else}
+	{:else if !headerOnly}
 		<!-- Small mode: Only show investigator CardLine -->
 		<div
 			class={clsx(
@@ -281,7 +354,13 @@ Block element with fixed height that display some overall information about the 
 				<span
 					><HealthSanity health={frontInvestigator.health} sanity={frontInvestigator.sanity} />
 				</span>
-				<span class="hidden md:block"><ImageIconCommit card={frontInvestigator} /></span>
+				<span class="hidden md:block"
+					><ImageIconCommit
+						card={frontInvestigator}
+						highlightAtLeast={highlightStatsAtLeast}
+						dimAtMost={dimStatsAtMost}
+					/></span
+				>
 				<div>
 					<DeckSpecificInformation
 						onlyDeckbuildingChoices
@@ -304,3 +383,10 @@ Block element with fixed height that display some overall information about the 
 		referenceElement={tooltip.referenceElement}
 	/>
 {/if}
+
+<style>
+	/* Excerpt block: keep the markdown compact inside the banner. */
+	.intro-md :global(p) {
+		margin: 0;
+	}
+</style>

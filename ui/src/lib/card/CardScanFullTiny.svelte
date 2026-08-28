@@ -97,7 +97,6 @@ no name block, and lazy-loaded images.
 				draggable="false"
 				{loading}
 				decoding="async"
-				style="transform: translateZ(0);"
 				style:width="{layout.horizontalCardWidth}px"
 				style:height="{layout.horizontalCardHeight}px"
 				style:border-radius="{layout.borderRadius}px"
@@ -115,7 +114,6 @@ no name block, and lazy-loaded images.
 					draggable="false"
 					{loading}
 					decoding="async"
-					style="transform: translateZ(0);"
 					style:width="{layout.horizontalCardWidth}px"
 					style:height="{layout.horizontalCardHeight}px"
 					style:border-radius="{layout.borderRadius}px"
@@ -135,7 +133,6 @@ no name block, and lazy-loaded images.
 			draggable="false"
 			{loading}
 			decoding="async"
-			style="transform: translateZ(0);"
 			style:width="{layout.cardWidth}px"
 			style:height="{layout.cardHeight}px"
 			style:border-radius="{layout.borderRadius}px"
@@ -150,18 +147,20 @@ no name block, and lazy-loaded images.
 {/snippet}
 
 <div class={clsx('relative select-none', interactive && 'interactive')} style:width="{width}px">
-	<div style:height="{layout.verticalReserve}px" style="isolation: isolate;">
+	<!-- Copies are positioned explicitly (offset and z-order by index) so the
+	     front copy always sits lowest and on top, whatever the surroundings. -->
+	<div class="reserve" style:height="{layout.verticalReserve}px">
 		{#each Array(layout.iterationCount) as _, i (i)}
 			<!-- Cast shadow on this copy if the previous iteration rendered a copy behind it -->
 			{@const shadow = i - 1 >= layout.iterationCount - effectiveQuantity}
 			{@const renderIndex = i - (layout.iterationCount - effectiveQuantity)}
 			{@const greyedOut = renderIndex < effectiveGreyedOut}
 			{@const notFront = i < layout.iterationCount - 1}
-			<div style:height="{layout.stackPadding}px">
-				{#if i >= layout.iterationCount - effectiveQuantity}
+			{#if i >= layout.iterationCount - effectiveQuantity}
+				<div class="copy" style:top="{i * layout.stackPadding}px" style:z-index={i}>
 					{@render oneCard(shadow, greyedOut, notFront)}
-				{/if}
-			</div>
+				</div>
+			{/if}
 		{/each}
 	</div>
 	{#if badge !== undefined}
@@ -185,6 +184,16 @@ no name block, and lazy-loaded images.
 </div>
 
 <style>
+	.reserve {
+		position: relative;
+		isolation: isolate;
+	}
+
+	.copy {
+		position: absolute;
+		left: 0;
+	}
+
 	.cast-shadow {
 		box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.5);
 	}
@@ -211,7 +220,14 @@ no name block, and lazy-loaded images.
 		cursor: pointer;
 	}
 
-	.interactive:hover {
+	/* Hover brightens the copies themselves rather than filtering the whole
+	   container: a container filter toggling on hover makes Safari re-layer
+	   the stack and can flip the copies' paint order. */
+	.interactive:hover .copy img {
 		filter: brightness(1.1);
+	}
+
+	.interactive:hover .copy img.not-front {
+		filter: brightness(0.9);
 	}
 </style>

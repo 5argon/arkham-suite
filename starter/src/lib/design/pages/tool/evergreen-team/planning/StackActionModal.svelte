@@ -12,7 +12,7 @@ adjustable copy count that starts from the current pick mode.
 	import {
 		computeMoveQuantity,
 		deckLimitOf,
-		remainingOf,
+		availableOf,
 		routeZone,
 		titleCountInDeck,
 		wantOf
@@ -52,7 +52,7 @@ adjustable copy count that starts from the current pick mode.
 	const heldAtSource = $derived.by(() => {
 		if (source === null) return 0;
 		return source.kind === 'collection'
-			? remainingOf(team, pool, source.cardCode)
+			? availableOf(team, pool, source.cardCode)
 			: (team.decks[source.deckIndex]?.[source.zone][source.cardCode] ?? 0);
 	});
 

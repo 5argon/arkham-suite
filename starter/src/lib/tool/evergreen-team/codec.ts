@@ -71,9 +71,12 @@ export function encodeEvergreen(state: EvergreenState): string {
 
 /**
  * Decode a shared team string. Defensive: unknown investigators or cards are
- * dropped, quantities are clamped to deck limits and to the physical pool,
- * and zones are re-derived from card level. Returns null when the string is
- * unparseable or holds no valid deck.
+ * dropped, quantities are clamped to deck limits, and zones are re-derived
+ * from card level. Copies are NOT clamped to the physical pool: a team
+ * assembled from published starter decks may legitimately claim more copies
+ * than the products hold, and the tool shows those overlaps for the user to
+ * resolve. Returns null when the string is unparseable or holds no valid
+ * deck.
  */
 export function decodeEvergreen(encoded: string, allCards: Card[]): EvergreenState | null {
 	let proto;
@@ -100,7 +103,6 @@ export function decodeEvergreen(encoded: string, allCards: Card[]): EvergreenSta
 	const pool = buildPool(setup, allCards);
 
 	const decks: EvergreenDeckState[] = [];
-	const draftedSoFar = new Map<CardCode, number>();
 	for (const protoDeck of proto.decks.slice(0, 4)) {
 		const investigator = protoDeck.investigator.toString().padStart(5, '0');
 		if (!rosterCodes.has(investigator) || setup.investigators.includes(investigator)) {
@@ -113,17 +115,11 @@ export function decodeEvergreen(encoded: string, allCards: Card[]): EvergreenSta
 			const poolEntry = pool.get(code);
 			if (poolEntry === undefined) continue;
 			const inThisTitle = titleCounts.get(poolEntry.titleKey) ?? 0;
-			const drafted = draftedSoFar.get(code) ?? 0;
-			const qty = Math.min(
-				quantity,
-				deckLimitOf(poolEntry.card) - inThisTitle,
-				poolEntry.total - drafted
-			);
+			const qty = Math.min(quantity, deckLimitOf(poolEntry.card) - inThisTitle);
 			if (qty <= 0) continue;
 			const zone = routeZone(poolEntry.card);
 			deck[zone][code] = (deck[zone][code] ?? 0) + qty;
 			titleCounts.set(poolEntry.titleKey, inThisTitle + qty);
-			draftedSoFar.set(code, drafted + qty);
 		}
 		setup.investigators.push(investigator);
 		decks.push(deck);
@@ -139,6 +135,7 @@ export function decodeEvergreen(encoded: string, allCards: Card[]): EvergreenSta
 		decks,
 		pickMode: 'max',
 		mergeProducts: proto.mergeProducts,
+		unlimited: false,
 		info: clampTeamInfo({
 			name: proto.name,
 			author: proto.author,

@@ -1,0 +1,14 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"team_title": "Pre-Built Teams",
+	"team_page_title": "arkham-starter.com | Pre-Built Teams",
+	"team_intro": "Ready-to-go teams of various player counts. Many of these were mix and matched from the starter decks hosted on this site with overlaps resolved for you, or even tailor-made team where individual decks in it won't work on its own!",
+	"team_players_tab": "{count} Players ({teams})",
+	"team_none_match": "No pre-built team fits this selection yet.",
+	"team_back": "Pre-Built Teams",
+	"team_open_builder": "Open in Team Builder",
+	"team_guide": "Team Guide",
+	"team_view": "View Team",
+	"team_from_starter_deck": "From this starter deck:",
+	"team_exclusive": "Exclusive"
+}

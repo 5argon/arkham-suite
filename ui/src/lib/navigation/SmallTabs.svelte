@@ -42,6 +42,7 @@ hiding the content.
 		border-bottom-color: transparent;
 		font-weight: 600;
 		font-size: 0.875rem;
+		white-space: nowrap;
 		color: var(--color-primary-700);
 		cursor: pointer;
 		transition:

@@ -1,0 +1,71 @@
+{
+	"slug": "ch2-starters-revisited",
+	"name": "Ch2 Starters Revisited",
+	"description": "In this mini-series I'm focusing on powerful decks built from the Chapter 2 starters.",
+	"decks": [
+		{
+			"id": 64388,
+			"slug": "living-her-bast-life",
+			"introMd": "Here Carolyn uses [Scroll of the Pharaohs (Words of Bast)](/card/60279) to manipulate the encounter deck, with [Occult Records](/card/60256) healing off the horror for a <span class=\"icon-free\"></span> clue. I guess the best way to manage enemies is not to draw them!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "64388.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "64388.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwMjU5GgU2MDI3OTAEOAQKEhIFNjAyNTkaBTYwMjc5MAQ4CAoSEgU2MDI1NRoFNjAyODIwBTgNChISBTYwMjU1GgU2MDI4MjAFOBIKEDgSQgpQb3N0LTE5IFhQSAEKEhIFMTIwMzkaBTYwMjc1MAI4FAoSEgUxMjAzORoFNjAyNzUwAjgWChISBTYwMjYxGgU2MDI3MzACOBgKEhIFNjAyNjEaBTYwMjczMAI4GgoLGgUxMjA0MjADOB0STBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 64389,
+			"slug": "tommy-squared",
+			"introMd": "Here, Tommy uses the [Thompson Submachine Gun](/card/60182) as a <strong><ins>big</ins></strong> gun. With it and upgraded [Vicious Blow](/card/60176), you can deal up to 16 damage in a turn - toasty!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "64389.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "64389.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDIwGgU2MDE4MjAFOAUKEhIFMTIwMTgaBTYwMTcyMAE4BgoSEgUxMjAxOBoFNjAxNzIwATgHChISBTEyMDI0GgU2MDE3MzABOAgKEhIFMTIwMjQaBTYwMTczMAE4CQoSEgUxMjAyMBoFNjAxODIwBTgOChISBTEyMDI1GgU2MDE3NjACOBAKEhIFMTIwMjUaBTYwMTc2MAI4EgoQOBJCClBvc3QtMTkgWFBIAQoSEgU2MDE2NhoFNjAxNzkwAzgVChISBTYwMTY2GgU2MDE3OTADOBgKEhIFMTIwMTkaBTYwMTcxMAI4GgoSEgUxMjAxORoFNjAxNzEwAjgcEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		},
+		{
+			"id": 64502,
+			"slug": "marie-poppin-cultists",
+			"introMd": "Here Marie be poppin' cultists with [Cosmic Flame](/card/12071) and [Consume Life](/card/60462), which she can easily find with [Jim Culver](/card/60479), [Arcane Initiate](/card/60455) and her ability.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "64502.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "64502.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwNDU5GgUxMjA3MTAFOAUKEhIFMTIwOTAaBTEyMDY5MAI4BwoSEgU2MDQ1ORoFMTIwNzEwBTgMChISBTEyMDYwGgU2MDQ3OTAEOBAKEhIFMTIwOTQaBTEyMDY5MAI4EgoQOBJCClBvc3QtMTkgWFBIAQoSEgUxMjA5NBoFNjA0NzMwAjgUChISBTYwNDY0GgU2MDQ3MjACOBYKEhIFNjA0NjcaBTYwNDc3MAM4GQoSEgU2MDQ2NxoFNjA0NzcwAzgcEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		},
+		{
+			"id": 64503,
+			"slug": "the-fatal-thespian",
+			"introMd": "Here André can deal up to 9 damage in a turn by [bashing enemies' legs in](/card/60363), [pushing them off roofs](/card/60378) (twice) and [shooting them](/card/12045). Who knew show business was so cutthroat?!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "64503.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "64503.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwMzcwGgU2MDM3MzABOAEKEhIFNjAzNzAaBTYwMzczMAE4AgoSEgUxMjA0NxoFNjAzODAwAzgFChISBTEyMDQ3GgU2MDM3NDACOAcKEhIFMTIwOTMaBTYwMzc0MAI4CQoSEgU2MDM2NhoFNjAzNzgwAjgLChISBTYwMzY2GgU2MDM3ODACOA0KCxoFMTIwNTYwAzgQCgsaBTEyMDU2MAM4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgU2MDM2OBoFNjAzODIwAzgWChISBTYwMzY4GgU2MDM4MjADOBkKEhIFMTIwOTQaBTYwMzgzMAM4HBJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		}
+	]
+}

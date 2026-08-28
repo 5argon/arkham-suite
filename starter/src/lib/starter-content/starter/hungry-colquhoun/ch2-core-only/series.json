@@ -1,0 +1,87 @@
+{
+	"slug": "ch2-core-only",
+	"name": "Chapter 2 Core Only",
+	"description": "These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1.",
+	"decks": [
+		{
+			"id": 60807,
+			"slug": "joe-diamond-the-drawlord",
+			"introMd": "Here [Joe](/card/12004) investigates at an effective 7 <span class=\"icon-intellect\"></span> and draws a load of cards. Using [Endurance](/card/12017) he can punch or evade enemies when he needs to, with [Dorothy Simmons](/card/12030) bankrolling these boosts.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "60807.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "60807.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTAyMTU4MAM4AwoSEgUxMjA5MRoFMTIwNDMwBTgIChISBTEyMDkxGgUxMjA0MzAFOA0KCxoFMDUyNzYwAzgQCgsaBTA1Mjc2MAM4ExJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 60808,
+			"slug": "izzie-barnes-mad-skillz",
+			"introMd": "By committing [Fearless](/card/12069) using her ability, [Izzie](/card/12013) can both heal horror and draw a card with [Jim Culver](/card/12060). [Second Sight](/card/12062) and [Cosmic Flame](/card/12059) pair perfectly to provide clue plus damage compression, accompanied by 14 <span class=\"icon-wild\"></span> icons so Izzie can survive survive against all odds.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "60808.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "60808.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDc1GgUxMjA4MjABOAEKEhIFMTIwNjUaBTEyMDgyMAE4AgoSEgUxMjA5MxoFMDIyNjgwAjgEChISBTEyMDkzGgUwMjI2ODACOAYKEhIFMTIwNjcaBTEyMDg0MAI4CAoSEgUxMjA2NxoFMTIwODQwAjgKChISBTEyMDg4GgUxMjA4MzACOAwKEhIFMTIwODgaBTEyMDgzMAI4DhJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 60847,
+			"slug": "daniela-reyes-arkham-linebacker",
+			"introMd": "Here [Daniela](/card/12001) protects other investigators and frees up their actions - like Arkham's very own linebacker! It uses the hated (<strong><ins>hated!</ins></strong>) [Bodyguard](/card/12027) to soak Attacks of Opportunity for other investigators on their turns, which triggers Daniela's <span class=\"icon-reaction\"></span> ability and allows her to smush cultists with [Sledgehammer](/card/12028) blows. In other words, the Seekers find clues while Daniela kills dudes - everyone's happy...",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "60847.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "60847.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTAyMTU4MAM4AwoSEgUxMjA4OBoFMTIwMjgwAzgGChISBTEyMDg4GgUxMjAyODADOAkKEhIFMTIwMTYaBTEyMDI3MAI4CwoSEgUxMjAxNhoFMTIwMjcwAjgNChISBTEyMDIwGgUxMjAyNjABOA4KEhIFMTIwMjAaBTEyMDI2MAE4DwoSEgUxMjA5MBoFMTIwODQwAjgRChISBTEyMDkwGgUxMjA4NDACOBMSTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 60848,
+			"slug": "trish-scarborough-i-spy-a-seeker",
+			"introMd": "Here [Trish](/card/12007) boasts strong enemy management, with <span class=\"icon-agility\"></span> 5 and the [M1903 Hammerless](/card/12045), but also the ability to investigate at a 6 or 7 <span class=\"icon-intellect\"></span> stat. What more could you ask for in a <s><strong style=\"color:rgb(239, 163, 69);\">Seeker</strong></s>... <strong style=\"color:rgb(72, 177, 79);\">Rogue</strong>, I mean Rogue!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "60848.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "60848.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTA1Mjc4MAM4AwoLGgUwMjE1ODADOAYKCxoFMDUyNzgwAzgJChISBTEyMDM3GgUxMjA0MTACOAsKEhIFMTIwMzcaBTEyMDQxMAI4DQoSEgUxMjA1MxoFMTIwNTcwAzgQChISBTEyMDUzGgUxMjA1NzADOBMSTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 60859,
+			"slug": "dexter-drake-the-prestige",
+			"introMd": "Here [Dexter](/card/12010) performs classic Mystic duty, with high  <span class=\"icon-willpower\"></span> and spell assets for damage and clues. When he's not pulling rabbits from hats, he's vanishing assets with both his <span class=\"icon-reaction\"></span> ability and [Prestidigitation](/card/12052). In true Prestige fashion, remember: making something disappear isn't enough... you have to bring it back.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "60859.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "60859.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDU5GgUxMjA3MTAFOAUKEhIFMTIwOTQaBTAyMjY4MAI4BwoSEgUxMjA5NBoFMDIyNjgwAjgJChISBTEyMDU5GgUxMjA3MTAFOA4STBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		}
+	]
+}

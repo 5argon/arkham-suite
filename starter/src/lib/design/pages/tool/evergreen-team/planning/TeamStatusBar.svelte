@@ -8,11 +8,11 @@ board to the selected members, bringing far-apart decks closer for dragging.
 -->
 <script lang="ts">
 	import { CardLine } from '@5argon/arkham-life-ui';
-	import type { CardResolver } from '@5argon/arkham-kohaku';
+	import type { CardCode, CardResolver } from '@5argon/arkham-kohaku';
 	import clsx from 'clsx';
 
 	import * as m from '$lib/paraglide/messages.js';
-	import { mainDeckCount } from '$lib/tool/evergreen-team/rules';
+	import { mainDeckCount, overlappingStacksOf } from '$lib/tool/evergreen-team/rules';
 	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
 
 	interface Prop {
@@ -23,18 +23,24 @@ board to the selected members, bringing far-apart decks closer for dragging.
 		 */
 		soloIndices?: ReadonlySet<number>;
 		onToggleSolo?: (deckIndex: number) => void;
+		/**
+		 * Cards claimed beyond the pool (teams assembled from starter decks).
+		 */
+		overlaps?: ReadonlySet<CardCode>;
 	}
-	const { team, resolver, soloIndices, onToggleSolo }: Prop = $props();
+	const { team, resolver, soloIndices, onToggleSolo, overlaps }: Prop = $props();
 
 	const statuses = $derived(
 		team.decks.map((deck, deckIndex) => {
 			const investigator = resolver.resolve(deck.investigator);
 			const size = investigator.deckRequirements?.size ?? 30;
 			const count = mainDeckCount(deck);
-			return { deckIndex, investigator, size, count };
+			const overlapping = overlaps === undefined ? 0 : overlappingStacksOf(deck, overlaps);
+			return { deckIndex, investigator, size, count, overlapping };
 		})
 	);
-	const teamReady = $derived(statuses.every((s) => s.count === s.size));
+	const teamReady = $derived(statuses.every((s) => s.count === s.size && s.overlapping === 0));
+	const teamOverlapping = $derived(statuses.some((s) => s.overlapping > 0));
 </script>
 
 <div class="flex flex-col items-center gap-1 py-1">
@@ -44,11 +50,13 @@ board to the selected members, bringing far-apart decks closer for dragging.
 			<span
 				class={clsx(
 					'flex flex-col gap-0.5 rounded-2xl border px-2 py-1 text-sm',
-					status.count === status.size
-						? 'border-green-600 bg-green-600/10 text-green-700 dark:text-green-400'
-						: status.count > status.size
-							? 'border-red-600 bg-red-600/10 text-red-700 dark:text-red-400'
-							: 'border-amber-600 bg-amber-600/10 text-amber-700 dark:text-amber-400'
+					status.overlapping > 0
+						? 'border-red-600 bg-red-600/10 text-red-700 dark:text-red-400'
+						: status.count === status.size
+							? 'border-green-600 bg-green-600/10 text-green-700 dark:text-green-400'
+							: status.count > status.size
+								? 'border-red-600 bg-red-600/10 text-red-700 dark:text-red-400'
+								: 'border-amber-600 bg-amber-600/10 text-amber-700 dark:text-amber-400'
 				)}
 			>
 				<span class="flex items-center gap-1.5">
@@ -70,7 +78,9 @@ board to the selected members, bringing far-apart decks closer for dragging.
 					{/if}
 				</span>
 				<span class="text-xs font-bold">
-					{#if status.count === status.size}
+					{#if status.overlapping > 0}
+						{m.tool_evergreen_team_status_overlap({ count: status.overlapping })}
+					{:else if status.count === status.size}
 						{m.tool_evergreen_team_status_ready()}
 					{:else if status.count > status.size}
 						{m.tool_evergreen_team_status_over({ count: status.count - status.size })}
@@ -84,6 +94,12 @@ board to the selected members, bringing far-apart decks closer for dragging.
 	{#if teamReady}
 		<span class="rounded-full bg-green-600 px-3 py-0.5 text-sm font-bold text-white">
 			{m.tool_evergreen_team_status_team_ready()}
+		</span>
+	{:else if teamOverlapping}
+		<span
+			class="max-w-xl rounded-2xl bg-red-600 px-3 py-0.5 text-center text-sm font-bold text-white"
+		>
+			{m.tool_evergreen_team_status_team_overlap()}
 		</span>
 	{/if}
 </div>

@@ -78,6 +78,7 @@ export enum FaIconType {
 	Reset,
 	Redo,
 	Broom,
+	Swap,
 	Clear,
 	CloseModal,
 	ExternalLink,

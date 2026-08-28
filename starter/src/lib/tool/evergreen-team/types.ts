@@ -71,6 +71,11 @@ export interface EvergreenState {
 	 * product; also widens the class pick mode's sweep to all products.
 	 */
 	mergeProducts: boolean;
+	/**
+	 * Session preference: pickups ignore how many copies are left in the
+	 * collection, so overlaps can be introduced on purpose (never persisted).
+	 */
+	unlimited: boolean;
 	info: TeamInfo;
 }
 

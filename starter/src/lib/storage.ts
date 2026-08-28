@@ -9,7 +9,9 @@ import { browser } from '$app/environment';
  */
 export const STORAGE_KEYS = {
 	THEME: 'arkham-starter-theme',
-	EVERGREEN_DRAFT: 'arkham-starter-evergreen-team-draft'
+	EVERGREEN_DRAFT: 'arkham-starter-evergreen-team-draft',
+	STARTER_TEAM: 'arkham-starter-starter-team',
+	TRANSIENT_DECKS: 'arkham-starter-transient-decks'
 } as const;
 
 /**

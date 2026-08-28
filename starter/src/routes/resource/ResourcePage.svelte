@@ -1,41 +1,48 @@
 <script>
-	import { InnerHeading, ThumbnailCardButton } from '@5argon/arkham-life-ui';
+	import { InnerHeading, TextParagraph, ThumbnailCardButton } from '@5argon/arkham-life-ui';
 </script>
 
-<!-- <InnerHeading title="Starter Contents"></InnerHeading>
+<InnerHeading title="Starter Contents"></InnerHeading>
 
 <TextParagraph>
-	Welcome to the game! These contents are guaranteed to be within the evergreen card pool. (The Core
-	Set 2026 and the five investigator decks.) As the site's name might suggest, I wanted to make it a
-	priority that new players are not intimidated by the sheer amount of player cards in the game.
+	Welcome to the game! These contents are guaranteed to be within the Current Environment, and
+	especially theevergreen card pool. (The Core Set 2026 and the five investigator decks.) As the
+	site's name might suggest, I wanted to make it a priority that new players are not intimidated by
+	the sheer amount of player cards in the game.
 </TextParagraph>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
+		description="Pick up and play beginner-friendly decks buildable only from the Current Environment card pool."
+		imageUrl="image/resource/starter.webp"
+		onClick="/starter"
+		title="Starter Decks"
+	/>
+	<ThumbnailCardButton
+		description="Ready-to-go teams of various player count with balanced member roles and card overlaps all resolved for you!"
+		imageUrl="image/resource/team.webp"
+		onClick="/team"
+		title="Pre-Built Teams"
+	/>
+	<ThumbnailCardButton
+		description="The world's first beginner-oriented full-team deckbuilder! Discuss together and easily allocate cards between decks."
+		imageUrl="image/resource/evergreen.webp"
+		onClick="/tool/team-builder"
+		title="Team Builder"
+	/>
+	<!-- <ThumbnailCardButton
 		description="Needed help making more sense out of the 'decks' you see when you first opened the Core Set 2026 box?"
 		imageUrl="image/resource/precon.webp"
 		onClick="/precon"
 		title="Precon In-Depth"
 	/>
 	<ThumbnailCardButton
-		description="Beginner-friendly decks built only from the evergreen card pool."
-		imageUrl="image/resource/precon.webp"
-		onClick="/starter"
-		title="Starter Decks"
-	/>
-	<ThumbnailCardButton
-		description="Ready-to-go teams of various player count with balanced member roles and card overlaps all resolved for you!"
-		imageUrl="image/resource/precon.webp"
-		onClick="/team"
-		title="Pre-Built Teams"
-	/>
-	<ThumbnailCardButton
 		description="Read beginner-friendly reviews about each individual card in the evergreen pool!"
 		imageUrl="image/resource/precon.webp"
 		onClick="/review"
 		title="Evergreen Card Reviews"
-	/>
-</div> -->
+	/> -->
+</div>
 
 <InnerHeading title="Reference Materials"></InnerHeading>
 
@@ -68,14 +75,6 @@
 
 <InnerHeading title="Deckbuilding Tools" />
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-	<!-- URL access only while the tool matures.
-	<ThumbnailCardButton
-		description="Drag and drop cards from a shared Evergreen card pool into up to 4 decks at once, sharing them wisely to make the best team."
-		imageUrl="image/resource/evergreen.webp"
-		onClick="/tool/team-builder"
-		title="Evergreen Team Builder"
-	/>
-	-->
 	<ThumbnailCardButton
 		description="Query eligible investigators that could run combo cards you are interested in together in their deck."
 		imageUrl="image/resource/who.webp"

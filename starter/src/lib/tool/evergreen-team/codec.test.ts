@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { getAllCards } from '../../card-data';
 import { decodeEvergreen, encodeEvergreen } from './codec';
+import { defaultTeamInfo } from './team-info';
 import type { EvergreenState } from './types';
 
 const allCards = getAllCards();
@@ -23,6 +24,7 @@ function fullTeam(): EvergreenState {
 		],
 		pickMode: 'max',
 		mergeProducts: false,
+		unlimited: false,
 		info: { name: 'Evergreen Team', author: '', description: '' }
 	};
 }
@@ -45,6 +47,7 @@ describe('evergreen codec', () => {
 			decks: [{ investigator: '12001', main: { '12025': 2 }, side: {} }],
 			pickMode: 'class',
 			mergeProducts: true,
+			unlimited: false,
 			info: { name: 'Evergreen Team', author: '', description: '' }
 		};
 		const decoded = decodeEvergreen(encodeEvergreen(state), allCards);
@@ -61,7 +64,9 @@ describe('evergreen codec', () => {
 			description: 'y'.repeat(200)
 		});
 		state.info = { name: '   ', author: '', description: '' };
-		expect(decodeEvergreen(encodeEvergreen(state), allCards)!.info.name).toBe('Evergreen Team');
+		expect(decodeEvergreen(encodeEvergreen(state), allCards)!.info.name).toBe(
+			defaultTeamInfo().name
+		);
 	});
 
 	it('produces a URL-safe string', () => {
@@ -113,7 +118,7 @@ describe('evergreen codec', () => {
 		expect(decoded!.setup.investigators).toEqual(['01501', '01502', '01503']);
 	});
 
-	it('clamps quantities to the physical pool across decks', () => {
+	it('keeps copies beyond the physical pool so overlaps can be resolved in the tool', () => {
 		const state = fullTeam();
 		// 4 copies exist; decks claim 2 + 2 + 2 = 6.
 		state.decks[0].main['01592'] = 2;
@@ -125,6 +130,6 @@ describe('evergreen codec', () => {
 			(decoded!.decks[0].main['01592'] ?? 0) +
 			(decoded!.decks[1].main['01592'] ?? 0) +
 			(decoded!.decks[2].main['01592'] ?? 0);
-		expect(total).toBe(4);
+		expect(total).toBe(6);
 	});
 });

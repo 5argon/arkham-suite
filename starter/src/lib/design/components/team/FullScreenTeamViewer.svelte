@@ -27,9 +27,11 @@ team page.
 	import InvestigatorArea from '$lib/design/pages/tool/evergreen-team/planning/InvestigatorArea.svelte';
 	import TeamStatusBar from '$lib/design/pages/tool/evergreen-team/planning/TeamStatusBar.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 	import { toAhdbDeck } from '$lib/tool/evergreen-team/export';
+	import { openInDeckGather } from '$lib/tool/interop/transient-decks';
 	import { buildPool, poolSections } from '$lib/tool/evergreen-team/pool';
-	import { buildEligibility, remainingOf } from '$lib/tool/evergreen-team/rules';
+	import { buildEligibility, overlappingCodes, remainingOf } from '$lib/tool/evergreen-team/rules';
 	import type { DeckMeta, EvergreenState } from '$lib/tool/evergreen-team/types';
 
 	interface Prop {
@@ -38,8 +40,17 @@ team page.
 		 * Name and description per deck, parallel to team.decks.
 		 */
 		deckMeta: DeckMeta[];
+		/**
+		 * What Copy Share Link copies; defaults to the Team Builder link of
+		 * this team. Curated pages pass their own URL.
+		 */
+		shareUrl?: string;
+		/**
+		 * Hides the readiness chips; curated teams are valid by definition.
+		 */
+		hideStatus?: boolean;
 	}
-	const { team, deckMeta }: Prop = $props();
+	const { team, deckMeta, shareUrl, hideStatus = false }: Prop = $props();
 
 	const allCards = getAllCards();
 	const resolver = createCardResolver();
@@ -63,9 +74,35 @@ team page.
 		tooltipCard = null;
 	}
 
+	const overlaps = $derived(overlappingCodes(team, pool));
 	let compact = $state(false);
 	let showUnused = $state(false);
 	let showExport = $state(false);
+	let copied = $state(false);
+
+	function copyShareLink() {
+		const encoded = encodeEvergreen($state.snapshot(team) as EvergreenState);
+		navigator.clipboard.writeText(
+			shareUrl ?? `https://arkham-starter.com/tool/team-builder?t=${encoded}`
+		);
+		copied = true;
+		setTimeout(() => (copied = false), 1800);
+	}
+
+	function ahdbDeckOf(deckIndex: number) {
+		const investigator = resolver.resolve(team.decks[deckIndex].investigator);
+		return toAhdbDeck({
+			state: team,
+			deckIndex,
+			resolver,
+			name: deckMeta[deckIndex]?.name ?? investigator.name,
+			description: deckMeta[deckIndex]?.description ?? ''
+		});
+	}
+
+	function gatherCards() {
+		openInDeckGather(team.decks.map((_, i) => ahdbDeckOf(i)));
+	}
 	const cardWidth = $derived(compact ? 48 : 64);
 
 	// Per-deck full DeckDisplay modal, built the same way other pages show
@@ -119,12 +156,24 @@ team page.
 		onChange={() => (showUnused = !showUnused)}
 	/>
 	<Button
+		icon={FaIconType.Export}
+		label={copied ? m.tool_evergreen_team_share_copied() : m.tool_evergreen_team_share_copy()}
+		onClick={copyShareLink}
+	/>
+	<Button
 		icon={FaIconType.Import}
 		label={m.tool_evergreen_team_export()}
 		onClick={() => (showExport = true)}
 	/>
+	<Button
+		icon={FaIconType.ExternalLink}
+		label={m.tool_evergreen_team_gather()}
+		onClick={gatherCards}
+	/>
 </div>
-<TeamStatusBar {team} {resolver} />
+{#if !hideStatus}
+	<TeamStatusBar {team} {resolver} {overlaps} />
+{/if}
 {#if showUnused}
 	<div class="mt-2 flex flex-col gap-3">
 		{#each unusedSections as section (section.product)}
@@ -171,6 +220,7 @@ team page.
 				viewMode
 				{compact}
 				onOpenDeck={openDeckModal}
+				{overlaps}
 				onCardHover={handleCardHover}
 				onCardHoverEnd={handleCardHoverEnd}
 			/>

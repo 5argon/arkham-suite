@@ -28,6 +28,9 @@
 	} from '@5argon/arkham-kohaku';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { linkedAhdbDeckToDeck } from '@5argon/arkham-kohaku';
+	import { clearStashedDecks, readStashedDecks } from '$lib/tool/interop/transient-decks';
 	import * as m from '$lib/paraglide/messages.js';
 	import { getAllCards, loadAllTabooLists } from '$lib/card-data';
 	import type { PageProps } from './$types';
@@ -41,7 +44,16 @@
 
 	let showImportModal = $state(false);
 	let preLoadedDecks = $derived(data.preLoadedDecks);
-	let importedDecksNotForwarded = $derived<Deck[]>(preLoadedDecks ?? []);
+	// Decks handed over from another tool (Team Builder, Team Assembler...)
+	// take over the page: while they exist, deck links and imports are ignored.
+	let handedOver = $state<Deck[] | null>(null);
+	onMount(() => {
+		const stashed = readStashedDecks();
+		if (stashed !== null) {
+			handedOver = stashed.map((deck) => linkedAhdbDeckToDeck({ deck }, cardResolver, tabooLists));
+		}
+	});
+	let importedDecksNotForwarded = $derived<Deck[]>(handedOver ?? preLoadedDecks ?? []);
 	let displayMode = $state<'all' | 'overlaps'>('all');
 	let deckModalDeck = $state<Deck | null>(null);
 	let excludeSideDecks = $state(false);
@@ -237,11 +249,16 @@
 	}
 
 	function handleClearDecks() {
+		if (handedOver !== null) {
+			clearStashedDecks();
+			handedOver = null;
+		}
 		importedDecks = [];
 		updateUrl();
 	}
 
 	function updateUrl() {
+		if (handedOver !== null) return;
 		// Update URL with deck IDs for sharing
 		const searchParams: string[] = [];
 		importedDecks.forEach((deck, i) => {
@@ -282,6 +299,18 @@
 		title={m.tool_gather_title()}
 	/>
 
+	{#if handedOver !== null}
+		<div
+			class="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-amber-600 bg-amber-600/10 px-3 py-2 text-sm text-amber-800 dark:text-amber-300"
+		>
+			<span>{m.tool_gather_interop_banner()}</span>
+			<Button
+				icon={FaIconType.Delete}
+				label={m.tool_gather_interop_clear()}
+				onClick={handleClearDecks}
+			/>
+		</div>
+	{/if}
 	{#if importedDecks.length === 0}
 		<BorderedContainer>
 			<div class="flex flex-col items-center gap-4 p-8">
@@ -294,21 +323,23 @@
 		</BorderedContainer>
 	{:else}
 		<div class="flex flex-col gap-4">
-			<BorderedContainer>
-				<!-- Actions -->
-				<div class="flex flex-wrap items-center gap-2">
-					<Button
-						label="Add More Decks"
-						icon={FaIconType.Plus}
-						onClick={() => (showImportModal = true)}
-					/>
-					<Button label="Clear All" icon={FaIconType.Delete} onClick={handleClearDecks} />
-					<Button
-						label="Copy Sharing URL"
-						onClick={() => navigator.clipboard.writeText(sharingUrl)}
-					/>
-				</div>
-			</BorderedContainer>
+			{#if handedOver === null}
+				<BorderedContainer>
+					<!-- Actions -->
+					<div class="flex flex-wrap items-center gap-2">
+						<Button
+							label="Add More Decks"
+							icon={FaIconType.Plus}
+							onClick={() => (showImportModal = true)}
+						/>
+						<Button label="Clear All" icon={FaIconType.Delete} onClick={handleClearDecks} />
+						<Button
+							label="Copy Sharing URL"
+							onClick={() => navigator.clipboard.writeText(sharingUrl)}
+						/>
+					</div>
+				</BorderedContainer>
+			{/if}
 
 			<BorderedContainer>
 				<!-- Deck Banners -->

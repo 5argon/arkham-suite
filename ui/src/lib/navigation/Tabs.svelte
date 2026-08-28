@@ -192,6 +192,4 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 	.use-accent-color {
 		border-color: var(--accent-color);
 	}
-
-
 </style>

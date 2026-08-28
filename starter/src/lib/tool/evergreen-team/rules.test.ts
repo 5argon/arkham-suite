@@ -4,11 +4,14 @@ import { describe, expect, it } from 'vitest';
 import { createCardResolver, getAllCards } from '../../card-data';
 import { buildPool, investigatorsForSetup } from './pool';
 import {
+	availableOf,
 	buildEligibility,
 	computeMoveQuantity,
 	mainDeckCount,
 	moveBetweenDecks,
 	moveToDeck,
+	overlappingCodes,
+	overlappingStacksOf,
 	remainingOf,
 	returnToCollection,
 	routeZone,
@@ -33,6 +36,7 @@ function freshState(): EvergreenState {
 		],
 		pickMode: 'max',
 		mergeProducts: false,
+		unlimited: false,
 		info: { name: 'Evergreen Team', author: '', description: '' }
 	};
 }
@@ -152,5 +156,40 @@ describe('buildEligibility', () => {
 		expect(eligibility.get('01544')).toEqual([false, true]);
 		// Manual Dexterity is a neutral skill: eligible for everyone.
 		expect(eligibility.get('01592')).toEqual([true, true]);
+	});
+
+	it('flags every stack of a card claimed beyond the pool as overlapping', () => {
+		const state = freshState();
+		// 4 copies exist; 2 + 2 is fine, a third deck-worth is not.
+		state.decks[0].main['01592'] = 2;
+		state.decks[1].main['01592'] = 2;
+		expect(overlappingCodes(state, pool).has('01592')).toBe(false);
+		// Dodge: 2 copies exist, claimed 2 + 2.
+		state.decks[0].main['01523'] = 2;
+		state.decks[1].main['01523'] = 2;
+		const overlaps = overlappingCodes(state, pool);
+		expect(overlaps.has('01523')).toBe(true);
+		expect(overlaps.has('01592')).toBe(false);
+		expect(overlappingStacksOf(state.decks[0], overlaps)).toBe(1);
+		expect(overlappingStacksOf(state.decks[1], overlaps)).toBe(1);
+		expect(remainingOf(state, pool, '01523')).toBe(0);
+	});
+
+	it('unlimited lets a pickup take a full deck limit even when the collection is empty', () => {
+		const state = freshState();
+		// Dodge: 2 copies exist; deck 0 takes both.
+		moveToDeck(state, pool, pool.get('01523')!.card, 0);
+		expect(remainingOf(state, pool, '01523')).toBe(0);
+		expect(availableOf(state, pool, '01523')).toBe(0);
+		expect(moveToDeck(state, pool, pool.get('01523')!.card, 1)).toBe(0);
+		state.unlimited = true;
+		expect(availableOf(state, pool, '01523')).toBe(2);
+		expect(moveToDeck(state, pool, pool.get('01523')!.card, 1)).toBe(2);
+		expect(state.decks[1].main['01523']).toBe(2);
+		expect(overlappingCodes(state, pool).has('01523')).toBe(true);
+		// One-at-a-time pick mode still takes one.
+		state.pickMode = 'one';
+		state.decks[1].main['01523'] = 0;
+		expect(moveToDeck(state, pool, pool.get('01523')!.card, 1)).toBe(1);
 	});
 });

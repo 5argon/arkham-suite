@@ -31,9 +31,10 @@
 </script>
 
 {#snippet renderSkillIcon(skillIcon: SkillIcon)}
-	<i class="relative select-none">
+	<!-- Never lets a squeezed flex row (e.g. inside a table cell) collapse the icon. -->
+	<i class="relative inline-block shrink-0 select-none">
 		<div
-			class="bg-primary-200 dark:bg-primary-600 absolute inset-0 h-full w-full rotate-45 scale-90 transform"
+			class="bg-primary-200 dark:bg-primary-600 absolute inset-0 h-full w-full scale-90 rotate-45 transform"
 		></div>
 		<img
 			width={14}
