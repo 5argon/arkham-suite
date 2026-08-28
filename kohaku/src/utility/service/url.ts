@@ -13,6 +13,7 @@ export const arkhamdbUrlPublicDeck = [arkhamdbBaseUrl, 'deck', 'view'];
 
 const arkhamBuildApiPublic = ['https://api.arkham.build/v1/public'];
 export const arkhamBuildApiShare = [...arkhamBuildApiPublic, 'share'];
+export const arkhamBuildApiAdditionalMetadata = [...arkhamBuildApiPublic, 'additional_metadata'];
 export const arkhamBuildUrlShare = [arkhamBuildBaseUrl, 'share'];
 export const arkhamBuildUrlView = [arkhamBuildBaseUrl, 'deck', 'view'];
 
@@ -35,6 +36,10 @@ export function createArkhamDbTaboosUrl(): string {
 export function createArkhamBuildShareUrl(deckId: string | number): string {
   const stringDeckId = typeof deckId === 'number' ? deckId.toString() : deckId;
   return joinPath(...arkhamBuildApiShare, stringDeckId);
+}
+
+export function createArkhamBuildAdditionalMetadataUrl(amk: string): string {
+  return joinPath(...arkhamBuildApiAdditionalMetadata, amk);
 }
 
 export function createArkhamDbPublishedDeckUrl(deckId: string | number): string {

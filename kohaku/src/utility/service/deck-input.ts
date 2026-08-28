@@ -1,6 +1,7 @@
 import { DeckSource } from '../../type/data/deck-source.js';
 import { AhdbDeck, Deck } from '../../type/index.js';
 import {
+  createArkhamBuildAdditionalMetadataUrl,
   createArkhamBuildShareUrl,
   createArkhamDbPublicDeckUrl,
   createArkhamDbPublishedDeckUrl,
@@ -162,7 +163,7 @@ export interface DeckFetchingError {
 export function isDeckFetchingError(
   fetched: AhdbDeck | DeckFetchingError
 ): fetched is DeckFetchingError {
-  return 'message' in fetched
+  return 'message' in fetched;
 }
 
 export function linearizeLinkedAhdbDeck(linked: LinkedAhdbDeck): AhdbDeck[] {
@@ -201,19 +202,24 @@ export async function fetchDeckRecursive(
     if (!deck.meta) {
       return deck;
     }
-
     const amk = getAmk(deck.meta);
     if (!amk) {
       return deck;
     }
-
-    const response = await fetchFunction(createArkhamBuildShareUrl(deck.id));
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch arkham.build deck ${deck.id} for amk ${amk}: HTTP ${response.status}`
-      );
+    try {
+      const response = await fetchFunction(createArkhamBuildAdditionalMetadataUrl(amk));
+      if (!response.ok) {
+        return deck;
+      }
+      const additional = (await response.json()) as unknown;
+      if (typeof additional !== 'object' || additional === null || Array.isArray(additional)) {
+        return deck;
+      }
+      const merged = { ...(JSON.parse(deck.meta) as Record<string, unknown>), ...additional };
+      return { ...deck, meta: JSON.stringify(merged) };
+    } catch {
+      return deck;
     }
-    return (await response.json()) as AhdbDeck;
   }
 
   async function fetchLogic(input: string | number): Promise<AhdbDeck | DeckFetchingError> {
