@@ -83,7 +83,10 @@ Flexible card display with multiple rendering modes and checklist functionality.
 	});
 
 	// Track greyed out quantity per card code when in checklist mode
+	// Rows are keyed by their item id when the caller gave one (two owners of
+	// the same card are separate rows), else by card code.
 	let checklistState = new SvelteMap<string, number>();
+	const rowKey = (item: CardItem) => item.id ?? item.card.code;
 	let isChecklistInitialized = $state(false);
 
 	// Apply grouping and sorting to cards
@@ -104,7 +107,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				if (noMoreGroup(item)) {
 					return {
 						...item,
-						greyedOutQuantity: checklistState.get(item.card.code) ?? 0
+						greyedOutQuantity: checklistState.get(rowKey(item)) ?? 0
 					};
 				} else {
 					return applyGreyedOut(item);
@@ -138,20 +141,17 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		return hideIconsView ? allChoices.filter((c) => c.value !== 'icons') : allChoices;
 	});
 
-	function handleIconsOrListClick(card: Card) {
+	function handleIconsOrListClick(_card: Card, cardItem: CardItem) {
 		if (!checklistMode) return;
-
-		const cardItem = cards.find((item) => item.card.code === card.code);
-		if (!cardItem) return;
-
-		const currentGreyed = checklistState.get(card.code) ?? 0;
+		const key = rowKey(cardItem);
+		const currentGreyed = checklistState.get(key) ?? 0;
 		const quantity = cardItem.quantity;
 
 		// Toggle: if not all disabled, set to all disabled. Otherwise, set to 0.
 		if (currentGreyed < quantity) {
-			checklistState.set(card.code, quantity);
+			checklistState.set(key, quantity);
 		} else {
-			checklistState.set(card.code, 0);
+			checklistState.set(key, 0);
 		}
 		checklistState = new SvelteMap(checklistState); // Trigger reactivity
 	}
@@ -159,25 +159,22 @@ Flexible card display with multiple rendering modes and checklist functionality.
 	function handleChecklistModeChange() {
 		checklistMode = !checklistMode;
 		if (checklistMode && !isChecklistInitialized) {
-			checklistState = new SvelteMap(cards.map((item) => [item.card.code, 0]));
+			checklistState = new SvelteMap(cards.map((item) => [rowKey(item), 0]));
 			isChecklistInitialized = true;
 		}
 	}
 
-	function handleScansClick(card: Card) {
+	function handleScansClick(_card: Card, cardItem: CardItem) {
 		if (!checklistMode) return;
-
-		const cardItem = cards.find((item) => item.card.code === card.code);
-		if (!cardItem) return;
-
-		const currentGreyed = checklistState.get(card.code) ?? 0;
+		const key = rowKey(cardItem);
+		const currentGreyed = checklistState.get(key) ?? 0;
 		const quantity = cardItem.quantity;
 
 		// Cycle through: increment by 1, or reset to 0 if all disabled
 		if (currentGreyed >= quantity) {
-			checklistState.set(card.code, 0);
+			checklistState.set(key, 0);
 		} else {
-			checklistState.set(card.code, currentGreyed + 1);
+			checklistState.set(key, currentGreyed + 1);
 		}
 		checklistState = new SvelteMap(checklistState); // Trigger reactivity
 	}

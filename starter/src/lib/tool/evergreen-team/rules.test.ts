@@ -17,7 +17,7 @@ import {
 	routeZone,
 	sideDeckXp
 } from './rules';
-import type { EvergreenState } from './types';
+import { EVERGREEN_PICK_MODE_ORDER, type EvergreenState } from './types';
 
 const allCards = getAllCards();
 const resolver = createCardResolver();
@@ -44,6 +44,10 @@ function freshState(): EvergreenState {
 const pool = buildPool(freshState().setup, allCards);
 const manualDexterity = pool.get('01592')!.card; // Lv0, 4 copies, deck limit 2
 const seekingAnswers2 = pool.get('01685')!.card; // Lv2, 4 copies merged with Harvey's
+
+it('cycles pick modes through max copy, entire class, then one copy', () => {
+	expect(EVERGREEN_PICK_MODE_ORDER).toEqual(['max', 'class', 'one']);
+});
 
 describe('routeZone', () => {
 	it('routes level 0 to main and level 1+ to side', () => {

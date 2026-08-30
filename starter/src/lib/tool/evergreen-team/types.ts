@@ -51,7 +51,13 @@ export interface EvergreenDeckState {
  * a sweep of every card sharing the grabbed card's class (scoped to its
  * product section, or to all products when mergeProducts is on).
  */
-export type EvergreenPickMode = 'one' | 'max' | 'class';
+export type EvergreenPickMode = 'max' | 'class' | 'one';
+
+export const EVERGREEN_PICK_MODE_ORDER = [
+	'max',
+	'class',
+	'one'
+] as const satisfies readonly EvergreenPickMode[];
 
 /**
  * A view filter over one basic aspect beginners think in terms of; it hides

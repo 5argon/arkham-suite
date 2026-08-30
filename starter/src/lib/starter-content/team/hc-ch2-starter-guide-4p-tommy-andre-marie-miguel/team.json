@@ -1,0 +1,41 @@
+{
+	"slug": "hc-ch2-starter-guide-4p-tommy-andre-marie-miguel",
+	"name": "HC Chapter 2 Starter Guide - 4P : Tommy, André, Marie, Miguel",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "blood-money"
+			}
+		},
+		{
+			"file": "andre.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "money-buys-happiness"
+			}
+		},
+		{
+			"file": "tommy.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "got-yourself-a-gun"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "rancher-rambo"
+			}
+		}
+	]
+}

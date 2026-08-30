@@ -1,0 +1,41 @@
+{
+	"slug": "hc-ch2-starter-guide-4p-joe-trish-marie-miguel",
+	"name": "HC Chapter 2 Starter Guide - 4P : Joe, Trish, Marie, Miguel",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "blood-money"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "rancher-rambo"
+			}
+		},
+		{
+			"file": "trish.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "pocket-sand"
+			}
+		},
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		}
+	]
+}

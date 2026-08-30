@@ -49,6 +49,6 @@ export function teamMatches(entry: PrebuiltTeamEntry, filter: StarterFilterValue
 	const { setup, decks } = entry.builderState;
 	return (
 		setup.deckProducts.every((p) => p === CORE || filter.products.has(p)) &&
-		decks.every((deck) => filter.investigators.has(deck.investigator))
+		decks.some((deck) => filter.investigators.has(deck.investigator))
 	);
 }

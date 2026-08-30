@@ -1,0 +1,41 @@
+{
+	"slug": "hc-ch2-starter-guide-4p-isabelle-tommy-carolyn-andre",
+	"name": "HC Chapter 2 Starter Guide - 4P : Isabelle, Tommy, Carolyn, André",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "andre.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "money-buys-happiness"
+			}
+		},
+		{
+			"file": "tommy.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "got-yourself-a-gun"
+			}
+		},
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "who-looks-inside-awakes"
+			}
+		},
+		{
+			"file": "izzie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "jennys-retribution"
+			}
+		}
+	]
+}

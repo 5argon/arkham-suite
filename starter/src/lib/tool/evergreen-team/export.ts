@@ -57,7 +57,7 @@ export function toAhdbDeck(args: {
 		xp_spent: null,
 		xp_adjustment: null,
 		exile_string: null,
-		taboo_id: 0,
+		taboo_id: null,
 		meta: JSON.stringify({ card_pool: poolProducts(state.setup).join(',') }),
 		tags: 'evergreen',
 		previous_deck: null,
@@ -73,5 +73,5 @@ export function deckFileName(investigator: Card): string {
 		.replace(/[̀-ͯ]/g, '')
 		.replace(/[^a-z0-9]+/g, '-')
 		.replace(/(^-|-$)/g, '');
-	return `evergreen-${slug}.json`;
+	return `team-builder-${slug}.json`;
 }

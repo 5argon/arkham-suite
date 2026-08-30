@@ -1,0 +1,25 @@
+{
+	"slug": "hc-ch2-starter-guide-2p-daniela-dexter",
+	"name": "HC Chapter 2 Starter Guide - 2P : Daniela, Dexter",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series.",
+	"decks": [
+		{
+			"file": "dexter.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "a-faustian-bargain"
+			}
+		},
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			}
+		}
+	]
+}

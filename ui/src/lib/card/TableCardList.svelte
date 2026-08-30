@@ -27,7 +27,7 @@
 		/**
 		 * Optional click handler for each card row.
 		 */
-		onClick?: (card: Card) => void;
+		onClick?: (card: Card, item: CardItem) => void;
 		/**
 		 * If true, do not render quantity counters
 		 */
@@ -84,12 +84,12 @@
 				<tr
 					role={onClick ? 'button' : undefined}
 					tabindex={onClick ? 0 : undefined}
-					onclick={onClick ? () => onClick(item.card) : undefined}
+					onclick={onClick ? () => onClick(item.card, item) : undefined}
 					onkeydown={onClick
 						? (e) => {
 								if (e.key === 'Enter' || e.key === ' ') {
 									e.preventDefault();
-									onClick(item.card);
+									onClick(item.card, item);
 								}
 							}
 						: undefined}

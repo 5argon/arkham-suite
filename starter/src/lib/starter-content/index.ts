@@ -332,7 +332,10 @@ const teams: PrebuiltTeam[] = Object.entries(teamFiles).map(([path, json]) => {
 			if (rawDeck === undefined) {
 				throw new Error(`Pre-built team deck missing: ${dir}decks/${file}`);
 			}
-			const deck = normalizeDeck(rawDeck);
+			// A pre-built team's deck files are already the resolved source of truth.
+			// Preserve their printing codes: two printings of the same card may be
+			// assigned to different investigators to represent distinct physical copies.
+			const deck = rawDeck;
 			const sourceEntry =
 				sourceJson === undefined
 					? undefined

@@ -31,7 +31,7 @@ export interface AhdbDeck {
   xp_spent: number | null;
   xp_adjustment: number | null;
   exile_string: string | null;
-  taboo_id: number;
+  taboo_id: number | null;
   meta: string;
   tags: string;
   previous_deck: number | string | null;
@@ -188,7 +188,10 @@ export function ahdbDeckToDeck(
     investigator: cardResolver.resolve(processedAhdbDeck.investigator_code),
     mainDeck: resolveCardQuantityKvp(processedAhdbDeck.slots, cardResolver),
     sideDeck: resolveCardQuantityKvp(processedAhdbDeck.sideSlots, cardResolver),
-    mainDeckIgnoreLimit: resolveCardQuantityKvp(processedAhdbDeck.ignoreDeckLimitSlots, cardResolver),
+    mainDeckIgnoreLimit: resolveCardQuantityKvp(
+      processedAhdbDeck.ignoreDeckLimitSlots,
+      cardResolver
+    ),
     version: processedAhdbDeck.version,
     xp: processedAhdbDeck.xp ?? undefined,
     xpSpent: processedAhdbDeck.xp_spent ?? undefined,

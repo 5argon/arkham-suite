@@ -13,7 +13,7 @@ Display cards as a table list with extra info.
 
 	interface Prop {
 		groups: RecursivelyGroupedCardItem[];
-		onClick?: (card: Card) => void;
+		onClick?: (card: Card, item: CardItem) => void;
 		languageCode?: string;
 		hideQuantity?: boolean;
 	}
@@ -23,9 +23,9 @@ Display cards as a table list with extra info.
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
 
-	function handleCardClick(card: Card) {
+	function handleCardClick(card: Card, item: CardItem) {
 		if (onClick) {
-			onClick(card);
+			onClick(card, item);
 		} else {
 			magnifiedCard = card;
 			isModalShowing = true;
@@ -45,11 +45,22 @@ Display cards as a table list with extra info.
 {/snippet}
 
 {#snippet ownerAndLabels(card: CardItem)}
-	<CardItemMetadata card={card.card} owner={card.owner} labels={card.labels} metaDisplay={card.metaDisplay} />
+	<CardItemMetadata
+		card={card.card}
+		owner={card.owner}
+		labels={card.labels}
+		metaDisplay={card.metaDisplay}
+	/>
 {/snippet}
 
 <BorderedContainer>
-	<TableCardList groups={groups} afterRenders={[cardDetail, ownerAndLabels]} onClick={handleCardClick} {hideQuantity} cardLineOverflow />
+	<TableCardList
+		{groups}
+		afterRenders={[cardDetail, ownerAndLabels]}
+		onClick={handleCardClick}
+		{hideQuantity}
+		cardLineOverflow
+	/>
 </BorderedContainer>
 
 <CardMagnifiedModal

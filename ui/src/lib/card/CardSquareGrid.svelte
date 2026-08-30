@@ -18,7 +18,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 		showQuantity?: boolean;
 		localizationResolver?: LocalizationResolver;
 		languageCode?: string;
-		onClick?: (card: Card) => void;
+		onClick?: (card: Card, item: CardItem) => void;
 	}
 
 	const { groups, showQuantity, localizationResolver, languageCode, onClick }: Prop = $props();
@@ -26,9 +26,9 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
 
-	function handleCardClick(card: Card) {
+	function handleCardClick(card: Card, item: CardItem) {
 		if (onClick) {
-			onClick(card);
+			onClick(card, item);
 		} else {
 			magnifiedCard = card;
 			isModalShowing = true;
@@ -48,11 +48,11 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 			tabindex="0"
 			onmouseenter={(e) => tooltip.show({ card: item.card, quantity: item.quantity }, e)}
 			onmouseleave={tooltip.hide}
-			onclick={() => handleCardClick(item.card)}
+			onclick={() => handleCardClick(item.card, item)}
 			onkeydown={(e) => {
 				if (e.key === 'Enter' || e.key === ' ') {
 					e.preventDefault();
-					handleCardClick(item.card);
+					handleCardClick(item.card, item);
 				}
 			}}
 			class="cursor-pointer hover:brightness-120"

@@ -39,12 +39,13 @@ pool). The whole panel is the drop target for returns.
 		remainingOf,
 		routeZone
 	} from '$lib/tool/evergreen-team/rules';
-	import type {
-		EvergreenFocus,
-		EvergreenPickMode,
-		EvergreenState,
-		EvergreenZone,
-		PoolEntry
+	import {
+		EVERGREEN_PICK_MODE_ORDER,
+		type EvergreenFocus,
+		type EvergreenPickMode,
+		type EvergreenState,
+		type EvergreenZone,
+		type PoolEntry
 	} from '$lib/tool/evergreen-team/types';
 
 	import CardStack from './CardStack.svelte';
@@ -172,11 +173,16 @@ pool). The whole panel is the drop target for returns.
 		{ value: 'skill', label: m.tool_evergreen_team_focus_skill() }
 	];
 
-	const pickModeOptions: { value: EvergreenPickMode; label: string }[] = [
-		{ value: 'max', label: m.tool_evergreen_team_pick_max() },
-		{ value: 'one', label: m.tool_evergreen_team_pick_one() },
-		{ value: 'class', label: m.tool_evergreen_team_pick_class() }
-	];
+	const pickModeOptions: { value: EvergreenPickMode; label: string }[] =
+		EVERGREEN_PICK_MODE_ORDER.map((value) => ({
+			value,
+			label:
+				value === 'max'
+					? m.tool_evergreen_team_pick_max()
+					: value === 'class'
+						? m.tool_evergreen_team_pick_class()
+						: m.tool_evergreen_team_pick_one()
+		}));
 
 	function collectionSource(entry: PoolEntry): DragSource {
 		if (team.pickMode !== 'class') {

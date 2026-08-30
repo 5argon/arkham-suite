@@ -20,7 +20,7 @@ CSS flex of vertical cards, with optional grouping.
 		 * Card title is not very readable at this size.
 		 */
 		showCardName?: boolean;
-		onClick?: (card: Card) => void;
+		onClick?: (card: Card, item: CardItem) => void;
 		languageCode?: string;
 		hideQuantity?: boolean;
 	}
@@ -73,9 +73,9 @@ CSS flex of vertical cards, with optional grouping.
 
 	const cardIndexMap = $derived(computeCardIndices(groups));
 
-	function handleCardClick(card: Card) {
+	function handleCardClick(card: Card, item: CardItem) {
 		if (onClick) {
-			onClick(card);
+			onClick(card, item);
 		} else {
 			magnifiedCard = card;
 			isModalShowing = true;
@@ -93,11 +93,11 @@ CSS flex of vertical cards, with optional grouping.
 		role="button"
 		in:fade={{ duration: 80, delay: animIndex * 20 }}
 		tabindex="0"
-		onclick={() => handleCardClick(item.card)}
+		onclick={() => handleCardClick(item.card, item)}
 		onkeydown={(e) => {
 			if (e.key === 'Enter' || e.key === ' ') {
 				e.preventDefault();
-				handleCardClick(item.card);
+				handleCardClick(item.card, item);
 			}
 		}}
 		class="cursor-pointer transition-all hover:brightness-110"
