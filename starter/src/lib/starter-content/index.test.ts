@@ -3,7 +3,51 @@ import { describe, expect, it } from 'vitest';
 
 import { getAllCards, loadAllTabooLists } from '../card-data';
 import { hasUniqueInvestigatorClasses } from '../tool/assembler/filter';
-import { prebuiltTeamsOf, starterSeries, type PrebuiltTeam } from '.';
+import {
+	allPrebuiltTeams,
+	allStarterDecks,
+	prebuiltTeamsOf,
+	starterSeries,
+	type PrebuiltTeam
+} from '.';
+
+const tagsBySeries = {
+	'ch2-core-only': 'starter beginner hc-ch2-core-only',
+	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
+	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited'
+} as const;
+
+describe('starter deck export tags', () => {
+	it('gives every listed deck version exactly the two common tags and its series tag', () => {
+		const versions = allStarterDecks().flatMap((entry) =>
+			entry.versions.map((version) => ({
+				deck: version.deck,
+				series: entry.series.slug as keyof typeof tagsBySeries
+			}))
+		);
+		expect(versions).toHaveLength(38);
+		for (const { deck, series } of versions) {
+			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
+			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
+		}
+	});
+
+	it('gives every embedded team deck exactly the same three tags', () => {
+		const teams = allPrebuiltTeams();
+		const members = teams.flatMap((team) =>
+			team.members.map((member) => ({ team, deck: member.deck }))
+		);
+		expect(members).toHaveLength(186);
+		for (const { team, deck } of members) {
+			const series = Object.keys(tagsBySeries).find((slug) =>
+				team.slug.startsWith(`hc-${slug}-`)
+			) as keyof typeof tagsBySeries | undefined;
+			expect(series, team.slug).toBeDefined();
+			expect(deck.tags, deck.id.toString()).toBe(tagsBySeries[series!]);
+			expect(deck.tags?.split(/\s+/), deck.id.toString()).toHaveLength(3);
+		}
+	});
+});
 
 describe('Chapter 2 Starter Guide pre-built teams', () => {
 	const resolver = new CardResolver(getAllCards());

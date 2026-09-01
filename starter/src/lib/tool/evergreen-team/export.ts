@@ -59,7 +59,7 @@ export function toAhdbDeck(args: {
 		exile_string: null,
 		taboo_id: null,
 		meta: JSON.stringify({ card_pool: poolProducts(state.setup).join(',') }),
-		tags: 'evergreen',
+		tags: '',
 		previous_deck: null,
 		next_deck: null,
 		problem: null
