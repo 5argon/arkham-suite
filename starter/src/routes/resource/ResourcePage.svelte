@@ -6,7 +6,7 @@
 
 <TextParagraph>
 	Welcome to the game! These contents are guaranteed to be within the Current Environment, and
-	especially theevergreen card pool. (The Core Set 2026 and the five investigator decks.) As the
+	especially the evergreen card pool. (The Core Set 2026 and the five investigator decks.) As the
 	site's name might suggest, I wanted to make it a priority that new players are not intimidated by
 	the sheer amount of player cards in the game.
 </TextParagraph>

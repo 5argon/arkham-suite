@@ -98,7 +98,14 @@
 </div>
 
 <style>
+	.staging-table {
+		width: 100%;
+		table-layout: fixed;
+	}
+
 	.stack-padding {
 		width: 400px;
+		max-width: 100%;
+		overflow-x: hidden;
 	}
 </style>

@@ -490,6 +490,7 @@
 
 	.staging-panel {
 		height: calc(100vh - 100px);
+		overflow-x: hidden;
 		overflow-y: auto;
 		padding-right: 10px;
 	}

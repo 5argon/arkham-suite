@@ -55,11 +55,13 @@
 		vertical-align: middle;
 		padding: 2px 4px;
 		white-space: nowrap;
+		width: 44px;
 	}
 
 	.card-cell {
 		vertical-align: middle;
 		padding: 2px 4px;
-		width: 100%;
+		width: auto;
+		overflow: hidden;
 	}
 </style>
