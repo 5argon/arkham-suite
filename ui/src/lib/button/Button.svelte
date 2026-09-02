@@ -2,7 +2,7 @@
 	import clsx from 'clsx';
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
-	import { resolve } from '$app/paths';
+	import { resolveLinkTarget } from './link-target.js';
 
 	interface Prop {
 		label: string;
@@ -41,24 +41,9 @@
 	}: Prop = $props();
 	const hasText = $derived(!hideLabel);
 	const paddingClass = $derived(hasText ? 'px-3' : 'px-1');
-	const isLink = $derived(typeof onClick === 'string');
-	const clickHandler = $derived(typeof onClick === 'function' ? onClick : undefined);
-	const isExternalLink = $derived(
-		typeof onClick === 'string' &&
-			(onClick.startsWith('http://') || onClick.startsWith('https://') || onClick.startsWith('//'))
-	);
-	const href = $derived.by(() => {
-		if (isLink && typeof onClick === 'string') {
-			if (isExternalLink) {
-				return onClick as string;
-			} else {
-				return resolve(onClick as any);
-			}
-		}
-		return undefined;
-	});
-	const target = $derived(isExternalLink || (isLink && newTab) ? '_blank' : undefined);
-	const rel = $derived(isExternalLink || (isLink && newTab) ? 'noreferrer' : undefined);
+	const link = $derived(resolveLinkTarget(onClick, newTab));
+	const { href, target, rel, clickHandler } = $derived(link);
+	const isLink = $derived(href !== undefined);
 	const hiddenLabelTitle = $derived(hideLabel ? label : undefined);
 	const baseClasses =
 		'inline-flex cursor-pointer items-center justify-center space-x-2 rounded border py-1 shadow-md hover:brightness-105 active:brightness-100 dark:text-white dark:hover:brightness-110 dark:active:brightness-125 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100 disabled:active:brightness-100';
