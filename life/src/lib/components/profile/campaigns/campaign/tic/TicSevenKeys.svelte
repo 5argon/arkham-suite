@@ -16,6 +16,7 @@ StatNumbers (the all-4 highscore carries the per-difficulty hover).
 	} from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tic }: { tic: CampaignTic | null } = $props();
 
@@ -72,5 +73,5 @@ StatNumbers (the all-4 highscore carries the per-difficulty hover).
 		{/if}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tic_keys_empty()}</p>
+	<WidgetEmpty>{m.campaign_tic_keys_empty()}</WidgetEmpty>
 {/if}

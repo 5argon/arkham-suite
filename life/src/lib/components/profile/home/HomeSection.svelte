@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { BorderedContainer, SectionSeparator, UserDisplay } from '@5argon/arkham-life-ui';
-	import { createCardResolver } from '$lib/card-data';
+	import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';
 	import { LOCAL_PROFILE_KEY, type LocalProfileContext } from '$lib/database/profile-local';
@@ -15,14 +15,7 @@
 	// Resolves a member's investigator card for their avatar; from the ambient card
 	// database (bundled), so the Members section renders standalone — no live doc.
 	const cardResolver = createCardResolver();
-	function cardFor(code: string | null) {
-		if (!code) return null;
-		try {
-			return cardResolver.resolve(code);
-		} catch {
-			return null;
-		}
-	}
+	const cardFor = (code: string | null) => (code ? resolveCardOrNull(code) : null);
 
 	// Cards & Investigators are entirely deck-derived; "show only campaign categories" drops
 	// them from the nav (a profile with no imported decks has nothing there).

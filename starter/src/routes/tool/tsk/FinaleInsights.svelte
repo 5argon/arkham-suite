@@ -13,6 +13,7 @@
 		type PlanTrajectory,
 		type Vote,
 	} from '@5argon/arkham-tsk-solver';
+	import { epilogueLabel, judgmentLabel } from './helpers';
 
 	// `attempt` is the plan's current "you may overthrow/join" choice ('' = let the game decide).
 	// `onAttempt` is supplied only in the editor; the read-only view passes none and shows the choice as text.
@@ -21,8 +22,6 @@
 	const fd = $derived(trajectory.finaleDetail);
 	const pred = $derived(fd.prediction);
 
-	const judgmentLabel = (id: string) => catalog().judgments.find((j) => j.id === id)?.label ?? id;
-	const epilogueLabel = (id: string) => catalog().epilogues.find((e) => e.id === id)?.label ?? id;
 	const judgmentCondition = $derived(optionText('59-Z', 'COTK.judgment', pred.judgment)?.condition ?? '');
 	const version = $derived(pred.version.split('.').pop()?.toUpperCase() ?? pred.version); // COTK.v2 → V2
 
@@ -33,7 +32,6 @@
 	const yea = $derived(byVote('yea'));
 	const neither = $derived(fd.members.filter((m) => m.vote === 'abstain' || m.vote === 'silent'));
 	const silentCount = $derived(byVote('silent').length);
-
 
 	const attemptText: Record<CoterieAttempt, string> = {
 		overthrow: 'Attempt to overthrow the Coterie',

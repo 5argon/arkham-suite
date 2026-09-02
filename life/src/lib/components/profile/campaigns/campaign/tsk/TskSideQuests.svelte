@@ -15,6 +15,7 @@ Each block appears only when it has data. Completion counts hover to a per-diffi
 	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
 	import * as m from '$lib/paraglide/messages.js';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tsk }: { tsk: CampaignTsk | null } = $props();
 
@@ -91,5 +92,5 @@ Each block appears only when it has data. Completion counts hover to a per-diffi
 		{/each}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tsk_sq_empty()}</p>
+	<WidgetEmpty>{m.campaign_tsk_sq_empty()}</WidgetEmpty>
 {/if}

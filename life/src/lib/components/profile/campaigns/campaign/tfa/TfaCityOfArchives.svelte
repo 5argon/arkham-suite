@@ -16,6 +16,7 @@ StatNumbers, wrapped in the shared TFA passport (Alejandro header art — the me
 	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tfa,
@@ -108,7 +109,7 @@ StatNumbers, wrapped in the shared TFA passport (Alejandro header art — the me
 				<StatNumbers {rows} />
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tfa_archives_empty()}</p>
+			<WidgetEmpty>{m.campaign_tfa_archives_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </TfaScenarioInfo>

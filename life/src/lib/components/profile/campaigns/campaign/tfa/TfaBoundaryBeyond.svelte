@@ -12,6 +12,7 @@ Humanity). Wrapped in the shared TFA passport (Ichtaca header art).
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tfa,
@@ -49,7 +50,7 @@ Humanity). Wrapped in the shared TFA passport (Ichtaca header art).
 		{#if hasData}
 			<StatNumbers rows={[statList]} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tfa_boundary_empty()}</p>
+			<WidgetEmpty>{m.campaign_tfa_boundary_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </TfaScenarioInfo>

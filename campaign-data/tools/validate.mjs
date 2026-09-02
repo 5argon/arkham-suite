@@ -1,19 +1,15 @@
 #!/usr/bin/env node
-// Validates final `<code>-db.json` + `<code>-en.json` for internal consistency,
-// spoiler-span validity, and completeness against the deterministic draft.
+// Validates final `<code>-db.json` + `<code>-en.json` for internal consistency and
+// completeness against the deterministic draft.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, '../data');
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
-const exists = (p) => fs.existsSync(p);
+import { DATA_DIR, codesFromArgs, exists, readJson } from './lib.mjs';
 
 // Valid kohaku Scenario codes (parsed from the enum) for achievement.scenario ties.
 const SCENARIO_TS = path.resolve(
-  __dirname,
+  path.dirname(fileURLToPath(import.meta.url)),
   '../../kohaku/src/type/game/scenario.ts'
 );
 const SCENARIO_CODES = (() => {
@@ -177,12 +173,7 @@ function validate(code) {
   return { code, errs, warns, stats: { entries: db.entries.length, sections: db.sections.length, ach: db.achievements.length } };
 }
 
-const ALL = [
-  'notz', 'dwl', 'ptc', 'tfa', 'tcu', 'tdea', 'tdeb', 'tic', 'eoe', 'tskc', 'fhv', 'tdc',
-  'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu', 'boa', 'cob', 'fof', 'gob', 'side',
-];
-const arg = process.argv[2];
-const codes = arg === '--all' || !arg ? ALL : [arg];
+const codes = codesFromArgs(process.argv.slice(2));
 let totalErr = 0;
 for (const c of codes) {
   const r = validate(c);

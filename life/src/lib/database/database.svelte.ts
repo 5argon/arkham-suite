@@ -5,10 +5,8 @@
  * mutation methods that delegate to the pure operations in `document.ts`, then
  * persist via the active `PersistenceAdapter`.
  *
- * Side-effect discipline (project rule "avoid rendering side effects"): the state
- * is SEEDED from the loaded document; persistence runs from these explicit
- * mutation handlers (a debounced `save`), never from a reactive `$effect`
- * watching the document. Components mutate only through these methods.
+ * The state is seeded from the loaded document; persistence runs from these mutation methods (a
+ * debounced `save`), never from a reactive `$effect`. Components mutate only through these methods.
  */
 
 import {

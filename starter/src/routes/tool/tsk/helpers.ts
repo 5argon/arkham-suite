@@ -1,4 +1,5 @@
 import {
+	catalog,
 	characterName,
 	defaultOptionId,
 	fileTitle,
@@ -73,15 +74,24 @@ export function defaultMiddleStep(fromState: CampaignState): PlanStep {
 	return { location, fileCode, choices };
 }
 
-/** defaultChoices, but with the resolution defaulted to one that's actually reachable for those upstream picks. */
-export function validResolutionChoices(fileCode: string, location: string, fromState: CampaignState, entryTime: number): Record<string, string> {
-	const choices = defaultChoices(fileCode, location);
+/** `choices` with its resolution pick kept valid: if the current one isn't offerable for these upstream picks, the first offerable one. */
+export function withValidResolution(fileCode: string, location: string, choices: Record<string, string>, fromState: CampaignState, entryTime: number): Record<string, string> {
 	const resD = selectableDecisions(fileCode, location).find((d) => d.decisionType === 'resolution');
 	if (!resD) return choices;
 	const offers = resolutionOffers(fileCode, choices, fromState, entryTime, location).filter((r) => r.offerable);
-	if (offers.length && !offers.some((r) => r.option.id === choices[resD.decisionId])) choices[resD.decisionId] = offers[0]!.option.id;
+	if (offers.length && !offers.some((r) => r.option.id === choices[resD.decisionId])) {
+		return { ...choices, [resD.decisionId]: offers[0]!.option.id };
+	}
 	return choices;
 }
+
+/** defaultChoices, but with the resolution defaulted to one that's actually reachable for those upstream picks. */
+export function validResolutionChoices(fileCode: string, location: string, fromState: CampaignState, entryTime: number): Record<string, string> {
+	return withValidResolution(fileCode, location, defaultChoices(fileCode, location), fromState, entryTime);
+}
+
+export const judgmentLabel = (id: string): string => catalog().judgments.find((j) => j.id === id)?.label ?? id;
+export const epilogueLabel = (id: string): string => catalog().epilogues.find((e) => e.id === id)?.label ?? id;
 
 // --- scenario icons ---------------------------------------------------------
 

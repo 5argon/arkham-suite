@@ -11,8 +11,10 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 <script lang="ts">
 	import { type CardItem, FlexibleCardDisplay, HelpParagraph } from '@5argon/arkham-life-ui';
 	import { u as stringUtils } from '@5argon/arkham-string';
-	import { card as cardUtils, Campaign, Product, type Card } from '@5argon/arkham-kohaku';
+	import type { Component } from 'svelte';
+	import { card as cardUtils, Campaign, Product } from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
 	import type { ProfileRow, WidgetSlot } from '$lib/campaign/profile/profile-settings';
 	import {
 		WIDGET_BY_ID,
@@ -58,13 +60,12 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	import SpecialInteractionsView from '$lib/components/profile/campaigns/campaign/SpecialInteractions.svelte';
 	import StandaloneUsageView from '$lib/components/profile/home/StandaloneUsageView.svelte';
 	import TraumaTallyView from '$lib/components/profile/campaigns/TraumaTallyView.svelte';
-	import TskRiddlesAndRain from '$lib/components/profile/campaigns/campaign/tsk/TskRiddlesAndRain.svelte';
+	import TskScenarioInfo from '$lib/components/profile/campaigns/campaign/tsk/TskScenarioInfo.svelte';
+	import type { TskScenarioWidgetProps } from '$lib/components/profile/campaigns/campaign/tsk/tsk-scenario';
 	import TskDeadHeat from '$lib/components/profile/campaigns/campaign/tsk/TskDeadHeat.svelte';
 	import TskSanguineShadows from '$lib/components/profile/campaigns/campaign/tsk/TskSanguineShadows.svelte';
 	import TskDealingsInTheDark from '$lib/components/profile/campaigns/campaign/tsk/TskDealingsInTheDark.svelte';
-	import TskDancingMad from '$lib/components/profile/campaigns/campaign/tsk/TskDancingMad.svelte';
 	import TskOnThinIce from '$lib/components/profile/campaigns/campaign/tsk/TskOnThinIce.svelte';
-	import TskDogsOfWar from '$lib/components/profile/campaigns/campaign/tsk/TskDogsOfWar.svelte';
 	import TskShadesOfSuffering from '$lib/components/profile/campaigns/campaign/tsk/TskShadesOfSuffering.svelte';
 	import TskWithoutATrace from '$lib/components/profile/campaigns/campaign/tsk/TskWithoutATrace.svelte';
 	import TskCongressOfTheKeys from '$lib/components/profile/campaigns/campaign/tsk/TskCongressOfTheKeys.svelte';
@@ -134,12 +135,8 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	import FhvCurse from '$lib/components/profile/campaigns/campaign/fhv/FhvCurse.svelte';
 	import FhvDance from '$lib/components/profile/campaigns/campaign/fhv/FhvDance.svelte';
 	import FhvFinalEvening from '$lib/components/profile/campaigns/campaign/fhv/FhvFinalEvening.svelte';
-	import FhvWrittenInRock from '$lib/components/profile/campaigns/campaign/fhv/FhvWrittenInRock.svelte';
+	import FhvOutcomeScenario from '$lib/components/profile/campaigns/campaign/fhv/FhvOutcomeScenario.svelte';
 	import FhvHemlockHouse from '$lib/components/profile/campaigns/campaign/fhv/FhvHemlockHouse.svelte';
-	import FhvSilentHeath from '$lib/components/profile/campaigns/campaign/fhv/FhvSilentHeath.svelte';
-	import FhvLostSister from '$lib/components/profile/campaigns/campaign/fhv/FhvLostSister.svelte';
-	import FhvThingDepths from '$lib/components/profile/campaigns/campaign/fhv/FhvThingDepths.svelte';
-	import FhvTwistedHollow from '$lib/components/profile/campaigns/campaign/fhv/FhvTwistedHollow.svelte';
 	import FhvLongestNight from '$lib/components/profile/campaigns/campaign/fhv/FhvLongestNight.svelte';
 	import TdcFold from '$lib/components/profile/campaigns/campaign/tdc/TdcFold.svelte';
 	import TdcArtifacts from '$lib/components/profile/campaigns/campaign/tdc/TdcArtifacts.svelte';
@@ -213,12 +210,9 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	const cfgCount = (widget: WidgetSlot, fallback: number): number =>
 		typeof widget.config?.count === 'number' ? widget.config.count : fallback;
 
-	// ── "Log-only mode" + "campaign categories only" (accessibility / log-only players) ──
 	// This campaign's per-campaign Log-only override (campaign detail page only).
 	const campaignLogOnlyActive = $derived(family ? (data.campaignLogOnly[family] ?? false) : false);
-	// A widget instance is "log-only" when the global switch, this campaign's switch, or the
-	// widget's own "ignore non-log data" config is on. Drives the placeholder (a `full` widget)
-	// or the `logOnly` prop (a `partial` widget gates its non-log sections).
+	// Log-only when the global switch, this campaign's switch, or the widget's own config is on.
 	const slotLogOnly = (widget: WidgetSlot): boolean =>
 		data.logOnly || campaignLogOnlyActive || widget.config?.ignoreNonLog === true;
 	// "Show only campaign categories": drop deck-derived (Cards/Investigators) widgets wherever
@@ -235,11 +229,15 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			} else {
 				const left = keep(row.left);
 				const right = keep(row.right);
-				if (left || right) out.push({ kind: 'split', left, right });
+				if (left && right) out.push({ kind: 'split', left, right });
+				else if (left || right) out.push({ kind: 'full', slot: left ?? right });
 			}
 		}
 		return out;
 	});
+
+	const rowKey = (row: ProfileRow): string =>
+		row.kind === 'full' ? `full:${row.slot?.id}` : `split:${row.left?.id}|${row.right?.id}`;
 
 	const endings = $derived(slice(data.endings));
 	const winLossRecord = $derived(slice(data.winLossRecord));
@@ -256,10 +254,9 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			? data.achievements.families.filter((f) => f.family === family)
 			: data.achievements.families
 	);
-	// The family's achievements (with earned state) handed to each TSK per-scenario passport,
-	// which filters them to the ones tagged with its scenario. Only meaningful on a campaign
-	// detail page (family set → one family).
-	const tskScenarioAch = $derived(achievementFamilies[0]?.achievements ?? []);
+	// The family's achievements (with earned state) handed to each per-scenario passport, which
+	// filters them to the ones tagged with its scenario (campaign detail page: one family).
+	const familyAchievements = $derived(achievementFamilies[0]?.achievements ?? []);
 	const familyRecord = $derived(
 		family ? (data.winLossRecord.find((r) => r.family === family) ?? null) : null
 	);
@@ -281,8 +278,7 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	const familyFhv = $derived(family ? (data.fhv.find((t) => t.family === family) ?? null) : null);
 	const familyTdc = $derived(family ? (data.tdc.find((t) => t.family === family) ?? null) : null);
 	const familyNotz = $derived(family ? (data.notz.find((t) => t.family === family) ?? null) : null);
-	// The family's unified per-scenario records (the consolidated `scenarios` structure) handed to
-	// each per-scenario passport, which slices it to its own scenario.
+	// The family's per-scenario records, handed to each per-scenario passport.
 	const familyScenarios = $derived(
 		family ? (data.scenarios.find((s) => s.family === family) ?? null) : null
 	);
@@ -297,12 +293,6 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			: mergeStandaloneUsage(data.standaloneUsage)
 	);
 
-	const difficultyLabel: Record<string, string> = {
-		easy: m.shared_difficulty({ tier: 'easy' }),
-		standard: m.shared_difficulty({ tier: 'standard' }),
-		hard: m.shared_difficulty({ tier: 'hard' }),
-		expert: m.shared_difficulty({ tier: 'expert' })
-	};
 	function safeCampaignName(code: string): string {
 		return (Object.values(Campaign) as string[]).includes(code)
 			? stringUtils.campaignName(code as Campaign)
@@ -315,12 +305,12 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	// Revised Core Set is treated as a true superset of the original Core Set.
 	const allCards = getAllCards();
 	const canonUsage = $derived.by((): Record<string, number> => {
-		const m: Record<string, number> = {};
+		const usage: Record<string, number> = {};
 		for (const [code, n] of Object.entries(data.cardUsage)) {
 			const key = cardUtils.coreToRcore(code);
-			m[key] = (m[key] ?? 0) + n;
+			usage[key] = (usage[key] ?? 0) + n;
 		}
-		return m;
+		return usage;
 	});
 	function coreSetItems(product: Product): CardItem[] {
 		return allCards
@@ -341,9 +331,22 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 	const playedCount = (items: CardItem[]): number =>
 		items.filter((i) => (i.iconCount ?? 0) > 0).length;
 
-	// The card header (tab) is owned by the frame for EVERY widget — each widget's
-	// title (incl. its dynamic count) is resolved here, so the widget components
-	// render body-only. Returns null only for an unknown id (frame shows no tab).
+	/** TSK scenarios with bespoke widget content; the rest render the plain passport. */
+	const TSK_SCENARIO_WIDGETS: Record<string, Component<TskScenarioWidgetProps>> = {
+		tskScenario_dead_heat: TskDeadHeat,
+		tskScenario_sanguine_shadows: TskSanguineShadows,
+		tskScenario_dealings_in_the_dark: TskDealingsInTheDark,
+		tskScenario_on_thin_ice: TskOnThinIce,
+		tskScenario_shades_of_suffering: TskShadesOfSuffering,
+		tskScenario_without_a_trace: TskWithoutATrace,
+		tskScenario_congress_of_the_keys: TskCongressOfTheKeys
+	};
+	const TSK_PLAIN_SCENARIOS: Record<string, string> = {
+		tskScenario_riddles_and_rain: 'riddles_and_rain',
+		tskScenario_dancing_mad: 'dancing_mad',
+		tskScenario_dogs_of_war: 'dogs_of_war'
+	};
+
 	const classLabel: Record<string, string> = {
 		guardian: m.shared_class({ class: 'guardian' }),
 		seeker: m.shared_class({ class: 'seeker' }),
@@ -512,7 +515,7 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 								<span
 									class="bg-primary-100 dark:bg-primary-800 text-primary-800 dark:text-primary-200 rounded px-2 py-1 text-xs font-semibold capitalize"
 								>
-									{difficultyLabel[campaign.difficulty] ?? campaign.difficulty}
+									{difficultyLabel(campaign.difficulty)}
 								</span>
 							</div>
 						</div>
@@ -717,103 +720,25 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<TskRuinousChime tsk={familyTsk} />
 		{:else if widget.id === 'tskSideQuests'}
 			<TskSideQuests tsk={familyTsk} />
-		{:else if widget.id === 'tskScenario_riddles_and_rain'}
-			<TskRiddlesAndRain
+		{:else if widget.id in TSK_SCENARIO_WIDGETS}
+			{@const TskScenario = TSK_SCENARIO_WIDGETS[widget.id]}
+			<TskScenario
 				logOnly={lo}
 				{family}
 				scenarios={familyScenarios}
 				tsk={familyTsk}
-				achievements={tskScenarioAch}
+				achievements={familyAchievements}
 				hideVariants={widget.config?.hideVariants === true}
 				hideAchievements={widget.config?.hideAchievements === true}
 			/>
-		{:else if widget.id === 'tskScenario_dead_heat'}
-			<TskDeadHeat
+		{:else if widget.id in TSK_PLAIN_SCENARIOS}
+			<TskScenarioInfo
+				scenarioId={TSK_PLAIN_SCENARIOS[widget.id]}
 				logOnly={lo}
 				{family}
 				scenarios={familyScenarios}
 				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_sanguine_shadows'}
-			<TskSanguineShadows
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_dealings_in_the_dark'}
-			<TskDealingsInTheDark
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_dancing_mad'}
-			<TskDancingMad
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_on_thin_ice'}
-			<TskOnThinIce
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_dogs_of_war'}
-			<TskDogsOfWar
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_shades_of_suffering'}
-			<TskShadesOfSuffering
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_without_a_trace'}
-			<TskWithoutATrace
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
-				hideVariants={widget.config?.hideVariants === true}
-				hideAchievements={widget.config?.hideAchievements === true}
-			/>
-		{:else if widget.id === 'tskScenario_congress_of_the_keys'}
-			<TskCongressOfTheKeys
-				logOnly={lo}
-				{family}
-				scenarios={familyScenarios}
-				tsk={familyTsk}
-				achievements={tskScenarioAch}
+				achievements={familyAchievements}
 				hideVariants={widget.config?.hideVariants === true}
 				hideAchievements={widget.config?.hideAchievements === true}
 			/>
@@ -828,57 +753,57 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'ptcChaosTokens'}
 			<PtcChaosTokens ptc={familyPtc} />
 		{:else if widget.id === 'ptcCurtainCall'}
-			<PtcCurtainCall ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcCurtainCall ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcLastKing'}
-			<PtcLastKing ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcLastKing ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcEchoes'}
-			<PtcEchoes ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcEchoes ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcUnspeakableOath'}
-			<PtcUnspeakableOath ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcUnspeakableOath ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcLostSoul'}
 			<PtcLostSoul ptc={familyPtc} logOnly={lo} />
 		{:else if widget.id === 'ptcPhantom'}
-			<PtcPhantom ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcPhantom ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcPallidMask'}
-			<PtcPallidMask ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcPallidMask ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcBlackStarsRise'}
-			<PtcBlackStarsRise ptc={familyPtc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<PtcBlackStarsRise ptc={familyPtc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ptcDimCarcosa'}
-			<PtcDimCarcosa ptc={familyPtc} scenarios={familyScenarios} code={family ?? 'ptc'} {family} achievements={tskScenarioAch} logOnly={lo} />
+			<PtcDimCarcosa ptc={familyPtc} scenarios={familyScenarios} {family} achievements={familyAchievements} logOnly={lo} />
 		{:else if widget.id === 'tcuAllegiance'}
 			<TcuAllegiance tcu={familyTcu} />
 		{:else if widget.id === 'tcuMissingPersons'}
-			<TcuMissingPersons tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuMissingPersons tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuMementos'}
 			<TcuMementos tcu={familyTcu} />
 		{:else if widget.id === 'tcuWitchingHour'}
-			<TcuWitchingHour tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuWitchingHour tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuDoorstep'}
-			<TcuAtDeathsDoorstep tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuAtDeathsDoorstep tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuSecretName'}
-			<TcuSecretName tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuSecretName tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuWagesOfSin'}
-			<TcuWagesOfSin tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuWagesOfSin tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuGreaterGood'}
-			<TcuForTheGreaterGood tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuForTheGreaterGood tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuUnion'}
-			<TcuUnionAndDisillusion tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuUnionAndDisillusion tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuClutches'}
-			<TcuClutchesOfChaos tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuClutchesOfChaos tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tcuEndings'}
-			<TcuEndings tcu={familyTcu} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TcuEndings tcu={familyTcu} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdeaPlayMode'}
 			<TdePlayMode shared={familyTdea?.shared ?? null} />
 		{:else if widget.id === 'tdeaEvidence'}
 			<TdeaEvidenceOfKadath tdea={familyTdea} />
 		{:else if widget.id === 'tdeaBeyondGates'}
-			<TdeaBeyondTheGates tdea={familyTdea} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdeaBeyondTheGates tdea={familyTdea} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdeaSearchForKadath'}
-			<TdeaSearchForKadath tdea={familyTdea} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdeaSearchForKadath tdea={familyTdea} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdeaDarkSide'}
-			<TdeaDarkSideOfTheMoon tdea={familyTdea} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdeaDarkSideOfTheMoon tdea={familyTdea} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdeaGodsDwell'}
-			<TdeaWhereTheGodsDwell tdea={familyTdea} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdeaWhereTheGodsDwell tdea={familyTdea} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdeaBlackCat'}
 			<TdeBlackCat shared={familyTdea?.shared ?? null} />
 		{:else if widget.id === 'tdeaSilverKey'}
@@ -892,13 +817,13 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'tdebSteps'}
 			<TdebStepsOfTheBridge tdeb={familyTdeb} />
 		{:else if widget.id === 'tdebWakingNightmare'}
-			<TdebWakingNightmare tdeb={familyTdeb} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdebWakingNightmare tdeb={familyTdeb} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdebThousandShapes'}
-			<TdebAThousandShapes tdeb={familyTdeb} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdebAThousandShapes tdeb={familyTdeb} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdebPointOfNoReturn'}
-			<TdebPointOfNoReturn tdeb={familyTdeb} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdebPointOfNoReturn tdeb={familyTdeb} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdebWeaver'}
-			<TdebWeaverOfTheCosmos tdeb={familyTdeb} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdebWeaverOfTheCosmos tdeb={familyTdeb} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdebBlackCat'}
 			<TdeBlackCat shared={familyTdeb?.shared ?? null} />
 		{:else if widget.id === 'tdebSilverKey'}
@@ -912,21 +837,21 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'ticKeys'}
 			<TicSevenKeys tic={familyTic} />
 		{:else if widget.id === 'ticPit'}
-			<TicPit tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicPit tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticHarper'}
-			<TicHarper tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicHarper tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticInTooDeep'}
-			<TicInTooDeep tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicInTooDeep tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticDevilReef'}
-			<TicDevilReef tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicDevilReef tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticHorror'}
-			<TicHorrorInHighGear tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicHorrorInHighGear tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticLightInTheFog'}
-			<TicLightInTheFog tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicLightInTheFog tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticDagon'}
-			<TicLairOfDagon tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicLairOfDagon tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'ticMaelstrom'}
-			<TicIntoTheMaelstrom tic={familyTic} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TicIntoTheMaelstrom tic={familyTic} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvVale'}
 			<FhvVale fhv={familyFhv} />
 		{:else if widget.id === 'fhvSchedule'}
@@ -948,7 +873,7 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'fhvTheo'}
 			<FhvVillager villager="theo" fhv={familyFhv} />
 		{:else if widget.id === 'fhvFate'}
-			<FhvFate fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvFate fhv={familyFhv} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvCurse'}
 			<FhvCurse fhv={familyFhv} />
 		{:else if widget.id === 'fhvDance'}
@@ -956,19 +881,54 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'fhvFinalEvening'}
 			<FhvFinalEvening fhv={familyFhv} />
 		{:else if widget.id === 'fhvScWrittenInRock'}
-			<FhvWrittenInRock fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvOutcomeScenario
+				scenarioId="written_in_rock"
+				fhv={familyFhv}
+				{family}
+				achievements={familyAchievements}
+				scenarios={familyScenarios}
+				logOnly={lo}
+			/>
 		{:else if widget.id === 'fhvScHemlockHouse'}
-			<FhvHemlockHouse fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvHemlockHouse fhv={familyFhv} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'fhvScSilentHeath'}
-			<FhvSilentHeath fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvOutcomeScenario
+				scenarioId="the_silent_heath"
+				fhv={familyFhv}
+				{family}
+				achievements={familyAchievements}
+				scenarios={familyScenarios}
+				logOnly={lo}
+			/>
 		{:else if widget.id === 'fhvScLostSister'}
-			<FhvLostSister fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvOutcomeScenario
+				scenarioId="the_lost_sister"
+				fhv={familyFhv}
+				{family}
+				achievements={familyAchievements}
+				scenarios={familyScenarios}
+				logOnly={lo}
+			/>
 		{:else if widget.id === 'fhvScThingDepths'}
-			<FhvThingDepths fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvOutcomeScenario
+				scenarioId="the_thing_in_the_depths"
+				fhv={familyFhv}
+				{family}
+				achievements={familyAchievements}
+				scenarios={familyScenarios}
+				logOnly={lo}
+			/>
 		{:else if widget.id === 'fhvScTwistedHollow'}
-			<FhvTwistedHollow fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvOutcomeScenario
+				scenarioId="the_twisted_hollow"
+				fhv={familyFhv}
+				{family}
+				achievements={familyAchievements}
+				scenarios={familyScenarios}
+				logOnly={lo}
+			/>
 		{:else if widget.id === 'fhvScLongestNight'}
-			<FhvLongestNight fhv={familyFhv} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<FhvLongestNight fhv={familyFhv} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcFold'}
 			<TdcFold tdc={familyTdc} />
 		{:else if widget.id === 'tdcArtifacts'}
@@ -976,35 +936,35 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'tdcTasks'}
 			<TdcTasks tdc={familyTdc} logOnly={lo} />
 		{:else if widget.id === 'tdcOneLastJob'}
-			<TdcScenario scenario="one_last_job" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="one_last_job" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcWesternWall'}
-			<TdcScenario scenario="the_western_wall" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="the_western_wall" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcDrownedQuarter'}
-			<TdcScenario scenario="the_drowned_quarter" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="the_drowned_quarter" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcApiary'}
-			<TdcScenario scenario="the_apiary" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="the_apiary" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcGrandVault'}
-			<TdcScenario scenario="the_grand_vault" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="the_grand_vault" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcCourtOfAncients'}
-			<TdcScenario scenario="court_of_the_ancients" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="court_of_the_ancients" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcObsidianCanyons'}
-			<TdcScenario scenario="obsidian_canyons" tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcScenario scenario="obsidian_canyons" tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcSepulchre'}
-			<TdcSepulchre tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcSepulchre tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tdcDoom'}
-			<TdcDoom tdc={familyTdc} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TdcDoom tdc={familyTdc} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'notzThreatsBelow'}
 			<NotzThreatsBelow notz={familyNotz} />
 		{:else if widget.id === 'notzGathering'}
-			<NotzGathering notz={familyNotz} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<NotzGathering notz={familyNotz} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'notzMidnightMasks'}
-			<NotzMidnightMasks notz={familyNotz} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<NotzMidnightMasks notz={familyNotz} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'notzDevourerBelow'}
-			<NotzDevourerBelow notz={familyNotz} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<NotzDevourerBelow notz={familyNotz} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'notzCoreOnly'}
 			<NotzCoreOnly notz={familyNotz} />
 		{:else if widget.id === 'eoeCity'}
-			<EoeCityMatrix {family} achievements={tskScenarioAch} scenarios={familyScenarios} />
+			<EoeCityMatrix {family} achievements={familyAchievements} scenarios={familyScenarios} />
 		{:else if widget.id === 'eoeCrash'}
 			<EoeMemberRoster eoe={familyEoe} metric="killed" />
 		{:else if widget.id === 'eoeDemons'}
@@ -1029,7 +989,7 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 			<EoeFatalMirage
 				eoe={familyEoe}
 				{family}
-				achievements={tskScenarioAch}
+				achievements={familyAchievements}
 				scenarios={familyScenarios}
 			/>
 		{:else if widget.id === 'eoeIceDeath'}
@@ -1045,56 +1005,50 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		{:else if widget.id === 'tfaPoison'}
 			<TfaPoison tfa={familyTfa} />
 		{:else if widget.id === 'tfaWilds'}
-			<TfaUntamedWilds tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaUntamedWilds tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaEztli'}
-			<TfaDoomOfEztli tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaDoomOfEztli tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaThreads'}
-			<TfaThreadsOfFate tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaThreadsOfFate tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaBoundary'}
-			<TfaBoundaryBeyond tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaBoundaryBeyond tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaHote'}
-			<TfaHeartOfElders tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaHeartOfElders tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaArchives'}
-			<TfaCityOfArchives tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaCityOfArchives tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaYoth'}
-			<TfaDepthsOfYoth tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaDepthsOfYoth tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaAeons'}
-			<TfaShatteredAeons tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaShatteredAeons tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'tfaTurnBackTime'}
-			<TfaTurnBackTime tfa={familyTfa} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<TfaTurnBackTime tfa={familyTfa} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlExtracurricular'}
-			<DwlOpener scenarioId="extracurricular_activity" {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlOpener scenarioId="extracurricular_activity" {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlHouseAlwaysWins'}
-			<DwlOpener scenarioId="the_house_always_wins" {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlOpener scenarioId="the_house_always_wins" {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlMissingPersons'}
 			<DwlMissingPersons dwl={familyDwl} />
 		{:else if widget.id === 'dwlMiskatonic'}
-			<DwlMiskatonicMuseum dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlMiskatonicMuseum dwl={familyDwl} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlEssex'}
-			<DwlEssex dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlEssex dwl={familyDwl} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlSacrifices'}
-			<DwlSacrifices dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlSacrifices dwl={familyDwl} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlUndimensioned'}
-			<DwlUndimensioned dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlUndimensioned dwl={familyDwl} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlAscendingHill'}
-			<DwlAscendingHill dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlAscendingHill dwl={familyDwl} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{:else if widget.id === 'dwlFinale'}
-			<DwlFinale dwl={familyDwl} {family} achievements={tskScenarioAch} scenarios={familyScenarios} logOnly={lo} />
+			<DwlFinale dwl={familyDwl} {family} achievements={familyAchievements} scenarios={familyScenarios} logOnly={lo} />
 		{/if}
 	</WidgetFrame>
 {/snippet}
 
-<!--
-  A `split` row is FIXED-width. Above a breakpoint its two slots are each exactly
-  `--widget-half-width` (sized for a 4-card row), CENTRED as a pair, and the row bleeds a
-  little past the page gutter so two fixed slots fit from a normal desktop width. The slot
-  width never changes with the screen — so each half-width widget can be designed for
-  exactly one width and its card count never reflows. Below the breakpoint a split relaxes
-  to one full-width column (the roomy, easy case). Full-width rows keep the page gutter, so
-  a 2-up split can sit a touch WIDER than a full row — fine, the eye only scans half of it.
--->
+<!-- A `split` row's two slots are each exactly `--widget-half-width` above the container
+     breakpoint (centred as a pair, bleeding a little past the page gutter), so a half-width
+     widget is designed for one width; below it the split stacks into one full-width column. -->
 <div class="widget-rows mt-6 space-y-6">
-	{#each visibleRows as row, i (i)}
+	{#each visibleRows as row (rowKey(row))}
 		{#if row.kind === 'full'}
 			{#if row.slot}
 				<div>{@render widgetBody(row.slot)}</div>
@@ -1119,20 +1073,16 @@ snippet (one switch), reused by every slot. Per-campaign widgets are sliced to
 		container-type: inline-size;
 	}
 	.widget-split {
-		/* THE design knob: the FIXED width of one half-width slot. 34rem → ~512px of body
-		   after the frame's ~32px padding = exactly a 4-wide card row (4×120px + gaps ≈ 504px)
-		   and TskKeysWall's 5+3+3 keys. Bump it for more cards per half — and raise the floor
-		   below to (2 × width + 1.5rem gap − 6rem bleed). */
+		/* The fixed width of one half-width slot: 34rem ≈ 512px of body after the frame padding,
+		   a 4-wide card row. Raising it means raising the container floor below
+		   (2 × width + 1.5rem gap − 6rem bleed). */
 		--widget-half-width: 34rem;
 		display: grid;
 		gap: 1.5rem; /* = gap-6; also the vertical gap between the two slots when stacked */
 		grid-template-columns: minmax(0, 1fr); /* stacked → full width (the easy case) */
 	}
-	/* 64rem floor = 2 × 34rem + 1.5rem gap − 6rem bleed (with slack). Above it the two slots
-	   are FIXED and CENTRED, and the row bleeds -3rem past the gutter each side (MarginFull's
-	   gutter here is 4rem → ~1rem edge) so they fit from ~1152px and may sit wider than a
-	   full row. Fixed width = zero content reflow as the screen grows; a very wide screen
-	   just centres the pair with more empty margin, by design. */
+	/* 64rem floor = 2 × 34rem + 1.5rem gap − 6rem bleed (with slack); the row bleeds -3rem past
+	   the gutter each side so two fixed slots fit from ~1152px. */
 	@container (min-width: 64rem) {
 		.widget-split {
 			grid-template-columns: var(--widget-half-width) var(--widget-half-width);

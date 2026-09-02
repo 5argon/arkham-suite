@@ -7,6 +7,7 @@ tallies how many of the cell bore the curse. Built on StatNumbers.
 	import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { fhv }: { fhv: CampaignFhv | null } = $props();
 	const c = $derived(fhv?.curse);
@@ -26,5 +27,5 @@ tallies how many of the cell bore the curse. Built on StatNumbers.
 {#if hasData}
 	<StatNumbers {rows} />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_fhv_curse_empty()}</p>
+	<WidgetEmpty>{m.campaign_fhv_curse_empty()}</WidgetEmpty>
 {/if}

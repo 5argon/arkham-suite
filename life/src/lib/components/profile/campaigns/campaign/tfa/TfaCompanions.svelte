@@ -9,6 +9,7 @@ hover for the full tally. Portraits are their Ally story cards. Built on LitTile
 	import { TFA_ICHTACA_CODE, TFA_ALEJANDRO_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tfa }: { tfa: CampaignTfa | null } = $props();
 
@@ -61,5 +62,5 @@ hover for the full tally. Portraits are their Ally story cards. Built on LitTile
 {#if hasData}
 	<LitTileGrid {tiles} colsClass="grid-cols-2" />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tfa_companions_empty()}</p>
+	<WidgetEmpty>{m.campaign_tfa_companions_empty()}</WidgetEmpty>
 {/if}

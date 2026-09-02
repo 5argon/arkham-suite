@@ -14,8 +14,9 @@ qualifying route exists.
 -->
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import { HoverTooltip, parseArkhamMarkup } from '@5argon/arkham-life-ui';
-	import { TSK_ROUTE_ACHIEVEMENTS, type CampaignTsk, type TskRoute } from '$lib/campaign/campaigns/tsk-profile';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
+		import { TSK_ROUTE_ACHIEVEMENTS, type CampaignTsk, type TskRoute } from '$lib/campaign/campaigns/tsk-profile';
 	import * as m from '$lib/paraglide/messages.js';
 	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
 	import WidgetTable, { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
@@ -88,16 +89,7 @@ qualifying route exists.
 		return out;
 	});
 
-	// One shared tooltip for the achievement-description hovers.
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipDesc = $state('');
-	function showDesc(desc: string, e: MouseEvent) {
-		tipDesc = desc;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideDesc = () => (tipVisible = false);
+	const tip = new HoverTipState();
 </script>
 
 {#if byRecent.length}
@@ -113,8 +105,8 @@ qualifying route exists.
 					<span
 						role="note"
 						class="cursor-help decoration-dotted underline-offset-2 hover:underline"
-						onmouseenter={(e) => showDesc(desc, e)}
-						onmouseleave={hideDesc}>{r.label}</span
+						onmouseenter={(e) => tip.showText(desc, e)}
+						onmouseleave={tip.hide}>{r.label}</span
 					>
 				{:else}
 					{r.label}
@@ -133,8 +125,4 @@ qualifying route exists.
 	<p class="text-primary-400 text-sm italic">{m.campaign_tsk_routes_empty()}</p>
 {/if}
 
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-700 dark:text-neutral-200"
-		>{@html parseArkhamMarkup(tipDesc)}</span
-	>
-</HoverTooltip>
+<HoverTip {tip} markup />

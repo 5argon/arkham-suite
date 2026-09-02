@@ -3,9 +3,8 @@
 // DRAFT `<code>-db.json` (language-neutral logic) + `<code>-en.json` (English text).
 //
 // This guarantees completeness (every campaign_log* effect is captured). The
-// per-campaign agents then add the semantic layer: spoiler spans, card-name
-// resolution for $input placeholders, special-section structure, pruning of
-// non-recordable bookkeeping entries.
+// per-campaign agents then add the semantic layer: card-name resolution for $input
+// placeholders, special-section structure, pruning of non-recordable bookkeeping entries.
 //
 // Usage:
 //   node extract.mjs <code>            # one campaign
@@ -15,14 +14,15 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, '../data');
-const REF = path.resolve(__dirname, '../references/arkham-cards-data-master');
-const CAMP = path.join(REF, 'campaigns');
-const RETCAMP = path.join(REF, 'return_campaigns');
-const PACK = path.resolve(__dirname, '../references/pack');
+import {
+  DATA_DIR,
+  LOG_EFFECT_TYPES,
+  PACK_DIR as PACK,
+  REF_CAMPAIGNS as CAMP,
+  REF_RETURN_CAMPAIGNS as RETCAMP,
+  buildIdIndex,
+  readJson,
+} from './lib.mjs';
 
 // ---- Card name index (code -> English name) -------------------------------
 const CARD_CODE = /^\d{4,6}[a-z]?$/;
@@ -56,38 +56,11 @@ function loadCardIndex() {
 }
 const cardName = (code) => loadCardIndex().get(code) ?? null;
 
-// The directory name is NOT always the campaign id (e.g. dir `notz` has id
-// `core`). Build an index from campaign.json `id` -> { dir, kind }.
-function buildIdIndex() {
-  const index = new Map();
-  for (const [base, kind] of [
-    [CAMP, 'campaign'],
-    [RETCAMP, 'return'],
-  ]) {
-    for (const name of fs.readdirSync(base)) {
-      const dir = path.join(base, name);
-      const cj = path.join(dir, 'campaign.json');
-      if (!fs.statSync(dir).isDirectory() || !fs.existsSync(cj)) continue;
-      const id = readJson(cj).id ?? name;
-      if (!index.has(id)) index.set(id, { dir, kind });
-      // Also index by directory name as a fallback alias.
-      if (!index.has(name)) index.set(name, { dir, kind });
-    }
-  }
-  return index;
-}
-let ID_INDEX = null;
-
 // Map our campaign code -> reference source directory.
 function sourceDir(code) {
-  if (!ID_INDEX) ID_INDEX = buildIdIndex();
-  const hit = ID_INDEX.get(code);
+  const hit = buildIdIndex().get(code);
   if (!hit) throw new Error(`No reference dir for ${code}`);
   return hit;
-}
-
-function readJson(p) {
-  return JSON.parse(fs.readFileSync(p, 'utf8'));
 }
 
 function listJsonFiles(dir) {
@@ -97,17 +70,6 @@ function listJsonFiles(dir) {
     .map((f) => path.join(dir, f));
 }
 
-const LOG_EFFECT_TYPES = new Set([
-  'campaign_log',
-  'campaign_log_count',
-  'campaign_log_cards',
-  'campaign_log_investigator_count',
-  'campaign_log_text',
-  'campaign_log_task',
-  'campaign_log_assign_task',
-  'campaign_log_cards_switch',
-  'freeform_campaign_log',
-]);
 
 // Recursively walk a JSON tree, collecting every campaign_log* effect with the
 // scenario file it came from. `condition` subtrees are skipped: a campaign_log
@@ -590,16 +552,11 @@ function extract(code) {
     }
   }
 
-  // Visit source files in CAMPAIGN-FLOW order (not the alphabetical order
-  // readdirSync returns). An entry recorded in more than one scenario — e.g.
-  // dwl's `warren_rice_kidnapped`, first recorded in extracurricular_activity
-  // but ALSO re-recorded in essex_county_express (escorted ally defeated) — must
-  // be attributed to the scenario where it is FIRST recorded narratively. The
-  // dedup below is "first occurrence wins", so that attribution is only correct
-  // if we visit scenarios in play order. Alphabetically essex_county_express
-  // sorts before extracurricular_activity, which previously stamped those
-  // entries with the wrong (later) scenario and dragged them to the bottom of
-  // the log. Files not in the flow keep their alphabetical order (stable sort).
+  // Visit source files in CAMPAIGN-FLOW order, not readdirSync's alphabetical order: the dedup
+  // below is "first occurrence wins", and an entry recorded in more than one scenario (e.g. dwl's
+  // `warren_rice_kidnapped`, in extracurricular_activity and again in essex_county_express) must
+  // be attributed to the scenario where it is first recorded narratively. Files not in the flow
+  // keep their alphabetical order (stable sort).
   const flowRank = new Map(
     [...(baseCampaign?.scenarios ?? []), ...(campaign.scenarios ?? [])].map((s, i) => [s, i])
   );
@@ -854,8 +811,7 @@ function extract(code) {
   // own scenario flow (so even scenarios with no recordable log entry — e.g.
   // Ice and Death, Part 2 — still get a slot, for the per-scenario XP highscore).
   // Includes `hidden_scenarios`: branching campaigns (PtC, FHV, TSKC, TDC…) keep
-  // most of their scenarios there, not in the linear `scenarios`, so omitting
-  // them dropped the bulk of the campaign (e.g. PtC's Dim Carcosa). A real
+  // most of their scenarios there, not in the linear `scenarios`. A real
   // scenario file with no `type` is a playable 'story' scenario; an id with NO
   // matching file (a campaign.json typo/alias, e.g. eoe's `the_disapperance`) is
   // marked 'other' so it is never treated as playable.

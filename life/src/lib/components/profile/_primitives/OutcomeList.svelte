@@ -3,7 +3,7 @@
 OutcomeList — the shared "● lit / ○ greyed" story-fork list. Each item is a label (usually resolved
 from campaign-data so the wording matches the physical campaign log) with a hit flag and an optional
 ×count. An optional trailing annotation (`note`, muted) tags each line — e.g. the scenario it was
-found in. Keeps the ●/○ markup in one place instead of hand-rolling it per widget.
+found in.
 -->
 <script lang="ts">
 	export interface OutcomeItem {

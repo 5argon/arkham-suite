@@ -4,8 +4,7 @@ A scenario's encounter-set icon (1em, inherits the surrounding text colour), fal
 small lettered chip when the scenario has no kohaku encounter set (e.g. an interlude location).
 Pass a `scenarioId` to resolve the set + fallback automatically (the simple path for list / table
 widgets), or a precomputed `iconSet` + `fallback` (the icon-track renderers, which already have them
-per item). Shared by RoutingTrack / PtcTokenChain / PtcDcChain and the per-scenario list widgets
-(Scenario XP Highscore / Resolution Coverage).
+per item).
 -->
 <script lang="ts">
 	import { EncounterSetIcon } from '@5argon/arkham-life-ui';

@@ -3,8 +3,8 @@
 TFA per-scenario "passport" — a thin wrapper over the shared `ScenarioInfo` that opts every TFA
 scenario into the generic played count and lets each scenario widget inject its own bespoke header
 card-art (the Harbinger, the Relic of Ages, Ichtaca / Alejandro, Yig — via the `headerArt` snippet)
-and stat block, so every TFA scenario shares one passport look. The per-scenario `.webp` art slot is
-left for later; header art comes from in-app card thumbs for now.
+and stat block, so every TFA scenario shares one passport look. Header art comes from in-app card
+thumbs.
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';

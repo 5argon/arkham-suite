@@ -69,10 +69,9 @@ the Key/Coterie card art (`headerArt`) and text (`headerMeta`), the "Key won" co
 	const stat = $derived(
 		scenarios?.scenarios.find((s) => s.scenario === scenarioId) ?? null
 	);
-	// "Played" badge: prefer the TSK-authoritative count (plays that recorded the scenario in ANY
-	// way — XP, a resolution, or a tier), which the generic XP-only count undershoots whenever a
-	// play recorded a resolution but earned no scenario XP (On Thin Ice's "nothing of note in
-	// Anchorage" skip). That undershoot let `played` fall below the resolution-derived Failed.
+	// "Played" badge: the TSK count (plays that recorded the scenario in any way — XP, a resolution,
+	// or a tier) rather than the generic XP-only count, which misses a play that recorded a
+	// resolution but earned no scenario XP (On Thin Ice's "nothing of note in Anchorage" skip).
 	const tskPlays = $derived(tsk?.scenarioPlays?.[scenarioId] ?? null);
 	const plays = $derived(tskPlays?.total ?? stat?.plays ?? 0);
 	// Always provided (even at 0) so the passport can show "never played".
@@ -167,9 +166,7 @@ the Key/Coterie card art (`headerArt`) and text (`headerMeta`), the "Key won" co
 		return (stat?.versions ?? []).map((vs): TierRow => {
 			const isVersion = vs.kind === 'version';
 			const matchKey = isVersion ? 'version' : 'level';
-			// Version rows carry a "VERSION" badge, so the label shortens the redundant "Version I" word
-			// to the game's "v.I" roman form while keeping its description ("v.I – Deal with Desi …").
-			// Tier rows keep their descriptive time-scaling label.
+			// Version rows carry a "VERSION" badge, so their label uses the short "v.I" form.
 			const label = isVersion
 				? (versionTableLabel(scenarioId, vs.value) ?? vs.value)
 				: (ref.levels.find((o) => o.id === vs.value)?.label ?? vs.value);

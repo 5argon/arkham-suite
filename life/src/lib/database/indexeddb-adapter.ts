@@ -79,10 +79,8 @@ export class IndexedDbAdapter implements PersistenceAdapter {
 			// clone can't handle (DataCloneError). The document is pure JSON (dates are
 			// stored as ms numbers), so a JSON round-trip is a lossless, proxy-safe copy.
 			const plain = JSON.parse(JSON.stringify(doc)) as DatabaseDocument;
-			// The derived profile cache is NOT persisted: it bloats every write and, since
-			// the whole doc is rewritten to one key on each edit, its churn dominated
-			// on-disk usage (LevelDB keeps overwritten bytes until compaction). It is cheap
-			// to recompute on load, so it stays in memory only — like the export already does.
+			// The derived profile cache is recomputed on load, so it stays out of the stored
+			// document (it would dominate the size of every whole-document write).
 			delete plain.profileCache;
 			await tx(db, 'readwrite', (s) => s.put(plain, DOC_KEY));
 		} finally {

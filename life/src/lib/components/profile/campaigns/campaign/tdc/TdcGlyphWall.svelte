@@ -1,6 +1,6 @@
 <!--
 @component
-TDC bespoke widget — the Alien Glyph decryption wall (consolidated). All 26 alien glyphs grouped by
+TDC bespoke widget — the Alien Glyph decryption wall. All 26 alien glyphs grouped by
 the scenario they're decrypted in; each glyph is a lit/greyed cell, its decoded meaning on hover.
 Decrypting all 26 is one half of the better-ending gate (`alien_grad`). Reads the precomputed
 `tdc.glyphs`. Full width.
@@ -8,6 +8,7 @@ Decrypting all 26 is one half of the better-ending gate (`alien_grad`). Reads th
 <script lang="ts">
 	import { TDC_GLYPHS_BY_SCENARIO, tdcText, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tdc }: { tdc: CampaignTdc | null } = $props();
 
@@ -72,5 +73,5 @@ Decrypting all 26 is one half of the better-ending gate (`alien_grad`). Reads th
 		{/if}
 	</p>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tdc_glyphs_empty()}</p>
+	<WidgetEmpty>{m.campaign_tdc_glyphs_empty()}</WidgetEmpty>
 {/if}

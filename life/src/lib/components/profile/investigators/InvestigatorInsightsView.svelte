@@ -10,7 +10,7 @@ Wendy/Lola options) you actually used.
 <script lang="ts">
 	import { type CardItem, FlexibleCardDisplay } from '@5argon/arkham-life-ui';
 	import { card as cardUtils, type Card, type Product } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode, getAllCards } from '$lib/card-data';
 	import { isCardOwned } from '$lib/campaign/utils/ownership';
 	import type { InvestigatorStat } from '$lib/profile/profile-types';
 	import * as m from '$lib/paraglide/messages.js';
@@ -36,7 +36,7 @@ Wendy/Lola options) you actually used.
 	const SUBJECT_5U21 = '89001';
 
 	const playedMap = $derived(new Map(investigators.map((i) => [i.code, i])));
-	const byCode = $derived(new Map(getAllCards().map((c) => [c.code, c])));
+	const byCode = cardsByCode();
 	const universe = $derived.by((): Card[] =>
 		getAllCards().filter(
 			(c) =>

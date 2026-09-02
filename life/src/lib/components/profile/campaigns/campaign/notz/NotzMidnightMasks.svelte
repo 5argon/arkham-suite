@@ -8,7 +8,7 @@ deck-testing training ground scored by cultists caught. The six unique Cultists 
 <script lang="ts">
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
 	import { type CampaignNotz, NOTZ_CULTISTS } from '$lib/campaign/campaigns/notz';
-	import { getAllCards } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
 	import { difficultyLabel, orderedDifficulties } from '$lib/campaign/utils/difficulty';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
@@ -17,6 +17,7 @@ deck-testing training ground scored by cultists caught. The six unique Cultists 
 	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		notz,
@@ -33,13 +34,6 @@ deck-testing training ground scored by cultists caught. The six unique Cultists 
 	} = $props();
 
 	const mm = $derived(notz?.midnightMasks ?? null);
-	// Resolve just the six cultist names, not a map over the whole ~6k-card database.
-	const CULTIST_CODES = new Set<string>(NOTZ_CULTISTS);
-	const nameByCode = new Map(
-		getAllCards()
-			.filter((c) => CULTIST_CODES.has(c.code))
-			.map((c) => [c.code, c.name])
-	);
 
 	const roster = $derived<LitTile[]>(
 		mm
@@ -50,7 +44,7 @@ deck-testing training ground scored by cultists caught. The six unique Cultists 
 					return {
 						id: code,
 						image: getCardImagePath(code, 'square'),
-						label: nameByCode.get(code) ?? code,
+						label: cardByCode(code)?.name ?? code,
 						count: caught,
 						detail: m.campaign_notz_cultist_detail({ caught: String(caught), escaped: String(escaped) })
 					};
@@ -102,7 +96,7 @@ deck-testing training ground scored by cultists caught. The six unique Cultists 
 				<StatNumbers rows={statRows} />
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_notz_masks_empty()}</p>
+			<WidgetEmpty>{m.campaign_notz_masks_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

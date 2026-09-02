@@ -7,13 +7,14 @@ investigators: resolution coverage and the Victory-Point high score are tracked 
 position (the shared VersionBreakdown, order axis derived from the play's route, so log-known).
 -->
 <script lang="ts">
-	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import { scenarioMeta, scenarioVerdicts } from '$lib/campaign/utils/scenario-meta';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import { toVersionRow } from '$lib/campaign/stats/version-stats';
+	import { scenarioVersions, toVersionRow } from '$lib/campaign/stats/version-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
 	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		scenarioId,
@@ -35,13 +36,10 @@ position (the shared VersionBreakdown, order axis derived from the play's route,
 		first: m.campaign_dwl_opener_first(),
 		second: m.campaign_dwl_opener_second()
 	};
-	const versionStats = $derived(
-		scenarios?.scenarios.find((s) => s.scenario === scenarioId)?.versions ?? []
-	);
+	const versions = $derived(scenarioVersions(scenarios, scenarioId));
 	const versionRows = $derived(
-		versionStats.map((vs) => toVersionRow(vs, { label: labels[vs.value] ?? vs.value, resolutionIds }))
+		versions.stats.map((vs) => toVersionRow(vs, { label: labels[vs.value] ?? vs.value, resolutionIds }))
 	);
-	const hasVersions = $derived(versionStats.some((v) => v.plays > 0));
 </script>
 
 <ScenarioInfo
@@ -55,10 +53,10 @@ position (the shared VersionBreakdown, order axis derived from the play's route,
 	hideVp
 >
 	{#snippet stats()}
-		{#if hasVersions}
+		{#if versions.hasPlays}
 			<VersionBreakdown rows={versionRows} showPlays showResolutions showXp {logOnly} versionFromLog />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_dwl_opener_empty()}</p>
+			<WidgetEmpty>{m.campaign_dwl_opener_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

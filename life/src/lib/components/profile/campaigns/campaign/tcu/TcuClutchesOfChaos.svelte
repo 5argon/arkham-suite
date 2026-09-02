@@ -12,6 +12,7 @@ Lodge-vs-Coven spine. Built on grouped StatNumbers.
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
 	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tcu,
@@ -70,7 +71,7 @@ Lodge-vs-Coven spine. Built on grouped StatNumbers.
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tcu_clutches_empty()}</p>
+			<WidgetEmpty>{m.campaign_tcu_clutches_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

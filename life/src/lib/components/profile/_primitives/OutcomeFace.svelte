@@ -1,13 +1,14 @@
 <!--
 @component
 Shared win/loss "outcome face" — the ending-kind FaIcon (better-win / win / special / loss)
-with a hover tooltip naming it. One face, reused by the endings list, the Campaign Overview,
-and any per-play outcome column. `kind = null` renders a muted dash (e.g. an abandoned /
-unfinished run). `reached = false` greys it (an ending you haven't hit yet).
+with a hover tooltip naming it. `kind = null` renders a muted dash (e.g. an abandoned / unfinished
+run). `reached = false` greys it (an ending you haven't hit yet).
 -->
 <script lang="ts">
-	import { FaIcon, FaIconType, HoverTooltip } from '@5argon/arkham-life-ui';
+	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import type { EndingKind } from '$lib/campaign/outcomes/clear-status';
+	import HoverTip from './HoverTip.svelte';
+	import { HoverTipState } from './hover-tip.svelte';
 
 	let {
 		kind,
@@ -30,21 +31,15 @@ unfinished run). `reached = false` greys it (an ending you haven't hit yet).
 		loss: FaIconType.EndingLoss
 	};
 
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	const show = (e: MouseEvent) => {
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	};
-	const hide = () => (tipVisible = false);
+	const tip = new HoverTipState();
 </script>
 
 <span
 	role="img"
 	aria-label={label}
 	class="inline-flex cursor-default"
-	onmouseenter={show}
-	onmouseleave={hide}
+	onmouseenter={(e) => tip.showText(label, e)}
+	onmouseleave={tip.hide}
 >
 	{#if kind}
 		<FaIcon
@@ -58,6 +53,4 @@ unfinished run). `reached = false` greys it (an ending you haven't hit yet).
 	{/if}
 </span>
 
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">{label}</span>
-</HoverTooltip>
+<HoverTip {tip} />

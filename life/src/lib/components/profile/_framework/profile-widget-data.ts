@@ -1,8 +1,8 @@
 /**
- * Shared shape + mapper feeding the <ProfileWidgets> widget renderer. The
- * profile `/p/private/[uid]` layout computes the full payload; every nested
- * page maps it through `toWidgetData` (flattening the scope globals out of
- * `settings`) so the renderer takes one flat prop.
+ * Shared shape + mapper feeding the <ProfileWidgets> widget renderer. The profile layout
+ * (`routes/p/[[scope]]/[handle]`) computes the full payload; every nested page maps it through
+ * `toWidgetData` (flattening the scope globals out of `settings`) so the renderer takes one flat
+ * prop. The `??` defaults cover fields a compiled profile of an older version lacks.
  */
 
 import type { CardCode, Product } from '@5argon/arkham-kohaku';
@@ -139,11 +139,9 @@ export interface ProfilePayload {
 
 export function toWidgetData(d: ProfilePayload): ProfileWidgetData {
 	return {
-		// Default for payloads compiled/shared before the summary block existed.
 		summary: d.summary ?? emptyProfileSummary(),
 		campaigns: d.campaigns,
 		clearGrid: d.clearGrid,
-		// Defaults for payloads compiled/shared before the solo grids existed.
 		soloClearGrid: d.soloClearGrid ?? [],
 		trueSoloClearGrid: d.trueSoloClearGrid ?? [],
 		winLossRecord: d.winLossRecord,
@@ -155,31 +153,20 @@ export function toWidgetData(d: ProfilePayload): ProfileWidgetData {
 		traumaTally: d.traumaTally,
 		eoe: d.eoe,
 		tsk: d.tsk,
-		// Default for payloads compiled/shared before the dwl blob existed.
 		dwl: d.dwl ?? [],
-		// Default for payloads compiled/shared before the ptc blob existed.
 		ptc: d.ptc ?? [],
-		// Default for payloads compiled/shared before the tfa blob existed.
 		tfa: d.tfa ?? [],
-		// Default for payloads compiled/shared before the tcu blob existed.
 		tcu: d.tcu ?? [],
-		// Defaults for payloads compiled/shared before the tdea/tdeb blobs existed.
 		tdea: d.tdea ?? [],
 		tdeb: d.tdeb ?? [],
-		// Default for payloads compiled/shared before the tic blob existed.
 		tic: d.tic ?? [],
-		// Default for payloads compiled/shared before the fhv blob existed.
 		fhv: d.fhv ?? [],
-		// Default for payloads compiled/shared before the tdc blob existed.
 		tdc: d.tdc ?? [],
-		// Default for payloads compiled/shared before the notz blob existed.
 		notz: d.notz ?? [],
-		// Default for payloads compiled/shared before this field existed.
 		specialInteractions: d.specialInteractions ?? [],
 		achievements: d.achievements,
 		investigators: d.investigators,
 		cardUsage: d.cardUsage,
-		// Defaults for payloads compiled/shared before these fields existed.
 		usedOnce: d.usedOnce ?? {},
 		specialistUsage: d.specialistUsage ?? {},
 		insightDecks: d.insightDecks ?? [],

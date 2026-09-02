@@ -10,16 +10,18 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { FaIcon, FaIconType, HoverTooltip } from '@5argon/arkham-life-ui';
-	import type {
-		WinLossRecord,
-		ClearGridRow,
-		CampaignEndings,
-		EndingKind
+	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
+	import {
+		ENDING_KIND_ORDER,
+		type WinLossRecord,
+		type ClearGridRow,
+		type CampaignEndings
 	} from '$lib/campaign/outcomes/clear-status';
+	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
 	import type { DifficultyTier } from '$lib/campaign/profile/profile-settings';
 	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
 	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		record,
@@ -62,22 +64,13 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 
 	const plays = $derived(record?.plays ?? clear?.plays ?? 0);
 
-	// Each ending kind → its face icon (shape carries the meaning; colour only
-	// marks reached vs not, in the primary palette).
-	const endingIcon: Record<EndingKind, FaIconType> = {
-		best: FaIconType.EndingBetterWin,
-		win: FaIconType.EndingWin,
-		special: FaIconType.EndingSpecial,
-		loss: FaIconType.EndingLoss
-	};
-	const order: EndingKind[] = ['best', 'win', 'special', 'loss'];
 	const sortedEndings = $derived(
 		endings
 			? endings.endings
 					// Log-only mode: drop endings the log alone can't establish (Extra-derived,
 					// e.g. DWL's Act-4 R2 win) so they don't show as permanently-unreachable.
 					.filter((e) => !(logOnly && e.nonLog))
-					.sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
+					.sort((a, b) => ENDING_KIND_ORDER.indexOf(a.kind) - ENDING_KIND_ORDER.indexOf(b.kind))
 			: []
 	);
 	const reachDetail = (n: number): string =>
@@ -93,24 +86,11 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 		if (st === 'special') return FaIconType.EndingSpecial;
 		return null;
 	}
-
-	// ── single shared tooltip for the ending icons ───────────────────────────
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipTitle = $state('');
-	let tipDetail = $state('');
-	function showTip(title: string, detail: string, e: MouseEvent) {
-		tipTitle = title;
-		tipDetail = detail;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
 </script>
 
 <div>
 	{#if plays === 0}
-		<p class="text-primary-500 text-sm">{m.campaign_summary_not_played_yet()}</p>
+		<WidgetEmpty>{m.campaign_summary_not_played_yet()}</WidgetEmpty>
 	{:else}
 		<div class="flex items-baseline gap-2">
 			<span class="text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
@@ -151,20 +131,12 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 						<div class="mt-2 flex flex-wrap gap-2.5">
 							{#each sortedEndings as e (e.key)}
 								{@const n = e.byTier?.[t] ?? 0}
-								<span
-									role="img"
-									aria-label="{capitalizeFirst(e.text)} — {reachDetail(n)}"
-									class="cursor-default"
-									onmouseenter={(ev) => showTip(capitalizeFirst(e.text), reachDetail(n), ev)}
-									onmouseleave={hideTip}
-								>
-									<FaIcon
-										icon={endingIcon[e.kind]}
-										class="text-xl {n > 0
-											? 'text-primary-700 dark:text-primary-200'
-											: 'text-primary-300 dark:text-primary-700'}"
-									/>
-								</span>
+								<OutcomeFace
+									kind={e.kind}
+									reached={n > 0}
+									size="text-xl"
+									label="{capitalizeFirst(e.text)} — {reachDetail(n)}"
+								/>
 							{/each}
 						</div>
 					{/if}
@@ -173,13 +145,3 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 		</div>
 	{/if}
 </div>
-
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">
-		<span class="font-semibold">{tipTitle}</span>
-		{#if tipDetail}
-			<br />
-			<span class="text-neutral-600 dark:text-neutral-300">{tipDetail}</span>
-		{/if}
-	</span>
-</HoverTooltip>

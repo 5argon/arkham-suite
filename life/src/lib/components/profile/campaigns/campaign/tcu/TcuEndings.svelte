@@ -18,6 +18,7 @@ VersionBreakdown, inside the scenario passport.
 	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
 	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tcu,
@@ -114,7 +115,7 @@ VersionBreakdown, inside the scenario passport.
 				</div>
 			{/if}
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tcu_end_empty()}</p>
+			<WidgetEmpty>{m.campaign_tcu_end_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

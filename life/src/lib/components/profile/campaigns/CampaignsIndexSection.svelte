@@ -6,6 +6,7 @@
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
 	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';
 	import { LOCAL_PROFILE_KEY, type LocalProfileContext } from '$lib/database/profile-local';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	const ctx = getContext<LocalProfileContext>(LOCAL_PROFILE_KEY);
 	const data = $derived(ctx.payload);
@@ -20,7 +21,7 @@
 	<div class="mt-6">
 		<SectionSeparator title={m.campaigns_index_played_heading({ count: campaigns.length })} />
 		{#if campaigns.length === 0}
-			<p class="text-primary-500 text-sm">{m.campaigns_index_empty()}</p>
+			<WidgetEmpty>{m.campaigns_index_empty()}</WidgetEmpty>
 		{:else}
 			<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
 				{#each campaigns as c (c.family)}

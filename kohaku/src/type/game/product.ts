@@ -172,7 +172,7 @@ export const productInvestigatorDeck: Product[] = [
  */
 export const productDeckbuildingExpansions: Product[] = [Product.PowerOfTheDreamlands];
 
-/** Standalone "Scenario Pack" products released in the Chapter One era (all of them, so far). */
+/** Standalone "Scenario Pack" products released in the Chapter One era. */
 export const productStandaloneChapterOne: Product[] = [
   Product.CurseOfTheRougarou,
   Product.CarnevaleOfHorrors,
@@ -189,7 +189,7 @@ export const productStandaloneChapterOne: Product[] = [
   Product.TracesToNowhere,
 ];
 
-/** Standalone "Scenario Pack" products released in the Chapter Two era (none yet). */
+/** Standalone "Scenario Pack" products released in the Chapter Two era. */
 export const productStandaloneChapterTwo: Product[] = [];
 
 export const productStandalone: Product[] = [

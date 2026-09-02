@@ -34,35 +34,27 @@ doesn't count).
 	);
 	const playedCount = $derived(universe.filter((c) => played(c.code)).length);
 
-	const classLabel: Record<string, string> = {
-		guardian: 'Guardian',
-		seeker: 'Seeker',
-		rogue: 'Rogue',
-		mystic: 'Mystic',
-		survivor: 'Survivor',
-		neutral: 'Neutral',
-	};
 	const byClass = $derived.by(() => {
-		const m = new Map<string, { played: number; total: number }>();
+		const acc = new Map<string, { played: number; total: number }>();
 		for (const c of universe) {
 			const cls = String(c.cardClass?.class1 ?? 'neutral').toLowerCase();
-			const e = m.get(cls) ?? { played: 0, total: 0 };
+			const e = acc.get(cls) ?? { played: 0, total: 0 };
 			e.total += 1;
 			if (played(c.code)) e.played += 1;
-			m.set(cls, e);
+			acc.set(cls, e);
 		}
-		return [...m.entries()].sort((a, b) => b[1].total - a[1].total);
+		return [...acc.entries()].sort((a, b) => b[1].total - a[1].total);
 	});
 	const byLevel = $derived.by(() => {
-		const m = new Map<number, { played: number; total: number }>();
+		const acc = new Map<number, { played: number; total: number }>();
 		for (const c of universe) {
 			const lv = c.xp ?? 0;
-			const e = m.get(lv) ?? { played: 0, total: 0 };
+			const e = acc.get(lv) ?? { played: 0, total: 0 };
 			e.total += 1;
 			if (played(c.code)) e.played += 1;
-			m.set(lv, e);
+			acc.set(lv, e);
 		}
-		return [...m.entries()].sort((a, b) => a[0] - b[0]);
+		return [...acc.entries()].sort((a, b) => a[0] - b[0]);
 	});
 
 	const pct = (n: number, d: number) => (d ? Math.round((n / d) * 100) : 0);
@@ -83,7 +75,7 @@ doesn't count).
 				<div class="space-y-1">
 					{#each byClass as [cls, s] (cls)}
 						<div class="flex items-center gap-2 text-sm">
-							<span class="w-20 shrink-0 text-black dark:text-white">{classLabel[cls] ?? cls}</span>
+							<span class="w-20 shrink-0 text-black dark:text-white">{m.shared_class({ class: cls })}</span>
 							<div class="bg-primary-100 dark:bg-primary-800 h-2.5 flex-1 overflow-hidden rounded">
 								<div class="bg-secondary-500 h-full" style="width: {pct(s.played, s.total)}%"></div>
 							</div>

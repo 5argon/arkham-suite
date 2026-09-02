@@ -10,12 +10,13 @@ defeated there).
 -->
 <script lang="ts">
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
-	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
+	import ScenarioNameCell from '$lib/components/profile/campaigns/campaign/ScenarioNameCell.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import WidgetTable, {
 		widgetTableCell
 	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { ptc }: { ptc: CampaignPtc | null } = $props();
 
@@ -63,14 +64,7 @@ defeated there).
 				<SectionLabel variant="heading">{m.campaign_ptc_stranger_highscore_heading()}</SectionLabel>
 				<WidgetTable columns={highscoreCols} rows={highscores} key={(s) => s.scenario}>
 					{#snippet row(s)}
-						<td class="{widgetTableCell} whitespace-nowrap">
-							<span class="flex items-center gap-1.5" class:opacity-50={s.max === 0}>
-								<span class="text-primary-600 dark:text-primary-300 shrink-0" style="font-size:1.1rem">
-									<ScenarioSetIcon scenarioId={s.scenario} />
-								</span>
-								<span class="text-black dark:text-white">{s.name}</span>
-							</span>
-						</td>
+						<ScenarioNameCell scenarioId={s.scenario} name={s.name} faded={s.max === 0} />
 						<td class="{widgetTableCell} text-right tabular-nums">
 							{#if s.max > 0}
 								<span class="text-secondary-600 dark:text-secondary-400 font-semibold">{s.max}</span>
@@ -84,5 +78,5 @@ defeated there).
 		{/if}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_ptc_stranger_empty()}</p>
+	<WidgetEmpty>{m.campaign_ptc_stranger_empty()}</WidgetEmpty>
 {/if}

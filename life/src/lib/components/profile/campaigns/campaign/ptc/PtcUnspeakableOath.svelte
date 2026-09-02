@@ -9,16 +9,18 @@ scoped to the viewed player's own investigator). The returning VIP (Constance Du
 shared PtC passport header.
 -->
 <script lang="ts">
-	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import { scenarioMeta, scenarioVerdicts } from '$lib/campaign/utils/scenario-meta';
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import { toVersionRow } from '$lib/campaign/stats/version-stats';
+	import { scenarioVersions, toVersionRow } from '$lib/campaign/stats/version-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import PtcScenarioInfo from './PtcScenarioInfo.svelte';
 	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import PtcCardCountList from './PtcCardCountList.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		ptc,
@@ -40,7 +42,7 @@ shared PtC passport header.
 	const meta = scenarioMeta('ptc', SID);
 	// Keep no_resolution so the table shows a "None" column (it's a real ending here).
 	const resolutionIds = meta?.resolutions ?? [];
-	const verdicts = (meta?.resolutionOutcomes ?? {}) as Record<string, 'win' | 'loss' | 'neutral'>;
+	const verdicts = scenarioVerdicts(meta);
 	const labels: Record<string, string> = {
 		I: m.campaign_ptc_oath_version_1(),
 		II: m.campaign_ptc_oath_version_2()
@@ -49,20 +51,19 @@ shared PtC passport header.
 		I: 'text-amber-600 dark:text-amber-400',
 		II: 'text-violet-600 dark:text-violet-400'
 	};
-	const versionStats = $derived(scenarios?.scenarios.find((s) => s.scenario === SID)?.versions ?? []);
+	const versions = $derived(scenarioVersions(scenarios, SID));
 	const versionRows = $derived(
-		versionStats.map((vs) =>
+		versions.stats.map((vs) =>
 			toVersionRow(vs, { label: labels[vs.value] ?? vs.value, accent: accents[vs.value], resolutionIds, verdicts })
 		)
 	);
-	const hasVersions = $derived(versionStats.some((v) => v.plays > 0));
 
 	// Who went insane — already subject-scoped, newest-first, capped in the payload; each carries its
 	// play's finish date, shown as a dated card list like the random-weakness lists.
 	const insane = $derived(
 		(o?.insaneInvestigators ?? []).map((x) => ({ code: x.code, date: x.finishDate }))
 	);
-	const hasData = $derived(hasOath || hasVersions || insane.length > 0);
+	const hasData = $derived(hasOath || versions.hasPlays || insane.length > 0);
 	const rows = $derived<Stat[][]>(
 		o
 			? [
@@ -90,7 +91,7 @@ shared PtC passport header.
 				{#if hasOath}
 					<StatNumbers {rows} />
 				{/if}
-				{#if versionStats.length}
+				{#if versions.stats.length}
 					<VersionBreakdown
 						title={m.campaign_ptc_oath_versions_title()}
 						rows={versionRows}
@@ -101,17 +102,15 @@ shared PtC passport header.
 				{/if}
 				{#if insane.length}
 					<div>
-						<div
-							class="text-primary-600 dark:text-primary-300 mb-2 text-center text-sm font-semibold"
+						<SectionLabel variant="heading" align="center"
+							>{m.campaign_ptc_oath_insane_heading()}</SectionLabel
 						>
-							{m.campaign_ptc_oath_insane_heading()}
-						</div>
 						<PtcCardCountList items={insane} showDate />
 					</div>
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_ptc_oath_empty()}</p>
+			<WidgetEmpty>{m.campaign_ptc_oath_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </PtcScenarioInfo>

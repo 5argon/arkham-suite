@@ -15,6 +15,7 @@ or spend clues to get Adam Lynch to let you in. The approach is an Extra-tab cho
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	// `logOnly` (global or per-campaign): the opening approach is an Extra-tab choice, so that
 	// group hides when the player only has the log (the Necronomicon custody stays — it's logged).
@@ -74,7 +75,7 @@ or spend clues to get Adam Lynch to let you in. The approach is an Extra-tab cho
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_dwl_miskatonic_empty()}</p>
+			<WidgetEmpty>{m.campaign_dwl_miskatonic_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

@@ -65,8 +65,8 @@ interface FamilyAgg {
   order: string[];
   /** Scenario id → display name (campaign-data `scenarioNames`). */
   names: Record<string, string>;
-  /** Every scenario id the campaign currently knows (scenarioMeta) — the gate that
-   *  keeps deprecated recorded keys (e.g. TSK's old location ids) from rendering. */
+  /** Every scenario id the campaign knows (scenarioMeta) — the gate that keeps unknown
+   *  recorded keys (e.g. an ArkhamCards location id) from rendering. */
   known: Set<string>;
   xp: Map<string, XpAgg>;
   ch: Map<string, Map<string, ChoiceAgg>>;
@@ -183,10 +183,9 @@ export function buildScenarioXp(
 
   const out: CampaignScenarioXp[] = [];
   for (const [family, info] of byFamily) {
-    // Every playable scenario in campaign order, plus any recorded scenario the
-    // campaign STILL knows (in scenarioMeta) appended after — so the widget shows the
-    // full campaign at a glance. Recorded keys the campaign no longer knows (deprecated
-    // artifacts, e.g. TSK's old location ids) are filtered out, not rendered as rows.
+    // Every playable scenario in campaign order, plus any recorded scenario the campaign knows
+    // (in scenarioMeta) appended after, so the widget shows the full campaign at a glance;
+    // unknown recorded keys are filtered out.
     const orderIndex = new Map(info.order.map((id, i) => [id, i]));
     const recorded = [...info.xp.keys(), ...info.ch.keys()].filter((id) => info.known.has(id));
     const ids = new Set<string>([...info.order, ...recorded]);

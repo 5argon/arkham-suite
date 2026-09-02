@@ -29,8 +29,6 @@ The `size` prop controls how large the circle and text appear.
 
 	const { username, card, size = 'md', guest = false }: Props = $props();
 
-	// Guests are intentionally lower-contrast (harder to read) so a managed
-	// roster member always reads as the more prominent identity.
 	const nameColor = $derived(
 		guest ? 'text-primary-500 dark:text-primary-600' : 'text-primary-900 dark:text-primary-100'
 	);

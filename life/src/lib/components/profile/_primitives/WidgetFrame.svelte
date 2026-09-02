@@ -3,8 +3,8 @@
 The default card frame for a profile widget — a bordered, rounded card that gives
 every widget a clear visual boundary, with its own HEADER TAB: a distinct banded
 strip across the top (its own fill + a "fold" edge below it), like the labelled
-tab of a physical reference card — deliberately NOT the inline SectionSeparator
-look. The tab optionally carries an artistic image from the static folder:
+tab of a physical reference card. The tab optionally carries an artistic image from the static
+folder:
 right-aligned, with a left-to-right scrim so the left title stays legible over
 ANY image. A missing image degrades to the plain tab.
 
@@ -67,10 +67,8 @@ silently disappearing.
 			class="border-primary-200 dark:border-primary-700 bg-primary-100 dark:bg-primary-800/70 relative flex items-center overflow-hidden border-b px-4 py-2.5"
 		>
 			{#if showImage}
-				<!-- The image fills the right of the tab; its left edge is a crisp DIAGONAL
-				     cut (clip-path), so the header colour behind shows through as a slanted
-				     "tab fold" — a real slant, not a soft near-vertical fade. The slant size
-				     is set in % of width, so it stays visible regardless of header height. -->
+				<!-- The image fills the right of the tab; its left edge is clipped to a slant (the
+				     "tab fold", see the style below). -->
 				<img
 					src={image}
 					alt=""
@@ -82,14 +80,14 @@ silently disappearing.
 			<h3
 				class="text-secondary-900 dark:text-secondary-100 dark:text-shadow-primary-900/50 relative z-10 text-lg leading-tight font-semibold"
 			>
-				<div class="bg-primary-100/90 dark:bg-primary-800/80 flex items-center gap-1.5 rounded px-2">
+				<span class="bg-primary-100/90 dark:bg-primary-800/80 flex items-center gap-1.5 rounded px-2">
 					{#if iconSet}
 						<span class="leading-none">
 							<EncounterSetIcon encounterSet={iconSet} />
 						</span>
 					{/if}
 					<span>{title}</span>
-				</div>
+				</span>
 			</h3>
 			{#if noteDoc}
 				<button
@@ -124,9 +122,8 @@ silently disappearing.
 		min-height: 3rem;
 	}
 
-	/* Crisp diagonal left edge on the header image — the slanted "tab fold". The
-	   top-left corner is inset (22% of the image's own width) while the bottom-left
-	   sits flush, so the header colour behind shows through as a clean slant. */
+	/* Slanted "tab fold" on the header image: the top-left corner is inset (4% of the image's
+	   width) while the bottom-left sits flush, so the header colour shows through as a slant. */
 	.widget-frame__tab-img {
 		clip-path: polygon(4% 0, 100% 0, 100% 100%, 0 100%);
 	}

@@ -15,6 +15,7 @@ captured via the Extra card picker — most-drawn first. Built on StatNumbers + 
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import PtcCardCountList from './PtcCardCountList.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		ptc,
@@ -87,7 +88,7 @@ captured via the Extra card picker — most-drawn first. Built on StatNumbers + 
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_ptc_bsr_empty()}</p>
+			<WidgetEmpty>{m.campaign_ptc_bsr_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </PtcScenarioInfo>

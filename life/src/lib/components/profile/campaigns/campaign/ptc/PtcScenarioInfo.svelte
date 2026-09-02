@@ -10,7 +10,7 @@ was slain in exactly this scenario. Everything else (corner stats, resolutions, 
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { getAllCards } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
@@ -43,8 +43,7 @@ was slain in exactly this scenario. Everything else (corner stats, resolutions, 
 
 	// The home VIP for this scenario (null for scenarios without one — then this is a plain passport).
 	const vh = $derived(ptc?.vipHelp?.[scenarioId] ?? null);
-	const nameByCode = new Map(getAllCards().map((c) => [c.code, c.name]));
-	const vipName = $derived(vh ? (nameByCode.get(vh.asset) ?? vh.asset) : '');
+	const vipName = $derived(vh ? (cardByCode(vh.asset)?.name ?? vh.asset) : '');
 </script>
 
 <ScenarioInfo {scenarioId} {family} {achievements} {scenarios} {logOnly} {stats}>

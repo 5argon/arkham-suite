@@ -16,12 +16,12 @@ Pure card-data + the deck-derived `specialistUsage` (card code → investigator 
 <script lang="ts">
 	import { CardSquare } from '@5argon/arkham-life-ui';
 	import { card as cardUtils, type Card, type CardCode } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode, getAllCards } from '$lib/card-data';
 	import { isSpecialist, specialistTraitsOf, traitsOf } from '$lib/campaign/utils/card-filters';
 
 	let { specialistUsage }: { specialistUsage: Record<CardCode, CardCode[]> } = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 	/** Collapse alternate / promo printings onto the base investigator code. */
 	const canonInv = (code: string): string => byCode.get(code)?.alternateOfCardCode ?? code;
 

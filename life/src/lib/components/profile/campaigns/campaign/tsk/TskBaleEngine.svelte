@@ -12,6 +12,7 @@ Bermuda, where The Great Work gives a second chance to win him back. Numbers com
 	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
 	import * as m from '$lib/paraglide/messages.js';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tsk }: { tsk: CampaignTsk | null } = $props();
 
@@ -38,5 +39,5 @@ Bermuda, where The Great Work gives a second chance to win him back. Numbers com
 		<div class="flex-1"><StatNumbers {rows} /></div>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tsk_bale_empty()}</p>
+	<WidgetEmpty>{m.campaign_tsk_bale_empty()}</WidgetEmpty>
 {/if}

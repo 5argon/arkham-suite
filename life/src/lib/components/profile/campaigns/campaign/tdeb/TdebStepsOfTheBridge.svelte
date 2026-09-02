@@ -13,6 +13,7 @@ and average accrued. Its threshold is TIERED (unlike the linear Evidence of Kada
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tdeb }: { tdeb: CampaignTdeb | null } = $props();
 	const s = $derived(tdeb?.stepsOfTheBridge);
@@ -75,5 +76,5 @@ and average accrued. Its threshold is TIERED (unlike the linear Evidence of Kada
 	</div>
 	<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdeb_steps_note()}</p>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tdeb_steps_empty()}</p>
+	<WidgetEmpty>{m.campaign_tdeb_steps_empty()}</WidgetEmpty>
 {/if}

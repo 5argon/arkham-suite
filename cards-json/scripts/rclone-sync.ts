@@ -79,4 +79,4 @@ console.log("Copying cards.json to r2 destination...")
 const cardsJsonSrc = path.join(pullsDirectory, pullsJson, pullsUtilsPlayerDatabase)
 await runRclone(["copyto", cardsJsonSrc, `${destination}/cards.json`])
 
-console.log("Done. (Run `deno task copy-cards` to update local starter/life packages.)")
+console.log("Done. (Run `yarn copy-cards` in cards-json to update the local starter/life copies.)")

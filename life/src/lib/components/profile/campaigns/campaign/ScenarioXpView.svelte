@@ -12,8 +12,9 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import { difficultyLabel, orderedDifficulties } from '$lib/campaign/utils/difficulty';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
+		import { difficultyLabel, orderedDifficulties } from '$lib/campaign/utils/difficulty';
 	import { isVictoryDisplay, rewardUnit, rewardBreakdownEntry } from '$lib/campaign/utils/scenario-reward';
 	import type { CampaignScenarios, ScenarioStat } from '$lib/campaign/stats/scenario-stats';
 	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
@@ -37,10 +38,8 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 			.join(' · ');
 	}
 
-	// Max reward per scenario (campaign-data `scenarioMeta.maxXp`, hand-curated). Cached per family.
-	// `undefined` = not curated; a curated `0` means the scenario officially awards nothing — so we
-	// don't keep a highscore for it (both Highscore and Max render a dash, even if a card forced some
-	// into the victory display). `> 0` shows the value.
+	// Max reward per scenario (campaign-data `scenarioMeta.maxXp`), cached per family. A curated `0`
+	// means no highscore is kept (both Highscore and Max render a dash).
 	const maxXpCache = new Map<string, Map<string, number>>();
 	function maxXpFor(family: string, scenarioId: string): number | undefined {
 		let byId = maxXpCache.get(family);
@@ -63,18 +62,7 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 		{ label: m.campaign_xp_col_max() }
 	];
 
-	// ── single shared tooltip: per-difficulty XP highscore ────────────────────
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipTitle = $state('');
-	let tipDetail = $state('');
-	function showTip(vd: boolean, s: ScenarioStat, e: MouseEvent) {
-		tipTitle = s.name;
-		tipDetail = tierBreakdown(vd, s.bestByTier);
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
+	const tip = new HoverTipState();
 </script>
 
 {#if withData.length}
@@ -110,8 +98,8 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 									aria-label="{s.name} — {tierBreakdown(vd, s.bestByTier) ||
 										rewardUnit(vd, s.best)}"
 									class="text-secondary-600 dark:text-secondary-400 cursor-default font-semibold"
-									onmouseenter={(e) => showTip(vd, s, e)}
-									onmouseleave={hideTip}>{rewardUnit(vd, s.best)}</span
+									onmouseenter={(e) => tip.show(s.name, tierBreakdown(vd, s.bestByTier), e)}
+									onmouseleave={tip.hide}>{rewardUnit(vd, s.best)}</span
 								>
 							{/if}
 						</td>
@@ -128,13 +116,5 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 		{/each}
 	</div>
 
-	<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-		<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">
-			<span class="font-semibold">{tipTitle}</span>
-			{#if tipDetail}
-				<br />
-				<span class="text-neutral-600 dark:text-neutral-300">{tipDetail}</span>
-			{/if}
-		</span>
-	</HoverTooltip>
+		<HoverTip {tip} />
 {/if}

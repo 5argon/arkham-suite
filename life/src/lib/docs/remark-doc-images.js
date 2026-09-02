@@ -5,8 +5,7 @@
  * the `.md`. This rewrites such relative image URLs to the SERVED static path
  * `/docs/<docPath>/<basename>`, where `<docPath>` is the doc's folder relative to `src/lib/docs/`.
  * The image files themselves are mirrored into `static/docs/**` by the doc-images Vite plugin
- * (see vite.config.ts / scripts/sync-doc-images.mjs). Pure string rewrite — no imports, no AST
- * gymnastics — so it's robust across mdsvex / Vite versions.
+ * (see vite.config.ts / scripts/sync-doc-images.mjs). A plain string rewrite.
  *
  * Duplicate filenames are safe: each doc keeps its own `/docs/<docPath>/` namespace.
  */

@@ -13,6 +13,7 @@ flags). Full-width. Built on WidgetTable + StatNumbers + FhvPortrait.
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import FhvPortrait from './FhvPortrait.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { fhv }: { fhv: CampaignFhv | null } = $props();
 
@@ -98,5 +99,5 @@ flags). Full-width. Built on WidgetTable + StatNumbers + FhvPortrait.
 		<StatNumbers rows={footer} />
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_fhv_vale_empty()}</p>
+	<WidgetEmpty>{m.campaign_fhv_vale_empty()}</WidgetEmpty>
 {/if}

@@ -3,13 +3,13 @@
 PtC interlude widget — "Lost Soul (Interlude II)", the dream after the asylum. Whether you heeded or
 ignored Daniel's warning (a campaign note — log-derived), and Daniel's fate: he survived if you
 resigned with him (the Cuckoo's Nest condition) or was possessed (Extra-supplied, so it hides in
-log-only mode). The data rides the `unspeakableOath` blob — its Extra lives on the Oath scenario's tab
-— surfaced here as its own interlude widget.
+log-only mode). Reads the `unspeakableOath` aggregate (its Extra lives on the Oath scenario's tab).
 -->
 <script lang="ts">
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { ptc, logOnly = false }: { ptc: CampaignPtc | null; logOnly?: boolean } = $props();
 	const o = $derived(ptc?.unspeakableOath);
@@ -43,5 +43,5 @@ log-only mode). The data rides the `unspeakableOath` blob — its Extra lives on
 {#if hasData}
 	<StatNumbers {rows} />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_ptc_lost_soul_empty()}</p>
+	<WidgetEmpty>{m.campaign_ptc_lost_soul_empty()}</WidgetEmpty>
 {/if}

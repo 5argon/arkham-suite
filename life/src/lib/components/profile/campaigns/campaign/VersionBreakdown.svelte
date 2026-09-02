@@ -2,9 +2,8 @@
 @component
 The shared per-VERSION breakdown table — one row per version a scenario can be played in, with
 toggleable columns (Succeed / Failed / Plays / Resolutions / XP high score) plus an optional free
-`extra` column (TSK's route). Every versioned scenario (PtC, EotE City, DWL Ascending the Hill, TSK)
-renders through this; the caller maps its `ScenarioStat.versions` (or bespoke data) to `VersionRow[]`
-and supplies the version labels.
+`extra` column (TSK's route). The caller maps its `ScenarioStat.versions` (or bespoke data) to
+`VersionRow[]` and supplies the version labels.
 
 Log-only mode: if the version axis isn't recoverable from the log alone (`versionFromLog` false),
 the table renders nothing; otherwise it keeps only Version + Plays (+ the `extra` column) and drops

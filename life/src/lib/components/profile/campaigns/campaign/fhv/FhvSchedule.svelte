@@ -10,6 +10,7 @@ full per-scenario Day/Night slot matrix is Extra-tab data (`<scenario>.played_on
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { fhv, logOnly = false }: { fhv: CampaignFhv | null; logOnly?: boolean } = $props();
 	const s = $derived(fhv?.schedule);
@@ -81,5 +82,5 @@ full per-scenario Day/Night slot matrix is Extra-tab data (`<scenario>.played_on
 		</div>
 	{/if}
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_fhv_schedule_empty()}</p>
+	<WidgetEmpty>{m.campaign_fhv_schedule_empty()}</WidgetEmpty>
 {/if}

@@ -2,9 +2,8 @@
 @component
 TDC "Alien Glyphs": a fancy clickable toggle grid mirroring the physical glyph
 rubbing-sheet. Each of the 26 runes (`glyphs.tdc_rune_a..z`) is a tile showing
-its translated meaning (e.g. "Depths"); clicking toggles it "learned" (recorded
-as the entry's presence). No rune art exists in the repo yet, so the meaning
-label is the tile content — when art lands, drop it behind the label here.
+its rune art and translated meaning (e.g. "Depths"); clicking toggles it "learned"
+(recorded as the entry's presence).
 -->
 <script lang="ts">
 	import { sectionEntries, type CampaignLog, type LogSectionDef } from '@5argon/arkham-campaign-data';

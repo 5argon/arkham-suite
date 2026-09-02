@@ -16,6 +16,7 @@ tracked by the Sepulchre widget. Full width. Built on ScenarioInfo + StatNumbers
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tdc,
@@ -90,7 +91,7 @@ tracked by the Sepulchre widget. Full width. Built on ScenarioInfo + StatNumbers
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tdc_doom_empty()}</p>
+			<WidgetEmpty>{m.campaign_tdc_doom_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 	{#snippet children()}

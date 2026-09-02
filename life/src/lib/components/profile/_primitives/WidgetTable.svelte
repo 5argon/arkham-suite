@@ -4,8 +4,7 @@ Shared table chrome for widgets, so every in-widget table looks the same: a thin
 uppercase header (bold `th`, per-column alignment) and bordered rows. The consumer
 renders each row's cells in the `row` snippet using the exported `widgetTableCell`
 class for consistent padding/alignment (cells can hold rich content — icons,
-chips, routing tracks — so cells aren't data-driven). Used by City of the Elder
-Things, the per-scenario tier tables, etc.
+chips, routing tracks — so cells aren't data-driven).
 -->
 <script lang="ts" module>
 	export interface WidgetTableColumn {

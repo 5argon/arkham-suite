@@ -41,12 +41,7 @@ full upgrade chain — happens at the precompute step (`eligibilityInsights`); t
 		{ id: 'deduction', name: 'Deduction' }
 	];
 
-	// Three complementary lenses, each over the eligible decks (the % denominator):
-	//  • "Used X"      — ran any printing                  (% of decks that can use it)
-	//  • "Not using X" — eligible but never ran it         (the complement — other investigators)
-	//  • "Removed X …" — ran it then dropped it by the end (% of the decks that used it)
-	// Not every deck can use these cards, so each denominator is non-obvious — print it inline
-	// (showTotal) rather than only on hover.
+	// Not every deck can use these cards, so each row prints its denominator inline (showTotal).
 	const rows = $derived(
 		[
 			...NAMES.map(({ id, name }) => {

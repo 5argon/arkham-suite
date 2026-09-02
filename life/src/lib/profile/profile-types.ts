@@ -1,7 +1,6 @@
 /**
- * profile-types.ts — the shared, framework-free TYPE shapes for the profile. The
- * local builder (`profile-local.ts`) and the profile components consume these
- * types directly. Pure types only — no runtime.
+ * profile-types.ts — the shared, framework-free shapes of the profile payload, consumed by the
+ * local builder (`profile-local.ts`) and the profile components.
  */
 
 import type { CardCode } from '@5argon/arkham-kohaku';
@@ -47,9 +46,8 @@ export interface ProfileSubject {
 	members: { name: string; iconCardCode: string | null }[];
 }
 
-/** A campaign as listed on a profile ("Campaigns Played"). Dates are ms-since-epoch
- *  (not `Date`) so the whole payload is JSON-pure — a compiled profile round-trips
- *  through `JSON.stringify`/`parse` with no revival step. */
+/** A campaign as listed on a profile ("Campaigns Played"). Dates are ms-since-epoch so the
+ *  payload is JSON-pure. */
 export interface ProfileCampaign {
 	id: string;
 	title: string;
@@ -183,12 +181,9 @@ export interface CardInsightsData {
 }
 
 /**
- * Cross-family lifetime headline numbers — the marquee aggregates the profile's
- * section titles surface (total wins, campaigns cleared, achievements earned, …).
- * Precomputed at payload assembly (rather than re-summed in the UI on every
- * render) so `.ahlifepro` consumers read them directly; see the serialization
- * principle in compiled-profile.ts. It spans both the logs and cards segments, so
- * it is assembled in `assemblePayload` and is NOT itself a cached segment.
+ * Cross-family lifetime headline numbers surfaced by the profile's section titles (total wins,
+ * campaigns cleared, achievements earned, …), precomputed at payload assembly. It spans the logs
+ * and cards segments, so `assemblePayload` builds it rather than a per-segment cache.
  */
 export interface ProfileSummary {
 	/** Total recorded plays across all campaign families (won, lost, or in progress). */
@@ -215,8 +210,7 @@ export interface ProfileSummary {
 	standalonePlays: number;
 }
 
-/** A zeroed {@link ProfileSummary} — the fallback for a (legacy) payload that
- *  predates the summary block (e.g. an older shared/compiled profile). */
+/** A zeroed {@link ProfileSummary}, the fallback for a compiled profile without a summary block. */
 export function emptyProfileSummary(): ProfileSummary {
 	return {
 		totalPlays: 0,

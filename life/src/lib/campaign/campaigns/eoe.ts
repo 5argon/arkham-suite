@@ -2,9 +2,7 @@
  * eoe.ts — Edge of the Earth bespoke per-campaign tallies (everything the EotE
  * profile widgets need EXCEPT the City-of-the-Elder-Things matrix, which is the
  * standard per-version breakdown carried in the unified `scenarios` record). ONE
- * builder, ONE payload blob (`eoe`), so a
- * future EotE widget can be added by reading another field off this aggregate —
- * no new profile-pipeline plumbing.
+ * builder, ONE payload blob (`eoe`).
  *
  * Everything here is derived from each play's `RecordedCampaignState`, no raw-log
  * access required:

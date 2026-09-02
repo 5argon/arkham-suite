@@ -156,7 +156,7 @@ export function buildFullClearGrid(
     if (!log) continue;
     const family = familyOf(log);
     // When merging with Return-to boxes hidden, their plays already fold into the base row — drop the
-    // separate Return-to boxes so they don't show as their own (now-redundant) grid rows.
+    // separate Return-to boxes so they don't show as their own grid rows.
     if (hideReturnTo && isReturnToCode(family)) continue;
     if (seen.has(family)) continue;
     seen.add(family);
@@ -223,7 +223,7 @@ export function buildWinLossRecord(
     }
   }
   // With Return-to hidden, its plays already fold into the base row (merge is on) — drop the separate
-  // Return-to rows so this record (which drives the campaign-index page list) no longer surfaces them.
+  // Return-to rows so this record (which drives the campaign-index page list) doesn't surface them.
   const rows = [...byFamily.values()];
   return hideReturnTo ? rows.filter((e) => !isReturnToCode(e.family)) : rows;
 }
@@ -235,6 +235,8 @@ export const DWL_WIN_LOST_FOREVER_TEXT =
   'the investigators win the campaign, but are never seen again.';
 
 export type EndingKind = 'best' | 'win' | 'special' | 'loss';
+/** Display order for a campaign's endings: superior wins first, losses last. */
+export const ENDING_KIND_ORDER: readonly EndingKind[] = ['best', 'win', 'special', 'loss'];
 export interface Ending {
   key: string;
   text: string;

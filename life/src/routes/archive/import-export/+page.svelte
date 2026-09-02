@@ -13,8 +13,7 @@
 	import { readBackupFile } from '$lib/database/backup-file';
 	import FilePickerButton from '$lib/components/FilePickerButton.svelte';
 
-	// ─── Local build: single-campaign import (one campaign at a time — the whole
-	// database lives on its own page at /database) ───────────────────────
+	// ─── Single-campaign import (the whole database lives at /database) ───────────
 	let sharedError = $state<string | null>(null);
 	let busy = $state(false);
 

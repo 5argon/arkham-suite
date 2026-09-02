@@ -29,8 +29,8 @@ it is clamped to the section's min/max when committed (on blur / Enter).
 		return Number.isFinite(n) ? n : min;
 	});
 
-	// Free-typed text. Seeded from the recorded value and re-synced from it only
-	// inside the commit handler (never from an $effect watcher) so editing is fluid.
+	// Free-typed text, seeded from the recorded value and re-synced only in the commit handler so
+	// editing is fluid.
 	let text = $state(
 		untrack(() => (value === 0 && (section.min ?? 0) === 0 ? '' : String(value))),
 	);

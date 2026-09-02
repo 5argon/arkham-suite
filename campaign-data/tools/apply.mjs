@@ -2,12 +2,11 @@
 // Merges a per-campaign curation file into the deterministic draft to produce
 // the final `<code>-db.json` + `<code>-en.json`.
 //
-//   draft (complete, no spoilers)  +  _curation/<code>.json  ->  final files
+//   draft  +  _curation/<code>.json  ->  final files
 //
 // Curation file shape (all keys optional except code):
 //   {
 //     "code": "dwl",
-//     "spoilers": { "<section>.<id>": ["span", ...], ... },
 //     "sections": {            // structure/override exotic sections
 //       "<sectionId>": {
 //         "type": "partner",
@@ -22,18 +21,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, '../data');
-const CURATION_DIR = path.resolve(__dirname, '../curation');
-
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
-const exists = (p) => fs.existsSync(p);
-
-// Return-to campaign -> base campaign code (the family). Used to aggregate
-// earned-state and to inject `shared` achievements into the base campaign.
-const RT_TO_BASE = { rtnotz: 'notz', rtdwl: 'dwl', rtptc: 'ptc', rttfa: 'tfa', rttcu: 'tcu' };
+import { ALL_CODES, CURATION_DIR, DATA_DIR, RT_TO_BASE, codesFromArgs, exists, readJson } from './lib.mjs';
 const familyOf = (code) => RT_TO_BASE[code] || code;
 
 // A `scenario` tag in the curation is the *base* scenario slot (e.g. `the_gathering`),
@@ -581,7 +569,7 @@ function apply(code) {
   // ---- special interactions: curation merge (suppress / override / add) ----
   // Curation shape under `specialInteractions`, keyed by interaction id:
   //   "<id>": { "suppress": true }                       // drop extracted noise
-  //   "<id>": { "title": "...", "text": "...", "spoiler": [...],  // -en overrides
+  //   "<id>": { "title": "...", "text": "...",                   // -en overrides
   //             "scenario": "...", "match": {...}, "scope": "...", // -db overrides
   //             "role": "...", "exclude": [...] }
   // A brand-new id (not extracted) is a curated, prose-only moment (e.g. TFA's
@@ -658,13 +646,7 @@ function apply(code) {
   return warnings.length;
 }
 
-const ALL = [
-  'notz', 'dwl', 'ptc', 'tfa', 'tcu', 'tdea', 'tdeb', 'tic', 'eoe', 'tskc', 'fhv', 'tdc',
-  'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu', 'boa', 'cob', 'fof', 'gob', 'side',
-];
-
-const arg = process.argv[2];
-const codes = arg === '--all' || !arg ? ALL : [arg];
+const codes = codesFromArgs(process.argv.slice(2));
 let warn = 0;
 for (const c of codes) warn += apply(c);
 if (warn) console.error(`\n${warn} warning(s).`);

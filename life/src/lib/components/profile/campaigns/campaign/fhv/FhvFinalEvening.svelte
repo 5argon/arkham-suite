@@ -11,6 +11,7 @@ theme. Built on OutcomeList.
 	import OutcomeList, { type OutcomeItem } from '$lib/components/profile/_primitives/OutcomeList.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { fhv }: { fhv: CampaignFhv | null } = $props();
 	const f = $derived(fhv?.finalEvening ?? null);
@@ -59,5 +60,5 @@ theme. Built on OutcomeList.
 		{/if}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_fhv_fe_empty()}</p>
+	<WidgetEmpty>{m.campaign_fhv_fe_empty()}</WidgetEmpty>
 {/if}

@@ -71,10 +71,7 @@ each hoverable for its per-difficulty breakdown. Then one bespoke section:
 		return rows;
 	});
 
-	// ── Secret boss — the Sanguine Watcher ───────────────────────────────────────
-	// Folded into the passport's stat numbers (via `extraStats`): a lead "true threat"
-	// total (the precomputed `confronted` tally = took-down + torment-continues) then the
-	// two-way split. Each number hovers to its per-difficulty breakdown.
+	// ── Secret boss — the Sanguine Watcher (`confronted` = took-down + torment-continues) ──
 	const boss = $derived(props.tsk?.sanguineWatcher ?? null);
 	const bossRow = $derived<Stat[]>(
 		boss && boss.confronted.total > 0
@@ -102,8 +99,6 @@ each hoverable for its per-difficulty breakdown. Then one bespoke section:
 <div class="flex flex-col gap-4">
 	<TskScenarioInfo scenarioId={SCENARIO} {...props}>
 		{#snippet extraStats()}
-			<!-- The Sanguine Watcher (the scenario's secret boss), grouped with the passport's
-			     Succeed/Failed numbers: combined "true threat" total, then took-down vs torment. -->
 			{#if bossRow.length}
 				<StatNumbers rows={[bossRow]} />
 			{/if}

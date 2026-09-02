@@ -16,6 +16,7 @@ campaign endings widget separately. Built on FhvScenarioInfo + StatNumbers + Lit
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		fhv,
@@ -83,7 +84,7 @@ campaign endings widget separately. Built on FhvScenarioInfo + StatNumbers + Lit
 				<LitTileGrid tiles={savedTiles} layout="flex" objectTop />
 			</div>
 		{:else if !hasData}
-			<p class="text-primary-500 text-sm">{m.campaign_fhv_fate_empty()}</p>
+			<WidgetEmpty>{m.campaign_fhv_fate_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </FhvScenarioInfo>

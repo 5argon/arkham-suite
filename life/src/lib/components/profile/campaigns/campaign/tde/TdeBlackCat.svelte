@@ -15,6 +15,7 @@ linked sibling); the message text is read verbatim from campaign-data. Full-widt
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { shared }: { shared: CampaignTdeShared | null } = $props();
 	const c = $derived(shared?.blackCat);
@@ -108,5 +109,5 @@ linked sibling); the message text is read verbatim from campaign-data. Full-widt
 		<p class="text-primary-500 mt-4 text-center text-xs">{m.campaign_tde_cat_note()}</p>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tde_cat_empty()}</p>
+	<WidgetEmpty>{m.campaign_tde_cat_empty()}</WidgetEmpty>
 {/if}

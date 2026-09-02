@@ -12,7 +12,7 @@ is sliced to that family.
 	import { CardScanFullSmall } from '@5argon/arkham-life-ui';
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import { resolutionShort, resolutionLabel } from '$lib/campaign/utils/resolutions';
 	import type { TraumaTally, TraumaEvent } from '$lib/campaign/outcomes/trauma';
 
@@ -22,7 +22,6 @@ is sliced to that family.
 	// (per-investigator attribution can't be re-sliced from the summary, so it is
 	// shown only on the aggregate view).
 	const events = $derived(family ? tally.events.filter((e) => e.families.includes(family)) : tally.events);
-	const sliced = $derived(family);
 
 	const count = (pred: (e: TraumaEvent) => boolean): number => events.filter(pred).length;
 	const killed = $derived(count((e) => e.killed === 'yes'));
@@ -35,9 +34,9 @@ is sliced to that family.
 		count((e) => e.killed !== 'yes' && e.insane !== 'yes' && (e.killed === 'maybe' || e.insane === 'maybe')),
 	);
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c]));
+	const byCode = cardsByCode();
 	const perInvestigator = $derived.by((): { card: Card; killed: number; insane: number }[] =>
-		(sliced ? [] : tally.perInvestigator)
+		(family ? [] : tally.perInvestigator)
 			.map((i) => ({ card: byCode.get(i.code), killed: i.killed, insane: i.insane }))
 			.filter((r): r is { card: Card; killed: number; insane: number } => !!r.card),
 	);
@@ -45,8 +44,7 @@ is sliced to that family.
 	function deslug(id: string): string {
 		return id.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 	}
-	/** Campaign display name re-derived from the base-family code. */
-	// i18n: package-sourced (getCampaignLog().db.name; deslug fallback of a data code)
+	/** Campaign display name from campaign-data, falling back to the de-slugged code. */
 	function campaignName(family: string): string {
 		return getCampaignLog(family)?.db.name ?? deslug(family);
 	}
@@ -116,7 +114,7 @@ is sliced to that family.
 				<div
 					class="border-primary-100 dark:border-primary-800 flex flex-wrap items-center gap-x-3 gap-y-1 border-b py-1.5 text-sm last:border-0"
 				>
-					{#if !sliced}
+					{#if !family}
 						<span class="text-primary-500 shrink-0 text-xs">{campaignName(e.family)}</span>
 					{/if}
 					<span class="font-medium text-black dark:text-white">{deslug(e.scenario)}</span>

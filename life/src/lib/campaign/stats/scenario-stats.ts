@@ -3,14 +3,12 @@
  * everything the scenario passport (and external `.ahlifepro` readers) need, uniformly across
  * every campaign: plays, victory-display highscore, the resolutions reached (+ each one's
  * win/loss verdict from campaign-data), the resolution-derived Succeed / Failed, and the Extra
- * choices. It REPLACES the separate `scenarioXp` + `resolutionCoverage` payload structures so the
- * compiled profile reads uniformly — campaigns → scenarios → { plays, succeed, failed, … }.
+ * choices. Shape: campaigns → scenarios → { plays, succeed, failed, … }.
  *
- * Built by merging the two existing (tested) aggregations — `buildScenarioXp` (XP / choices /
- * scenario order + names) and `buildResolutionCoverage` (resolutions reached + Succeed/Failed) —
- * then computing an accurate generic `plays` (records that recorded the scenario via XP OR a
- * resolution) and layering each scenario's `resolutionOutcomes` verdict. The two builders stay as
- * internal helpers (still unit-tested); only this merged structure is serialized.
+ * Built by merging two internal aggregations — `buildScenarioXp` (XP / choices / scenario order +
+ * names) and `buildResolutionCoverage` (resolutions reached + Succeed/Failed) — then computing the
+ * generic `plays` (records that recorded the scenario via XP OR a resolution) and layering each
+ * scenario's `resolutionOutcomes` verdict. Only this merged structure is serialized.
  */
 import { getCampaignLog, playableScenarios } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';

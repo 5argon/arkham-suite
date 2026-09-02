@@ -1,6 +1,6 @@
 /**
  * profile-settings.ts — the per-user layout document for the hierarchical profile
- * composer (v3, ROW-based).
+ * composer (ROW-based).
  *
  * The profile is a hierarchy of pages ("panes"); each pane holds an ordered list
  * of ROWS. A row is either a single FULL-width slot, or a 2-up SPLIT (left/right)
@@ -9,11 +9,10 @@
  * widgets a pane may contain is declared by the catalogue in `./profile-widgets`;
  * a widget flagged `fullWidth` may live ONLY in a full row, never in a split slot.
  *
- * v3 has NO layout migration: any older/garbage doc resets to a fresh default
- * layout, while the user's GLOBALS (owned products, tracked tiers, archive
- * display, hide-untracked) are preserved. There is also no auto-append of newly
- * shipped catalogue widgets — in a positioned-row model new widgets are added by
- * the user via the picker.
+ * There is NO layout migration: any older/garbage doc resets to a fresh default layout, while
+ * the user's GLOBALS (owned products, tracked tiers, archive display, hide-untracked) are
+ * preserved. Newly shipped catalogue widgets are not auto-appended either — the user adds them
+ * via the picker.
  *
  * Scope model: a global `ownedProducts` + `trackedTiers` default drives every
  * widget's "blanks"; a widget may override via its `scope`.
@@ -72,7 +71,7 @@ export const ALL_PANES: readonly PaneId[] = [
 ];
 
 /** Panes whose row layout is stored ONCE and reused everywhere it appears. The
- *  campaign-detail page is deliberately excluded — each campaign now owns its own
+ *  campaign-detail page is deliberately excluded — each campaign owns its own
  *  full layout (see `ProfileSettings.campaigns`), not a single shared one. */
 export type SharedPaneId = Exclude<PaneId, 'campaignDetail'>;
 export const SHARED_PANES: readonly SharedPaneId[] = [
@@ -100,8 +99,7 @@ export interface WidgetScope {
 	tiers?: DifficultyTier[];
 }
 
-/** A single placed widget. (In v3 "not placed in any row" replaces the old
- *  `visible` flag — a widget is shown iff it occupies a slot somewhere.) */
+/** A single placed widget — a widget is shown iff it occupies a slot somewhere. */
 export interface WidgetSlot {
 	id: string;
 	/** Widget-specific config (which campaigns, columns, show earn-counts, …). */
@@ -205,7 +203,7 @@ export function freshDefaultPanes(): Record<SharedPaneId, ProfileRow[]> {
 			split('calendar', null)
 		],
 		// Outer cards page: just the usage overview + favorites. The taxonomy-specific
-		// widgets now default onto their inner pages below (still addable here).
+		// widgets default onto their inner pages below (still addable here).
 		cardsHome: [full('cardInsights'), full('favoriteCard')],
 		cardClassDetail: [
 			full('cardInsights'),
@@ -707,7 +705,7 @@ export function resolveProfileSettings(
 		hideReturnToCampaigns: p.hideReturnToCampaigns === true
 	};
 
-	// No layout migration: anything that isn't a v4 doc resets the layout only.
+	// No layout migration: anything that isn't a current-version doc resets the layout only.
 	if (p.v !== 4) return fresh(globals);
 
 	const panes = Object.fromEntries(

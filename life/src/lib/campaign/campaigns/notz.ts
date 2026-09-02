@@ -16,7 +16,7 @@
  *   • purist — the Core-Set-only clears (the tutorial bundled with the box): wins achieved with a
  *     Core / Revised Core-only deck and a non-parallel investigator, and who achieved them.
  *
- * `buildNotz` is family-parameterized so a future Return-to-NotZ suite reuses it.
+ * `buildNotz` is family-parameterized (base and Return-to).
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';

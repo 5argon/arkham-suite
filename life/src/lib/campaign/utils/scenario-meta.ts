@@ -9,3 +9,12 @@ import { getCampaignLog } from '@5argon/arkham-campaign-data';
 export function scenarioMeta(family: string | null | undefined, scenarioId: string) {
 	return getCampaignLog(family ?? '')?.db.scenarioMeta?.find((m) => m.id === scenarioId);
 }
+
+export type ResolutionVerdict = 'win' | 'loss' | 'neutral';
+
+/** The scenario's resolution → verdict map (empty when the scenario has none curated). */
+export function scenarioVerdicts(
+	meta: ReturnType<typeof scenarioMeta>
+): Record<string, ResolutionVerdict> {
+	return meta?.resolutionOutcomes ?? {};
+}

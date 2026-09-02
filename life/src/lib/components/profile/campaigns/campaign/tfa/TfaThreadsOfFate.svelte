@@ -21,6 +21,7 @@ in the shared TFA passport (three-thread header art: the Relic, Ichtaca, Alejand
 	import IconTrack, { type IconTrackItem } from '$lib/components/profile/_primitives/IconTrack.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tfa,
@@ -169,7 +170,7 @@ in the shared TFA passport (three-thread header art: the Relic, Ichtaca, Alejand
 				</div>
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tfa_threads_empty()}</p>
+			<WidgetEmpty>{m.campaign_tfa_threads_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </TfaScenarioInfo>

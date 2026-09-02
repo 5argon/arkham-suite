@@ -8,7 +8,7 @@ disabled.
 -->
 <script lang="ts">
 	import type { CampaignLog, ValidatorConflict } from '@5argon/arkham-campaign-data';
-	import { createCardResolver } from '$lib/card-data';
+	import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
 
 	interface Props {
 		log: CampaignLog;
@@ -31,13 +31,7 @@ disabled.
 	function sectionLabel(id: string): string {
 		return log.en.sections?.[id] ?? humanize(id);
 	}
-	function cardName(code: string): string {
-		try {
-			return cardResolver.resolve(code)?.name ?? code;
-		} catch {
-			return code;
-		}
-	}
+	const cardName = (code: string): string => resolveCardOrNull(code)?.name ?? code;
 </script>
 
 {#if conflicts.length}

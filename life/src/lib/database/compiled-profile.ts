@@ -43,8 +43,8 @@
  * UI setting (selected class tab, hide-flags, the owned-products filter). Those stay
  * as primitives + hot filtering — serialize the bounded headline, not the whole matrix.
  *
- * `stripCompiledProfile` is the encoder. A future viewer's `hydrateCompiledProfile`
- * (re-resolving the dropped strings from the ambient packages) is its inverse.
+ * `stripCompiledProfile` is the encoder; `hydrateCompiledProfile` (re-resolving the dropped
+ * strings from the ambient packages) is its inverse.
  */
 
 import type { LocalProfilePayload } from './profile-local';
@@ -374,10 +374,8 @@ export function makeCompiledProfileFile(
 }
 
 /**
- * Validate a parsed value as a compiled-profile file (for a future viewer's load
- * path). Throws {@link CompiledProfileError} on an unrecognizable or newer file.
- * The inverse `hydrateCompiledProfile` (re-resolving dropped strings) is a separate
- * task; this only confirms shape + version.
+ * Validate a parsed value as a compiled-profile file: shape + version only (`hydrateCompiledProfile`
+ * re-resolves the data). Throws {@link CompiledProfileError} on an unrecognizable or newer file.
  */
 export function parseCompiledProfileFile(value: unknown): CompiledProfileFile {
 	if (typeof value !== 'object' || value === null) {

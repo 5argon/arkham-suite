@@ -14,6 +14,7 @@ FhvScenarioInfo + StatNumbers.
 	import FhvScenarioInfo from './FhvScenarioInfo.svelte';
 	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		fhv,
@@ -62,7 +63,7 @@ FhvScenarioInfo + StatNumbers.
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_fhv_scenario_empty()}</p>
+			<WidgetEmpty>{m.campaign_fhv_scenario_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </FhvScenarioInfo>

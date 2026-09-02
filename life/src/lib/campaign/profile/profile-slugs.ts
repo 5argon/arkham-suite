@@ -10,7 +10,7 @@ import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import { Campaign, CardClass } from '@5argon/arkham-kohaku';
 
 // family (the ProfileData array key = campaign code) → canonical slug (URL).
-// Every campaign is its own family now, Return-to included, so each gets a slug
+// Every campaign is its own family, Return-to included, so each gets a slug
 // (a Return-to campaign's kohaku `Campaign` value equals its code, e.g. 'rtdwl').
 const FAMILY_TO_SLUG = new Map<string, string>();
 for (const c of Object.values(Campaign)) {

@@ -10,9 +10,11 @@ that can use it"). The count and investigator columns are fixed-width so rows li
 every widget that uses this table.
 -->
 <script lang="ts">
-	import { CardSquare, HoverTooltip } from '@5argon/arkham-life-ui';
+	import { CardSquare } from '@5argon/arkham-life-ui';
 	import type { CardCode } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
 
 	let {
 		rows
@@ -28,7 +30,7 @@ every widget that uses this table.
 			showTotal?: boolean;
 		}[];
 	} = $props();
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 
 	const plural = (n: number): string => (n === 1 ? 'Deck' : 'Decks');
 	const pct = (count: number, total: number): string =>
@@ -38,9 +40,7 @@ every widget that uses this table.
 	const totalTip = (r: { total?: number; showTotal?: boolean }): string | null =>
 		r.total !== undefined && !r.showTotal ? `Out of total ${r.total} ${plural(r.total)}` : null;
 
-	// Which row's denominator tooltip is showing, and its anchor element.
-	let tipText = $state<string | null>(null);
-	let tipRef = $state<HTMLElement | null>(null);
+	const tip = new HoverTipState();
 </script>
 
 <!-- table-fixed + colgroup: the count and investigator columns are a strict, shared width so
@@ -53,26 +53,20 @@ every widget that uses this table.
 	</colgroup>
 	<tbody>
 		{#each rows as r (r.label)}
-			{@const tip = totalTip(r)}
+			{@const tipText = totalTip(r)}
 			<tr class="border-primary-100 dark:border-primary-800/60 border-b last:border-0">
 				<td class="text-primary-700 dark:text-primary-200 py-2 pr-3 text-sm">{r.label}</td>
 				<td
 					class="text-secondary-700 dark:text-secondary-300 py-2 pr-4 text-right whitespace-nowrap tabular-nums"
 				>
 					<span class="text-sm font-semibold">{r.count}</span>
-					{#if tip}
+					{#if tipText}
 						<span
 							class="cursor-help text-xs font-normal opacity-70"
 							role="img"
-							aria-label="{r.count} {plural(r.count)} ({pct(r.count, r.total ?? 0)}) — {tip}"
-							onmouseenter={(e) => {
-								tipRef = e.currentTarget as HTMLElement;
-								tipText = tip;
-							}}
-							onmouseleave={() => {
-								tipRef = null;
-								tipText = null;
-							}}
+							aria-label="{r.count} {plural(r.count)} ({pct(r.count, r.total ?? 0)}) — {tipText}"
+							onmouseenter={(e) => tip.show('', tipText, e)}
+							onmouseleave={tip.hide}
 						>
 							{plural(r.count)} ({pct(r.count, r.total ?? 0)})
 						</span>
@@ -103,8 +97,4 @@ every widget that uses this table.
 	</tbody>
 </table>
 
-<!-- Always mounted so toggling `visible` plays HoverTooltip's fly transition (mounting it
-	already-visible would animate from the wrong position). -->
-<HoverTooltip visible={tipText !== null} referenceElement={tipRef}>
-	<span class="block py-1 text-xs text-neutral-600 dark:text-neutral-300">{tipText}</span>
-</HoverTooltip>
+<HoverTip {tip} />

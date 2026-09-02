@@ -66,9 +66,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 			/>
 		</div>
 		{#if showIconCount}
-			<!-- A real, reserved row below the card for the count (badge only when > 0), so a
-			     card with a number is exactly the same size as one without. The grid below
-			     counters this row's height at the bottom so the container looks unchanged. -->
+			<!-- A reserved row for the count, so tiles with and without one are the same size. -->
 			<div class="mt-px flex h-4 w-full items-center justify-end">
 				{#if (item.iconCount ?? 0) > 0}
 					<span

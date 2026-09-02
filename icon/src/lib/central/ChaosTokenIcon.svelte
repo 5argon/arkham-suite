@@ -7,7 +7,7 @@
     /** Render the sealed (outline ring + symbol) variant instead of the layered token face. */
     sealed?: boolean;
     /**
-     * Matches the RN `border` prop semantics:
+     * Border ring / outline selection:
      *  - Non-sealed: draws a thin ring around the token (only for number/symbol/frost tokens).
      *  - Sealed: INVERTED — `false` (default) uses the bordered outline tinted with the token
      *    accent color; `true` uses the no-border outline tinted with the neutral D20 color.
@@ -33,7 +33,7 @@
   }: Prop = $props();
 
   // ---------------------------------------------------------------------------
-  // Built-in colors (ported from the React Native reference implementation).
+  // Built-in colors.
   // ---------------------------------------------------------------------------
   const BONE = "#E6E1D3"; // overlay tone shared by almost every token
   const WHITE = "#FFFBF2"; // highlight tone shared by number/symbol tokens
@@ -138,7 +138,6 @@
   }
 
   // The non-sealed token sits on a circular radial-gradient "disc" backdrop.
-  // Ported from DEFAULT_GRADIENT / GRADIENTS in the RN reference.
   function getDiscGradient(token: ChaosToken): string {
     switch (token) {
       case ChaosToken.TokenFrost:
@@ -161,7 +160,7 @@
 
   function getFillComponent(token: ChaosToken) {
     switch (token) {
-      // Number tokens use the SYMBOL fill shape (matches token_symbol_fill in the RN reference).
+      // Number tokens use the SYMBOL fill shape.
       case ChaosToken.TokenP1:
       case ChaosToken.Token0:
       case ChaosToken.TokenM1:
@@ -187,7 +186,7 @@
         return import("../individual/svelte/TokenTabletFill.svelte");
       case ChaosToken.TokenElderThing:
         return import("../individual/svelte/TokenElderThingFill.svelte");
-      // Auto-fail has NO fill layer (only overlay + highlight in the RN reference).
+      // Auto-fail has NO fill layer (only overlay + highlight).
       case ChaosToken.TokenAutofail:
         return null;
       case ChaosToken.TokenElderSign:
@@ -284,7 +283,7 @@
         return import("../individual/svelte/TokenFrostHighlight.svelte");
       case ChaosToken.TokenBlood:
         return import("../individual/svelte/TokenBloodHighlight.svelte");
-      // Bless and Curse have NO highlight layer (only fill + overlay in the RN reference).
+      // Bless and Curse have NO highlight layer (only fill + overlay).
       case ChaosToken.TokenBless:
       case ChaosToken.TokenCurse:
         return null;
@@ -385,7 +384,7 @@
     return result;
   });
 
-  // The non-sealed border ring (RN's ChaosTokenBordeer) is only drawn for the
+  // The non-sealed border ring is only drawn for the
   // number/symbol/frost tokens — not for auto_fail/elder_sign/bless/curse.
   function tokenSupportsBorderRing(token: ChaosToken): boolean {
     switch (token) {
@@ -410,19 +409,19 @@
     }
   }
 
-  const BORDER_RING_COLOR = "#9B9B9B"; // COLORS.M in the RN reference
+  const BORDER_RING_COLOR = "#9B9B9B";
 
   const showBorderRing = $derived(
     !sealed && border && tokenSupportsBorderRing(chaosToken),
   );
 
-  // Sealed mode inverts `border`: default uses the bordered outline tinted with the
-  // token accent color; border=true uses the no-border outline tinted with neutral D20.
   // Disc backdrop for non-sealed tokens (suppressed in noColor / sealed / noDisc modes).
   const discGradient = $derived(
     !sealed && !noColor && !noDisc ? getDiscGradient(chaosToken) : null,
   );
 
+  // Sealed mode inverts `border`: default uses the bordered outline tinted with the
+  // token accent color; border=true uses the no-border outline tinted with neutral D20.
   const sealedColor = $derived(border ? D20 : getColors(chaosToken).sealed);
 
   const sealedOutlineComponent = $derived(
@@ -516,7 +515,7 @@
       {/await}
     {/each}
 
-    <!-- Border ring (RN's ChaosTokenBordeer): a thin circle drawn on top. -->
+    <!-- Border ring: a thin circle drawn on top. -->
     {#if showBorderRing}
       <span
         aria-hidden="true"

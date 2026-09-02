@@ -49,19 +49,10 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		defaultViewMode?: 'icons' | 'scans' | 'list';
 
 		hideIconsView?: boolean;
-		/**
-		 * If true, hide the view-mode selector. Combined with a fixed
-		 * `defaultViewMode`, this locks the display to a single mode.
-		 */
+		/** Hide the view-mode selector (with a fixed `defaultViewMode`, locks the display to one mode). */
 		hideViewMode?: boolean;
-		/**
-		 * If true, hide the grouping/sorting button.
-		 */
 		hideGroupingSorting?: boolean;
-		/**
-		 * If true, render each card's `iconCount` as a small badge in the icons
-		 * AND scans views (e.g. a usage count). No effect in the list mode.
-		 */
+		/** Render each card's `iconCount` as a small badge in the icons and scans views. */
 		showIconCount?: boolean;
 		/**
 		 * Fired whenever the user applies new grouping/sorting from the modal.

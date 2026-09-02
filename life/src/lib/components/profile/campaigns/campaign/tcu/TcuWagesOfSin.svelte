@@ -16,6 +16,7 @@ Built on StatNumbers + WidgetTable, inside the scenario passport.
 	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tcu,
@@ -73,7 +74,7 @@ Built on StatNumbers + WidgetTable, inside the scenario passport.
 				</div>
 			{/if}
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tcu_wages_empty()}</p>
+			<WidgetEmpty>{m.campaign_tcu_wages_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

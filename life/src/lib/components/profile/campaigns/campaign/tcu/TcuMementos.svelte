@@ -10,6 +10,7 @@ mementos once you've ever found them). A coverage caption tops the wall. Built o
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tcu }: { tcu: CampaignTcu | null } = $props();
 
@@ -55,5 +56,5 @@ mementos once you've ever found them). A coverage caption tops the wall. Built o
 		<LitTileGrid {tiles} colsClass="grid-cols-4 @3xl:grid-cols-8" countPosition="below" showLabel={false} />
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tcu_mementos_empty()}</p>
+	<WidgetEmpty>{m.campaign_tcu_mementos_empty()}</WidgetEmpty>
 {/if}

@@ -4,17 +4,14 @@
 	interface UserInfo {
 		name: string;
 		iconCard: Card;
-		onSignOut: () => void;
+		/** Optional. When omitted, the identity is shown but not clickable (no menu). */
+		onSignOut?: () => void;
 	}
 
-	/**
-	 * Desktop-program-style save indicator. The consuming app owns what "save" means
-	 * (e.g. arkham.life exports the database file) and feeds the current state here.
-	 */
+	/** Save indicator; the consuming app owns what "save" means and feeds the state here. */
 	interface SaveInfo {
 		/** 'unsaved' shows the Save button; 'saving' shows progress; 'saved' shows a subtle confirmation (no button). */
 		state: 'saved' | 'unsaved' | 'saving';
-		/** Invoked when the user clicks Save. */
 		onSave?: () => void;
 		/** Heightened (data-loss) styling for the unsaved state. */
 		escalated?: boolean;
@@ -26,7 +23,6 @@
 
 	/** A slim progress line pinned to the header's bottom edge — never shifts content. */
 	interface LoadingInfo {
-		/** Whether the bar is shown. */
 		active: boolean;
 		/** Determinate progress 0..1; omit for an indeterminate animation. */
 		progress?: number;
@@ -77,7 +73,7 @@
 
 	function handleSignOut() {
 		userMenuOpen = false;
-		user?.onSignOut();
+		user?.onSignOut?.();
 	}
 </script>
 
@@ -117,12 +113,14 @@
 				<span class="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true"></span>
 				<span class="hidden sm:inline">{m.layout_unsaved_changes()}</span>
 			</span>
-			<button
-				onclick={() => save?.onSave?.()}
-				class="cursor-pointer rounded px-2 py-1 text-xs font-semibold transition-colors {saveAccent.button}"
-			>
-				{m.layout_save()}
-			</button>
+			{#if save.onSave}
+				<button
+					onclick={save.onSave}
+					class="cursor-pointer rounded px-2 py-1 text-xs font-semibold transition-colors {saveAccent.button}"
+				>
+					{m.layout_save()}
+				</button>
+			{/if}
 			{#if save.help}
 				<a
 					href={save.help.href}
@@ -204,23 +202,30 @@
 	{/if}
 
 	{#if user}
-		<div class="relative">
-			<button
-				onclick={() => (userMenuOpen = !userMenuOpen)}
-				class="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-primary-400/20 dark:hover:bg-primary-800/20"
-				aria-label="User menu"
-			>
-				<UserDisplay username={user.name} card={user.iconCard} size="sm" />
-			</button>
-
-			{#if userMenuOpen}
-				<div
-					class="border-primary-300 dark:border-primary-600 bg-primary-100 dark:bg-primary-900 absolute right-0 top-full z-50 mt-1 rounded border p-2 shadow-lg"
+		{#if user.onSignOut}
+			<div class="relative">
+				<button
+					onclick={() => (userMenuOpen = !userMenuOpen)}
+					class="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-primary-400/20 dark:hover:bg-primary-800/20"
+					aria-label="User menu"
 				>
-					<Button danger label="Sign Out" onClick={handleSignOut} />
-				</div>
-			{/if}
-		</div>
+					<UserDisplay username={user.name} card={user.iconCard} size="sm" />
+				</button>
+
+				{#if userMenuOpen}
+					<div
+						class="border-primary-300 dark:border-primary-600 bg-primary-100 dark:bg-primary-900 absolute right-0 top-full z-50 mt-1 rounded border p-2 shadow-lg"
+					>
+						<Button danger label="Sign Out" onClick={handleSignOut} />
+					</div>
+				{/if}
+			</div>
+		{:else}
+			<!-- Identity shown without account actions: not clickable. -->
+			<div class="flex items-center gap-2 p-1">
+				<UserDisplay username={user.name} card={user.iconCard} size="sm" />
+			</div>
+		{/if}
 	{/if}
 	</div>
 

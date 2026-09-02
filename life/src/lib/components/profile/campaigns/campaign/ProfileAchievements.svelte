@@ -6,7 +6,7 @@ text; `list` achievements (e.g. "There and Back Again") expand into their items
 with each item's lifetime earned state. Read-only.
 
 Life-local custom tallies (e.g. EotE "Memories Banished") are NOT shown here —
-they live in their own campaign-specific widgets (see bespoke/LifetimeTallies).
+they live in their own campaign-specific widgets (see LifetimeTallies).
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';

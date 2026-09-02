@@ -9,7 +9,7 @@ nonLog: the assignment roster hides under Log-only mode. Built on LitTileGrid + 
 <script lang="ts">
 	import { CardStrip, getCardImagePath } from '@5argon/arkham-life-ui';
 	import { TDC_TASKS, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
@@ -17,10 +17,11 @@ nonLog: the assignment roster hides under Log-only mode. Built on LitTileGrid + 
 	import FinishDate from '$lib/components/profile/_primitives/FinishDate.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tdc, logOnly = false }: { tdc: CampaignTdc | null; logOnly?: boolean } = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c]));
+	const byCode = cardsByCode();
 	const t = $derived(tdc?.tasks ?? null);
 
 	const tiles = $derived<LitTile[]>(
@@ -90,5 +91,5 @@ nonLog: the assignment roster hides under Log-only mode. Built on LitTileGrid + 
 	</div>
 	<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdc_tasks_note()}</p>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tdc_tasks_empty()}</p>
+	<WidgetEmpty>{m.campaign_tdc_tasks_empty()}</WidgetEmpty>
 {/if}

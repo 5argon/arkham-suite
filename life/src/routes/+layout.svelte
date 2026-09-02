@@ -37,7 +37,6 @@
 
 	function handleThemeChange(newTheme: 'light' | 'dark') {
 		theme = newTheme;
-		console.log('Setting theme to', newTheme);
 		themeStorage.set(newTheme);
 	}
 
@@ -48,19 +47,17 @@
 		if (!owner) return undefined;
 		const iconCard = allCards.find((c) => c.code === owner.iconCardCode);
 		if (!iconCard) return undefined;
-		// No account to sign out of; show the identity but make it inert for now.
-		// Deleting the database lives on the Save / Load Database page instead.
+		// No account to sign out of: the identity is shown but inert.
 		return { name: owner.name, iconCard };
 	});
 
 	// Create toast context so all child pages/components can call getToastContext()
 	const toast = createToastContext();
 
-	// ─── Save-to-file status (local build) ───────────────────────────────────────
-	// Edits autosave to IndexedDB, but the browser can evict that without warning; the
-	// exported .ahlifedb file is the user's durable copy. The header shows whether the
-	// database has unsaved (un-exported) changes and offers a Save button — desktop
-	// style, on every page, instead of an intrusive home-page banner.
+	// ─── Save-to-file status ─────────────────────────────────────────────────────
+	// Edits autosave to IndexedDB, which the browser can evict without warning; the exported
+	// .ahlifedb file is the user's durable copy, so the header shows unsaved (un-exported) changes
+	// and offers a Save button on every page.
 	let exporting = $state(false);
 
 	async function saveToFile() {

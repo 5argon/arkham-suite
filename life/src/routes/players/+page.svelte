@@ -18,7 +18,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { card, type Card } from '@5argon/arkham-kohaku';
 
-	import { getAllCards, createCardResolver } from '$lib/card-data';
+	import { getAllCards, createCardResolver, resolveCardOrNull } from '$lib/card-data';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
 	import { allPlayers } from '$lib/database/document';
@@ -44,13 +44,6 @@
 	const roster = $derived(databaseStore.doc ? allPlayers(databaseStore.doc) : []);
 	const playGroups = $derived(databaseStore.doc?.playGroups ?? []);
 
-	function safeResolveCard(code: string): Card | null {
-		try {
-			return cardResolver.resolve(code);
-		} catch {
-			return null;
-		}
-	}
 	function memberName(uid: string): string {
 		return roster.find((p) => p.uid === uid)?.name ?? uid;
 	}
@@ -67,13 +60,7 @@
 	// ── Edit a roster member (owner or sub-player) ──────────────────────────────
 	let editTarget = $state<{ uid: string; name: string; card: Card | null } | null>(null);
 	function openEdit(member: { uid: string; name: string; iconCardCode: string }) {
-		let resolved: Card | null = null;
-		try {
-			resolved = cardResolver.resolve(member.iconCardCode);
-		} catch {
-			resolved = null;
-		}
-		editTarget = { uid: member.uid, name: member.name, card: resolved };
+		editTarget = { uid: member.uid, name: member.name, card: resolveCardOrNull(member.iconCardCode) };
 	}
 	function saveEdit() {
 		if (!editTarget || editTarget.name.trim().length === 0) return;
@@ -156,7 +143,7 @@
 		<SectionSeparator title="You" />
 		<BorderedContainer>
 			<div class="flex flex-wrap items-center gap-4 p-4">
-				<UserDisplay username={owner.name} card={safeResolveCard(owner.iconCardCode)} />
+				<UserDisplay username={owner.name} card={resolveCardOrNull(owner.iconCardCode)} />
 				<div class="flex flex-col">
 					<span class="text-primary-500 dark:text-primary-400 text-xs">Your UID</span>
 					<span class="font-mono text-lg text-black dark:text-white">{owner.uid}</span>
@@ -183,7 +170,7 @@
 		<div class="mb-4 flex flex-col gap-2">
 			{#each subPlayers as p (p.uid)}
 				<div class="bg-primary-100 dark:bg-primary-800 flex flex-wrap items-center gap-3 rounded p-3">
-					<UserDisplay username={p.name} card={safeResolveCard(p.iconCardCode)} size="sm" />
+					<UserDisplay username={p.name} card={resolveCardOrNull(p.iconCardCode)} size="sm" />
 					<span class="font-mono text-sm text-black dark:text-white">{p.uid}</span>
 					<div class="ml-auto flex gap-1">
 						<Button
@@ -310,7 +297,7 @@
 	title={groupEditUid ? 'Edit play group' : 'Create play group'}
 	submitLabel={groupEditUid ? 'Save' : 'Create'}
 	roster={roster}
-	resolveCard={safeResolveCard}
+	resolveCard={resolveCardOrNull}
 	initialName={groupInitialName}
 	initialMemberUids={groupInitialMembers}
 	onClose={() => (groupModalOpen = false)}

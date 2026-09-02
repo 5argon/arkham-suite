@@ -29,7 +29,7 @@ the placed and recovered sections (each an independent set of toggles).
 	function sealId(key: string): string {
 		return key.slice(key.indexOf('.') + 1);
 	}
-	/** `seal_a`..`seal_e` → 1..5 (the bespoke seal images the user supplied). */
+	/** `seal_a`..`seal_e` → 1..5 (the seal image number). */
 	function sealNumber(key: string): number {
 		return (sealId(key).split('_').pop() ?? 'a').charCodeAt(0) - 96;
 	}

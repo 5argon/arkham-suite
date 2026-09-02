@@ -8,6 +8,7 @@ approach, harder the long way round. This tallies which way your expeditions wen
 	import type { CampaignTdc } from '$lib/campaign/campaigns/tdc';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tdc }: { tdc: CampaignTdc | null } = $props();
 	const f = $derived(tdc?.fold ?? null);
@@ -28,5 +29,5 @@ approach, harder the long way round. This tallies which way your expeditions wen
 	<StatNumbers {rows} />
 	<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdc_fold_note()}</p>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tdc_fold_empty()}</p>
+	<WidgetEmpty>{m.campaign_tdc_fold_empty()}</WidgetEmpty>
 {/if}

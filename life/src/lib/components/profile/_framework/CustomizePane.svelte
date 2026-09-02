@@ -22,11 +22,9 @@ being customized (the current path minus the trailing `/customize`).
 
 	const initialSettings = $derived(resolveProfileSettings(databaseStore.doc?.profileSettings));
 	const backHref = $derived(page.url.pathname.replace(/\/customize\/?$/, ''));
-	// Only a MANAGED (`private`) profile has a live document to persist layout into. A loaded
-	// snapshot or a (future) public vanity profile — anything where the optional `scope` segment
-	// isn't `private` — is read-only; customizing it would silently overwrite the viewer's OWN
-	// settings. These `customize` pages are `+page@.svelte` (they reset past the profile layout),
-	// so this guard, not the layout, is what blocks them.
+	// Only a managed (`private`) profile has a live document to persist layout into; every other
+	// scope is read-only. These `customize` pages reset past the profile layout (`+page@.svelte`),
+	// so this guard is what blocks them.
 	const isReadOnly = $derived((page.params as { scope?: string }).scope !== 'private');
 
 	const toast = getToastContext();

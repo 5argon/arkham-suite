@@ -14,19 +14,12 @@ widget render endings identically.
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import ResolutionChips from '$lib/components/profile/campaigns/campaign/ResolutionChips.svelte';
 	import WidgetTable, { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
-	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
+	import ScenarioNameCell from '$lib/components/profile/campaigns/campaign/ScenarioNameCell.svelte';
 
 	let { scenarios }: { scenarios: CampaignScenarios | null } = $props();
 
 	// Only scenarios that actually define resolutions (skips interludes / setup scenarios).
 	const rows = $derived((scenarios?.scenarios ?? []).filter((s) => s.resolutions.length > 0));
-
-	function scenarioName(id: string): string {
-		return id
-			.replace(/^\d+[a-z]?_/, '')
-			.replace(/_/g, ' ')
-			.replace(/\b\w/g, (c) => c.toUpperCase());
-	}
 </script>
 
 <div>
@@ -44,14 +37,7 @@ widget render endings identically.
 		key={(sc) => sc.scenario}
 	>
 		{#snippet row(sc)}
-			<td class="{widgetTableCell} text-primary-600 dark:text-primary-300 whitespace-nowrap">
-				<span class="flex items-center gap-1.5">
-					<span class="shrink-0" style="font-size:1.1rem">
-						<ScenarioSetIcon scenarioId={sc.scenario} />
-					</span>
-					<span>{scenarioName(sc.scenario)}</span>
-				</span>
-			</td>
+			<ScenarioNameCell scenarioId={sc.scenario} name={sc.name} muted />
 			<td class={widgetTableCell}>
 				<ResolutionChips
 					ids={sc.resolutions}

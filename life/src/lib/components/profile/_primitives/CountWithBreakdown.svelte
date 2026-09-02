@@ -7,8 +7,9 @@ fit). The caller formats the display string (e.g. `×3`) and styles it via `clas
 Without `byTier` (or an all-zero one) it renders as a plain span, no hover.
 -->
 <script lang="ts">
-	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
+	import HoverTip from './HoverTip.svelte';
+	import { HoverTipState } from './hover-tip.svelte';
+		import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
 
 	let {
 		value,
@@ -27,8 +28,7 @@ Without `byTier` (or an all-zero one) it renders as a plain span, no hover.
 	} = $props();
 
 	const breakdown = $derived(byTier ? difficultyBreakdown(byTier, format) : '');
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
+	const tip = new HoverTipState();
 </script>
 
 {#if breakdown}
@@ -36,15 +36,10 @@ Without `byTier` (or an all-zero one) it renders as a plain span, no hover.
 		role="img"
 		aria-label="{value} — {breakdown}"
 		class="cursor-default {klass}"
-		onmouseenter={(e) => {
-			tipRef = e.currentTarget as HTMLElement;
-			tipVisible = true;
-		}}
-		onmouseleave={() => (tipVisible = false)}>{value}</span
+		onmouseenter={(e) => tip.show('', breakdown, e)}
+		onmouseleave={tip.hide}>{value}</span
 	>
-	<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-		<span class="block py-1 text-xs text-neutral-600 dark:text-neutral-300">{breakdown}</span>
-	</HoverTooltip>
+	<HoverTip {tip} />
 {:else}
 	<span class={klass}>{value}</span>
 {/if}

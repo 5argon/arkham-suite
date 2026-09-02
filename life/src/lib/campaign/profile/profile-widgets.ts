@@ -11,8 +11,8 @@
  *                          cardsSkill, cardsKeywords, cardsLevels },
  *            investigatorsHome → investigatorClassDetail }
  *
- * A widget's `panes` drives the editor's per-pane widget list; `primaryPane` is
- * its default placement and the target when migrating an old flat (v1) layout.
+ * A widget's `panes` drives the editor's per-pane widget list; `primaryPane` is its default
+ * placement.
  */
 
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
@@ -24,7 +24,7 @@ export interface WidgetDef {
 	label: string;
 	/** Panes this widget is allowed to appear in (the editor offers it there). */
 	panes: PaneId[];
-	/** Default placement + v1→v2 migration target. */
+	/** Default placement. */
 	primaryPane: PaneId;
 	/** Data scope: spans everything / one campaign / one card class. */
 	scope: 'aggregate' | 'perCampaign' | 'perClass';
@@ -930,7 +930,7 @@ export const WIDGET_CATALOGUE: WidgetDef[] = [
 		image: '/image/widget/campaign/eote/memories-banished.webp'
 	},
 	// TFA: Yig's Fury spine, provisions, companions, the recurring Harbinger + venom, then per scenario.
-	// `nonLog` flags are best-effort (TFA is not yet in the audited Log-only guard set): Venom is
+	// `nonLog` flags are best-effort: Venom is
 	// Extra-only ('full'); the Harbinger and the per-scenario widgets keep log-derived content and gate
 	// their own Extra sections on the forwarded `logOnly` ('partial').
 	{ id: 'tfaVengeance', label: "Yig's Fury", panes: ['campaignDetail'], primaryPane: 'campaignDetail', scope: 'perCampaign', perCampaignExtra: true, campaign: 'tfa', fullWidth: true },

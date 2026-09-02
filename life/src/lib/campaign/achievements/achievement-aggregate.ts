@@ -283,8 +283,8 @@ export function countLogsWithPrefix(state: AggregateState, sectionId: string): n
 /** Records in a family's scope for custom-achievement aggregation: the family's own
  *  plays PLUS — when `family` is a BASE campaign — its Return-to variant (a Return-to
  *  family resolves to just its own plays). This keeps base-family lifetime tallies (e.g.
- *  TFA Yig's Fury) inclusive of the Return-to box, matching the interim posture where the
- *  TFA-family bespoke builders still fold Return-to. */
+ *  TFA Yig's Fury) inclusive of the Return-to box, matching the TFA-family bespoke builders,
+ *  which fold Return-to. */
 export function recordsForFamily(records: CampaignRecord[], family: string): CampaignRecord[] {
 	return records.filter((r) => {
 		const log = getCampaignLog(r.campaignCode);

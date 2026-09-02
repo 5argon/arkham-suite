@@ -84,6 +84,15 @@ describe('Log-only: the renderer wires `logOnly` to partial widgets only', () =>
 		const id = part.slice(0, part.indexOf("'"));
 		if (!blocks.has(id)) blocks.set(id, part);
 	}
+	// Widgets dispatched through a lookup table (`const TABLE = { id: Component }` rendered by one
+	// `{:else if widget.id in TABLE}` branch) share that branch's invocation.
+	for (const table of ['TSK_SCENARIO_WIDGETS', 'TSK_PLAIN_SCENARIOS']) {
+		const decl = src.slice(src.indexOf(`const ${table}`));
+		const keys = [...decl.slice(0, decl.indexOf('};')).matchAll(/^\t\t(\w+):/gm)].map((m) => m[1]);
+		const branch = src.slice(src.indexOf(`widget.id in ${table}`));
+		const block = branch.slice(0, branch.indexOf('{:else', 1));
+		for (const id of keys) if (!blocks.has(id)) blocks.set(id, block);
+	}
 
 	it('every audited campaign widget has a render branch', () => {
 		for (const id of Object.keys(EXPECTED_NONLOG)) {

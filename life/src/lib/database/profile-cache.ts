@@ -17,7 +17,7 @@
  * to IndexedDB — so everything stored here MUST be JSON-safe (no Date/Set/Map).
  * The payload types are already JSON-pure (campaign dates are ms-numbers, not
  * `Date`), so segments are stored verbatim. The cache is deliberately STRIPPED
- * from exported `.arkhamlife` files (it is derived data; recomputed once on import).
+ * from exported `.ahlifedb` files (it is derived data; recomputed once on import).
  */
 
 import type { CardCode } from '@5argon/arkham-kohaku';

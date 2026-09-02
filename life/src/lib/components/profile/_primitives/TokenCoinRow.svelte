@@ -1,10 +1,8 @@
 <!--
 @component
-A labelled row of chaos-token coins with a trailing ×count — the shared inner
-rendering for the token-range widgets (EotE "Frost Tokens", TSK "Tablet vs Elder
-Thing", and any future one), so they stay visually consistent and we don't copy the
-markup per widget. Draws `count` copies of the token's coin art (the same art as the
-Campaign Archive's chaos-bag editor) followed by `×count`.
+A labelled row of chaos-token coins with a trailing ×count — the shared inner rendering for the
+token-range widgets. Draws `count` copies of the token's coin art (the same art as the Campaign
+Archive's chaos-bag editor) followed by `×count`.
 -->
 <script lang="ts">
 	import type { ChaosToken } from '@5argon/arkham-kohaku';

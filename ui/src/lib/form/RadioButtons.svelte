@@ -1,7 +1,7 @@
 <!--
 @component
 Radio buttons styled as a segmented control. Horizontal by default; pass `vertical` to stack them as
-full-width left-aligned rows (better for long / wrapping labels, e.g. the TSK Extra chaos-bag swaps).
+full-width left-aligned rows (for long / wrapping labels).
 -->
 <script lang="ts" generics="T">
 	import type { Snippet } from 'svelte';
@@ -40,13 +40,10 @@ full-width left-aligned rows (better for long / wrapping labels, e.g. the TSK Ex
 			icon?: FaIconType;
 		}[];
 
-		/** Fired with the chosen value on click — for callers that persist on change
-		 *  (auto-save) rather than reading the bound value behind a separate Save. */
+		/** Fired with the chosen value on click. */
 		onChange?: (value: T) => void;
 
-		/** Optional custom renderer for a choice's label (receives the label string), so a
-		 *  caller can render rich content — e.g. Arkham icon glyphs from `[skull]`-style
-		 *  markup. When absent the label is shown as plain text. */
+		/** Custom renderer for a choice's label (e.g. Arkham icon glyphs from `[skull]` markup). */
 		renderLabel?: Snippet<[string]>;
 
 		/** Stack the choices vertically as full-width, left-aligned rows (for long / wrapping labels). */

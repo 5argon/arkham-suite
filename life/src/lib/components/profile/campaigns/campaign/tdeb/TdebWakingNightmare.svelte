@@ -13,6 +13,7 @@ stayed with her patients; alive / missing / unknown) and how Randolph escaped th
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tdeb,
@@ -65,7 +66,7 @@ stayed with her patients; alive / missing / unknown) and how Randolph escaped th
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tdeb_waking_empty()}</p>
+			<WidgetEmpty>{m.campaign_tdeb_waking_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

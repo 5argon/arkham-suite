@@ -10,8 +10,8 @@
  *     (Return-to included). Use this everywhere a record is bucketed by campaign.
  *   • `baseFamilyOf` → the BASE family (`originalId ?? code`): use ONLY for the
  *     handful of game rules that genuinely span a base + its Return-to (e.g. the
- *     DWL "Lost in Time and Space" R2 silent win) and for the (future) combined
- *     "Original + RT" merge.
+ *     DWL "Lost in Time and Space" R2 silent win) and for the combined "Original + RT"
+ *     merge.
  *
  * NOTE: `originalId` is unreliable as the base's NAME — `rtnotz.originalId` is the
  * orphan string `'core'`, not `'notz'`. Drive base/Return-to PAIRING off
@@ -102,7 +102,7 @@ export function isReturnToCode(code: string): boolean {
 
 /**
  * The base ⇆ Return-to pairing, keyed by CODE (not `originalId`, which lies for
- * NotZ). Drives the future "Original + RT" combined view and any RT-aware UI. The
+ * NotZ). Drives the "Original + RT" combined view and any RT-aware UI. The
  * base code is the campaign-data code of the original campaign.
  */
 export const RT_PAIRS: { base: string; rt: string }[] = [
@@ -116,8 +116,7 @@ export const RT_PAIRS: { base: string; rt: string }[] = [
 /**
  * The family a single official achievement should be attributed to. Return-to
  * achievement definitions carry `def.family` = the BASE family (e.g. `rtdwl`
- * achievements declare `family: 'dwl'`); with Return-to now separate, an RT play's
- * achievements belong to the RT family (its own code). Non-Return-to logs honor
+ * achievements declare `family: 'dwl'`); an RT play's achievements belong to the RT family (its own code). Non-Return-to logs honor
  * `def.family` (it may legitimately attribute to another family) falling back to code.
  */
 export function achievementFamilyOf(log: CampaignLog, defFamily: string | undefined): string {

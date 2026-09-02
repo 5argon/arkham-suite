@@ -15,7 +15,9 @@ of the player's plays recorded it. Fully inferred from the campaign log.
 		type CampaignTsk
 	} from '$lib/campaign/campaigns/tsk-profile';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tsk }: { tsk: CampaignTsk | null } = $props();
 
@@ -78,9 +80,7 @@ of the player's plays recorded it. Fully inferred from the campaign log.
 		<!-- Per-entry breakdown: every tally entry, with how many plays recorded it. -->
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<div>
-				<p class="text-primary-700 dark:text-primary-300 mb-1 text-xs font-semibold">
-					{m.campaign_tsk_ft_heading()}
-				</p>
+				<SectionLabel>{m.campaign_tsk_ft_heading()}</SectionLabel>
 				<ul class="space-y-0.5 text-xs">
 					{#each trustRows as r (r.id)}
 						<li
@@ -95,7 +95,7 @@ of the player's plays recorded it. Fully inferred from the campaign log.
 				</ul>
 			</div>
 			<div>
-				<p class="text-primary-700 dark:text-primary-300 mb-1 text-xs font-semibold">{m.campaign_tsk_cd_heading()}</p>
+				<SectionLabel>{m.campaign_tsk_cd_heading()}</SectionLabel>
 				<ul class="space-y-0.5 text-xs">
 					{#each deceptionRows as r (r.id)}
 						<li
@@ -112,5 +112,5 @@ of the player's plays recorded it. Fully inferred from the campaign log.
 		</div>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tsk_ftcd_empty()}</p>
+	<WidgetEmpty>{m.campaign_tsk_ftcd_empty()}</WidgetEmpty>
 {/if}

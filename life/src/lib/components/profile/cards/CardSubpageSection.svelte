@@ -2,8 +2,7 @@
 @component
 Body for a card-taxonomy inner page (Core Set / Asset / Event / Skill / Keywords /
 Levels). Resolves the sub-page from its `slug`, then renders that pane's saved row
-layout — parallel to `cards/class/CardsClassSection.svelte`, minus the class
-filter. A scaffold page with no rows AND no available widgets (Asset / Event)
+layout. A scaffold page with no rows AND no available widgets (Asset / Event)
 shows a placeholder rather than a blank page.
 -->
 <script lang="ts">

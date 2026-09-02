@@ -1,9 +1,8 @@
 /**
  * profile-scope.ts — the `/p/<…>` URL namespace's reserved words (client-safe).
  *
- * Every profile lives at `/p/<handle>/…`. A handle is normally a VANITY name (the
- * future public/hosted profile, e.g. `/p/my-name`), but two handles are RESERVED as
- * SCOPES that mean "an explicit subject id follows":
+ * Every profile lives at `/p/<handle>/…`. A handle is normally a VANITY name (`/p/my-name`),
+ * but two handles are RESERVED as SCOPES that mean "an explicit subject id follows":
  *   - `/p/private/<uid>/…` — a managed subject rebuilt live from this browser's database.
  *   - `/p/loaded/<uid>/…`  — an externally opened `.ahlifepro`, rendered from its snapshot.
  * The vanity form is exactly one segment shallower (`/p/<vanity>/…`) but mounts the
@@ -22,8 +21,7 @@ export function isProfileScope(s: string): s is ProfileScope {
 	return (PROFILE_SCOPES as readonly string[]).includes(s);
 }
 
-/** Whether `handle` may NOT be used as a vanity name (reserved by the `/p/` namespace).
- *  Currently the two scopes; extend here if more reserved words appear. */
+/** Whether `handle` may NOT be used as a vanity name (reserved by the `/p/` namespace). */
 export function isReservedHandle(handle: string): boolean {
 	return isProfileScope(handle);
 }

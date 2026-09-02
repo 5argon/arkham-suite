@@ -11,11 +11,13 @@ out as a responsive grid of compact blocks (1 / 2 / 3 per row). Each block:
 Card data + the deck-derived `customizableUsage` (parsed from deck meta).
 -->
 <script lang="ts">
-	import { CardLine, CardStrip, HoverTooltip, parseArkhamMarkup } from '@5argon/arkham-life-ui';
+	import { CardLine, CardStrip } from '@5argon/arkham-life-ui';
 	import type { Card, CardCode } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode, getAllCards } from '$lib/card-data';
 	import { inCardClass, isCustomizable } from '$lib/campaign/utils/card-filters';
 	import type { CustomizableUsage } from '$lib/profile/profile-types';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
 
 	let {
 		customizableUsage,
@@ -26,7 +28,7 @@ Card data + the deck-derived `customizableUsage` (parsed from deck meta).
 		classFilter?: string | null;
 	} = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 
 	interface Opt {
 		title: string;
@@ -83,15 +85,7 @@ Card data + the deck-derived `customizableUsage` (parsed from deck meta).
 		'bg-secondary-100 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-200 font-semibold';
 	const dimChip = 'bg-primary-100/50 dark:bg-primary-800/40 text-primary-400';
 
-	// Shared hover for an option's effect text.
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipText = $state('');
-	function showTip(text: string, e: MouseEvent) {
-		tipText = text;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
+	const tip = new HoverTipState();
 </script>
 
 {#if rows.length}
@@ -119,8 +113,8 @@ Card data + the deck-derived `customizableUsage` (parsed from deck meta).
 							class="min-w-0 flex-1 cursor-default truncate {o.count > 0
 								? 'font-semibold text-black dark:text-white'
 								: 'text-primary-400'}"
-							onmouseenter={(e) => o.description && showTip(o.description, e)}
-							onmouseleave={() => (tipVisible = false)}
+							onmouseenter={(e) => tip.showText(o.description ?? '', e)}
+							onmouseleave={tip.hide}
 						>
 							{o.title}
 						</span>
@@ -156,9 +150,5 @@ Card data + the deck-derived `customizableUsage` (parsed from deck meta).
 		{/each}
 	</div>
 
-	<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-		<span class="block max-w-xs py-1 text-xs text-neutral-700 dark:text-neutral-200"
-			>{@html parseArkhamMarkup(tipText)}</span
-		>
-	</HoverTooltip>
+	<HoverTip {tip} markup />
 {/if}

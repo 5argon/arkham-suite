@@ -9,6 +9,7 @@ row 2 the enemy you slew — each VIP greyed out until you've done it, across EV
 	import { type CampaignPtc, VIP_ROSTER } from '$lib/campaign/campaigns/ptc';
 	import PtcVipGrid from './PtcVipGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { ptc }: { ptc: CampaignPtc | null } = $props();
 
@@ -30,5 +31,5 @@ row 2 the enemy you slew — each VIP greyed out until you've done it, across EV
 		slainRowLabel={m.campaign_ptc_vips_slain_row()}
 	/>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_ptc_vips_empty()}</p>
+	<WidgetEmpty>{m.campaign_ptc_vips_empty()}</WidgetEmpty>
 {/if}

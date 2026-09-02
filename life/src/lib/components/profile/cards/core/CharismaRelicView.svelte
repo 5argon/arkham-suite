@@ -8,7 +8,7 @@ three qualifying investigators.
 <script lang="ts">
 	import { BorderedContainer, CardScanFullSmall } from '@5argon/arkham-life-ui';
 	import type { CardCode } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import type { DeckTopEntry, InsightDeck } from '$lib/profile/profile-types';
 	import { charismaRelicCards, qualifyingInvestigators } from '$lib/campaign/utils/card-filters';
 	import InsightTable from '$lib/components/profile/cards/InsightTable.svelte';
@@ -36,7 +36,7 @@ three qualifying investigators.
 	const charismaTop = $derived(top3(charismaTopDecks));
 	const relicTop = $derived(top3(relicTopDecks));
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 	const spotlights = charismaRelicCards();
 	const codesFor = (name: string): CardCode[] =>
 		spotlights.find((s) => s.name === name)?.codes ?? [];

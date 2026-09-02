@@ -12,7 +12,7 @@ import {
 	type CardCode,
 } from '@5argon/arkham-kohaku';
 import type { CardItem } from '@5argon/arkham-life-ui';
-import { getAllCards } from '$lib/card-data';
+import { cardsByCode, getAllCards } from '$lib/card-data';
 import { isCardOwned } from '$lib/campaign/utils/ownership';
 import type { InsightDeck } from '$lib/profile/profile-types';
 
@@ -105,7 +105,12 @@ export function utilizationItems(
 // A handful of neutral core cards we present as scans + per-deck insight rows. Each
 // logical card spans its printings across the three core products (so usage merges).
 
-const CORE_PRODUCTS: Product[] = [Product.CoreSet, Product.RevisedCoreSet, Product.CoreSet2026];
+/** The three Core-Set printings — old Core, Revised Core, and the 2026 Core Set. */
+export const CORE_PRODUCTS: ReadonlySet<Product> = new Set([
+	Product.CoreSet,
+	Product.RevisedCoreSet,
+	Product.CoreSet2026
+]);
 
 /** Level-0 neutral Core Set cards, in display order (two rows of five). */
 const CORE_NEUTRAL_L0_NAMES = [
@@ -138,7 +143,7 @@ function spotlightByNames(names: string[], xp: number): SpotlightCard[] {
 	const want = new Set(names.map((n) => n.toLowerCase()));
 	const byName = new Map<string, Card[]>();
 	for (const c of getAllCards()) {
-		if (!CORE_PRODUCTS.includes(c.product)) continue;
+		if (!CORE_PRODUCTS.has(c.product)) continue;
 		if (!want.has(c.name.toLowerCase())) continue;
 		// Discriminate same-name leveled reprints (e.g. Emergency Cache (2)) — the L0
 		// spotlights are xp 0, Charisma / Relic Hunter are xp 3.
@@ -205,7 +210,7 @@ export function innateCards(): SpotlightCard[] {
 /** Spotlights from an explicit code list, in the given order (each its own card). Codes
  *  not present in the data are skipped. */
 function spotlightByCodes(codes: CardCode[]): SpotlightCard[] {
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 	return codes
 		.map((code) => byCode.get(code))
 		.filter((c): c is NonNullable<typeof c> => !!c)
@@ -343,11 +348,9 @@ export function customizableOptionXp(): Record<CardCode, number[]> {
 	return _custOptXp;
 }
 
-let _byCode: Map<string, Card> | null = null;
-const byCodeMap = (): Map<string, Card> => (_byCode ??= new Map(getAllCards().map((c) => [c.code, c])));
 /** Collapse an alternate / promo investigator printing onto its base code. */
 export const canonInvestigatorCode = (code: CardCode): CardCode =>
-	byCodeMap().get(code)?.alternateOfCardCode ?? code;
+	cardsByCode().get(code)?.alternateOfCardCode ?? code;
 
 /** From per-deck footprints, the decks matching `predicate` — their count plus up to
  *  `cap` distinct (canonical) qualifying investigators, for an insight row. The predicate

@@ -8,8 +8,7 @@ Eerily Silent votes among the Coterie, each with the route that achieved it.
 
 The transitions come straight from the finale vote table (tsk-solver `coterieVoteRows`), so they
 never drift; the counts are inferred from the campaign log (Desi's split additionally reads the
-Congress real/impostor Extra — the stored copy you flip at the Trial). No finale-outcome tally
-here — that would duplicate Congress of the Keys' Meeting Routes.
+Congress real/impostor Extra — the stored copy you flip at the Trial).
 -->
 <script lang="ts">
 	import { CardStrip } from '@5argon/arkham-life-ui';
@@ -17,17 +16,18 @@ here — that would duplicate Congress of the Keys' Meeting Routes.
 	import { coterieVoteRows } from '$lib/campaign/campaigns/tsk-solver';
 	import type { CoterieVoteRow } from '$lib/campaign/campaigns/tsk-solver';
 	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import WidgetTable, {
 		widgetTableCell
 	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tsk, logOnly = false }: { tsk: CampaignTsk | null; logOnly?: boolean } = $props();
 
-	const cardByCode = new Map<string, Card>(getAllCards().map((c) => [c.code, c]));
+	const cardByCode = cardsByCode();
 	const cardFor = (code?: string): Card | undefined => (code ? cardByCode.get(code) : undefined);
 
 	const voteLabel = (v: CoterieVoteRow['toVote'] | 'absent'): string =>
@@ -141,5 +141,5 @@ here — that would duplicate Congress of the Keys' Meeting Routes.
 		{/if}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tsk_coterie_empty()}</p>
+	<WidgetEmpty>{m.campaign_tsk_coterie_empty()}</WidgetEmpty>
 {/if}

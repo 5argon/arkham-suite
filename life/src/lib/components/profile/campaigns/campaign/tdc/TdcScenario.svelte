@@ -18,6 +18,7 @@ there. Half-width. The scenario NAME + encounter icon live on the widget's title
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import OutcomeList from '$lib/components/profile/_primitives/OutcomeList.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		scenario,
@@ -62,7 +63,7 @@ there. Half-width. The scenario NAME + encounter icon live on the widget's title
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tdc_scenario_empty()}</p>
+			<WidgetEmpty>{m.campaign_tdc_scenario_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

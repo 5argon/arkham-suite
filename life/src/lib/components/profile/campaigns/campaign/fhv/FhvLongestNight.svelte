@@ -18,6 +18,7 @@ FhvScenarioInfo + StatNumbers + LitTileGrid.
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		fhv,
@@ -110,7 +111,7 @@ FhvScenarioInfo + StatNumbers + LitTileGrid.
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_fhv_ln_empty()}</p>
+			<WidgetEmpty>{m.campaign_fhv_ln_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </FhvScenarioInfo>

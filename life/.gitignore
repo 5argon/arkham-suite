@@ -27,11 +27,5 @@ vite.config.ts.timestamp-*
 
 *storybook.log
 
-# Seed script temp file
-scripts/.cards-seed.sql
-
-# Cloned external data repo (populated by scripts/sync-campaign-logs.ts)
-arkham-cards-data/
-
-# Wrangler local runtime state (D1/cache) — not source
+# Wrangler local runtime state
 .wrangler/

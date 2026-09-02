@@ -1,8 +1,6 @@
 /**
  * ptc.ts — The Path to Carcosa bespoke per-campaign tallies. ONE builder, ONE
- * payload blob (`ptc`), mirroring `dwl.ts` / `eoe.ts`. All log-derived (the richer
- * doubt/conviction running-total reconstruction + the doubt-vs-conviction scenario
- * "versions" stay as documented follow-ups in ptc-widgets-plan.md).
+ * payload blob (`ptc`), mirroring `dwl.ts` / `eoe.ts`. All log-derived.
  *
  *   • doubtConviction — the campaign spine: each play's FINAL doubt vs conviction
  *     (the two `count` sections), summarised as which side led + high-water marks.
@@ -25,9 +23,6 @@ const k = noteKey;
 const VIPS_INTERVIEWED = 'vips_interviewed';
 const VIPS_SLAIN = 'vips_slain';
 
-/** Scenarios where The Man in the Pallid Mask (the Stranger) can be defeated. Curtain Call (the
- *  tutorial) adds its 1-2 marks automatically via the warn-police resolution — derived, never asked;
- *  the seven `mitpm_defeated` scenarios carry a manual `stranger_defeats` Extra counter. Campaign order. */
 export type PtcToken = 'cultist' | 'tablet' | 'elder_thing';
 /** Special chaos tokens added for the next scenario, keyed `scenario.<recordedResolution>`,
  *  from the ArkhamCards adjust_chaos_tokens steps. Keys use the RECORDED resolution value
@@ -143,8 +138,8 @@ function buildTokenRoute(rec: CampaignRecord): TokenStep[] {
 	return route;
 }
 
-/** The 7 Doubt/Conviction sources in book order (mirrors PtcDcChain). */
-const DC_SOURCE_SCENARIOS = [
+/** The 7 Doubt/Conviction decision points in book order. */
+export const DC_SOURCE_SCENARIOS = [
 	'curtain_call',
 	'reality_s_shadow',
 	'echoes_of_the_past',
@@ -402,6 +397,9 @@ export const VIP_ROSTER: { asset: string; enemy: string }[] = [
 	{ asset: '03080', enemy: '03069b' } // Ashleigh Clarke
 ];
 
+/** Scenarios where The Man in the Pallid Mask (the Stranger) can be defeated, in campaign order.
+ *  Curtain Call adds its 1-2 marks automatically via the warn-police resolution; the seven
+ *  `mitpm_defeated` scenarios carry a manual `stranger_defeats` Extra counter. */
 const STRANGER_SCENARIOS = [
 	'curtain_call',
 	'the_last_king',
@@ -588,15 +586,15 @@ export interface CampaignPtc {
 		enteredCatacombs: number;
 		awokeInside: number;
 		/** Random basic Madness/Pact weaknesses drawn for reading Act II of The King in Yellow
-		 *  (Extra card picker), grouped by (weakness, bearer) with their play count, most first. */
+		 *  (Extra card picker): one dated entry per draw, newest first. */
 		randomizedWeaknesses: WeaknessDraw[];
 	};
 	blackStarsRise: {
 		pathAbove: number;
 		pathBelow: number;
 		carcosaMerged: number;
-		/** Random basic weaknesses drawn at setup (Extra card picker), grouped by (weakness, bearer)
-		 *  with their play count, most first. */
+		/** Random basic weaknesses drawn at setup (Extra card picker): one dated entry per draw,
+		 *  newest first. */
 		randomizedWeaknesses: WeaknessDraw[];
 	};
 	dimCarcosa: {
@@ -747,8 +745,7 @@ export function buildPtc(records: CampaignRecord[], mergeReturnTo = true): Campa
 	// Insanity accumulator: one entry per insanity, subject-scoped + dated; sorted newest-first and
 	// capped after the loop — a dated card list like the random-weakness lists.
 	const insaneAcc: { code: string; finishDate: number | null }[] = [];
-	// Random-weakness accumulators: key `<weakness>|<bearer>` → tally. Filled per play by zipping the
-	// weakness picker with the investigator picker (paired by index), finalized after the loop.
+	// Random-weakness draws, one per (weakness, bearer) pair from the zipped Extra pickers.
 	const pallidWeak: WeaknessDraw[] = [];
 	const bsrWeak: WeaknessDraw[] = [];
 	// Possessed investigators (Dim Carcosa): one entry per possessed pick, subject-scoped + dated,
@@ -771,7 +768,7 @@ export function buildPtc(records: CampaignRecord[], mergeReturnTo = true): Campa
 				// code) so it matches the roster regardless of which version was recorded. Then scope to the
 				// viewed subject: drop a weakness attributed to a teammate's investigator (a single-player
 				// profile shows only its own; a play group merges every member's). Unattributed draws (no
-				// bearer — legacy data) are kept, since they can't be scoped. ONE entry per draw, stamped
+				// bearer) are kept, since they can't be scoped. ONE entry per draw, stamped
 				// with the play's finish date — the list is chronological (newest first), not grouped.
 				const bearer = bearers[i] ? canonInvestigatorCode(bearers[i]) : null;
 				if (bearer && !subjCanon.has(bearer)) return;

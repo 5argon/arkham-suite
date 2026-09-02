@@ -13,6 +13,7 @@ of the passport's resolutions + the `skip_to_the_end` achievement. Half-width.
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
 	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tdc,
@@ -74,7 +75,7 @@ of the passport's resolutions + the `skip_to_the_end` achievement. Half-width.
 			<StatNumbers {rows} />
 			<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdc_sepulchre_note()}</p>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tdc_sepulchre_empty()}</p>
+			<WidgetEmpty>{m.campaign_tdc_sepulchre_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

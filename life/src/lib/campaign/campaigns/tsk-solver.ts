@@ -25,7 +25,7 @@ import {
 } from '@5argon/arkham-tsk-solver';
 import { CardType, EncounterSet, getScenarioData, Scenario } from '@5argon/arkham-kohaku';
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
-import { getAllCards } from '$lib/card-data';
+import { cardByCode, getAllCards } from '$lib/card-data';
 import { noteKey, noteReader } from '../utils/notes';
 
 /** One selectable tier/version option, resolved with its label. */
@@ -729,15 +729,7 @@ const TSK_COTERIE: Record<string, CoterieDef> = {
 	without_a_trace: { codes: ['09761', '09518'] }, // Aliki Zoni Uperetria · The Red-Gloved Man
 };
 
-// Index card name by code once (for a member's display name / alt text).
-let _cardNameByCode: Map<string, string> | null = null;
-function cardNameByCode(code: string): string {
-	if (!_cardNameByCode) {
-		_cardNameByCode = new Map();
-		for (const c of getAllCards()) if (!_cardNameByCode.has(c.code)) _cardNameByCode.set(c.code, c.name);
-	}
-	return _cardNameByCode.get(code) ?? '';
-}
+const cardNameByCode = (code: string): string => cardByCode(code)?.name ?? '';
 
 export interface ScenarioCoterieMember {
 	code: string;

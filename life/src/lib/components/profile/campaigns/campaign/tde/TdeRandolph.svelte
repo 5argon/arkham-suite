@@ -11,6 +11,7 @@ alone or with you / survived or died on the descent). His two arc-specific cards
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { shared }: { shared: CampaignTdeShared | null } = $props();
 	const r = $derived(shared?.randolph);
@@ -54,5 +55,5 @@ alone or with you / survived or died on the descent). His two arc-specific cards
 	</div>
 	<StatNumbers {rows} />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tde_randolph_empty()}</p>
+	<WidgetEmpty>{m.campaign_tde_randolph_empty()}</WidgetEmpty>
 {/if}

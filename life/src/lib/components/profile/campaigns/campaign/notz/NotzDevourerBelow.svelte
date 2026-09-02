@@ -16,6 +16,7 @@ Umôrdhoth heads the passport.
 	import CountWithBreakdown from '$lib/components/profile/_primitives/CountWithBreakdown.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		notz,
@@ -68,7 +69,7 @@ Umôrdhoth heads the passport.
 				</div>
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_notz_devourer_empty()}</p>
+			<WidgetEmpty>{m.campaign_notz_devourer_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

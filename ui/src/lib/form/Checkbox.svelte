@@ -14,21 +14,14 @@
 		 * The label remains required for accessibility, but can be visually hidden.
 		 */
 		hideLabel?: boolean;
-		/**
-		 * Compact, low-emphasis variant for dense lists (e.g. long owned-product grids).
-		 * Drops the gradient pill for a quiet chip that still reads as a custom control,
-		 * so prominent and secondary options can share one page.
-		 */
+		/** Compact, low-emphasis chip for dense lists (e.g. long owned-product grids). */
 		small?: boolean;
 		/**
 		 * Longer help text as raw markdown. When provided, renders a clickable
 		 * button next to the pill that opens a MarkdownModal.
 		 */
 		helpMd?: string;
-		/**
-		 * Rich modal help as a snippet (takes precedence over `helpMd`) — e.g. an mdsvex doc
-		 * with images. The same `?` button opens it in a Modal.
-		 */
+		/** Rich modal help as a snippet (takes precedence over `helpMd`). */
 		helpContent?: Snippet;
 	}
 	let {

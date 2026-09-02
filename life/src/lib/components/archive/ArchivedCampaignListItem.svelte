@@ -1,8 +1,6 @@
 <!--
 @component
-Displays a single archived campaign in the listing view.
-Shows campaign thumbnail, title, campaign type, difficulty, date, participants,
-and a badge indicating whether the user owns this campaign or is a participant.
+One archived campaign in the listing: thumbnail, title, campaign, difficulty, date and participants.
 -->
 <script lang="ts">
 	import { FaIcon, FaIconType, CardSquare, UserDisplay } from '@5argon/arkham-life-ui';
@@ -110,9 +108,6 @@ and a badge indicating whether the user owns this campaign or is a participant.
 
 	const editUrl = $derived(`/archive/edit?id=${campaign.id}`);
 
-	// All participants: whoever is listed in campaignPlayers.
-	const allParticipants = $derived(campaign.players);
-
 	// Shared chrome for both renders: a link (browse) and a button (selection mode).
 	// Fixed height so every card in the list is the same size regardless of content.
 	const cardClass =
@@ -185,9 +180,9 @@ and a badge indicating whether the user owns this campaign or is a participant.
 		{/if}
 
 		<!-- Players row: everyone in the campaign. Guests render in a muted, darker primary. -->
-		{#if allParticipants.length > 0}
+		{#if campaign.players.length > 0}
 			<div class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
-				{#each allParticipants as p (p.userId)}
+				{#each campaign.players as p (p.userId)}
 					<UserDisplay
 						username={p.username}
 						card={cardsByCode[p.iconCardCode] ?? null}

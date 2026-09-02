@@ -129,6 +129,7 @@
 
 	"campaign_ptc_pallid_entered": "Entered the catacombs",
 	"campaign_ptc_pallid_awoke": "Awoke inside",
+	"campaign_ptc_pallid_versions_title": "Act 2 version",
 	"campaign_ptc_pallid_weakness_heading": "Weaknesses from reading Act II",
 	"campaign_ptc_pallid_weakness_count": "×{count}",
 	"campaign_ptc_pallid_empty": "Play The Pallid Mask to track it.",

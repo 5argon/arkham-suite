@@ -8,6 +8,7 @@ Dream-Quest after passing across at The Great Ones. The artifact's own card anch
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { shared }: { shared: CampaignTdeShared | null } = $props();
 	const s = $derived(shared?.silverKey);
@@ -30,5 +31,5 @@ Dream-Quest after passing across at The Great Ones. The artifact's own card anch
 		<StatNumbers {rows} />
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tde_key_empty()}</p>
+	<WidgetEmpty>{m.campaign_tde_key_empty()}</WidgetEmpty>
 {/if}

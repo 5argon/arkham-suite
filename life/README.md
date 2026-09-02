@@ -1,6 +1,6 @@
 # arkham.life (`@5argon/arkham-life`)
 
-A local, browser-based tool for recording your *Arkham Horror: The Card Game* history — campaigns, decks, achievements, and card/investigator usage — and turning it into a customizable **profile** you can view and (soon) deploy a public copy of.
+A local, browser-based tool for recording your *Arkham Horror: The Card Game* history — campaigns, decks, achievements, and card/investigator usage — and turning it into a customizable **profile**.
 
 There are no accounts and no backend for your data: everything lives in your own browser. The app itself is a static client served from Cloudflare.
 
@@ -20,7 +20,7 @@ The **Database** is your entire local data file. It is stored in the browser's *
 
 The Database is *not* just your campaigns — it is the whole document. In code it is the `DatabaseDocument` (`src/lib/database/document.ts`), held in memory by the reactive `databaseStore` (`src/lib/database/database.svelte.ts`).
 
-Because IndexedDB can be evicted by the browser, the only durable backup is the file you export: a compressed **`.arkhamlife`** file (Manage Database, or Archive → Import / Export).
+Because IndexedDB can be evicted by the browser, the only durable backup is the file you export: a compressed **`.ahlifedb`** file (Save / Load Database, or Archive → Import / Export).
 
 ### Campaign Archive
 
@@ -42,14 +42,14 @@ A **single campaign** can be handed to another player with "Export this campaign
 A **Profile** is the rendered, computed view of a *subject* — the whole account, one player, or one play group — at `/p/private/[uid]`. It is built from the Database, never edited directly.
 
 - **Pane** — a page within a profile. The hierarchy is `home → { campaigns → campaign detail, cards → card-class detail, investigators → investigator-class detail }` (`PaneId`).
-- **Widget** — one customizable unit placed on a pane (e.g. Campaign Clear Grid, Calendar, Achievements, Player Cards Usage, Most Used Investigators, **Win/Loss Record**). The full catalogue is in `src/lib/campaign/profile-widgets.ts`; each user's per-pane layout is the `ProfileSettings` document in `src/lib/campaign/profile-settings.ts`. Widgets are reordered/hidden per pane; the global `ownedProducts` + `trackedTiers` scope decides what counts (unearned slots are "blanks"), and a widget may override that scope.
+- **Widget** — one customizable unit placed on a pane (e.g. Campaign Clear Grid, Calendar, Achievements, Player Cards Usage, Most Used Investigators, **Win/Loss Record**). The full catalogue is in `src/lib/campaign/profile/profile-widgets.ts`; each user's per-pane layout is the `ProfileSettings` document in `src/lib/campaign/profile/profile-settings.ts`. Widgets are reordered/hidden per pane; the global `ownedProducts` + `trackedTiers` scope decides what counts (unearned slots are "blanks"), and a widget may override that scope.
 - **Win/Loss Record** — the widget showing a lifetime win / loss / special / in-progress tally per campaign family.
 
 ### Compiled Profile
 
-The **Compiled Profile** is a precomputed, render-ready JSON snapshot of a profile — everything the profile pages draw from, already aggregated. You can export it from Manage Database for inspection or reuse; deploying a public copy is the planned use ("Deployed (coming soon)" on the profile list).
+The **Compiled Profile** is a precomputed, render-ready JSON snapshot of a profile — everything the profile pages draw from, already aggregated. You can export it from the profile list as an `.ahlifepro` file, and load one back as an external profile.
 
-A per-subject precompute **cache** (`src/lib/database/profile-cache.ts`) keeps profiles fast; it is derived data and is stripped from exported `.arkhamlife` files (rebuilt on import).
+A per-subject precompute **cache** (`src/lib/database/profile-cache.ts`) keeps profiles fast; it is derived data and is stripped from exported `.ahlifedb` files (rebuilt on import).
 
 ---
 
@@ -63,9 +63,9 @@ A per-subject precompute **cache** (`src/lib/database/profile-cache.ts`) keeps p
 | `/players` | Manage You, Other Players, and Play Groups |
 | `/p` | List of profiles (you, players, play groups) |
 | `/p/private/[uid]` | A profile — `home` / `campaigns` / `cards` / `investigators`, each with a `customize` editor |
-| `/database/manage` | Back up, restore, or delete the Database; advanced JSON exports |
+| `/database` | Save, load, or delete the Database |
 | `/settings` | Account-wide profile settings (owned products, tracked tiers, defaults) |
-| `/guide` | How arkham.life works |
+| `/guides` | How arkham.life works |
 
 ---
 
@@ -75,14 +75,18 @@ A per-subject precompute **cache** (`src/lib/database/profile-cache.ts`) keeps p
 src/
 ├── lib/
 │   ├── database/      # The Database: document model, reactive store, IndexedDB
-│   │                  # persistence, .arkhamlife export/backup, UIDs, single-campaign
+│   │                  # persistence, .ahlifedb export/backup, UIDs, single-campaign
 │   │                  # share, and the profile builder + precompute cache.
 │   ├── campaign/      # Campaign analysis: recorded-state codec, clear status,
 │   │                  # achievements, collections, investigators, ownership, and the
 │   │                  # profile widget catalogue + settings.
 │   ├── profile/       # Shared, framework-free profile type shapes + helpers.
+│   ├── preload/       # Route-code preloader (see Preloading).
+│   ├── docs/          # In-app documentation (mdsvex), folder-per-doc.
+│   ├── data/          # Bundled card / taboo JSON.
 │   ├── paraglide/     # GENERATED Paraglide output (gitignored; see Localization).
 │   └── components/
+│       ├── archive/   # Campaign Archive listing + editor.
 │       └── profile/   # Profile rendering, foldered to mirror the nav hierarchy
 │                      # (see "Profile components & localization" below).
 └── routes/            # SvelteKit routes (see table above).
@@ -127,8 +131,7 @@ Rules of thumb when adding a component:
 User-facing English in the profile layer is authored as **Paraglide messages**, not hardcoded.
 Setup: `@inlang/paraglide-js` v2, `project.inlang/`, the Vite plugin compiles
 `messages/**` → `src/lib/paraglide/` (gitignored, regenerated on dev/build; `yarn paraglide-compile`
-to force). Source locale only today (`languageTags: ['en']`); everything is *translatable*, with
-other locales a future fill-in.
+to force). Locales: `en` (source) and `th`.
 
 **Message namespaces mirror the same nav tree** — `messages/profile/{shared, framework, home,
 campaigns, campaigns/campaign, campaigns/campaign/<family>, cards, cards/class, investigators,
@@ -160,7 +163,7 @@ investigators/class}/{lang}.json` — each declared in `project.inlang/settings.
 ## Persistence & backup
 
 - **IndexedDB** is the always-on, crash-safe working copy (`IndexedDbAdapter`). The storage seam is `PersistenceAdapter` (`src/lib/database/persistence.ts`).
-- **Backup** = export the whole Database to a `.arkhamlife` file and keep it somewhere safe. Importing one **replaces** the Database in this browser.
+- **Save** = export the whole Database to a `.ahlifedb` file and keep it somewhere safe. Loading one **replaces** the Database in this browser.
 - **Share** = export a single campaign and hand the file to another player; they import it as a new campaign.
 
 ---
@@ -180,7 +183,7 @@ It is triggered from `onMount` at three entry points (never a reactive `$effect`
 
 - **Home** (`routes/+page.svelte`) → warms the home-grid destinations.
 - **Archive** (`routes/archive/+page.svelte`) → warms the editor + new/import.
-- **Any profile pane** (`routes/p/private/[uid]/+layout.svelte`) → warms the whole subject
+- **Any profile pane** (`routes/p/[[scope=profileScope]]/[handle]/+layout.svelte`) → warms the whole subject
   subtree and builds its payload once.
 
 > **Adding a new page? Check the predicted href sets in `preloader.svelte.ts`.** If a new route
@@ -191,12 +194,11 @@ It is triggered from `onMount` at three entry points (never a reactive `$effect`
 > enumerate every instance. Forgetting this isn't a bug (the page still loads on demand), you just
 > miss the instant-nav optimization.
 
-A slim debug readout (`src/lib/components/PreloadProgressBar.svelte`) shows progress as a
-**count of resolved `preloadCode` calls** (SvelteKit exposes no byte progress). It is gated behind
-`{#if dev}` in the root layout — visible only under `yarn dev`, tree-shaken from production.
+The root layout feeds the **count of resolved `preloadCode` calls** (SvelteKit exposes no byte
+progress) to the header's loading bar.
 
 This is an **in-session** optimization only: it does **not** survive a hard reload / revisit with
-no network (that needs a service worker — not yet implemented), and card **images** still come
+no network (that would need a service worker), and card **images** still come
 from the CDN, so they only appear if previously loaded.
 
 ---

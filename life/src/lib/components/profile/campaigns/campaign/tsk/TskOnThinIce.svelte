@@ -44,7 +44,6 @@ disappeared, and the scenario never happening ("there is nothing of note in Anch
 
 <TskScenarioInfo scenarioId={SCENARIO} {...props}>
 	{#snippet extraStats()}
-		<!-- Thorne's offer (raw_deal Extra choice) + two log outcomes, grouped with Succeed/Failed. -->
 		{#if hasData}
 			<StatNumbers rows={[statRow]} />
 		{/if}

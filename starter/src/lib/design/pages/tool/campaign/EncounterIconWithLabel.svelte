@@ -2,7 +2,7 @@
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import { EncounterSet as KohakuEncounterSet } from '@5argon/arkham-kohaku';
 	import { u } from '@5argon/arkham-string';
-	import { parseArkhamMarkup } from '$lib/utility/arkham-markup';
+	import { parseArkhamMarkup } from '@5argon/arkham-life-ui';
 	import clsx from 'clsx';
 	import EncounterSetDisplayWithTooltip from './EncounterSetDisplayWithTooltip.svelte';
 

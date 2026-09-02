@@ -11,6 +11,7 @@ Guardian of the Trap emerged / the Guardian was defeated), plus the following In
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
 	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tcu,
@@ -66,7 +67,7 @@ Guardian of the Trap emerged / the Guardian was defeated), plus the following In
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tcu_greater_empty()}</p>
+			<WidgetEmpty>{m.campaign_tcu_greater_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

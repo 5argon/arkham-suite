@@ -6,28 +6,28 @@ which version of Hastur you faced and beat (the log never records which, so it r
 the Extra-tab `hastur_version` choice). Endings on top, the version table below.
 -->
 <script lang="ts">
-	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import { scenarioMeta, scenarioVerdicts } from '$lib/campaign/utils/scenario-meta';
 	import { reachableResolutions, type CampaignPtc } from '$lib/campaign/campaigns/ptc';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import { toVersionRow, type VersionRow } from '$lib/campaign/stats/version-stats';
+	import { scenarioVersions, toVersionRow, type VersionRow } from '$lib/campaign/stats/version-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
 	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
 	import PtcCardCountList from './PtcCardCountList.svelte';
+	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		ptc,
 		scenarios = null,
-		code = 'ptc',
 		family = null,
 		achievements = [],
 		logOnly = false
 	}: {
 		ptc: CampaignPtc | null;
 		scenarios?: CampaignScenarios | null;
-		code?: string;
 		family?: string | null;
 		achievements?: ProfileFamilyAchievement[];
 		logOnly?: boolean;
@@ -50,17 +50,17 @@ the Extra-tab `hastur_version` choice). Endings on top, the version table below.
 
 	// ── The Three Hasturs (version table from the unified scenarios record) ──
 	const SID = 'dim_carcosa';
-	const meta = $derived(scenarioMeta(code, SID));
+	const meta = $derived(scenarioMeta(family ?? 'ptc', SID));
 	// Keep no_resolution so the table shows a "None" column (it's a real ending here).
 	const resolutionIds = $derived(meta?.resolutions ?? []);
 	const verdicts = $derived(
-		(meta?.resolutionOutcomes ?? {}) as Record<string, 'win' | 'loss' | 'neutral'>
+		scenarioVerdicts(meta)
 	);
-	const versionStats = $derived(scenarios?.scenarios.find((s) => s.scenario === SID)?.versions ?? []);
+	const versions = $derived(scenarioVersions(scenarios, SID));
 	// Each Hastur version reaches only its own win (v. I → R1, v. II → R2, v. III → R3) plus the shared
 	// losses — so filter the resolution columns per version (reached ones always kept lit).
 	const versionRows = $derived(
-		versionStats.map((vs) =>
+		versions.stats.map((vs) =>
 			toVersionRow(vs, {
 				label: m.campaign_ptc_hasturs_version_label({ version: vs.value }),
 				resolutionIds: reachableResolutions(SID, vs.value, resolutionIds, new Set(Object.keys(vs.tallies))),
@@ -68,19 +68,14 @@ the Extra-tab `hastur_version` choice). Endings on top, the version table below.
 			})
 		)
 	);
-	const hasVersions = $derived(versionStats.some((v) => v.plays > 0));
 
-	// ── Who ended possessed — the repeatable `possessed` campaign-note picks (log-derived, scoped to the
-	//    viewed player's own investigators, newest first), shown as a dated card list like the weaknesses. ──
+	// ── Who ended possessed (subject-scoped, newest first), as a dated card list ──
 	const possessed = $derived(
 		(d?.possessedInvestigators ?? []).map((p) => ({ code: p.code, date: p.finishDate }))
 	);
 
-	// ── Chasing the Stranger AT ARRIVAL → the doom it set on agenda 1a (precomputed tiers: ≤2 → 3,
-	//    3-5 → 2, 6-8 → 1, ≥9 → 0; the final tally minus the marks earned within Dim Carcosa). Rendered
-	//    through the shared per-version breakdown — doom tier as the axis, each tier carrying its
-	//    Succeed / Failed + the resolutions reached there (the same resolution columns as the version
-	//    table). The row label folds the doom into the marks-at-arrival column ("≤ 2 (+3 doom)"). ──
+	// ── Chasing the Stranger marks at arrival → the doom set on agenda 1a (precomputed tiers), as a
+	//    per-tier breakdown with Succeed / Failed and the resolutions reached ──
 	const DOOM_TIERS = [
 		{ doom: '3', label: m.campaign_ptc_dim_doom_row3 },
 		{ doom: '2', label: m.campaign_ptc_dim_doom_row2 },
@@ -105,7 +100,7 @@ the Extra-tab `hastur_version` choice). Endings on top, the version table below.
 	const hasDoom = $derived(['3', '2', '1', '0'].some((k) => !!d?.strangerArrivalDoom?.[k]));
 
 	const hasData = $derived(
-		endingRows.length > 0 || hasVersions || possessed.length > 0 || hasDoom
+		endingRows.length > 0 || versions.hasPlays || possessed.length > 0 || hasDoom
 	);
 </script>
 
@@ -121,7 +116,7 @@ the Extra-tab `hastur_version` choice). Endings on top, the version table below.
 			{#if endingRows.length}
 				<StatNumbers rows={endingRows} />
 			{/if}
-			{#if versionStats.length}
+			{#if versions.stats.length}
 				<div class:mt-4={endingRows.length}>
 					<VersionBreakdown rows={versionRows} showSucceedFailed showXp {logOnly} />
 				</div>
@@ -139,14 +134,12 @@ the Extra-tab `hastur_version` choice). Endings on top, the version table below.
 			{/if}
 			{#if possessed.length}
 				<div class="mt-4">
-					<div class="text-primary-600 dark:text-primary-300 mb-2 text-sm font-semibold">
-						{m.campaign_ptc_dim_possessed_heading()}
-					</div>
+					<SectionLabel variant="heading">{m.campaign_ptc_dim_possessed_heading()}</SectionLabel>
 					<PtcCardCountList items={possessed} showDate />
 				</div>
 			{/if}
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_ptc_dim_empty()}</p>
+			<WidgetEmpty>{m.campaign_ptc_dim_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

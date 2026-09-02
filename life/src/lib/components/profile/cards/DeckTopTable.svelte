@@ -21,7 +21,7 @@ copies it ran (1× / 2×), and the ally / accessory cards — one CardSquare per
 	}: {
 		title: string;
 		rows: DeckTopEntry[];
-		byCode: Map<string, Card>;
+		byCode: ReadonlyMap<string, Card>;
 		/** Header for the slot-card count column (e.g. "Charisma"). */
 		countLabel: string;
 		/** Header for the cards column (e.g. "Allies"). */

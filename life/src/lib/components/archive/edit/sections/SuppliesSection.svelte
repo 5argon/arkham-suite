@@ -9,7 +9,7 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 <script lang="ts">
 	import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 	import { Button, Checkbox, CardLine } from '@5argon/arkham-life-ui';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import { itemLabel } from '$lib/campaign/records/campaign-log-source';
 	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
@@ -29,7 +29,7 @@ Cost is shown for reference. Falls back to a single shared list with no roster.
 	const slots = $derived(investigators.length ? investigators : [{ code: 'shared', name: 'Supplies' }]);
 	// Resolve each roster investigator to its card so the per-investigator header can be a CardLine
 	// (art + coloured name) instead of a plain label. The 'shared' fallback slot has no card.
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 
 	function key(invCode: string, supplyId: string) {
 		return `${section.id}.${invCode}.${supplyId}`;

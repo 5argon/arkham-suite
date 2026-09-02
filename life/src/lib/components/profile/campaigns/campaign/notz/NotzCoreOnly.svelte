@@ -10,16 +10,16 @@ this component is only rendered when non-log data is available.
 <script lang="ts">
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
 	import { type CampaignNotz } from '$lib/campaign/campaigns/notz';
-	import { getAllCards } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { notz }: { notz: CampaignNotz | null } = $props();
 
 	const p = $derived(notz?.purist ?? null);
 	const wins = $derived(notz?.wins ?? 0);
-	const nameByCode = new Map(getAllCards().map((c) => [c.code, c.name]));
 
 	const tiles = $derived<LitTile[]>(
 		p
@@ -28,7 +28,7 @@ this component is only rendered when non-log data is available.
 					.map(([code, tally]) => ({
 						id: code,
 						image: getCardImagePath(code, 'square'),
-						label: nameByCode.get(code) ?? code,
+						label: cardByCode(code)?.name ?? code,
 						count: tally.total,
 						detail: m.campaign_notz_purist_inv_detail({ count: String(tally.total) })
 					}))
@@ -56,5 +56,5 @@ this component is only rendered when non-log data is available.
 		<p class="text-primary-500 text-center text-xs">{m.campaign_notz_purist_desc()}</p>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_notz_purist_empty()}</p>
+	<WidgetEmpty>{m.campaign_notz_purist_empty()}</WidgetEmpty>
 {/if}

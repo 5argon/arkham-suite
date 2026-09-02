@@ -4,7 +4,7 @@
  * as SEPARATE, unlinked records; for interconnected play the sibling's needed final
  * notes are transcribed into a record's `linkedLog` (projected to `rec.linked`). These
  * helpers read a play from EITHER perspective by routing own/linked to the right axis,
- * so a shared widget renders the same on both campaign pages. See `tde-shared-plan.md`.
+ * so a shared widget renders the same on both campaign pages.
  *
  *   • play mode      — interconnected (8-part) vs half (4-part).
  *   • the Black Cat  — the companion whose `at_your_side` state MOVES between the two
@@ -247,7 +247,7 @@ export function buildTdeShared(records: CampaignRecord[], family: string): Campa
 	return { family, plays: records.length, playMode, matrix, blackCat, silverKey, randolph };
 }
 
-// ── Linked Campaign Log manifest (for the Logs-tab editor, M2) ───────────────────
+// ── Linked Campaign Log manifest (for the Logs-tab editor) ───────────────────────
 export interface TdeLinkedTopic {
 	/** topic id (Black Cat / matrix / Silver Key / Randolph) — labelled via i18n. */
 	id: string;

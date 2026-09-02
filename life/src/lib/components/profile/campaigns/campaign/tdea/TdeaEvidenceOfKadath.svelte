@@ -13,6 +13,7 @@ all-ten stats. Its finale impact is LINEAR, not tiered.
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	const ALL_SIGNS = 10;
 	let { tdea }: { tdea: CampaignTdea | null } = $props();
@@ -61,5 +62,5 @@ all-ten stats. Its finale impact is LINEAR, not tiered.
 	</div>
 	<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdea_evidence_note()}</p>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tdea_evidence_empty()}</p>
+	<WidgetEmpty>{m.campaign_tdea_evidence_empty()}</WidgetEmpty>
 {/if}

@@ -9,31 +9,25 @@
  */
 import { Product } from '@5argon/arkham-kohaku';
 import type { Card } from '@5argon/arkham-kohaku';
-import { getAllCards } from '$lib/card-data';
+import { cardsByCode } from '$lib/card-data';
+import { CORE_PRODUCTS } from './card-filters';
 import type { DeckRecord } from '$lib/database/document';
 
-/** The three Core-Set printings — old Core, Revised Core, and the 2026 Core Set. */
-const CORE_PRODUCTS = new Set<Product>([Product.CoreSet, Product.RevisedCoreSet, Product.CoreSet2026]);
 
 interface AhdbSlots {
 	slots?: Record<string, number>;
 	ignoreDeckLimitSlots?: Record<string, number>;
 }
 
-let cardMapCache: Map<string, Card> | null = null;
-function cardMap(): Map<string, Card> {
-	if (!cardMapCache) cardMapCache = new Map(getAllCards().map((c) => [c.code, c]));
-	return cardMapCache;
-}
 
-const isCore = (code: string, m: Map<string, Card>): boolean => {
+const isCore = (code: string, m: ReadonlyMap<string, Card>): boolean => {
 	const card = m.get(code);
 	return card ? CORE_PRODUCTS.has(card.product) : false;
 };
 
 /** Whether one deck chain uses only Core-Set cards and a non-parallel Core-Set investigator. */
 export function isCoreOnlyDeck(deck: DeckRecord): boolean {
-	const m = cardMap();
+	const m = cardsByCode();
 	const inv = m.get(deck.investigator.investigatorCode);
 	// Investigator must be a known, non-parallel, Core-Set printing…
 	if (!inv || inv.alternateOfCardCode !== undefined || !CORE_PRODUCTS.has(inv.product)) return false;

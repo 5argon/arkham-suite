@@ -23,10 +23,7 @@ CSS flex of vertical cards, with optional grouping.
 		onClick?: (card: Card, item: CardItem) => void;
 		languageCode?: string;
 		hideQuantity?: boolean;
-		/**
-		 * Overlay each card's `iconCount` as a small badge (e.g. a usage count) —
-		 * parity with the icons view's `showIconCount`.
-		 */
+		/** Overlay each card's `iconCount` as a small badge (e.g. a usage count). */
 		showIconCount?: boolean;
 	}
 

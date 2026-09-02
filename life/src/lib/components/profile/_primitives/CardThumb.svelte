@@ -1,7 +1,7 @@
 <!--
 @component
-A single square card thumbnail — the bordered, shadowed `getCardImagePath(code,'square')` image used
-for passport header art (key / scenario / coterie) and the no-scenario key widgets. `tone` sets the
+A single square card thumbnail — the bordered, shadowed `getCardImagePath(code,'square')` image
+(passport header art, key widgets). `tone` sets the
 border (neutral primary vs danger red); `objectTop` frames portraits from the top; `size` overrides
 the default `h-16 w-16`.
 -->

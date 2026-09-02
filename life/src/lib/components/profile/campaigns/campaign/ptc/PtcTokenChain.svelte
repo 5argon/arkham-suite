@@ -1,48 +1,30 @@
 <!--
 @component
-Reusable PtC chaos-token route — a play's story scenarios as encounter-set icons (the TSK
-RoutingTrack idea), with the special-token MIX it was played with rendered beneath each: the
-cultist / tablet / elder-thing tokens the PREVIOUS scenario's resolution (or Curtain Call's Act
-2b) fed into the bag. A scenario opened on the base bag (Curtain Call, or an unrecorded
-predecessor) shows a muted "—". Hover names the scenario + its mix. Rendered through the shared
-IconTrack. Reused by the Chaos Tokens widget as an alternate lens on a run (cf. PtcDcChain).
+A play's PtC chaos-token route: its story scenarios as encounter-set icons with the special-token
+mix each was played with beneath (the cultist / tablet / elder-thing tokens the previous scenario's
+resolution, or Curtain Call's Act 2b, fed into the bag). A scenario opened on the base bag shows a
+muted "—". Hover names the scenario and its mix.
 -->
 <script lang="ts">
-	import { getScenarioData, Scenario, ChaosToken, type EncounterSet } from '@5argon/arkham-kohaku';
-	import { getCampaignLog } from '@5argon/arkham-campaign-data';
+	import type { EncounterSet } from '@5argon/arkham-kohaku';
 	import { ChaosTokenDisplay } from '@5argon/arkham-life-ui';
+	import type { PtcToken, TokenStep } from '$lib/campaign/campaigns/ptc';
+	import { scenarioRepresentativeSet } from '$lib/campaign/utils/standalone-scenarios';
 	import IconTrack, {
 		type IconTrackItem
 	} from '$lib/components/profile/_primitives/IconTrack.svelte';
 	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
-	import type { PtcToken, TokenStep } from '$lib/campaign/campaigns/ptc';
+	import { PTC_TOKEN, ptcScenarioName } from './ptc-dc-labels';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { route, size = '1.4rem' }: { route: TokenStep[]; size?: string } = $props();
 
-	const KOHAKU = new Set<string>(Object.values(Scenario));
-	function iconSet(id: string): EncounterSet | null {
-		if (!KOHAKU.has(id)) return null;
-		try {
-			return getScenarioData(id as Scenario)?.representativeSet ?? null;
-		} catch {
-			return null;
-		}
-	}
-	const log = getCampaignLog('ptc');
-	const scenName = (id: string) => log?.en.scenarioNames?.[id] ?? id;
-
-	const TOKEN: Record<PtcToken, ChaosToken> = {
-		cultist: ChaosToken.TokenCultist,
-		tablet: ChaosToken.TokenTablet,
-		elder_thing: ChaosToken.TokenElderThing
-	};
 	const TOKEN_NAME: Record<PtcToken, () => string> = {
 		cultist: m.campaign_ptc_tokens_cultist,
 		tablet: m.campaign_ptc_tokens_tablet,
 		elder_thing: m.campaign_ptc_tokens_elder
 	};
-	// Tooltip: "Echoes of the Past — 2 Cultist, 1 Tablet" (or "base bag" when empty).
+	/** "2 Cultist, 1 Tablet", or the base-bag label when the mix is empty. */
 	function mixSummary(mix: PtcToken[]): string {
 		if (!mix.length) return m.campaign_ptc_tokens_base();
 		const counts = new Map<PtcToken, number>();
@@ -58,9 +40,9 @@ IconTrack. Reused by the Chaos Tokens widget as an alternate lens on a run (cf. 
 	const items = $derived<TokenItem[]>(
 		route.map((step) => ({
 			step,
-			iconSet: iconSet(step.scenario),
+			iconSet: scenarioRepresentativeSet(step.scenario),
 			fallback: step.scenario.slice(0, 2).toUpperCase(),
-			tooltip: `${scenName(step.scenario)} — ${mixSummary(step.mix)}`,
+			tooltip: `${ptcScenarioName(step.scenario)} — ${mixSummary(step.mix)}`,
 			tint: 'text-primary-700 dark:text-primary-200'
 		}))
 	);
@@ -72,14 +54,14 @@ IconTrack. Reused by the Chaos Tokens widget as an alternate lens on a run (cf. 
 	{/snippet}
 	{#snippet sub(it)}
 		{#if it.step.mix.length}
-			<!-- 3-4 tokens overlap (each shifted left by (n-2)/(n-1) of a token) so a longer mix still
-			     occupies ~2 tokens of width; 1-2 sit side by side. -->
+			<!-- 3–4 tokens overlap (each shifted left by (n-2)/(n-1) of a token) so a longer mix still
+			     occupies ~2 tokens of width; 1–2 sit side by side. -->
 			{@const n = it.step.mix.length}
 			{@const overlap = n >= 3 ? ((n - 2) / (n - 1)) * 0.95 : 0}
 			<span class="flex items-center">
 				{#each it.step.mix as tok, k (k)}
 					<span class="shrink-0" style={k > 0 && overlap ? `margin-left:-${overlap.toFixed(3)}rem` : ''}>
-						<ChaosTokenDisplay token={TOKEN[tok]} size="text-[0.95rem]" hideLabel />
+						<ChaosTokenDisplay token={PTC_TOKEN[tok]} size="text-[0.95rem]" hideLabel />
 					</span>
 				{/each}
 			</span>

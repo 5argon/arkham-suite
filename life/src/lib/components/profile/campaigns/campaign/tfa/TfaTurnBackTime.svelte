@@ -17,6 +17,7 @@ art; the If I Could Turn Back Time achievement surfaces here).
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tfa,
@@ -32,13 +33,10 @@ art; the If I Could Turn Back Time achievement surfaces here).
 		logOnly?: boolean;
 	} = $props();
 
-	// Authoritative true-ending count (the `sealed_relic_of_ages_forever` log note) — always
-	// recorded on a win, even when no per-scenario XP/resolution was logged for Turn Back Time.
+	// A sealed-forever win is always logged even without per-scenario XP/resolution, so the reach
+	// count is the larger of the generic record and the seal count.
 	const sealed = $derived(tfa?.turnBackTime.sealedForever ?? 0);
-	// The generic per-scenario record (any reach the player logged in the Extra tab).
 	const stat = $derived(scenarios?.scenarios.find((s) => s.scenario === 'turn_back_time') ?? null);
-	// "Came all the way here": the authoritative seals OR any reaches the player recorded (whichever
-	// is larger) — so a sealed-forever win never reads as "never played".
 	const reached = $derived(Math.max(stat?.plays ?? 0, sealed));
 	const playsStat = $derived<CornerStat | null>(
 		reached > 0 ? { total: reached, byTier: stat?.playsByTier ?? {} } : null
@@ -64,7 +62,7 @@ art; the If I Could Turn Back Time achievement surfaces here).
 				<span class="text-primary-500 text-sm">{m.campaign_tfa_aeons_sealed()}</span>
 			</div>
 		{:else if reached === 0}
-			<p class="text-primary-500 text-sm">{m.campaign_tfa_turn_back_time_empty()}</p>
+			<WidgetEmpty>{m.campaign_tfa_turn_back_time_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

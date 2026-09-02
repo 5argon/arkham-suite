@@ -8,11 +8,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CUR = path.resolve(__dirname, '../curation');
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
+import { readJson, CURATION_DIR as CUR } from './lib.mjs';
 
 const inPath = process.argv[2];
 if (!inPath) { console.error('usage: node write-sections.mjs <workflow-output.json>'); process.exit(1); }

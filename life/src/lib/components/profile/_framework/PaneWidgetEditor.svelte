@@ -3,8 +3,7 @@
 Edits the ROW LAYOUT of ONE profile page: either a shared pane (home, cards, …)
 or a SINGLE campaign's detail page. A campaign's page has its OWN complete layout
 (shared campaign-detail widgets AND that campaign's own widgets, interleaved as
-the user likes) — there is no shared campaign layout, and campaign-specific
-widgets are chosen from the same picker as the rest (no separate section).
+the user likes).
 
 It snapshots `initialSettings`, edits only this page's rows, and `currentPayload()`
 returns the FULL settings JSON with that slice replaced — every other page and all
@@ -47,10 +46,7 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 		campaign?: string | null;
 	} = $props();
 
-	// A campaign slug edits that campaign's own per-campaign layout; otherwise a
-	// shared pane. (`campaign != null` is checked inline so it both narrows the type
-	// and stays reactive — the editor is remounted when the campaign/pane changes.)
-
+	// A campaign slug edits that campaign's own layout; otherwise a shared pane.
 	let rows = $state<EditorRow[]>(
 		untrack(() =>
 			toEditorRows(
@@ -72,8 +68,7 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 	const widgetCount = (slot: WidgetSlot, fallback: number): number =>
 		typeof slot.config?.count === 'number' ? slot.config.count : fallback;
 
-	// Per-campaign "Log-only mode" (campaign detail page only). The global `logOnly` overrides it,
-	// so the checkbox renders checked + disabled when that's on.
+	// Per-campaign "Log-only mode" (campaign detail page only); hidden while the global switch is on.
 	let campaignLogOnly = $state(
 		untrack(() => campaign != null && initialSettings.campaignLogOnly?.[campaign] === true)
 	);

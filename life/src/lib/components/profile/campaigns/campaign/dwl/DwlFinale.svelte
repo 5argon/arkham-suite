@@ -18,6 +18,7 @@ built on StatNumbers.
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	// `logOnly` (global or per-campaign): drop the Extra-derived "won, lost forever" count.
 	let {
@@ -38,8 +39,7 @@ built on StatNumbers.
 		!!f && (f.closedTear > 0 || f.yogFled > 0 || f.yogBecameOne > 0 || (!logOnly && f.wonLostForever > 0))
 	);
 
-	// The epilogue reached after any win — also reconstructed here (log + Extra), so it stays visible
-	// regardless of log-only mode, matching how the standalone widget behaved before the merge.
+	// The epilogue reached after any win (log + Extra), shown regardless of log-only mode.
 	const e = $derived(dwl?.epilogue);
 	const hasEpilogue = $derived(!!e && (e.peaceful > 0 || e.ominous > 0));
 
@@ -82,7 +82,7 @@ built on StatNumbers.
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_dwl_finale_empty()}</p>
+			<WidgetEmpty>{m.campaign_dwl_finale_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

@@ -3,9 +3,7 @@
  * arkham.life.
  *
  * This is the on-disk JSON the user safekeeps themselves (and the shape mirrored
- * into IndexedDB as the live working copy). It deliberately does NOT import
- * `campaign-export-format.ts` — that format is maintained separately; mapping
- * between the two is a separate, coordinated step.
+ * into IndexedDB as the live working copy).
  *
  * Identity model (see uid.ts + campaign-share.ts):
  *   - Roster members (owner + sub-players) are keyed by a stable `uid`
@@ -43,8 +41,7 @@ export type Difficulty = 'easy' | 'standard' | 'hard' | 'expert';
  *   - `'auto'` (default) — the participant count, clamped to 4.
  *   - `1..4`             — an explicit override.
  *   - `'unspecified'`    — deliberately no count.
- * See {@link resolvePlayerCount}. Optional on the record (absent ⇒ `'auto'`), so
- * older documents need no migration.
+ * See {@link resolvePlayerCount}. Optional on the record (absent ⇒ `'auto'`).
  */
 export type PlayerCount = 'auto' | 'unspecified' | 1 | 2 | 3 | 4;
 
@@ -132,10 +129,7 @@ export interface CampaignParticipant {
 	iconCardCode: string;
 }
 
-/**
- * Investigator + meta selections for a deck chain (mirrors
- * `campaignDeckInvestigators` / the export's investigator block).
- */
+/** Investigator + meta selections for a deck chain. */
 export interface DeckInvestigator {
 	investigatorCode: string;
 	alternateFrontCode: string | null;
@@ -186,13 +180,13 @@ export interface ManualAchievement {
 	itemId: string | null;
 }
 
-/** One recorded campaign. Mirrors the `archive/edit` load shape. */
 /** Whether an archive's existence is shown on the profile/compiled export.
  *  `'default'` follows the account-wide `defaultArchiveDisplayInProfile` setting.
  *  Gates only the campaign's EXISTENCE (calendar + campaigns-played); its stats
  *  always aggregate. Missing (older records) is treated as `'default'`. */
 export type DisplayInProfile = 'default' | 'visible' | 'hidden';
 
+/** One recorded campaign. */
 export interface CampaignRecord {
 	id: string;
 	title: string;
@@ -261,9 +255,7 @@ export interface DatabaseDocument {
 	playGroups: LocalPlayGroup[];
 	campaigns: CampaignRecord[];
 	/**
-	 * Recorded STANDALONE-mode plays (see {@link StandaloneRecord}). Optional/additive
-	 * (like {@link profileSettings}/{@link profileCache}): absent on pre-standalone
-	 * files → treated as `[]`, so no `formatVersion` bump or migration is needed.
+	 * Recorded STANDALONE-mode plays (see {@link StandaloneRecord}). Optional: absent → `[]`.
 	 * Deliberately SEPARATE from {@link campaigns} so campaign compilation never sees
 	 * standalone records.
 	 */
@@ -276,7 +268,7 @@ export interface DatabaseDocument {
 	/**
 	 * Per-subject precomputed profile cache (see profile-cache.ts). Derived data —
 	 * persisted to IndexedDB for fast profile views, but STRIPPED from exported
-	 * `.arkhamlife` files and recomputed on import. Optional/additive.
+	 * `.ahlifedb` files and recomputed on import. Optional/additive.
 	 */
 	profileCache?: ProfileCache;
 	/**
@@ -357,6 +349,11 @@ export function rosterUids(doc: DatabaseDocument): Set<string> {
 /** A uid → roster member map (the live-resolution table). */
 export function rosterByUid(doc: DatabaseDocument): Map<string, LocalPlayer> {
 	return new Map(allPlayers(doc).map((p) => [p.uid, p]));
+}
+
+/** Every archive that carries participant snapshots: campaigns and standalone plays. */
+function allArchives(doc: DatabaseDocument): CampaignRecord[] {
+	return [...doc.campaigns, ...(doc.standalones ?? [])];
 }
 
 /** Resolve a roster member by uid (owner or sub-player). */
@@ -458,7 +455,7 @@ export function updatePlayer(
 	if (!player) return;
 	if (fields.name !== undefined) player.name = fields.name;
 	if (fields.iconCardCode !== undefined) player.iconCardCode = fields.iconCardCode;
-	for (const c of doc.campaigns) {
+	for (const c of allArchives(doc)) {
 		let changed = false;
 		for (const p of c.participants) {
 			if (p.uid !== uid) continue;
@@ -480,7 +477,7 @@ export function removePlayer(doc: DatabaseDocument, uid: string): void {
 	if (uid === doc.owner.uid) return;
 	const member = findPlayer(doc, uid);
 	if (!member) return;
-	for (const c of doc.campaigns) {
+	for (const c of allArchives(doc)) {
 		let changed = false;
 		for (const p of c.participants) {
 			if (p.uid !== uid) continue;
@@ -912,7 +909,7 @@ export function reassignParticipant(
  */
 export function rebakeManaged(doc: DatabaseDocument): void {
 	const roster = rosterByUid(doc);
-	for (const c of doc.campaigns) {
+	for (const c of allArchives(doc)) {
 		for (const p of c.participants) {
 			const m = roster.get(p.uid);
 			if (m) {
@@ -1012,9 +1009,9 @@ function ensureParticipant(doc: DatabaseDocument, c: CampaignRecord, uid: string
 	if (member) c.participants.push(bakeParticipant(member));
 }
 
-// ─── Validation / migration (for import) ─────────────────────────────────────
+// ─── Validation (for import) ─────────────────────────────────────────────────
 
-/** Structural guard — enough to reject obviously-wrong files before migration. */
+/** Structural guard — enough to reject obviously-wrong files before the full validation. */
 export function isDatabaseDocument(value: unknown): value is DatabaseDocument {
 	if (typeof value !== 'object' || value === null) return false;
 	const v = value as Record<string, unknown>;

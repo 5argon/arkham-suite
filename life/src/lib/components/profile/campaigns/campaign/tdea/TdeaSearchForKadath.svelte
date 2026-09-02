@@ -14,6 +14,7 @@ broke the law of Ulthar → the "Cat Killer" achievement).
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tdea,
@@ -83,7 +84,7 @@ broke the law of Ulthar → the "Cat Killer" achievement).
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tdea_search_empty()}</p>
+			<WidgetEmpty>{m.campaign_tdea_search_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

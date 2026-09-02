@@ -8,7 +8,7 @@ investigator (profile-local `buildCardsSegment` → InvestigatorStat.count).
 <script lang="ts">
 	import { BorderedContainer, CardScanFullSmall } from '@5argon/arkham-life-ui';
 	import type { Card } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import type { InvestigatorStat } from '$lib/profile/profile-types';
 
 	let {
@@ -23,7 +23,7 @@ investigator (profile-local `buildCardsSegment` → InvestigatorStat.count).
 		count?: number;
 	} = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c]));
+	const byCode = cardsByCode();
 	const investigatorClass = (c: Card): string => String(c.cardClass?.class1 ?? 'neutral').toLowerCase();
 
 	const top = $derived.by((): { card: Card; uses: number }[] =>

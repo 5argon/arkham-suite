@@ -2,8 +2,7 @@
 @component
 Shared section label — the small muted heading/caption that titles a widget's sub-block. Two tiers:
 `heading` (a prominent group title, sm semibold) and `label` (a quiet field / table caption, xs
-medium); `align` overrides left vs centre. Replaces the hand-rolled `<p class="text-primary-500 …">`
-and StatNumbers-style headings scattered across the campaign widgets so they all read the same.
+medium); `align` overrides left vs centre.
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';

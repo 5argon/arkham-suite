@@ -20,8 +20,6 @@ Each number hovers to its per-difficulty breakdown. See the widget's ⓘ doc.
 	let props: TskScenarioWidgetProps = $props();
 
 	const wt = $derived(props.tsk?.withoutATrace ?? null);
-	// Each number carries its per-difficulty `byTier`, so StatNumbers shows the difficulty breakdown
-	// on hover (the shared "see this number by difficulty" feature).
 	const statRow = $derived<Stat[]>(
 		wt
 			? [
@@ -60,11 +58,9 @@ Each number hovers to its per-difficulty breakdown. See the widget's ⓘ doc.
 
 <TskScenarioInfo scenarioId="without_a_trace" {...props}>
 	{#snippet extraStats()}
-		<!-- Without a Trace outcome notes, grouped with the passport's Succeed/Failed numbers. -->
 		{#if hasData}
 			<StatNumbers rows={[statRow]} />
 		{/if}
-		<!-- The secret-scenario quest that unlocks & enters Without a Trace (Dead and Gone). -->
 		{#if anyPath}
 			<div class="mt-3 flex flex-col gap-2">
 				<SectionLabel>{m.campaign_tsk_dag_heading()}</SectionLabel>

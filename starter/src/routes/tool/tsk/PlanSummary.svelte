@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { ChaosTokenIcon } from '@5argon/arkham-icon';
 	import { ChaosToken } from '@5argon/arkham-kohaku';
-	import { bearerIsInvestigator, catalog, type PlanTrajectory } from '@5argon/arkham-tsk-solver';
+	import { bearerIsInvestigator, type PlanTrajectory } from '@5argon/arkham-tsk-solver';
 	import ScenarioIcons from './ScenarioIcons.svelte';
-	import { scenarioIconItems } from './helpers';
+	import { epilogueLabel, judgmentLabel, scenarioIconItems } from './helpers';
 
 	let { trajectory }: { trajectory: PlanTrajectory } = $props();
 	const fs = $derived(trajectory.finalState);
 	const finale = $derived(trajectory.finale);
 	const keyCount = $derived([...fs.keys.entries()].filter(([, b]) => bearerIsInvestigator(b)).length);
-	const judgmentLabel = $derived(catalog().judgments.find((j) => j.id === finale.judgment)?.label ?? finale.judgment);
-	const epilogueLabel = $derived(catalog().epilogues.find((e) => e.id === finale.epilogue)?.label ?? finale.epilogue);
 </script>
 
 <div class="flex flex-col gap-3 rounded-lg border border-primary-200 dark:border-primary-800 p-4">
@@ -38,10 +36,10 @@
 			<span class="flex text-base"><ChaosTokenIcon chaosToken={ChaosToken.TokenElderThing} noColor /></span>{finale.deception} dec
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="predicted Coterie judgment">
-			<i class="fa-solid fa-gavel text-primary-400"></i>{judgmentLabel}
+			<i class="fa-solid fa-gavel text-primary-400"></i>{judgmentLabel(finale.judgment)}
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="predicted epilogue">
-			<i class="fa-solid fa-flag-checkered text-primary-400"></i>{epilogueLabel}
+			<i class="fa-solid fa-flag-checkered text-primary-400"></i>{epilogueLabel(finale.epilogue)}
 		</span>
 		<span class="flex items-center gap-1.5 rounded border border-primary-100 dark:border-primary-800 px-2.5 py-1" title="chaos bag">
 			bag

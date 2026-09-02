@@ -1055,10 +1055,10 @@ export function buildTsk(records: CampaignRecord[]): CampaignTsk[] {
 				// 'absent' default (Razin Farhi) — only counts when a transition fired (he otherwise doesn't vote).
 				if (resolved !== 'absent') inc(member, resolved);
 			}
-			// Highscore leads (Yea−Nay, Nay−Yea) — considerHigh ignores ≤ 0, so only a real lead counts.
 			// The Red-Gloved Man is always set aside as an enemy (he's eerily silent, never voting Yea).
-				if (enemyMemberIds.has('redGlovedMan')) bump(finaleEnemies, 'redGlovedMan');
-				maxYeaOverNay = considerHigh(maxYeaOverNay, tally.yea - tally.nay, thisRoute, recDate);
+			if (enemyMemberIds.has('redGlovedMan')) bump(finaleEnemies, 'redGlovedMan');
+			// Highscore leads (Yea−Nay, Nay−Yea) — considerHigh ignores ≤ 0, so only a real lead counts.
+			maxYeaOverNay = considerHigh(maxYeaOverNay, tally.yea - tally.nay, thisRoute, recDate);
 			maxNayOverYea = considerHigh(maxNayOverYea, tally.nay - tally.yea, thisRoute, recDate);
 			maxSilent = considerHigh(maxSilent, tally.silent, thisRoute, recDate);
 		}
@@ -1160,7 +1160,7 @@ export function buildTsk(records: CampaignRecord[]): CampaignTsk[] {
 
 	// Erased From Existence — unique cards exiled in Dancing Mad / On Thin Ice (campaign-log card
 	// facts shared across the cell). Dedupe by card code, keeping the most recent campaign it
-	// happened in; newest first, capped at 5.
+	// happened in; newest first, capped at 10.
 	const erasedDate: Record<string, number | null> = {};
 	for (const rec of recs) {
 		for (const code of rec.erasedCards ?? []) {

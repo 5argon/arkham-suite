@@ -14,6 +14,7 @@ Built on LitTileGrid + StatNumbers.
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { fhv }: { fhv: CampaignFhv | null } = $props();
 	const d = $derived(fhv?.dance ?? null);
@@ -67,5 +68,5 @@ Built on LitTileGrid + StatNumbers.
 		<StatNumbers rows={footer} />
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_fhv_dance_empty()}</p>
+	<WidgetEmpty>{m.campaign_fhv_dance_empty()}</WidgetEmpty>
 {/if}

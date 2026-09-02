@@ -26,14 +26,14 @@ win. Grouped by year; undated plays gather under "Undated".
 	}
 
 	const groups = $derived.by(() => {
-		const m = new Map<string, CalendarEntry[]>();
+		const byYear = new Map<string, CalendarEntry[]>();
 		for (const e of calendar) {
 			const y = yearOf(e);
-			const arr = m.get(y) ?? [];
+			const arr = byYear.get(y) ?? [];
 			arr.push(e);
-			m.set(y, arr);
+			byYear.set(y, arr);
 		}
-		return [...m.entries()];
+		return [...byYear.entries()];
 	});
 
 	const stateMeta: Record<string, { label: string; cls: string }> = {

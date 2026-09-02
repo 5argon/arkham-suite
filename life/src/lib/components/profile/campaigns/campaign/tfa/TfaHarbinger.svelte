@@ -11,6 +11,7 @@ Harbinger's own card art.
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tfa, logOnly = false }: { tfa: CampaignTfa | null; logOnly?: boolean } = $props();
 	const h = $derived(tfa?.harbinger);
@@ -51,5 +52,5 @@ Harbinger's own card art.
 		</div>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tfa_harbinger_empty()}</p>
+	<WidgetEmpty>{m.campaign_tfa_harbinger_empty()}</WidgetEmpty>
 {/if}

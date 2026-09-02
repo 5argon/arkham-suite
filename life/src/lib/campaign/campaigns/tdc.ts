@@ -1,6 +1,6 @@
 /**
  * tdc.ts — The Drowned City bespoke per-campaign tallies. ONE builder, ONE
- * payload blob (`tdc`), mirroring `fhv.ts` / `tic.ts`. See `tdc-widgets-plan.md`.
+ * payload blob (`tdc`), mirroring `fhv.ts` / `tic.ts`.
  *
  *   • fold — The Fold: which way the expedition headed at Expedition to R'lyeh
  *     (`expedition_headed_west` / `_east`). The campaign's mirrored core: the same

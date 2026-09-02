@@ -13,6 +13,7 @@ number hoverable for its per-difficulty split. Lita's card heads the passport.
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		notz,
@@ -82,7 +83,7 @@ number hoverable for its per-difficulty split. Lita's card heads the passport.
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_notz_gathering_empty()}</p>
+			<WidgetEmpty>{m.campaign_notz_gathering_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

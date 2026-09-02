@@ -162,7 +162,7 @@ export function resolveSpecialInteractions(
 	investigatorsByCampaign: Record<string, CardCode[]>,
 	cardLookup: CardLookup,
 ): CampaignSpecialInteractions[] {
-	if (!partials) return []; // pre-v24 cached/compiled logs segment lacks this field
+	if (!partials) return []; // a logs segment compiled by an older version lacks this field
 	const roster = (campaignId: string): RosterInvestigator[] =>
 		(investigatorsByCampaign[campaignId] ?? []).map((code) => {
 			const c = cardLookup(code);

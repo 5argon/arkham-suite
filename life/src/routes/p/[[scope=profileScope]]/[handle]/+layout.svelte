@@ -29,13 +29,11 @@
 	// /`loaded`) decides how `handle` is read:
 	//   - `private` : a MANAGED subject (roster member / play group), rebuilt live here.
 	//   - `loaded`  : an externally opened `.ahlifepro`, from its immutable snapshot.
-	//   - (absent)  : a VANITY handle → the future PUBLIC/hosted profile (one segment
-	//                 shallower: `/p/<vanity>/…`). Not yet wired — shown as coming soon.
+	//   - (absent)  : a VANITY handle (`/p/<vanity>/…`), not resolvable — shown as coming soon.
 	const scope = $derived((page.params as { scope?: 'private' | 'loaded' }).scope);
 	const handle = $derived((page.params as { handle: string }).handle);
 	const isVanity = $derived(!scope);
-	// Only managed (`private`) profiles are editable; loaded snapshots and (future) public
-	// vanity profiles are read-only.
+	// Only managed (`private`) profiles are editable.
 	const isReadOnly = $derived(scope !== 'private');
 	const base = $derived(scope ? `/p/${scope}/${handle}` : `/p/${handle}`);
 
@@ -100,7 +98,9 @@
 			const scenarioId = tail[tail.length - 1];
 			if (tail.length > 1 && scenarioId && scenarioId !== 'pack' && scenarioId !== 'campaign') {
 				out.push({
-					label: scenarioId.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+					label:
+						payload?.standalones.find((s) => s.scenario === scenarioId)?.name ??
+						scenarioId.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
 					href: page.url.pathname,
 				});
 			}
@@ -109,7 +109,7 @@
 	});
 	// Customize this very page's widgets: append /customize to the current path.
 	const customizeHref = $derived(`${page.url.pathname.replace(/\/$/, '')}/customize`);
-	// The Standalones section uses a fixed layout (no widget customization yet).
+	// The Standalones section uses a fixed layout (no widget customization).
 	const isCustomizable = $derived(tail[0] !== 'standalones');
 </script>
 
@@ -120,9 +120,7 @@
 			{m.framework_page_loading_database()}
 		</div>
 	{:else if isVanity}
-		<!-- `/p/<vanity>` — the future public/hosted profile. Route shape is live (so the
-		     subtree is shared with private/loaded), but resolving a vanity to a profile is
-		     not built yet. -->
+		<!-- `/p/<vanity>` — a vanity handle does not resolve to a profile. -->
 		<BorderedContainer>
 			<div class="flex flex-col items-center gap-3 p-8 text-center">
 				<HelpParagraph>{m.framework_page_vanity_coming_soon()}</HelpParagraph>
@@ -166,8 +164,7 @@
 				{/each}
 			</nav>
 			<div class="flex items-center gap-3">
-				<!-- Only managed (private) profiles recompute / are customizable; loaded snapshots
-				     and (future) public vanity profiles are read-only. -->
+				<!-- Only managed (private) profiles recompute / are customizable. -->
 				{#if !isReadOnly && databaseStore.profileStatus === 'updating'}
 					<span class="text-primary-400 flex items-center gap-1 text-xs">
 						<span class="border-primary-300 dark:border-primary-600 h-3 w-3 animate-spin rounded-full border-2 border-t-transparent"></span>

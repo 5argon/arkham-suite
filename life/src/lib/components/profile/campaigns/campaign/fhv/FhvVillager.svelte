@@ -9,6 +9,7 @@ character" view. Mother Rachel & Simeon Atwood carry extra story-relevant notes.
 	import { FHV_VILLAGERS, fhvText, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
 	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { villager, fhv }: { villager: string; fhv: CampaignFhv | null } = $props();
 	const def = $derived(FHV_VILLAGERS.find((v) => v.id === villager) ?? null);
@@ -108,5 +109,5 @@ character" view. Mother Rachel & Simeon Atwood carry extra story-relevant notes.
 		</div>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_fhv_villager_empty()}</p>
+	<WidgetEmpty>{m.campaign_fhv_villager_empty()}</WidgetEmpty>
 {/if}

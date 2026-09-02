@@ -14,6 +14,7 @@ tracks — the Key passes to the Dream-Quest in interconnected play). Built on S
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tdeb,
@@ -62,7 +63,7 @@ tracks — the Key passes to the Dream-Quest in interconnected play). Built on S
 				<StatNumbers {rows} />
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tdeb_shapes_empty()}</p>
+			<WidgetEmpty>{m.campaign_tdeb_shapes_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

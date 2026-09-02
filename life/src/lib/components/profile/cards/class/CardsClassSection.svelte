@@ -12,7 +12,7 @@
 
 	const ctx = getContext<LocalProfileContext>(LOCAL_PROFILE_KEY);
 	const data = $derived(ctx.payload);
-	// Under the unified cards route the class slug arrives as the `[section]` param.
+	// The class slug arrives as the `[section]` param.
 	const cardClass = $derived(resolveClassSlug(page.params.section ?? ''));
 	const rows = $derived(data ? data.settings.panes.cardClassDetail : []);
 </script>

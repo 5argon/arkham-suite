@@ -15,7 +15,7 @@
 		TextInput,
 		UserDisplay
 	} from '@5argon/arkham-life-ui';
-	import { createCardResolver } from '$lib/card-data';
+	import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
 	import { allPlayers } from '$lib/database/document';
@@ -37,14 +37,7 @@
 	let activeTab = $state(0);
 
 	// Same resolver the rest of the app uses (handles aliased/variant codes); never throws.
-	function cardFor(code: string | undefined | null) {
-		if (!code) return null;
-		try {
-			return cardResolver.resolve(code);
-		} catch {
-			return null;
-		}
-	}
+	const cardFor = (code: string | undefined | null) => (code ? resolveCardOrNull(code) : null);
 	function memberNames(memberUids: string[]): string {
 		if (!databaseStore.doc) return '';
 		const byUid = new Map(allPlayers(databaseStore.doc).map((p) => [p.uid, p.name]));
@@ -55,7 +48,6 @@
 		return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString();
 	}
 
-	// Export ONE subject's compiled profile (gzip `.ahlifepro` or plain `.json`).
 	async function exportProfile(uid: string, format: 'gzip' | 'json') {
 		await databaseStore.exportCompiledProfileFor(uid, format);
 	}
@@ -81,7 +73,7 @@
 		if (confirm(m.framework_page_remove_confirm())) databaseStore.removeLoadedProfile(uid);
 	}
 
-	// cp= viewer link builder (the consumer is a later task — this just makes the link).
+	// cp= link builder.
 	let shareUrl = $state('');
 	let builtLink = $state<string | null>(null);
 	let linkError = $state<string | null>(null);

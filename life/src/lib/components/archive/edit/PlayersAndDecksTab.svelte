@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+import { resolveCardOrNull } from '$lib/card-data';
 	import { untrack } from 'svelte';
 	import {
 		Button,
@@ -48,7 +49,7 @@
 		userId: string;
 		username: string;
 		iconCardCode: string;
-		/** Stable uid (local build). */
+		/** Stable roster uid. */
 		uid?: string | null;
 		/** True when this participant isn't in the local roster. */
 		isGuest?: boolean;
@@ -133,7 +134,7 @@
 		databaseStore.assignDeckHand(campaignId, deckId, hand);
 	}
 
-	// ─── Local build: roster, guests, participants ──────────────────────────────
+	// ─── Roster, guests, participants ─────────────────────────────────────────────
 	const playerCards = getAllCards().filter(card.playerCardsNonCampaignFilter);
 
 	/** Roster members (owner + sub-players) not already on this campaign. */
@@ -202,13 +203,11 @@
 
 	let editGuest = $state<{ uid: string; name: string; card: Card | null } | null>(null);
 	function openEditGuest(player: Player) {
-		let resolved: Card | null = null;
-		try {
-			resolved = cardResolver.resolve(player.iconCardCode);
-		} catch {
-			resolved = null;
-		}
-		editGuest = { uid: player.uid ?? player.id, name: player.username, card: resolved };
+		editGuest = {
+			uid: player.uid ?? player.id,
+			name: player.username,
+			card: resolveCardOrNull(player.iconCardCode)
+		};
 	}
 	async function saveEditGuest() {
 		if (!editGuest) return;
@@ -223,9 +222,7 @@
 	// ─── Decks ────────────────────────────────────────────────────────────────
 	let showImportModal = $state(false);
 	let importingDecks = $state(false);
-	// Bumped to remount the import modal FRESH (clearing leftover deck inputs/results).
-	// We bump AFTER closing — not on open — so the pre-mounted modal plays its open
-	// fade; remounting on open would skip the transition.
+	// Bumped after closing to remount the import modal fresh (bumping on open would skip its fade).
 	let importModalKey = $state(0);
 
 	function openImportModal() {
@@ -257,12 +254,7 @@
 	/** Synthesize a blank AHDB deck (no cards) so a deck-less investigator entry
 	 *  renders through the same `DeckBanner` as a real deck — just empty. */
 	function blankDeckJson(investigatorCode: string): string {
-		let name = investigatorCode;
-		try {
-			name = cardResolver.resolve(investigatorCode).name;
-		} catch {
-			// unknown code — fall back to the raw code as the deck name
-		}
+		const name = resolveCardOrNull(investigatorCode)?.name ?? investigatorCode;
 		const blank: AhdbDeck = {
 			id: `deckless-${investigatorCode}`,
 			name,
@@ -302,6 +294,15 @@
 		showImportModal = false;
 		resetImportModalSoon();
 		importingDecks = true;
+		try {
+			importDecks(importedDecks);
+		} finally {
+			importingDecks = false;
+		}
+		await invalidateAll();
+	}
+
+	function importDecks(importedDecks: Deck[]) {
 		for (const deck of importedDecks) {
 			// Linearise the full upgrade chain (oldest → newest)
 			const chain = linearizeDeck(deck);
@@ -321,8 +322,6 @@
 				versions: useVersions.map((v, i) => ({ sequenceIndex: i, ahdbJson: JSON.stringify(v) }))
 			});
 		}
-		importingDecks = false;
-		await invalidateAll();
 	}
 
 	// ─── Add Investigator (deck-less) ────────────────────────────────────────────
@@ -508,13 +507,7 @@
 						onClick={deckLess ? undefined : () => (deckModalDeck = deck)}
 					/>
 				{:else}
-					{@const invCard = (() => {
-						try {
-							return cardResolver.resolve(deckRow.investigatorCode);
-						} catch {
-							return null;
-						}
-					})()}
+					{@const invCard = resolveCardOrNull(deckRow.investigatorCode)}
 					<div
 						class="border-primary-300 dark:border-primary-600 flex h-20 w-32 items-center justify-center rounded border p-2 text-center text-xs font-semibold text-black dark:text-white"
 					>
@@ -666,7 +659,7 @@
 	</div>
 </Modal>
 
-<!-- Local build: bulk-add every member of a play group as a participant -->
+<!-- Bulk-add every member of a play group as a participant -->
 <Modal
 	isOpen={addPlayGroupOpen}
 	onClose={() => (addPlayGroupOpen = false)}
@@ -701,7 +694,7 @@
 	</div>
 </Modal>
 
-<!-- Local build: add a roster member or a guest, and edit a guest's label -->
+<!-- Add a roster member or a guest, and edit a guest's label -->
 <AddParticipantModal
 	isOpen={addParticipantOpen}
 	onClose={() => (addParticipantOpen = false)}

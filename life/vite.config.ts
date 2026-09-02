@@ -53,8 +53,7 @@ export default defineConfig({
 	plugins: [
 		docImages(),
 		sveltekit({
-			// `.md` are Svelte components (mdsvex). Existing `src/lib/md/**` help files are imported with
-			// `?raw` (raw strings), which bypasses this — they coexist until migrated to src/lib/docs.
+			// `.md` files are Svelte components (mdsvex).
 			extensions: ['.svelte', '.md'],
 			// mdsvex FIRST (markdown → svelte), then svelte-preprocess (ts/scss in the result).
 			preprocess: [mdsvex(mdsvexConfig), sveltePreprocess()],
@@ -69,9 +68,7 @@ export default defineConfig({
 		})
 	],
 	test: {
-		// Unit tests live under src/. Scoping the glob here keeps Vitest from sweeping in the
-		// Playwright e2e suite (e2e/*.test.ts), which uses a different runner (@playwright/test)
-		// and otherwise fails to import under Vitest. Run e2e separately via `playwright test`.
+		// Unit tests only; the Playwright e2e suite under e2e/ runs via `playwright test`.
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
 });

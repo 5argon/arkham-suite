@@ -1,8 +1,6 @@
 /**
- * campaign-log-source.ts — the single accessor for campaign-log *definitions*,
- * replacing the retired home-grown `campaign-log-loader`. All structure/text now
- * comes from `@5argon/arkham-campaign-data` (authoritative, covers every official
- * campaign incl. fof/gob/side).
+ * campaign-log-source.ts — the single accessor for campaign-log *definitions*, all of which
+ * come from `@5argon/arkham-campaign-data` (every official campaign incl. fof/gob/side).
  *
  * `getCampaignLog` accepts a kohaku `Campaign` enum value (or raw data code) and
  * internally aliases `eote→eoe` / `tsk→tskc`, so the stored `campaign_code`
@@ -47,9 +45,7 @@ export function entryLabel(log: CampaignLog, key: string): string {
 /**
  * The campaign's PLAYABLE scenarios (ArkhamCards type `'story'`) in campaign
  * order — for the per-scenario "Extra" tab (XP). Interludes, prologues and
- * epilogues are excluded (you don't earn an XP highscore for an interlude, and
- * the old derive-from-entries approach surfaced placeholders like "Eoe Prologue"
- * and "Endless Night"). Backed by campaign-data's `scenarioMeta`.
+ * epilogues are excluded (you don't earn an XP highscore for an interlude). Backed by campaign-data's `scenarioMeta`.
  */
 export function campaignScenarios(log: CampaignLog): string[] {
 	return playableScenarios(log);

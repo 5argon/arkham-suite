@@ -18,6 +18,7 @@ you slew AT the party (the per-scenario slain_vips Extra), each greyed out until
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import PtcVipGrid from './PtcVipGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		ptc,
@@ -101,7 +102,7 @@ you slew AT the party (the per-scenario slain_vips Extra), each greyed out until
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_ptc_lastking_empty()}</p>
+			<WidgetEmpty>{m.campaign_ptc_lastking_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

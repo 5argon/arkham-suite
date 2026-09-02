@@ -29,7 +29,7 @@ EntryText (plain Arkham markup).
 	} from '@5argon/arkham-life-ui';
 	import { card, type Card } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
-	import { getAllCards, createCardResolver } from '$lib/card-data';
+	import { getAllCards, createCardResolver, resolveCardOrNull } from '$lib/card-data';
 	import { itemLabel, portraitUrl } from '$lib/campaign/records/campaign-log-source';
 	import { CROSSED_MARK, hasCrossedMark, makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
@@ -96,13 +96,6 @@ EntryText (plain Arkham markup).
 		if (cf.codes?.length) pool = pool.filter((c) => cf.codes!.includes(c.code));
 		return pool;
 	});
-	function resolveCardSafe(code: string): Card | null {
-		try {
-			return cardResolver.resolve(code);
-		} catch {
-			return null;
-		}
-	}
 	const isCrossed = (entry: LocalLog) => hasCrossedMark(entry.args);
 	// Card-code-keyed notes sections (TCU Missing Persons 05046–05049) carry a
 	// portrait on the sheet; attempt it and hide gracefully if absent.
@@ -117,10 +110,8 @@ EntryText (plain Arkham markup).
 		available.filter((e) => e.def.repeatable || !recordedKeys.has(e.key)),
 	);
 
-	// Display in ENTRY order (the order recorded), because that sequence is now
-	// meaningful — it implies the play order / travel path (TSK Routings). The
-	// player can reorder with the move up/down controls.
-	const orderedEntries = $derived(entries);
+	// Entries display in the order recorded (it implies the play order / travel path); the
+	// player can reorder them with the move up/down controls.
 
 	/** Swap a recorded entry with its neighbour (reorder within this section). */
 	function move(index: number, dir: -1 | 1) {
@@ -206,7 +197,7 @@ EntryText (plain Arkham markup).
 		if (num !== undefined) text = text.replace(/#X#/g, num);
 		const name = entry.args.find((a) => a.type === 'string' && a.value !== CROSSED_MARK)?.value;
 		if (name) {
-			const label = nameMode === 'card' ? (resolveCardSafe(name)?.name ?? name) : itemLabel(log, name);
+			const label = nameMode === 'card' ? (resolveCardOrNull(name)?.name ?? name) : itemLabel(log, name);
 			text = text.replace(/#name#/gi, label);
 		}
 		return text;
@@ -246,7 +237,7 @@ EntryText (plain Arkham markup).
 						label="Search a card"
 						placeholder="Search by card name"
 						cards={pendingCardPool}
-						selectedCard={pendingValue ? resolveCardSafe(pendingValue) : null}
+						selectedCard={pendingValue ? resolveCardOrNull(pendingValue) : null}
 						onSelect={(c) => (pendingValue = c.code)}
 					/>
 				{:else if pt === 'name'}
@@ -279,7 +270,7 @@ EntryText (plain Arkham markup).
 		<p class="text-primary-400 dark:text-primary-500 text-sm">{m.archive_logs_empty()}</p>
 	{:else}
 		<div class="flex flex-col gap-2">
-			{#each orderedEntries as entry, i (entry.clientId)}
+			{#each entries as entry, i (entry.clientId)}
 				{@const resolved = byKey.get(entry.key)}
 				{@const crossed = isCrossed(entry)}
 				{@const standalone = fromStandalone(entry.key)}
@@ -322,7 +313,7 @@ EntryText (plain Arkham markup).
 								label="Move down"
 								icon={FaIconType.ArrowDown}
 								hideLabel
-								disabled={i === orderedEntries.length - 1}
+								disabled={i === entries.length - 1}
 								onClick={() => move(i, 1)}
 							/>
 							{#if resolved?.def.crossOut}

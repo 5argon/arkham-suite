@@ -134,24 +134,24 @@ describe('displayInProfile gates campaign existence, never statistics', () => {
 });
 
 describe('segment signatures (partial-recompute change detection)', () => {
-	it('a date-only edit changes ONLY the meta signature', () => {
+	it('a date-only edit changes meta + logs (per-play dates feed the logs widgets) but NOT cards', () => {
 		const { doc, c1 } = build();
 		const s0 = segmentSignatures(doc, ACCOUNT_SUBJECT);
 		updateCampaignGeneral(doc, c1.id, { finishDate: 1_700_000_000_000 });
 		const s1 = segmentSignatures(doc, ACCOUNT_SUBJECT);
 		expect(s1.meta).not.toBe(s0.meta);
-		expect(s1.logs).toBe(s0.logs);
+		expect(s1.logs).not.toBe(s0.logs);
 		expect(s1.cards).toBe(s0.cards);
 	});
 
-	it('a deck edit changes ONLY the (expensive) cards signature', () => {
+	it('a deck edit changes cards + logs (decks scope the subject) but NOT meta', () => {
 		const { doc, c2, aUid } = build();
 		const s0 = segmentSignatures(doc, ACCOUNT_SUBJECT);
 		addDeck(doc, c2.id, { ownerUid: aUid, investigator: '01001', versions: version({ '01030': 1 }) });
 		const s1 = segmentSignatures(doc, ACCOUNT_SUBJECT);
 		expect(s1.cards).not.toBe(s0.cards);
+		expect(s1.logs).not.toBe(s0.logs);
 		expect(s1.meta).toBe(s0.meta);
-		expect(s1.logs).toBe(s0.logs);
 	});
 
 	it('a log edit changes logs + meta (calendar state is log-derived) but NOT cards', () => {

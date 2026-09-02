@@ -19,6 +19,7 @@ Built on ScenarioInfo + StatNumbers + LitTileGrid.
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tic,
@@ -116,7 +117,7 @@ Built on ScenarioInfo + StatNumbers + LitTileGrid.
 				{#if fullBuildRow.length}<StatNumbers rows={fullBuildRow} />{/if}
 			</div>
 		{:else if !hasTerror}
-			<p class="text-primary-500 text-sm">{m.campaign_tic_dr_empty()}</p>
+			<WidgetEmpty>{m.campaign_tic_dr_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

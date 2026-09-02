@@ -7,15 +7,16 @@ VersionBreakdown). The version is log-known, so it survives log-only mode (degra
 Plays). Below it, the scenario outcome from the log: entered the gate vs Yog-Sothoth escaped.
 -->
 <script lang="ts">
-	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import { scenarioMeta, scenarioVerdicts } from '$lib/campaign/utils/scenario-meta';
 	import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import { toVersionRow } from '$lib/campaign/stats/version-stats';
+	import { scenarioVersions, toVersionRow } from '$lib/campaign/stats/version-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
 	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		dwl,
@@ -31,25 +32,24 @@ Plays). Below it, the scenario outcome from the log: entered the gate vs Yog-Sot
 		logOnly?: boolean;
 	} = $props();
 
-	// Per-version breakdown (Ascending the Hill v.I/II/III) from the unified scenarios record. The
-	// version is derived from log notes (Silas / Necronomicon), so it survives log-only mode.
+	// Per-version breakdown (Ascending the Hill v.I/II/III); the version derives from log notes
+	// (Silas / Necronomicon), so it survives log-only mode.
 	const SID = 'where_doom_awaits';
 	const meta = scenarioMeta('dwl', SID);
 	// Include `no_resolution` so a play that reached no scored ending lights its "None" chip.
 	const resolutionIds = meta?.resolutions ?? [];
-	const verdicts = (meta?.resolutionOutcomes ?? {}) as Record<string, 'win' | 'loss' | 'neutral'>;
+	const verdicts = scenarioVerdicts(meta);
 	const labels: Record<string, string> = {
 		v1: m.campaign_dwl_hill_v1(),
 		v2: m.campaign_dwl_hill_v2(),
 		v3: m.campaign_dwl_hill_v3()
 	};
-	const versionStats = $derived(scenarios?.scenarios.find((s) => s.scenario === SID)?.versions ?? []);
+	const versions = $derived(scenarioVersions(scenarios, SID));
 	const versionRows = $derived(
-		versionStats.map((vs) =>
+		versions.stats.map((vs) =>
 			toVersionRow(vs, { label: labels[vs.value] ?? vs.value, resolutionIds, verdicts })
 		)
 	);
-	const hasVersions = $derived(versionStats.some((v) => v.plays > 0));
 
 	// Scenario outcome (from the log): entered the gate vs Yog-Sothoth escaped.
 	const w = $derived(dwl?.wda);
@@ -64,14 +64,14 @@ Plays). Below it, the scenario outcome from the log: entered the gate vs Yog-Sot
 				]
 			: []
 	);
-	const hasData = $derived(hasVersions || hasWda);
+	const hasData = $derived(versions.hasPlays || hasWda);
 </script>
 
 <ScenarioInfo scenarioId="where_doom_awaits" {family} {achievements} {scenarios} {logOnly}>
 	{#snippet stats()}
 		{#if hasData}
 			<div class="space-y-4">
-				{#if versionStats.length}
+				{#if versions.stats.length}
 					<VersionBreakdown rows={versionRows} showSucceedFailed showXp {logOnly} versionFromLog />
 				{/if}
 				{#if hasWda}
@@ -79,7 +79,7 @@ Plays). Below it, the scenario outcome from the log: entered the gate vs Yog-Sot
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_dwl_hill_empty()}</p>
+			<WidgetEmpty>{m.campaign_dwl_hill_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

@@ -2,8 +2,8 @@
 @component
 The widget picker — a modal that opens when the user clicks an empty "select
 widget" slot in the RowLayoutEditor. Lists EVERY widget allowed on this page; a
-widget already placed somewhere on the page is shown GREYED OUT (with an "In use"
-tag) rather than hidden, so the player can see the full catalogue at a glance.
+widget already placed somewhere on the page is shown GREYED OUT rather than hidden, so the
+player can see the full catalogue at a glance.
 When filling a SPLIT slot, `fullWidth` widgets are likewise shown but disabled
 (they can't be halved). On a campaign page the list includes that campaign's
 CAMPAIGN-SPECIFIC widgets (marked with a badge) right alongside the shared ones,

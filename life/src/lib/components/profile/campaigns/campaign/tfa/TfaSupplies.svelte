@@ -11,6 +11,7 @@ This Junk? Built on LitTileGrid.
 	import { TFA_PROVISIONS, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tfa }: { tfa: CampaignTfa | null } = $props();
 	const log = getCampaignLog('tfa');
@@ -46,5 +47,5 @@ This Junk? Built on LitTileGrid.
 		{/if}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tfa_supplies_empty()}</p>
+	<WidgetEmpty>{m.campaign_tfa_supplies_empty()}</WidgetEmpty>
 {/if}

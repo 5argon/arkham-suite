@@ -78,8 +78,7 @@ All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
 	const netRows = $derived(toRows(dh?.bestByNet));
 	const doubleRows = $derived(toRows(dh?.bestByDouble));
 
-	// Each table carries only its own ranking column: the net table drops the "double"
-	// column and vice versa, so the surplus metric never competes with the one being ranked.
+	// Each table carries only its own ranking column.
 	const baseColumns = [
 		{ label: m.campaign_tsk_deadheat_col_players() },
 		{ label: m.campaign_tsk_deadheat_col_total() },
@@ -89,8 +88,6 @@ All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
 	const netColumns = [...baseColumns, { label: m.campaign_tsk_deadheat_col_net() }];
 	const doubleColumns = [...baseColumns, { label: m.campaign_tsk_deadheat_col_double() }];
 	const signed = (n: number): string => (n > 0 ? `+${n}` : String(n));
-	// Positive (saved more than lost) stands out in gold; non-positive is de-emphasized in the
-	// muted primary tone (harder to read) rather than a jarring red.
 	const diffClass = (n: number): string =>
 		n > 0 ? 'text-secondary-700 dark:text-secondary-300 font-semibold' : 'text-primary-400';
 </script>
@@ -112,7 +109,6 @@ All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
 <div class="flex flex-col gap-4">
 	<TskScenarioInfo scenarioId="dead_heat" {...props}>
 		{#snippet extraStats()}
-			<!-- Civilian rescued/slain stat numbers, grouped with the passport's Succeed/Failed row. -->
 			{#if hasData && !props.logOnly}
 				<StatNumbers rows={statRows} />
 			{/if}

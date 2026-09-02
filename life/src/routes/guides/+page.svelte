@@ -4,7 +4,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	// Eager static imports (not the lazy <Doc>) so the active tab is server-rendered + present at
 	// hydration, and switching tabs is instant. Each topic is its own doc folder under
-	// src/lib/docs/guide/. Hardcodes the base locale (only `en` today); revisit if docs go multi-locale.
+	// src/lib/docs/guide/, imported in the base locale.
 	import Database from '$lib/docs/guide/database/en.md';
 	import FileTypes from '$lib/docs/guide/file-types/en.md';
 	import Players from '$lib/docs/guide/players/en.md';

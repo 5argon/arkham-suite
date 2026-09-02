@@ -12,6 +12,7 @@
  */
 import type { CampaignLog } from '@5argon/arkham-campaign-data';
 import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignScenarios } from './scenario-stats';
 import type { ResolutionTally } from '../outcomes/resolution-coverage';
 import { oathVersionFromRecord, phantomVersionFromRecord, pallidVersionFromRecord } from '../campaigns/ptc';
 import { ascendingHillVersionFromRecord, openerPositionFromRecord } from '../campaigns/dwl';
@@ -57,6 +58,21 @@ export interface VersionRow {
 	verdicts?: Record<string, 'win' | 'loss' | 'neutral'> | null;
 	vpBest?: number | null;
 	vpByTier?: Record<string, number>;
+}
+
+/** One scenario's per-version stats from the unified `scenarios` record. */
+export interface ScenarioVersions {
+	stats: VersionStat[];
+	/** Whether any version has been played (an all-zero table is still rendered by some widgets). */
+	hasPlays: boolean;
+}
+
+export function scenarioVersions(
+	scenarios: CampaignScenarios | null | undefined,
+	scenarioId: string
+): ScenarioVersions {
+	const stats = scenarios?.scenarios.find((s) => s.scenario === scenarioId)?.versions ?? [];
+	return { stats, hasPlays: stats.some((v) => v.plays > 0) };
 }
 
 /** Map a built {@link VersionStat} to a display row. Label / accent / the reachable resolution set +

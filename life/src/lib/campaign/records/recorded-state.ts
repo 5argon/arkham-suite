@@ -1,25 +1,16 @@
 /**
  * recorded-state.ts — the single encode/decode bridge between
- *   • the generic DB rows (`campaign_logs` + `campaign_log_params`),
+ *   • the stored campaign log entries (key + section + args),
  *   • the live editor model (a flat `LocalLog[]`), and
  *   • campaign-data's `RecordedCampaignState` projection (for inference / validation).
  *
- * Storage model (unchanged from the pre-existing schema): one `campaign_logs`
- * row per recorded entry, carrying a `key` (the campaign-data composite
- * `"section.id"`) + a `section`, plus 0..N `campaign_log_params`. We keep the
- * flat list as the canonical editor state (so the existing `saveLogs` wholesale
- * replace + dirty-tracking keep working) and DERIVE everything else from it.
+ * One entry per recorded item, carrying a `key` (the campaign-data composite `"section.id"`) +
+ * a `section`, plus 0..N args. The flat list is the canonical editor state; everything else is
+ * DERIVED from it. Reserved meta-sections (prefix `__`, verified to never collide with a real
+ * campaign-data section id) ride in the same list — see {@link RESERVED}.
  *
- * Reserved meta-sections (prefix `__`, verified to never collide with a real
- * campaign-data section id) ride in the same tables:
- *   __chaos_bag  key = token string code,            param.number = count
- *   __ultimatums key = ultimatum id,                 (no params)
- *   __partner    key = "<sectionId>.<partnerId>",     param[0].string = status,
- *                                                      param[1].number = damage,
- *                                                      param[2].number = horror
- *
- * This module is pure + framework-free so it is unit-testable and reused by both
- * the recording editor and profile aggregation.
+ * This module is pure + framework-free so it is unit-testable and reused by both the recording
+ * editor and profile aggregation.
  */
 import type {
 	CampaignLog,
@@ -36,7 +27,7 @@ import { SCARLET_KEY_NPC_CODES } from '../campaigns/tsk';
 export const RESERVED = {
 	chaosBag: '__chaos_bag',
 	ultimatums: '__ultimatums',
-	/** Extra Imports: per-scenario victory-display total (key = scenario id, number arg). Historic id `__xp`. */
+	/** Extra Imports: per-scenario victory-display total (key = scenario id, number arg). */
 	scenarioXp: '__xp',
 	/**
 	 * Standalone archives only: the EXPERIENCE EARNED "score" for a Victory-display
@@ -80,41 +71,6 @@ export const RESERVED = {
 /** Separator between the standalone scenario id and the real `"section.id"` key. */
 const STANDALONE_LOG_SEP = '::';
 
-/** Reserved sections whose key (or key prefix before the first `.`) is a scenario id. */
-const SCENARIO_KEYED_SECTIONS: readonly string[] = [
-	RESERVED.scenarioXp,
-	RESERVED.scenarioResolution,
-	RESERVED.scenarioSkipped,
-	RESERVED.scenarioChoice,
-	RESERVED.scenarioTier,
-];
-
-/**
- * Prune Extra entries keyed by a scenario id that the campaign no longer knows —
- * deprecated artifacts from older recordings (e.g. some TSK recordings key
- * scenarios by ArkhamCards location id `anchorage`/`buenos_aires` instead of the
- * canonical `on_thin_ice`/`sanguine_shadows`). Validating against the campaign's
- * current `scenarioMeta` makes a re-save self-healing: stale rows that don't match
- * a known scenario are dropped on write, before they reach the Scenario XP /
- * resolution widgets.
- *
- * Only scenario-keyed reserved sections are touched (the scenario id is the whole
- * key, or the part before the first `.` for the composite `__choice`/`__tier`
- * keys). Every other section — real log entries, chaos bag, standalones, ultimatums
- * — passes through untouched. If the campaign declares no `scenarioMeta` (data not
- * loaded), nothing is pruned, so we never wipe valid data on a missing catalogue.
- */
-export function pruneDeprecatedScenarioEntries(localLogs: LocalLog[], log: CampaignLog): LocalLog[] {
-	const valid = new Set((log.db.scenarioMeta ?? []).map((m) => m.id));
-	if (!valid.size) return localLogs; // catalogue absent → don't risk pruning anything
-	return localLogs.filter((l) => {
-		if (!SCENARIO_KEYED_SECTIONS.includes(l.section)) return true;
-		const dot = l.key.indexOf('.');
-		const scenarioId = dot > 0 ? l.key.slice(0, dot) : l.key;
-		return valid.has(scenarioId);
-	});
-}
-
 /** Compose a `__standalone_log` key from a standalone scenario id + a real entry key. */
 export function makeStandaloneLogKey(standalone: string, realKey: string): string {
 	return `${standalone}${STANDALONE_LOG_SEP}${realKey}`;
@@ -149,7 +105,7 @@ export interface LocalLog {
 	args: LogArg[];
 }
 
-/** A DB log row as returned by the page `load` (key + section + params). */
+/** A stored log row (key + section + params). */
 export interface DbLogRow {
 	key: string;
 	section: string | null;
@@ -163,14 +119,14 @@ export interface SaveLogEntry {
 	args: LogArg[];
 }
 
-// ─── Hydrate (DB rows → editor model) ────────────────────────────────────────
+// ─── Hydrate (stored rows → editor model) ────────────────────────────────────
 
 let clientSeq = 0;
 function nextClientId(): string {
 	return `l${clientSeq++}`;
 }
 
-/** Convert persisted DB rows into the flat editor model. */
+/** Convert stored rows into the flat editor model. */
 export function hydrate(rows: DbLogRow[]): LocalLog[] {
 	return rows.map((r) => ({
 		clientId: nextClientId(),
@@ -189,16 +145,10 @@ export function hydrate(rows: DbLogRow[]): LocalLog[] {
  * Project the editor model to the `saveLogs` payload, PRESERVING entry order.
  * Order is meaningful: the sequence campaign-log entries were recorded in implies
  * the play order (e.g. which TSK scenarios were visited, in what sequence — the
- * "route"). The editor lets the player reorder entries, so a different order is a
- * real change; dirty-tracking (via {@link serializePayload}) is order-sensitive.
+ * "route"). The editor lets the player reorder entries, so a different order is a real change.
  */
 export function toSavePayload(localLogs: LocalLog[]): SaveLogEntry[] {
 	return localLogs.map((l) => ({ key: l.key, section: l.section, args: l.args }));
-}
-
-/** Stable string form of the save payload, for dirty-tracking. */
-export function serializePayload(localLogs: LocalLog[]): string {
-	return JSON.stringify(toSavePayload(localLogs));
 }
 
 // ─── Section-type classification ─────────────────────────────────────────────
@@ -590,10 +540,8 @@ export function recordedLogKeys(localLogs: LocalLog[]): Set<string> {
 }
 
 // ─── Editor mutation helpers (flat list ⟷ per-section slices) ─────────────────
-// Components own their section's slice: they read `entriesInSection(...)` and
-// push a whole replacement via `replaceSection(...)`. Keeping the flat list as
-// the single source of truth means the existing save/dirty/hydrate path is
-// untouched, while components get an ergonomic per-section API.
+// Components own their section's slice: they read `entriesInSection(...)` and push a whole
+// replacement via `replaceSection(...)`; the flat list stays the single source of truth.
 
 /** Build a fresh editor entry (allocates a client id). */
 export function makeEntry(section: string, key: string, args: LogArg[] = []): LocalLog {
@@ -612,11 +560,6 @@ export function replaceSection(
 	next: LocalLog[],
 ): LocalLog[] {
 	return [...localLogs.filter((l) => l.section !== section), ...next];
-}
-
-/** Convenience: is a composite key currently recorded (presence)? */
-export function hasKey(localLogs: LocalLog[], key: string): boolean {
-	return localLogs.some((l) => l.key === key);
 }
 
 // ─── Scenario route (play order, from entry-ordered logs) ────────────────────
@@ -651,8 +594,6 @@ export function scenarioSequence(log: CampaignLog, localLogs: LocalLog[]): strin
 }
 
 // ─── Scenario tier (TSK-solver level / version) ──────────────────────────────
-
-export type ScenarioTierKind = 'level' | 'version';
 
 /** Recorded scenario tiers: `"<scenarioId>.<kind>"` → solver option id. */
 export function scenarioTiersFromLogs(localLogs: LocalLog[]): Record<string, string> {

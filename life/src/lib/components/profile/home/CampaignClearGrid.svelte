@@ -3,13 +3,13 @@
 The "what have I cleared?" grid: every official campaign box × the player's
 tracked difficulty tiers. Each cell shows the campaign's full set of ending icons
 (lit when reached at that tier, dimmed when not), matching the style of the
-Campaign Overview widget. Unowned products are hidden. Used on both the home page
-(own clears) and a public profile.
+Campaign Overview widget. Unowned products are hidden.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { FaIcon, FaIconType, HoverTooltip } from '@5argon/arkham-life-ui';
-	import type { ClearGridRow, CampaignEndings, EndingKind } from '$lib/campaign/outcomes/clear-status';
+	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
+	import { ENDING_KIND_ORDER, type ClearGridRow, type CampaignEndings } from '$lib/campaign/outcomes/clear-status';
+	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
 	import type { DifficultyTier } from '$lib/campaign/profile/profile-settings';
 	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
 	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
@@ -28,29 +28,8 @@ Campaign Overview widget. Unowned products are hidden. Used on both the home pag
 
 	const endingsByFamily = $derived(Object.fromEntries(endings.map((e) => [e.family, e])));
 
-	const endingIcon: Record<EndingKind, FaIconType> = {
-		best: FaIconType.EndingBetterWin,
-		win: FaIconType.EndingWin,
-		special: FaIconType.EndingSpecial,
-		loss: FaIconType.EndingLoss,
-	};
-	const kindOrder: EndingKind[] = ['best', 'win', 'special', 'loss'];
-
 	const reachDetail = (n: number): string =>
 		n > 0 ? m.home_cleargrid_reached({ count: n }) : m.home_cleargrid_not_reached();
-
-	// ── Single shared tooltip ────────────────────────────────────────────────
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipTitle = $state('');
-	let tipDetail = $state('');
-	function showTip(title: string, detail: string, e: MouseEvent) {
-		tipTitle = title;
-		tipDetail = detail;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
 </script>
 
 {#if rows.length}
@@ -72,7 +51,7 @@ Campaign Overview widget. Unowned products are hidden. Used on both the home pag
 				{#each rows as row (row.family)}
 					{@const familyEndings = endingsByFamily[row.family]?.endings ?? []}
 					{@const sortedEndings = [...familyEndings].sort(
-						(a, b) => kindOrder.indexOf(a.kind) - kindOrder.indexOf(b.kind),
+						(a, b) => ENDING_KIND_ORDER.indexOf(a.kind) - ENDING_KIND_ORDER.indexOf(b.kind),
 					)}
 					<tr class="border-primary-100 dark:border-primary-800 border-b last:border-0">
 						<td class="px-3 py-2 text-black dark:text-white">{row.name}</td>
@@ -87,18 +66,11 @@ Campaign Overview widget. Unowned products are hidden. Used on both the home pag
 									<div class="flex justify-center flex-wrap gap-1.5">
 										{#each sortedEndings as e (e.key)}
 											{@const n = e.byTier?.[t] ?? 0}
-											<span
-												role="img"
-												aria-label="{capitalizeFirst(e.text)} — {reachDetail(n)}"
-												class="cursor-default text-lg {n > 0
-													? 'text-primary-700 dark:text-primary-200'
-													: 'text-primary-200 dark:text-primary-700'}"
-												onmouseenter={(ev) =>
-													showTip(capitalizeFirst(e.text), reachDetail(n), ev)}
-												onmouseleave={hideTip}
-											>
-												<FaIcon icon={endingIcon[e.kind]} />
-											</span>
+											<OutcomeFace
+												kind={e.kind}
+												reached={n > 0}
+												label="{capitalizeFirst(e.text)} — {reachDetail(n)}"
+											/>
 										{/each}
 									</div>
 								{:else}
@@ -131,14 +103,4 @@ Campaign Overview widget. Unowned products are hidden. Used on both the home pag
 			</tbody>
 		</table>
 	</div>
-
-	<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-		<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">
-			<span class="font-semibold">{tipTitle}</span>
-			{#if tipDetail}
-				<br />
-				<span class="text-neutral-600 dark:text-neutral-300">{tipDetail}</span>
-			{/if}
-		</span>
-	</HoverTooltip>
 {/if}

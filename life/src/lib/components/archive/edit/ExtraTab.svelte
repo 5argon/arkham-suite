@@ -179,7 +179,7 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 		new Map((log.db.scenarioMeta ?? []).map((m) => [m.id, m.xpNote]))
 	);
 
-	// Victory display rides the historic `__xp` reserved section (key = scenario id).
+	// Victory display rides the `__xp` reserved section (key = scenario id).
 	const vpByScenario = $derived.by(() => {
 		const m = new Map<string, string>();
 		for (const l of entriesInSection(localLogs, RESERVED.scenarioXp)) {
@@ -404,7 +404,7 @@ campaign (an ordered list). All ride the reserved `__xp` / `__resolution` /
 {#snippet glyphLabel(text: string)}{@html parseArkhamMarkup(text)}{/snippet}
 
 <div class="mt-4 max-w-xl space-y-2">
-	<!-- Tab-level help, top-right just below the tab bar (was an easily-missed inline icon). -->
+	<!-- Tab-level help, top-right just below the tab bar. -->
 	<div class="flex justify-end">
 		<button
 			type="button"

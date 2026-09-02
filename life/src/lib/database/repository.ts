@@ -1,6 +1,6 @@
 /**
- * repository.ts — projects the local `DatabaseDocument` into the exact data shapes
- * the archive route loads return, so the route components render unchanged.
+ * repository.ts — projects the local `DatabaseDocument` into the data shapes the archive routes
+ * render.
  *
  * Player identity resolves through `resolveParticipant`: a participant whose uid
  * is in the roster shows live (managed); otherwise it's a frozen guest. Projected
@@ -13,10 +13,10 @@ import {
 	type RecordedCampaignState
 } from '@5argon/arkham-campaign-data';
 
-import { createCardResolver } from '$lib/card-data';
+import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
 import { playClearState, type ClearState } from '$lib/campaign/outcomes/clear-status';
 import { standaloneVerdict, type StandaloneVerdict } from '$lib/campaign/outcomes/standalone-clear';
-import { RESERVED } from '$lib/campaign/records/recorded-state';
+import { RESERVED, scenarioChoicesFromLogs } from '$lib/campaign/records/recorded-state';
 import { DIFFICULTY_ORDER } from '$lib/campaign/utils/difficulty';
 
 import {
@@ -148,9 +148,8 @@ function resolveOwner(
 	return null;
 }
 
-/** Derive the terminal outcome of a campaign from its recorded logs alone.
- *  Builds only the `recordedLogs` set (the sole field `playClearState` inspects).
- *  Also checks `outcomeSignals.bestWin` to distinguish a superior-win ending. */
+/** The terminal outcome of a campaign from its recorded logs (plus the Extra-tab scenario
+ *  choices some endings hinge on), and whether it reached a superior-win ending. */
 function campaignOutcome(c: CampaignRecord): {
 	outcome: ClearState | null;
 	reachedBestWin: boolean;
@@ -164,7 +163,10 @@ function campaignOutcome(c: CampaignRecord): {
 		recordedSectionItems: {},
 		finalChaosBag: {}
 	};
-	const outcome = playClearState(log, state);
+	const scenarioChoices = scenarioChoicesFromLogs(
+		c.logs.map((e, i) => ({ clientId: String(i), key: e.key, section: e.section, args: e.args }))
+	);
+	const outcome = playClearState(log, state, scenarioChoices);
 	const reachedBestWin =
 		outcome === 'cleared' && outcomeSignals(log).bestWin.some((k) => recordedLogs.has(k));
 	return { outcome, reachedBestWin };
@@ -189,13 +191,7 @@ function buildFilterOptions(doc: DatabaseDocument): FilterOptions {
 		const st = resolveSoloType(c.playerCount, c.participants.length, c.multiHanded);
 		if (st) soloTypes.add(st);
 	}
-	const resolveName = (code: string): string => {
-		try {
-			return cardResolver.resolve(code)?.name ?? code;
-		} catch {
-			return code;
-		}
-	};
+	const resolveName = (code: string): string => resolveCardOrNull(code)?.name ?? code;
 	return {
 		campaigns: [...campaignCodes]
 			.map((code) => ({ code, name: getCampaignLog(code)?.db.name ?? code }))
@@ -265,7 +261,8 @@ export function listData(doc: DatabaseDocument, params: ListParams): ListResult 
 	const effectiveDate = (c: CampaignRecord) => c.finishDate ?? c.startDate ?? c.createdAt;
 	items.sort((a, b) => {
 		if (params.sort === 'campaign') return b.campaignCode.localeCompare(a.campaignCode);
-		if (params.sort === 'difficulty') return b.difficulty.localeCompare(a.difficulty);
+		if (params.sort === 'difficulty')
+			return DIFFICULTY_ORDER.indexOf(a.difficulty) - DIFFICULTY_ORDER.indexOf(b.difficulty);
 		return effectiveDate(b) - effectiveDate(a);
 	});
 
@@ -341,12 +338,8 @@ function resolveCards(campaigns: ListCampaign[]): Record<string, Card> {
 	const resolver = createCardResolver();
 	const cardsByCode: Record<string, Card> = {};
 	for (const code of codes) {
-		try {
-			cardsByCode[code] = resolver.resolve(code);
-		} catch {
-			// Unknown code (e.g. a card not in the bundled set) — skip; the UI
-			// guards on a missing entry.
-		}
+		const card = resolveCardOrNull(code);
+		if (card) cardsByCode[code] = card;
 	}
 	return cardsByCode;
 }
@@ -586,11 +579,8 @@ function resolveStandaloneCards(items: ListStandalone[]): Record<string, Card> {
 	const resolver = createCardResolver();
 	const out: Record<string, Card> = {};
 	for (const code of codes) {
-		try {
-			out[code] = resolver.resolve(code);
-		} catch {
-			/* unknown code — skip */
-		}
+		const card = resolveCardOrNull(code);
+		if (card) out[code] = card;
 	}
 	return out;
 }

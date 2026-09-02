@@ -11,8 +11,9 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
+		import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
 	import { resolutionLabel, resolutionShort } from '$lib/campaign/utils/resolutions';
 	import type { ResolutionTally } from '$lib/campaign/outcomes/resolution-coverage';
 
@@ -56,19 +57,7 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 		return resolutionLabel(id) + suffix;
 	}
 
-	// One shared tooltip for every chip this component renders.
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipLabel = $state('');
-	let tipTally = $state<ResolutionTally | null>(null);
-
-	function showTip(id: string, e: MouseEvent) {
-		tipLabel = labelWithVerdict(id);
-		tipTally = tallies?.[id] ?? null;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
+	const tip = new HoverTipState();
 </script>
 
 <div class="flex {nowrap ? 'flex-nowrap' : 'flex-wrap'} gap-1">
@@ -77,8 +66,8 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 		<span
 			role="img"
 			aria-label="{labelWithVerdict(id)}{tally ? ` — ${tallyText(tally)}` : ''}"
-			onmouseenter={(e) => showTip(id, e)}
-			onmouseleave={hideTip}
+			onmouseenter={(e) => tip.show(labelWithVerdict(id), tally ? tallyText(tally) : '', e)}
+			onmouseleave={tip.hide}
 			class={[
 				'cursor-default rounded px-1.5 py-0.5 text-xs font-semibold tabular-nums',
 				visited.has(id)
@@ -91,12 +80,4 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 	{/each}
 </div>
 
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">
-		<span class="font-semibold">{tipLabel}</span>
-		{#if tipTally}
-			<br />
-			<span class="text-neutral-600 dark:text-neutral-300">{tallyText(tipTally)}</span>
-		{/if}
-	</span>
-</HoverTooltip>
+<HoverTip {tip} />

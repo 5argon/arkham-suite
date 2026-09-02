@@ -13,8 +13,6 @@ plays where she has you under hers. Each number hovers to its per-difficulty bre
 	let props: TskScenarioWidgetProps = $props();
 
 	const shades = $derived(props.tsk?.shadesOfSuffering ?? null);
-	// Both numbers carry their per-difficulty `byTier`, so StatNumbers shows the difficulty breakdown
-	// on hover (the shared "see this number by difficulty" feature).
 	const statRow = $derived<Stat[]>(
 		shades
 			? [
@@ -37,7 +35,6 @@ plays where she has you under hers. Each number hovers to its per-difficulty bre
 
 <TskScenarioInfo scenarioId="shades_of_suffering" {...props}>
 	{#snippet extraStats()}
-		<!-- Tzu San Niang's sway (who swayed whom), grouped with the passport's Succeed/Failed numbers. -->
 		{#if hasData}
 			<StatNumbers rows={[statRow]} />
 		{/if}

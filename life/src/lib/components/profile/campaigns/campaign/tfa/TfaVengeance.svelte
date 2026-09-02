@@ -12,6 +12,7 @@ total, an upper bound (Fury only rises). Built on IconTrack + StatNumbers.
 	import IconTrack, { type IconTrackItem } from '$lib/components/profile/_primitives/IconTrack.svelte';
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tfa }: { tfa: CampaignTfa | null } = $props();
 	const v = $derived(tfa?.vengeance);
@@ -100,5 +101,5 @@ total, an upper bound (Fury only rises). Built on IconTrack + StatNumbers.
 		{/if}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tfa_vengeance_empty()}</p>
+	<WidgetEmpty>{m.campaign_tfa_vengeance_empty()}</WidgetEmpty>
 {/if}

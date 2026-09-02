@@ -13,11 +13,12 @@ manual items ticked).
 		Checkbox,
 		FaIcon,
 		FaIconType,
-		HoverTooltip,
 		Modal,
 		parseArkhamMarkup
 	} from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
 
 	interface Props {
 		resolved: ResolvedAchievement;
@@ -65,13 +66,11 @@ manual items ticked).
 	 *  player who never fills the Extra tab can still mark them Earned by hand. */
 	const earned = $derived(scope === 'log' ? autoEarned : autoEarned || manual.has(def.id));
 
-	// Hover tooltip for the inferred-vs-manual indicator icon (styled, like the rest
-	// of the app) instead of the browser-native `title` popup.
+	// Tooltip for the inferred-vs-manual indicator icon.
 	const tipText = $derived(
 		scope === 'extra' ? m.archive_ach_tip_extra() : scope === 'log' ? m.archive_ach_tip_log() : m.archive_ach_tip_manual(),
 	);
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
+	const tip = new HoverTipState();
 
 	// Strip HTML emphasis + unwrap card links, but KEEP `[token]` icon markers — they're
 	// rendered as glyphs by parseArkhamMarkup (e.g. Trust Nobody's [elder_thing]).
@@ -99,9 +98,8 @@ manual items ticked).
 					type="button"
 					class="text-primary-400 hover:text-secondary-500 cursor-pointer"
 					aria-label={tipText}
-					bind:this={tipRef}
-					onmouseenter={() => (tipVisible = true)}
-					onmouseleave={() => (tipVisible = false)}
+					onmouseenter={(e) => tip.showText(tipText, e)}
+					onmouseleave={tip.hide}
 					onclick={() => (conditionsOpen = true)}
 				>
 					<FaIcon icon={statusIcon} />
@@ -111,9 +109,8 @@ manual items ticked).
 					class="text-primary-400"
 					role="img"
 					aria-label={tipText}
-					bind:this={tipRef}
-					onmouseenter={() => (tipVisible = true)}
-					onmouseleave={() => (tipVisible = false)}
+					onmouseenter={(e) => tip.showText(tipText, e)}
+					onmouseleave={tip.hide}
 				>
 					<FaIcon icon={statusIcon} />
 				</span>
@@ -182,10 +179,7 @@ manual items ticked).
 		{/if}
 	</div>
 
-	<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-		<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">{tipText}</span
-		>
-	</HoverTooltip>
+	<HoverTip {tip} />
 </li>
 
 <Modal isOpen={conditionsOpen} onClose={() => (conditionsOpen = false)} title={resolved.en.title}>

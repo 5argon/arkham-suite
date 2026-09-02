@@ -56,7 +56,6 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 	);
 
 	// Per-source act table: every Trust / Deception swap (scenario + action) and how many plays did it.
-	// How each one is DETECTED lives in the widget's header doc (the ? icon), not here.
 	const trustActs = $derived(
 		TSK_BAG_ACTS.filter((a) => a.kind === 'trust').map((a) => ({
 			id: a.id,
@@ -99,9 +98,6 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 
 {#if hasData && tsk}
 	<div class="flex flex-col gap-4">
-		<!-- Final-bag highlights: most Tablet / most Elder Thing / fewest combined, each with the run's
-		     full token composition, the bonus XP it earned from overflow, and its route (ties broken by
-		     the most recent play). -->
 		{#if bagRows.length}
 			<WidgetTable
 				columns={[
@@ -138,8 +134,7 @@ the shared `tsk` aggregate (null until a play recorded a final chaos bag).
 			</WidgetTable>
 		{/if}
 
-		<!-- Per-source breakdown: every chaos-bag swap, and how many plays did it. The widget's
-		     header doc (the ? icon) explains how each one is detected. -->
+		<!-- Per-source breakdown: every chaos-bag swap and how many plays did it. -->
 		{#if anyActs}
 			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				<div>

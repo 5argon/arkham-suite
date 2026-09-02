@@ -13,6 +13,7 @@ cards. Built on LitTileGrid.
 	import { times } from '$lib/profile/plural';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { dwl }: { dwl: CampaignDwl | null } = $props();
 
@@ -48,5 +49,5 @@ cards. Built on LitTileGrid.
 {#if hasData}
 	<LitTileGrid {tiles} colsClass="grid-cols-3" />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_dwl_persons_empty()}</p>
+	<WidgetEmpty>{m.campaign_dwl_persons_empty()}</WidgetEmpty>
 {/if}

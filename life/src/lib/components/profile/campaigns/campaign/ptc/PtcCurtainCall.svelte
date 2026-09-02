@@ -15,6 +15,7 @@ log only records the tokens). Built on StatNumbers.
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		ptc,
@@ -42,10 +43,8 @@ log only records the tokens). Built on StatNumbers.
 	};
 	const act2bLabel = (id: string) => ACT2B_LABEL[id]?.() ?? id;
 
-	// Every Act 2b version, not just the ones played: the base three always (shown at ×0 so you see
-	// the whole set), plus the three Return-to-PtC versions when this profile has actually played one
-	// — they're only possible in Return to The Path to Carcosa, so base-only profiles aren't padded
-	// with them. Order is fixed (book order), not by play count, so the option list reads stably.
+	// Every Act 2b version in book order: the base three always (×0 when unplayed), plus the three
+	// Return-to versions once this profile has played one.
 	const BASE_ACT2B = ['a_city_aflame', 'the_path_is_mine', 'the_shores_of_hali'];
 	const RT_ACT2B = ['alaran_mists', 'under_the_city', 'here_is_my_reply'];
 	const playedRt = $derived(RT_ACT2B.some((id) => (c?.act2b?.[id] ?? 0) > 0));
@@ -81,7 +80,7 @@ log only records the tokens). Built on StatNumbers.
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_ptc_curtain_empty()}</p>
+			<WidgetEmpty>{m.campaign_ptc_curtain_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

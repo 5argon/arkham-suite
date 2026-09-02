@@ -1,7 +1,7 @@
 <!--
 @component
 The row-positioning editor for one list of layout rows (a shared pane, or a
-campaign's detail page). Rows are reordered WITHOUT drag-and-drop:
+campaign's detail page). Rows are reordered with buttons:
 
   • Every GAP between rows — and before the first / after the last — carries a
     small "+" button that opens a modal to insert a full-width or split row there.

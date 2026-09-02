@@ -5,16 +5,13 @@ PtC "cards collected across plays" stat: Black Stars Rise / Pallid Mask random w
 possessed investigators, Last King slain VIPs, Unspeakable Oath insanity. The caller owns ordering +
 capping. Built on the shared CardLineList.
 
-The trailing column composes (left → right): a `×count` (when > 1), the card's traits (when
-`showTrait`), the play's finish `date` (when `showDate` — the weakness lists are a chronological
-newest-first log, so each row shows when it was drawn), and the `bearer` — the investigator who drew
-it — as a CardStrip. The bearer is already scoped to the viewed subject in the precompute, so a
-single-player profile shows only its own and a play-group profile merges every member's. A row's
-`code` may repeat across a date list (one weakness drawn in several plays); CardLineList keys by index.
+The trailing column composes (left → right): a `×count` (when > 1), the card's traits (`showTrait`),
+the play's finish `date` (`showDate`), and the `bearer` investigator as a CardStrip. A row's `code`
+may repeat across a date list, so CardLineList keys by index.
 -->
 <script lang="ts">
 	import { CardStrip } from '@5argon/arkham-life-ui';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import CardLineList from '$lib/components/profile/_primitives/CardLineList.svelte';
 	import FinishDate from '$lib/components/profile/_primitives/FinishDate.svelte';
 
@@ -36,7 +33,7 @@ single-player profile shows only its own and a play-group profile merges every m
 		showDate?: boolean;
 	} = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c]));
+	const byCode = cardsByCode();
 </script>
 
 <CardLineList {items} align="right">

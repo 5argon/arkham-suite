@@ -3,9 +3,7 @@
 Shared "lit tile" wall — a flex or grid of square tiles. Each tile is a square image
 (a card crop, a portrait, or a diagram) that lights up (a primary ring + its count) when
 its `count` is > 0 and is greyed out otherwise, with a single shared hover tooltip. A
-missing image degrades to a labelled placeholder. Used across the campaign profile widgets:
-the EotE roster / tally / memory walls, the "missing persons" / companions / artifacts /
-keys walls, TSK's Congress roster, the Dealings Act 2 setup tableau, and more.
+missing image degrades to a labelled placeholder.
 
 Layout (tiles are a uniform fixed size — `w-20` — so a wall looks the same in any slot):
   • `tiles` + `layout='grid'` (default) — a content-width, centred grid of `colsClass` columns.
@@ -18,6 +16,8 @@ cropped), `objectTop` (top-framing for portraits), and `markup` (render the labe
 title as Arkham glyphs, e.g. chaos-token symbols).
 -->
 <script lang="ts" module>
+	import HoverTip from './HoverTip.svelte';
+	import { HoverTipState } from './hover-tip.svelte';
 	export interface LitTile {
 		id: string;
 		/** Square image url (card crop / portrait / diagram); '' or a load failure → placeholder. */
@@ -34,7 +34,7 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 </script>
 
 <script lang="ts">
-	import { getCardImagePath, HoverTooltip, parseArkhamMarkup } from '@5argon/arkham-life-ui';
+	import { getCardImagePath, parseArkhamMarkup } from '@5argon/arkham-life-ui';
 
 	let {
 		tiles = null,
@@ -71,18 +71,7 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 	// Image load failures fall back to a labelled placeholder tile.
 	let failed = $state<Record<string, boolean>>({});
 
-	// ── single shared tooltip for every tile ─────────────────────────────────
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipTitle = $state('');
-	let tipDetail = $state('');
-	function showTip(t: LitTile, e: MouseEvent) {
-		tipTitle = t.label;
-		tipDetail = t.detail;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
+	const tip = new HoverTipState();
 
 	const imgFit = $derived(
 		`${fit === 'contain' ? 'object-contain' : 'object-cover'} ${objectTop ? 'object-top' : ''}`
@@ -94,8 +83,8 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 		role="img"
 		aria-label="{t.label} — {t.detail}"
 		class="flex w-full cursor-default flex-col items-center gap-1"
-		onmouseenter={(e) => showTip(t, e)}
-		onmouseleave={hideTip}
+		onmouseenter={(e) => tip.show(t.label, t.detail, e)}
+		onmouseleave={tip.hide}
 	>
 		<div
 			class="bg-primary-200 dark:bg-primary-700 relative aspect-square w-full overflow-hidden rounded {fit ===
@@ -186,14 +175,4 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 	</div>
 {/if}
 
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">
-		<span class="font-semibold"
-			>{#if markup}{@html parseArkhamMarkup(tipTitle)}{:else}{tipTitle}{/if}</span
-		>
-		{#if tipDetail}
-			<br />
-			<span class="text-neutral-600 dark:text-neutral-300">{tipDetail}</span>
-		{/if}
-	</span>
-</HoverTooltip>
+<HoverTip {tip} {markup} />

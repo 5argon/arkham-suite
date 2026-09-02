@@ -15,6 +15,7 @@ Built on StatNumbers.
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tic,
@@ -109,7 +110,7 @@ Built on StatNumbers.
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tic_itm_empty()}</p>
+			<WidgetEmpty>{m.campaign_tic_itm_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

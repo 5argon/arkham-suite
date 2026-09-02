@@ -13,7 +13,7 @@
  *   - cards : card usage / investigators / played codes (the expensive deck scan)
  * Each segment also exposes a cheap signature of its inputs so a recompute can
  * skip unchanged segments. `assemblePayload` recombines three segments into the
- * `LocalProfilePayload` the profile pages consume (reviving ms-dates to `Date`).
+ * `LocalProfilePayload` the profile pages consume.
  */
 
 import { achievementInferScope, getCampaignLog } from '@5argon/arkham-campaign-data';
@@ -71,7 +71,7 @@ import {
 	resolveSpecialInteractions,
 	type CardLookup,
 } from '$lib/campaign/outcomes/special-interactions';
-import { createCardResolver, getAllCards } from '$lib/card-data';
+import { cardsByCode, createCardResolver, getAllCards } from '$lib/card-data';
 import { buildCoverage, evaluateCustomAchievements } from '$lib/campaign/achievements/custom-achievements';
 import { resolveProfileSettings, type CampaignGroup, type DifficultyTier, type ProfileSettings } from '$lib/campaign/profile/profile-settings';
 import {
@@ -473,7 +473,7 @@ function buildCardsSegment(doc: DatabaseDocument, uids: Set<string> | null): Car
 	// investigator+meta include the card; did it run any printing at some point; and did it
 	// drop every printing by the final version (removed, not upgraded)? Cards resolved once so
 	// the per-deck loop only does the canUse / membership checks.
-	const cardByCode = new Map(getAllCards().map((cd) => [cd.code, cd] as const));
+	const cardByCode = cardsByCode();
 	const resolver = createCardResolver();
 	const eligibilityAcc = viciousBlowDeductionEligibility().map((t) => ({
 		id: t.id,
@@ -822,10 +822,16 @@ function logsSig(doc: DatabaseDocument, uids: Set<string> | null, ownedProducts:
 			.map((a) => `${a.achievementId}/${a.itemId ?? ''}`)
 			.sort()
 			.join(',');
-		// playerCount + multiHanded gate the solo clear grids (and the player-count-keyed
-		// Dead Heat tables), so a change to either must invalidate this segment.
+		// Everything `recordFor` reads: logs, manual ticks, the player-count settings that gate
+		// the solo clear grids, the finish date, the Linked Campaign Log, and the decks' owner +
+		// investigator (subject scoping / core-only detection).
+		const linked = (c.linkedLog ?? []).map((e) => e.key).sort().join(',');
+		const decks = c.decks.map((d) => `${d.ownerUid ?? ''}:${d.investigator.investigatorCode}`).join(',');
 		parts.push(
-			[c.id, c.campaignCode, c.difficulty, c.playerCount ?? 'auto', c.multiHanded ?? false, logsToken(c), manual].join('§'),
+			[
+				c.id, c.campaignCode, c.difficulty, c.playerCount ?? 'auto', c.multiHanded ?? false,
+				c.finishDate ?? '', linked, decks, logsToken(c), manual,
+			].join('§'),
 		);
 	}
 	// Standalone archives feed the logs segment's `standalones` aggregate — fold in their

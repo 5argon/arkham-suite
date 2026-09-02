@@ -84,8 +84,7 @@ export enum FaIconType {
 	ExternalLink,
 	Logout,
 
-	// Widget picker status
-	/** Widget depends on data from the "Extra" archive tab — user may want to skip or fill in data first. */
+	/** Widget depends on data from the "Extra" archive tab. */
 	WidgetRequiresExtra,
 
 	/** A log entry contributed by a standalone scenario played inside the campaign. */
@@ -104,13 +103,10 @@ export enum FaIconType {
 	// World map (TSK solver map tool)
 	Map,
 
-	// Campaign endings (shared by the Overview + Endings widgets)
-	/** A win ending. */
+	// Campaign endings
 	EndingWin,
-	/** A superior / "better" win ending. */
 	EndingBetterWin,
-	/** A losing ending. */
 	EndingLoss,
-	/** A special / rival-faction ("other kind of") ending. */
+	/** A special / rival-faction ending. */
 	EndingSpecial
 }

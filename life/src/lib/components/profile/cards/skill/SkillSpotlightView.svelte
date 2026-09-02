@@ -8,7 +8,7 @@ has one "Used …" row per card; pass `rows` to override it with bespoke conditi
 <script lang="ts">
 	import { BorderedContainer, CardScanFullSmall } from '@5argon/arkham-life-ui';
 	import type { CardCode } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import type { InsightDeck } from '$lib/profile/profile-types';
 	import { qualifyingInvestigators, type SpotlightCard } from '$lib/campaign/utils/card-filters';
 	import InsightTable from '$lib/components/profile/cards/InsightTable.svelte';
@@ -39,7 +39,7 @@ has one "Used …" row per card; pass `rows` to override it with bespoke conditi
 		rows?: InsightRow[];
 	} = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 
 	const tiles = $derived(
 		spotlights

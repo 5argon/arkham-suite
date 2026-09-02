@@ -7,30 +7,25 @@ the player has triggered it across their runs, and credits the investigators who
 satisfied it (most-recent first, capped) as CardSquares. The scenario + the "why"
 blurb are on a hover tooltip.
 
-The payload carries only keys + state (`id`, `triggered`, `triggeredBy`); the display
-strings (why, scenario name) and the condition (`match`/`role`) are resolved here from
-the campaign-data package by `(family, id)` — the lean/localizable contract the EotE
-and achievement widgets follow, so a compiled/shared profile stays small.
-
-Choice-gated, unrecorded moments (the Dream-Eaters' dreams) are absent — they can't
-be derived without input the archive doesn't collect.
+The payload carries only keys + state (`id`, `triggered`, `triggeredBy`); the display strings
+and the condition (`match`/`role`) are resolved here from campaign-data by `(family, id)`.
+Choice-gated moments the archive doesn't record (the Dream-Eaters' dreams) are absent.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { CardSquare, HoverTooltip } from '@5argon/arkham-life-ui';
+	import { CardSquare } from '@5argon/arkham-life-ui';
 	import { getCampaignLog, type SpecialInteractionMatch } from '@5argon/arkham-campaign-data';
 	import type { Card } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
+	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
 	import type { CampaignSpecialInteractions } from '$lib/campaign/outcomes/special-interactions';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { special }: { special: CampaignSpecialInteractions | null } = $props();
 
-	const cardByCode = (() => {
-		const m = new Map<string, Card>();
-		for (const c of getAllCards()) if (!m.has(c.code)) m.set(c.code, c);
-		return m;
-	})();
-	const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+	const cardByCode = cardsByCode();
 
 	/** Resolve codes → distinct investigator cards (dedup by name), capped at 5. */
 	function cardsFor(codes: readonly string[]): Card[] {
@@ -51,7 +46,7 @@ be derived without input the archive doesn't collect.
 		if (match.kind === 'code') return cardsFor(match.codes).map((c) => c.name).join(' / ');
 		if (match.kind === 'trait') return m.campaign_special_trait({ trait: match.traits.join(' / ') });
 		return m.campaign_special_class({
-			factions: match.factions.map(cap).join(' / '),
+			factions: match.factions.map(capitalizeFirst).join(' / '),
 			count: match.factions.length
 		});
 	}
@@ -88,16 +83,9 @@ be derived without input the archive doesn't collect.
 			.filter((c) => c !== null);
 	});
 
-	// One shared tooltip — "<scenario> — <why>" — for every card.
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipText = $state('');
-	function showTip(cell: { scenarioName: string; why: string }, e: MouseEvent) {
-		tipText = cell.why ? `${cell.scenarioName} — ${cell.why}` : cell.scenarioName;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
+	const tip = new HoverTipState();
+	const tipText = (cell: { scenarioName: string; why: string }) =>
+		cell.why ? `${cell.scenarioName} — ${cell.why}` : cell.scenarioName;
 </script>
 
 {#if cells.length}
@@ -105,8 +93,8 @@ be derived without input the archive doesn't collect.
 		{#each cells as it (it.id)}
 			<div
 				role="note"
-				onmouseenter={(e) => showTip(it, e)}
-				onmouseleave={hideTip}
+				onmouseenter={(e) => tip.showText(tipText(it), e)}
+				onmouseleave={tip.hide}
 				class="flex flex-col gap-1.5 rounded border p-2.5 {it.triggered
 					? 'border-secondary-300 dark:border-secondary-700 bg-secondary-50/40 dark:bg-secondary-900/10'
 					: 'border-primary-200 dark:border-primary-700'}"
@@ -143,9 +131,7 @@ be derived without input the archive doesn't collect.
 		{/each}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_special_empty()}</p>
+	<WidgetEmpty>{m.campaign_special_empty()}</WidgetEmpty>
 {/if}
 
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block py-1 text-xs text-neutral-700 dark:text-neutral-200">{tipText}</span>
-</HoverTooltip>
+<HoverTip {tip} />

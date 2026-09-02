@@ -78,8 +78,6 @@ diagrams aren't cropped; the token label is Arkham markup).
 <div class="flex flex-col gap-3">
 	<TskScenarioInfo scenarioId={SCENARIO} {...props}>
 		{#snippet extraStats()}
-			<!-- How the scenario opened: the deal struck with Ece (three exclusive routes) —
-			     grouped with the passport's Succeed/Failed numbers. -->
 			{#if eceRow.some((s) => s.value)}
 				<StatNumbers rows={[eceRow]} />
 			{/if}

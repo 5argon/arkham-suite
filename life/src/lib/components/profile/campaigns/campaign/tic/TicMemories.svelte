@@ -13,6 +13,7 @@ LitTileGrid + StatNumbers.
 	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tic }: { tic: CampaignTic | null } = $props();
 
@@ -27,7 +28,7 @@ LitTileGrid + StatNumbers.
 	];
 
 	const groups = $derived(
-		GROUPS.map((g) => ({ heading: g.heading(), tiles: ticMemoryTiles(tic, g.scenario) }))
+		GROUPS.map((g) => ({ scenario: g.scenario, heading: g.heading(), tiles: ticMemoryTiles(tic, g.scenario) }))
 	);
 	const summary = $derived<Stat[][]>(
 		tic
@@ -53,7 +54,7 @@ LitTileGrid + StatNumbers.
 {#if hasData && tic}
 	<div class="space-y-4">
 		<StatNumbers rows={summary} />
-		{#each groups as g (g.heading)}
+		{#each groups as g (g.scenario)}
 			<div>
 				<SectionLabel variant="heading" align="center">{g.heading}</SectionLabel>
 				<LitTileGrid tiles={g.tiles} colsClass="grid-cols-4" />
@@ -61,5 +62,5 @@ LitTileGrid + StatNumbers.
 		{/each}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tic_mem_empty()}</p>
+	<WidgetEmpty>{m.campaign_tic_mem_empty()}</WidgetEmpty>
 {/if}

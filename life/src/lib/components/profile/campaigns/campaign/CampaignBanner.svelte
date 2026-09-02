@@ -2,9 +2,8 @@
 @component
 The forced header card at the top of a campaign's profile page: the campaign's
 box art (the same image as the Campaign Archive listing) with its name overlaid.
-It is a normal widget card but with NO tab title (a "Campaign Name" tab reads
-oddly), and it is NOT part of the customizable layout — always shown, never
-offered in the widget picker. A missing image degrades to a plain title card.
+A widget card without a tab title, outside the customizable layout (always shown, never in the
+widget picker). A missing image degrades to a plain title card.
 -->
 <script lang="ts">
 	import WidgetFrame from '$lib/components/profile/_primitives/WidgetFrame.svelte';

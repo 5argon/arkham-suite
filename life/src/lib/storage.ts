@@ -1,30 +1,12 @@
-/**
- * Local storage helper utilities for arkham.life
- */
-
 import { browser } from '$app/environment';
 
-/**
- * Storage keys used throughout the application
- */
-export const STORAGE_KEYS = {
-	THEME: 'arkham-life-theme'
-} as const;
+const THEME_KEY = 'arkham-life-theme';
 
-/**
- * Get a value from local storage
- */
-export function getFromStorage<T = string>(key: string, defaultValue: T): T {
-	if (!browser) {
-		return defaultValue;
-	}
-
+function getFromStorage<T = string>(key: string, defaultValue: T): T {
+	if (!browser) return defaultValue;
 	try {
 		const item = localStorage.getItem(key);
-		if (item === null) {
-			return defaultValue;
-		}
-		// Try to parse as JSON, fallback to string
+		if (item === null) return defaultValue;
 		try {
 			return JSON.parse(item) as T;
 		} catch {
@@ -36,60 +18,20 @@ export function getFromStorage<T = string>(key: string, defaultValue: T): T {
 	}
 }
 
-/**
- * Save a value to local storage
- */
-export function saveToStorage<T>(key: string, value: T): void {
-	if (!browser) {
-		return;
-	}
-
+function saveToStorage<T>(key: string, value: T): void {
+	if (!browser) return;
 	try {
-		const serialized = typeof value === 'string' ? value : JSON.stringify(value);
-		localStorage.setItem(key, serialized);
+		localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
 	} catch (error) {
 		console.warn(`Failed to save item to localStorage: ${key}`, error);
 	}
 }
 
-/**
- * Remove a value from local storage
- */
-export function removeFromStorage(key: string): void {
-	if (!browser) {
-		return;
-	}
-
-	try {
-		localStorage.removeItem(key);
-	} catch (error) {
-		console.warn(`Failed to remove item from localStorage: ${key}`, error);
-	}
-}
-
-/**
- * Clear all items from local storage
- */
-export function clearStorage(): void {
-	if (!browser) {
-		return;
-	}
-
-	try {
-		localStorage.clear();
-	} catch (error) {
-		console.warn('Failed to clear localStorage', error);
-	}
-}
-
-/**
- * Theme-specific helper functions
- */
 export const themeStorage = {
 	get(): 'light' | 'dark' {
-		return getFromStorage(STORAGE_KEYS.THEME, 'light') as 'light' | 'dark';
+		return getFromStorage(THEME_KEY, 'light') as 'light' | 'dark';
 	},
 	set(theme: 'light' | 'dark'): void {
-		saveToStorage(STORAGE_KEYS.THEME, theme);
+		saveToStorage(THEME_KEY, theme);
 	}
 };

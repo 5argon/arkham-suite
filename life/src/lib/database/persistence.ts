@@ -2,10 +2,7 @@
  * persistence.ts — the storage seam.
  *
  * A `PersistenceAdapter` is the only boundary between the in-memory database store
- * and where the bytes actually live. Implementations:
- *   - IndexedDbAdapter  — always-on working copy / crash-safe autosave (default).
- *   - FileSystemAdapter — a real file on disk via the File System Access API
- *                         (Chromium desktop); falls back to download/upload.
+ * and where the bytes actually live; `IndexedDbAdapter` is the always-on working copy.
  *
  * The whole document is loaded/saved as one unit. It is small (a lifetime of
  * campaigns is tens of MB at most), so per-entity persistence is unnecessary; the

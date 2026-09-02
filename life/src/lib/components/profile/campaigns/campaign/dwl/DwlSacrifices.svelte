@@ -8,19 +8,18 @@ restored / banished, as lifetime counts (StatNumbers).
 -->
 <script lang="ts">
 	import { CardLine } from '@5argon/arkham-life-ui';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 	import { DWL_SACRIFICE_ALLIES, type CampaignDwl } from '$lib/campaign/campaigns/dwl';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import WidgetTable, {
-		widgetTableCell
-	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import WidgetTable from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import CountWithBreakdown from '$lib/components/profile/_primitives/CountWithBreakdown.svelte';
 	import StatNumbers, {
 		type StatGroup
 	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		dwl,
@@ -38,7 +37,7 @@ restored / banished, as lifetime counts (StatNumbers).
 
 	// The five allies, resolved to their Ally story-asset cards (CardLine draws name + art). The whole
 	// cast is shown whenever any of them has a record, so a survivor and a sacrifice read side by side.
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 	const allyRows = $derived(
 		dwl
 			? DWL_SACRIFICE_ALLIES.flatMap((a) => {
@@ -114,7 +113,7 @@ restored / banished, as lifetime counts (StatNumbers).
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_dwl_sacrifices_empty()}</p>
+			<WidgetEmpty>{m.campaign_dwl_sacrifices_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

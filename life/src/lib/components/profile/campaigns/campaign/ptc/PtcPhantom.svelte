@@ -9,15 +9,16 @@ precomputed into the unified `scenarios` record and shown via the shared Version
 resolution columns filtered per version. The returning VIP (Jordan Perry) rides in the PtC passport header.
 -->
 <script lang="ts">
-	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import { scenarioMeta, scenarioVerdicts } from '$lib/campaign/utils/scenario-meta';
 	import { reachableResolutions, type CampaignPtc } from '$lib/campaign/campaigns/ptc';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import { toVersionRow } from '$lib/campaign/stats/version-stats';
+	import { scenarioVersions, toVersionRow } from '$lib/campaign/stats/version-stats';
 	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
 	import PtcScenarioInfo from './PtcScenarioInfo.svelte';
 	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		ptc,
@@ -58,7 +59,7 @@ resolution columns filtered per version. The returning VIP (Jordan Perry) rides 
 	const meta = scenarioMeta('ptc', SID);
 	// Keep no_resolution so the table shows a "None" column (it's a real ending here).
 	const resolutionIds = meta?.resolutions ?? [];
-	const verdicts = (meta?.resolutionOutcomes ?? {}) as Record<string, 'win' | 'loss' | 'neutral'>;
+	const verdicts = scenarioVerdicts(meta);
 	const labels: Record<string, string> = {
 		I: m.campaign_ptc_phantom_version_1(),
 		II: m.campaign_ptc_phantom_version_2()
@@ -68,9 +69,9 @@ resolution columns filtered per version. The returning VIP (Jordan Perry) rides 
 		I: 'text-violet-600 dark:text-violet-400',
 		II: 'text-amber-600 dark:text-amber-400'
 	};
-	const versionStats = $derived(scenarios?.scenarios.find((s) => s.scenario === SID)?.versions ?? []);
+	const versions = $derived(scenarioVersions(scenarios, SID));
 	const versionRows = $derived(
-		versionStats.map((vs) =>
+		versions.stats.map((vs) =>
 			toVersionRow(vs, {
 				label: labels[vs.value] ?? vs.value,
 				accent: accents[vs.value],
@@ -79,8 +80,7 @@ resolution columns filtered per version. The returning VIP (Jordan Perry) rides 
 			})
 		)
 	);
-	const hasVersions = $derived(versionStats.some((v) => v.plays > 0));
-	const hasData = $derived(hasOutcomes || hasVersions);
+	const hasData = $derived(hasOutcomes || versions.hasPlays);
 </script>
 
 <PtcScenarioInfo scenarioId="a_phantom_of_truth" {ptc} {family} {achievements} {scenarios} {logOnly}>
@@ -90,7 +90,7 @@ resolution columns filtered per version. The returning VIP (Jordan Perry) rides 
 				{#if hasOutcomes}
 					<StatNumbers {rows} />
 				{/if}
-				{#if versionStats.length}
+				{#if versions.stats.length}
 					<VersionBreakdown
 						title={m.campaign_ptc_phantom_versions_title()}
 						rows={versionRows}
@@ -102,7 +102,7 @@ resolution columns filtered per version. The returning VIP (Jordan Perry) rides 
 				{/if}
 			</div>
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_ptc_phantom_empty()}</p>
+			<WidgetEmpty>{m.campaign_ptc_phantom_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </PtcScenarioInfo>

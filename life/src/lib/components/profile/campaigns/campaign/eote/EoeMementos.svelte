@@ -12,29 +12,14 @@ Needs NO profile-pipeline data of its own: it reads the existing `cardUsage` map
 <script lang="ts">
 	import { type CardItem, FlexibleCardDisplay } from '@5argon/arkham-life-ui';
 	import type { CardCode } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
+	import { EOE_MEMENTO_CODES } from '$lib/campaign/campaigns/eoe';
 
 	let { cardUsage }: { cardUsage: Record<CardCode, number> } = $props();
 
-	// The "Memorials of the Lost" encounter set (eoec 08730–08738), in set order:
-	// one belonging per fallen expedition member.
-	const MEMENTO_CODES = [
-		'08730',
-		'08731',
-		'08732',
-		'08733',
-		'08734',
-		'08735',
-		'08736',
-		'08737',
-		'08738'
-	];
-
-	const allCards = getAllCards();
 	const items = $derived.by((): CardItem[] => {
-		const byCode = new Map(allCards.map((c) => [c.code, c]));
-		return MEMENTO_CODES.flatMap((code) => {
-			const card = byCode.get(code);
+		return EOE_MEMENTO_CODES.flatMap((code) => {
+			const card = cardByCode(code);
 			if (!card) return [];
 			const count = cardUsage[code] ?? 0;
 			return [

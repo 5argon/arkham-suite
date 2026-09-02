@@ -22,10 +22,8 @@
  *   • broods    — Undimensioned and Unseen: distribution of how many broods escaped
  *                 (0 = `no_brood_escaped`, else the recorded `brood_escaped` count) +
  *                 townsfolk calmed / warned.
- *   • ascendingHill — Where Doom Awaits: which version of Act 2 (Ascending the Hill) you
- *                 faced, DERIVED from your Silas / Necronomicon state (v.I restored Silas;
- *                 v.II otherwise without the Necronomicon; v.III otherwise) — counted only
- *                 for plays that reached the scenario — plus entered-the-gate vs Yog escaped.
+ *   • wda       — Where Doom Awaits: entered the gate vs Yog-Sothoth escaped (the Ascending
+ *                 the Hill version breakdown lives in the unified `scenarios` record).
  *   • finale    — Lost in Time and Space endings: closed the tear / Yog-Sothoth fled /
  *                 became one with reality.
  */
@@ -134,11 +132,6 @@ export interface CampaignDwl {
 	epilogue: { peaceful: number; ominous: number };
 }
 
-/**
- * Build the Dunwich Legacy bespoke aggregate. Returns a single-element array
- * (sliced by `family` like the other per-campaign data), or empty when the
- * subject has no DWL plays.
- */
 /** Which position one of the two openers was played in this play — 'first' or 'second' — from the
  *  route (the entry-ordered scenario sequence). Both openers must appear in the route to place them
  *  unambiguously; otherwise null (the play is skipped from the per-position breakdown). The version
@@ -168,6 +161,8 @@ export function ascendingHillVersionFromRecord(rec: CampaignRecord): 'v1' | 'v2'
 	return 'v3';
 }
 
+/** The Dunwich Legacy bespoke aggregate: a single-element array (sliced by `family` like the other
+ *  per-campaign data), or empty when the subject has no DWL plays. */
 export function buildDwl(records: CampaignRecord[], mergeReturnTo = true): CampaignDwl[] {
 	const baseLog = getCampaignLog(DWL_FAMILY);
 	if (!baseLog) return [];

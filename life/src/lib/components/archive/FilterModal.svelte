@@ -1,12 +1,9 @@
 <!--
 @component
-Campaign Archive filter modal. Presentational: the draft selections live in the
-page (seeded from the URL on open), so reopening reflects the applied filters and
-there's no $effect-based init. Apply navigates; the page filters in `listData`.
-
-Campaigns / players / investigators use searchable pickers (icon + name) instead of
-flat checkbox grids — same components used when editing a campaign and in the
-Limited Pool Explorer. Outcome / player-count / solo stay as small checkbox sets.
+Campaign Archive filter modal. Presentational: the draft selections live in the page (seeded
+from the URL on open). Apply navigates; the page filters in `listData`. Campaigns / players /
+investigators use searchable pickers (icon + name); outcome / player-count / solo are small
+checkbox sets.
 -->
 <script lang="ts">
 	import {
@@ -21,7 +18,7 @@ Limited Pool Explorer. Outcome / player-count / solo stay as small checkbox sets
 	} from '@5argon/arkham-life-ui';
 	import { campaignToProductMap, type Card, type Campaign } from '@5argon/arkham-kohaku';
 	import { ProductIcon } from '@5argon/arkham-icon';
-	import { createCardResolver } from '$lib/card-data';
+	import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import type { FilterOptions, OutcomeFilter, SoloFilter } from '$lib/database/repository';
 
@@ -78,13 +75,6 @@ Limited Pool Explorer. Outcome / player-count / solo stay as small checkbox sets
 
 	// Shared resolver (cached) for player avatars and investigator card objects.
 	const resolver = createCardResolver();
-	function resolveCard(code: string): Card | null {
-		try {
-			return resolver.resolve(code) ?? null;
-		} catch {
-			return null;
-		}
-	}
 
 	// ─── Campaigns ───────────────────────────────────────────────────────────────
 	const campaignByCode = $derived(new Map(options.campaigns.map((c) => [c.code, c])));
@@ -100,7 +90,7 @@ Limited Pool Explorer. Outcome / player-count / solo stay as small checkbox sets
 	// ─── Players ─────────────────────────────────────────────────────────────────
 	const playerByUid = $derived(new Map(options.players.map((p) => [p.uid, p])));
 	const playerName = (uid: string) => playerByUid.get(uid)?.name ?? uid;
-	const playerIcon = (uid: string) => resolveCard(playerByUid.get(uid)?.iconCardCode ?? '');
+	const playerIcon = (uid: string) => resolveCardOrNull(playerByUid.get(uid)?.iconCardCode ?? '');
 	function addPlayer(item: { uid: string; name: string }) {
 		if (!players.has(item.uid)) onSetPlayers([...players, item.uid]);
 	}
@@ -113,7 +103,7 @@ Limited Pool Explorer. Outcome / player-count / solo stay as small checkbox sets
 	const investigatorCards = $derived.by((): Card[] => {
 		const out: Card[] = [];
 		for (const o of options.investigators) {
-			const c = resolveCard(o.code);
+			const c = resolveCardOrNull(o.code);
 			if (c) out.push(c);
 		}
 		return out;
@@ -191,7 +181,7 @@ Limited Pool Explorer. Outcome / player-count / solo stay as small checkbox sets
 					fuzzyThreshold={0.3}
 				>
 					{#snippet renderItem(item)}
-						<UserDisplay username={item.name} card={resolveCard(item.iconCardCode)} size="sm" />
+						<UserDisplay username={item.name} card={resolveCardOrNull(item.iconCardCode)} size="sm" />
 					{/snippet}
 
 					{#snippet selectedItems()}

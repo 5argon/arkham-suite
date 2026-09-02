@@ -1,12 +1,6 @@
 /**
- * cloud-url.ts — turn a pasted Dropbox / Google Drive *share* URL into a
- * direct-download URL, and build the `/p?cp=…` viewer link for it.
- *
- * Hosting an `.ahlifepro` and sharing the page's share link is friendlier than
- * handing someone a raw download, but those share links serve an HTML preview, not
- * the file bytes. This maps the common providers to their direct-download form so a
- * future `?cp=` viewer can `fetch()` the file. That viewer (download + hydrate +
- * render) is a SEPARATE, later task — this module only produces the link.
+ * cloud-url.ts — turn a pasted Dropbox / Google Drive *share* URL (which serves an HTML preview,
+ * not the file bytes) into a direct-download URL, and build the `/p?cp=…` link for it.
  */
 
 export type CloudProvider = 'dropbox' | 'gdrive' | 'direct';

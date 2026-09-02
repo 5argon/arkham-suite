@@ -9,10 +9,8 @@
  * instant navigation — for THIS session. It does NOT make the app survive a hard
  * reload offline; that would need a service worker (deliberately out of scope).
  *
- * Side-effect discipline (project rule "avoid rendering side effects"): `progress`
- * is seeded `$state`; all work runs from explicit `warm*` calls made in `onMount`
- * / event handlers, never from a reactive `$effect`. Every preload is best-effort
- * and swallows errors so it can never break navigation.
+ * `progress` is seeded `$state`; all work runs from explicit `warm*` calls (`onMount` / event
+ * handlers). Every preload is best-effort and swallows errors so it can never break navigation.
  */
 
 import { browser } from '$app/environment';

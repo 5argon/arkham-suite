@@ -15,8 +15,10 @@ Needs BOTH axes (own outcome + the linked sibling outcome from the Linked Campai
 		TDE_MATRIX_COLS,
 		type CampaignTdeShared
 	} from '$lib/campaign/campaigns/tde-shared';
-	import { HoverTooltip } from '@5argon/arkham-life-ui';
-	import * as m from '$lib/paraglide/messages.js';
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+		import * as m from '$lib/paraglide/messages.js';
 
 	let { shared }: { shared: CampaignTdeShared | null } = $props();
 	const mx = $derived(shared?.matrix);
@@ -45,18 +47,7 @@ Needs BOTH axes (own outcome + the linked sibling outcome from the Linked Campai
 		loss: m.campaign_tde_matrix_loss
 	};
 
-	// ── one shared tooltip for every cell ────────────────────────────────────
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipTitle = $state('');
-	let tipDetail = $state('');
-	function showTip(title: string, detail: string, e: MouseEvent) {
-		tipTitle = title;
-		tipDetail = detail;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
+	const tip = new HoverTipState();
 </script>
 
 {#if hasData && mx}
@@ -88,12 +79,12 @@ Needs BOTH axes (own outcome + the linked sibling outcome from the Linked Campai
 							verdict
 						]} {count > 0 ? 'ring-2' : 'opacity-30'}"
 						onmouseenter={(e) =>
-							showTip(
+							tip.show(
 								m.campaign_tde_matrix_cell({ n }),
 								`${VERDICT_LABEL[verdict]()}${count > 0 ? ` · ×${count}` : ''}`,
 								e
 							)}
-						onmouseleave={hideTip}
+						onmouseleave={tip.hide}
 					>
 						{n}
 						{#if count > 0}
@@ -119,15 +110,7 @@ Needs BOTH axes (own outcome + the linked sibling outcome from the Linked Campai
 		{/if}
 	</div>
 
-	<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-		<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">
-			<span class="font-semibold">{tipTitle}</span>
-			{#if tipDetail}
-				<br />
-				<span class="text-neutral-600 dark:text-neutral-300">{tipDetail}</span>
-			{/if}
-		</span>
-	</HoverTooltip>
+		<HoverTip {tip} />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tde_matrix_empty()}</p>
+	<WidgetEmpty>{m.campaign_tde_matrix_empty()}</WidgetEmpty>
 {/if}

@@ -15,6 +15,7 @@ the veil parted at Union and Disillusion. Built on LitTileGrid, inside the prolo
 	import { times } from '$lib/profile/plural';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tcu,
@@ -64,7 +65,16 @@ the veil parted at Union and Disillusion. Built on LitTileGrid, inside the prolo
 			: []
 	);
 	const hasData = $derived(
-		tiles.some((t) => t.count > 0 || t.detail !== m.campaign_tcu_person_none())
+		!!tcu &&
+			TCU_MISSING.some((p) => {
+				const t = tcu.missingPersons[p.id];
+				return (
+					!!t &&
+					(t.trail > 0 ||
+						Object.values(t.fates).some((n) => n > 0) ||
+						t.union.alive + t.union.dead > 0)
+				);
+			})
 	);
 </script>
 
@@ -79,7 +89,7 @@ the veil parted at Union and Disillusion. Built on LitTileGrid, inside the prolo
 		{#if hasData}
 			<LitTileGrid {tiles} colsClass="grid-cols-2 @3xl:grid-cols-4" countPosition="below" />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tcu_persons_empty()}</p>
+			<WidgetEmpty>{m.campaign_tcu_persons_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </ScenarioInfo>

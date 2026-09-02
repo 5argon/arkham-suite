@@ -7,6 +7,7 @@ Shown on both Dream-Eaters campaign pages from that side's records. Built on Sta
 	import type { CampaignTdeShared } from '$lib/campaign/campaigns/tde-shared';
 	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { shared }: { shared: CampaignTdeShared | null } = $props();
 	const p = $derived(shared?.playMode);
@@ -29,5 +30,5 @@ Shown on both Dream-Eaters campaign pages from that side's records. Built on Sta
 {#if hasData}
 	<StatNumbers {rows} />
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tde_mode_empty()}</p>
+	<WidgetEmpty>{m.campaign_tde_mode_empty()}</WidgetEmpty>
 {/if}

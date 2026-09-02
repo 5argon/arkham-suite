@@ -4,13 +4,14 @@ Shared "icon track" — a horizontal, equal-width, non-wrapping sequence of cell
 icon/glyph with an optional sublabel beneath it (text, chaos-token glyphs, a letter — anything),
 a per-cell tint or dim, and a per-cell hover tooltip (one shared tooltip element for the row).
 Every cell is the SAME fixed width, so the row reads as an evenly spaced left-to-right sequence
-and stays on one line (pass `wrap` to let it wrap). Used by the TSK route timeline (RoutingTrack),
-the PtC chaos-token route (PtcTokenChain), and the PtC Doubt/Conviction chain (PtcDcChain).
+and stays on one line (pass `wrap` to let it wrap).
 
 The icon + sublabel are caller-supplied snippets (each receives the item), so the track owns only
 the layout, the equal-width cells, the tint/dim, and the shared tooltip.
 -->
 <script lang="ts" module>
+	import HoverTip from './HoverTip.svelte';
+	import { HoverTipState } from './hover-tip.svelte';
 	export interface IconTrackItem {
 		/** Hover tooltip text for this cell. */
 		tooltip: string;
@@ -23,8 +24,7 @@ the layout, the equal-width cells, the tint/dim, and the shared tooltip.
 
 <script lang="ts" generics="T extends IconTrackItem">
 	import type { Snippet } from 'svelte';
-	import { HoverTooltip } from '@5argon/arkham-life-ui';
-
+	
 	let {
 		items,
 		icon,
@@ -49,16 +49,7 @@ the layout, the equal-width cells, the tint/dim, and the shared tooltip.
 		wrap?: boolean;
 	} = $props();
 
-	// One shared tooltip for the whole row.
-	let tipVisible = $state(false);
-	let tipRef = $state<HTMLElement | null>(null);
-	let tipText = $state('');
-	function showTip(text: string, e: MouseEvent) {
-		tipText = text;
-		tipRef = e.currentTarget as HTMLElement;
-		tipVisible = true;
-	}
-	const hideTip = () => (tipVisible = false);
+	const tip = new HoverTipState();
 </script>
 
 <div
@@ -71,8 +62,8 @@ the layout, the equal-width cells, the tint/dim, and the shared tooltip.
 			aria-label={it.tooltip}
 			class="flex shrink-0 cursor-default flex-col items-center {it.dim ? 'opacity-40' : ''}"
 			style="width:{cellWidth}"
-			onmouseenter={(e) => showTip(it.tooltip, e)}
-			onmouseleave={hideTip}
+			onmouseenter={(e) => tip.showText(it.tooltip, e)}
+			onmouseleave={tip.hide}
 		>
 			<span class="leading-none {it.tint ?? ''}">{@render icon(it)}</span>
 			{#if sub}
@@ -85,6 +76,4 @@ the layout, the equal-width cells, the tint/dim, and the shared tooltip.
 	{/each}
 </div>
 
-<HoverTooltip visible={tipVisible} referenceElement={tipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-900 dark:text-neutral-100">{tipText}</span>
-</HoverTooltip>
+<HoverTip {tip} />

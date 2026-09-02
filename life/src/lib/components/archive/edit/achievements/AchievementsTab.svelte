@@ -35,8 +35,8 @@ ticked and persisted. Read-only when the player cannot edit.
 
 	let { log, recorded, manual, canEdit, onToggle }: Props = $props();
 
-	function humanize(code: string): string {
-		return code.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+	function scenarioTitle(code: string): string {
+		return log.en.scenarioNames?.[code] ?? code.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 	}
 
 	// arkham.life can auto-check `lifeInfer` achievements (Extra-aware) that the DSL can't express.
@@ -85,12 +85,12 @@ ticked and persisted. Read-only when the player cannot edit.
 		for (const code of log.db.scenarios) {
 			const items = byScenario.get(code);
 			if (items) {
-				out.push({ key: code, title: humanize(code), items });
+				out.push({ key: code, title: scenarioTitle(code), items });
 				byScenario.delete(code);
 			}
 		}
 		// Any scenario not in the ordered list (e.g. ArkhamCards numeric-prefixed ids).
-		for (const [code, items] of byScenario) out.push({ key: code, title: humanize(code), items });
+		for (const [code, items] of byScenario) out.push({ key: code, title: scenarioTitle(code), items });
 		if (wide.length) out.push({ key: '__wide', title: 'Throughout the campaign', items: wide });
 		return out;
 	});

@@ -2,14 +2,14 @@
 @component
 A list of cards (resolved by code) as CardLines, each with an optional trailing cell. The trailing
 content is a caller snippet, so it can be a count, a date, or any card image (e.g. the investigator
-who drew a weakness — see CardThumb). Shared by the PtC card-count lists and TSK's Erased From
-Existence. Codes that don't resolve are dropped; the caller owns ordering, capping, and the empty
-state (gate on the source data, since unresolved codes are silently skipped).
+who drew a weakness — see CardThumb). Codes that don't resolve are dropped; the caller owns
+ordering, capping, and the empty state (gate on the source data, since unresolved codes are
+silently skipped).
 -->
 <script lang="ts" generics="T extends { code: string }">
 	import type { Snippet } from 'svelte';
 	import { CardLine } from '@5argon/arkham-life-ui';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode } from '$lib/card-data';
 
 	let {
 		items,
@@ -28,7 +28,7 @@ state (gate on the source data, since unresolved codes are silently skipped).
 		key?: (item: T, i: number) => string | number;
 	} = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 	const rows = $derived(
 		items.flatMap((item) => {
 			const card = byCode.get(item.code);

@@ -14,6 +14,8 @@ them. Succeed/Failed come from the stat (campaign-data `resolutionOutcomes`); `p
 scenario into the generic played count (its `stat.plays`) for campaigns with selectable scenarios.
 -->
 <script lang="ts" module>
+	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
+	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
 	export interface CornerStat {
 		total: number;
 		/** Optional per-difficulty breakdown; enables the difficulty hover on this number. */
@@ -134,9 +136,8 @@ scenario into the generic played count (its `stat.plays`) for campaigns with sel
 	// ── End-of-scenario reward highscore (from the stat) ─────────────────────────────
 	// Worded as the app shows it: Victory display (VP) or flat Experience (XP) per scenario.
 	const vd = $derived(isVictoryDisplay(family, scenarioId));
-	// The scenario's reward ceiling (campaign-data `maxXp`): `undefined` = not curated; a curated `0`
-	// means the scenario officially awards nothing, so we keep NO highscore for it (hide the section
-	// even if a card forced some into the victory display); `> 0` shows a dimmed "/ N VP" reference.
+	// The scenario's reward ceiling (campaign-data `maxXp`): a curated `0` means no highscore is kept
+	// (the section hides); `> 0` shows a dimmed "/ N VP" reference.
 	const scenarioMax = $derived(scenarioMeta(family, scenarioId)?.maxXp);
 	const showMax = $derived(scenarioMax != null && scenarioMax > 0);
 	const vpBest = $derived(stat?.best ?? 0);
@@ -190,16 +191,7 @@ scenario into the generic played count (its `stat.plays`) for campaigns with sel
 	let failedTipVisible = $state(false);
 	let failedTipRef = $state<HTMLElement | null>(null);
 
-	// ── One shared tooltip for the achievement row ────────────────────────────────
-	let achTipVisible = $state(false);
-	let achTipRef = $state<HTMLElement | null>(null);
-	let achTipText = $state('');
-	function showAchTip(text: string, e: MouseEvent) {
-		achTipText = text;
-		achTipRef = e.currentTarget as HTMLElement;
-		achTipVisible = true;
-	}
-	const hideAchTip = () => (achTipVisible = false);
+	const achTip = new HoverTipState();
 </script>
 
 {#snippet cornerStats()}
@@ -324,8 +316,6 @@ scenario into the generic played count (its `stat.plays`) for campaigns with sel
 		</div>
 		{#if showCoverageBlock}{@render coverageBlock()}{/if}
 	{:else if showCoverageBlock}
-		<!-- No header lead (most campaigns): the corner stats share the resolutions/VP row, so no empty
-		     top-left space is reserved above them. -->
 		<div class="flex items-start justify-between gap-3">
 			<div class="min-w-0">{@render coverageBlock()}</div>
 			{#if showCorner}{@render cornerStats()}{/if}
@@ -348,8 +338,8 @@ scenario into the generic played count (its `stat.plays`) for campaigns with sel
 						aria-label="{a.title}{a.text ? ` — ${a.text}` : ''}"
 						class="flex cursor-default items-center gap-1.5 text-xs"
 						class:opacity-45={!a.earned}
-						onmouseenter={(e) => a.text && showAchTip(a.text, e)}
-						onmouseleave={hideAchTip}
+						onmouseenter={(e) => achTip.showText(a.text ?? '', e)}
+						onmouseleave={achTip.hide}
 					>
 						<span
 							class={a.earned
@@ -425,8 +415,4 @@ scenario into the generic played count (its `stat.plays`) for campaigns with sel
 	</span>
 </HoverTooltip>
 
-<HoverTooltip visible={achTipVisible} referenceElement={achTipRef}>
-	<span class="block max-w-xs py-1 text-xs text-neutral-700 dark:text-neutral-200"
-		>{@html parseArkhamMarkup(achTipText)}</span
-	>
-</HoverTooltip>
+<HoverTip tip={achTip} markup />

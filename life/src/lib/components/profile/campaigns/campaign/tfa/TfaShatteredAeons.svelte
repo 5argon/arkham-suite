@@ -14,6 +14,7 @@ Ages & Yig header art).
 	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
 	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let {
 		tfa,
@@ -65,7 +66,7 @@ Ages & Yig header art).
 		{#if hasData}
 			<StatNumbers {rows} />
 		{:else}
-			<p class="text-primary-500 text-sm">{m.campaign_tfa_aeons_empty()}</p>
+			<WidgetEmpty>{m.campaign_tfa_aeons_empty()}</WidgetEmpty>
 		{/if}
 	{/snippet}
 </TfaScenarioInfo>

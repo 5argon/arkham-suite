@@ -82,8 +82,7 @@ export async function downloadDatabaseJson(doc: DatabaseDocument): Promise<void>
 /**
  * Export ONE subject's "compiled profile" — the precomputed, render-ready profile
  * artifact (re-derivable English stripped; keys/ids/numbers/states + user data,
- * JSON-pure). `gzip` writes a compact `.ahlifepro` (compact, hostable for a future
- * `?cp=` viewer); `json` writes the same envelope as plain pretty JSON for
+ * JSON-pure). `gzip` writes a compact `.ahlifepro` (hostable behind a `?cp=` link); `json` writes the same envelope as plain pretty JSON for
  * inspection. NOT a backup — never records a backup checkpoint.
  */
 export async function downloadCompiledProfile(

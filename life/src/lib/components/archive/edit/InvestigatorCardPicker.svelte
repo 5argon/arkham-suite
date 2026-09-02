@@ -1,8 +1,7 @@
 <!--
 @component
-Per-investigator card assignment for the Extra tab — replaces a pair of position-matched card
-pickers (e.g. PtC's random-weakness list + "investigator who drew each") with one roster-driven
-control: a row per campaign investigator, each a single-card browse box. Picking a card for an
+Per-investigator card assignment for the Extra tab (e.g. PtC's random weakness + "investigator who
+drew it"): a row per campaign investigator, each a single-card browse box. Picking a card for an
 investigator adds that pairing; clearing removes it. The two underlying choice values stay
 index-paired (card[i] ↔ investigator[i]) so the precompute is unchanged. Any pairing already
 recorded against a non-roster investigator is preserved untouched.

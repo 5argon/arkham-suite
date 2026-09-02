@@ -12,7 +12,7 @@ icon, its difficulty, and the finish date.
 	import { ProductIcon } from '@5argon/arkham-icon';
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
 	import { card as cardUtils, convert, Campaign, type Product } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { cardsByCode, getAllCards } from '$lib/card-data';
 	import { slugForFamily } from '$lib/campaign/profile/profile-slugs';
 	import { familyOf } from '$lib/campaign/records/campaign-family';
 	import type { UsedOnceMap } from '$lib/profile/profile-types';
@@ -20,7 +20,7 @@ icon, its difficulty, and the finish date.
 
 	let { product, usedOnce }: { product: Product; usedOnce: UsedOnceMap } = $props();
 
-	const byCode = new Map(getAllCards().map((c) => [c.code, c] as const));
+	const byCode = cardsByCode();
 	const difficultyLabel: Record<string, string> = {
 		easy: m.shared_difficulty({ tier: 'easy' }),
 		standard: m.shared_difficulty({ tier: 'standard' }),

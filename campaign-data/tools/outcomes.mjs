@@ -21,55 +21,25 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {
+  DATA_DIR as DATA,
+  LOG_EFFECT_TYPES as LOG_TYPES,
+  buildIdIndex,
+  codesFromArgs,
+  exists,
+  injectCurationKey,
+  readJson,
+} from './lib.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA = path.resolve(__dirname, '../data');
-const CURATION = path.resolve(__dirname, '../curation');
-const REF = path.resolve(__dirname, '../references/arkham-cards-data-master');
-const CAMP = path.join(REF, 'campaigns');
-const RETCAMP = path.join(REF, 'return_campaigns');
-
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
-const exists = (p) => fs.existsSync(p);
-
-const LOG_TYPES = new Set([
-  'campaign_log',
-  'campaign_log_count',
-  'campaign_log_cards',
-  'campaign_log_investigator_count',
-  'campaign_log_text',
-  'campaign_log_task',
-  'campaign_log_assign_task',
-  'campaign_log_cards_switch',
-  'freeform_campaign_log',
-]);
-
-// ---- reference dir resolution (mirrors extract.mjs) ----
-function buildIdIndex() {
-  const index = new Map();
-  for (const base of [CAMP, RETCAMP]) {
-    if (!exists(base)) continue;
-    for (const name of fs.readdirSync(base)) {
-      const dir = path.join(base, name);
-      const cj = path.join(dir, 'campaign.json');
-      if (!fs.statSync(dir).isDirectory() || !exists(cj)) continue;
-      const id = readJson(cj).id ?? name;
-      if (!index.has(id)) index.set(id, dir);
-      if (!index.has(name)) index.set(name, dir);
-    }
-  }
-  return index;
-}
-const ID_INDEX = buildIdIndex();
-
+/** The campaign's reference directory, then its base campaign's for a Return-to. */
 function sourceDirs(code) {
-  const dir = ID_INDEX.get(code);
-  if (!dir) return [];
-  const dirs = [dir];
-  const camp = readJson(path.join(dir, 'campaign.json'));
-  const baseDir = camp.original_id && ID_INDEX.get(camp.original_id);
-  if (baseDir) dirs.push(baseDir);
+  const index = buildIdIndex();
+  const hit = index.get(code);
+  if (!hit) return [];
+  const dirs = [hit.dir];
+  const camp = readJson(path.join(hit.dir, 'campaign.json'));
+  const base = camp.original_id && index.get(camp.original_id);
+  if (base) dirs.push(base.dir);
   return dirs;
 }
 
@@ -198,41 +168,20 @@ function propose(code) {
 }
 
 function injectCuration(code, proposal, force) {
-  const p = path.join(CURATION, `${code}.json`);
-  if (!exists(p)) {
-    console.log(`  ${code}: no curation file — skipped`);
-    return;
-  }
-  const cur = readJson(p);
-  if (cur.outcomes && !force) {
-    console.log(`  ${code}: outcomes already present — kept (use --force to overwrite)`);
-    return;
-  }
-  // Insert `outcomes` right after `code` to keep a stable shape.
-  const { code: c, ...rest } = cur;
-  const next = {
-    code: c,
-    outcomes: {
-      _notes: 'Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.',
-      win: proposal.win,
-      loss: proposal.loss,
-    },
-    ...rest,
+  const outcomes = {
+    _notes: 'Auto-proposed by tools/outcomes.mjs from the ArkhamCards resolution->step graph; verify before trusting.',
+    win: proposal.win,
+    loss: proposal.loss,
   };
-  fs.writeFileSync(p, JSON.stringify(next, null, 2) + '\n');
-  console.log(`  ${code}: wrote outcomes win=${proposal.win.length} loss=${proposal.loss.length}`);
+  const status = injectCurationKey(code, 'outcomes', outcomes, force);
+  console.log(`  ${code}: ${status ?? `wrote outcomes win=${proposal.win.length} loss=${proposal.loss.length}`}`);
 }
-
-const ALL = [
-  'notz', 'dwl', 'ptc', 'tfa', 'tcu', 'tdea', 'tdeb', 'tic', 'eoe', 'tskc', 'fhv', 'tdc',
-  'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu', 'boa', 'fof', 'gob', 'side',
-];
 
 const args = process.argv.slice(2);
 const write = args.includes('--write');
 const force = args.includes('--force');
 const dbg = args.includes('--debug');
-const codes = args.includes('--all') ? ALL : args.filter((a) => !a.startsWith('--'));
+const codes = codesFromArgs(args, { allByDefault: false });
 if (!codes.length) {
   console.error('usage: node outcomes.mjs <code> | --all [--write] [--force] [--debug]');
   process.exit(1);

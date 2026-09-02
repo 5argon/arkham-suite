@@ -1,7 +1,7 @@
 /**
  * scenario-extras.ts — adapter over campaign-data's per-scenario "Extra" CHOICE
  * inputs: facts the player chose but the campaign log never records (e.g. PtC Dim
- * Carcosa's "Hastur version" — which Act 2 you faced). The choices are now
+ * Carcosa's "Hastur version" — which Act 2 you faced). The choices are
  * declared in campaign-data (`scenarioMeta[].choices` + `-en.scenarioChoices`);
  * this just resolves them into the editor-friendly shape. Recorded in the Extra
  * tab's reserved `__choice` section.

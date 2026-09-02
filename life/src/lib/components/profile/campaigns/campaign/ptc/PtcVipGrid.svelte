@@ -11,7 +11,7 @@ Built on LitTileGrid.
 -->
 <script lang="ts">
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { getAllCards } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
 	import { VIP_ROSTER } from '$lib/campaign/campaigns/ptc';
 	import { difficultyBreakdown } from '$lib/campaign/utils/difficulty';
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
@@ -38,8 +38,7 @@ Built on LitTileGrid.
 		mostSlain?: { count: number; vips: string[] } | null;
 	} = $props();
 
-	const nameByCode = new Map(getAllCards().map((c) => [c.code, c.name]));
-	const vipName = (code: string) => nameByCode.get(code) ?? code;
+	const vipName = (code: string) => cardByCode(code)?.name ?? code;
 
 	// Append the per-difficulty breakdown only when more than one difficulty contributed (a single tier's
 	// breakdown just restates the total). e.g. "Interviewed ×3 · Standard ×2 · Hard ×1".

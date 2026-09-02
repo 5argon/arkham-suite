@@ -10,6 +10,7 @@ achievement. A lit tile per artifact; counts = plays recovered. Built on LitTile
 	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
+	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
 	let { tdc }: { tdc: CampaignTdc | null } = $props();
 	const tiles = $derived<LitTile[]>(
@@ -38,5 +39,5 @@ achievement. A lit tile per artifact; counts = plays recovered. Built on LitTile
 		</p>
 	{/if}
 {:else}
-	<p class="text-primary-500 text-sm">{m.campaign_tdc_artifacts_empty()}</p>
+	<WidgetEmpty>{m.campaign_tdc_artifacts_empty()}</WidgetEmpty>
 {/if}
