@@ -33,9 +33,8 @@ work); pass a function to render a <button>. Mirrors the Button component's onCl
 		/** Draw attention with a ring — e.g. this base tag drives a hovered compound. */
 		emphasized?: boolean;
 		/**
-		 * A URL string → renders a real <a> anchor (so open-in-new-tab / middle-click work); a
-		 * function → renders a <button>. In-app URLs get client-side SPA navigation without a
-		 * scroll reset, matching the previous button behavior.
+		 * A URL string renders a real <a> anchor (open-in-new-tab / middle-click work; in-app URLs
+		 * get SPA navigation without a scroll reset); a function renders a <button>.
 		 */
 		onClick?: string | (() => void);
 		onMouseEnter?: () => void;
@@ -86,7 +85,7 @@ work); pass a function to render a <button>. Mirrors the Button component's onCl
 		{label}
 	</span>
 
-	{#each args as arg, i (arg.key + i)}
+	{#each args as arg (arg.key)}
 		<span
 			class={clsx(
 				'inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs',

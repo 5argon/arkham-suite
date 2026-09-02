@@ -45,9 +45,8 @@ export interface RepositoryOptions {
 
 /**
  * A query surface over a set of hydrated cards. Build one with {@link createRepository}
- * from the output of `hydrate(cardsJson)`. All counts are memoized over the given set,
- * so per-tag lookups in a render loop are O(1). Compound queries read the rasterized
- * `HydratedCard.compoundTags` directly (no re-derivation).
+ * from the output of `hydrate(cardsJson)`. Per-tag counts are memoized (O(1)); the card
+ * listings scan the set. Compound queries read the rasterized `HydratedCard.compoundTags`.
  */
 export interface TagRepository {
   /** The hydrated cards this repository was built from. */

@@ -1,8 +1,6 @@
 /**
- * lint-tags — deterministic checks encoding every mechanically-detectable fix-class from the
- * tagging review ledger (reference/rulings.json is the judgment-side twin of this file).
- * Heuristics have RECALL that agent sweeps historically lacked (the chaos-downside class was
- * found 0/8 by agents, 8/8 by a word-heuristic); an agent/human then adjudicates each flag.
+ * lint-tags — deterministic checks for the mechanically-detectable tagging conventions
+ * (reference/rulings.json holds the judgment-side rulings); an agent/human adjudicates each flag.
  *
  * Usage:
  *   node script/lint-tags.ts [--pack <pack>] [--snapshot]
@@ -21,46 +19,20 @@
  *
  * Reads the BUILT package (dist/) — run `yarn build` first.
  */
-import { readdir, readFile, writeFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
+import { readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { flagValue, loadCorpus, referenceDir, type CorpusCard as Card, type CorpusTag as Tag } from "./lib.ts";
 
 // ---------- args ----------
 const argv = process.argv.slice(2);
 const snapshot = argv.includes("--snapshot");
-const packIdx = argv.indexOf("--pack");
-const onlyPack = packIdx !== -1 ? argv[packIdx + 1] : undefined;
+const onlyPack = flagValue(argv, "--pack");
 
-// ---------- load corpus per pack ----------
-type Tag = { type: string; [k: string]: unknown };
-type Card = {
-  code: string;
-  name: string;
-  text: string;
-  level?: number;
-  cardType?: string;
-  icons?: string[];
-  tags: Tag[];
-  pack: string;
-};
-const corpus: Card[] = [];
-// enumerate packs from src (dist may hold stale .js from removed packs)
-const packDir = join(root, "dist", "tagged-cards");
-const packs = (await readdir(join(root, "src", "tagged-cards")))
-  .filter((f) => f.endsWith(".ts") && f !== "index.ts")
-  .map((f) => f.replace(/\.ts$/, ""))
-  .sort();
-for (const pack of packs) {
-  const mod = await import(join(packDir, `${pack}.js`));
-  for (const c of mod.default as Omit<Card, "pack">[]) corpus.push({ ...c, pack });
-}
+const corpus = await loadCorpus();
 const { resolveCompounds } = await import("../dist/index.js");
 
 // ---------- compound snapshot mode ----------
-const snapshotPath = join(root, "reference", "compound-membership.json");
+const snapshotPath = join(referenceDir, "compound-membership.json");
 const currentCompounds = (): Record<string, string[]> => {
   const map: Record<string, string[]> = {};
   for (const c of corpus) {
@@ -81,7 +53,7 @@ if (snapshot) {
 type Allow = { rule: string; key: string; note?: string };
 let allow: Allow[] = [];
 try {
-  allow = JSON.parse(await readFile(join(root, "reference", "lint-allow.json"), "utf8"));
+  allow = JSON.parse(await readFile(join(referenceDir, "lint-allow.json"), "utf8"));
 } catch {
   /* no allowlist yet */
 }
@@ -116,14 +88,14 @@ for (const c of corpus) {
     seen.add(k);
   }
 
-  // dynamic-sentinel: -1 sentinels are retired; variable amounts are "dynamic"
+  // dynamic-sentinel: variable amounts are "dynamic", never -1
   for (const t of c.tags) {
     for (const [k, v] of Object.entries(t)) {
       if (v === -1) report("ERROR", "dynamic-sentinel", c, `${t.type}.${k} = -1 (use "dynamic")`);
     }
   }
 
-  // ammo-charge: the "guns spending charges" class (2026-07-03 split)
+  // ammo-charge: guns spend ammo, not charges
   const usesAmmo = /uses\s*\((?:\d+|x)\s+ammo\)/i.test(text) || /\bammo\b/i.test(text);
   if (has(c, typeEq("cost-action-spend-charge")) && usesAmmo)
     report("ERROR", "ammo-charge", c, "spends charge but text says ammo → cost-action-spend-ammo");
@@ -164,7 +136,7 @@ for (const c of corpus) {
   if (/deck only\./i.test(text) && !has(c, typeEq("deck-restriction")))
     report("WARN", "deck-restriction", c, "'deck only.' in text but no deck-restriction tag");
 
-  // chaos-downside: the class agents found 0/8 of — flag reveal-window cards with a symbol penalty
+  // chaos-downside: reveal-window cards with a symbol penalty need a chaos-downside-* tag
   if (
     has(c, typeEq("timing-skill-st3-reveal-chaos-token")) &&
     /\[(skull|cultist|tablet|elder_thing|auto_?fail)\]/i.test(text) &&
@@ -175,7 +147,7 @@ for (const c of corpus) {
     report("WARN", "chaos-downside", c, "reveal window + symbol penalty text but no chaos-downside-* tag");
 
   // manual-reveal-st3: st3 is a SKILL-TEST step (ST.3); a pure manual-reveal gamble happens
-  // outside any test (ruled 2026-07-13; Hypnotic Gaze/Astral Travel/Voice of Ra class)
+  // outside any test
   if (has(c, typeEq("chaos-reveal-manual")) && has(c, typeEq("timing-skill-st3-reveal-chaos-token")))
     report("WARN", "manual-reveal-st3", c, "chaos-reveal-manual + timing-skill-st3 — manual gambles are not skill tests; keep st3 only if the card ALSO interacts with in-test reveals");
 
@@ -209,8 +181,9 @@ for (const c of corpus) {
     report("ERROR", "stat-derived", c, `skill-commit-nonskill-lv0-wild-icon ${wantWild ? "missing" : "present but rule says no"} (level=${c.level}, type=${c.cardType}, icons=${icons.join("/") || "none"})`);
   if (has(c, typeEq("skill-commit-nonskill-lv0-two-effective-icons")) !== wantTwo)
     report("ERROR", "stat-derived", c, `skill-commit-nonskill-lv0-two-effective-icons ${wantTwo ? "missing" : "present but rule says no"} (level=${c.level}, type=${c.cardType}, icons=${icons.join("/") || "none"})`);
-  if (c.cardType === "event" && icons.length === 0 && !has(c, typeEq("skill-commit-no-commit-icons")))
-    report("ERROR", "stat-derived", c, "event with zero icons missing skill-commit-no-commit-icons");
+  const wantNoIcons = c.cardType === "event" && icons.length === 0;
+  if (has(c, typeEq("skill-commit-no-commit-icons")) !== wantNoIcons)
+    report("ERROR", "stat-derived", c, `skill-commit-no-commit-icons ${wantNoIcons ? "missing" : "present but rule says no"} (type=${c.cardType}, icons=${icons.join("/") || "none"})`);
   // double-icon: 2+ of the SAME printed icon on a skill card, wild counting as its own type
   const wantDbl =
     c.cardType === "skill" &&
@@ -231,12 +204,9 @@ for (const [name, group] of byName) {
   }
   // identical text ⇒ tags must match exactly (ERROR, per same-text subgroup); different
   // text (level variants) ⇒ report drift as INFO (may be a legit level difference).
-  // Stat-derived tags are excluded from the same-text comparison: they depend on
-  // level/icons, which same-text cards can still differ on (Extensive Research L0 vs L1);
-  // the dedicated stat-derived check validates them against metadata exactly.
-  // Stat-derived tags come from printed level/icons/health/sanity, which legitimately
-  // differ between same-text level variants (Marcus Sengstacke L0 soak-sanity:2 vs L2 :3);
-  // exclude them so a pure stat difference never trips the same-text ERROR.
+  // Stat-derived tags come from printed level/icons/health/sanity, which legitimately differ
+  // between same-text level variants (Marcus Sengstacke L0 soak-sanity:2 vs L2 :3); they are
+  // excluded here and validated against metadata by the stat-derived check instead.
   const STAT_DERIVED = new Set([
     "skill-commit-nonskill-lv0-wild-icon",
     "skill-commit-nonskill-lv0-two-effective-icons",

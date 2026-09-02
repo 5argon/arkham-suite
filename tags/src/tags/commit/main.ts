@@ -57,8 +57,8 @@ export interface TagCommitMax extends TagCommitBase {
  * The skill's bonus is gated on being committed during a BASIC action's test —
  * "While X is committed during a basic <fight/evade/investigate> action, it gains …"
  * (the Dream-Eaters trio: Brute Force, Sharp Vision, Expeditious Retreat).
- * NOTE: cards that react to PERFORMING basic actions in general (Close the Circle,
- * EotE) are a different mechanic — give them their own tag when that pack lands.
+ * Cards that react to PERFORMING basic actions in general (Close the Circle) are a
+ * different mechanic.
  */
 export interface TagCommitDuringBasicAction extends TagCommitBase {
   type: TagTypeCommit.CommitDuringBasicAction;
@@ -87,7 +87,7 @@ export interface TagCommitDuringEvade extends TagCommitBase {
 /**
  * Gates or scales on the NUMBER of cards/skills committed to the test ("if you
  * committed 1 or more skills to this skill test") — the Innsmouth Silas/Amanda
- * skills-matter archetype. (Created autonomously 2026-07-17 — review welcome.)
+ * skills-matter archetype.
  */
 export interface TagCommitCountCondition extends TagCommitBase {
   type: TagTypeCommit.CommitCountCondition;

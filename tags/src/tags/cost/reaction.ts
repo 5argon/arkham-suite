@@ -1,5 +1,4 @@
 import { TagBase } from "../../base.js";
-import type { TimingQualifier } from "../../type.js";
 
 export enum TagTypeCostReaction {
   CostReactionDamageSelf = "cost-reaction-damage-self",

@@ -1,8 +1,8 @@
 import { TagBase } from "../../base.js";
 
 /**
- * Costs of a FREE TRIGGERED ABILITY — the [free] icon (historically printed as
- * [fast]; same thing). The cost is whatever appears before the colon, e.g.
+ * Costs of a FREE TRIGGERED ABILITY — the [free] icon (older printings show [fast]).
+ * The cost is whatever appears before the colon, e.g.
  * "[free] Discard X: ..." → CostFreeDiscardSelf.
  *
  * NOTE: do NOT confuse the [free] icon with the "Fast." KEYWORD on an event/asset/

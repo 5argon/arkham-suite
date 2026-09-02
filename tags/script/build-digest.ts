@@ -5,7 +5,7 @@
  *   1. Every tag-definition source file (exact TagType* enum references + argument shapes).
  *   2. Under each file, a USAGE & RULINGS block for every tag id it defines:
  *      - confirmed member cards (name, code, text snippet) — the tagging PRECEDENT,
- *      - convention rulings + anti-examples from reference/rulings.json (the migrated ledger).
+ *      - convention rulings + anti-examples from reference/rulings.json.
  *   3. The compound-tag definitions, each with its EVALUATED member list (the compound
  *      blind spot: base tags never show which archetypes they roll into).
  *
@@ -16,33 +16,20 @@
  *
  *   --exclude   omit these card codes from MEMBER lines and compound rosters (calibration
  *               mode: makes sampled cards invisible as their own precedent)
- *   --bare      definitions-only output (no members/rulings/compound rosters) — the
- *               pre-2026-07-13 digest format, kept for A/B harness experiments
+ *   --bare      definitions-only output (no members/rulings/compound rosters)
  *   --out       write somewhere other than reference/_taxonomy-digest.md
  */
-import { readdir, readFile, writeFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join, relative } from "node:path";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
-const tagsDir = join(root, "src", "tags");
+import { readFile, writeFile } from "node:fs/promises";
+import { join, relative } from "node:path";
+import { flagValue, listTagFiles, referenceDir, srcDir, tagsDir } from "./lib.ts";
 
 const argv = process.argv.slice(2);
-const flagVal = (name: string) => {
-  const i = argv.indexOf(name);
-  return i === -1 ? undefined : argv[i + 1];
-};
 const bare = argv.includes("--bare");
-const exclude = new Set((flagVal("--exclude") ?? "").split(",").filter(Boolean));
-const outPath = flagVal("--out") ?? join(root, "reference", "_taxonomy-digest.md");
+const exclude = new Set((flagValue(argv, "--exclude") ?? "").split(",").filter(Boolean));
+const outPath = flagValue(argv, "--out") ?? join(referenceDir, "_taxonomy-digest.md");
 
 // ---------- load tag-definition sources ----------
-const entries = await readdir(tagsDir, { recursive: true, withFileTypes: true });
-const files = entries
-  .filter((e) => e.isFile() && e.name.endsWith(".ts") && e.name !== "index.ts")
-  .map((e) => join(e.parentPath ?? (e as unknown as { path: string }).path, e.name))
-  .sort();
+const files = await listTagFiles();
 
 // tag ids defined per file (string literal values inside `export enum TagType…`)
 const idsOfFile = new Map<string, string[]>();
@@ -83,9 +70,9 @@ for (const c of cards) {
   }
 }
 
-// ---------- load rulings (the migrated ledger) ----------
+// ---------- load rulings ----------
 type Ruling = { rulings?: string[]; notMembers?: { card: string; reason: string; instead?: string }[] };
-const rulingsRaw = JSON.parse(await readFile(join(root, "reference", "rulings.json"), "utf8")) as Record<
+const rulingsRaw = JSON.parse(await readFile(join(referenceDir, "rulings.json"), "utf8")) as Record<
   string,
   Ruling | string[]
 >;
@@ -162,7 +149,7 @@ for (const f of files) {
 }
 
 out += "==== FILE: src/compound-tags/compound-tags.ts ====\n";
-out += (await readFile(join(root, "src", "compound-tags", "compound-tags.ts"), "utf8")).trimEnd() + "\n";
+out += (await readFile(join(srcDir, "compound-tags", "compound-tags.ts"), "utf8")).trimEnd() + "\n";
 if (!bare && compoundMembers.size) {
   out += "\n## EVALUATED COMPOUND MEMBERSHIPS (who actually rolls into each archetype right now)\n";
   out +=

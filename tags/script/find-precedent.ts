@@ -16,11 +16,8 @@
  * Reads the BUILT package (dist/) — run `yarn build` first.
  */
 import { readdir, readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
+import { join } from "node:path";
+import { loadCorpus, root, type CorpusCard as Card } from "./lib.ts";
 
 // ---------- args ----------
 const argv = process.argv.slice(2);
@@ -44,19 +41,7 @@ if (!query) {
   process.exit(1);
 }
 
-// ---------- load confirmed corpus, per pack ----------
-type Card = { code: string; name: string; text: string; tags: unknown[]; pack: string };
-const corpus: Card[] = [];
-// enumerate packs from src (dist may hold stale .js from removed packs)
-const packDir = join(root, "dist", "tagged-cards");
-const packs = (await readdir(join(root, "src", "tagged-cards")))
-  .filter((f) => f.endsWith(".ts") && f !== "index.ts")
-  .map((f) => f.replace(/\.ts$/, ""))
-  .sort();
-for (const pack of packs) {
-  const mod = await import(join(packDir, `${pack}.js`));
-  for (const c of mod.default as Omit<Card, "pack">[]) corpus.push({ ...c, pack });
-}
+const corpus = await loadCorpus();
 
 // ---------- resolve the query to a text (and maybe a name) ----------
 let queryText = query;

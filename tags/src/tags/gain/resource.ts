@@ -21,9 +21,7 @@ export interface TagGainResourceInvestigator extends TagGainResourceBase {
 
 /**
  * Move resources between investigators' pools (sharing/loan/trade), distinct from
- * gaining new resources. No value: the amount is contextual, so it extends TagBase
- * directly rather than the value-bearing base. Kept in the `gain` group (resource
- * economy) with the `gain-` prefix per the one-folder-one-prefix rule.
+ * gaining new resources. No value: the amount is contextual.
  */
 export interface TagGainResourceMoveInvestigator extends TagBase {
   type: TagTypeGainResource.GainResourceMoveInvestigator;

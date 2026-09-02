@@ -634,7 +634,6 @@ import type {
 
 /**
  * Union type of all possible tag instances.
- * This replaces the old string-based Tag type.
  */
 export type Tag =
   // Action tags

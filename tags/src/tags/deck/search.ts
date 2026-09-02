@@ -46,8 +46,7 @@ export interface TagDeckSearchInvestigator extends TagDeckSearchBase {
  * The card REACTS to being among the cards you searched — "[reaction] When you
  * search your deck and X is among the searched cards" (the Dream-Eaters Research
  * archetype: Occult Evidence, Astounding Revelation, Surprising Find). No range:
- * this is the found card's own trigger, not a search effect. (No TagDeckSearchBase —
- * its required `range` belongs to searches, not to being found.)
+ * this is the found card's own trigger, not a search effect (so no `range`).
  */
 export interface TagDeckSearchReaction extends TagBase {
   type: TagTypeDeckSearch.DeckSearchReaction;

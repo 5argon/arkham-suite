@@ -4,10 +4,9 @@ import type { CompoundTagBase, CompoundTagMember } from "./base.js";
 import { CompoundTagType, compoundTags } from "./compound-tags/compound-tags.js";
 
 /**
- * Definition-level helpers over the compound-tag taxonomy. These are pure functions of
- * the `compoundTags` definitions — they need no card data. Queries that operate over a
- * card SET live on the repository (`./repository.js`), built from hydrated JSON; the
- * package no longer bundles or exports the tagged cards themselves.
+ * Definition-level helpers over the compound-tag taxonomy: pure functions of the
+ * `compoundTags` definitions that need no card data. Queries over a card SET live on the
+ * repository (`./repository.js`), built from the hydrated JSON.
  */
 
 /** The tag type of a compound member (bare type or a conditioned `{type, where}`). */
@@ -45,14 +44,4 @@ export function resolveCompounds(tags: Tag[]): CompoundTagType[] {
   return compoundTags
     .filter((ct) => ct.tags.some((m) => tags.some((t) => memberMatches(m, t))))
     .map((c) => c.type);
-}
-
-/** The member tag types of a compound tag (conditioned members reduced to their type). */
-export function tagTypesInCompound(type: CompoundTagType): TagType[] {
-  return (compoundTags.find((c) => c.type === type)?.tags ?? []).map(memberType);
-}
-
-/** The raw members of a compound tag, preserving any per-member `where` conditions. */
-export function compoundTagMembers(type: CompoundTagType): (TagType | CompoundTagMember)[] {
-  return compoundTags.find((c) => c.type === type)?.tags ?? [];
 }

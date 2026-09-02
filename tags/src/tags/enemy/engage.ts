@@ -57,8 +57,8 @@ export interface TagEnemyEngageWithYou extends TagEnemyEngageBase {
 
 /**
  * Targets or conditions on "an enemy engaged with you" (Flamethrower, Mano a Mano,
- * Oops!) — a targeting scope, not an engage effect. Split from engage-with-you so
- * the Engagement compound only collects genuine force-engages.
+ * Oops!) — a targeting scope, not an engage effect, so the Engagement compound only
+ * collects genuine force-engages.
  */
 export interface TagEnemyEngageTargetEngaged extends TagEnemyEngageBase {
   type: TagTypeEnemyEngage.EnemyEngageTargetEngaged;

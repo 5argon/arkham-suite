@@ -47,7 +47,7 @@ export interface TagDamageRedirectAttack extends TagDamageBase {
 /**
  * Assign/spread damage among MULTIPLE enemies at once (Flamethrower: "assign up
  * to 4 damage among enemies engaged with you"). A group-clear archetype. `value`
- * is the total spreadable amount (-1 for X).
+ * is the total spreadable amount ("dynamic" for X).
  */
 export interface TagDamageSpread extends TagDamageBase {
   type: TagTypeDamage.DamageSpread;

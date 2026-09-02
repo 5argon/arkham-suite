@@ -24,8 +24,7 @@ export interface TagLocationPropertyEnemyZero extends TagLocationPropertyBase {
 /**
  * Ignore effects/keywords on your location while acting there (Read the Signs:
  * "ignore any effect or keyword on your location which would trigger during
- * this investigation"). Future member: Mesmeric Influence (FHV). The location
- * counterpart of enemy-ignore-keyword.
+ * this investigation"). The location counterpart of enemy-ignore-keyword.
  */
 export interface TagLocationIgnoreEffects extends TagLocationPropertyBase {
   type: TagTypeLocationProperty.LocationIgnoreEffects;

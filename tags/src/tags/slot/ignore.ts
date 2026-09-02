@@ -6,7 +6,7 @@ export enum TagTypeSlotIgnore {
 
 /**
  * A card takes up NO slot that it normally would — Abigail Foreman's attached
- * Tome "takes up no hand slots". Future member: Trigger Man (TSK). Distinct
+ * Tome "takes up no hand slots". Distinct
  * from slot-additional-* (granting an extra slot), slot-convert (changing a
  * slot's type), and slot-share (copies sharing one slot); all four are the
  * Slot Tech compound.

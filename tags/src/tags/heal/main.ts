@@ -62,7 +62,7 @@ export interface TagHealHorrorSelf extends TagHealBase {
 /**
  * This weakness in your threat area can be HEALED away as if it were a point of
  * damage/horror (the EOTE injury family: Leg Injury, Panic, Stupor, Internal
- * Injury). (Created autonomously 2026-07-17 — review welcome.)
+ * Injury).
  */
 export interface TagHealRemovesWeakness extends TagBase {
   type: TagTypeHeal.HealRemovesWeakness;

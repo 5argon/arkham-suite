@@ -79,7 +79,7 @@ MEAN under the Arkham Horror LCG rules. The full rules reference ships in this p
   Consequence: a *timing window* (e.g. "when you would take damage") is neutral; how a card responds
   to it — a Fast event (Devil's Luck), a **[reaction]** (Armor of Ardennes), or a **Forced** ability
   (Sophie) — is a **separate axis**. Never bake "forced" into a window tag just because one member is
-  Forced (this exact mistake was fixed: `timing-forced-when-take-damage` → `timing-when-take-damage`).
+  Forced (`timing-when-take-damage`, not `timing-forced-when-take-damage`).
 - **Keywords** (Aloof, Retaliate, Hunter, Elusive, Massive, Peril, Bonded, Exceptional, Permanent,
   Myriad, Composure, Trap, Seal, Bless/Curse, …) each have a precise rules meaning — check the
   glossary before tagging an effect that references one.
@@ -260,8 +260,8 @@ Cheap high-value checks (write a tiny node script over the JSON):
 
 ## Rulings file — where adjudicated judgment lives
 
-`reference/rulings.json` is the durable, by-tag home of every convention ruling and anti-example
-(migrated from the old session-memory ledger). The digest builder inlines each entry under its tag
+`reference/rulings.json` is the durable, by-tag home of every convention ruling and anti-example.
+The digest builder inlines each entry under its tag
 and **validates every key** (exact tag id, a `prefix-*` key, or `_general`), so a stale key after a
 rename fails the digest build. **Whenever the user makes a new ruling during review — or you
 establish one — append it here immediately**, then `yarn digest`. Cross-check

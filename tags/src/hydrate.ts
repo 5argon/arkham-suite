@@ -3,15 +3,10 @@ import { CompoundTagType } from "./compound-tags/compound-tags.js";
 import { tagTypeCategory } from "./tag-category-map.js";
 
 /**
- * The package does NOT ship the tagged cards as TypeScript objects. The single way to
- * consume them is the published, pre-made JSON (`@5argon/arkham-tags/cards.json`), in
- * which each card's compound archetypes are RASTERIZED into the same `tags` list as its
- * base tags — compound entries are marked by the `c-` namespace prefix on their `type`
- * (e.g. `"c-combat-boost"`), so the merged data is self-describing.
- *
- * `hydrate` turns that untyped JSON into type-safe, query-ready cards: it splits the
- * merged list back into the discriminated `Tag` union (base tags, with their arguments)
- * and the `CompoundTagType[]` archetypes, classifying each entry by its prefix.
+ * The published `@5argon/arkham-tags/cards.json` merges each card's compound archetypes into
+ * the same `tags` list as its base tags, marking them with the `c-` prefix on their `type`
+ * (e.g. `"c-combat-boost"`). `hydrate` splits that list back into the discriminated `Tag`
+ * union (base tags, with their arguments) and the `CompoundTagType[]` archetypes.
  */
 
 /** One tag entry as it appears in the public JSON: a base tag (with args) or a bare compound ref. */
@@ -72,8 +67,7 @@ export function hydrateCard(raw: RawCard, opts: HydrateOptions = {}): HydratedCa
   const tags: Tag[] = [];
   const compoundTags: CompoundTagType[] = [];
   for (const entry of raw.tags) {
-    // Prefix is the primary signal; the vocab sets are a correctness backstop that
-    // catches a hand-edited JSON typo (unknown type) under `strict`.
+    // The vocab sets catch a hand-edited JSON typo (unknown type) under `strict`.
     if (isCompoundEntry(entry)) {
       if (COMPOUND_TYPES.has(entry.type)) compoundTags.push(entry.type as CompoundTagType);
       else if (opts.strict) throw new Error(`Unknown compound type "${entry.type}" on card ${raw.code}`);

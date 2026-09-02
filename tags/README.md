@@ -18,9 +18,9 @@ Additionally for each tag, search all compound tags that use it. For each compou
 
 ## Format
 
-The **TypeScript objects are the source of truth** — the design lives in the type definitions so it is hard to make mistakes (a wrong `type` or a missing argument fails to compile). A JSON form can be generated from the TS for consumers that prefer JSON: run `yarn export-json` to produce `json/export/` (structured lossless `tagged-cards.json`, an old-style flattened `tagged-cards.flat.json`, `compound-tags.json`, and a `tags.json` vocabulary).
+The **TypeScript objects are the source of truth** — the design lives in the type definitions so it is hard to make mistakes (a wrong `type` or a missing argument fails to compile). Consumers read the JSON export: `yarn build` produces `json/export/` (`cards.json` — every card with its base tags and `c-`-prefixed compound archetypes merged into one `tags` list, plus `compound-tags.json` and a `tags.json` vocabulary). `hydrate()` and `createRepository()` from the package turn `cards.json` into typed, queryable cards.
 
-> Note: `json/input/` holds the legacy regex-tagged hints from the old pipeline (~90% accurate). It is kept only as a **hint** when authoring the new TS tags — never as source of truth. The authoritative card text comes from `@5argon/arkham-kohaku`.
+> Note: `json/input/<pack>.json` holds the raw card rows (code, name, text, stats) each pack was scaffolded from. The authoritative card text comes from `@5argon/arkham-kohaku`.
 
 What's inside `src/tags` folder follows very rigid pattern.
 
@@ -44,7 +44,7 @@ yarn sync-unions
 This will automatically:
 1. Scan all `.ts` files in `src/tags/` subdirectories
 2. Extract all `export enum TagType*` declarations
-3. Extract all `export interface Tag*` declarations (excluding those ending with "Base")
+3. Extract all `export interface Tag*` declarations (base interfaces are not exported)
 4. Regenerate `src/tag-type-union.ts` with all enum types
 5. Regenerate `src/tag-interface-union.ts` with all tag interfaces
 6. Regenerate `src/tag-category-map.ts` (maps each tag `type` value to its category folder)
@@ -68,7 +68,7 @@ You can use go to reference on any of the `TagType___` type to jump to the file 
 
 It is recommended to tag in the order that appears in the text, so we can see easier what's missing.
 
-Each pack/cycle is one file under `src/tagged-cards/<pack>.ts` (mirroring `rcore.ts`: explicit `TagType*` imports, `const taggedCards: TaggedCard[] = [...]`, `export default taggedCards`). Register every pack in `src/tagged-cards/index.ts` (one import + one spread) so it joins the aggregated `allTaggedCards`. Consumers query via the helpers in `src/query.ts` (`listUsedTagTypes`, `cardsByTagType`, `compoundTagsContaining`, `cardsByCompoundTag`, `tagsOfCard`, …). The TS objects are the source of truth; `yarn export-json` produces the JSON mirror.
+Each pack/cycle is one file under `src/tagged-cards/<pack>.ts` (mirroring `rcore.ts`: explicit `TagType*` imports, `const taggedCards: TaggedCard[] = [...]`, `export default taggedCards`). Register every pack in `src/tagged-cards/index.ts` (one import + one spread) so it joins the aggregated `allTaggedCards`. Consumers hydrate the exported `json/export/cards.json` and query it through `createRepository()` (`src/repository.ts`: `listUsedTagTypes`, `cardsByTagType`, `cardsByCompoundTag`, `tagsOfCard`, …); `src/query.ts` holds the pure compound-definition helpers.
 
 ## Tagging Fundamentals
 

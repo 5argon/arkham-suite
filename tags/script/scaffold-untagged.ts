@@ -17,12 +17,9 @@
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import { loadCardMetadata, metadataLines } from "./card-metadata.ts";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
+import { root } from "./lib.ts";
 
 const pack = process.argv[2];
 if (!pack) {

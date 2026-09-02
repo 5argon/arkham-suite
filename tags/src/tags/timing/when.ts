@@ -1,7 +1,7 @@
 import { TagBase } from "../../base.js";
 
-// Consolidated timing triggers from fast/free/reaction
-// No longer distinguishes between fast action, free triggered ability, or reaction
+// Timing windows, regardless of whether the ability is a fast action, a free triggered
+// ability, or a reaction.
 export enum TagTypeTimingWhen {
   TimingWhenEnemyAttacks = "timing-when-enemy-attacks",
   TimingWhenDefeatEnemy = "timing-when-defeat-enemy",

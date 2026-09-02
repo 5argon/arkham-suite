@@ -19,7 +19,7 @@ export interface TagGainKeywordRetaliate extends TagGainKeywordBase {
 
 /**
  * An enemy gains ALERT (attacks on evade attempts) — Daring's enable-the-payoff
- * twin of gain-retaliate. Future member: String Along (TDC).
+ * twin of gain-retaliate.
  */
 export interface TagGainKeywordAlert extends TagGainKeywordBase {
   type: TagTypeGainKeyword.GainKeywordAlert;

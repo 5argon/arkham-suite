@@ -35,8 +35,7 @@
 		type Tag,
 		type TagType,
 		type CompoundTagType,
-		type TagTypeUsage,
-		type CompoundTagBase
+		type TagTypeUsage
 	} from '@5argon/arkham-tags';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
@@ -54,9 +53,12 @@
 		tagArguments,
 		tagArgPairs,
 		whereArgPairs,
-		serializeWhere,
 		parseWhere,
-		tagMatchesWhere
+		tagMatchesWhere,
+		argsLabel,
+		tagLabel,
+		cardByCode,
+		tagViewParams
 	} from '$lib/tag-browser';
 	import TagErrorReport from './TagErrorReport.svelte';
 	import CardAuditReport from './CardAuditReport.svelte';
@@ -67,7 +69,6 @@
 		| { kind: 'compound'; type: CompoundTagType };
 
 	const allCards = getAllCards();
-	const cardMap = new Map(allCards.map((c) => [c.code, c]));
 
 	// ---------- URL is the source of truth (shareable state) ----------
 	const sp = $derived(page.url.searchParams);
@@ -87,7 +88,7 @@
 	// Card mode sub-state: a selected pack grid (`pack`) and/or a single focused card (`focus`).
 	const packInfo = $derived(packByCode(sp.get('pack')));
 	const focusCode = $derived(sp.get('focus'));
-	const focusCard = $derived<Card | null>(focusCode ? (cardMap.get(focusCode) ?? null) : null);
+	const focusCard = $derived<Card | null>(focusCode ? (cardByCode(focusCode) ?? null) : null);
 
 	// `push` adds a browser-history entry (so Back works) — used for discrete
 	// navigation; refinements (search, card selection, settings) replace instead.
@@ -103,31 +104,12 @@
 		else apply({ tab: 'card', tag: null, compound: null, where: null, q: null }, { push: true });
 	}
 	function showTag(type: TagType, w?: Record<string, unknown>) {
-		apply(
-			{
-				tab: null,
-				pack: null,
-				focus: null,
-				tag: type,
-				compound: null,
-				where: w && Object.keys(w).length ? serializeWhere(w) : null
-			},
-			{ push: true }
-		);
+		apply(tagViewParams(type, w), { push: true });
 	}
-	// Tag/compound chips render as real <a> anchors (so middle-click / open-in-new-tab work).
-	// These build the exact URLs the old showTag/showCompound handlers navigated to; SvelteKit
-	// intercepts a plain click for SPA navigation, and `data-sveltekit-noscroll` on the chip
-	// preserves the previous no-scroll behavior.
+	// Tag/compound chips render as real <a> anchors (middle-click / open-in-new-tab work);
+	// SvelteKit intercepts a plain click for SPA navigation.
 	function hrefForTag(type: TagType, w?: Record<string, unknown>): string {
-		const url = withParams(page.url, {
-			tab: null,
-			pack: null,
-			focus: null,
-			tag: type,
-			compound: null,
-			where: w && Object.keys(w).length ? serializeWhere(w) : null
-		});
+		const url = withParams(page.url, tagViewParams(type, w));
 		return url.pathname + url.search;
 	}
 	function hrefForCompound(type: CompoundTagType): string {
@@ -198,22 +180,19 @@
 
 	const shownCompounds = $derived(tagRepo.searchCompoundTags(searchQuery));
 
+	/** Every card carrying the viewed tag (before the `where` filter). */
+	const tagCards = $derived(view.kind === 'tag' ? tagRepo.cardsByTagType(view.type) : []);
+	const compoundCards = $derived(view.kind === 'compound' ? tagRepo.cardsByCompoundTag(view.type) : []);
 	const detailCards = $derived.by((): CardItem[] => {
 		if (view.kind === 'tag') {
 			const type = view.type;
-			let cards = tagRepo.cardsByTagType(type);
-			if (where) {
-				const w = where;
-				cards = cards.filter((c) => c.tags.some((t) => t.type === type && tagMatchesWhere(t, w)));
-			}
-			return toCardItems(cards);
+			const w = where;
+			return toCardItems(
+				w ? tagCards.filter((c) => c.tags.some((t) => t.type === type && tagMatchesWhere(t, w))) : tagCards
+			);
 		}
-		if (view.kind === 'compound') return toCardItems(tagRepo.cardsByCompoundTag(view.type));
-		return [];
+		return toCardItems(compoundCards);
 	});
-
-	/** Total cards for the current tag ignoring the `where` filter (for the "show all" link). */
-	const unfilteredCount = $derived(view.kind === 'tag' ? tagRepo.cardsByTagType(view.type).length : 0);
 
 	const relatedCompounds = $derived.by(() =>
 		view.kind === 'tag' ? compoundTagsContaining(view.type) : []
@@ -264,26 +243,6 @@
 					: m.tool_tag_browser_back_to_cards()
 	);
 
-	function formatVal(v: unknown): string {
-		if (v !== null && typeof v === 'object') {
-			const o = v as Record<string, unknown>;
-			if ('type' in o && 'cards' in o) return `${o.type} ${o.cards}`;
-			return Object.entries(o)
-				.map(([k, x]) => `${k} ${x}`)
-				.join(' ');
-		}
-		return String(v);
-	}
-	function argsLabel(obj: Record<string, unknown>): string {
-		return Object.entries(obj)
-			.map(([k, v]) => `${k}: ${formatVal(v)}`)
-			.join(' · ');
-	}
-	function tagLabel(tag: Tag): string {
-		const args = argsLabel(tagArguments(tag));
-		return args ? `${tagName(tag.type)} · ${args}` : tagName(tag.type);
-	}
-
 	const tabs = [
 		{ label: m.tool_tag_browser_mode_tags() },
 		{ label: m.tool_tag_browser_mode_card() }
@@ -298,6 +257,35 @@
 />
 
 <svelte:window onkeydown={onKeydown} />
+
+{#snippet cardResults(items: CardItem[])}
+	{#if items.length > 0}
+		<FlexibleCardDisplay
+			cards={items}
+			defaultViewMode="scans"
+			initialSettings={cardSettings}
+			onSettingsApply={applyCardSettings}
+			onCardClick={(c: Card) => openCard(c.code)}
+		/>
+	{/if}
+{/snippet}
+
+{#snippet errorReport(
+	type: string,
+	name: string,
+	members: { code: string; name: string }[],
+	kind: 'Tag' | 'Compound'
+)}
+	{#key type}
+		<TagErrorReport tagType={type} tagDisplayName={name} {allCards} {members} {kind} />
+	{/key}
+{/snippet}
+
+{#snippet backToIndex()}
+	<div class="pt-3">
+		<BackButton label={m.tool_tag_browser_back()} onClick={showIndex} />
+	</div>
+{/snippet}
 
 <svelte:head>
 	<title>{m.tool_tag_browser_page_title()}</title>
@@ -370,7 +358,7 @@
 						</p>
 					{:else}
 						<div class="mt-3 flex flex-wrap gap-2">
-							{#each focusTags as tag, i (i)}
+							{#each focusTags as tag (tag.type + JSON.stringify(tag))}
 								<TagChip
 									label={tagName(tag.type)}
 									args={tagArgPairs(tag)}
@@ -384,7 +372,7 @@
 
 						{#if focusCompounds.length > 0}
 							<div class="mt-4">
-								<SectionSeparator title={m.tool_tag_browser_belongs_to()} inner />
+								<SectionSeparator title={m.tool_tag_browser_compound_tags()} inner />
 							</div>
 							<div class="mt-2 flex flex-wrap gap-2">
 								{#each focusCompounds as c (c)}
@@ -424,15 +412,7 @@
 			<p class="text-primary-500 dark:text-primary-400 mb-3 text-sm">
 				{m.tool_tag_browser_pack_hint()}
 			</p>
-			{#if packCardItems.length > 0}
-				<FlexibleCardDisplay
-					cards={packCardItems}
-					defaultViewMode="scans"
-					initialSettings={cardSettings}
-					onSettingsApply={applyCardSettings}
-					onCardClick={(c: Card) => openCard(c.code)}
-				/>
-			{/if}
+			{@render cardResults(packCardItems)}
 		</MarginFull>
 	{:else}
 		<MarginText>
@@ -530,9 +510,7 @@
 	</MarginFull>
 {:else if view.kind === 'tag'}
 	<MarginFull>
-		<div class="pt-3">
-			<BackButton label={m.tool_tag_browser_back()} onClick={showIndex} />
-		</div>
+		{@render backToIndex()}
 
 		<InnerHeading title={tagName(view.type)} />
 		<p class="text-primary-500 dark:text-primary-400 text-sm">
@@ -552,7 +530,7 @@
 					Filtered to <strong>{argsLabel(where)}</strong>
 				</span>
 				<Button
-					label={`Show all ${tagName(view.type)} (${unfilteredCount})`}
+					label={`Show all ${tagName(view.type)} (${tagCards.length})`}
 					onClick={() => showTag(view.type)}
 				/>
 			</div>
@@ -574,31 +552,12 @@
 		{/if}
 
 		<SectionSeparator title={`${m.tool_tag_browser_cards()} (${detailCards.length})`} />
-		{#if detailCards.length > 0}
-			<FlexibleCardDisplay
-				cards={detailCards}
-				defaultViewMode="scans"
-				initialSettings={cardSettings}
-				onSettingsApply={applyCardSettings}
-				onCardClick={(c: Card) => openCard(c.code)}
-			/>
-		{/if}
-
-		{#key view.type}
-			<TagErrorReport
-					tagType={view.type}
-					tagDisplayName={tagName(view.type)}
-					{allCards}
-					members={tagRepo.cardsByTagType(view.type)}
-					kind="Tag"
-				/>
-		{/key}
+		{@render cardResults(detailCards)}
+		{@render errorReport(view.type, tagName(view.type), tagCards, 'Tag')}
 	</MarginFull>
 {:else if view.kind === 'compound'}
 	<MarginFull>
-		<div class="pt-3">
-			<BackButton label={m.tool_tag_browser_back()} onClick={showIndex} />
-		</div>
+		{@render backToIndex()}
 
 		<InnerHeading title={compoundTagName(view.type)} />
 		{#if compoundTagDescription(view.type)}
@@ -619,23 +578,7 @@
 		</div>
 
 		<SectionSeparator title={`${m.tool_tag_browser_cards()} (${detailCards.length})`} />
-		{#if detailCards.length > 0}
-			<FlexibleCardDisplay
-				cards={detailCards}
-				defaultViewMode="scans"
-				initialSettings={cardSettings}
-				onSettingsApply={applyCardSettings}
-				onCardClick={(c: Card) => openCard(c.code)}
-			/>
-		{/if}
-		{#key view.type}
-			<TagErrorReport
-				tagType={view.type}
-				tagDisplayName={compoundTagName(view.type)}
-				{allCards}
-				members={tagRepo.cardsByCompoundTag(view.type)}
-				kind="Compound"
-			/>
-		{/key}
+		{@render cardResults(detailCards)}
+		{@render errorReport(view.type, compoundTagName(view.type), compoundCards, 'Compound')}
 	</MarginFull>
 {/if}
