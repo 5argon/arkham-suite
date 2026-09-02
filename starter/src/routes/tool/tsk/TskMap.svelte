@@ -59,9 +59,8 @@
 	const px = (id: string) => loadLogic().locations[id]!.position.x * W;
 	const py = (id: string) => loadLogic().locations[id]!.position.y * H;
 
-	// Arrowhead drawn as a plain triangle (in map px) at a leg's tip, pointing along its final segment.
-	// Done by hand rather than an SVG <marker> so it can take the leg's gradient colour and a fixed
-	// size (a stroke-width-scaled marker rendered far too large, and `context-stroke` fell back to black).
+	// Arrowhead drawn as a plain triangle (in map px) at a leg's tip, pointing along its final
+	// segment, so it can take the leg's gradient colour and a fixed size.
 	const ARROW_LEN = 30;
 	function arrowHead(pp: { x: number; y: number }[], len = ARROW_LEN, inset = 36): string {
 		if (pp.length < 2) return '';

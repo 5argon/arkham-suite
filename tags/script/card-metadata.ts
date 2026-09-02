@@ -1,13 +1,13 @@
 /**
  * Shared loader for per-card STAT METADATA (level / type / commit icons), resolved from
  * the monorepo's resolved card database (`ui/src/routes/card/cards.json`). Used by the
- * ingress (`scaffold-untagged`, `assemble-tagged-cards`) and the one-off backfill
- * (`enrich-metadata`) so every `tagged-cards/<pack>.ts` carries the metadata tag authors
- * need to judge icon/level/type-aware tags — without it living in the tag data itself.
+ * ingress scripts (`scaffold-untagged`, `assemble-tagged-cards`) so every
+ * `tagged-cards/<pack>.ts` carries the metadata tag authors need to judge
+ * icon/level/type-aware tags.
  */
-import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { readdir, readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { root } from "./lib.ts";
 
 export interface CardMetadata {
   level?: number;
@@ -17,8 +17,7 @@ export interface CardMetadata {
 
 const ICON_KEYS = ["willpower", "intellect", "combat", "agility", "wild"] as const;
 
-const here = dirname(fileURLToPath(import.meta.url));
-const CARDS_JSON = join(here, "..", "..", "ui", "src", "routes", "card", "cards.json");
+const CARDS_JSON = join(root, "..", "ui", "src", "routes", "card", "cards.json");
 
 let cache: Map<string, CardMetadata> | null = null;
 
@@ -34,8 +33,7 @@ export async function loadCardMetadata(): Promise<Map<string, CardMetadata>> {
   const map = new Map<string, CardMetadata>();
   // fallback layer first, so the resolved DB overrides it where both exist
   try {
-    const inputDir = join(here, "..", "json", "input");
-    const { readdir } = await import("node:fs/promises");
+    const inputDir = join(root, "json", "input");
     for (const f of (await readdir(inputDir)).filter((f) => f.endsWith(".json"))) {
       for (const c of JSON.parse(await readFile(join(inputDir, f), "utf8")) as Record<string, unknown>[]) {
         if (!c.code) continue;

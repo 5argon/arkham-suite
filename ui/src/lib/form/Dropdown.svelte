@@ -60,10 +60,7 @@
 		 */
 		disabled?: boolean;
 
-		/**
-		 * Visually hide the label (kept as the select's `aria-label`). Use when the
-		 * label would be redundant — e.g. a column of identical "Bearer" selects.
-		 */
+		/** Visually hide the label (kept as the select's `aria-label`). */
 		hideLabel?: boolean;
 	}
 
@@ -110,7 +107,7 @@
 				transition-all duration-200
 			"
 		>
-			{#each options as item (isGroup(item) ? item.groupLabel : item.value)}
+			{#each options as item (isGroup(item) ? `group:${item.groupLabel}` : item.value)}
 				{#if isGroup(item)}
 					<optgroup label={item.groupLabel}>
 						{#each item.options as opt (opt.value)}

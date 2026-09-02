@@ -55,9 +55,6 @@ const inlineIconPattern = new RegExp(
  * `{@html}`. Supports `[[Trait]]` (bold+italic, the Arkham trait/keyword
  * convention), `**bold**`, `*italic*`, the `2x → 2×` shorthand, and inline Arkham
  * icon tokens such as `[per_investigator]` or `[skull]`.
- *
- * Single source of truth for Arkham inline markup — route every setup/log text
- * render through it so the supported syntax stays in sync across both apps.
  */
 export function parseArkhamMarkup(text: string): string {
 	// `[[Trait]]` first, so its double brackets are consumed before single-bracket icons.

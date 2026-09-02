@@ -4,7 +4,7 @@
 //
 //   node write-curation.mjs <workflow-output.json>
 //
-// Input: { curations: [ { code, spoilers:[{key,spans}], sections:[{id,...}], drop?, notes? } ] }
+// Input: { curations: [ { code, sections:[{id,...}], drop?, notes? } ] }
 
 import fs from 'node:fs';
 import path from 'node:path';

@@ -7,12 +7,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA = path.resolve(__dirname, '../data');
-const CUR = path.resolve(__dirname, '../curation');
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
+import { readJson, DATA_DIR as DATA, CURATION_DIR as CUR } from './lib.mjs';
 
 const NAME = {
   tdea: 'The Dream-Quest', tdeb: 'The Web of Dreams', tic: 'The Innsmouth Conspiracy',

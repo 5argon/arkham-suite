@@ -215,9 +215,8 @@ export interface CardItem {
 	quantityColor?: CardClass;
 
 	/**
-	 * An arbitrary number to overlay on the card in the icons view (e.g. a usage
-	 * count). Rendered as a small badge by CardSquareGrid when its `showIconCount`
-	 * prop is set; ignored by the scans/list view modes.
+	 * An arbitrary number to overlay on the card (e.g. a usage count), rendered as a small
+	 * badge by the icons and scans views when `showIconCount` is set.
 	 */
 	iconCount?: number;
 

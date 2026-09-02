@@ -17,9 +17,12 @@ const log = getCampaignLog(Campaign.ThePathToCarcosa);
 achievementsForScenario(log!, Scenario.EchoesOfThePast); // -> [{ def, en }]  "For Prying Eyes"
 ```
 
-Exports (see `src/index.ts`): `getCampaignLog`, `availableCampaignLogCodes`,
-`sectionEntries`, `achievementsFor`, `achievementsForScenario`,
-`evaluateAchievement`, `evaluateInference`, `findValidatorConflicts`, and all types.
+Exports (see `src/campaign-log.ts`): `getCampaignLog`, `availableCampaignLogCodes`,
+`playableScenarios`, `standaloneScenarios`, `standaloneSetup`, `sectionEntries`,
+`findValidatorConflicts`, `achievementsFor`, `achievementsForScenario`, `specialInteractionsFor`,
+`evaluateSpecialInteractionMatch`, `evaluateInference`, `evaluateAchievement`,
+`achievementInferScope`, `describeAchievementInference`, `checkPrerequisite`, `outcomeSignals`,
+`resolutionTraumaEffects`, `isCleared`, and all types.
 
 **Live consumer:** `starter`'s `/campaign` page Scenario tab renders
 "Achievements you can earn here" beneath each scenario's setup card

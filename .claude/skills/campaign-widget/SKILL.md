@@ -46,6 +46,10 @@ All under `$lib/components/profile/_primitives/` unless noted.
 | A "● lit / ○ greyed" story-fork outcome list | `OutcomeList` | Items are `{ label, hit, count?, note? }`; ●=hit ○=miss, optional ×count + muted trailing note. Used by FHV scenario passports + TDC dive-site passports. |
 | Chaos-token glyph(s) | `ColoredChaosToken`, `TokenCoinRow` | Single token vs a labelled coin row with ×count. |
 | The "hidden in log-only mode" placeholder | `NonLogPlaceholder` | Pair with the widget's `nonLog` classification. |
+| A widget's "nothing recorded yet" line | `WidgetEmpty` | The muted one-line empty state; never write `<p class="text-primary-500 text-sm">` by hand. |
+| A bespoke hover tooltip (a trigger no primitive covers) | `HoverTipState` + `HoverTip` | `const tip = new HoverTipState()`, `onmouseenter={(e) => tip.showText(text, e)}` / `tip.show(title, detail, e)`, `onmouseleave={tip.hide}`, then `<HoverTip {tip} />` once. |
+| A table's "scenario icon + name" first cell | `ScenarioNameCell` (campaigns/campaign/) | `scenarioId` or a precomputed `iconSet`; `muted` / `faded` variants. |
+| A two-sided campaign spine (PtC Doubt/Conviction, TCU Lodge/Coven) | `SignatureRunsTable`, `TwoSidedChain`, `TwoSidedSourceTable` (campaigns/campaign/) | The three-signature-runs table, the per-decision icon chain, and the per-decision source table; the campaign supplies labels + tints (see `ptc/ptc-dc-labels.ts`, `tcu/tcu-allegiance-labels.ts`). |
 
 From `@5argon/arkham-life-ui` (the shared UI package): `getCardImagePath(code, 'square')`,
 `CardLine`, `CardStrip`, `EncounterSetIcon`, `HoverTooltip`, `parseArkhamMarkup`, `FaIcon`. Prefer a
@@ -56,8 +60,8 @@ profile primitive over these raw building blocks when one fits.
 Don't hand-roll the `tipVisible/tipRef/tipText + showTip/hideTip + HoverTooltip` boilerplate per
 widget. If the hovers live inside a primitive (`LitTileGrid`, `IconTrack`, `StatNumbers`,
 `CountWithBreakdown`), it already provides one shared tooltip. Only hand-roll a `HoverTooltip` for a
-genuinely bespoke trigger that no primitive covers (a few table widgets still do — that's the
-remaining duplication, not the pattern to copy).
+genuinely bespoke trigger that no primitive covers — and then use the shared `HoverTipState` +
+`HoverTip` pair from `_primitives/` rather than local `tipVisible`/`tipRef` state.
 
 ## Data flow
 
@@ -76,8 +80,8 @@ Each campaign's aggregate is built by `build<Campaign>(records)` in
 open-coding it — the same "don't hand-roll" rule applies here as to the UI:
 
 - **Filter records to the family** with `filterFamilyRecords(records, X_FAMILY)`
-  (`records/campaign-family.ts`). Never inline `records.filter(r => … (originalId ?? code) === …)` —
-  that drifts from `baseFamilyOf` and was a recurring foot-gun.
+  (`records/campaign-family.ts`). Never inline `records.filter(r => … (originalId ?? code) === …)`,
+  which drifts from `baseFamilyOf`.
 - **Count / per-difficulty tallies** use `utils/tally.ts`: `emptyTally()` (a fresh `{ total, byTier }`),
   `bumpTally(t, difficulty)` (total + per-tier), `ensureTally(map, key)` (get-or-create), and
   `mergeTally(a, b)`. Plain code→count maps use `bumpCount(map, key)` and `bumpSet(map, codeSet)`.

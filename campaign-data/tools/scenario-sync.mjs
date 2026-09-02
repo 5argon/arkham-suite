@@ -15,16 +15,9 @@
 //   node scenario-sync.mjs <code> | --all          # print proposals
 //   node scenario-sync.mjs --all --write           # inject curation `scenarios`
 
-import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { Scenario } from '../../kohaku/dist/index.js';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA = path.resolve(__dirname, '../data');
-const CURATION = path.resolve(__dirname, '../curation');
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
-const exists = (p) => fs.existsSync(p);
+import { DATA_DIR as DATA, codesFromArgs, exists, injectCurationKey, readJson } from './lib.mjs';
 
 const KOHAKU = new Set(Object.values(Scenario));
 
@@ -81,35 +74,18 @@ function propose(code) {
 }
 
 function injectCuration(code, map, force) {
-  const p = path.join(CURATION, `${code}.json`);
-  if (!exists(p)) {
-    console.log(`  ${code}: no curation file — skipped`);
-    return;
-  }
-  const cur = readJson(p);
-  if (cur.scenarios && !force) {
-    console.log(`  ${code}: scenarios already present — kept (use --force)`);
-    return;
-  }
   if (!Object.keys(map).length) {
     console.log(`  ${code}: nothing to map`);
     return;
   }
-  const { code: c, ...rest } = cur;
-  const next = { code: c, scenarios: map, ...rest };
-  fs.writeFileSync(p, JSON.stringify(next, null, 2) + '\n');
-  console.log(`  ${code}: wrote ${Object.keys(map).length} scenario mappings`);
+  const status = injectCurationKey(code, 'scenarios', map, force);
+  console.log(`  ${code}: ${status ?? `wrote ${Object.keys(map).length} scenario mappings`}`);
 }
-
-const ALL = [
-  'notz', 'dwl', 'ptc', 'tfa', 'tcu', 'tdea', 'tdeb', 'tic', 'eoe', 'tskc', 'fhv', 'tdc',
-  'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu', 'boa', 'fof', 'gob', 'side',
-];
 
 const args = process.argv.slice(2);
 const write = args.includes('--write');
 const force = args.includes('--force');
-const codes = args.includes('--all') ? ALL : args.filter((a) => !a.startsWith('--'));
+const codes = codesFromArgs(args, { allByDefault: false });
 if (!codes.length) {
   console.error('usage: node scenario-sync.mjs <code> | --all [--write] [--force]');
   process.exit(1);

@@ -3,8 +3,9 @@
  * by scanning all tag files in src/tags/ and extracting enums and interfaces.
  */
 
-import { walk } from "https://deno.land/std@0.224.0/fs/walk.ts";
-import { relative, dirname } from "https://deno.land/std@0.224.0/path/mod.ts";
+import { readFile, writeFile } from "node:fs/promises";
+import { join, relative, sep } from "node:path";
+import { listTagFiles, srcDir, tagsDir } from "./lib.ts";
 
 interface CategoryData {
   folder: string;
@@ -26,11 +27,9 @@ function parseTagFile(content: string): { enumTypes: string[]; interfaces: strin
     enumTypes.push(match[1]);
   }
 
-  // Match every EXPORTED tag interface. Base interfaces follow the convention of
-  // being non-exported (`interface Tag...Base`), so they are already excluded by the
-  // `export` keyword here — we must NOT additionally filter by a "Base" name suffix,
-  // or a legitimate concrete tag whose concept ends in "base" (e.g. TagStatsModSetBase)
-  // would be wrongly dropped from the Tag union.
+  // Every EXPORTED tag interface. Base interfaces are non-exported by convention, so the
+  // `export` keyword excludes them; a "Base" name suffix must not be filtered (a concrete
+  // tag can end in "base", e.g. TagStatsModSetBase).
   const interfaceRegex = /export\s+interface\s+(Tag\w+)/g;
   while ((match = interfaceRegex.exec(content)) !== null) {
     interfaces.push(match[1]);
@@ -43,22 +42,14 @@ function parseTagFile(content: string): { enumTypes: string[]; interfaces: strin
  * Scan all tag files and organize by category
  */
 async function scanTagFiles(): Promise<Map<string, CategoryData>> {
-  const tagsDir = "./src/tags";
   const categoryMap = new Map<string, CategoryData>();
 
-  for await (const entry of walk(tagsDir, { 
-    exts: [".ts"],
-    includeDirs: false,
-  })) {
-    // Skip index.ts files
-    if (entry.name === "index.ts") continue;
-
-    const content = await Deno.readTextFile(entry.path);
+  for (const file of await listTagFiles()) {
+    const content = await readFile(file, "utf8");
     const { enumTypes, interfaces } = parseTagFile(content);
 
     // Get category folder (first level subdirectory)
-    const relativePath = relative(tagsDir, entry.path);
-    const folder = relativePath.split("/")[0];
+    const folder = relative(tagsDir, file).split(sep)[0];
 
     if (!categoryMap.has(folder)) {
       categoryMap.set(folder, {
@@ -139,8 +130,7 @@ function generateTagInterfaceUnion(categories: Map<string, CategoryData>): strin
     content += `} from "./tags/${category.folder}/index.js";\n\n`;
   }
 
-  content += "/**\n * Union type of all possible tag instances.\n";
-  content += " * This replaces the old string-based Tag type.\n */\n";
+  content += "/**\n * Union type of all possible tag instances.\n */\n";
   content += "export type Tag =\n";
 
   // Generate union grouped by category with comments
@@ -197,9 +187,6 @@ function generateTagCategoryMap(categories: Map<string, CategoryData>): string {
   }
   content += "};\n\n";
 
-  content += "/** All category folder names, sorted. */\n";
-  content += "export const categories: string[] = Object.keys(enumsByCategory).sort();\n\n";
-
   content += "/** Maps each TagType enum *value* to its category folder. */\n";
   content += "export const tagTypeCategory: Record<string, string> = {};\n";
   content += "for (const [folder, enums] of Object.entries(enumsByCategory)) {\n";
@@ -243,19 +230,19 @@ async function main() {
 
   console.log("\nGenerating tag-type-union.ts...");
   const tagTypeUnion = generateTagTypeUnion(categories);
-  await Deno.writeTextFile("./src/tag-type-union.ts", tagTypeUnion);
+  await writeFile(join(srcDir, "tag-type-union.ts"), tagTypeUnion);
 
   console.log("Generating tag-interface-union.ts...");
   const tagInterfaceUnion = generateTagInterfaceUnion(categories);
-  await Deno.writeTextFile("./src/tag-interface-union.ts", tagInterfaceUnion);
+  await writeFile(join(srcDir, "tag-interface-union.ts"), tagInterfaceUnion);
 
   console.log("Generating tag-category-map.ts...");
   const tagCategoryMap = generateTagCategoryMap(categories);
-  await Deno.writeTextFile("./src/tag-category-map.ts", tagCategoryMap);
+  await writeFile(join(srcDir, "tag-category-map.ts"), tagCategoryMap);
 
   console.log("Generating tags/index.ts barrel...");
   const tagsBarrel = generateTagsBarrel(categories);
-  await Deno.writeTextFile("./src/tags/index.ts", tagsBarrel);
+  await writeFile(join(tagsDir, "index.ts"), tagsBarrel);
 
   console.log("\n✅ Generated files successfully!");
   console.log("   - src/tag-type-union.ts");
@@ -264,9 +251,7 @@ async function main() {
   console.log("   - src/tags/index.ts");
 }
 
-if (import.meta.main) {
-  main().catch((error) => {
-    console.error("Error:", error);
-    Deno.exit(1);
-  });
-}
+main().catch((error) => {
+  console.error("Error:", error);
+  process.exit(1);
+});

@@ -14,7 +14,7 @@
  * Source of truth: the ArkhamCards `arkham-cards-data` reference under
  * `life/references/arkham-cards-data-master`. The `_tools/extract.mjs` script
  * deterministically captures every `campaign_log*` effect into a draft; the
- * spoiler spans and special-section structure are then curated on top.
+ * special-section structure is then curated on top.
  */
 
 export interface CampaignLogDb {
@@ -27,7 +27,7 @@ export interface CampaignLogDb {
   originalId?: string;
   /** ArkhamCards campaign data version, when present. */
   version?: number;
-  /** Ordered scenario ids — used to group entries and scope spoilers. */
+  /** Ordered scenario ids — used to group entries. */
   scenarios: string[];
   /**
    * Ordered scenarios that carry log entries, each with its ArkhamCards `type`
@@ -182,7 +182,7 @@ export interface ScenarioMeta {
   fanMade?: boolean;
   /**
    * Per-resolution consequences a first-choice resolution inflicts when reached
-   * — currently the death/madness trauma the ArkhamCards app applies
+   * — the death/madness trauma the ArkhamCards app applies
    * automatically (killed / driven insane). Keyed by resolution id (a subset of
    * {@link resolutions}; resolutions with no such effect are absent). Derived
    * deterministically by `extract.mjs` from the ArkhamCards resolution→step
@@ -242,8 +242,7 @@ export interface StandaloneSetup {
 
 /**
  * What reaching one resolution does to the investigators / the scenario,
- * beyond the win/loss recorded in the campaign log. Currently scopes to the
- * dramatic trauma the ArkhamCards app auto-applies at resolutions: investigators
+ * beyond the win/loss recorded in the campaign log: the dramatic trauma the ArkhamCards app auto-applies at resolutions: investigators
  * killed and/or driven insane.
  */
 export interface ResolutionEffect {
@@ -399,7 +398,7 @@ export interface LogEntryDef {
   id: string;
   section: string;
   kind: EntryKind;
-  /** Source scenario id (grouping + spoiler scope). */
+  /** Source scenario id (grouping). */
   scenario: string;
   /**
    * The input the recording UI must prompt for when this entry is chosen.
@@ -496,13 +495,9 @@ export interface AchievementDef {
    */
   infer?: AchievementInference;
   /**
-   * A THIRD kind between `infer` (auto) and manual: auto-derivable, but ONLY by a consumer that has
-   * the player's per-scenario "Extra" inputs (arkham.life), not from the campaign log alone. Its
-   * derivation can't be expressed as an {@link AchievementInference} rule (it spans optional-scenario
-   * Extra choices with negation), so the consuming app computes it. Log-only consumers (e.g. the
-   * arkham-starter planner) MUST treat it as manual/pencil — only `infer` means "log-derivable".
-   * Example: TSK's "Trust Nobody / Everybody" (4 of a token AND never removing it — the "never
-   * removing" half needs the Extra-recorded acts of trust/secrecy).
+   * Auto-derivable only by a consumer that holds the player's per-scenario "Extra" inputs, not from
+   * the campaign log alone (see {@link achievementInferScope}). Example: TSK's "Trust Nobody /
+   * Everybody" — the "never removing a token" half needs the Extra-recorded acts of trust/secrecy.
    */
   lifeInfer?: boolean;
   /**
@@ -541,7 +536,7 @@ export type AchievementInference =
   /**
    * A campaign-log entry was recorded (checked). For a cross-off-able entry
    * (`crossOut`), the optional `crossed` flag further constrains its state:
-   *   omitted → recorded, crossed or not (the historical meaning);
+   *   omitted → recorded, crossed or not;
    *   `false` → recorded and NOT crossed off — still "held" (e.g. an EotE
    *             supply carried all the way to the Summit);
    *   `true`  → recorded and crossed off (spent / lost).

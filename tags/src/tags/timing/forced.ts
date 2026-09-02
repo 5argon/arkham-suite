@@ -2,8 +2,8 @@ import { TagBase } from "../../base.js";
 
 export enum TagTypeTimingForced {
   TimingForcedEntersLocation = "timing-forced-enters-location",
-  // id neutralized 2026-07-16 (Tetsuo Mori responds with a [reaction], not Forced):
-  // a timing WINDOW is neutral — same precedent as timing-when-take-damage/-horror below.
+  // A timing WINDOW is neutral (Tetsuo Mori responds with a [reaction], not Forced), so the
+  // ids below carry `timing-when-` like timing-when-take-damage/-horror.
   TimingForcedLeavesPlay = "timing-when-leaves-play",
   TimingForcedSpawnYourLocation = "timing-forced-spawn-your-location",
   TimingForcedWhenTakeDamage = "timing-when-take-damage",

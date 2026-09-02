@@ -1,5 +1,5 @@
 // Core model
-export * from "./type.js"; // TaggedCard, BoostValue, HealTarget, TimingQualifier
+export * from "./type.js"; // TaggedCard, BoostValue, TimingQualifier
 export * from "./base.js"; // TagBase, CompoundTagBase
 export * from "./tag-type-union.js"; // TagType
 export * from "./tag-interface-union.js"; // Tag (+ all Tag* interfaces)
@@ -14,9 +14,8 @@ export * from "./compound-tags/compound-tags.js";
 export * from "./tag-group.js";
 export * from "./strings.js";
 
-// Tooling. The tagged cards are NOT exported as TS objects — the only way to consume
-// them is the published `@5argon/arkham-tags/cards.json`: `hydrate()` it into typed
-// cards, then `createRepository()` to query them. `query.js` holds the pure
+// Consuming the tagged cards: `hydrate()` the published `@5argon/arkham-tags/cards.json`
+// into typed cards, then `createRepository()` to query them. `query.js` holds the pure
 // compound-definition helpers (membership / where-matching), needing no card data.
 export * from "./hydrate.js";
 export * from "./repository.js";

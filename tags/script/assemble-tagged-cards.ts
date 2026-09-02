@@ -33,13 +33,13 @@ const rows: Row[] = JSON.parse(await readFile(inPath, "utf8"));
 
 // Collect every identifier reference used across all tag expressions.
 const allExpr = rows.flatMap((r) => r.tags ?? []).join("\n");
-const idRegex = /\b(TagType[A-Za-z0-9]+|BasicAction|SkillType|SkillIcon|TimingQualifier|HealTarget)\b/g;
+const idRegex = /\b(TagType[A-Za-z0-9]+|BasicAction|SkillType|SkillIcon|TimingQualifier)\b/g;
 const used = new Set<string>();
 for (const m of allExpr.matchAll(idRegex)) used.add(m[1]);
 
 const tagTypeEnums = [...used].filter((id) => id.startsWith("TagType")).sort();
 const kohakuEnums = ["BasicAction", "SkillType", "SkillIcon"].filter((id) => used.has(id));
-const typeEnums = ["TimingQualifier", "HealTarget"].filter((id) => used.has(id));
+const typeEnums = ["TimingQualifier"].filter((id) => used.has(id));
 
 const lines: string[] = [];
 if (tagTypeEnums.length) {

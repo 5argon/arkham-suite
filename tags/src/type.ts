@@ -1,15 +1,14 @@
 import { Tag } from "./tag-interface-union.js";
 
+/**
+ * A card with its tags. `level` / `cardType` / `icons` are stat metadata (not tags) carried
+ * alongside the text so tag authors can judge icon/level/type-aware tags; the ingress scripts
+ * fill them from the resolved card database.
+ */
 export interface TaggedCard {
   code: string;
   name: string;
   text: string;
-  /**
-   * Stat metadata (NOT tags) carried alongside the text so tag authors can judge
-   * icon/level/type-aware tags (e.g. a non-skill level-0 wild icon, or a card with
-   * two effective commit icons). Populated from the resolved card database by the
-   * ingress/enrich scripts; optional so older files still type-check.
-   */
   /** Card level (XP), e.g. 0–5. Undefined for unleveled cards (e.g. weaknesses). */
   level?: number;
   /** Card type code: "asset" | "event" | "skill" | "investigator" | … */
@@ -21,12 +20,6 @@ export interface TaggedCard {
 
 export type DynamicValue = number | "dynamic";
 export type BoostValue = DynamicValue;
-
-export enum HealTarget {
-  Self = "self",
-  Investigator = "investigator",
-  Ally = "ally",
-}
 
 export enum TimingQualifier {
   Before = "before",

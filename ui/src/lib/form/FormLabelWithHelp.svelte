@@ -13,11 +13,7 @@
 		 * better for mobile and for multi-paragraph explanations.
 		 */
 		helpMd?: string;
-		/**
-		 * Rich modal help as a snippet (takes precedence over `helpMd`). Lets a consumer
-		 * render arbitrary content — e.g. an mdsvex doc with images — in the help modal
-		 * instead of a raw-markdown string. The clickable `?` button opens it.
-		 */
+		/** Rich modal help as a snippet (takes precedence over `helpMd`). */
 		helpContent?: Snippet;
 		children: Snippet;
 

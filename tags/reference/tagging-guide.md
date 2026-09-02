@@ -20,8 +20,8 @@ everything decided so far** rather than starting cold.
 ## Pipeline (per pack or batch)
 
 1. **Discover** (read-only): for each pack, an agent reads the pack's cards
-   (`json/input/pack/<pack>.json` — `{code,name,text,tags}`, where `text` is authoritative and the
-   string `tags` are ~90%-accurate OLD hints, not truth), plus `reference/_taxonomy-digest.md` and
+   (`json/input/<pack>.json` — `{code,name,text,…}`, where `text` is authoritative), plus
+   `reference/_taxonomy-digest.md` and
    `reference/rules.md`. It proposes taxonomy GAPS (new tags / arguments / compound tags) with
    rationale + example codes. The first global run is saved in `discovery-reports.json`.
 2. **Synthesize**: consolidate proposals across packs — dedupe, decide tag-vs-argument-vs-compound,

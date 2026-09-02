@@ -52,6 +52,7 @@
 	</div>
 </li>
 
+{#if scope === 'log'}
 <Modal
 	isOpen={conditionsOpen}
 	onClose={() => (conditionsOpen = false)}
@@ -59,7 +60,7 @@
 >
 	<div class="space-y-3 py-2 text-sm">
 		<p class="text-primary-600 dark:text-primary-300">
-			This achievement is fully derivable later from just your campaign logs :
+			This achievement is fully derivable later from just your campaign logs:
 		</p>
 		{#if conditions.length}
 			<ul class="list-disc space-y-1 pl-5 text-primary-800 dark:text-primary-200">
@@ -72,3 +73,4 @@
 		{/if}
 	</div>
 </Modal>
+{/if}

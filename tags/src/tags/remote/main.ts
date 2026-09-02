@@ -20,8 +20,8 @@ export interface TagRemoteMove extends TagRemoteBase {
 
 /**
  * Play an EVENT as if you were at another location (Luke Robinson's "as if you
- * were at a connecting location"). Becomes common from Chapter 2 (Miguel de la
- * Cruz) — the event-play member of the remote family.
+ * were at a connecting location", Miguel de la Cruz) — the event-play member of the
+ * remote family.
  */
 export interface TagRemotePlayEvent extends TagRemoteBase {
   type: TagTypeRemote.RemotePlayEvent;

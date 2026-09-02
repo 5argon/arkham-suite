@@ -270,9 +270,6 @@ const enumsByCategory: Record<string, object[]> = {
   "victory": [TagTypeVictory],
 };
 
-/** All category folder names, sorted. */
-export const categories: string[] = Object.keys(enumsByCategory).sort();
-
 /** Maps each TagType enum *value* to its category folder. */
 export const tagTypeCategory: Record<string, string> = {};
 for (const [folder, enums] of Object.entries(enumsByCategory)) {

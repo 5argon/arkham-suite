@@ -5,7 +5,7 @@
 	import MapPickerModal from './MapPickerModal.svelte';
 	import StepState from './StepState.svelte';
 	import StepTime from './StepTime.svelte';
-	import { defaultChoices, fileEncounterSet, fileLabel, isOpeningFile, stepIcon, stepTitle } from './helpers';
+	import { defaultChoices, fileEncounterSet, fileLabel, isOpeningFile, stepIcon, stepTitle, withValidResolution as keepResolutionValid } from './helpers';
 
 	interface Props {
 		id: number;
@@ -92,16 +92,8 @@
 			...(travelOnly ? { travelOnly: true } : {}),
 		});
 	}
-	/** Keep the resolution pick valid: if the current one isn't offerable for these upstream choices, default to the first offerable. */
-	function withValidResolution(fc: string, loc: string, next: Record<string, string>): Record<string, string> {
-		const resD = selectableDecisions(fc, loc).find((d) => d.decisionType === 'resolution');
-		if (!resD) return next;
-		const offers = resolutionOffers(fc, next, fromState, sim.entryTime, loc).filter((r) => r.offerable);
-		if (offers.length && !offers.some((r) => r.option.id === next[resD.decisionId])) {
-			return { ...next, [resD.decisionId]: offers[0]!.option.id };
-		}
-		return next;
-	}
+	const withValidResolution = (fc: string, loc: string, next: Record<string, string>) =>
+		keepResolutionValid(fc, loc, next, fromState, sim.entryTime);
 	function onLocationChange(v: string) {
 		location = v;
 		fileCode = playableFilesAt(v).filter((f) => !isOpeningFile(f.fileCode))[0]?.fileCode ?? '';

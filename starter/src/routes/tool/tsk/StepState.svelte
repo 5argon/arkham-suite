@@ -18,6 +18,7 @@
 		type NumBound,
 		type SimStep,
 	} from '@5argon/arkham-tsk-solver';
+	import { epilogueLabel, judgmentLabel } from './helpers';
 
 	// `step` carries the post-step state; `finalState` is the table state for a finale step's summary.
 	// `showChoices` lists the player's picks (used in the read-only view; the editor shows them as dropdowns).
@@ -37,8 +38,6 @@
 	// Prose for an option's firing condition (e.g. "Fewer than 20 time AND the cell told the truth to Taylor").
 	const cond = (fileCode: string, decisionId: string, optionId: string) => optionText(fileCode, decisionId, optionId)?.condition ?? null;
 
-	const judgmentLabel = (f: FinalePrediction) => catalog().judgments.find((j) => j.id === f.judgment)?.label ?? f.judgment;
-	const epilogueLabel = (f: FinalePrediction) => catalog().epilogues.find((e) => e.id === f.epilogue)?.label ?? f.epilogue;
 
 	const SYMBOL_TO_ID: Record<string, string> = { 'α': 'alpha', 'β': 'beta', 'γ': 'gamma', 'δ': 'delta', 'ε': 'epsilon', 'ζ': 'zeta', 'Θ': 'theta', 'ψ': 'psi', 'ω': 'omega' };
 	const markerId = (symbol: string): string => SYMBOL_TO_ID[symbol] ?? symbol;
@@ -121,8 +120,8 @@
 
 {#if step.finale}
 	<div class="mt-1 rounded bg-primary-50 dark:bg-primary-900/40 p-2 text-xs text-primary-700 dark:text-primary-200">
-		<div><b>Predicted judgment:</b> {judgmentLabel(step.finale)} (votes {step.finale.yea} yea / {step.finale.nay} nay / {step.finale.silent} silent)</div>
-		<div><b>Epilogue:</b> {epilogueLabel(step.finale)} — Foundation Trust {step.finale.trust} vs Cell Deception {step.finale.deception}</div>
+		<div><b>Predicted judgment:</b> {judgmentLabel(step.finale.judgment)} (votes {step.finale.yea} yea / {step.finale.nay} nay / {step.finale.silent} silent)</div>
+		<div><b>Epilogue:</b> {epilogueLabel(step.finale.epilogue)} — Foundation Trust {step.finale.trust} vs Cell Deception {step.finale.deception}</div>
 		<div>
 			<b>At the table:</b>
 			{finalHeld.length} Key(s){finalHeld.length ? ` (${finalHeld.map((k) => keyName(k)).join(', ')})` : ''}, {finalState.tablet} Tablet / {finalState.elderThing} Elder Thing{finalState.cultist ? ` / ${finalState.cultist} Cultist` : ''}.

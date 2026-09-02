@@ -39,7 +39,7 @@ export interface TagActionAdditionalAttack extends TagActionAdditionalBase {
  * action as if it were your turn" / Haste's "take another action of that type
  * again") — Quick Thinking, Swift Reflexes, Haste, The Stars Are Right. NOT a
  * pool of extra actions for the turn (that's action-additional — Leo De Luca);
- * both roll into the Extra Actions compound (ruled 2026-07-17, TDE full review).
+ * both roll into the Extra Actions compound.
  */
 export interface TagActionTakeImmediate extends TagActionAdditionalBase {
   type: TagTypeActionAdditional.ActionTakeImmediate;

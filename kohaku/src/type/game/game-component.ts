@@ -24,11 +24,9 @@ export enum ChaosToken {
 }
 
 /**
- * Stable ArkhamDB / ArkhamCards string code for each chaos token. This is the
- * game-wide token vocabulary used wherever tokens are addressed by string —
- * e.g. campaign-data's `chaosToken` inference (`tablet`, `elder_thing`, `frost`)
- * and the recorded final-chaos-bag keys in arkham.life. Symbol tokens use the
- * canonical ArkhamCards ids; numeric tokens use signed strings.
+ * Stable ArkhamDB / ArkhamCards string code for each chaos token — the vocabulary used wherever
+ * tokens are addressed by string. Symbol tokens use the canonical ArkhamCards ids; numeric tokens
+ * use signed strings.
  */
 export const chaosTokenCode: Record<ChaosToken, string> = {
 	[ChaosToken.TokenP1]: '+1',
@@ -52,11 +50,6 @@ export const chaosTokenCode: Record<ChaosToken, string> = {
 	[ChaosToken.TokenCurse]: 'curse',
 	[ChaosToken.TokenBlood]: 'blood'
 };
-
-/** Reverse lookup: ArkhamDB token code → `ChaosToken`. */
-export const chaosTokenByCode: Record<string, ChaosToken> = Object.fromEntries(
-	Object.entries(chaosTokenCode).map(([token, code]) => [code, Number(token) as ChaosToken])
-);
 
 /** Canonical display/iteration order of the chaos bag (matches the printed sheet). */
 export const chaosTokenOrder: ChaosToken[] = [

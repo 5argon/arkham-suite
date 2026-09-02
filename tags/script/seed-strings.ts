@@ -4,20 +4,22 @@
  * compound descriptions are hand-authored below; tag descriptions seed empty (an
  * editable surface). MERGE-safe: existing values are never overwritten.
  *
- *   yarn build && node ./script/seed-strings.ts
+ *   yarn build && node ./script/seed-strings.ts [--prune]
+ *
+ *   --prune   also drop keys that no group / tag / compound in the taxonomy produces
+ *             (leftovers of renamed or removed tags)
  *
  * Humanizing from kebab lives ONLY here (to bootstrap names) — never at runtime.
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import { tagTypeCategory } from "../dist/tag-category-map.js";
 import { tagGroupIds } from "../dist/tag-group.js";
 import { compoundTags } from "../dist/compound-tags/compound-tags.js";
+import { root } from "./lib.ts";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
+const prune = process.argv.includes("--prune");
 const enPath = join(root, "messages", "en.json");
 
 const humanize = (v: string) =>
@@ -94,8 +96,6 @@ const COMPOUND_DESCRIPTIONS: Record<string, string> = {
     "Exile cards: one powerful use, then removed from your collection (an XP-repurchase deckbuilding theme).",
   "into-play-cheat":
     "Puts cards directly into play from hand/deck/discard, skipping the normal play action (and sometimes the cost).",
-  "deck-top-control":
-    "Divination — look at, reorder, predict, or choose what you (or the encounter deck) draw next.",
   "bold-action":
     "Bundles a basic action (Fight / Evade / Investigate / Parley / Resign) into the card's own ability, whichever action it is.",
   "chaos-token-control":
@@ -118,13 +118,7 @@ const COMPOUND_DESCRIPTIONS: Record<string, string> = {
   "spell-support": "Cards that care about the Spell trait — Spell support and Spell-only arcane slots.",
   "relic-support": "Cards that care about the Relic trait.",
   "weapon-support": "Cards that care about the Weapon trait — Weapon support and Weapon-only slots.",
-  "firearm-support": "Cards that care about the Firearm trait (e.g. refilling a Firearm's ammo).",
-  "melee-support": "Cards that care about the Melee trait.",
-  "ranged-support": "Cards that care about the Ranged trait.",
-  "item-support": "Cards that care about the Item trait.",
   "ally-support": "Supports Ally assets and Ally-only slots.",
-  "insight-support": "Cards that care about the Insight trait.",
-  "tactic-support": "Cards that care about the Tactic trait.",
   healing:
     "Restores damage or horror — on yourself, another investigator, an ally/asset, or this card itself.",
   "passive-boost":
@@ -147,10 +141,6 @@ const COMPOUND_DESCRIPTIONS: Record<string, string> = {
     "Fight with a non-[combat] stat, or evade with a non-[agility] stat (Mind over Matter, Mystic willpower-fighters).",
   "extra-actions":
     "Grants additional actions for the turn — MORE actions, not more per action (distinct from action compression).",
-  "charge-support": "The Charge 'uses' economy — starting / placing charges and charge accumulators.",
-  "secret-support": "The Secret 'uses' economy — starting and placing secrets.",
-  "ammo-support": "The Ammo 'uses' economy — starting and placing ammo.",
-  "supply-support": "The Supply 'uses' economy — starting and placing supplies.",
 };
 
 await mkdir(join(root, "messages"), { recursive: true });
@@ -162,7 +152,9 @@ const en: Record<string, string> = existsSync(enPath)
 en["$schema"] = en["$schema"] ?? "https://inlang.com/schema/inlang-message-format";
 
 let added = 0;
+const expected = new Set<string>(["$schema"]);
 const ensure = (key: string, value: string) => {
+  expected.add(key);
   if (!(key in en)) {
     en[key] = value;
     added++;
@@ -185,7 +177,16 @@ for (const c of compoundTags) {
   ensure(`desc_compound_${keyFor(v)}`, COMPOUND_DESCRIPTIONS[v] ?? "");
 }
 
+let pruned = 0;
+if (prune) {
+  for (const key of Object.keys(en)) {
+    if (expected.has(key)) continue;
+    delete en[key];
+    pruned++;
+  }
+}
+
 await writeFile(enPath, JSON.stringify(en, null, 2) + "\n");
 console.log(
-  `Seeded messages/en.json: ${added} new keys (total ${Object.keys(en).length - 1} strings).`,
+  `Seeded messages/en.json: ${added} new keys, ${pruned} pruned (total ${Object.keys(en).length - 1} strings).`,
 );

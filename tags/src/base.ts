@@ -1,4 +1,4 @@
-import { CompoundTagType } from "./compound-tag-type.js";
+import type { CompoundTagType } from "./compound-tags/compound-tags.js";
 import { TagType } from "./tag-type-union.js";
 
 /**

@@ -2,19 +2,15 @@
 	import clsx from 'clsx';
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
-	import { resolve } from '$app/paths';
+	import { resolveLinkTarget } from './link-target.js';
 
 	interface Prop {
 		label: string;
-		/** URL to navigate to (renders an `<a>`) or a click handler (renders a `<button>`). Mirrors {@link Button}. */
+		/** URL to navigate to (renders an `<a>`) or a click handler (renders a `<button>`). */
 		onClick: string | (() => void);
 		icon?: FaIconType;
-		/**
-		 * Colour tone. `default` uses the secondary accent (e.g. "Select all"); `warning`
-		 * is amber for mildly destructive actions like resets.
-		 */
+		/** `default` uses the secondary accent; `warning` is amber for mildly destructive actions. */
 		tone?: 'default' | 'warning';
-		/** Text size. Defaults to `sm`. */
 		size?: 'xs' | 'sm';
 		disabled?: boolean;
 		/** HTML button type. Defaults to "button" to avoid accidental form submission. */
@@ -24,20 +20,7 @@
 	}
 	const { label, onClick, icon, tone = 'default', size = 'sm', disabled, type = 'button', newTab }: Prop = $props();
 
-	const isLink = $derived(typeof onClick === 'string');
-	const clickHandler = $derived(typeof onClick === 'function' ? onClick : undefined);
-	const isExternalLink = $derived(
-		typeof onClick === 'string' &&
-			(onClick.startsWith('http://') || onClick.startsWith('https://') || onClick.startsWith('//'))
-	);
-	const href = $derived.by(() => {
-		if (isLink && typeof onClick === 'string') {
-			return isExternalLink ? (onClick as string) : resolve(onClick as any);
-		}
-		return undefined;
-	});
-	const target = $derived(isExternalLink || (isLink && newTab) ? '_blank' : undefined);
-	const rel = $derived(isExternalLink || (isLink && newTab) ? 'noreferrer' : undefined);
+	const { href, target, rel, clickHandler } = $derived(resolveLinkTarget(onClick, newTab));
 
 	const toneClass = $derived(
 		tone === 'warning'
@@ -53,7 +36,7 @@
 	);
 </script>
 
-{#if isLink}
+{#if href !== undefined}
 	<a {href} {target} {rel} class={classes}>
 		{#if icon !== undefined}<FaIcon duotone {icon} />{/if}
 		{label}

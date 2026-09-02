@@ -1,16 +1,12 @@
 import { card as cardUtil, sorter, type Card, type Product } from '@5argon/arkham-kohaku';
 import { u as stringUtils } from '@5argon/arkham-string';
 import type { CardItem, TagChipArg } from '@5argon/arkham-life-ui';
-import { createRepository, hydrate, type Tag, type HydratedCard } from '@5argon/arkham-tags';
+import { createRepository, hydrate, tagName, type Tag, type HydratedCard } from '@5argon/arkham-tags';
 import rawCards from '@5argon/arkham-tags/cards.json';
 import { getAllCards } from '$lib/card-data';
 import { productToExploreRoute } from '$lib/utility/product';
 
-/**
- * The single tag data source: the package ships no TS-tagged cards — we import the public
- * `cards.json`, hydrate it into typed cards (splitting base tags from `c-`-prefixed compound
- * archetypes), and build one repository to query. Shared by the page and its child panels.
- */
+/** The single tag data source: the public `cards.json`, hydrated into one queryable repository. */
 export const tagRepo = createRepository(hydrate(rawCards));
 
 /**
@@ -53,10 +49,45 @@ export function parseWhere(raw: string | null): Record<string, unknown> | undefi
 	}
 }
 
+/** Structural equality of two argument values (nested arg objects compare key by key). */
+function sameValue(a: unknown, b: unknown): boolean {
+	if (a === b) return true;
+	if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) return false;
+	const ra = a as Record<string, unknown>;
+	const rb = b as Record<string, unknown>;
+	const keys = Object.keys(ra);
+	return keys.length === Object.keys(rb).length && keys.every((k) => sameValue(ra[k], rb[k]));
+}
+
 /** Whether a tag's arguments satisfy a partial `where` (every where key equals). */
 export function tagMatchesWhere(tag: Tag, where: Record<string, unknown>): boolean {
 	const args = tagArguments(tag);
-	return Object.entries(where).every(([k, v]) => JSON.stringify(args[k]) === JSON.stringify(v));
+	return Object.entries(where).every(([k, v]) => sameValue(args[k], v));
+}
+
+/** `key: value · key: value` for a tag's arguments. */
+export function argsLabel(args: Record<string, unknown>): string {
+	return Object.entries(args)
+		.map(([k, v]) => `${k}: ${formatArgValue(v)}`)
+		.join(' · ');
+}
+
+/** "Tag name · key: value …" — a tag as one line of text (for reports). */
+export function tagLabel(tag: Tag): string {
+	const args = argsLabel(tagArguments(tag));
+	return args ? `${tagName(tag.type)} · ${args}` : tagName(tag.type);
+}
+
+/** The search params that open a tag's view (optionally narrowed to a `where`). */
+export function tagViewParams(type: string, where?: Record<string, unknown>): Record<string, string | null> {
+	return {
+		tab: null,
+		pack: null,
+		focus: null,
+		tag: type,
+		compound: null,
+		where: where && Object.keys(where).length ? serializeWhere(where) : null
+	};
 }
 
 /** Format a single argument value for display (flattens nested arg objects like `range`). */
@@ -100,6 +131,11 @@ function getCardMap(): Map<string, Card> {
 		cardMapCache = new Map(getAllCards().map((c) => [c.code, c]));
 	}
 	return cardMapCache;
+}
+
+/** A resolved kohaku Card by code, or undefined. */
+export function cardByCode(code: string): Card | undefined {
+	return getCardMap().get(code);
 }
 
 /**

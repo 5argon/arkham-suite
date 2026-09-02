@@ -39,8 +39,3 @@ export const tagGroups: TagGroup[] = buildGroups();
 
 /** All group ids, sorted. */
 export const tagGroupIds: TagGroupId[] = tagGroups.map((g) => g.id);
-
-/** Member tag types of a group. */
-export function tagTypesInGroup(id: TagGroupId): TagType[] {
-  return tagGroups.find((g) => g.id === id)?.tagTypes ?? [];
-}

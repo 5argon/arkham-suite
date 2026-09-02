@@ -4,15 +4,12 @@
  *
  *   node ./script/rules-to-md.ts
  *
- * Uses jsdom (already a monorepo dependency) to walk the DOM rather than regex-stripping.
+ * Walks the DOM with jsdom rather than regex-stripping.
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import { JSDOM } from "jsdom";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
+import { root } from "./lib.ts";
 
 const html = await readFile(join(root, "rules.html"), "utf8");
 const dom = new JSDOM(html);

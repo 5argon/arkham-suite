@@ -28,8 +28,7 @@ export interface TagTankRedirectDamageHorror extends TagTankBase {
  * Relocate EXISTING damage/horror tokens between player cards — not incoming
  * damage (that's tank-redirect-*) and not removal (that's heal-*).
  * scope "cross-investigator" = tokens move between two investigators' cards
- * (Solemn Vow — the owner soaks the controller's tokens; future members: Devil
- * (FHV), Lucky Charm (Core 2026)); scope "self" = shuffling within your own
+ * (Solemn Vow — the owner soaks the controller's tokens); scope "self" = shuffling within your own
  * board (Tommy Muldoon's elder sign). Only the cross-investigator scope is
  * protective (ProtectorTank/Support compounds filter on it).
  */

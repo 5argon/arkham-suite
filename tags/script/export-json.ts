@@ -1,28 +1,23 @@
 /**
- * Export the TypeScript-authored tags to the public JSON — the ONE way consumers get
- * tagged cards (the package does not ship them as TS objects). Reads the *built* package
+ * Export the TypeScript-authored tags to the public JSON. Reads the *built* package
  * (`dist/`), so run `yarn build` first. Writes to `json/export/`:
  *
- *   - cards.json          THE public artifact: [{ code, name, text, tags: RawTag[] }],
- *                         where `tags` MERGES base tags and compound archetypes into one
- *                         list. Compound entries are bare `{ type: "c-..." }` — the `c-`
- *                         prefix marks them, so the data is self-describing. Consumers run
- *                         `hydrate(cards)` to split it back into typed tags + compoundTags.
+ *   - cards.json          THE public artifact: [{ code, name, text, tags: RawTag[] }], where
+ *                         `tags` MERGES base tags and compound archetypes into one list; compound
+ *                         entries are bare `{ type: "c-..." }`. Consumers run `hydrate(cards)`.
  *   - compound-tags.json  the compound DEFINITIONS [{ type, tags }] (reference / tooling).
  *   - tags.json           sorted vocabulary of every distinct base tag `type` used.
  *
- * Run with Node (the built output is Node ESM and resolves the kohaku workspace dep):
  *   node ./script/export-json.ts
  */
 import { writeFile, mkdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 // Internal module: allTaggedCards is intentionally NOT part of the public API.
 import { allTaggedCards } from "../dist/tagged-cards/index.js";
-import { compoundTags, resolveCompounds } from "../dist/index.js";
+import { COMPOUND_PREFIX, compoundTags, resolveCompounds } from "../dist/index.js";
+import { root } from "./lib.ts";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const outDir = join(here, "..", "json", "export");
+const outDir = join(root, "json", "export");
 
 await mkdir(outDir, { recursive: true });
 
@@ -56,7 +51,7 @@ await writeFile(
 );
 
 const compoundEntries = cards.reduce(
-  (n, c) => n + c.tags.filter((t) => t.type.startsWith("c-")).length,
+  (n, c) => n + c.tags.filter((t) => t.type.startsWith(COMPOUND_PREFIX)).length,
   0,
 );
 console.log(

@@ -47,11 +47,8 @@ A generic tooltip that displays custom content inside a rounded frame with trans
 			if (!referenceElement || !floatingElement) return;
 
 			const { x: newX, y: newY } = await computePosition(referenceElement, floatingElement, {
-				// The floating node is `position: fixed`; match the strategy so floating-ui
-				// resolves coordinates against the SAME containing block the browser uses for
-				// fixed elements. Without this it defaults to 'absolute' and mis-anchors as soon
-				// as an ancestor (a `transform`, or a Tailwind `@container` → container-type)
-				// establishes a fixed-positioning containing block.
+				// The floating node is `position: fixed`, so floating-ui must resolve against the
+				// same containing block (see `portalToBody`).
 				strategy: 'fixed',
 				placement: 'top',
 				middleware: [

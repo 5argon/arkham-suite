@@ -68,15 +68,9 @@ export const chapterTwoSmallCampaigns: Campaign[] = [
 ];
 
 /**
- * An individual official standalone scenario (the FFG "Side Scenarios" / Scenario
- * Packs). One member PER SCENARIO, not per product: Guardians of the Abyss provides
- * two scenarios ({@link StandaloneScenario.GuardiansEternalSlumber} +
- * {@link StandaloneScenario.GuardiansNightsUsurper}); Fortune and Folly is a single
- * scenario played in two parts (one member, see {@link standaloneScenarioParts}).
- *
- * Enum VALUES are the campaign-data `side` catalogue scenario ids verbatim, so the
- * app joins kohaku ↔ campaign-data on identity (no alias table). Use
- * {@link productToStandaloneScenarios} for the product→scenarios direction.
+ * An individual official standalone scenario (the FFG "Side Scenarios" / Scenario Packs), one
+ * member PER SCENARIO: Guardians of the Abyss provides two. Enum VALUES are the campaign-data
+ * `side` catalogue scenario ids verbatim, so kohaku ↔ campaign-data join on identity.
  */
 export enum StandaloneScenario {
   CurseOfTheRougarou = 'curse_of_the_rougarou',
@@ -100,7 +94,6 @@ export enum StandaloneScenario {
 /**
  * Which standalone scenarios each standalone {@link Product} provides, in book
  * order. Most packs provide one scenario; Guardians of the Abyss provides two.
- * Source of truth for the product→scenario direction (the creator's pack grid).
  */
 export const productToStandaloneScenarios: Partial<Record<Product, StandaloneScenario[]>> = {
   [Product.CurseOfTheRougarou]: [StandaloneScenario.CurseOfTheRougarou],
@@ -119,25 +112,6 @@ export const productToStandaloneScenarios: Partial<Record<Product, StandaloneSce
   [Product.TheMidwinterGala]: [StandaloneScenario.TheMidwinterGala],
   [Product.FilmFatale]: [StandaloneScenario.FilmFatale],
 };
-
-/**
- * Number of parts a standalone scenario is played across (absent ⇒ 1). Fortune
- * and Folly is "one scenario, two parts" — a single {@link StandaloneScenario}
- * scored once, but the guide splits play into Part I (Fortune) + Part II (Folly).
- */
-export const standaloneScenarioParts: Partial<Record<StandaloneScenario, number>> = {
-  [StandaloneScenario.FortuneAndFolly]: 2,
-};
-
-const standaloneScenarioToProductMap: Record<string, Product> = {};
-for (const [product, scenarios] of Object.entries(productToStandaloneScenarios)) {
-  for (const scenario of scenarios ?? []) standaloneScenarioToProductMap[scenario] = product as Product;
-}
-
-/** The standalone {@link Product} a given standalone scenario belongs to. */
-export function standaloneScenarioToProduct(scenario: StandaloneScenario): Product {
-  return standaloneScenarioToProductMap[scenario];
-}
 
 /** Standalone scenarios a {@link Product} provides (empty for non-standalone products). */
 export function productStandaloneScenarios(product: Product): StandaloneScenario[] {
@@ -170,22 +144,6 @@ export const campaignToProductMap: Record<Campaign, Product> = {
   [Campaign.BrethrenOfAsh]: Product.CoreSet2026,
   [Campaign.ChildrenOfBlood]: Product.ChildrenOfBlood,
 };
-
-/**
- * Inverse of {@link campaignToProductMap}: every {@link Campaign} a given
- * {@link Product} provides. Most products map to one campaign; The Dream-Eaters
- * Campaign Expansion provides two (The Dream-Quest + The Web of Dreams), and the
- * Revised Core Set provides Night of the Zealot. Returns `[]` for products that
- * carry no campaign (investigator expansions, starter decks, standalones, …).
- *
- * Drives ownership scoping: un-owning a product removes its campaigns from a
- * player's career "blanks".
- */
-export function productToCampaigns(product: Product): Campaign[] {
-  return (Object.entries(campaignToProductMap) as [Campaign, Product][])
-    .filter(([, p]) => p === product)
-    .map(([campaign]) => campaign);
-}
 
 /** Every {@link Campaign} provided by any product in `products` (deduped). */
 export function campaignsForProducts(products: Iterable<Product>): Campaign[] {

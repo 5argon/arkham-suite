@@ -15,7 +15,7 @@ export interface TagVictoryDisplaySelf extends TagBase {
 
 /**
  * Banks an ENCOUNTER card into the victory display (The Eye of Truth adding the
- * tested treachery). Future member: Blood of K'n-yan (TDC). Distinct from
+ * tested treachery). Distinct from
  * victory-display-self (the card banking itself).
  */
 export interface TagVictoryDisplayAddEncounter extends TagBase {

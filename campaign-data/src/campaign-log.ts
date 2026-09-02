@@ -53,8 +53,7 @@ export function availableCampaignLogCodes(): string[] {
 /**
  * Playable scenarios (ArkhamCards type `'story'`) in campaign order. Use this for
  * per-scenario features that don't apply to interludes/epilogues — e.g. the XP
- * highscore. Falls back to the distinct entry scenarios when `scenarioMeta` is
- * absent (older generated data).
+ * highscore. Falls back to the distinct entry scenarios when `scenarioMeta` is absent.
  */
 export function playableScenarios(log: CampaignLog): string[] {
   const meta = log.db.scenarioMeta;
@@ -74,7 +73,7 @@ export function playableScenarios(log: CampaignLog): string[] {
 const STANDALONE_CATALOG_CODE = 'side';
 
 export interface StandaloneScenario {
-  /** campaign-data code that owns the catalogue entry (currently always `'side'`). */
+  /** campaign-data code that owns the catalogue entry (`'side'`). */
   code: string;
   /** Scenario id (e.g. `'carnevale_of_horrors'`). */
   scenario: string;
@@ -223,14 +222,6 @@ export function specialInteractionsFor(log: CampaignLog): ResolvedSpecialInterac
   return (log.db.specialInteractions ?? [])
     .map((def) => ({ def, en: log.en.specialInteractions?.[def.id] }))
     .filter((s): s is ResolvedSpecialInteraction => Boolean(s.en));
-}
-
-/** Special interactions that occur in one specific scenario. */
-export function specialInteractionsForScenario(
-  log: CampaignLog,
-  scenario: Scenario | string
-): ResolvedSpecialInteraction[] {
-  return specialInteractionsFor(log).filter((s) => s.def.scenario === scenario);
 }
 
 /** A played investigator resolved to the fields a {@link SpecialInteractionMatch} needs. */
@@ -438,12 +429,11 @@ function inferUsesExtras(rule: AchievementInference | undefined): boolean {
 }
 
 /**
- * How an achievement can be auto-derived — the gears/pencil distinction:
- *  - `'log'`    — from the campaign log alone, so ANY consumer can infer it ("gears" everywhere);
- *  - `'extra'`  — auto-derivable, but only by a consumer that holds the per-scenario "Extra" inputs
- *                 (its `infer`/`itemInfer` references a `scenarioChoice`, or it carries `lifeInfer`).
- *                 Log-only consumers (e.g. the arkham-starter planner) MUST treat it as manual/pencil;
- *                 Extra-aware consumers (arkham.life) show it as gears and auto-check it;
+ * How an achievement can be auto-derived:
+ *  - `'log'`    — from the campaign log alone, so any consumer can infer it;
+ *  - `'extra'`  — only by a consumer that holds the per-scenario "Extra" inputs (its
+ *                 `infer`/`itemInfer` references a `scenarioChoice`, or it carries `lifeInfer`);
+ *                 log-only consumers treat it as manual;
  *  - `'manual'` — no inference at all; always a manual tick.
  */
 export function achievementInferScope(def: AchievementDef): 'log' | 'extra' | 'manual' {
@@ -529,7 +519,7 @@ export function checkPrerequisite(
 
 /**
  * The composite entry keys that declare the campaign won vs lost (curated
- * `outcome` tags). Empty arrays when a campaign hasn't been outcome-tagged yet.
+ * `outcome` tags). Empty arrays for a campaign without outcome tags.
  */
 export function outcomeSignals(log: CampaignLog): {
   win: string[];
@@ -567,7 +557,7 @@ export interface ScenarioResolutionEffect {
  * drives the party insane — flattened from `scenarioMeta[].resolutionEffects`.
  * Lets a profile join the player's recorded resolutions (reserved `__resolution`)
  * against the trauma each ending inflicts to tally deaths vs insanities. Empty
- * when the campaign's data predates resolution-effect extraction.
+ * when the campaign has no resolution effects.
  */
 export function resolutionTraumaEffects(log: CampaignLog): ScenarioResolutionEffect[] {
   const out: ScenarioResolutionEffect[] = [];

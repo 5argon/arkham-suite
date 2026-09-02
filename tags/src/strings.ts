@@ -9,13 +9,12 @@ export interface LocaleOpt {
 }
 
 const keyFor = (v: string) => v.replaceAll("-", "_");
-// Compound type values carry a `c-` namespace prefix on the machine id (so they are
-// self-describing in the merged JSON / logs). The i18n key strips it, so display
-// strings stay keyed by the bare name (`tag_compound_bold_action`, not `..._c_...`).
+/** Compound i18n keys use the bare name (`tag_compound_bold_action`), without the `c-` prefix. */
 const compoundKey = (v: string) => keyFor(v.replace(/^c-/, ""));
 
+/** The locale's string, falling back to the base locale when missing or empty. */
 function lookup(key: string, locale?: string): string | undefined {
-  return tagStrings[locale ?? baseLocale]?.[key] ?? tagStrings[baseLocale]?.[key];
+  return tagStrings[locale ?? baseLocale]?.[key] || tagStrings[baseLocale]?.[key];
 }
 
 /** Localized display name for a tag type. */

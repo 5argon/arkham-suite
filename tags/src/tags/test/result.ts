@@ -8,8 +8,7 @@ export enum TagTypeTestResult {
 
 interface TagTestResultBase extends TagBase {
   /**
-   * The margin by which the test succeeds or fails.
-   * Use -1 or a special value for variable amounts.
+   * The margin by which the test succeeds or fails; "dynamic" for variable amounts.
    * Use 0 for "succeed by 0" or exact success.
    */
   amount: DynamicValue;
