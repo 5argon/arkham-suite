@@ -10,7 +10,11 @@
 	import { decodeTeams, type StarterFilterValue, teamMatches } from '$lib/tool/starter/filter';
 
 	const teams = decodeTeams(allPrebuiltTeams(), getAllCards());
-	let filter = $state<StarterFilterValue>({ products: new Set(), investigators: new Set() });
+	let filter = $state<StarterFilterValue>({
+		products: new Set(),
+		investigators: new Set(),
+		mustIncludeAll: false
+	});
 	const visible = $derived(teams.filter((entry) => teamMatches(entry, filter)));
 </script>
 
@@ -29,7 +33,7 @@
 
 <MarginText>
 	<TextParagraph>{m.team_intro()}</TextParagraph>
-	<StarterFilter onChange={(f) => (filter = f)} />
+	<StarterFilter showMustIncludeAll onChange={(f) => (filter = f)} />
 </MarginText>
 
 <MarginFull>

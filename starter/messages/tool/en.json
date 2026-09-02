@@ -185,7 +185,7 @@
 	"tool_evergreen_team_info_save": "Save",
 	"tool_evergreen_team_swap_investigator": "Swap Investigator",
 	"tool_evergreen_team_swap_investigator_help": "Choose a replacement for {name}.",
-	"tool_evergreen_team_status_overlap": "{count} overlaps resolve.",
+	"tool_evergreen_team_status_overlap": "{count} overlaps to resolve.",
 	"tool_evergreen_team_status_team_overlap": "Cards used more than physical quantities you have are marked in red.",
 	"tool_evergreen_team_unlimited_cards": "Unlimited Cards",
 	"tool_evergreen_team_finish_hint": "Finish editing first to share, export, or gather the cards.",

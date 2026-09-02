@@ -9,6 +9,7 @@ is remembered with the starter team cart so Use This Team carries it.
 	import {
 		Button,
 		CardLine,
+		Checkbox,
 		HealthSanity,
 		HelpParagraph,
 		ImageIconCommit,
@@ -27,8 +28,9 @@ is remembered with the starter team cart so Use This Team carries it.
 
 	interface Prop {
 		onChange: (filter: StarterFilterValue) => void;
+		showMustIncludeAll?: boolean;
 	}
-	const { onChange }: Prop = $props();
+	const { onChange, showMustIncludeAll = false }: Prop = $props();
 
 	const core = Product.CoreSet2026;
 	const deckProducts = deckProductsForCore(core);
@@ -48,6 +50,7 @@ is remembered with the starter team cart so Use This Team carries it.
 	// Codes the user turned off; everything available is on by default, so
 	// newly appearing investigators start selected.
 	const excludedInvestigators = new SvelteSet<CardCode>();
+	let mustIncludeAll = $state(false);
 	const activeInvestigators = $derived(
 		new Set(investigators.map((c) => c.code).filter((code) => !excludedInvestigators.has(code)))
 	);
@@ -56,7 +59,11 @@ is remembered with the starter team cart so Use This Team carries it.
 	);
 
 	function emit() {
-		onChange({ products: new Set(selectedProducts), investigators: activeInvestigators });
+		onChange({
+			products: new Set(selectedProducts),
+			investigators: activeInvestigators,
+			mustIncludeAll
+		});
 	}
 	function rememberProducts() {
 		starterTeam.setProducts([...selectedProducts]);
@@ -83,7 +90,7 @@ is remembered with the starter team cart so Use This Team carries it.
 />
 
 <SectionSeparator title={m.starter_decks_filter_investigators()} />
-<div class="mb-2">
+<div class="mb-2 flex flex-wrap items-center gap-2">
 	<Button
 		label={allInvestigatorsOn
 			? m.tool_evergreen_team_deselect_all()
@@ -97,6 +104,13 @@ is remembered with the starter team cart so Use This Team carries it.
 			emit();
 		}}
 	/>
+	{#if showMustIncludeAll}
+		<Checkbox
+			bind:checked={mustIncludeAll}
+			label={m.team_filter_must_include_all()}
+			onChange={emit}
+		/>
+	{/if}
 </div>
 <!-- The same investigator block as the deck banner's left side, so beginners
      meet each investigator's name, health, sanity, and stats while filtering. -->

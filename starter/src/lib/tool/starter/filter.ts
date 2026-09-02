@@ -8,6 +8,7 @@ import type { Card } from '@5argon/arkham-kohaku';
 export interface StarterFilterValue {
 	products: ReadonlySet<Product>;
 	investigators: ReadonlySet<CardCode>;
+	mustIncludeAll?: boolean;
 }
 
 const CORE = Product.CoreSet2026;
@@ -17,6 +18,20 @@ export function deckMatches(entry: StarterDeckEntry, filter: StarterFilterValue)
 		deckCardPool(entry.primary).every((p) => p === CORE || filter.products.has(p as Product)) &&
 		filter.investigators.has(entry.primary.investigator_code)
 	);
+}
+
+export function matchesInvestigators(
+	resultInvestigators: Iterable<CardCode>,
+	filter: StarterFilterValue
+): boolean {
+	if (filter.investigators.size === 0) return false;
+
+	if (filter.mustIncludeAll) {
+		const included = new Set(resultInvestigators);
+		return [...filter.investigators].every((code) => included.has(code));
+	}
+
+	return [...resultInvestigators].some((code) => filter.investigators.has(code));
 }
 
 export interface PrebuiltTeamEntry {
@@ -49,6 +64,9 @@ export function teamMatches(entry: PrebuiltTeamEntry, filter: StarterFilterValue
 	const { setup, decks } = entry.builderState;
 	return (
 		setup.deckProducts.every((p) => p === CORE || filter.products.has(p)) &&
-		decks.some((deck) => filter.investigators.has(deck.investigator))
+		matchesInvestigators(
+			decks.map((deck) => deck.investigator),
+			filter
+		)
 	);
 }
