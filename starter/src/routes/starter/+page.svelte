@@ -29,6 +29,11 @@
 
 <MarginText>
 	<TextParagraph>{m.starter_decks_intro()}</TextParagraph>
+	<TextParagraph>
+		{m.starter_decks_teams_note_before()}
+		<a href="/team">{m.starter_decks_teams_note_link()}</a>
+		{m.starter_decks_teams_note_after()}
+	</TextParagraph>
 	<StarterFilter onChange={(f) => (filter = f)} />
 	<p class="text-primary-700 dark:text-primary-300 mt-3 mb-4 text-center text-sm">
 		{m.starter_decks_showing({ shown: visible.length, total: allDecks.length })}
