@@ -25,7 +25,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(38);
+		expect(versions).toHaveLength(40);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
@@ -37,7 +37,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck }))
 		);
-		expect(members).toHaveLength(186);
+		expect(members).toHaveLength(256);
 		for (const { team, deck } of members) {
 			const series = Object.keys(tagsBySeries).find((slug) =>
 				team.slug.startsWith(`hc-${slug}-`)

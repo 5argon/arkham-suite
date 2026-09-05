@@ -66,6 +66,22 @@
 				}
 			],
 			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwMzcwGgU2MDM3MzABOAEKEhIFNjAzNzAaBTYwMzczMAE4AgoSEgUxMjA0NxoFNjAzODAwAzgFChISBTEyMDQ3GgU2MDM3NDACOAcKEhIFMTIwOTMaBTYwMzc0MAI4CQoSEgU2MDM2NhoFNjAzNzgwAjgLChISBTYwMzY2GgU2MDM3ODACOA0KCxoFMTIwNTYwAzgQCgsaBTEyMDU2MAM4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgU2MDM2OBoFNjAzODIwAzgWChISBTYwMzY4GgU2MDM4MjADOBkKEhIFMTIwOTQaBTYwMzgzMAM4HBJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 64750,
+			"slug": "disaster-artist",
+			"introMd": "Here Miguel benefits from failure, with [Rabbit's Foot](/card/60560) for card draw, [Old Compass](/card/12083) and [Daniel Jameson](/card/60555) for do-overs, and [\"Look what I found!\"](/card/12078) for clues. If you're gonna fail, fail in style!",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "64750.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "64750.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDk0GgUxMjA4MjABOAEKEhIFMTIwOTQaBTEyMDgyMAE4AgoSEgU2MDU1OBoFMTIwODMwAjgEChISBTYwNTU4GgUxMjA4MzACOAYKEhIFMTIwNzQaBTYwNTc0MAI4CAoSEgUxMjA3NBoFNjA1NzQwAjgKChISBTYwNTY0GgU2MDU3NjACOAwKEhIFNjA1NjQaBTYwNTc2MAI4DgoSEgUxMjA3NhoFNjA1NzkwAzgRChISBTEyMDc2GgU2MDU3NzACOBMKEDgTQgpQb3N0LTE5IFhQSAEKEhIFMTIwODEaBTYwNTgyMAM4FgoSEgUxMjA4MRoFNjA1ODIwAzgZChISBTEyMDc5GgU2MDU4MTADOBwSTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
 		}
 	]
 }

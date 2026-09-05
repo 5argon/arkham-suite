@@ -1,0 +1,41 @@
+{
+	"slug": "hc-ch2-starters-revisited-4p-tommy-carolyn-marie-miguel",
+	"name": "HC Ch2 Starters Revisited - 4P : Tommy, Carolyn, Marie, Miguel",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Starters Revisited series, with an overlap resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "disaster-artist"
+			}
+		},
+		{
+			"file": "tommy.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "tommy-squared"
+			}
+		}
+	]
+}

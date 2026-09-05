@@ -1,0 +1,25 @@
+{
+	"slug": "hc-ch2-starters-revisited-2p-carolyn-marie",
+	"name": "HC Ch2 Starters Revisited - 2P : Carolyn, Marie",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Starters Revisited series.",
+	"decks": [
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		}
+	]
+}

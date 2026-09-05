@@ -1,0 +1,33 @@
+{
+	"slug": "hc-ch2-starters-revisited-3p-tommy-carolyn-miguel",
+	"name": "HC Ch2 Starters Revisited - 3P : Tommy, Carolyn, Miguel",
+	"author": "HungryColquhoun",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Starters Revisited series.",
+	"decks": [
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "disaster-artist"
+			}
+		},
+		{
+			"file": "tommy.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "tommy-squared"
+			}
+		}
+	]
+}
