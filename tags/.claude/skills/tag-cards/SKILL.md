@@ -101,6 +101,11 @@ node script/scaffold-untagged.ts <pack> [input.json]
 Scaffolding also writes an untagged `src/tagged-cards/<pack>.ts` and registers `<pack>` in
 `src/tagged-cards/index.ts`.
 
+The worklist is an INGRESS artifact; **`src/tagged-cards/<pack>.ts` is the truth**. Review fixes
+edit the `.ts` directly, so after any hand edit run `yarn sync-worklists [<pack>]` to regenerate
+the worklists from the typed files — never re-assemble from a worklist you have not just synced,
+or the review fixes are clobbered.
+
 ## Procedure
 
 0. **Calibrate** (see above) — blind-tag a confirmed sample, diff, report.
@@ -203,8 +208,12 @@ not the noun in the text. Groups that have caused confusion (some were regrouped
   Support dropped `your-location-investigator` (looking at your location ≠ supporting others);
   BigMoney dropped `uses-accumulate` (card-local tokens ≠ your resource pool); Getaway dropped
   `aoo-no-provoke`; Economy dropped `play-from-other-zone`; ProtectorTank dropped `ready-ally`
-  (readying an ally isn't tanking). If a compound's card list contains a card that clearly isn't that
-  archetype, find the one member tag dragging it in.
+  (readying an ally isn't tanking); the 2026-09-05 roster audit dropped `deck-shuffle-encounter` from
+  Encounter Deck (enemy-removal cards shuffle the deck too), `discard-from-play-self` from Discard Self
+  (weakness self-removal), `play-area-play-from-other-zone` from Into-Play Cheat, and gave `doom-add` a
+  `target` so agenda-doom weaknesses stay out of Doom Adding. If a compound's card list contains a card
+  that clearly isn't that archetype, find the one member tag dragging it in — and if the tag itself
+  conflates two mechanics (damage-redirect-attack vs damage-redirect-own-attack), split the tag.
 - **⚠️ Editing a compound's member list re-evaluates EVERY card that carries those tags — not just
   the card you were looking at.** Whenever you add, remove, or `where`-condition a member tag, dump
   the compound's full card list from the JSON **before and after** and confirm every card that JOINS
@@ -281,4 +290,5 @@ allowlist entry's `note` should say why.
 - For a large pack, tagging in chunks is fine; the assembler accepts the whole worklist at once.
 - Tooling quick reference: `yarn digest` (regenerate the digest), `yarn precedent <code|text>`
   (find precedent), `yarn lint-tags [--pack <p>] [--snapshot]` (fix-class checks + compound
-  ratchet), `yarn build` (typecheck + JSON export).
+  ratchet), `yarn sync-worklists [<pack>]` (worklists from the typed files), `yarn build`
+  (typecheck + JSON export).

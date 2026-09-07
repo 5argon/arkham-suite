@@ -1,4 +1,5 @@
 import {
+  TagTypeTestless,
   TagTypeActionBold,
   TagTypeClueAdditional,
   TagTypeClueDiscover,
@@ -56,6 +57,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "intellect", "intellect", "intellect", "intellect", "intellect", "combat", "agility", "agility", "agility"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeTimingAfter.TimingAfterHealHorror },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeHeal.HealHorrorInvestigator, value: 1 },
@@ -101,8 +103,6 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 4 },
-      { type: TagTypeSkillValue.SkillValueFailByDynamic },
-      { type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 },
     ],
   },
   {
@@ -371,6 +371,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 3 },
       { type: TagTypeTraitSupport.TraitSupportTome },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
     ],
   },
   {
@@ -450,7 +451,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
-      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
     ],
@@ -464,10 +464,11 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "intellect", "wild"],
     tags: [
       { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeDeckSearch.DeckSearchInvestigator, range: { type: "top", cards: 3 } },
+      { type: TagTypeDeckLook.DeckLookInvestigator, value: 3, reorder: false },
       { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeHeal.HealHorrorInvestigator, value: 2 },
+      { type: TagTypeDeckLook.DeckLookYou, value: 3, reorder: false },
     ],
   },
   {
@@ -500,7 +501,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 3, action: BasicAction.Fight },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
       { type: TagTypeDamage.DamagePlus, value: "dynamic" },
     ],
   },

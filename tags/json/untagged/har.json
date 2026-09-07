@@ -1,0 +1,396 @@
+[
+ {
+  "code": "60201",
+  "name": "Harvey Walters",
+  "text": "[reaction] After an investigator at your location draws 1 or more cards from their deck during the investigation phase: That investigator draws 1 card. (Limit once per round.)\n[elder_sign] effect: +1. Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeTimingAfter.TimingAfterDrawCard }"
+  ]
+ },
+ {
+  "code": "60202",
+  "name": "Vault of Knowledge",
+  "text": "Harvey Walters deck only.\nYour maximum hand size is increased by 2.\n[reaction] After you successfully investigate, exhaust Vault of Knowledge and choose an investigator at your location: That investigator draws 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeHandSize.HandSizeMaxIncrease, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterSuccessfullyInvestigate }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }"
+  ]
+ },
+ {
+  "code": "60203",
+  "name": "Thrice-Damned Curiosity",
+  "text": "<b>Revelation</b> - For every 3 cards in your hand: Take 1 damage.",
+  "tags": [
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "60204",
+  "name": "Obsessive",
+  "text": "<b>Revelation</b> - Put Obsessive into play in your threat area.\n<b>Forced</b> - When your turn begins: Discard 1 non-weakness card at random from your hand.\n[action] [action]: Discard Obsessive.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
+   "{ type: TagTypeDeckDiscard.DeckDiscardCardRandom }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "60205",
+  "name": "Arcane Enlightenment",
+  "text": "Your maximum hand size is increased by 1.\nYou have 1 additional hand slot, which can only be used to hold a [[Tome]] asset.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeHandSize.HandSizeMaxIncrease, value: 1 }",
+   "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Tome\" }"
+  ]
+ },
+ {
+  "code": "60206",
+  "name": "Celaeno Fragments",
+  "text": "While you have...\n- ...5 or more cards in hand, you get +1 [intellect].\n- ...10 or more cards in hand, you get +1 [willpower].\n- ...15 or more cards in hand, you get +1 [intellect].",
+  "tags": [
+   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 5 }",
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }"
+  ]
+ },
+ {
+  "code": "60207",
+  "name": "Disc of Itzamna",
+  "text": "[reaction] When a non-[[Elite]] enemy spawns at your location, discard Disc of Itzamna: Automatically evade that enemy or deal it 2 damage.",
+  "tags": [
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 2 }",
+   "{ type: TagTypeTestless.TestlessEvade }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemySpawnsYourLocation }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeAuto.AutoEvade }"
+  ]
+ },
+ {
+  "code": "60208",
+  "name": "Encyclopedia",
+  "text": "Uses (5 secrets).\n[action] Exhaust Encyclopedia and spend 1 secret: Choose an investigator at your location. That investigator gets +2 to a skill of your choice until the end of the phase.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 5 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeCostAction.CostActionSpendSecret }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
+   "{ type: TagTypeDuration.DurationUntilEndPhase }"
+  ]
+ },
+ {
+  "code": "60209",
+  "name": "Feed the Mind",
+  "text": "Uses (3 secrets).\n[action] Exhaust Feed the Mind and spend 1 secret: Test [intellect] (1). For each point you succeed by (to a maximum of 3), draw 1 card.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeCostAction.CostActionSpendSecret }",
+   "{ type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "60210",
+  "name": "Forbidden Tome",
+  "text": "Uses (5 secrets).\n[action] Exhaust Forbidden Tome and spend 1 secret: Draw 1 card. Then, if you have 10 or more cards in your hand and there are no secrets on Forbidden Tome, you may discard it to record in your Campaign Log that \"you have translated the tome.\"",
+  "tags": [
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 5 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeCostAction.CostActionSpendSecret }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 10 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "60211",
+  "name": "Higher Education",
+  "text": "While you have 5 or more cards in your hand, Higher Education gains:\n\"[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [intellect] for this skill test.\"",
+  "tags": [
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 5 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }"
+  ]
+ },
+ {
+  "code": "60212",
+  "name": "Laboratory Assistant",
+  "text": "Your maximum hand size is increased by 2.\n[reaction] After Laboratory Assistant enters play: Draw 2 cards.",
+  "tags": [
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeHandSize.HandSizeMaxIncrease, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }"
+  ]
+ },
+ {
+  "code": "60213",
+  "name": "Whitton Greene",
+  "text": "While you control a [[Tome]] or [[Relic]] asset, you get +1 [intellect].\n[reaction] After you reveal a location or put a new location into play, exhaust Whitton Greene: Search the top 6 cards of your deck for a [[Tome]] or [[Relic]] asset and draw it. Shuffle your deck.",
+  "tags": [
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeTraitSupport.TraitSupportRelic }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 6 } }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "60214",
+  "name": "Burning the Midnight Oil",
+  "text": "<b>Investigate.</b> When this action begins, gain 2 resources.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 2 }"
+  ]
+ },
+ {
+  "code": "60215",
+  "name": "Cryptic Writings",
+  "text": "Gain 2 resources.\n[reaction] After you draw Cryptic Writings during your turn: Play it.",
+  "tags": [
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 2 }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }"
+  ]
+ },
+ {
+  "code": "60216",
+  "name": "Extensive Research",
+  "text": "Reduce the cost to play Extensive Research by 1 for each other card in your hand.\nDiscover 2 clues at your location.",
+  "tags": [
+   "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: \"dynamic\" }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 2 }"
+  ]
+ },
+ {
+  "code": "60217",
+  "name": "Occult Invocation",
+  "text": "As an additional cost to play Occult Invocation, discard up to 2 cards from your hand.\n<b>Fight.</b> This attack uses [intellect] instead of [combat]. You get +1 [intellect] and deal +1 damage for this attack for each card discarded as part of this card's cost.",
+  "tags": [
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\", action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "60218",
+  "name": "Preposterous Sketches",
+  "text": "Play only if there is a clue on your location.\nDraw 3 cards.",
+  "tags": [
+   "{ type: TagTypeLocationProperty.LocationClueExist }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 3 }"
+  ]
+ },
+ {
+  "code": "60219",
+  "name": "Deduction",
+  "text": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "60220",
+  "name": "Library Docent",
+  "text": "[reaction] After Library Docent enters play, return a [[Tome]] asset you control to its owner's hand: Play a different [[Tome]] asset (by title) from your hand, reducing its cost by 2.",
+  "tags": [
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypePlayArea.PlayAreaToHand }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }"
+  ]
+ },
+ {
+  "code": "60221",
+  "name": "Glimpse the Unthinkable",
+  "text": "Draw 1 card. Shuffle any number of non-weakness cards from your hand into your deck. Then, draw that many cards.",
+  "tags": [
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "60222",
+  "name": "Esoteric Atlas",
+  "text": "Uses (4 secrets).\n[action] Spend 1 secret: Choose a revealed location up to 3 connections away from your location. Move to that location.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 4 }",
+   "{ type: TagTypeCostAction.CostActionSpendSecret }",
+   "{ type: TagTypeRemote.RemoteMove }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+  ]
+ },
+ {
+  "code": "60223",
+  "name": "Whitton Greene",
+  "text": "While you control a [[Tome]] or [[Relic]] asset, you get +1 [willpower] and +1 [intellect].\n[reaction] After you reveal a location or put a new location into play, exhaust Whitton Greene: Search the top 9 cards of your deck for a [[Tome]] or [[Relic]] asset and draw it. Shuffle your deck.",
+  "tags": [
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeTraitSupport.TraitSupportRelic }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 9 } }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "60224",
+  "name": "Cryptic Writings",
+  "text": "Gain 3 resources (4 resources instead if you have 10 or more other cards in hand).\n[reaction] After you draw Cryptic Writings during your turn: Play it.",
+  "tags": [
+   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 4 }",
+   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 10 }",
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }"
+  ]
+ },
+ {
+  "code": "60225",
+  "name": "\"I've got a plan!\"",
+  "text": "<b>Fight.</b> This attack uses [intellect] instead of [combat]. You get +2 [intellect] for this test. You deal +1 damage for this attack for each clue you have (max +3 damage).",
+  "tags": [
+   "{ type: TagTypeCondition.ConditionClueHeld }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "60226",
+  "name": "Mind over Matter",
+  "text": "Fast. Play during your turn.\nUntil the end of the round, add your [intellect] to your [combat] and [agility]. Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Intellect, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Intellect, action: BasicAction.Evade }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "60227",
+  "name": "Seeking Answers",
+  "text": "<b>Investigate.</b> If you succeed, instead of discovering a clue at your location, discover 2 total clues from among your location and connecting locations.",
+  "tags": [
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 2 }"
+  ]
+ },
+ {
+  "code": "60228",
+  "name": "Perception",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card (2 cards instead if it succeeds by 2 or more).",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "60229",
+  "name": "Forbidden Tome",
+  "text": "Researched.\n[action] [action] [action] [action] Exhaust Forbidden Tome: Move 1 damage from a player card at your location to an enemy at your location. Reduce this ability's cost by 1 action for every 4 cards in your hand (to a minimum of [action]).",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeLocationMove.LocationMoveDamage }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeHandSize.HandSizeDependent }"
+  ]
+ },
+ {
+  "code": "60230",
+  "name": "Forbidden Tome",
+  "text": "Researched.\n[action] [action] [action] [action] Exhaust Forbidden Tome: You may move to a connecting location. Discover 1 clue at your location. Reduce this ability's cost by 1 action for every 4 cards in your hand (to a minimum of [action]).",
+  "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeHandSize.HandSizeDependent }"
+  ]
+ },
+ {
+  "code": "60231",
+  "name": "Farsight",
+  "text": "[fast] During your turn, if you have 8 or more cards in your hand, exhaust Farsight: Play an event from your hand <i>(paying its cost)</i>.",
+  "tags": [
+   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 8 }"
+  ]
+ },
+ {
+  "code": "60232",
+  "name": "Miskatonic Archaeology Funding",
+  "text": "Permanent. Limit 1 per deck.\nYou have 2 additional ally slots, which can only be used to hold [[Miskatonic]] assets.\n<b>Forced</b> - When you take damage or horror: No more than 1 of that damage/horror can be assigned to a [[Miskatonic]] asset.",
+  "tags": [
+   "{ type: TagTypeSlotAdditional.SlotAdditionalAlly, restrictedToTrait: \"Miskatonic\" }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }"
+  ]
+ },
+ {
+  "code": "60233",
+  "name": "The Necronomicon",
+  "text": "Uses (6 secrets). Limit 1 per deck.\n[free] Spend 1 secret: You get +2 skill value for this skill test.\n[free] Spend 2 secrets: Draw 2 cards.\n[free] Spend 3 secrets: Discover 1 clue at any location.\n[free] Spend 4 secrets: Deal 3 damage to an enemy engaged with you.",
+  "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageTargetEngaged }",
+   "{ type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 3 }",
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 6 }",
+   "{ type: TagTypeCostFree.CostFreeSpendSecret }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }"
+  ]
+ }
+]

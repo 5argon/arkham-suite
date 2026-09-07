@@ -3,7 +3,6 @@ import { DynamicValue } from "../../type.js";
 
 export enum TagTypeClueAdditional {
   ClueAdditionalThisLocation = "clue-additional-this-location",
-  ClueAdditionalAdjacentLocations = "clue-additional-adjacent-locations",
   ClueAdditionalRevealedLocations = "clue-additional-revealed-locations",
 }
 
@@ -17,10 +16,6 @@ interface TagClueAdditionalBase extends TagBase {
 
 export interface TagClueAdditionalThisLocation extends TagClueAdditionalBase {
   type: TagTypeClueAdditional.ClueAdditionalThisLocation;
-}
-
-export interface TagClueAdditionalAdjacentLocations extends TagClueAdditionalBase {
-  type: TagTypeClueAdditional.ClueAdditionalAdjacentLocations;
 }
 
 export interface TagClueAdditionalRevealedLocations extends TagClueAdditionalBase {

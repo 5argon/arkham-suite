@@ -1,0 +1,1290 @@
+[
+ {
+  "code": "01506",
+  "name": "Roland's .38 Special",
+  "text": "Roland Banks deck only.\nUses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack (if there are 1 or more clues on your location, you get +3 [combat], instead). This attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 4 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeLocationProperty.LocationClueExist }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }"
+  ]
+ },
+ {
+  "code": "01508",
+  "name": "Daisy's Tote Bag",
+  "text": "Daisy Walker deck only.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Tome\" }"
+  ]
+ },
+ {
+  "code": "01510",
+  "name": "On the Lam",
+  "text": "\"Skids\" O'Toole deck only.\nFast. Play after your turn begins.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeBuffCannot.CannotAttackYou }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.After }"
+  ]
+ },
+ {
+  "code": "01512",
+  "name": "Heirloom of Hyperborea",
+  "text": "Agnes Baker deck only.\n[reaction] After you play a [[Spell]] card: Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Spell\" }"
+  ]
+ },
+ {
+  "code": "01514",
+  "name": "Wendy's Amulet",
+  "text": "Wendy Adams deck only.\nYou may play the topmost event in your discard pile as if it were in your hand.\n<b>Forced</b> - After you play an event or discard an event from play: Place it on the bottom of your deck instead of in your discard pile.",
+  "tags": [
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"event\" }",
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
+  ]
+ },
+ {
+  "code": "01516",
+  "name": ".45 Automatic",
+  "text": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack. This attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 4 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }"
+  ]
+ },
+ {
+  "code": "01517",
+  "name": "Physical Training",
+  "text": "[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [combat] for this skill test.",
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "01518",
+  "name": "Beat Cop",
+  "text": "You get +1 [combat].\n[free] Discard Beat Cop: Deal 1 damage to an enemy at your location.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01519",
+  "name": "First Aid",
+  "text": "Uses (3 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage or horror from an investigator at your location.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostAction.CostActionSpendSupply }",
+   "{ type: TagTypeHeal.HealDamageInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
+  ]
+ },
+ {
+  "code": "01520",
+  "name": "Machete",
+  "text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack. If the attacked enemy is the only enemy engaged with you, this attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeCondition.ConditionEngagedAlone }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "01521",
+  "name": "Guard Dog",
+  "text": "[reaction] When an enemy attack deals damage to Guard Dog: Deal 1 damage to the attacking enemy.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEnemyDealDamageSelf }",
+   "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }"
+  ]
+ },
+ {
+  "code": "01522",
+  "name": "Evidence!",
+  "text": "Fast. Play after you defeat an enemy.\nDiscover 1 clue at your location.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }"
+  ]
+ },
+ {
+  "code": "01523",
+  "name": "Dodge",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack.",
+  "tags": [
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCancel.CancelAttack }"
+  ]
+ },
+ {
+  "code": "01524",
+  "name": "Dynamite Blast",
+  "text": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location.",
+  "tags": [
+   "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 }",
+   "{ type: TagTypeTestless.TestlessDamageConnectingLocation, value: 3 }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 3 }"
+  ]
+ },
+ {
+  "code": "01525",
+  "name": "Vicious Blow",
+  "text": "If this skill test is successful during an attack, that attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "01526",
+  "name": "Extra Ammunition",
+  "text": "Place 3 ammo tokens on a [[Firearm]] asset controlled by an investigator at your location.",
+  "tags": [
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\" }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeTraitSupport.TraitSupportFirearm }"
+  ]
+ },
+ {
+  "code": "01527",
+  "name": "Police Badge",
+  "text": "You get +1 [willpower].\n[free] While an investigator at your location is taking his or her turn, discard Police Badge: That investigator may take 2 additional actions this turn.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 2, target: \"investigator\" }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
+  ]
+ },
+ {
+  "code": "01528",
+  "name": "Beat Cop",
+  "text": "You get +1 [combat].\n[free] Exhaust Beat Cop and deal 1 damage to it: Deal 1 damage to an enemy at your location.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01529",
+  "name": "Shotgun",
+  "text": "Uses (2 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +3 [combat] for this attack. Instead of its standard damage, this attack deals 1 damage for each point you succeed by (to a minimum of 1, to a maximum of 5). If you fail and would damage another investigator, this attack deals 1 damage for each point you fail by (to a minimum of 1, to a maximum of 5).",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 2 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamageInsteadRange, from: 1, to: 5 }",
+   "{ type: TagTypeTestResult.TestSucceedBy, amount: \"dynamic\" }",
+   "{ type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 5 }",
+   "{ type: TagTypeTestResult.TestFailBy, amount: \"dynamic\" }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }"
+  ]
+ },
+ {
+  "code": "01530",
+  "name": "Magnifying Glass",
+  "text": "Fast.\nYou get +1 [intellect] while investigating.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1, action: BasicAction.Investigate }"
+  ]
+ },
+ {
+  "code": "01531",
+  "name": "Old Book of Lore",
+  "text": "[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of his or her deck for a card, draws it, and shuffles the remaining cards into his or her deck.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeDeckSearch.DeckSearchInvestigator, range: { type: \"top\", cards: 3 } }",
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "01532",
+  "name": "Research Librarian",
+  "text": "[reaction] After Research Librarian enters play: Search your deck for a [[Tome]] asset and add it to your hand. Shuffle your deck.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: \"all\" }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }"
+  ]
+ },
+ {
+  "code": "01533",
+  "name": "Dr. Milan Christopher",
+  "text": "You get +1 [intellect].\n[reaction] After you successfully investigate: Gain 1 resource.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
+   "{ type: TagTypeTimingAfter.TimingAfterSuccessfullyInvestigate }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01534",
+  "name": "Hyperawareness",
+  "text": "[free] Spend 1 resource: You get +1 [intellect] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "01535",
+  "name": "Medical Texts",
+  "text": "[action] Choose an investigator at your location and test [intellect] (2). If you succeed, heal 1 damage from that investigator. If you fail, deal 1 damage to that investigator.",
+  "tags": [
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 2 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeHeal.HealDamageInvestigator, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }"
+  ]
+ },
+ {
+  "code": "01536",
+  "name": "Mind over Matter",
+  "text": "Fast. Play only during your turn.\nUntil the end of the round, you may use your [intellect] in place of your [combat] and [agility].",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Agility }"
+  ]
+ },
+ {
+  "code": "01537",
+  "name": "Working a Hunch",
+  "text": "Fast. Play only during your turn.\nDiscover 1 clue at your location.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "01538",
+  "name": "Barricade",
+  "text": "Attach to your location.\nNon-[[Elite]] enemies cannot move into attached location.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade.",
+  "tags": [
+   "{ type: TagTypeAttach.AttachLocation }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeEnemyDebuff.EnemyCannotMoveIntoLocation }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "01539",
+  "name": "Deduction",
+  "text": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+  ]
+ },
+ {
+  "code": "01540",
+  "name": "Magnifying Glass",
+  "text": "Fast.\nYou get +1 [intellect] while investigating.\n[free] If there are no clues on your location: Return Magnifying Glass to your hand.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1, action: BasicAction.Investigate }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }",
+   "{ type: TagTypePlayArea.PlayAreaToHand }"
+  ]
+ },
+ {
+  "code": "01541",
+  "name": "Disc of Itzamna",
+  "text": "[reaction] When a non-[[Elite]] enemy spawns at your location, discard Disc of Itzamna: Discard that enemy.",
+  "tags": [
+   "{ type: TagTypeTimingWhen.TimingWhenEnemySpawnsYourLocation }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
+   "{ type: TagTypeEnemyMitigation.EnemyMitigationDiscard }"
+  ]
+ },
+ {
+  "code": "01542",
+  "name": "Encyclopedia",
+  "text": "[action] Exhaust Encyclopedia: Choose an investigator at your location. That investigator gets +2 to a skill of your choice until the end of the phase.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
+   "{ type: TagTypeDuration.DurationUntilEndPhase }"
+  ]
+ },
+ {
+  "code": "01543",
+  "name": "Cryptic Research",
+  "text": "Fast. Play only during your turn.\nChoose an investigator at your location. That investigator draws 3 cards.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 3 }"
+  ]
+ },
+ {
+  "code": "01544",
+  "name": "Switchblade",
+  "text": "Fast.\n[action]: <b>Fight.</b> If you succeed by 2 or more, this attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "01545",
+  "name": "Burglary",
+  "text": "[action] Exhaust Burglary: <b>Investigate.</b> If you succeed, instead of discovering clues, gain 3 resources.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }"
+  ]
+ },
+ {
+  "code": "01546",
+  "name": "Pickpocketing",
+  "text": "[reaction] After you evade an enemy, exhaust Pickpocketing: Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }"
+  ]
+ },
+ {
+  "code": "01547",
+  "name": ".41 Derringer",
+  "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If you succeed by 2 or more, this attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }"
+  ]
+ },
+ {
+  "code": "01548",
+  "name": "Leo De Luca",
+  "text": "You may take an additional action during your turn.",
+  "tags": [
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01549",
+  "name": "Hard Knocks",
+  "text": "[free] Spend 1 resource: You get +1 [combat] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "01550",
+  "name": "Elusive",
+  "text": "Fast. Play only during your turn.\nDisengage from each enemy engaged with you and move to a revealed location with no enemies.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeRemote.RemoteMove }",
+   "{ type: TagTypeLocationProperty.LocationEnemyZero }"
+  ]
+ },
+ {
+  "code": "01551",
+  "name": "Backstab",
+  "text": "<b>Fight.</b> This attack uses [agility] instead of [combat]. This attack deals +2 damage.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 2 }"
+  ]
+ },
+ {
+  "code": "01552",
+  "name": "Sneak Attack",
+  "text": "Deal 2 damage to an exhausted enemy at your location.",
+  "tags": [
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 2 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetExhausted }"
+  ]
+ },
+ {
+  "code": "01553",
+  "name": "Opportunist",
+  "text": "Commit only to a skill test you are performing.\nIf you succeed by 3 or more, return Opportunist to your hand after this test instead of discarding it.",
+  "tags": [
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
+   "{ type: TagTypeRecursion.RecursionSelfToHand }"
+  ]
+ },
+ {
+  "code": "01554",
+  "name": "Leo De Luca",
+  "text": "You may take an additional action during your turn.",
+  "tags": [
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01555",
+  "name": "Cat Burglar",
+  "text": "You get +1 [agility].\n[action] Exhaust Cat Burglar: Disengage from each enemy engaged with you and move to a connecting location. This action does not provoke attacks of opportunity.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01556",
+  "name": "Sure Gamble",
+  "text": "Fast. Play after you reveal a chaos token with a negative modifier.\nSwitch that token's \"-\" to a \"+\".",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeChaosEffect.ChaosEffectModifier }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01557",
+  "name": "Hot Streak",
+  "text": "Gain 10 resources.",
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceYou, value: 10 }"
+  ]
+ },
+ {
+  "code": "01558",
+  "name": "Forbidden Knowledge",
+  "text": "Uses (4 secrets). If Forbidden Knowledge has no secrets, discard it.\n[free] Exhaust Forbidden Knowledge and take 1 horror: Move 1 secret from Forbidden Knowledge to your resource pool, as a resource.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 4 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeCostFree.CostFreeSpendSecret }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeHorrorSelf }"
+  ]
+ },
+ {
+  "code": "01559",
+  "name": "Holy Rosary",
+  "text": "You get +1 [willpower].",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01560",
+  "name": "Shrivelling",
+  "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this attack, take 1 horror.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01561",
+  "name": "Scrying",
+  "text": "Uses (3 charges).\n[action] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck or the encounter deck. Return them to the top of that deck in any order.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeDeckLook.DeckLookYou, value: 3, reorder: true }",
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 3, reorder: true }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeDeckLook.DeckLookInvestigator, value: 3, reorder: true }"
+  ]
+ },
+ {
+  "code": "01562",
+  "name": "Arcane Studies",
+  "text": "[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [intellect] for this skill test.",
+  "tags": [
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "01563",
+  "name": "Arcane Initiate",
+  "text": "<b>Forced</b> - After Arcane Initiate enters play: Place 1 doom on it.\n[free] Exhaust Arcane Initiate: Search the top 3 cards of your deck for a [[Spell]] card and draw it. Shuffle your deck.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 3 } }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+  ]
+ },
+ {
+  "code": "01564",
+  "name": "Drawn to the Flame",
+  "text": "Draw the top card of the encounter deck. Then, discover 2 clues at your location.",
+  "tags": [
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 2 }",
+   "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 }"
+  ]
+ },
+ {
+  "code": "01565",
+  "name": "Ward of Protection",
+  "text": "Fast. Play when you draw a non-weakness treachery card.\nCancel that card's revelation effect. Then, take 1 horror.",
+  "tags": [
+   "{ type: TagTypeCostOther.CostHorrorSelf }",
+   "{ type: TagTypeCancel.CancelRevelation }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }"
+  ]
+ },
+ {
+  "code": "01566",
+  "name": "Blinding Light",
+  "text": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn.",
+  "tags": [
+   "{ type: TagTypeChaosDownside.ChaosDownsideAction, value: 1 }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeActionLose.ActionLoseAction }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01567",
+  "name": "Fearless",
+  "text": "If this skill test is successful, heal 1 horror.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "01568",
+  "name": "Mind Wipe",
+  "text": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy at your location. Treat the chosen enemy's printed text box as if it were blank (except for [[Traits]]) until the end of the phase.",
+  "tags": [
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeDuration.DurationUntilEndPhase }",
+   "{ type: TagTypeEnemyRestriction.EnemyBlankText }"
+  ]
+ },
+ {
+  "code": "01569",
+  "name": "Blinding Light",
+  "text": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 2 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn and take 1 horror.",
+  "tags": [
+   "{ type: TagTypeChaosDownside.ChaosDownsideAction, value: 1 }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 2 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeActionLose.ActionLoseAction }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }"
+  ]
+ },
+ {
+  "code": "01570",
+  "name": "Book of Shadows",
+  "text": "You have 1 additional arcane slot.\n[action] Exhaust Book of Shadows: Add 1 charge to a [[Spell]] asset you control.",
+  "tags": [
+   "{ type: TagTypeSlotAdditional.SlotAdditionalArcane }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\" }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+  ]
+ },
+ {
+  "code": "01571",
+  "name": "Grotesque Statue",
+  "text": "Uses (4 charges). If Grotesque Statue has no charges, discard it.\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 2 chaos tokens instead of 1. Choose 1 of those tokens to resolve, and ignore the other.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostReaction.CostReactionSpendCharge }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }"
+  ]
+ },
+ {
+  "code": "01572",
+  "name": "Leather Coat",
+  "text": "",
+  "tags": [
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }"
+  ]
+ },
+ {
+  "code": "01573",
+  "name": "Scavenging",
+  "text": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and add it to your hand.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterSuccessfullyInvestigate }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeTraitSupport.TraitSupportItem }"
+  ]
+ },
+ {
+  "code": "01574",
+  "name": "Baseball Bat",
+  "text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage. If a [skull] or [auto_fail] symbol is revealed during this attack, discard Baseball Bat after the attack resolves.",
+  "tags": [
+   "{ type: TagTypeChaosDownside.ChaosDownsideDiscard }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01575",
+  "name": "Rabbit's Foot",
+  "text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }"
+  ]
+ },
+ {
+  "code": "01576",
+  "name": "Stray Cat",
+  "text": "[free] Discard Stray Cat: Automatically evade a non-[[Elite]] enemy at your location.",
+  "tags": [
+   "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
+   "{ type: TagTypeAuto.AutoEvade }",
+   "{ type: TagTypeTestless.TestlessEvade }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+  ]
+ },
+ {
+  "code": "01577",
+  "name": "Dig Deep",
+  "text": "[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+  "tags": [
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }"
+  ]
+ },
+ {
+  "code": "01578",
+  "name": "Cunning Distraction",
+  "text": "<b>Evade.</b> Automatically evade all enemies at your location.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeAuto.AutoEvade }",
+   "{ type: TagTypeTestless.TestlessEvade }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }"
+  ]
+ },
+ {
+  "code": "01579",
+  "name": "\"Look what I found!\"",
+  "text": "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 2 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }"
+  ]
+ },
+ {
+  "code": "01580",
+  "name": "Lucky!",
+  "text": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeTimingWhen.TimingWhenWouldFailTest }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01581",
+  "name": "Survival Instinct",
+  "text": "If this skill test is successful during an evasion attempt, the evading investigator may immediately disengage from each other enemy engaged with him or her, and may move to a connecting location.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorPerformer }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }"
+  ]
+ },
+ {
+  "code": "01582",
+  "name": "Aquinnah",
+  "text": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to another enemy at your location, instead. (You still take horror dealt by the attack.)",
+  "tags": [
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeEnemyValue.EnemyValueDamage }",
+   "{ type: TagTypeDamage.DamageRedirectAttack }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeSoak.SoakSanity, value: 4 }"
+  ]
+ },
+ {
+  "code": "01583",
+  "name": "Close Call",
+  "text": "Fast. Play after a non-weakness, non-[[Elite]] enemy at your location is evaded.\nShuffle that enemy into the encounter deck.",
+  "tags": [
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyMitigation.EnemyMitigationBackToEncounterDeck }",
+   "{ type: TagTypeDeckShuffle.DeckShuffleEncounter }",
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
+   "{ type: TagTypeEnemyRestriction.EnemyNonWeakness }"
+  ]
+ },
+ {
+  "code": "01584",
+  "name": "Lucky!",
+  "text": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test. Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTimingWhen.TimingWhenWouldFailTest }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01585",
+  "name": "Will to Survive",
+  "text": "Fast. Play only during your turn.\nUntil the end of your turn, do not reveal chaos tokens for any skill tests you perform.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeChaosEffect.ChaosEffectDoNotReveal }",
+   "{ type: TagTypeDuration.DurationUntilEndTurn }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
+  ]
+ },
+ {
+  "code": "01586",
+  "name": "Knife",
+  "text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack.\n[action] Discard Knife: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeCostAction.CostActionDiscardSelf }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+  ]
+ },
+ {
+  "code": "01587",
+  "name": "Flashlight",
+  "text": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> Your location gets -2 shroud for this investigation.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeLocationShroud.LocationShroudMinus2 }",
+   "{ type: TagTypeCostAction.CostActionSpendSupply }"
+  ]
+ },
+ {
+  "code": "01588",
+  "name": "Emergency Cache",
+  "text": "Gain 3 resources.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }"
+  ]
+ },
+ {
+  "code": "01589",
+  "name": "Guts",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "01590",
+  "name": "Perception",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "01591",
+  "name": "Overpower",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "01592",
+  "name": "Manual Dexterity",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "01593",
+  "name": "Unexpected Courage",
+  "text": "Max 1 committed per skill test.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "01594",
+  "name": "Bulletproof Vest",
+  "text": "",
+  "tags": [
+   "{ type: TagTypeSoak.SoakHealth, value: 4 }"
+  ]
+ },
+ {
+  "code": "01595",
+  "name": "Elder Sign Amulet",
+  "text": "",
+  "tags": [
+   "{ type: TagTypeSoak.SoakSanity, value: 4 }"
+  ]
+ },
+ {
+  "code": "01683",
+  "name": "First Aid",
+  "text": "Uses (4 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage and 1 horror from an investigator or [[Ally]] asset in your location.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 4 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeHeal.HealDamageInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealDamageAlly, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypeCostAction.CostActionSpendSupply }"
+  ]
+ },
+ {
+  "code": "01684",
+  "name": "\"I've had worse…\"",
+  "text": "Fast. Play when you are dealt damage and/or horror.\nCancel up to 5 damage and/or horror just dealt to you. Then, gain that many resources.",
+  "tags": [
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
+   "{ type: TagTypeCancel.CancelDamage }",
+   "{ type: TagTypeCancel.CancelHorror }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "01685",
+  "name": "Seeking Answers",
+  "text": "<b>Investigate.</b> If you succeed, instead of discovering a clue at your location, discover 2 total clues from among your location and connecting locations.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 2 }"
+  ]
+ },
+ {
+  "code": "01686",
+  "name": "Old Book of Lore",
+  "text": "Uses (2 secrets).\n[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of their deck for a card, draws it, and shuffles their deck. Then, you may spend 1 secret to have that investigator immediately play that card, reducing its cost by 2.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 2 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeDeckSearch.DeckSearchInvestigator, range: { type: \"top\", cards: 3 } }",
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeCostAction.CostActionSpendSecret }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }"
+  ]
+ },
+ {
+  "code": "01687",
+  "name": "Lockpicks",
+  "text": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Investigate }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }"
+  ]
+ },
+ {
+  "code": "01688",
+  "name": ".41 Derringer",
+  "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If you succeed by 1 or more, this attack deals +1 damage. Once per turn, if you succeed by 3 or more, you may take an additional action this turn.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }"
+  ]
+ },
+ {
+  "code": "01689",
+  "name": "Rite of Seeking",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed you discover 1 additional clue at this location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, after this test resolves lose all remaining actions and immediately end your turn.",
+  "tags": [
+   "{ type: TagTypeChaosDownside.ChaosDownsideAction }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Investigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeActionLose.ActionLoseAction }",
+   "{ type: TagTypeActionLose.ActionEndTurn }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01690",
+  "name": "Scrying",
+  "text": "Uses (3 charges).\n[free] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck, or the encounter deck. Return them to the top of that deck, in any order. If a [[Terror]] or [[Omen]] card is among the looked-at cards, take 1 horror.",
+  "tags": [
+   "{ type: TagTypeCostOther.CostHorrorSelf }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeCostFree.CostFreeSpendCharge }",
+   "{ type: TagTypeDeckLook.DeckLookYou, value: 3, reorder: true }",
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 3, reorder: true }",
+   "{ type: TagTypeDeckLook.DeckLookInvestigator, value: 3, reorder: true }"
+  ]
+ },
+ {
+  "code": "01691",
+  "name": "Aquinnah",
+  "text": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to any enemy at your location, instead. (You still take horror dealt by the attack.)",
+  "tags": [
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeDamage.DamageRedirectAttack }",
+   "{ type: TagTypeEnemyValue.EnemyValueDamage }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeSoak.SoakSanity, value: 4 }"
+  ]
+ },
+ {
+  "code": "01692",
+  "name": "Eucatastrophe",
+  "text": "Fast. Play when you reveal a chaos token that would reduce your skill value to 0 during a skill test (including the [auto_fail] token).\nCancel that token and treat it as an [elder_sign] token, instead.",
+  "tags": [
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "01693",
+  "name": "Emergency Cache",
+  "text": "Gain 3 resources and draw 1 card.",
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "01694",
+  "name": "Charisma",
+  "text": "Permanent.\nYou have 1 additional ally slot.",
+  "tags": [
+   "{ type: TagTypeSlotAdditional.SlotAdditionalAlly }"
+  ]
+ },
+ {
+  "code": "01695",
+  "name": "Relic Hunter",
+  "text": "Permanent.\nYou have 1 additional accessory slot.",
+  "tags": [
+   "{ type: TagTypeSlotAdditional.SlotAdditionalAccessory }"
+  ]
+ },
+ {
+  "code": "01501",
+  "name": "Roland Banks",
+  "text": "[reaction] After you defeat an enemy: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each clue on your location.",
+  "tags": [
+   "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }"
+  ]
+ },
+ {
+  "code": "01502",
+  "name": "Daisy Walker",
+  "text": "You may take an additional action during your turn, which can only be used on [[Tome]] [action] abilities.\n[elder_sign] effect: +0. If you succeed, draw 1 card for each [[Tome]] you control.",
+  "tags": [
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "01503",
+  "name": "\"Skids\" O'Toole",
+  "text": "[fast] During your turn, spend 2 resources: You may take an additional action this turn. (Limit once per turn.)\n[elder_sign] effect: +2. If you succeed, gain 2 resources.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 2 }"
+  ]
+ },
+ {
+  "code": "01504",
+  "name": "Agnes Baker",
+  "text": "[reaction] After 1 or more horror is placed on Agnes Baker: Deal 1 damage to an enemy at your location. (Limit once per phase.)\n[elder_sign] effect: +1 for each horror on Agnes Baker.",
+  "tags": [
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+  ]
+ },
+ {
+  "code": "01505",
+  "name": "Wendy Adams",
+  "text": "[reaction] When you reveal a chaos token, choose and discard 1 card from your hand: Cancel that chaos token and return it to the bag. Reveal a new chaos token. (Limit once per test/ability.)\n[elder_sign] effect: +0. If Wendy's Amulet is in play, you automatically succeed instead.",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeAuto.AutoSuccess }"
+  ]
+ },
+ {
+  "code": "01507",
+  "name": "Cover Up",
+  "text": "<b>Revelation</b> - Put Cover Up into play in your threat area, with 3 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "01509",
+  "name": "The Necronomicon",
+  "text": "<b>Revelation</b> - Put The Necronomicon into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nTreat each [elder_sign] you reveal on a chaos token as a [auto_fail].\n[action]: Move 1 horror from The Necronomicon to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it.",
+  "tags": [
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"auto-fail\" }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }"
+  ]
+ },
+ {
+  "code": "01511",
+  "name": "Hospital Debts",
+  "text": "<b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[fast]: Move 1 resource from your resource pool to Hospital Debts. (Limit twice per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 6 resources on it: You earn 2 fewer experience for this scenario.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "01513",
+  "name": "Dark Memory",
+  "text": "Place 1 doom on the current agenda. This effect can cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror.",
+  "tags": [
+   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }",
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }"
+  ]
+ },
+ {
+  "code": "01515",
+  "name": "Abandoned and Alone",
+  "text": "<b>Revelation</b> - Take 2 direct horror and remove all cards in your discard pile from the game.",
+  "tags": []
+ },
+ {
+  "code": "01598",
+  "name": "Haunted",
+  "text": "<b>Revelation</b> - Add Haunted to your threat area.\nYou get -1 to each of your skills.\n[action] [action]: Discard Haunted.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "01599",
+  "name": "Psychosis",
+  "text": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct damage.\n[action] [action]: Discard Psychosis.",
+  "tags": [
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "01600",
+  "name": "Hypochondria",
+  "text": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more damage: Take 1 direct horror.\n[action] [action]: Discard Hypochondria.",
+  "tags": [
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "01601",
+  "name": "Mob Enforcer",
+  "text": "<b>Prey</b> - Bearer only.\nHunter.\n[action] Spend 4 resources: <b>Parley.</b> Discard Mob Enforcer.",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldParley }",
+   "{ type: TagTypeCostAction.CostActionSpendResource }"
+  ]
+ },
+ {
+  "code": "01602",
+  "name": "Silver Twilight Acolyte",
+  "text": "<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - After Silver Twilight Acolyte attacks: Place 1 doom on the current agenda.",
+  "tags": [
+   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }"
+  ]
+ },
+ {
+  "code": "01603",
+  "name": "Stubborn Detective",
+  "text": "<b>Prey</b> - Bearer only.\nHunter.\nWhile Stubborn Detective is at your location, treat your investigator as if his or her printed text box were blank (except for [[Traits]]).",
+  "tags": []
+ }
+]

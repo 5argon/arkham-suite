@@ -1,4 +1,5 @@
 import {
+  TagTypeTank,
   TagTypeActionBold,
   TagTypeAoo,
   TagTypeBuffCannot,
@@ -121,7 +122,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower"],
     tags: [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
-      { type: TagTypeDoom.DoomAdd },
+      { type: TagTypeDoom.DoomAdd, target: "own-card" },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 3 } },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
@@ -169,12 +170,12 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSlotIgnore.SlotIgnore, slot: "hand" },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
-      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeCostReaction.CostReactionDamageSelf },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeCancel.CancelChaos },
       { type: TagTypeChaosReveal.ChaosRevealMore },
+      { type: TagTypeChaosReveal.ChaosRevealAnotherInstead },
     ],
   },
   {
@@ -188,7 +189,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
@@ -264,7 +265,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillCommit.SkillCommitNoIcons },
       { type: TagTypeCostOther.CostDamageSelf },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeTraitSupport.TraitSupportSpell },
       { type: TagTypeCostDiscount.CostDiscount, amount: 3 },
       { type: TagTypeAoo.AooNoProvoke },
@@ -299,6 +299,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportCharm },
       { type: TagTypePlayArea.PlayAreaToDeck },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf },
     ],
   },
   {
@@ -421,6 +422,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: "dynamic" },
       { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeTank.TankRedirectDamageHorror },
     ],
   },
   {
@@ -440,6 +442,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -457,6 +460,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeTraitSupport.TraitSupportSpell },
+      { type: TagTypePlayArea.PlayAreaToDeck },
     ],
   },
   {
@@ -471,6 +475,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+      { type: TagTypeTraitSupport.TraitSupportSpell },
     ],
   },
   {

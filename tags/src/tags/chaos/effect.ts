@@ -45,7 +45,7 @@ export interface TagChaosEffectTreatAsElderSign extends TagChaosEffectBase {
 
 export interface TagChaosEffectTreatTokenAs extends TagChaosEffectBase {
   type: TagTypeChaosEffect.ChaosEffectTreatTokenAs;
-  to: "bless" | "curse" | "skull" | "elder-sign" | "auto-fail";
+  to: "bless" | "curse" | "skull" | "elder-sign" | "auto-fail" | "cultist" | "tablet" | "elder-thing";
 }
 
 export interface TagChaosEffectResolveAdditional extends TagChaosEffectBase {

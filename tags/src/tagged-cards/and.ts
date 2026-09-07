@@ -1,4 +1,5 @@
 import {
+  TagTypeEnemyValue,
   TagTypeActionAdditional,
   TagTypeActionBold,
   TagTypeAuto,
@@ -119,7 +120,6 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
-      { type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
     ],
   },
@@ -133,6 +133,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
     ],
   },
   {
@@ -182,7 +183,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "60361",
     name: "Lockpicks",
-    text: "[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, discard Lockpicks.",
+    text: "[action] Exhaust Lockpicks: <b>Investigate</b> ([intellect]). Add your [agility] to your [intellect] for this test. If you do not succeed by at least 2, discard Lockpicks.",
     level: 0,
     cardType: "asset",
     icons: ["intellect"],
@@ -204,6 +205,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeGainResource.GainResourceYou, value: 1 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
     ],
   },
   {
@@ -250,6 +252,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainKeyword.GainKeywordAloof },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessClue, value: 1 },
+      { type: TagTypeEnemyValue.EnemyValueRemainingHealth },
+      { type: TagTypeDuration.DurationUntilEndRound },
     ],
   },
   {
@@ -293,6 +297,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 },
+      { type: TagTypeTestless.TestlessClue, value: 1 },
     ],
   },
   {
@@ -306,6 +311,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
+      { type: TagTypeSkillValueSource.SkillValueFromResource, per: 3 },
     ],
   },
   {
@@ -324,7 +330,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "60371",
     name: "\"Watch this!\"",
-    text: "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" to a skill test, spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
+    text: "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
     level: 0,
     cardType: "skill",
     icons: ["willpower", "combat", "agility"],
@@ -337,7 +343,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "60372",
     name: "Lockpicks",
-    text: "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
+    text: "Uses (3 supplies). If there are no supplies on Lockpicks, discard it.\n[action] Exhaust Lockpicks: <b>Investigate</b> ([intellect]). Add your [agility] to your [intellect] for this test. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
     level: 1,
     cardType: "asset",
     icons: ["intellect"],
@@ -378,6 +384,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
     ],
   },
   {
@@ -390,6 +397,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeGainResource.GainResourceYou, value: 1 },
       { type: TagTypeSoak.SoakSanity, value: 3 },
+      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
     ],
   },
   {
@@ -440,7 +448,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "60379",
     name: "The Black Fan",
-    text: "Exceptional.\nWhile you have...\n- ...10+ resources, you get +1 health and +1 sanity.\n- ...15+ resources, you may take one additional action during your turn.\n- ...20+ resources, you get +1 to each of your skills.",
+    text: "Exceptional.\nWhile you have...\n- ...10+ resources, you get +1 health and +1 sanity.\n- ...15+ resources, you may take an additional action during your turn.\n- ...20+ resources, you get +1 to each of your skills.",
     level: 3,
     cardType: "asset",
     icons: ["intellect", "agility", "wild"],
@@ -512,7 +520,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "60384",
     name: "The Red Clock",
-    text: "Exceptional. Uses (0 charges).\n<b>Forced</b> - After your turn begins: You may take all charges here, as resources. Place 1 charge here. If it has exactly...\n- 1 charge, you get +4 skill value for your next skill test.\n- 2 charges, you may move up to 3 times.\n- 3 charges, you may take 2 additional actions this turn.",
+    text: "Exceptional. Uses (0 charges).\n<b>Forced</b> - After your turn begins: You may take all charges here, as resources. Place 1 charge here. If it has exactly...\n- ...1 charge, you get +4 skill value for your next skill test.\n- ...2 charges, you may move up to 3 times.\n- ...3 charges, you may take 2 additional actions this turn.",
     level: 5,
     cardType: "asset",
     icons: ["wild", "wild"],

@@ -1,0 +1,199 @@
+[
+ {
+  "code": "98002",
+  "name": "Green Man Medallion",
+  "text": "Jenny Barnes deck only. Replacement.\n[fast] Spend up to 3 resources and exhaust Green Man Medallion: Place those resources on it, as offerings.\n[reaction] When you resign or the game ends: For every 6 offerings on Green Man Medallion, reduce the experience cost of the next card you purchase before the next scenario by 1.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"offering\" }",
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "98003",
+  "name": "Sacrificial Beast",
+  "text": "Jenny Barnes deck only. Replacement.\n<b>Spawn</b> - Location farthest from you.\nJenny Barnes cannot gain resources via card effects.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }"
+  ]
+ },
+ {
+  "code": "98005",
+  "name": "Mysteries Remain",
+  "text": "Roland Banks deck only. Replacement.\nFast. Play only during your turn.\nEither place 1 clue <i>(from the token bank)</i> on your location, or discover 1 clue at your location. Remove Mysteries Remain from the game.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeRfg.RfgSelf }"
+  ]
+ },
+ {
+  "code": "98006",
+  "name": "The Dirge of Reason",
+  "text": "Roland Banks deck only. Replacement.\n<b>Revelation</b> - Place 2 of your clues on your location. If you cannot, place all of your clues on your location, take 1 horror, and shuffle The Dirge of Reason back into your deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "98008",
+  "name": "Split the Angle",
+  "text": "Norman Withers deck only. Replacement.\n[action]: Reveal the top card of the encounter deck.\n[fast] Exhaust Split the Angle and discard the top card of your deck: Discard the top card of the encounter deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: false }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeDeckDiscard.DeckDiscardDeck }",
+   "{ type: TagTypeDeckDiscard.DeckDiscardEncounter }"
+  ]
+ },
+ {
+  "code": "98009",
+  "name": "Vengeful Hound",
+  "text": "Norman Withers deck only. Replacement.\n<b>Prey</b> - Norman Withers.\nWhile Vengeful Hounds is engaged with you, you cannot draw or reveal cards via player card effects.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }"
+  ]
+ },
+ {
+  "code": "98010",
+  "name": "Carolyn Fern",
+  "text": "[reaction] After one of your card effects heals horror from an investigator or [[Ally]] asset: The healed card's controller gains 1 resource.\n[elder_sign] effect: +1. You may heal 1 horror from an investigator or [[Ally]] asset at your location.",
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypeTimingAfter.TimingAfterHealHorror }"
+  ]
+ },
+ {
+  "code": "98011",
+  "name": "Foolishness",
+  "text": "Carolyn Fern deck only. Replacement.\nFoolishness enters play with 3 horror on him. Horror on him may be healed as if it were on Carolyn Fern. While Foolishness has no horror on him, you get +1 to all skills.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSoak.SoakSanity, value: 4 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 }"
+  ]
+ },
+ {
+  "code": "98012",
+  "name": "To Fight the Black Wind",
+  "text": "Carolyn Fern deck only. Replacement.\n<b>Revelation</b> - Attach To Fight the Black Wind to the current agenda. Carolyn Fern takes 1 direct horror.\n<b>Forced</b> - At the end of the round, if any amount of horror was assigned to an investigator this round and it was not healed: Place 1 doom on attached agenda.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }"
+  ]
+ },
+ {
+  "code": "98014",
+  "name": "Nautical Prowess",
+  "text": "Silas Marsh deck only. Replacement.\nIf a chaos token with a negative modifier is revealed during this test, either draw 1 card or Nautical Prowess gains [wild][wild].",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "98015",
+  "name": "Dreams of the Deep",
+  "text": "Silas Marsh deck only. Replacement.\nThis skill's icons subtract from your skill value instead of adding to it.\nIf this skill test fails, return this skill to your hand.\n<b>Forced</b> - If Dreams of the Deep is in your hand at the end of your turn: Reveal it and take 2 damage.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
+   "{ type: TagTypeRecursion.RecursionSelfToHand }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "98017",
+  "name": "Molly Maxwell",
+  "text": "Dexter Drake deck only. Replacement.\n[fast] Exhaust Molly Maxwell and deal her 1 horror: Name any trait. One at a time, reveal cards from the top of your deck until an asset with the named trait is revealed. Draw that asset. Shuffle each other revealed card back into your deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 4 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "98018",
+  "name": "Yaztaroth",
+  "text": "Dexter Drake deck only. Replacement.\n<b>Revelation</b> - Put Yaztaroth into play in your threat area.\nYou cannot play assets or put assets into play.\n[action] [action]: Discard Yaztaroth.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "98020",
+  "name": "Ruth Westmacott",
+  "text": "Gloria Goldberg deck only. Replacement.\n[reaction] When an investigator fights, attempts to evade, or initiates a skill test on an encounter card, discard an encounter card that shares a [[Trait]] with that encounter card from beneath Gloria Goldberg: Reduce the difficulty of this skill test by 2.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }",
+   "{ type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "98021",
+  "name": "Liber Omnium Finium",
+  "text": "Gloria Goldberg deck only. Replacement.\n<b>Revelation</b> - Draw a random non-weakness encounter card from beneath Gloria Goldberg. That card gains peril, its effects cannot be canceled, and you get -2 to all skills while resolving its effects. If that card is an enemy, it immediately attacks you. If no card is drawn by this effect, shuffle this card back into your deck.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "99001",
+  "name": "Marie Lambeau",
+  "text": "While you have 1 or more doom among cards you control, you may take an additional action during your turn, which can only be used to play [[Spell]] cards or activate [[Spell]] [action] abilities.\n[elder_sign] effect: +1. You may add 1 doom to or remove 1 doom from a card you control.",
+  "tags": [
+   "{ type: TagTypeDoom.DoomCheck }",
+   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
+   "{ type: TagTypeDoom.DoomRemove }"
+  ]
+ },
+ {
+  "code": "99002",
+  "name": "Mystifying Song",
+  "text": "Marie Lambeau deck only.\nFast. Play when the agenda would advance by reaching its doom threshold.\nUntil the end of the phase, the agenda cannot advance by reaching its doom threshold. Remove Mystifying Song from the game.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseMythosCheckDoom, timing: TimingQualifier.Before }",
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDoom.DoomPreventAdvance }",
+   "{ type: TagTypeDuration.DurationUntilEndPhase }",
+   "{ type: TagTypeRfg.RfgSelf }"
+  ]
+ },
+ {
+  "code": "99003",
+  "name": "Baron Samedi",
+  "text": "<b>Revelation</b> - Put Baron Samedi into play. He cannot leave play while he has less than 3 doom on him.\n<b>Forced</b> - When any amount of damage is placed on an investigator in Baron Samedi's location: Place 1 additional damage on that investigator.\n[fast] Exhaust Baron Samedi: Place 1 doom on Baron Samedi. If he has 3 or more doom on him, discard him.",
+  "tags": [
+   "{ type: TagTypeDoom.DoomCheck }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ }
+]

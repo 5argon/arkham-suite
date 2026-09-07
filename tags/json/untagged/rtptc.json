@@ -56,7 +56,7 @@
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeEnemyValue.EnemyValueEvadeReduction }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, withoutExhaust: true }",
    "{ type: TagTypeBuffCannot.CannotEngageYou }",
    "{ type: TagTypeDuration.DurationUntilEndTurn }"
@@ -136,18 +136,22 @@
   "name": "Gravedigger's Shovel",
   "text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack.\n[action] Discard Gravedigger's Shovel: Discover 1 clue at your location (or remove Gravedigger's Shovel from the game to discover 2 clues, instead).",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeCostAction.CostActionDiscardSelf }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }"
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
+   "{ type: TagTypeRfg.RfgSelf }"
   ]
  },
  {
   "code": "52011",
   "name": "Unspeakable Oath",
   "text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] When you deal damage to an enemy in excess of its remaining health: Discard this card from your hand.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
  },
  {
   "code": "52012",
@@ -163,7 +167,8 @@
   "text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[action]: <b>Evade.</b> Use only on an exhausted unengaged enemy at your location. If you succeed, discard this card from your hand.",
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldEvade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }"
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
   ]
  }
 ]

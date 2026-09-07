@@ -4,8 +4,6 @@ export enum TagTypeDeckDiscard {
   DeckDiscardCardChoose = "deck-discard-card-choose",
   DeckDiscardCardRandom = "deck-discard-card-random",
   DeckDiscardDeck = "deck-discard-deck",
-  DeckDiscardSelf = "deck-discard-self",
-  DeckDiscardTreachery = "deck-discard-treachery",
   DeckDiscardEncounter = "deck-discard-encounter",
 }
 
@@ -35,14 +33,6 @@ export interface TagDeckDiscardCardRandom extends TagDeckDiscardBase {
  */
 export interface TagDeckDiscardDeck extends TagDeckDiscardBase {
   type: TagTypeDeckDiscard.DeckDiscardDeck;
-}
-
-export interface TagDeckDiscardSelf extends TagDeckDiscardBase {
-  type: TagTypeDeckDiscard.DeckDiscardSelf;
-}
-
-export interface TagDeckDiscardTreachery extends TagDeckDiscardBase {
-  type: TagTypeDeckDiscard.DeckDiscardTreachery;
 }
 
 /**

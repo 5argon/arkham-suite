@@ -63,6 +63,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
       { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeTimingAfter.TimingAfterDrawCard },
     ],
   },
   {
@@ -144,7 +145,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingWhen.TimingWhenEnemySpawnsYourLocation },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeCostReaction.CostReactionDiscardSelf },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeAuto.AutoEvade },
     ],
   },
@@ -340,7 +340,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeTraitSupport.TraitSupportTome },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
     ],
   },
@@ -490,6 +489,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "agility", "wild"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
@@ -506,7 +506,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "wild"],
     tags: [
       { type: TagTypeHandSize.HandSizeDependent },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 8 },
@@ -533,6 +532,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "intellect", "intellect", "intellect", "intellect"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
       { type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 3 },
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 6 },

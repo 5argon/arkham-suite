@@ -78,9 +78,9 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
-   "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeAuto.AutoEvade }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }"
   ]
  },
  {
@@ -90,7 +90,9 @@
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }"
   ]
  },
  {
@@ -146,7 +148,6 @@
   "text": "Permanent. Limit 1 per deck. Purchase at deck creation.\n<b>Forced</b> - When your first turn of the game begins: One at a time, play any number of [[Item]] assets from your hand, reducing the cost of each by 1. During this turn, you have 3 fewer actions to take.",
   "tags": [
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeTraitSupport.TraitSupportItem }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
    "{ type: TagTypeActionLose.ActionLoseAction }"
@@ -217,7 +218,8 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeActionAdditional.ActionAdditionalAttack }",
    "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }"
   ]
  },
  {
@@ -307,7 +309,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeSoak.SoakHealth, value: 2 }"
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeDeckLook.DeckLookYou, value: 5, reorder: false }"
   ]
  },
  {
@@ -315,6 +318,8 @@
   "name": "Archive of Conduits",
   "text": "Limit 1 per deck. As an additional cost to play this asset, place 1 resource on 4 different locations, as leylines.\n[reaction] After you successfully investigate a location with a leyline, exhaust this asset: Move that leyline onto this asset. Then, if there are 4 leylines on it, discard it, take its leylines as resources, and record in your Campaign Log that \"you have identified the gateway.\"",
   "tags": [
+   "{ type: TagTypeUsesMarker.UsesBoardMarker }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeTimingAfter.TimingAfterSuccessfullyInvestigate }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
@@ -326,6 +331,7 @@
   "name": "Written in the Stars",
   "text": "Fast. Play only during your turn.\nDiscard the top card of your deck. If that card is a weakness, shuffle it back into your deck. Otherwise, for the remainder of your turn, while that card is in your discard pile, commit it to each eligible skill test you perform.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeDeckDiscard.DeckDiscardDeck }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
@@ -341,7 +347,9 @@
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }",
    "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeLimit.LimitInPlay, trait: \"Footwear\", count: 1 }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }"
   ]
  },
  {
@@ -411,6 +419,8 @@
   "name": "Archive of Conduits",
   "text": "Researched. Uses (4 leylines). Limit 1 per deck.\n[fast]: Move 1 leyline from this asset to a non-[[Elite]] enemy.\n[action]: Choose an investigator, and an enemy with a leyline at a revealed location. That investigator moves to that location. You may remove the leyline to deal 1 damage to that enemy.",
   "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingLeyline, value: 4 }",
+   "{ type: TagTypeUsesMarker.UsesBoardMarker }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
    "{ type: TagTypeRemote.RemoteMove }"
@@ -421,6 +431,8 @@
   "name": "Archive of Conduits",
   "text": "Researched. Uses (4 leylines). Limit 1 per deck.\n[fast]: Move 1 leyline from this asset to a revealed location.\n[action]: Choose an investigator and a revealed location with a leyline. That investigator moves to that location. You may remove the leyline to have them take an investigate action.",
   "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingLeyline, value: 4 }",
+   "{ type: TagTypeUsesMarker.UsesBoardMarker }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
    "{ type: TagTypeRemote.RemoteMove }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }"
@@ -431,11 +443,14 @@
   "name": "Archive of Conduits",
   "text": "Researched. Uses (4 leylines). Limit 1 per deck.\n[fast]: Move 1 leyline from this asset to a non-[[Elite]] enemy.\n[action]: Choose an investigator engaged with an enemy with a leyline. That investigator disengages from that enemy and moves to a connecting location. You may remove the leyline to automatically evade that enemy. This action does not provoke attacks of opportunity.",
   "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingLeyline, value: 4 }",
+   "{ type: TagTypeUsesMarker.UsesBoardMarker }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeEnemyEngage.EnemyEngageDisengage }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
    "{ type: TagTypeAuto.AutoEvade }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTestless.TestlessEvade }"
   ]
  },
  {
@@ -443,6 +458,8 @@
   "name": "Archive of Conduits",
   "text": "Researched. Uses (4 leylines). Limit 1 per deck.\n[fast]: Move 1 leyline from this asset to an investigator.\n[action]: Choose an investigator with a leyline. That investigator draws 1 card and heals 1 damage or 1 horror. You may remove the leyline to have them instead draw 2 cards and heal 2 damage or 2 horror.",
   "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingLeyline, value: 4 }",
+   "{ type: TagTypeUsesMarker.UsesBoardMarker }",
    "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
    "{ type: TagTypeHeal.HealDamageInvestigator, value: 1 }",
    "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
@@ -460,7 +477,8 @@
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }",
    "{ type: TagTypeAoo.AooNoProvoke }",
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
+   "{ type: TagTypeRemote.RemoteMove }"
   ]
  },
  {
@@ -474,6 +492,7 @@
   "name": "Scout Ahead",
   "text": "<b>Move.</b> Move up to 3 times. Enemies do not engage you during this movement.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeActionBold.ActionBoldMove }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeBuffCannot.CannotEngageYou }"
@@ -568,6 +587,7 @@
   "name": "Black Market",
   "text": "Fast. Play at the start of the investigation phase.\nOne at a time, reveal cards from the top of any investigator deck(s) until exactly 5 cards have been revealed. Set those cards aside, out of play. While set aside, any investigator may play any of those cards as if they were in their hand. At the start of the next investigation phase, shuffle each of those cards still set aside into its owner's deck.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationBegins, timing: TimingQualifier.AtIf }",
    "{ type: TagTypeDeckLook.DeckLookYou, value: 5, reorder: false }",
    "{ type: TagTypeDeckLook.DeckLookInvestigator, value: 5, reorder: false }",
@@ -657,7 +677,8 @@
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
-   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }"
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
   ]
  },
  {
@@ -679,7 +700,6 @@
    "{ type: TagTypeCancel.CancelEncounterEffect }",
    "{ type: TagTypeCancel.CancelRevelation }",
    "{ type: TagTypeCancel.CancelWeaknessDraw }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }"
   ]
  },
@@ -767,6 +787,7 @@
   "name": "Schoffner's Catalogue",
   "text": "Uses (5 secrets). If Schoffner's Catalogue has no secrets, discard it.\nYou may spend secrets on Schoffner's Catalogue as resources to pay for [[Item]] assets played by any investigator at your location.",
   "tags": [
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Item\"] }",
    "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 5 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeTraitSupport.TraitSupportItem }",
@@ -778,6 +799,7 @@
   "name": "Bandages",
   "text": "Uses (3 supplies). If Bandages has no supplies, discard it.\n[reaction] After an investigator or [[Ally]] asset at your location takes 1 or more damage, spend 1 supply: Heal 1 damage from that card.",
   "tags": [
+   "{ type: TagTypeCostReaction.CostReactionSpendSupply }",
    "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
@@ -792,6 +814,8 @@
   "name": "Jury-Rig",
   "text": "Uses (3 durability).\nAttach to an [[Item]] asset controlled by an investigator at your location.\n[fast] During a skill test on attached asset, spend 1 durability: You get +2 skill value for this test.",
   "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingDurability, value: 3 }",
+   "{ type: TagTypeCostFree.CostFreeSpendDurability }",
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeTraitSupport.TraitSupportItem }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
@@ -913,6 +937,7 @@
   "name": "On the Trail",
   "text": "Choose an enemy at any location other than yours. Either move twice toward that enemy, or discover 1 clue at any empty location between you and the chosen enemy, along the shortest path to reach that enemy.",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }"
   ]
@@ -922,7 +947,6 @@
   "name": "On the Trail",
   "text": "Choose an enemy at any location other than yours. Move twice toward that enemy. Discover 1 clue at each location you entered by this effect.",
   "tags": [
-   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 2 }",
    "{ type: TagTypeTestless.TestlessClue, value: 2 }"
@@ -933,6 +957,7 @@
   "name": "Michael Leigh",
   "text": "You get +1 [intellect] and +1 [combat].\n[reaction] After you successfully investigate: Place 1 resource <i>(from the token pool)</i> on Michael Leigh, as evidence (to a maximum of 3 evidence).\n[reaction] When you initiate an attack, exhaust Michael Leigh and spend 1 evidence: You deal +1 damage for this attack.",
   "tags": [
+   "{ type: TagTypeCostReaction.CostReactionSpendEvidence }",
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
    "{ type: TagTypeTimingAfter.TimingAfterSuccessfullyInvestigate }",
@@ -1046,7 +1071,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
@@ -1109,13 +1134,14 @@
    "{ type: TagTypeCostFree.CostFreeSpendSecret }",
    "{ type: TagTypeActionBold.ActionBoldMove }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
-   "{ type: TagTypeActionBold.ActionBoldInvestigate }"
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
   ]
  },
  {
   "code": "08099",
-  "name": "Gen\u00e9 Beauregard",
-  "text": "You get +1 [intellect] and +1 [agility].\n[reaction] During your turn, after you move to a location, exhaust Gen\u00e9 Beauregard: Move a clue or a non-[[Elite]] enemy from a connecting location to your location, or vice versa.",
+  "name": "Gené Beauregard",
+  "text": "You get +1 [intellect] and +1 [agility].\n[reaction] During your turn, after you move to a location, exhaust Gené Beauregard: Move a clue or a non-[[Elite]] enemy from a connecting location to your location, or vice versa.",
   "tags": [
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }",
@@ -1140,7 +1166,10 @@
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeCostFree.CostFreeSpendSecret }",
-   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }",
+   "{ type: TagTypeActionBold.ActionBoldMove }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }"
   ]
  },
  {
@@ -1168,7 +1197,8 @@
    "{ type: TagTypeTraitSupport.TraitSupportAlly }",
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
    "{ type: TagTypeRecursion.RecursionAsset }",
-   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 3 }"
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 3 }",
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }"
   ]
  },
  {
@@ -1179,10 +1209,10 @@
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 6 }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2, action: BasicAction.Investigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeCostAction.CostActionSpendCharge }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 2 }",
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 3 }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 0 }",
    "{ type: TagTypeDeckDiscard.DeckDiscardCardChoose }"
   ]
@@ -1208,8 +1238,7 @@
   "text": "Fast.\n[fast] During a skill test while fighting or investigating, exhaust Ice Pick: You get +1 skill value for this test.",
   "tags": [
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Fight }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Investigate }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }"
   ]
  },
  {
@@ -1232,7 +1261,6 @@
   "name": "Ice Pick",
   "text": "Fast.\n[fast] During a skill test while fighting or investigating, exhaust Ice Pick: You get +1 skill value for this test. If you succeed, you may discard Ice Pick to have this attack deal +1 damage <i>(if you are fighting)</i>, or to discover 1 additional clue at your location <i>(if you are investigating)</i>.",
   "tags": [
-   "{ type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
@@ -1325,7 +1353,7 @@
   "text": "Limit 1 Precious Memento <i>(From a Former Life)</i> per deck.\n[reaction] After you fail a skill test by 2 or more, exhaust Precious Memento: Heal 1 damage from it.\n[reaction] After you succeed at a skill test by 2 or more, exhaust Precious Memento: Heal 1 horror from it.",
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
-   "{ type: TagTypeTestResult.TestFailBy, amount: 2 }",
+   "{ type: TagTypeSkillValue.SkillValueFailByOrMore, amount: 2 }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeHeal.HealDamageSelf, value: 1 }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
@@ -1340,6 +1368,7 @@
   "name": "Precious Memento",
   "text": "Limit 1 Precious Memento <i>(From a Future Life)</i> per deck.\n[reaction] After you fail a skill test by 2 or more, exhaust Precious Memento: Heal 1 horror from it.\n[reaction] After you succeed at a skill test by 2 or more, exhaust Precious Memento: Heal 1 damage from it.",
   "tags": [
+   "{ type: TagTypeSkillValue.SkillValueFailByOrMore, amount: 2 }",
    "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeHeal.HealHorrorSelf, value: 1 }",
@@ -1360,7 +1389,9 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
    "{ type: TagTypeCancel.CancelDamage }",
-   "{ type: TagTypeCancel.CancelHorror }"
+   "{ type: TagTypeCancel.CancelHorror }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }"
   ]
  },
  {
@@ -1417,6 +1448,8 @@
   "name": "Prophetic",
   "text": "Uses (2 resources). Replenish these resources at the start of each round.\nResources on Prophetic may be spent to pay for [[Fortune]], [[Spell]], or [[Spirit]] cards.\n[fast] During a skill test on a [[Fortune]], [[Spell]], or [[Spirit]] card, spend 1 resource from Prophetic: You get +1 skill value for this test.",
   "tags": [
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Fortune\", \"Spell\", \"Spirit\"] }",
+   "{ type: TagTypeTraitSupport.TraitSupportFortune }",
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
@@ -1431,6 +1464,8 @@
   "name": "Sleuth",
   "text": "Uses (2 resources). Replenish these resources at the start of each round.\nResources on Sleuth may be spent to pay for [[Charm]], [[Tactic]], or [[Tome]] cards.\n[fast] During a skill test on a [[Charm]], [[Tactic]], or [[Tome]] card, spend 1 resource from Sleuth: You get +1 skill value for this test.",
   "tags": [
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Charm\", \"Tactic\", \"Tome\"] }",
+   "{ type: TagTypeTraitSupport.TraitSupportCharm }",
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeTraitSupport.TraitSupportTactic }",
@@ -1445,6 +1480,8 @@
   "name": "Bruiser",
   "text": "Uses (2 resources). Replenish these resources at the start of each round.\nResources on Bruiser may be spent to pay for [[Armor]], [[Firearm]], or [[Melee]] cards.\n[fast] During a skill test on a [[Armor]], [[Firearm]], or [[Melee]] card, spend 1 resource from Bruiser: You get +1 skill value for this test.",
   "tags": [
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Armor\", \"Firearm\", \"Melee\"] }",
+   "{ type: TagTypeTraitSupport.TraitSupportArmor }",
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
@@ -1459,6 +1496,8 @@
   "name": "Crafty",
   "text": "Uses (2 resources). Replenish these resources at the start of each round.\nResources on Crafty may be spent to pay for [[Insight]], [[Tool]], or [[Trick]] cards.\n[fast] During a skill test on a [[Insight]], [[Tool]], or [[Trick]] card, spend 1 resource from Crafty: You get +1 skill value for this test.",
   "tags": [
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Insight\", \"Tool\", \"Trick\"] }",
+   "{ type: TagTypeTraitSupport.TraitSupportTool }",
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeTraitSupport.TraitSupportInsight }",
@@ -1473,6 +1512,7 @@
   "name": "Antiquary",
   "text": "Uses (2 resources). Replenish these resources at the start of each round.\nResources on Antiquary may be spent to pay for [[Favor]], [[Relic]] or [[Ritual]] cards.\n[fast] During a skill test on a [[Favor]], [[Relic]] or [[Ritual]] card, spend 1 resource from Antiquary: You get +1 skill value for this test.",
   "tags": [
+   "{ type: TagTypeCostOther.CostAlternatePayment, traits: [\"Favor\", \"Relic\", \"Ritual\"] }",
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeTraitSupport.TraitSupportRelic }",
@@ -1549,6 +1589,7 @@
   "name": "Arm Injury",
   "text": "<b>Revelation</b> - Put Arm Injury into play in your threat area.\nArm Injury can be healed as if it were a single point of damage on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a fight or activate action: You cannot take any of those types of actions for the remainder of the turn.",
   "tags": [
+   "{ type: TagTypeHeal.HealRemovesWeakness }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
  },
@@ -1557,7 +1598,8 @@
   "name": "Leg Injury",
   "text": "<b>Revelation</b> - Put Leg Injury into play in your threat area.\nLeg Injury can be healed as if it were a single point of damage on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a move, resign, or evade action: You cannot take any of those types of actions for the remainder of the turn.",
   "tags": [
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTakeAction, timing: TimingQualifier.After }"
+   "{ type: TagTypeHeal.HealRemovesWeakness }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
  },
  {
@@ -1565,6 +1607,7 @@
   "name": "Panic",
   "text": "<b>Revelation</b> - Put Panic into play in your threat area.\nPanic can be healed as if it were a single point of horror on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a play, engage, or resource action: You cannot take any of those types of actions for the remainder of the turn.",
   "tags": [
+   "{ type: TagTypeHeal.HealRemovesWeakness }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
  },
@@ -1572,6 +1615,9 @@
   "code": "08133",
   "name": "Stupor",
   "text": "<b>Revelation</b> - Put Stupor into play in your threat area.\nStupor can be healed as if it were a single point of horror on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a parley, draw, or investigate action: You cannot take any of those types of actions for the remainder of the turn.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeHeal.HealRemovesWeakness }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
  }
 ]

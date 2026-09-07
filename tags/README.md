@@ -20,7 +20,7 @@ Additionally for each tag, search all compound tags that use it. For each compou
 
 The **TypeScript objects are the source of truth** — the design lives in the type definitions so it is hard to make mistakes (a wrong `type` or a missing argument fails to compile). Consumers read the JSON export: `yarn build` produces `json/export/` (`cards.json` — every card with its base tags and `c-`-prefixed compound archetypes merged into one `tags` list, plus `compound-tags.json` and a `tags.json` vocabulary). `hydrate()` and `createRepository()` from the package turn `cards.json` into typed, queryable cards.
 
-> Note: `json/input/<pack>.json` holds the raw card rows (code, name, text, stats) each pack was scaffolded from. The authoritative card text comes from `@5argon/arkham-kohaku`.
+> Note: `json/input/<pack>.json` holds the raw card rows (code, name, text, stats) each pack was scaffolded from, and `json/untagged/<pack>.json` is the tagging worklist — regenerated from the typed pack files by `yarn sync-worklists`, so it mirrors `src/tagged-cards/<pack>.ts` rather than the other way round. The authoritative card text comes from `@5argon/arkham-kohaku`.
 
 What's inside `src/tags` folder follows very rigid pattern.
 

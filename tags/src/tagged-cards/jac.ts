@@ -1,4 +1,5 @@
 import {
+  TagTypeChaosPayoff,
   TagTypeActionBold,
   TagTypeAoo,
   TagTypeCancel,
@@ -62,6 +63,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCancel.CancelChaos },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken },
     ],
   },
   {
@@ -276,6 +278,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueDamage },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -313,6 +316,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -430,6 +434,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueDamage },
       { type: TagTypeEnemyValue.EnemyValueHorror },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {

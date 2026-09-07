@@ -99,6 +99,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTank.TankMoveDamageHorror, scope: "self" },
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeTimingForced.TimingForcedLeavesPlay },
     ],
   },
   {
@@ -145,7 +146,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "willpower", "intellect", "intellect", "combat", "combat", "agility", "agility"],
     tags: [
-      { type: TagTypeHandSize.HandSizeMaxIncrease, value: -3 },
+      { type: TagTypeHandSize.HandSizeMaxDecrease, value: 3 },
       { type: TagTypeDeckDraw.DeckDrawFillHand, value: "dynamic" },
       { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
       { type: TagTypeDiscardPile.DiscardPileToDeck },
@@ -189,6 +190,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessClue, value: 1 },
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
     ],
   },
   {
@@ -199,6 +202,8 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
 
+      { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeDeckSearch.DeckSearchReaction },
     ],
   },
   {
@@ -222,11 +227,12 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+      { type: TagTypePlayArea.PlayAreaPlayIgnoringCost },
       { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic", action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeCondition.ConditionCopies, zone: "hand" },
     ],
   },
   {
@@ -236,7 +242,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "enemy",
     icons: [],
     tags: [
-      { type: TagTypeDoom.DoomAdd },
+      { type: TagTypeDoom.DoomAdd, target: "enemy" },
     ],
   },
   {
@@ -442,6 +448,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeBonded.BondedCard },
       { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
       { type: TagTypeGainResource.GainResourceInvestigator, value: 1 },
+      { type: TagTypeRfg.RfgSelf },
     ],
   },
   {
@@ -506,7 +513,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModSetBase.StatsModSetBase, value: 5 },
       { type: TagTypeAuto.AutoSuccess },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeRecursion.RecursionAsset },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard },
     ],
   },
@@ -525,6 +531,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAuto.AutoSuccess },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard },
+      { type: TagTypeTimingAfter.TimingAfterEntersPlay },
     ],
   },
   {
@@ -540,7 +547,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic", action: BasicAction.Investigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 2 },
+      { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: "dynamic" },
     ],
   },
   {
@@ -564,6 +571,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeControl.ControlTransferAsset },
       { type: TagTypeGainResource.GainResourceMoveInvestigator },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -778,6 +786,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeEnemyMitigation.EnemyMitigationDiscard },
       { type: TagTypeDeckShuffle.DeckShuffleEncounter },
+      { type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay },
     ],
   },
   {
@@ -862,7 +871,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeBuffCannot.CannotEngageYou },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Evade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true },
       { type: TagTypeDuration.DurationUntilEndRound },
     ],
@@ -1012,7 +1021,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeEnemyElite.EnemyEliteReducedEffect },
       { type: TagTypeDamage.DamagePlus, value: 2 },
     ],
   },
@@ -1042,6 +1051,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 },
       { type: TagTypeRecursion.RecursionPlayFromDiscard },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "discard" },
     ],
   },
   {
@@ -1246,6 +1256,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeRecursion.RecursionPlayFromDiscard },
       { type: TagTypeDiscardPile.DiscardPileToHand },
       { type: TagTypeRecursion.RecursionSelfToHand },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "discard" },
+      { type: TagTypeCondition.ConditionCopies, zone: "discard" },
     ],
   },
   {
@@ -1329,7 +1341,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeCostAction.CostActionSpendSecret },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
     ],
   },
@@ -1434,6 +1445,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeHeal.HealHorrorSelf, value: "dynamic" },
       { type: TagTypeSoak.SoakHealth, value: 3 },
       { type: TagTypeSoak.SoakSanity, value: 3 },
+      { type: TagTypeChaosEffect.ChaosEffectModifier },
     ],
   },
   {
@@ -1490,7 +1502,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "agility"],
     tags: [
       { type: TagTypeCostFree.CostFreeSpendResource },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeCostOther.CostDiscardCard },
       { type: TagTypeGainResource.GainResourceYou, value: 2 },

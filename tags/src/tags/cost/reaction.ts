@@ -11,6 +11,7 @@ export enum TagTypeCostReaction {
   CostReactionSpendSecret = "cost-reaction-spend-secret",
   CostReactionSpendSupply = "cost-reaction-spend-supply",
   CostReactionSpendEvidence = "cost-reaction-spend-evidence",
+  CostReactionSpendAmmo = "cost-reaction-spend-ammo",
 }
 
 interface TagCostReactionBase extends TagBase {
@@ -68,4 +69,13 @@ export interface TagCostReactionSpendSupply extends TagCostReactionBase {
 
 export interface TagCostReactionSpendEvidence extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionSpendEvidence;
+}
+
+/**
+ * Spend an AMMO use-token as the cost of a [reaction] triggered ability (Service Revolver's
+ * "After an enemy attacks you, spend 1 ammo: Fight", the follow-up shot on Thompson
+ * Submachine Gun / Isabelle's Twin .45s). The reaction sibling of cost-action-spend-ammo.
+ */
+export interface TagCostReactionSpendAmmo extends TagCostReactionBase {
+  type: TagTypeCostReaction.CostReactionSpendAmmo;
 }

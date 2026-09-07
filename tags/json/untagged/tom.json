@@ -4,9 +4,10 @@
   "name": "Tommy Muldoon",
   "text": "[action] Spend 1 resource, or discard a [[Firearm]] asset you control from play: Play a [[Firearm]] asset from your hand, paying its cost. It enters play with 2 additional ammo on it.\n[elder_sign] effect: +1. Place 1 ammo on an asset you control with uses (ammo).",
   "tags": [
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
-   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\" }"
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\" }",
+   "{ type: TagTypeCostAction.CostActionSpendResource }",
+   "{ type: TagTypeCostOther.CostDiscardCard }"
   ]
  },
  {
@@ -86,7 +87,7 @@
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 }",
    "{ type: TagTypeTimingAfter.TimingAfterEnemyAttacks }",
-   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeCostReaction.CostReactionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }"
@@ -126,7 +127,8 @@
    "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeGainResource.GainResourceInvestigator, value: \"dynamic\" }",
-   "{ type: TagTypeEnemyValue.EnemyValueHealth }"
+   "{ type: TagTypeEnemyValue.EnemyValueHealth }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
   ]
  },
  {
@@ -138,8 +140,7 @@
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
-   "{ type: TagTypePlayArea.PlayAreaToHand }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }"
+   "{ type: TagTypePlayArea.PlayAreaToHand }"
   ]
  },
  {
@@ -147,6 +148,7 @@
   "name": "Iron Sights",
   "text": "Fast. Play only during your turn.\nAttach to a [[Firearm]] asset you control.\n[action] Exhaust Iron Sights: You get +3 skill value the next time you fight using attached asset this turn. This action does not provoke attacks of opportunity.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
@@ -186,6 +188,7 @@
   "name": "Stakeout",
   "text": "<b>Investigate</b> ([intellect]). You get +2 [intellect] for this investigation. If you succeed, heal 1 horror.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2, action: BasicAction.Investigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
@@ -271,7 +274,8 @@
   "text": "<b>Move.</b> After this move, heal 3 damage.",
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldMove }",
-   "{ type: TagTypeHeal.HealDamageYou, value: 3 }"
+   "{ type: TagTypeHeal.HealDamageYou, value: 3 }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
   ]
  },
  {
@@ -364,7 +368,9 @@
    "{ type: TagTypeCostAction.CostActionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostReaction.CostReactionSpendAmmo }",
+   "{ type: TagTypeActionAdditional.ActionAdditionalAttack }"
   ]
  }
 ]

@@ -52,6 +52,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypePlayArea.PlayAreaToDeck },
     ],
   },
   {
@@ -80,6 +81,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypePlayArea.PlayAreaToDeck },
     ],
   },
   {

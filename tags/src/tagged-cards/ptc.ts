@@ -259,6 +259,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeVictory.VictoryDisplaySelf },
+      { type: TagTypeVictory.VictoryDisplayAddEncounter },
     ],
   },
   {
@@ -444,7 +445,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "intellect"],
     tags: [
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeCostDiscount.CostDiscount, amount: 1 },
     ],
   },
@@ -472,7 +472,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 },
       { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
-      { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeAoo.AooNoProvoke },
     ],
   },
@@ -740,7 +739,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
-      { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 },
+      { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: "dynamic" },
     ],
   },
   {
@@ -757,6 +756,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeAuto.AutoEvade },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
     ],
   },
   {
@@ -816,7 +816,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, withoutExhaust: true },
       { type: TagTypeBuffCannot.CannotEngageYou },
       { type: TagTypeDuration.DurationUntilEndTurn },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
     ],
   },
   {
@@ -1111,7 +1111,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 },
       { type: TagTypeCostReaction.CostReactionDiscardSelf },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeHeal.HealHorrorYou, value: 2 },
     ],
   },
@@ -1125,7 +1124,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeCostDiscount.CostDiscount, amount: 3 },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeTraitSupport.TraitSupportSpell },
     ],
   },
@@ -1288,6 +1286,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitNoIcons },
 
       { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTakeAction, timing: TimingQualifier.After },
     ],
   },
   {
@@ -1317,7 +1316,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSoak.SoakSanity, value: 3 },
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
-      { type: TagTypeDoom.DoomAdd },
+      { type: TagTypeDoom.DoomAdd, target: "own-card" },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 3 } },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
@@ -1363,6 +1362,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeCostAction.CostActionDiscardSelf },
@@ -1595,7 +1595,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 9 } },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromDeck },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "deck" },
       { type: TagTypeCostDiscount.CostDiscount, amount: "dynamic" },
       { type: TagTypeTraitSupport.TraitSupportAlly },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
@@ -1701,7 +1701,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeHandSize.HandSizeMaxIncrease, value: -5 },
+      { type: TagTypeHandSize.HandSizeMaxDecrease, value: 5 },
     ],
   },
   {

@@ -17,7 +17,8 @@
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {
@@ -39,7 +40,8 @@
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {

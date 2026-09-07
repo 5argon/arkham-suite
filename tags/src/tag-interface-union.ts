@@ -46,7 +46,6 @@ import type {
   TagBuffCannotEngageYou,
   TagBuffInvestigatorHealth,
   TagBuffInvestigatorSanity,
-  TagBuffStatsReplace,
 } from "./tags/buff/index.js";
 
 import type {
@@ -120,7 +119,6 @@ import type {
 } from "./tags/chaos/index.js";
 
 import type {
-  TagClueAdditionalAdjacentLocations,
   TagClueAdditionalRevealedLocations,
   TagClueAdditionalThisLocation,
   TagClueDiscoverAnyLocation,
@@ -188,6 +186,7 @@ import type {
   TagCostReactionDiscardSelf,
   TagCostReactionExhaustSelf,
   TagCostReactionHorrorSelf,
+  TagCostReactionSpendAmmo,
   TagCostReactionSpendCharge,
   TagCostReactionSpendClue,
   TagCostReactionSpendEvidence,
@@ -205,6 +204,7 @@ import type {
   TagDamageInsteadRange,
   TagDamagePlus,
   TagDamageRedirectAttack,
+  TagDamageRedirectOwnAttack,
   TagDamageSpread,
   TagDamageToInvestigator,
 } from "./tags/damage/index.js";
@@ -214,12 +214,9 @@ import type {
   TagDeckDiscardCardRandom,
   TagDeckDiscardDeck,
   TagDeckDiscardEncounter,
-  TagDeckDiscardSelf,
-  TagDeckDiscardTreachery,
   TagDeckDrawEncounter,
   TagDeckDrawFillHand,
   TagDeckDrawInvestigator,
-  TagDeckDrawReplaceSelf,
   TagDeckDrawYou,
   TagDeckLookBottom,
   TagDeckLookEncounter,
@@ -249,12 +246,12 @@ import type {
   TagDiscardPileToBottomDeck,
   TagDiscardPileToDeck,
   TagDiscardPileToHand,
-  TagDiscardPileToTopDeck,
 } from "./tags/discard-pile/index.js";
 
 import type {
   TagDoomAdd,
   TagDoomCheck,
+  TagDoomMove,
   TagDoomPreventAdvance,
   TagDoomRemove,
 } from "./tags/doom/index.js";
@@ -271,7 +268,6 @@ import type {
 
 import type {
   TagEncounterOffload,
-  TagEncounterRevealChoose,
 } from "./tags/encounter/index.js";
 
 import type {
@@ -285,11 +281,9 @@ import type {
   TagEnemyEliteReducedEffect,
   TagEnemyEngageDisengage,
   TagEnemyEngageEffect,
-  TagEnemyEngageEnemy,
   TagEnemyEngageEvadeMultiple,
   TagEnemyEngageNone,
   TagEnemyEngageNotWithYou,
-  TagEnemyEngageRelated,
   TagEnemyEngageTargetEngaged,
   TagEnemyEngageWithAnother,
   TagEnemyEngageWithYou,
@@ -329,6 +323,7 @@ import type {
 
 import type {
   TagHandSizeDependent,
+  TagHandSizeMaxDecrease,
   TagHandSizeMaxIncrease,
 } from "./tags/hand-size/index.js";
 
@@ -369,7 +364,6 @@ import type {
   TagLocationShroudMinus2,
   TagLocationShroudReduction,
   TagLocationYourAlly,
-  TagLocationYourClue,
   TagLocationYourEnemy,
   TagLocationYourInvestigator,
 } from "./tags/location/index.js";
@@ -446,7 +440,6 @@ import type {
 } from "./tags/skill-value/index.js";
 
 import type {
-  TagSlotAdditional,
   TagSlotAdditionalAccessory,
   TagSlotAdditionalAlly,
   TagSlotAdditionalArcane,
@@ -479,6 +472,7 @@ import type {
   TagStatsModBoostPassiveCombat,
   TagStatsModBoostPassiveIntellect,
   TagStatsModBoostPassiveWillpower,
+  TagStatsModPumpAmmo,
   TagStatsModPumpCharge,
   TagStatsModPumpResource,
   TagStatsModSetBase,
@@ -504,6 +498,8 @@ import type {
 } from "./tags/test/index.js";
 
 import type {
+  TagTestDifficultyCondition,
+  TagTestDifficultyIncrease,
   TagTestDifficultyReduce,
 } from "./tags/test-difficulty/index.js";
 
@@ -522,7 +518,6 @@ import type {
   TagTimingAfterDiscoverClue,
   TagTimingAfterDrawCard,
   TagTimingAfterEnemyAttacks,
-  TagTimingAfterEnemyDealDamageInvestigator,
   TagTimingAfterEnemyDealDamageSelf,
   TagTimingAfterEnemyDealDamageYou,
   TagTimingAfterEngageEnemy,
@@ -531,6 +526,7 @@ import type {
   TagTimingAfterFailSkillTest,
   TagTimingAfterHealHorror,
   TagTimingAfterPlayCardOfTrait,
+  TagTimingAfterSealCancelIgnoreToken,
   TagTimingAfterSuccessfullyInvestigate,
   TagTimingDuringYourTurn,
   TagTimingForcedEntersLocation,
@@ -580,7 +576,6 @@ import type {
   TagTraitSupportAlly,
   TagTraitSupportArmor,
   TagTraitSupportCharm,
-  TagTraitSupportCreature,
   TagTraitSupportFirearm,
   TagTraitSupportFortune,
   TagTraitSupportIllicit,
@@ -596,6 +591,7 @@ import type {
   TagTraitSupportSpirit,
   TagTraitSupportSupply,
   TagTraitSupportTactic,
+  TagTraitSupportTalent,
   TagTraitSupportTome,
   TagTraitSupportTool,
   TagTraitSupportTrick,
@@ -671,7 +667,6 @@ export type Tag =
   | TagBuffCannotEngageYou
   | TagBuffInvestigatorHealth
   | TagBuffInvestigatorSanity
-  | TagBuffStatsReplace
   // Campaign tags
   | TagDeckSwapBetweenGames
   // Cancel tags
@@ -737,7 +732,6 @@ export type Tag =
   | TagChaosSpendSealed
   | TagChaosSymbolPayoff
   // Clue tags
-  | TagClueAdditionalAdjacentLocations
   | TagClueAdditionalRevealedLocations
   | TagClueAdditionalThisLocation
   | TagClueDiscoverAnyLocation
@@ -797,6 +791,7 @@ export type Tag =
   | TagCostReactionDiscardSelf
   | TagCostReactionExhaustSelf
   | TagCostReactionHorrorSelf
+  | TagCostReactionSpendAmmo
   | TagCostReactionSpendCharge
   | TagCostReactionSpendClue
   | TagCostReactionSpendEvidence
@@ -810,6 +805,7 @@ export type Tag =
   | TagDamageInsteadRange
   | TagDamagePlus
   | TagDamageRedirectAttack
+  | TagDamageRedirectOwnAttack
   | TagDamageSpread
   | TagDamageToInvestigator
   // Deck tags
@@ -817,12 +813,9 @@ export type Tag =
   | TagDeckDiscardCardRandom
   | TagDeckDiscardDeck
   | TagDeckDiscardEncounter
-  | TagDeckDiscardSelf
-  | TagDeckDiscardTreachery
   | TagDeckDrawEncounter
   | TagDeckDrawFillHand
   | TagDeckDrawInvestigator
-  | TagDeckDrawReplaceSelf
   | TagDeckDrawYou
   | TagDeckLookBottom
   | TagDeckLookEncounter
@@ -846,10 +839,10 @@ export type Tag =
   | TagDiscardPileToBottomDeck
   | TagDiscardPileToDeck
   | TagDiscardPileToHand
-  | TagDiscardPileToTopDeck
   // Doom tags
   | TagDoomAdd
   | TagDoomCheck
+  | TagDoomMove
   | TagDoomPreventAdvance
   | TagDoomRemove
   // Duration tags
@@ -862,7 +855,6 @@ export type Tag =
   | TagDurationUntilEndTurn
   // Encounter tags
   | TagEncounterOffload
-  | TagEncounterRevealChoose
   // Enemy tags
   | TagEnemyBlankText
   | TagEnemyCannotAttack
@@ -874,11 +866,9 @@ export type Tag =
   | TagEnemyEliteReducedEffect
   | TagEnemyEngageDisengage
   | TagEnemyEngageEffect
-  | TagEnemyEngageEnemy
   | TagEnemyEngageEvadeMultiple
   | TagEnemyEngageNone
   | TagEnemyEngageNotWithYou
-  | TagEnemyEngageRelated
   | TagEnemyEngageTargetEngaged
   | TagEnemyEngageWithAnother
   | TagEnemyEngageWithYou
@@ -912,6 +902,7 @@ export type Tag =
   | TagGainResourceYou
   // Hand Size tags
   | TagHandSizeDependent
+  | TagHandSizeMaxDecrease
   | TagHandSizeMaxIncrease
   // Heal tags
   | TagHealDamageAlly
@@ -946,7 +937,6 @@ export type Tag =
   | TagLocationShroudMinus2
   | TagLocationShroudReduction
   | TagLocationYourAlly
-  | TagLocationYourClue
   | TagLocationYourEnemy
   | TagLocationYourInvestigator
   // Multiclass tags
@@ -1001,7 +991,6 @@ export type Tag =
   | TagSkillValueSucceedByExactly
   | TagSkillValueSucceedByOrMore
   // Slot tags
-  | TagSlotAdditional
   | TagSlotAdditionalAccessory
   | TagSlotAdditionalAlly
   | TagSlotAdditionalArcane
@@ -1030,6 +1019,7 @@ export type Tag =
   | TagStatsModBoostPassiveCombat
   | TagStatsModBoostPassiveIntellect
   | TagStatsModBoostPassiveWillpower
+  | TagStatsModPumpAmmo
   | TagStatsModPumpCharge
   | TagStatsModPumpResource
   | TagStatsModSetBase
@@ -1049,6 +1039,8 @@ export type Tag =
   | TagTestSucceedBy
   | TagTestYouPerform
   // Test Difficulty tags
+  | TagTestDifficultyCondition
+  | TagTestDifficultyIncrease
   | TagTestDifficultyReduce
   // Testless tags
   | TagTestlessClue
@@ -1063,7 +1055,6 @@ export type Tag =
   | TagTimingAfterDiscoverClue
   | TagTimingAfterDrawCard
   | TagTimingAfterEnemyAttacks
-  | TagTimingAfterEnemyDealDamageInvestigator
   | TagTimingAfterEnemyDealDamageSelf
   | TagTimingAfterEnemyDealDamageYou
   | TagTimingAfterEngageEnemy
@@ -1072,6 +1063,7 @@ export type Tag =
   | TagTimingAfterFailSkillTest
   | TagTimingAfterHealHorror
   | TagTimingAfterPlayCardOfTrait
+  | TagTimingAfterSealCancelIgnoreToken
   | TagTimingAfterSuccessfullyInvestigate
   | TagTimingDuringYourTurn
   | TagTimingForcedEntersLocation
@@ -1119,7 +1111,6 @@ export type Tag =
   | TagTraitSupportAlly
   | TagTraitSupportArmor
   | TagTraitSupportCharm
-  | TagTraitSupportCreature
   | TagTraitSupportFirearm
   | TagTraitSupportFortune
   | TagTraitSupportIllicit
@@ -1135,6 +1126,7 @@ export type Tag =
   | TagTraitSupportSpirit
   | TagTraitSupportSupply
   | TagTraitSupportTactic
+  | TagTraitSupportTalent
   | TagTraitSupportTome
   | TagTraitSupportTool
   | TagTraitSupportTrick

@@ -55,7 +55,6 @@
   "text": "<b>Revelation</b> - Put Unaware into play in your threat area.\n<b>Forced</b> - The first time you fail a skill test during your turn: Draw the top card of the encounter deck. If that card is an enemy, discard Unaware.",
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
-   "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
  },
@@ -65,7 +64,8 @@
   "text": "Limit 1 per investigator. Uses (3 renown). If there is no renown on Center Stage, discard it.\n[fast] During a skill test, spend 1 renown and exhaust Center Stage: You get +1 skill value for each action you have spent this round <i>(including this one, if this is triggered during one of your actions)</i>.",
   "tags": [
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }"
   ]
  },
  {
@@ -106,7 +106,7 @@
  {
   "code": "60361",
   "name": "Lockpicks",
-  "text": "[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, discard Lockpicks.",
+  "text": "[action] Exhaust Lockpicks: <b>Investigate</b> ([intellect]). Add your [agility] to your [intellect] for this test. If you do not succeed by at least 2, discard Lockpicks.",
   "tags": [
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
@@ -121,7 +121,8 @@
   "text": "You gain 1 additional resource during the upkeep phase.\n<b>Forced</b> - After you fail a skill test: Deal 1 horror to Marcus Sengstacke.",
   "tags": [
    "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }"
   ]
  },
  {
@@ -158,7 +159,9 @@
    "{ type: TagTypeEnemyEngage.EnemyEngageDisengage }",
    "{ type: TagTypeGainKeyword.GainKeywordAloof }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
-   "{ type: TagTypeTestless.TestlessClue, value: 1 }"
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeEnemyValue.EnemyValueRemainingHealth }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }"
   ]
  },
  {
@@ -192,7 +195,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }"
+   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }"
   ]
  },
  {
@@ -202,7 +206,8 @@
   "tags": [
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
-   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeSkillValueSource.SkillValueFromResource, per: 3 }"
   ]
  },
  {
@@ -218,7 +223,7 @@
  {
   "code": "60371",
   "name": "\"Watch this!\"",
-  "text": "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" to a skill test, spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
+  "text": "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
   "tags": [
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 }",
@@ -228,7 +233,7 @@
  {
   "code": "60372",
   "name": "Lockpicks",
-  "text": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
+  "text": "Uses (3 supplies). If there are no supplies on Lockpicks, discard it.\n[action] Exhaust Lockpicks: <b>Investigate</b> ([intellect]). Add your [agility] to your [intellect] for this test. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
   "tags": [
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
@@ -259,7 +264,8 @@
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }"
   ]
  },
  {
@@ -268,8 +274,8 @@
   "text": "You gain 1 additional resource during the upkeep phase.\n<b>Forced</b> - After you fail a skill test: Deal 1 horror to Marcus Sengstacke.",
   "tags": [
    "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
-   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
-   "{ type: TagTypeSoak.SoakSanity, value: 3 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }"
   ]
  },
  {
@@ -311,7 +317,7 @@
  {
   "code": "60379",
   "name": "The Black Fan",
-  "text": "Exceptional.\nWhile you have...\n- ...10+ resources, you get +1 health and +1 sanity.\n- ...15+ resources, you may take one additional action during your turn.\n- ...20+ resources, you get +1 to each of your skills.",
+  "text": "Exceptional.\nWhile you have...\n- ...10+ resources, you get +1 health and +1 sanity.\n- ...15+ resources, you may take an additional action during your turn.\n- ...20+ resources, you get +1 to each of your skills.",
   "tags": [
    "{ type: TagTypeCondition.ConditionResource, comparison: \"min\", value: 10 }",
    "{ type: TagTypeBuffInvestigatorStats.BuffInvestigatorHealth, value: 1 }",
@@ -359,6 +365,7 @@
   "name": "Contingency",
   "text": "While Contingency is committed to a skill test targeting an enemy, after revealing chaos tokens, you may spend 3 resources to cancel a revealed token, return it to the chaos bag, and reveal a new one. <i>(You may do this any number of times.)</i>",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeCancel.CancelChaos }",
    "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }"
@@ -367,7 +374,7 @@
  {
   "code": "60384",
   "name": "The Red Clock",
-  "text": "Exceptional. Uses (0 charges).\n<b>Forced</b> - After your turn begins: You may take all charges here, as resources. Place 1 charge here. If it has exactly...\n- 1 charge, you get +4 skill value for your next skill test.\n- 2 charges, you may move up to 3 times.\n- 3 charges, you may take 2 additional actions this turn.",
+  "text": "Exceptional. Uses (0 charges).\n<b>Forced</b> - After your turn begins: You may take all charges here, as resources. Place 1 charge here. If it has exactly...\n- ...1 charge, you get +4 skill value for your next skill test.\n- ...2 charges, you may move up to 3 times.\n- ...3 charges, you may take 2 additional actions this turn.",
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 0 }",
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.After }",

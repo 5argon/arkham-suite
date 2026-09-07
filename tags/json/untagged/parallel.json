@@ -1,0 +1,595 @@
+[
+ {
+  "code": "90001",
+  "name": "Daisy Walker",
+  "text": "You get +1 [willpower] and +1 sanity for each [[Tome]] asset you control.\n[fast]: One at a time, resolve an [action] ability on each [[Tome]] asset you control, ignoring their [action] cost. (Limit once per game.)\n[elder_sign] effect: +1. You may return a [[Tome]] asset from your discard pile to your hand.",
+  "tags": [
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeBuffInvestigatorStats.BuffInvestigatorSanity, value: \"dynamic\" }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
+  ]
+ },
+ {
+  "code": "90002",
+  "name": "Daisy's Tote Bag",
+  "text": "Daisy Walker deck only. Advanced.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets.\n[reaction] When you play a [[Tome]] asset during your turn, exhaust Daisy's Tote Bag: That asset gains fast.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Tome\" }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Tome\", cardType: \"asset\" }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }",
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }"
+  ]
+ },
+ {
+  "code": "90003",
+  "name": "The Necronomicon",
+  "text": "Advanced.\n<b>Revelation</b> - Put this card into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nWhile it is in play, treat each [elder_sign] you reveal on a chaos token as a [cultist], [tablet], and [elder_thing] <i>(resolve all three)</i>.\n[action]: Move 1 horror from this card to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it.",
+  "tags": [
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"cultist\" }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"tablet\" }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-thing\" }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }"
+  ]
+ },
+ {
+  "code": "90008",
+  "name": "\"Skids\" O'Toole",
+  "text": "[fast] Spend up to 3 resources: Test a base skill value of 3 against a difficulty equal to the amount of resources just spent. If you succeed, gain twice the number of spent resources. Only [agility] and [wild] skill icons may be committed to this test. (Limit once per round.)\n[elder_sign] effect: +1. Choose a level 2 or less card in your discard pile. Add the chosen card to your hand.",
+  "tags": [
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModSetBase.StatsModSetBase, value: 3 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+  ]
+ },
+ {
+  "code": "90009",
+  "name": "On the Lam",
+  "text": "\"Skids\" O'Toole deck only. Advanced.\nFast. Play during any [fast] window.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you. At the end of the round, you may disengage from each engaged enemy and move up to 2 locations away.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeBuffCannot.CannotAttackYou }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }"
+  ]
+ },
+ {
+  "code": "90010",
+  "name": "Hospital Debts",
+  "text": "Advanced. <b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[fast]: Move 1 resource from your resource pool to Hospital Debts. (Limit three times per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 9 resources on it: You earn 2 fewer experience for this scenario.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "90017",
+  "name": "Agnes Baker",
+  "text": "As an additional cost to play a [[Spell]] event, you may take 1 damage. If you do, reduce the cost to play that event by 2, and you may shuffle that event back into your deck instead of discarding it.\n[elder_sign] effect: +1. You may heal 1 damage.",
+  "tags": [
+   "{ type: TagTypeCostOther.CostDamageSelf }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeHeal.HealDamageYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "90018",
+  "name": "Heirloom of Hyperborea",
+  "text": "Agnes Baker deck only. Advanced.\nOnly damage and/or horror from player card effects can be assigned to Heirloom of Hyperborea.\n[reaction] After you play a [[Spell]] card: Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }",
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Spell\" }"
+  ]
+ },
+ {
+  "code": "90019",
+  "name": "Dark Memory",
+  "text": "Advanced.\nPlace 1 doom on the current agenda. This effect can cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror.",
+  "tags": [
+   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }",
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }"
+  ]
+ },
+ {
+  "code": "90024",
+  "name": "Roland Banks",
+  "text": "At deck creation, choose 3 different Directive assets to add to your deck.\n[fast]: Flip a Directive asset facedown <i>(ignoring its permanent keyword)</i>. (Limit once per game.)\n[elder_sign] effect: +2. Choose a Directive asset. You may ignore its regulation ability this round.",
+  "tags": []
+ },
+ {
+  "code": "90025",
+  "name": "Directive",
+  "text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot fight more than twice each round.\n[fast] During a skill test while investigating, evading, or parleying, exhaust this Directive: You get +2 skill value for this test for each enemy engaged with you.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "90026",
+  "name": "Directive",
+  "text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot play more than 2 cards each round.\n[reaction] When you play an [[Insight]] or [[Tactic]] event, exhaust this Directive: That event gains fast.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Insight\", cardType: \"event\" }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Tactic\", cardType: \"event\" }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }",
+   "{ type: TagTypeTraitSupport.TraitSupportInsight }",
+   "{ type: TagTypeTraitSupport.TraitSupportTactic }"
+  ]
+ },
+ {
+  "code": "90027",
+  "name": "Directive",
+  "text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot voluntarily assign damage or horror to [[Ally]] assets.\nYou have 1 additional ally slot.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSlotAdditional.SlotAdditionalAlly }"
+  ]
+ },
+ {
+  "code": "90028",
+  "name": "Directive",
+  "text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - When your location has 1 or more clues, you cannot commit cards to skill tests unless you have discovered a clue this round.\n[reaction] After you discover a clue, if an enemy is at your location, exhaust this Directive: Draw 1 card.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "90029",
+  "name": "Directive",
+  "text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot move more than twice each round.\nYou get +3 sanity.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeBuffInvestigatorStats.BuffInvestigatorSanity, value: 3 }"
+  ]
+ },
+ {
+  "code": "90030",
+  "name": "Roland's .38 Special",
+  "text": "Roland Banks deck only. Advanced. Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack (if there are 1 or more clues on your location, you get +4 [combat], instead). This attack deals +1 damage. If this attack defeats an enemy and there are no clues on your location, place 1 ammo on Roland's .38 Special",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 4 }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 4, action: BasicAction.Fight }",
+   "{ type: TagTypeLocationProperty.LocationClueExist }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"ammo\", conditional: true }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }"
+  ]
+ },
+ {
+  "code": "90031",
+  "name": "Cover Up",
+  "text": "Advanced.\n<b>Revelation</b> - Put Cover Up into play in your threat area, with 4 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "90037",
+  "name": "Wendy Adams",
+  "text": "Add Tidal Memento to your deck.\n[reaction] After you successfully evade a non-[[Elite]] enemy: Seal either 1 [bless] or [curse] token from the chaos bag, or any [bless] or [curse] tokens revealed from the chaos bag during this test, on that enemy.\n[elder_sign] effect: +2. Search the chaos bag for up to 2 [bless] and/or [curse] tokens and reveal them, ignoring their effects.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenCurse }",
+   "{ type: TagTypeChaosSeal.ChaosSealRevealed }",
+   "{ type: TagTypeChaosBag.ChaosBagRemoveBless, value: 2 }",
+   "{ type: TagTypeChaosBag.ChaosBagRemoveCurse, value: 2 }"
+  ]
+ },
+ {
+  "code": "90038",
+  "name": "Tidal Memento",
+  "text": "Wendy Adams deck only. Permanent.\n[reaction] When an enemy would ready or doom would be placed on it, release a [bless] or [curse] token sealed on that enemy: Cancel that effect.\n[reaction] During a skill test you are performing, when a chaos token would be revealed from the chaos bag: Resolve a [bless] or [curse] token sealed on an enemy instead.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }",
+   "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeDoom.DoomRemove }"
+  ]
+ },
+ {
+  "code": "90039",
+  "name": "Wendy's Amulet",
+  "text": "Wendy Adams deck only. Advanced.\nYou may play any event in your discard pile as if it were in your hand.\n<b>Forced</b> - After you play an event or discard an event from play: Place it on the bottom of your deck instead of in your discard pile.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"event\" }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
+  ]
+ },
+ {
+  "code": "90040",
+  "name": "Abandoned and Alone",
+  "text": "Advanced.\n<b>Revelation</b> - Remove all non-weakness cards in your discard pile from the game. If no cards were removed by this effect, shuffle this card back into your deck. Otherwise, take 3 direct horror.",
+  "tags": [
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "90046",
+  "name": "\"Ashcan\" Pete",
+  "text": "You begin the game with Pete's Guitar in play.\n[reaction] When a card you own that is attached to a scenario card would be discarded: Add it to your hand instead. (Limit once per round.)\n[elder_sign] effect: +1. Choose a card you own attached to a scenario card. You may return the chosen card to your hand.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameBegins }",
+   "{ type: TagTypePlayArea.PlayAreaToHand }",
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }"
+  ]
+ },
+ {
+  "code": "90047",
+  "name": "Pete's Guitar",
+  "text": "\"Ashcan\" Pete deck only. Replacement.\n[fast] Exhaust Pete's Guitar: Choose a non-[[Elite]] enemy at your location or a connecting location. Move that enemy once in a direction of your choice. Then, if there are no enemies at your location, either heal 1 horror or gain 1 resource.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
+   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
+   "{ type: TagTypeLocationProperty.LocationEnemyZero }",
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "90048",
+  "name": "Hard Times",
+  "text": "Replacement.\n<b>Revelation</b> - Put Hard Times into play in your threat area.\n<b>Forced</b> - After you draw 1 or more cards: Choose and discard that many cards from hand.\n[action][action]: Discard Hard Times.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterDrawCard }",
+   "{ type: TagTypeDeckDiscard.DeckDiscardCardChoose }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "90049",
+  "name": "Jim Culver",
+  "text": "[reaction] After you reveal 1 or more [skull] or [curse] tokens during a skill test you are performing: Replenish 1 charge on an asset you control. (Limit once per round.)\n[elder_sign] effect: +2. You may treat this token as if it were a [skull] or [curse] token instead.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\", conditional: true }",
+   "{ type: TagTypeControl.ControlYourCard }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"skull\" }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"curse\" }"
+  ]
+ },
+ {
+  "code": "90050",
+  "name": "Jim's Trumpet",
+  "text": "Jim Culver deck only. Advanced.\n[reaction] When a [skull] or [curse] token is revealed during a skill test you are performing, exhaust Jim's Trumpet: Heal 1 horror from each investigator and [[Ally]] asset at your location or a connecting location.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingInvestigator }"
+  ]
+ },
+ {
+  "code": "90051",
+  "name": "Final Rhapsody",
+  "text": "Advanced.\n<b>Revelation</b> - Reveal 5 chaos tokens from the chaos bag. For each non-[elder_sign], non-[bless] symbol token revealed, take 1 damage and 1 horror.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }"
+  ]
+ },
+ {
+  "code": "90052",
+  "name": "The Beyond",
+  "text": "Jim Culver deck only. Permanent.\nEach attached spirit loses all printed traits and gains the [[Geist]] trait. When damage/horror would be placed on an attached spirit, it must be placed on Jim Culver, instead.\n<b>Forced</b> – When your turn begins: Attach the top card of the spirit deck to The Beyond, as a spirit. If 4 or more spirits are attached, flip this card and resolve its text.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "90053",
+  "name": "Vengeful Shade",
+  "text": "Hunter. <b>Prey</b> – Jim Culver only.\nYou may fight or evade this enemy while it is attached to The Beyond (as if it were engaged with you). If you succeed, discard it. If you fail, spawn it engaged with you.\n<b>Forced</b> – When you attach a spirit to The Beyond via its forced effect: Vengeful Shade attacks you <i>(even if it is not at your location)</i>.",
+  "tags": []
+ },
+ {
+  "code": "90059",
+  "name": "Zoey Samaras",
+  "text": "[reaction] After you deal 1 or more damage to an enemy: Add 1 [bless] token to the chaos bag. (Limit once per phase.)\n[fast] Before you reveal chaos tokens during an attack, remove 3 [bless] tokens from the chaos bag: This attack deals +1 damage. (Limit once per round.)\n[elder_sign] effect: +1 for each [bless] token in the chaos bag.",
+  "tags": [
+   "{ type: TagTypeChaosBag.ChaosBagAddBless, value: 1 }",
+   "{ type: TagTypeChaosBag.ChaosBagRemoveBless, value: 3 }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeChaosTokenPool.ChaosBagCountCondition }"
+  ]
+ },
+ {
+  "code": "90060",
+  "name": "Zoey's Cross",
+  "text": "Zoey Samaras deck only. Advanced.\n[reaction] After you engage an enemy, exhaust Zoey’s Cross and spend 1 resource: Deal 1 damage to that enemy.\n[fast] Remove 2 [bless] tokens from the chaos bag: Engage an enemy at your location.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingAfter.TimingAfterEngageEnemy }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeCostReaction.CostReactionSpendResource }",
+   "{ type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 }",
+   "{ type: TagTypeChaosBag.ChaosBagRemoveBless, value: 2 }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+  ]
+ },
+ {
+  "code": "90061",
+  "name": "Smite the Wicked",
+  "text": "Advanced. Attached enemy gets +2 fight and +2 health.\n<b>Revelation</b> - Discard cards from the top of the encounter deck until an enemy is discarded. Attach Smite the Wicked to that enemy and spawn it at the location farthest from you.\n<b>Forced</b> - When the game ends, if attached enemy is in play: Zoey Samaras suffers 1 mental trauma.",
+  "tags": [
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "90062",
+  "name": "Monterey Jack",
+  "text": "[reaction] After you discover the last clue at your location: Search the top X cards of your deck for a [[Charm]] or [[Relic]] asset and play it, reducing its cost by X. X is the printed shroud of your location. Shuffle your deck. (Limit once per round.)\n[elder_sign] effect: +1. Gain 1 resource for each [[Charm]] asset and each [[Relic]] asset you control.",
+  "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: \"dynamic\" } }",
+   "{ type: TagTypeTraitSupport.TraitSupportCharm }",
+   "{ type: TagTypeTraitSupport.TraitSupportRelic }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"deck\" }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: \"dynamic\" }",
+   "{ type: TagTypeLocationShroud.LocationShroudDependent }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }"
+  ]
+ },
+ {
+  "code": "90063",
+  "name": "Trusty Bullwhip",
+  "text": "Fast. Monterey Jack deck only. Advanced.\n[action]: <b>Fight.</b> This attack uses [agility] instead of [combat]. You get +2 skill value for this attack. If this attack succeeds, you may exhaust Trusty Bullwhip to deal +1 damage for this attack and automatically evade the attacked enemy.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeAuto.AutoEvade }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }"
+  ]
+ },
+ {
+  "code": "90064",
+  "name": "Buried Secrets",
+  "text": "Advanced.\n<b>Revelation</b> - Put Buried Secrets into play in your threat area.\nIf your location can be investigated, you cannot move except by scenario card effects.\n[action] [action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Buried Secrets.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+  ]
+ },
+ {
+  "code": "90078",
+  "name": "Rex Murphy",
+  "text": "[reaction] When you would either place 1 of your clues on your location, or add 2 [curse] tokens to the chaos bag: Do the other instead. (This can still satisfy the cost of an ability.)\n[elder_sign] effect: +2 for each [curse] token revealed during this test. Draw 1 card for each [curse] token revealed during this test.",
+  "tags": [
+   "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 2 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "90079",
+  "name": "Search for the Truth",
+  "text": "Rex Murphy deck only. Advanced.\nFor each clue on Rex Murphy (to a maximum of 5) you may either:\n- Draw 1 card.\n- Place that clue on your location and return any card from your discard pile to your hand.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCondition.ConditionClueHeld }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+  ]
+ },
+ {
+  "code": "90080",
+  "name": "Rex's Curse",
+  "text": "Advanced.\n<b>Revelation</b> - Put Rex's Curse into play in your threat area.\n<b>Forced</b> - When you would succeed at a skill test: Reveal an additional chaos token. If this effect causes you to fail the test, shuffle Rex's Curse into your deck. (Limit once per test.)",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
+ },
+ {
+  "code": "90081",
+  "name": "Father Mateo",
+  "text": "[fast] During your turn: Seal a [bless] token on an investigator at your location with no [bless] token sealed on them. (Limit once per round.)\n[reaction] When an investigator would reveal a chaos token: Resolve the [bless] token sealed on them instead. Release that token.\n[elder_sign] effect: +1. Resolve Father Mateo's [fast] ability, ignoring its limit.",
+  "tags": [
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }"
+  ]
+ },
+ {
+  "code": "90082",
+  "name": "The Codex of Ages",
+  "text": "Father Mateo deck only. Advanced. Seal ([elder_sign] or up to 3 [bless]).\nYou get +1 to each of your skills while there is a token sealed here.\n[reaction] When an investigator at your location would reveal a chaos token from the chaos bag: That investigator resolves a token sealed here instead, then releases that token. (Limit once per test.)",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenElderSign }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
+  ]
+ },
+ {
+  "code": "90083",
+  "name": "Serpents of Yig",
+  "text": "Advanced. <b>Prey</b> - Father Mateo only. Hunter.\n<b>Revelation</b> - Search the chaos bag and all play areas for the [elder_sign] token and each [bless] token and seal them on Serpents of Yig.",
+  "tags": []
+ },
+ {
+  "code": "90084",
+  "name": "Jenny Barnes",
+  "text": "[reaction] After your turn begins: Play a [[Talent]] asset, reducing its cost by 1.\n[fast] Discard a [[Talent]] asset you control: Gain resources equal to that asset's printed cost. (Limit 5 resources per round.)\n[elder_sign] effect: +0. If you succeed, gain 3 resources.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.After }",
+   "{ type: TagTypeTraitSupport.TraitSupportTalent }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeCostOther.CostDiscardCard }"
+  ]
+ },
+ {
+  "code": "90085",
+  "name": "Jenny's Twin .45s",
+  "text": "Jenny Barnes deck only. Advanced. Uses (X ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage.\n[reaction] After you defeat an enemy using the above ability, exhaust Jenny's Twin .45s: Gain resources equal to that enemy's printed health.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: \"dynamic\" }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeCostAction.CostActionSpendAmmo }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeEnemyValue.EnemyValueHealth }"
+  ]
+ },
+ {
+  "code": "90086",
+  "name": "Searching for Izzie",
+  "text": "Advanced.\n<b>Revelation</b> - Attach Searching for Izzie to the location farthest from you. Attached location gets +2 shroud.\n[action] [action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Searching for Izzie.\n<b>Forced</b> - When the game ends, if Searching for Izzie is in play: You suffer 1 mental trauma.",
+  "tags": [
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
+  ]
+ },
+ {
+  "code": "90087",
+  "name": "Lola Hayes",
+  "text": "You begin the game in the Neutral role.\nYou can only play or commit Neutral cards or cards of your current role.\n<b>Forced</b> - When your turn begins: Switch your role ([guardian], [seeker], [rogue], [mystic], [survivor], or Neutral).\n[elder_sign] effect: +2. You may switch roles.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "90088",
+  "name": "Leading Lady (Heroine)",
+  "text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Guardian ([guardian]) card, you may either draw 1 card or immediately take a fight action.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
+  ]
+ },
+ {
+  "code": "90089",
+  "name": "Leading Lady (Mentor)",
+  "text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Seeker ([seeker]) card, you may either draw 1 card or immediately take an investigate action.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
+  ]
+ },
+ {
+  "code": "90090",
+  "name": "Leading Lady (Femme Fatale)",
+  "text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Rogue ([rogue]) card, you may either draw 1 card or immediately take an evade action.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
+  ]
+ },
+ {
+  "code": "90091",
+  "name": "Leading Lady (Enchantress)",
+  "text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Mystic ([mystic]) card, you may either draw 1 card or remove 1 doom from a player card at your location.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDoom.DoomRemove }"
+  ]
+ },
+ {
+  "code": "90092",
+  "name": "Leading Lady (Final Girl)",
+  "text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Survivor ([survivor]) card, you may either draw 1 card or heal 1 damage/horror.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeHeal.HealDamageYou, value: 1 }",
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }"
+  ]
+ },
+ {
+  "code": "90093",
+  "name": "Samuel Blake",
+  "text": "Lola Hayes deck only. Replacement. Peril.\nWhile Samuel Blake is in your hand, you cannot switch roles or play cards belonging to another role.\nWhile Samuel Blake is in play, as an additional cost for you to switch your role, you must take 1 horror.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }"
+  ]
+ }
+]

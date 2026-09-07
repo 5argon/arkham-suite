@@ -10,7 +10,8 @@
     "precedent": "node ./script/find-precedent.ts",
     "lint-tags": "node ./script/lint-tags.ts",
     "build": "tsc -b && node ./script/export-json.ts",
-    "scaffold-untagged": "node ./script/scaffold-untagged.ts"
+    "scaffold-untagged": "node ./script/scaffold-untagged.ts",
+    "sync-worklists": "node ./script/sync-worklists.ts"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

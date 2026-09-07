@@ -5,7 +5,6 @@ export enum TagTypeTimingAfter {
   TimingAfterEnemyAttacks = "timing-after-enemy-attacks",
   TimingAfterEnemyDealDamageSelf = "timing-after-enemy-deal-damage-self",
   TimingAfterEnemyDealDamageYou = "timing-after-enemy-deal-damage-you",
-  TimingAfterEnemyDealDamageInvestigator = "timing-after-enemy-deal-damage-investigator",
   TimingAfterEntersPlay = "timing-after-enters-play",
   TimingAfterSuccessfullyInvestigate = "timing-after-successfully-investigate",
   TimingAfterFailSkillTest = "timing-after-fail-skill-test",
@@ -15,6 +14,7 @@ export enum TagTypeTimingAfter {
   TimingAfterHealHorror = "timing-after-heal-horror",
   TimingAfterDiscoverClue = "timing-after-discover-clue",
   TimingAfterDrawCard = "timing-after-draw-card",
+  TimingAfterSealCancelIgnoreToken = "timing-after-seal-cancel-ignore-token",
 }
 
 interface TagTimingAfterBase extends TagBase {}
@@ -29,10 +29,6 @@ export interface TagTimingAfterEnemyDealDamageSelf extends TagTimingAfterBase {
 
 export interface TagTimingAfterEnemyDealDamageYou extends TagTimingAfterBase {
   type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou;
-}
-
-export interface TagTimingAfterEnemyDealDamageInvestigator extends TagTimingAfterBase {
-  type: TagTypeTimingAfter.TimingAfterEnemyDealDamageInvestigator;
 }
 
 export interface TagTimingAfterEntersPlay extends TagTimingAfterBase {
@@ -101,4 +97,14 @@ export interface TagTimingAfterDiscoverClue extends TagTimingAfterBase {
  */
 export interface TagTimingAfterDrawCard extends TagTimingAfterBase {
   type: TagTypeTimingAfter.TimingAfterDrawCard;
+}
+
+/**
+ * Reaction window after you SEAL, CANCEL, or IGNORE a chaos token — the Drowned City
+ * token-control payoff (Agatha Crane's turn-end trigger, Oculus Mortuum accumulating
+ * evidence). Distinct from the control effects themselves (chaos-seal-*, cancel-chaos,
+ * chaos-ignore-*), which these cards reward rather than perform.
+ */
+export interface TagTimingAfterSealCancelIgnoreToken extends TagTimingAfterBase {
+  type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken;
 }

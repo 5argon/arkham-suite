@@ -90,6 +90,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingSecret, value: "dynamic" },
       { type: TagTypeCostReaction.CostReactionSpendSecret },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeTimingAfter.TimingAfterDrawCard },
     ],
   },
   {
@@ -210,6 +211,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "attached" },
       { type: TagTypeTraitSupport.TraitSupportSupply },
+      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
     ],
   },
   {

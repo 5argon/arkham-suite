@@ -21,7 +21,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.AtIf }",
    "{ type: TagTypeCommit.CommitFromNonHand, source: \"attached\" }",
    "{ type: TagTypeRecursion.RecursionSkill }",
-   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -43,7 +44,6 @@
   "tags": [
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
    "{ type: TagTypePlayArea.PlayAreaToHand }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
@@ -138,6 +138,7 @@
   "name": "Sea Change Harpoon",
   "text": "Silas Marsh deck only.\n[action]: <b>Fight.</b> You get +1 [combat] for this attack. If you committed 1 or more skills to this skill test, this attack deals +1 damage. When this skill test ends, you may return Sea Change Harpoon to your hand to return all of your committed skill cards to your hand instead of discarding them.",
   "tags": [
+   "{ type: TagTypeCommit.CommitCountCondition }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
@@ -152,6 +153,7 @@
   "name": "Silas's Net",
   "text": "Silas Marsh deck only.\n[action]: <b>Evade.</b> You get +1 [agility] for this evasion attempt. If you succeed and you committed 1 or more skills to this skill test, you may automatically evade another enemy engaged with you. When this skill test ends, you may return Silas's Net to your hand to return all of your committed skill cards to your hand instead of discarding them.",
   "tags": [
+   "{ type: TagTypeCommit.CommitCountCondition }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1, action: BasicAction.Evade }",
@@ -169,6 +171,7 @@
   "name": "Siren Call",
   "text": "<b>Revelation</b> - Put Siren Call into play in your threat area.\nAs an additional cost to commit 1 or more cards to a skill test, you must pay 1 resource for each matching skill icon those cards have.\n[action][action]: Discard Siren Call.",
   "tags": [
+   "{ type: TagTypeCommit.CommitCountCondition }",
    "{ type: TagTypeCostAction.CostActionMultiple }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
@@ -208,6 +211,7 @@
   "name": "Rite of Sanctification",
   "text": "Seal (up to 5 [bless]). If Rite of Sanctification has no tokens sealed on it, discard it.\n[reaction] When an investigator at your location plays a card, exhaust Rite of Sanctification and release a chaos token sealed on it: Reduce the cost of that card by 2.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
@@ -247,6 +251,8 @@
   "name": "Cryptic Grimoire",
   "text": "[action]: Add 1 [curse] token to the chaos bag.\n[action] If there are 10 [curse] tokens in the chaos bag, discard Cryptic Grimoire: Record in your Campaign Log that \"you have translated the grimoire.\" Replace 5 [curse] tokens in the chaos bag with 5 [bless] tokens.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosBagCountCondition }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 1 }",
    "{ type: TagTypeCostAction.CostActionDiscardSelf }",
    "{ type: TagTypeChaosBag.ChaosBagReplace, value: 5, from: \"curse\", to: \"bless\" }"
@@ -336,6 +342,7 @@
   "name": "Tides of Fate",
   "text": "Fast. Play during any [fast] window, or at the start of the round.\nReplace all [curse] tokens in the chaos bag with an equal number of [bless] tokens. At the end of the round, replace all [bless] tokens in the chaos bag with an equal number of [curse] tokens.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeChaosBag.ChaosBagReplace, value: \"dynamic\", from: \"curse\", to: \"bless\" }",
    "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }",
    "{ type: TagTypeChaosBag.ChaosBagReplace, value: \"dynamic\", from: \"bless\", to: \"curse\" }"
@@ -358,6 +365,7 @@
   "name": "Promise of Power",
   "text": "After you commit Promise of Power to a skill test, add 1 [curse] token to the chaos bag. If you cannot, take 2 horror instead.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 1 }"
   ]
  },
@@ -371,7 +379,7 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
-   "{ type: TagTypeChaosBag.ChaosBagAddBless, value: 1 }"
+   "{ type: TagTypeChaosBag.ChaosBagAddBless, value: \"dynamic\" }"
   ]
  },
  {
@@ -398,10 +406,12 @@
   "name": "Beloved",
   "text": "If a [bless] token is revealed during this test, you may remove Beloved from the game to replace that token's effects with the following: \"You automatically succeed. <i>(Do not reveal another token. Return this token to the chaos bag after this test ends)</i>.\"",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosRecycleToken }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeRfg.RfgSelf }",
-   "{ type: TagTypeAuto.AutoSuccess }"
+   "{ type: TagTypeAuto.AutoSuccess }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -409,6 +419,7 @@
   "name": "Tempt Fate",
   "text": "Fast. Play during any [fast] window.\nAdd 3 [curse] tokens to the chaos bag. Then, add 3 [bless] tokens to the chaos bag and draw 1 card.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 3 }",
    "{ type: TagTypeChaosBag.ChaosBagAddBless, value: 3 }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
@@ -456,7 +467,8 @@
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
-   "{ type: TagTypeEnemyValue.EnemyValueHorror }"
+   "{ type: TagTypeEnemyValue.EnemyValueHorror }",
+   "{ type: TagTypeChaosBag.ChaosBagAddBless, value: \"dynamic\" }"
   ]
  },
  {
@@ -464,6 +476,7 @@
   "name": "Sacred Covenant",
   "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] After an investigator at any location performs the \"reveal chaos token\" step of a skill test, exhaust Sacred Covenant: Return any number of [bless] tokens revealed during this test to the chaos bag, ignoring their modifiers for this test.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosRecycleToken }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
@@ -498,6 +511,7 @@
   "name": "Blasphemous Covenant",
   "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] When an investigator at your location reveals a [curse] token during a skill test, exhaust Blasphemous Covenant: Treat that token's modifier as +1 instead of its normal modifier. After this test ends, return that token to the chaos bag.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosRecycleToken }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
@@ -576,7 +590,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }",
-   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }"
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }",
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }"
   ]
  },
  {
@@ -645,9 +660,10 @@
   "text": "[fast] Spend 2 resources: You get +1 [intellect] until the end of the phase.\n[fast] Spend 2 resources: You get +1 [combat] until the end of the phase.",
   "tags": [
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
-   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingIntellect, value: 1 }",
-   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingCombat, value: 1 }",
-   "{ type: TagTypeDuration.DurationUntilEndPhase }"
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingIntellect, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingCombat, value: \"dynamic\" }",
+   "{ type: TagTypeDuration.DurationUntilEndPhase }",
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }"
   ]
  },
  {
@@ -655,6 +671,7 @@
   "name": "Radiant Smite",
   "text": "<b>Fight.</b> You may use [willpower] instead of [combat] for this attack. When you initiate this attack, search the chaos bag for up to 3 [bless] tokens, and seal them here. For each [bless] token sealed on Radiant Smite, you get +1 skill value and deal +1 damage for this attack. If this attack defeats the attacked enemy, return the sealed tokens to the token pool. Otherwise, release them.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
    "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
@@ -756,7 +773,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCommit.CommitBenefitsPerformer }",
-   "{ type: TagTypeRecursion.RecursionSkill }"
+   "{ type: TagTypeRecursion.RecursionSkill }",
+   "{ type: TagTypeCommit.CommitOtherInvestigator, range: \"your-location\" }"
   ]
  },
  {
@@ -800,7 +818,8 @@
    "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
    "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: \"dynamic\" }"
   ]
  },
  {
@@ -808,12 +827,12 @@
   "name": "Blessing of Isis",
   "text": "[reaction] When a second [bless] token is revealed during a single skill test at your location, exhaust Blessing of Isis: Cancel that token and treat it as if it were a [elder_sign] token instead. Return both of those tokens to the chaos bag after this test ends.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosRecycleToken }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeCancel.CancelChaos }",
    "{ type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign }",
-   "{ type: TagTypeChaosBag.ChaosBagAddBless, value: 2 }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }"
   ]
@@ -825,13 +844,14 @@
   "tags": [
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeTimingSkill.TimingSkillSt4ApplyChaosEffect, timing: TimingQualifier.After }",
-   "{ type: TagTypeUsesAccumulate.UsesAccumulate }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"secret\", conditional: true }",
    "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Insight\" }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeCostReaction.CostReactionSpendSecret }",
    "{ type: TagTypeTraitSupport.TraitSupportInsight }",
    "{ type: TagTypeGainKeyword.GainKeywordFastOther }",
-   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }"
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -905,6 +925,7 @@
   "name": "Signum Crucis",
   "text": "Commit only to a skill test you are performing, and only if the difficulty of that test is higher than your base skill value.\nAfter you commit Signum Crucis to a skill test, add X [bless] tokens to the chaos bag. X is the difference between the test's difficulty and your base skill value.",
   "tags": [
+   "{ type: TagTypeTestDifficulty.TestDifficultyCondition }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeChaosBag.ChaosBagAddBless, value: \"dynamic\" }"
   ]
@@ -931,7 +952,8 @@
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeCancel.CancelAttack }"
+   "{ type: TagTypeCancel.CancelAttack }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }"
   ]
  },
  {
@@ -939,9 +961,11 @@
   "name": "Fey",
   "text": "If a [curse] token is revealed during this skill test, you may return Fey to your hand when this test ends.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeRecursion.RecursionSelfToHand }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -968,7 +992,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"bless\" }",
    "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"curse\" }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -1067,6 +1092,7 @@
   "name": "Harmony Restored",
   "text": "Search the chaos bag for X [curse] tokens and return them to the token pool. X is the number of [bless] tokens in the chaos bag. Gain 1 resource for each [curse] token removed in this way.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosBagCountCondition }",
    "{ type: TagTypeChaosBag.ChaosBagRemoveCurse, value: \"dynamic\" }",
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
   ]
@@ -1089,14 +1115,15 @@
   "name": "Nephthys",
   "text": "You get +1 [willpower].\n[reaction] When 1 or more [bless] tokens would be removed from the chaos bag during a skill test: Seal them on Nephthys, instead.\n[fast] Exhaust Nephthys: Either release 3 [bless] tokens sealed on her, or return 3 [bless] tokens sealed on her to the token pool to deal 2 damage to an enemy at your location.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
    "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
-   "{ type: TagTypeChaosBag.ChaosBagAddBless, value: 3 }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 2 }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeChaosSeal.ChaosSealRevealed }"
   ]
  },
  {
@@ -1104,6 +1131,7 @@
   "name": "The Stygian Eye",
   "text": "Fast. Play only during your turn.\nReduce the cost to play The Stygian Eye by 1 for each [curse] token in the chaos bag.\nUntil the end of the round, you get +3 to each of your skills.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosBagCountCondition }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: \"dynamic\" }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 3 }",
@@ -1177,7 +1205,8 @@
    "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
    "{ type: TagTypeEnemyValue.EnemyValueDamage }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: \"dynamic\" }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }"
   ]
  },
  {
@@ -1187,7 +1216,8 @@
   "tags": [
    "{ type: TagTypeChaosBag.ChaosBagRemoveBless, value: 5 }",
    "{ type: TagTypeTimingPhaseSequence.PhaseMythosDrawEncounter, timing: TimingQualifier.When }",
-   "{ type: TagTypePhase.PhaseSkip }"
+   "{ type: TagTypePhase.PhaseSkip }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }"
   ]
  },
  {
@@ -1248,6 +1278,7 @@
   "name": "Hallow",
   "text": "As an additional cost to play Hallow, return a total of 10 [bless] tokens to the token pool from the chaos bag or sealed on cards in play.\nRemove 1 doom from any card in play.",
   "tags": [
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeChaosBag.ChaosBagRemoveBless, value: 10 }",
    "{ type: TagTypeDoom.DoomRemove }"
   ]
@@ -1262,7 +1293,8 @@
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
    "{ type: TagTypeChaosSeal.ChaosSealTokenBless }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 4, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 2 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 2 }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }"
   ]
  },
  {
@@ -1301,7 +1333,8 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
-   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }"
   ]
  },
  {
@@ -1356,7 +1389,8 @@
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeReady.ReadySelf }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -1364,6 +1398,7 @@
   "name": "Shrine of the Moirai",
   "text": "Attach to your location. Uses (3 offerings).\nAttached location gains: \"[fast] Draw the top card of the encounter deck, exhaust Shrine of the Moirai, and spend 1 offering: Return up to 2 cards with a total combined level of 5 or less from your discard pile to your hand. Any investigator at this location may trigger this ability.\"\n<b>Card design by the Moirai at Arkham Nights 2019.</b>",
   "tags": [
+   "{ type: TagTypeCostFree.CostFreeSpendOffering }",
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeUsesStarting.UsesStartingOffering, value: 3 }",
    "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 }",

@@ -61,8 +61,9 @@ const taggedCards: TaggedCard[] = [
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "intellect", "intellect", "combat", "combat", "combat", "agility", "agility", "agility", "agility"],
     tags: [
-      { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
+      { type: TagTypeActionAdditional.ActionAdditional, canOnlyBeUsedTo: BasicAction.Play, value: 1 },
       { type: TagTypeTraitSupport.TraitSupportTrick },
+      { type: TagTypeDiscardPile.DiscardPileToHand },
     ],
   },
   {
@@ -217,7 +218,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Agility, action: BasicAction.Evade },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+      { type: TagTypeCostReaction.CostReactionDiscardSelf },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
     ],
   },
@@ -238,9 +239,10 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Intellect, action: BasicAction.Investigate },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Investigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+      { type: TagTypeCostReaction.CostReactionDiscardSelf },
       { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 },
       { type: TagTypeRemote.RemoteInvestigate },
+      { type: TagTypeLimit.LimitInPlay, trait: "Trap", count: 1, per: "location" },
     ],
   },
   {
@@ -492,7 +494,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "agility", "wild"],
     tags: [
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
-      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
@@ -527,6 +528,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionDiscardSelf },
       { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 },
       { type: TagTypeDamage.DamageToInvestigator, value: 3 },
+      { type: TagTypeLimit.LimitInPlay, trait: "Trap", count: 1, per: "location" },
     ],
   },
   {
