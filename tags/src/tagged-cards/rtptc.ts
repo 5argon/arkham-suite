@@ -109,7 +109,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeEnemyValue.EnemyValueEvadeReduction },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, withoutExhaust: true },
       { type: TagTypeBuffCannot.CannotEngageYou },
       { type: TagTypeDuration.DurationUntilEndTurn },
@@ -204,11 +204,13 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat", "combat"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeCostAction.CostActionDiscardSelf },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
+      { type: TagTypeRfg.RfgSelf },
     ],
   },
   {
@@ -219,6 +221,7 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
 
+      { type: TagTypeTimingGame.TimingGameEnds },
     ],
   },
   {
@@ -240,6 +243,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeTimingGame.TimingGameEnds },
     ],
   },
 ];

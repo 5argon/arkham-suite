@@ -40,7 +40,8 @@
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingSecret, value: \"dynamic\" }",
    "{ type: TagTypeCostReaction.CostReactionSpendSecret }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeTimingAfter.TimingAfterDrawCard }"
   ]
  },
  {
@@ -139,7 +140,8 @@
    "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 12 } }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"attached\" }",
-   "{ type: TagTypeTraitSupport.TraitSupportSupply }"
+   "{ type: TagTypeTraitSupport.TraitSupportSupply }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
  },
  {

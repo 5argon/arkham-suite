@@ -23,7 +23,7 @@ interface TagStatsModUseInsteadBase extends TagBase {
 
 /**
  * Per-action, per-test stat substitution (e.g. "this attack uses [agility]
- * instead of [combat]"). Distinct from BuffStatsReplace, which is a PASSIVE
+ * instead of [combat]"). Distinct from a PASSIVE
  * card-wide from->to replacement; these are action-scoped one-shot overrides.
  */
 export interface TagStatsModUseInstead extends TagStatsModUseInsteadBase {

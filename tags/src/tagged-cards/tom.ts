@@ -1,4 +1,6 @@
 import {
+  TagTypeCostOther,
+  TagTypeActionAdditional,
   TagTypeActionBold,
   TagTypeAoo,
   TagTypeAttach,
@@ -57,9 +59,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "intellect", "intellect", "intellect", "combat", "combat", "combat", "combat", "agility", "agility"],
     tags: [
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeTraitSupport.TraitSupportFirearm },
       { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "place" },
+      { type: TagTypeCostAction.CostActionSpendResource },
+      { type: TagTypeCostOther.CostDiscardCard },
     ],
   },
   {
@@ -159,7 +162,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 3 },
       { type: TagTypeTimingAfter.TimingAfterEnemyAttacks },
-      { type: TagTypeCostAction.CostActionSpendAmmo },
+      { type: TagTypeCostReaction.CostReactionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
@@ -209,6 +212,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeGainResource.GainResourceInvestigator, value: "dynamic" },
       { type: TagTypeEnemyValue.EnemyValueHealth },
+      { type: TagTypeLocationYour.LocationYourEnemy },
     ],
   },
   {
@@ -224,7 +228,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportFirearm },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
       { type: TagTypePlayArea.PlayAreaToHand },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
     ],
   },
   {
@@ -395,6 +398,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldMove },
       { type: TagTypeHeal.HealDamageYou, value: 3 },
+      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
     ],
   },
   {
@@ -512,6 +516,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeCostReaction.CostReactionSpendAmmo },
+      { type: TagTypeActionAdditional.ActionAdditionalAttack },
     ],
   },
 ];

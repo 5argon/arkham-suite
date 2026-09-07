@@ -26,6 +26,9 @@ import rtdwl from "./rtdwl.js";
 import rtptc from "./rtptc.js";
 import rttfa from "./rttfa.js";
 import rttcu from "./rttcu.js";
+import blbe from "./blbe.js";
+import promo from "./promo.js";
+import parallel from "./parallel.js";
 
 /**
  * Every tagged card across all packs, in pack/position order.
@@ -61,4 +64,7 @@ export const allTaggedCards: TaggedCard[] = [
   ...rtptc,
   ...rttfa,
   ...rttcu,
+  ...parallel,
+  ...promo,
+  ...blbe,
 ];

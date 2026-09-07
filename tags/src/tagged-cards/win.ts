@@ -56,6 +56,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeRecursion.RecursionSkill },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
+      { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
+      { type: TagTypeCommit.CommitCountCondition },
     ],
   },
   {
@@ -278,6 +280,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
     ],
   },
   {
@@ -483,6 +486,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitFetch, source: "investigator-discard" },
       { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
       { type: TagTypeDiscardPile.DiscardPileToBottomDeck },
+      { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
     ],
   },
   {

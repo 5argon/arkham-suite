@@ -4,7 +4,6 @@ import { DynamicValue } from "../../type.js";
 export enum TagTypeDeckDraw {
   DeckDrawYou = "deck-draw-you",
   DeckDrawInvestigator = "deck-draw-investigator",
-  DeckDrawReplaceSelf = "deck-draw-replace-self",
   DeckDrawFillHand = "deck-draw-fill-hand",
   DeckDrawEncounter = "deck-draw-encounter",
 }
@@ -23,10 +22,6 @@ export interface TagDeckDrawYou extends TagDeckDrawBase {
  */
 export interface TagDeckDrawInvestigator extends TagDeckDrawBase {
   type: TagTypeDeckDraw.DeckDrawInvestigator;
-}
-
-export interface TagDeckDrawReplaceSelf extends TagDeckDrawBase {
-  type: TagTypeDeckDraw.DeckDrawReplaceSelf;
 }
 
 /**

@@ -1,17 +1,16 @@
 /**
  * Render reference/taxonomy-proposal.md from reference/_taxonomy-delta.json — the
- * human-review document for the cross-pack taxonomy synthesis. Items flagged
- * usedByDwl are already implemented (the pilot); the rest are proposed for when
- * their packs are tagged.
+ * human-review document for the cross-pack taxonomy synthesis. Each item's status is
+ * computed from the live taxonomy (src/tags + compound-tags.ts), so the document stays
+ * truthful as proposals land — under their proposed id, a renamed successor, or not at all.
  *
  *   node ./script/build-proposal.ts
  */
 import { readFile, writeFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..");
+import { listTagFiles, root } from "./lib.ts";
 const d = JSON.parse(await readFile(join(root, "reference", "_taxonomy-delta.json"), "utf8"));
 
 const fields = (fs: { name: string; tsType: string }[]) =>
@@ -19,7 +18,7 @@ const fields = (fs: { name: string; tsType: string }[]) =>
 
 let m = "# Cross-pack Taxonomy Proposal\n\n";
 m += "Synthesized from 18 per-pack discovery reports (see `discovery-reports.json`). ";
-m += "Items marked **✅ implemented** are live in the taxonomy (added for the dwl pilot, though several also serve later packs). ";
+m += "Status is computed from the live taxonomy each time this file is rebuilt (`node script/build-proposal.ts`): **✅ implemented** ids exist in `src/tags` (or landed under a renamed successor), **✖ dropped** were removed as never used by a card. ";
 m += "Items marked **⏳ proposed** are recorded here and implemented as their packs are tagged — this is how the taxonomy resumes from prior thinking.\n\n";
 
 const nf = d.newFiles ?? [];
@@ -35,7 +34,32 @@ m += `- Argument additions: ${aa.length} (${aa.filter((x: any) => x.usedByDwl).l
 m += `- New compound tags: ${ct.length} (${ct.filter((x: any) => x.usedByDwl).length} implemented)\n`;
 m += `- Rejected proposals: ${rj.length}\n\n`;
 
-const flag = (x: any) => (x.usedByDwl ? "✅ implemented" : "⏳ proposed");
+// Live status: an item is implemented when its enum value (or its renamed successor) exists in
+// src/tags, its file exists, or its compound id exists in compound-tags.ts — not the stale
+// `usedByDwl` pilot marker.
+const tagSource = (await Promise.all((await listTagFiles()).map((f) => readFile(f, "utf8")))).join("\n");
+const compoundSource = await readFile(join(root, "src", "compound-tags", "compound-tags.ts"), "utf8");
+const liveIds = new Set([...tagSource.matchAll(/=\s*"([a-z0-9-]+)"/g)].map((m) => m[1]));
+const liveCompounds = new Set([...compoundSource.matchAll(/=\s*"c-([a-z0-9-]+)"/g)].map((m) => m[1]));
+/** Proposed ids that landed under a different name, or were dropped as unused. */
+const IMPLEMENTED_AS: Record<string, string> = {
+  "deck-search-bonded": "bonded-fetch",
+  "engage-disengage": "enemy-engage-disengage",
+  "enemy-cannot-engage": "buff-cannot-engage-you",
+  "cancel-treachery-in-play": "discard-treachery-in-play",
+};
+const DROPPED = new Set(["encounter-reveal-choose"]);
+const flagId = (id: string) =>
+  liveIds.has(id) ? "✅ implemented"
+  : IMPLEMENTED_AS[id] ? `✅ implemented as \`${IMPLEMENTED_AS[id]}\``
+  : DROPPED.has(id) ? "✖ dropped (never used by a card)"
+  : "⏳ proposed";
+const flag = (x: any) =>
+  x.value ? flagId(x.value)
+  : x.enumMember ? (liveCompounds.has(x.name) ? "✅ implemented" : "⏳ proposed")
+  : x.existingEnumMember ? (tagSource.includes(`${x.addField.name}`) ? "✅ implemented" : "⏳ proposed")
+  : x.folder && x.file ? (existsSync(join(root, "src", "tags", x.folder, `${x.file}.ts`)) ? "✅ implemented" : "⏳ proposed")
+  : "⏳ proposed";
 
 m += `## New tag files\n\n`;
 for (const f of nf) {

@@ -1,4 +1,7 @@
 import {
+  TagTypeSlotIgnore,
+  TagTypeRemote,
+  TagTypeTestDifficulty,
   TagTypeActionActivate,
   TagTypeActionAdditional,
   TagTypeActionBold,
@@ -102,6 +105,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostDiscount.CostDiscount, amount: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 },
       { type: TagTypeTraitSupport.TraitSupportTool },
+      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
+      { type: TagTypePlayArea.PlayAreaToHand },
     ],
   },
   {
@@ -141,6 +146,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingGame.TimingGameBegins },
       { type: TagTypeTimingForced.TimingForcedLeavesPlay },
+      { type: TagTypeLocationMove.LocationMoveClue },
     ],
   },
   {
@@ -153,6 +159,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
     ],
   },
   {
@@ -188,6 +195,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyMitigation.EnemyMitigationBackToEncounterDeck },
       { type: TagTypeDeckShuffle.DeckShuffleEncounter },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeLocationMove.LocationMoveClue },
     ],
   },
   {
@@ -197,6 +205,8 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
+      { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 3 },
+      { type: TagTypeTestDifficulty.TestDifficultyIncrease, value: "dynamic" },
 
     ],
   },
@@ -231,6 +241,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationMove.LocationMoveEnemyDisplace },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
+      { type: TagTypeRemote.RemoteInvestigate },
     ],
   },
   {
@@ -256,6 +267,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosBag.ChaosBagRemoveBless, value: 2 },
       { type: TagTypeChaosBag.ChaosBagRemoveCurse, value: 2 },
       { type: TagTypeActionAdditional.ActionAdditional, value: 1 },
+      { type: TagTypeChaosTokenPool.ChaosBagCountCondition },
     ],
   },
   {
@@ -270,6 +282,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeChaosTokenPool.ChaosBagCountCondition },
       { type: TagTypeChaosReveal.ChaosRevealAnotherInstead },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -381,6 +394,9 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Elusive" },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Retaliate" },
       { type: TagTypeDuration.DurationUntilEndRound },
+      { type: TagTypeChaosReveal.ChaosRevealTokenBless },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -396,6 +412,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeSpendOffering },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 2 },
+      { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
+      { type: TagTypeTimingAfter.TimingAfterEngageEnemy },
     ],
   },
   {
@@ -448,7 +466,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeCostDiscount.CostDiscount, amount: "dynamic" },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
     ],
@@ -480,6 +497,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeAttach.AttachAsset },
       { type: TagTypeTraitSupport.TraitSupportTool },
+      { type: TagTypeSlotIgnore.SlotIgnore, restrictedToTrait: "Tool" },
     ],
   },
   {
@@ -526,6 +544,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeCancel.CancelChaos },
       { type: TagTypeChaosReveal.ChaosRevealAnotherInstead },
+      { type: TagTypeCostOther.CostDamageSelf },
     ],
   },
   {
@@ -572,6 +591,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeChaosBag.ChaosBagAddBless, value: 2 },
+      { type: TagTypeChaosTokenPool.ChaosRecycleToken },
     ],
   },
   {
@@ -586,7 +606,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 1 },
       { type: TagTypeDuration.DurationUntilEndRound },
-      { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "charge", conditional: false },
+      { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "charge" },
       { type: TagTypeBonded.BondedFetch },
     ],
   },
@@ -632,9 +652,10 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "wild"],
     tags: [
       { type: TagTypeChaosReveal.ChaosRevealTokenBless },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeRfg.RfgSelf },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -648,6 +669,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingWhen.TimingWhenWouldFailTest },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
     ],
   },
   {
@@ -685,6 +707,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeLocationYour.LocationYourEnemy },
     ],
   },
   {
@@ -701,10 +724,11 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "evidence" },
       { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 3, action: BasicAction.Investigate },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic", action: BasicAction.Investigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeCostAction.CostActionSpendResource, source: "card" },
       { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 2 },
+      { type: TagTypeCostAction.CostActionMultiple },
     ],
   },
   {
@@ -720,6 +744,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeSpendOffering },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 2 },
+      { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
     ],
   },
   {
@@ -747,6 +772,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeRecursion.RecursionSelfToHand },
+      { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
     ],
   },
   {
@@ -762,6 +788,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessClue, value: 1 },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -774,6 +801,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostOther.CostPlaySpendAction },
       { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeRemote.RemoteInvestigate },
     ],
   },
   {
@@ -817,12 +845,13 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Agility, action: BasicAction.Evade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeAttach.AttachEnemy },
       { type: TagTypeEnemyDebuff.EnemyCannotMove },
       { type: TagTypeTimingAfter.TimingAfterEvadeEnemy },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeTestless.TestlessClue, value: 1 },
     ],
   },
   {
@@ -910,6 +939,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {
@@ -962,6 +992,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeCancel.CancelRevelation },
       { type: TagTypeCancel.CancelEncounterEffect },
+      { type: TagTypeLocationShroud.LocationShroudDependent },
     ],
   },
   {
@@ -1012,6 +1043,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeSoak.SoakHealth, value: 2 },
+      { type: TagTypeTestInitiate.TestInitiateAgility, difficulty: "dynamic" },
+      { type: TagTypeRfg.RfgSelf },
     ],
   },
   {
@@ -1044,6 +1077,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage },
       { type: TagTypeGainKeyword.GainKeywordAloof },
+      { type: TagTypeDuration.DurationUntilEndRound },
     ],
   },
   {
@@ -1071,6 +1105,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect"],
     tags: [
+      { type: TagTypeTestDifficulty.TestDifficultyIncrease, value: "dynamic" },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeActionBold.ActionBoldParley },
@@ -1134,10 +1169,10 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldParley },
       { type: TagTypeLocationYour.LocationYourEnemy },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeTraitSupport.TraitSupportWeapon },
       { type: TagTypeCostDiscount.CostDiscount, amount: 1 },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight },
+      { type: TagTypeActionActivate.ActionActivateIgnoringCost },
     ],
   },
   {
@@ -1210,7 +1245,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAuto.AutoEvade },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationMove.LocationMoveEnemyDisplace },
-      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 2 },
     ],
   },
@@ -1304,7 +1338,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostOther.CostPlaySpendAction },
       { type: TagTypeDeckSearch.DeckSearchYou, range: "all" },
       { type: TagTypeTraitSupport.TraitSupportIllicit },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromDeck },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "deck" },
       { type: TagTypeActionActivate.ActionActivateIgnoringCost },
       { type: TagTypeAoo.AooNoProvoke },
     ],
@@ -1340,6 +1374,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "agility"],
     tags: [
+      { type: TagTypeTestDifficulty.TestDifficultyIncrease, value: "dynamic" },
       { type: TagTypeActionBold.ActionBoldParley },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 0 },
@@ -1348,6 +1383,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypePlayArea.PlayAreaToHand },
+      { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "generic" },
     ],
   },
   {
@@ -1382,6 +1418,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeSpendOffering },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2 },
+      { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
     ],
   },
   {
@@ -1504,7 +1541,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostOther.CostPlaySpendAction },
       { type: TagTypeDeckLook.DeckLookEncounter, value: 5, reorder: true },
-      { type: TagTypeChaosBag.ChaosBagAddCurse, value: 1 },
+      { type: TagTypeChaosBag.ChaosBagAddCurse, value: "dynamic" },
       { type: TagTypeDeckLook.DeckLookBottom },
     ],
   },
@@ -1522,6 +1559,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyValue.EnemyValueFight },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeLocationMove.LocationMoveDamage },
+      { type: TagTypeEnemyElite.EnemyEliteReducedEffect },
     ],
   },
   {
@@ -1560,7 +1598,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeChaosReveal.ChaosRevealMore },
       { type: TagTypeChaosEffect.ChaosEffectResolveChoose },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeSoak.SoakSanity, value: 3 },
     ],
   },
@@ -1604,12 +1642,21 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Evade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true },
       { type: TagTypeBuffCannot.CannotEngageYou },
       { type: TagTypeDuration.DurationUntilEndRound },
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeRecursion.RecursionSelfToHand },
+      { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
+      { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
+      { type: TagTypeChaosReveal.ChaosRevealTokenBless },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -1635,6 +1682,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeRecursion.RecursionSelfToHand },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
@@ -1650,7 +1698,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
+      { type: TagTypeEnemyElite.EnemyEliteReducedEffect },
       { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
       { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
@@ -1714,6 +1762,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeRfg.RfgSelf },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -1730,6 +1779,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 },
       { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeSoak.SoakSanity, value: 4 },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -1774,8 +1825,9 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: [],
     tags: [
-      { type: TagTypeHandSize.HandSizeMaxIncrease, value: -3 },
+      { type: TagTypeHandSize.HandSizeMaxDecrease, value: 3 },
       { type: TagTypeCampaign.DeckSwapBetweenGames },
+      { type: TagTypeTimingGame.TimingGameEnds },
     ],
   },
   {
@@ -1809,6 +1861,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeSpendOffering },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 2 },
+      { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
     ],
   },
   {
@@ -1861,6 +1914,9 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyDebuff.EnemyDoesNotReady },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeRecursion.RecursionSelfToHand },
+      { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: "dynamic" },
+      { type: TagTypeEnemyValue.EnemyValueFight },
+      { type: TagTypeEnemyValue.EnemyValueEvade },
     ],
   },
   {
@@ -1874,7 +1930,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostOther.CostPlaySpendAction },
       { type: TagTypeSkillCommit.SkillCommitWildIcon },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
-      { type: TagTypeTank.TankMoveDamageHorror },
+      { type: TagTypeTank.TankMoveDamageHorror, scope: "cross-investigator" },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
       { type: TagTypeRfg.RfgSelf },
@@ -1895,6 +1951,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 },
+      { type: TagTypeCommit.CommitOtherInvestigator, range: "connecting" },
     ],
   },
   {
@@ -1910,6 +1967,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeAttach.AttachEnemy },
+      { type: TagTypeControl.ControlTransferAsset },
     ],
   },
   {
@@ -2042,7 +2100,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
-      { type: TagTypeChaosBag.ChaosBagAddBless, value: 1 },
+      { type: TagTypeChaosBag.ChaosBagAddBless, value: "dynamic" },
       { type: TagTypeTestRepeat.TestRepeatFailed },
     ],
   },
@@ -2112,6 +2170,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: "dynamic" },
       { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -2145,6 +2205,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "offering" },
       { type: TagTypeBonded.BondedFetch },
+      { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
     ],
   },
   {
@@ -2162,6 +2223,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign },
       { type: TagTypeChaosTokenPool.ChaosRecycleToken },
       { type: TagTypeBonded.BondedFetch },
+      { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
     ],
   },
   {

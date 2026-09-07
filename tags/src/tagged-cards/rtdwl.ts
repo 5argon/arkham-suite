@@ -1,4 +1,5 @@
 import {
+  TagTypeTestDifficulty,
   TagTypeActionBold,
   TagTypeActionLose,
   TagTypeChaosDownside,
@@ -163,7 +164,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 3 },
-      { type: TagTypeDamage.DamageRedirectAttack },
+      { type: TagTypeDamage.DamageRedirectOwnAttack },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeEnemyEngage.EnemyEngageWithAnother },
     ],
@@ -176,6 +177,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "skill",
     icons: ["wild", "wild"],
     tags: [
+      { type: TagTypeTestDifficulty.TestDifficultyCondition },
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
@@ -188,7 +190,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+
     ],
   },
 ];

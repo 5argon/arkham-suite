@@ -8,6 +8,7 @@ export enum TagTypeDamage {
   DamageToInvestigator = "damage-to-investigator",
   DamageRedirectAttack = "damage-redirect-attack",
   DamageSpread = "damage-spread",
+  DamageRedirectOwnAttack = "damage-redirect-own-attack",
 }
 
 interface TagDamageBase extends TagBase {}
@@ -52,4 +53,14 @@ export interface TagDamageRedirectAttack extends TagDamageBase {
 export interface TagDamageSpread extends TagDamageBase {
   type: TagTypeDamage.DamageSpread;
   value: DynamicValue;
+}
+
+/**
+ * Redirect the damage of YOUR OWN attack onto a different enemy — Oops! ("deal this
+ * attack's damage to any enemy at your location" after a failed attack), .45 Thompson (5).
+ * A fail-forward / splash finisher, NOT attack mitigation: that is damage-redirect-attack,
+ * which turns an ENEMY's attack onto another enemy (Aquinnah).
+ */
+export interface TagDamageRedirectOwnAttack extends TagDamageBase {
+  type: TagTypeDamage.DamageRedirectOwnAttack;
 }

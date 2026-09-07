@@ -2,6 +2,7 @@ import { TagBase } from "../../base.js";
 
 export enum TagTypeHandSize {
   HandSizeMaxIncrease = "hand-size-max-increase",
+  HandSizeMaxDecrease = "hand-size-max-decrease",
   HandSizeDependent = "hand-size-dependent",
 }
 
@@ -12,6 +13,15 @@ interface TagHandSizeBase extends TagBase {}
  */
 export interface TagHandSizeMaxIncrease extends TagHandSizeBase {
   type: TagTypeHandSize.HandSizeMaxIncrease;
+  value: number;
+}
+
+/**
+ * REDUCES the maximum hand size (Drawing the Sign -5, Patrice Hathaway -3, Pelt Shipment
+ * -3) — a drawback, kept out of the Big Hand compound; `value` is the positive reduction.
+ */
+export interface TagHandSizeMaxDecrease extends TagHandSizeBase {
+  type: TagTypeHandSize.HandSizeMaxDecrease;
   value: number;
 }
 

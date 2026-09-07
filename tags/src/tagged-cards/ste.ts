@@ -81,6 +81,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
+      { type: TagTypeTestDifficulty.TestDifficultyCondition },
       { type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After },
       { type: TagTypeDamage.DamageToInvestigator, value: 1 },
       { type: TagTypeCostAction.CostActionMultiple },
@@ -127,7 +128,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 4 },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeTestResult.TestFailBy, amount: 2 },
+      { type: TagTypeSkillValue.SkillValueFailByOrMore, amount: 2 },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeCostReaction.CostReactionSpendSecret },
       { type: TagTypeHeal.HealHorrorInvestigator, value: 1 },
@@ -174,7 +175,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeCostFree.CostFreeHorrorSelf },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
     ],
@@ -311,7 +311,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
       { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
       { type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 2 },
-      { type: TagTypeDamage.DamageRedirectAttack },
+      { type: TagTypeDamage.DamageRedirectOwnAttack },
       { type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After },
     ],
   },
@@ -489,11 +489,12 @@ const taggedCards: TaggedCard[] = [
   {
     code: "60530",
     name: "Quick Learner",
-    text: "Permanent.\nDuring or before your first action of each of your turns, each skill test you perform gets +1 difficulty.\nDuring or after your third action of each of your turns, each skill test you performed gets -1 difficulty.",
+    text: "Permanent.\nDuring or before your first action of each of your turns, each skill test you perform gets +1 difficulty.\nDuring or after your third action of each of your turns, each skill test you perform gets -1 difficulty.",
     level: 4,
     cardType: "asset",
     icons: [],
     tags: [
+      { type: TagTypeTestDifficulty.TestDifficultyIncrease, value: 1 },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeTestDifficulty.TestDifficultyReduce, value: 1 },

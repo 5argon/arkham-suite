@@ -34,6 +34,7 @@
   "name": "Lucius Galloway",
   "text": "[reaction] After you successfully evade an enemy by 2 or more: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each enemy at your location.",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }"
@@ -67,7 +68,8 @@
   "name": "Agatha Crane",
   "text": "[reaction] When your turn ends, if you sealed, canceled, or ignored 1 or more chaos tokens this round: Play a [[Spell]] or [[Insight]] event from your discard pile. After that event resolves, remove it from the game.\n[elder_sign] effect: +2. You may cancel this token and draw another in its place. If you do, draw 1 card.",
   "tags": [
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.When }",
+   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
@@ -82,6 +84,7 @@
   "name": "Agatha Crane",
   "text": "[reaction] When your turn ends, if you sealed, canceled, or ignored 1 or more chaos tokens this round: Play a [[Spell]] or [[Insight]] event from your discard pile. After that event resolves, remove it from the game.\n[elder_sign] effect: +2. You may cancel this token and draw another in its place. If you do, draw 1 card.",
   "tags": [
+   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }",
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
@@ -144,7 +147,8 @@
   "name": "Confiscation",
   "text": "<b>Revelation</b> - Shuffle each [[Firearm]] asset in your play area into your deck. If no asset was shuffled into your deck by this effect, take 1 damage and shuffle Confiscation back into your deck.",
   "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }"
   ]
  },
  {
@@ -154,7 +158,8 @@
   "tags": [
    "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: true }",
    "{ type: TagTypeDeckDiscard.DeckDiscardEncounter }",
-   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: false }"
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: false }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }"
   ]
  },
  {
@@ -209,7 +214,8 @@
    "{ type: TagTypeCostReaction.CostReactionSpendSecret }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeRecursion.RecursionEvent }",
-   "{ type: TagTypeTraitSupport.TraitSupportTactic }"
+   "{ type: TagTypeTraitSupport.TraitSupportTactic }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
   ]
  },
  {
@@ -243,7 +249,6 @@
   "name": "Primed for Action",
   "text": "Play only as your first action.\nPlay a [[Firearm]] asset from your hand, reducing its cost by 2. Then, you may play an [[Upgrade]] event from your hand, attaching it to that asset if able.",
   "tags": [
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }"
   ]
@@ -304,7 +309,9 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeCancel.CancelAttack }",
-   "{ type: TagTypeReady.ReadyAsset }"
+   "{ type: TagTypeReady.ReadyAsset }",
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }"
   ]
  },
  {
@@ -336,7 +343,8 @@
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
    "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
-   "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: 2 }"
+   "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: 2 }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
   ]
  },
  {
@@ -376,14 +384,14 @@
   "name": "Artistic Inspiration",
   "text": "Limit 1 per investigator. Uses (1 inspiration).\n[fast] Exhaust Artistic Inspiration and discard 1 card from your hand: Replenish 1 inspiration on this card.\n[reaction] After revealing chaos tokens for a skill test you are performing, spend 1 inspiration: You get +1 or -1 skill value for this skill test.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeUsesStarting.UsesStartingInspiration, value: 1 }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"inspiration\", conditional: true }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: -1 }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }"
   ]
  },
  {
@@ -409,7 +417,8 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Investigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
-   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }"
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetExhausted }"
   ]
  },
  {
@@ -430,6 +439,8 @@
   "name": "Oculus Mortuum",
   "text": "Uses (0 evidence).\n[reaction] After you seal, cancel, or ignore a chaos token, exhaust Oculus Mortuum: Place 1 evidence on it.\n[reaction] When an enemy attacks an investigator at your location, spend 1 evidence and exhaust Oculus Mortuum: Discover 1 clue at your location. If that enemy has the [[Geist]] trait, deal 1 damage to it.",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }",
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"evidence\" }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
@@ -437,7 +448,8 @@
    "{ type: TagTypeCostReaction.CostReactionSpendEvidence }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
    "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 }",
-   "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Geist\" }"
+   "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Geist\" }",
+   "{ type: TagTypeUsesStarting.UsesStartingEvidence, value: 0 }"
   ]
  },
  {
@@ -481,8 +493,7 @@
   "name": "Cosmic Revelation",
   "text": "Choose \"even\" or \"odd\".\nEach investigator reveals each non-weakness card in their hand with a cost matching the chosen option. In player order, each investigator may choose to either draw 1 card from their deck, or play 1 card they revealed from their hand <i>(paying its cost)</i>.",
   "tags": [
-   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }"
+   "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }"
   ]
  },
  {
@@ -494,7 +505,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
    "{ type: TagTypeRecursion.RecursionSkill }",
    "{ type: TagTypeDiscardPile.DiscardPileToDeck }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeCondition.ConditionCopies, zone: \"discard\" }"
   ]
  },
  {
@@ -509,7 +521,8 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeCancel.CancelAttack }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }"
   ]
  },
  {
@@ -556,7 +569,7 @@
    "{ type: TagTypeCancel.CancelChaos }",
    "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }"
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }"
   ]
  },
  {
@@ -570,7 +583,8 @@
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeChaosReveal.ChaosRevealMore }",
-   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }"
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }"
   ]
  },
  {
@@ -601,7 +615,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeCostAction.CostActionSpendResource }",
-   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"ammo\", conditional: false }",
+   "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"ammo\", conditional: true }",
    "{ type: TagTypeReady.ReadySelf }"
   ]
  },
@@ -653,6 +667,7 @@
   "name": "\"You've had worse...\"",
   "text": "Fast. Play when an investigator at your location or a connecting location is dealt damage and/or horror.\nThat investigator may spend up to 3 resources. For each resource spent, that investigator cancels 1 damage or 1 horror just dealt.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
    "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
@@ -695,6 +710,7 @@
   "name": "Crack Shot",
   "text": "Commit only to a skill test from an ability printed on a [[Firearm]] or [[Ranged]] asset you control.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeTraitSupport.TraitSupportRanged }"
   ]
@@ -734,7 +750,8 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeActionBold.ActionBoldEvade }"
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeLocationShroud.LocationShroudDependent }"
   ]
  },
  {
@@ -742,6 +759,7 @@
   "name": "\"Watch this!\"",
   "text": "Commit only to a skill test you are performing. As an additional cost to commit \"Watch this!\" to a skill test, spend up to 3 resources.\nIf you succeed by 1 or more, gain twice that many resources.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 }",
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
@@ -786,9 +804,11 @@
    "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 12 }",
    "{ type: TagTypeCostAction.CostActionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeStatsModPump.StatsModPumpCharge, valuePerPump: 1 }",
+   "{ type: TagTypeStatsModPump.StatsModPumpAmmo, valuePerPump: 1 }",
    "{ type: TagTypeDamage.DamageSpread, value: \"dynamic\" }",
-   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyValue.EnemyValueFight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\", action: BasicAction.Fight }"
   ]
  },
  {
@@ -817,7 +837,8 @@
    "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
-   "{ type: TagTypeDamage.DamagePlus, value: 2 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 2 }",
+   "{ type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect }"
   ]
  },
  {
@@ -833,7 +854,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealMore }",
    "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }"
   ]
  },
  {
@@ -841,7 +863,7 @@
   "name": "Katarina Sojka",
   "text": "[reaction] When you would reveal a chaos token during a skill test you are performing, exhaust Katarina Sojka: Reveal tokens from the chaos bag until a token with a symbol is revealed. Resolve that token and ignore the rest.",
   "tags": [
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeChaosReveal.ChaosRevealMore }",
@@ -862,7 +884,7 @@
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
    "{ type: TagTypeCondition.ConditionCopies, zone: \"hand\" }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\" }"
+   "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"charge\", conditional: true }"
   ]
  },
  {
@@ -870,6 +892,7 @@
   "name": "Spectral Shield",
   "text": "Fast. Play only during your turn. Attach to a player card with health and/or sanity at your location.\n<b>Forced</b> - When attached card takes 1 or more damage/horror: Cancel 1 of that damage/horror. The owner of Spectral Shield must remove 1 charge from an asset they control. If they cannot, discard Spectral Shield.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeAttach.AttachInvestigator }",
    "{ type: TagTypeAttach.AttachAsset }",
@@ -877,7 +900,9 @@
    "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
    "{ type: TagTypeCancel.CancelDamage }",
    "{ type: TagTypeCancel.CancelHorror }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationYour.LocationYourAlly }"
   ]
  },
  {
@@ -894,7 +919,9 @@
    "{ type: TagTypeEnemyMitigation.EnemyMitigationDefeat }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 3 }",
    "{ type: TagTypeEnemyElite.EnemyEliteReducedEffect }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }"
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
+   "{ type: TagTypeTestDifficulty.TestDifficultyIncrease, value: \"dynamic\" }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"enemy\" }"
   ]
  },
  {
@@ -930,7 +957,7 @@
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
    "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
-   "{ type: TagTypeRecursion.RecursionSelfToHand }"
+   "{ type: TagTypePlayArea.PlayAreaToHand }"
   ]
  },
  {
@@ -959,7 +986,9 @@
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 2 }",
    "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }"
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }"
   ]
  },
  {
@@ -979,7 +1008,7 @@
   "tags": [
    "{ type: TagTypeTimingGame.TimingGameDrawOpeningHands }",
    "{ type: TagTypeDeckSearch.DeckSearchYou, range: \"all\" }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromDeck }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"deck\" }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }"
   ]
  },
@@ -1019,7 +1048,8 @@
   "tags": [
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }"
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeTimingDuring.TimingDuringYourTurn }"
   ]
  },
  {
@@ -1045,7 +1075,8 @@
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeSoak.SoakSanity, value: 3 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 3 }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {
@@ -1053,6 +1084,7 @@
   "name": "\"Catch!\"",
   "text": "As an additional cost to play \"Catch!\", choose and discard an [[Item]] asset that takes up at least 1 hand slot from your hand or play area.\n<b>Evade.</b> You get +X [agility] for this evasion attempt, where X is the chosen asset's printed resource cost. If you succeed against a non-[[Elite]] enemy and that asset was in your play area, that enemy does not ready during the next upkeep phase.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\", action: BasicAction.Evade }",
@@ -1066,6 +1098,7 @@
   "name": "Unconventional Method",
   "text": "As an additional cost to play Unconventional Method, choose and discard an [[Item]] asset that takes up at least 1 hand slot from your hand or play area.\n<b>Investigate.</b> You get +X [intellect] for this investigation, where X is the chosen asset's printed resource cost. If you succeed and that asset was in your play area, discover 1 additional clue at your location.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\", action: BasicAction.Investigate }",
@@ -1091,7 +1124,7 @@
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 2 }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeUsesAccumulate.UsesAccumulate }",
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"supply\", conditional: true }",
    "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
   ]
@@ -1103,7 +1136,9 @@
   "tags": [
    "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
-   "{ type: TagTypeRecursion.RecursionSelfToHand }"
+   "{ type: TagTypeRecursion.RecursionSelfToHand }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
+   "{ type: TagTypeCondition.ConditionCopies, zone: \"discard\" }"
   ]
  },
  {
@@ -1112,7 +1147,7 @@
   "text": "Myriad. Fast. Play after the investigation phase begins. Group limit 1 in play.\nPut Good Weather into play next to the agenda deck and choose a skill. While this card is in play, each investigator gets +2 to the chosen skill.\n<b>Forced</b> - When the investigation phase begins: Discard Good Weather.",
   "tags": [
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationBegins, timing: TimingQualifier.After }",
-   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 2 }",
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationBegins, timing: TimingQualifier.When }"
   ]
@@ -1122,6 +1157,7 @@
   "name": "Improvised Weapon",
   "text": "You may play Improvised Weapon from your discard pile. If you do, shuffle it into your deck after resolving its effects and draw 1 card.\n<b>Fight.</b> The attacked enemy gets -2 fight for this attack. (If you played Improvised Weapon from your discard pile, this attack deals +1 damage.)",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
@@ -1136,6 +1172,7 @@
   "name": "Last Chance",
   "text": "Commit only to a skill test with no other cards committed to it. Other cards cannot be committed to this skill test.\nLast Chance loses [wild] for each card in your hand. If this test is successful while Last Chance is committed to it, draw 2 cards.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeHandSize.HandSizeDependent }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
@@ -1172,7 +1209,6 @@
    "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeLocationYour.LocationYourAlly }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeCondition.ConditionCopies, zone: \"hand\" }"
   ]
  },
@@ -1181,7 +1217,8 @@
   "name": "Confidence",
   "text": "Max 1 committed per test.\nFor each additional chaos token revealed during this skill test (even if it was canceled or ignored), Confidence gains [wild] (to a maximum of +3 [wild] icons).",
   "tags": [
-   "{ type: TagTypeCommit.CommitMax, value: 1 }"
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
   ]
  },
  {
@@ -1201,7 +1238,8 @@
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeTraitSupport.TraitSupportTome }",
    "{ type: TagTypeSlotIgnore.SlotIgnore, restrictedToTrait: \"Tome\" }",
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {
@@ -1221,7 +1259,8 @@
   "text": "[[Assistant]], [[Miskatonic]], [[Scholar]] deck only.\nIf this skill test is successful, the performing investigator may succeed by up to 2 more or down to 2 less (to a minimum of zero).",
   "tags": [
    "{ type: TagTypeDeckMisc.DeckRestriction }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }"
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeCommit.CommitBenefitsPerformer }"
   ]
  },
  {
@@ -1406,7 +1445,7 @@
    "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Fight }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
-   "{ type: TagTypeDamage.DamagePlus, value: 3 }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: \"dynamic\" }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
@@ -1424,7 +1463,6 @@
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeActionBold.ActionBoldParley }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeTraitSupport.TraitSupportAlly }",
    "{ type: TagTypePlayArea.PlayAreaPlayIgnoringCost }",
    "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }"
@@ -1477,6 +1515,7 @@
   "name": "On Their Heels",
   "text": "[[Detective]], [[Hunter]], [[Police]], [[Reporter]] deck only.\nLimit 1 per investigator. Uses (5 leads).\n[reaction] After you enter a location with 1 or more enemies, spend 1 lead and exhaust On Their Heels: Either discover 1 clue at your location or deal 1 damage to an enemy at your location.",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
@@ -1534,6 +1573,7 @@
   "name": "Memories of Another Life",
   "text": "[[Artist]], [[Believer]], [[Dreamer]], [[Sorcerer]] deck only.\nIf this skill test is successful, you may remove Memories of Another Life from the game to search your collection for any non-permanent level 0 card <i>(even if it does not meet your deckbuilding requirements)</i>. Play that card at no cost. At the end of the game, return that card to your collection.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeRfg.RfgSelf }",
@@ -1548,7 +1588,8 @@
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeCostAction.CostActionSpendResource }",
    "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
   ]
  },
  {
@@ -1559,7 +1600,8 @@
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
   ]
  },
  {
@@ -1569,8 +1611,9 @@
   "tags": [
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
   ]
  },
  {

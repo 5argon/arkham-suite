@@ -152,6 +152,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillCommit.SkillCommitNoIcons },
       { type: TagTypeTimingGame.TimingGameEnds },
+      { type: TagTypeDeckSearch.DeckSearchReaction },
     ],
   },
   {
@@ -200,7 +201,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: "asset" },
       { type: TagTypePlayArea.PlayAreaToHand },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
     ],
   },
   {
@@ -214,7 +214,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckSearch.DeckSearchYou, range: "all" },
       { type: TagTypeTraitSupport.TraitSupportSpell },
       { type: TagTypeTraitSupport.TraitSupportItem },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromDeck },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "deck" },
       { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeAoo.AooNoProvoke },
@@ -249,6 +249,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeHeal.HealHorrorYou, value: 1 },
+      { type: TagTypeRecursion.RecursionSkill },
     ],
   },
   {
@@ -267,6 +268,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1, action: BasicAction.Fight },
+      { type: TagTypeCostReaction.CostReactionSpendAmmo },
+      { type: TagTypeActionAdditional.ActionAdditionalAttack },
     ],
   },
   {
@@ -277,6 +280,7 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
 
+      { type: TagTypeDamage.DamageToInvestigator, value: "dynamic" },
     ],
   },
   {
@@ -342,7 +346,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12020",
     name: "Machete",
-    text: "[action]: <b>Fight.</b> You get +1 [combat] for this attack. If the attacked enemy is the only enemy engaged with you, this attack deals +1 damage.",
+    text: "[action]: <b>Fight</b> ([combat]). You get +1 [combat] for this attack. If the attacked enemy is the only enemy engaged with you, you may exhaust Machete to deal +1 damage for this attack.",
     level: 0,
     cardType: "asset",
     icons: ["combat"],
@@ -351,6 +355,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeCondition.ConditionEngagedAlone },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {
@@ -373,6 +378,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "combat"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeTimingAfter.TimingAfterEnemyAttacks },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
     ],
@@ -503,7 +509,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12031",
     name: "Fingerprint Kit",
-    text: "Uses (3 supplies).\n[action] Exhaust Fingerprint Kit and spend 1 supply: <b>Investigate.</b> You get +1 [intellect] for this investigation. If you succeed, you discover 1 additional clue at your location.",
+    text: "Uses (3 supplies).\n[action] Exhaust Fingerprint Kit and spend 1 supply: <b>Investigate</b> ([intellect]). You get +1 [intellect] for this investigation. If you succeed, discover 1 additional clue at your location.",
     level: 0,
     cardType: "asset",
     icons: ["intellect"],
@@ -520,7 +526,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12032",
     name: "Laboratory Assistant",
-    text: "Your maximum hand size is increased by 2.\n[reaction] After Laboratory Assistant enters play: Draw 2 cards.",
+    text: "Your maximum hand size is increased by 2.\n[reaction] After you play Laboratory Assistant: Draw 2 cards.",
     level: 0,
     cardType: "asset",
     icons: ["willpower", "intellect"],
@@ -568,7 +574,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "intellect"],
     tags: [
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
-      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
@@ -658,6 +663,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeCondition.ConditionClueHeld },
     ],
   },
   {
@@ -669,7 +675,6 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeTimingGame.TimingGameDrawOpeningHands },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
     ],
   },
   {
@@ -684,6 +689,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckLook.DeckLookYou, value: 8, reorder: true },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 3 },
       { type: TagTypeDeckLook.DeckLookBottom },
+      { type: TagTypeCondition.ConditionClueHeld, comparison: "min", value: 2 },
     ],
   },
   {
@@ -761,7 +767,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12049",
     name: "Thieves' Kit",
-    text: "Uses (6 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> You may use [agility] instead of [intellect] for this investigation. If you succeed, gain 1 resource.",
+    text: "Uses (6 supplies).\n[action] Spend 1 supply: <b>Investigate</b> ([intellect] or [agility]). If you succeed, gain 1 resource.",
     level: 0,
     cardType: "asset",
     icons: ["intellect"],
@@ -777,7 +783,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12050",
     name: "Breaking and Entering",
-    text: "<b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you succeed by 2 or more, you may automatically evade an enemy at this location. This action does not provoke attacks of opportunity.",
+    text: "<b>Investigate</b> ([intellect]). Add your [agility] to your [intellect] for this investigation. If you succeed by 2 or more, you may automatically evade an enemy at this location. This action does not provoke attacks of opportunity.",
     level: 0,
     cardType: "event",
     icons: ["intellect", "agility"],
@@ -816,7 +822,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "agility"],
     tags: [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
-      { type: TagTypePlayArea.PlayAreaIntoPlayFromHand },
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
       { type: TagTypePlayArea.PlayAreaToHand },
@@ -888,6 +893,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 1 },
       { type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true },
       { type: TagTypeLocationMove.LocationMoveInvestigatorPerformer },
+      { type: TagTypeRemote.RemoteMove },
     ],
   },
   {
@@ -916,7 +922,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
@@ -989,27 +995,27 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: "dynamic" },
+      { type: TagTypeTraitSupport.TraitSupportSpell },
     ],
   },
   {
     code: "12064",
     name: "Premonition",
-    text: "Fast. Play during any [fast] player window.\nPut Premonition into play, reveal a random chaos token from the chaos bag, and seal it on Premonition.\n<b>Forced</b> - When a chaos token would be revealed from the chaos bag: Resolve the token sealed here as if it were just revealed from the chaos bag, instead. Then, discard Premonition.",
+    text: "Fast. Play during any [fast] window.\nPut Premonition into play and seal a random token from the chaos bag on Premonition.\n<b>Forced</b> - When a token would be revealed from the chaos bag: Resolve the token sealed here as if it were just revealed, instead. Then, release that token and discard Premonition.",
     level: 0,
     cardType: "event",
     icons: ["intellect", "agility"],
     tags: [
-      { type: TagTypeChaosReveal.ChaosRevealManual },
-      { type: TagTypeChaosSeal.ChaosSealRevealed },
+      { type: TagTypeChaosSeal.ChaosSealTokenAny },
       { type: TagTypeChaosReveal.ChaosRevealSealedInstead },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
   {
     code: "12065",
     name: "Ward of Protection",
-    text: "Fast. Play when you draw a non-weakness treachery card.\nCancel that card's revelation effect. Then, take 1 horror.",
+    text: "Fast. Play when you draw a non-weakness treachery card.\nCancel that card's revelation effect and take 1 horror.",
     level: 0,
     cardType: "event",
     icons: ["wild"],
@@ -1043,6 +1049,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
 
+      { type: TagTypeCostOther.CostHorrorSelf },
     ],
   },
   {
@@ -1059,6 +1066,14 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealMore },
       { type: TagTypeChaosEffect.ChaosEffectResolveChoose },
       { type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 },
+      { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
+      { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
+      { type: TagTypeChaosReveal.ChaosRevealTokenBless },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
     ],
   },
   {
@@ -1113,7 +1128,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
       { type: TagTypeCostAction.CostActionSpendCharge },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeLocationYour.LocationYourEnemy },
@@ -1141,7 +1156,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12073",
     name: "Bandages",
-    text: "Uses (3 supplies). If Bandages has no supplies, discard it.\n[reaction] After an investigator or [[Ally]] asset at your location takes 1 or more damage, spend 1 supply: Heal 1 damage from that card.",
+    text: "Uses (3 supplies). If there are no supplies on Bandages, discard it.\n[reaction] After an investigator or [[Ally]] asset at your location takes 1 or more damage, spend 1 supply: Heal 1 damage from that card.",
     level: 0,
     cardType: "asset",
     icons: ["agility"],
@@ -1197,7 +1212,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "agility"],
     tags: [
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
-      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: "dynamic" },
@@ -1206,7 +1220,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12077",
     name: "Meat Cleaver",
-    text: "[action]: <b>Fight.</b> You get +1 [combat] for this attack (+2 [combat] instead if you have 3 or fewer remaining sanity). If this attack defeats an enemy, you may heal 1 horror. As an additional cost to initiate this ability, you may take 1 horror to have this attack deal +1 damage.",
+    text: "[action]: <b>Fight</b> ([combat]). You get +1 [combat] for this attack (+2 [combat] instead if you have 3 or fewer remaining sanity). If this attack defeats an enemy, you may heal 1 horror.\n[reaction] When you trigger the above [action] ability, take 1 horror: This attack deals +1 damage.",
     level: 0,
     cardType: "asset",
     icons: ["willpower"],
@@ -1216,14 +1230,14 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeCondition.ConditionSanity, comparison: "max", value: 3 },
       { type: TagTypeHeal.HealHorrorYou, value: 1 },
-      { type: TagTypeCostOther.CostHorrorSelf },
+      { type: TagTypeCostReaction.CostReactionHorrorSelf },
       { type: TagTypeDamage.DamagePlus, value: 1 },
     ],
   },
   {
     code: "12078",
     name: "\"Look what I found!\"",
-    text: "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location.",
+    text: "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues at your location.",
     level: 0,
     cardType: "event",
     icons: ["intellect", "intellect"],
@@ -1289,6 +1303,14 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
       { type: TagTypeAuto.AutoSuccess },
       { type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 },
+      { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCultist },
+      { type: TagTypeChaosReveal.ChaosRevealTokenTablet },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
+      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
+      { type: TagTypeChaosReveal.ChaosRevealTokenBless },
+      { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
     ],
   },
   {
@@ -1395,7 +1417,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12090",
     name: "Guts",
-    text: "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    text: "Max 1 committed per skill test.\nIf this test is successful, the performing investigator draws 1 card.",
     level: 0,
     cardType: "skill",
     icons: ["willpower", "willpower"],
@@ -1403,13 +1425,14 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
+      { type: TagTypeCommit.CommitBenefitsPerformer },
     ],
   },
   {
     code: "12091",
     name: "Manual Dexterity",
-    text: "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    text: "Max 1 committed per skill test.\nIf this test is successful, the performing investigator draws 1 card.",
     level: 0,
     cardType: "skill",
     icons: ["agility", "agility"],
@@ -1417,13 +1440,14 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
+      { type: TagTypeCommit.CommitBenefitsPerformer },
     ],
   },
   {
     code: "12092",
     name: "Overpower",
-    text: "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    text: "Max 1 committed per skill test.\nIf this test is successful, the performing investigator draws 1 card.",
     level: 0,
     cardType: "skill",
     icons: ["combat", "combat"],
@@ -1431,13 +1455,14 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
+      { type: TagTypeCommit.CommitBenefitsPerformer },
     ],
   },
   {
     code: "12093",
     name: "Perception",
-    text: "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    text: "Max 1 committed per skill test.\nIf this test is successful, the performing investigator draws 1 card.",
     level: 0,
     cardType: "skill",
     icons: ["intellect", "intellect"],
@@ -1445,7 +1470,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 },
+      { type: TagTypeCommit.CommitBenefitsPerformer },
     ],
   },
   {
@@ -1509,7 +1535,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "enemy",
     icons: [],
     tags: [
-      { type: TagTypeDoom.DoomAdd },
+      { type: TagTypeDoom.DoomAdd, target: "enemy" },
     ],
   },
   {
@@ -1525,7 +1551,7 @@ const taggedCards: TaggedCard[] = [
   {
     code: "12101",
     name: "Paranoia",
-    text: "<b>Revelation</b> - Discard all your resources.",
+    text: "<b>Revelation</b> - Lose all of your resources.",
     cardType: "treachery",
     icons: [],
     tags: [

@@ -48,7 +48,7 @@
   "text": "<b>Forced</b> - After Arcane Initiate enters play: Place 1 doom on it.\n[fast] Exhaust Arcane Initiate: Search the top 3 cards of your deck for a [[Spell]] card and draw it. Shuffle your deck.",
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
-   "{ type: TagTypeDoom.DoomAdd }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 3 } }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
@@ -62,6 +62,7 @@
   "name": "Offering Bowl",
   "text": "Uses (3 offerings). If there are no offerings on Offering Bowl, discard it.\n[fast] Spend 1 offering and exhaust Offering Bowl: Take 1 damage and gain 2 resources.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeUsesStarting.UsesStartingOffering, value: 3 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeCostFree.CostFreeSpendOffering }",
@@ -86,12 +87,12 @@
   "tags": [
    "{ type: TagTypeSlotIgnore.SlotIgnore, slot: \"hand\" }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeCostReaction.CostReactionDamageSelf }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeCancel.CancelChaos }",
-   "{ type: TagTypeChaosReveal.ChaosRevealMore }"
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }"
   ]
  },
  {
@@ -102,7 +103,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
    "{ type: TagTypeCostAction.CostActionSpendCharge }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
@@ -164,8 +165,8 @@
   "name": "Favor of Baalshandor",
   "text": "As an additional cost to play Favor of Baalshandor, take 1 damage.\nPlay a [[Spell]] or [[Ritual]] asset from your hand, reducing its cost by 3. Playing this card does not provoke attacks of opportunity.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeCostOther.CostDamageSelf }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 3 }",
    "{ type: TagTypeAoo.AooNoProvoke }"
@@ -176,6 +177,7 @@
   "name": "Infuse Life",
   "text": "Heal 3 damage from among investigators and/or [[Ally]] assets at your location.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeHeal.HealDamageInvestigator, value: 3 }",
    "{ type: TagTypeHeal.HealDamageAlly, value: 3 }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
@@ -192,7 +194,8 @@
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
    "{ type: TagTypeTraitSupport.TraitSupportCharm }",
    "{ type: TagTypePlayArea.PlayAreaToDeck }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }"
   ]
  },
  {
@@ -216,6 +219,7 @@
   "name": "Blood Curse",
   "text": "Max 1 committed per skill test.\nIf this skill test is successful, take 1 direct damage.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }"
@@ -253,6 +257,7 @@
   "name": "Eldritch Whispers",
   "text": "Max 1 committed per skill test.\nIf a symbol token is revealed during this test, place up to 2 charges or 2 secrets among assets you control.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
@@ -288,7 +293,8 @@
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: \"dynamic\" }",
-   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeTank.TankRedirectDamageHorror }"
   ]
  },
  {
@@ -304,7 +310,8 @@
    "{ type: TagTypeDoom.DoomRemove }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -318,7 +325,8 @@
    "{ type: TagTypeCostReaction.CostReactionDamageSelf }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {
@@ -329,7 +337,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
    "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
   ]
  },
  {
@@ -337,6 +346,7 @@
   "name": "Blood Curse",
   "text": "Max 1 committed per skill test.\nIf this test is successful, deal 1 damage to a card with health at your location.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }"

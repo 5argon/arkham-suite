@@ -4,6 +4,7 @@
   "name": "Carolyn Fern",
   "text": "[reaction] After you heal 1 or more horror from an investigator or [[Ally]] asset: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1. Heal 1 horror from an investigator at your location.",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeTimingAfter.TimingAfterHealHorror }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
    "{ type: TagTypeHeal.HealHorrorInvestigator, value: 1 }",
@@ -42,9 +43,7 @@
   "name": "Lethal Curiosity",
   "text": "<b>Revelation</b> - Test [willpower] (4). For each point you fail by, you must either take 1 damage or place 1 of your clues on your location.",
   "tags": [
-   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 4 }",
-   "{ type: TagTypeSkillValue.SkillValueFailByDynamic }",
-   "{ type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 }"
+   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 4 }"
   ]
  },
  {
@@ -163,6 +162,8 @@
   "name": "Psychoanalysis",
   "text": "Choose an investigator at your location and reveal the top 3 cards of their deck. That investigator may choose to either draw 1 revealed card and shuffle the rest into their deck, or heal 2 horror and return the revealed cards to the top of their owner's deck in any order.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeDeckLook.DeckLookYou, value: 3, reorder: true }",
    "{ type: TagTypeDeckLook.DeckLookInvestigator, value: 3, reorder: true }",
@@ -176,6 +177,7 @@
   "name": "De-Escalate",
   "text": "<b>Parley.</b> Choose an enemy at your location. Heal horror equal to that enemy's horror value.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeActionBold.ActionBoldParley }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeHeal.HealHorrorYou, value: \"dynamic\" }",
@@ -220,6 +222,7 @@
   "name": "Literary Analysis",
   "text": "If this skill test is successful, replenish 1 secret on a [[Tome]] asset at your location.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"place\" }",
    "{ type: TagTypeTraitSupport.TraitSupportTome }"
@@ -254,7 +257,8 @@
   "text": "Uses (3 secrets). If there are no secrets on Typewriter, discard it.\nSecrets on Typewriter may be spent as if they were on [[Tome]] assets you control.",
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 3 }",
-   "{ type: TagTypeTraitSupport.TraitSupportTome }"
+   "{ type: TagTypeTraitSupport.TraitSupportTome }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }"
   ]
  },
  {
@@ -319,7 +323,6 @@
   "tags": [
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
    "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
-   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }"
   ]
@@ -330,10 +333,11 @@
   "text": "One at a time, each investigator at your location reveals the top 3 cards of their deck, draws 1 of those cards, shuffles the remaining cards into their deck, and heals 2 horror.",
   "tags": [
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeDeckSearch.DeckSearchInvestigator, range: { type: \"top\", cards: 3 } }",
+   "{ type: TagTypeDeckLook.DeckLookInvestigator, value: 3, reorder: false }",
    "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 2 }"
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: 2 }",
+   "{ type: TagTypeDeckLook.DeckLookYou, value: 3, reorder: false }"
   ]
  },
  {
@@ -360,7 +364,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Combat, action: BasicAction.Fight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 3, action: BasicAction.Fight }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
    "{ type: TagTypeDamage.DamagePlus, value: \"dynamic\" }"
   ]
  },

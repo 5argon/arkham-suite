@@ -19,7 +19,7 @@ interface TagStatsModAddStatBase extends TagBase {
 
 /**
  * ADDS a second stat's value on top of the test's normal skill value for one
- * action. Distinct from BuffStatsReplace (a swap) and from additive boosts
+ * action. Distinct from stats-mod-use-instead (a swap) and from additive boosts
  * (a flat +N).
  */
 export interface TagStatsModAddStat extends TagStatsModAddStatBase {

@@ -4,8 +4,9 @@
   "name": "Miguel de la Cruz",
   "text": "You may take an additional action during your turn, which may only be used to play an event.\n[elder_sign] effect: +1. You may add a [[Trick]] or [[Trap]] card in your discard pile to your hand.",
   "tags": [
-   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }",
-   "{ type: TagTypeTraitSupport.TraitSupportTrick }"
+   "{ type: TagTypeActionAdditional.ActionAdditional, canOnlyBeUsedTo: BasicAction.Play, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportTrick }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
   ]
  },
  {
@@ -93,6 +94,7 @@
   "name": "Rabbit's Foot",
   "text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Draw 1 card.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
    "{ type: TagTypeTimingSkill.TimingSkillSt7ApplyResults, timing: TimingQualifier.After }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
@@ -115,6 +117,8 @@
   "name": "Decoy Trap",
   "text": "Fast. Attach to your location. Limit 1 [[Trap]] per location.\n[reaction] After an enemy enters attached location, exhaust Decoy Trap: <b>Evade</b> ([intellect] or [agility]). Evade that enemy. You get +1 skill value for this evasion. If this test succeeds, you may discard Decoy Trap to move to this location. <i>(You may trigger this ability from any location.)</i>",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeLimit.LimitInPlay, trait: \"Trap\", count: 1, per: \"location\" }",
    "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
@@ -123,7 +127,7 @@
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Agility, action: BasicAction.Evade }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
   ]
  },
@@ -132,6 +136,8 @@
   "name": "Glassing",
   "text": "Fast. Attach to your location. Limit 1 [[Trap]] per location.\n[reaction] After an enemy enters attached location, exhaust Glassing: <b>Investigate</b> ([intellect] or [agility]). You get +1 skill value for this investigation. If you succeed, you may discard Glassing to discover 1 additional clue at this location. <i>(You may trigger this ability from any location.)</i>",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
@@ -139,9 +145,10 @@
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Intellect, action: BasicAction.Investigate }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Investigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
    "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
-   "{ type: TagTypeRemote.RemoteInvestigate }"
+   "{ type: TagTypeRemote.RemoteInvestigate }",
+   "{ type: TagTypeLimit.LimitInPlay, trait: \"Trap\", count: 1, per: \"location\" }"
   ]
  },
  {
@@ -160,6 +167,7 @@
   "name": "Hidden Shelter",
   "text": "Attach to your location. Limit 1 per location.\n[reaction] When the round ends, each investigator at this location may choose one of the following: Draw 1 card, gain 1 resource, heal 1 damage, or heal 1 horror.\n<b>Forced</b> - After an enemy enters this location: Discard Hidden Shelter.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.When }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
@@ -176,6 +184,8 @@
   "name": "Lie in Wait",
   "text": "Fast. Attach to your location. Limit 1 [[Trap]] per location.\n[reaction] After an enemy enters this location, exhaust Lie in Wait: <b>Fight</b> ([combat] or [agility]). Fight that enemy. You get +1 skill value for this attack. You may discard Lie in Wait for this attack to deal +1 damage. <i>(You may trigger this ability from any location.)</i>",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeLimit.LimitInPlay, trait: \"Trap\", count: 1, per: \"location\" }",
    "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
@@ -342,7 +352,6 @@
   "text": "Starting. <i>(You may begin the game with 1 copy of a starting card in your opening hand.)</i>\n[fast] Spend 1 resource: You get +1 [willpower] for this skill test (+2 [willpower] instead if this test is on a scenario card).\n[fast] Spend 1 resource: You get +1 [agility] for this skill test (+2 [agility] instead if this test is on a scenario card).",
   "tags": [
    "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
-   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 }",
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: \"dynamic\" }"
@@ -370,7 +379,8 @@
    "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
    "{ type: TagTypeCostReaction.CostReactionDiscardSelf }",
    "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 3 }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 3 }"
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 3 }",
+   "{ type: TagTypeLimit.LimitInPlay, trait: \"Trap\", count: 1, per: \"location\" }"
   ]
  },
  {
@@ -378,6 +388,7 @@
   "name": "Timely Intervention",
   "text": "Max 1 committed per skill test.\nYou may commit Timely Intervention from your hand after revealing chaos tokens during a skill test you are performing.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeTestMisc.TestYouPerform }"

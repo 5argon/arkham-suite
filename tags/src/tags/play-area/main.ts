@@ -43,7 +43,7 @@ export interface TagPlayAreaIntoPlayFromDiscard extends TagPlayAreaBase {
  */
 export interface TagPlayAreaPlayFromOtherZone extends TagPlayAreaBase {
   type: TagTypePlayArea.PlayAreaPlayFromOtherZone;
-  zone: "discard" | "top-deck" | "other-hand" | "attached" | "set-aside";
+  zone: "discard" | "top-deck" | "deck" | "other-hand" | "attached" | "set-aside";
 }
 
 /**

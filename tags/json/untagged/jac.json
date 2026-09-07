@@ -1,0 +1,467 @@
+[
+ {
+  "code": "60401",
+  "name": "Jacqueline Fine",
+  "text": "[reaction] When an investigator at your location would reveal any number of chaos tokens: Reveal 2 additional tokens. Of the revealed tokens, choose and cancel 2 non-[auto_fail] tokens, or 1 [auto_fail] token. (Limit once per round.)\n[elder_sign] effect: +1. If this effect is canceled or ignored, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }"
+  ]
+ },
+ {
+  "code": "60402",
+  "name": "Arbiter of Fates",
+  "text": "Jacqueline Fine deck only.\n[reaction] When you use Jacqueline Fine's [reaction] ability, exhaust Arbiter of Fates: This use of her ability does not count towards its limit.",
+  "tags": [
+   "{ type: TagTypeDeckMisc.DeckRestriction }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }"
+  ]
+ },
+ {
+  "code": "60403",
+  "name": "Dark Future",
+  "text": "<b>Revelation</b> - Put Dark Future into play in your threat area.\nYou cannot cancel or ignore [elder_sign], [skull], [cultist], [tablet], [elder_thing], and [auto_fail] tokens.\n<b>Forced</b> - At the end of your turn: Reveal 5 random tokens from the chaos bag. If an [elder_sign] symbol is revealed, discard Dark Future.",
+  "tags": [
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60404",
+  "name": "Nihilism",
+  "text": "<b>Revelation</b> - Put Nihilism into play in your threat area.\n<b>Forced</b> - After you reveal, cancel, or ignore an [auto_fail] token: Take 1 damage and 1 horror.\n[action][action]: Discard Nihilism.",
+  "tags": [
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60405",
+  "name": "Ritual Candles",
+  "text": "[reaction] After a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during a test you are performing: You get +1 skill value for this test.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60406",
+  "name": "Scrying Mirror",
+  "text": "Uses (4 secrets).\n[reaction] After a skill test at your location begins, exhaust Scrying Mirror and spend 1 secret: Perform the \"reveal chaos token\" step of the test now <i>(before committing cards)</i>, instead of after committing cards.",
+  "tags": [
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 4 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeCostReaction.CostReactionSpendSecret }",
+   "{ type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After }"
+  ]
+ },
+ {
+  "code": "60407",
+  "name": "Azure Flame",
+  "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this attack, take 1 damage.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60408",
+  "name": "Clairvoyance",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. If you succeed, discover 1 additional clue at this location. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this investigation, take 1 horror.",
+  "tags": [
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60409",
+  "name": "Ineffable Truth",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 damage to the evaded enemy. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this evasion attempt, lose 1 resource.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideResource, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }"
+  ]
+ },
+ {
+  "code": "60410",
+  "name": "Familiar Spirit",
+  "text": "You have 1 additional arcane slot, which can only be used to hold a [[Spell]] asset.",
+  "tags": [
+   "{ type: TagTypeSlotAdditional.SlotAdditionalArcane, restrictedToTrait: \"Spell\" }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+  ]
+ },
+ {
+  "code": "60411",
+  "name": "Crystal Pendulum",
+  "text": "You get +1 [willpower].\n[reaction] After a skill test at your location begins, exhaust Crystal Pendulum: Name a number. If this test succeeds by that number or fails by that number, draw 1 card.",
+  "tags": [
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeChaosPredict.ChaosPredict }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: \"dynamic\" }",
+   "{ type: TagTypeSkillValue.SkillValueFailByExactly, amount: \"dynamic\" }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After }"
+  ]
+ },
+ {
+  "code": "60412",
+  "name": "Robes of Endless Night",
+  "text": "[reaction] When you play a [[Spell]] card, exhaust Robes of Endless Night: Reduce the cost of that card by 1.",
+  "tags": [
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Spell\" }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+  ]
+ },
+ {
+  "code": "60413",
+  "name": "Astral Travel",
+  "text": "<b>Move.</b> Move to any revealed location and reveal a random token from the chaos bag. If you reveal a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, you must discard an [[Item]] or [[Ally]] asset you control (if you cannot, take 1 damage).",
+  "tags": [
+   "{ type: TagTypeActionBold.ActionBoldMove }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDiscard }",
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeRemote.RemoteMove }",
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 }"
+  ]
+ },
+ {
+  "code": "60414",
+  "name": "Hypnotic Gaze",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal the attacking enemy's damage to itself. ",
+  "tags": [
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeCancel.CancelAttack }",
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: \"dynamic\" }",
+   "{ type: TagTypeEnemyValue.EnemyValueDamage }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
+  ]
+ },
+ {
+  "code": "60415",
+  "name": "Parallel Fates",
+  "text": "Look at the top 4 cards of the encounter deck. Reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, shuffle those cards into the encounter deck. Otherwise, return them to the top of the encounter deck in any order.",
+  "tags": [
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 4, reorder: true }",
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeDeckShuffle.DeckShuffleEncounter }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }"
+  ]
+ },
+ {
+  "code": "60416",
+  "name": "Voice of Ra",
+  "text": "Gain 1 resource. Reveal 3 random tokens from the chaos bag. For each [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol revealed, gain an additional 2 resources.",
+  "tags": [
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
+  ]
+ },
+ {
+  "code": "60417",
+  "name": "Dark Prophecy",
+  "text": "Fast. Play when you would reveal a chaos token.\nReveal 5 chaos tokens instead of 1. Choose one of those tokens with a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }"
+  ]
+ },
+ {
+  "code": "60418",
+  "name": "Defiance",
+  "text": "Before revealing chaos tokens for this test, choose one of the following symbols: ([skull], [cultist], [tablet], or [elder_thing]). Ignore the effects of the chosen symbol during this test (including its modifier).",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect }",
+   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreEffect }",
+   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }"
+  ]
+ },
+ {
+  "code": "60419",
+  "name": "Prescient",
+  "text": "Max 1 committed per skill test.\nAfter you commit Prescient to a skill test, name \"even,\" \"odd,\" or \"symbol.\" After this test ends, if a chaos token of the named type was revealed during this test, you may return a [[Spell]] card from your discard pile to your hand.",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeChaosPredict.ChaosPredict }",
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }"
+  ]
+ },
+ {
+  "code": "60420",
+  "name": "Eldritch Inspiration",
+  "text": "Fast. Play when you would resolve an effect on a [mystic] card that triggers \"when,\" \"if,\" or \"after\" a chaos token is revealed.\nEither cancel that effect, or resolve it an additional time.",
+  "tags": [
+   "{ type: TagTypeCancel.CancelChaos }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveAdditional }"
+  ]
+ },
+ {
+  "code": "60421",
+  "name": "Grotesque Statue",
+  "text": "Uses (3 charges). If Grotesque Statue has no charges, discard it.\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 2 chaos tokens instead of 1. Choose one of those tokens to resolve, and ignore the other.",
+  "tags": [
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeCostReaction.CostReactionSpendCharge }",
+   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }"
+  ]
+ },
+ {
+  "code": "60422",
+  "name": "Robes of Endless Night",
+  "text": "[reaction] When you play a [[Spell]] card, exhaust Robes of Endless Night: Reduce the cost of that card by 1. Playing that card does not provoke attacks of opportunity.",
+  "tags": [
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, trait: \"Spell\" }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+  ]
+ },
+ {
+  "code": "60423",
+  "name": "Hypnotic Gaze",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal damage to the attacking enemy equal to its damage or horror.",
+  "tags": [
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
+   "{ type: TagTypeCancel.CancelAttack }",
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: \"dynamic\" }",
+   "{ type: TagTypeEnemyValue.EnemyValueDamage }",
+   "{ type: TagTypeEnemyValue.EnemyValueHorror }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
+  ]
+ },
+ {
+  "code": "60424",
+  "name": "Guts",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card (2 cards instead if it succeeds by 2 or more).",
+  "tags": [
+   "{ type: TagTypeCommit.CommitMax, value: 1 }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
+  ]
+ },
+ {
+  "code": "60425",
+  "name": "Azure Flame",
+  "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] and deal +1 damage for this attack. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this attack, take 1 damage.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60426",
+  "name": "Clairvoyance",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this investigation. If you succeed, discover 1 additional clue at this location. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this investigation, take 1 horror.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Investigate }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60427",
+  "name": "Ineffable Truth",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. You get +2 [willpower] for this evasion attempt. If you succeed, deal 1 damage to the evaded enemy. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this evasion attempt, lose 1 resource.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideResource, value: 1 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60428",
+  "name": "Arcane Studies",
+  "text": "Uses (2 resources). Replenish these resources at the start of each round.\n[fast] Spend 1 resource from your resource pool or from Arcane Studies: You get +1 [willpower] or +1 [intellect] for this skill test.",
+  "tags": [
+   "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
+   "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }"
+  ]
+ },
+ {
+  "code": "60429",
+  "name": "Recharge",
+  "text": "Choose a [[Spell]] or [[Relic]] asset controlled by an investigator at your location and reveal a random chaos token from the chaos bag. If you reveal a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, add 1 charge to the chosen asset. Otherwise, add 4 charges to the chosen asset.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\" }",
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeTraitSupport.TraitSupportRelic }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
+  ]
+ },
+ {
+  "code": "60430",
+  "name": "Azure Flame",
+  "text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +3 [willpower] and deal +2 damage for this attack. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this attack, take 2 damage.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 3, action: BasicAction.Fight }",
+   "{ type: TagTypeDamage.DamagePlus, value: 2 }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 2 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60431",
+  "name": "Clairvoyance",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +3 [willpower] for this investigation. If you succeed, discover 2 additional clues at this location. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this investigation, take 2 horror.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Intellect, action: BasicAction.Investigate }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 3, action: BasicAction.Investigate }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 2 }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 2 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ },
+ {
+  "code": "60432",
+  "name": "Ineffable Truth",
+  "text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. You get +3 [willpower] for this evasion attempt. If you succeed, deal 2 damage to the evaded enemy. If an [elder_sign], \"+1,\" or \"0\" token is revealed during this evasion attempt, lose 2 resources.",
+  "tags": [
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 2 }",
+   "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
+   "{ type: TagTypeCostAction.CostActionSpendCharge }",
+   "{ type: TagTypeActionBold.ActionBoldEvade }",
+   "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Agility, action: BasicAction.Evade }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 3, action: BasicAction.Evade }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideResource, value: 2 }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+  ]
+ }
+]

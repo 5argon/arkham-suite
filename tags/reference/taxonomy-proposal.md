@@ -1,6 +1,6 @@
 # Cross-pack Taxonomy Proposal
 
-Synthesized from 18 per-pack discovery reports (see `discovery-reports.json`). Items marked **✅ implemented** are live in the taxonomy (added for the dwl pilot, though several also serve later packs). Items marked **⏳ proposed** are recorded here and implemented as their packs are tagged — this is how the taxonomy resumes from prior thinking.
+Synthesized from 18 per-pack discovery reports (see `discovery-reports.json`). Status is computed from the live taxonomy each time this file is rebuilt (`node script/build-proposal.ts`): **✅ implemented** ids exist in `src/tags` (or landed under a renamed successor), **✖ dropped** were removed as never used by a card. Items marked **⏳ proposed** are recorded here and implemented as their packs are tagged — this is how the taxonomy resumes from prior thinking.
 
 ## Summary
 
@@ -21,7 +21,7 @@ _Sets/overrides the BASE value of a skill to a fixed number (e.g. 'base combat s
 
 Packs: dwl, rt, tcu, tic
 
-### `stats-mod/add-stat.ts` — `TagTypeStatsModAddStat` — ⏳ proposed
+### `stats-mod/add-stat.ts` — `TagTypeStatsModAddStat` — ✅ implemented
 Base fields: from: SkillType, action: TestingBasicAction
 
 - `StatsModAddStat` = `"stats-mod-add-stat"`
@@ -30,7 +30,7 @@ _ADDS a second stat's value on top of the test's normal skill value for one acti
 
 Packs: eote, har, ptc, rt, tde, tfa, win
 
-### `stats-mod/use-instead.ts` — `TagTypeStatsModUseInstead` — ⏳ proposed
+### `stats-mod/use-instead.ts` — `TagTypeStatsModUseInstead` — ✅ implemented
 Base fields: use: SkillType, instead: SkillType, action: TestingBasicAction
 
 - `StatsModUseInstead` = `"stats-mod-use-instead"`
@@ -39,7 +39,7 @@ _Per-action, per-test stat substitution ('This attack uses [agility] instead of 
 
 Packs: tfa, win, tde
 
-### `chaos/bag.ts` — `TagTypeChaosBag` — ⏳ proposed
+### `chaos/bag.ts` — `TagTypeChaosBag` — ✅ implemented
 Base fields: value: number
 
 - `ChaosBagAddBless` = `"chaos-bag-add-bless"`
@@ -70,7 +70,7 @@ _'Remove from the game' as a self-effect/cost (gone for the scenario, NOT repurc
 
 Packs: dwl, ptc
 
-### `ready/main.ts` — `TagTypeReady` — ⏳ proposed
+### `ready/main.ts` — `TagTypeReady` — ✅ implemented
 Base fields: —
 
 - `ReadySelf` = `"ready-self"`
@@ -81,7 +81,7 @@ _Readying your own / another in-play asset or ally (refunding exhaust for re-use
 
 Packs: nat, tdc, win
 
-### `aoo/main.ts` — `TagTypeAoo` — ⏳ proposed
+### `aoo/main.ts` — `TagTypeAoo` — ✅ implemented
 Base fields: —
 
 - `AooNoProvoke` = `"aoo-no-provoke"` (+ action: TestingBasicAction)
@@ -90,7 +90,7 @@ _'This action does not provoke attacks of opportunity' / 'Engage actions do not 
 
 Packs: nat, ptc, rt, tde
 
-### `soak/main.ts` — `TagTypeSoak` — ⏳ proposed
+### `soak/main.ts` — `TagTypeSoak` — ✅ implemented
 Base fields: —
 
 - `SoakDamage` = `"soak-damage"` (+ value: number)
@@ -100,7 +100,7 @@ _An asset that absorbs damage/horror as an HP/sanity buffer (Composure suite, Tr
 
 Packs: ptc
 
-### `tank/main.ts` — `TagTypeTank` — ⏳ proposed
+### `tank/main.ts` — `TagTypeTank` — ✅ implemented
 Base fields: —
 
 - `TankRedirectAttack` = `"tank-redirect-attack"`
@@ -131,7 +131,7 @@ _Looking at the top N cards of a player deck or the encounter deck and optionall
 
 Packs: dwl, eote, jac
 
-### `commit/main.ts` — `TagTypeCommit` — ⏳ proposed
+### `commit/main.ts` — `TagTypeCommit` — ✅ implemented
 Base fields: —
 
 - `CommitOtherInvestigator` = `"commit-other-investigator"` (+ range: "your-location" | "connecting" | "any")
@@ -143,7 +143,7 @@ _Commit mechanics beyond the default (commit-from-hand-to-your-own-test is inten
 
 Packs: tsk, eote, win, jac
 
-### `skill-commit/main.ts` — `TagTypeSkillCommit` — ⏳ proposed
+### `skill-commit/main.ts` — `TagTypeSkillCommit` — ✅ implemented
 Base fields: —
 
 - `SkillCommitGainIcon` = `"skill-commit-gain-icon"`
@@ -152,7 +152,7 @@ _A committed card GAINS extra skill icons (often [wild]), frequently scaling off
 
 Packs: ptc, tcu, tdc
 
-### `condition/main.ts` — `TagTypeCondition` — ⏳ proposed
+### `condition/main.ts` — `TagTypeCondition` — ✅ implemented
 Base fields: comparison: "min" | "max", value: number
 
 - `ConditionResource` = `"condition-resource"`
@@ -163,7 +163,7 @@ _Cards that gate or scale on the investigator's own current self-state crossing 
 
 Packs: ptc, eote, tcu, har
 
-### `remote/main.ts` — `TagTypeRemote` — ⏳ proposed
+### `remote/main.ts` — `TagTypeRemote` — ✅ implemented
 Base fields: —
 
 - `RemoteInvestigate` = `"remote-investigate"`
@@ -173,7 +173,7 @@ _Acting at a location other than your own ('as if you were there'): investigatin
 
 Packs: ptc, tdc
 
-### `test-difficulty/main.ts` — `TagTypeTestDifficulty` — ⏳ proposed
+### `test-difficulty/main.ts` — `TagTypeTestDifficulty` — ✅ implemented
 Base fields: value: number
 
 - `TestDifficultyReduce` = `"test-difficulty-reduce"`
@@ -190,151 +190,151 @@ Packs: etc, tde
   - Tutor a card directly into play from your deck/discard (Flare, Randall Cho). DeckSearch covers the fetch; the into-play destination is the searchable novelty. Consolidates dwl Flare, nat Randall Cho.
 - ✅ implemented — `TagTypePlayArea.PlayAreaIntoPlayFromDiscard` = `"play-area-into-play-from-discard"` _(play-area/main.ts; packs: dwl, ptc)_
   - Put a card (or a copy) directly into play from a discard pile (A Chance Encounter, Eidetic Memory). Distinct from discard-pile-to-hand. Consolidates dwl A Chance Encounter, ptc A Chance Encounter/Eidetic Memory.
-- ⏳ proposed — `TagTypePlayArea.PlayAreaPlayFromOtherZone` = `"play-area-play-from-other-zone"` (+ zone: "discard" | "top-deck" | "other-hand" | "attached" | "set-aside") _(play-area/main.ts; packs: eote, tcu, har)_
+- ✅ implemented — `TagTypePlayArea.PlayAreaPlayFromOtherZone` = `"play-area-play-from-other-zone"` (+ zone: "discard" | "top-deck" | "other-hand" | "attached" | "set-aside") _(play-area/main.ts; packs: eote, tcu, har)_
   - Play a card (paying its cost) from a zone other than your own hand, or let another investigator play it: from your discard, deck-top, another player's hand, beneath/attached to a card, or set-aside. Distinct from into-play 'cheat' (which bypasses the play action) and from recursion (return-to-hand-first). Consolidates eote Untimely Transaction/Black Market/True Magick, tcu 'You owe me one!'/Twilight Blade/Dayana, har Farsight, tsk(no).
-- ⏳ proposed — `TagTypeRecursion.RecursionPlayFromDiscard` = `"recursion-play-from-discard"` _(recursion/main.ts; packs: fhv, tdc, ptc, eote, tsk)_
+- ✅ implemented — `TagTypeRecursion.RecursionPlayFromDiscard` = `"recursion-play-from-discard"` _(recursion/main.ts; packs: fhv, tdc, ptc, eote, tsk)_
   - Play/resolve a card DIRECTLY from the discard pile (not first returned to hand). RecursionAsset/Event/Skill return to hand; DiscardPile* move to hand/deck; neither expresses playable-from-discard. A strong cross-pack graveyard-value archetype. Consolidates fhv (Pushed to the Limit, Eldritch Tongue, Persistence), tdc (Profane Idol, Improvised Weapon, A Glimmer of Hope), ptc, rt, nat, eote, tsk.
-- ⏳ proposed — `TagTypeRecursion.RecursionSelfToHand` = `"recursion-self-to-hand"` _(recursion/main.ts; packs: win, fhv, tfa)_
+- ✅ implemented — `TagTypeRecursion.RecursionSelfToHand` = `"recursion-self-to-hand"` _(recursion/main.ts; packs: win, fhv, tfa)_
   - A card returns ITSELF to hand instead of being discarded (often gated on succeed-by), enabling repeated reuse. Existing recursion tags describe pulling OTHER cards. The signature Rogue reusable-event/skill engine. Consolidates win (Cheap Shot, Backstab, Pilfer, Slip Away, Opportunist), fhv, tfa self-replay.
-- ⏳ proposed — `TagTypeRecursion.RecursionReplay` = `"recursion-replay"` _(recursion/main.ts; packs: tcu)_
+- ✅ implemented — `TagTypeRecursion.RecursionReplay` = `"recursion-replay"` _(recursion/main.ts; packs: tcu)_
   - Replay an event in place / resolve an ability an extra time ('Play that event again as if it were in your hand'). Distinct from RecursionEvent (returns from discard). Consolidates tcu Double Double/Dayana/Knowledge is Power.
-- ⏳ proposed — `TagTypeDeckSearch.DeckSearchBonded` = `"deck-search-bonded"` _(deck/search.ts; packs: rt, tcu, tde)_
+- ✅ implemented as `bonded-fetch` — `TagTypeDeckSearch.DeckSearchBonded` = `"deck-search-bonded"` _(deck/search.ts; packs: rt, tcu, tde)_
   - Search your BONDED cards (set aside, out of play) for a specific card — the defining engine of the bonded archetype (Miss Doyle, Gate Box, Hallowed Mirror, Occult Lexicon). The existing DeckSearch range (deck/discard/encounter, top/bottom/all) cannot express the set-aside bonded zone. Added as a sibling member; the base 'range' field can be 'all'. Consolidates rt, tcu, tde.
-- ⏳ proposed — `TagTypeDeckDraw.DeckDrawFillHand` = `"deck-draw-fill-hand"` _(deck/draw.ts; packs: tcu)_
+- ✅ implemented — `TagTypeDeckDraw.DeckDrawFillHand` = `"deck-draw-fill-hand"` _(deck/draw.ts; packs: tcu)_
   - Draw cards until you reach your maximum hand size (variable bulk draw). The DeckDraw base requires a fixed numeric 'value'; fill-to-cap is dynamic. Implement as a member whose 'value' is set to -1 (dynamic) per the base field. Consolidates tcu Glimpse the Unthinkable.
-- ⏳ proposed — `TagTypeDeckDiscard.DeckDiscardEncounter` = `"deck-discard-encounter"` _(deck/discard.ts; packs: etc)_
+- ✅ implemented — `TagTypeDeckDiscard.DeckDiscardEncounter` = `"deck-discard-encounter"` _(deck/discard.ts; packs: etc)_
   - Proactively discard/thin the top of the ENCOUNTER deck (Split the Angle). DeckDiscardDeck/Self target the player deck; DeckSearchEncounter is look-at-top. A control archetype. Consolidates etc Split the Angle.
-- ⏳ proposed — `TagTypeChaosSeal.ChaosSealTokenBless` = `"chaos-seal-token-bless"` _(chaos/seal.ts; packs: etc, par, tic)_
+- ✅ implemented — `TagTypeChaosSeal.ChaosSealTokenBless` = `"chaos-seal-token-bless"` _(chaos/seal.ts; packs: etc, par, tic)_
   - The ChaosSeal enum has 0/any/auto-fail/cultist/elder-sign/elder-thing/skull/tablet but NOT bless — despite bless being the namesake of the cycle. Multiple cards search the bag and seal bless (Codex of Ages, Radiant Smite, Holy Spear, Rite of Sanctification, Nephthys). Mirrors the reveal-side ChaosRevealTokenBless. Consolidates etc, par, tic.
-- ⏳ proposed — `TagTypeChaosSeal.ChaosSealTokenCurse` = `"chaos-seal-token-curse"` _(chaos/seal.ts; packs: par, tic)_
+- ✅ implemented — `TagTypeChaosSeal.ChaosSealTokenCurse` = `"chaos-seal-token-curse"` _(chaos/seal.ts; packs: par, tic)_
   - Curse counterpart of ChaosSealTokenBless, also missing (Dark Ritual, Flute of the Outer Gods, Favor of the Moon). Consolidates par, tic.
-- ⏳ proposed — `TagTypeChaosSeal.ChaosSealRevealed` = `"chaos-seal-revealed"` _(chaos/seal.ts; packs: tdc)_
+- ✅ implemented — `TagTypeChaosSeal.ChaosSealRevealed` = `"chaos-seal-revealed"` _(chaos/seal.ts; packs: tdc)_
   - Dynamically seal a token that was REVEALED during a skill test (permanently thinning the bag mid-test), distinct from the static Seal keyword that pre-specifies a token type at enter-play. Consolidates tdc Ocula Obscura/Dial of Ancients.
-- ⏳ proposed — `TagTypeChaosReveal.ChaosRevealSealedInstead` = `"chaos-reveal-sealed-instead"` _(chaos/reveal.ts; packs: etc, par, tic)_
+- ✅ implemented — `TagTypeChaosReveal.ChaosRevealSealedInstead` = `"chaos-reveal-sealed-instead"` _(chaos/reveal.ts; packs: etc, par, tic)_
   - Resolve/release a pre-SEALED token in place of the random bag draw ('resolve a token sealed here instead'). Distinct from ChaosRevealAnotherInstead (reveal another random token) and ChaosRevealManual. The core of the sealed-token bag-control engine (Codex of Ages, Favor of the Sun/Moon, Tidal Memento, Flute of the Outer Gods). Consolidates etc, par, tic.
-- ⏳ proposed — `TagTypeChaosEffect.ChaosEffectTreatTokenAs` = `"chaos-treat-token-as"` (+ to: "bless" | "curse" | "skull" | "elder-sign" | "auto-fail") _(chaos/effect.ts; packs: tic, fhv)_
+- ✅ implemented — `TagTypeChaosEffect.ChaosEffectTreatTokenAs` = `"chaos-treat-token-as"` (+ to: "bless" | "curse" | "skull" | "elder-sign" | "auto-fail") _(chaos/effect.ts; packs: tic, fhv)_
   - Generalizes the existing ChaosEffectTreatAsElderSign: convert a revealed token into a different token type for the test ('treat it as a [skull]/[bless]/[curse] instead'). 'to' = target type. Consolidates tic ('Lucky' Penny, Blessing of Isis, Curse of Aeons), fhv. (ChaosEffectTreatAsElderSign retained for the elder-sign case; new tag covers the others.)
-- ⏳ proposed — `TagTypeChaosEffect.ChaosEffectResolveAdditional` = `"chaos-resolve-additional"` _(chaos/effect.ts; packs: jac, tcu)_
+- ✅ implemented — `TagTypeChaosEffect.ChaosEffectResolveAdditional` = `"chaos-resolve-additional"` _(chaos/effect.ts; packs: jac, tcu)_
   - Resolve a chaos-token-triggered effect an ADDITIONAL time (double it). The cancel half is covered by CancelChaos; effect-doubling has no tag. Consolidates jac Eldritch Inspiration, tcu Eldritch Inspiration.
-- ⏳ proposed — `TagTypeChaosPredict.ChaosPredict` = `"chaos-predict"` _(chaos/predict.ts; packs: jac, eote, tfa)_
+- ✅ implemented — `TagTypeChaosPredict.ChaosPredict` = `"chaos-predict"` _(chaos/predict.ts; packs: jac, eote, tfa)_
   - Name/predict a token type, parity, or test margin, then get a payoff if a matching token was revealed (Crystal Pendulum, Prescient, Recall the Future, Foresight). A distinct fortune-teller archetype not expressible by any reveal/skill-value tag. New small file chaos/predict.ts.
-- ⏳ proposed — `TagTypeChaosDownside.ChaosDownsideDamage` = `"chaos-downside-damage"` (+ value: number) _(chaos/downside.ts; packs: jac)_
+- ✅ implemented — `TagTypeChaosDownside.ChaosDownsideDamage` = `"chaos-downside-damage"` (+ value: number) _(chaos/downside.ts; packs: jac)_
   - A built-in conditional self-PENALTY (damage/horror/resource-loss) triggered by a bad chaos token during the card's own effect (NOT a cost paid to activate). Source flags it: '// Take horror when revealing chaos tokens - Need new tag type'. The classic risky-Mystic-spell drawback. damage/horror/resource variants. Consolidates jac (Azure Flame damage, Clairvoyance horror, Ineffable Truth resource, Astral Travel). New file chaos/downside.ts.
-- ⏳ proposed — `TagTypeChaosDownside.ChaosDownsideHorror` = `"chaos-downside-horror"` (+ value: number) _(chaos/downside.ts; packs: jac)_
+- ✅ implemented — `TagTypeChaosDownside.ChaosDownsideHorror` = `"chaos-downside-horror"` (+ value: number) _(chaos/downside.ts; packs: jac)_
   - Horror variant of chaos self-downside (Clairvoyance).
-- ⏳ proposed — `TagTypeChaosDownside.ChaosDownsideResource` = `"chaos-downside-resource"` (+ value: number) _(chaos/downside.ts; packs: jac)_
+- ✅ implemented — `TagTypeChaosDownside.ChaosDownsideResource` = `"chaos-downside-resource"` (+ value: number) _(chaos/downside.ts; packs: jac)_
   - Resource-loss variant of chaos self-downside (Ineffable Truth).
-- ⏳ proposed — `TagTypeEnemyEngage.EnemyEngageDisengage` = `"engage-disengage"` (+ withoutExhaust: boolean) _(enemy/engage.ts; packs: par, ptc, fhv, tde)_
+- ✅ implemented as `enemy-engage-disengage` — `TagTypeEnemyEngage.EnemyEngageDisengage` = `"engage-disengage"` (+ withoutExhaust: boolean) _(enemy/engage.ts; packs: par, ptc, fhv, tde)_
   - Forcibly disengage an enemy from investigators, or you disengage from each engaged enemy — the core of the evasion/escape package. enemy/engage only covered engage states. Source flags it: '// disengage - Need tag type' on Elusive/Cat Burglar. 'withoutExhaust' flags the Stealth variant (disengaged but kept ready). Consolidates par On the Lam, ptc Stealth/Snare Trap/Cheat Death, fhv Blackmail File, tde Gate Box/Ethereal Form.
-- ⏳ proposed — `TagTypeEnemyDebuff.EnemyCannotAttack` = `"enemy-cannot-attack"` _(enemy/debuff.ts; packs: fhv)_
+- ✅ implemented — `TagTypeEnemyDebuff.EnemyCannotAttack` = `"enemy-cannot-attack"` _(enemy/debuff.ts; packs: fhv)_
   - 'Attached enemy cannot attack' — a recurring lock-down (Rot attachments, handler cards). Sibling of the existing EnemyDoesNotReady/EnemyCannotMoveIntoLocation. Consolidates fhv Abyssal Rot.
-- ⏳ proposed — `TagTypeEnemyDebuff.EnemyCannotMove` = `"enemy-cannot-move"` _(enemy/debuff.ts; packs: fhv)_
+- ✅ implemented — `TagTypeEnemyDebuff.EnemyCannotMove` = `"enemy-cannot-move"` _(enemy/debuff.ts; packs: fhv)_
   - 'Attached enemy cannot move' — distinct from EnemyCannotMoveIntoLocation (about a location). Consolidates fhv Virescent Rot/Transmogrify.
-- ⏳ proposed — `TagTypeEnemyDebuff.EnemyCannotEngage` = `"enemy-cannot-engage"` _(enemy/debuff.ts; packs: ptc)_
+- ✅ implemented as `buff-cannot-engage-you` — `TagTypeEnemyDebuff.EnemyCannotEngage` = `"enemy-cannot-engage"` _(enemy/debuff.ts; packs: ptc)_
   - 'That enemy cannot engage you' — evasion-lock (Stealth). Sibling debuff. Consolidates ptc Stealth.
-- ⏳ proposed — `TagTypeEnemyDebuff.EnemyExhaust` = `"enemy-exhaust"` _(enemy/debuff.ts; packs: ptc, tsk)_
+- ✅ implemented — `TagTypeEnemyDebuff.EnemyExhaust` = `"enemy-exhaust"` _(enemy/debuff.ts; packs: ptc, tsk)_
   - Force an enemy to exhaust (tempo/lockdown). Snare Trap, Mind Wipe-style. Consolidates ptc Snare Trap, tsk attach-lockdown cluster.
-- ⏳ proposed — `TagTypeUsesStarting.UsesStartingOffering` = `"uses-starting-offering"` _(uses/starting.ts; packs: fhv)_
+- ✅ implemented — `TagTypeUsesStarting.UsesStartingOffering` = `"uses-starting-offering"` _(uses/starting.ts; packs: fhv)_
   - New printed use-token type 'offering' (Masks sub-theme), absent from the enum (ammo/charge/supply/secret/evidence). The base 'value' field carries the count. Consolidates fhv Wolf Mask/Speak to the Dead.
-- ⏳ proposed — `TagTypeUsesStarting.UsesStartingResource` = `"uses-starting-resource"` _(uses/starting.ts; packs: fhv, jac)_
+- ✅ implemented — `TagTypeUsesStarting.UsesStartingResource` = `"uses-starting-resource"` _(uses/starting.ts; packs: fhv, jac)_
   - Printed 'Uses (N resources)' as a use-pool stored on the card, distinct from gaining resources to your pool. Consolidates fhv Bianca, jac Arcane Studies.
-- ⏳ proposed — `TagTypeUsesStarting.UsesStartingInspiration` = `"uses-starting-inspiration"` _(uses/starting.ts; packs: tdc)_
+- ✅ implemented — `TagTypeUsesStarting.UsesStartingInspiration` = `"uses-starting-inspiration"` _(uses/starting.ts; packs: tdc)_
   - New printed use-token type 'inspiration' (tdc), absent from the enum. (Sibling future types 'shell'/'leads' may be added the same way if they recur.) Consolidates tdc Book of Verse/Artistic Inspiration.
-- ⏳ proposed — `TagTypeUsesReplenish.UsesReplenish` = `"uses-replenish"` (+ useType: string, conditional: boolean) _(uses/replenish.ts; packs: fhv, jac)_
+- ✅ implemented — `TagTypeUsesReplenish.UsesReplenish` = `"uses-replenish"` (+ useType: string, conditional: boolean) _(uses/replenish.ts; packs: fhv, jac)_
   - Refilling a limited-use pool (charges/offerings/ammo/secrets), either automatically each round or on a trigger ('Replenish this charge the first time a bless token is revealed'). NO replenish tag existed despite the regex hint 'uses_replenish'. 'useType' = which pool, 'conditional' = triggered vs automatic. This is its own new file uses/replenish.ts. Consolidates fhv Ofuda/Masks/Wicked Athame/Call the Beyond, jac Arcane Studies.
-- ⏳ proposed — `TagTypeUsesAccumulate.UsesAccumulate` = `"uses-accumulate"` (+ tokenName: "evidence" | "lead" | "offering" | "charge" | "generic") _(uses/accumulate.ts; packs: tsk, tcu)_
+- ✅ implemented — `TagTypeUsesAccumulate.UsesAccumulate` = `"uses-accumulate"` (+ tokenName: "evidence" | "lead" | "offering" | "charge" | "generic") _(uses/accumulate.ts; packs: tsk, tcu)_
   - A self-growing counter: place resources from the token pool onto THIS card as a renamed token (evidence/leads/offering) that starts empty and accrues via reactions, later spent. Distinct from UsesStarting (printed pool) and UsesSupport (place/move of an existing type). A signature TSK economy engine; also the resource-bank pattern (tcu Investments/Family Inheritance, relates to big-money). New file uses/accumulate.ts. Consolidates tsk Darrell's Kodak/Dissection Tools/Research Notes/Soul Sanctification, tcu Investments/Family Inheritance.
-- ✅ implemented — `TagTypeGainResource.ResourceMoveInvestigator` = `"resource-move-investigator"` _(gain/resource.ts; packs: fhv, dwl)_
+- ⏳ proposed — `TagTypeGainResource.ResourceMoveInvestigator` = `"resource-move-investigator"` _(gain/resource.ts; packs: fhv, dwl)_
   - MOVE resources between investigators' pools (sharing/loan/trade), distinct from gaining new resources. Multiplayer big-money support. Note this is a no-value member, so it carries 'value' from the base = use -1/0 where the base requires it (implementer may relax the base 'value' to optional, OR place this in a new gain/transfer.ts file). Consolidates fhv 'I'll Pay You Back!'/Bank Job/Grift, dwl Teamwork (transfer asset/resource).
-- ⏳ proposed — `TagTypeCostAction.CostActionSpendSecret` = `"cost-action-spend-secret"` _(cost/action.ts; packs: har)_
+- ✅ implemented — `TagTypeCostAction.CostActionSpendSecret` = `"cost-action-spend-secret"` _(cost/action.ts; packs: har)_
   - Parallel to the existing CostActionSpendResource and to CostFreeSpendSecret: an [action]-activated ability that spends a secret (Encyclopedia, Feed the Mind, Forbidden Tome). Consolidates har.
-- ⏳ proposed — `TagTypeCostOther.CostAddDoomSelf` = `"cost-add-doom-self"` (+ value: number) _(cost/other.ts; packs: tic, tsk)_
+- ✅ implemented — `TagTypeCostOther.CostAddDoomSelf` = `"cost-add-doom-self"` (+ value: number) _(cost/other.ts; packs: tic, tsk)_
   - 'Power at the price of doom': place doom on a card you control as an activation cost (Blood Pact, Abyssal Tome, Ceremonial Sickle/Dowsing Rod/Onyx Pentacle). Distinct from generic DoomAdd (to agenda). A deckbuilding hazard players filter on; also the self-doom mystic engine. Consolidates tic, tsk.
-- ⏳ proposed — `TagTypeCancel.CancelLoseAction` = `"cancel-lose-action"` _(cancel/main.ts; packs: tcu)_
+- ✅ implemented — `TagTypeCancel.CancelLoseAction` = `"cancel-lose-action"` _(cancel/main.ts; packs: tcu)_
   - Ignore/cancel the 'lose actions' aspect of an incoming encounter/attack effect (Deny Existence). No cancel variant covered action-loss. Part of the modular aspect-ignore archetype. Consolidates tcu.
-- ⏳ proposed — `TagTypeCancel.CancelLoseResource` = `"cancel-lose-resource"` _(cancel/main.ts; packs: tcu)_
+- ✅ implemented — `TagTypeCancel.CancelLoseResource` = `"cancel-lose-resource"` _(cancel/main.ts; packs: tcu)_
   - Ignore/cancel the 'lose resources' aspect of an incoming effect (Deny Existence). Consolidates tcu.
-- ⏳ proposed — `TagTypeCancel.CancelDiscardFromHand` = `"cancel-discard-from-hand"` _(cancel/main.ts; packs: tcu)_
+- ✅ implemented — `TagTypeCancel.CancelDiscardFromHand` = `"cancel-discard-from-hand"` _(cancel/main.ts; packs: tcu)_
   - Ignore/cancel a forced hand-discard aspect of an incoming effect (Deny Existence). Completes the modular ignore set alongside the existing CancelDamage/CancelHorror. Consolidates tcu.
-- ⏳ proposed — `TagTypeCancel.CancelTreacheryInPlay` = `"cancel-treachery-in-play"` _(cancel/main.ts; packs: rt)_
+- ✅ implemented as `discard-treachery-in-play` — `TagTypeCancel.CancelTreacheryInPlay` = `"cancel-treachery-in-play"` _(cancel/main.ts; packs: rt)_
   - Discard/remove a treachery that is ALREADY in play (ongoing/attached), distinct from the existing on-draw cancels (CancelRevelation/CancelEncounterDraw/CancelEncounterEffect). Consolidates rt Alter Fate.
-- ⏳ proposed — `TagTypeCancel.CancelFailedTestEffects` = `"cancel-failed-test-effects"` _(cancel/main.ts; packs: ste)_
+- ✅ implemented — `TagTypeCancel.CancelFailedTestEffects` = `"cancel-failed-test-effects"` _(cancel/main.ts; packs: ste)_
   - Cancel all effects/consequences of a (failed) skill test (Neither Rain nor Snow) — a Survivor fail-mitigation effect not covered by any cancel variant. Part of the fail-forward package. Consolidates ste.
-- ⏳ proposed — `TagTypeCancel.CancelWeaknessDraw` = `"cancel-weakness-draw"` _(cancel/main.ts; packs: tic)_
+- ✅ implemented — `TagTypeCancel.CancelWeaknessDraw` = `"cancel-weakness-draw"` _(cancel/main.ts; packs: tic)_
   - Cancel/suppress a drawn weakness's effects (Ikiaq). Distinct from the encounter-card cancels; targets the player weakness mechanic. Consolidates tic.
-- ⏳ proposed — `TagTypeActionAdditional.ActionAdditionalAttack` = `"action-additional-attack"` _(action/additional.ts; packs: nat)_
+- ✅ implemented — `TagTypeActionAdditional.ActionAdditionalAttack` = `"action-additional-attack"` _(action/additional.ts; packs: nat)_
   - An extra ATTACK within the resolution of a single card ('fight that enemy again' / 'fight again'), NOT a new game action — so not expressible by ActionAdditional (which grants a usable action). A burst-damage archetype. Placed in action/additional.ts as a sibling member. Consolidates nat One-Two Punch.
-- ⏳ proposed — `TagTypeActionActivate.ActionActivateIgnoringCost` = `"action-activate-ignoring-cost"` _(action/main.ts; packs: fhv, tdc, tcu)_
+- ✅ implemented — `TagTypeActionActivate.ActionActivateIgnoringCost` = `"action-activate-ignoring-cost"` _(action/main.ts; packs: fhv, tdc, tcu)_
   - Resolve another card's [action]/[fast] ability without paying its cost (Hand-Eye Coordination, Dirty Deeds, Flurry of Blows; also resolving a Fight ability on a discarded/revealed weapon never deployed — Robert Castaigne). A major action-compression/combo enabler. NEW file action/activate.ts (a new enum TagTypeActionActivate). Consolidates fhv (Hand-Eye/Dirty Deeds/Flurry), tdc (Robert Castaigne/Remington), tcu (Knowledge is Power/Dayana).
-- ⏳ proposed — `TagTypeActionActivate.ActionActivateFromHand` = `"action-activate-from-hand"` (+ discardInstead: boolean) _(action/main.ts; packs: tdc)_
+- ✅ implemented — `TagTypeActionActivate.ActionActivateFromHand` = `"action-activate-from-hand"` (+ discardInstead: boolean) _(action/main.ts; packs: tdc)_
   - Activate an asset's printed [action] ability while it is still IN YOUR HAND (discarding it instead of exhausting) — the Anchor Chain / Hand Hook / Nautical Charts cycle. Same new action/activate.ts file. Consolidates tdc.
 - ✅ implemented — `TagTypeActionLose.ActionEndTurn` = `"action-end-turn"` _(action/lose.ts; packs: dwl, tfa)_
   - End your turn as a drawback/tradeoff for a powerful effect (Ace in the Hole, Pay Day, Coup de Grace). Distinct from ActionLoseAction (losing a single action). Placed in the existing action/lose.ts. Consolidates dwl Ace in the Hole, tfa Pay Day/Coup de Grace.
-- ⏳ proposed — `TagTypeGainKeyword.GainKeywordFastOther` = `"gain-fast-other"` _(gain/keyword.ts; packs: par)_
+- ✅ implemented — `TagTypeGainKeyword.GainKeywordFastOther` = `"gain-fast-other"` _(gain/keyword.ts; packs: par)_
   - Grant the FAST keyword to ANOTHER card you play (Daisy's Tote Bag, Directive, Chuck Fergus, Fence). cost/fast tags describe a card that IS fast; this grants fast to other cards — a tempo/action-compression enabler. Placed in the existing gain/keyword.ts (alongside Aloof/Retaliate). Consolidates par.
 - ✅ implemented — `TagTypeDamage.DamageRedirectAttack` = `"damage-redirect-attack"` _(damage/main.ts; packs: dwl, ste)_
   - Redirect an attacking enemy's damage onto a DIFFERENT enemy ('Deal this attack's damage to a different enemy'). Distinct from DamageInsteadRange (your-attack-misses margin redirection). The 'turn attacks on enemies' control archetype. Consolidates dwl Oops!/Aquinnah, ste Oops!.
-- ⏳ proposed — `TagTypeDamage.DamageSpread` = `"damage-spread"` (+ value: number) _(damage/main.ts; packs: tfa)_
+- ✅ implemented — `TagTypeDamage.DamageSpread` = `"damage-spread"` (+ value: number) _(damage/main.ts; packs: tfa)_
   - Assign/spread damage among MULTIPLE enemies at once (Flamethrower: 'assign up to 4 damage among enemies engaged with you'). Distinct from DamagePlus (flat bonus to one target). A group-clear archetype. 'value' = total spreadable (-1 for X). Consolidates tfa Flamethrower.
-- ⏳ proposed — `TagTypeSlotAdditional.SlotAdditionalTarot` = `"slot-additional-tarot"` _(slot/additional.ts; packs: rt, tcu)_
+- ✅ implemented — `TagTypeSlotAdditional.SlotAdditionalTarot` = `"slot-additional-tarot"` _(slot/additional.ts; packs: rt, tcu)_
   - Adds the Tarot slot variant to the existing per-slot enum (Accessory/Ally/Arcane/Hand). Moon Pendant, Anna Kaslow. Consolidates rt, tcu.
-- ⏳ proposed — `TagTypeSlotConvert.SlotConvert` = `"slot-convert"` (+ from: string, to: string) _(slot/convert.ts; packs: rt)_
+- ✅ implemented — `TagTypeSlotConvert.SlotConvert` = `"slot-convert"` (+ from: string, to: string) _(slot/convert.ts; packs: rt)_
   - Let one slot type substitute for another ('arcane slots can hold accessory-slot cards, and vice versa' — The Hierophant). Distinct from additive SlotAdditional. New file slot/convert.ts. Consolidates rt.
-- ⏳ proposed — `TagTypeBuffAssetStats.BuffAssetHealth` = `"buff-asset-health"` (+ value: number) _(buff/asset-stats.ts; packs: rt)_
+- ✅ implemented — `TagTypeBuffAssetStats.BuffAssetHealth` = `"buff-asset-health"` (+ value: number) _(buff/asset-stats.ts; packs: rt)_
   - Raise the max health/sanity (durability) of your assets ('Each asset you control with health gets +1 health' — The Star). stats-mod tags cover skill values only; heal restores but does not raise max. New file buff/asset-stats.ts with health+sanity siblings. Consolidates rt The Star.
-- ⏳ proposed — `TagTypeBuffAssetStats.BuffAssetSanity` = `"buff-asset-sanity"` (+ value: number) _(buff/asset-stats.ts; packs: rt)_
+- ✅ implemented — `TagTypeBuffAssetStats.BuffAssetSanity` = `"buff-asset-sanity"` (+ value: number) _(buff/asset-stats.ts; packs: rt)_
   - Sanity counterpart of BuffAssetHealth (The Star). Consolidates rt.
-- ⏳ proposed — `TagTypeSkillValueSource.SkillValueFromResource` = `"skill-value-from-resource"` (+ per: number) _(skill-value/source.ts; packs: eote, tcu, rt)_
+- ✅ implemented — `TagTypeSkillValueSource.SkillValueFromResource` = `"skill-value-from-resource"` (+ per: number) _(skill-value/source.ts; packs: eote, tcu, rt)_
   - Skill value scales off the resources you HOLD (not spend): '+1 skill value for every 5 resources' / base value 'equal to half your resources'. Distinct from StatsModPumpResource (per resource SPENT) and from flat boosts. The big-money skill-scaling payoff. 'per' = denominator. New file skill-value/source.ts. Consolidates eote Money Talks, tcu Well Connected/Money Talks, rt Well Connected (flagged).
-- ⏳ proposed — `TagTypeMulticlass.MulticlassClassCount` = `"multiclass-class-count"` (+ reward: "combat" | "damage" | "resource" | "wild-icon" | "cost-reduction" | "charge" | "effect") _(multiclass/main.ts; packs: eote)_
+- ✅ implemented — `TagTypeMulticlass.MulticlassClassCount` = `"multiclass-class-count"` (+ reward: "combat" | "damage" | "resource" | "wild-icon" | "cost-reduction" | "charge" | "effect") _(multiclass/main.ts; packs: eote)_
   - Effects that scale with the number of DIFFERENT classes among cards you control — the eote five-color/rainbow payoff (Gang Up, Strength in Numbers, Close the Circle, Cheat the System, Call for Backup, Join the Caravan). The unifying searchable hook for the whole multiclass sub-theme. 'reward' = what scales. New file multiclass/main.ts. Folds in GainResourceDynamicClassCount as reward='resource'. Consolidates eote.
-- ⏳ proposed — `TagTypeEncounter.EncounterRevealChoose` = `"encounter-reveal-choose"` _(encounter/main.ts; packs: tsk, etc)_
+- ✖ dropped (never used by a card) — `TagTypeEncounter.EncounterRevealChoose` = `"encounter-reveal-choose"` _(encounter/main.ts; packs: tsk, etc)_
   - Draw/reveal MORE encounter cards and choose which to resolve, discarding the rest — a soft-cancel / encounter-filter distinct from CancelEncounterDraw (full removal). New file encounter/main.ts. Consolidates tsk Dr. Maleson/Nature of the Beast, etc Dr. Maleson (adjacent).
-- ⏳ proposed — `TagTypeDoom.DoomPreventAdvance` = `"doom-prevent-advance"` _(doom/main.ts; packs: etc, tcu)_
+- ✅ implemented — `TagTypeDoom.DoomPreventAdvance` = `"doom-prevent-advance"` _(doom/main.ts; packs: etc, tcu)_
   - Prevent the agenda from advancing when it reaches its doom threshold ('the agenda cannot advance by reaching its doom threshold') — a stall/buy-a-turn effect not covered by DoomAdd/Check/Remove. Placed in the existing doom/main.ts. Consolidates etc Mystifying Song, tcu Mystifying Song (flagged).
-- ⏳ proposed — `TagTypeCluePlace.CluePlaceYourLocation` = `"clue-place-your-location"` (+ value: number) _(clue/place.ts; packs: etc)_
+- ✅ implemented — `TagTypeCluePlace.CluePlaceYourLocation` = `"clue-place-your-location"` (+ value: number) _(clue/place.ts; packs: etc)_
   - PLACE a clue (from the token bank) on a location, distinct from DISCOVERING a clue (ClueDiscover*) and from ClueAdditional (extra clues during an investigation). Placing seeds a clue to be collected / fuels 'when a clue is placed' tech. New file clue/place.ts. Consolidates etc Mysteries Remain.
-- ⏳ proposed — `TagTypeTimingAfter.TimingAfterFailSkillTest` = `"timing-after-fail-skill-test"` _(timing/after.ts; packs: ste)_
+- ✅ implemented — `TagTypeTimingAfter.TimingAfterFailSkillTest` = `"timing-after-fail-skill-test"` _(timing/after.ts; packs: ste)_
   - The 'after you fail a skill test' reaction/play window — the defining Survivor fail-forward trigger. Distinct from SkillTestConditionFail (a result-gate) and from existing timing/after triggers. Placed in timing/after.ts. Consolidates ste Rabbit's Foot/Grit Your Teeth/Live and Learn/Take Heart.
-- ⏳ proposed — `TagTypeTimingAfter.TimingAfterEngageEnemy` = `"timing-after-engage-enemy"` _(timing/after.ts; packs: par)_
+- ✅ implemented — `TagTypeTimingAfter.TimingAfterEngageEnemy` = `"timing-after-engage-enemy"` _(timing/after.ts; packs: par)_
   - 'After you engage an enemy' trigger (Zoey's Cross), the search hook for engage-synergy builds. Consistent with existing selective timing-after triggers. Consolidates par.
-- ⏳ proposed — `TagTypeTestRepeat.TestRepeatFailed` = `"test-repeat-failed"` _(test/repeat.ts; packs: ste)_
+- ✅ implemented — `TagTypeTestRepeat.TestRepeatFailed` = `"test-repeat-failed"` _(test/repeat.ts; packs: ste)_
   - Re-attempt/repeat a failed skill test ('Attempt that test again') — a distinct second-chance effect not in initiate.ts (new test) or skill-value/result (margins). New file test/repeat.ts. Part of fail-forward. Consolidates ste Live and Learn.
 
 ## Argument additions to existing tags
 
 - ✅ implemented — `TagTypeActionAdditional.ActionAdditional` gains `target: "self" | "investigator"`
   - Many cards grant an additional action to ANOTHER chosen investigator (Guidance, Lifeline, End of the Road), not just yourself. ActionAdditional already models extra-action grants (the dwl/fhv 'gain N actions' and deferred 'next turn' cases also fold in here via its 'value' field); adding an optional 'target' lets the existing tag distinguish self vs chosen-investigator grants. Confirms ActionAdditionalGain (dwl), ActionExtraNextTurn (fhv), and the tsk extra-action cluster are NOT new tags.
-- ⏳ proposed — `TagTypeSlotAdditional.SlotAdditional` gains `restrictedToTrait: string`
+- ✅ implemented — `TagTypeSlotAdditional.SlotAdditional` gains `restrictedToTrait: string`
   - Several extra-slot cards lock the slot to a trait ('2 additional hand slots, only for Tome assets' — Daisy's Tote Bag; 'ally slots only for Creature assets' — Rod of Animalism; Bandolier weapon-only). Per the rubric, the broad searchable thing is the extra slot; the trait is an optional filter. Add 'restrictedToTrait?' to the SlotAdditional base rather than minting per-trait variants. Confirms SlotAdditionalCreatureAlly (eote) is NOT a new tag.
-- ⏳ proposed — `TagTypeGainResource.GainResourceYou` gains `dynamic: boolean`
+- ✅ implemented — `TagTypeGainResource.GainResourceYou` gains `dynamic: boolean`
   - Some resource gains are a DYNAMIC amount rather than a fixed 'value' ('gain resources equal to that enemy's printed health' — Jenny's Twin .45s; 'gain 1 per different class' — Cheat the System; 'twice that many' — Watch this!). The searchable thing ('gain resources') is already the tag; only the dynamic source is new. Add an optional 'dynamic' flag (and let 'value' be -1) on the GainResource base rather than minting GainResourceDynamicClassCount. The class-count payoff is also captured by MulticlassClassCount reward='resource'.
-- ⏳ proposed — `TagTypeChaosEffect.ChaosEffectModifier` gains `treatAs: number`
+- ✅ implemented — `TagTypeChaosEffect.ChaosEffectModifier` gains `treatAs: number`
   - 'Treat the modifier of each [curse] token as 0' / 'as +1' (Accursed, Dawn Star, Skeptic, Blasphemous Covenant). This is a specific modifier-override that sits between the existing ChaosEffectModifier and ChaosEffectIgnoreModifier; an optional 'treatAs' numeric on ChaosEffectModifier captures it without a near-duplicate tag. Confirms ChaosEffectTreatModifierAsZero (fhv) is NOT a separate tag.
 
 ## New compound tags
 
-- ⏳ proposed — `chaos-token-control` (`ChaosTokenControl`) → `TagTypeChaosReveal.ChaosRevealMore`, `TagTypeChaosReveal.ChaosRevealAnotherInstead`, `TagTypeChaosReveal.ChaosRevealManual`, `TagTypeChaosReveal.ChaosRevealSealedInstead`, `TagTypeChaosEffect.ChaosEffectResolveChoose`, `TagTypeChaosEffect.ChaosEffectIgnoreEffect`, `TagTypeChaosEffect.ChaosEffectIgnoreModifier`, `TagTypeChaosEffect.ChaosEffectDoNotReveal`, `TagTypeChaosEffect.ChaosEffectTreatAsElderSign`, `TagTypeChaosEffect.ChaosEffectTreatTokenAs`, `TagTypeChaosEffect.ChaosEffectResolveAdditional`, `TagTypeChaosPredict.ChaosPredict`, `TagTypeCancel.CancelChaos`, `TagTypeChaosSeal.ChaosSealRevealed`, `TagTypeChaosSeal.ChaosSealTokenAny`
+- ✅ implemented — `chaos-token-control` (`ChaosTokenControl`) → `TagTypeChaosReveal.ChaosRevealMore`, `TagTypeChaosReveal.ChaosRevealAnotherInstead`, `TagTypeChaosReveal.ChaosRevealManual`, `TagTypeChaosReveal.ChaosRevealSealedInstead`, `TagTypeChaosEffect.ChaosEffectResolveChoose`, `TagTypeChaosEffect.ChaosEffectIgnoreEffect`, `TagTypeChaosEffect.ChaosEffectIgnoreModifier`, `TagTypeChaosEffect.ChaosEffectDoNotReveal`, `TagTypeChaosEffect.ChaosEffectTreatAsElderSign`, `TagTypeChaosEffect.ChaosEffectTreatTokenAs`, `TagTypeChaosEffect.ChaosEffectResolveAdditional`, `TagTypeChaosPredict.ChaosPredict`, `TagTypeCancel.CancelChaos`, `TagTypeChaosSeal.ChaosSealRevealed`, `TagTypeChaosSeal.ChaosSealTokenAny`
   - The flagship cross-pack archetype the rubric explicitly names (reveal-more / ignore / cancel / seal / check-what-is-revealed / treat-as / predict). Proposed independently by 7 packs (etc, jac, rt, tcu, tdc, tfa, tic). Groups the granular chaos reveal/effect/seal/predict primitives plus cancel-chaos into one searchable 'bag tech' package, regardless of bless/curse flavor.
-- ⏳ proposed — `bless-curse-bag` (`BlessCurseBag`) → `TagTypeChaosBag.ChaosBagAddBless`, `TagTypeChaosBag.ChaosBagAddCurse`, `TagTypeChaosBag.ChaosBagRemoveBless`, `TagTypeChaosBag.ChaosBagRemoveCurse`, `TagTypeChaosBag.ChaosBagReplace`, `TagTypeChaosSeal.ChaosSealTokenBless`, `TagTypeChaosSeal.ChaosSealTokenCurse`, `TagTypeChaosReveal.ChaosRevealTokenBless`, `TagTypeChaosReveal.ChaosRevealTokenCurse`
+- ✅ implemented — `bless-curse-bag` (`BlessCurseBag`) → `TagTypeChaosBag.ChaosBagAddBless`, `TagTypeChaosBag.ChaosBagAddCurse`, `TagTypeChaosBag.ChaosBagRemoveBless`, `TagTypeChaosBag.ChaosBagRemoveCurse`, `TagTypeChaosBag.ChaosBagReplace`, `TagTypeChaosSeal.ChaosSealTokenBless`, `TagTypeChaosSeal.ChaosSealTokenCurse`, `TagTypeChaosReveal.ChaosRevealTokenBless`, `TagTypeChaosReveal.ChaosRevealTokenCurse`
   - The bless/curse token-economy build-around: adding, removing/returning, replacing, sealing, and reacting to bless/curse tokens. Proposed by fhv, par, tic. Distinct from generic chaos-token-control (which is bless/curse-agnostic). Players building a Blessed or Cursed deck search this whole subsystem as one unit.
-- ⏳ proposed — `big-money` (`BigMoney`) → `TagTypeGainResource.GainResourceYou`, `TagTypeGainResource.GainResourceInvestigator`, `TagTypeGainResource.ResourceMoveInvestigator`, `TagTypeSkillValueSource.SkillValueFromResource`, `TagTypeUsesAccumulate.UsesAccumulate`, `TagTypeCondition.ConditionResource`
+- ✅ implemented — `big-money` (`BigMoney`) → `TagTypeGainResource.GainResourceYou`, `TagTypeGainResource.GainResourceInvestigator`, `TagTypeGainResource.ResourceMoveInvestigator`, `TagTypeSkillValueSource.SkillValueFromResource`, `TagTypeUsesAccumulate.UsesAccumulate`, `TagTypeCondition.ConditionResource`
   - The recurring 'big money' resource-economy archetype the rubric calls out: generate/move/bank resources, scale skill value off a high pool, and pay off resource thresholds. Proposed by eote, fhv, nat, ptc, rt, tcu, tfa. Groups the resource generation/movement/banking tags with the resource-as-skill and resource-threshold payoffs.
-- ⏳ proposed — `evasion-package` (`EvasionPackage`) → `TagTypeAuto.AutoEvade`, `TagTypeTestless.TestlessEvade`, `TagTypeEnemyEngage.EnemyEngageDisengage`, `TagTypeEnemyDebuff.EnemyCannotEngage`, `TagTypeEnemyDebuff.EnemyExhaust`, `TagTypeEnemyValue.EnemyValueEvadeReduction`, `TagTypeAoo.AooNoProvoke`, `TagTypeLocationMove.LocationMoveInvestigatorSelf`
+- ✅ implemented — `evasion-package` (`EvasionPackage`) → `TagTypeAuto.AutoEvade`, `TagTypeTestless.TestlessEvade`, `TagTypeEnemyEngage.EnemyEngageDisengage`, `TagTypeEnemyDebuff.EnemyCannotEngage`, `TagTypeEnemyDebuff.EnemyExhaust`, `TagTypeEnemyValue.EnemyValueEvadeReduction`, `TagTypeAoo.AooNoProvoke`, `TagTypeLocationMove.LocationMoveInvestigatorSelf`
   - The evasion/escape toolkit players deckbuild as one unit: auto/testless evade, forced disengage, cannot-engage debuff, enemy exhaust, evade reduction, no-AoO maneuvering, and self-relocation to break melee. Proposed by par, ptc, rt. Existing AutoEvade/TestlessEvade are joined by the new disengage/debuff/aoo tags.
-- ⏳ proposed — `protector-tank` (`ProtectorTank`) → `TagTypeSoak.SoakDamage`, `TagTypeSoak.SoakHorror`, `TagTypeTank.TankRedirectAttack`, `TagTypeTank.TankRedirectEncounter`, `TagTypeTank.TankRedirectDamageHorror`, `TagTypeReady.ReadyAlly`
+- ✅ implemented — `protector-tank` (`ProtectorTank`) → `TagTypeSoak.SoakDamage`, `TagTypeSoak.SoakHorror`, `TagTypeTank.TankRedirectAttack`, `TagTypeTank.TankRedirectEncounter`, `TagTypeTank.TankRedirectDamageHorror`, `TagTypeReady.ReadyAlly`
   - The Guardian/defender 'take the hit for the team' package: soak damage/horror, redirect attacks/encounter cards/damage onto yourself. Proposed by ptc; reinforced by tsk/tfa redirect cards. Groups the new soak and tank tags.
-- ⏳ proposed — `fail-forward` (`FailForward`) → `TagTypeTimingAfter.TimingAfterFailSkillTest`, `TagTypeTestRepeat.TestRepeatFailed`, `TagTypeCancel.CancelFailedTestEffects`, `TagTypeSkillValue.SkillValueFailByOrLess`, `TagTypeSkillValue.SkillValueFailByExactly`, `TagTypeSkillValue.SkillValueFailByDynamic`, `TagTypeSkillTestCondition.SkillTestConditionFail`
+- ✅ implemented — `fail-forward` (`FailForward`) → `TagTypeTimingAfter.TimingAfterFailSkillTest`, `TagTypeTestRepeat.TestRepeatFailed`, `TagTypeCancel.CancelFailedTestEffects`, `TagTypeSkillValue.SkillValueFailByOrLess`, `TagTypeSkillValue.SkillValueFailByExactly`, `TagTypeSkillValue.SkillValueFailByDynamic`, `TagTypeSkillTestCondition.SkillTestConditionFail`
   - The Survivor 'benefit when you fail a skill test' identity: trigger off, reward, mitigate, or re-attempt a failed test. Proposed by ste. Broader than the existing fail-by compound (margins only); adds the fail-timing trigger, re-test, and cancel-fail-effects.
-- ✅ implemented — `exile-package` (`ExilePackage`) → `TagTypeExile.ExileSelf`
+- ⏳ proposed — `exile-package` (`ExilePackage`) → `TagTypeExile.ExileSelf`
   - The exile (one powerful use, then removed from collection / repurchase with XP) deckbuilding sub-theme. Introduced in dwl and recurring (ptc, ste). A deckbuilder finds all 'one-shot, then gone' cards via this. (Campaign XP-repurchase support such as ste Deja Vu is rejected as a standalone tag but conceptually anchors here.)
 - ✅ implemented — `into-play-cheat` (`IntoPlayCheat`) → `TagTypePlayArea.PlayAreaIntoPlayFromHand`, `TagTypePlayArea.PlayAreaIntoPlayFromDeck`, `TagTypePlayArea.PlayAreaIntoPlayFromDiscard`, `TagTypePlayArea.PlayAreaPlayFromOtherZone`
   - Putting cards directly into play from hand/deck/discard (bypassing the play action / sometimes cost), or playing from a non-hand zone. A tempo/recursion enabler family. Proposed by dwl, eote, nat, ptc, rt. Groups the new play-area into-play members.
-- ⏳ proposed — `discard-pile-value` (`DiscardPileValue`) → `TagTypeRecursion.RecursionPlayFromDiscard`, `TagTypeRecursion.RecursionSelfToHand`, `TagTypeRecursion.RecursionReplay`, `TagTypeRecursion.RecursionEvent`, `TagTypeRecursion.RecursionSkill`, `TagTypeDiscardPile.DiscardPileToHand`, `TagTypeDiscardPile.DiscardPileToDeck`
+- ✅ implemented — `discard-pile-value` (`DiscardPileValue`) → `TagTypeRecursion.RecursionPlayFromDiscard`, `TagTypeRecursion.RecursionSelfToHand`, `TagTypeRecursion.RecursionReplay`, `TagTypeRecursion.RecursionEvent`, `TagTypeRecursion.RecursionSkill`, `TagTypeDiscardPile.DiscardPileToHand`, `TagTypeDiscardPile.DiscardPileToDeck`
   - The graveyard/flashback value archetype: play directly from discard, return cards (or themselves) from discard, replay events. Proposed by fhv, tdc, win. Groups existing and new recursion/discard-pile tags.
-- ✅ implemented — `deck-top-control` (`DeckTopControl`) → `TagTypeDeckLook.DeckLookYou`, `TagTypeDeckLook.DeckLookEncounter`, `TagTypeCommit.CommitFromNonHand`, `TagTypeEncounter.EncounterRevealChoose`, `TagTypeChaosPredict.ChaosPredict`
+- ⏳ proposed — `deck-top-control` (`DeckTopControl`) → `TagTypeDeckLook.DeckLookYou`, `TagTypeDeckLook.DeckLookEncounter`, `TagTypeCommit.CommitFromNonHand`, `TagTypeEncounter.EncounterRevealChoose`, `TagTypeChaosPredict.ChaosPredict`
   - The divination/foresight 'control what you draw' archetype: scry player/encounter decks, commit from deck-top, choose among revealed encounter cards, predict draws. Proposed by dwl, eote, jac. Mirrors the existing clue-tech compound.
-- ⏳ proposed — `action-compression` (`ActionCompression`) → `TagTypeActionActivate.ActionActivateIgnoringCost`, `TagTypeActionActivate.ActionActivateFromHand`, `TagTypeActionAdditional.ActionAdditional`, `TagTypeActionAdditional.ActionAdditionalAttack`, `TagTypeReady.ReadySelf`, `TagTypeReady.ReadyAsset`
+- ✅ implemented — `action-compression` (`ActionCompression`) → `TagTypeActionActivate.ActionActivateIgnoringCost`, `TagTypeActionActivate.ActionActivateFromHand`, `TagTypeActionAdditional.ActionAdditional`, `TagTypeActionAdditional.ActionAdditionalAttack`, `TagTypeReady.ReadySelf`, `TagTypeReady.ReadyAsset`
   - The tempo/combo 'do more per action' archetype: resolve abilities without paying their cost, activate from hand, gain extra actions/attacks, ready assets to act again. Proposed by fhv, nat, tdc, tde, tsk. Groups the new activate/ready tags with ActionAdditional.
 - ⏳ proposed — `multiclass-payoff` (`MulticlassPayoff`) → `TagTypeMulticlass.MulticlassClassCount`
   - The eote five-color/rainbow build-around: cards rewarding many different classes among cards you control. A single-pack-anchored but distinctive archetype worth naming for future packs. Proposed by eote.

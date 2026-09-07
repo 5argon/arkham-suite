@@ -1,7 +1,6 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeSlotAdditional {
-  SlotAdditional = "slot-additional",
   SlotAdditionalAccessory = "slot-additional-accessory",
   SlotAdditionalAlly = "slot-additional-ally",
   SlotAdditionalArcane = "slot-additional-arcane",
@@ -16,10 +15,6 @@ interface TagSlotAdditionalBase extends TagBase {
    * on top of the searchable "extra slot".
    */
   restrictedToTrait?: string;
-}
-
-export interface TagSlotAdditional extends TagSlotAdditionalBase {
-  type: TagTypeSlotAdditional.SlotAdditional;
 }
 
 export interface TagSlotAdditionalAccessory extends TagSlotAdditionalBase {

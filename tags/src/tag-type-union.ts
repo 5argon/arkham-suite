@@ -23,7 +23,6 @@ import {
   TagTypeBuffAssetStats,
   TagTypeBuffCannot,
   TagTypeBuffInvestigatorStats,
-  TagTypeBuffStatsReplace,
 } from "./tags/buff/index.js";
 import {
   TagTypeCampaign,
@@ -228,7 +227,6 @@ export type TagType =
   | TagTypeBuffAssetStats
   | TagTypeBuffCannot
   | TagTypeBuffInvestigatorStats
-  | TagTypeBuffStatsReplace
   | TagTypeCampaign
   | TagTypeCancel
   | TagTypeChaosBag

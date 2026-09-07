@@ -15,6 +15,7 @@
   "name": "\"As you wish\"",
   "text": "Carson Sinclair deck only.\nCommit only to a skill test being performed by another investigator.\nIf this test succeeds, the performing investigator draws 1 card. If this test fails, you draw 1 card.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCommit.CommitOtherInvestigator }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
@@ -66,7 +67,9 @@
   "name": "On the Mend",
   "text": "Limit 1 On the Mend in your hand.\nCommit only to a test you are performing.\n<b>Forced</b> - When On the Mend would be discarded from anywhere: Set it aside, out of play, instead.",
   "tags": [
-   "{ type: TagTypeTestMisc.TestYouPerform }"
+   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeBonded.BondedCard }"
   ]
  },
  {
@@ -118,9 +121,10 @@
   "name": "Amina Zidane",
   "text": "[reaction] When you play an asset: Reduce its resource cost by 3. It enters play with 1 doom on it. (Limit once per round.)\n[elder_sign] effect: +2. You may move all doom from a card at your location to another card at your location.",
   "tags": [
+   "{ type: TagTypeDoom.DoomMove }",
    "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"asset\" }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 3 }",
-   "{ type: TagTypeDoom.DoomAdd }"
+   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }"
   ]
  },
  {
@@ -128,6 +132,7 @@
   "name": "Word of Woe",
   "text": "Amina Zidane deck only.\nFast. Play only during your turn.\nPlace 1 doom on an asset you control to resolve an [action] ability on it, ignoring all costs <i>(including its [action] cost)</i>. Then, if Word of Weal is in your discard pile, you may shuffle it into your deck.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeCostOther.CostAddDoomSelf, value: 1 }",
@@ -141,17 +146,22 @@
   "name": "Word of Weal",
   "text": "Amina Zidane deck only.\nFast. Play when you perform a skill test on an asset with 1 or more doom on it.\nAdd your [willpower] to your skill value for this test. Then, if Word of Woe is in your discard pile, you may shuffle it into your deck.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower }",
    "{ type: TagTypeDiscardPile.DiscardPileToDeck }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDoom.DoomCheck }"
   ]
  },
  {
   "code": "09014",
   "name": "Deafening Silence",
   "text": "<b>Revelation</b> - Move 1 doom from an asset you control to the current agenda. This may cause the current agenda to advance. If no doom is moved in this way, shuffle Deafening Silence back into your deck.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeDoom.DoomMove }",
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+  ]
  },
  {
   "code": "09015",
@@ -160,7 +170,9 @@
   "tags": [
    "{ type: TagTypeTimingGame.TimingGameBegins }",
    "{ type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2 }",
-   "{ type: TagTypeUsesSupport.UsesSupportEvidence, supportType: \"place\", conditional: true }"
+   "{ type: TagTypeUsesSupport.UsesSupportEvidence, supportType: \"place\", conditional: true }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"card\" }"
   ]
  },
  {
@@ -188,7 +200,8 @@
    "{ type: TagTypeSlotAdditional.SlotAdditionalAlly }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }",
    "{ type: TagTypeReady.ReadyAlly }",
-   "{ type: TagTypeLocationYour.LocationYourAlly }"
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -215,6 +228,7 @@
   "name": "Hunter's Armor",
   "text": "Customizable.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
    "{ type: TagTypeSoak.SoakSanity, value: 2 }"
   ]
@@ -224,12 +238,12 @@
   "name": "Runic Axe",
   "text": "Customizable. Uses (4 charges). Replenish 1 of these charges at the start of each round.\n[action]: <b>Fight.</b> You get +1 [combat] for this attack. Before this attack, you may spend any number of charges to imbue the axe with that many different inscriptions -\n- <i>Accuracy</i> - You get an additional +2 [combat] for this attack.\n- <i>Power</i> - This attack deals +1 damage.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"charge\", conditional: false }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeCostAction.CostActionSpendCharge }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }"
   ]
  },
@@ -238,6 +252,7 @@
   "name": "Custom Modifications",
   "text": "Customizable.\nAttach to a [[Firearm]] asset you control. Limit 1 per asset.\n[reaction] When you reveal a non-[auto_fail] chaos token attacking with attached asset, exhaust Custom Modifications: Cancel that chaos token, return it to the chaos bag, and reveal a new one.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
@@ -265,7 +280,7 @@
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Combat, instead: SkillType.Agility, action: BasicAction.Evade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeEnemyValue.EnemyValueEvadeReduction }",
@@ -290,9 +305,11 @@
   "name": "Grievous Wound",
   "text": "Fast. Play after you successfully attack a non-[[Elite]] enemy using a [[Melee]] asset.\nAttach Grievous Wound to the attacked enemy.\n<b>Forced</b> - At the end of the round: Deal 1 damage to attached enemy.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeAttach.AttachEnemy }",
-   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }"
+   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypeTraitSupport.TraitSupportMelee }"
   ]
  },
  {
@@ -302,7 +319,6 @@
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldParley }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeTraitSupport.TraitSupportAlly }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 3 }"
   ]
@@ -314,7 +330,7 @@
   "tags": [
    "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\" }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 3, action: BasicAction.Fight }"
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 3, action: BasicAction.Fight }"
   ]
  },
  {
@@ -382,7 +398,7 @@
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Humanoid\" }",
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Combat, instead: SkillType.Agility, action: BasicAction.Evade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeDoom.DoomRemove }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
@@ -397,7 +413,7 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeDeckSearch.DeckSearchInvestigator, range: { type: \"top\", cards: 9 } }",
    "{ type: TagTypeTraitSupport.TraitSupportWeapon }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromDeck }",
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"deck\" }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
   ]
  },
@@ -436,8 +452,8 @@
   "name": "Ever Vigilant",
   "text": "One at a time, investigators at your location, as a group, may play up to 4 assets in total from their hands, reducing the resource cost of each by 1.",
   "tags": [
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
-   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }"
+   "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -445,6 +461,7 @@
   "name": "Alchemical Distillation",
   "text": "Customizable. Uses (3 supplies).\n[action] Spend 1 supply: Choose an investigator at your location and test [intellect] (1). If you succeed, that investigator performs one of the following options -\n- Draw 2 cards.\n- Gain 2 resources.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
    "{ type: TagTypeCostAction.CostActionSpendSupply }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
@@ -459,10 +476,12 @@
   "name": "Empirical Hypothesis",
   "text": "Customizable. Limit 1 per investigator.\n<b>Forced</b> - At the start of the round: Choose one of the following criteria for this round\n- You fail a test by 2 or more.\n- You succeed at a test by 3 or more.\nWhen the chosen criteria is met, you may exhaust Empirical Hypothesis to add 1 evidence to it.\n[fast] Spend 1 evidence: Draw 1 card.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeSkillValue.SkillValueFailByOrMore, amount: 2 }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"evidence\" }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"card\" }"
   ]
  },
  {
@@ -470,10 +489,13 @@
   "name": "The Raven Quill",
   "text": "Customizable. When you purchase The Raven Quill, name a [[Tome]] or [[Spell]] asset and record that name on its upgrade sheet.\nAttach to a named asset you control.\n[reaction] When you resign or the game ends: Either mark a checkbox on The Raven Quill's upgrade sheet, or reduce the experience cost to upgrade the attached asset before the next scenario by 1.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeTraitSupport.TraitSupportTome }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
    "{ type: TagTypeAttach.AttachAsset }",
-   "{ type: TagTypeCampaign.DeckSwapBetweenGames }"
+   "{ type: TagTypeCampaign.DeckSwapBetweenGames }",
+   "{ type: TagTypeTimingGame.TimingGameEnds }"
   ]
  },
  {
@@ -519,6 +541,7 @@
   "name": "Bizarre Diagnosis",
   "text": "Place 1 of your clues on your location. Then, heal 3 damage from an investigator or [[Ally]] asset at your location.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 }",
    "{ type: TagTypeHeal.HealDamageInvestigator, value: 3 }",
    "{ type: TagTypeHeal.HealDamageAlly, value: 3 }",
@@ -567,7 +590,8 @@
    "{ type: TagTypeTimingWhen.TimingWhenWouldFailTest }",
    "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }",
    "{ type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 1 }",
-   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }"
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeAuto.AutoSuccess }"
   ]
  },
  {
@@ -595,7 +619,8 @@
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeAttach.AttachEnemy }",
-   "{ type: TagTypeGainKeyword.GainKeywordAloof }"
+   "{ type: TagTypeGainKeyword.GainKeywordAloof }",
+   "{ type: TagTypeHandSize.HandSizeDependent }"
   ]
  },
  {
@@ -606,7 +631,8 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 1 }",
    "{ type: TagTypeActionAdditional.ActionAdditional, value: 1, target: \"investigator\" }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeDuration.DurationUntilEndTurn }"
   ]
  },
  {
@@ -619,7 +645,8 @@
    "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 }",
    "{ type: TagTypeCancel.CancelEncounterEffect }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeCancel.CancelRevelation }"
   ]
  },
  {
@@ -676,11 +703,13 @@
   "name": "Damning Testimony",
   "text": "Customizable. Uses (3 evidence).\n[action] Exhaust Damning Testimony and choose an enemy at any location: <b>Investigate</b> <i>(your location)</i>. If you succeed, you may spend 1 evidence to discover 1 additional clue at the chosen enemy's location.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeUsesStarting.UsesStartingEvidence, value: 3 }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }"
+   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }",
+   "{ type: TagTypeCostAction.CostActionSpendResource, source: \"card\" }"
   ]
  },
  {
@@ -688,8 +717,10 @@
   "name": "Friends in Low Places",
   "text": "Customizable. When you purchase Friends in Low Places, choose and record a [[Trait]] on its upgrade sheet.\nLook at the top 6 cards of your deck. For each looked-at card with the chosen [[Trait]](s), you may spend 1 resource to add that card to your hand. Shuffle the remaining cards into your deck.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDeckLook.DeckLookYou, value: 6, reorder: false }"
   ]
  },
  {
@@ -697,6 +728,7 @@
   "name": "Honed Instinct",
   "text": "Customizable. Fast. Play this card only after one of the following conditions is met:\n- The agenda or act advances.\n- You succeed at a skill test by 3 or more.\nImmediately take an action as if it were your turn. (Max once per round.)",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
    "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
   ]
@@ -721,7 +753,8 @@
   "text": "[fast] Exhaust Embezzled Treasure: Move up to 2 resources from your resource pool to Embezzled Treasure (to a maximum of 10 resources on it).\n<b>Forced</b> - When you resign or the game ends: For every 2 resources on Embezzled Treasure, an investigator of your choice begins the next scenario of the campaign with 1 additional resource in their resource pool.",
   "tags": [
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
+   "{ type: TagTypeTimingGame.TimingGameEnds }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"generic\" }"
   ]
  },
  {
@@ -744,7 +777,8 @@
   "tags": [
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeSlotAdditional.SlotAdditionalHand, restrictedToTrait: \"Illicit\" }",
-   "{ type: TagTypeSlotAdditional.SlotAdditionalAccessory, restrictedToTrait: \"Illicit\" }"
+   "{ type: TagTypeSlotAdditional.SlotAdditionalAccessory, restrictedToTrait: \"Illicit\" }",
+   "{ type: TagTypeAttach.AttachAsset }"
   ]
  },
  {
@@ -765,10 +799,11 @@
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
    "{ type: TagTypeTimingAfter.TimingAfterSuccessfullyInvestigate }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: \"dynamic\" }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
-   "{ type: TagTypeAttach.AttachAsset }"
+   "{ type: TagTypeAttach.AttachAsset }",
+   "{ type: TagTypeTraitSupport.TraitSupportItem }",
+   "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Humanoid\" }"
   ]
  },
  {
@@ -783,7 +818,7 @@
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
    "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
-   "{ type: TagTypeEnemyValue.EnemyValueRemainingHealth }",
+   "{ type: TagTypeEnemyValue.EnemyValueHealth }",
    "{ type: TagTypeDeckShuffle.DeckShuffleEncounter }"
   ]
  },
@@ -792,9 +827,10 @@
   "name": "Quick Getaway",
   "text": "Fast. Play when an enemy attacks you.\n<b>Evade.</b> Attempt to evade the attacking enemy. If you succeed, cancel that enemy's attack.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeCancel.CancelAttack }"
   ]
  },
@@ -806,7 +842,8 @@
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
-   "{ type: TagTypeActionLose.ActionEndTurn }"
+   "{ type: TagTypeActionLose.ActionEndTurn }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -845,7 +882,8 @@
    "{ type: TagTypeEnemyRestriction.EnemyTargetExhausted }",
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Aloof\" }"
+   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Aloof\" }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
   ]
  },
  {
@@ -891,7 +929,8 @@
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
    "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
-   "{ type: TagTypeSoak.SoakHealth, value: 2 }"
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeStatsModSetBase.StatsModSetBase, value: 4 }"
   ]
  },
  {
@@ -925,8 +964,11 @@
   "name": "Living Ink",
   "text": "Customizable. When you purchase Living Ink, choose a skill and circle it on its upgrade sheet.\nUses (3 charges).\nRemove 1 charge from Living Ink at the start of each of your turns. If Living Ink has no charges, discard it.\nYou get +1 to the chosen skill(s).",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }"
   ]
  },
  {
@@ -934,6 +976,7 @@
   "name": "Summoned Servitor",
   "text": "Customizable. As an additional cost to play Summoned Servitor, you must discard another asset you control.\nSummoned Servitor enters play at your location. It can take 1 action during each of your turns, which can only be used to take the following action:\n- Move Summoned Servitor to a connecting revealed location.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeCostOther.CostDiscardCard }"
   ]
  },
@@ -942,11 +985,13 @@
   "name": "Power Word",
   "text": "Customizable. Fast. Play only during your turn.\nAttach to a non-[[Elite]] enemy at your location.\n[action] If attached enemy is at your location: <b>Parley.</b> Give it a command (limit once per round per command) -\n- <i>\"Go.\"</i> This enemy moves once in a direction of your choice.\n- <i>\"Cower.\"</i> This enemy exhausts.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeActionBold.ActionBoldParley }",
-   "{ type: TagTypeEnemyDebuff.EnemyExhaust }"
+   "{ type: TagTypeEnemyDebuff.EnemyExhaust }",
+   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }"
   ]
  },
  {
@@ -975,7 +1020,8 @@
    "{ type: TagTypeCostOther.CostAddDoomSelf, value: 1 }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeLocationProperty.LocationClueZero }",
-   "{ type: TagTypeDoom.DoomRemove }"
+   "{ type: TagTypeDoom.DoomRemove }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }"
   ]
  },
  {
@@ -1006,7 +1052,8 @@
    "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
-   "{ type: TagTypeDoom.DoomRemove }"
+   "{ type: TagTypeDoom.DoomRemove }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
   ]
  },
  {
@@ -1023,10 +1070,12 @@
   "name": "Explosive Ward",
   "text": "Before you play Explosive Ward, you may discard any number of cards from your arcane slots.\nDeal X damage to a non-[[Elite]] enemy engaged with you. X cannot be greater than the number of empty arcane slots you have. This action does not provoke attacks of opportunity.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
    "{ type: TagTypeTestless.TestlessDamageEngagedEnemy, value: \"dynamic\" }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeEnemyEngage.EnemyEngageTargetEngaged }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeCostOther.CostDiscardCard }"
   ]
  },
  {
@@ -1042,7 +1091,8 @@
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
    "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeEnemyMitigation.EnemyMitigationDefeat }",
-   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"enemy\" }"
   ]
  },
  {
@@ -1063,7 +1113,7 @@
   "name": "Ghastly Possession",
   "text": "After you commit Ghastly Possession to a skill test on an asset, choose one:\n- Place 1 doom on that asset. Ghastly Possession gains [wild][wild].\n- If this test is successful, either remove 1 doom from this asset, or replenish half of its uses (rounded down).",
   "tags": [
-   "{ type: TagTypeDoom.DoomAdd }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeDoom.DoomRemove }"
@@ -1075,7 +1125,7 @@
   "text": "For each of your arcane slots that are empty, you have one additional hand slot.\nYou may take an additional action during your turn, which can only be used to play an asset into one of your hand slots.",
   "tags": [
    "{ type: TagTypeSlotAdditional.SlotAdditionalHand }",
-   "{ type: TagTypeActionAdditional.ActionAdditional, value: 1 }"
+   "{ type: TagTypeActionAdditional.ActionAdditional, canOnlyBeUsedTo: BasicAction.Play, value: 1 }"
   ]
  },
  {
@@ -1103,6 +1153,7 @@
   "name": "Sin-Eater",
   "text": "Permanent. Exceptional.\n[fast] Exhaust Sin-Eater: Move 1 doom from an asset you control to Sin-Eater. Then, either ready that asset or place 1 charge on it.\n[action]: Remove all doom from Sin-Eater.",
   "tags": [
+   "{ type: TagTypeDoom.DoomMove }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeControl.ControlYourCard }",
    "{ type: TagTypeReady.ReadyAsset }",
@@ -1116,7 +1167,6 @@
   "text": "You may discard a [[Spell]] or [[Ritual]] asset you control. Play a [[Spell]] or [[Ritual]] card from your hand or discard pile, reducing its resource cost by 3.",
   "tags": [
    "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypePlayArea.PlayAreaIntoPlayFromHand }",
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 3 }",
@@ -1152,7 +1202,8 @@
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2, action: BasicAction.Investigate }",
    "{ type: TagTypeReady.ReadySelf }",
-   "{ type: TagTypeDoom.DoomRemove }"
+   "{ type: TagTypeDoom.DoomRemove }",
+   "{ type: TagTypeLocationProperty.LocationClueZero }"
   ]
  },
  {
@@ -1178,6 +1229,8 @@
   "name": "Pocket Multi Tool",
   "text": "Customizable. Limit 1 per investigator.\n[fast] During a skill test you are performing, exhaust Pocket Multi Tool: You get +1 skill value for this test.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }"
@@ -1188,11 +1241,13 @@
   "name": "Makeshift Trap",
   "text": "Customizable. Uses (2 time). If Makeshift Trap has no time, discard it.\nAttach to your location.\nEach non-[[Elite]] enemy at attached location get -1 fight and -1 evade.\n<b>Forced</b> - At the end of the round: Remove 1 time from Makeshift Trap.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeEnemyValue.EnemyValueFightReduction }",
-   "{ type: TagTypeEnemyValue.EnemyValueEvadeReduction }"
+   "{ type: TagTypeEnemyValue.EnemyValueEvadeReduction }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }"
   ]
  },
  {
@@ -1200,6 +1255,7 @@
   "name": "Grizzled",
   "text": "Customizable. When you purchase Grizzled, choose and record two [[Traits]] on its upgrade sheet.\nIf this is a skill test on or against an encounter card <i>(including fighting, evading, or parleying)</i>, Grizzled gains [wild][wild] for each of the chosen traits that encounter card possesses.",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
   ]
  },
@@ -1225,7 +1281,8 @@
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeSoak.SoakHealth, value: 3 }"
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {
@@ -1233,6 +1290,7 @@
   "name": "End of the Road",
   "text": "Fast. Play during your turn only if the final agenda is in play.\nDraw 1 card, gain 1 resource, and gain 1 additional action. Remove End of the Road from the game.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
    "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
@@ -1245,12 +1303,14 @@
   "name": "Exploit Weakness",
   "text": "Fast. Play before revealing a chaos token during an attack or evasion attempt you are performing, and only if the difficulty of this test is currently 0.\nThis test automatically succeeds. Instead of this test's normal effects, discard the attacked or evaded enemy (if it is [[Elite]], automatically evade it and deal it 3 damage instead).",
   "tags": [
+   "{ type: TagTypeTestDifficulty.TestDifficultyCondition }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeAuto.AutoSuccess }",
    "{ type: TagTypeEnemyMitigation.EnemyMitigationDiscard }",
    "{ type: TagTypeEnemyElite.EnemyEliteReducedEffect }",
    "{ type: TagTypeAuto.AutoEvade }",
-   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 3 }"
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 3 }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -1258,6 +1318,7 @@
   "name": "Making Preparations",
   "text": "Max 2 [[Dilemma]] per round.\n<b>Revelation</b> - Choose two skills ([willpower], [intellect], [combat], or [agility]). Until the end of the investigation phase, each investigator gets +1 to each of the chosen skills, and -1 to each other skill.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 1 }",
    "{ type: TagTypeDuration.DurationUntilEndPhase }"
   ]
@@ -1267,6 +1328,7 @@
   "name": "Predator or Prey",
   "text": "Max 2 [[Dilemma]] per round.\n<b>Revelation</b> - If there are no enemies in play, draw 1 card. Otherwise, you must decide (choose one):\n- Each unengaged non-[[Elite]] enemy moves once toward the nearest investigator.\n- Each investigator disengages from each enemy engaged with them and moves once away from the nearest enemy.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
@@ -1279,10 +1341,12 @@
   "name": "Shed a Light",
   "text": "Fast. Play before revealing a chaos token during an investigation you are performing, and only if the difficulty of this test is currently 0.\nThis test automatically succeeds. You discover 1 additional clue at this location and 1 additional clue at any location.",
   "tags": [
+   "{ type: TagTypeTestDifficulty.TestDifficultyCondition }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeAuto.AutoSuccess }",
    "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }"
+   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -1290,6 +1354,7 @@
   "name": "At a Crossroads",
   "text": "Max 2 [[Dilemma]] per round.\n<b>Revelation</b> - Choose an investigator and decide (choose one):\n- The chosen investigator must immediately take an action as if it were their turn, then discards 1 card at random from their hand.\n- The chosen investigator loses 1 action during their next turn, then draws 3 cards.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeActionAdditional.ActionTakeImmediate, target: \"investigator\" }",
    "{ type: TagTypeDeckDiscard.DeckDiscardCardRandom }",
    "{ type: TagTypeActionLose.ActionLoseAction }",
@@ -1302,7 +1367,8 @@
   "text": "Max 1 per turn.\nFast. Play when an investigator's turn would end.\nThat investigator may take X additional actions during their turn. X is the number of skill tests they failed during their turn. Exile Lifeline.",
   "tags": [
    "{ type: TagTypeActionAdditional.ActionAdditional, target: \"investigator\" }",
-   "{ type: TagTypeExile.ExileSelf }"
+   "{ type: TagTypeExile.ExileSelf }",
+   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.Before }"
   ]
  },
  {
@@ -1310,6 +1376,8 @@
   "name": "Nature of the Beast",
   "text": "Max 2 [[Dilemma]] per round.\n<b>Revelation</b> - Reveal the top 3 cards of the encounter deck. Choose an investigator to draw 1 of the revealed cards and discard the rest. Then, choose an investigator to discover 1 clue at any revealed location.",
   "tags": [
+   "{ type: TagTypeTestless.TestlessClue, value: 1 }",
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeDeckLook.DeckLookEncounter, value: 3, reorder: false }",
    "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 }",
    "{ type: TagTypeDeckDiscard.DeckDiscardEncounter }",
@@ -1338,7 +1406,8 @@
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypePlayArea.PlayAreaToHand }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDiscard }"
   ]
  },
  {
@@ -1349,7 +1418,8 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterDrawCard }"
   ]
  },
  {
@@ -1357,8 +1427,10 @@
   "name": "Heed the Dream",
   "text": "Max 2 [[Dilemma]] per round.\n<b>Revelation</b> - Reveal the top card from each investigator's deck and place them in a pile. Repeat this two more times. Choose one of the three piles. Each investigator draws each of their cards from that pile. Shuffle each weakness in each other pile into its owner's deck. Remove each other revealed card from the game.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeDeckDraw.DeckDrawInvestigator, value: 1 }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeDeckLook.DeckLookInvestigator, value: 3, reorder: false }"
   ]
  },
  {
@@ -1382,7 +1454,8 @@
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeLocationShroud.LocationShroudMinus2 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
+   "{ type: TagTypeTestDifficulty.TestDifficultyCondition }"
   ]
  },
  {
@@ -1390,11 +1463,13 @@
   "name": "Fickle Fortune",
   "text": "Max 2 [[Dilemma]] per round.\n<b>Revelation</b> - You must decide (choose one):\n- Place 1 doom on the current agenda. Each investigator heals 3 damage and 3 horror.\n- Remove 1 doom from the current agenda. Each investigator takes 1 direct damage and 1 direct horror. Remove Fickle Fortune from the game.",
   "tags": [
-   "{ type: TagTypeDoom.DoomAdd }",
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }",
    "{ type: TagTypeHeal.HealDamageInvestigator, value: 3 }",
    "{ type: TagTypeHeal.HealHorrorInvestigator, value: 3 }",
    "{ type: TagTypeDoom.DoomRemove }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }"
+   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
+   "{ type: TagTypeRfg.RfgSelf }"
   ]
  },
  {
@@ -1402,6 +1477,8 @@
   "name": "Hyperphysical Shotcaster",
   "text": "Customizable. Uses (4 aether). If Hyperphysical Shotcaster has no aether, discard it.\n[action] Spend 1 aether: Resolve the <i>Manifest</i> ability of the Hyperphysical Shotcaster's current form.\n[fast] Exhaust Hyperphysical Shotcaster: Change its form <i>(to one you have unlocked on its upgrade sheet).</i>",
   "tags": [
+   "{ type: TagTypeCustomizable.Customizable }",
+   "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }"
   ]
@@ -1421,7 +1498,9 @@
   "code": "09121",
   "name": "Refine",
   "text": "As an additional cost to play Refine, spend an action.\nImmediately mark a checkbox on an upgrade sheet for a customizable card you own, even if it is not in play.\nMax once per game for each investigator.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCostOther.CostPlaySpendAction }"
+  ]
  },
  {
   "code": "09122",
@@ -1431,7 +1510,8 @@
    "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 4 }",
    "{ type: TagTypeCostReaction.CostReactionSpendSupply }",
    "{ type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2, action: BasicAction.Investigate }",
-   "{ type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2, action: BasicAction.Evade }"
+   "{ type: TagTypeTestDifficulty.TestDifficultyReduce, value: 2, action: BasicAction.Evade }",
+   "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
  {
@@ -1441,7 +1521,8 @@
   "tags": [
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"offering\" }",
    "{ type: TagTypeCostFree.CostFreeSpendOffering }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeTimingAfter.TimingAfterHealHorror }"
   ]
  },
  {
@@ -1455,6 +1536,7 @@
   "name": "Quantum Paradox",
   "text": "[seeker] investigator only.\nAs an additional cost to play Quantum Paradox, you must choose and discard 4 other cards from your hand.\n<b>Forced</b> - If Quantum Paradox is in your hand at the end of your turn: Reveal it and take 1 horror.",
   "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeCostOther.CostDiscardCard }"
   ]
  },
@@ -1463,7 +1545,8 @@
   "name": "Pay Your Due",
   "text": "[rogue] investigator only.\nAs an additional cost to play Pay Your Due, you may spend any number of additional actions. Reduce its cost by 5 for each additional action spent.\n<b>Forced</b> - If Pay Your Due is in your hand at the end of your turn: Reveal it and take 1 damage.",
   "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
+   "{ type: TagTypeCostOther.CostPlaySpendAction }",
    "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: \"dynamic\" }"
   ]
  },
@@ -1480,6 +1563,8 @@
   "code": "09128",
   "name": "Underprepared",
   "text": "[survivor] investigator only.\nPlay only if Underprepared is the only card in your hand and you have exactly 1 resource in your resource pool.\nWhile Underprepared is in your hand, each card you commit to skill tests is considered to have 1 fewer matching skill icon.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }"
+  ]
  }
 ]

@@ -75,6 +75,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "discard" },
       { type: TagTypeTraitSupport.TraitSupportWeapon },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "deck" },
     ],
   },
   {
@@ -139,6 +140,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "combat"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeSoak.SoakHealth, value: 3 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 },
@@ -172,7 +174,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "generic" },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
     ],
   },
@@ -318,6 +319,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "intellect"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
@@ -433,6 +435,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "combat", "wild"],
     tags: [
+      { type: TagTypeTestless.TestlessClue, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 },
       { type: TagTypeSoak.SoakHealth, value: 4 },

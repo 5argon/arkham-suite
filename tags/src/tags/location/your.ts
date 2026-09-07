@@ -4,7 +4,6 @@ export enum TagTypeLocationYour {
   LocationYourEnemy = "location-your-enemy",
   LocationYourInvestigator = "location-your-investigator",
   LocationYourAlly = "location-your-ally",
-  LocationYourClue = "location-your-clue",
 }
 
 interface TagLocationYourBase extends TagBase {}
@@ -28,6 +27,3 @@ export interface TagLocationYourAlly extends TagLocationYourBase {
   type: TagTypeLocationYour.LocationYourAlly;
 }
 
-export interface TagLocationYourClue extends TagLocationYourBase {
-  type: TagTypeLocationYour.LocationYourClue;
-}

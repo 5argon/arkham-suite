@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeBuffInvestigatorStats {
   BuffInvestigatorHealth = "buff-investigator-health",
@@ -6,7 +7,8 @@ export enum TagTypeBuffInvestigatorStats {
 }
 
 interface TagBuffInvestigatorStatsBase extends TagBase {
-  value: number;
+  /** The amount raised; "dynamic" when it scales (parallel Daisy: +1 sanity per Tome). */
+  value: DynamicValue;
 }
 
 /**
