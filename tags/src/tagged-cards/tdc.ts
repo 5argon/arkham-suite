@@ -1,8 +1,4 @@
 import {
-  TagTypeLocationProperty,
-  TagTypeStatsModBoostLasting,
-  TagTypeDoom,
-  TagTypeTestDifficulty,
   TagTypeActionActivate,
   TagTypeActionAdditional,
   TagTypeActionBold,
@@ -33,6 +29,7 @@ import {
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
+  TagTypeDoom,
   TagTypeDuration,
   TagTypeEnemyDebuff,
   TagTypeEnemyElite,
@@ -46,6 +43,7 @@ import {
   TagTypeHeal,
   TagTypeLocationConnecting,
   TagTypeLocationMove,
+  TagTypeLocationProperty,
   TagTypeLocationShroud,
   TagTypeLocationYour,
   TagTypePhase,
@@ -62,10 +60,12 @@ import {
   TagTypeSoak,
   TagTypeStatsModAddStat,
   TagTypeStatsModBoostInTest,
+  TagTypeStatsModBoostLasting,
   TagTypeStatsModBoostPassive,
   TagTypeStatsModPump,
   TagTypeStatsModUseInstead,
   TagTypeTank,
+  TagTypeTestDifficulty,
   TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestless,
@@ -311,6 +311,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCommit.CommitFromNonHand, source: "attached" },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeHandSize.HandSizeMaxDecrease, value: "dynamic" },
     ],
   },
   {
@@ -468,6 +469,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeReady.ReadyAsset },
       { type: TagTypeChaosTokenPool.ChaosSpendSealed },
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
+      { type: TagTypeChaosSeal.ChaosSealTokenPlus1 },
     ],
   },
   {
@@ -479,7 +481,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "intellect", "combat", "wild"],
     tags: [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeReady.ReadyAlly },
+      { type: TagTypeReady.ReadyAsset, restrictedToTrait: "Ally" },
       { type: TagTypeLocationYour.LocationYourAlly },
       { type: TagTypeHeal.HealDamageAlly, value: 1 },
       { type: TagTypeHeal.HealHorrorAlly, value: 1 },
@@ -631,7 +633,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
       { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeCostReaction.CostReactionSpendEvidence },
+      { type: TagTypeCostReaction.CostReactionSpendResource, source: "card" },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 },
       { type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: "Geist" },
@@ -724,6 +726,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCancel.CancelAttack },
       { type: TagTypeLocationMove.LocationMoveInvestigatorAny },
       { type: TagTypeLocationProperty.LocationClueZero },
+      { type: TagTypeChaosSeal.ChaosSealTokenPlus1 },
     ],
   },
   {
@@ -850,7 +853,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["combat"],
     tags: [
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 },
-      { type: TagTypeCostAction.CostActionDiscardFromHand },
+      { type: TagTypeCostOther.CostDiscardCard },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeTraitSupport.TraitSupportFirearm },
       { type: TagTypeActionActivate.ActionActivateIgnoringCost },
@@ -885,7 +888,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldParley },
       { type: TagTypeDeckSearch.DeckSearchEncounter, range: "all" },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
-      { type: TagTypeEnemyDebuff.EnemyExhaust },
       { type: TagTypeEnemyEngage.EnemyEngageEffect },
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
@@ -1068,7 +1070,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingAmmo, value: 12 },
       { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeStatsModPump.StatsModPumpAmmo, valuePerPump: 1 },
+      { type: TagTypeStatsModPump.StatsModPumpUses, useType: "ammo", valuePerPump: 1 },
       { type: TagTypeDamage.DamageSpread, value: "dynamic" },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeEnemyValue.EnemyValueFight },
@@ -1219,6 +1221,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
       { type: TagTypeSoak.SoakHealth, value: 3 },
+      { type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: false },
     ],
   },
   {
@@ -1307,6 +1310,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingPhaseSequence.PhaseMythosDrawEncounter, timing: TimingQualifier.When },
       { type: TagTypeDeckDraw.DeckDrawEncounter, value: "dynamic" },
       { type: TagTypePhase.PhaseSkip },
+      { type: TagTypeTank.TankRedirectEncounter },
     ],
   },
   {
@@ -1450,6 +1454,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitBenefitsPerformer },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
+      { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
     ],
   },
   {
@@ -1512,6 +1517,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeEnemyValue.EnemyValueFightReduction },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeDiscardPile.DiscardPileToDeck },
     ],
   },
   {
@@ -1524,7 +1530,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
       { type: TagTypeCommit.CommitMax, value: 1 },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "max" },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 2 },
     ],
@@ -1542,7 +1548,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitFromNonHand, source: "discard" },
       { type: TagTypeCostOther.CostDiscardCard },
       { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
-      { type: TagTypeDiscardPile.DiscardPileToBottomDeck },
+      { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
     ],
   },
   {
@@ -1639,6 +1645,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeCommit.CommitBenefitsPerformer },
+      { type: TagTypeSkillValue.SkillValueMarginAdjust },
     ],
   },
   {
@@ -1734,6 +1741,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
+      { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
     ],
   },
   {
@@ -2039,7 +2047,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeCostAction.CostActionSpendResource },
-      { type: TagTypeCostAction.CostActionDiscardFromHand },
+      { type: TagTypeCostOther.CostDiscardCard },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
     ],

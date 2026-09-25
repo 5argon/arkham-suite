@@ -24,7 +24,8 @@
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeTraitSupport.TraitSupportWeapon }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"deck\" }"
+   "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"deck\" }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -62,7 +63,8 @@
   "text": "Uses (4 charges).\n[reaction] When you are dealt damage and/or horror from an enemy attack, exhaust Flesh Ward and spend 1 charge: Cancel 1 damage or horror just dealt from that attack.",
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
-   "{ type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: \"enemy-attack\" }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror, source: \"enemy-attack\" }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeCostReaction.CostReactionSpendCharge }",
    "{ type: TagTypeCancel.CancelDamage }",
@@ -130,7 +132,8 @@
   "text": "Fast. Play after an enemy attacks you, even if that attack was canceled.\n<b>Fight.</b> This attack targets the attacking enemy.",
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEnemyAttacks }",
-   "{ type: TagTypeActionBold.ActionBoldFight }"
+   "{ type: TagTypeActionBold.ActionBoldFight }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {
@@ -238,7 +241,8 @@
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {
@@ -260,7 +264,7 @@
   "name": "Lesson Learned",
   "text": "Fast. Play after you take damage from an enemy attack.\nDiscover 2 clues at your location.",
   "tags": [
-   "{ type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: \"enemy-attack\" }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
    "{ type: TagTypeTestless.TestlessClue, value: 2 }"
   ]
@@ -337,7 +341,8 @@
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYouMultiple }",
-   "{ type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 }"
+   "{ type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 1 }"
   ]
  },
  {

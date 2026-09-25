@@ -81,7 +81,7 @@
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeDuration.DurationUntilEndPhase }",
-   "{ type: TagTypeEnemyRestriction.EnemyBlankText }"
+   "{ type: TagTypeEncounter.EncounterBlankText, target: \"enemy\" }"
   ]
  },
  {

@@ -87,7 +87,6 @@ import type {
   TagChaosEffectResolveAdditional,
   TagChaosEffectResolveChoose,
   TagChaosEffectRevealBeforeEffect,
-  TagChaosEffectTreatAsElderSign,
   TagChaosEffectTreatTokenAs,
   TagChaosPredict,
   TagChaosRecycleToken,
@@ -112,6 +111,7 @@ import type {
   TagChaosSealTokenCurse,
   TagChaosSealTokenElderSign,
   TagChaosSealTokenElderThing,
+  TagChaosSealTokenPlus1,
   TagChaosSealTokenSkull,
   TagChaosSealTokenTablet,
   TagChaosSpendSealed,
@@ -119,7 +119,7 @@ import type {
 } from "./tags/chaos/index.js";
 
 import type {
-  TagClueAdditionalRevealedLocations,
+  TagClueAdditionalOtherLocation,
   TagClueAdditionalThisLocation,
   TagClueDiscoverAnyLocation,
   TagClueDiscoverConnectingLocation,
@@ -154,7 +154,6 @@ import type {
 } from "./tags/control/index.js";
 
 import type {
-  TagCostActionDiscardFromHand,
   TagCostActionDiscardSelf,
   TagCostActionExhaustSelf,
   TagCostActionMultiple,
@@ -189,7 +188,6 @@ import type {
   TagCostReactionSpendAmmo,
   TagCostReactionSpendCharge,
   TagCostReactionSpendClue,
-  TagCostReactionSpendEvidence,
   TagCostReactionSpendResource,
   TagCostReactionSpendSecret,
   TagCostReactionSpendSupply,
@@ -243,7 +241,6 @@ import type {
 } from "./tags/discard/index.js";
 
 import type {
-  TagDiscardPileToBottomDeck,
   TagDiscardPileToDeck,
   TagDiscardPileToHand,
 } from "./tags/discard-pile/index.js";
@@ -259,23 +256,20 @@ import type {
 import type {
   TagDurationEnemyPhase,
   TagDurationNext,
-  TagDurationNextSkillTestThisPhase,
-  TagDurationNextSkillTestThisTurn,
   TagDurationUntilEndPhase,
   TagDurationUntilEndRound,
   TagDurationUntilEndTurn,
 } from "./tags/duration/index.js";
 
 import type {
+  TagEncounterBlankText,
   TagEncounterOffload,
 } from "./tags/encounter/index.js";
 
 import type {
-  TagEnemyBlankText,
   TagEnemyCannotAttack,
   TagEnemyCannotMove,
   TagEnemyCannotMoveIntoLocation,
-  TagEnemyDefeatOnAttackSuccess,
   TagEnemyDoesNotReady,
   TagEnemyEliteNonEliteOnly,
   TagEnemyEliteReducedEffect,
@@ -294,6 +288,7 @@ import type {
   TagEnemyMitigationDefeat,
   TagEnemyMitigationDiscard,
   TagEnemyNonWeakness,
+  TagEnemyTargetAttacking,
   TagEnemyTargetExhausted,
   TagEnemyTraitRestriction,
   TagEnemyValueDamage,
@@ -360,8 +355,6 @@ import type {
   TagLocationPropertyClueZero,
   TagLocationPropertyEnemyZero,
   TagLocationShroudDependent,
-  TagLocationShroudMinus1,
-  TagLocationShroudMinus2,
   TagLocationShroudReduction,
   TagLocationYourAlly,
   TagLocationYourEnemy,
@@ -389,7 +382,6 @@ import type {
 } from "./tags/play-area/index.js";
 
 import type {
-  TagReadyAlly,
   TagReadyAsset,
   TagReadySelf,
 } from "./tags/ready/index.js";
@@ -434,6 +426,7 @@ import type {
   TagSkillValueFailByOrLess,
   TagSkillValueFailByOrMore,
   TagSkillValueFromResource,
+  TagSkillValueMarginAdjust,
   TagSkillValueSucceedByDynamic,
   TagSkillValueSucceedByExactly,
   TagSkillValueSucceedByOrMore,
@@ -472,9 +465,8 @@ import type {
   TagStatsModBoostPassiveCombat,
   TagStatsModBoostPassiveIntellect,
   TagStatsModBoostPassiveWillpower,
-  TagStatsModPumpAmmo,
-  TagStatsModPumpCharge,
   TagStatsModPumpResource,
+  TagStatsModPumpUses,
   TagStatsModSetBase,
   TagStatsModUseInstead,
 } from "./tags/stats-mod/index.js";
@@ -487,13 +479,11 @@ import type {
 } from "./tags/tank/index.js";
 
 import type {
-  TagTestFailBy,
   TagTestInitiateAgility,
   TagTestInitiateCombat,
   TagTestInitiateIntellect,
   TagTestInitiateWillpower,
   TagTestRepeatFailed,
-  TagTestSucceedBy,
   TagTestYouPerform,
 } from "./tags/test/index.js";
 
@@ -512,14 +502,13 @@ import type {
   TagTestlessDamageYourLocation,
   TagTestlessDamageYourLocationMultiple,
   TagTestlessEvade,
+  TagTestlessMoveEnemy,
 } from "./tags/testless/index.js";
 
 import type {
   TagTimingAfterDiscoverClue,
   TagTimingAfterDrawCard,
   TagTimingAfterEnemyAttacks,
-  TagTimingAfterEnemyDealDamageSelf,
-  TagTimingAfterEnemyDealDamageYou,
   TagTimingAfterEngageEnemy,
   TagTimingAfterEntersPlay,
   TagTimingAfterEvadeEnemy,
@@ -531,7 +520,6 @@ import type {
   TagTimingDuringYourTurn,
   TagTimingForcedEntersLocation,
   TagTimingForcedLeavesPlay,
-  TagTimingForcedSpawnYourLocation,
   TagTimingForcedWhenTakeDamage,
   TagTimingForcedWhenTakeHorror,
   TagTimingGameBegins,
@@ -702,7 +690,6 @@ export type Tag =
   | TagChaosEffectResolveAdditional
   | TagChaosEffectResolveChoose
   | TagChaosEffectRevealBeforeEffect
-  | TagChaosEffectTreatAsElderSign
   | TagChaosEffectTreatTokenAs
   | TagChaosPredict
   | TagChaosRecycleToken
@@ -727,12 +714,13 @@ export type Tag =
   | TagChaosSealTokenCurse
   | TagChaosSealTokenElderSign
   | TagChaosSealTokenElderThing
+  | TagChaosSealTokenPlus1
   | TagChaosSealTokenSkull
   | TagChaosSealTokenTablet
   | TagChaosSpendSealed
   | TagChaosSymbolPayoff
   // Clue tags
-  | TagClueAdditionalRevealedLocations
+  | TagClueAdditionalOtherLocation
   | TagClueAdditionalThisLocation
   | TagClueDiscoverAnyLocation
   | TagClueDiscoverConnectingLocation
@@ -759,7 +747,6 @@ export type Tag =
   | TagControlTransferAsset
   | TagControlYourCard
   // Cost tags
-  | TagCostActionDiscardFromHand
   | TagCostActionDiscardSelf
   | TagCostActionExhaustSelf
   | TagCostActionMultiple
@@ -794,7 +781,6 @@ export type Tag =
   | TagCostReactionSpendAmmo
   | TagCostReactionSpendCharge
   | TagCostReactionSpendClue
-  | TagCostReactionSpendEvidence
   | TagCostReactionSpendResource
   | TagCostReactionSpendSecret
   | TagCostReactionSpendSupply
@@ -836,7 +822,6 @@ export type Tag =
   | TagDiscardFromPlaySelfNoUses
   | TagDiscardTreacheryInPlay
   // Discard Pile tags
-  | TagDiscardPileToBottomDeck
   | TagDiscardPileToDeck
   | TagDiscardPileToHand
   // Doom tags
@@ -848,19 +833,16 @@ export type Tag =
   // Duration tags
   | TagDurationEnemyPhase
   | TagDurationNext
-  | TagDurationNextSkillTestThisPhase
-  | TagDurationNextSkillTestThisTurn
   | TagDurationUntilEndPhase
   | TagDurationUntilEndRound
   | TagDurationUntilEndTurn
   // Encounter tags
+  | TagEncounterBlankText
   | TagEncounterOffload
   // Enemy tags
-  | TagEnemyBlankText
   | TagEnemyCannotAttack
   | TagEnemyCannotMove
   | TagEnemyCannotMoveIntoLocation
-  | TagEnemyDefeatOnAttackSuccess
   | TagEnemyDoesNotReady
   | TagEnemyEliteNonEliteOnly
   | TagEnemyEliteReducedEffect
@@ -879,6 +861,7 @@ export type Tag =
   | TagEnemyMitigationDefeat
   | TagEnemyMitigationDiscard
   | TagEnemyNonWeakness
+  | TagEnemyTargetAttacking
   | TagEnemyTargetExhausted
   | TagEnemyTraitRestriction
   | TagEnemyValueDamage
@@ -933,8 +916,6 @@ export type Tag =
   | TagLocationPropertyClueZero
   | TagLocationPropertyEnemyZero
   | TagLocationShroudDependent
-  | TagLocationShroudMinus1
-  | TagLocationShroudMinus2
   | TagLocationShroudReduction
   | TagLocationYourAlly
   | TagLocationYourEnemy
@@ -954,7 +935,6 @@ export type Tag =
   | TagPlayAreaToDeck
   | TagPlayAreaToHand
   // Ready tags
-  | TagReadyAlly
   | TagReadyAsset
   | TagReadySelf
   // Recursion tags
@@ -987,6 +967,7 @@ export type Tag =
   | TagSkillValueFailByOrLess
   | TagSkillValueFailByOrMore
   | TagSkillValueFromResource
+  | TagSkillValueMarginAdjust
   | TagSkillValueSucceedByDynamic
   | TagSkillValueSucceedByExactly
   | TagSkillValueSucceedByOrMore
@@ -1019,9 +1000,8 @@ export type Tag =
   | TagStatsModBoostPassiveCombat
   | TagStatsModBoostPassiveIntellect
   | TagStatsModBoostPassiveWillpower
-  | TagStatsModPumpAmmo
-  | TagStatsModPumpCharge
   | TagStatsModPumpResource
+  | TagStatsModPumpUses
   | TagStatsModSetBase
   | TagStatsModUseInstead
   // Tank tags
@@ -1030,13 +1010,11 @@ export type Tag =
   | TagTankRedirectDamageHorror
   | TagTankRedirectEncounter
   // Test tags
-  | TagTestFailBy
   | TagTestInitiateAgility
   | TagTestInitiateCombat
   | TagTestInitiateIntellect
   | TagTestInitiateWillpower
   | TagTestRepeatFailed
-  | TagTestSucceedBy
   | TagTestYouPerform
   // Test Difficulty tags
   | TagTestDifficultyCondition
@@ -1051,12 +1029,11 @@ export type Tag =
   | TagTestlessDamageYourLocation
   | TagTestlessDamageYourLocationMultiple
   | TagTestlessEvade
+  | TagTestlessMoveEnemy
   // Timing tags
   | TagTimingAfterDiscoverClue
   | TagTimingAfterDrawCard
   | TagTimingAfterEnemyAttacks
-  | TagTimingAfterEnemyDealDamageSelf
-  | TagTimingAfterEnemyDealDamageYou
   | TagTimingAfterEngageEnemy
   | TagTimingAfterEntersPlay
   | TagTimingAfterEvadeEnemy
@@ -1068,7 +1045,6 @@ export type Tag =
   | TagTimingDuringYourTurn
   | TagTimingForcedEntersLocation
   | TagTimingForcedLeavesPlay
-  | TagTimingForcedSpawnYourLocation
   | TagTimingForcedWhenTakeDamage
   | TagTimingForcedWhenTakeHorror
   | TagTimingGameBegins

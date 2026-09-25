@@ -185,7 +185,8 @@
   "text": "Your max hand size is equal to the number of facedown cards beneath George Barnaby. (Limit 5 cards.)\nYou may commit facedown cards beneath George Barnaby to skill tests as if they were in your hand.\n[reaction] After you discard a card from your hand: Place it facedown beneath George Barnaby, then draw 1 card. (Limit once per phase.)\n[elder_sign] effect: +1. Draw 1 card.",
   "tags": [
    "{ type: TagTypeCommit.CommitFromNonHand, source: \"attached\" }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeHandSize.HandSizeMaxDecrease, value: \"dynamic\" }"
   ]
  },
  {
@@ -311,7 +312,8 @@
    "{ type: TagTypeCancel.CancelAttack }",
    "{ type: TagTypeReady.ReadyAsset }",
    "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
-   "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }"
+   "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenPlus1 }"
   ]
  },
  {
@@ -320,7 +322,7 @@
   "text": "If this skill test is successful, ready an [[Ally]] asset at your location and heal 1 damage and 1 horror from it.",
   "tags": [
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeReady.ReadyAlly }",
+   "{ type: TagTypeReady.ReadyAsset, restrictedToTrait: \"Ally\" }",
    "{ type: TagTypeLocationYour.LocationYourAlly }",
    "{ type: TagTypeHeal.HealDamageAlly, value: 1 }",
    "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }"
@@ -445,7 +447,7 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeCostReaction.CostReactionSpendEvidence }",
+   "{ type: TagTypeCostReaction.CostReactionSpendResource, source: \"card\" }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
    "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 }",
    "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Geist\" }",
@@ -522,7 +524,8 @@
    "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
    "{ type: TagTypeCancel.CancelAttack }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
-   "{ type: TagTypeLocationProperty.LocationClueZero }"
+   "{ type: TagTypeLocationProperty.LocationClueZero }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenPlus1 }"
   ]
  },
  {
@@ -625,7 +628,7 @@
   "text": "You get +1 [combat].\n[action] Discard a [[Firearm]] asset that takes up 1 or fewer hand slots from your hand and exhaust Robert Castaigne: Resolve a <b>Fight</b> ability on the discarded asset, ignoring all costs. This does not provoke attacks of opportunity.",
   "tags": [
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
@@ -654,7 +657,6 @@
    "{ type: TagTypeActionBold.ActionBoldParley }",
    "{ type: TagTypeDeckSearch.DeckSearchEncounter, range: \"all\" }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
-   "{ type: TagTypeEnemyDebuff.EnemyExhaust }",
    "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
@@ -804,7 +806,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 12 }",
    "{ type: TagTypeCostAction.CostActionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeStatsModPump.StatsModPumpAmmo, valuePerPump: 1 }",
+   "{ type: TagTypeStatsModPump.StatsModPumpUses, useType: \"ammo\", valuePerPump: 1 }",
    "{ type: TagTypeDamage.DamageSpread, value: \"dynamic\" }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeEnemyValue.EnemyValueFight }",
@@ -930,7 +932,8 @@
   "text": "Exceptional.\nYou get +1 [willpower].\nPlay with the top card of the encounter deck revealed.",
   "tags": [
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
-   "{ type: TagTypeSoak.SoakHealth, value: 3 }"
+   "{ type: TagTypeSoak.SoakHealth, value: 3 }",
+   "{ type: TagTypeDeckLook.DeckLookEncounter, value: 1, reorder: false }"
   ]
  },
  {
@@ -998,7 +1001,8 @@
   "tags": [
    "{ type: TagTypeTimingPhaseSequence.PhaseMythosDrawEncounter, timing: TimingQualifier.When }",
    "{ type: TagTypeDeckDraw.DeckDrawEncounter, value: \"dynamic\" }",
-   "{ type: TagTypePhase.PhaseSkip }"
+   "{ type: TagTypePhase.PhaseSkip }",
+   "{ type: TagTypeTank.TankRedirectEncounter }"
   ]
  },
  {
@@ -1114,7 +1118,8 @@
    "{ type: TagTypeCommit.CommitOtherInvestigator, range: \"connecting\" }",
    "{ type: TagTypeCommit.CommitBenefitsPerformer }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }"
+   "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingInvestigator }"
   ]
  },
  {
@@ -1164,7 +1169,8 @@
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeEnemyValue.EnemyValueFightReduction }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck }"
   ]
  },
  {
@@ -1174,7 +1180,7 @@
   "tags": [
    "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
-   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"max\" }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 2 }"
   ]
@@ -1189,7 +1195,7 @@
    "{ type: TagTypeCommit.CommitFromNonHand, source: \"discard\" }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
-   "{ type: TagTypeDiscardPile.DiscardPileToBottomDeck }"
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true }"
   ]
  },
  {
@@ -1260,7 +1266,8 @@
   "tags": [
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeCommit.CommitBenefitsPerformer }"
+   "{ type: TagTypeCommit.CommitBenefitsPerformer }",
+   "{ type: TagTypeSkillValue.SkillValueMarginAdjust }"
   ]
  },
  {
@@ -1337,7 +1344,8 @@
   "tags": [
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
-   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 }"
   ]
  },
  {
@@ -1587,7 +1595,7 @@
   "tags": [
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeCostAction.CostActionSpendResource }",
-   "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
   ]

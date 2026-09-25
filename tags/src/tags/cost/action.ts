@@ -1,7 +1,6 @@
 import { TagBase } from "../../base.js";
 
 export enum TagTypeCostAction {
-  CostActionDiscardFromHand = "cost-action-discard-from-hand",
   CostActionDiscardSelf = "cost-action-discard-self",
   CostActionExhaustSelf = "cost-action-exhaust-self",
   CostActionMultiple = "cost-action-multiple",
@@ -13,10 +12,6 @@ export enum TagTypeCostAction {
 }
 
 interface TagCostActionBase extends TagBase {}
-
-export interface TagCostActionDiscardFromHand extends TagCostActionBase {
-  type: TagTypeCostAction.CostActionDiscardFromHand;
-}
 
 export interface TagCostActionDiscardSelf extends TagCostActionBase {
   type: TagTypeCostAction.CostActionDiscardSelf;

@@ -18,6 +18,7 @@ import {
   TagTypeDiscardPile,
   TagTypeEnemyElite,
   TagTypeEnemyEngage,
+  TagTypeEnemyRestriction,
   TagTypeGainResource,
   TagTypeHeal,
   TagTypeLocationConnecting,
@@ -36,6 +37,7 @@ import {
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
+  TagTypeTimingForced,
   TagTypeTimingWhen,
   TagTypeTraitSupport,
   TagTypeUsesAccumulate,
@@ -76,6 +78,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportWeapon },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "deck" },
+      { type: TagTypeRecursion.RecursionAsset },
     ],
   },
   {
@@ -125,7 +128,8 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower"],
     tags: [
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 4 },
-      { type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou },
+      { type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: "enemy-attack" },
+      { type: TagTypeTimingForced.TimingForcedWhenTakeHorror, source: "enemy-attack" },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeCostReaction.CostReactionSpendCharge },
       { type: TagTypeCancel.CancelDamage },
@@ -212,6 +216,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingAfter.TimingAfterEnemyAttacks },
       { type: TagTypeActionBold.ActionBoldFight },
+      { type: TagTypeEnemyRestriction.EnemyTargetAttacking },
     ],
   },
   {
@@ -350,6 +355,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeEnemyRestriction.EnemyTargetAttacking },
     ],
   },
   {
@@ -377,7 +383,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["willpower", "intellect", "intellect"],
     tags: [
-      { type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou },
+      { type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: "enemy-attack" },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
       { type: TagTypeTestless.TestlessClue, value: 2 },
     ],
@@ -473,6 +479,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeEnemyEngage.EnemyEngageWithYouMultiple },
       { type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 1 },
+      { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 1 },
     ],
   },
   {

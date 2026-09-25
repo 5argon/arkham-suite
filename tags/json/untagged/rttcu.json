@@ -65,7 +65,8 @@
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeSkillValueSource.SkillValueFromResource, per: 4 }",
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
-   "{ type: TagTypeReady.ReadySelf }"
+   "{ type: TagTypeReady.ReadySelf }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }"
   ]
  },
  {

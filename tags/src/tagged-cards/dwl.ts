@@ -12,7 +12,6 @@ import {
   TagTypeChaosReveal,
   TagTypeClueAdditional,
   TagTypeClueDiscover,
-  TagTypeCluePlace,
   TagTypeCommit,
   TagTypeCondition,
   TagTypeControl,
@@ -66,7 +65,6 @@ import {
   TagTypeTestDifficulty,
   TagTypeTestInitiate,
   TagTypeTestMisc,
-  TagTypeTestResult,
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
@@ -272,7 +270,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 },
+      { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true },
     ],
   },
   {
@@ -575,7 +573,6 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeSkillCommit.SkillCommitNoIcons },
-
       { type: TagTypeVictory.VictoryDisplaySelf },
       { type: TagTypeDeckDraw.DeckDrawEncounter, value: 1 },
     ],
@@ -907,7 +904,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: [],
     tags: [
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 5 },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 },
       { type: TagTypeCostFree.CostFreeSpendResource },
@@ -1068,7 +1065,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyValue.EnemyValueFight },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeEnemyValue.EnemyValueFightReduction },
-      { type: TagTypeDuration.DurationUntilEndPhase },
+      { type: TagTypeDuration.DurationNext, window: "phase" },
     ],
   },
   {
@@ -1097,6 +1094,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeRfg.RfgSelf },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeChaosDownside.ChaosDownsideDiscard },
     ],
   },
   {
@@ -1343,6 +1341,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaFromInvestigator },
       { type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard },
       { type: TagTypeTraitSupport.TraitSupportAlly },
+      { type: TagTypeRecursion.RecursionAsset },
     ],
   },
   {
@@ -1410,7 +1409,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
-      { type: TagTypeEnemyMitigation.EnemyDefeatOnAttackSuccess },
+      { type: TagTypeEnemyMitigation.EnemyMitigationDefeat },
     ],
   },
   {
@@ -1456,7 +1455,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeLocationShroud.LocationShroudDependent },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeClueAdditional.ClueAdditionalRevealedLocations, value: 1 },
+      { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: "dynamic", instead: false },
     ],
   },
   {
@@ -1615,7 +1614,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "willpower", "willpower", "willpower", "intellect", "intellect", "intellect", "combat", "combat", "combat", "agility", "agility"],
     tags: [
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
-      { type: TagTypeChaosEffect.ChaosEffectModifier, treatAs: 0 },
+      { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "skull" },
     ],
@@ -1630,6 +1629,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingGame.TimingGameBegins },
       { type: TagTypeCostOther.CostDiscardCard },
       { type: TagTypeReady.ReadyAsset },
+      { type: TagTypeReady.ReadyAsset, restrictedToTrait: "Ally" },
     ],
   },
   {

@@ -40,9 +40,9 @@ export interface TagRecursionSelfToHand extends TagRecursionBase {
 }
 
 /**
- * Replay an event in place / resolve an ability an extra time ("play that event
- * again as if it were in your hand"). Distinct from RecursionEvent (returns
- * from discard).
+ * Replay an event CARD in place ("play that event again as if it were in your hand" —
+ * Dayana Esperence, Double, Double). Distinct from RecursionEvent (returns from discard);
+ * resolving an ABILITY again is action-activate-ignoring-cost.
  */
 export interface TagRecursionReplay extends TagRecursionBase {
   type: TagTypeRecursion.RecursionReplay;

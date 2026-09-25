@@ -20,7 +20,8 @@
    "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 3 } }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
    "{ type: TagTypeCommit.CommitFromNonHand, source: \"deck-top\" }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeCommit.CommitFetch, source: \"own-deck\" }"
   ]
  },
  {
@@ -481,7 +482,7 @@
   "tags": [
    "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
    "{ type: TagTypeTestDifficulty.TestDifficultyReduce, value: \"dynamic\" }",
-   "{ type: TagTypeDuration.DurationNextSkillTestThisPhase }"
+   "{ type: TagTypeDuration.DurationNext, window: \"phase\" }"
   ]
  },
  {
@@ -533,7 +534,8 @@
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeTraitSupport.TraitSupportItem }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -580,7 +582,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterDrawCard }",
    "{ type: TagTypeCondition.ConditionCopies, zone: \"hand\" }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeHandSize.HandSizeMaxIncrease, value: \"dynamic\" }"
   ]
  },
  {
@@ -716,7 +719,7 @@
   "text": "Reduce the cost to play Extensive Research by 1 for each other card in your hand.\nDiscover 2 clues at your location.",
   "tags": [
    "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: \"dynamic\" }",
-   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"min\" }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
    "{ type: TagTypeTestless.TestlessClue, value: 2 }"
   ]
@@ -729,7 +732,8 @@
    "{ type: TagTypeCondition.ConditionCopies, zone: \"committed\" }",
    "{ type: TagTypeAuto.AutoSuccess }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 3 }",
-   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }"
+   "{ type: TagTypeGainResource.GainResourceYou, value: 3 }",
+   "{ type: TagTypeChaosEffect.ChaosEffectDoNotReveal }"
   ]
  },
  {
@@ -862,7 +866,7 @@
   "text": "Researched.\nWhile you have at least 8 cards in hand, your Essence of the Dream gains [wild][wild].\n[reaction] When your turn begins: Search your bonded cards for Essence of the Dream and add it to your hand.",
   "tags": [
    "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 8 }",
-   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"min\" }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
    "{ type: TagTypeBonded.BondedFetch }"
@@ -956,7 +960,8 @@
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeTestless.TestlessEvade }",
-   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }"
   ]
  },
  {
@@ -1078,7 +1083,8 @@
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
    "{ type: TagTypeCondition.ConditionHandSize, comparison: \"max\", value: 4 }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
-   "{ type: TagTypeRfg.RfgSelf }"
+   "{ type: TagTypeRfg.RfgSelf }",
+   "{ type: TagTypeDeckDraw.DeckDrawFillHand, value: \"dynamic\" }"
   ]
  },
  {
@@ -1092,8 +1098,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
    "{ type: TagTypeChaosEffect.ChaosEffectIgnoreEffect }",
    "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }",
-   "{ type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 }",
-   "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeHeal.HealDamageSelf, value: \"dynamic\" }",
    "{ type: TagTypeHeal.HealHorrorSelf, value: \"dynamic\" }",
@@ -1160,9 +1164,8 @@
    "{ type: TagTypeCostAction.CostActionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeDamage.DamageInsteadRange, from: 1, to: 6 }",
-   "{ type: TagTypeTestResult.TestSucceedBy, amount: \"dynamic\" }",
-   "{ type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 6 }",
-   "{ type: TagTypeTestResult.TestFailBy, amount: \"dynamic\" }"
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 6 }"
   ]
  },
  {

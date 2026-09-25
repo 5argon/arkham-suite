@@ -79,7 +79,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingKey, value: 2 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus2 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }"
   ]
  },
@@ -93,7 +93,8 @@
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
    "{ type: TagTypeTimingWhen.TimingWhenWouldFailTest }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }"
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
+   "{ type: TagTypeSkillValue.SkillValueMarginAdjust }"
   ]
  },
  {
@@ -138,7 +139,7 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
    "{ type: TagTypeChaosEffect.ChaosEffectDoNotReveal }",
-   "{ type: TagTypeDuration.DurationNextSkillTestThisTurn }",
+   "{ type: TagTypeDuration.DurationNext, window: \"turn\" }",
    "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
@@ -260,7 +261,8 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
+   "{ type: TagTypeDuration.DurationNext, window: \"round\" }"
   ]
  },
  {
@@ -369,6 +371,8 @@
   "code": "60531",
   "name": "Déjà Vu",
   "text": "Permanent.\nIn between two scenarios of a campaign, reduce the experience cost to repurchase up to 3 cards that you exiled during the last scenario by 1 each.",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCampaign.DeckSwapBetweenGames }"
+  ]
  }
 ]

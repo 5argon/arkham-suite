@@ -217,7 +217,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
-   "{ type: TagTypeDoom.DoomRemove }"
+   "{ type: TagTypeDoom.DoomRemove }",
+   "{ type: TagTypeDoom.DoomPreventAdvance }"
   ]
  },
  {
@@ -229,7 +230,8 @@
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeRecursion.RecursionPlayFromDiscard }",
    "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"event\" }",
-   "{ type: TagTypePlayArea.PlayAreaToDeck }"
+   "{ type: TagTypePlayArea.PlayAreaToDeck }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true }"
   ]
  },
  {
@@ -263,7 +265,8 @@
    "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
    "{ type: TagTypeLocationProperty.LocationEnemyZero }",
    "{ type: TagTypeHeal.HealHorrorYou, value: 1 }",
-   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }"
+   "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
+   "{ type: TagTypeTestless.TestlessMoveEnemy }"
   ]
  },
  {
@@ -420,7 +423,8 @@
   "tags": [
    "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 2 }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
+   "{ type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 }"
   ]
  },
  {
@@ -431,7 +435,8 @@
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCondition.ConditionClueHeld }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
-   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 }"
   ]
  },
  {

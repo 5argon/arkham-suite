@@ -4,8 +4,8 @@ export enum TagTypeEnemyRestriction {
   EnemyTraitRestriction = "enemy-trait-restriction",
   EnemyNonWeakness = "enemy-nonweakness",
   EnemyTargetExhausted = "enemy-target-exhausted",
-  EnemyBlankText = "enemy-blank-text",
   EnemyIgnoreKeyword = "enemy-ignore-keyword",
+  EnemyTargetAttacking = "enemy-target-attacking",
 }
 
 /**
@@ -37,9 +37,13 @@ export interface TagEnemyTargetExhausted extends TagBase {
   type: TagTypeEnemyRestriction.EnemyTargetExhausted;
 }
 
-/** Blank an enemy's TEXT BOX (loses all abilities/keywords; traits remain) — e.g. Mind Wipe. The hard version of ignoring a single keyword. */
-export interface TagEnemyBlankText extends TagBase {
-  type: TagTypeEnemyRestriction.EnemyBlankText;
+/**
+ * An attack of yours TARGETS the enemy that attacked you — the counterattack ("This attack
+ * targets the attacking enemy": Counterpunch, Survival Knife, Service Revolver). Testless
+ * damage to the attacker is testless-damage-attacking-enemy; both are the Thorns compound.
+ */
+export interface TagEnemyTargetAttacking extends TagBase {
+  type: TagTypeEnemyRestriction.EnemyTargetAttacking;
 }
 
 /** Ignore a single enemy keyword (Retaliate, Aloof, Elusive, Hunter, …) without blanking the whole card — e.g. .45 Automatic (2) ignoring Retaliate. */

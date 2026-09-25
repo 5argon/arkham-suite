@@ -26,7 +26,7 @@
    "{ type: TagTypeTimingAfter.TimingAfterHealHorror }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
-   "{ type: TagTypeDuration.DurationUntilEndRound }"
+   "{ type: TagTypeDuration.DurationNext, window: \"round\" }"
   ]
  },
  {

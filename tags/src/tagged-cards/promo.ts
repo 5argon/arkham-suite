@@ -1,6 +1,6 @@
 import {
-  TagTypeTimingSkill,
   TagTypeActionAdditional,
+  TagTypeCampaign,
   TagTypeClueDiscover,
   TagTypeCluePlace,
   TagTypeCostAction,
@@ -10,7 +10,6 @@ import {
   TagTypeDeckDraw,
   TagTypeDeckLook,
   TagTypeDeckMisc,
-  TagTypeDeckSearch,
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDoom,
@@ -31,6 +30,7 @@ import {
   TagTypeTimingForced,
   TagTypeTimingGame,
   TagTypeTimingPhaseSequence,
+  TagTypeTimingSkill,
   TagTypeTraitSupport,
   TagTypeUsesAccumulate,
 } from "../tags/index.js";
@@ -49,6 +49,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "offering" },
       { type: TagTypeTimingGame.TimingGameEnds },
+      { type: TagTypeCampaign.DeckSwapBetweenGames },
     ],
   },
   {
@@ -59,7 +60,6 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeDeckMisc.DeckRestriction },
-
     ],
   },
   {
@@ -110,7 +110,6 @@ const taggedCards: TaggedCard[] = [
     icons: [],
     tags: [
       { type: TagTypeDeckMisc.DeckRestriction },
-
     ],
   },
   {

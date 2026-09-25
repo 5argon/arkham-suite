@@ -24,6 +24,11 @@ export interface TagCostHorrorSelf extends TagCostOtherBase {
   type: TagTypeCostOther.CostHorrorSelf;
 }
 
+/**
+ * Discard card(s) from your HAND as a cost, whatever the ability's icon — [action] (Archaic
+ * Glyphs, Called to Guinée), [fast] ("Ashcan" Pete), [reaction] (Wendy Adams). Discarding
+ * THIS card is cost-*-discard-self instead.
+ */
 export interface TagCostDiscardCard extends TagCostOtherBase {
   type: TagTypeCostOther.CostDiscardCard;
 }

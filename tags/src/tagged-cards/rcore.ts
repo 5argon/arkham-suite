@@ -29,6 +29,7 @@ import {
   TagTypeDiscardPile,
   TagTypeDoom,
   TagTypeDuration,
+  TagTypeEncounter,
   TagTypeEnemyDebuff,
   TagTypeEnemyElite,
   TagTypeEnemyEngage,
@@ -57,7 +58,6 @@ import {
   TagTypeStatsModUseInstead,
   TagTypeTestInitiate,
   TagTypeTestMisc,
-  TagTypeTestResult,
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
@@ -141,6 +141,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: "event" },
       { type: TagTypeRecursion.RecursionPlayFromDiscard },
       { type: TagTypePlayArea.PlayAreaToDeck },
+      { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
     ],
   },
   {
@@ -226,7 +227,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["combat"],
     tags: [
-      { type: TagTypeTimingAfter.TimingAfterEnemyDealDamageSelf },
+      { type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: "enemy-attack" },
       { type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 },
       { type: TagTypeSoak.SoakHealth, value: 3 },
     ],
@@ -338,9 +339,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight },
       { type: TagTypeDamage.DamageInsteadRange, from: 1, to: 5 },
-      { type: TagTypeTestResult.TestSucceedBy, amount: "dynamic" },
+      { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 5 },
-      { type: TagTypeTestResult.TestFailBy, amount: "dynamic" },
       { type: TagTypeCostAction.CostActionSpendAmmo },
     ],
   },
@@ -897,7 +897,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeDuration.DurationUntilEndPhase },
-      { type: TagTypeEnemyRestriction.EnemyBlankText },
+      { type: TagTypeEncounter.EncounterBlankText, target: "enemy" },
     ],
   },
   {
@@ -1189,7 +1189,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeUsesStarting.UsesStartingSupply, value: 3 },
       { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeLocationShroud.LocationShroudMinus2 },
+      { type: TagTypeLocationShroud.LocationShroudReduction, value: 2 },
       { type: TagTypeCostAction.CostActionSpendSupply },
     ],
   },
@@ -1339,8 +1339,8 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
-      { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 2 },
+      { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 },
+      { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 2, instead: true },
     ],
   },
   {
@@ -1429,7 +1429,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["intellect", "intellect"],
     tags: [
-      { type: TagTypeCostOther.CostHorrorSelf },
       { type: TagTypeUsesStarting.UsesStartingCharge, value: 3 },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeCostFree.CostFreeSpendCharge },
@@ -1463,7 +1462,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["wild", "wild"],
     tags: [
       { type: TagTypeCancel.CancelChaos },
-      { type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign },
+      { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "elder-sign" },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
     ],
   },
@@ -1512,6 +1511,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessClue, value: 1 },
+      { type: TagTypeLocationProperty.LocationClueExist },
     ],
   },
   {

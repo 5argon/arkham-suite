@@ -1,5 +1,4 @@
 import {
-  TagTypeEnemyValue,
   TagTypeActionAdditional,
   TagTypeActionBold,
   TagTypeAuto,
@@ -22,6 +21,7 @@ import {
   TagTypeEnemyElite,
   TagTypeEnemyEngage,
   TagTypeEnemyRestriction,
+  TagTypeEnemyValue,
   TagTypeGainKeyword,
   TagTypeGainResource,
   TagTypeLocationConnecting,
@@ -486,6 +486,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValueSource.SkillValueFromResource, per: 4 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeReady.ReadySelf },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
     ],
   },
   {

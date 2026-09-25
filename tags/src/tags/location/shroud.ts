@@ -1,9 +1,8 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeLocationShroud {
   LocationShroudDependent = "location-shroud-dependent",
-  LocationShroudMinus1 = "location-shroud-minus-1",
-  LocationShroudMinus2 = "location-shroud-minus-2",
   LocationShroudReduction = "location-shroud-reduction",
 }
 
@@ -13,14 +12,11 @@ export interface TagLocationShroudDependent extends TagLocationShroudBase {
   type: TagTypeLocationShroud.LocationShroudDependent;
 }
 
-export interface TagLocationShroudMinus1 extends TagLocationShroudBase {
-  type: TagTypeLocationShroud.LocationShroudMinus1;
-}
-
-export interface TagLocationShroudMinus2 extends TagLocationShroudBase {
-  type: TagTypeLocationShroud.LocationShroudMinus2;
-}
-
+/**
+ * LOWER a location's shroud (Flashlight -2, Lantern -1, Otherworldly Compass -X, The Skeleton
+ * Key setting it to 1). `value` is the reduction; "dynamic" when it varies or is a set value.
+ */
 export interface TagLocationShroudReduction extends TagLocationShroudBase {
   type: TagTypeLocationShroud.LocationShroudReduction;
+  value: DynamicValue;
 }

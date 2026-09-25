@@ -7,7 +7,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterEnemyAttacks }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }"
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {
@@ -336,9 +337,8 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 3, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: \"dynamic\" }",
-   "{ type: TagTypeTestResult.TestSucceedBy, amount: \"dynamic\" }",
-   "{ type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 5 }",
-   "{ type: TagTypeTestResult.TestFailBy, amount: \"dynamic\" }"
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 5 }"
   ]
  },
  {
@@ -752,10 +752,10 @@
   "name": "Premonition",
   "text": "Fast. Play during any [fast] window.\nPut Premonition into play and seal a random token from the chaos bag on Premonition.\n<b>Forced</b> - When a token would be revealed from the chaos bag: Resolve the token sealed here as if it were just revealed, instead. Then, release that token and discard Premonition.",
   "tags": [
-   "{ type: TagTypeChaosSeal.ChaosSealTokenAny }",
    "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
+   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
+   "{ type: TagTypeChaosSeal.ChaosSealRevealed }"
   ]
  },
  {
@@ -804,9 +804,7 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }"
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }"
   ]
  },
  {
@@ -836,8 +834,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeDiscardFromPlay.DiscardTreacheryInPlay }"
   ]
@@ -899,7 +895,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterEngageEnemy }",
    "{ type: TagTypeCostReaction.CostReactionSpendSupply }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeRecursion.RecursionEvent }"
   ]
  },
  {
@@ -912,7 +909,8 @@
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
    "{ type: TagTypeTraitSupport.TraitSupportTool }",
    "{ type: TagTypeTraitSupport.TraitSupportWeapon }",
-   "{ type: TagTypeSoak.SoakHealth, value: 2 }"
+   "{ type: TagTypeSoak.SoakHealth, value: 2 }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -999,9 +997,7 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }"
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }"
   ]
  },
  {
@@ -1010,10 +1006,10 @@
   "text": "[action]: <b>Investigate</b> ([intellect]). Your location gets -1 shroud for this investigation. If you fail, you may exhaust Old Compass to attempt this test again. If you do, your location gets -2 shroud for this investigation, instead.",
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
    "{ type: TagTypeTestRepeat.TestRepeatFailed }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus2 }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }"
   ]
  },
  {
@@ -1069,7 +1065,7 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1, action: BasicAction.Investigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeCostAction.CostActionDiscardSelf }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeDuration.DurationUntilEndRound }"
   ]
  },

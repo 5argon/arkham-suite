@@ -60,7 +60,6 @@
   "name": "Police Dog",
   "text": "[fast] During an attack or investigation at your location, exhaust Police Dog: The performing investigator gets +1 skill value for this test.",
   "tags": [
-   "{ type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }"
@@ -90,7 +89,8 @@
    "{ type: TagTypeCostReaction.CostReactionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {
@@ -154,7 +154,7 @@
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 3, action: BasicAction.Fight }",
-   "{ type: TagTypeDuration.DurationNextSkillTestThisTurn }",
+   "{ type: TagTypeDuration.DurationNext, window: \"turn\" }",
    "{ type: TagTypeAoo.AooNoProvoke }"
   ]
  },
@@ -228,7 +228,6 @@
   "name": "Police Dog",
   "text": "[fast] During an attack or investigation at your location, exhaust Police Dog: The performing investigator gets +2 skill value for this test.",
   "tags": [
-   "{ type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }"

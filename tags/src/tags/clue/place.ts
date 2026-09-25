@@ -9,10 +9,10 @@ interface TagCluePlaceBase extends TagBase {
 }
 
 /**
- * PLACE a clue (from the token bank) on a location, distinct from DISCOVERING a
- * clue (ClueDiscover*) and from ClueAdditional (extra clues during an
- * investigation). Placing seeds a clue to be collected / fuels "when a clue is
- * placed" tech.
+ * PLACE a clue on your location as an EFFECT — one of your own (Forewarned, Bizarre Diagnosis,
+ * Analysis) or from the token bank (Mysteries Remain) — distinct from DISCOVERING a clue
+ * (ClueDiscover*) and from ClueAdditional (extra clues during an investigation). Placing your
+ * own clue as an ability COST is cost-*-spend-clue (Dr. Maleson).
  */
 export interface TagCluePlaceYourLocation extends TagCluePlaceBase {
   type: TagTypeCluePlace.CluePlaceYourLocation;
