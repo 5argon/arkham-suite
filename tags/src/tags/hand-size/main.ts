@@ -1,4 +1,5 @@
 import { TagBase } from "../../base.js";
+import { DynamicValue } from "../../type.js";
 
 export enum TagTypeHandSize {
   HandSizeMaxIncrease = "hand-size-max-increase",
@@ -13,7 +14,7 @@ interface TagHandSizeBase extends TagBase {}
  */
 export interface TagHandSizeMaxIncrease extends TagHandSizeBase {
   type: TagTypeHandSize.HandSizeMaxIncrease;
-  value: number;
+  value: DynamicValue;
 }
 
 /**
@@ -22,7 +23,7 @@ export interface TagHandSizeMaxIncrease extends TagHandSizeBase {
  */
 export interface TagHandSizeMaxDecrease extends TagHandSizeBase {
   type: TagTypeHandSize.HandSizeMaxDecrease;
-  value: number;
+  value: DynamicValue;
 }
 
 /**
@@ -31,4 +32,10 @@ export interface TagHandSizeMaxDecrease extends TagHandSizeBase {
  */
 export interface TagHandSizeDependent extends TagHandSizeBase {
   type: TagTypeHandSize.HandSizeDependent;
+  /**
+   * "min" = MORE cards is better (Higher Education's 5+, Extensive Research's discount);
+   * "max" = more cards is WORSE (Last Chance loses icons, Feed the Mind's excess horror).
+   * Only "min" feeds the Big Hand compound.
+   */
+  comparison: "min" | "max";
 }

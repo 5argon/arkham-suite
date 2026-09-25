@@ -22,7 +22,7 @@
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 2 }",
    "{ type: TagTypeDuration.DurationUntilEndPhase }",
    "{ type: TagTypeTraitSupport.TraitSupportInsight }",
-   "{ type: TagTypeDiscardPile.DiscardPileToBottomDeck }"
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true }"
   ]
  },
  {
@@ -102,7 +102,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
-   "{ type: TagTypeDiscardPile.DiscardPileToBottomDeck }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true }",
    "{ type: TagTypeTraitSupport.TraitSupportInsight }"
   ]
  },
@@ -184,7 +184,8 @@
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeDuration.DurationUntilEndTurn }",
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
-   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }"
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }"
   ]
  },
  {
@@ -301,7 +302,7 @@
   "name": "Curiosity",
   "text": "While you have 4 or more cards in hand, Curiosity gains [willpower] [intellect] (while you have 7 or more cards in hand, Curiosity gains [willpower] [willpower] [intellect] [intellect], instead).",
   "tags": [
-   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"min\" }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
    "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 4 }"
   ]
@@ -322,7 +323,8 @@
   "text": "Limit 1 per investigator.\n[fast] Exhaust Well Connected: You get +1 skill value for this skill test for every 5 resources you have.",
   "tags": [
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
-   "{ type: TagTypeSkillValueSource.SkillValueFromResource, per: 5 }"
+   "{ type: TagTypeSkillValueSource.SkillValueFromResource, per: 5 }",
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }"
   ]
  },
  {
@@ -782,7 +784,8 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
-   "{ type: TagTypeDamage.DamageRedirectOwnAttack }"
+   "{ type: TagTypeDamage.DamageRedirectOwnAttack }",
+   "{ type: TagTypeEnemyValue.EnemyValueFight }"
   ]
  },
  {
@@ -877,7 +880,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeCostAction.CostActionSpendCharge }",
-   "{ type: TagTypeStatsModPump.StatsModPumpCharge, valuePerPump: 1 }",
+   "{ type: TagTypeStatsModPump.StatsModPumpUses, useType: \"charge\", valuePerPump: 1 }",
    "{ type: TagTypeDamage.DamagePlus, value: 2 }"
   ]
  },
@@ -938,7 +941,8 @@
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTestless.TestlessMoveEnemy }"
   ]
  },
  {
@@ -953,7 +957,8 @@
    "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Aloof\" }",
-   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Retaliate\" }"
+   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Retaliate\" }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageNotWithYou }"
   ]
  },
  {
@@ -1042,7 +1047,8 @@
   "text": "Fast. Play when doom would be placed on any scenario card.\nMax 1 per game.\nCancel 1 doom just placed on that card. Exile Fortune or Fate.",
   "tags": [
    "{ type: TagTypeDoom.DoomRemove }",
-   "{ type: TagTypeExile.ExileSelf }"
+   "{ type: TagTypeExile.ExileSelf }",
+   "{ type: TagTypeDoom.DoomPreventAdvance }"
   ]
  },
  {
@@ -1338,7 +1344,7 @@
   "tags": [
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeCancel.CancelChaos }",
-   "{ type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign }"
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }"
   ]
  }
 ]

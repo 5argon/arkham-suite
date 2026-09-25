@@ -73,7 +73,7 @@
   "text": "[action]: <b>Investigate</b> ([intellect]). Your location gets -1 shroud for this investigation. If you fail, you may exhaust Old Compass to attempt this skill test again.",
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
    "{ type: TagTypeTestRepeat.TestRepeatFailed }"
   ]
@@ -217,7 +217,9 @@
   "text": "If this skill test is successful, choose a [survivor] asset or event in your discard pile and add it to your hand.",
   "tags": [
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeRecursion.RecursionEvent }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -286,7 +288,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterEngageEnemy }",
    "{ type: TagTypeCostReaction.CostReactionSpendSupply }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeRecursion.RecursionEvent }"
   ]
  },
  {

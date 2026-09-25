@@ -28,7 +28,7 @@
   "name": "Called to Guinée",
   "text": "<b>Revelation</b> - Put Called to Guinée into play in your threat area.\nYou cannot heal damage.\n[action] Choose and discard 3 cards from your hand: Discard Called to Guinée.",
   "tags": [
-   "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
  },
@@ -265,8 +265,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\" }",
@@ -397,11 +395,11 @@
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeCostAction.CostActionSpendCharge }",
    "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCultist }",
    "{ type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 }",
    "{ type: TagTypeChaosDownside.ChaosDownsideDiscard }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: false }"
   ]
  },
  {

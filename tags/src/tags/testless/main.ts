@@ -10,6 +10,7 @@ export enum TagTypeTestless {
   TestlessEvade = "testless-evade",
   TestlessDamageEvadedEnemy = "testless-damage-evaded-enemy",
   TestlessDamageEngagedEnemy = "testless-damage-engaged-enemy",
+  TestlessMoveEnemy = "testless-move-enemy",
 }
 
 interface TagTestlessBase extends TagBase {}
@@ -50,4 +51,9 @@ export interface TagTestlessDamageEvadedEnemy extends TagTestlessWithValueBase {
 /** Deal testless damage to ONLY the single enemy that just became engaged with you (not all enemies at your location). */
 export interface TagTestlessDamageEngagedEnemy extends TagTestlessWithValueBase {
   type: TagTypeTestless.TestlessDamageEngagedEnemy;
+}
+
+/** Move an enemy AWAY from you with no test (Warning Shot, Pete's Guitar, Flute of the Outer Gods) — the testless half of enemy displacement. */
+export interface TagTestlessMoveEnemy extends TagTestlessBase {
+  type: TagTypeTestless.TestlessMoveEnemy;
 }

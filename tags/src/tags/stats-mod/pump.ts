@@ -2,8 +2,7 @@ import { TagBase } from "../../base.js";
 
 export enum TagTypeStatsModPump {
   StatsModPumpResource = "stats-mod-pump-resource",
-  StatsModPumpCharge = "stats-mod-pump-charge",
-  StatsModPumpAmmo = "stats-mod-pump-ammo",
+  StatsModPumpUses = "stats-mod-pump-uses",
 }
 
 interface TagStatsModPumpBase extends TagBase {
@@ -17,14 +16,13 @@ export interface TagStatsModPumpResource extends TagStatsModPumpBase {
   type: TagTypeStatsModPump.StatsModPumpResource;
 }
 
-export interface TagStatsModPumpCharge extends TagStatsModPumpBase {
-  type: TagTypeStatsModPump.StatsModPumpCharge;
-}
 
 /**
- * The pump spends AMMO ("Spend 1-5 ammo: Fight. You get +X [combat]" — M1918 BAR,
- * Gatling Gun). Ammo ≠ charge, as in the cost-*-spend families.
+ * The pump spends USE tokens from the card — `useType` names the pool: ammo (M1918 BAR,
+ * Gatling Gun), charge (Enchanted Blade, Blade of Yoth), secret (The Necronomicon), offering
+ * (Soul Sanctification). Ammo ≠ charge, as in the cost-*-spend families.
  */
-export interface TagStatsModPumpAmmo extends TagStatsModPumpBase {
-  type: TagTypeStatsModPump.StatsModPumpAmmo;
+export interface TagStatsModPumpUses extends TagStatsModPumpBase {
+  type: TagTypeStatsModPump.StatsModPumpUses;
+  useType: string;
 }

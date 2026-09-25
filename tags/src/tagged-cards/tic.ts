@@ -1,6 +1,4 @@
 import {
-  TagTypeTestInitiate,
-  TagTypeTestDifficulty,
   TagTypeActionActivate,
   TagTypeActionAdditional,
   TagTypeActionBold,
@@ -64,6 +62,8 @@ import {
   TagTypeStatsModSetBase,
   TagTypeStatsModUseInstead,
   TagTypeTank,
+  TagTypeTestDifficulty,
+  TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestless,
   TagTypeTimingAfter,
@@ -285,6 +285,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.When },
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeRecursion.RecursionSkill },
+      { type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple },
     ],
   },
   {
@@ -294,7 +295,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
-      { type: TagTypeCommit.CommitCountCondition },
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
     ],
@@ -381,7 +381,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeCostAction.CostActionSpendSecret },
-      { type: TagTypeLocationShroud.LocationShroudMinus2 },
+      { type: TagTypeLocationShroud.LocationShroudReduction, value: 2 },
     ],
   },
   {
@@ -711,6 +711,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosBag.ChaosBagAddCurse, value: "dynamic" },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
       { type: TagTypeTestless.TestlessClue, value: 2 },
+      { type: TagTypeLocationShroud.LocationShroudDependent },
     ],
   },
   {
@@ -932,6 +933,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeActionBold.ActionBoldMove },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeEnemyEngage.EnemyEngageNone },
     ],
   },
   {
@@ -1032,8 +1034,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderThing },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
-      { type: TagTypeChaosReveal.ChaosRevealTokenBless },
-      { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeCommit.CommitBenefitsPerformer },
@@ -1108,7 +1108,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeCancel.CancelChaos },
-      { type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign },
+      { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "elder-sign" },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
     ],
@@ -1441,6 +1441,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeTraitSupport.TraitSupportRelic },
     ],
   },
   {
@@ -1561,6 +1562,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestless.TestlessDamageYourLocation, value: "dynamic" },
       { type: TagTypeAoo.AooNoProvoke },
       { type: TagTypeChaosTokenPool.ChaosSpendSealed },
+      { type: TagTypeTestless.TestlessMoveEnemy },
     ],
   },
   {

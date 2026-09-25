@@ -485,7 +485,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaFromInvestigator },
       { type: TagTypeCommit.CommitFetch, source: "investigator-discard" },
       { type: TagTypeDeckSearch.DeckSearchDiscard, range: "all" },
-      { type: TagTypeDiscardPile.DiscardPileToBottomDeck },
+      { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
       { type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After },
     ],
   },

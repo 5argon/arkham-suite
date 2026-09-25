@@ -3,8 +3,6 @@ import { TagBase } from "../../base.js";
 export enum TagTypeDuration {
   DurationEnemyPhase = "duration-enemy-phase",
   DurationNext = "duration-next",
-  DurationNextSkillTestThisPhase = "duration-next-skill-test-this-phase",
-  DurationNextSkillTestThisTurn = "duration-next-skill-test-this-turn",
   DurationUntilEndPhase = "duration-until-end-phase",
   DurationUntilEndRound = "duration-until-end-round",
   DurationUntilEndTurn = "duration-until-end-turn",
@@ -16,16 +14,15 @@ export interface TagDurationEnemyPhase extends TagDurationBase {
   type: TagTypeDuration.DurationEnemyPhase;
 }
 
+/**
+ * A one-shot effect that applies to the NEXT occurrence of something (usually your next skill
+ * test or attack) and then ends — Fieldwork, Iron Sights, One in the Chamber, The Red Clock.
+ * Distinct from the until-end-* family, which lasts the whole window.
+ */
 export interface TagDurationNext extends TagDurationBase {
   type: TagTypeDuration.DurationNext;
-}
-
-export interface TagDurationNextSkillTestThisPhase extends TagDurationBase {
-  type: TagTypeDuration.DurationNextSkillTestThisPhase;
-}
-
-export interface TagDurationNextSkillTestThisTurn extends TagDurationBase {
-  type: TagTypeDuration.DurationNextSkillTestThisTurn;
+  /** The "next" must happen within this window, or the effect lapses; omit when unbounded (The Red Clock). */
+  window?: "turn" | "phase" | "round";
 }
 
 export interface TagDurationUntilEndPhase extends TagDurationBase {

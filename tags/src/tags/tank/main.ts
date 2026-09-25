@@ -29,10 +29,12 @@ export interface TagTankRedirectDamageHorror extends TagTankBase {
  * damage (that's tank-redirect-*) and not removal (that's heal-*).
  * scope "cross-investigator" = tokens move between two investigators' cards
  * (Solemn Vow — the owner soaks the controller's tokens); scope "self" = shuffling within your own
- * board (Tommy Muldoon's elder sign). Only the cross-investigator scope is
- * protective (ProtectorTank/Support compounds filter on it).
+ * board (Tommy Muldoon's elder sign, "Devil" taking your investigator's damage); scope
+ * "offload" = moving YOUR tokens onto other investigators' cards (Wrong Place, Right Time) —
+ * they protect you. Only the cross-investigator scope is protective of others
+ * (ProtectorTank/Support compounds filter on it).
  */
 export interface TagTankMoveDamageHorror extends TagTankBase {
   type: TagTypeTank.TankMoveDamageHorror;
-  scope?: "cross-investigator" | "self";
+  scope?: "cross-investigator" | "self" | "offload";
 }

@@ -15,6 +15,7 @@ import {
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeEnemyElite,
+  TagTypeEnemyRestriction,
   TagTypeGainResource,
   TagTypeLocationMove,
   TagTypeLocationProperty,
@@ -64,6 +65,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeTimingWhen.TimingWhenEnemyAttacks },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeEnemyRestriction.EnemyTargetAttacking },
     ],
   },
   {

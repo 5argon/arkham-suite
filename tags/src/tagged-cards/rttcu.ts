@@ -112,6 +112,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValueSource.SkillValueFromResource, per: 4 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeReady.ReadySelf },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
     ],
   },
   {

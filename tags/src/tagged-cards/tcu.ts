@@ -1,8 +1,4 @@
 import {
-  TagTypeLimit,
-  TagTypeChaosPayoff,
-  TagTypeSlotIgnore,
-  TagTypeTestDifficulty,
   TagTypeActionActivate,
   TagTypeActionAdditional,
   TagTypeActionBold,
@@ -13,6 +9,7 @@ import {
   TagTypeBuffInvestigatorStats,
   TagTypeCancel,
   TagTypeChaosEffect,
+  TagTypeChaosPayoff,
   TagTypeChaosReveal,
   TagTypeClueAdditional,
   TagTypeClueDiscover,
@@ -30,6 +27,7 @@ import {
   TagTypeDeckMisc,
   TagTypeDeckSearch,
   TagTypeDeckShuffle,
+  TagTypeDefeat,
   TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
   TagTypeDoom,
@@ -43,6 +41,7 @@ import {
   TagTypeGainResource,
   TagTypeHandSize,
   TagTypeHeal,
+  TagTypeLimit,
   TagTypeLocationConnecting,
   TagTypeLocationMove,
   TagTypeLocationProperty,
@@ -57,6 +56,7 @@ import {
   TagTypeSkillValue,
   TagTypeSkillValueSource,
   TagTypeSlotAdditional,
+  TagTypeSlotIgnore,
   TagTypeSoak,
   TagTypeStatsModBoostInTest,
   TagTypeStatsModBoostLasting,
@@ -65,6 +65,7 @@ import {
   TagTypeStatsModSetBase,
   TagTypeStatsModUseInstead,
   TagTypeTank,
+  TagTypeTestDifficulty,
   TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestless,
@@ -74,11 +75,9 @@ import {
   TagTypeTimingGame,
   TagTypeTimingPhaseSequence,
   TagTypeTimingSkill,
-  TagTypeTimingWhen,
   TagTypeTraitSupport,
   TagTypeUsesAccumulate,
   TagTypeUsesStarting,
-  TagTypeDefeat,
 } from "../tags/index.js";
 import { BasicAction, SkillType } from "../kohaku.js";
 import { TaggedCard, TimingQualifier } from "../type.js";
@@ -111,7 +110,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostDiscount.CostDiscount, amount: 2 },
       { type: TagTypeDuration.DurationUntilEndPhase },
       { type: TagTypeTraitSupport.TraitSupportInsight },
-      { type: TagTypeDiscardPile.DiscardPileToBottomDeck },
+      { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
     ],
   },
   {
@@ -205,7 +204,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeDiscardPile.DiscardPileToBottomDeck },
+      { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
       { type: TagTypeTraitSupport.TraitSupportInsight },
     ],
   },
@@ -302,6 +301,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDuration.DurationUntilEndTurn },
       { type: TagTypeTimingAfter.TimingAfterEvadeEnemy },
       { type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 },
+      { type: TagTypeEnemyEngage.EnemyEngageWithYou },
     ],
   },
   {
@@ -447,7 +447,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "skill",
     icons: ["willpower", "intellect"],
     tags: [
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 4 },
     ],
@@ -475,6 +475,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeSkillValueSource.SkillValueFromResource, per: 5 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
     ],
   },
   {
@@ -1046,6 +1047,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeDamage.DamageRedirectOwnAttack },
+      { type: TagTypeEnemyValue.EnemyValueFight },
     ],
   },
   {
@@ -1158,7 +1160,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeCostAction.CostActionSpendCharge },
-      { type: TagTypeStatsModPump.StatsModPumpCharge, valuePerPump: 1 },
+      { type: TagTypeStatsModPump.StatsModPumpUses, useType: "charge", valuePerPump: 1 },
       { type: TagTypeDamage.DamagePlus, value: 2 },
     ],
   },
@@ -1232,6 +1234,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationMove.LocationMoveEnemyDisplace },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeTestless.TestlessMoveEnemy },
     ],
   },
   {
@@ -1250,6 +1253,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Aloof" },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Retaliate" },
+      { type: TagTypeEnemyEngage.EnemyEngageNotWithYou },
     ],
   },
   {
@@ -1360,6 +1364,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeDoom.DoomRemove },
       { type: TagTypeExile.ExileSelf },
+      { type: TagTypeDoom.DoomPreventAdvance },
     ],
   },
   {
@@ -1722,7 +1727,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeCancel.CancelChaos },
-      { type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign },
+      { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "elder-sign" },
     ],
   },
 ];

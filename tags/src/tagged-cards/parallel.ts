@@ -1,6 +1,4 @@
 import {
-  TagTypeTimingWhen,
-  TagTypeTimingForced,
   TagTypeActionActivate,
   TagTypeActionAdditional,
   TagTypeActionBold,
@@ -12,6 +10,7 @@ import {
   TagTypeChaosReveal,
   TagTypeChaosSeal,
   TagTypeChaosTokenPool,
+  TagTypeCluePlace,
   TagTypeCondition,
   TagTypeControl,
   TagTypeCostAction,
@@ -55,6 +54,7 @@ import {
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
+  TagTypeTimingForced,
   TagTypeTimingGame,
   TagTypeTimingPhaseSequence,
   TagTypeTimingSkill,
@@ -326,6 +326,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeDoom.DoomRemove },
+      { type: TagTypeDoom.DoomPreventAdvance },
     ],
   },
   {
@@ -340,6 +341,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeRecursion.RecursionPlayFromDiscard },
       { type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: "event" },
       { type: TagTypePlayArea.PlayAreaToDeck },
+      { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
     ],
   },
   {
@@ -380,6 +382,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationProperty.LocationEnemyZero },
       { type: TagTypeHeal.HealHorrorYou, value: 1 },
       { type: TagTypeGainResource.GainResourceYou, value: 1 },
+      { type: TagTypeTestless.TestlessMoveEnemy },
     ],
   },
   {
@@ -565,6 +568,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosBag.ChaosBagAddCurse, value: 2 },
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
+      { type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 },
     ],
   },
   {
@@ -578,6 +582,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCondition.ConditionClueHeld },
       { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
       { type: TagTypeDiscardPile.DiscardPileToHand },
+      { type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 },
     ],
   },
   {

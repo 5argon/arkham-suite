@@ -153,7 +153,7 @@
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 1 }"
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true }"
   ]
  },
  {
@@ -661,7 +661,7 @@
   "name": "Higher Education",
   "text": "Permanent.\nWhile you have 5 or more cards in your hand, Higher Education gains:\n\"[free] Spend 1 resource: You get +2 [willpower] for this skill test.\n[free] Spend 1 resource: You get +2 [intellect] for this skill test.\"",
   "tags": [
-   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"min\" }",
    "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 5 }",
    "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 2 }",
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
@@ -789,7 +789,7 @@
    "{ type: TagTypeEnemyValue.EnemyValueFight }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
    "{ type: TagTypeEnemyValue.EnemyValueFightReduction }",
-   "{ type: TagTypeDuration.DurationUntilEndPhase }"
+   "{ type: TagTypeDuration.DurationNext, window: \"phase\" }"
   ]
  },
  {
@@ -811,7 +811,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeRfg.RfgSelf }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDiscard }"
   ]
  },
  {
@@ -1009,7 +1010,8 @@
   "tags": [
    "{ type: TagTypePlayArea.PlayAreaFromInvestigator }",
    "{ type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard }",
-   "{ type: TagTypeTraitSupport.TraitSupportAlly }"
+   "{ type: TagTypeTraitSupport.TraitSupportAlly }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -1062,7 +1064,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
-   "{ type: TagTypeEnemyMitigation.EnemyDefeatOnAttackSuccess }"
+   "{ type: TagTypeEnemyMitigation.EnemyMitigationDefeat }"
   ]
  },
  {
@@ -1099,7 +1101,7 @@
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeLocationShroud.LocationShroudDependent }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalRevealedLocations, value: 1 }"
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: \"dynamic\", instead: false }"
   ]
  },
  {
@@ -1229,7 +1231,7 @@
   "text": "Treat the modifier on [skull] tokens you reveal as \"0.\"\nAnytime you reveal a [elder_sign] token, you may choose to instead treat it as a [skull] token.\n[elder_sign] effect: +1.",
   "tags": [
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
-   "{ type: TagTypeChaosEffect.ChaosEffectModifier, treatAs: 0 }",
+   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
    "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"skull\" }"
   ]
@@ -1241,7 +1243,8 @@
   "tags": [
    "{ type: TagTypeTimingGame.TimingGameBegins }",
    "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypeReady.ReadyAsset }"
+   "{ type: TagTypeReady.ReadyAsset }",
+   "{ type: TagTypeReady.ReadyAsset, restrictedToTrait: \"Ally\" }"
   ]
  },
  {

@@ -183,7 +183,8 @@
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeUsesMarker.UsesBoardMarker }",
-   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }"
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"evidence\" }"
   ]
  },
  {
@@ -199,9 +200,10 @@
   "tags": [
    "{ type: TagTypeSlotAdditional.SlotAdditionalAlly }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }",
-   "{ type: TagTypeReady.ReadyAlly }",
+   "{ type: TagTypeReady.ReadyAsset, restrictedToTrait: \"Ally\" }",
    "{ type: TagTypeLocationYour.LocationYourAlly }",
-   "{ type: TagTypeTestMisc.TestYouPerform }"
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeTraitSupport.TraitSupportAlly }"
   ]
  },
  {
@@ -210,9 +212,10 @@
   "text": "Charlie Kane deck only.\n[reaction] After you exhaust Bonnie Walsh: Ready another [[Ally]] asset you control. (Limit once per round.)",
   "tags": [
    "{ type: TagTypeDeckMisc.DeckRestriction }",
-   "{ type: TagTypeReady.ReadyAlly }",
+   "{ type: TagTypeReady.ReadyAsset, restrictedToTrait: \"Ally\" }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeTraitSupport.TraitSupportAlly }"
   ]
  },
  {
@@ -297,7 +300,7 @@
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"lead\" }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
-   "{ type: TagTypeLocationShroud.LocationShroudReduction }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: \"dynamic\" }"
   ]
  },
  {
@@ -309,7 +312,8 @@
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }",
-   "{ type: TagTypeTraitSupport.TraitSupportMelee }"
+   "{ type: TagTypeTraitSupport.TraitSupportMelee }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }"
   ]
  },
  {
@@ -330,7 +334,8 @@
   "tags": [
    "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\" }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
-   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 3, action: BasicAction.Fight }"
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 3, action: BasicAction.Fight }",
+   "{ type: TagTypeDuration.DurationNext, window: \"round\" }"
   ]
  },
  {
@@ -359,7 +364,8 @@
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 4 }",
    "{ type: TagTypeCostFree.CostFreeSpendCharge }",
-   "{ type: TagTypeCommit.CommitOtherInvestigator, range: \"connecting\" }"
+   "{ type: TagTypeCommit.CommitOtherInvestigator, range: \"connecting\" }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingInvestigator }"
   ]
  },
  {
@@ -384,7 +390,8 @@
    "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
-   "{ type: TagTypeTimingAfter.TimingAfterEnemyDealDamageSelf }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: \"enemy-attack\" }",
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror, source: \"enemy-attack\" }",
    "{ type: TagTypeTestless.TestlessDamageAttackingEnemy, value: 1 }",
    "{ type: TagTypeSoak.SoakHealth, value: 4 }",
    "{ type: TagTypeSoak.SoakSanity, value: 2 }"
@@ -402,7 +409,8 @@
    "{ type: TagTypeDoom.DoomRemove }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
-   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }"
+   "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }",
+   "{ type: TagTypeDoom.DoomPreventAdvance }"
   ]
  },
  {
@@ -437,7 +445,6 @@
   "tags": [
    "{ type: TagTypeTank.TankRedirectDamageHorror }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
@@ -579,7 +586,8 @@
   "tags": [
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeCancel.CancelChaos }",
-   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }"
+   "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
+   "{ type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 }"
   ]
  },
  {
@@ -591,7 +599,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }",
    "{ type: TagTypeSkillValue.SkillValueFailByOrLess, amount: 1 }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeAuto.AutoSuccess }"
+   "{ type: TagTypeAuto.AutoSuccess }",
+   "{ type: TagTypeSkillValue.SkillValueMarginAdjust }"
   ]
  },
  {
@@ -602,7 +611,8 @@
    "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 4 }",
    "{ type: TagTypeCostFree.CostFreeSpendSecret }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
-   "{ type: TagTypeDuration.DurationUntilEndRound }"
+   "{ type: TagTypeDuration.DurationUntilEndRound }",
+   "{ type: TagTypeEncounter.EncounterBlankText, target: \"treachery\" }"
   ]
  },
  {
@@ -620,7 +630,7 @@
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeGainKeyword.GainKeywordAloof }",
-   "{ type: TagTypeHandSize.HandSizeDependent }"
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"min\" }"
   ]
  },
  {
@@ -695,7 +705,8 @@
   "text": "[action]: Choose a card at your location and test [intellect] (1). For each point you succeed by, choose one -\n- The next time that card would be healed this round, heal +1 damage/horror (to a maximum of +3).\n- The next time that card would be dealt damage this round, deal +1 damage (to a maximum of +3).",
   "tags": [
    "{ type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 1 }",
-   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }"
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeDuration.DurationNext, window: \"round\" }"
   ]
  },
  {
@@ -708,8 +719,8 @@
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionSpendResource, source: \"card\" }"
+   "{ type: TagTypeCostAction.CostActionSpendResource, source: \"card\" }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: false }"
   ]
  },
  {
@@ -878,7 +889,9 @@
   "name": "Dirty Fighting",
   "text": "Limit 1 per investigator.\nWhile attacking, parleying, or attempting to evade an exhausted enemy, you get +2 skill value.\n[reaction] After you evade an enemy, exhaust Dirty Fighting: Take a fight action against that enemy. Ignore the aloof keyword for this attack.",
   "tags": [
-   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 2 }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 2, action: BasicAction.Fight }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 2, action: BasicAction.Parley }",
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 2, action: BasicAction.Evade }",
    "{ type: TagTypeEnemyRestriction.EnemyTargetExhausted }",
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
@@ -930,7 +943,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
    "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeStatsModSetBase.StatsModSetBase, value: 4 }"
+   "{ type: TagTypeStatsModSetBase.StatsModSetBase, value: 4 }",
+   "{ type: TagTypeSlotIgnore.SlotIgnore, restrictedToTrait: \"Illicit\" }"
   ]
  },
  {
@@ -1116,7 +1130,11 @@
    "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDoom.DoomRemove }"
+   "{ type: TagTypeDoom.DoomRemove }",
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"place\", conditional: true }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"place\", conditional: true }",
+   "{ type: TagTypeUsesSupport.UsesSupportSupply, supportType: \"place\", conditional: true }",
+   "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"place\", conditional: true }"
   ]
  },
  {
@@ -1125,7 +1143,8 @@
   "text": "For each of your arcane slots that are empty, you have one additional hand slot.\nYou may take an additional action during your turn, which can only be used to play an asset into one of your hand slots.",
   "tags": [
    "{ type: TagTypeSlotAdditional.SlotAdditionalHand }",
-   "{ type: TagTypeActionAdditional.ActionAdditional, canOnlyBeUsedTo: BasicAction.Play, value: 1 }"
+   "{ type: TagTypeActionAdditional.ActionAdditional, canOnlyBeUsedTo: BasicAction.Play, value: 1 }",
+   "{ type: TagTypeSlotConvert.SlotConvert, from: \"arcane\", to: \"hand\" }"
   ]
  },
  {
@@ -1136,7 +1155,8 @@
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, value: 1 }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeAttach.AttachAsset }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeDoom.DoomPreventAdvance }"
   ]
  },
  {
@@ -1452,7 +1472,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingKey, value: 3 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus2 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
    "{ type: TagTypeTestDifficulty.TestDifficultyCondition }"
@@ -1499,7 +1519,8 @@
   "name": "Refine",
   "text": "As an additional cost to play Refine, spend an action.\nImmediately mark a checkbox on an upgrade sheet for a customizable card you own, even if it is not in play.\nMax once per game for each investigator.",
   "tags": [
-   "{ type: TagTypeCostOther.CostPlaySpendAction }"
+   "{ type: TagTypeCostOther.CostPlaySpendAction }",
+   "{ type: TagTypeCampaign.DeckSwapBetweenGames }"
   ]
  },
  {
@@ -1521,8 +1542,9 @@
   "tags": [
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"offering\" }",
    "{ type: TagTypeCostFree.CostFreeSpendOffering }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
-   "{ type: TagTypeTimingAfter.TimingAfterHealHorror }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }",
+   "{ type: TagTypeTimingAfter.TimingAfterHealHorror }",
+   "{ type: TagTypeStatsModPump.StatsModPumpUses, useType: \"offering\", valuePerPump: 2 }"
   ]
  },
  {

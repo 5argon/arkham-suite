@@ -30,8 +30,9 @@ export interface TagDoomRemove extends TagDoomBase {
 }
 
 /**
- * Prevent the agenda from advancing when it reaches its doom threshold
- * ("the agenda cannot advance by reaching its doom threshold") — a stall effect.
+ * Keep doom from advancing the agenda — a stall effect: the agenda cannot advance by reaching
+ * its threshold (Mystifying Song), doom on a card does not count toward it (Elle Rubash), or
+ * doom cannot be placed / is cancelled as it is placed (Handcuffs, Fortune or Fate).
  */
 export interface TagDoomPreventAdvance extends TagDoomBase {
   type: TagTypeDoom.DoomPreventAdvance;

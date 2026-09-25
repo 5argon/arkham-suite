@@ -44,7 +44,8 @@
   "tags": [
    "{ type: TagTypeRecursion.RecursionSkill }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt2CommitCards, timing: TimingQualifier.After }"
   ]
  },
  {
@@ -55,7 +56,9 @@
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCommit.CommitOtherInvestigator, range: \"any\" }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeCommit.CommitCountCondition }",
+   "{ type: TagTypeTimingSkill.TimingSkillSt2CommitCards, timing: TimingQualifier.After }"
   ]
  },
  {
@@ -265,7 +268,7 @@
   "text": "If this skill test is successful, ready an [[Ally]] asset at your location and heal 1 damage or 1 horror from it.",
   "tags": [
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeReady.ReadyAlly }",
+   "{ type: TagTypeReady.ReadyAsset, restrictedToTrait: \"Ally\" }",
    "{ type: TagTypeLocationYour.LocationYourAlly }",
    "{ type: TagTypeHeal.HealDamageAlly, value: 1 }",
    "{ type: TagTypeHeal.HealHorrorAlly, value: 1 }"
@@ -297,7 +300,7 @@
   "text": "Attach to your location.\nIf there are no investigators at attached location, discard Ambush.\n<b>Forced</b> - After an enemy spawns at attached location: Deal 2 damage to that enemy and discard Ambush.",
   "tags": [
    "{ type: TagTypeAttach.AttachLocation }",
-   "{ type: TagTypeTimingForced.TimingForcedSpawnYourLocation }",
+   "{ type: TagTypeTimingWhen.TimingWhenEnemySpawnsYourLocation }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 2 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
@@ -384,7 +387,7 @@
    "{ type: TagTypeLocationProperty.LocationClueExist }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
-   "{ type: TagTypeDuration.DurationNextSkillTestThisPhase }"
+   "{ type: TagTypeDuration.DurationNext, window: \"phase\" }"
   ]
  },
  {
@@ -393,7 +396,7 @@
   "text": "[action] Discard a card with at least 1 [intellect] skill icon from your hand: Place 1 resource on Archaic Glyphs from the token pool, as a secret.\n<b>Forced</b> - After the third secret is placed on Archaic Glyphs: Discard Archaic Glyphs and gain 5 resources. Record in your Campaign Log that \"you have translated the glyphs.\"",
   "tags": [
    "{ type: TagTypeUsesAccumulate.UsesAccumulate }",
-   "{ type: TagTypeCostAction.CostActionDiscardFromHand }",
+   "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
    "{ type: TagTypeGainResource.GainResourceYou, value: 5 }"
   ]
@@ -407,7 +410,8 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
-   "{ type: TagTypeTraitSupport.TraitSupportItem }"
+   "{ type: TagTypeTraitSupport.TraitSupportItem }",
+   "{ type: TagTypeGainResource.GainResourceMoveInvestigator }"
   ]
  },
  {
@@ -558,7 +562,7 @@
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
    "{ type: TagTypeCostFree.CostFreeSpendCharge }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus2 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }",
    "{ type: TagTypeDuration.DurationUntilEndTurn }"
   ]
  },
@@ -653,7 +657,7 @@
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
    "{ type: TagTypeCancel.CancelAttack }",
    "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
-   "{ type: TagTypeDuration.DurationNextSkillTestThisTurn }"
+   "{ type: TagTypeDuration.DurationNext, window: \"turn\" }"
   ]
  },
  {
@@ -969,7 +973,6 @@
   "name": "Scrying",
   "text": "Uses (3 charges).\n[free] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck, or the encounter deck. Return them to the top of that deck, in any order. If a [[Terror]] or [[Omen]] card is among the looked-at cards, take 1 horror.",
   "tags": [
-   "{ type: TagTypeCostOther.CostHorrorSelf }",
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 3 }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeCostFree.CostFreeSpendCharge }",
@@ -999,7 +1002,7 @@
   "text": "Do not reveal chaos tokens from the chaos bag for this test. Treat the chaos token revealed for this test as an [elder_sign].\nWhen this test ends, remove Seal of the Elder Sign from the game.",
   "tags": [
    "{ type: TagTypeChaosEffect.ChaosEffectDoNotReveal }",
-   "{ type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }",
    "{ type: TagTypeRfg.RfgSelf }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.When }"
   ]
@@ -1011,7 +1014,7 @@
   "tags": [
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeCostAction.CostActionDiscardSelf }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
    "{ type: TagTypeAoo.AooNoProvoke }"
@@ -1150,7 +1153,8 @@
   "tags": [
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 2, action: BasicAction.Investigate }",
    "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
-   "{ type: TagTypeCondition.ConditionClueHeld, comparison: \"max\", value: 0 }"
+   "{ type: TagTypeCondition.ConditionClueHeld, comparison: \"max\", value: 0 }",
+   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }"
   ]
  },
  {
@@ -1175,7 +1179,8 @@
   "tags": [
    "{ type: TagTypePlayArea.PlayAreaFromInvestigator }",
    "{ type: TagTypePlayArea.PlayAreaIntoPlayFromDiscard }",
-   "{ type: TagTypeTraitSupport.TraitSupportAlly }"
+   "{ type: TagTypeTraitSupport.TraitSupportAlly }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {

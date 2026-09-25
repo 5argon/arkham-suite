@@ -3,7 +3,6 @@ import { TagBase } from "../../base.js";
 export enum TagTypeReady {
   ReadySelf = "ready-self",
   ReadyAsset = "ready-asset",
-  ReadyAlly = "ready-ally",
 }
 
 interface TagReadyBase extends TagBase {}
@@ -16,9 +15,7 @@ export interface TagReadySelf extends TagReadyBase {
 /** Ready another asset. */
 export interface TagReadyAsset extends TagReadyBase {
   type: TagTypeReady.ReadyAsset;
+  /** Only assets of this trait may be readied (Inspiring Presence, Bonnie Walsh: "Ally"). */
+  restrictedToTrait?: string;
 }
 
-/** Ready an ally asset. */
-export interface TagReadyAlly extends TagReadyBase {
-  type: TagTypeReady.ReadyAlly;
-}

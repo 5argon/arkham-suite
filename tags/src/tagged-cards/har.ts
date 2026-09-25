@@ -26,7 +26,6 @@ import {
   TagTypeLocationProperty,
   TagTypeLocationYour,
   TagTypePlayArea,
-  TagTypeRecursion,
   TagTypeRemote,
   TagTypeSkillCommit,
   TagTypeSkillTestCondition,
@@ -88,7 +87,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "max" },
       { type: TagTypeDamage.DamageToInvestigator, value: "dynamic" },
     ],
   },
@@ -127,7 +126,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect"],
     tags: [
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 5 },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 },
       { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 },
     ],
@@ -189,7 +188,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["wild"],
     tags: [
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeSkillCommit.SkillCommitWildIcon },
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 5 },
       { type: TagTypeCostAction.CostActionExhaustSelf },
@@ -210,7 +209,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: "dynamic" },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: "dynamic" },
       { type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 5 },
       { type: TagTypeCostFree.CostFreeSpendResource },
     ],
@@ -284,7 +283,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostDiscount.CostDiscountSelf, amount: "dynamic" },
       { type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
       { type: TagTypeTestless.TestlessClue, value: 2 },
     ],
@@ -402,7 +401,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainResource.GainResourceYou, value: 3 },
       { type: TagTypeGainResource.GainResourceYou, value: 4 },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 10 },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
     ],
   },
@@ -444,10 +443,10 @@ const taggedCards: TaggedCard[] = [
     cardType: "event",
     icons: ["intellect", "agility", "agility"],
     tags: [
-      { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
       { type: TagTypeActionBold.ActionBoldInvestigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeClueDiscover.ClueDiscoverConnectingLocation, value: 2 },
+      { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 },
+      { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 2, instead: true },
     ],
   },
   {
@@ -478,7 +477,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeLocationMove.LocationMoveDamage },
       { type: TagTypeLocationYour.LocationYourEnemy },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
     ],
   },
   {
@@ -494,7 +493,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostAction.CostActionMultiple },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 1 },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
     ],
   },
   {
@@ -505,7 +504,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower", "wild"],
     tags: [
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 8 },
@@ -537,9 +536,10 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestless.TestlessDamageEngagedEnemy, value: 3 },
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 6 },
       { type: TagTypeCostFree.CostFreeSpendSecret },
-      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 },
+      { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 2 },
       { type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 },
+      { type: TagTypeStatsModPump.StatsModPumpUses, useType: "secret", valuePerPump: 2 },
     ],
   },
 ];

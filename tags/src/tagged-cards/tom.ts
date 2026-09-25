@@ -1,5 +1,4 @@
 import {
-  TagTypeCostOther,
   TagTypeActionAdditional,
   TagTypeActionBold,
   TagTypeAoo,
@@ -10,6 +9,7 @@ import {
   TagTypeCommit,
   TagTypeCostAction,
   TagTypeCostFree,
+  TagTypeCostOther,
   TagTypeCostReaction,
   TagTypeDamage,
   TagTypeDeckMisc,
@@ -42,7 +42,6 @@ import {
   TagTypeTimingDuring,
   TagTypeTimingForced,
   TagTypeTimingPhaseSequence,
-  TagTypeTimingSkill,
   TagTypeTimingWhen,
   TagTypeTraitSupport,
   TagTypeUsesStarting,
@@ -129,7 +128,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["agility"],
     tags: [
-      { type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
@@ -166,6 +164,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeEnemyRestriction.EnemyTargetAttacking },
     ],
   },
   {
@@ -244,7 +243,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportFirearm },
       { type: TagTypeCostAction.CostActionExhaustSelf },
       { type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 3, action: BasicAction.Fight },
-      { type: TagTypeDuration.DurationNextSkillTestThisTurn },
+      { type: TagTypeDuration.DurationNext, window: "turn" },
       { type: TagTypeAoo.AooNoProvoke },
     ],
   },
@@ -339,7 +338,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["agility"],
     tags: [
-      { type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 },

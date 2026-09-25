@@ -6,7 +6,11 @@ export enum TagTypeCampaign {
 
 interface TagCampaignBase extends TagBase {}
 
-/** A between-games / campaign benefit: swap or upgrade deck cards in between scenarios (Adaptable, Arcane Research, Down the Rabbit Hole). */
+/**
+ * A between-scenarios DECKBUILDING benefit: swap cards (Adaptable), or upgrade / purchase them
+ * for less experience (Arcane Research, Down the Rabbit Hole, Déjà Vu, Shrewd Analysis, Pelt
+ * Shipment), or advance a customizable upgrade sheet (The Raven Quill, Refine).
+ */
 export interface TagDeckSwapBetweenGames extends TagCampaignBase {
   type: TagTypeCampaign.DeckSwapBetweenGames;
 }

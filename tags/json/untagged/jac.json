@@ -42,7 +42,8 @@
    "{ type: TagTypeCostAction.CostActionMultiple }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }"
   ]
  },
  {
@@ -69,7 +70,8 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeCostReaction.CostReactionSpendSecret }",
    "{ type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After }",
+   "{ type: TagTypeChaosPredict.ChaosPredict }"
   ]
  },
  {

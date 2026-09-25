@@ -152,7 +152,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect"],
     tags: [
       { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeLocationShroud.LocationShroudMinus1 },
+      { type: TagTypeLocationShroud.LocationShroudReduction, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeTestRepeat.TestRepeatFailed },
     ],
@@ -327,6 +327,8 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeDiscardPile.DiscardPileToHand },
+      { type: TagTypeRecursion.RecursionEvent },
+      { type: TagTypeRecursion.RecursionAsset },
     ],
   },
   {
@@ -414,6 +416,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionSpendSupply },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeDiscardPile.DiscardPileToHand },
+      { type: TagTypeRecursion.RecursionEvent },
     ],
   },
   {

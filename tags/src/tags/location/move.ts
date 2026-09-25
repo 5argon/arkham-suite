@@ -21,6 +21,7 @@ export interface TagLocationMoveDamage extends TagLocationMoveBase {
   type: TagTypeLocationMove.LocationMoveDamage;
 }
 
+/** Move an enemy to a destination of YOUR choice, or redirect its pathing (Lure, Banish, Aetheric Current) — not a one-step push (location-move-enemy-displace). */
 export interface TagLocationMoveEnemyControl extends TagLocationMoveBase {
   type: TagTypeLocationMove.LocationMoveEnemyControl;
 }

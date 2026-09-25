@@ -9,7 +9,6 @@ import {
   TagTypeBonded,
   TagTypeBuffCannot,
   TagTypeCancel,
-  TagTypeChaosDownside,
   TagTypeChaosEffect,
   TagTypeChaosPayoff,
   TagTypeChaosReveal,
@@ -56,7 +55,6 @@ import {
   TagTypeSkillCommit,
   TagTypeSkillTestCondition,
   TagTypeSkillValue,
-  TagTypeSlotAdditional,
   TagTypeSlotIgnore,
   TagTypeSlotShare,
   TagTypeSoak,
@@ -69,7 +67,6 @@ import {
   TagTypeTestDifficulty,
   TagTypeTestInitiate,
   TagTypeTestMisc,
-  TagTypeTestResult,
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
@@ -115,6 +112,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeCommit.CommitFromNonHand, source: "deck-top" },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeCommit.CommitFetch, source: "own-deck" },
     ],
   },
   {
@@ -201,7 +199,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
-
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeDeckSearch.DeckSearchReaction },
     ],
@@ -677,7 +674,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeTestDifficulty.TestDifficultyReduce, value: "dynamic" },
-      { type: TagTypeDuration.DurationNextSkillTestThisPhase },
+      { type: TagTypeDuration.DurationNext, window: "phase" },
     ],
   },
   {
@@ -742,6 +739,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeRecursion.RecursionAsset },
     ],
   },
   {
@@ -801,6 +799,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCondition.ConditionCopies, zone: "hand" },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeHandSize.HandSizeMaxIncrease, value: "dynamic" },
     ],
   },
   {
@@ -974,7 +973,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "intellect"],
     tags: [
       { type: TagTypeCostDiscount.CostDiscountSelf, amount: "dynamic" },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 },
       { type: TagTypeTestless.TestlessClue, value: 2 },
     ],
@@ -991,6 +990,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAuto.AutoSuccess },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 3 },
       { type: TagTypeGainResource.GainResourceYou, value: 3 },
+      { type: TagTypeChaosEffect.ChaosEffectDoNotReveal },
     ],
   },
   {
@@ -1156,7 +1156,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["willpower", "intellect"],
     tags: [
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 8 },
-      { type: TagTypeHandSize.HandSizeDependent },
+      { type: TagTypeHandSize.HandSizeDependent, comparison: "min" },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
       { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When },
       { type: TagTypeBonded.BondedFetch },
@@ -1275,6 +1275,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAuto.AutoEvade },
       { type: TagTypeTestless.TestlessEvade },
       { type: TagTypeLocationYour.LocationYourEnemy },
+      { type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple },
     ],
   },
   {
@@ -1422,6 +1423,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCondition.ConditionHandSize, comparison: "max", value: 4 },
       { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
       { type: TagTypeRfg.RfgSelf },
+      { type: TagTypeDeckDraw.DeckDrawFillHand, value: "dynamic" },
     ],
   },
   {
@@ -1438,8 +1440,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreEffect },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
-      { type: TagTypeChaosDownside.ChaosDownsideDamage, value: 1 },
-      { type: TagTypeChaosDownside.ChaosDownsideHorror, value: 1 },
       { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
       { type: TagTypeHeal.HealDamageSelf, value: "dynamic" },
       { type: TagTypeHeal.HealHorrorSelf, value: "dynamic" },
@@ -1521,9 +1521,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostAction.CostActionSpendAmmo },
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeDamage.DamageInsteadRange, from: 1, to: 6 },
-      { type: TagTypeTestResult.TestSucceedBy, amount: "dynamic" },
+      { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeDamage.DamageInsteadFailRange, from: 1, to: 6 },
-      { type: TagTypeTestResult.TestFailBy, amount: "dynamic" },
     ],
   },
   {

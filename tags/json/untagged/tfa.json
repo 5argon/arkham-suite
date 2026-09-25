@@ -188,8 +188,9 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeTimingAfter.TimingAfterEnemyDealDamageYou }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage, source: \"enemy-attack\" }",
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {
@@ -218,7 +219,8 @@
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Combat, instead: SkillType.Agility, action: BasicAction.Evade }",
    "{ type: TagTypeAttach.AttachEnemy }",
    "{ type: TagTypeEnemyDebuff.EnemyDoesNotReady }",
-   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }"
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
+   "{ type: TagTypeDoom.DoomPreventAdvance }"
   ]
  },
  {
@@ -362,7 +364,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingAmmo, value: 8 }",
    "{ type: TagTypeCostAction.CostActionSpendAmmo }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeStatsModPump.StatsModPumpAmmo, valuePerPump: 1 }",
+   "{ type: TagTypeStatsModPump.StatsModPumpUses, useType: \"ammo\", valuePerPump: 1 }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\", action: BasicAction.Fight }"
   ]
  },
@@ -412,7 +414,9 @@
   "code": "04106",
   "name": "Shrewd Analysis",
   "text": "Permanent. Limit 1 per deck.\nAnytime you upgrade a card with the <i>(Unidentified)</i> or <i>(Untranslated)</i> subtitle, you may upgrade a second copy of that card at no experience cost. If you do, the two upgraded versions are chosen at random from among the eligible options. <i>(You must still meet all deckbuilding restrictions.)</i>",
-  "tags": []
+  "tags": [
+   "{ type: TagTypeCampaign.DeckSwapBetweenGames }"
+  ]
  },
  {
   "code": "04024",
@@ -461,7 +465,7 @@
   "name": "Vantage Point",
   "text": "Fast. Play after a location enters play or is revealed during an investigator's turn.\nUntil the end of the active investigator's turn, that location gets -1 shroud. You may move 1 clue to that location from any other location.",
   "tags": [
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeLocationMove.LocationMoveClue }",
    "{ type: TagTypeDuration.DurationUntilEndTurn }"
   ]
@@ -503,7 +507,7 @@
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
-   "{ type: TagTypeLocationShroud.LocationShroudReduction }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: \"dynamic\" }"
   ]
  },
  {
@@ -511,8 +515,7 @@
   "name": "Feed the Mind",
   "text": "Uses (3 secrets).\n[action] Exhaust Feed the Mind and spend 1 secret: Test [intellect] (0). For each point you succeed by, draw 1 card. Then, take 1 horror for each card in your hand in excess of your maximum hand size.",
   "tags": [
-   "{ type: TagTypeHandSize.HandSizeDependent }",
-   "{ type: TagTypeCostOther.CostHorrorSelf }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"max\" }",
    "{ type: TagTypeUsesStarting.UsesStartingSecret, value: 3 }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeCostAction.CostActionSpendSecret }",
@@ -526,7 +529,7 @@
   "name": "Expose Weakness",
   "text": "Fast. Play during any [free] player window.\nChoose an enemy at your location. Test [intellect] (X), where X is that enemy's fight value. If you succeed, treat that enemy's fight value as if it were 0 for the next attack performed against it this phase. Draw 1 card.",
   "tags": [
-   "{ type: TagTypeDuration.DurationUntilEndPhase }",
+   "{ type: TagTypeDuration.DurationNext, window: \"phase\" }",
    "{ type: TagTypeEnemyValue.EnemyValueFight }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: \"dynamic\" }",
@@ -571,7 +574,8 @@
    "{ type: TagTypeCostAction.CostActionSpendSecret }",
    "{ type: TagTypeChaosEffect.ChaosEffectDoNotReveal }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
+   "{ type: TagTypeDuration.DurationNext, window: \"round\" }"
   ]
  },
  {
@@ -668,7 +672,8 @@
   "text": "If this skill test is successful during an evasion attempt, the next time the evaded enemy takes damage this turn, deal it 1 additional damage.",
   "tags": [
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeDuration.DurationNext, window: \"turn\" }"
   ]
  },
  {
@@ -724,7 +729,7 @@
   "text": "Exceptional. Fast.\n[action]: If the Skeleton Key is in your play area, attach it to your location. If it is already attached to your location, detach it and return it to your play area instead.\nSet the attached location's shroud value to 1.",
   "tags": [
    "{ type: TagTypeAttach.AttachLocation }",
-   "{ type: TagTypeLocationShroud.LocationShroudReduction }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: \"dynamic\" }"
   ]
  },
  {
@@ -808,7 +813,8 @@
   "name": "Arcane Research",
   "text": "Permanent.\nWhen you purchase Arcane Research, suffer 1 mental trauma.\nAfter each scenario of a campaign, reduce the experience cost of the first [[Spell]] card you upgrade before the next scenario by 1.",
   "tags": [
-   "{ type: TagTypeTraitSupport.TraitSupportSpell }"
+   "{ type: TagTypeTraitSupport.TraitSupportSpell }",
+   "{ type: TagTypeCampaign.DeckSwapBetweenGames }"
   ]
  },
  {
@@ -929,7 +935,8 @@
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveWillpower, value: 1 }",
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, value: 1 }",
    "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveCombat, value: 1 }",
-   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }"
+   "{ type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAgility, value: 1 }",
+   "{ type: TagTypeChaosSeal.ChaosSealTokenPlus1 }"
   ]
  },
  {
@@ -985,7 +992,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenTablet }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
-   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }"
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideDiscard }"
   ]
  },
  {
@@ -999,7 +1007,8 @@
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeEnemyValue.EnemyValueFightReduction }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck }"
   ]
  },
  {
@@ -1050,8 +1059,9 @@
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"discard\" }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck }"
   ]
  },
  {
@@ -1067,7 +1077,8 @@
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeEnemyValue.EnemyValueEvadeReduction }",
    "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }",
-   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }"
+   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck }"
   ]
  },
  {
@@ -1076,7 +1087,7 @@
   "text": "Commit only to a skill test with no other cards committed to it. Other cards cannot be committed to this skill test.\nLast Chance loses [wild] for each card in your hand.",
   "tags": [
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
-   "{ type: TagTypeHandSize.HandSizeDependent }",
+   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"max\" }",
    "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }"
   ]
  },
@@ -1110,8 +1121,7 @@
    "{ type: TagTypeSoak.SoakSanity, value: 2 }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\" }",
-   "{ type: TagTypeDeckDiscard.DeckDiscardDeck }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When }"
+   "{ type: TagTypeDeckDiscard.DeckDiscardDeck }"
   ]
  },
  {
@@ -1132,8 +1142,7 @@
   "text": "[free] Discard 1 card from your hand: You get +2 skill value for this skill test. (Limit once per test.)",
   "tags": [
    "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue, timing: TimingQualifier.When }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }"
   ]
  },
  {
@@ -1171,7 +1180,8 @@
    "{ type: TagTypeDamage.DamagePlus, value: 2 }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosDownside.ChaosDownsideAction, value: 1 }"
   ]
  },
  {

@@ -60,6 +60,8 @@ export interface TagTimingSkillSt4ApplyChaosEffect extends TagTimingSkillBase {
 // ST.5 Determine investigator's modified skill value.
 // Start with the base skill and apply all active modifiers, including committed icons,
 // effects of chaos tokens revealed, and all active card abilities.
+// An ordinary "[fast]/[free]: +N skill value for this test" boost is used in the player
+// window after commits, not at ST.5 — it carries stats-mod-boost-in-test-* only.
 export interface TagTimingSkillSt5DetermineSkillValue extends TagTimingSkillBase {
   type: TagTypeTimingSkill.TimingSkillSt5DetermineSkillValue;
 }

@@ -1,9 +1,7 @@
 import {
-  TagTypeTestless,
   TagTypeActionBold,
   TagTypeClueAdditional,
   TagTypeClueDiscover,
-  TagTypeCluePlace,
   TagTypeCommit,
   TagTypeCondition,
   TagTypeControl,
@@ -38,6 +36,7 @@ import {
   TagTypeStatsModPump,
   TagTypeStatsModUseInstead,
   TagTypeTestInitiate,
+  TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
   TagTypeTimingGame,
@@ -81,7 +80,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterHealHorror },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 },
-      { type: TagTypeDuration.DurationUntilEndRound },
+      { type: TagTypeDuration.DurationNext, window: "round" },
     ],
   },
   {

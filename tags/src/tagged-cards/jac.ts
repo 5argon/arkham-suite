@@ -1,10 +1,10 @@
 import {
-  TagTypeChaosPayoff,
   TagTypeActionBold,
   TagTypeAoo,
   TagTypeCancel,
   TagTypeChaosDownside,
   TagTypeChaosEffect,
+  TagTypeChaosPayoff,
   TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeClueAdditional,
@@ -24,7 +24,6 @@ import {
   TagTypeGainResource,
   TagTypeLocationMove,
   TagTypeLocationYour,
-  TagTypeRecursion,
   TagTypeRemote,
   TagTypeSkillCommit,
   TagTypeSkillTestCondition,
@@ -102,6 +101,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeDamage.DamageToInvestigator, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken },
     ],
   },
   {
@@ -135,6 +135,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionSpendSecret },
       { type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect },
       { type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After },
+      { type: TagTypeChaosPredict.ChaosPredict },
     ],
   },
   {

@@ -180,7 +180,6 @@ import {
   TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestRepeat,
-  TagTypeTestResult,
 } from "./tags/test/index.js";
 import {
   TagTypeTestDifficulty,
@@ -260,7 +259,7 @@ const enumsByCategory: Record<string, object[]> = {
   "soak": [TagTypeSoak],
   "stats-mod": [TagTypeStatsModAddStat, TagTypeStatsModBoostInTest, TagTypeStatsModBoostLasting, TagTypeStatsModBoostPassive, TagTypeStatsModPump, TagTypeStatsModSetBase, TagTypeStatsModUseInstead],
   "tank": [TagTypeTank],
-  "test": [TagTypeTestInitiate, TagTypeTestMisc, TagTypeTestRepeat, TagTypeTestResult],
+  "test": [TagTypeTestInitiate, TagTypeTestMisc, TagTypeTestRepeat],
   "test-difficulty": [TagTypeTestDifficulty],
   "testless": [TagTypeTestless],
   "timing": [TagTypeTimingAfter, TagTypeTimingDuring, TagTypeTimingForced, TagTypeTimingGame, TagTypeTimingPhaseSequence, TagTypeTimingSkill, TagTypeTimingWhen],

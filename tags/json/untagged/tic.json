@@ -163,7 +163,8 @@
    "{ type: TagTypeEnemyEngage.EnemyEngageTargetEngaged }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.When }",
    "{ type: TagTypePlayArea.PlayAreaToHand }",
-   "{ type: TagTypeRecursion.RecursionSkill }"
+   "{ type: TagTypeRecursion.RecursionSkill }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }"
   ]
  },
  {
@@ -171,7 +172,6 @@
   "name": "Siren Call",
   "text": "<b>Revelation</b> - Put Siren Call into play in your threat area.\nAs an additional cost to commit 1 or more cards to a skill test, you must pay 1 resource for each matching skill icon those cards have.\n[action][action]: Discard Siren Call.",
   "tags": [
-   "{ type: TagTypeCommit.CommitCountCondition }",
    "{ type: TagTypeCostAction.CostActionMultiple }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
   ]
@@ -243,7 +243,7 @@
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeCostAction.CostActionSpendSecret }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus2 }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }"
   ]
  },
  {
@@ -503,7 +503,8 @@
   "tags": [
    "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: \"dynamic\" }",
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
-   "{ type: TagTypeTestless.TestlessClue, value: 2 }"
+   "{ type: TagTypeTestless.TestlessClue, value: 2 }",
+   "{ type: TagTypeLocationShroud.LocationShroudDependent }"
   ]
  },
  {
@@ -685,7 +686,8 @@
   "text": "Play only if you are not engaged with an enemy.\n<b>Move.</b> Choose an unrevealed location. Move (one location at a time) along the shortest path toward that location, until you enter that location. End this effect if you reveal a location, if an enemy engages you, or if your movement is blocked.",
   "tags": [
    "{ type: TagTypeActionBold.ActionBoldMove }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageNone }"
   ]
  },
  {
@@ -768,8 +770,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCommit.CommitBenefitsPerformer }",
@@ -832,7 +832,7 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeCancel.CancelChaos }",
-   "{ type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }"
   ]
@@ -1107,7 +1107,8 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Willpower, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeTraitSupport.TraitSupportRelic }"
   ]
  },
  {
@@ -1206,7 +1207,8 @@
    "{ type: TagTypeEnemyValue.EnemyValueDamage }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: \"dynamic\" }",
    "{ type: TagTypeAoo.AooNoProvoke }",
-   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }"
+   "{ type: TagTypeChaosTokenPool.ChaosSpendSealed }",
+   "{ type: TagTypeTestless.TestlessMoveEnemy }"
   ]
  },
  {

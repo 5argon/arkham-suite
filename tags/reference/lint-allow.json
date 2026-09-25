@@ -488,5 +488,10 @@
     "rule": "both-values",
     "key": "05277",
     "note": "Small Favor: 'increase its cost by 2: Change Deal 1 damage to Deal 2 damage' is a replacement (1 or 2 instead), the Intel Report shape"
+  },
+  {
+    "rule": "both-values",
+    "key": "12083",
+    "note": "Old Compass (12083): the retry's '-2 shroud for this investigation, instead' replaces the -1 — an 'N or M instead' pair, not additive"
   }
 ]

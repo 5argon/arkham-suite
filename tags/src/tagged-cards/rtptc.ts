@@ -188,7 +188,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeLocationShroud.LocationShroudMinus1 },
+      { type: TagTypeLocationShroud.LocationShroudReduction, value: 1 },
       { type: TagTypeCostAction.CostActionDiscardSelf },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeRfg.RfgSelf },
@@ -220,7 +220,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "treachery",
     icons: [],
     tags: [
-
       { type: TagTypeTimingGame.TimingGameEnds },
     ],
   },

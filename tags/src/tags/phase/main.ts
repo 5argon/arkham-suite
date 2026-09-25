@@ -7,7 +7,7 @@ export enum TagTypePhase {
 
 interface TagPhaseBase extends TagBase {}
 
-/** Skip an entire phase (The Gold Pocket Watch, Deliverance skipping the mythos phase). */
+/** Skip a phase or a phase STEP (The Gold Pocket Watch; A Watchful Peace and Deliverance skip the mythos "draw encounter cards" step). */
 export interface TagPhaseSkip extends TagPhaseBase {
   type: TagTypePhase.PhaseSkip;
 }

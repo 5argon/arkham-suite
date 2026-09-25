@@ -180,7 +180,6 @@ import {
   TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestRepeat,
-  TagTypeTestResult,
 } from "./tags/test/index.js";
 import {
   TagTypeTestDifficulty,
@@ -307,7 +306,6 @@ export type TagType =
   | TagTypeTestInitiate
   | TagTypeTestMisc
   | TagTypeTestRepeat
-  | TagTypeTestResult
   | TagTypeTestless
   | TagTypeTimingAfter
   | TagTypeTimingDuring

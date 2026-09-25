@@ -20,7 +20,8 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeTimingWhen.TimingWhenEnemyAttacks }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {

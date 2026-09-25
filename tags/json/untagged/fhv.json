@@ -42,7 +42,9 @@
   "tags": [
    "{ type: TagTypeTimingGame.TimingGameBegins }",
    "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
-   "{ type: TagTypeLocationMove.LocationMoveClue }"
+   "{ type: TagTypeLocationMove.LocationMoveClue }",
+   "{ type: TagTypeTraitSupport.TraitSupportScience }",
+   "{ type: TagTypeTraitSupport.TraitSupportTool }"
   ]
  },
  {
@@ -432,7 +434,7 @@
    "{ type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Willpower, instead: SkillType.Combat, action: BasicAction.Fight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: \"dynamic\", action: BasicAction.Fight }",
    "{ type: TagTypeCostAction.CostActionSpendCharge }",
-   "{ type: TagTypeStatsModPump.StatsModPumpCharge, valuePerPump: 2 }",
+   "{ type: TagTypeStatsModPump.StatsModPumpUses, useType: \"charge\", valuePerPump: 2 }",
    "{ type: TagTypeDamage.DamagePlus, value: 3 }",
    "{ type: TagTypeBonded.BondedFetch }"
   ]
@@ -471,7 +473,8 @@
    "{ type: TagTypeTimingWhen.TimingWhenWouldFailTest }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveAdditional }"
   ]
  },
  {
@@ -481,7 +484,6 @@
   "tags": [
    "{ type: TagTypeCostAction.CostActionExhaustSelf }",
    "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeSkillValue.SkillValueFailByExactly, amount: 2 }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 0 }",
    "{ type: TagTypeGainResource.GainResourceYou, value: 2 }",
@@ -629,7 +631,9 @@
   "name": "Well-Funded",
   "text": "While you control a [[Science]] or [[Tool]] asset, Well-Funded gains [wild] (while you control 3 or more [[Science]] and/or [[Tool]] assets, Well-Funded gains [wild] [wild], instead).",
   "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }"
+   "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
+   "{ type: TagTypeTraitSupport.TraitSupportScience }",
+   "{ type: TagTypeTraitSupport.TraitSupportTool }"
   ]
  },
  {
@@ -652,7 +656,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByExactly, amount: 2 }",
-   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }"
+   "{ type: TagTypeHeal.HealHorrorYou, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueMarginAdjust }"
   ]
  },
  {
@@ -789,7 +794,6 @@
    "{ type: TagTypeBonded.BondedCard }",
    "{ type: TagTypeActionBold.ActionBoldParley }",
    "{ type: TagTypeCostAction.CostActionSpendResource }",
-   "{ type: TagTypeVictory.VictoryDisplaySelf }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
   ]
  },
@@ -966,7 +970,8 @@
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeTestless.TestlessEvade }",
-   "{ type: TagTypeLocationYour.LocationYourEnemy }"
+   "{ type: TagTypeLocationYour.LocationYourEnemy }",
+   "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }"
   ]
  },
  {
@@ -1143,7 +1148,8 @@
   "tags": [
    "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
    "{ type: TagTypeBonded.BondedCard }",
-   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }"
+   "{ type: TagTypeTimingPhaseSequence.PhaseUpkeepEnds, timing: TimingQualifier.AtIf }",
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }"
   ]
  },
  {
@@ -1167,7 +1173,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealManual }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
-   "{ type: TagTypeDiscardPile.DiscardPileToHand }"
+   "{ type: TagTypeDiscardPile.DiscardPileToHand }",
+   "{ type: TagTypeRecursion.RecursionEvent }"
   ]
  },
  {
@@ -1213,7 +1220,7 @@
   "tags": [
    "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 3 }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
-   "{ type: TagTypeChaosEffect.ChaosEffectModifier, treatAs: 0 }"
+   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }"
   ]
  },
  {
@@ -1222,7 +1229,8 @@
   "text": "While this card is committed to a skill test, the performing investigator may ignore all keyword or location effects that would trigger during this test.",
   "tags": [
    "{ type: TagTypeCommit.CommitBenefitsPerformer }",
-   "{ type: TagTypeLocationProperty.LocationIgnoreEffects }"
+   "{ type: TagTypeLocationProperty.LocationIgnoreEffects }",
+   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"All\" }"
   ]
  },
  {
@@ -1280,8 +1288,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
   ]
  },
@@ -1301,8 +1307,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeRecursion.RecursionSelfToHand }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
@@ -1326,8 +1330,6 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeRecursion.RecursionSelfToHand }"
@@ -1417,7 +1419,7 @@
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeCostFree.CostFreeSpendSupply }",
-   "{ type: TagTypeLocationShroud.LocationShroudMinus1 }",
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeDuration.DurationUntilEndTurn }"
   ]
  },
@@ -1513,7 +1515,7 @@
    "{ type: TagTypeCostOther.CostPlaySpendAction }",
    "{ type: TagTypeSkillCommit.SkillCommitWildIcon }",
    "{ type: TagTypeSkillCommit.SkillCommitTwoEffectiveIcons }",
-   "{ type: TagTypeTank.TankMoveDamageHorror, scope: \"cross-investigator\" }",
+   "{ type: TagTypeTank.TankMoveDamageHorror, scope: \"offload\" }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
    "{ type: TagTypeRfg.RfgSelf }"
@@ -1555,7 +1557,8 @@
    "{ type: TagTypeCommit.CommitFromNonHand, source: \"discard\" }",
    "{ type: TagTypeRecursion.RecursionSkill }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.After }",
+   "{ type: TagTypeDiscardPile.DiscardPileToDeck }"
   ]
  },
  {
@@ -1564,7 +1567,7 @@
   "text": "<b>Forced</b> - When your turn begins: Move 1 damage from your investigator to \"Devil\".\n<b>Forced</b> - When \"Devil\" is defeated: Deal 2 damage to each enemy and investigator at your location.",
   "tags": [
    "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
-   "{ type: TagTypeTank.TankMoveDamageHorror, scope: \"cross-investigator\" }",
+   "{ type: TagTypeTank.TankMoveDamageHorror, scope: \"self\" }",
    "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
    "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 2 }",
    "{ type: TagTypeDamage.DamageToInvestigator, value: 2 }",
@@ -1747,7 +1750,7 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeChaosEffect.ChaosEffectTreatAsElderSign }",
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }",
    "{ type: TagTypeChaosTokenPool.ChaosRecycleToken }",
    "{ type: TagTypeBonded.BondedFetch }",
    "{ type: TagTypeLimit.LimitInPlay, trait: \"Mask\", count: 1 }"

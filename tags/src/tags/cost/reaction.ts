@@ -10,7 +10,6 @@ export enum TagTypeCostReaction {
   CostReactionSpendClue = "cost-reaction-spend-clue",
   CostReactionSpendSecret = "cost-reaction-spend-secret",
   CostReactionSpendSupply = "cost-reaction-spend-supply",
-  CostReactionSpendEvidence = "cost-reaction-spend-evidence",
   CostReactionSpendAmmo = "cost-reaction-spend-ammo",
 }
 
@@ -65,10 +64,6 @@ export interface TagCostReactionSpendSecret extends TagCostReactionBase {
 
 export interface TagCostReactionSpendSupply extends TagCostReactionBase {
   type: TagTypeCostReaction.CostReactionSpendSupply;
-}
-
-export interface TagCostReactionSpendEvidence extends TagCostReactionBase {
-  type: TagTypeCostReaction.CostReactionSpendEvidence;
 }
 
 /**

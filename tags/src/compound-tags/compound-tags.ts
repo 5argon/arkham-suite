@@ -5,7 +5,9 @@ import {
   TagTypeActionBold,
   TagTypeAoo,
   TagTypeAuto,
+  TagTypeBuffAssetStats,
   TagTypeBuffCannot,
+  TagTypeBuffInvestigatorStats,
   TagTypeCancel,
   TagTypeChaosBag,
   TagTypeChaosDownside,
@@ -13,6 +15,7 @@ import {
   TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
+  TagTypeChaosTokenPool,
   TagTypeClueAdditional,
   TagTypeClueDiscover,
   TagTypeCluePlace,
@@ -48,9 +51,11 @@ import {
   TagTypeLocationShroud,
   TagTypeLocationYour,
   TagTypeMulticlass,
+  TagTypePhase,
   TagTypePlayArea,
   TagTypeReady,
   TagTypeRecursion,
+  TagTypeRemote,
   TagTypeSkillCommit,
   TagTypeSkillTestCondition,
   TagTypeSkillValue,
@@ -149,6 +154,8 @@ export enum CompoundTagType {
   CrossDeck = "c-cross-deck",
   SlotTech = "c-slot-tech",
   VictoryDisplay = "c-victory-display",
+  Seal = "c-seal",
+  DoomControl = "c-doom-control",
 }
 
 const registry: CompoundTagBase[] = [];
@@ -164,6 +171,7 @@ export const compoundTagSucceedBy = defineCompound({
     TagTypeSkillValue.SkillValueSucceedByDynamic,
     TagTypeSkillValue.SkillValueSucceedByOrMore,
     TagTypeSkillValue.SkillValueSucceedByExactly,
+    TagTypeSkillValue.SkillValueMarginAdjust,
   ],
 });
 
@@ -172,7 +180,9 @@ export const compoundTagFailBy = defineCompound({
   tags: [
     TagTypeSkillValue.SkillValueFailByDynamic,
     TagTypeSkillValue.SkillValueFailByOrLess,
+    TagTypeSkillValue.SkillValueFailByOrMore,
     TagTypeSkillValue.SkillValueFailByExactly,
+    TagTypeSkillValue.SkillValueMarginAdjust,
   ],
 });
 
@@ -186,17 +196,24 @@ export const compoundTagAttackMitigation = defineCompound({
   ],
 });
 
+/**
+ * Thorns: hurt an enemy BACK for attacking — testless damage to the attacker (Guard Dog,
+ * Daniela Reyes, Hypnotic Gaze) or an attack aimed at it (Counterpunch, Survival Knife,
+ * Service Revolver). A plain "after an enemy attacks you" trigger with some other payoff
+ * (Blood Will Have Blood's draw, Lesson Learned's clue) is not thorns.
+ */
 export const compoundTagThorns = defineCompound({
   type: CompoundTagType.Thorns,
   tags: [
-    TagTypeTimingAfter.TimingAfterEnemyDealDamageSelf,
-    TagTypeTimingAfter.TimingAfterEnemyAttacks,
+    TagTypeTestless.TestlessDamageAttackingEnemy,
+    TagTypeEnemyRestriction.EnemyTargetAttacking,
   ],
 });
 
 /**
- * Self-discard: the card DELIBERATELY discards itself from play as an act/cost (an
- * ability, not running out of uses) — Beat Cop's "Discard Beat Cop: …". Distinct from
+ * Self-discard: the card DELIBERATELY discards itself as an act/cost (an ability, not
+ * running out of uses) — Beat Cop's "Discard Beat Cop: …", or the TDC cycle discarding
+ * itself from hand to use its ability (Anchor Chain). Distinct from
  * discard-from-play-self-no-uses (a consumable depleting), which is NOT self-discard.
  */
 export const compoundTagDiscardSelf = defineCompound({
@@ -205,6 +222,7 @@ export const compoundTagDiscardSelf = defineCompound({
     TagTypeCostFree.CostFreeDiscardSelf,
     TagTypeCostReaction.CostReactionDiscardSelf,
     TagTypeCostAction.CostActionDiscardSelf,
+    { type: TagTypeActionActivate.ActionActivateFromHand, where: { discardInstead: true } },
   ],
 });
 
@@ -251,6 +269,9 @@ export const compoundTagSupport = defineCompound({
     TagTypeTank.TankRedirectEncounter,
     TagTypeTank.TankRedirectDamageHorror,
     { type: TagTypeTank.TankMoveDamageHorror, where: { scope: "cross-investigator" } },
+    // giving a teammate resources, or committing to a teammate's test
+    TagTypeGainResource.GainResourceInvestigator,
+    TagTypeCommit.CommitOtherInvestigator,
   ],
 });
 
@@ -263,8 +284,6 @@ export const compoundTagSupport = defineCompound({
 export const compoundTagClueTech = defineCompound({
   type: CompoundTagType.ClueTech,
   tags: [
-    TagTypeLocationShroud.LocationShroudMinus1,
-    TagTypeLocationShroud.LocationShroudMinus2,
     TagTypeLocationShroud.LocationShroudReduction,
     TagTypeTestless.TestlessClue,
     TagTypeClueDiscover.ClueDiscoverAnyLocation,
@@ -275,18 +294,18 @@ export const compoundTagClueTech = defineCompound({
 
 /**
  * Compound tag for difficulty reduction — every way to lower the effective difficulty
- * (target number) of a test: a direct cut (test-difficulty-reduce) or reducing a
- * location's shroud (which is the difficulty of an investigation). The target-lowering
- * counterpart to boosting your own skill value. Broader than Shroud Reduction, which is
- * only the location-shroud subset.
+ * (target number) of a test: a direct cut (test-difficulty-reduce), reducing a location's
+ * shroud (the difficulty of an investigation), or lowering an enemy's fight / evade value
+ * (the difficulty of an attack / evasion). The target-lowering counterpart to boosting your
+ * own skill value.
  */
 export const compoundTagDifficultyReduction = defineCompound({
   type: CompoundTagType.DifficultyReduction,
   tags: [
     TagTypeTestDifficulty.TestDifficultyReduce,
-    TagTypeLocationShroud.LocationShroudMinus1,
-    TagTypeLocationShroud.LocationShroudMinus2,
     TagTypeLocationShroud.LocationShroudReduction,
+    TagTypeEnemyValue.EnemyValueFightReduction,
+    TagTypeEnemyValue.EnemyValueEvadeReduction,
   ],
 });
 
@@ -299,6 +318,7 @@ export const compoundTagSpendResource = defineCompound({
   tags: [
     TagTypeCostFree.CostFreeSpendResource,
     TagTypeCostReaction.CostReactionSpendResource,
+    TagTypeCostAction.CostActionSpendResource,
   ],
 });
 
@@ -345,13 +365,19 @@ export const compoundTagChaosTokenControl = defineCompound({
     TagTypeChaosEffect.ChaosEffectIgnoreEffect,
     TagTypeChaosEffect.ChaosEffectIgnoreModifier,
     TagTypeChaosEffect.ChaosEffectDoNotReveal,
-    TagTypeChaosEffect.ChaosEffectTreatAsElderSign,
+    TagTypeChaosEffect.ChaosEffectModifier,
     TagTypeChaosEffect.ChaosEffectTreatTokenAs,
     TagTypeChaosEffect.ChaosEffectResolveAdditional,
     TagTypeChaosPredict.ChaosPredict,
     TagTypeCancel.CancelChaos,
     TagTypeChaosSeal.ChaosSealRevealed,
     TagTypeChaosSeal.ChaosSealTokenAny,
+    // sealing a BAD token out of the bag (Seal of the Seventh Sign, The Chthonian Stone)
+    TagTypeChaosSeal.ChaosSealTokenAutoFail,
+    TagTypeChaosSeal.ChaosSealTokenSkull,
+    TagTypeChaosSeal.ChaosSealTokenCultist,
+    TagTypeChaosSeal.ChaosSealTokenTablet,
+    TagTypeChaosSeal.ChaosSealTokenElderThing,
   ],
 });
 
@@ -368,6 +394,7 @@ export const compoundTagBlessCurseBag = defineCompound({
     TagTypeChaosSeal.ChaosSealTokenCurse,
     TagTypeChaosReveal.ChaosRevealTokenBless,
     TagTypeChaosReveal.ChaosRevealTokenCurse,
+    TagTypeChaosTokenPool.ChaosBagCountCondition,
   ],
 });
 
@@ -384,7 +411,7 @@ export const compoundTagBigMoney = defineCompound({
   ],
 });
 
-/** Evasion package: the EVADE mechanic — auto/testless evade, mass evade, making evade easier, and after-evade payoffs. Disengaging (Elusive, Stealth) counts: fleeing is the point of evasion. */
+/** Evasion package: the EVADE mechanic — auto/testless evade, mass evade, making evade easier. Disengaging (Elusive, Stealth) counts: fleeing is the point of evasion. Rewards for having evaded are Evade Payoff. */
 export const compoundTagEvasionPackage = defineCompound({
   type: CompoundTagType.EvasionPackage,
   tags: [
@@ -392,12 +419,11 @@ export const compoundTagEvasionPackage = defineCompound({
     TagTypeTestless.TestlessEvade,
     TagTypeEnemyEngage.EnemyEngageEvadeMultiple,
     TagTypeEnemyValue.EnemyValueEvadeReduction,
-    TagTypeTimingAfter.TimingAfterEvadeEnemy,
     TagTypeEnemyEngage.EnemyEngageDisengage,
   ],
 });
 
-/** Protector/tank: take hits for the team — redirect attacks/encounter cards, ready an ally. */
+/** Protector/tank: take hits for the team — redirect attacks, encounter cards, or damage/horror onto yourself, or move a teammate's damage onto your cards. */
 export const compoundTagProtectorTank = defineCompound({
   type: CompoundTagType.ProtectorTank,
   tags: [
@@ -426,13 +452,19 @@ export const compoundTagFailForward = defineCompound({
   ],
 });
 
-/** Discard-pile value: replaying / recurring cards from the discard pile. */
+/**
+ * Discard-pile value: replaying / recurring cards from the discard pile — play, commit, or
+ * put into play from it, or return its cards to hand or deck. Returning a committed skill to
+ * hand after the test (recursion-skill) never touches the discard pile and is not here.
+ */
 export const compoundTagDiscardPileValue = defineCompound({
   type: CompoundTagType.DiscardPileValue,
   tags: [
     TagTypeRecursion.RecursionPlayFromDiscard,
     TagTypeRecursion.RecursionEvent,
-    TagTypeRecursion.RecursionSkill,
+    TagTypeRecursion.RecursionAsset,
+    TagTypePlayArea.PlayAreaIntoPlayFromDiscard,
+    { type: TagTypeCommit.CommitFromNonHand, where: { source: "discard" } },
     TagTypeDiscardPile.DiscardPileToHand,
     TagTypeDiscardPile.DiscardPileToDeck,
   ],
@@ -456,12 +488,15 @@ export const compoundTagActionCompression = defineCompound({
 
 /**
  * Health safety: cards whose point is protecting your HEALTH — extra effective health
- * capacity (e.g. Bulletproof Vest) plus damage healing.
+ * capacity (Bulletproof Vest's soak, Five of Pentacles' +1 health), cancelling damage, and
+ * damage healing.
  */
 export const compoundTagHealthSafety = defineCompound({
   type: CompoundTagType.HealthSafety,
   tags: [
     TagTypeSoak.SoakHealth,
+    TagTypeBuffInvestigatorStats.BuffInvestigatorHealth,
+    TagTypeCancel.CancelDamage,
     TagTypeHeal.HealDamageYou,
     TagTypeHeal.HealDamageInvestigator,
     TagTypeHeal.HealDamageAlly,
@@ -471,12 +506,15 @@ export const compoundTagHealthSafety = defineCompound({
 
 /**
  * Sanity safety: cards whose point is protecting your SANITY — extra effective sanity
- * capacity (e.g. Elder Sign Amulet) plus horror healing (e.g. Peter Sylvestre).
+ * capacity (Elder Sign Amulet's soak, Directive's +3 sanity), cancelling horror, and horror
+ * healing (Peter Sylvestre).
  */
 export const compoundTagSanitySafety = defineCompound({
   type: CompoundTagType.SanitySafety,
   tags: [
     TagTypeSoak.SoakSanity,
+    TagTypeBuffInvestigatorStats.BuffInvestigatorSanity,
+    TagTypeCancel.CancelHorror,
     TagTypeHeal.HealHorrorYou,
     TagTypeHeal.HealHorrorInvestigator,
     TagTypeHeal.HealHorrorAlly,
@@ -514,23 +552,31 @@ export const compoundTagRelicSupport = defineCompound({
 });
 
 /**
- * Weapon trait support (incl. Weapon-only slots). Firearm / Melee / Ranged are DISTINCT
- * traits with their own support compounds — a card that boosts Firearms is not "Weapon
- * support" unless it actually references the Weapon trait.
+ * Weapon support: cards that support the Weapon trait or its sub-traits Firearm / Melee /
+ * Ranged (Extra Ammunition, Enchant Weapon), incl. hand slots restricted to them ("Viola"
+ * Case, Bandolier).
  */
 export const compoundTagWeaponSupport = defineCompound({
   type: CompoundTagType.WeaponSupport,
   tags: [
     TagTypeTraitSupport.TraitSupportWeapon,
+    TagTypeTraitSupport.TraitSupportFirearm,
+    TagTypeTraitSupport.TraitSupportMelee,
+    TagTypeTraitSupport.TraitSupportRanged,
     { type: TagTypeSlotAdditional.SlotAdditionalHand, where: { restrictedToTrait: "Weapon" } },
+    { type: TagTypeSlotAdditional.SlotAdditionalHand, where: { restrictedToTrait: "Firearm" } },
   ],
 });
 
-/** Ally trait support (incl. Ally-only ally slots). */
+/** Ally support: cares about Ally assets — ally slots, readying allies, buffing their health/sanity (Charisma, Bonnie Walsh, The Star). */
 export const compoundTagAllySupport = defineCompound({
   type: CompoundTagType.AllySupport,
   tags: [
     TagTypeTraitSupport.TraitSupportAlly,
+    TagTypeSlotAdditional.SlotAdditionalAlly,
+    { type: TagTypeReady.ReadyAsset, where: { restrictedToTrait: "Ally" } },
+    TagTypeBuffAssetStats.BuffAssetHealth,
+    TagTypeBuffAssetStats.BuffAssetSanity,
   ],
 });
 
@@ -571,10 +617,11 @@ export const compoundTagCancel = defineCompound({
     TagTypeCancel.CancelDiscardFromHand,
     TagTypeCancel.CancelFailedTestEffects,
     TagTypeCancel.CancelWeaknessDraw,
+    TagTypeCancel.CancelUseInstead,
   ],
 });
 
-/** Enemy mitigation: neutralize an enemy WITHOUT a standard fight/evade test — discard, defeat, shuffle back, or stop it attacking. */
+/** Enemy mitigation: neutralize an enemy outright — discard, defeat regardless of health, shuffle back, push it away with no test, or stop it attacking / engaging. */
 export const compoundTagEnemyMitigation = defineCompound({
   type: CompoundTagType.EnemyMitigation,
   tags: [
@@ -585,25 +632,24 @@ export const compoundTagEnemyMitigation = defineCompound({
     TagTypeEnemyDebuff.EnemyCannotAttack,
     TagTypeBuffCannot.CannotEngageYou,
     TagTypeEnemyDebuff.EnemyExhaust,
+    TagTypeTestless.TestlessMoveEnemy,
   ],
 });
 
-/** Area damage: hits MULTIPLE enemies at once — all enemies at a location, a connecting location, or damage spread among them. */
+/** Area damage: hits MULTIPLE enemies at once — every enemy at a location, or damage spread among them. */
 export const compoundTagAreaDamage = defineCompound({
   type: CompoundTagType.AreaDamage,
   tags: [
     TagTypeTestless.TestlessDamageYourLocationMultiple,
-    TagTypeTestless.TestlessDamageConnectingLocation,
     TagTypeDamage.DamageSpread,
   ],
 });
 
-/** Efficient damage: more damage per action — bonus damage, an extra attack, testless damage, or redirecting an attack's damage onto an enemy (action-compressed offense — Beat Cop, Aquinnah). */
+/** Efficient damage: more damage per action — bonus damage, an extra attack, or carrying your attack's damage onto another enemy (Oops!). Damage without an attack is Testless Damage. */
 export const compoundTagEfficientDamage = defineCompound({
   type: CompoundTagType.EfficientDamage,
   tags: [
     TagTypeDamage.DamagePlus,
-    TagTypeDamage.DamageRedirectAttack,
     TagTypeDamage.DamageRedirectOwnAttack,
     TagTypeActionAdditional.ActionAdditionalAttack,
   ],
@@ -611,9 +657,9 @@ export const compoundTagEfficientDamage = defineCompound({
 
 /**
  * Testless damage: deals damage WITHOUT a skill test — to enemies at your location, at a
- * connecting location, the attacking or engaged enemy, or spread among several (Beat Cop,
- * Dynamite Blast, Guard Dog). Split out of Efficient Damage, which is now the +damage /
- * extra-attack family.
+ * connecting location, the attacking or engaged enemy, or by turning an enemy's attack onto
+ * another enemy (Beat Cop, Dynamite Blast, Guard Dog, Aquinnah). Efficient Damage is the
+ * +damage / extra-attack family.
  */
 export const compoundTagTestlessDamage = defineCompound({
   type: CompoundTagType.TestlessDamage,
@@ -624,21 +670,21 @@ export const compoundTagTestlessDamage = defineCompound({
     TagTypeTestless.TestlessDamageAttackingEnemy,
     TagTypeTestless.TestlessDamageEngagedEnemy,
     TagTypeTestless.TestlessDamageEvadedEnemy,
-    TagTypeDamage.DamageSpread,
+    TagTypeDamage.DamageRedirectAttack,
   ],
 });
 
 /**
- * Efficient clue: more clues per action — extra/additional clues from your own action, or
- * testless clue discovery (the clue twin of Efficient Damage). Rite of Seeking,
- * "Look what I found!". Distinct from Investigate Payoff (rewarded for investigating
- * generally) — this is the card's OWN action netting extra clues.
+ * Efficient clue: more clues per investigation — additional clues at the investigated
+ * location or elsewhere on top of the normal one (the clue twin of Efficient Damage). Rite
+ * of Seeking, Deciphered Reality. Distinct from Investigate Payoff (rewarded for
+ * investigating generally) — this is the card's OWN investigation netting extra clues.
  */
 export const compoundTagEfficientClue = defineCompound({
   type: CompoundTagType.EfficientClue,
   tags: [
     TagTypeClueAdditional.ClueAdditionalThisLocation,
-    TagTypeClueAdditional.ClueAdditionalRevealedLocations,
+    { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, where: { instead: false } },
   ],
 });
 
@@ -652,7 +698,8 @@ export const compoundTagRemoteClue = defineCompound({
   tags: [
     TagTypeClueDiscover.ClueDiscoverConnectingLocation,
     TagTypeClueDiscover.ClueDiscoverAnyLocation,
-    TagTypeClueAdditional.ClueAdditionalRevealedLocations,
+    TagTypeClueAdditional.ClueAdditionalOtherLocation,
+    TagTypeRemote.RemoteInvestigate,
   ],
 });
 
@@ -664,12 +711,14 @@ export const compoundTagSearch = defineCompound({
     TagTypeDeckSearch.DeckSearchInvestigator,
     TagTypeDeckSearch.DeckSearchDiscard,
     TagTypeDeckSearch.DeckSearchEncounter,
+    // cards that pay off being found by a search (Mandy Thompson's Occult Evidence)
+    TagTypeDeckSearch.DeckSearchReaction,
     // bonded-fetch is deliberately NOT here: fetching from the set-aside bonded pool is not a
     // deck search.
   ],
 });
 
-/** Economy: generate resources, share them, discount costs, or put cards into play skipping their normal cost. */
+/** Economy: generate resources, share them, discount costs, pay from a card's stored resources (the EOTE wallets), or put cards into play skipping their normal cost. */
 export const compoundTagEconomy = defineCompound({
   type: CompoundTagType.Economy,
   tags: [
@@ -678,6 +727,7 @@ export const compoundTagEconomy = defineCompound({
     TagTypeGainResource.GainResourceMoveInvestigator,
     TagTypeCostDiscount.CostDiscount,
     TagTypePlayArea.PlayAreaPlayIgnoringCost,
+    TagTypeCostOther.CostAlternatePayment,
   ],
 });
 
@@ -688,15 +738,19 @@ export const compoundTagClueOnLocation = defineCompound({
     TagTypeLocationProperty.LocationClueExist,
     TagTypeLocationProperty.LocationClueZero,
     TagTypeCluePlace.CluePlaceYourLocation,
+    TagTypeCostFree.CostFreeSpendClue,
+    TagTypeCostReaction.CostReactionSpendClue,
   ],
 });
 
-/** Off-stat combat: fight with a non-[combat] stat, or evade with a non-[agility] stat (Mind over Matter, Mystic willpower-fighters). */
+/** Off-stat combat: fight with a non-[combat] stat or evade with a non-[agility] stat — use it instead, or ADD it on top (Mind over Matter, Spectral Razor, Mystic willpower-fighters). */
 export const compoundTagOffStatCombat = defineCompound({
   type: CompoundTagType.OffStatCombat,
   tags: [
     { type: TagTypeStatsModUseInstead.StatsModUseInstead, where: { instead: "combat" } },
     { type: TagTypeStatsModUseInstead.StatsModUseInstead, where: { instead: "agility" } },
+    { type: TagTypeStatsModAddStat.StatsModAddStat, where: { action: "fight" } },
+    { type: TagTypeStatsModAddStat.StatsModAddStat, where: { action: "evade" } },
   ],
 });
 
@@ -735,7 +789,6 @@ export const compoundTagMultiEnemy = defineCompound({
   type: CompoundTagType.MultiEnemy,
   tags: [
     TagTypeTestless.TestlessDamageYourLocationMultiple,
-    TagTypeTestless.TestlessDamageConnectingLocation,
     TagTypeDamage.DamageSpread,
     TagTypeEnemyEngage.EnemyEngageEvadeMultiple,
     TagTypeEnemyEngage.EnemyEngageWithYouMultiple,
@@ -755,6 +808,7 @@ export const compoundTagMobility = defineCompound({
     TagTypeLocationMove.LocationMoveInvestigatorSelf,
     TagTypeLocationMove.LocationMoveInvestigatorPerformer,
     TagTypeLocationMove.LocationMoveInvestigatorAny,
+    TagTypeActionBold.ActionBoldMove,
     // creating map connections is mobility enablement (Open Gate)
     TagTypeLocationConnecting.LocationCreateConnection,
   ],
@@ -779,7 +833,7 @@ export const compoundTagVictoryDisplay = defineCompound({
   ],
 });
 
-/** Combat Boost: makes you better at FIGHTING — any [combat] (or any-skill) boost, in-test / passive / lasting. */
+/** Combat Boost: makes you better at FIGHTING — any [combat] boost, in-test / passive / lasting. Stat-agnostic "+N skill value" boosts are Skill Value Boost. */
 export const compoundTagCombatBoost = defineCompound({
   type: CompoundTagType.CombatBoost,
   tags: [
@@ -789,7 +843,7 @@ export const compoundTagCombatBoost = defineCompound({
   ],
 });
 
-/** Agility Boost: makes you better at EVADING — any [agility] (or any-skill) boost, in-test / passive / lasting. */
+/** Agility Boost: makes you better at EVADING — any [agility] boost, in-test / passive / lasting. Stat-agnostic "+N skill value" boosts are Skill Value Boost. */
 export const compoundTagAgilityBoost = defineCompound({
   type: CompoundTagType.AgilityBoost,
   tags: [
@@ -799,7 +853,7 @@ export const compoundTagAgilityBoost = defineCompound({
   ],
 });
 
-/** Intellect Boost: makes you better at INVESTIGATING — any [intellect] (or any-skill) boost, in-test / passive / lasting. */
+/** Intellect Boost: makes you better at INVESTIGATING — any [intellect] boost, in-test / passive / lasting. Stat-agnostic "+N skill value" boosts are Skill Value Boost. */
 export const compoundTagIntellectBoost = defineCompound({
   type: CompoundTagType.IntellectBoost,
   tags: [
@@ -848,12 +902,12 @@ export const compoundTagBigHand = defineCompound({
   type: CompoundTagType.BigHand,
   tags: [
     { type: TagTypeCondition.ConditionHandSize, where: { comparison: "min" } },
-    TagTypeHandSize.HandSizeDependent,
+    { type: TagTypeHandSize.HandSizeDependent, where: { comparison: "min" } },
     TagTypeHandSize.HandSizeMaxIncrease,
   ],
 });
 
-/** Commit: the committing-skill-cards archetype — commit to others, from outside hand, fetch, or add icons (Winifred Habbamock). */
+/** Commit: the committing-skill-cards archetype — commit to others, from outside hand, fetch, add icons, or care how many cards are committed (Winifred Habbamock, Silas Marsh). */
 export const compoundTagCommit = defineCompound({
   type: CompoundTagType.Commit,
   tags: [
@@ -861,10 +915,11 @@ export const compoundTagCommit = defineCompound({
     TagTypeCommit.CommitFromNonHand,
     TagTypeCommit.CommitFetch,
     TagTypeSkillCommit.SkillCommitGainIcon,
+    TagTypeCommit.CommitCountCondition,
   ],
 });
 
-/** Treachery handling: cancel, discard, or otherwise answer treacheries / encounter effects — a major Mystic & Survivor defensive archetype. */
+/** Treachery handling: cancel, discard, blank, skip drawing, or otherwise answer treacheries / encounter effects — a major Mystic & Survivor defensive archetype. */
 export const compoundTagTreacheryHandling = defineCompound({
   type: CompoundTagType.TreacheryHandling,
   tags: [
@@ -872,6 +927,9 @@ export const compoundTagTreacheryHandling = defineCompound({
     TagTypeDiscardFromPlay.DiscardTreacheryInPlay,
     TagTypeCancel.CancelEncounterEffect,
     TagTypeCancel.CancelEncounterDraw,
+    { type: TagTypeEncounter.EncounterBlankText, where: { target: "treachery" } },
+    // skipping the mythos "draw encounter cards" step (A Watchful Peace, Deliverance)
+    TagTypePhase.PhaseSkip,
   ],
 });
 
@@ -940,7 +998,7 @@ export const compoundTagHealDamage = defineCompound({
   ],
 });
 
-/** Heal (horror): removes HORROR — from you, another investigator, an ally/asset, or this card (Carolyn Fern cares). */
+/** Heal (horror): removes HORROR — from you, another investigator, an ally/asset, or this card — or pays off healing it (Carolyn Fern, Private Practice). */
 export const compoundTagHealHorror = defineCompound({
   type: CompoundTagType.HealHorror,
   tags: [
@@ -948,6 +1006,7 @@ export const compoundTagHealHorror = defineCompound({
     TagTypeHeal.HealHorrorInvestigator,
     TagTypeHeal.HealHorrorAlly,
     TagTypeHeal.HealHorrorSelf,
+    TagTypeTimingAfter.TimingAfterHealHorror,
   ],
 });
 
@@ -960,7 +1019,7 @@ export const compoundTagConditionalPassiveBoost = defineCompound({
     { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveIntellect, where: { action: "investigate" } },
     { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, where: { action: "fight" } },
     { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, where: { action: "evade" } },
-    { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, where: { action: "investigate" } },
+    { type: TagTypeStatsModBoostPassive.StatsModBoostPassiveAny, where: { action: "parley" } },
   ],
 });
 
@@ -984,7 +1043,7 @@ export const compoundTagPlayerDeckLook = defineCompound({
 export const compoundTagKeywordSuppression = defineCompound({
   type: CompoundTagType.KeywordSuppression,
   tags: [
-    TagTypeEnemyRestriction.EnemyBlankText,
+    { type: TagTypeEncounter.EncounterBlankText, where: { target: "enemy" } },
     TagTypeEnemyRestriction.EnemyIgnoreKeyword,
   ],
 });
@@ -1020,7 +1079,7 @@ export const compoundTagEnemyNerf = defineCompound({
     TagTypeEnemyDebuff.EnemyCannotAttack,
     TagTypeEnemyDebuff.EnemyCannotMove,
     TagTypeEnemyDebuff.EnemyExhaust,
-    TagTypeEnemyRestriction.EnemyBlankText,
+    { type: TagTypeEncounter.EncounterBlankText, where: { target: "enemy" } },
   ],
 });
 
@@ -1050,6 +1109,41 @@ export const compoundTagCrossDeck = defineCompound({
   tags: [
     TagTypePlayArea.PlayAreaFromInvestigator,
     TagTypeGainResource.GainResourceMoveInvestigator,
+  ],
+});
+
+/**
+ * Seal: the Seal keyword and its relatives — seal any kind of chaos token on a card, spend /
+ * release sealed tokens, or resolve a sealed token instead of a revealed one (The Codex of
+ * Ages, the TDC "Seal (X)" cycle, Premonition).
+ */
+export const compoundTagSeal = defineCompound({
+  type: CompoundTagType.Seal,
+  tags: [
+    TagTypeChaosSeal.ChaosSealToken0,
+    TagTypeChaosSeal.ChaosSealTokenPlus1,
+    TagTypeChaosSeal.ChaosSealTokenAny,
+    TagTypeChaosSeal.ChaosSealTokenAutoFail,
+    TagTypeChaosSeal.ChaosSealTokenCultist,
+    TagTypeChaosSeal.ChaosSealTokenElderSign,
+    TagTypeChaosSeal.ChaosSealTokenElderThing,
+    TagTypeChaosSeal.ChaosSealTokenSkull,
+    TagTypeChaosSeal.ChaosSealTokenTablet,
+    TagTypeChaosSeal.ChaosSealTokenBless,
+    TagTypeChaosSeal.ChaosSealTokenCurse,
+    TagTypeChaosSeal.ChaosSealRevealed,
+    TagTypeChaosTokenPool.ChaosSpendSealed,
+    TagTypeChaosReveal.ChaosRevealSealedInstead,
+  ],
+});
+
+/** Doom control: keep doom from advancing the agenda — remove it, move it, or stop it counting / being placed (Mystifying Song, Deafening Silence). The counterpart of Doom Adding. */
+export const compoundTagDoomControl = defineCompound({
+  type: CompoundTagType.DoomControl,
+  tags: [
+    TagTypeDoom.DoomRemove,
+    TagTypeDoom.DoomMove,
+    TagTypeDoom.DoomPreventAdvance,
   ],
 });
 

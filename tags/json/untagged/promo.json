@@ -8,7 +8,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"offering\" }",
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
+   "{ type: TagTypeTimingGame.TimingGameEnds }",
+   "{ type: TagTypeCampaign.DeckSwapBetweenGames }"
   ]
  },
  {

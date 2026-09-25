@@ -1,6 +1,7 @@
 import {
   TagTypeActionAdditional,
   TagTypeActionBold,
+  TagTypeCampaign,
   TagTypeCancel,
   TagTypeChaosEffect,
   TagTypeClueDiscover,
@@ -34,7 +35,6 @@ import {
   TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestRepeat,
-  TagTypeTestResult,
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
@@ -145,7 +145,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingKey, value: 2 },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
       { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeLocationShroud.LocationShroudMinus2 },
+      { type: TagTypeLocationShroud.LocationShroudReduction, value: 2 },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
     ],
   },
@@ -163,6 +163,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingWhen.TimingWhenWouldFailTest },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
+      { type: TagTypeSkillValue.SkillValueMarginAdjust },
     ],
   },
   {
@@ -219,7 +220,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeChaosEffect.ChaosEffectDoNotReveal },
-      { type: TagTypeDuration.DurationNextSkillTestThisTurn },
+      { type: TagTypeDuration.DurationNext, window: "turn" },
       { type: TagTypeTestMisc.TestYouPerform },
     ],
   },
@@ -372,6 +373,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight },
+      { type: TagTypeDuration.DurationNext, window: "round" },
     ],
   },
   {
@@ -508,7 +510,7 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: [],
     tags: [
-
+      { type: TagTypeCampaign.DeckSwapBetweenGames },
     ],
   },
 ];

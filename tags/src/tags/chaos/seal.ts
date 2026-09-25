@@ -2,6 +2,7 @@ import { TagBase } from "../../base.js";
 
 export enum TagTypeChaosSeal {
   ChaosSealToken0 = "chaos-seal-token-0",
+  ChaosSealTokenPlus1 = "chaos-seal-token-plus-1",
   ChaosSealTokenAny = "chaos-seal-token-any",
   ChaosSealTokenAutoFail = "chaos-seal-token-auto-fail",
   ChaosSealTokenCultist = "chaos-seal-token-cultist",
@@ -20,6 +21,12 @@ export interface TagChaosSealToken0 extends TagChaosSealBase {
   type: TagTypeChaosSeal.ChaosSealToken0;
 }
 
+/** Seal a "+1" token (Misdirection "Seal (+1 or 0)", Bulwark, Crystalline Elder Sign). */
+export interface TagChaosSealTokenPlus1 extends TagChaosSealBase {
+  type: TagTypeChaosSeal.ChaosSealTokenPlus1;
+}
+
+/** Seal token(s) of your CHOICE, searched out of the bag (Protective Incantation, Unrelenting). */
 export interface TagChaosSealTokenAny extends TagChaosSealBase {
   type: TagTypeChaosSeal.ChaosSealTokenAny;
 }
@@ -56,6 +63,10 @@ export interface TagChaosSealTokenCurse extends TagChaosSealBase {
   type: TagTypeChaosSeal.ChaosSealTokenCurse;
 }
 
+/**
+ * Seal a token that was REVEALED — during a test (Dial of Ancients) or drawn at random from
+ * the bag (both Premonitions) — rather than one searched out by choice (chaos-seal-token-any).
+ */
 export interface TagChaosSealRevealed extends TagChaosSealBase {
   type: TagTypeChaosSeal.ChaosSealRevealed;
 }
