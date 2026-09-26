@@ -1,111 +1,79 @@
-<!--
-@component
-FHV bespoke widget — ONE dedicated per-villager view (reused for all 8 via `villager`). Shows
-the relationship score (N / max), the villager's portrait, and EVERY milestone lit/greyed,
-each annotated with the scenario it's found in — a completionist "light up your favourite
-character" view. Mother Rachel & Simeon Atwood carry extra story-relevant notes. Half-width.
--->
+<!-- @component One villager: the best relationship level and every milestone of theirs, lit once reached. -->
 <script lang="ts">
-	import { FHV_VILLAGERS, fhvText, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
-	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
+	import { FHV_VILLAGERS, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
+	import { logText, scenarioName } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { OutcomeList, WidgetEmpty, type OutcomeItem } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import FhvPortrait from './FhvPortrait.svelte';
 
-	let { villager, fhv }: { villager: string; fhv: CampaignFhv | null } = $props();
-	const def = $derived(FHV_VILLAGERS.find((v) => v.id === villager) ?? null);
-	const t = $derived(fhv?.villagers[villager] ?? null);
-	let photoFailed = $state(false);
+	let { blob: fhv, villager }: CampaignWidgetProps<CampaignFhv> & { villager: string } = $props();
 
-	const SCEN: Record<string, () => string> = {
-		written_in_rock: m.campaign_fhv_sc_written_in_rock,
-		the_silent_heath: m.campaign_fhv_sc_silent_heath,
-		the_lost_sister: m.campaign_fhv_sc_lost_sister,
-		the_thing_in_the_depths: m.campaign_fhv_sc_thing_depths,
-		the_twisted_hollow: m.campaign_fhv_sc_twisted_hollow,
-		the_longest_night: m.campaign_fhv_sc_longest_night,
-		'07_the_first_evening': m.campaign_fhv_sc_first_evening,
-		'09_dawn_of_the_second_day': m.campaign_fhv_sc_second_day,
-		'10_the_second_evening': m.campaign_fhv_sc_second_evening,
-		'12_dawn_of_the_final_day': m.campaign_fhv_sc_final_day,
-		'13_the_final_evening': m.campaign_fhv_sc_final_evening
-	};
-	const scenName = (s: string) => (SCEN[s] ?? (() => s))();
+	const def = $derived(FHV_VILLAGERS.find((v) => v.id === villager));
+	const t = $derived(fhv?.villagers[villager]);
 
-	// Story-relevant extras for the two pivotal villagers.
-	const extras = $derived.by<{ label: string; hit: boolean }[]>(() => {
-		if (villager === 'rachel' && fhv) {
-			const r = fhv.rachelExtra;
+	const note = (label: string, n: number | undefined, scenario: string): OutcomeItem => ({
+		label,
+		hit: (n ?? 0) > 0,
+		count: n,
+		note: scenarioName('fhv', scenario)
+	});
+	const milestones = $derived(
+		(def?.milestones ?? []).map((ms) =>
+			note(logText('fhv', `${villager}.${ms.id}`), t?.milestones[ms.id], ms.scenario)
+		)
+	);
+	/** Notes about Mother Rachel and Simeon that sit outside their own log section. */
+	const storyNotes = $derived.by((): OutcomeItem[] => {
+		const hollow = fhv?.scenarios.the_twisted_hollow ?? {};
+		const evening = fhv?.finalEvening;
+		const fromLog = (key: string, n: number | undefined, scenario: string) =>
+			note(logText('fhv', key), n, scenario);
+		if (villager === 'rachel')
 			return [
-				{ label: m.campaign_fhv_rachel_showed(), hit: r.showedTheWay > 0 },
-				{ label: m.campaign_fhv_rachel_lost(), hit: r.lostThePath > 0 },
-				{ label: m.campaign_fhv_rachel_believed(), hit: r.believed > 0 },
-				{ label: m.campaign_fhv_rachel_lied(), hit: r.liedTo > 0 }
+				fromLog(
+					'mother_rachel_showed_the_way',
+					hollow['campaign_notes.mother_rachel_showed_the_way'],
+					'the_twisted_hollow'
+				),
+				fromLog('lost_the_path', hollow['campaign_notes.lost_the_path'], 'the_twisted_hollow'),
+				fromLog('believed', evening?.believed, 'the_final_evening'),
+				fromLog('lied_to_mother_rachel', evening?.lied, 'the_final_evening')
 			];
-		}
-		if (villager === 'simeon' && fhv) {
-			const s = fhv.simeonExtra;
+		if (villager === 'simeon')
 			return [
-				{ label: m.campaign_fhv_simeon_plan(), hit: s.planUnderway > 0 },
-				{ label: m.campaign_fhv_simeon_fireworks(), hit: s.fireworks > 0 }
+				note(m.campaign_fhv_simeon_plan(), fhv?.simeonPlanUnderway, 'written_in_rock'),
+				fromLog('the_vale_is_full_of_fireworks', evening?.fireworks, 'dawn_of_the_final_day')
 			];
-		}
 		return [];
 	});
 
-	const hasData = $derived(
-		!!t && (t.maxScore !== null || Object.values(t.milestones).some((n) => n > 0) || t.saved > 0)
+	const recorded = $derived(
+		!!t && (t.maxScore !== null || milestones.some((ms) => ms.hit) || t.saved.total > 0)
 	);
 </script>
 
-{#if def && t && hasData}
+{#if def && t && recorded}
 	<div class="flex gap-3">
-		{#if !photoFailed}
-			<img
-				src={portraitUrl('fhv', villager)}
-				alt=""
-				onerror={() => (photoFailed = true)}
-				class="border-primary-200 dark:border-primary-700 h-24 w-20 shrink-0 rounded border object-cover"
-			/>
-		{/if}
+		<FhvPortrait {villager} size="h-24 w-20" />
 		<div class="flex-1">
 			<div class="mb-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
-				<span class="text-2xl font-bold text-black tabular-nums dark:text-white">{t.maxScore ?? 0}</span>
+				<span class="text-2xl font-bold text-black tabular-nums dark:text-white"
+					>{t.maxScore ?? 0}</span
+				>
 				<span class="text-primary-400 text-sm">/ {def.max} · {m.campaign_fhv_relationship()}</span>
-				{#if t.saved > 0}
+				{#if t.saved.total > 0}
 					<span class="text-rogue-600 dark:text-rogue-400 ml-1 text-xs font-medium"
 						>{m.campaign_fhv_saved()}</span
 					>
 				{/if}
 			</div>
-			<div class="space-y-1">
-				{#each def.milestones as ms (ms.id)}
-					{@const hit = (t.milestones[ms.id] ?? 0) > 0}
-					<div
-						class="flex items-start gap-1.5 text-xs {hit
-							? 'text-black dark:text-white'
-							: 'text-primary-400'}"
-					>
-						<span class="mt-px shrink-0">{hit ? '●' : '○'}</span>
-						<span>{fhvText(`${villager}.${ms.id}`)}
-							<span class="text-primary-400">· {scenName(ms.scenario)}</span></span
-						>
-					</div>
-				{/each}
-				{#if extras.length}
-					<div class="border-primary-200 dark:border-primary-700 mt-2 space-y-1 border-t pt-1.5">
-						{#each extras as ex (ex.label)}
-							<div
-								class="flex items-start gap-1.5 text-xs {ex.hit
-									? 'text-black dark:text-white'
-									: 'text-primary-400'}"
-							>
-								<span class="mt-px shrink-0">{ex.hit ? '●' : '○'}</span>
-								<span>{ex.label}</span>
-							</div>
-						{/each}
-					</div>
-				{/if}
-			</div>
+			<OutcomeList items={milestones} size="text-xs" />
+			{#if storyNotes.length}
+				<div class="border-primary-200 dark:border-primary-700 mt-2 border-t pt-1.5">
+					<OutcomeList items={storyNotes} size="text-xs" />
+				</div>
+			{/if}
 		</div>
 	</div>
 {:else}

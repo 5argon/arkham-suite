@@ -1,117 +1,72 @@
-<!--
-@component
-FHV bespoke widget — "The Longest Night" (Night Two), the tower-defense siege of Atwood Farm.
-The captives' fate (saved / many lost / all lost) and whether you faced the night alone; the
-residents who stood by you and, in the darkest agenda, those who sacrificed themselves; plus two
-Extra picks — how you handled Mother Rachel at the farm, and the damage left on the Captives at
-the end (0 = a flawless defense). The Extra rows hide under Log-only mode. Full-width. Built on
-FhvScenarioInfo + StatNumbers + LitTileGrid.
--->
+<!-- @component The Longest Night: the captives' fate, who stood by you or sacrificed themselves, and how the farm was held. -->
 <script lang="ts">
-	import { FHV_DANCERS, fhvVillagerName, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
-	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import FhvScenarioInfo from './FhvScenarioInfo.svelte';
-	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import { times } from '$lib/profile/plural';
+	import { FHV_DANCERS, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		LitTileGrid,
+		SectionLabel,
+		StatNumbers,
+		type StatGroup
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import FhvOutcomeScenario from './FhvOutcomeScenario.svelte';
+	import { fhvOptionLabel } from './fhv-labels';
+	import { fhvVillagerTiles } from './fhv-tiles';
 
-	let {
-		fhv,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		fhv: CampaignFhv | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: fhv, ctx }: CampaignWidgetProps<CampaignFhv> = $props();
 
-	const n = $derived(fhv?.longestNight ?? null);
-	const villagers = $derived(fhv?.villagers ?? {});
+	const night = $derived(fhv?.longestNight);
+	const stance = (side: 'confront' | 'hide') => ({
+		tally: night?.rachel[side],
+		label: fhvOptionLabel('the_longest_night.rachel_stance', side)
+	});
+	const extraRows = $derived<StatGroup[]>([
+		{
+			heading: m.campaign_fhv_fe_rachel_heading(),
+			nonLog: true,
+			stats: [stance('confront'), stance('hide')]
+		},
+		{
+			nonLog: true,
+			keepEmpty: night?.damageBest != null,
+			stats: [{ value: night?.damageBest, label: m.campaign_fhv_ln_damage_best() }]
+		}
+	]);
+	const hasExtra = $derived(
+		!ctx.logOnly &&
+			(!!night?.rachel.confront.total || !!night?.rachel.hide.total || night?.damageBest != null)
+	);
 
-	const captivesGroup = $derived<StatGroup | null>(
-		n && (n.captivesSaved || n.captivesManyLost || n.captivesAllLost)
-			? {
-					heading: m.campaign_fhv_ln_captives_heading(),
-					stats: [
-						{ value: n.captivesSaved, label: m.campaign_fhv_ln_saved() },
-						{ value: n.captivesManyLost, label: m.campaign_fhv_ln_many() },
-						{ value: n.captivesAllLost, label: m.campaign_fhv_ln_all() }
-					]
-				}
-			: null
+	const stood = $derived(
+		fhvVillagerTiles(
+			FHV_DANCERS,
+			(v) => fhv?.villagers[v]?.stood,
+			(name, times) => m.campaign_fhv_ln_stood_tile({ name, times }),
+			() => m.campaign_fhv_ln_stood_none()
+		)
 	);
-	// Faced-alone + Dr. Marquez's plan (log), and — unless Log-only — Rachel's stance + best defense (Extra).
-	const secondRow = $derived<Stat[]>(
-		n
-			? [
-					{ value: n.facedAlone, label: m.campaign_fhv_ln_faced_alone() },
-					{ value: n.drMarquezPlan, label: m.campaign_fhv_ln_marquez() },
-					...(!logOnly && (n.rachel.confront || n.rachel.hide)
-						? [
-								{ value: n.rachel.confront, label: m.campaign_fhv_ln_confront() },
-								{ value: n.rachel.hide, label: m.campaign_fhv_ln_hide() }
-							]
-						: []),
-					...(!logOnly && n.damagePlays > 0 ? [{ value: n.damageBest ?? 0, label: m.campaign_fhv_ln_damage_best() }] : [])
-				]
-			: []
+	const sacrificed = $derived(
+		fhvVillagerTiles(
+			FHV_DANCERS,
+			(v) => fhv?.villagers[v]?.sacrificed,
+			(name, times) => m.campaign_fhv_ln_sacrificed_tile({ name, times }),
+			() => m.campaign_fhv_ln_sacrificed_none()
+		)
 	);
-	const rows = $derived<(Stat[] | StatGroup)[]>([...(captivesGroup ? [captivesGroup] : []), ...(secondRow.length ? [secondRow] : [])]);
-
-	const roster = (metric: 'stood' | 'sacrificed', lit: (name: string, times: string) => string, none: string) =>
-		FHV_DANCERS.map((v): LitTile => {
-			const c = villagers[v]?.[metric] ?? 0;
-			const name = fhvVillagerName(v);
-			return {
-				id: `${metric}-${v}`,
-				image: portraitUrl('fhv', v),
-				label: name,
-				count: c,
-				detail: c > 0 ? lit(name, times(c)) : none
-			};
-		});
-	const stoodTiles = $derived<LitTile[]>(
-		roster('stood', (name, t) => m.campaign_fhv_ln_stood_tile({ name, times: t }), m.campaign_fhv_ln_stood_none())
+	const walls = $derived(
+		[
+			{ id: 'stood', heading: m.campaign_fhv_ln_stood_heading(), tiles: stood },
+			{ id: 'sacrificed', heading: m.campaign_fhv_ln_sacrificed_heading(), tiles: sacrificed }
+		].filter((w) => w.tiles.some((t) => t.count > 0))
 	);
-	const sacrificedTiles = $derived<LitTile[]>(
-		roster('sacrificed', (name, t) => m.campaign_fhv_ln_sacrificed_tile({ name, times: t }), m.campaign_fhv_ln_sacrificed_none())
-	);
-	const anyStood = $derived(stoodTiles.some((t) => t.count > 0));
-	const anySacrificed = $derived(sacrificedTiles.some((t) => t.count > 0));
-	const hasData = $derived(rows.length > 0 || anyStood || anySacrificed);
 </script>
 
-<FhvScenarioInfo scenarioId="the_longest_night" {family} {achievements} {scenarios} {logOnly} showPlays>
-	{#snippet children()}
-		{#if hasData}
-			<div class="space-y-4">
-				{#if rows.length}
-					<StatNumbers {rows} />
-				{/if}
-				{#if anyStood}
-					<div>
-						<SectionLabel variant="heading" align="center">{m.campaign_fhv_ln_stood_heading()}</SectionLabel>
-						<LitTileGrid tiles={stoodTiles} layout="flex" objectTop />
-					</div>
-				{/if}
-				{#if anySacrificed}
-					<div>
-						<SectionLabel variant="heading" align="center">{m.campaign_fhv_ln_sacrificed_heading()}</SectionLabel>
-						<LitTileGrid tiles={sacrificedTiles} layout="flex" objectTop />
-					</div>
-				{/if}
-			</div>
-		{:else}
-			<WidgetEmpty>{m.campaign_fhv_ln_empty()}</WidgetEmpty>
-		{/if}
-	{/snippet}
-</FhvScenarioInfo>
+<FhvOutcomeScenario blob={fhv} {ctx} hasMore={hasExtra || walls.length > 0}>
+	<StatNumbers logOnly={ctx.logOnly} rows={extraRows} />
+	{#each walls as w (w.id)}
+		<div>
+			<SectionLabel variant="heading" align="center">{w.heading}</SectionLabel>
+			<LitTileGrid tiles={w.tiles} layout="flex" objectTop />
+		</div>
+	{/each}
+</FhvOutcomeScenario>

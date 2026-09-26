@@ -1,14 +1,7 @@
-<!--
-@component
-FHV villager portrait — a rounded square crop of a resident's campaign-log portrait
-(`static/image/campaign/portrait/fhv/<id>.png`), with an initials fallback if the image
-is missing. Shared by the roster spine, the dance, the finale, the per-villager widgets,
-and the scenario passports so the portrait markup lives in one place. `dim` greys it out
-(a resident you never engaged); `size` sets the box (a Tailwind w/h pair).
--->
+<!-- @component A villager's portrait from the campaign log sheet, with their initials when the image is missing. -->
 <script lang="ts">
-	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
 	import { fhvVillagerName } from '$lib/campaign/campaigns/fhv';
+	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
 
 	let {
 		villager,
@@ -16,9 +9,9 @@ and the scenario passports so the portrait markup lives in one place. `dim` grey
 		dim = false
 	}: {
 		villager: string;
-		/** Tailwind height+width classes for the portrait box. */
+		/** Tailwind height and width classes. */
 		size?: string;
-		/** Grey out (a resident never engaged). */
+		/** Greyed out, for a villager never engaged. */
 		dim?: boolean;
 	} = $props();
 

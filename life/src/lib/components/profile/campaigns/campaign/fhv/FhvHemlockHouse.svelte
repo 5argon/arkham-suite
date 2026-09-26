@@ -1,69 +1,26 @@
-<!--
-@component
-FHV bespoke widget — "Hemlock House". The vertical haunted-house crawl through Hemlock Harbor:
-The Argument (Codex Σ), where you either respected William's wishes or sided with Judith —
-whichever you chose removed the other from the house — and whether you found Little Sylvie, the
-doll. The Argument is an Extra pick (only the winning relationship is logged), so it hides under
-Log-only mode; Little Sylvie is log-derived. Header art pictures William & Judith. Built on
-FhvScenarioInfo + StatNumbers.
--->
+<!-- @component Hemlock House: Little Sylvie, and whose side was taken in The Argument. -->
 <script lang="ts">
 	import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import FhvScenarioInfo from './FhvScenarioInfo.svelte';
-	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import FhvOutcomeScenario from './FhvOutcomeScenario.svelte';
+	import { fhvOptionLabel } from './fhv-labels';
 
-	let {
-		fhv,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		fhv: CampaignFhv | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: fhv, ctx }: CampaignWidgetProps<CampaignFhv> = $props();
 
-	const h = $derived(fhv?.hemlockHouse ?? null);
-	const argTotal = $derived(h ? h.argument.william + h.argument.judith + h.argument.neither : 0);
-	const showArgument = $derived(!logOnly && argTotal > 0);
-	const hasData = $derived(!!h && (showArgument || h.littleSylvie > 0));
-
-	const rows = $derived<(Stat[] | StatGroup)[]>(
-		h
-			? [
-					...(showArgument
-						? [
-								{
-									heading: m.campaign_fhv_house_argument_heading(),
-									stats: [
-										{ value: h.argument.william, label: m.campaign_fhv_house_arg_william() },
-										{ value: h.argument.judith, label: m.campaign_fhv_house_arg_judith() },
-										{ value: h.argument.neither, label: m.campaign_fhv_house_arg_neither() }
-									]
-								} satisfies StatGroup
-							]
-						: []),
-					...(h.littleSylvie > 0
-						? [[{ value: h.littleSylvie, label: m.campaign_fhv_house_sylvie() }] satisfies Stat[]]
-						: [])
-				]
-			: []
+	const stats = $derived(
+		(['william', 'judith', 'neither'] as const).map((side) => ({
+			tally: fhv?.argument[side],
+			label: fhvOptionLabel('hemlock_house.the_argument', side)
+		}))
 	);
+	const argued = $derived(!ctx.logOnly && stats.some((s) => s.tally?.total));
 </script>
 
-<FhvScenarioInfo scenarioId="hemlock_house" villagers={['william', 'judith']} {family} {achievements} {scenarios} {logOnly} showPlays>
-	{#snippet children()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_fhv_scenario_empty()}</WidgetEmpty>
-		{/if}
-	{/snippet}
-</FhvScenarioInfo>
+<FhvOutcomeScenario blob={fhv} {ctx} hasMore={argued}>
+	<StatNumbers
+		logOnly={ctx.logOnly}
+		rows={[{ heading: m.campaign_fhv_house_argument_heading(), nonLog: true, stats }]}
+	/>
+</FhvOutcomeScenario>

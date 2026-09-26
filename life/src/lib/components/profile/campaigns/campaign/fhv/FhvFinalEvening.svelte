@@ -1,63 +1,65 @@
-<!--
-@component
-FHV bespoke widget — "The Final Evening", the eve of the Feast. Whether you believed Mother
-Rachel or lied to her (or interrupted the Feast outright), whether the Hemlocks made their
-truce, Gideon finished the tale of the Annabelle Lee, and Simeon's fireworks were readied for
-the finale — plus Bertie's last turn (an epiphany, or perished). All log-derived. Grouped by
-theme. Built on OutcomeList.
--->
+<!-- @component The Final Evening: whether Mother Rachel was believed, the Vale's last preparations and Bertie's fate. -->
 <script lang="ts">
-	import { fhvText, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
-	import OutcomeList, { type OutcomeItem } from '$lib/components/profile/_primitives/OutcomeList.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
+	import { logText } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		OutcomeList,
+		SectionLabel,
+		WidgetEmpty,
+		type OutcomeItem
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { fhv }: { fhv: CampaignFhv | null } = $props();
-	const f = $derived(fhv?.finalEvening ?? null);
-	const b = $derived(fhv?.bertie ?? null);
-	const it = (key: string, n: number): OutcomeItem => ({ label: fhvText(key), hit: n > 0, count: n });
+	let { blob: fhv }: CampaignWidgetProps<CampaignFhv> = $props();
 
-	const rachelItems = $derived<OutcomeItem[]>(
-		f
-			? [
-					it('campaign_notes.believed', f.believed),
-					it('campaign_notes.lied_to_mother_rachel', f.lied),
-					it('campaign_notes.interrupted_the_feast', f.interrupted)
+	const item = (key: string, n = 0): OutcomeItem => ({
+		label: logText('fhv', key),
+		hit: n > 0,
+		count: n
+	});
+
+	const groups = $derived.by(() => {
+		const f = fhv?.finalEvening;
+		const b = fhv?.bertie;
+		return [
+			{
+				id: 'rachel',
+				heading: m.campaign_fhv_fe_rachel_heading(),
+				items: [
+					item('believed', f?.believed),
+					item('lied_to_mother_rachel', f?.lied),
+					item('interrupted_the_feast', f?.interrupted)
 				]
-			: []
-	);
-	const valeItems = $derived<OutcomeItem[]>(
-		f
-			? [
-					it('campaign_notes.the_hemlocks_made_a_truce', f.truce),
-					it('campaign_notes.the_vale_is_full_of_fireworks', f.fireworks),
-					it('gideon.gideon_finished_the_tale_of_the_annabelle_lee', f.gideonTale)
+			},
+			{
+				id: 'vale',
+				heading: m.campaign_fhv_fe_vale_heading(),
+				items: [
+					item('the_hemlocks_made_a_truce', f?.truce),
+					item('the_vale_is_full_of_fireworks', f?.fireworks),
+					item('gideon.gideon_finished_the_tale_of_the_annabelle_lee', f?.gideonTale)
 				]
-			: []
-	);
-	const bertieItems = $derived<OutcomeItem[]>(
-		b ? [it('campaign_notes.bertie_had_an_epiphany', b.epiphany), it('campaign_notes.bertie_perished', b.perished)] : []
-	);
-	const hasData = $derived([...rachelItems, ...valeItems, ...bertieItems].some((i) => i.hit));
+			},
+			{
+				id: 'bertie',
+				heading: m.campaign_fhv_fe_bertie_heading(),
+				items: [item('bertie_had_an_epiphany', b?.epiphany), item('bertie_perished', b?.perished)]
+			}
+		];
+	});
+	const anyHit = (items: OutcomeItem[]) => items.some((i) => i.hit);
+	const shown = $derived(groups.filter((g) => g.id !== 'bertie' || anyHit(g.items)));
 </script>
 
-{#if hasData}
+{#if groups.some((g) => anyHit(g.items))}
 	<div class="grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-		<div>
-			<SectionLabel>{m.campaign_fhv_fe_rachel_heading()}</SectionLabel>
-			<OutcomeList items={rachelItems} />
-		</div>
-		<div>
-			<SectionLabel>{m.campaign_fhv_fe_vale_heading()}</SectionLabel>
-			<OutcomeList items={valeItems} />
-		</div>
-		{#if bertieItems.some((i) => i.hit)}
+		{#each shown as g (g.id)}
 			<div>
-				<SectionLabel>{m.campaign_fhv_fe_bertie_heading()}</SectionLabel>
-				<OutcomeList items={bertieItems} />
+				<SectionLabel>{g.heading}</SectionLabel>
+				<OutcomeList items={g.items} />
 			</div>
-		{/if}
+		{/each}
 	</div>
 {:else}
 	<WidgetEmpty>{m.campaign_fhv_fe_empty()}</WidgetEmpty>
