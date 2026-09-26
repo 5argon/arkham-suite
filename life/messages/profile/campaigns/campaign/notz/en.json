@@ -11,7 +11,7 @@
 	"campaign_notz_ghoul_survived": "Left alive",
 	"campaign_notz_gathering_empty": "The Gathering has not been recorded yet.",
 	"campaign_notz_cultists_heading": "The Cultist Deck",
-	"campaign_notz_cultist_detail": "Interrogated ×{caught} · Got away ×{escaped}",
+	"campaign_notz_cultist_detail": "Interrogated {caught} · Got away {escaped}",
 	"campaign_notz_best_haul_heading": "Best Cultist Haul",
 	"campaign_notz_total_interrogated": "Total interrogated",
 	"campaign_notz_total_escaped": "Total escaped",
@@ -29,7 +29,7 @@
 	"campaign_notz_threats_empty": "Nothing followed you below yet — no surviving Ghoul Priest or escaped cultists.",
 	"campaign_notz_purist_clears": "Core-only clears",
 	"campaign_notz_purist_total_clears": "Total clears",
-	"campaign_notz_purist_inv_detail": "Core-only clears ×{count}",
+	"campaign_notz_purist_inv_detail": "Cleared Core-only {times}",
 	"campaign_notz_purist_desc": "Cleared using only Core / Revised Core cards — investigator included, no parallel investigator.",
 	"campaign_notz_purist_empty": "No clears recorded yet."
 }

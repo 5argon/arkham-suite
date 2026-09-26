@@ -1,41 +1,25 @@
-/**
- * eoe.ts — Edge of the Earth bespoke per-campaign tallies (everything the EotE
- * profile widgets need EXCEPT the City-of-the-Elder-Things matrix, which is the
- * standard per-version breakdown carried in the unified `scenarios` record). ONE
- * builder, ONE payload blob (`eoe`).
- *
- * Everything here is derived from each play's `RecordedCampaignState`, no raw-log
- * access required:
- *   • killed   — the picked `#name#` on `killed_in_plane_crash` (rides in `nameChoices`).
- *   • demons   — note PRESENCE of `<member>_has_confronted_(his|her)_demons`.
- *   • survived — partner status: a member with NO `name_crossed` flag came back
- *                (only counted for plays that recorded the expedition team).
- *   • supplies — a supply note recorded AND not crossed off (a crossed-off supply
- *                is spent, so it doesn't count as "still recovered").
- *   • camped   — note presence of each `campaign_notes.camp_*` location.
- */
+/** Edge of the Earth: the expedition team's fates, supplies, camps, Fatal Mirage memories and endings. */
 import { getCampaignLog, isCleared, type CampaignLog } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { filterFamilyRecords } from '../records/campaign-family';
-import { bumpCount } from '../utils/tally';
+import { countNotes, type Play } from '../records/play';
+import { bumpCount, extentOf, type Extent } from '../utils/tally';
+import { defineCampaignBuilder } from './define';
 
-const EOE_FAMILY = 'eoe';
-const ROSTER_SECTION = 'expedition_team';
-const FROST_TOKEN = 'frost'; // kohaku chaosTokenCode[ChaosToken.TokenFrost]
+const TEAM_SECTION = 'expedition_team';
 const SUPPLIES_SECTION = 'supplies_recovered';
-const CAMP_PREFIX = 'camp_';
+const MEMORIES_SECTION = 'memories_banished';
 const CRASH_KEY = 'campaign_notes.killed_in_plane_crash';
-const NAME_CROSSED = 'name_crossed';
-const MIASMA_PLAN = 'campaign_notes.dr_kensler_has_a_plan';
-const MIASMA_ELUDES = 'campaign_notes.truth_of_the_mirage_eludes_you';
-const FATAL_MIRAGE = 'fatal_mirage';
-const MIA = 'mia';
-const MIA_CROSSED = 'mia_crossed';
-const ICE_FLED = 'campaign_notes.team_fled_to_the_mountains';
-const ICE_ESCAPED = 'campaign_notes.team_barely_escaped_the_ice_shelf';
-const ICE_DEFEATED = 'campaign_notes.team_defeated_the_hunting_creatures';
+const FROST_TOKEN = 'frost';
+const FATAL_MIRAGE_RUNS = ['fatal_mirage', 'fatal_mirage_2', 'fatal_mirage_3'];
 
-/** A few "confronted their demons" entry tokens differ from the roster member id. */
+const NOTE = {
+	miasmaPlan: 'dr_kensler_has_a_plan',
+	miasmaEludes: 'truth_of_the_mirage_eludes_you',
+	iceFled: 'team_fled_to_the_mountains',
+	iceEscaped: 'team_barely_escaped_the_ice_shelf',
+	iceDefeated: 'team_defeated_the_hunting_creatures'
+} as const;
+
+/** "Confronted their demons" entries name a few members differently from the roster. */
 const DEMON_MEMBER_ALIAS: Record<string, string> = {
 	dr_kensler: 'kensler',
 	dr_sinha: 'sinha',
@@ -44,147 +28,90 @@ const DEMON_MEMBER_ALIAS: Record<string, string> = {
 };
 
 export interface CampaignEoe {
-	/** Always 'eoe' (the base family). */
 	family: string;
-	/** Expedition member ids, in campaign-log (roster) order. */
-	roster: string[];
-	/** Total EotE plays counted (context for the per-member tallies). */
 	plays: number;
-	// ── per-MEMBER lifetime tallies (portrait-roster widgets) ──
-	/** member id → times killed in the plane crash. */
+	/** Member id → plays they were killed in the plane crash. */
 	killed: Record<string, number>;
-	/** member id → times they confronted their demons. */
+	/** Member id → plays they confronted their demons. */
 	demons: Record<string, number>;
-	/** member id → times they survived (name not crossed), among plays that recorded the team. */
+	/** Member id → plays that kept their name uncrossed, among plays that recorded the team. */
 	survived: Record<string, number>;
-	/** member id → times rescued (marked MIA, then crossed off). */
+	/** Member id → plays they went missing and were found. */
 	rescued: Record<string, number>;
-	// ── per-ITEM lifetime tallies (image-grid widgets) ──
-	/** supply id → times recovered AND not crossed off (still held at the end). */
+	/** Supply id → plays that ended holding it (recovered and not crossed off as spent). */
 	supplies: Record<string, number>;
-	/** camp location id (incl. the `camp_` prefix) → times camped there. */
+	/** Camp note id (`camp_…`) → plays that camped there. */
 	camped: Record<string, number>;
-	/** Fatal Mirage memory LOCATION id → times banished. */
+	/** Fatal Mirage memory id → plays that banished it. */
 	memoriesBanishedLocations: Record<string, number>;
-	/** Fatal Mirage memory ENEMY id → times banished. */
 	memoriesBanishedEnemies: Record<string, number>;
-	/** Highest / lowest Frost-token count in the final chaos bag among WINNING plays
-	 *  that recorded a bag (null when no winning play recorded one). */
-	frostMax: number | null;
-	frostMin: number | null;
-	/** "The Miasma": plays ending "Dr. Kensler has a plan" vs "the truth of the
-	 *  mirage eludes you" (mutually exclusive at the campaign's end). */
-	miasmaPlan: number;
-	miasmaEludes: number;
-	/** "Fatal Mirage": per EotE campaign, how many times Fatal Mirage was played
-	 *  (1–3, from the count of recorded `fatal_mirage` / `_2` / `_3` resolutions).
-	 *  Only campaigns that recorded at least one are listed. */
-	fatalMiragePlays: number[];
-	/** "Ice and Death": plays where Part II / Part III was skipped (manual flag). */
-	iceDeathSkipped2: number;
-	iceDeathSkipped3: number;
-	/** "Ice and Death" note counts (plays where each happened). */
-	iceDeathFled: number;
-	iceDeathEscaped: number;
-	iceDeathDefeated: number;
-	/** Max / min recorded Shelter (Ice and Death Part I) across plays; null if none. */
-	shelterMax: number | null;
-	shelterMin: number | null;
-	/** "Fatal Mirage": most / fewest memories banished in a single run (among runs
-	 *  that banished any); null if none. */
-	memBanishedMost: number | null;
-	memBanishedLeast: number | null;
-	// ── Headline aggregates ──────────────────────────────────────────────────────
-	// Precomputed scalars so `.ahlifepro` consumers read them directly rather than
-	// re-deriving in the UI (see the serialization principle in compiled-profile.ts).
-	/** Distinct Fatal Mirage memory LOCATIONS ever banished (0–9 lifetime coverage). */
+	/** Distinct memories of each kind ever banished (of nine). */
 	memoriesBanishedLocationsCount: number;
-	/** Distinct Fatal Mirage memory ENEMIES ever banished (0–9 lifetime coverage). */
 	memoriesBanishedEnemiesCount: number;
-	/** How many EotE campaigns played Fatal Mirage once / twice / thrice. */
+	/** Memories of both kinds banished in one play, over the plays that banished any. */
+	banishedPerRun: Extent;
+	/** Extra: campaigns that played Fatal Mirage once / twice / thrice, by its recorded resolutions. */
 	fatalMiragePlayCounts: { once: number; twice: number; thrice: number };
-	/** "Memorials of the Lost" belongings ever earned (0–9). Card-derived, so it's
-	 *  filled at payload assembly from `cardUsage` ({@link countEoeMementosEarned});
-	 *  the log-only build leaves it 0. */
-	mementosEarned: number;
+	/** Frost tokens in the final chaos bag, over won plays that recorded one. */
+	frost: Extent;
+	/** A play's Shelter is the highest Shelter among the camps it reached. */
+	shelter: Extent;
+	/** The two exclusive closing notes. */
+	miasma: { plan: number; eludes: number };
+	/** `skippedPart2` / `skippedPart3` are Extra skip marks. */
+	iceAndDeath: {
+		skippedPart2: number;
+		skippedPart3: number;
+		fled: number;
+		escaped: number;
+		defeated: number;
+	};
 }
 
-/** Supply ids in the `supplies_recovered` section, in log order. */
-export function eoeSupplyIds(log: CampaignLog): string[] {
-	return log.db.entries.filter((e) => e.section === SUPPLIES_SECTION).map((e) => e.id);
+/** The expedition team in log order; `code` is the member's story card. */
+export function eoeTeam(): { id: string; code: string }[] {
+	const items = getCampaignLog('eoe')?.db.sections.find((s) => s.id === TEAM_SECTION)?.items ?? [];
+	return items.map(({ id, code }) => ({ id, code: code ?? '' }));
 }
 
-/** Camp-location ids: the `campaign_notes.camp_*` NOTE entries, in log order. The
- *  hidden `camp_shelter` counter lives in another section, so it's excluded. */
-export function eoeCampIds(log: CampaignLog): string[] {
-	return log.db.entries
-		.filter((e) => e.section === 'campaign_notes' && e.id.startsWith(CAMP_PREFIX))
-		.map((e) => e.id);
-}
-
-/**
- * The 13 camp locations arranged in their on-sheet ascent tiers (4 rows of
- * 4 / 3 / 3 / 3) for the "Camped" widget's hierarchical layout. Display-only;
- * the tally itself counts every camp id from {@link eoeCampIds}.
- */
-export const EOE_CAMP_ROWS: string[][] = [
-	['camp_crash_site', 'camp_precarious_ice_sheet', 'camp_treacherous_path', 'camp_frozen_shores'],
-	['camp_broad_snowdrifts', 'camp_icy_wastes', 'camp_rocky_crags'],
-	['camp_snow_graves', 'camp_frigid_cave', 'camp_icebreaker_landing'],
-	['camp_remnants_of_lakes_camp', 'camp_crystalline_cavern', 'camp_barrier_camp']
+/** The Supplies Recovered entries in log order, with their asset card. */
+export const EOE_SUPPLIES: { id: string; code: string }[] = [
+	{ id: 'green_soapstone', code: '08614' },
+	{ id: 'wooden_sledge', code: '08615' },
+	{ id: 'dynamite', code: '08616' },
+	{ id: 'miasmic_crystal', code: '08617' },
+	{ id: 'mineral_specimen', code: '08618' },
+	{ id: 'small_radio', code: '08619' },
+	{ id: 'spare_parts', code: '08620' }
 ];
 
-/** Supply id → its "Supplies Recovered" ASSET card code (the widget tile art). */
-export const EOE_SUPPLY_CARD: Record<string, string> = {
-	green_soapstone: '08614',
-	wooden_sledge: '08615',
-	dynamite: '08616',
-	miasmic_crystal: '08617',
-	mineral_specimen: '08618',
-	small_radio: '08619',
-	spare_parts: '08620'
-};
+/** The camp notes in their on-sheet ascent tiers, with their location card and printed Shelter. */
+export const EOE_CAMP_ROWS: { id: string; code: string; shelter: number }[][] = [
+	[
+		{ id: 'camp_crash_site', code: '08502', shelter: 0 },
+		{ id: 'camp_precarious_ice_sheet', code: '08505', shelter: 2 },
+		{ id: 'camp_treacherous_path', code: '08504', shelter: 1 },
+		{ id: 'camp_frozen_shores', code: '08503', shelter: 2 }
+	],
+	[
+		{ id: 'camp_broad_snowdrifts', code: '08506', shelter: 4 },
+		{ id: 'camp_icy_wastes', code: '08507', shelter: 4 },
+		{ id: 'camp_rocky_crags', code: '08508', shelter: 3 }
+	],
+	[
+		{ id: 'camp_snow_graves', code: '08509', shelter: 5 },
+		{ id: 'camp_frigid_cave', code: '08511', shelter: 6 },
+		{ id: 'camp_icebreaker_landing', code: '08510', shelter: 5 }
+	],
+	[
+		{ id: 'camp_remnants_of_lakes_camp', code: '08513', shelter: 7 },
+		{ id: 'camp_crystalline_cavern', code: '08514', shelter: 8 },
+		{ id: 'camp_barrier_camp', code: '08512', shelter: 7 }
+	]
+];
+const EOE_CAMPS = EOE_CAMP_ROWS.flat();
 
-/** Camp location id → its LOCATION card code (the widget tile art). */
-export const EOE_CAMP_CARD: Record<string, string> = {
-	camp_crash_site: '08502',
-	camp_precarious_ice_sheet: '08505',
-	camp_treacherous_path: '08504',
-	camp_frozen_shores: '08503',
-	camp_broad_snowdrifts: '08506',
-	camp_icy_wastes: '08507',
-	camp_rocky_crags: '08508',
-	camp_snow_graves: '08509',
-	camp_frigid_cave: '08511',
-	camp_icebreaker_landing: '08510',
-	camp_remnants_of_lakes_camp: '08513',
-	camp_crystalline_cavern: '08514',
-	camp_barrier_camp: '08512'
-};
-
-/** Camp location id → its Shelter rating (the number on the camp's log line). */
-export const EOE_CAMP_SHELTER: Record<string, number> = {
-	camp_crash_site: 0,
-	camp_treacherous_path: 1,
-	camp_precarious_ice_sheet: 2,
-	camp_frozen_shores: 2,
-	camp_rocky_crags: 3,
-	camp_icy_wastes: 4,
-	camp_broad_snowdrifts: 4,
-	camp_icebreaker_landing: 5,
-	camp_snow_graves: 5,
-	camp_frigid_cave: 6,
-	camp_barrier_camp: 7,
-	camp_remnants_of_lakes_camp: 7,
-	camp_crystalline_cavern: 8
-};
-
-/**
- * Fatal Mirage banishable memory LOCATIONS (the nine "mirage" locations that hold
- * a memory): log id → its location card code. Banishing one is logged under
- * `memories_banished.<id>`. (The other Fatal Mirage locations hold no memory and
- * are never banished, so they aren't listed.)
- */
+/** The nine Fatal Mirage locations that hold a memory, with their location card. */
 export const EOE_MEMORY_LOCATIONS: { id: string; code: string }[] = [
 	{ id: 'airfield', code: '08566' },
 	{ id: 'alaskan_wilds', code: '08567' },
@@ -197,10 +124,7 @@ export const EOE_MEMORY_LOCATIONS: { id: string; code: string }[] = [
 	{ id: 'the_black_stone', code: '08574' }
 ];
 
-/**
- * Fatal Mirage memory ENEMIES ("Memory of …"): log id → its enemy card code.
- * Banishing a memory enemy is also logged under `memories_banished.<id>`.
- */
+/** The nine "Memory of …" enemies, with their enemy card. */
 export const EOE_MEMORY_ENEMIES: { id: string; code: string }[] = [
 	{ id: 'hunt_gone_awry', code: '08575' },
 	{ id: 'lost_patient', code: '08576' },
@@ -213,13 +137,7 @@ export const EOE_MEMORY_ENEMIES: { id: string; code: string }[] = [
 	{ id: 'unrequited_love', code: '08583' }
 ];
 
-/**
- * "Memorials of the Lost" — the nine story-asset belongings (one per fallen
- * expedition member) that enter a deck when you recover a companion's effects
- * (encounter set eoec 08730–08738). Whether each is earned is DECK-derived
- * (lifetime card usage), not log-derived, so {@link countEoeMementosEarned}
- * runs at payload assembly (where `cardUsage` is available), not in `buildEoe`.
- */
+/** The nine Memorials of the Lost story assets, one per fallen member; earned into decks, not logged. */
 export const EOE_MEMENTO_CODES = [
 	'08730',
 	'08731',
@@ -232,187 +150,103 @@ export const EOE_MEMENTO_CODES = [
 	'08738'
 ];
 
-/** Count of the nine "Memorials of the Lost" ever held across the subject's decks (0–9). */
-export function countEoeMementosEarned(cardUsage: Record<string, number>): number {
-	return EOE_MEMENTO_CODES.filter((code) => (cardUsage[code] ?? 0) > 0).length;
-}
-
-/** "Confronted their demons" entries → the roster member each refers to. */
 function demonEntries(log: CampaignLog): { key: string; member: string }[] {
-	const out: { key: string; member: string }[] = [];
-	for (const e of log.db.entries) {
-		const m = /^(.+)_has_confronted_(?:his|her)_demons$/.exec(e.id);
-		if (!m) continue;
-		const token = m[1];
-		out.push({ key: `${e.section}.${e.id}`, member: DEMON_MEMBER_ALIAS[token] ?? token });
-	}
-	return out;
+	return log.db.entries.flatMap((e) => {
+		const token = /^(.+)_has_confronted_(?:his|her)_demons$/.exec(e.id)?.[1];
+		return token
+			? [{ key: `${e.section}.${e.id}`, member: DEMON_MEMBER_ALIAS[token] ?? token }]
+			: [];
+	});
 }
 
-/**
- * Build the Edge of the Earth bespoke aggregate. Returns a single-element array
- * (sliced by `family` like the other per-campaign data), or empty when the
- * subject has no EotE plays / the roster can't be resolved.
- */
-export function buildEoe(records: CampaignRecord[]): CampaignEoe[] {
-	const baseLog = getCampaignLog(EOE_FAMILY);
-	if (!baseLog) return [];
-	const eoeRecords = filterFamilyRecords(records, EOE_FAMILY);
-	if (eoeRecords.length === 0) return [];
+const banished = (p: Play, id: string) => p.has(`${MEMORIES_SECTION}.${id}`);
 
-	const section = baseLog.db.sections.find((s) => s.id === ROSTER_SECTION);
-	const roster = (section?.items ?? []).map((it) => it.id);
-	if (!roster.length) return [];
+function banishedIn(p: Play): number | null {
+	const n = [...EOE_MEMORY_LOCATIONS, ...EOE_MEMORY_ENEMIES].filter((m) =>
+		banished(p, m.id)
+	).length;
+	return n || null;
+}
 
-	const supplyIds = eoeSupplyIds(baseLog);
-	const campIds = eoeCampIds(baseLog);
-	const demons = demonEntries(baseLog);
+function wonFrost(p: Play, log: CampaignLog): number | null {
+	const bag = p.rec.recorded.finalChaosBag;
+	if (!bag || !Object.keys(bag).length || isCleared(log, p.rec.recorded) !== true) return null;
+	return bag[FROST_TOKEN] ?? 0;
+}
+
+export const buildEoe = defineCampaignBuilder<CampaignEoe>('eoe', (plays, log) => {
+	const team = eoeTeam().map((m) => m.id);
+	const demonKeys = demonEntries(log);
 
 	const killed: Record<string, number> = {};
-	const demonsTally: Record<string, number> = {};
+	const demons: Record<string, number> = {};
 	const survived: Record<string, number> = {};
 	const rescued: Record<string, number> = {};
 	const supplies: Record<string, number> = {};
 	const camped: Record<string, number> = {};
-	let iceDeathFled = 0;
-	let iceDeathEscaped = 0;
-	let iceDeathDefeated = 0;
-	let shelterMax: number | null = null;
-	let shelterMin: number | null = null;
-	let memBanishedMost: number | null = null;
-	let memBanishedLeast: number | null = null;
-	const memoriesBanishedLocations: Record<string, number> = {};
-	const memoriesBanishedEnemies: Record<string, number> = {};
-	let frostMax: number | null = null;
-	let frostMin: number | null = null;
-	let miasmaPlan = 0;
-	let miasmaEludes = 0;
-	const fatalMiragePlays: number[] = [];
-	let iceDeathSkipped2 = 0;
-	let iceDeathSkipped3 = 0;
+	const locations: Record<string, number> = {};
+	const enemies: Record<string, number> = {};
 
-	for (const rec of eoeRecords) {
-		const logs = rec.recorded.recordedLogs ?? new Set<string>();
-		const crossed = rec.recorded.crossedLogs;
-		const log = getCampaignLog(rec.campaignCode);
-		const won = log ? isCleared(log, rec.recorded) === true : false;
+	for (const p of plays) {
+		const victim = p.rec.nameChoices?.[CRASH_KEY];
+		if (victim) bumpCount(killed, victim);
+		for (const d of demonKeys) if (p.has(d.key)) bumpCount(demons, d.member);
 
-		const member = rec.nameChoices?.[CRASH_KEY];
-		if (member) bumpCount(killed, member);
-
-		for (const d of demons) if (logs.has(d.key)) bumpCount(demonsTally, d.member);
-
-		// Survived = name not crossed; Rescued = marked MIA then crossed off — both
-		// only meaningful when the play recorded the team.
-		const team = rec.recorded.partnerStatuses?.[ROSTER_SECTION];
-		if (team)
-			for (const id of roster) {
-				const st = team[id];
-				if (!st?.has(NAME_CROSSED)) bumpCount(survived, id);
-				if (st?.has(MIA) && st.has(MIA_CROSSED)) bumpCount(rescued, id);
+		const statuses = p.rec.recorded.partnerStatuses?.[TEAM_SECTION];
+		if (statuses)
+			for (const id of team) {
+				const st = statuses[id];
+				if (!st?.has('name_crossed')) bumpCount(survived, id);
+				if (st?.has('mia') && st.has('mia_crossed')) bumpCount(rescued, id);
 			}
 
-		for (const id of supplyIds) {
+		const crossed = p.rec.recorded.crossedLogs;
+		for (const { id } of EOE_SUPPLIES) {
 			const key = `${SUPPLIES_SECTION}.${id}`;
-			if (logs.has(key) && !crossed?.has(key)) bumpCount(supplies, id);
+			if (p.has(key) && !crossed?.has(key)) bumpCount(supplies, id);
 		}
-
-		// Camped tally + the run's Shelter = the highest camp number reached.
-		let runShelter: number | null = null;
-		for (const id of campIds)
-			if (logs.has(`campaign_notes.${id}`)) {
-				bumpCount(camped, id);
-				const sh = EOE_CAMP_SHELTER[id];
-				if (sh !== undefined) runShelter = runShelter === null ? sh : Math.max(runShelter, sh);
-			}
-		if (runShelter !== null) {
-			shelterMax = shelterMax === null ? runShelter : Math.max(shelterMax, runShelter);
-			shelterMin = shelterMin === null ? runShelter : Math.min(shelterMin, runShelter);
-		}
-
-		// Memories BANISHED — locations and enemies, both keyed under memories_banished.
-		for (const loc of EOE_MEMORY_LOCATIONS)
-			if (logs.has(`memories_banished.${loc.id}`)) bumpCount(memoriesBanishedLocations, loc.id);
-		for (const en of EOE_MEMORY_ENEMIES)
-			if (logs.has(`memories_banished.${en.id}`)) bumpCount(memoriesBanishedEnemies, en.id);
-
-		// Most / fewest banished in a single run (locations + enemies), among runs
-		// that banished at least one.
-		const banishedThisRun =
-			EOE_MEMORY_LOCATIONS.filter((l) => logs.has(`memories_banished.${l.id}`)).length +
-			EOE_MEMORY_ENEMIES.filter((e) => logs.has(`memories_banished.${e.id}`)).length;
-		if (banishedThisRun > 0) {
-			memBanishedMost =
-				memBanishedMost === null ? banishedThisRun : Math.max(memBanishedMost, banishedThisRun);
-			memBanishedLeast =
-				memBanishedLeast === null ? banishedThisRun : Math.min(memBanishedLeast, banishedThisRun);
-		}
-
-		// Frost-token range — only WINNING plays that recorded a final chaos bag count.
-		const bag = rec.recorded.finalChaosBag;
-		if (won && bag && Object.keys(bag).length > 0) {
-			const frost = bag[FROST_TOKEN] ?? 0;
-			frostMax = frostMax === null ? frost : Math.max(frostMax, frost);
-			frostMin = frostMin === null ? frost : Math.min(frostMin, frost);
-		}
-
-		// The Miasma — the two mutually-exclusive end notes.
-		if (logs.has(MIASMA_PLAN)) miasmaPlan += 1;
-		if (logs.has(MIASMA_ELUDES)) miasmaEludes += 1;
-
-		// Fatal Mirage replays = how many of the 3 FM scenarios got a recorded resolution.
-		const fm = [FATAL_MIRAGE, 'fatal_mirage_2', 'fatal_mirage_3'].filter(
-			(id) => rec.scenarioResolutions?.[id]
-		).length;
-		if (fm > 0) fatalMiragePlays.push(fm);
-
-		// Ice and Death — manually-flagged skips of Part II / Part III.
-		const skipped = rec.scenarioSkipped ?? [];
-		if (skipped.includes('ice_and_death_part_2')) iceDeathSkipped2 += 1;
-		if (skipped.includes('ice_and_death_part_3')) iceDeathSkipped3 += 1;
-
-		// Ice and Death — notable outcome notes.
-		if (logs.has(ICE_FLED)) iceDeathFled += 1;
-		if (logs.has(ICE_ESCAPED)) iceDeathEscaped += 1;
-		if (logs.has(ICE_DEFEATED)) iceDeathDefeated += 1;
+		for (const { id } of EOE_CAMPS) if (p.has(id)) bumpCount(camped, id);
+		for (const { id } of EOE_MEMORY_LOCATIONS) if (banished(p, id)) bumpCount(locations, id);
+		for (const { id } of EOE_MEMORY_ENEMIES) if (banished(p, id)) bumpCount(enemies, id);
 	}
 
-	return [
-		{
-			family: EOE_FAMILY,
-			roster,
-			plays: eoeRecords.length,
-			killed,
-			demons: demonsTally,
-			survived,
-			rescued,
-			supplies,
-			camped,
-			memoriesBanishedLocations,
-			memoriesBanishedEnemies,
-			frostMax,
-			frostMin,
-			miasmaPlan,
-			miasmaEludes,
-			fatalMiragePlays,
-			iceDeathSkipped2,
-			iceDeathSkipped3,
-			iceDeathFled,
-			iceDeathEscaped,
-			iceDeathDefeated,
-			shelterMax,
-			shelterMin,
-			memBanishedMost,
-			memBanishedLeast,
-			memoriesBanishedLocationsCount: Object.keys(memoriesBanishedLocations).length,
-			memoriesBanishedEnemiesCount: Object.keys(memoriesBanishedEnemies).length,
-			fatalMiragePlayCounts: {
-				once: fatalMiragePlays.filter((p) => p === 1).length,
-				twice: fatalMiragePlays.filter((p) => p === 2).length,
-				thrice: fatalMiragePlays.filter((p) => p === 3).length
-			},
-			// Card-derived; overridden at assembly via countEoeMementosEarned(cardUsage).
-			mementosEarned: 0
+	const fatalMirageRuns = plays.map(
+		(p) => FATAL_MIRAGE_RUNS.filter((id) => p.resolution(id)).length
+	);
+	const campaignsWithRuns = (n: number) => fatalMirageRuns.filter((runs) => runs === n).length;
+	const skipped = (scenario: string) =>
+		plays.filter((p) => p.rec.scenarioSkipped?.includes(scenario)).length;
+
+	return {
+		killed,
+		demons,
+		survived,
+		rescued,
+		supplies,
+		camped,
+		memoriesBanishedLocations: locations,
+		memoriesBanishedEnemies: enemies,
+		memoriesBanishedLocationsCount: Object.keys(locations).length,
+		memoriesBanishedEnemiesCount: Object.keys(enemies).length,
+		banishedPerRun: extentOf(plays.map(banishedIn)),
+		fatalMiragePlayCounts: {
+			once: campaignsWithRuns(1),
+			twice: campaignsWithRuns(2),
+			thrice: campaignsWithRuns(3)
+		},
+		frost: extentOf(plays.map((p) => wonFrost(p, log))),
+		shelter: extentOf(
+			plays.map((p) => extentOf(EOE_CAMPS.filter((c) => p.has(c.id)).map((c) => c.shelter)).max)
+		),
+		miasma: countNotes(plays, { plan: NOTE.miasmaPlan, eludes: NOTE.miasmaEludes }),
+		iceAndDeath: {
+			skippedPart2: skipped('ice_and_death_part_2'),
+			skippedPart3: skipped('ice_and_death_part_3'),
+			...countNotes(plays, {
+				fled: NOTE.iceFled,
+				escaped: NOTE.iceEscaped,
+				defeated: NOTE.iceDefeated
+			})
 		}
-	];
-}
+	};
+});

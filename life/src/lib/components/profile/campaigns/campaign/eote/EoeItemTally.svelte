@@ -1,69 +1,25 @@
-<!--
-@component
-EotE bespoke widget — item tiles that light up by a per-item lifetime count. Each
-tile is the item's actual CARD art (square crop). One component, two kinds:
-  • supplies — "Supplies Recovered": supplies still held, in one centred wrapping row.
-  • camped   — "Camped": the 13 camps in their on-sheet ascent tiers (4 / 3 / 3 / 3).
-Built on LitTileGrid (`rows` layout). Fed by the shared `eoe` aggregate.
--->
+<!-- @component Supplies still held, or the camps reached in their ascent tiers, lit by how many plays. -->
 <script lang="ts">
-	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { entryLabel } from '$lib/campaign/records/campaign-log-source';
-	import {
-		eoeSupplyIds,
-		EOE_CAMP_ROWS,
-		EOE_SUPPLY_CARD,
-		EOE_CAMP_CARD,
-		type CampaignEoe
-	} from '$lib/campaign/campaigns/eoe';
-	import { times } from '$lib/profile/plural';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import { EOE_CAMP_ROWS, EOE_SUPPLIES, type CampaignEoe } from '$lib/campaign/campaigns/eoe';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { LitTileGrid } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
+	import { entryText, litTiles, timesDetail } from './eote-tiles';
 
-	let { eoe, kind }: { eoe: CampaignEoe | null; kind: 'supplies' | 'camped' } = $props();
+	let { blob: eoe, kind }: CampaignWidgetProps<CampaignEoe> & { kind: 'supplies' | 'camped' } =
+		$props();
 
-	const log = getCampaignLog('eoe');
-	// Camp sheet labels read "Camp - Icy Wastes (4)"; trim to the place name.
-	const cleanCamp = (text: string): string =>
-		text.replace(/^Camp\s*[-–]\s*/i, '').replace(/\s*\(\d+\)\s*$/, '');
+	const recovered = timesDetail(
+		m.campaign_eote_item_recovered,
+		m.campaign_eote_item_never_recovered
+	);
+	const camped = timesDetail(m.campaign_eote_item_camped, m.campaign_eote_item_never_camped);
 
-	const rows = $derived.by((): LitTile[][] => {
-		if (!eoe || !log) return [];
-		if (kind === 'supplies') {
-			const tiles = eoeSupplyIds(log).map((id): LitTile => {
-				const n = eoe.supplies[id] ?? 0;
-				return {
-					id,
-					image: getCardImagePath(EOE_SUPPLY_CARD[id] ?? '', 'square'),
-					label: entryLabel(log, `supplies_recovered.${id}`),
-					count: n,
-					detail:
-						n > 0
-							? m.campaign_eote_item_recovered({ times: times(n) })
-							: m.campaign_eote_item_never_recovered()
-				};
-			});
-			return tiles.length ? [tiles] : [];
-		}
-		return EOE_CAMP_ROWS.map((row) =>
-			row.map((id): LitTile => {
-				const n = eoe.camped[id] ?? 0;
-				return {
-					id,
-					image: getCardImagePath(EOE_CAMP_CARD[id] ?? '', 'square'),
-					label: cleanCamp(entryLabel(log, `campaign_notes.${id}`)),
-					count: n,
-					detail:
-						n > 0
-							? m.campaign_eote_item_camped({ times: times(n) })
-							: m.campaign_eote_item_never_camped()
-				};
-			})
-		);
-	});
+	const rows = $derived(
+		kind === 'supplies'
+			? [litTiles(EOE_SUPPLIES, eoe?.supplies, recovered, entryText('supplies_recovered'))]
+			: EOE_CAMP_ROWS.map((row) => litTiles(row, eoe?.camped, camped))
+	);
 </script>
 
-{#if eoe && rows.length}
-	<LitTileGrid {rows} />
-{/if}
+<LitTileGrid {rows} />

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { RecordedCampaignState } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 import { buildNotz } from './notz';
 
 const k = (id: string) => `campaign_notes.${id}`;
@@ -59,7 +59,7 @@ const C = rec({
 });
 
 describe('buildNotz', () => {
-	const [n] = buildNotz([A, B, C]);
+	const n = buildNotz([A, B, C])!;
 
 	it('returns a single blob covering every notz record', () => {
 		expect(n.plays).toBe(3);
@@ -88,9 +88,10 @@ describe('buildNotz', () => {
 		expect(n.midnightMasks.perCultist['01141'].caught.total).toBe(0); // never seen
 		expect(n.midnightMasks.totalInterrogated).toBe(6); // 2 + 4
 		expect(n.midnightMasks.totalEscaped).toBe(1);
-		expect(n.midnightMasks.playsWithEscapes.total).toBe(1); // A
-		expect(n.midnightMasks.bestHaul.total).toBe(4); // B's four
-		expect(n.midnightMasks.bestHaul.byTier).toEqual({ standard: 2, hard: 4 });
+		expect(n.midnightMasks.bestHaul).toEqual([
+			{ tier: 'standard', caught: 2 },
+			{ tier: 'hard', caught: 4 }
+		]);
 		expect(n.midnightMasks.pastMidnight.total).toBe(1);
 	});
 
@@ -105,7 +106,6 @@ describe('buildNotz', () => {
 		// A: won + core-only ✓. B: won but not core-only ✗. C: core-only but lost ✗.
 		expect(n.purist.coreOnlyClears.total).toBe(1);
 		expect(n.purist.coreOnlyClears.byTier).toEqual({ standard: 1 });
-		expect(n.purist.investigators['01001'].total).toBe(1);
-		expect(n.purist.investigators['01002']).toBeUndefined();
+		expect(n.purist.investigators.map((i) => [i.code, i.clears.total])).toEqual([['01001', 1]]);
 	});
 });

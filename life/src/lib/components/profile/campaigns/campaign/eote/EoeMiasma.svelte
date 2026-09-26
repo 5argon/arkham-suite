@@ -1,28 +1,19 @@
-<!--
-@component
-EotE bespoke widget — "The Miasma". At the campaign's end, exactly one of two
-mutually-exclusive notes is recorded: "Dr. Kensler has a plan" or "the truth of
-the mirage eludes you". Shows how many of your runs ended each way. Built on the
-shared StatNumbers.
--->
+<!-- @component The Miasma: how many campaigns closed with Dr. Kensler's plan, and how many with the truth eluding you. -->
 <script lang="ts">
 	import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 
-	let { eoe }: { eoe: CampaignEoe | null } = $props();
-	const plan = $derived(eoe?.miasmaPlan ?? 0);
-	const eludes = $derived(eoe?.miasmaEludes ?? 0);
-	const rows = $derived<Stat[][]>(
-		plan > 0 || eludes > 0
-			? [
-					[
-						{ value: plan, label: m.campaign_eote_miasma_plan() },
-						{ value: eludes, label: m.campaign_eote_miasma_eludes() }
-					]
-				]
-			: []
-	);
+	let { blob: eoe }: CampaignWidgetProps<CampaignEoe> = $props();
 </script>
 
-<StatNumbers {rows} />
+<StatNumbers
+	empty={m.campaign_eote_miasma_empty()}
+	rows={[
+		[
+			{ value: eoe?.miasma.plan, label: m.campaign_eote_miasma_plan() },
+			{ value: eoe?.miasma.eludes, label: m.campaign_eote_miasma_eludes() }
+		]
+	]}
+/>

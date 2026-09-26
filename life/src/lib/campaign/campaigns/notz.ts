@@ -1,187 +1,131 @@
-/**
- * notz.ts — The Night of the Zealot bespoke per-campaign tallies. ONE builder, ONE
- * payload blob (`notz`). The core set's three-scenario intro campaign, fully log- and
- * deck-derived (the core-only feat reads `rec.coreOnly`, computed at assembly from the
- * imported decks). Every count is a per-difficulty `ResolutionTally` so the widgets can
- * offer the shared difficulty-breakdown hover:
- *
- *   • gathering — The Gathering: your house (standing vs burned), Lita recruited vs forced
- *     to find others, and the Ghoul Priest slain here (recorded ∧ crossed off) vs left
- *     alive to follow you into the finale (recorded ∧ not crossed).
- *   • midnightMasks — The Midnight Masks: past midnight (the Masked Hunter time-pressure),
- *     the per-cultist manhunt (each of the 6 unique Cultists interrogated vs got away), the
- *     best single-play haul, and how many plays let cultists escape (they swell the finale's doom).
- *   • devourerBelow — The Devourer Below finale: Umôrdhoth repelled (the better ending),
- *     the ritual broken (a win), Lita sacrificed (a distinct, hard-won win), Arkham succumbed (loss).
- *   • purist — the Core-Set-only clears (the tutorial bundled with the box): wins achieved with a
- *     Core / Revised Core-only deck and a non-parallel investigator, and who achieved them.
- *
- * `buildNotz` is family-parameterized (base and Return-to).
- */
-import { getCampaignLog } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { filterFamilyRecords } from '../records/campaign-family';
-import type { ResolutionTally } from '../outcomes/resolution-coverage';
-import { emptyTally, bumpTally, ensureTally } from '../utils/tally';
+/** The Night of the Zealot: The Gathering, the Midnight Masks manhunt, the finale, and Core-Set-only clears. */
+import { orderedDifficulties } from '../utils/difficulty';
+import type { Tally } from '../utils/tally';
+import { bumpTally, emptyTally, ensureTally } from '../utils/tally';
+import { tallyNotes, tallyPlays, type Play } from '../records/play';
+import { defineCampaignBuilder } from './define';
 
-const NOTZ_FAMILY = 'notz';
-const N = 'campaign_notes';
-const k = (id: string) => `${N}.${id}`;
-const INTERROGATED = 'cultists_interrogated';
-const ESCAPED = 'cultists_escaped';
-
-/** The six unique Cultist enemies of The Midnight Masks, in encounter order — the roster the
- *  `cultists_interrogated` / `cultists_escaped` sections draw from (incl. the Masked Hunter). */
+/** The six unique Cultists of The Midnight Masks, in encounter order. */
 export const NOTZ_CULTISTS = ['01137', '01138', '01139', '01140', '01141', '01121b'] as const;
-/** The Ghoul Priest — the boss left alive in The Gathering, carried into the finale. */
-export const NOTZ_GHOUL_PRIEST_CODE = '01104';
+export const NOTZ_LITA_CODE = '01117';
+export const NOTZ_GHOUL_PRIEST_CODE = '01116';
+export const NOTZ_UMORDHOTH_CODE = '01157';
 
-/** Resolve a NotZ campaign-data entry's English text by composite key (e.g.
- *  `campaign_notes.ritual_broken`). Falls back to the key when no entry exists. */
-export function notzText(compositeKey: string): string {
-	return getCampaignLog(NOTZ_FAMILY)?.en.entries[compositeKey]?.text ?? compositeKey;
-}
+const GHOUL_PRIEST_ALIVE = 'campaign_notes.ghoul_priest_alive';
 
-/** One unique cultist across plays: times interrogated vs times it got away. */
 export interface NotzCultist {
-	caught: ResolutionTally;
-	escaped: ResolutionTally;
+	caught: Tally;
+	escaped: Tally;
 }
 
 export interface CampaignNotz {
-	/** The campaign family (its own code) — 'notz' (or 'rtnotz' for the Return-to suite). */
 	family: string;
 	plays: number;
-	/** Finale won — ritual broken / Umôrdhoth repelled / Lita sacrificed all count as clears. */
+	/** Finale won: Umôrdhoth repelled, the ritual broken, or Lita sacrificed. */
 	wins: number;
 	gathering: {
-		houseStanding: ResolutionTally;
-		houseBurned: ResolutionTally;
-		litaRecruited: ResolutionTally;
-		litaFindsOthers: ResolutionTally;
-		/** Recorded ∧ crossed off — the Ghoul Priest was slain during The Gathering. */
-		ghoulPriestSlain: ResolutionTally;
-		/** Recorded ∧ not crossed — the Ghoul Priest survives to stalk you into the finale. */
-		ghoulPriestSurvived: ResolutionTally;
+		houseStanding: Tally;
+		houseBurned: Tally;
+		/** Reached The Gathering without Lita being forced to find others. */
+		litaRecruited: Tally;
+		litaFindsOthers: Tally;
+		/** "The Ghoul Priest is still alive" recorded and crossed off. */
+		ghoulPriestSlain: Tally;
+		/** Recorded and not crossed off: he joins the finale's encounter deck. */
+		ghoulPriestSurvived: Tally;
 	};
 	midnightMasks: {
-		pastMidnight: ResolutionTally;
-		/** Per unique cultist (NOTZ_CULTISTS): plays interrogated vs plays it got away. */
+		pastMidnight: Tally;
+		/** Keyed by {@link NOTZ_CULTISTS} code. */
 		perCultist: Record<string, NotzCultist>;
 		totalInterrogated: number;
 		totalEscaped: number;
-		/** Plays where at least one cultist got away (they add doom to the finale's Agenda 1a). */
-		playsWithEscapes: ResolutionTally;
-		/** Best single-play cultist haul (max interrogated); `byTier` is the best per difficulty. */
-		bestHaul: ResolutionTally;
+		/** The most cultists interrogated in one play, per difficulty in difficulty order; tiers
+		 *  with no catch are left out. */
+		bestHaul: { tier: string; caught: number }[];
 	};
 	devourerBelow: {
-		umordhothRepelled: ResolutionTally;
-		ritualBroken: ResolutionTally;
-		litaSacrificed: ResolutionTally;
-		arkhamSuccumbed: ResolutionTally;
+		umordhothRepelled: Tally;
+		ritualBroken: Tally;
+		litaSacrificed: Tally;
+		arkhamSuccumbed: Tally;
 	};
 	purist: {
-		/** Clears (wins) achieved with a Core / Revised Core-only deck + non-parallel investigator. */
-		coreOnlyClears: ResolutionTally;
-		/** Investigator code → the core-only clears they took part in. */
-		investigators: Record<string, ResolutionTally>;
+		/** Wins whose subject decks were all Core / Revised Core-only with a non-parallel investigator. */
+		coreOnlyClears: Tally;
+		/** The investigators of those clears, most clears first. */
+		investigators: { code: string; clears: Tally }[];
 	};
 }
 
-export function buildNotz(
-	records: CampaignRecord[],
-	family: string = NOTZ_FAMILY,
-	mergeReturnTo = true
-): CampaignNotz[] {
-	const baseLog = getCampaignLog(family);
-	if (!baseLog) return [];
-	const notzRecords = filterFamilyRecords(records, family, mergeReturnTo);
-	if (notzRecords.length === 0) return [];
+export const buildNotz = defineCampaignBuilder<CampaignNotz>('notz', (plays) => {
+	const reachedGathering = (p: Play) => p.has('house_standing') || p.has('house_burned');
+	const ghoulCrossed = (p: Play) => p.rec.recorded.crossedLogs?.has(GHOUL_PRIEST_ALIVE) ?? false;
 
-	const gathering = {
-		houseStanding: emptyTally(),
-		houseBurned: emptyTally(),
-		litaRecruited: emptyTally(),
-		litaFindsOthers: emptyTally(),
-		ghoulPriestSlain: emptyTally(),
-		ghoulPriestSurvived: emptyTally()
-	};
 	const perCultist: Record<string, NotzCultist> = {};
-	for (const code of NOTZ_CULTISTS) perCultist[code] = { caught: emptyTally(), escaped: emptyTally() };
-	const midnightMasks = {
-		pastMidnight: emptyTally(),
-		perCultist,
-		totalInterrogated: 0,
-		totalEscaped: 0,
-		playsWithEscapes: emptyTally(),
-		bestHaul: emptyTally()
-	};
-	const devourerBelow = {
-		umordhothRepelled: emptyTally(),
-		ritualBroken: emptyTally(),
-		litaSacrificed: emptyTally(),
-		arkhamSuccumbed: emptyTally()
-	};
-	const purist = {
-		coreOnlyClears: emptyTally(),
-		investigators: {} as Record<string, ResolutionTally>
-	};
+	for (const code of NOTZ_CULTISTS)
+		perCultist[code] = { caught: emptyTally(), escaped: emptyTally() };
+	const cultist = (code: string) =>
+		(perCultist[code] ??= { caught: emptyTally(), escaped: emptyTally() });
+	const bestByTier: Record<string, number> = {};
+	let totalInterrogated = 0;
+	let totalEscaped = 0;
+
+	const coreOnlyClears = emptyTally();
+	const investigators: Record<string, Tally> = {};
 	let wins = 0;
 
-	for (const rec of notzRecords) {
-		const logs = rec.recorded.recordedLogs ?? new Set<string>();
-		const crossed = rec.recorded.crossedLogs ?? new Set<string>();
-		const items = rec.recorded.recordedSectionItems ?? {};
-		const tier = rec.recorded.difficulty ?? 'standard';
-		const has = (id: string) => logs.has(k(id));
-		const isCrossed = (id: string) => crossed.has(k(id));
+	for (const p of plays) {
+		const caught = p.items('cultists_interrogated');
+		const gotAway = p.items('cultists_escaped');
+		for (const code of caught) bumpTally(cultist(code).caught, p.tier);
+		for (const code of gotAway) bumpTally(cultist(code).escaped, p.tier);
+		totalInterrogated += caught.size;
+		totalEscaped += gotAway.size;
+		bestByTier[p.tier] = Math.max(bestByTier[p.tier] ?? 0, caught.size);
 
-		// ── The Gathering ──
-		const gatheringReached = has('house_standing') || has('house_burned');
-		if (has('house_standing')) bumpTally(gathering.houseStanding, tier);
-		if (has('house_burned')) bumpTally(gathering.houseBurned, tier);
-		if (has('lita_finds_others')) bumpTally(gathering.litaFindsOthers, tier);
-		else if (gatheringReached) bumpTally(gathering.litaRecruited, tier);
-		if (has('ghoul_priest_alive')) {
-			if (isCrossed('ghoul_priest_alive')) bumpTally(gathering.ghoulPriestSlain, tier);
-			else bumpTally(gathering.ghoulPriestSurvived, tier);
-		}
-
-		// ── The Midnight Masks ──
-		if (has('past_midnight')) bumpTally(midnightMasks.pastMidnight, tier);
-		const caught = items[INTERROGATED] ?? new Set<string>();
-		const gotAway = items[ESCAPED] ?? new Set<string>();
-		for (const code of caught) bumpTally(ensureCultist(perCultist, code).caught, tier);
-		for (const code of gotAway) bumpTally(ensureCultist(perCultist, code).escaped, tier);
-		midnightMasks.totalInterrogated += caught.size;
-		midnightMasks.totalEscaped += gotAway.size;
-		if (gotAway.size > 0) bumpTally(midnightMasks.playsWithEscapes, tier);
-		// Best haul = max interrogated in a single play, overall (`total`) + per difficulty (`byTier`).
-		if (caught.size > midnightMasks.bestHaul.total) midnightMasks.bestHaul.total = caught.size;
-		midnightMasks.bestHaul.byTier[tier] = Math.max(midnightMasks.bestHaul.byTier[tier] ?? 0, caught.size);
-
-		// ── The Devourer Below ──
-		if (has('umordhoth_repelled')) bumpTally(devourerBelow.umordhothRepelled, tier);
-		if (has('ritual_broken')) bumpTally(devourerBelow.ritualBroken, tier);
-		if (has('lita_sacrificed')) bumpTally(devourerBelow.litaSacrificed, tier);
-		if (has('arkham_succumbed')) bumpTally(devourerBelow.arkhamSuccumbed, tier);
-
-		// ── Clear (win) + the Core-Set purist feat ──
-		const won = has('umordhoth_repelled') || has('ritual_broken') || has('lita_sacrificed');
-		if (won) {
-			wins += 1;
-			if (rec.coreOnly) {
-				bumpTally(purist.coreOnlyClears, tier);
-				for (const code of rec.subjectInvestigators ?? [])
-					bumpTally(ensureTally(purist.investigators, code), tier);
-			}
-		}
+		// campaign-data marks `lita_sacrificed` with no win outcome, so `isCleared` would miss it.
+		if (!(p.has('umordhoth_repelled') || p.has('ritual_broken') || p.has('lita_sacrificed')))
+			continue;
+		wins += 1;
+		if (!p.rec.coreOnly) continue;
+		bumpTally(coreOnlyClears, p.tier);
+		for (const code of p.rec.subjectInvestigators ?? [])
+			bumpTally(ensureTally(investigators, code), p.tier);
 	}
 
-	return [{ family, plays: notzRecords.length, wins, gathering, midnightMasks, devourerBelow, purist }];
-}
-
-function ensureCultist(map: Record<string, NotzCultist>, code: string): NotzCultist {
-	return (map[code] ??= { caught: emptyTally(), escaped: emptyTally() });
-}
+	return {
+		wins,
+		gathering: {
+			...tallyNotes(plays, {
+				houseStanding: 'house_standing',
+				houseBurned: 'house_burned',
+				litaFindsOthers: 'lita_finds_others'
+			}),
+			litaRecruited: tallyPlays(plays, (p) => reachedGathering(p) && !p.has('lita_finds_others')),
+			ghoulPriestSlain: tallyPlays(plays, (p) => p.has(GHOUL_PRIEST_ALIVE) && ghoulCrossed(p)),
+			ghoulPriestSurvived: tallyPlays(plays, (p) => p.has(GHOUL_PRIEST_ALIVE) && !ghoulCrossed(p))
+		},
+		midnightMasks: {
+			pastMidnight: tallyPlays(plays, (p) => p.has('past_midnight')),
+			perCultist,
+			totalInterrogated,
+			totalEscaped,
+			bestHaul: orderedDifficulties(bestByTier)
+				.filter((tier) => bestByTier[tier] > 0)
+				.map((tier) => ({ tier, caught: bestByTier[tier] }))
+		},
+		devourerBelow: tallyNotes(plays, {
+			umordhothRepelled: 'umordhoth_repelled',
+			ritualBroken: 'ritual_broken',
+			litaSacrificed: 'lita_sacrificed',
+			arkhamSuccumbed: 'arkham_succumbed'
+		}),
+		purist: {
+			coreOnlyClears,
+			investigators: Object.entries(investigators)
+				.map(([code, clears]) => ({ code, clears }))
+				.sort((a, b) => b.clears.total - a.clears.total)
+		}
+	};
+});

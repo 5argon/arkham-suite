@@ -1,33 +1,29 @@
-<!--
-@component
-EotE bespoke widget — "Frost Tokens". Edge of the Earth piles Frost tokens into
-the chaos bag (and lets you clear them). This shows the RANGE recorded across your
-WINNING plays: the most Frost the bag held on a win, and the fewest — drawn as
-Frost-token coins (the shared <TokenCoinRow>, same art as the Campaign Archive's
-chaos-bag editor). Fed by the shared `eoe` aggregate (`frostMax` / `frostMin`, null
-until a winning play recorded a final chaos bag).
--->
+<!-- @component The most and fewest Frost tokens left in the chaos bag at the end of a won campaign. -->
 <script lang="ts">
 	import { ChaosToken } from '@5argon/arkham-kohaku';
 	import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
-	import TokenCoinRow from '$lib/components/profile/_primitives/TokenCoinRow.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { TokenCoinRow, WidgetEmpty } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 
-	let { eoe }: { eoe: CampaignEoe | null } = $props();
-	const hasData = $derived(eoe != null && eoe.frostMax != null);
+	let { blob: eoe }: CampaignWidgetProps<CampaignEoe> = $props();
+
+	const frost = $derived(eoe?.frost);
 </script>
 
-{#if hasData && eoe}
+{#if frost?.max != null}
 	<div class="space-y-3">
 		<TokenCoinRow
 			token={ChaosToken.TokenFrost}
 			label={m.campaign_eote_frost_max_winning()}
-			count={eoe.frostMax ?? 0}
+			count={frost.max}
 		/>
 		<TokenCoinRow
 			token={ChaosToken.TokenFrost}
 			label={m.campaign_eote_frost_min_winning()}
-			count={eoe.frostMin ?? 0}
+			count={frost.min ?? 0}
 		/>
 	</div>
+{:else}
+	<WidgetEmpty>{m.campaign_eote_frost_empty()}</WidgetEmpty>
 {/if}

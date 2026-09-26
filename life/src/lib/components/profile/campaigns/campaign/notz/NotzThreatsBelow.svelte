@@ -1,45 +1,35 @@
-<!--
-@component
-NotZ bespoke spine widget — "Threats Carried Below". How the first two scenarios' loose ends stalk
-the finale: the Ghoul Priest left alive in The Gathering (shuffled into the Devourer Below encounter
-deck) and the cultists who escaped The Midnight Masks (each adds doom to the finale's Agenda 1a).
-Both numbers hover to their per-difficulty split; the Ghoul Priest heads the block. Log-derived.
--->
+<!-- @component What followed you into the finale: a surviving Ghoul Priest and the cultists who got away. -->
 <script lang="ts">
 	import { NOTZ_GHOUL_PRIEST_CODE, type CampaignNotz } from '$lib/campaign/campaigns/notz';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		CardThumb,
+		StatNumbers,
+		WidgetEmpty,
+		WidgetNote
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { notz }: { notz: CampaignNotz | null } = $props();
+	let { blob: notz }: CampaignWidgetProps<CampaignNotz> = $props();
 
-	const ghoul = $derived(notz?.gathering.ghoulPriestSurvived ?? null);
-	const mm = $derived(notz?.midnightMasks ?? null);
-	const hasData = $derived((ghoul?.total ?? 0) > 0 || (mm?.totalEscaped ?? 0) > 0);
-	const rows = $derived<StatGroup[]>([
-		{
-			stats: [
-				{ value: ghoul?.total ?? 0, label: m.campaign_notz_threat_ghoul(), byTier: ghoul?.byTier },
-				{ value: mm?.totalEscaped ?? 0, label: m.campaign_notz_threat_cultists() }
-			]
-		}
-	]);
+	const ghoul = $derived(notz?.gathering.ghoulPriestSurvived);
+	const escaped = $derived(notz?.midnightMasks.totalEscaped ?? 0);
 </script>
 
-{#if hasData}
+{#if ghoul?.total || escaped}
 	<div class="space-y-3">
 		<div class="flex justify-center">
-			<CardThumb
-				code={NOTZ_GHOUL_PRIEST_CODE}
-				alt={m.campaign_notz_ghoul_heading()}
-				title={m.campaign_notz_ghoul_heading()}
-				tone="danger"
-				objectTop
-			/>
+			<CardThumb code={NOTZ_GHOUL_PRIEST_CODE} tone="danger" objectTop />
 		</div>
-		<StatNumbers {rows} />
-		<p class="text-primary-500 text-center text-xs">{m.campaign_notz_threats_note()}</p>
+		<StatNumbers
+			rows={[
+				[
+					{ tally: ghoul, label: m.campaign_notz_threat_ghoul() },
+					{ value: escaped, label: m.campaign_notz_threat_cultists() }
+				]
+			]}
+		/>
+		<WidgetNote>{m.campaign_notz_threats_note()}</WidgetNote>
 	</div>
 {:else}
 	<WidgetEmpty>{m.campaign_notz_threats_empty()}</WidgetEmpty>
