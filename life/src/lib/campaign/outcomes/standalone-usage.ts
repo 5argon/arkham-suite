@@ -1,34 +1,21 @@
-/**
- * standalone-usage.ts — lifetime "which standalone scenarios have I played, and how
- * often?" aggregation over the opt-in standalone list recorded in the editor's Extra
- * tab (reserved `__standalone` section). Standalones are recorded per play of a host
- * campaign (we track WHAT was played, not where), so this counts each standalone's
- * uses — globally (profile home) and per campaign family (a campaign's page).
- *
- * The catalogue of standalones (names + resolution order) comes from campaign-data's
- * `standaloneScenarios()` (the ArkhamCards "Side Scenarios" collection).
- */
+/** How often each standalone scenario was played inside a campaign, per campaign family, from the
+ *  standalones recorded in the editor's Extra tab. Names and resolution order come from
+ *  campaign-data's `standaloneScenarios()` (ArkhamCards' Side Scenarios). */
 import { getCampaignLog, standaloneScenarios } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 import { contributingFamilies } from '../records/campaign-family';
 
 export interface StandaloneUsageRow {
-	/** Standalone scenario id (campaign-data `standaloneScenarios()`). */
 	scenario: string;
-	/** Display name. */
 	name: string;
-	/** Times this standalone was recorded across the counted plays. */
 	count: number;
 	/** Distinct resolutions reached, in book order. */
 	resolutions: string[];
 }
 export interface CampaignStandaloneUsage {
-	/** Campaign family the standalones were played inside (base campaign code). */
 	family: string;
-	/** Campaign family display name. */
 	name: string;
 	standalones: StandaloneUsageRow[];
-	/** Sum of all standalone uses inside this family. */
 	totalPlays: number;
 }
 
@@ -37,7 +24,6 @@ interface CatalogEntry {
 	resolutions: string[];
 }
 
-/** scenario id → { display name, book-ordered resolutions }. */
 function catalog(): Map<string, CatalogEntry> {
 	const m = new Map<string, CatalogEntry>();
 	for (const s of standaloneScenarios()) {
@@ -46,7 +32,7 @@ function catalog(): Map<string, CatalogEntry> {
 	return m;
 }
 
-/** Order a set of reached resolutions by the catalogue's book order (extras last). */
+/** Book order, with resolutions the catalogue doesn't list last. */
 function orderResolutions(reached: Set<string>, order: string[]): string[] {
 	const out = order.filter((r) => reached.has(r));
 	for (const r of reached) if (!order.includes(r)) out.push(r);
@@ -64,7 +50,6 @@ export function buildStandaloneUsage(
 	mergeReturnTo = true
 ): CampaignStandaloneUsage[] {
 	const cat = catalog();
-	// family -> scenario -> acc
 	const byFamily = new Map<string, Map<string, Acc>>();
 	for (const rec of records) {
 		const list = rec.standalones ?? [];
@@ -109,7 +94,7 @@ export function buildStandaloneUsage(
 	return out.sort((a, b) => b.totalPlays - a.totalPlays || a.name.localeCompare(b.name));
 }
 
-/** Collapse the per-family usage into one global standalone tally (profile home). */
+/** Every family's usage in one tally. */
 export function mergeStandaloneUsage(list: CampaignStandaloneUsage[]): StandaloneUsageRow[] {
 	const cat = catalog();
 	const byScenario = new Map<string, Acc & { name: string }>();

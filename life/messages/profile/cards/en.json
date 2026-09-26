@@ -1,7 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"cards_insights_played": "played",
-	"cards_insights_never_played": "never played",
+	"cards_insights_played": "Played",
+	"cards_insights_never_played": "Never played",
 	"cards_insights_by_class": "By class",
 	"cards_insights_by_level": "By level",
 	"cards_insights_level": "Level {lv}",
@@ -9,5 +9,60 @@
 	"cards_index_by_class": "By class",
 	"cards_index_by_type": "By type",
 	"cards_subpage_title": "{name} – arkham.life",
-	"cards_subpage_empty": "No widgets here yet. Add some with Customize."
+	"cards_subpage_empty": "No widgets here yet. Add some with Customize.",
+	"cards_utilization_used": "{percent}% used ({played} / {total})",
+	"cards_insight_col_condition": "Insight",
+	"cards_insight_col_decks": "Decks",
+	"cards_insight_col_investigators": "Investigators",
+	"cards_insight_decks": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "Deck",
+				"countPlural=other": "Decks"
+			}
+		}
+	],
+	"cards_insight_out_of": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "Out of total {count} Deck",
+				"countPlural=other": "Out of total {count} Decks"
+			}
+		}
+	],
+	"cards_insight_used": "Used {name}",
+	"cards_insight_used_copies": "Used {count}× {name}",
+	"cards_insight_not_used": "Didn't use {name}",
+	"cards_top_rank": [
+		{
+			"declarations": [
+				"input n"
+			],
+			"selectors": [
+				"n"
+			],
+			"match": {
+				"n=1": "1st",
+				"n=2": "2nd",
+				"n=3": "3rd",
+				"n=*": "{n}th"
+			}
+		}
+	],
+	"cards_top_col_investigator": "Investigator",
+	"cards_top_empty": "No qualifying decks yet."
 }

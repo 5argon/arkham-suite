@@ -1,4 +1,12 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"cards_core_name": "Core Set"
+	"cards_core_name": "Core Set",
+	"cards_core_utilization": "{name} utilization: {percent}% ({played}/{total})",
+	"cards_core_name_2026": "Core Set (2026)",
+	"cards_core_l0_cantrips": "Used 3+ different Lv. 0 cantrip skills",
+	"cards_core_charisma_top": "Top 3 — most allies in a deck with Charisma",
+	"cards_core_relic_top": "Top 3 — most accessories in a deck with Relic Hunter",
+	"cards_core_col_allies": "Allies",
+	"cards_core_col_accessories": "Accessories",
+	"cards_core_used_once_empty": "No cards from this set used exactly once."
 }

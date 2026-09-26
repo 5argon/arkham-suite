@@ -1,37 +1,28 @@
 /**
- * deck-purity.ts — classify a campaign's imported decks by product provenance.
- *
- * The "Core-Set purist" feat (surfaced by the NotZ widgets — NotZ is the tutorial bundled with the
- * Core Set): was a clear achieved using ONLY Core / Revised Core / Core 2026 cards, the investigator
- * included, with a NON-parallel investigator (no alternate front/back)? Detected from the recorded
- * deck lists (`ahdbJson` slots + ignore-limit; never side slots). A campaign with no verifiable
- * decks does not qualify.
+ * The "Core-Set purist" feat shown on the Night of the Zealot widgets: a clear whose decks use only
+ * Core / Revised Core / Core 2026 cards, the investigator included, with a non-parallel investigator.
+ * Read from the recorded deck lists (slots and ignore-limit slots, never side slots).
  */
-import { Product } from '@5argon/arkham-kohaku';
-import type { Card } from '@5argon/arkham-kohaku';
-import { cardsByCode } from '$lib/card-data';
+import { cardByCode } from '$lib/card-data';
 import { CORE_PRODUCTS } from './card-filters';
 import type { DeckRecord } from '$lib/database/document';
-
 
 interface AhdbSlots {
 	slots?: Record<string, number>;
 	ignoreDeckLimitSlots?: Record<string, number>;
 }
 
-
-const isCore = (code: string, m: ReadonlyMap<string, Card>): boolean => {
-	const card = m.get(code);
+const isCore = (code: string): boolean => {
+	const card = cardByCode(code);
 	return card ? CORE_PRODUCTS.has(card.product) : false;
 };
 
-/** Whether one deck chain uses only Core-Set cards and a non-parallel Core-Set investigator. */
+/** Whether every version of a deck holds only Core-Set cards; a deck with no recorded cards can't
+ *  be verified and does not qualify. */
 export function isCoreOnlyDeck(deck: DeckRecord): boolean {
-	const m = cardsByCode();
-	const inv = m.get(deck.investigator.investigatorCode);
-	// Investigator must be a known, non-parallel, Core-Set printing…
+	const inv = cardByCode(deck.investigator.investigatorCode);
 	if (!inv || inv.alternateOfCardCode !== undefined || !CORE_PRODUCTS.has(inv.product)) return false;
-	// …and a recorded alternate front/back is a parallel investigator too.
+	// A recorded alternate front or back is a parallel investigator.
 	if (deck.investigator.alternateFrontCode || deck.investigator.alternateBackCode) return false;
 	let sawCard = false;
 	for (const v of deck.versions) {
@@ -44,14 +35,13 @@ export function isCoreOnlyDeck(deck: DeckRecord): boolean {
 		for (const slots of [ahdb.slots, ahdb.ignoreDeckLimitSlots])
 			for (const code of Object.keys(slots ?? {})) {
 				sawCard = true;
-				if (!isCore(code, m)) return false;
+				if (!isCore(code)) return false;
 			}
 	}
-	// No recorded card list ⇒ nothing to verify; an unverifiable deck does not qualify.
 	return sawCard;
 }
 
-/** Whether EVERY (subject-filtered) deck in a campaign is Core-only. False when there are none. */
+/** Whether a campaign has decks and all of them are Core-only. */
 export function isCoreOnlyCampaign(decks: DeckRecord[]): boolean {
 	return decks.length > 0 && decks.every(isCoreOnlyDeck);
 }

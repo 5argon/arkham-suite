@@ -1,22 +1,9 @@
-<!--
-@component
-Special Interactions — the roster-gated flavor moments a campaign hides (a specific
-investigator, trait, or class triggers a bonus paragraph or setup role). Rendered as
-a compact, reflowing grid of ~220px cards: each shows the gating condition, lit when
-the player has triggered it across their runs, and credits the investigators who
-satisfied it (most-recent first, capped) as CardSquares. The scenario + the "why"
-blurb are on a hover tooltip.
-
-The payload carries only keys + state (`id`, `triggered`, `triggeredBy`); the display strings
-and the condition (`match`/`role`) are resolved here from campaign-data by `(family, id)`.
-Choice-gated moments the archive doesn't record (the Dream-Eaters' dreams) are absent.
--->
+<!-- @component The moments a campaign gates on a specific investigator, trait or class, lit when triggered, with who triggered them. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { CardSquare } from '@5argon/arkham-life-ui';
 	import { getCampaignLog, type SpecialInteractionMatch } from '@5argon/arkham-campaign-data';
-	import type { Card } from '@5argon/arkham-kohaku';
-	import { cardsByCode } from '$lib/card-data';
+	import { resolveCards } from '$lib/campaign/utils/card-filters';
 	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
 	import type { CampaignSpecialInteractions } from '$lib/campaign/outcomes/special-interactions';
 	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
@@ -25,23 +12,8 @@ Choice-gated moments the archive doesn't record (the Dream-Eaters' dreams) are a
 
 	let { special }: { special: CampaignSpecialInteractions | null } = $props();
 
-	const cardByCode = cardsByCode();
+	const cardsFor = (codes: readonly string[]) => resolveCards(codes, { dedupeByName: true, cap: 5 });
 
-	/** Resolve codes → distinct investigator cards (dedup by name), capped at 5. */
-	function cardsFor(codes: readonly string[]): Card[] {
-		const out: Card[] = [];
-		const names = new Set<string>();
-		for (const code of codes) {
-			const card = cardByCode.get(code);
-			if (!card || names.has(card.name)) continue;
-			names.add(card.name);
-			out.push(card);
-			if (out.length >= 5) break;
-		}
-		return out;
-	}
-
-	/** Human-readable gating condition shown on the card. */
 	function conditionText(match: SpecialInteractionMatch): string {
 		if (match.kind === 'code') return cardsFor(match.codes).map((c) => c.name).join(' / ');
 		if (match.kind === 'trait') return m.campaign_special_trait({ trait: match.traits.join(' / ') });
@@ -51,8 +23,7 @@ Choice-gated moments the archive doesn't record (the Dream-Eaters' dreams) are a
 		});
 	}
 
-	// Join the payload's per-interaction state with the package's def + English,
-	// resolved by id. Order follows the package catalogue.
+	// The payload holds only each interaction's state; its condition and text come from campaign-data.
 	const cells = $derived.by(() => {
 		const log = special ? getCampaignLog(special.family) : undefined;
 		if (!special || !log) return [];
@@ -63,8 +34,7 @@ Choice-gated moments the archive doesn't record (the Dream-Eaters' dreams) are a
 			.map((it) => {
 				const def = defs.get(it.id);
 				if (!def) return null;
-				// Squares: who triggered it (lit), else the eligible code-gated investigators
-				// (greyed). Trait/class gates show nothing when untriggered.
+				// Untriggered, a code gate shows its eligible investigators greyed; trait and class gates show none.
 				const squares = it.triggered
 					? cardsFor(it.triggeredBy)
 					: def.match.kind === 'code'

@@ -1,104 +1,58 @@
-<!--
-@component
-Lifetime player-card usage: of the leveled player cards you own (by product),
-how many you've ever put in a main deck across your contributing campaigns —
-overall, by class, and by level. "In play" = main/extra/ignore_limit (side deck
-doesn't count).
--->
+<!-- @component How many of the owned player cards were ever put in a deck, overall, by class and by level. -->
 <script lang="ts">
-	import { card as cardUtils, type Card, type CardCode, type Product } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
-	import { isCardOwned } from '$lib/campaign/utils/ownership';
+	import type { CardCode, Product } from '@5argon/arkham-kohaku';
+	import { cardInsights, type UsageShare } from '$lib/campaign/utils/card-filters';
+	import { SectionLabel, StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		cardUsage,
 		ownedProducts,
-		classFilter = null,
+		classFilter = null
 	}: {
 		cardUsage: Record<CardCode, number>;
 		ownedProducts: Product[] | null;
-		/** When set, narrow the universe to one card class (a class detail page). */
 		classFilter?: string | null;
 	} = $props();
 
-	const played = (code: string) => (cardUsage[code] ?? 0) > 0;
-
-	const universe = $derived.by((): Card[] =>
-		getAllCards().filter(
-			(c) =>
-				cardUtils.deckbuildingPlayerCardsFilter(c) &&
-				isCardOwned(c.product, ownedProducts) &&
-				(!classFilter || String(c.cardClass?.class1 ?? '').toLowerCase() === classFilter),
-		),
-	);
-	const playedCount = $derived(universe.filter((c) => played(c.code)).length);
-
-	const byClass = $derived.by(() => {
-		const acc = new Map<string, { played: number; total: number }>();
-		for (const c of universe) {
-			const cls = String(c.cardClass?.class1 ?? 'neutral').toLowerCase();
-			const e = acc.get(cls) ?? { played: 0, total: 0 };
-			e.total += 1;
-			if (played(c.code)) e.played += 1;
-			acc.set(cls, e);
-		}
-		return [...acc.entries()].sort((a, b) => b[1].total - a[1].total);
-	});
-	const byLevel = $derived.by(() => {
-		const acc = new Map<number, { played: number; total: number }>();
-		for (const c of universe) {
-			const lv = c.xp ?? 0;
-			const e = acc.get(lv) ?? { played: 0, total: 0 };
-			e.total += 1;
-			if (played(c.code)) e.played += 1;
-			acc.set(lv, e);
-		}
-		return [...acc.entries()].sort((a, b) => a[0] - b[0]);
-	});
-
-	const pct = (n: number, d: number) => (d ? Math.round((n / d) * 100) : 0);
+	const insights = $derived(cardInsights(cardUsage, ownedProducts, classFilter));
+	const pct = (s: UsageShare) => (s.total ? Math.round((s.played / s.total) * 100) : 0);
 </script>
 
-{#if universe.length}
+{#snippet progress(label: string, s: UsageShare)}
+	<div class="flex items-center gap-2 text-sm">
+		<span class="w-20 shrink-0 text-black dark:text-white">{label}</span>
+		<div class="bg-primary-100 dark:bg-primary-800 h-2.5 flex-1 overflow-hidden rounded">
+			<div class="bg-secondary-500 h-full" style="width: {pct(s)}%"></div>
+		</div>
+		<span class="text-primary-500 w-16 shrink-0 text-right tabular-nums">{s.played}/{s.total}</span>
+	</div>
+{/snippet}
+
+{#if insights.total}
 	<div class="space-y-4">
-		<p class="text-primary-600 dark:text-primary-400 text-sm">
-			<span class="tabular-nums font-semibold text-black dark:text-white">{playedCount}/{universe.length}</span>
-			{m.cards_insights_played()}
-			<span class="text-primary-400 px-1">·</span>
-			<span class="tabular-nums font-semibold text-black dark:text-white">{universe.length - playedCount}</span>
-			{m.cards_insights_never_played()}
-		</p>
+		<StatNumbers
+			rows={[
+				[
+					{ value: `${insights.played}/${insights.total}`, label: m.cards_insights_played() },
+					{ value: insights.total - insights.played, label: m.cards_insights_never_played() }
+				]
+			]}
+		/>
 		<div class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
 			<div>
-				<h3 class="text-primary-700 dark:text-primary-300 mb-1.5 text-sm font-semibold">{m.cards_insights_by_class()}</h3>
+				<SectionLabel variant="heading">{m.cards_insights_by_class()}</SectionLabel>
 				<div class="space-y-1">
-					{#each byClass as [cls, s] (cls)}
-						<div class="flex items-center gap-2 text-sm">
-							<span class="w-20 shrink-0 text-black dark:text-white">{m.shared_class({ class: cls })}</span>
-							<div class="bg-primary-100 dark:bg-primary-800 h-2.5 flex-1 overflow-hidden rounded">
-								<div class="bg-secondary-500 h-full" style="width: {pct(s.played, s.total)}%"></div>
-							</div>
-							<span class="text-primary-500 w-16 shrink-0 text-right tabular-nums"
-								>{s.played}/{s.total}</span
-							>
-						</div>
+					{#each insights.byClass as s (s.cls)}
+						{@render progress(m.shared_class({ class: s.cls }), s)}
 					{/each}
 				</div>
 			</div>
 			<div>
-				<h3 class="text-primary-700 dark:text-primary-300 mb-1.5 text-sm font-semibold">{m.cards_insights_by_level()}</h3>
+				<SectionLabel variant="heading">{m.cards_insights_by_level()}</SectionLabel>
 				<div class="space-y-1">
-					{#each byLevel as [lv, s] (lv)}
-						<div class="flex items-center gap-2 text-sm">
-							<span class="w-20 shrink-0 text-black dark:text-white">{m.cards_insights_level({ lv })}</span>
-							<div class="bg-primary-100 dark:bg-primary-800 h-2.5 flex-1 overflow-hidden rounded">
-								<div class="bg-secondary-500 h-full" style="width: {pct(s.played, s.total)}%"></div>
-							</div>
-							<span class="text-primary-500 w-16 shrink-0 text-right tabular-nums"
-								>{s.played}/{s.total}</span
-							>
-						</div>
+					{#each insights.byLevel as s (s.level)}
+						{@render progress(m.cards_insights_level({ lv: s.level }), s)}
 					{/each}
 				</div>
 			</div>

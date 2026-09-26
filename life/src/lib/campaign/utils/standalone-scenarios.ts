@@ -1,13 +1,8 @@
 /**
- * standalone-scenarios.ts — clean scenario lists + icons for the Standalone Archive
- * pickers / profile.
- *
- * campaign-data's `playableScenarios()` is broader than the set you'd play as a
- * one-off: it includes framing preludes typed as `story` (FHV's "Welcome to Hemlock
- * Vale", the Dawn/Evening beats), replay variants (EotE Fatal Mirage ×3), and — for
- * Return-To campaigns — BOTH the base scenario and its `return_to_` twin. kohaku's
- * `Scenario` enum is the CANONICAL set of real scenarios, so we filter to it and then
- * collapse each base/return-to pair to one entry (preferring the return-to variant).
+ * Scenario lists and icons for the Standalone Archive pickers and profile. campaign-data's
+ * `playableScenarios()` also holds framing preludes (FHV's "Welcome to Hemlock Vale"), replay
+ * variants (EotE's Fatal Mirage ×3) and, for Return-to campaigns, both the base scenario and its
+ * `return_to_` twin; kohaku's `Scenario` enum is the set of real scenarios.
  */
 import {
 	Scenario,
@@ -21,7 +16,7 @@ import { getCampaignLog, playableScenarios } from '@5argon/arkham-campaign-data'
 const KOHAKU_SCENARIOS = new Set<string>(Object.values(Scenario));
 const STANDALONE_SCENARIOS = new Set<string>(Object.values(StandaloneScenario));
 
-/** The representative encounter set for a scenario id (campaign or standalone), for its icon. */
+/** The encounter set whose icon stands for a campaign or standalone scenario. */
 export function scenarioRepresentativeSet(id: string): EncounterSet | null {
 	if (KOHAKU_SCENARIOS.has(id)) {
 		try {
@@ -41,12 +36,8 @@ export interface PlayableScenarioOption {
 	name: string;
 }
 
-/**
- * The clean list of a campaign's standalone-playable scenarios (book order): real
- * scenarios only (framing/variant entries dropped via the kohaku filter), with each
- * Return-To base/twin pair collapsed to a single entry that prefers the `return_to_`
- * variant. Ids are campaign-data scenario ids (so the editor/profile can look them up).
- */
+/** A campaign's real scenarios in book order, each Return-to pair collapsed onto its `return_to_`
+ *  variant (the one a Return-to campaign plays). */
 export function campaignPlayableScenarios(campaignCode: string): PlayableScenarioOption[] {
 	const log = getCampaignLog(campaignCode);
 	if (!log) return [];
@@ -59,7 +50,7 @@ export function campaignPlayableScenarios(campaignCode: string): PlayableScenari
 			order.push(base);
 			chosen.set(base, id);
 		} else if (id.startsWith('return_to_')) {
-			chosen.set(base, id); // a Return-To campaign plays the return-to variant
+			chosen.set(base, id);
 		}
 	}
 	return order.map((base) => {

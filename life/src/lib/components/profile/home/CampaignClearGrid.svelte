@@ -1,106 +1,83 @@
-<!--
-@component
-The "what have I cleared?" grid: every official campaign box × the player's
-tracked difficulty tiers. Each cell shows the campaign's full set of ending icons
-(lit when reached at that tier, dimmed when not), matching the style of the
-Campaign Overview widget. Unowned products are hidden.
--->
+<!-- @component Every owned campaign × the tracked difficulties, each cell the campaign's endings lit when reached there. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
-	import { ENDING_KIND_ORDER, type ClearGridRow, type CampaignEndings } from '$lib/campaign/outcomes/clear-status';
-	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
+	import {
+		ENDING_KIND_ORDER,
+		type CampaignEndings,
+		type ClearGridRow,
+		type EndingKind
+	} from '$lib/campaign/outcomes/clear-status';
 	import type { DifficultyTier } from '$lib/campaign/profile/profile-settings';
-	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
+	import { trackedTierList } from '$lib/campaign/records/tracking';
 	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
+	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
+	import { OutcomeFace, WidgetTable } from '$lib/components/profile/_primitives';
+	import { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
 
 	let {
 		grid,
 		trackedTiers,
-		endings = [],
+		endings = []
 	}: { grid: ClearGridRow[]; trackedTiers: DifficultyTier[]; endings?: CampaignEndings[] } =
 		$props();
 
-	const tiers = $derived(
-		trackedTiers.length ? trackedTiers : (['standard', 'hard'] as DifficultyTier[]),
-	);
+	const tiers = $derived(trackedTierList(trackedTiers));
 	const rows = $derived(grid.filter((r) => r.owned));
-
-	const endingsByFamily = $derived(Object.fromEntries(endings.map((e) => [e.family, e])));
+	const endingsByFamily = $derived(
+		Object.fromEntries(
+			endings.map((e) => [
+				e.family,
+				[...e.endings].sort(
+					(a, b) => ENDING_KIND_ORDER.indexOf(a.kind) - ENDING_KIND_ORDER.indexOf(b.kind)
+				)
+			])
+		)
+	);
 
 	const reachDetail = (n: number): string =>
 		n > 0 ? m.home_cleargrid_reached({ count: n }) : m.home_cleargrid_not_reached();
+
+	// A campaign without curated endings shows its clear state as one face.
+	const stateFace: Record<string, { kind: EndingKind; label: () => string }> = {
+		cleared: { kind: 'win', label: m.home_cleargrid_cleared },
+		special: { kind: 'special', label: m.home_cleargrid_special_ending },
+		attempted: { kind: 'loss', label: m.home_cleargrid_attempted_lost }
+	};
 </script>
 
 {#if rows.length}
-	<div class="border-primary-200 dark:border-primary-700 overflow-x-auto rounded border">
-		<table class="w-full text-sm">
-			<thead>
-				<tr class="border-primary-200 dark:border-primary-700 border-b">
-					<th class="px-3 py-2 text-left font-semibold text-black dark:text-white"
-						>{m.home_cleargrid_col_campaign()}</th
-					>
-					{#each tiers as t (t)}
-						<th class="px-3 py-2 text-center font-semibold text-black dark:text-white"
-							>{difficultyLabel(t)}</th
-						>
-					{/each}
-				</tr>
-			</thead>
-			<tbody>
-				{#each rows as row (row.family)}
-					{@const familyEndings = endingsByFamily[row.family]?.endings ?? []}
-					{@const sortedEndings = [...familyEndings].sort(
-						(a, b) => ENDING_KIND_ORDER.indexOf(a.kind) - ENDING_KIND_ORDER.indexOf(b.kind),
-					)}
-					<tr class="border-primary-100 dark:border-primary-800 border-b last:border-0">
-						<td class="px-3 py-2 text-black dark:text-white">{row.name}</td>
-						{#each tiers as t (t)}
-							{@const state = row.byTier[t]}
-							<td class="px-3 py-2">
-								{#if !state}
-									<div class="flex justify-center">
-										<span class="text-primary-300 dark:text-primary-600">—</span>
-									</div>
-								{:else if sortedEndings.length}
-									<div class="flex justify-center flex-wrap gap-1.5">
-										{#each sortedEndings as e (e.key)}
-											{@const n = e.byTier?.[t] ?? 0}
-											<OutcomeFace
-												kind={e.kind}
-												reached={n > 0}
-												label="{capitalizeFirst(e.text)} — {reachDetail(n)}"
-											/>
-										{/each}
-									</div>
-								{:else}
-									<div class="flex justify-center">
-										{#if state === 'cleared'}
-											<span
-												class="text-rogue-500 dark:text-rogue-400 text-xl"
-												title={m.home_cleargrid_cleared()}
-												><FaIcon icon={FaIconType.EndingWin} /></span
-											>
-										{:else if state === 'special'}
-											<span
-												class="text-violet-500 dark:text-violet-400 text-xl"
-												title={m.home_cleargrid_special_ending()}
-												><FaIcon icon={FaIconType.EndingSpecial} /></span
-											>
-										{:else if state === 'attempted'}
-											<span
-												class="text-survivor-500 dark:text-survivor-400 text-xl"
-												title={m.home_cleargrid_attempted_lost()}
-												><FaIcon icon={FaIconType.EndingLoss} /></span
-											>
-										{/if}
-									</div>
-								{/if}
-							</td>
-						{/each}
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+	<WidgetTable
+		columns={[
+			{ label: m.home_cleargrid_col_campaign() },
+			...tiers.map((t) => ({ label: difficultyLabel(t), align: 'center' as const }))
+		]}
+		{rows}
+		key={(r) => r.family}
+	>
+		{#snippet row(row)}
+			{@const familyEndings = endingsByFamily[row.family] ?? []}
+			<td class="{widgetTableCell} text-black dark:text-white">{row.name}</td>
+			{#each tiers as t (t)}
+				{@const state = row.byTier[t]}
+				<td class={widgetTableCell}>
+					<div class="flex flex-wrap justify-center gap-1.5">
+						{#if !state}
+							<span class="text-primary-300 dark:text-primary-600">—</span>
+						{:else if familyEndings.length}
+							{#each familyEndings as e (e.key)}
+								{@const n = e.byTier?.[t] ?? 0}
+								<OutcomeFace
+									kind={e.kind}
+									reached={n > 0}
+									label="{capitalizeFirst(e.text)} — {reachDetail(n)}"
+								/>
+							{/each}
+						{:else if stateFace[state]}
+							<OutcomeFace kind={stateFace[state].kind} label={stateFace[state].label()} size="text-xl" />
+						{/if}
+					</div>
+				</td>
+			{/each}
+		{/snippet}
+	</WidgetTable>
 {/if}

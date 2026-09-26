@@ -1,4 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"cards_skill_name": "Skill"
+	"cards_skill_name": "Skill",
+	"cards_skill_three_different": "Used 3 different cards",
+	"cards_skill_all_four": "Used all four different cards",
+	"cards_skill_not_using": "Not using {name} in a deck that can use it",
+	"cards_skill_removed": "Removed {name} from the deck (and not upgrading)",
+	"cards_skill_never_removed": "Never removed {name}"
 }

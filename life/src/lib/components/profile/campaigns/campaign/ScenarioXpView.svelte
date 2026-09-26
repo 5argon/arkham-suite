@@ -1,26 +1,17 @@
-<!--
-@component
-Lifetime per-scenario Victory Points highscore (Extra Imports) — the best end-of-scenario reward
-you've recorded for each scenario across all plays, beside its Max (the most the victory display can
-award, curated in campaign-data). Each scenario is worded the way ArkhamCards shows it: Victory
-Points / VP for the usual victory-display tally, or flat Experience / XP for the few scenarios that
-add uncountable XP (per `scenarioMeta.victoryDisplay`). Hover a highscore for the per-difficulty
-breakdown. Every playable scenario is listed in the campaign's typical play order with its
-encounter-set icon; no recorded reward shows a dash, and a Max of 0 (or no curated value) shows a
-dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
--->
+<!-- @component Each scenario's best recorded reward (Victory Points, or Experience where the app awards flat XP) beside the most it can award. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
-	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
-		import { difficultyLabel, orderedDifficulties } from '$lib/campaign/utils/difficulty';
-	import { isVictoryDisplay, rewardUnit, rewardBreakdownEntry } from '$lib/campaign/utils/scenario-reward';
-	import type { CampaignScenarios, ScenarioStat } from '$lib/campaign/stats/scenario-stats';
-	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
-	import WidgetTable, {
-		widgetTableCell
-	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import { difficultyLabel, orderedDifficulties } from '$lib/campaign/utils/difficulty';
+	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import {
+		isVictoryDisplay,
+		rewardBreakdownEntry,
+		rewardUnit
+	} from '$lib/campaign/utils/scenario-reward';
+	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
+	import { HoverTip, HoverTipState, WidgetTable } from '$lib/components/profile/_primitives';
+	import { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import ScenarioNameCell from './ScenarioNameCell.svelte';
 
 	let {
 		scenarios,
@@ -29,7 +20,6 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 
 	const withData = $derived(scenarios.filter((c) => c.scenarios.length > 0));
 
-	// Each scenario's reward is VP (victory display) or XP (flat experience) — wording follows the app.
 	function tierBreakdown(vd: boolean, byTier: Record<string, number> | undefined): string {
 		const b = byTier ?? {};
 		return orderedDifficulties(b)
@@ -38,23 +28,10 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 			.join(' · ');
 	}
 
-	// Max reward per scenario (campaign-data `scenarioMeta.maxXp`), cached per family. A curated `0`
-	// means no highscore is kept (both Highscore and Max render a dash).
-	const maxXpCache = new Map<string, Map<string, number>>();
-	function maxXpFor(family: string, scenarioId: string): number | undefined {
-		let byId = maxXpCache.get(family);
-		if (!byId) {
-			byId = new Map();
-			for (const sm of getCampaignLog(family)?.db.scenarioMeta ?? []) {
-				if (typeof sm.maxXp === 'number') byId.set(sm.id, sm.maxXp);
-			}
-			maxXpCache.set(family, byId);
-		}
-		// Replay variants (Fatal Mirage's fatal_mirage_2 / _3) dedup onto the base in scenarioMeta, so
-		// fall back to the base's curated max by dropping a trailing _<n> — letting a base max of 0 dash
-		// the variants too. A genuinely distinct numbered scenario has its own max and matches exactly.
-		return byId.get(scenarioId) ?? byId.get(scenarioId.replace(/_\d+$/, ''));
-	}
+	// A curated max of 0 means the scenario keeps no highscore. Replay variants (Fatal Mirage's
+	// fatal_mirage_2 / _3) take the max of their base scenario.
+	const maxReward = (family: string, id: string): number | undefined =>
+		scenarioMeta(family, id)?.maxXp ?? scenarioMeta(family, id.replace(/_\d+$/, ''))?.maxXp;
 
 	const columns = [
 		{ label: m.campaign_xp_col_scenario() },
@@ -74,29 +51,17 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 				{/if}
 				<WidgetTable {columns} rows={camp.scenarios} key={(s) => s.scenario}>
 					{#snippet row(s)}
-						{@const maxXp = maxXpFor(camp.family, s.scenario)}
+						{@const max = maxReward(camp.family, s.scenario)}
 						{@const vd = isVictoryDisplay(camp.family, s.scenario)}
-						<td class="{widgetTableCell} whitespace-nowrap">
-							<span class="flex items-center gap-1.5" class:opacity-50={s.plays === 0}>
-								<span
-									class="text-primary-600 dark:text-primary-300 shrink-0"
-									style="font-size:1.1rem"
-								>
-									<ScenarioSetIcon scenarioId={s.scenario} />
-								</span>
-								<span class="text-black dark:text-white">{s.name}</span>
-							</span>
-						</td>
+						<ScenarioNameCell scenarioId={s.scenario} name={s.name} faded={s.plays === 0} />
 						<td class="{widgetTableCell} tabular-nums">
-							{#if maxXp === 0 || s.plays === 0 || !s.best}
-								<!-- Dash when the scenario officially awards nothing (max 0), was never played, OR has
-								     no recorded highscore (best 0 = the reward box was never filled — not a "0 VP" score). -->
+							<!-- A best of 0 is a reward box never filled, not a score of 0. -->
+							{#if max === 0 || s.plays === 0 || !s.best}
 								<span class="text-primary-400">—</span>
 							{:else}
 								<span
 									role="img"
-									aria-label="{s.name} — {tierBreakdown(vd, s.bestByTier) ||
-										rewardUnit(vd, s.best)}"
+									aria-label="{s.name} — {tierBreakdown(vd, s.bestByTier) || rewardUnit(vd, s.best)}"
 									class="text-secondary-600 dark:text-secondary-400 cursor-default font-semibold"
 									onmouseenter={(e) => tip.show(s.name, tierBreakdown(vd, s.bestByTier), e)}
 									onmouseleave={tip.hide}>{rewardUnit(vd, s.best)}</span
@@ -104,8 +69,8 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 							{/if}
 						</td>
 						<td class="{widgetTableCell} tabular-nums">
-							{#if maxXp != null && maxXp > 0}
-								<span class="text-primary-500">{rewardUnit(vd, maxXp)}</span>
+							{#if max}
+								<span class="text-primary-500">{rewardUnit(vd, max)}</span>
 							{:else}
 								<span class="text-primary-400">—</span>
 							{/if}
@@ -116,5 +81,5 @@ dash too. Rendered through the shared WidgetTable, matching Resolution Coverage.
 		{/each}
 	</div>
 
-		<HoverTip {tip} />
+	<HoverTip {tip} />
 {/if}

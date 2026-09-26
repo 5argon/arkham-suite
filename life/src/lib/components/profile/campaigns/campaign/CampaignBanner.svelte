@@ -1,10 +1,4 @@
-<!--
-@component
-The forced header card at the top of a campaign's profile page: the campaign's
-box art (the same image as the Campaign Archive listing) with its name overlaid.
-A widget card without a tab title, outside the customizable layout (always shown, never in the
-widget picker). A missing image degrades to a plain title card.
--->
+<!-- @component The campaign page's fixed header: its box art with the name overlaid, or just the name when the image is missing. -->
 <script lang="ts">
 	import WidgetFrame from '$lib/components/profile/_primitives/WidgetFrame.svelte';
 

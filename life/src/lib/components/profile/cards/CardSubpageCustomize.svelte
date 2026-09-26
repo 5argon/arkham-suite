@@ -1,11 +1,11 @@
-<!--
-@component
-Customize body for a card-taxonomy inner page — resolves the sub-page from its
-`slug` and hands its pane + display name to the generic `CustomizePane`.
--->
+<!-- @component The customize screen of a card-type page. -->
 <script lang="ts">
-	import { resolveCardSubpageSlug, type CardSubpageSlug } from '$lib/campaign/profile/profile-card-subpages';
+	import {
+		resolveCardSubpageSlug,
+		type CardSubpageSlug
+	} from '$lib/campaign/profile/profile-card-subpages';
 	import CustomizePane from '$lib/components/profile/_framework/CustomizePane.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { slug }: { slug: CardSubpageSlug } = $props();
 
@@ -13,5 +13,11 @@ Customize body for a card-taxonomy inner page — resolves the sub-page from its
 </script>
 
 {#if sub}
-	<CustomizePane pane={sub.pane} title={`Player Cards — ${sub.name()}`} />
+	<CustomizePane
+		pane={sub.pane}
+		title={m.framework_customize_subpage({
+			section: m.framework_page_crumb_player_cards(),
+			page: sub.name()
+		})}
+	/>
 {/if}

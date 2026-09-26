@@ -1,13 +1,4 @@
-<!--
-@component
-Compact "this campaign" header for a campaign detail page: a big play count, a
-per-difficulty section (only the tiers the player tracks) showing each tier's
-clear state + its win / loss / special tally, and a row of ending icons — every
-ending the campaign offers, lit when reached and faded when not, hover revealing
-the ending text and how many times it was reached. So the W/L numbers and the
-"which endings have I seen" are both traceable. (No "in progress" — an unrecorded
-ending just means that ending hasn't been reached, not that a play is unfinished.)
--->
+<!-- @component A campaign's plays and, per tracked difficulty, its clear state, win / loss tally and every ending lit when reached. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
@@ -17,11 +8,11 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 		type ClearGridRow,
 		type CampaignEndings
 	} from '$lib/campaign/outcomes/clear-status';
-	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
 	import type { DifficultyTier } from '$lib/campaign/profile/profile-settings';
 	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
+	import { trackedTierList } from '$lib/campaign/records/tracking';
 	import { capitalizeFirst } from '$lib/campaign/utils/entry-text';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { OutcomeFace, StatNumbers, WidgetEmpty } from '$lib/components/profile/_primitives';
 
 	let {
 		record,
@@ -34,15 +25,10 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 		clear: ClearGridRow | null;
 		endings: CampaignEndings | null;
 		trackedTiers: DifficultyTier[];
-		/** Log-only mode (global or per-campaign): hide Extra-derived endings (e.g. DWL's Act-4 R2). */
 		logOnly?: boolean;
 	} = $props();
 
-	const tiers = $derived(
-		trackedTiers.length ? trackedTiers : (['standard', 'hard'] as DifficultyTier[])
-	);
-	// Cleared = Rogue green, Attempted = Survivor red (the highest clear's face icon
-	// marks a clear; an attempt shows no icon).
+	const tiers = $derived(trackedTierList(trackedTiers));
 	const stateMeta: Record<string, { label: string; cls: string }> = {
 		cleared: {
 			label: m.campaign_summary_state_cleared(),
@@ -65,19 +51,15 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 	const plays = $derived(record?.plays ?? clear?.plays ?? 0);
 
 	const sortedEndings = $derived(
-		endings
-			? endings.endings
-					// Log-only mode: drop endings the log alone can't establish (Extra-derived,
-					// e.g. DWL's Act-4 R2 win) so they don't show as permanently-unreachable.
-					.filter((e) => !(logOnly && e.nonLog))
-					.sort((a, b) => ENDING_KIND_ORDER.indexOf(a.kind) - ENDING_KIND_ORDER.indexOf(b.kind))
-			: []
+		(endings?.endings ?? [])
+			// An ending the log alone can't establish (DWL's Act-4 R2) would look unreachable.
+			.filter((e) => !(logOnly && e.nonLog))
+			.sort((a, b) => ENDING_KIND_ORDER.indexOf(a.kind) - ENDING_KIND_ORDER.indexOf(b.kind))
 	);
 	const reachDetail = (n: number): string =>
 		n > 0 ? m.campaign_summary_reached_times({ count: n }) : m.campaign_summary_not_reached();
 
-	// The clear-state badge shows the best ending FACE achieved at that tier — a
-	// superior win beams; a special ending is astonished; a plain attempt has none.
+	// The clear-state badge wears the best ending face reached at that tier.
 	const reachedBestAtTier = (t: string): boolean =>
 		sortedEndings.some((e) => e.kind === 'best' && (e.byTier?.[t] ?? 0) > 0);
 	function clearIcon(st: string, t: string): FaIconType | null {
@@ -92,16 +74,8 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 	{#if plays === 0}
 		<WidgetEmpty>{m.campaign_summary_not_played_yet()}</WidgetEmpty>
 	{:else}
-		<div class="flex items-baseline gap-2">
-			<span class="text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
-				>{plays}</span
-			>
-			<span class="text-primary-500 text-sm">{m.campaign_summary_play({ count: plays })}</span>
-		</div>
+		<StatNumbers rows={[[{ value: plays, label: m.campaign_summary_play({ count: plays }) }]]} />
 
-		<!-- One block per tracked difficulty: clear state + W / L / special, then the
-		     endings reached AT that difficulty (lit) vs not (faded); hover = text +
-		     times reached at this difficulty. -->
 		<div class="mt-3 space-y-2">
 			{#each tiers as t (t)}
 				{@const tr = record?.byTier?.[t]}
@@ -120,10 +94,14 @@ ending just means that ending hasn't been reached, not that a play is unfinished
 							{stateMeta[st].label}
 						</span>
 						{#if tr && tr.plays > 0}
-							<span class="text-primary-600 dark:text-primary-300 flex gap-2 tabular-nums">
+							<span class="text-primary-600 dark:text-primary-300 flex items-center gap-2 tabular-nums">
 								<span>{tr.wins}W</span>
 								<span>{tr.losses}L</span>
-								{#if tr.special > 0}<span>{tr.special}◆</span>{/if}
+								{#if tr.special > 0}
+									<span class="inline-flex items-center gap-0.5"
+										>{tr.special}<FaIcon icon={FaIconType.EndingSpecial} /></span
+									>
+								{/if}
 							</span>
 						{/if}
 					</div>

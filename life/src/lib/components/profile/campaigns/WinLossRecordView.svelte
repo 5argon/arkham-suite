@@ -1,18 +1,21 @@
-<!--
-@component
-Per-campaign win/loss record: total plays and win / loss / special / in-progress
-counts, with a per-difficulty breakdown — e.g. "The Forgotten Age — 4 plays ·
-3W 1L · 2× Hard, 1× Std, 1× Expert".
--->
+<!-- @component Per campaign: plays, wins / losses / special endings / unfinished, and plays per difficulty. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { difficultyAbbr } from '$lib/campaign/utils/difficulty';
+	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
+	import { difficultyAbbr, orderedDifficulties } from '$lib/campaign/utils/difficulty';
 	import type { WinLossRecord } from '$lib/campaign/outcomes/clear-status';
 
 	let { records, showFamilyName = true }: { records: WinLossRecord[]; showFamilyName?: boolean } =
 		$props();
 
-	const withPlays = $derived([...records].filter((r) => r.plays > 0).sort((a, b) => b.plays - a.plays));
+	const withPlays = $derived(records.filter((r) => r.plays > 0).sort((a, b) => b.plays - a.plays));
+
+	function tierPlays(r: WinLossRecord): string {
+		const plays = Object.fromEntries(Object.entries(r.byTier).map(([t, v]) => [t, v.plays]));
+		return orderedDifficulties(plays)
+			.map((t) => `${plays[t]}× ${difficultyAbbr(t)}`)
+			.join(', ');
+	}
 </script>
 
 {#if withPlays.length}
@@ -26,17 +29,17 @@ counts, with a per-difficulty breakdown — e.g. "The Forgotten Age — 4 plays 
 				{/if}
 				<div class="flex items-center gap-3 text-sm tabular-nums">
 					<span class="text-primary-500">{m.campaigns_plays({ count: r.plays })}</span>
-					<span class="flex gap-2">
+					<span class="flex items-center gap-2">
 						{#if r.wins}<span class="text-secondary-600 dark:text-secondary-400">{r.wins}W</span>{/if}
 						{#if r.losses}<span class="text-amber-600 dark:text-amber-400">{r.losses}L</span>{/if}
-						{#if r.special}<span class="text-purple-500">{r.special}✦</span>{/if}
+						{#if r.special}
+							<span class="inline-flex items-center gap-0.5 text-purple-500"
+								>{r.special}<FaIcon icon={FaIconType.EndingSpecial} /></span
+							>
+						{/if}
 						{#if r.inProgress}<span class="text-primary-400">{r.inProgress}?</span>{/if}
 					</span>
-					<span class="text-primary-400 hidden sm:inline">
-						{Object.entries(r.byTier)
-							.map(([t, v]) => `${v.plays}× ${difficultyAbbr(t)}`)
-							.join(', ')}
-					</span>
+					<span class="text-primary-400 hidden sm:inline">{tierPlays(r)}</span>
 				</div>
 			</div>
 		{/each}

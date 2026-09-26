@@ -1,57 +1,38 @@
-/**
- * standalone-archives.ts — per-scenario aggregation of first-class Standalone
- * Archives (the separate `doc.standalones` array), for the `/standalones` profile
- * section. One {@link StandaloneArchiveStat} per scenario the subject has played,
- * folding ALL of that scenario's standalone plays:
- *   - plays (total + per difficulty),
- *   - Standalone Mode win/loss (numbered resolution = won; see {@link standaloneVerdict}),
- *   - resolution coverage (which endings reached + per-difficulty counts),
- *   - best "score" (victory display + experience earned),
- *   - the XP-RANGE of decks used to challenge it (tier distribution + best winning tier).
- *
- * Reads the raw {@link StandaloneRecord} (logs + decks) directly — no profile-shape
- * conversion — and pulls scenario metadata (name / resolutions / victoryDisplay /
- * unwinnable) from campaign-data via the record's catalogue code.
- */
+/** The `/standalones` profile section: every Standalone Archive (`doc.standalones`) folded per
+ *  scenario, with scenario metadata from the record's catalogue in campaign-data. */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { StandaloneRecord } from '$lib/database/document';
 import { RESERVED } from '$lib/campaign/records/recorded-state';
 import { deckExperience, xpRangeTier } from '$lib/campaign/utils/deck-experience';
 import { standaloneVerdict } from './standalone-clear';
-import type { ResolutionTally } from './resolution-coverage';
+import type { Tally } from '../utils/tally';
 
 export interface StandaloneArchiveStat {
-	/** campaign-data scenario id. */
 	scenario: string;
-	/** A dedicated Scenario Pack vs a campaign scenario played standalone. */
+	/** A Scenario Pack, or a campaign scenario played standalone. */
 	source: 'pack' | 'campaign';
-	/** campaign-data catalogue the scenario loads from (`'side'` or a host campaign code). */
+	/** The campaign-data catalogue the scenario loads from: `side` or the host campaign's code. */
 	catalogueCode: string;
-	/** Display name. */
 	name: string;
-	/** Reward kind: true ⇒ Victory display (VP), false ⇒ flat Experience (XP). */
+	/** False for a scenario that rewards flat Experience instead of a victory display. */
 	victoryDisplay: boolean;
-	/** The scenario can't be "won" in Standalone Mode (verdict surfaced as neutral). */
+	/** Has no win in Standalone Mode; won and lost stay 0. */
 	unwinnable: boolean;
 	plays: number;
 	playsByTier: Record<string, number>;
-	/** Plays that reached a numbered resolution (won). 0 for an unwinnable scenario. */
 	won: number;
-	/** Plays with no numbered resolution recorded (lost). 0 for an unwinnable scenario. */
 	lost: number;
-	/** Every first-choice resolution id (book order). */
+	/** Every first-choice resolution, in book order. */
 	resolutions: string[];
-	/** The subset reached across plays. */
+	/** The resolutions reached, including any outside `resolutions`. */
 	visited: string[];
-	/** Per-resolution reach counts (+ per difficulty). */
-	tallies: Record<string, ResolutionTally>;
-	/** Best victory-display score across plays (null when none recorded / not a VP scenario). */
+	tallies: Record<string, Tally>;
+	/** Also holds the reward of an Experience scenario. Null when none was recorded. */
 	bestVictoryDisplay: number | null;
-	/** Best experience earned across plays (null when none recorded). */
 	bestEarnedXp: number | null;
-	/** XP-range tier (1–5) → plays that used a deck in that tier. */
+	/** Deck XP tier (1–5) → plays whose highest-tier deck was in it. */
 	xpTierPlays: Record<number, number>;
-	/** Lowest deck XP tier (1–5) that achieved a WIN — the "beat it with a Tier-N deck" flex. */
+	/** The lowest deck XP tier that won. */
 	bestWinTier: number | null;
 }
 
@@ -60,7 +41,7 @@ interface Acc {
 	playsByTier: Record<string, number>;
 	won: number;
 	lost: number;
-	tallies: Map<string, ResolutionTally>;
+	tallies: Map<string, Tally>;
 	bestVictoryDisplay: number | null;
 	bestEarnedXp: number | null;
 	xpTierPlays: Record<number, number>;
@@ -77,8 +58,7 @@ function strArg(record: StandaloneRecord, section: string, key: string): string 
 	return record.logs.find((l) => l.section === section && l.key === key)?.args.find((a) => a.type === 'string')?.value;
 }
 
-/** The highest XP tier (1–5) among a record's decks (latest version each), or null
- *  when there are no decks / a deck is over the 50-XP cap. */
+/** The highest XP tier among a record's decks (latest version each); decks over the cap are skipped. */
 function recordDeckTier(record: StandaloneRecord, xpByCode: Map<string, number>): number | null {
 	let best: number | null = null;
 	for (const deck of record.decks) {
@@ -90,10 +70,7 @@ function recordDeckTier(record: StandaloneRecord, xpByCode: Map<string, number>)
 	return best;
 }
 
-/**
- * Build the per-scenario standalone aggregates from a subject's standalone records.
- * `xpByCode` maps a card code to its printed XP (for the deck-XP tier).
- */
+/** One aggregate per scenario played, most played first. `xpByCode` is each card's printed level. */
 export function buildStandaloneArchives(
 	records: StandaloneRecord[],
 	xpByCode: Map<string, number>,
@@ -124,7 +101,7 @@ export function buildStandaloneArchives(
 		acc.playsByTier[tier] = (acc.playsByTier[tier] ?? 0) + 1;
 
 		const resolution = strArg(rec, RESERVED.scenarioResolution, scenario);
-		const verdict = standaloneVerdict(resolution); // unwinnable handled at finalize
+		const verdict = standaloneVerdict(resolution);
 		if (resolution) {
 			let t = acc.tallies.get(resolution);
 			if (!t) acc.tallies.set(resolution, (t = { total: 0, byTier: {} }));
@@ -143,7 +120,6 @@ export function buildStandaloneArchives(
 			if (verdict === 'won') acc.bestWinTier = acc.bestWinTier == null ? deckTier : Math.min(acc.bestWinTier, deckTier);
 		}
 
-		// won/lost recorded against the verdict; unwinnable scenarios stay neutral (finalize).
 		if (verdict === 'won') acc.won += 1;
 		else if (verdict === 'lost') acc.lost += 1;
 	}
@@ -155,9 +131,8 @@ export function buildStandaloneArchives(
 		const all = meta?.resolutions ?? [];
 		const unwinnable = meta?.standaloneUnwinnable ?? false;
 		const visited = all.filter((r) => acc.tallies.has(r));
-		// keep any reached resolution not in the catalogue's first-choice list, too
 		for (const r of acc.tallies.keys()) if (!all.includes(r) && !visited.includes(r)) visited.push(r);
-		const tallies: Record<string, ResolutionTally> = {};
+		const tallies: Record<string, Tally> = {};
 		for (const [r, t] of acc.tallies) tallies[r] = t;
 		out.push({
 			scenario,

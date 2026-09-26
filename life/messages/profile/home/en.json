@@ -7,8 +7,13 @@
 	"home_cleargrid_col_campaign": "Campaign",
 	"home_cleargrid_reached": [
 		{
-			"declarations": ["input count", "local countPlural = count: plural"],
-			"selectors": ["countPlural"],
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
 			"match": {
 				"countPlural=one": "Reached {count} time",
 				"countPlural=other": "Reached {count} times"
@@ -28,8 +33,13 @@
 	"home_page_title": "Profile – arkham.life",
 	"home_standalone_count": [
 		{
-			"declarations": ["input count", "local countPlural = count: plural"],
-			"selectors": ["countPlural"],
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
 			"match": {
 				"countPlural=one": "standalone",
 				"countPlural=other": "standalones"
@@ -40,5 +50,7 @@
 	"home_standalone_scope_campaign": "inside this campaign",
 	"home_standalone_scope_all": "across your campaigns",
 	"home_standalone_empty": "No standalones recorded yet — add the ones you played in a campaign's Extra tab to tally them here.",
-	"home_members_title": "Members"
+	"home_members_title": "Members",
+	"home_nav_standalones_label": "Standalones",
+	"home_nav_standalones_blurb": "One-off Standalone Mode plays"
 }

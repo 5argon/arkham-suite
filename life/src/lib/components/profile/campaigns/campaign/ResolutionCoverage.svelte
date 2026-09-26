@@ -1,14 +1,4 @@
-<!--
-@component
-"Which endings have I seen?" for one campaign family: every scenario's full set
-of first-choice resolutions, with the ones reached across the player's plays lit
-up. Fed by the precomputed resolution coverage (recorded in the editor's Extra
-tab). A campaign-specific widget — the same shape works for every campaign.
-
-Chips (and their hover tooltip with the per-difficulty reach breakdown) are the
-shared <ResolutionChips> building block, so this widget and the per-scenario TSK
-widget render endings identically.
--->
+<!-- @component Every scenario's first-choice resolutions, lit when reached. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
@@ -18,7 +8,7 @@ widget render endings identically.
 
 	let { scenarios }: { scenarios: CampaignScenarios | null } = $props();
 
-	// Only scenarios that actually define resolutions (skips interludes / setup scenarios).
+	// Interludes and setup scenarios have no resolutions.
 	const rows = $derived((scenarios?.scenarios ?? []).filter((s) => s.resolutions.length > 0));
 </script>
 

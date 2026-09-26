@@ -1,4 +1,21 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"cards_keywords_name": "Keywords"
+	"cards_keywords_name": "Keywords",
+	"cards_keywords_levels": "Levels",
+	"cards_keywords_level_decks": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} deck",
+				"countPlural=other": "{count} decks"
+			}
+		}
+	],
+	"cards_keywords_level_not_reached": "Not reached"
 }

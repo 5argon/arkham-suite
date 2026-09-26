@@ -1,9 +1,4 @@
-<!--
-@component
-Compact per-campaign achievement summary for the campaigns home page: shows each
-campaign family's name and earned/total count only — no individual achievement
-details. Use the full `ProfileAchievements` on a campaign's own detail page.
--->
+<!-- @component Achievements earned out of the total, one line per campaign. -->
 <script lang="ts">
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import type { ProfileFamily } from '$lib/campaign/achievements/achievement-aggregate';

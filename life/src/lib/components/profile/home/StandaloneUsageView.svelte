@@ -1,14 +1,9 @@
-<!--
-@component
-"Standalone Usage" — how many times each standalone scenario (the ArkhamCards Side
-Scenarios collection) was played inside a campaign. On the profile home it tallies
-every campaign together; on a campaign's page it is sliced to that family. Fed by
-the precomputed standalone usage recorded in the editor's Extra tab.
--->
+<!-- @component How often each standalone scenario was played inside a campaign, with the resolutions reached. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { resolutionLabel, resolutionShort } from '$lib/campaign/utils/resolutions';
 	import type { StandaloneUsageRow } from '$lib/campaign/outcomes/standalone-usage';
+	import { WidgetEmpty } from '$lib/components/profile/_primitives';
+	import ResolutionChips from '$lib/components/profile/campaigns/campaign/ResolutionChips.svelte';
 
 	let { rows, family = null }: { rows: StandaloneUsageRow[]; family?: string | null } = $props();
 
@@ -32,15 +27,8 @@ the precomputed standalone usage recorded in the editor's Extra tab.
 					<span class="font-medium text-black dark:text-white">{r.name}</span>
 					<span class="text-primary-500 tabular-nums">×{r.count}</span>
 					{#if r.resolutions.length}
-						<div class="ml-auto flex flex-wrap gap-1">
-							{#each r.resolutions as res (res)}
-								<span
-									title={resolutionLabel(res)}
-									class="bg-secondary-500 rounded px-1.5 py-0.5 text-xs font-semibold tabular-nums text-white"
-								>
-									{resolutionShort(res)}
-								</span>
-							{/each}
+						<div class="ml-auto">
+							<ResolutionChips ids={r.resolutions} visited={new Set(r.resolutions)} />
 						</div>
 					{/if}
 				</div>
@@ -48,7 +36,5 @@ the precomputed standalone usage recorded in the editor's Extra tab.
 		</div>
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm">
-		{m.home_standalone_empty()}
-	</p>
+	<WidgetEmpty>{m.home_standalone_empty()}</WidgetEmpty>
 {/if}

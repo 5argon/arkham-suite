@@ -1,83 +1,64 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { BorderedContainer, SectionSeparator, UserDisplay } from '@5argon/arkham-life-ui';
-	import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
+	import type { ProfilePayload } from '$lib/profile/profile-types';
 	import ProfileWidgets from '$lib/components/profile/_framework/ProfileWidgets.svelte';
-	import { toWidgetData } from '$lib/components/profile/_framework/profile-widget-data';
-	import { LOCAL_PROFILE_KEY, type LocalProfileContext } from '$lib/database/profile-local';
+	import { NavTile, ProfilePane } from '$lib/components/profile/_primitives';
 
-	const ctx = getContext<LocalProfileContext>(LOCAL_PROFILE_KEY);
-	const data = $derived(ctx.payload);
-	const base = $derived(ctx.base);
-	const homeRows = $derived(data ? data.settings.panes.home : []);
-
-	// Resolves a member's investigator card for their avatar; from the ambient card
-	// database (bundled), so the Members section renders standalone — no live doc.
-	const cardResolver = createCardResolver();
-	const cardFor = (code: string | null) => (code ? resolveCardOrNull(code) : null);
-
-	// Cards & Investigators are entirely deck-derived; "show only campaign categories" drops
-	// them from the nav (a profile with no imported decks has nothing there).
-	const campaignOnly = $derived(data?.settings.campaignCategoriesOnly ?? false);
-	const navCards = $derived.by(() => {
-		const all: { label: string; href: string; blurb: string }[] = [
+	function navTiles(data: ProfilePayload, base: string) {
+		const tiles = [
 			{
 				label: m.home_nav_campaigns_label(),
 				href: `${base}/campaigns`,
-				blurb: m.home_nav_campaigns_blurb(),
-			},
-			{ label: m.home_nav_cards_label(), href: `${base}/cards`, blurb: m.home_nav_cards_blurb() },
-			{
-				label: m.home_nav_investigators_label(),
-				href: `${base}/investigators`,
-				blurb: m.home_nav_investigators_blurb(),
-			},
+				blurb: m.home_nav_campaigns_blurb()
+			}
 		];
-		const shown = campaignOnly ? all.slice(0, 1) : all;
-		// Standalones are a separate dimension — surface them whenever any are recorded.
-		if ((data?.standalones?.length ?? 0) > 0) {
-			shown.push({
-				label: 'Standalones',
+		// Cards and Investigators are read from decks alone.
+		if (!data.settings.campaignCategoriesOnly)
+			tiles.push(
+				{ label: m.home_nav_cards_label(), href: `${base}/cards`, blurb: m.home_nav_cards_blurb() },
+				{
+					label: m.home_nav_investigators_label(),
+					href: `${base}/investigators`,
+					blurb: m.home_nav_investigators_blurb()
+				}
+			);
+		if (data.standalones?.length)
+			tiles.push({
+				label: m.home_nav_standalones_label(),
 				href: `${base}/standalones`,
-				blurb: 'One-off Standalone Mode plays',
+				blurb: m.home_nav_standalones_blurb()
 			});
-		}
-		return shown;
-	});
+		return tiles;
+	}
 </script>
 
-<svelte:head><title>{m.home_page_title()}</title></svelte:head>
+<ProfilePane title={m.home_page_title()}>
+	{#snippet children(data, base)}
+		<div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+			{#each navTiles(data, base) as nav (nav.href)}
+				<NavTile href={nav.href} label={nav.label} detail={nav.blurb} />
+			{/each}
+		</div>
 
-{#if data}
-	<div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-		{#each navCards as nav (nav.href)}
-			<a href={nav.href} class="block">
+		{#if data.subject.kind === 'group' && data.subject.members.length}
+			<div class="mt-6">
+				<SectionSeparator title={m.home_members_title()} />
 				<BorderedContainer>
-					<div class="flex items-center justify-between gap-3 p-4 transition hover:opacity-80">
-						<div class="min-w-0">
-							<p class="font-semibold text-black dark:text-white">{nav.label}</p>
-							<p class="text-primary-500 dark:text-primary-400 truncate text-xs">{nav.blurb}</p>
-						</div>
-						<span class="text-secondary-500 shrink-0 text-lg">→</span>
+					<div class="flex flex-wrap gap-4 p-4">
+						{#each data.subject.members as member, i (i)}
+							<UserDisplay
+								username={member.name}
+								card={member.iconCardCode ? (cardByCode(member.iconCardCode) ?? null) : null}
+								size="sm"
+							/>
+						{/each}
 					</div>
 				</BorderedContainer>
-			</a>
-		{/each}
-	</div>
+			</div>
+		{/if}
 
-	{#if data.subject.kind === 'group' && data.subject.members.length}
-		<div class="mt-6">
-			<SectionSeparator title={m.home_members_title()} />
-			<BorderedContainer>
-				<div class="flex flex-wrap gap-4 p-4">
-					{#each data.subject.members as member, i (i)}
-						<UserDisplay username={member.name} card={cardFor(member.iconCardCode)} size="sm" />
-					{/each}
-				</div>
-			</BorderedContainer>
-		</div>
-	{/if}
-
-	<ProfileWidgets rows={homeRows} data={toWidgetData(data)} />
-{/if}
+		<ProfileWidgets rows={data.settings.panes.home} payload={data} />
+	{/snippet}
+</ProfilePane>

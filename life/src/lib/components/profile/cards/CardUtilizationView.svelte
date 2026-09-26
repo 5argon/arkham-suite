@@ -1,14 +1,9 @@
-<!--
-@component
-A player-card "filter" widget: every owned card matching a predicate (Permanent /
-Exceptional / Level 5 / Skill), shown as the same lit icon grid as the Core Set
-History — greyed when never used, with a lifetime-use badge — plus a utilization
-summary. Narrows to one class on a class-detail page (`classFilter`).
--->
+<!-- @component Every owned card matching a filter as a lit icon grid, with the share ever used. -->
 <script lang="ts">
 	import { FlexibleCardDisplay } from '@5argon/arkham-life-ui';
 	import type { Card, CardCode, Product } from '@5argon/arkham-kohaku';
 	import { utilizationItems } from '$lib/campaign/utils/card-filters';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		predicate,
@@ -19,19 +14,20 @@ summary. Narrows to one class on a class-detail page (`classFilter`).
 		predicate: (c: Card) => boolean;
 		cardUsage: Record<CardCode, number>;
 		ownedProducts: Product[] | null;
-		/** When set (class-detail page), narrow the pool to one card class. */
 		classFilter?: string | null;
 	} = $props();
 
 	const result = $derived(utilizationItems(predicate, cardUsage, ownedProducts, classFilter));
-	const pct = $derived(
-		result.items.length ? Math.round((result.played / result.items.length) * 100) : 0
-	);
+	const total = $derived(result.items.length);
 </script>
 
-{#if result.items.length}
+{#if total}
 	<p class="text-primary-600 dark:text-primary-400 mb-3 text-sm">
-		{pct}% used ({result.played} / {result.items.length})
+		{m.cards_utilization_used({
+			percent: Math.round((result.played / total) * 100),
+			played: result.played,
+			total
+		})}
 	</p>
 	<FlexibleCardDisplay
 		cards={result.items}
