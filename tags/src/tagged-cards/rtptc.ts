@@ -28,7 +28,6 @@ import {
   TagTypeTestInitiate,
   TagTypeTestless,
   TagTypeTimingDuring,
-  TagTypeTimingGame,
   TagTypeTimingSkill,
   TagTypeTraitSupport,
   TagTypeUsesStarting,
@@ -218,32 +217,27 @@ const taggedCards: TaggedCard[] = [
     name: "Unspeakable Oath",
     text: "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] When you deal damage to an enemy in excess of its remaining health: Discard this card from your hand.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "52012",
     name: "Unspeakable Oath",
     text: "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] After you successfully investigate a location with no clues on it: Discard this card from your hand.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "52013",
     name: "Unspeakable Oath",
     text: "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[action]: <b>Evade.</b> Use only on an exhausted unengaged enemy at your location. If you succeed, discard this card from your hand.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeActionBold.ActionBoldEvade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

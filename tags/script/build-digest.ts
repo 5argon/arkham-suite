@@ -21,7 +21,7 @@
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
-import { flagValue, listTagFiles, referenceDir, srcDir, tagsDir } from "./lib.ts";
+import { flagValue, i18nKey, listTagFiles, loadMessages, referenceDir, srcDir, tagsDir } from "./lib.ts";
 
 const argv = process.argv.slice(2);
 const bare = argv.includes("--bare");
@@ -103,6 +103,8 @@ function rulingsFor(id: string): Ruling[] {
   return out;
 }
 
+const messages = await loadMessages();
+
 // ---------- emit ----------
 const snippet = (text: string, max = 170) => {
   const oneLine = text.replace(/\s*\n\s*/g, " | ");
@@ -132,6 +134,8 @@ for (const f of files) {
   for (const id of idsOfFile.get(f) ?? []) {
     const members = membersOf.get(id) ?? [];
     out += `\n--- ${id} (${members.length} member${members.length === 1 ? "" : "s"}) ---\n`;
+    const description = messages[`desc_tag_${i18nKey(id)}`];
+    if (description) out += `DESCRIPTION (what players read): ${description}\n`;
     if (members.length) {
       for (const m of members.slice(0, 3)) out += `MEMBER: ${m.name} (${m.code}) "${snippet(m.text)}"\n`;
       if (members.length > 3)

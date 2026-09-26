@@ -7,6 +7,7 @@ import {
   TagTypeBuffInvestigatorStats,
   TagTypeChaosBag,
   TagTypeChaosEffect,
+  TagTypeChaosPayoff,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
   TagTypeChaosTokenPool,
@@ -19,12 +20,10 @@ import {
   TagTypeCostOther,
   TagTypeCostReaction,
   TagTypeDamage,
-  TagTypeDeckDiscard,
   TagTypeDeckDraw,
   TagTypeDeckMisc,
   TagTypeDeckSearch,
   TagTypeDeckShuffle,
-  TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
   TagTypeDoom,
   TagTypeDuration,
@@ -42,7 +41,6 @@ import {
   TagTypeLocationYour,
   TagTypePlayArea,
   TagTypeRecursion,
-  TagTypeSkillCommit,
   TagTypeSkillTestCondition,
   TagTypeSlotAdditional,
   TagTypeSoak,
@@ -103,14 +101,9 @@ const taggedCards: TaggedCard[] = [
     name: "The Necronomicon",
     text: "Advanced.\n<b>Revelation</b> - Put this card into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nWhile it is in play, treat each [elder_sign] you reveal on a chaos token as a [cultist], [tablet], and [elder_thing] <i>(resolve all three)</i>.\n[action]: Move 1 horror from this card to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it.",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "cultist" },
-      { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "tablet" },
-      { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "elder-thing" },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
-    ],
+    tags: [],
   },
   {
     code: "90008",
@@ -147,10 +140,9 @@ const taggedCards: TaggedCard[] = [
     name: "Hospital Debts",
     text: "Advanced. <b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[fast]: Move 1 resource from your resource pool to Hospital Debts. (Limit three times per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 9 resources on it: You earn 2 fewer experience for this scenario.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "90017",
@@ -187,11 +179,9 @@ const taggedCards: TaggedCard[] = [
     name: "Dark Memory",
     text: "Advanced.\nPlace 1 doom on the current agenda. This effect can cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror.",
     cardType: "event",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDoom.DoomAdd, target: "agenda" },
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-    ],
+    tags: [],
   },
   {
     code: "90024",
@@ -199,9 +189,7 @@ const taggedCards: TaggedCard[] = [
     text: "At deck creation, choose 3 different Directive assets to add to your deck.\n[fast]: Flip a Directive asset facedown <i>(ignoring its permanent keyword)</i>. (Limit once per game.)\n[elder_sign] effect: +2. Choose a Directive asset. You may ignore its regulation ability this round.",
     cardType: "investigator",
     icons: ["willpower", "willpower", "willpower", "intellect", "intellect", "intellect", "combat", "combat", "combat", "combat", "agility", "agility"],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "90025",
@@ -213,6 +201,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: "dynamic" },
+      { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
     ],
   },
   {
@@ -291,10 +280,9 @@ const taggedCards: TaggedCard[] = [
     name: "Cover Up",
     text: "Advanced.\n<b>Revelation</b> - Put Cover Up into play in your threat area, with 4 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "90037",
@@ -310,6 +298,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosSeal.ChaosSealRevealed },
       { type: TagTypeChaosBag.ChaosBagRemoveBless, value: 2 },
       { type: TagTypeChaosBag.ChaosBagRemoveCurse, value: 2 },
+      { type: TagTypeChaosReveal.ChaosRevealMore },
     ],
   },
   {
@@ -325,7 +314,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealSealedInstead },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeTestMisc.TestYouPerform },
-      { type: TagTypeDoom.DoomRemove },
       { type: TagTypeDoom.DoomPreventAdvance },
     ],
   },
@@ -349,10 +337,9 @@ const taggedCards: TaggedCard[] = [
     name: "Abandoned and Alone",
     text: "Advanced.\n<b>Revelation</b> - Remove all non-weakness cards in your discard pile from the game. If no cards were removed by this effect, shuffle this card back into your deck. Otherwise, take 3 direct horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "90046",
@@ -390,13 +377,9 @@ const taggedCards: TaggedCard[] = [
     name: "Hard Times",
     text: "Replacement.\n<b>Revelation</b> - Put Hard Times into play in your threat area.\n<b>Forced</b> - After you draw 1 or more cards: Choose and discard that many cards from hand.\n[action][action]: Discard Hard Times.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingAfter.TimingAfterDrawCard },
-      { type: TagTypeDeckDiscard.DeckDiscardCardChoose },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "90049",
@@ -408,12 +391,13 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenSkull },
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeTestMisc.TestYouPerform },
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After },
+      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeUsesSupport.UsesSupportCharge, supportType: "place", conditional: true },
       { type: TagTypeControl.ControlYourCard },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "skull" },
       { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "curse" },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -434,6 +418,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeLocationYour.LocationYourAlly },
       { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -441,10 +426,9 @@ const taggedCards: TaggedCard[] = [
     name: "Final Rhapsody",
     text: "Advanced.\n<b>Revelation</b> - Reveal 5 chaos tokens from the chaos bag. For each non-[elder_sign], non-[bless] symbol token revealed, take 1 damage and 1 horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosReveal.ChaosRevealManual },
-    ],
+    tags: [],
   },
   {
     code: "90052",
@@ -462,10 +446,9 @@ const taggedCards: TaggedCard[] = [
     name: "Vengeful Shade",
     text: "Hunter. <b>Prey</b> – Jim Culver only.\nYou may fight or evade this enemy while it is attached to The Beyond (as if it were engaged with you). If you succeed, discard it. If you fail, spawn it engaged with you.\n<b>Forced</b> – When you attach a spirit to The Beyond via its forced effect: Vengeful Shade attacks you <i>(even if it is not at your location)</i>.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "90059",
@@ -504,10 +487,9 @@ const taggedCards: TaggedCard[] = [
     name: "Smite the Wicked",
     text: "Advanced. Attached enemy gets +2 fight and +2 health.\n<b>Revelation</b> - Discard cards from the top of the encounter deck until an enemy is discarded. Attach Smite the Wicked to that enemy and spawn it at the location farthest from you.\n<b>Forced</b> - When the game ends, if attached enemy is in play: Zoey Samaras suffers 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "90062",
@@ -550,13 +532,9 @@ const taggedCards: TaggedCard[] = [
     name: "Buried Secrets",
     text: "Advanced.\n<b>Revelation</b> - Put Buried Secrets into play in your threat area.\nIf your location can be investigated, you cannot move except by scenario card effects.\n[action] [action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Buried Secrets.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "90078",
@@ -569,6 +547,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
       { type: TagTypeCluePlace.CluePlaceYourLocation, value: 1 },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -590,11 +569,9 @@ const taggedCards: TaggedCard[] = [
     name: "Rex's Curse",
     text: "Advanced.\n<b>Revelation</b> - Put Rex's Curse into play in your threat area.\n<b>Forced</b> - When you would succeed at a skill test: Reveal an additional chaos token. If this effect causes you to fail the test, shuffle Rex's Curse into your deck. (Limit once per test.)",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosReveal.ChaosRevealMore },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "90081",
@@ -633,10 +610,9 @@ const taggedCards: TaggedCard[] = [
     name: "Serpents of Yig",
     text: "Advanced. <b>Prey</b> - Father Mateo only. Hunter.\n<b>Revelation</b> - Search the chaos bag and all play areas for the [elder_sign] token and each [bless] token and seal them on Serpents of Yig.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "90084",
@@ -677,14 +653,9 @@ const taggedCards: TaggedCard[] = [
     name: "Searching for Izzie",
     text: "Advanced.\n<b>Revelation</b> - Attach Searching for Izzie to the location farthest from you. Attached location gets +2 shroud.\n[action] [action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Searching for Izzie.\n<b>Forced</b> - When the game ends, if Searching for Izzie is in play: You suffer 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "90087",
@@ -707,6 +678,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeActionAdditional.ActionTakeImmediate },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -720,6 +692,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeActionAdditional.ActionTakeImmediate },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -733,6 +706,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeActionAdditional.ActionTakeImmediate },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -746,6 +720,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeDoom.DoomRemove },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -760,6 +735,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeHeal.HealDamageYou, value: 1 },
       { type: TagTypeHeal.HealHorrorYou, value: 1 },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -767,11 +743,9 @@ const taggedCards: TaggedCard[] = [
     name: "Samuel Blake",
     text: "Lola Hayes deck only. Replacement. Peril.\nWhile Samuel Blake is in your hand, you cannot switch roles or play cards belonging to another role.\nWhile Samuel Blake is in play, as an additional cost for you to switch your role, you must take 1 horror.",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckMisc.DeckRestriction },
-      { type: TagTypeSoak.SoakHealth, value: 3 },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

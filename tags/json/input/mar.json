@@ -40,6 +40,7 @@
   "name": "Called to Guinée",
   "text": "<b>Revelation</b> - Put Called to Guinée into play in your threat area.\nYou cannot heal damage.\n[action] Choose and discard 3 cards from your hand: Discard Called to Guinée.",
   "type": "treachery",
+  "subtype": "weakness",
   "traits": "Curse. Pact.",
   "icons": []
  },
@@ -48,6 +49,7 @@
   "name": "Hemophobia",
   "text": "<b>Revelation</b> - Put Hemophobia into play in your threat area.\n<b>Forced</b> - The first time each round an investigator at your location takes damage: Take 1 horror.\n[action] [action]: Discard Hemophobia.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Terror.",
   "icons": []
  },

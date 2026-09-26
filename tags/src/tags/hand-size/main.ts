@@ -18,8 +18,8 @@ export interface TagHandSizeMaxIncrease extends TagHandSizeBase {
 }
 
 /**
- * REDUCES the maximum hand size (Drawing the Sign -5, Patrice Hathaway -3, Pelt Shipment
- * -3) — a drawback, kept out of the Big Hand compound; `value` is the positive reduction.
+ * REDUCES the maximum hand size (Patrice Hathaway -3, Pelt Shipment -3) — a drawback,
+ * kept out of the Big Hand compound; `value` is the positive reduction.
  */
 export interface TagHandSizeMaxDecrease extends TagHandSizeBase {
   type: TagTypeHandSize.HandSizeMaxDecrease;

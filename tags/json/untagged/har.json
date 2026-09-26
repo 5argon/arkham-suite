@@ -27,21 +27,13 @@
   "code": "60203",
   "name": "Thrice-Damned Curiosity",
   "text": "<b>Revelation</b> - For every 3 cards in your hand: Take 1 damage.",
-  "tags": [
-   "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"max\" }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: \"dynamic\" }"
-  ]
+  "tags": []
  },
  {
   "code": "60204",
   "name": "Obsessive",
   "text": "<b>Revelation</b> - Put Obsessive into play in your threat area.\n<b>Forced</b> - When your turn begins: Discard 1 non-weakness card at random from your hand.\n[action] [action]: Discard Obsessive.",
-  "tags": [
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When }",
-   "{ type: TagTypeDeckDiscard.DeckDiscardCardRandom }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "60205",
@@ -365,7 +357,8 @@
    "{ type: TagTypeHandSize.HandSizeDependent, comparison: \"min\" }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
-   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 8 }"
+   "{ type: TagTypeCondition.ConditionHandSize, comparison: \"min\", value: 8 }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }"
   ]
  },
  {

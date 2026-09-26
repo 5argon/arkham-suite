@@ -65,9 +65,7 @@
   "code": "03011",
   "name": "The King in Yellow",
   "text": "<b>Revelation</b> - Put The King in Yellow into play in your threat area. It cannot leave play except through the [reaction] ability below.\nYou cannot commit exactly 1 or 2 cards to a skill test.\n[reaction] After a skill test is successful in which Minh Thi Phan has committed at least 6 matching skill icons for that test: Discard The King in Yellow.",
-  "tags": [
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "03003",
@@ -92,9 +90,7 @@
   "code": "03013",
   "name": "Stars of Hyades",
   "text": "<b>Revelation</b> - Randomly choose an event beneath Sefina Rousseau and remove it from the game. If you cannot, take 1 damage and 1 horror. If your deck has 5 or more cards in it, shuffle Stars of Hyades back into your deck instead of discarding it.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "03004",
@@ -119,9 +115,7 @@
   "code": "03015",
   "name": "Angered Spirits",
   "text": "<b>Revelation</b> - Put Angered Spirits into play in your threat area.\n[free] Exhaust a [[Spell]] asset: Move 1 charge from that asset to Angered Spirits.\n<b>Forced</b> - When the game ends, if Angered Spirits has fewer than 4 charges on it: You suffer 1 physical trauma.",
-  "tags": [
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
-  ]
+  "tags": []
  },
  {
   "code": "03005",
@@ -178,9 +172,7 @@
   "code": "03019",
   "name": "Crisis of Identity",
   "text": "<b>Revelation</b> - Discard all cards you control of your current role. Then, discard the top card of your deck. Switch your role to the class of the discarded card (if the discarded card is a weakness, switch your role to neutral).",
-  "tags": [
-   "{ type: TagTypeDeckDiscard.DeckDiscardDeck }"
-  ]
+  "tags": []
  },
  {
   "code": "03020",
@@ -220,7 +212,8 @@
   "text": "Fast. Play after another investigator draws a non-peril encounter card, but before resolving that card's effects.\nYou are considered to have drawn that encounter card, instead. You get +2 to each of your skills while resolving that card's revelation effect.",
   "tags": [
    "{ type: TagTypeTank.TankRedirectEncounter }",
-   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }"
+   "{ type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -514,7 +507,8 @@
    "{ type: TagTypeAttach.AttachLocation }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeActionBold.ActionBoldMove }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -955,7 +949,8 @@
   "text": "Fast. Play when an investigator at any location draws a non-weakness treachery card.\nCancel that card's revelation effect. Then, take 1 horror.",
   "tags": [
    "{ type: TagTypeCostOther.CostHorrorSelf }",
-   "{ type: TagTypeCancel.CancelRevelation }"
+   "{ type: TagTypeCancel.CancelRevelation }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -1291,18 +1286,12 @@
   "code": "03041",
   "name": "Drawing the Sign",
   "text": "<b>Revelation</b> - Put Drawing the Sign into play in your threat area.\nYour maximum hand size is reduced by 5.\n[action] [action]: Discard Drawing the Sign.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeHandSize.HandSizeMaxDecrease, value: 5 }"
-  ]
+  "tags": []
  },
  {
   "code": "03042",
   "name": "The Thing That Follows",
   "text": "<b>Spawn</b> - Location farthest from you.\n<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - When The Thing That Follows would be defeated: Instead shuffle it into its bearer's deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  }
 ]

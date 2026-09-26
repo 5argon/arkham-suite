@@ -38,11 +38,7 @@
   "code": "60104",
   "name": "Self-Destructive",
   "text": "<b>Revelation</b> - Put Self-Destructive into play in your threat area.\n<b>Forced</b> - When you deal 1 or more damage to an enemy: Take 1 damage.\n[action] [action]: Discard Self-Destructive.",
-  "tags": [
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "60105",
@@ -353,7 +349,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
-   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"either\" }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: \"dynamic\" }"
   ]

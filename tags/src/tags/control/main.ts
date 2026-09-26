@@ -14,7 +14,8 @@ export interface TagControlYourCard extends TagControlBase {
 
 /**
  * Control of an ASSET moves between investigators — giving (Teamwork, Solemn Vow
- * played under another's control) or taking (Kleptomania). Resource transfers are
+ * played under another's control) or taking (Pitchfork, left for anyone at its location
+ * to take). Resource transfers are
  * gain-resource-move-investigator; this is the asset-control half.
  */
 export interface TagControlTransferAsset extends TagControlBase {

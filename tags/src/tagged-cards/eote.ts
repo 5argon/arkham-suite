@@ -122,10 +122,9 @@ const taggedCards: TaggedCard[] = [
     name: "Mob Goons",
     text: "Hunter.\n<b>Prey</b> - Daniela Reyes only.\nThis enemy's attacks cannot be canceled.\nDamage/horror dealt by this enemy's attacks is treated as direct.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "08004",
@@ -158,11 +157,9 @@ const taggedCards: TaggedCard[] = [
     name: "The Harbinger",
     text: "<b>Revelation</b> - Place this card on top of your deck.\nWhile The Harbinger is revealed and on top of your deck, cards in your deck cannot be searched, drawn, or manipulated in any way except by the below ability.\n[action] [action]: Discard The Harbinger. This ability may be activated while The Harbinger is on top of your deck, as if it were in your threat area.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "08007",
@@ -197,14 +194,9 @@ const taggedCards: TaggedCard[] = [
     name: "Buried Secrets",
     text: "<b>Revelation</b> - Put Buried Secrets into play in your threat area.\nIf your location can be investigated, you cannot move except by scenario card effects.\n[action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Buried Secrets. If you fail, you may take 2 horror to shuffle it into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-    ],
+    tags: [],
   },
   {
     code: "08010",
@@ -222,10 +214,9 @@ const taggedCards: TaggedCard[] = [
     name: "Burden of Destiny",
     text: "<b>Revelation</b> - You must either (choose one):\n- Flip a Discipline you control to its [[Broken]] side. It cannot be flipped back this round.\n- Take 1 damage and 1 horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-    ],
+    tags: [],
   },
   {
     code: "08016",
@@ -262,10 +253,9 @@ const taggedCards: TaggedCard[] = [
     name: "Greed",
     text: "<b>Revelation</b> - Take 1 horror. If you have...\n- ...10 or fewer resources, take 1 additional horror.\n- ...5 or fewer resources, take 1 additional horror.\n- ...0 resources, take 1 additional horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "08019",
@@ -434,6 +424,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeRemote.RemoteMove },
       { type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 3 },
+      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
     ],
   },
   {
@@ -619,6 +610,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationMove.LocationMoveInvestigatorAny },
       { type: TagTypeRemote.RemoteMove },
+      { type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 },
     ],
   },
   {
@@ -634,6 +626,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationMove.LocationMoveInvestigatorAny },
       { type: TagTypeRemote.RemoteMove },
       { type: TagTypeActionBold.ActionBoldInvestigate },
+      { type: TagTypeActionAdditional.ActionTakeImmediate },
     ],
   },
   {
@@ -695,9 +688,7 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "08047",
@@ -774,6 +765,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: "other-hand" },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
+      { type: TagTypeControl.ControlTransferAsset },
     ],
   },
   {
@@ -816,6 +808,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.When },
       { type: TagTypeSkillValueSource.SkillValueFromResource, per: 2 },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -1145,6 +1138,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestless.TestlessClue, value: 2 },
       { type: TagTypeDoom.DoomRemove },
       { type: TagTypeExile.ExileSelf },
+      { type: TagTypeCostOther.CostDiscardCard },
     ],
   },
   {
@@ -1322,6 +1316,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeChaosEffect.ChaosEffectIgnoreEffect },
     ],
   },
   {
@@ -1611,6 +1606,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeSoak.SoakSanity, value: 2 },
       { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true },
+      { type: TagTypeRecursion.RecursionAsset },
     ],
   },
   {
@@ -1641,6 +1637,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeSoak.SoakSanity, value: 3 },
       { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true },
+      { type: TagTypeRecursion.RecursionAsset },
     ],
   },
   {
@@ -1653,7 +1650,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
       { type: TagTypeDamage.DamagePlus, value: 1 },
@@ -1672,6 +1668,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeRemote.RemoteMove },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeLocationMove.LocationMoveEnemyDisplace },
+      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
     ],
   },
   {
@@ -1704,6 +1701,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeRemote.RemoteMove },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
       { type: TagTypeLocationMove.LocationMoveEnemyDisplace },
+      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
     ],
   },
   {
@@ -1965,9 +1963,7 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "08126",
@@ -2043,44 +2039,36 @@ const taggedCards: TaggedCard[] = [
     name: "Arm Injury",
     text: "<b>Revelation</b> - Put Arm Injury into play in your threat area.\nArm Injury can be healed as if it were a single point of damage on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a fight or activate action: You cannot take any of those types of actions for the remainder of the turn.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeHeal.HealRemovesWeakness },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "08131",
     name: "Leg Injury",
     text: "<b>Revelation</b> - Put Leg Injury into play in your threat area.\nLeg Injury can be healed as if it were a single point of damage on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a move, resign, or evade action: You cannot take any of those types of actions for the remainder of the turn.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeHeal.HealRemovesWeakness },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "08132",
     name: "Panic",
     text: "<b>Revelation</b> - Put Panic into play in your threat area.\nPanic can be healed as if it were a single point of horror on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a play, engage, or resource action: You cannot take any of those types of actions for the remainder of the turn.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeHeal.HealRemovesWeakness },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "08133",
     name: "Stupor",
     text: "<b>Revelation</b> - Put Stupor into play in your threat area.\nStupor can be healed as if it were a single point of horror on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a parley, draw, or investigate action: You cannot take any of those types of actions for the remainder of the turn.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeHeal.HealRemovesWeakness },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

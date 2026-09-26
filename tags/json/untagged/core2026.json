@@ -8,7 +8,8 @@
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
-   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
   ]
  },
  {
@@ -23,18 +24,15 @@
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 1 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTargetAttacking }"
   ]
  },
  {
   "code": "12003",
   "name": "In Harm's Way",
   "text": "<b>Revelation</b> - Put In Harm's Way into play in your threat area.\n<b>Forced</b> - After you deal damage to an enemy: Take 1 damage and place 1 damage on In Harm's Way. If there is 3 or more damage on this card, discard it.\n<b>Forced</b> - When the game ends: Suffer 1 physical trauma.",
-  "tags": [
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
-  ]
+  "tags": []
  },
  {
   "code": "12004",
@@ -64,11 +62,7 @@
   "code": "12006",
   "name": "Dead Ends",
   "text": "<b>Forced</b> - When you search your deck and Dead Ends is among the searched cards: Draw it, cancel the effects of the search, and shuffle your deck.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.",
-  "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
-   "{ type: TagTypeTimingGame.TimingGameEnds }",
-   "{ type: TagTypeDeckSearch.DeckSearchReaction }"
-  ]
+  "tags": []
  },
  {
   "code": "12007",
@@ -105,7 +99,8 @@
   "text": "[reaction] After you play an asset: Either return another non-story asset you control to your hand, or play a different asset from your hand <i>(paying its cost)</i>. (Limit once per round.)\n[elder_sign] effect: +1. You may return a non-story asset at your location to its owner's hand.",
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"asset\" }",
-   "{ type: TagTypePlayArea.PlayAreaToHand }"
+   "{ type: TagTypePlayArea.PlayAreaToHand }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }"
   ]
  },
  {
@@ -127,13 +122,7 @@
   "code": "12012",
   "name": "The Necronomicon",
   "text": "<b>Revelation</b> - Put The Necronomicon into play in your threat area. It cannot leave play except by the [action] ability below.\nYou cannot play assets or trigger abilities on other assets you control.\n[action]: Test [willpower] (5). If you succeed, discard The Necronomicon. If you fail, shuffle it into your deck and take 1 horror.",
-  "tags": [
-   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 5 }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "12013",
@@ -173,9 +162,7 @@
   "code": "12015",
   "name": "Breaking Point",
   "text": "<b>Revelation</b> - Take 1 direct damage. Then, if you have 6 or fewer remaining sanity, take 1 direct damage. Then, if you have 3 or fewer remaining sanity, take 1 direct damage.",
-  "tags": [
-   "{ type: TagTypeDamage.DamageToInvestigator, value: \"dynamic\" }"
-  ]
+  "tags": []
  },
  {
   "code": "12016",
@@ -390,7 +377,8 @@
    "{ type: TagTypeRemote.RemoteInvestigate }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1, action: BasicAction.Investigate }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }"
   ]
  },
  {
@@ -581,7 +569,8 @@
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTestless.TestlessEvade }"
   ]
  },
  {
@@ -715,7 +704,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendCharge }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeTank.TankMoveDamageHorror, scope: \"cross-investigator\" }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -755,7 +745,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealSealedInstead }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeChaosSeal.ChaosSealRevealed }"
+   "{ type: TagTypeChaosSeal.ChaosSealRevealed }",
+   "{ type: TagTypeChaosPredict.ChaosPredict }"
   ]
  },
  {
@@ -980,7 +971,8 @@
   "tags": [
    "{ type: TagTypeCommit.CommitMax, value: 1 }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
-   "{ type: TagTypeTestMisc.TestYouPerform }"
+   "{ type: TagTypeTestMisc.TestYouPerform }",
+   "{ type: TagTypeChaosPredict.ChaosPredict }"
   ]
  },
  {
@@ -1009,7 +1001,8 @@
    "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 1 }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }",
    "{ type: TagTypeTestRepeat.TestRepeatFailed }",
-   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }"
+   "{ type: TagTypeLocationShroud.LocationShroudReduction, value: 2 }",
+   "{ type: TagTypeCostAction.CostActionExhaustSelf }"
   ]
  },
  {
@@ -1155,25 +1148,19 @@
   "code": "12097",
   "name": "Amnesia",
   "text": "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
-  "tags": [
-   "{ type: TagTypeDeckDiscard.DeckDiscardCardChoose }"
-  ]
+  "tags": []
  },
  {
   "code": "12098",
   "name": "The Gold Bug",
   "text": "<b>Revelation</b> - Put The Gold Bug into play in your threat area. It cannot leave play except by the [action] ability below.\nYou get -1 health and -1 sanity.\n[action]: Shuffle the Gold Bug into your deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "12099",
   "name": "The Nameless Lurker",
   "text": "Aloof.\n<b>Spawn</b> - Farthest empty location.\n<b>Forced</b> - When the investigation phase ends, if The Nameless Lurker is ready and has no doom on it: Place 1 doom on it.",
-  "tags": [
-   "{ type: TagTypeDoom.DoomAdd, target: \"enemy\" }"
-  ]
+  "tags": []
  },
  {
   "code": "12100",
@@ -1191,30 +1178,18 @@
   "code": "12102",
   "name": "Pursued",
   "text": "<b>Revelation</b> - Put Pursued into play in your threat area.\n<b>Forced</b> - After an enemy enters <i>(moves into or spawns at)</i> your location: Take 1 horror.\n[action][action]: Discard Pursued.",
-  "tags": [
-   "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "12103",
   "name": "Syndicate Obligations",
   "text": "<b>Revelation</b> - Put Syndicate Obligations into play in your threat area.\n<b>Forced</b> - After you spend 1 or more resources: Take 1 damage.\n[action][action]: Discard Syndicate Obligations.",
-  "tags": [
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "12104",
   "name": "Wounded",
   "text": "<b>Revelation</b> - Put Wounded into play in your threat area.\n<b>Forced</b> - The first time you move each turn: Take 1 damage.\n[action][action]: Discard Wounded.",
-  "tags": [
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  }
 ]

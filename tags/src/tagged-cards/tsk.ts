@@ -128,10 +128,9 @@ const taggedCards: TaggedCard[] = [
     name: "Selfless to a Fault",
     text: "<b>Revelation</b> - Put Selfless to a Fault into play in your threat area.\n<b>Forced</b> - At the end of your turn, if you did not commit at least 1 card to a skill test performed by another investigator this turn: Take 1 horror and shuffle Selfless to a Fault into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "09004",
@@ -183,10 +182,9 @@ const taggedCards: TaggedCard[] = [
     name: "Wounded Bystander",
     text: "<b>Revelation</b> - Put Wounded Bystander into play in your play area with 3 damage on it. It cannot leave play while it has damage (unless it is defeated). If it has no damage, discard it.\n<b>Forced</b> - When you take non-direct damage: At least 1 of it must be assigned to Wounded Bystander, if able.\n<b>Forced</b> - If Wounded Bystander is defeated: You suffer 1 mental trauma.",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeSoak.SoakHealth, value: 5 },
-    ],
+    tags: [],
   },
   {
     code: "09008",
@@ -227,10 +225,9 @@ const taggedCards: TaggedCard[] = [
     name: "Agent Fletcher",
     text: "Alert. Hunter.\n<b>Prey</b> - Kymani Jones only.\nWhile Kymani Jones is evading Agent Fletcher, reduce their [intellect] value to 0.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "09011",
@@ -281,11 +278,9 @@ const taggedCards: TaggedCard[] = [
     name: "Deafening Silence",
     text: "<b>Revelation</b> - Move 1 doom from an asset you control to the current agenda. This may cause the current agenda to advance. If no doom is moved in this way, shuffle Deafening Silence back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDoom.DoomMove },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "09015",
@@ -320,10 +315,9 @@ const taggedCards: TaggedCard[] = [
     name: "Ruined Film",
     text: "<b>Revelation</b> - Remove 4 evidence from cards you control. For each evidence you cannot remove in this way, take 1 horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "09018",
@@ -359,10 +353,9 @@ const taggedCards: TaggedCard[] = [
     name: "Burden of Leadership",
     text: "<b>Revelation</b> - If you control no [[Ally]] assets, shuffle Burden of Leadership back into your deck. Otherwise, for each [[Ally]] asset you control, you must either exhaust it or deal it 1 direct damage and 1 direct horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "09021",
@@ -690,6 +683,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "evidence" },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource, source: "card" },
+      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
+      { type: TagTypeCostReaction.CostReactionExhaustSelf },
     ],
   },
   {
@@ -959,6 +954,11 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 1 },
       { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
       { type: TagTypeDuration.DurationNext, window: "round" },
+      { type: TagTypeDamage.DamagePlus, value: "dynamic" },
+      { type: TagTypeHeal.HealDamageInvestigator, value: "dynamic" },
+      { type: TagTypeHeal.HealHorrorInvestigator, value: "dynamic" },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
+      { type: TagTypeLocationYour.LocationYourEnemy },
     ],
   },
   {
@@ -987,7 +987,7 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect", "agility"],
     tags: [
       { type: TagTypeCustomizable.Customizable },
-      { type: TagTypeDeckDraw.DeckDrawYou, value: "dynamic" },
+      { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 6 } },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeDeckLook.DeckLookYou, value: 6, reorder: false },
     ],
@@ -1212,6 +1212,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 },
       { type: TagTypeRecursion.RecursionSelfToHand },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeTestless.TestlessEvade },
     ],
   },
   {
@@ -1449,6 +1450,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyMitigation.EnemyMitigationDefeat },
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
       { type: TagTypeDoom.DoomAdd, target: "enemy" },
+      { type: TagTypeDoom.DoomCheck },
     ],
   },
   {
@@ -1511,6 +1513,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAttach.AttachAsset },
       { type: TagTypeSoak.SoakSanity, value: 2 },
       { type: TagTypeDoom.DoomPreventAdvance },
+      { type: TagTypeDoom.DoomCheck },
     ],
   },
   {
@@ -1523,6 +1526,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeDoom.DoomRemove },
+      { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
     ],
   },
   {
@@ -1767,7 +1771,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeAuto.AutoSuccess },
       { type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 },
-      { type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 },
+      { type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: false },
       { type: TagTypeTestMisc.TestYouPerform },
     ],
   },
@@ -1999,54 +2003,45 @@ const taggedCards: TaggedCard[] = [
     name: "Lurker in the Dark",
     text: "[guardian] investigator only.\nHunter.\n<b>Spawn</b> - Any connecting location.\nLurker in the Dark can only be attacked or damaged using [[Weapon]] assets or [[Tactic]] events, and takes 1 fewer damage from each source.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "09125",
     name: "Quantum Paradox",
     text: "[seeker] investigator only.\nAs an additional cost to play Quantum Paradox, you must choose and discard 4 other cards from your hand.\n<b>Forced</b> - If Quantum Paradox is in your hand at the end of your turn: Reveal it and take 1 horror.",
     cardType: "event",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-      { type: TagTypeCostOther.CostDiscardCard },
-    ],
+    tags: [],
   },
   {
     code: "09126",
     name: "Pay Your Due",
     text: "[rogue] investigator only.\nAs an additional cost to play Pay Your Due, you may spend any number of additional actions. Reduce its cost by 5 for each additional action spent.\n<b>Forced</b> - If Pay Your Due is in your hand at the end of your turn: Reveal it and take 1 damage.",
     cardType: "event",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-      { type: TagTypeCostOther.CostPlaySpendAction },
-      { type: TagTypeCostDiscount.CostDiscountSelf, amount: "dynamic" },
-    ],
+    tags: [],
   },
   {
     code: "09127",
     name: "Ectoplasmic Horror",
     text: "[mystic] investigator only.\nHunter.\nThe first time you reveal a chaos token while attacking or attempting to evade Ectoplasmic Horror, reveal an additional token for each empty arcane slot you have.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
-      { type: TagTypeChaosReveal.ChaosRevealMore },
-    ],
+    tags: [],
   },
   {
     code: "09128",
     name: "Underprepared",
     text: "[survivor] investigator only.\nPlay only if Underprepared is the only card in your hand and you have exactly 1 resource in your resource pool.\nWhile Underprepared is in your hand, each card you commit to skill tests is considered to have 1 fewer matching skill icon.",
     cardType: "event",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

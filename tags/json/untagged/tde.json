@@ -7,7 +7,8 @@
    "{ type: TagTypeTank.TankMoveDamageHorror, scope: \"self\" }",
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }"
+   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
+   "{ type: TagTypePlayArea.PlayAreaToDeck }"
   ]
  },
  {
@@ -72,9 +73,7 @@
   "code": "06007",
   "name": "Rookie Mistake",
   "text": "<b>Revelation</b> - Discard each asset you control with damage or horror on it. If no assets are discarded by this effect, shuffle Rookie Mistake back into your deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "06008",
@@ -93,10 +92,7 @@
   "code": "06009",
   "name": "Shocking Discovery",
   "text": "<b>Revelation</b> - Shuffle Shocking Discovery back into your deck. (If you cannot, discard it and draw the top card of the encounter deck, instead.)\n<b>Forced</b> - When you search your deck and this card is among the searched cards: Discard it. Cancel the search and all of its effects. Shuffle the searched deck. Draw the top card of the encounter deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeDeckSearch.DeckSearchReaction }"
-  ]
+  "tags": []
  },
  {
   "code": "06010",
@@ -127,9 +123,7 @@
   "code": "06012",
   "name": "Tony's Quarry",
   "text": "<b>Spawn</b> - Location farthest from Tony Morgan.\nAloof.\n<b>Forced</b> - After Tony's Quarry enters play: Place 1 doom on it. Then, place 1 resource on it <i>(from the token pool)</i>, as a bounty.",
-  "tags": [
-   "{ type: TagTypeDoom.DoomAdd, target: \"enemy\" }"
-  ]
+  "tags": []
  },
  {
   "code": "06013",
@@ -150,11 +144,7 @@
   "code": "06014",
   "name": "Detached from Reality",
   "text": "<b>Revelation</b> - If Dream-Gate <i>(Wondrous Journey)</i> is already in play, flip it over. Otherwise, search your bonded cards for Dream-Gate <i>(Pointless Reality)</i> and put it into play. In either case, disengage from each enemy engaged with you and move to Dream-Gate.",
-  "tags": [
-   "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
-  ]
+  "tags": []
  },
  {
   "code": "06016",
@@ -192,10 +182,7 @@
   "code": "06019",
   "name": "Bloodlust",
   "text": "Bonded (The Hungering Blade).\n<b>Revelation</b> - Remove 2 offerings from The Hungering Blade to attach Bloodlust to it. If you cannot, take 1 horror and shuffle Bloodlust back into your deck.\n[fast] While attacking with The Hungering Blade, shuffle Bloodlust into your deck: You deal +1 damage for this attack. (Max once per attack.)",
-  "tags": [
-   "{ type: TagTypeBonded.BondedCard }",
-   "{ type: TagTypeDamage.DamagePlus, value: 1 }"
-  ]
+  "tags": []
  },
  {
   "code": "06020",
@@ -261,9 +248,7 @@
   "code": "06025",
   "name": "Guardian of the Crystallizer",
   "text": "Bonded (Crystallizer of Dreams). Hunter.\n<b>Prey</b> - Investigator with a Crystallizer of Dreams only.\nGuardian of the Crystallizer enters play exhausted.\n<b>Forced</b> - If there is no Crystallizer of Dreams in play: Set Guardian of the Crystallizer aside, out of play.",
-  "tags": [
-   "{ type: TagTypeBonded.BondedCard }"
-  ]
+  "tags": []
  },
  {
   "code": "06026",
@@ -316,7 +301,6 @@
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeBonded.BondedFetch }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
    "{ type: TagTypeSoak.SoakSanity, value: 2 }"
   ]
@@ -386,31 +370,19 @@
   "code": "06035",
   "name": "Self-Centered",
   "text": "Multiplayer only.\n<b>Revelation</b> - Put Self-Centered into play in your threat area.\nYou cannot commit cards to other investigators' skill tests or affect other investigators with player card effects (except aspects that cause damage or horror).\n[action] [action]: Discard Self-Centered.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "06036",
   "name": "Kleptomania",
   "text": "Multiplayer only.\n<b>Revelation</b> - Put Kleptomania into play in your play area.\n[action]: Take control of an [[Item]] asset or 2 resources from another investigator at your location. Then, shuffle Kleptomania into your deck.\n<b>Forced</b> - At the end of your turn: Take 1 horror.",
-  "tags": [
-   "{ type: TagTypeControl.ControlTransferAsset }",
-   "{ type: TagTypeGainResource.GainResourceMoveInvestigator }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
-  ]
+  "tags": []
  },
  {
   "code": "06037",
   "name": "Narcolepsy",
   "text": "Multiplayer only.\n<b>Revelation</b> - Put Narcolepsy into play in your threat area.\nYou cannot take actions, trigger abilities, or play cards.\n[action]: \"Wake up!\" Discard Narcolepsy.\n<b>Forced</b> - After you take damage or horror: Discard Narcolepsy.",
-  "tags": [
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
-   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }"
-  ]
+  "tags": []
  },
  {
   "code": "06038",
@@ -592,7 +564,8 @@
   "text": "Play only during one of your turns in which you defeated enemies with a total of 6 or more health.\nAdd \"Let God sort them out...\" to the victory display and immediately end your turn. When earning experience during the resolution of this scenario, you earn 1 additional experience.",
   "tags": [
    "{ type: TagTypeVictory.VictoryDisplaySelf }",
-   "{ type: TagTypeActionLose.ActionEndTurn }"
+   "{ type: TagTypeActionLose.ActionEndTurn }",
+   "{ type: TagTypeEnemyValue.EnemyValueHealth }"
   ]
  },
  {
@@ -972,7 +945,8 @@
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 0 }",
    "{ type: TagTypeTimingWhen.TimingWhenDefeatEnemy }",
    "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }",
-   "{ type: TagTypeBonded.BondedFetch }"
+   "{ type: TagTypeBonded.BondedFetch }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"charge\" }"
   ]
  },
  {
@@ -1070,9 +1044,7 @@
   "code": "06283",
   "name": "Unbound Beast",
   "text": "Bonded (Summoned Hound).\n<b>Prey</b> - Bearer.\nHunter. Retaliate.\n<b>Revelation</b> - If there is no copy of Summoned Hound in play, set Unbound Beast aside, out of play. Otherwise, set an investigator's Summoned Hound aside, out of play, and spawn Unbound Beast engaged with the same investigator.",
-  "tags": [
-   "{ type: TagTypeBonded.BondedCard }"
-  ]
+  "tags": []
  },
  {
   "code": "06284",
@@ -1152,7 +1124,8 @@
    "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeGainResource.GainResourceYou, value: 2 }",
    "{ type: TagTypeSoak.SoakHealth, value: 3 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }"
   ]
  },
  {
@@ -1205,7 +1178,6 @@
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
@@ -1216,10 +1188,7 @@
   "code": "06331",
   "name": "Dream Parasite",
   "text": "Bonded (Nightmare Bauble).\nWhile Dream Parasite is in your hand, you must commit it to the next skill test you perform, if able.\nThis skill's icons subtract from your skill value instead of adding to it.\nIf this skill test fails, take 1 damage and 1 horror.",
-  "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitDoubleIcon }",
-   "{ type: TagTypeBonded.BondedCard }"
-  ]
+  "tags": []
  },
  {
   "code": "06332",

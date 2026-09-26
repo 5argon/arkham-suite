@@ -5,7 +5,6 @@ import {
   TagTypeChaosSeal,
   TagTypeCostAction,
   TagTypeCostDiscount,
-  TagTypeCostFree,
   TagTypeCostOther,
   TagTypeCostReaction,
   TagTypeDamage,
@@ -221,40 +220,36 @@ const taggedCards: TaggedCard[] = [
     name: "Dendromorphosis",
     text: "<b>Revelation</b> - Put Dendromorphosis into play in your threat area. It cannot leave play while it has no damage on it.\n[fast] Take 1 direct damage: Deal 1 damage to Dendromorphosis.\n<b>Card design by the Botanists at Arkham Nights 2018.</b>",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostFree.CostFreeDamageSelf },
-    ],
+    tags: [],
   },
   {
     code: "53013",
     name: "Offer You Cannot Refuse",
     text: "Campaign Mode only.\nWhen you become the bearer of this weakness, gain 2 experience.\n<b>Revelation</b> - Lose 5 resources. If you cannot, instead remove Offer You Cannot Refuse from your deck, search the collection for Fine Print, and place it in your discard pile.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "53014",
     name: "Fine Print",
     text: "<b>Revelation</b> - Lose 7 resources. If you cannot, instead remove Fine Print from your deck, search the collection for Sell Your Soul, and place it in your discard pile.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "53015",
     name: "Sell Your Soul",
     text: "<b>Revelation</b> - Lose 10 resources. If you cannot, your dark patron tears your consciousness from your body. You are driven <b>insane</b>.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

@@ -39,6 +39,11 @@ export interface TagTestlessClue extends TagTestlessWithValueBase {
   type: TagTypeTestless.TestlessClue;
 }
 
+/**
+ * An enemy is evaded without any evasion attempt against IT — Stray Cat, or the extra enemies
+ * Survival Instinct / Fire Extinguisher evade after one successful test. An auto-evade that
+ * follows the card's own test of that same enemy is auto-evade only.
+ */
 export interface TagTestlessEvade extends TagTestlessBase {
   type: TagTypeTestless.TestlessEvade;
 }
@@ -48,7 +53,7 @@ export interface TagTestlessDamageEvadedEnemy extends TagTestlessWithValueBase {
   type: TagTypeTestless.TestlessDamageEvadedEnemy;
 }
 
-/** Deal testless damage to ONLY the single enemy that just became engaged with you (not all enemies at your location). */
+/** Deal testless damage to an enemy ENGAGED with you outside an attack — the one that just engaged you (Zoey's Cross) or ones you engage (Taunt (3), Mano a Mano) — not every enemy at your location (testless-damage-your-location-multiple). */
 export interface TagTestlessDamageEngagedEnemy extends TagTestlessWithValueBase {
   type: TagTypeTestless.TestlessDamageEngagedEnemy;
 }

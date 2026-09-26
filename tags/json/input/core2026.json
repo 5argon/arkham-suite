@@ -168,6 +168,7 @@
   "name": "The Necronomicon",
   "text": "<b>Revelation</b> - Put The Necronomicon into play in your threat area. It cannot leave play except by the [action] ability below.\nYou cannot play assets or trigger abilities on other assets you control.\n[action]: Test [willpower] (5). If you succeed, discard The Necronomicon. If you fail, shuffle it into your deck and take 1 horror.",
   "type": "asset",
+  "subtype": "weakness",
   "traits": "Item. Tome. Cursed.",
   "icons": []
  },
@@ -1196,6 +1197,7 @@
   "name": "Amnesia",
   "text": "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Madness.",
   "duplicateOf": "01096",
   "icons": []
@@ -1222,6 +1224,7 @@
   "name": "Overzealous",
   "text": "<b>Revelation</b> - Draw the top card of the encounter deck. That card gains surge.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Flaw.",
   "duplicateOf": "03040",
   "icons": []
@@ -1231,6 +1234,7 @@
   "name": "Paranoia",
   "text": "<b>Revelation</b> - Discard all your resources.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Madness.",
   "duplicateOf": "01097",
   "icons": []
@@ -1240,6 +1244,7 @@
   "name": "Pursued",
   "text": "<b>Revelation</b> - Put Pursued into play in your threat area.\n<b>Forced</b> - After an enemy enters <i>(moves into or spawns at)</i> your location: Take 1 horror.\n[action][action]: Discard Pursued.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Terror.",
   "icons": []
  },

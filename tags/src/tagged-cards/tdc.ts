@@ -50,6 +50,7 @@ import {
   TagTypePlayArea,
   TagTypeReady,
   TagTypeRecursion,
+  TagTypeRemote,
   TagTypeRfg,
   TagTypeSkillCommit,
   TagTypeSkillTestCondition,
@@ -99,6 +100,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
       { type: TagTypeDeckSearch.DeckSearchYou, range: { type: "top", cards: 3 } },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -118,11 +120,9 @@ const taggedCards: TaggedCard[] = [
     name: "\"I'll do it myself\"",
     text: "<b>Revelation</b> - Put \"I'll do it myself\" into play in your threat area.\nAs an additional cost for you to play an event, take 1 horror.\n[fast] Discard 3 events from your hand: Discard \"I'll do it myself.\"",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostOther.CostDiscardCard },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "11004",
@@ -158,11 +158,9 @@ const taggedCards: TaggedCard[] = [
     name: "Dreams of the Flood",
     text: "<b>Revelation</b> - Put Dreams of the Flood into play in your threat area.\n<b>Forced</b> - The first time you discover 1 or more clues during your turn: Take 1 horror and shuffle Dreams of the Flood into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeTimingAfter.TimingAfterDiscoverClue },
-    ],
+    tags: [],
   },
   {
     code: "11007",
@@ -220,13 +218,9 @@ const taggedCards: TaggedCard[] = [
     name: "Glimpse the Void",
     text: "<b>Revelation</b> - Put Glimpse the Void into play in your threat area.\nThe first time you reveal 1 or more chaos tokens during each skill test, you must reveal 1 additional chaos token <i>(and resolve its effects)</i>.\n[action]: Shuffle Glimpse the Void into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
-      { type: TagTypeChaosReveal.ChaosRevealMore },
-      { type: TagTypePlayArea.PlayAreaToDeck },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "11011",
@@ -260,11 +254,9 @@ const taggedCards: TaggedCard[] = [
     name: "Confiscation",
     text: "<b>Revelation</b> - Shuffle each [[Firearm]] asset in your play area into your deck. If no asset was shuffled into your deck by this effect, take 1 damage and shuffle Confiscation back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-    ],
+    tags: [],
   },
   {
     code: "11014",
@@ -290,6 +282,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCancel.CancelEncounterEffect },
       { type: TagTypeCancel.CancelRevelation },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -297,10 +290,9 @@ const taggedCards: TaggedCard[] = [
     name: "Prophecy of the End",
     text: "Surge.\n<b>Forced</b> - If Gloria Goldberg uses her [reaction] ability and this treachery is among the looked-at cards, it must be chosen and placed facedown beneath her (if you cannot, discard a non-weakness card beneath her first). Then, if there are 3 copies of this treachery beneath her, she is defeated and suffers 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "11017",
@@ -329,10 +321,9 @@ const taggedCards: TaggedCard[] = [
     name: "Cast Adrift",
     text: "<b>Revelation</b> - If there are no cards beneath George Barnaby, shuffle Cast Adrift into your deck. Otherwise, discard each card beneath George Barnaby.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "11020",
@@ -568,6 +559,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
+      { type: TagTypeSkillValue.SkillValueMarginAdjust },
     ],
   },
   {
@@ -582,6 +574,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEvadeEnemy },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "charge", conditional: true },
+      { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "charge" },
     ],
   },
   {
@@ -786,6 +779,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealAnotherInstead },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
+      { type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 },
     ],
   },
   {
@@ -860,6 +854,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAoo.AooNoProvoke },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeActionActivate.ActionActivateFromHand },
     ],
   },
   {
@@ -873,7 +868,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade },
       { type: TagTypeGainKeyword.GainKeywordAlert },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
     ],
   },
@@ -974,6 +969,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeRemote.RemoteMove },
     ],
   },
   {
@@ -1091,6 +1087,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeActionAdditional.ActionTakeImmediate, target: "investigator" },
+      { type: TagTypeDoom.DoomCheck },
     ],
   },
   {
@@ -1264,9 +1261,7 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "event",
     icons: ["willpower", "intellect", "wild"],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "11077",
@@ -1297,6 +1292,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "charge", conditional: true },
       { type: TagTypeTraitSupport.TraitSupportSpell },
       { type: TagTypeLocationProperty.LocationClueZero },
+      { type: TagTypeUsesSupport.UsesSupportCharge, supportType: "pool" },
     ],
   },
   {
@@ -1558,9 +1554,7 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "11096",
@@ -1598,9 +1592,7 @@ const taggedCards: TaggedCard[] = [
     level: 4,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "11099",
@@ -1792,6 +1784,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyEngage.EnemyEngageWithYou },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: "Creature" },
+      { type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: "Monster" },
     ],
   },
   {
@@ -2043,56 +2037,36 @@ const taggedCards: TaggedCard[] = [
     name: "Down and Out",
     text: "<b>Revelation</b> - Put Down and Out into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not take either a draw or resource action this round: Take 1 horror and shuffle Down and Out back into your deck.\n[action] Either spend 3 resources or choose and discard 3 cards from your hand: Discard this card.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeCostAction.CostActionSpendResource },
-      { type: TagTypeCostOther.CostDiscardCard },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
-    ],
+    tags: [],
   },
   {
     code: "11127",
     name: "Morbid Curiosity",
     text: "<b>Revelation</b> - Put Morbid Curiosity into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully investigate this round: Take 1 horror and shuffle Morbid Curiosity back into your deck.\n[action]: <b>Investigate.</b> You get -2 skill value for this investigation. If you succeed, discard this card.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
-    ],
+    tags: [],
   },
   {
     code: "11128",
     name: "Disruptive Poltergeist",
     text: "<b>Revelation</b> - Put Disruptive Poltergeist into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully evade an enemy this round: Take 1 damage and shuffle Disruptive Poltergeist back into your deck.\n[action]: <b>Evade.</b> You get -2 skill value for this evasion attempt. If you succeed, discard this card.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeActionBold.ActionBoldEvade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
-    ],
+    tags: [],
   },
   {
     code: "11129",
     name: "Frenzied",
     text: "<b>Revelation</b> - Put Frenzied into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully fight an enemy this round: Take 1 damage and shuffle Frenzied back into your deck.\n[action]: <b>Fight.</b> You get -2 skill value for this attack. If you succeed, discard this card.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeActionBold.ActionBoldFight },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

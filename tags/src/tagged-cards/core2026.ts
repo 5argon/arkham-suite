@@ -7,6 +7,7 @@ import {
   TagTypeChaosDownside,
   TagTypeChaosEffect,
   TagTypeChaosPayoff,
+  TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeChaosSeal,
   TagTypeClueAdditional,
@@ -19,7 +20,6 @@ import {
   TagTypeCostOther,
   TagTypeCostReaction,
   TagTypeDamage,
-  TagTypeDeckDiscard,
   TagTypeDeckDraw,
   TagTypeDeckLook,
   TagTypeDeckMisc,
@@ -27,13 +27,13 @@ import {
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
-  TagTypeDoom,
   TagTypeDuration,
   TagTypeEnemyDebuff,
   TagTypeEnemyElite,
   TagTypeEnemyEngage,
   TagTypeEnemyRestriction,
   TagTypeEnemyValue,
+  TagTypeGainKeyword,
   TagTypeGainResource,
   TagTypeHandSize,
   TagTypeHeal,
@@ -54,7 +54,6 @@ import {
   TagTypeStatsModPump,
   TagTypeStatsModUseInstead,
   TagTypeTank,
-  TagTypeTestInitiate,
   TagTypeTestMisc,
   TagTypeTestRepeat,
   TagTypeTestless,
@@ -84,6 +83,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeEnemyRestriction.EnemyTargetAttacking },
+      { type: TagTypeActionAdditional.ActionTakeImmediate },
     ],
   },
   {
@@ -101,6 +101,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
+      { type: TagTypeEnemyRestriction.EnemyTargetAttacking },
     ],
   },
   {
@@ -108,12 +109,9 @@ const taggedCards: TaggedCard[] = [
     name: "In Harm's Way",
     text: "<b>Revelation</b> - Put In Harm's Way into play in your threat area.\n<b>Forced</b> - After you deal damage to an enemy: Take 1 damage and place 1 damage on In Harm's Way. If there is 3 or more damage on this card, discard it.\n<b>Forced</b> - When the game ends: Suffer 1 physical trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "12004",
@@ -148,12 +146,9 @@ const taggedCards: TaggedCard[] = [
     name: "Dead Ends",
     text: "<b>Forced</b> - When you search your deck and Dead Ends is among the searched cards: Draw it, cancel the effects of the search, and shuffle your deck.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.",
     cardType: "event",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-      { type: TagTypeTimingGame.TimingGameEnds },
-      { type: TagTypeDeckSearch.DeckSearchReaction },
-    ],
+    tags: [],
   },
   {
     code: "12007",
@@ -187,10 +182,9 @@ const taggedCards: TaggedCard[] = [
     name: "Black Chamber Operative",
     text: "Hunter. Prey (Trish Scarborough only).\n<b>Forced</b> - After you evade Black Chamber Operative: Place 1 of your clues on your location. If you cannot, this enemy readies, engages you, and makes an immediate attack.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "12010",
@@ -201,6 +195,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: "asset" },
       { type: TagTypePlayArea.PlayAreaToHand },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -225,14 +220,9 @@ const taggedCards: TaggedCard[] = [
     name: "The Necronomicon",
     text: "<b>Revelation</b> - Put The Necronomicon into play in your threat area. It cannot leave play except by the [action] ability below.\nYou cannot play assets or trigger abilities on other assets you control.\n[action]: Test [willpower] (5). If you succeed, discard The Necronomicon. If you fail, shuffle it into your deck and take 1 horror.",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 5 },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "12013",
@@ -277,10 +267,9 @@ const taggedCards: TaggedCard[] = [
     name: "Breaking Point",
     text: "<b>Revelation</b> - Take 1 direct damage. Then, if you have 6 or fewer remaining sanity, take 1 direct damage. Then, if you have 3 or fewer remaining sanity, take 1 direct damage.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDamage.DamageToInvestigator, value: "dynamic" },
-    ],
+    tags: [],
   },
   {
     code: "12016",
@@ -550,6 +539,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: 1, action: BasicAction.Investigate },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {
@@ -792,6 +782,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAuto.AutoEvade },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeTestless.TestlessEvade },
     ],
   },
   {
@@ -959,6 +950,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeTank.TankMoveDamageHorror, scope: "cross-investigator" },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -1008,6 +1000,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeChaosSeal.ChaosSealRevealed },
+      { type: TagTypeChaosPredict.ChaosPredict },
     ],
   },
   {
@@ -1284,6 +1277,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeTestMisc.TestYouPerform },
+      { type: TagTypeChaosPredict.ChaosPredict },
     ],
   },
   {
@@ -1319,6 +1313,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeTestRepeat.TestRepeatFailed },
       { type: TagTypeLocationShroud.LocationShroudReduction, value: 2 },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {
@@ -1375,9 +1370,7 @@ const taggedCards: TaggedCard[] = [
     level: 0,
     cardType: "asset",
     icons: ["agility"],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "12088",
@@ -1506,86 +1499,72 @@ const taggedCards: TaggedCard[] = [
     name: "Amnesia",
     text: "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckDiscard.DeckDiscardCardChoose },
-    ],
+    tags: [],
   },
   {
     code: "12098",
     name: "The Gold Bug",
     text: "<b>Revelation</b> - Put The Gold Bug into play in your threat area. It cannot leave play except by the [action] ability below.\nYou get -1 health and -1 sanity.\n[action]: Shuffle the Gold Bug into your deck.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "12099",
     name: "The Nameless Lurker",
     text: "Aloof.\n<b>Spawn</b> - Farthest empty location.\n<b>Forced</b> - When the investigation phase ends, if The Nameless Lurker is ready and has no doom on it: Place 1 doom on it.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDoom.DoomAdd, target: "enemy" },
-    ],
+    tags: [],
   },
   {
     code: "12100",
     name: "Overzealous",
     text: "<b>Revelation</b> - Draw the top card of the encounter deck. That card gains surge.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "12101",
     name: "Paranoia",
     text: "<b>Revelation</b> - Lose all of your resources.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "12102",
     name: "Pursued",
     text: "<b>Revelation</b> - Put Pursued into play in your threat area.\n<b>Forced</b> - After an enemy enters <i>(moves into or spawns at)</i> your location: Take 1 horror.\n[action][action]: Discard Pursued.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingForced.TimingForcedEntersLocation },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "12103",
     name: "Syndicate Obligations",
     text: "<b>Revelation</b> - Put Syndicate Obligations into play in your threat area.\n<b>Forced</b> - After you spend 1 or more resources: Take 1 damage.\n[action][action]: Discard Syndicate Obligations.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "12104",
     name: "Wounded",
     text: "<b>Revelation</b> - Put Wounded into play in your threat area.\n<b>Forced</b> - The first time you move each turn: Take 1 damage.\n[action][action]: Discard Wounded.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

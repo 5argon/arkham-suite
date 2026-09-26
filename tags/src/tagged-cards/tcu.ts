@@ -184,11 +184,9 @@ const taggedCards: TaggedCard[] = [
     name: "Rational Thought",
     text: "<b>Revelation</b> - Put Rational Thought into play in your threat area, with 4 horror on it. Horror on Rational Thought may be healed as if it were on Carolyn Fern. If there is no horror on Rational Thought, discard it.\nYou cannot heal horror from cards other than Rational Thought. You cannot gain resources from Carolyn Fern's [reaction] ability.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeHeal.HealRemovesWeakness },
-    ],
+    tags: [],
   },
   {
     code: "05009",
@@ -206,6 +204,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamagePlus, value: 1 },
       { type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true },
       { type: TagTypeTraitSupport.TraitSupportInsight },
+      { type: TagTypeTraitSupport.TraitSupportTool },
     ],
   },
   {
@@ -213,13 +212,9 @@ const taggedCards: TaggedCard[] = [
     name: "Unsolved Case",
     text: "Place 1 of your clues on the location with the highest shroud. Remove Unsolved Case from the game.\n<b>Forced</b> - If Unsolved Case would be shuffled into your hunch deck: Add it to your threat area instead. For the remainder of the game, it gains: \"<b>Forced</b> - When the game ends: Joe Diamond earns 2 fewer experience for this scenario.\"",
     cardType: "event",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeLocationMove.LocationMoveClue },
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-      { type: TagTypeRfg.RfgSelf },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "05011",
@@ -238,12 +233,9 @@ const taggedCards: TaggedCard[] = [
     name: "Lodge \"Debts\"",
     text: "Remove Lodge \"Debts\" from the game.\n<b>Forced</b> - When the game ends or you are eliminated, if Lodge \"Debts\" is still in your hand: You suffer 1 mental trauma.",
     cardType: "event",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-      { type: TagTypeRfg.RfgSelf },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "05013",
@@ -281,10 +273,9 @@ const taggedCards: TaggedCard[] = [
     name: "Terrible Secret",
     text: "<b>Revelation</b> - If there are no card beneath Diana Stanley, shuffle Terrible Secret back into your deck. Otherwise, for each card beneath Diana Stanley, you must either discard that card or take 1 horror. Cannot be canceled.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "05016",
@@ -309,10 +300,9 @@ const taggedCards: TaggedCard[] = [
     name: "Hoods",
     text: "<b>Prey</b> - Rita Young only.\nAlert. Hunter.\n<b>Forced</b> - After you evade Hoods: It attacks you.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "05018",
@@ -333,15 +323,9 @@ const taggedCards: TaggedCard[] = [
     name: "Baron Samedi",
     text: "<b>Revelation</b> - Put Baron Samedi into play. He cannot leave play while he has less than 3 doom on him.\n<b>Forced</b> - When any amount of damage is placed on an investigator in Baron Samedi's location: Place 1 additional damage on that investigator.\n[fast] Exhaust Baron Samedi: Place 1 doom on Baron Samedi. If he has 3 or more doom on him, discard him.",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDoom.DoomCheck },
-      { type: TagTypeTimingForced.TimingForcedWhenTakeDamage },
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeCostFree.CostFreeExhaustSelf },
-      { type: TagTypeDoom.DoomAdd, target: "own-card" },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "05020",
@@ -655,21 +639,18 @@ const taggedCards: TaggedCard[] = [
     name: "The 13th Vision",
     text: "<b>Revelation</b> - Put The 13th Vision into play in your threat area.\nInvestigators at your location fail ties during skill tests.\n[action] [action]: Discard The 13th Vision.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "05042",
     name: "The Tower • XVI",
     text: "You cannot commit cards to skill tests while The Tower • XVI is in your hand.\nIf The Tower • XVI is drawn in your opening hand during setup <i>(before or after taking a mulligan)</i>, you cannot replace it. It must stay in your opening hand.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "05109",
@@ -1045,7 +1026,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldFight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 1 },
-      { type: TagTypeSkillValue.SkillValueSucceedByDynamic },
+      { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: "dynamic" },
       { type: TagTypeDamage.DamageRedirectOwnAttack },
       { type: TagTypeEnemyValue.EnemyValueFight },
     ],
@@ -1551,7 +1532,6 @@ const taggedCards: TaggedCard[] = [
     cardType: "asset",
     icons: ["willpower"],
     tags: [
-      { type: TagTypeTimingForced.TimingForcedLeavesPlay },
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
@@ -1600,7 +1580,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeTimingForced.TimingForcedLeavesPlay },
     ],
   },
   {
@@ -1728,6 +1707,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeCancel.CancelChaos },
       { type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: "elder-sign" },
+      { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
     ],
   },
 ];

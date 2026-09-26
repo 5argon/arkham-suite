@@ -36,6 +36,7 @@ import {
   TagTypeEnemyRestriction,
   TagTypeEnemyValue,
   TagTypeExile,
+  TagTypeGainKeyword,
   TagTypeGainResource,
   TagTypeHandSize,
   TagTypeHeal,
@@ -137,6 +138,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeLocationConnecting.LocationConnectingInvestigator },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -370,6 +372,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -445,7 +448,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeActionBold.ActionBoldEvade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeLocationMove.LocationMoveEnemyDisplace },
     ],
@@ -1178,7 +1180,6 @@ const taggedCards: TaggedCard[] = [
     icons: ["agility", "agility"],
     tags: [
       { type: TagTypeLocationMove.LocationMoveInvestigatorPerformer },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeTestless.TestlessEvade },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
@@ -1268,6 +1269,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportItem },
       { type: TagTypeSoak.SoakHealth, value: 3 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -1328,6 +1330,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainResource.GainResourceYou, value: 2 },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1637,91 +1640,72 @@ const taggedCards: TaggedCard[] = [
     name: "Smite the Wicked",
     text: "<b>Revelation</b> - Discard cards from the top of the encounter deck until an enemy is discarded. Attach Smite the Wicked to that enemy and spawn it at the location farthest from you.\n<b>Forced</b> - When the game ends, if attached enemy is in play: Zoey Samaras suffers 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "02009",
     name: "Rex's Curse",
     text: "<b>Revelation</b> - Put Rex's Curse into play in your threat area.\n<b>Forced</b> - When you would succeed at a skill test: Return the revealed chaos token to the bag and reveal a new chaos token. If this effect causes you to fail the test, shuffle Rex's Curse into your deck. (Limit once per test.)",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosReveal.ChaosRevealAnotherInstead },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "02011",
     name: "Searching for Izzie",
     text: "<b>Revelation</b> - Attach Searching for Izzie to the location farthest from you.\n[action] [action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Searching for Izzie.\n<b>Forced</b> - When the game ends, if Searching for Izzie is in play: Jenny Barnes suffers 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeActionBold.ActionBoldInvestigate },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "02013",
     name: "Final Rhapsody",
     text: "<b>Revelation</b> - Reveal 5 chaos tokens from the chaos bag. For each [skull] and [auto_fail] token revealed, take 1 damage and 1 horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosReveal.ChaosRevealManual },
-    ],
+    tags: [],
   },
   {
     code: "02015",
     name: "Wracked by Nightmares",
     text: "<b>Revelation</b> - Exhaust all assets you control and put Wracked by Nightmares into play in your threat area.\nAssets you control cannot ready.\n[action] [action]: Discard Wracked by Nightmares.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "02037",
     name: "Indebted",
     text: "Permanent.\nYou start each game with 2 fewer resources.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "02038",
     name: "Internal Injury",
     text: "<b>Revelation</b> - Place Internal Injury into play in your threat area.\n<b>Forced</b> - At the end of your turn: Take 1 direct damage.\n[action] [action]: Discard Internal Injury.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "02039",
     name: "Chronophobia",
     text: "<b>Revelation</b> - Place Chronophobia into play in your threat area.\n<b>Forced</b> - At the end of your turn: Take 1 direct horror.\n[action] [action]: Discard Chronophobia.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

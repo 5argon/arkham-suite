@@ -2,7 +2,7 @@
  * Export the TypeScript-authored tags to the public JSON. Reads the *built* package
  * (`dist/`), so run `yarn build` first. Writes to `json/export/`:
  *
- *   - cards.json          THE public artifact: [{ code, name, text, tags: RawTag[] }], where
+ *   - cards.json          THE public artifact: [{ code, name, text, …stat metadata, tags: RawTag[] }], where
  *                         `tags` MERGES base tags and compound archetypes into one list; compound
  *                         entries are bare `{ type: "c-..." }`. Consumers run `hydrate(cards)`.
  *   - compound-tags.json  the compound DEFINITIONS [{ type, tags }] (reference / tooling).
@@ -28,6 +28,7 @@ const cards = allTaggedCards.map((c) => ({
   text: c.text,
   level: c.level,
   cardType: c.cardType,
+  subtype: c.subtype,
   icons: c.icons,
   tags: [
     ...c.tags,

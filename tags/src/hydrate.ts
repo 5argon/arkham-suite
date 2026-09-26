@@ -24,6 +24,8 @@ export interface RawCard {
   level?: number;
   /** Card type code ("asset" | "event" | "skill" | …). */
   cardType?: string;
+  /** "weakness" | "basicweakness" on weakness cards, which carry no tags. */
+  subtype?: "weakness" | "basicweakness";
   /** Printed commit/skill icons, one entry per icon. */
   icons?: string[];
   tags: RawTag[];
@@ -38,6 +40,8 @@ export interface HydratedCard {
   level?: number;
   /** Card type code ("asset" | "event" | "skill" | …). */
   cardType?: string;
+  /** "weakness" | "basicweakness" on weakness cards, which carry no tags. */
+  subtype?: "weakness" | "basicweakness";
   /** Printed commit/skill icons, one entry per icon. */
   icons?: string[];
   /** Base tags only, typed as the discriminated `Tag` union (arguments preserved). */
@@ -83,6 +87,7 @@ export function hydrateCard(raw: RawCard, opts: HydrateOptions = {}): HydratedCa
     text: raw.text,
     level: raw.level,
     cardType: raw.cardType,
+    subtype: raw.subtype,
     icons: raw.icons,
     tags,
     compoundTags,

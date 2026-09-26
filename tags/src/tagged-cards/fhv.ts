@@ -67,7 +67,6 @@ import {
   TagTypeStatsModBoostLasting,
   TagTypeStatsModBoostPassive,
   TagTypeStatsModPump,
-  TagTypeStatsModSetBase,
   TagTypeStatsModUseInstead,
   TagTypeTank,
   TagTypeTestDifficulty,
@@ -127,12 +126,9 @@ const taggedCards: TaggedCard[] = [
     name: "Hasty Repairs",
     text: "<b>Revelation</b> - Put Hasty Repairs into play in your threat area.\nWhile triggering abilities on assets you control, set your base skill value to 0.\n[action] [action]: Discard Hasty Repairs.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeStatsModSetBase.StatsModSetBase, value: 0 },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "10004",
@@ -202,11 +198,9 @@ const taggedCards: TaggedCard[] = [
     name: "Failed Experiment",
     text: "<b>Revelation</b> - Test [willpower] (3). This test gets +1 difficulty for each asset you control with a clue on it. For each point you fail by, you must either take 1 horror or place 1 of your clues on your location.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 3 },
-      { type: TagTypeTestDifficulty.TestDifficultyIncrease, value: "dynamic" },
-    ],
+    tags: [],
   },
   {
     code: "10009",
@@ -247,10 +241,9 @@ const taggedCards: TaggedCard[] = [
     name: "Zamacona",
     text: "Elusive.\n<b>Spawn</b> - Nearest empty location, if able.\nAlessandra Zorzi cannot parley with Zamacona.\n<b>Forced</b> - The first time Alessandra Zorzi parleys each round: Place 1 doom on Zamacona.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "10012",
@@ -288,10 +281,9 @@ const taggedCards: TaggedCard[] = [
     name: "Weeping Yurei",
     text: "Aloof. Elusive. Hunter.\n<b>Prey</b> - Kōhaku Narukami only.\n<b>Forced</b> - After an investigator reveals a [bless] token or [curse] token during a skill test at Weeping Yurei's location, if it is ready: Weeping Yurei attacks that investigator. (Limit once per test).",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "10015",
@@ -326,10 +318,9 @@ const taggedCards: TaggedCard[] = [
     name: "\"Where's Pa?\"",
     text: "<b>Revelation</b> - Discard cards from the top of the encounter deck until an enemy is discarded. Attach \"Where's Pa?\" to that enemy and spawn it at a connecting location, if able.\nAttached enemy gains elusive.\n<b>Forced</b> - At the end of the round: Hank Samson takes 1 direct horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "10019",
@@ -355,6 +346,8 @@ const taggedCards: TaggedCard[] = [
     icons: ["intellect"],
     tags: [
       { type: TagTypeUsesStarting.UsesStartingSupply, value: 3 },
+      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "pool" },
+      { type: TagTypeUsesSupport.UsesSupportSupply, supportType: "pool" },
     ],
   },
   {
@@ -430,6 +423,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeHeal.HealHorrorAlly, value: "dynamic" },
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeLocationYour.LocationYourAlly },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -569,6 +563,8 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingSupply, value: 4 },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 },
+      { type: TagTypeUsesSupport.UsesSupportAmmo, supportType: "pool" },
+      { type: TagTypeUsesSupport.UsesSupportSupply, supportType: "pool" },
     ],
   },
   {
@@ -994,6 +990,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCancel.CancelRevelation },
       { type: TagTypeCancel.CancelEncounterEffect },
       { type: TagTypeLocationShroud.LocationShroudDependent },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -1053,13 +1050,9 @@ const taggedCards: TaggedCard[] = [
     name: "Bianca \"Die Katz\"",
     text: "Bonded (Bianca \"Die Katz\"). Hunter.\n<b>Prey</b> - Bearer only.\n[action] If \"you owe Bianca X resources,\" spend X resources: <b>Parley.</b> Add Bianca \"Die Katz\" to the victory display.\n<b>Forced</b> - When Bianca \"Die Katz\" leaves play (except by the above ability): Shuffle her into your deck.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeBonded.BondedCard },
-      { type: TagTypeActionBold.ActionBoldParley },
-      { type: TagTypeCostAction.CostActionSpendResource },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "10064",
@@ -1260,6 +1253,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTestMisc.TestYouPerform },
       { type: TagTypeSkillCommit.SkillCommitGainIcon },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1420,6 +1414,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2 },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2 },
       { type: TagTypeLimit.LimitInPlay, trait: "Mask", count: 1 },
+      { type: TagTypeDoom.DoomCheck },
     ],
   },
   {
@@ -1436,6 +1431,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeAttach.AttachEnemy },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1518,6 +1514,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeDiscardPile.DiscardPileToHand },
       { type: TagTypeRecursion.RecursionEvent },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1620,6 +1617,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenCurse },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeAttach.AttachEnemy },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1878,6 +1876,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 1 },
       { type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 },
+      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
     ],
   },
   {
@@ -2230,44 +2229,36 @@ const taggedCards: TaggedCard[] = [
     name: "Maimed Hand",
     text: "<b>Revelation</b> - You must either put Maimed Hand into play in your threat area, or take 1 damage and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 health.\n[action] [action]: Discard Maimed Hand.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "10136",
     name: "Back Injury",
     text: "<b>Revelation</b> - You must either put Back Injury into play in your threat area, or take 1 damage and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 health.\n[action] [action]: Discard Back Injury.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "10137",
     name: "The Silver Moth",
     text: "<b>Revelation</b> - You must either put The Silver Moth into play in your threat area, or take 1 horror and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 sanity.\n[action] [action]: Discard The Silver Moth.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "10138",
     name: "Vow of Drzytelech",
     text: "<b>Revelation</b> - You must either put Vow of Drzytelech into play in your threat area, or take 1 horror and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 sanity.\n[action] [action]: Discard Vow of Drzytelech.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

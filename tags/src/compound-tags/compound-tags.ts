@@ -42,6 +42,7 @@ import {
   TagTypeEnemyRestriction,
   TagTypeEnemyValue,
   TagTypeExile,
+  TagTypeGainKeyword,
   TagTypeGainResource,
   TagTypeHandSize,
   TagTypeHeal,
@@ -497,6 +498,7 @@ export const compoundTagHealthSafety = defineCompound({
     TagTypeSoak.SoakHealth,
     TagTypeBuffInvestigatorStats.BuffInvestigatorHealth,
     TagTypeCancel.CancelDamage,
+    TagTypeLocationMove.LocationMoveDamage,
     TagTypeHeal.HealDamageYou,
     TagTypeHeal.HealDamageInvestigator,
     TagTypeHeal.HealDamageAlly,
@@ -645,11 +647,13 @@ export const compoundTagAreaDamage = defineCompound({
   ],
 });
 
-/** Efficient damage: more damage per action — bonus damage, an extra attack, or carrying your attack's damage onto another enemy (Oops!). Damage without an attack is Testless Damage. */
+/** Efficient damage: more damage per action — bonus damage, an extra attack, damage scaling with your success margin (the Shotguns), or carrying your attack's damage onto another enemy (Oops!). Damage without an attack is Testless Damage. */
 export const compoundTagEfficientDamage = defineCompound({
   type: CompoundTagType.EfficientDamage,
   tags: [
     TagTypeDamage.DamagePlus,
+    // "instead of its standard damage, 1 per point you succeed by" (the Shotguns)
+    TagTypeDamage.DamageInsteadRange,
     TagTypeDamage.DamageRedirectOwnAttack,
     TagTypeActionAdditional.ActionAdditionalAttack,
   ],
@@ -671,6 +675,8 @@ export const compoundTagTestlessDamage = defineCompound({
     TagTypeTestless.TestlessDamageEngagedEnemy,
     TagTypeTestless.TestlessDamageEvadedEnemy,
     TagTypeDamage.DamageRedirectAttack,
+    // moving your own damage onto an enemy (Drain Essence, The Home Front)
+    TagTypeLocationMove.LocationMoveDamage,
   ],
 });
 
@@ -930,6 +936,8 @@ export const compoundTagTreacheryHandling = defineCompound({
     { type: TagTypeEncounter.EncounterBlankText, where: { target: "treachery" } },
     // skipping the mythos "draw encounter cards" step (A Watchful Peace, Deliverance)
     TagTypePhase.PhaseSkip,
+    // handing your encounter card to another investigator ("You handle this one!")
+    TagTypeEncounter.EncounterOffload,
   ],
 });
 
@@ -956,11 +964,15 @@ export const compoundTagChaosTokenDownside = defineCompound({
   ],
 });
 
-/** Doom adding: puts doom into play (power at the price of advancing the agenda) — a big Mystic archetype. */
+/**
+ * Doom adding: puts doom into play (power at the price of advancing the agenda) — a big Mystic
+ * archetype. Every doom-add target counts: your own cards (Arcane Initiate), an enemy (String of
+ * Curses) or the agenda (Fickle Fortune).
+ */
 export const compoundTagDoomAdding = defineCompound({
   type: CompoundTagType.DoomAdding,
   tags: [
-    { type: TagTypeDoom.DoomAdd, where: { target: "own-card" } },
+    TagTypeDoom.DoomAdd,
     TagTypeCostOther.CostAddDoomSelf,
   ],
 });
@@ -1070,7 +1082,7 @@ export const compoundTagAdditionalSlot = defineCompound({
   ],
 });
 
-/** Enemy nerf: applies a lingering NEGATIVE modifier to an enemy (the inverse of a buff) — it cannot attack/move/engage, doesn't ready, is forced to exhaust, or has its text blanked. Mind Wipe. */
+/** Enemy nerf: applies a lingering NEGATIVE modifier to an enemy (the inverse of a buff) — it cannot attack/move/engage, gains aloof, doesn't ready, is forced to exhaust, or has its text blanked. Mind Wipe. */
 export const compoundTagEnemyNerf = defineCompound({
   type: CompoundTagType.EnemyNerf,
   tags: [
@@ -1080,6 +1092,8 @@ export const compoundTagEnemyNerf = defineCompound({
     TagTypeEnemyDebuff.EnemyCannotMove,
     TagTypeEnemyDebuff.EnemyExhaust,
     { type: TagTypeEncounter.EncounterBlankText, where: { target: "enemy" } },
+    // giving an enemy aloof so it won't engage you (Hiding Spot, Blackmail File)
+    TagTypeGainKeyword.GainKeywordAloof,
   ],
 });
 
@@ -1137,7 +1151,7 @@ export const compoundTagSeal = defineCompound({
   ],
 });
 
-/** Doom control: keep doom from advancing the agenda — remove it, move it, or stop it counting / being placed (Mystifying Song, Deafening Silence). The counterpart of Doom Adding. */
+/** Doom control: keep doom from advancing the agenda — remove it, move it, or stop it counting / being placed (Mystifying Song, Moonlight Ritual). The counterpart of Doom Adding. */
 export const compoundTagDoomControl = defineCompound({
   type: CompoundTagType.DoomControl,
   tags: [

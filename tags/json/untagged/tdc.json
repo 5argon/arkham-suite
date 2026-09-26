@@ -7,7 +7,8 @@
    "{ type: TagTypeTimingAfter.TimingAfterPlayCardOfTrait, cardType: \"event\" }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
    "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 3 } }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }"
   ]
  },
  {
@@ -24,10 +25,7 @@
   "code": "11003",
   "name": "\"I'll do it myself\"",
   "text": "<b>Revelation</b> - Put \"I'll do it myself\" into play in your threat area.\nAs an additional cost for you to play an event, take 1 horror.\n[fast] Discard 3 events from your hand: Discard \"I'll do it myself.\"",
-  "tags": [
-   "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "11004",
@@ -58,10 +56,7 @@
   "code": "11006",
   "name": "Dreams of the Flood",
   "text": "<b>Revelation</b> - Put Dreams of the Flood into play in your threat area.\n<b>Forced</b> - The first time you discover 1 or more clues during your turn: Take 1 horror and shuffle Dreams of the Flood into your deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeTimingAfter.TimingAfterDiscoverClue }"
-  ]
+  "tags": []
  },
  {
   "code": "11007",
@@ -112,12 +107,7 @@
   "code": "11010",
   "name": "Glimpse the Void",
   "text": "<b>Revelation</b> - Put Glimpse the Void into play in your threat area.\nThe first time you reveal 1 or more chaos tokens during each skill test, you must reveal 1 additional chaos token <i>(and resolve its effects)</i>.\n[action]: Shuffle Glimpse the Void into your deck.",
-  "tags": [
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
-   "{ type: TagTypeChaosReveal.ChaosRevealMore }",
-   "{ type: TagTypePlayArea.PlayAreaToDeck }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "11011",
@@ -146,10 +136,7 @@
   "code": "11013",
   "name": "Confiscation",
   "text": "<b>Revelation</b> - Shuffle each [[Firearm]] asset in your play area into your deck. If no asset was shuffled into your deck by this effect, take 1 damage and shuffle Confiscation back into your deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }"
-  ]
+  "tags": []
  },
  {
   "code": "11014",
@@ -170,7 +157,8 @@
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeCancel.CancelEncounterEffect }",
    "{ type: TagTypeCancel.CancelRevelation }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -201,9 +189,7 @@
   "code": "11019",
   "name": "Cast Adrift",
   "text": "<b>Revelation</b> - If there are no cards beneath George Barnaby, shuffle Cast Adrift into your deck. Otherwise, discard each card beneath George Barnaby.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "11020",
@@ -393,7 +379,8 @@
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"inspiration\", conditional: true }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
+   "{ type: TagTypeSkillValue.SkillValueMarginAdjust }"
   ]
  },
  {
@@ -404,7 +391,8 @@
    "{ type: TagTypeUsesStarting.UsesStartingCharge, value: 0 }",
    "{ type: TagTypeTimingAfter.TimingAfterEvadeEnemy }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
-   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }"
+   "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }",
+   "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"charge\" }"
   ]
  },
  {
@@ -572,7 +560,8 @@
    "{ type: TagTypeCancel.CancelChaos }",
    "{ type: TagTypeChaosReveal.ChaosRevealAnotherInstead }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }"
+   "{ type: TagTypeTestless.TestlessDamageYourLocation, value: 1 }",
+   "{ type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 }"
   ]
  },
  {
@@ -634,7 +623,8 @@
    "{ type: TagTypeActionActivate.ActionActivateIgnoringCost }",
    "{ type: TagTypeAoo.AooNoProvoke }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeActionActivate.ActionActivateFromHand }"
   ]
  },
  {
@@ -645,7 +635,7 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade }",
    "{ type: TagTypeGainKeyword.GainKeywordAlert }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
+   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
   ]
  },
@@ -727,7 +717,8 @@
    "{ type: TagTypeTimingForced.TimingForcedEntersLocation }",
    "{ type: TagTypePlayArea.PlayAreaToHand }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
-   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }"
+   "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
+   "{ type: TagTypeRemote.RemoteMove }"
   ]
  },
  {
@@ -823,7 +814,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendOffering }",
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeActionAdditional.ActionTakeImmediate, target: \"investigator\" }"
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate, target: \"investigator\" }",
+   "{ type: TagTypeDoom.DoomCheck }"
   ]
  },
  {
@@ -991,7 +983,8 @@
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: \"charge\", conditional: true }",
    "{ type: TagTypeTraitSupport.TraitSupportSpell }",
-   "{ type: TagTypeLocationProperty.LocationClueZero }"
+   "{ type: TagTypeLocationProperty.LocationClueZero }",
+   "{ type: TagTypeUsesSupport.UsesSupportCharge, supportType: \"pool\" }"
   ]
  },
  {
@@ -1386,7 +1379,9 @@
    "{ type: TagTypeEnemyEngage.EnemyEngageEffect }",
    "{ type: TagTypeEnemyEngage.EnemyEngageWithYou }",
    "{ type: TagTypeSoak.SoakHealth, value: 2 }",
-   "{ type: TagTypeSoak.SoakSanity, value: 2 }"
+   "{ type: TagTypeSoak.SoakSanity, value: 2 }",
+   "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Creature\" }",
+   "{ type: TagTypeEnemyRestriction.EnemyTraitRestriction, trait: \"Monster\" }"
   ]
  },
  {
@@ -1592,48 +1587,24 @@
   "code": "11126",
   "name": "Down and Out",
   "text": "<b>Revelation</b> - Put Down and Out into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not take either a draw or resource action this round: Take 1 horror and shuffle Down and Out back into your deck.\n[action] Either spend 3 resources or choose and discard 3 cards from your hand: Discard this card.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeCostAction.CostActionSpendResource }",
-   "{ type: TagTypeCostOther.CostDiscardCard }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
-  ]
+  "tags": []
  },
  {
   "code": "11127",
   "name": "Morbid Curiosity",
   "text": "<b>Revelation</b> - Put Morbid Curiosity into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully investigate this round: Take 1 horror and shuffle Morbid Curiosity back into your deck.\n[action]: <b>Investigate.</b> You get -2 skill value for this investigation. If you succeed, discard this card.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
-  ]
+  "tags": []
  },
  {
   "code": "11128",
   "name": "Disruptive Poltergeist",
   "text": "<b>Revelation</b> - Put Disruptive Poltergeist into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully evade an enemy this round: Take 1 damage and shuffle Disruptive Poltergeist back into your deck.\n[action]: <b>Evade.</b> You get -2 skill value for this evasion attempt. If you succeed, discard this card.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeActionBold.ActionBoldEvade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }"
-  ]
+  "tags": []
  },
  {
   "code": "11129",
   "name": "Frenzied",
   "text": "<b>Revelation</b> - Put Frenzied into play in your threat area.\n<b>Forced</b> - When your turn ends, if you did not successfully fight an enemy this round: Take 1 damage and shuffle Frenzied back into your deck.\n[action]: <b>Fight.</b> You get -2 skill value for this attack. If you succeed, discard this card.",
-  "tags": [
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeActionBold.ActionBoldFight }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  }
 ]

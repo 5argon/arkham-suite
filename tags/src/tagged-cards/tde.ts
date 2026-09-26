@@ -31,7 +31,6 @@ import {
   TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDiscardPile,
-  TagTypeDoom,
   TagTypeDuration,
   TagTypeEncounter,
   TagTypeEnemyElite,
@@ -97,6 +96,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainResource.GainResourceYou, value: "dynamic" },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
       { type: TagTypeTimingForced.TimingForcedLeavesPlay },
+      { type: TagTypePlayArea.PlayAreaToDeck },
     ],
   },
   {
@@ -172,10 +172,9 @@ const taggedCards: TaggedCard[] = [
     name: "Rookie Mistake",
     text: "<b>Revelation</b> - Discard each asset you control with damage or horror on it. If no assets are discarded by this effect, shuffle Rookie Mistake back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "06008",
@@ -197,11 +196,9 @@ const taggedCards: TaggedCard[] = [
     name: "Shocking Discovery",
     text: "<b>Revelation</b> - Shuffle Shocking Discovery back into your deck. (If you cannot, discard it and draw the top card of the encounter deck, instead.)\n<b>Forced</b> - When you search your deck and this card is among the searched cards: Discard it. Cancel the search and all of its effects. Shuffle the searched deck. Draw the top card of the encounter deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeDeckSearch.DeckSearchReaction },
-    ],
+    tags: [],
   },
   {
     code: "06010",
@@ -237,10 +234,9 @@ const taggedCards: TaggedCard[] = [
     name: "Tony's Quarry",
     text: "<b>Spawn</b> - Location farthest from Tony Morgan.\nAloof.\n<b>Forced</b> - After Tony's Quarry enters play: Place 1 doom on it. Then, place 1 resource on it <i>(from the token pool)</i>, as a bounty.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDoom.DoomAdd, target: "enemy" },
-    ],
+    tags: [],
   },
   {
     code: "06013",
@@ -264,12 +260,9 @@ const taggedCards: TaggedCard[] = [
     name: "Detached from Reality",
     text: "<b>Revelation</b> - If Dream-Gate <i>(Wondrous Journey)</i> is already in play, flip it over. Otherwise, search your bonded cards for Dream-Gate <i>(Pointless Reality)</i> and put it into play. In either case, disengage from each enemy engaged with you and move to Dream-Gate.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeBonded.BondedFetch },
-      { type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true },
-      { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
-    ],
+    tags: [],
   },
   {
     code: "06016",
@@ -291,10 +284,9 @@ const taggedCards: TaggedCard[] = [
     name: "Watcher from Another Dimension",
     text: "Peril. Hidden. Hunter.\n<b>Revelation</b> - Secretly add this enemy to your hand.\nYou may fight or evade this enemy while it is in your hand (as if it were at your location). If you succeed, discard it from your hand. If you fail, spawn it engaged with you.\n<b>Forced</b> - When your deck runs out of cards, if this enemy is in your hand: It attacks you <i>(from your hand)</i>.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "06018",
@@ -317,11 +309,9 @@ const taggedCards: TaggedCard[] = [
     name: "Bloodlust",
     text: "Bonded (The Hungering Blade).\n<b>Revelation</b> - Remove 2 offerings from The Hungering Blade to attach Bloodlust to it. If you cannot, take 1 horror and shuffle Bloodlust back into your deck.\n[fast] While attacking with The Hungering Blade, shuffle Bloodlust into your deck: You deal +1 damage for this attack. (Max once per attack.)",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeBonded.BondedCard },
-      { type: TagTypeDamage.DamagePlus, value: 1 },
-    ],
+    tags: [],
   },
   {
     code: "06020",
@@ -402,10 +392,9 @@ const taggedCards: TaggedCard[] = [
     name: "Guardian of the Crystallizer",
     text: "Bonded (Crystallizer of Dreams). Hunter.\n<b>Prey</b> - Investigator with a Crystallizer of Dreams only.\nGuardian of the Crystallizer enters play exhausted.\n<b>Forced</b> - If there is no Crystallizer of Dreams in play: Set Guardian of the Crystallizer aside, out of play.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeBonded.BondedCard },
-    ],
+    tags: [],
   },
   {
     code: "06026",
@@ -472,7 +461,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeBonded.BondedFetch },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeTimingForced.TimingForcedLeavesPlay },
       { type: TagTypeSoak.SoakHealth, value: 2 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
     ],
@@ -552,46 +540,36 @@ const taggedCards: TaggedCard[] = [
     name: "Self-Centered",
     text: "Multiplayer only.\n<b>Revelation</b> - Put Self-Centered into play in your threat area.\nYou cannot commit cards to other investigators' skill tests or affect other investigators with player card effects (except aspects that cause damage or horror).\n[action] [action]: Discard Self-Centered.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "06036",
     name: "Kleptomania",
     text: "Multiplayer only.\n<b>Revelation</b> - Put Kleptomania into play in your play area.\n[action]: Take control of an [[Item]] asset or 2 resources from another investigator at your location. Then, shuffle Kleptomania into your deck.\n<b>Forced</b> - At the end of your turn: Take 1 horror.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeControl.ControlTransferAsset },
-      { type: TagTypeGainResource.GainResourceMoveInvestigator },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeLocationYour.LocationYourInvestigator },
-    ],
+    tags: [],
   },
   {
     code: "06037",
     name: "Narcolepsy",
     text: "Multiplayer only.\n<b>Revelation</b> - Put Narcolepsy into play in your threat area.\nYou cannot take actions, trigger abilities, or play cards.\n[action]: \"Wake up!\" Discard Narcolepsy.\n<b>Forced</b> - After you take damage or horror: Discard Narcolepsy.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingForced.TimingForcedWhenTakeDamage },
-      { type: TagTypeTimingForced.TimingForcedWhenTakeHorror },
-    ],
+    tags: [],
   },
   {
     code: "06038",
     name: "Your Worst Nightmare",
     text: "Multiplayer only.\nHunter.\n<b>Prey</b> - Bearer only.\nThe bearer of Your Worst Nightmare cannot attack, damage, or defeat it.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "06110",
@@ -812,6 +790,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeVictory.VictoryDisplaySelf },
       { type: TagTypeActionLose.ActionEndTurn },
+      { type: TagTypeEnemyValue.EnemyValueHealth },
     ],
   },
   {
@@ -909,9 +888,7 @@ const taggedCards: TaggedCard[] = [
     level: 2,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "06195",
@@ -1290,6 +1267,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingWhen.TimingWhenDefeatEnemy },
       { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "charge", conditional: true },
       { type: TagTypeBonded.BondedFetch },
+      { type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: "charge" },
     ],
   },
   {
@@ -1405,10 +1383,9 @@ const taggedCards: TaggedCard[] = [
     name: "Unbound Beast",
     text: "Bonded (Summoned Hound).\n<b>Prey</b> - Bearer.\nHunter. Retaliate.\n<b>Revelation</b> - If there is no copy of Summoned Hound in play, set Unbound Beast aside, out of play. Otherwise, set an investigator's Summoned Hound aside, out of play, and spawn Unbound Beast engaged with the same investigator.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeBonded.BondedCard },
-    ],
+    tags: [],
   },
   {
     code: "06284",
@@ -1507,6 +1484,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainResource.GainResourceYou, value: 2 },
       { type: TagTypeSoak.SoakHealth, value: 3 },
       { type: TagTypeSoak.SoakSanity, value: 2 },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -1571,7 +1549,6 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTimingAfter.TimingAfterEntersPlay },
       { type: TagTypeBonded.BondedFetch },
-      { type: TagTypeTimingForced.TimingForcedLeavesPlay },
       { type: TagTypeChaosReveal.ChaosRevealTokenAutoFail },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeDeckShuffle.DeckShufflePlayer },
@@ -1583,11 +1560,9 @@ const taggedCards: TaggedCard[] = [
     name: "Dream Parasite",
     text: "Bonded (Nightmare Bauble).\nWhile Dream Parasite is in your hand, you must commit it to the next skill test you perform, if able.\nThis skill's icons subtract from your skill value instead of adding to it.\nIf this skill test fails, take 1 damage and 1 horror.",
     cardType: "skill",
+    subtype: "weakness",
     icons: ["wild", "wild"],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitDoubleIcon },
-      { type: TagTypeBonded.BondedCard },
-    ],
+    tags: [],
   },
   {
     code: "06332",

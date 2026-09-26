@@ -20,7 +20,7 @@ export interface TagSkillCommitGainIcon extends TagSkillCommitBase {
   type: TagTypeSkillCommit.SkillCommitGainIcon;
 }
 
-/** A skill card that commits 2 matching icons (Overpower, Perception, Manual Dexterity, Guts, Unexpected Courage) — the strong basic-skill group. Stat-derived from printed icons. */
+/** A skill card with 2 or more of the same printed icon, wild counting as its own kind (Overpower, Perception, Manual Dexterity, Guts, Unexpected Courage) — the strong basic-skill group. Stat-derived from printed icons. */
 export interface TagSkillCommitDoubleIcon extends TagSkillCommitBase {
   type: TagTypeSkillCommit.SkillCommitDoubleIcon;
 }

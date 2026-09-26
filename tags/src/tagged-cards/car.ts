@@ -39,7 +39,6 @@ import {
   TagTypeTestless,
   TagTypeTimingAfter,
   TagTypeTimingDuring,
-  TagTypeTimingGame,
   TagTypeTimingWhen,
   TagTypeTraitSupport,
   TagTypeUsesStarting,
@@ -88,21 +87,18 @@ const taggedCards: TaggedCard[] = [
     name: "Unbroken Web",
     text: "<b>Revelation</b> - Put this card into play in your threat area.\n[reaction] When you would discover any number of clues: Place that much horror on Unbroken Web, instead. Then, discard this card if there is 4 or more horror on it.\n<b>Forced</b> - When the game ends or you are eliminated: You earn 2 fewer experience.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "60254",
     name: "Lethal Curiosity",
     text: "<b>Revelation</b> - Test [willpower] (4). For each point you fail by, you must either take 1 damage or place 1 of your clues on your location.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 4 },
-    ],
+    tags: [],
   },
   {
     code: "60255",
@@ -371,6 +367,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeUsesStarting.UsesStartingSecret, value: 3 },
       { type: TagTypeTraitSupport.TraitSupportTome },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelfNoUses },
+      { type: TagTypeUsesSupport.UsesSupportSecret, supportType: "pool" },
     ],
   },
   {

@@ -9,7 +9,13 @@ export enum TagTypeUsesSupport {
 }
 
 interface TagUsesSupportBase extends TagBase {
-  supportType: "place" | "move"
+  /**
+   * How this card fuels OTHER assets' uses: "place" new tokens on them (Extra Ammunition),
+   * "move" tokens onto them from elsewhere (Eldritch Sophist), or "pool" — the tokens stay on
+   * THIS card and may be spent as if they were on your other assets (Typewriter, Cleaning Kit,
+   * Lost Arcana).
+   */
+  supportType: "place" | "move" | "pool"
   /**
    * True when the placement is gated on a trigger/condition (Luke Robinson's
    * elder sign) rather than a plain play/action effect (Extra Ammunition) —

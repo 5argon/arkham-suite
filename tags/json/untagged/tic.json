@@ -46,7 +46,8 @@
    "{ type: TagTypeCostOther.CostDiscardCard }",
    "{ type: TagTypeCostDiscount.CostDiscount, amount: 1 }",
    "{ type: TagTypePlayArea.PlayAreaToHand }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }"
   ]
  },
  {
@@ -80,9 +81,7 @@
   "code": "07007",
   "name": "Crisis of Faith",
   "text": "<b>Revelation</b> - For each [bless] token in the chaos bag, you must either replace it with a [curse] token or take 1 horror.",
-  "tags": [
-   "{ type: TagTypeChaosBag.ChaosBagReplace, value: \"dynamic\", from: \"bless\", to: \"curse\" }"
-  ]
+  "tags": []
  },
  {
   "code": "07008",
@@ -157,24 +156,21 @@
    "{ type: TagTypeDeckMisc.DeckRestriction }",
    "{ type: TagTypeActionBold.ActionBoldEvade }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1, action: BasicAction.Evade }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }",
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeEnemyEngage.EnemyEngageTargetEngaged }",
    "{ type: TagTypeTimingSkill.TimingSkillSt8TestEnds, timing: TimingQualifier.When }",
    "{ type: TagTypePlayArea.PlayAreaToHand }",
    "{ type: TagTypeRecursion.RecursionSkill }",
-   "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }"
+   "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }",
+   "{ type: TagTypeTestless.TestlessEvade }"
   ]
  },
  {
   "code": "07016",
   "name": "Siren Call",
   "text": "<b>Revelation</b> - Put Siren Call into play in your threat area.\nAs an additional cost to commit 1 or more cards to a skill test, you must pay 1 resource for each matching skill icon those cards have.\n[action][action]: Discard Siren Call.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "07017",
@@ -357,7 +353,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealManual }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeCancel.CancelRevelation }"
+   "{ type: TagTypeCancel.CancelRevelation }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -429,25 +426,19 @@
   "code": "07038",
   "name": "Accursed Follower",
   "text": "<b>Spawn</b> - Location farthest from you.\nAloof.\n<b>Forced</b> - At the end of the enemy phase: Add 1 [curse] token to the chaos bag.",
-  "tags": [
-   "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 1 }"
-  ]
+  "tags": []
  },
  {
   "code": "07039",
   "name": "Dread Curse",
   "text": "<b>Revelation</b> - Add 5 [curse] tokens to the chaos bag.",
-  "tags": [
-   "{ type: TagTypeChaosBag.ChaosBagAddCurse, value: 5 }"
-  ]
+  "tags": []
  },
  {
   "code": "07040",
   "name": "Day of Reckoning",
   "text": "<b>Revelation</b> - Attach Day of Reckoning to the current agenda. Then, search the chaos bag for an [elder_sign] token and seal it on Day of Reckoning.\n<b>Card design inspired by the events of Arkham Nights 2018.</b>",
-  "tags": [
-   "{ type: TagTypeChaosSeal.ChaosSealTokenElderSign }"
-  ]
+  "tags": []
  },
  {
   "code": "07108",
@@ -480,7 +471,8 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.After }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenBless }",
-   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }"
+   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -531,7 +523,8 @@
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeAuto.AutoEvade }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTestless.TestlessEvade }"
   ]
  },
  {
@@ -701,7 +694,8 @@
    "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: \"dynamic\" }",
    "{ type: TagTypeDamage.DamageSpread, value: \"dynamic\" }",
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -805,7 +799,8 @@
    "{ type: TagTypeHeal.HealDamageAlly, value: 2 }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
    "{ type: TagTypeLocationYour.LocationYourAlly }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -1320,7 +1315,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendSecret }",
    "{ type: TagTypeGainResource.GainResourceYou, value: 1 }",
    "{ type: TagTypeCostFree.CostFreeSpendResource }",
-   "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"move\" }"
+   "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"move\" }",
+   "{ type: TagTypeUsesSupport.UsesSupportSecret, supportType: \"pool\" }"
   ]
  },
  {

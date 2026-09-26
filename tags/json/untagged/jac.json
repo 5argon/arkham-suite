@@ -10,7 +10,8 @@
    "{ type: TagTypeCancel.CancelChaos }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
-   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }"
+   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }",
+   "{ type: TagTypeChaosEffect.ChaosEffectResolveChoose }"
   ]
  },
  {
@@ -26,25 +27,13 @@
   "code": "60403",
   "name": "Dark Future",
   "text": "<b>Revelation</b> - Put Dark Future into play in your threat area.\nYou cannot cancel or ignore [elder_sign], [skull], [cultist], [tablet], [elder_thing], and [auto_fail] tokens.\n<b>Forced</b> - At the end of your turn: Reveal 5 random tokens from the chaos bag. If an [elder_sign] symbol is revealed, discard Dark Future.",
-  "tags": [
-   "{ type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnEnds, timing: TimingQualifier.AtIf }",
-   "{ type: TagTypeChaosReveal.ChaosRevealManual }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
-  ]
+  "tags": []
  },
  {
   "code": "60404",
   "name": "Nihilism",
   "text": "<b>Revelation</b> - Put Nihilism into play in your threat area.\n<b>Forced</b> - After you reveal, cancel, or ignore an [auto_fail] token: Take 1 damage and 1 horror.\n[action][action]: Discard Nihilism.",
-  "tags": [
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
-   "{ type: TagTypeTimingAfter.TimingAfterSealCancelIgnoreToken }"
-  ]
+  "tags": []
  },
  {
   "code": "60405",
@@ -57,7 +46,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenElderThing }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -394,7 +384,7 @@
    "{ type: TagTypeUsesStarting.UsesStartingResource, value: 2 }",
    "{ type: TagTypeUsesReplenish.UsesReplenish, useType: \"resource\", conditional: false }",
    "{ type: TagTypeStatsModPump.StatsModPumpResource, valuePerPump: 1 }",
-   "{ type: TagTypeCostFree.CostFreeSpendResource }",
+   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"either\" }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: \"dynamic\" }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestIntellect, value: \"dynamic\" }"
   ]

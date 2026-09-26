@@ -13,7 +13,7 @@ interface TagTimingForcedBase extends TagBase {}
 
 /**
  * Window: an enemy ENTERS a location (moves into or spawns at it) — the Trap cycle's attached
- * location (Snare Trap, Decoy Trap), your location (Gather Intel, Pursued). An enemy
+ * location (Snare Trap, Decoy Trap), your location (Gather Intel). An enemy
  * spawning specifically is timing-when-enemy-spawns-your-location.
  */
 export interface TagTimingForcedEntersLocation extends TagTimingForcedBase {

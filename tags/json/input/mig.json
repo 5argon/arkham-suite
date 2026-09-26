@@ -39,6 +39,7 @@
   "name": "Feline Hybrid",
   "text": "Elusive. Hunter. Prey (Miguel de la Cruz only).\nFeline Hybrid is immune to player card effects.",
   "type": "enemy",
+  "subtype": "weakness",
   "traits": "Creature. Mutated.",
   "health": 2,
   "icons": []
@@ -48,6 +49,7 @@
   "name": "Blood Drinker",
   "text": "Hunter. Retaliate.\n<b>Forced</b> - After Blood Drinker attacks: Heal 1 damage from it.",
   "type": "enemy",
+  "subtype": "basicweakness",
   "traits": "Humanoid. Monster.",
   "health": 3,
   "icons": []

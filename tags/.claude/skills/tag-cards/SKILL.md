@@ -14,6 +14,21 @@ tags), using the single source of truth for the taxonomy: **`reference/_taxonomy
 (every tag type and compound tag, with doc comments and the exact `TagType*` enum references).
 Never invent a tag — if no existing tag fits an effect, omit it.
 
+## What the tags are FOR — the test every tagging decision must pass
+
+Players use the tags (the starter site's Tag Browser) to:
+1. go from a card they know to **other cards that do the same job** — a sidegrade when their copies
+   run out, or a replacement for an investigator who can't take it;
+2. **browse by function** from the tag list ("show me every way to cancel a treachery").
+
+So judge each card's tagging by: *would a player holding this card reach its functional peers through
+its tags and compounds?* Ward of Protection is tagged `cancel-revelation` + `cost-horror-self`, which
+land it in **Treachery Handling** and **Self Harm Horror** — exactly the two families a player
+replacing it would browse. A card whose main job leads nowhere (no tag / compound shared with its
+peers) is under-tagged; a card listed under a tag a player would be surprised to find it in is
+mis-tagged. Every tag and compound carries a player-facing description in `messages/en.json`
+(what the browser shows) — it must stay true to the members.
+
 ## ⚠️ The cardinal rule — read the text, judge by the DEFINITION
 
 Almost every tagging mistake this project has made came from one failure mode: **pattern-matching
@@ -207,11 +222,12 @@ not the noun in the text. Groups that have caused confusion (some were regrouped
   Chaos Token Control dropped `chaos-reveal-manual` (reveal-and-hope gambles control nothing);
   Support dropped `your-location-investigator` (looking at your location ≠ supporting others);
   BigMoney dropped `uses-accumulate` (card-local tokens ≠ your resource pool); Getaway dropped
-  `aoo-no-provoke`; Economy dropped `play-from-other-zone`; ProtectorTank dropped `ready-ally`
+  `aoo-no-provoke`; Economy dropped `play-from-other-zone`; ProtectorTank dropped `ready-ally` (now
+  `ready-asset{restrictedToTrait:"Ally"}`)
   (readying an ally isn't tanking); the 2026-09-05 roster audit dropped `deck-shuffle-encounter` from
   Encounter Deck (enemy-removal cards shuffle the deck too), `discard-from-play-self` from Discard Self
   (weakness self-removal), `play-area-play-from-other-zone` from Into-Play Cheat, and gave `doom-add` a
-  `target` so agenda-doom weaknesses stay out of Doom Adding. If a compound's card list contains a card
+  `target` (every target joins Doom Adding since weaknesses went untagged). If a compound's card list contains a card
   that clearly isn't that archetype, find the one member tag dragging it in — and if the tag itself
   conflates two mechanics (damage-redirect-attack vs damage-redirect-own-attack), split the tag.
 - **⚠️ Editing a compound's member list re-evaluates EVERY card that carries those tags — not just
@@ -263,9 +279,13 @@ Cheap high-value checks (write a tiny node script over the JSON):
   `SkillType.{Combat,Agility,Intellect,Willpower}` for skill args; `TimingQualifier.{Before,When,AtIf,
   After}` for `timing`; trait strings like `"Spell"`/`"Monster"`. Match every interface's required
   args exactly.
-- **Investigators and basic/story weaknesses** usually get few or no tags — tag only genuine
-  player-facing effects; don't tag a boring weakness just because it has a cost (e.g. skip
-  `cost-action-multiple` on uninteresting weaknesses).
+- **Weaknesses are never tagged** — signature, bonded or basic. Their pack entry carries
+  `subtype: "weakness" | "basicweakness"` (from the card database) and `tags: []`; leave it empty,
+  stat-derived tags included (lint `weakness-tagged` is an ERROR). Nobody picks a weakness for what
+  it does, so it has no peers to lead to, and tagging them bred weakness-only tags and filled player
+  tags and compounds with their removal chores. Player cards that deal WITH weaknesses
+  (`cancel-weakness-draw`, `enemy-nonweakness`) are tagged as usual. Investigators still get few
+  tags — only genuine player-facing effects.
 
 ## Rulings file — where adjudicated judgment lives
 
@@ -276,6 +296,38 @@ rename fails the digest build. **Whenever the user makes a new ruling during rev
 establish one — append it here immediately**, then `yarn digest`. Cross-check
 `reference/lint-allow.json` too: if a ruling makes a lint warn class conditionally legit, the
 allowlist entry's `note` should say why.
+
+## Reviewing tagged cards and bulk fixes
+
+Review work (a pack audit, a tag-major membership pass, a whole-corpus sweep) uses these tools — all
+read the BUILT package, so `yarn build` first:
+
+- `yarn glossary` → `reference/_tag-glossary.md` (gitignored): ONE LINE per tag and compound (name,
+  member count, arguments, player description). Hand this to agents instead of the ~800k-char digest;
+  they look individual tags up in the digest / `rulings.json` when a boundary matters.
+- `yarn corpus` → `reference/_corpus.tsv` (gitignored): one card per line (text, base tags with args,
+  compounds) — the grep target for "which cards say X and what do they carry?".
+- `yarn roster <tag-id | c-compound> [--where '{…}'] [--brief]`: every member of one tag (with args and
+  text) or compound (with the member tag that pulled each card in) — the tag-major review view.
+- `yarn suggest [--pack p] [--code c,…] [--k 10] [--min 3]`: tags that a card's textually most similar
+  cards carry but it lacks — the missed-tag signal (an early card tagged before a later mechanic got
+  its tag). Hints to adjudicate against the definition, never to apply blindly.
+- `yarn apply-ops <ops.json> [--check]`: apply card edits written as plain tag objects
+  (`{ "code": "01565", "add": [{ "type": "cancel-encounter-effect" }], "remove": [{ "type": "x",
+  "where": { … } }], "replace": [{ "from": {…}, "to": [ … ] }] }`; `"code": "*"` = every card carrying
+  the matched tag). It renders exact enum expressions, refuses unknown ids / arguments / enum values,
+  duplicates and absent targets, and re-assembles only the touched packs. Always `--check` first.
+
+Agent-based reviews: split the cards into chunks, give each agent the glossary + corpus + its chunk
+(+ `yarn suggest` output), and have it return findings as JSON ops **in its final message** — subagents
+cannot write report files. The orchestrator verifies the claims (`apply-ops --check`, then reads the
+quoted text), applies, runs `yarn build && yarn lint-tags`, and reads EVERY compound join / leave the
+ratchet reports before `--snapshot`. Record each new convention in `rulings.json` and write up the pass
+in `reference/reports/`.
+
+New tags need a player-facing description in `messages/en.json` (`yarn seed-strings` creates the empty
+keys; `yarn lint-tags` fails on empty or dead keys): one plain sentence, game terminology, icons as
+words, one real member as the example, no tag ids or history.
 
 ## Notes
 
@@ -288,7 +340,8 @@ allowlist entry's `note` should say why.
   compound directly. The digest's tail lists every compound's EVALUATED member roster; the lint
   ratchet reports joins/leaves.
 - For a large pack, tagging in chunks is fine; the assembler accepts the whole worklist at once.
-- Tooling quick reference: `yarn digest` (regenerate the digest), `yarn precedent <code|text>`
-  (find precedent), `yarn lint-tags [--pack <p>] [--snapshot]` (fix-class checks + compound
-  ratchet), `yarn sync-worklists [<pack>]` (worklists from the typed files), `yarn build`
-  (typecheck + JSON export).
+- Tooling quick reference: `yarn digest` (regenerate the digest + glossary), `yarn precedent
+  <code|text>` (find precedent), `yarn lint-tags [--pack <p>] [--snapshot]` (fix-class checks, dead
+  compound members, i18n, compound ratchet), `yarn sync-worklists [<pack>]` (worklists from the typed
+  files), `yarn build` (typecheck + JSON export), and the review tools above (`glossary`, `corpus`,
+  `roster`, `suggest`, `apply-ops`).
