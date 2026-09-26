@@ -1,59 +1,42 @@
-<!--
-@component
-TIC bespoke widget — "Memories Recovered". The 15 flashbacks scattered across the campaign
-(the "You Wake Up In A Room…" achievement = all 15), grouped by the scenario they're found in
-and lit by recovery (the memories have no card art). A summary up top counts distinct memories
-seen and the plays that recovered the whole set (with the per-difficulty hover). Built on
-LitTileGrid + StatNumbers.
--->
+<!-- @component The 15 flashbacks, grouped by the scenario they are recovered in and lit by how often. -->
 <script lang="ts">
-	import { type CampaignTic } from '$lib/campaign/campaigns/tic';
-	import { ticMemoryTiles } from './tic-memory-tiles';
-	import LitTileGrid from '$lib/components/profile/_primitives/LitTileGrid.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import { TIC_MEMORIES, type CampaignTic } from '$lib/campaign/campaigns/tic';
+	import { scenarioName } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		LitTileGrid,
+		SectionLabel,
+		StatNumbers,
+		WidgetEmpty
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { ticMemoryTiles } from './tic-tiles';
 
-	let { tic }: { tic: CampaignTic | null } = $props();
+	let { blob: tic }: CampaignWidgetProps<CampaignTic> = $props();
 
-	// The 15 flashbacks grouped by the scenario they're found in (display order).
-	const GROUPS: { scenario: string; heading: () => string }[] = [
-		{ scenario: 'the_pit_of_despair', heading: m.campaign_tic_mem_grp_pit },
-		{ scenario: 'in_too_deep', heading: m.campaign_tic_mem_grp_itd },
-		{ scenario: 'devil_reef', heading: m.campaign_tic_mem_grp_dr },
-		{ scenario: 'a_light_in_the_fog', heading: m.campaign_tic_mem_grp_lif },
-		{ scenario: 'into_the_maelstrom', heading: m.campaign_tic_mem_grp_itm },
-		{ scenario: 'tic_epilogue', heading: m.campaign_tic_mem_grp_epilogue }
-	];
-
+	const SCENARIOS = [...new Set(TIC_MEMORIES.map((mem) => mem.scenario))];
 	const groups = $derived(
-		GROUPS.map((g) => ({ scenario: g.scenario, heading: g.heading(), tiles: ticMemoryTiles(tic, g.scenario) }))
+		SCENARIOS.map((scenario) => ({
+			scenario,
+			heading: scenarioName('tic', scenario),
+			tiles: ticMemoryTiles(tic, scenario)
+		}))
 	);
-	const summary = $derived<Stat[][]>(
-		tic
-			? [
-					[
-						{ value: `${tic.memories.everRecovered} / 15`, label: m.campaign_tic_mem_distinct() },
-						...(tic.memories.allFifteen.total > 0
-							? [
-									{
-										value: tic.memories.allFifteen.total,
-										label: m.campaign_tic_mem_all_label(),
-										byTier: tic.memories.allFifteen.byTier
-									}
-								]
-							: [])
-					]
-				]
-			: []
-	);
-	const hasData = $derived(!!tic && tic.memories.everRecovered > 0);
 </script>
 
-{#if hasData && tic}
+{#if tic?.memories.distinct}
 	<div class="space-y-4">
-		<StatNumbers rows={summary} />
+		<StatNumbers
+			rows={[
+				[
+					{
+						value: `${tic.memories.distinct} / ${TIC_MEMORIES.length}`,
+						label: m.campaign_tic_mem_distinct()
+					},
+					{ tally: tic.memories.all, label: m.campaign_tic_mem_all_label() }
+				]
+			]}
+		/>
 		{#each groups as g (g.scenario)}
 			<div>
 				<SectionLabel variant="heading" align="center">{g.heading}</SectionLabel>

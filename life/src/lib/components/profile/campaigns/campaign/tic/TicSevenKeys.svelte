@@ -1,24 +1,17 @@
-<!--
-@component
-TIC bespoke widget — "The Seven Keys". The finale (Into the Maelstrom) places its keys at
-SETUP from earlier accomplishments; the 4 OBTAINABLE keys (blue/red/green/yellow) are the
-controllable gate — securing ALL 4 makes the secret-ending branch (Agent Harper's-a-thief →
-the better endings) reachable; miss one and it's impossible. Keys are NOT carried (they're a
-per-scenario mechanic) — this measures whether you set yourself up. Built on LitTileGrid +
-StatNumbers (the all-4 highscore carries the per-difficulty hover).
--->
+<!-- @component The four keys earned before Into the Maelstrom, and the plays that held all four for its secret ending. -->
 <script lang="ts">
 	import { TIC_KEYS, type CampaignTic } from '$lib/campaign/campaigns/tic';
-	import type { ResolutionTally } from '$lib/campaign/outcomes/resolution-coverage';
-	import { tallyDetail } from '$lib/campaign/utils/difficulty';
-	import LitTileGrid, {
-		type LitTile
-	} from '$lib/components/profile/_primitives/LitTileGrid.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		LitTileGrid,
+		StatNumbers,
+		WidgetEmpty,
+		WidgetNote
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { tallyTile } from './tic-tiles';
 
-	let { tic }: { tic: CampaignTic | null } = $props();
+	let { blob: tic }: CampaignWidgetProps<CampaignTic> = $props();
 
 	const LABEL: Record<string, () => string> = {
 		blue: m.campaign_tic_key_blue,
@@ -26,50 +19,25 @@ StatNumbers (the all-4 highscore carries the per-difficulty hover).
 		green: m.campaign_tic_key_green,
 		yellow: m.campaign_tic_key_yellow
 	};
-	const detailOf = (t: ResolutionTally | undefined): string =>
-		tallyDetail(t, m.campaign_tic_key_not_yet, (times) =>
-			m.campaign_tic_key_secured({ times })
-		);
-	const tiles = $derived<LitTile[]>(
-		tic
-			? TIC_KEYS.map((key): LitTile => {
-					const t = tic.sevenKeys.obtainable[key.id];
-					return {
-						id: key.id,
-						image: '',
-						label: (LABEL[key.id] ?? (() => key.id))(),
-						count: t?.total ?? 0,
-						detail: detailOf(t)
-					};
-				})
-			: []
-	);
-	const allFour = $derived(tic?.sevenKeys.allFour ?? null);
-	const reachableRow = $derived<Stat[][]>(
-		allFour && allFour.total > 0
-			? [
-					[
-						{
-							value: allFour.total,
-							label: m.campaign_tic_keys_reachable_label(),
-							byTier: allFour.byTier
-						}
-					]
-				]
-			: []
-	);
-	const hasData = $derived(
-		!!tic && TIC_KEYS.some((key) => (tic.sevenKeys.obtainable[key.id]?.total ?? 0) > 0)
+	const tiles = $derived(
+		TIC_KEYS.map((key) =>
+			tallyTile(
+				{ id: key.id, label: LABEL[key.id]?.() ?? key.id },
+				tic?.keys.each[key.id],
+				m.campaign_tic_key_not_yet,
+				(times) => m.campaign_tic_key_secured({ times })
+			)
+		)
 	);
 </script>
 
-{#if hasData && tic}
+{#if tiles.some((t) => t.count > 0)}
 	<div class="space-y-3">
 		<LitTileGrid {tiles} colsClass="grid-cols-2 @3xl:grid-cols-4" />
-		{#if reachableRow.length}
-			<StatNumbers rows={reachableRow} />
+		{#if tic?.keys.all.total}
+			<StatNumbers rows={[[{ tally: tic.keys.all, label: m.campaign_tic_keys_reachable_label() }]]} />
 		{:else}
-			<p class="text-primary-500 text-center text-xs">{m.campaign_tic_keys_unreachable()}</p>
+			<WidgetNote>{m.campaign_tic_keys_unreachable()}</WidgetNote>
 		{/if}
 	</div>
 {:else}

@@ -1,35 +1,10 @@
-/**
- * tfa.ts — The Forgotten Age bespoke per-campaign tallies. ONE builder, ONE payload
- * blob (`tfa`), mirroring `dwl.ts` / `ptc.ts`. Log-derived where the campaign log
- * carries the fact; ArkhamCards-mirroring Extra inputs fill the genuinely-unlogged gaps.
- *
- *   • vengeance — Yig's Fury (`count`): final per play (max/min) + lifetime, and the
- *     campaign-spanning breakpoints it crosses (most visibly The Depths of Yoth's
- *     starting agenda). The log holds only the FINAL total; since Fury only rises it's
- *     an upper bound, reliable for the late checks.
- *   • runs — one entry per play (final Fury, seeded Depths agenda, final depth, the
- *     finale ending), for the Yig's Fury threshold meter + signature runs.
- *   • supplies — provisions, tied to the PROFILE SUBJECT's investigators (the supply
- *     key is `supplies.<inv>.<id>`), counting how many times the subject took each.
- *   • companions — Ichtaca & Alejandro standing across scenarios.
- *   • harbinger — the recurring Harbinger of Valusia's damage: the log's final
- *     `campaign_notes.harbinger_alive` value plus each tracked appearance (Extra).
- *   • poison — the Poisoned weakness gained per exploration scenario (Extra), the
- *     campaign's signature survival tax, subject-scoped.
- *   • per-scenario — each story scenario's logged decisions/outcomes, with the hidden
- *     log entries (`hote_consult_*`, `listened_to_ichtaca`, `final_depth`) our editor
- *     never surfaces re-sourced from the matching ArkhamCards Extra inputs.
- */
-import { getCampaignLog } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { filterFamilyRecords } from '../records/campaign-family';
+/** The Forgotten Age per-scenario tallies; Extra inputs fill in what the log leaves out. */
+import { countNotes, tallyNotes, tallyPlays, type Play } from '../records/play';
+import type { Extent, Tally } from '../utils/tally';
+import { bumpCount, extentOf } from '../utils/tally';
+import { defineCampaignBuilder } from './define';
 
-const TFA_FAMILY = 'tfa';
-const NOTES = 'campaign_notes';
-const k = (id: string) => `${NOTES}.${id}`;
-const SUPPLIES = 'supplies';
-
-/** The 11 provisions, in supply-sheet order. */
+/** The provisions, in supply-sheet order. */
 export const TFA_PROVISIONS = [
 	'provisions',
 	'medicine',
@@ -44,25 +19,30 @@ export const TFA_PROVISIONS = [
 	'pendant'
 ];
 
-/** The four exploration scenarios ArkhamCards asks "did any investigator gain Poisoned?" after. */
-export const TFA_POISON_SCENARIOS = [
+/** The exploration scenarios with an Extra input for who gained Poisoned. */
+const TFA_POISON_SCENARIOS = [
 	'the_untamed_wilds',
 	'the_doom_of_eztli',
 	'heart_of_the_elders_part_1',
 	'heart_of_the_elders_part_2'
 ];
 
-/** Story-card codes used for bespoke header art. */
-export const TFA_ICHTACA_CODE = '04147';
-export const TFA_ALEJANDRO_CODE = '04051';
-export const TFA_HARBINGER_CODE = '04062';
-export const TFA_YIG_CODE = '04296';
-export const TFA_RELIC_CODE = '04061';
-export const TFA_POISONED_CODE = '04102';
+const TURN_BACK_TIME = 'turn_back_time';
+const SEALED_FOREVER = 'sealed_relic_of_ages_forever';
 
-/** The Depths of Yoth starting agenda for a given final Yig's Fury (the verified breakpoints).
- *  0 = the special (Yig seeded) setup; 1..6 = which agenda you begin on. */
-export function depthsAgendaFor(fury: number): number {
+/** Yig's Fury breakpoints: 0 is Don't Tread on Me, 16+ makes Ichtaca refuse your plea at Shattered
+ *  Aeons, 25+ is Bane of Yig. */
+export type TfaFuryBand = 'immunity' | 'rising' | 'refuse' | 'bane';
+
+function furyBand(fury: number): TfaFuryBand {
+	if (fury <= 0) return 'immunity';
+	if (fury < 16) return 'rising';
+	if (fury < 25) return 'refuse';
+	return 'bane';
+}
+
+/** The Depths of Yoth starting agenda a final Fury seeds; 0 is the special setup with Yig in play. */
+function depthsAgendaFor(fury: number): number {
 	if (fury <= 0) return 0;
 	if (fury <= 5) return 1;
 	if (fury <= 10) return 2;
@@ -72,93 +52,74 @@ export function depthsAgendaFor(fury: number): number {
 	return 6;
 }
 
-/** The finale each play reached, in resolved order (Turn Back Time's seal outranks the rewind). */
-export type TfaEnding =
-	| 'sealed_forever'
-	| 'mended_tear'
-	| 'saved_serpents'
-	| 'saved_yithians'
-	| 'fabric_unwoven'
-	| 'turned_back_time';
-
-/** One recorded TFA play — the spine of the Yig's Fury meter and the signature-run picks. */
-export interface TfaRun {
+export interface TfaFuryRun {
 	finishDate: number | null;
-	/** Final Yig's Fury for this play (null if not recorded). */
-	yigsFury: number | null;
-	/** Depths-of-Yoth starting agenda seeded by this play's Fury (null if no Fury). */
-	depthsAgenda: number | null;
-	/** Final depth reached in The Depths of Yoth (Extra; null if not recorded). */
-	finalDepth: number | null;
-	/** The finale this play reached (null if the campaign didn't reach an ending). */
-	ending: TfaEnding | null;
+	fury: number;
+	band: TfaFuryBand;
+	/** The Depths of Yoth starting agenda this Fury seeds. */
+	depthsAgenda: number;
 }
 
-/** A max/min/count triple over recorded values. */
-interface Extent {
-	max: number | null;
-	min: number | null;
+export interface TfaStanding {
+	/** Plays that earned their trust or bond (Ichtaca) or trust or rescue (Alejandro). */
+	standing: number;
+	/** Every note about them, summed. */
 	recorded: number;
 }
 
 export interface CampaignTfa {
 	family: string;
 	plays: number;
-	/** One entry per play, most-recent orderable by `finishDate`. */
-	runs: TfaRun[];
-	vengeance: {
-		max: number | null;
-		min: number | null;
-		/** Lifetime sum of Yig's Fury across plays. */
+	/** Yig's Fury. The log keeps only each play's final value; Fury only rises, so it is an upper
+	 *  bound for the checks along the way. */
+	vengeance: Extent & {
 		lifetime: number;
-		/** Plays that recorded a Yig's Fury value. */
-		recorded: number;
-		/** Depths-of-Yoth starting agenda (0..6, from each play's final Fury) → plays. */
-		depthsAgenda: Record<number, number>;
-		/** Plays whose final Fury was 16+ (The Shattered Aeons: Ichtaca refuses your plea). */
+		/** Ascending by agenda. */
+		depthsAgenda: { agenda: number; plays: number }[];
+		/** Plays ending on 16+ Fury. */
 		ichtacaRefused: number;
+		/** Oldest first. */
+		runs: TfaFuryRun[];
 	};
-	/** provision id → times the profile subject took it (across their investigator-runs). */
+	/** Provision id → times the subject's investigators took it. */
 	supplies: Record<string, number>;
-	/** Plays where the subject packed nothing (the "Who Needs Any of This Junk?" line). */
-	suppliesEmptyRuns: number;
-	/** Plays that recorded any supply data for the subject (denominator for the empty count). */
+	/** Plays that recorded supplies. */
 	suppliesRuns: number;
-	ichtaca: { trust: number; wary: number; bond: number; inTheDark: number };
-	alejandro: { followed: number; remained: number; rescued: number; missing: number; trust: number };
-	/** Harbinger of Valusia's damage. `max/min/recorded` = the log's final
-	 *  `campaign_notes.harbinger_alive`; `eztli`/`hote2` = each tracked appearance (Extra);
-	 *  `neverDamaged` = plays where every recorded Harbinger damage value was 0. */
-	harbinger: Extent & {
+	/** Of those, plays where the subject took nothing. */
+	suppliesEmptyRuns: number;
+	ichtaca: { trust: number; wary: number; bond: number; inTheDark: number } & TfaStanding;
+	alejandro: { followed: number; remained: number; rescued: number; missing: number; trust: number } & TfaStanding;
+	harbinger: {
+		/** The log's final `harbinger_alive` damage. */
+		final: Extent;
+		/** Extra: the damage dealt at each appearance. */
 		eztli: Extent;
 		hote2: Extent;
+		/** Plays whose every recorded damage value was 0. */
 		neverDamaged: number;
 	};
-	/** The Poisoned weakness (Extra): the campaign's signature survival tax, subject-scoped. */
+	/** Extra, the subject's investigators only. */
 	poison: {
-		/** Total poisonings recorded across the subject's investigators. */
 		total: number;
-		/** investigator code → times poisoned. */
-		byInvestigator: Record<string, number>;
-		/** scenario id → poisonings recorded there. */
+		/** Most poisoned first. */
+		byInvestigator: { code: string; count: number }[];
+		/** Scenario id → poisonings there. */
 		byScenario: Record<string, number>;
-		/** Plays that recorded at least one poisoning. */
-		runsRecorded: number;
 	};
 	untamedWilds: { clearedPath: number };
-	doomOfEztli: { investigatorsRelic: number; alejandroRelic: number; retries: number[] };
+	/** `retriesMax` is Extra. */
+	doomOfEztli: { investigatorsRelic: number; alejandroRelic: number; retriesMax: number | null };
+	/** `listenedIchtaca` / `letHerLeave` are the Extra `ichtaca_conversation`. */
 	threadsOfFate: {
 		relicToAlejandro: number;
 		relicToHarlan: number;
-		/** Extra `ichtaca_conversation` = 'stop_her' (you listened before she left). */
 		listenedIchtaca: number;
-		/** Extra `ichtaca_conversation` = 'let_her_leave'. */
 		letHerLeave: number;
 		forgingOwnPath: number;
-		rescuedAlejandro: number;
-		alejandroMissing: number;
 	};
+	/** Knowing 6 paths skips Heart of the Elders, Part 1. */
 	boundaryBeyond: { pathsKnownMax: number | null; part1Skipped: number; ichtacaConfidence: number };
+	/** Extra: whom you consulted at Heart of the Elders, Part 1. */
 	heartOfElders: {
 		consultIchtaca: number;
 		consultAlejandro: number;
@@ -173,10 +134,11 @@ export interface CampaignTfa {
 		successful: number;
 		backfired: number;
 		backfiredSpectacularly: number;
-		/** Subject's investigators who suffered the Yithian aftermath (Extra), total across plays. */
+		/** Extra: the subject's investigators who suffered the body-swap aftermath, over all plays. */
 		yithianAftermath: number;
 	};
-	depthsOfYoth: { finalDepthMax: number | null; finalDepthMin: number | null; recorded: number };
+	/** Extra. */
+	depthsOfYoth: { finalDepth: Extent };
 	shatteredAeons: {
 		mendedTear: number;
 		savedSerpents: number;
@@ -184,286 +146,192 @@ export interface CampaignTfa {
 		fabricUnwoven: number;
 		turnedBackTime: number;
 	};
-	turnBackTime: { sealedForever: number };
+	/** A lost Turn Back Time logs nothing of its own, so `reached` also counts plays with its XP or
+	 *  resolution recorded. */
+	turnBackTime: { reached: Tally; sealedForever: Tally };
 }
 
-const emptyExtent = (): Extent => ({ max: null, min: null, recorded: 0 });
-function bumpExtent(e: Extent, v: number) {
-	e.recorded += 1;
-	e.max = e.max === null ? v : Math.max(e.max, v);
-	e.min = e.min === null ? v : Math.min(e.min, v);
+/** An Extra counter's value, if recorded. */
+function counter(p: Play, scenario: string, id: string): number | undefined {
+	const raw = p.choice(scenario, id);
+	const n = Number(raw);
+	return raw !== undefined && Number.isFinite(n) ? n : undefined;
 }
 
-/** Comma-joined investigator codes from a `cards` Extra input, scoped to the subject when known. */
-function subjectCodes(raw: string | undefined, subject: string[]): string[] {
-	if (!raw) return [];
-	const codes = raw
+/** A `cards` Extra input's investigator codes, limited to the subject's when there is one. */
+function subjectCodes(p: Play, scenario: string, id: string): string[] {
+	const codes = (p.choice(scenario, id) ?? '')
 		.split(',')
 		.map((s) => s.trim())
 		.filter(Boolean);
+	const subject = p.rec.subjectInvestigators ?? [];
 	return subject.length === 0 ? codes : codes.filter((c) => subject.includes(c));
 }
 
-export function buildTfa(records: CampaignRecord[], mergeReturnTo = true): CampaignTfa[] {
-	const baseLog = getCampaignLog(TFA_FAMILY);
-	if (!baseLog) return [];
-	const tfaRecords = filterFamilyRecords(records, TFA_FAMILY, mergeReturnTo);
-	if (tfaRecords.length === 0) return [];
+/** The provisions the subject's investigators took; supply items are `<investigator>.<provision>`. */
+function subjectSupplies(p: Play): string[] {
+	const subject = p.rec.subjectInvestigators ?? [];
+	return [...p.items('supplies')].flatMap((item) => {
+		const dot = item.indexOf('.');
+		if (dot < 0) return [];
+		const inv = item.slice(0, dot);
+		return subject.length === 0 || subject.includes(inv) ? [item.slice(dot + 1)] : [];
+	});
+}
 
-	const runs: TfaRun[] = [];
-	const vengeance = {
-		max: null as number | null,
-		min: null as number | null,
-		lifetime: 0,
-		recorded: 0,
-		depthsAgenda: {} as Record<number, number>,
-		ichtacaRefused: 0
-	};
+const sum = (counts: Record<string, number>) => Object.values(counts).reduce((a, b) => a + b, 0);
+
+export const buildTfa = defineCampaignBuilder<CampaignTfa>('tfa', (plays) => {
+	const runs: TfaFuryRun[] = plays
+		.flatMap((p) => {
+			const fury = p.count('yigs_fury');
+			if (fury === undefined) return [];
+			const finishDate = p.rec.finishDate ?? null;
+			return [{ finishDate, fury, band: furyBand(fury), depthsAgenda: depthsAgendaFor(fury) }];
+		})
+		.sort((a, b) => (a.finishDate ?? 0) - (b.finishDate ?? 0));
+	const agendaPlays: Record<string, number> = {};
+	for (const r of runs) bumpCount(agendaPlays, String(r.depthsAgenda));
+
 	const supplies: Record<string, number> = {};
-	let suppliesEmptyRuns = 0;
 	let suppliesRuns = 0;
-	const ichtaca = { trust: 0, wary: 0, bond: 0, inTheDark: 0 };
-	const alejandro = { followed: 0, remained: 0, rescued: 0, missing: 0, trust: 0 };
-	const harbinger = {
-		...emptyExtent(),
-		eztli: emptyExtent(),
-		hote2: emptyExtent(),
-		neverDamaged: 0
-	};
-	const poison = {
-		total: 0,
-		byInvestigator: {} as Record<string, number>,
-		byScenario: {} as Record<string, number>,
-		runsRecorded: 0
-	};
-	const untamedWilds = { clearedPath: 0 };
-	const doomOfEztli = { investigatorsRelic: 0, alejandroRelic: 0, retries: [] as number[] };
-	const threadsOfFate = {
-		relicToAlejandro: 0,
-		relicToHarlan: 0,
-		listenedIchtaca: 0,
-		letHerLeave: 0,
-		forgingOwnPath: 0,
-		rescuedAlejandro: 0,
-		alejandroMissing: 0
-	};
-	const boundaryBeyond = { pathsKnownMax: null as number | null, part1Skipped: 0, ichtacaConfidence: 0 };
-	const heartOfElders = { consultIchtaca: 0, consultAlejandro: 0, consultJournal: 0, consultNothing: 0 };
-	const cityOfArchives = {
-		cooperated: 0,
-		resisted: 0,
-		memoriesExpunged: 0,
-		perfected: 0,
-		successful: 0,
-		backfired: 0,
-		backfiredSpectacularly: 0,
-		yithianAftermath: 0
-	};
-	const depthsOfYoth = {
-		finalDepthMax: null as number | null,
-		finalDepthMin: null as number | null,
-		recorded: 0
-	};
-	const shatteredAeons = {
-		mendedTear: 0,
-		savedSerpents: 0,
-		savedYithians: 0,
-		fabricUnwoven: 0,
-		turnedBackTime: 0
-	};
-	const turnBackTime = { sealedForever: 0 };
-
-	for (const rec of tfaRecords) {
-		const logs = rec.recorded.recordedLogs ?? new Set<string>();
-		const has = (key: string) => logs.has(key);
-		const counts = rec.recorded.logCounts ?? {};
-		const choice = (key: string) => rec.scenarioChoices?.[key];
-		const subjectInvs = rec.subjectInvestigators ?? [];
-
-		// Yig's Fury — final count (a `count` section, keyed bare) + breakpoints.
-		const fury = counts['yigs_fury'];
-		let depthsAgenda: number | null = null;
-		if (fury !== undefined) {
-			vengeance.recorded += 1;
-			vengeance.lifetime += fury;
-			vengeance.max = vengeance.max === null ? fury : Math.max(vengeance.max, fury);
-			vengeance.min = vengeance.min === null ? fury : Math.min(vengeance.min, fury);
-			depthsAgenda = depthsAgendaFor(fury);
-			vengeance.depthsAgenda[depthsAgenda] = (vengeance.depthsAgenda[depthsAgenda] ?? 0) + 1;
-			if (fury >= 16) vengeance.ichtacaRefused += 1;
-		}
-
-		// Provisions — tied to the profile subject's investigators (key = supplies.<inv>.<id>).
-		const supplySet = rec.recorded.recordedSectionItems?.[SUPPLIES];
-		let runSupplies = 0;
-		if (supplySet) {
-			suppliesRuns += 1;
-			for (const item of supplySet) {
-				const dot = item.indexOf('.');
-				if (dot < 0) continue;
-				const inv = item.slice(0, dot);
-				const provision = item.slice(dot + 1);
-				if (subjectInvs.length === 0 || subjectInvs.includes(inv)) {
-					supplies[provision] = (supplies[provision] ?? 0) + 1;
-					runSupplies += 1;
-				}
-			}
-			if (runSupplies === 0) suppliesEmptyRuns += 1;
-		}
-
-		// Companions.
-		if (has(k('earned_ichtacas_trust'))) ichtaca.trust += 1;
-		if (has(k('ichtaca_is_wary'))) ichtaca.wary += 1;
-		if (has(k('forged_bond_with_ichtaca'))) ichtaca.bond += 1;
-		if (has(k('ichtaca_in_the_dark'))) ichtaca.inTheDark += 1;
-		if (has(k('alejandro_followed_to_ruins'))) alejandro.followed += 1;
-		if (has(k('alejandro_remained_at_camp'))) alejandro.remained += 1;
-		if (has(k('rescued_alejandro'))) alejandro.rescued += 1;
-		if (has(k('alejandro_is_missing'))) alejandro.missing += 1;
-		if (has(k('earned_alejandros_trust'))) alejandro.trust += 1;
-
-		// Harbinger of Valusia — the log's final damage (a count entry in `campaign_notes`,
-		// keyed by its composite key) + each tracked appearance (Extra counters).
-		const hpFinal = counts[k('harbinger_alive')];
-		if (hpFinal !== undefined) bumpExtent(harbinger, hpFinal);
-		const hpEztli = Number(choice('the_doom_of_eztli.harbinger_damage'));
-		const hasEztliDmg = choice('the_doom_of_eztli.harbinger_damage') !== undefined && Number.isFinite(hpEztli);
-		if (hasEztliDmg) bumpExtent(harbinger.eztli, hpEztli);
-		const hpHote2 = Number(choice('heart_of_the_elders_part_2.harbinger_damage'));
-		const hasHote2Dmg =
-			choice('heart_of_the_elders_part_2.harbinger_damage') !== undefined && Number.isFinite(hpHote2);
-		if (hasHote2Dmg) bumpExtent(harbinger.hote2, hpHote2);
-		// "We have an understanding" — a play that recorded Harbinger damage, all of it zero.
-		const dmgValues = [
-			hpFinal,
-			hasEztliDmg ? hpEztli : undefined,
-			hasHote2Dmg ? hpHote2 : undefined
-		].filter((v): v is number => v !== undefined);
-		if (dmgValues.length > 0 && dmgValues.every((v) => v === 0)) harbinger.neverDamaged += 1;
-
-		// Poisoned weakness (Extra) — subject-scoped, per exploration scenario.
-		let runPoisoned = 0;
-		for (const scenario of TFA_POISON_SCENARIOS) {
-			const codes = subjectCodes(choice(`${scenario}.poisoned`), subjectInvs);
-			for (const code of codes) {
-				poison.total += 1;
-				poison.byInvestigator[code] = (poison.byInvestigator[code] ?? 0) + 1;
-				poison.byScenario[scenario] = (poison.byScenario[scenario] ?? 0) + 1;
-				runPoisoned += 1;
-			}
-		}
-		if (runPoisoned > 0) poison.runsRecorded += 1;
-
-		// The Untamed Wilds.
-		if (has(k('cleared_path_to_temple'))) untamedWilds.clearedPath += 1;
-
-		// The Doom of Eztli — relic + retries (Extra counter).
-		if (has(k('investigators_recovered_relic'))) doomOfEztli.investigatorsRelic += 1;
-		if (has(k('alejandro_recovered_relic'))) doomOfEztli.alejandroRelic += 1;
-		const retry = Number(choice('the_doom_of_eztli.retries'));
-		if (Number.isFinite(retry) && retry > 0) doomOfEztli.retries.push(retry);
-
-		// Threads of Fate — the big branch. The Ichtaca conversation lives in the hidden log,
-		// so it is re-sourced from the matching Extra input.
-		if (has(k('gave_relic_to_alejandro'))) threadsOfFate.relicToAlejandro += 1;
-		if (has(k('gave_relic_to_harlan'))) threadsOfFate.relicToHarlan += 1;
-		const conversation = choice('threads_of_fate.ichtaca_conversation');
-		if (conversation === 'stop_her') threadsOfFate.listenedIchtaca += 1;
-		if (conversation === 'let_her_leave') threadsOfFate.letHerLeave += 1;
-		if (has(k('forging_own_path'))) threadsOfFate.forgingOwnPath += 1;
-		if (has(k('rescued_alejandro'))) threadsOfFate.rescuedAlejandro += 1;
-		if (has(k('alejandro_is_missing'))) threadsOfFate.alejandroMissing += 1;
-
-		// The Boundary Beyond — paths known (a count entry in `campaign_notes`; 6 skips HotE Part 1).
-		const paths = counts[k('paths_known')];
-		if (paths !== undefined) {
-			boundaryBeyond.pathsKnownMax =
-				boundaryBeyond.pathsKnownMax === null ? paths : Math.max(boundaryBeyond.pathsKnownMax, paths);
-			if (paths >= 6) boundaryBeyond.part1Skipped += 1;
-		}
-		if (has(k('ichtaca_has_confidence'))) boundaryBeyond.ichtacaConfidence += 1;
-
-		// Heart of the Elders — whom you consulted (hidden log → Extra radio).
-		const consult = choice('heart_of_the_elders_part_1.consult');
-		if (consult === 'ichtaca') heartOfElders.consultIchtaca += 1;
-		else if (consult === 'alejandro') heartOfElders.consultAlejandro += 1;
-		else if (consult === 'journal') heartOfElders.consultJournal += 1;
-		else if (consult === 'nothing') heartOfElders.consultNothing += 1;
-
-		// The City of Archives — the Yithian process + the body-swap aftermath (Extra).
-		if (has(k('cooperated_with_yithians'))) cityOfArchives.cooperated += 1;
-		if (has(k('resisted_captivity'))) cityOfArchives.resisted += 1;
-		if (has(k('had_memories_expunged'))) cityOfArchives.memoriesExpunged += 1;
-		if (has(k('process_was_perfected'))) cityOfArchives.perfected += 1;
-		if (has(k('process_was_successful'))) cityOfArchives.successful += 1;
-		if (has(k('process_backfired'))) cityOfArchives.backfired += 1;
-		if (has(k('process_backfired_spectacularly'))) cityOfArchives.backfiredSpectacularly += 1;
-		cityOfArchives.yithianAftermath += subjectCodes(
-			choice('the_city_of_archives.yithian_aftermath'),
-			subjectInvs
-		).length;
-
-		// The Depths of Yoth — how deep (hidden log → Extra counter).
-		const depthRaw = choice('the_depths_of_yoth.final_depth');
-		const depth = Number(depthRaw);
-		let finalDepth: number | null = null;
-		if (depthRaw !== undefined && Number.isFinite(depth)) {
-			finalDepth = depth;
-			depthsOfYoth.recorded += 1;
-			depthsOfYoth.finalDepthMax =
-				depthsOfYoth.finalDepthMax === null ? depth : Math.max(depthsOfYoth.finalDepthMax, depth);
-			depthsOfYoth.finalDepthMin =
-				depthsOfYoth.finalDepthMin === null ? depth : Math.min(depthsOfYoth.finalDepthMin, depth);
-		}
-
-		// Shattered Aeons + Turn Back Time — the finale & true ending.
-		if (has(k('mended_tear_in_time'))) shatteredAeons.mendedTear += 1;
-		if (has(k('investigators_saved_serpents'))) shatteredAeons.savedSerpents += 1;
-		if (has(k('investigators_saved_yithians'))) shatteredAeons.savedYithians += 1;
-		if (has(k('fabric_of_time_unwoven'))) shatteredAeons.fabricUnwoven += 1;
-		if (has(k('turned_back_time'))) shatteredAeons.turnedBackTime += 1;
-		if (has(k('sealed_relic_of_ages_forever'))) turnBackTime.sealedForever += 1;
-
-		// The finale this play reached — the seal outranks the rewind that unlocks it.
-		let ending: TfaEnding | null = null;
-		if (has(k('sealed_relic_of_ages_forever'))) ending = 'sealed_forever';
-		else if (has(k('mended_tear_in_time'))) ending = 'mended_tear';
-		else if (has(k('investigators_saved_serpents'))) ending = 'saved_serpents';
-		else if (has(k('investigators_saved_yithians'))) ending = 'saved_yithians';
-		else if (has(k('fabric_of_time_unwoven'))) ending = 'fabric_unwoven';
-		else if (has(k('turned_back_time'))) ending = 'turned_back_time';
-
-		runs.push({
-			finishDate: rec.finishDate ?? null,
-			yigsFury: fury ?? null,
-			depthsAgenda,
-			finalDepth,
-			ending
-		});
+	let suppliesEmptyRuns = 0;
+	for (const p of plays) {
+		if (!p.items('supplies').size) continue;
+		suppliesRuns += 1;
+		const took = subjectSupplies(p);
+		for (const id of took) bumpCount(supplies, id);
+		if (!took.length) suppliesEmptyRuns += 1;
 	}
 
-	return [
-		{
-			family: TFA_FAMILY,
-			plays: tfaRecords.length,
-			runs,
-			vengeance,
-			supplies,
-			suppliesEmptyRuns,
-			suppliesRuns,
-			ichtaca,
-			alejandro,
-			harbinger,
-			poison,
-			untamedWilds,
-			doomOfEztli,
-			threadsOfFate,
-			boundaryBeyond,
-			heartOfElders,
-			cityOfArchives,
-			depthsOfYoth,
-			shatteredAeons,
-			turnBackTime
+	const ichtaca = countNotes(plays, {
+		trust: 'earned_ichtacas_trust',
+		wary: 'ichtaca_is_wary',
+		bond: 'forged_bond_with_ichtaca',
+		inTheDark: 'ichtaca_in_the_dark'
+	});
+	const alejandro = countNotes(plays, {
+		followed: 'alejandro_followed_to_ruins',
+		remained: 'alejandro_remained_at_camp',
+		rescued: 'rescued_alejandro',
+		missing: 'alejandro_is_missing',
+		trust: 'earned_alejandros_trust'
+	});
+
+	const damage = plays.map((p) => ({
+		final: p.count('harbinger_alive'),
+		eztli: counter(p, 'the_doom_of_eztli', 'harbinger_damage'),
+		hote2: counter(p, 'heart_of_the_elders_part_2', 'harbinger_damage')
+	}));
+
+	const poisonBy: Record<string, number> = {};
+	const byScenario: Record<string, number> = {};
+	for (const p of plays)
+		for (const scenario of TFA_POISON_SCENARIOS)
+			for (const code of subjectCodes(p, scenario, 'poisoned')) {
+				bumpCount(poisonBy, code);
+				bumpCount(byScenario, scenario);
+			}
+
+	const paths = plays.map((p) => p.count('paths_known'));
+	const consulted = (who: string) =>
+		plays.filter((p) => p.choice('heart_of_the_elders_part_1', 'consult') === who).length;
+	const conversation = (value: string) =>
+		plays.filter((p) => p.choice('threads_of_fate', 'ichtaca_conversation') === value).length;
+
+	return {
+		vengeance: {
+			...extentOf(runs.map((r) => r.fury)),
+			lifetime: runs.reduce((n, r) => n + r.fury, 0),
+			depthsAgenda: Object.entries(agendaPlays)
+				.map(([agenda, n]) => ({ agenda: Number(agenda), plays: n }))
+				.sort((a, b) => a.agenda - b.agenda),
+			ichtacaRefused: runs.filter((r) => r.band === 'refuse' || r.band === 'bane').length,
+			runs
+		},
+		supplies,
+		suppliesRuns,
+		suppliesEmptyRuns,
+		ichtaca: { ...ichtaca, standing: ichtaca.trust + ichtaca.bond, recorded: sum(ichtaca) },
+		alejandro: { ...alejandro, standing: alejandro.trust + alejandro.rescued, recorded: sum(alejandro) },
+		harbinger: {
+			final: extentOf(damage.map((d) => d.final)),
+			eztli: extentOf(damage.map((d) => d.eztli)),
+			hote2: extentOf(damage.map((d) => d.hote2)),
+			neverDamaged: damage.filter((d) => {
+				const values = [d.final, d.eztli, d.hote2].filter((v) => v !== undefined);
+				return values.length > 0 && values.every((v) => v === 0);
+			}).length
+		},
+		poison: {
+			total: sum(poisonBy),
+			byInvestigator: Object.entries(poisonBy)
+				.map(([code, count]) => ({ code, count }))
+				.sort((a, b) => b.count - a.count),
+			byScenario
+		},
+		untamedWilds: countNotes(plays, { clearedPath: 'cleared_path_to_temple' }),
+		doomOfEztli: {
+			...countNotes(plays, {
+				investigatorsRelic: 'investigators_recovered_relic',
+				alejandroRelic: 'alejandro_recovered_relic'
+			}),
+			retriesMax: extentOf(plays.map((p) => counter(p, 'the_doom_of_eztli', 'retries'))).max
+		},
+		threadsOfFate: {
+			...countNotes(plays, {
+				relicToAlejandro: 'gave_relic_to_alejandro',
+				relicToHarlan: 'gave_relic_to_harlan',
+				forgingOwnPath: 'forging_own_path'
+			}),
+			listenedIchtaca: conversation('stop_her'),
+			letHerLeave: conversation('let_her_leave')
+		},
+		boundaryBeyond: {
+			pathsKnownMax: extentOf(paths).max,
+			part1Skipped: paths.filter((n) => n !== undefined && n >= 6).length,
+			...countNotes(plays, { ichtacaConfidence: 'ichtaca_has_confidence' })
+		},
+		heartOfElders: {
+			consultIchtaca: consulted('ichtaca'),
+			consultAlejandro: consulted('alejandro'),
+			consultJournal: consulted('journal'),
+			consultNothing: consulted('nothing')
+		},
+		cityOfArchives: {
+			...countNotes(plays, {
+				cooperated: 'cooperated_with_yithians',
+				resisted: 'resisted_captivity',
+				memoriesExpunged: 'had_memories_expunged',
+				perfected: 'process_was_perfected',
+				successful: 'process_was_successful',
+				backfired: 'process_backfired',
+				backfiredSpectacularly: 'process_backfired_spectacularly'
+			}),
+			yithianAftermath: plays.reduce(
+				(n, p) => n + subjectCodes(p, 'the_city_of_archives', 'yithian_aftermath').length,
+				0
+			)
+		},
+		depthsOfYoth: {
+			finalDepth: extentOf(plays.map((p) => counter(p, 'the_depths_of_yoth', 'final_depth')))
+		},
+		shatteredAeons: countNotes(plays, {
+			mendedTear: 'mended_tear_in_time',
+			savedSerpents: 'investigators_saved_serpents',
+			savedYithians: 'investigators_saved_yithians',
+			fabricUnwoven: 'fabric_of_time_unwoven',
+			turnedBackTime: 'turned_back_time'
+		}),
+		turnBackTime: {
+			reached: tallyPlays(
+				plays,
+				(p) =>
+					TURN_BACK_TIME in (p.rec.scenarioXp ?? {}) ||
+					p.resolution(TURN_BACK_TIME) !== undefined ||
+					p.has(SEALED_FOREVER)
+			),
+			...tallyNotes(plays, { sealedForever: SEALED_FOREVER })
 		}
-	];
-}
+	};
+});

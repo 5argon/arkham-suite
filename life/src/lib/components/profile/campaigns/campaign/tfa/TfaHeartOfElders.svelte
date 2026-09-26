@@ -1,77 +1,39 @@
-<!--
-@component
-TFA scenario — "Heart of the Elders". Whom you consulted to find the way (Ichtaca, Alejandro, or the
-expedition journal — from the Extra tab, since the guide's choice is never written to the campaign
-log) and who Yig's venom struck in the descent. Covers both parts; Part 1 stands as the representative
-scenario. Wrapped in the shared TFA passport (Ichtaca & Alejandro header art).
--->
+<!-- @component Heart of the Elders: whom you consulted to find the way, and Poisoned gained over both parts. -->
 <script lang="ts">
-	import { TFA_ICHTACA_CODE, TFA_ALEJANDRO_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import TfaScenarioInfo from './TfaScenarioInfo.svelte';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import StatNumbers, { type Stat, type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers, type StatGroup } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
+	import { poisonedStat, TFA_CARD } from './tfa-shared';
 
-	let {
-		tfa,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tfa: CampaignTfa | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tfa, ctx }: CampaignWidgetProps<CampaignTfa> = $props();
 
 	const h = $derived(tfa?.heartOfElders);
-	const poisoned = $derived(
-		(tfa?.poison.byScenario['heart_of_the_elders_part_1'] ?? 0) +
-			(tfa?.poison.byScenario['heart_of_the_elders_part_2'] ?? 0)
-	);
-	const hasData = $derived(
-		!!h &&
-			(h.consultIchtaca + h.consultAlejandro + h.consultJournal + h.consultNothing > 0 || poisoned > 0)
-	);
-
-	const consult = $derived<Stat[]>(
-		(() => {
-			if (!h) return [];
-			const out: Stat[] = [
-				{ value: h.consultIchtaca, label: m.campaign_tfa_hote_ichtaca() },
-				{ value: h.consultAlejandro, label: m.campaign_tfa_hote_alejandro() },
-				{ value: h.consultJournal, label: m.campaign_tfa_hote_journal() }
-			];
-			if (h.consultNothing > 0)
-				out.push({ value: h.consultNothing, label: m.campaign_tfa_hote_nothing() });
-			return out;
-		})()
-	);
-	const rows = $derived<(Stat[] | StatGroup)[]>([
-		consult.length ? { heading: m.campaign_tfa_hote_heading(), stats: consult } : { stats: [] },
-		poisoned > 0 ? [{ value: poisoned, label: m.campaign_tfa_poisoned_gained() }] : []
+	const rows = $derived<StatGroup[]>([
+		{
+			heading: m.campaign_tfa_hote_heading(),
+			nonLog: true,
+			stats: [
+				{ value: h?.consultIchtaca, label: m.campaign_tfa_hote_ichtaca() },
+				{ value: h?.consultAlejandro, label: m.campaign_tfa_hote_alejandro() },
+				{ value: h?.consultJournal, label: m.campaign_tfa_hote_journal() },
+				{ value: h?.consultNothing, label: m.campaign_tfa_hote_nothing() }
+			]
+		},
+		{
+			nonLog: true,
+			stats: [poisonedStat(tfa, 'heart_of_the_elders_part_1', 'heart_of_the_elders_part_2')]
+		}
 	]);
 </script>
 
-<TfaScenarioInfo scenarioId="heart_of_the_elders_part_1" {family} {achievements} {scenarios} {logOnly}>
-	{#snippet headerArt()}
-		<div class="flex shrink-0 gap-2">
-			<CardThumb code={TFA_ICHTACA_CODE} alt={m.campaign_tfa_companion_ichtaca()} objectTop />
-			<CardThumb code={TFA_ALEJANDRO_CODE} alt={m.campaign_tfa_companion_alejandro()} objectTop />
-		</div>
-	{/snippet}
+<ScenarioInfo {ctx} showPlays headerCards={[TFA_CARD.ichtaca, TFA_CARD.alejandro]}>
 	{#snippet stats()}
-		{#if !logOnly}
-			{#if hasData}
-				<StatNumbers {rows} />
-			{:else}
-				<WidgetEmpty>{m.campaign_tfa_hote_empty()}</WidgetEmpty>
-			{/if}
-		{/if}
+		<StatNumbers
+			logOnly={ctx.logOnly}
+			empty={ctx.logOnly ? undefined : m.campaign_tfa_hote_empty()}
+			{rows}
+		/>
 	{/snippet}
-</TfaScenarioInfo>
+</ScenarioInfo>

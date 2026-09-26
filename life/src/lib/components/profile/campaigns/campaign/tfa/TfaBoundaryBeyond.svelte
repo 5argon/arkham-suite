@@ -1,56 +1,28 @@
-<!--
-@component
-TFA scenario — "The Boundary Beyond". How many paths you'd charted (knowing all 6 skips Heart of the
-Elders, Part 1 — the Scenario 5? achievement) and whether you restored Ichtaca's confidence (Hope for
-Humanity). Wrapped in the shared TFA passport (Ichtaca header art).
--->
+<!-- @component The Boundary Beyond: paths known, the plays that knew all six and skipped Heart of the Elders, Part 1, and Ichtaca's confidence. -->
 <script lang="ts">
-	import { TFA_ICHTACA_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import TfaScenarioInfo from './TfaScenarioInfo.svelte';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
+	import { TFA_CARD } from './tfa-shared';
 
-	let {
-		tfa,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tfa: CampaignTfa | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tfa, ctx }: CampaignWidgetProps<CampaignTfa> = $props();
 
 	const b = $derived(tfa?.boundaryBeyond);
-	const hasData = $derived(!!b && (b.pathsKnownMax !== null || b.ichtacaConfidence > 0));
-	const statList = $derived<Stat[]>(
-		(() => {
-			if (!b) return [];
-			const out: Stat[] = [{ value: b.pathsKnownMax, label: m.campaign_tfa_boundary_paths() }];
-			if (b.part1Skipped > 0) out.push({ value: b.part1Skipped, label: m.campaign_tfa_boundary_skip() });
-			if (b.ichtacaConfidence > 0)
-				out.push({ value: b.ichtacaConfidence, label: m.campaign_tfa_boundary_confidence() });
-			return out;
-		})()
-	);
 </script>
 
-<TfaScenarioInfo scenarioId="the_boundary_beyond" {family} {achievements} {scenarios} {logOnly}>
-	{#snippet headerArt()}
-		<CardThumb code={TFA_ICHTACA_CODE} alt={m.campaign_tfa_companion_ichtaca()} objectTop />
-	{/snippet}
+<ScenarioInfo {ctx} showPlays headerCards={[TFA_CARD.ichtaca]}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers rows={[statList]} />
-		{:else}
-			<WidgetEmpty>{m.campaign_tfa_boundary_empty()}</WidgetEmpty>
-		{/if}
+		<StatNumbers
+			empty={m.campaign_tfa_boundary_empty()}
+			rows={[
+				[
+					{ value: b?.pathsKnownMax, label: m.campaign_tfa_boundary_paths() },
+					{ value: b?.part1Skipped, label: m.campaign_tfa_boundary_skip() },
+					{ value: b?.ichtacaConfidence, label: m.campaign_tfa_boundary_confidence() }
+				]
+			]}
+		/>
 	{/snippet}
-</TfaScenarioInfo>
+</ScenarioInfo>

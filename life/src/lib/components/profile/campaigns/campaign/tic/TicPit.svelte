@@ -1,55 +1,23 @@
-<!--
-@component
-TIC bespoke widget — "The Pit of Despair" (the opener). The passport for the campaign's first
-scenario: The Amalgam (the boss you claw free from — defeat it 5+ times for "Die Already!") as
-header art, plus the four flashbacks first recovered here (the Memories spine begins in the Pit).
-Built on ScenarioInfo + LitTileGrid.
--->
+<!-- @component The Pit of Despair: the flashbacks recovered there. -->
 <script lang="ts">
-	import { TIC_AMALGAM_CODE, type CampaignTic } from '$lib/campaign/campaigns/tic';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import { ticMemoryTiles } from './tic-memory-tiles';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import LitTileGrid from '$lib/components/profile/_primitives/LitTileGrid.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import type { CampaignTic } from '$lib/campaign/campaigns/tic';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { LitTileGrid, SectionLabel } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
+	import { ticMemoryTiles } from './tic-tiles';
 
-	let {
-		tic,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tic: CampaignTic | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tic, ctx }: CampaignWidgetProps<CampaignTic> = $props();
 
+	const AMALGAM = '07053';
 	const memTiles = $derived(ticMemoryTiles(tic, 'the_pit_of_despair'));
-	const hasMem = $derived(memTiles.some((t) => t.count > 0));
 </script>
 
-<ScenarioInfo scenarioId="the_pit_of_despair" {family} {achievements} {scenarios} {logOnly}>
-	{#snippet headerArt()}
-		<CardThumb
-			code={TIC_AMALGAM_CODE}
-			alt={m.campaign_tic_pit_amalgam()}
-			title={m.campaign_tic_pit_amalgam()}
-			tone="danger"
-			objectTop
-		/>
-	{/snippet}
+<ScenarioInfo {ctx} headerCards={[{ code: AMALGAM, tone: 'danger', objectTop: true }]}>
 	{#snippet children()}
-		{#if hasMem}
+		{#if memTiles.some((t) => t.count > 0)}
 			<div>
-				<SectionLabel variant="heading" align="center"
-					>{m.campaign_tic_pit_memories_heading()}</SectionLabel
-				>
+				<SectionLabel variant="heading" align="center">{m.campaign_tic_pit_memories_heading()}</SectionLabel>
 				<LitTileGrid tiles={memTiles} colsClass="grid-cols-2 @3xl:grid-cols-4" />
 			</div>
 		{/if}

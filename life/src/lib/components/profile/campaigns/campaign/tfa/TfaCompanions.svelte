@@ -1,65 +1,44 @@
-<!--
-@component
-TFA bespoke widget — "Ichtaca & Alejandro". Your two expedition companions, each lit
-by your standing with them (Ichtaca's trust/bond; Alejandro rescued/trusted), with a
-hover for the full tally. Portraits are their Ally story cards. Built on LitTileGrid.
--->
+<!-- @component Ichtaca and Alejandro, lit by the plays that earned their trust, bond or rescue. -->
 <script lang="ts">
-	import { getCardImagePath } from '@5argon/arkham-life-ui';
-	import { TFA_ICHTACA_CODE, TFA_ALEJANDRO_CODE, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { LitTileGrid, WidgetEmpty, type LitTile } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { TFA_CARD } from './tfa-shared';
 
-	let { tfa }: { tfa: CampaignTfa | null } = $props();
+	let { blob: tfa }: CampaignWidgetProps<CampaignTfa> = $props();
 
+	const ich = $derived(tfa?.ichtaca);
+	const alj = $derived(tfa?.alejandro);
 	const tiles = $derived<LitTile[]>(
-		tfa
+		ich && alj
 			? [
 					{
 						id: 'ichtaca',
-						image: getCardImagePath(TFA_ICHTACA_CODE, 'square'),
-						label: m.campaign_tfa_companion_ichtaca(),
-						count: tfa.ichtaca.trust + tfa.ichtaca.bond,
-						detail:
-							tfa.ichtaca.trust + tfa.ichtaca.bond + tfa.ichtaca.wary > 0
-								? m.campaign_tfa_ichtaca_detail({
-										trust: tfa.ichtaca.trust,
-										bond: tfa.ichtaca.bond,
-										wary: tfa.ichtaca.wary
-									})
-								: m.campaign_tfa_companion_none()
+						code: TFA_CARD.ichtaca.code,
+						count: ich.standing,
+						detail: ich.recorded
+							? m.campaign_tfa_ichtaca_detail({ trust: ich.trust, bond: ich.bond, wary: ich.wary })
+							: m.campaign_tfa_companion_none()
 					},
 					{
 						id: 'alejandro',
-						image: getCardImagePath(TFA_ALEJANDRO_CODE, 'square'),
-						label: m.campaign_tfa_companion_alejandro(),
-						count: tfa.alejandro.trust + tfa.alejandro.rescued,
-						detail:
-							tfa.alejandro.trust + tfa.alejandro.rescued + tfa.alejandro.missing > 0
-								? m.campaign_tfa_alejandro_detail({
-										trust: tfa.alejandro.trust,
-										rescued: tfa.alejandro.rescued,
-										missing: tfa.alejandro.missing
-									})
-								: m.campaign_tfa_companion_none()
+						code: TFA_CARD.alejandro.code,
+						count: alj.standing,
+						detail: alj.recorded
+							? m.campaign_tfa_alejandro_detail({
+									trust: alj.trust,
+									rescued: alj.rescued,
+									missing: alj.missing
+								})
+							: m.campaign_tfa_companion_none()
 					}
 				]
 			: []
 	);
-	const hasData = $derived(
-		!!tfa &&
-			(tfa.ichtaca.trust + tfa.ichtaca.bond + tfa.ichtaca.wary + tfa.ichtaca.inTheDark > 0 ||
-				tfa.alejandro.trust +
-					tfa.alejandro.rescued +
-					tfa.alejandro.missing +
-					tfa.alejandro.followed +
-					tfa.alejandro.remained >
-					0)
-	);
 </script>
 
-{#if hasData}
+{#if (ich?.recorded ?? 0) + (alj?.recorded ?? 0) > 0}
 	<LitTileGrid {tiles} colsClass="grid-cols-2" />
 {:else}
 	<WidgetEmpty>{m.campaign_tfa_companions_empty()}</WidgetEmpty>

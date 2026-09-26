@@ -1,50 +1,41 @@
-<!--
-@component
-TFA bespoke widget — "Expedition Kit". The eleven provisions you can buy in the prologue, as a wall lit
-by how many times the profile subject packed each (the supply log keys by investigator, so this is the
-player's own kit, not the team's). Plus how often you set out with nothing at all — Who Needs Any of
-This Junk? Built on LitTileGrid.
--->
+<!-- @component The provisions the subject's investigators packed, lit by how often, and the plays they set out with nothing. -->
 <script lang="ts">
-	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import { itemLabel } from '$lib/campaign/records/campaign-log-source';
 	import { TFA_PROVISIONS, type CampaignTfa } from '$lib/campaign/campaigns/tfa';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import { itemLabel, loadCampaignLog } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		LitTileGrid,
+		StatNumbers,
+		WidgetEmpty,
+		type LitTile
+	} from '$lib/components/profile/_primitives';
+	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { tfa }: { tfa: CampaignTfa | null } = $props();
-	const log = getCampaignLog('tfa');
+	let { blob: tfa }: CampaignWidgetProps<CampaignTfa> = $props();
+
+	const log = loadCampaignLog('tfa');
 	const tiles = $derived<LitTile[]>(
-		tfa
-			? TFA_PROVISIONS.map((id) => {
-					const count = tfa.supplies[id] ?? 0;
-					return {
-						id,
-						image: '',
-						label: log ? itemLabel(log, id) : id,
-						count,
-						detail:
-							count > 0
-								? m.campaign_tfa_supplies_took({ times: count })
-								: m.campaign_tfa_supplies_never()
-					};
-				})
-			: []
-	);
-	const hasData = $derived(
-		!!tfa && (tfa.suppliesRuns > 0 || Object.values(tfa.supplies).some((v) => v > 0))
+		TFA_PROVISIONS.map((id) => {
+			const count = tfa?.supplies[id] ?? 0;
+			return {
+				id,
+				label: log ? itemLabel(log, id) : id,
+				count,
+				detail: count
+					? m.campaign_tfa_supplies_took({ times: times(count) })
+					: m.campaign_tfa_supplies_never()
+			};
+		})
 	);
 </script>
 
-{#if hasData && tfa}
+{#if tfa?.suppliesRuns}
 	<div class="space-y-3">
 		<LitTileGrid {tiles} layout="flex" countPosition="below" />
-		{#if tfa.suppliesEmptyRuns > 0}
-			<p class="text-center text-xs text-emerald-600 dark:text-emerald-400">
-				{m.campaign_tfa_supplies_light({ n: tfa.suppliesEmptyRuns })}
-			</p>
-		{/if}
+		<StatNumbers
+			rows={[[{ value: tfa.suppliesEmptyRuns, label: m.campaign_tfa_supplies_light() }]]}
+		/>
 	</div>
 {:else}
 	<WidgetEmpty>{m.campaign_tfa_supplies_empty()}</WidgetEmpty>

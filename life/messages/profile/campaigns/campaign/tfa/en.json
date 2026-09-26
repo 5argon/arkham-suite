@@ -14,19 +14,16 @@
 	"campaign_tfa_supplies_took": "Took {times}",
 	"campaign_tfa_supplies_never": "Never packed",
 
-	"campaign_tfa_companion_ichtaca": "Ichtaca",
-	"campaign_tfa_companion_alejandro": "Alejandro Vela",
 	"campaign_tfa_companions_empty": "Play The Forgotten Age to track your companions.",
 	"campaign_tfa_ichtaca_detail": "Trust {trust} · Bond {bond} · Wary {wary}",
 	"campaign_tfa_alejandro_detail": "Trust {trust} · Rescued {rescued} · Missing {missing}",
 	"campaign_tfa_companion_none": "No standing recorded",
 
-	"campaign_tfa_harbinger_name": "Harbinger of Valusia",
 	"campaign_tfa_harbinger_eztli": "The Doom of Eztli",
 	"campaign_tfa_harbinger_hote": "Heart of the Elders",
 	"campaign_tfa_harbinger_final": "Final wound",
 	"campaign_tfa_harbinger_damage_heading": "Most damage dealt",
-	"campaign_tfa_harbinger_unharmed": "Left unharmed ×{n} — We Have an Understanding",
+	"campaign_tfa_harbinger_unharmed": "Left unharmed",
 	"campaign_tfa_harbinger_empty": "Record the Harbinger of Valusia's damage at The Doom of Eztli to trace the nemesis.",
 
 	"campaign_tfa_wilds_cleared": "Cleared the path",
@@ -41,12 +38,6 @@
 	"campaign_tfa_eztli_retries": "Most replays",
 	"campaign_tfa_eztli_empty": "Play The Doom of Eztli to track it.",
 
-	"campaign_tfa_threads_relic_alejandro": "Relic to Alejandro",
-	"campaign_tfa_threads_relic_harlan": "Relic to Harlan",
-	"campaign_tfa_threads_listened": "Listened to Ichtaca",
-	"campaign_tfa_threads_forging": "Forged your own path",
-	"campaign_tfa_threads_rescued": "Rescued Alejandro",
-	"campaign_tfa_threads_missing": "Alejandro is missing",
 	"campaign_tfa_threads_empty": "Play Threads of Fate to track the branch.",
 
 	"campaign_tfa_boundary_paths": "Most paths known",
@@ -62,10 +53,6 @@
 	"campaign_tfa_archives_cooperated": "Cooperated",
 	"campaign_tfa_archives_resisted": "Resisted captivity",
 	"campaign_tfa_archives_expunged": "Memories expunged",
-	"campaign_tfa_archives_perfected": "Process perfected",
-	"campaign_tfa_archives_successful": "Process successful",
-	"campaign_tfa_archives_backfired": "Process backfired",
-	"campaign_tfa_archives_backfired_spec": "Backfired spectacularly",
 	"campaign_tfa_archives_empty": "Play The City of Archives to track the Yithian process.",
 
 	"campaign_tfa_yoth_depth_max": "Deepest reached",
@@ -123,13 +110,10 @@
 	"campaign_tfa_archives_aftermath": "Suffered the Yithian aftermath",
 
 	"campaign_tfa_yoth_agenda_heading": "Started on agenda",
-	"campaign_tfa_yig_name": "Yig",
-	"campaign_tfa_relic_name": "Relic of Ages",
 
 	"campaign_tfa_poison_total": "Times poisoned",
 	"campaign_tfa_poison_by_investigator": "Whom Yig's venom struck",
 	"campaign_tfa_poison_empty": "Record who gained the Poisoned weakness to trace Yig's venom.",
-	"campaign_tfa_poisoned_name": "Poisoned",
 	"campaign_tfa_poisoned_gained": "Gained Poisoned",
 
 	"campaign_tfa_wilds_ichtaca_heading": "Ichtaca",
@@ -144,5 +128,5 @@
 	"campaign_tfa_aeons_heading": "The finale",
 	"campaign_tfa_aeons_turned": "Turned back time",
 
-	"campaign_tfa_supplies_light": "Traveled light ×{n} — Who Needs Any of This Junk?"
+	"campaign_tfa_supplies_light": "Traveled light"
 }
