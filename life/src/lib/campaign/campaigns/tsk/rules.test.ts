@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyTskTierResolutionInference, resolutionsReachableInLevel } from './tsk-solver';
+import { applyTskTierResolutionInference, resolutionsReachableInLevel } from './rules';
 
 describe('applyTskTierResolutionInference — Dead Heat time tier ⇄ resolution', () => {
 	const LATE = 'DH.t.late';

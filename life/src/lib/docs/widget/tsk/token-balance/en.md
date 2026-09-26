@@ -40,5 +40,4 @@ no log trace and are read from the **Extra** tab instead.
 
 Adding a token to a bag that already holds four of that side grants **+1 XP** instead. By replaying a
 run's swaps in route order (bag starts at 1 Tablet / 1 Elder Thing), we know exactly when a side hit
-four and overflowed — so we can total the bonus XP each side earned across all runs, and the most a
-single run squeezed out. This only appears once you've actually overflowed at least once.
+four and overflowed, so each highlighted run shows the bonus XP it earned (both sides together).

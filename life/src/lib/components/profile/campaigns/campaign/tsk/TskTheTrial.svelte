@@ -1,142 +1,106 @@
-<!--
-@component
-TSK bespoke widget — The Trial. A compact table of every way your campaigns moved a Coterie
-member off their DEFAULT Congress vote (e.g. Desi: Yea → Nay when in your debt, Yea → Eerily
-silent when unseen), with a count of how many recorded plays pulled off each change. Below it, a
-second table of the trial "highs" — the single campaign with the most Yea / Nay-or-Abstain /
-Eerily Silent votes among the Coterie, each with the route that achieved it.
-
-The transitions come straight from the finale vote table (tsk-solver `coterieVoteRows`), so they
-never drift; the counts are inferred from the campaign log (Desi's split additionally reads the
-Congress real/impostor Extra — the stored copy you flip at the Trial).
--->
+<!-- @component The Trial: how often each Coterie member ended on each Congress vote, and the most lopsided trials. -->
 <script lang="ts">
 	import { CardStrip } from '@5argon/arkham-life-ui';
-	import type { Card } from '@5argon/arkham-kohaku';
-	import { coterieVoteRows } from '$lib/campaign/campaigns/tsk-solver';
-	import type { CoterieVoteRow } from '$lib/campaign/campaigns/tsk-solver';
-	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
-	import { cardsByCode } from '$lib/card-data';
+	import type { CampaignTsk, TskVoteHigh } from '$lib/campaign/campaigns/tsk/profile';
+	import { coterieVoteRows } from '$lib/campaign/campaigns/tsk/solver';
+	import { cardByCode } from '$lib/card-data';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { SectionLabel, WidgetEmpty, WidgetTable } from '$lib/components/profile/_primitives';
+	import { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetTable, {
-		widgetTableCell
-	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import RouteHighlightTable from './RouteHighlightTable.svelte';
+	import TskCount from './TskCount.svelte';
 
-	let { tsk, logOnly = false }: { tsk: CampaignTsk | null; logOnly?: boolean } = $props();
+	let { blob: tsk, ctx }: CampaignWidgetProps<CampaignTsk> = $props();
 
-	const cardByCode = cardsByCode();
-	const cardFor = (code?: string): Card | undefined => (code ? cardByCode.get(code) : undefined);
+	const VOTE_LABEL: Record<string, () => string> = {
+		nay: m.campaign_tsk_vote_nay,
+		yea: m.campaign_tsk_vote_yea,
+		abstain: m.campaign_tsk_vote_abstain,
+		silent: m.campaign_tsk_vote_silent,
+		absent: m.campaign_tsk_vote_absent
+	};
 
-	const voteLabel = (v: CoterieVoteRow['toVote'] | 'absent'): string =>
-		v === 'nay'
-			? m.campaign_tsk_vote_nay()
-			: v === 'yea'
-				? m.campaign_tsk_vote_yea()
-				: v === 'abstain'
-					? m.campaign_tsk_vote_abstain()
-					: v === 'silent'
-						? m.campaign_tsk_vote_silent()
-						: m.campaign_tsk_vote_absent();
-
-	// One row per transition; show the member name only on the first row of each member group.
 	const rows = $derived(
 		coterieVoteRows().map((r, i, all) => ({
 			...r,
 			count: tsk?.voteTransitions[r.member]?.[r.toVote] ?? 0,
-			firstOfMember: i === 0 || all[i - 1]!.member !== r.member
+			firstOfMember: i === 0 || all[i - 1].member !== r.member
 		}))
 	);
 	const anyData = $derived(rows.some((r) => r.count > 0));
 
-	// The Trial "highs": the single trial with the most votes in each category, plus its route.
-	const voteHighRows = $derived([
-		{ id: 'yea_nay', label: m.campaign_tsk_coterie_max_yea_nay(), count: tsk?.voteHighs.yeaOverNay?.count ?? 0, route: tsk?.voteHighs.yeaOverNay?.route ?? null, lead: true },
-		{ id: 'nay_yea', label: m.campaign_tsk_coterie_max_nay_yea(), count: tsk?.voteHighs.nayOverYea?.count ?? 0, route: tsk?.voteHighs.nayOverYea?.route ?? null, lead: true },
-		{ id: 'silent', label: m.campaign_tsk_coterie_max_silent(), count: tsk?.voteHighs.silent?.count ?? 0, route: tsk?.voteHighs.silent?.route ?? null, lead: false }
-	]);
-	const anyVoteHigh = $derived(voteHighRows.some((r) => r.count > 0));
-	const family = $derived(tsk?.family ?? null);
+	const high = (id: string, label: string, h: TskVoteHigh | null | undefined, prefix: string) => ({
+		id,
+		label,
+		count: h?.count ?? 0,
+		route: h?.route ?? null,
+		prefix
+	});
+	const highs = $derived(
+		tsk && !ctx.logOnly
+			? [
+					high('yea_nay', m.campaign_tsk_coterie_max_yea_nay(), tsk.voteHighs.yeaOverNay, '+'),
+					high('nay_yea', m.campaign_tsk_coterie_max_nay_yea(), tsk.voteHighs.nayOverYea, '+'),
+					high('silent', m.campaign_tsk_coterie_max_silent(), tsk.voteHighs.silent, '×')
+				]
+			: []
+	);
 </script>
 
-{#if tsk && anyData}
-	<div class="flex flex-col gap-4">
-		<div class="flex flex-col gap-2">
-			<WidgetTable
-				columns={[
-					{ label: m.campaign_tsk_coterie_col_member() },
-					{ label: m.campaign_tsk_coterie_col_change() },
-					{ label: m.campaign_tsk_coterie_col_trigger() },
-					{ label: m.campaign_tsk_coterie_col_times(), align: 'right' }
-				]}
-				{rows}
-				key={(_, i) => i}
-				compact
-			>
-				{#snippet row(r)}
-					<td class="{widgetTableCell} align-middle whitespace-nowrap {r.firstOfMember ? 'font-semibold text-black dark:text-white' : 'text-primary-300 dark:text-primary-600'}">
-						{#if r.firstOfMember}
-							{@const card = cardFor(r.cardCode)}
-							<span class="flex items-center gap-2">
-								{#if card}<span class="text-lg leading-none"><CardStrip {card} /></span>{/if}
-								{r.memberName}
-							</span>
-						{/if}
-					</td>
-					<td class="{widgetTableCell} align-middle whitespace-nowrap">
-						{#if r.isDefault}
-							<span class={r.count > 0 ? 'font-semibold text-black dark:text-white' : 'text-primary-500'}>{voteLabel(r.toVote)}</span>
-							<span class="text-primary-400 ml-1 text-xs">({m.campaign_tsk_coterie_default_tag()})</span>
-						{:else}
-							<span class="text-primary-400">{voteLabel(r.defaultVote)}</span>
-							<span class="text-primary-300 dark:text-primary-600 mx-1">→</span>
-							<span class={r.count > 0 ? 'font-semibold text-black dark:text-white' : 'text-primary-500'}>{voteLabel(r.toVote)}</span>
-						{/if}
-					</td>
-					<td class="{widgetTableCell} align-middle text-primary-500">{r.isDefault ? '' : r.triggerLabel}</td>
-					<td class="{widgetTableCell} align-middle text-right tabular-nums">
-						{#if r.count > 0}
-							<span class="text-secondary-600 dark:text-secondary-400 font-semibold">×{r.count}</span>
-						{:else}
-							<span class="text-primary-400">—</span>
-						{/if}
-					</td>
-				{/snippet}
-			</WidgetTable>
-		</div>
+{#snippet vote(v: string, lit: boolean)}
+	<span class={lit ? 'font-semibold text-black dark:text-white' : 'text-primary-500'}>{VOTE_LABEL[v]?.()}</span>
+{/snippet}
 
-		{#if anyVoteHigh && !logOnly}
+{#if anyData}
+	<div class="flex flex-col gap-4">
+		<WidgetTable
+			columns={[
+				{ label: m.campaign_tsk_coterie_col_member() },
+				{ label: m.campaign_tsk_coterie_col_change() },
+				{ label: m.campaign_tsk_coterie_col_trigger() },
+				{ label: m.campaign_tsk_coterie_col_times(), align: 'right' }
+			]}
+			{rows}
+			key={(_, i) => i}
+			compact
+		>
+			{#snippet row(r)}
+				<td class="{widgetTableCell} align-middle whitespace-nowrap font-semibold text-black dark:text-white">
+					{#if r.firstOfMember}
+						{@const card = r.cardCode ? cardByCode(r.cardCode) : undefined}
+						<span class="flex items-center gap-2">
+							{#if card}<span class="text-lg leading-none"><CardStrip {card} /></span>{/if}
+							{r.memberName}
+						</span>
+					{/if}
+				</td>
+				<td class="{widgetTableCell} align-middle whitespace-nowrap">
+					{#if r.isDefault}
+						{@render vote(r.toVote, r.count > 0)}
+						<span class="text-primary-400 ml-1 text-xs">({m.campaign_tsk_coterie_default_tag()})</span>
+					{:else}
+						<span class="text-primary-400">{VOTE_LABEL[r.defaultVote]?.()}</span>
+						<span class="text-primary-300 dark:text-primary-600 mx-1">→</span>
+						{@render vote(r.toVote, r.count > 0)}
+					{/if}
+				</td>
+				<td class="{widgetTableCell} text-primary-500 align-middle">{r.triggerLabel}</td>
+				<td class="{widgetTableCell} text-right align-middle tabular-nums"><TskCount value={r.count} bright /></td>
+			{/snippet}
+		</WidgetTable>
+
+		{#if highs.some((h) => h.count > 0)}
 			<div>
 				<SectionLabel>{m.campaign_tsk_coterie_highs_heading()}</SectionLabel>
-				<WidgetTable
-					columns={[
-						{ label: '' },
-						{ label: '' },
-						{ label: m.campaign_tsk_info_col_recent_route() }
-					]}
-					rows={voteHighRows}
-					key={(r) => r.id}
+				<RouteHighlightTable
+					rows={highs}
+					columns={[{ label: '' }, { label: '' }, { label: m.campaign_tsk_info_col_recent_route() }]}
 				>
-					{#snippet row(r)}
-						<td class="{widgetTableCell} whitespace-nowrap font-semibold text-black dark:text-white">{r.label}</td>
-						<td class="{widgetTableCell} tabular-nums">
-							{#if r.count > 0}
-								<span class="text-secondary-600 dark:text-secondary-400 font-semibold">{r.lead ? '+' : '×'}{r.count}</span>
-							{:else}
-								<span class="text-primary-400">—</span>
-							{/if}
-						</td>
-						<td class={widgetTableCell}>
-							{#if r.route}
-								<RoutingTrack steps={r.route.steps} {family} size="1.4rem" />
-							{:else}
-								<span class="text-primary-400">—</span>
-							{/if}
-						</td>
+					{#snippet cells(h)}
+						<td class="{widgetTableCell} tabular-nums"><TskCount value={h.count} prefix={h.prefix} bright /></td>
 					{/snippet}
-				</WidgetTable>
+				</RouteHighlightTable>
 			</div>
 		{/if}
 	</div>

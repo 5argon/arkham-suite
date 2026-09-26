@@ -1,135 +1,85 @@
-<!--
-@component
-TSK — Dead Heat. The shared scenario passport — with the rescued/slain civilian stat
-numbers folded into the passport's stat block (via `extraStats`, beside Succeed/Failed):
-runs where rescued beat slain (and doubled it), the mirror (slain beat rescued, and
-doubled it), single-run best (most rescued) / worst (fewest slain), plus how many plays
-reunited the lovers (Amaranth's resolution). Then the bespoke section below:
-  • Two "best run per player count" tables. Total civilians scale with player count
-    ((players + 1) × 5 locations), so the rows are keyed by it; the two tables differ
-    only in which run wins each row — by net saved (rescued − slain) vs by surplus over
-    twice slain (rescued − 2 × slain).
-All civilian data is precomputed on the tsk blob (see compiled-profile.ts).
--->
+<!-- @component Dead Heat: civilians rescued vs slain, and the best run at each player count. -->
 <script lang="ts">
+	import type { CampaignTsk, DeadHeatBestRun } from '$lib/campaign/campaigns/tsk/profile';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { SectionLabel, StatNumbers, WidgetTable } from '$lib/components/profile/_primitives';
+	import { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import TskScenarioInfo from '$lib/components/profile/campaigns/campaign/tsk/TskScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import WidgetTable, {
-		widgetTableCell
-	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
-	import type { TskScenarioWidgetProps } from '$lib/components/profile/campaigns/campaign/tsk/tsk-scenario';
+	import TskScenarioInfo from './TskScenarioInfo.svelte';
 
-	let props: TskScenarioWidgetProps = $props();
+	let { blob: tsk, ctx }: CampaignWidgetProps<CampaignTsk> = $props();
 
-	/** Dead Heat places (players + 1) civilians at each of its 5 locations. */
-	const LOCATIONS = 5;
-
-	const dh = $derived(props.tsk?.deadHeat ?? null);
-	// Show the stat block once any civilian count OR a lovers-reunited play has been recorded.
-	const hasData = $derived(
-		!!dh && (dh.mostRescued !== null || dh.leastSlain !== null || dh.loversReunited > 0)
-	);
-
-	const statRows = $derived<Stat[][]>(
-		dh
+	const dh = $derived(tsk?.deadHeat ?? null);
+	const tables = $derived(
+		dh && !ctx.logOnly
 			? [
-					[
-						{ value: dh.rescuedOverSlain, label: m.campaign_tsk_deadheat_rescued_over_slain() },
-						{
-							value: dh.rescuedOverDoubleSlain,
-							label: m.campaign_tsk_deadheat_rescued_over_double()
-						},
-						{ value: dh.slainOverRescued, label: m.campaign_tsk_deadheat_slain_over_rescued() },
-						{ value: dh.slainOverDoubleRescued, label: m.campaign_tsk_deadheat_slain_over_double() }
-					],
-					[
-						{ value: dh.mostRescued ?? '—', label: m.campaign_tsk_deadheat_most_rescued() },
-						{ value: dh.leastSlain ?? '—', label: m.campaign_tsk_deadheat_least_slain() },
-						{ value: dh.loversReunited, label: m.campaign_tsk_deadheat_lovers_reunited() }
-					]
-				]
+					{ id: 'net', title: m.campaign_tsk_deadheat_best_net_title(), score: m.campaign_tsk_deadheat_col_net(), rows: dh.bestByNet },
+					{ id: 'double', title: m.campaign_tsk_deadheat_best_double_title(), score: m.campaign_tsk_deadheat_col_double(), rows: dh.bestByDouble }
+				].filter((t) => t.rows.length)
 			: []
 	);
-
-	interface CivRow {
-		pc: number;
-		total: number;
-		rescued: number;
-		slain: number;
-		net: number; // rescued − slain
-		double: number; // rescued − 2 × slain
-	}
-	const toRows = (best: Record<number, { rescued: number; slain: number }> | undefined): CivRow[] =>
-		Object.entries(best ?? {})
-			.map(([pc, v]) => {
-				const players = Number(pc);
-				return {
-					pc: players,
-					total: (players + 1) * LOCATIONS,
-					rescued: v.rescued,
-					slain: v.slain,
-					net: v.rescued - v.slain,
-					double: v.rescued - 2 * v.slain
-				};
-			})
-			.sort((a, b) => a.pc - b.pc);
-	const netRows = $derived(toRows(dh?.bestByNet));
-	const doubleRows = $derived(toRows(dh?.bestByDouble));
-
-	// Each table carries only its own ranking column.
-	const baseColumns = [
-		{ label: m.campaign_tsk_deadheat_col_players() },
-		{ label: m.campaign_tsk_deadheat_col_total() },
-		{ label: m.campaign_tsk_deadheat_col_rescued() },
-		{ label: m.campaign_tsk_deadheat_col_slain() }
-	];
-	const netColumns = [...baseColumns, { label: m.campaign_tsk_deadheat_col_net() }];
-	const doubleColumns = [...baseColumns, { label: m.campaign_tsk_deadheat_col_double() }];
-	const signed = (n: number): string => (n > 0 ? `+${n}` : String(n));
-	const diffClass = (n: number): string =>
-		n > 0 ? 'text-secondary-700 dark:text-secondary-300 font-semibold' : 'text-primary-400';
+	const signed = (n: number) => (n > 0 ? `+${n}` : String(n));
 </script>
 
-{#snippet civCells(r: CivRow, rankKey: 'net' | 'double')}
+{#snippet row(r: DeadHeatBestRun)}
 	<td class="{widgetTableCell} font-semibold text-black tabular-nums dark:text-white">
-		{m.campaign_tsk_deadheat_players_n({ count: r.pc })}
+		{m.campaign_tsk_deadheat_players_n({ count: r.players })}
 	</td>
-	<td class="{widgetTableCell} text-primary-500 tabular-nums">{r.total}</td>
-	<td class="{widgetTableCell} text-secondary-700 dark:text-secondary-300 tabular-nums"
-		>{r.rescued}</td
-	>
+	<td class="{widgetTableCell} text-primary-500 tabular-nums">{r.civilians}</td>
+	<td class="{widgetTableCell} text-secondary-700 dark:text-secondary-300 tabular-nums">{r.rescued}</td>
 	<td class="{widgetTableCell} text-primary-700 dark:text-primary-300 tabular-nums">{r.slain}</td>
-	<td class="{widgetTableCell} tabular-nums {diffClass(r[rankKey])}">
-		{signed(r[rankKey])}
+	<td
+		class="{widgetTableCell} tabular-nums {r.score > 0
+			? 'text-secondary-700 dark:text-secondary-300 font-semibold'
+			: 'text-primary-400'}"
+	>
+		{signed(r.score)}
 	</td>
 {/snippet}
 
-<div class="flex flex-col gap-4">
-	<TskScenarioInfo scenarioId="dead_heat" {...props}>
-		{#snippet extraStats()}
-			{#if hasData && !props.logOnly}
-				<StatNumbers rows={statRows} />
-			{/if}
-		{/snippet}
-	</TskScenarioInfo>
-
-	{#if netRows.length && !props.logOnly}
+<TskScenarioInfo blob={tsk} {ctx}>
+	{#snippet stats()}
+		{#if dh}
+			<StatNumbers
+				logOnly={ctx.logOnly}
+				rows={[
+					{
+						nonLog: true,
+						stats: [
+							{ value: dh.rescuedOverSlain, label: m.campaign_tsk_deadheat_rescued_over_slain() },
+							{ value: dh.rescuedOverDoubleSlain, label: m.campaign_tsk_deadheat_rescued_over_double() },
+							{ value: dh.slainOverRescued, label: m.campaign_tsk_deadheat_slain_over_rescued() },
+							{ value: dh.slainOverDoubleRescued, label: m.campaign_tsk_deadheat_slain_over_double() }
+						]
+					},
+					{
+						nonLog: true,
+						keepEmpty: dh.mostRescued !== null || dh.leastSlain !== null,
+						stats: [
+							{ value: dh.mostRescued, label: m.campaign_tsk_deadheat_most_rescued() },
+							{ value: dh.leastSlain, label: m.campaign_tsk_deadheat_least_slain() },
+							{ value: dh.loversReunited, label: m.campaign_tsk_deadheat_lovers_reunited() }
+						]
+					}
+				]}
+			/>
+		{/if}
+	{/snippet}
+	{#each tables as t (t.id)}
 		<div>
-			<SectionLabel>{m.campaign_tsk_deadheat_best_net_title()}</SectionLabel>
-			<WidgetTable columns={netColumns} rows={netRows} key={(r) => r.pc}>
-				{#snippet row(r)}{@render civCells(r, 'net')}{/snippet}
-			</WidgetTable>
+			<SectionLabel>{t.title}</SectionLabel>
+			<WidgetTable
+				columns={[
+					{ label: m.campaign_tsk_deadheat_col_players() },
+					{ label: m.campaign_tsk_deadheat_col_total() },
+					{ label: m.campaign_tsk_deadheat_col_rescued() },
+					{ label: m.campaign_tsk_deadheat_col_slain() },
+					{ label: t.score }
+				]}
+				rows={t.rows}
+				key={(r) => r.players}
+				{row}
+			/>
 		</div>
-	{/if}
-
-	{#if doubleRows.length && !props.logOnly}
-		<div>
-			<SectionLabel>{m.campaign_tsk_deadheat_best_double_title()}</SectionLabel>
-			<WidgetTable columns={doubleColumns} rows={doubleRows} key={(r) => r.pc}>
-				{#snippet row(r)}{@render civCells(r, 'double')}{/snippet}
-			</WidgetTable>
-		</div>
-	{/if}
-</div>
+	{/each}
+</TskScenarioInfo>

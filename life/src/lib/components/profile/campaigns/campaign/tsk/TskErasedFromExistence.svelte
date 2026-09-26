@@ -1,22 +1,12 @@
-<!--
-@component
-TSK bespoke widget — Erased From Existence. In Dancing Mad and On Thin Ice the cell can exile a
-unique card "from existence", recorded as a card-level campaign-log note (`erased_from_existence_*`).
-Because it's a log fact (not deck data) it's shared across the cell, regardless of who bore the card.
-Shows the 10 most recently erased unique cards — each a CardLine (via the shared CardLineList), with
-the finish date of the campaign it happened in as the trailing column. Fed by the `tsk` aggregate.
--->
+<!-- @component The ten most recent unique cards erased from existence (Dancing Mad / On Thin Ice), with the campaign's finish date. -->
 <script lang="ts">
-	import CardLineList from '$lib/components/profile/_primitives/CardLineList.svelte';
-	import FinishDate from '$lib/components/profile/_primitives/FinishDate.svelte';
+	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk/profile';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { CardLineList, FinishDate, WidgetEmpty } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { tsk }: { tsk: CampaignTsk | null } = $props();
+	let { blob: tsk }: CampaignWidgetProps<CampaignTsk> = $props();
 
-	// The aggregate already caps the list at 10, newest first; CardLineList drops any code that
-	// doesn't resolve to a card.
 	const erased = $derived(tsk?.erasedFromExistence ?? []);
 </script>
 

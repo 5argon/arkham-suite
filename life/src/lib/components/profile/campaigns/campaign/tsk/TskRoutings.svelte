@@ -1,128 +1,48 @@
-<!--
-@component
-TSK "Successful Routes" — a table of the player's most notable WINNING runs, each
-drawn as an ordered track of scenario icons (see RoutingTrack). Rows:
-  • one per distinct run LENGTH (the most recent winning run of that many scenarios),
-  • the runs with the Most / Least time passed,
-  • and, per tracked achievement (Red Looks Good on Me, Bloody Red Revolution, Speed
-    Demon, Trust Nobody/Everybody, Here is Your Badge), the most recent winning run
-    that earned it — Speed Demon also showing that run's time passed. Hovering an
-    achievement row reveals that achievement's description (package-sourced). The
-    achievement rows can be hidden via the widget's config.
-Only WINNING campaigns count (a thrown game shouldn't mint a route). Em dash until a
-qualifying route exists.
--->
+<!-- @component Notable winning routes: the latest of each length, the most and least time passed, and the latest to earn each route achievement. -->
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
-	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
-	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
-		import { TSK_ROUTE_ACHIEVEMENTS, type CampaignTsk, type TskRoute } from '$lib/campaign/campaigns/tsk-profile';
+	import type { CampaignTsk } from '$lib/campaign/campaigns/tsk/profile';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { WidgetEmpty } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import RoutingTrack from '$lib/components/profile/campaigns/campaign/tsk/RoutingTrack.svelte';
-	import WidgetTable, { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import RouteHighlightTable, { type RouteHighlightRow } from './RouteHighlightTable.svelte';
 
-	let {
-		tsk,
-		family,
-		hideAchievements = false
-	}: { tsk: CampaignTsk | null; family: string | null; hideAchievements?: boolean } = $props();
+	let { blob: tsk, ctx }: CampaignWidgetProps<CampaignTsk> = $props();
 
-	// WINNING routes only, most-recent first (the per-scenario widgets use the rest).
-	const byRecent = $derived(
-		[...(tsk?.routes ?? [])].filter((r) => r.won).sort((a, b) => (b.finishDate ?? 0) - (a.finishDate ?? 0))
-	);
+	const withTime = (label: string, time: number | null | undefined) => (time != null ? `${label} (${time})` : label);
 
-	// One row per distinct length: the most recent winning run of that many scenarios.
-	const lengthRows = $derived.by(() => {
-		const byLen = new Map<number, TskRoute>();
-		for (const r of byRecent) if (!byLen.has(r.length)) byLen.set(r.length, r);
-		return [...byLen.entries()]
-			.sort((a, b) => a[0] - b[0])
-			.map(([len, route]) => ({
-				key: `len-${len}`,
-				label: m.campaign_tsk_routes_scenarios_played({ count: len }),
+	const rows = $derived.by((): RouteHighlightRow[] => {
+		const h = tsk?.routeHighlights;
+		if (!h) return [];
+		const achievements = getCampaignLog(ctx.family ?? 'tskc')?.en.achievements ?? {};
+		return [
+			...h.byLength.map(({ length, route }) => ({
+				id: `len-${length}`,
+				label: m.campaign_tsk_routes_scenarios_played({ count: length }),
 				route
-			}));
+			})),
+			{ id: 'most', label: withTime(m.campaign_tsk_routes_most_time(), h.mostTime?.time), route: h.mostTime },
+			{ id: 'least', label: withTime(m.campaign_tsk_routes_least_time(), h.leastTime?.time), route: h.leastTime },
+			...(ctx.config.hideAchievements === true
+				? []
+				: h.achievements.map(({ id, route }) => {
+						const title = achievements[id]?.title ?? id;
+						return {
+							id: `ach-${id}`,
+							label: id === 'speed_demon' ? withTime(title, route?.time) : title,
+							route,
+							description: achievements[id]?.text ?? ''
+						};
+					}))
+		].map((r) => ({ ...r, lit: !!r.route }));
 	});
-
-	const timed = $derived(byRecent.filter((r) => r.time != null));
-	const mostTime = $derived<TskRoute | null>(
-		timed.length ? timed.reduce((b, r) => (r.time! > b.time! ? r : b)) : null
-	);
-	const leastTime = $derived<TskRoute | null>(
-		timed.length ? timed.reduce((b, r) => (r.time! < b.time! ? r : b)) : null
-	);
-
-	// Achievement title + description are package-sourced (campaign-data English).
-	const achLog = $derived(getCampaignLog(family ?? 'tskc'));
-	const achTitle = (id: string): string => achLog?.en.achievements?.[id]?.title ?? id; // i18n: package-sourced
-	const achDescription = (id: string): string => achLog?.en.achievements?.[id]?.text ?? ''; // i18n: package-sourced
-	const routeForAch = (id: string): TskRoute | null =>
-		byRecent.find((r) => r.achievements.includes(id)) ?? null;
-
-	interface RouteRow {
-		key: string;
-		label: string;
-		route: TskRoute | null;
-		/** Present on achievement rows — its hover shows the achievement explanation. */
-		description?: string;
-	}
-	const rows = $derived.by((): RouteRow[] => {
-		const out: RouteRow[] = [...lengthRows];
-		out.push({
-			key: 'most',
-			label: m.campaign_tsk_routes_most_time() + (mostTime ? ` (${mostTime.time})` : ''),
-			route: mostTime
-		});
-		out.push({
-			key: 'least',
-			label: m.campaign_tsk_routes_least_time() + (leastTime ? ` (${leastTime.time})` : ''),
-			route: leastTime
-		});
-		if (!hideAchievements) {
-			for (const id of TSK_ROUTE_ACHIEVEMENTS) {
-				const route = routeForAch(id);
-				const suffix = id === 'speed_demon' && route?.time != null ? ` (${route.time})` : '';
-				out.push({ key: `ach-${id}`, label: achTitle(id) + suffix, route, description: achDescription(id) });
-			}
-		}
-		return out;
-	});
-
-	const tip = new HoverTipState();
 </script>
 
-{#if byRecent.length}
-	<WidgetTable
-		columns={[{ label: m.campaign_tsk_routes_col_highlight() }, { label: m.campaign_tsk_routes_col_route() }]}
+{#if tsk?.routeHighlights.byLength.length}
+	<RouteHighlightTable
 		{rows}
-		key={(r) => r.key}
-	>
-		{#snippet row(r)}
-			<td class="{widgetTableCell} whitespace-nowrap {r.route ? 'font-semibold text-black dark:text-white' : 'text-primary-400'}">
-				{#if r.description}
-					{@const desc = r.description}
-					<span
-						role="note"
-						class="cursor-help decoration-dotted underline-offset-2 hover:underline"
-						onmouseenter={(e) => tip.showText(desc, e)}
-						onmouseleave={tip.hide}>{r.label}</span
-					>
-				{:else}
-					{r.label}
-				{/if}
-			</td>
-			<td class={widgetTableCell}>
-				{#if r.route}
-					<RoutingTrack steps={r.route.steps} {family} size="1.4rem" />
-				{:else}
-					<span class="text-primary-400">—</span>
-				{/if}
-			</td>
-		{/snippet}
-	</WidgetTable>
+		columns={[{ label: m.campaign_tsk_routes_col_highlight() }, { label: m.campaign_tsk_routes_col_route() }]}
+	/>
 {:else}
-	<p class="text-primary-400 text-sm italic">{m.campaign_tsk_routes_empty()}</p>
+	<WidgetEmpty>{m.campaign_tsk_routes_empty()}</WidgetEmpty>
 {/if}
-
-<HoverTip {tip} markup />

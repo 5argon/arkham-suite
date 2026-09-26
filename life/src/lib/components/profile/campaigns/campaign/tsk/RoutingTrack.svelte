@@ -1,35 +1,23 @@
-<!--
-@component
-Reusable TSK "Routing" — a campaign's scenarios drawn left-to-right in play order (derived from
-the recorded-log sequence), each as its encounter-set icon with a small tier badge (the
-level/version played, from the Extra inputs) and a hover tooltip carrying the solver's English
-description. Rendered through the shared IconTrack. A scenario with no kohaku icon (e.g. an
-interlude location) falls back to a lettered chip.
--->
+<!-- @component A TSK route: its scenarios' icons in play order with tier badges, or a dash when there is none. -->
 <script lang="ts">
-	import { routeStepInfo, type RouteStepInfo } from '$lib/campaign/campaigns/tsk-solver';
-	import IconTrack, {
-		type IconTrackItem
-	} from '$lib/components/profile/_primitives/IconTrack.svelte';
-	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
+	import type { TskRoute } from '$lib/campaign/campaigns/tsk/profile';
+	import { routeStepInfo, type RouteStepInfo } from '$lib/campaign/campaigns/tsk/solver';
+	import { IconTrack, ScenarioSetIcon, type IconTrackItem } from '$lib/components/profile/_primitives';
 
 	let {
-		steps,
-		family,
-		size = '1.8rem',
+		route,
 		highlight,
+		size = '1.4rem',
 		nowrap = false
 	}: {
-		steps: { scenarioId: string; level?: string; version?: string; finaleVersion?: string }[];
-		family: string | null;
-		size?: string;
-		/** Scenario id to emphasise (e.g. the scenario whose widget this route is in). */
+		route: TskRoute | null;
+		/** The scenario to emphasise; the others dim. */
 		highlight?: string;
-		/** Keep the track on ONE line (no wrapping) — for tight table cells that scroll instead. */
+		size?: string;
 		nowrap?: boolean;
 	} = $props();
 
-	// First two letters of each significant word → a compact fallback chip label.
+	// A stop with no encounter icon shows the initials of its significant words.
 	const initials = (name: string) =>
 		name
 			.split(/\s+/)
@@ -40,27 +28,28 @@ interlude location) falls back to a lettered chip.
 
 	interface RouteItem extends IconTrackItem, RouteStepInfo {}
 	const items = $derived<RouteItem[]>(
-		steps.map((s) => {
+		(route?.steps ?? []).map((s) => {
 			const on = s.scenarioId === highlight;
 			return {
-				...routeStepInfo(family, s),
+				...routeStepInfo(s),
 				dim: !!highlight && !on,
-				tint: on
-					? 'text-secondary-600 dark:text-secondary-400'
-					: 'text-primary-800 dark:text-primary-100'
+				tint: on ? 'text-secondary-600 dark:text-secondary-400' : 'text-primary-800 dark:text-primary-100'
 			};
 		})
 	);
 </script>
 
-<IconTrack {items} {size} cellWidth="1em" gap="0.4em" wrap={!nowrap}>
-	{#snippet icon(it)}
-		<ScenarioSetIcon iconSet={it.iconSet} fallback={initials(it.name)} />
-	{/snippet}
-	{#snippet sub(it)}
-		<!-- The badge is always the secondary accent (its own colour wins over the cell tint). -->
-		<span class="text-secondary-600 dark:text-secondary-400 font-semibold" style="font-size:0.42em"
-			>{it.badge ?? ' '}</span
-		>
-	{/snippet}
-</IconTrack>
+{#if route}
+	<IconTrack {items} {size} cellWidth="1em" gap="0.4em" wrap={!nowrap}>
+		{#snippet icon(it)}
+			<ScenarioSetIcon iconSet={it.iconSet} fallback={initials(it.name)} />
+		{/snippet}
+		{#snippet sub(it)}
+			<span class="text-secondary-600 dark:text-secondary-400 font-semibold" style="font-size:0.42em"
+				>{it.badge ?? ' '}</span
+			>
+		{/snippet}
+	</IconTrack>
+{:else}
+	<span class="text-primary-400">—</span>
+{/if}
