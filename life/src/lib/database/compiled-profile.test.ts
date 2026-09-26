@@ -6,11 +6,10 @@ import {
 	parseCompiledProfileFile,
 	stripCompiledProfile,
 } from './compiled-profile';
-import type { ProfileSubject } from '$lib/profile/profile-types';
-import type { LocalProfilePayload } from './profile-local';
+import type { ProfilePayload, ProfileSubject } from '$lib/profile/profile-types';
 
 /** A payload with one of every English-bearing structure populated. */
-function payload(): LocalProfilePayload {
+function payload(): ProfilePayload {
 	return {
 		subject: { kind: 'account', uid: '__account__', name: '5argon', iconCardCode: '07005', members: [] },
 		summary: {
@@ -105,10 +104,9 @@ function payload(): LocalProfilePayload {
 					{ family: 'eoe', families: ['eoe'], campaignId: 'c1', scenario: 'the_heart_of_madness_part_2', resolution: 'no_resolution', killed: null, insane: 'yes', targets: ['all'], allKilled: false, allInsane: true, result: 'lose', pyrrhic: false, difficulty: 'hard' },
 				],
 			},
-			eoe: [
-				{
+			bespoke: {
+				eoe: {
 					family: 'eoe',
-					roster: ['kensler', 'dyer'],
 					plays: 3,
 					killed: { dyer: 2 },
 					demons: { kensler: 1 },
@@ -118,37 +116,16 @@ function payload(): LocalProfilePayload {
 					camped: { camp_icy_wastes: 1 },
 					memoriesBanishedLocations: { airfield: 2 },
 					memoriesBanishedEnemies: { hunt_gone_awry: 1 },
-					frostMax: 6,
-					frostMin: 2,
-					miasmaPlan: 2,
-					miasmaEludes: 1,
-					fatalMiragePlays: [3, 1],
-					iceDeathSkipped2: 1,
-					iceDeathSkipped3: 0,
-					iceDeathFled: 1,
-					iceDeathEscaped: 2,
-					iceDeathDefeated: 1,
-					shelterMax: 4,
-					shelterMin: 1,
-					memBanishedMost: 5,
-					memBanishedLeast: 2,
 					memoriesBanishedLocationsCount: 1,
 					memoriesBanishedEnemiesCount: 1,
+					banishedPerRun: { max: 5, min: 2 },
 					fatalMiragePlayCounts: { once: 1, twice: 0, thrice: 1 },
-					mementosEarned: 0,
+					frost: { max: 6, min: 2 },
+					shelter: { max: 4, min: 1 },
+					miasma: { plan: 2, eludes: 1 },
+					iceAndDeath: { skippedPart2: 1, skippedPart3: 0, fled: 1, escaped: 2, defeated: 1 }
 				},
-			],
-			tsk: [],
-			dwl: [],
-			ptc: [],
-			tfa: [],
-			tcu: [],
-			tdea: [],
-			tdeb: [],
-			tic: [],
-			fhv: [],
-			tdc: [],
-			notz: [],
+			},
 			specialInteractions: [],
 			investigators: [{ code: '09004', count: 1, options: ['guardian · 30 cards'] }],
 		cardUsage: { '01087': 1 }, usedOnce: {}, specialistUsage: {}, insightDecks: [], eligibilityInsights: {}, totalDecks: 1, charismaTopDecks: [], relicTopDecks: [], customizableUsage: {},
@@ -201,22 +178,20 @@ describe('stripCompiledProfile', () => {
 			count: 1,
 			resolutions: ['R1'],
 		});
-		// The Scarlet Keys aggregate is included (array present; pure user stats).
-		expect(Array.isArray(out.tsk)).toBe(true);
 		// The cross-family summary block + precomputed blob aggregates are carried whole
 		// (pure numbers — the public-contract headline fields).
 		expect(out.summary.totalPlays).toBe(2);
 		expect(out.summary.achievementsTotal).toBe(1);
-		expect(out.eoe[0].memoriesBanishedLocationsCount).toBe(1);
-		expect(out.eoe[0].fatalMiragePlayCounts).toEqual({ once: 1, twice: 0, thrice: 1 });
+		expect(out.bespoke.eoe!.memoriesBanishedLocationsCount).toBe(1);
+		expect(out.bespoke.eoe!.fatalMiragePlayCounts).toEqual({ once: 1, twice: 0, thrice: 1 });
 		expect(out.scenarios[0].scenarios[0].tallies.R1).toEqual({
 			total: 3,
 			byTier: { standard: 2, hard: 1 },
 		});
 		// EotE bespoke tallies are included verbatim (member/item ids + counts, no English).
-		expect(out.eoe[0].killed.dyer).toBe(2);
-		expect(out.eoe[0].survived.kensler).toBe(3);
-		expect(out.eoe[0].camped.camp_icy_wastes).toBe(1);
+		expect(out.bespoke.eoe!.killed.dyer).toBe(2);
+		expect(out.bespoke.eoe!.survived.kensler).toBe(3);
+		expect(out.bespoke.eoe!.camped.camp_icy_wastes).toBe(1);
 	});
 });
 
@@ -236,7 +211,7 @@ describe('compiled profile file (envelope)', () => {
 	it('wraps the stripped profile in a versioned, sniffable envelope', () => {
 		// In real use the envelope subject IS the payload's subject (downloadCompiledProfile
 		// passes payload.subject), so model that here.
-		const groupPayload: LocalProfilePayload = { ...payload(), subject };
+		const groupPayload: ProfilePayload = { ...payload(), subject };
 		const file = makeCompiledProfileFile(subject, groupPayload, exportedAt);
 		expect(file.kind).toBe('arkham-life-compiled-profile');
 		expect(file.v).toBe(COMPILED_PROFILE_VERSION);

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { addDeck, createCampaign, createEmptyDatabase } from './document';
 import { ACCOUNT_SUBJECT } from './profile-cache';
 import { buildSubjectPayload } from './profile-local';
-import { makeCompiledProfileFile, parseCompiledProfileFile, stripCompiledProfile } from './compiled-profile';
+import { makeCompiledProfileFile, parseCompiledProfileFile } from './compiled-profile';
 import { hydrateCompiledProfile } from './hydrate-compiled-profile';
 
 /** One AhdbDeck version JSON with the given in-play slots. */
@@ -44,22 +44,10 @@ describe('hydrateCompiledProfile', () => {
 		expect(hydrated).toEqual(built);
 	});
 
-	it('tolerates older (v14) files that predate the solo clear grids', () => {
+	it('rejects formats older than the current blob shapes', () => {
 		const doc = build();
 		const built = buildSubjectPayload(doc, ACCOUNT_SUBJECT);
-		const profile = stripCompiledProfile(built) as Record<string, unknown>;
-		// Simulate a pre-15 artifact: drop the solo grids entirely.
-		delete profile.soloClearGrid;
-		delete profile.trueSoloClearGrid;
-		const legacy = {
-			kind: 'arkham-life-compiled-profile' as const,
-			v: 14,
-			exportedAt: '2026-01-01T00:00:00.000Z',
-			subject: built.subject,
-			profile,
-		};
-		const hydrated = hydrateCompiledProfile(legacy as never);
-		expect(hydrated.soloClearGrid).toEqual([]);
-		expect(hydrated.trueSoloClearGrid).toEqual([]);
+		const file = { ...makeCompiledProfileFile(built.subject, built, '2026-01-01T00:00:00.000Z'), v: 58 };
+		expect(() => parseCompiledProfileFile(JSON.parse(JSON.stringify(file)))).toThrow();
 	});
 });

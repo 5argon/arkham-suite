@@ -1,7 +1,4 @@
-/**
- * profile-types.ts — the shared, framework-free shapes of the profile payload, consumed by the
- * local builder (`profile-local.ts`) and the profile components.
- */
+/** The shapes of a profile payload, shared by its builder and the profile components. */
 
 import type { CardCode } from '@5argon/arkham-kohaku';
 import type { ProfileFamily } from '$lib/campaign/achievements/achievement-aggregate';
@@ -17,288 +14,193 @@ import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 import type { CampaignStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
 import type { StandaloneArchiveStat } from '$lib/campaign/outcomes/standalone-archives';
 import type { TraumaTally } from '$lib/campaign/outcomes/trauma';
-import type { CampaignEoe } from '$lib/campaign/campaigns/eoe';
-import type { CampaignTsk } from '$lib/campaign/campaigns/tsk-profile';
-import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
-import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
-import type { CampaignTfa } from '$lib/campaign/campaigns/tfa';
-import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
-import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
-import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
-import type { CampaignTic } from '$lib/campaign/campaigns/tic';
-import type { CampaignFhv } from '$lib/campaign/campaigns/fhv';
-import type { CampaignTdc } from '$lib/campaign/campaigns/tdc';
-import type { CampaignNotz } from '$lib/campaign/campaigns/notz';
-import type { CampaignSpecialInteractions } from '$lib/campaign/outcomes/special-interactions';
+import type { BespokeBlobs } from '$lib/campaign/campaigns/registry';
+import type { ProfileSettings } from '$lib/campaign/profile/profile-settings';
+import type {
+	CampaignSpecialInteractions,
+	SpecialInteractionsPartial,
+} from '$lib/campaign/outcomes/special-interactions';
 
-/** Who/what a profile is about. Baked into the payload so a "compiled profile"
- *  renders its own header (avatar, name, group members) with no access to the live
- *  database document — only the ambient card database, for the avatar art. */
+/** Who a profile is about, baked in so a compiled profile renders its own header. */
 export interface ProfileSubject {
 	kind: 'account' | 'player' | 'group' | 'unknown';
-	/** `'__account__'` for the whole-account view, else a roster member / play-group uid. */
+	/** `'__account__'`, a roster member uid or a play-group uid. */
 	uid: string;
 	name: string;
-	/** Investigator card code for the avatar; null for groups / unknown. */
+	/** The avatar's investigator code; null for groups. */
 	iconCardCode: string | null;
-	/** Members (groups only; empty otherwise) — each with a display name and an
-	 *  investigator card code for the avatar (null when unknown). */
+	/** A group's members; empty otherwise. */
 	members: { name: string; iconCardCode: string | null }[];
 }
 
-/** A campaign as listed on a profile ("Campaigns Played"). Dates are ms-since-epoch so the
- *  payload is JSON-pure. */
+/** A campaign listed on a profile. Dates are ms since epoch. */
 export interface ProfileCampaign {
 	id: string;
 	title: string;
 	campaignCode: string;
 	difficulty: 'easy' | 'standard' | 'hard' | 'expert';
-	/** Resolved head count (auto→participants capped at 4), or null when unspecified. */
+	/** Resolved from participants when set to auto; null when unknown. */
 	playerCount: number | null;
-	/** ms-since-epoch, or null. */
 	finishDate: number | null;
-	/** ms-since-epoch, or null. */
 	startDate: number | null;
 	draft: boolean;
 }
 
-/** A player card that appeared in EXACTLY ONE deck across the subject — the single
- *  deck's context, so a "used once" widget can show where/when that lone use was.
- *  Canon-folded (old Core Set twins count as their Revised Core Set card). */
+/** Where a card used in exactly one deck was used (old Core Set printings fold into Revised). */
 export interface UsedOnceEntry {
-	/** Investigator code of the one deck that used the card. */
 	investigator: CardCode;
-	/** The campaign that deck belonged to (joins `ProfileCampaign.id`). */
 	campaignId: string;
-	/** Campaign code (for the campaign's icon) + title, denormalized at assembly. */
 	campaignCode: string;
 	campaignTitle: string;
 	difficulty: 'easy' | 'standard' | 'hard' | 'expert';
-	/** Campaign finish date (ms-since-epoch), or null when unfinished. */
 	finishDate: number | null;
 }
-/** Canon card code → its single-deck context. */
 export type UsedOnceMap = Record<CardCode, UsedOnceEntry>;
 
-/** One deck's tracked-card footprint, for the bespoke neutral-card "insight" widgets
- *  (Level 0 Core Set Neutral, Charisma & Relic Hunter). Only decks that used at least
- *  one tracked card are recorded. */
+/** A deck's copies of the cards the neutral-card insight widgets track (decks with none are omitted). */
 export interface InsightDeck {
-	/** The deck's investigator code (as recorded). */
 	inv: CardCode;
-	/** Tracked card code → max copies the deck ran (across its versions). The UNION over the
-	 *  upgrade chain — right for "ever used X" questions, but it CANNOT answer "had N of these
-	 *  cards at once" (see {@link cantripMax}). */
+	/** Card code → most copies in any version: answers "ever used", not "had N at once". */
 	slots: Record<CardCode, number>;
-	/** Most distinct Level-0 core neutral cantrip skills (Guts / Perception / Overpower /
-	 *  Manual Dexterity) the deck ran in any SINGLE version — the per-version answer the cantrip
-	 *  diversity rows need (the union `slots` would over-count across upgrades). */
+	/** Most distinct core neutral cantrips (Guts, Perception, Overpower, Manual Dexterity) in one version. */
 	cantripMax: number;
 }
 
-/** A precomputed deckbuilding insight for one card (e.g. Vicious Blow), tallied over EVERY
- *  deck (not just tracked ones) at the precompute step — the whole upgrade chain is scanned,
- *  so the UI just renders the result. */
+/** How the decks that could include a card (e.g. Vicious Blow) used it, over every deck. */
 export interface EligibilityInsight {
-	/** Decks whose investigator + meta can include the card (the eligible population). */
+	/** Decks whose investigator can include the card. */
 	canUse: number;
-	/** Of the eligible decks, those that ran any printing at some point in the chain. */
+	/** Eligible decks that ran it in any version. */
 	used: number;
-	/** Up to three distinct (canon-folded) investigators among the used decks. */
+	/** Each `*Investigators` list holds up to three examples. */
 	usedInvestigators: CardCode[];
-	/** Of the eligible decks, those that never ran any printing (the complement of `used`). */
 	notUsed: number;
-	/** Up to three distinct (canon-folded) investigators among the not-used decks. */
 	notUsedInvestigators: CardCode[];
-	/** Of the used decks, those that dropped every printing by the final version — removed and
-	 *  not upgraded (no L0 and no L2 remains anywhere later in the chain). */
+	/** Used decks that dropped every printing by their final version, without upgrading it. */
 	removed: number;
-	/** Up to three distinct (canon-folded) investigators among the removed decks. */
 	removedInvestigators: CardCode[];
-	/** Up to three distinct (canon-folded) investigators among the used decks that kept a
-	 *  printing in the final version (the complement of `removed`; count is `used - removed`). */
+	/** Used decks that kept a printing in their final version. */
 	neverRemovedInvestigators: CardCode[];
 }
 
-/** One deck's entry in a "top decks" table (Charisma → allies, Relic Hunter →
- *  accessories): the deck version (among those running the slot card) with the most
- *  ally / accessory cards. */
+/** A deck's best version for the Charisma (allies) or Relic Hunter (accessories) tables. */
 export interface DeckTopEntry {
-	/** The deck's investigator code. */
 	inv: CardCode;
-	/** Charisma / Relic Hunter copies at the selected version (1 or 2). */
+	/** Charisma / Relic Hunter copies in that version. */
 	count: number;
-	/** The ranked metric — total ally / accessory cards at that version. */
+	/** Allies / accessories in that version, the ranking metric. */
 	total: number;
-	/** The ally / accessory cards (code → copies) at that version. */
 	cards: { code: CardCode; qty: number }[];
 }
 
-/** Per customizable card, across decks (each deck's final/max-ticked state): how often
- *  it reached each level, and how often each option was "used" (enough boxes ticked). */
+/** A customizable card across decks, from each deck's furthest upgrade. */
 export interface CustomizableCardUsage {
-	/** Level (string key) → number of decks that reached it. */
+	/** Level → decks that reached it. */
 	levels: Record<string, number>;
-	/** Option index (string key) → its activation count + up to 3 most-recent (by campaign
-	 *  date) distinct investigators who activated it. */
+	/** Option index → decks that unlocked it, with up to three recent investigators. */
 	options: Record<string, { count: number; recent: CardCode[] }>;
 }
 export type CustomizableUsage = Record<CardCode, CustomizableCardUsage>;
 
-/** The lifetime achievements view (families / custom tallies / branch coverage). */
 export interface ProfileAchievementsData {
 	families: ProfileFamily[];
 	custom: CustomAchievement[];
 	coverage: CampaignCoverage[];
 }
 
-/** One chronological entry on the profile calendar. */
 export interface CalendarEntry {
 	campaignId: string;
 	title: string;
 	campaignCode: string;
 	family: string;
 	difficulty: string;
-	/** finishDate ?? startDate in ms; null when neither was recorded. */
+	/** The finish date, else the start date. */
 	date: number | null;
 	dateKind: 'finish' | 'start' | null;
 	state: ClearState | null;
 }
 
-/** Investigator usage across the contributing campaigns: play-count + the
- *  distinct version options chosen (Tony/Mandy/Lola/Wendy faction/size/option). */
+/** An investigator's play count and the deckbuilding options chosen for it. */
 export interface InvestigatorStat {
 	code: CardCode;
 	count: number;
 	options: string[];
 }
 
-/** Player-card + investigator usage. */
-export interface CardInsightsData {
-	/** Card code → number of contributing deck chains that ever put it in-play. */
-	cardUsage: Record<CardCode, number>;
-	investigators: InvestigatorStat[];
-}
-
-/**
- * Cross-family lifetime headline numbers surfaced by the profile's section titles (total wins,
- * campaigns cleared, achievements earned, …), precomputed at payload assembly. It spans the logs
- * and cards segments, so `assemblePayload` builds it rather than a per-segment cache.
- */
+/** Lifetime headline numbers across every campaign, assembled from the logs and cards segments. */
 export interface ProfileSummary {
-	/** Total recorded plays across all campaign families (won, lost, or in progress). */
+	/** Won, lost and unfinished. */
 	totalPlays: number;
-	/** Total winning plays across all families. */
 	totalWins: number;
-	/** Distinct campaign families with ≥1 recorded play. */
 	campaignsPlayed: number;
-	/** Owned campaign boxes (the clear-grid denominator). */
+	/** The clear grid's denominator. */
 	ownedCampaigns: number;
-	/** Owned campaigns cleared on ≥1 difficulty (any tier). */
 	campaignsClearedAny: number;
-	/** Owned campaigns cleared, per difficulty tier (tier id → count); a campaign
-	 *  cleared on two tiers counts in both, so these can exceed campaignsClearedAny. */
+	/** A campaign cleared on two tiers counts in both. */
 	campaignsClearedByTier: Record<string, number>;
-	/** Official achievements earned / available across all families. */
 	achievementsEarned: number;
 	achievementsTotal: number;
-	/** Distinct investigators ever fielded across the subject's decks. */
 	investigatorsPlayed: number;
-	/** Distinct player cards ever fielded across the subject's decks. */
 	cardsPlayed: number;
-	/** Total side/standalone scenario plays across all families. */
+	/** Standalone scenarios played inside campaigns. */
 	standalonePlays: number;
 }
 
-/** A zeroed {@link ProfileSummary}, the fallback for a compiled profile without a summary block. */
-export function emptyProfileSummary(): ProfileSummary {
-	return {
-		totalPlays: 0,
-		totalWins: 0,
-		campaignsPlayed: 0,
-		ownedCampaigns: 0,
-		campaignsClearedAny: 0,
-		campaignsClearedByTier: {},
-		achievementsEarned: 0,
-		achievementsTotal: 0,
-		investigatorsPlayed: 0,
-		cardsPlayed: 0,
-		standalonePlays: 0,
-	};
+/** Campaign list + calendar: cheap, rebuilt on any metadata edit. */
+export interface MetaSegment {
+	campaigns: ProfileCampaign[];
+	calendar: CalendarEntry[];
 }
 
-/** Everything the composable profile renders, from a single record load. */
-export interface ProfileData {
-	/** Whose profile this is — baked in so the payload renders standalone. */
-	subject: ProfileSubject;
-	/** Cross-family lifetime headline totals (see {@link ProfileSummary}). */
-	summary: ProfileSummary;
-	campaigns: ProfileCampaign[];
+/** Everything aggregated from the recorded logs and Extra inputs. */
+export interface LogsSegment {
 	achievements: ProfileAchievementsData;
 	clearGrid: ClearGridRow[];
-	/** Clear grid over 1-player plays only (true solo + solo X-handed) — "Solo Campaign Clears". */
+	/** Over 1-player plays only (true solo + multi-handed solo). */
 	soloClearGrid: ClearGridRow[];
-	/** Clear grid over true-solo (1-player, not multi-handed) plays — "True Solo Campaign Clears". */
+	/** Over 1-player plays by a single deck. */
 	trueSoloClearGrid: ClearGridRow[];
 	winLossRecord: WinLossRecord[];
-	calendar: CalendarEntry[];
 	endings: CampaignEndings[];
 	collections: CampaignCollections[];
-	investigators: InvestigatorStat[];
-	/** Unified per-scenario records — the single per-scenario source: plays / Succeed / Failed /
-	 *  resolutions reached + verdicts / VP highscore / choices. */
 	scenarios: CampaignScenarios[];
 	standaloneUsage: CampaignStandaloneUsage[];
-	/** First-class Standalone Archive aggregates (per scenario), for the `/standalones` section. */
 	standalones: StandaloneArchiveStat[];
 	traumaTally: TraumaTally;
-	/** Edge of the Earth bespoke tallies — crash / demons / survivors / supplies /
-	 *  camps, all keyed by member or item id (eoe only). */
-	eoe: CampaignEoe[];
-	/** The Scarlet Keys bespoke aggregate — Trust/Deception acts + Coterie outcomes (tskc only). */
-	tsk: CampaignTsk[];
-	/** The Dunwich Legacy bespoke per-scenario tallies (dwl only). */
-	dwl: CampaignDwl[];
-	/** The Path to Carcosa bespoke per-scenario tallies (ptc only). */
-	ptc: CampaignPtc[];
-	/** The Forgotten Age bespoke per-scenario tallies (tfa only). */
-	tfa: CampaignTfa[];
-	/** The Circle Undone bespoke per-scenario tallies (tcu only). */
-	tcu: CampaignTcu[];
-	/** The Dream-Eaters · The Dream-Quest bespoke tallies + shared interconnected view (tdea only). */
-	tdea: CampaignTdea[];
-	/** The Dream-Eaters · The Web of Dreams bespoke tallies + shared interconnected view (tdeb only). */
-	tdeb: CampaignTdeb[];
-	/** The Innsmouth Conspiracy bespoke per-scenario tallies (tic only). */
-	tic: CampaignTic[];
-	/** The Feast of Hemlock Vale bespoke per-scenario tallies (fhv only). */
-	fhv: CampaignFhv[];
-	/** The Drowned City bespoke per-scenario tallies (tdc only). */
-	tdc: CampaignTdc[];
-	/** The Night of the Zealot bespoke per-scenario tallies (notz only). */
-	notz: CampaignNotz[];
-	/** Roster-gated flavor moments per campaign family, with lifetime triggered state. */
-	specialInteractions: CampaignSpecialInteractions[];
+	bespoke: BespokeBlobs;
+	/** Joined with each campaign's roster at assembly. */
+	specialInteractions: SpecialInteractionsPartial[];
+}
+
+/** Everything read from the subject's decks — the expensive scan. */
+export interface CardsSegment {
+	/** Card code → number of deck chains that put it in play. */
 	cardUsage: Record<CardCode, number>;
-	/** Cards used in exactly one deck (canon-folded) → that deck's context. Powers
-	 *  the "Core Set Cards Used Once" widgets. */
-	usedOnce: UsedOnceMap;
-	/** Specialist (Scarlet Keys) card code → the distinct investigator codes whose decks
-	 *  used it. Powers the Specialist widget's investigator + trait dimensions. */
+	investigators: InvestigatorStat[];
+	playedCardCodes: CardCode[];
+	/** Campaign id → investigator codes, for per-investigator joins at assembly. */
+	investigatorsByCampaign: Record<string, CardCode[]>;
+	/** Raw code → the one deck that used it; resolved into `usedOnce` at assembly. */
+	usedOnceRaw: Record<CardCode, { investigator: CardCode; campaignId: string }>;
+	/** Specialist card code → investigator codes whose decks used it. */
 	specialistUsage: Record<CardCode, CardCode[]>;
-	/** Per-deck tracked-card footprints (investigator + spotlight-card copies) for the
-	 *  neutral-card insight widgets. */
 	insightDecks: InsightDeck[];
-	/** "Eligible but unused" insights keyed by target id (e.g. 'viciousBlow', 'deduction') —
-	 *  precomputed over every deck for the Vicious Blow & Deduction widget. */
 	eligibilityInsights: Record<string, EligibilityInsight>;
-	/** Count of all the subject's decks — the denominator for "% of decks" insights whose
-	 *  card every investigator can include (Charisma & Relic Hunter). */
+	/** Every deck of the subject; the "% of decks" denominator. */
 	totalDecks: number;
-	/** Decks ranked by ally count (each running Charisma) — Charisma & Relic Hunter widget. */
 	charismaTopDecks: DeckTopEntry[];
-	/** Decks ranked by accessory count (each running Relic Hunter). */
 	relicTopDecks: DeckTopEntry[];
-	/** Per customizable card: level + option usage tallies (the Customizable Cards widget). */
 	customizableUsage: CustomizableUsage;
+}
+
+/** Everything a profile page renders. */
+export interface ProfilePayload
+	extends MetaSegment,
+		Omit<LogsSegment, 'specialInteractions'>,
+		Omit<CardsSegment, 'investigatorsByCampaign' | 'usedOnceRaw'> {
+	subject: ProfileSubject;
+	summary: ProfileSummary;
+	specialInteractions: CampaignSpecialInteractions[];
+	usedOnce: UsedOnceMap;
+	settings: ProfileSettings;
 }

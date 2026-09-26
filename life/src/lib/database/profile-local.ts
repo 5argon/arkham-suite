@@ -1,21 +1,8 @@
 /**
- * profile-local.ts — builds the profile from local data, for a SUBJECT.
- *
- * A "subject" is the whole account (all campaigns/decks), a single roster member,
- * or a play group (the union of its members). It resolves to a set of uids; a
- * campaign belongs to the subject iff one of its participants is in the set, and
- * a deck counts iff its owner is in the set (the account = no filter).
- *
- * The payload is split into three independently-built/cached SEGMENTS so the
- * precompute cache can rebuild only what changed (see profile-cache.ts):
- *   - meta  : campaigns list + calendar
- *   - logs  : achievements / clear grid / win/loss record / endings / collections / xp
- *   - cards : card usage / investigators / played codes (the expensive deck scan)
- * Each segment also exposes a cheap signature of its inputs so a recompute can
- * skip unchanged segments. `assemblePayload` recombines three segments into the
- * `LocalProfilePayload` the profile pages consume.
+ * Builds a profile subject's payload from the local database: the account (no filter), one roster
+ * member, or a play group. Built in three cacheable segments (see profile-cache.ts) that
+ * `assemblePayload` recombines.
  */
-
 import { achievementInferScope, getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { CardCode, DecodedMeta, Product } from '@5argon/arkham-kohaku';
 import { card as cardUtils, decodeMeta } from '@5argon/arkham-kohaku';
@@ -33,17 +20,18 @@ import {
 	erasedFromExistenceFromLogs,
 	possessedInvestigatorsFromLogs,
 	type LocalLog,
+	manualTickKey
 } from '$lib/campaign/records/recorded-state';
 import {
 	aggregateOfficialTiered,
-	type CampaignRecord,
-	type ProfileFamily,
+	type ProfileFamily
 } from '$lib/campaign/achievements/achievement-aggregate';
+import type { CampaignRecord } from '$lib/campaign/records/campaign-record';
 import {
 	buildFullClearGrid,
 	buildWinLossRecord,
 	buildEndings,
-	playClearState,
+	playClearState
 } from '$lib/campaign/outcomes/clear-status';
 import { filterTrackedRecords, groupTracked, tierTracked } from '$lib/campaign/records/tracking';
 import { buildCollections } from '$lib/campaign/stats/collections';
@@ -51,29 +39,26 @@ import { buildScenarioStats } from '$lib/campaign/stats/scenario-stats';
 import { buildStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
 import { buildStandaloneArchives } from '$lib/campaign/outcomes/standalone-archives';
 import { buildTraumaTally, attributeTraumaInvestigators } from '$lib/campaign/outcomes/trauma';
-import { buildEoe, countEoeMementosEarned } from '$lib/campaign/campaigns/eoe';
-import { buildTsk } from '$lib/campaign/campaigns/tsk-profile';
-import { buildDwl } from '$lib/campaign/campaigns/dwl';
-import { buildPtc } from '$lib/campaign/campaigns/ptc';
-import { buildTfa } from '$lib/campaign/campaigns/tfa';
-import { buildTcu } from '$lib/campaign/campaigns/tcu';
-import { buildTdea } from '$lib/campaign/campaigns/tdea';
-import { buildTdeb } from '$lib/campaign/campaigns/tdeb';
-import { buildTic } from '$lib/campaign/campaigns/tic';
-import { buildFhv } from '$lib/campaign/campaigns/fhv';
-import { buildTdc } from '$lib/campaign/campaigns/tdc';
-import { buildNotz } from '$lib/campaign/campaigns/notz';
+import { buildBespoke } from '$lib/campaign/campaigns/registry';
 import { isCoreOnlyCampaign } from '$lib/campaign/utils/deck-purity';
 import { familyOf } from '$lib/campaign/records/campaign-family';
-import { applyTskTierResolutionInference } from '$lib/campaign/campaigns/tsk-solver';
+import { applyTskTierResolutionInference } from '$lib/campaign/campaigns/tsk/rules';
 import {
 	buildSpecialInteractions,
 	resolveSpecialInteractions,
-	type CardLookup,
+	type CardLookup
 } from '$lib/campaign/outcomes/special-interactions';
 import { cardsByCode, createCardResolver, getAllCards } from '$lib/card-data';
-import { buildCoverage, evaluateCustomAchievements } from '$lib/campaign/achievements/custom-achievements';
-import { resolveProfileSettings, type CampaignGroup, type DifficultyTier, type ProfileSettings } from '$lib/campaign/profile/profile-settings';
+import {
+	buildCoverage,
+	evaluateCustomAchievements
+} from '$lib/campaign/achievements/custom-achievements';
+import {
+	resolveProfileSettings,
+	type CampaignGroup,
+	type DifficultyTier,
+	type ProfileSettings
+} from '$lib/campaign/profile/profile-settings';
 import {
 	accessorySlotCodeSet,
 	allySlotCodeSet,
@@ -81,9 +66,10 @@ import {
 	charismaRelicCards,
 	coreCantripCards,
 	customizableOptionXp,
+	foldCanonUsage,
 	insightTrackedCodeSet,
 	specialistCodeSet,
-	viciousBlowDeductionEligibility,
+	viciousBlowDeductionEligibility
 } from '$lib/campaign/utils/card-filters';
 import type {
 	CalendarEntry,
@@ -94,49 +80,38 @@ import type {
 	EligibilityInsight,
 	InsightDeck,
 	ProfileCampaign,
-	ProfileData,
+	ProfilePayload,
+	MetaSegment,
+	LogsSegment,
+	CardsSegment,
 	ProfileSubject,
 	ProfileSummary,
-	UsedOnceMap,
+	UsedOnceEntry,
+	UsedOnceMap
 } from '$lib/profile/profile-types';
-import { findPlayer, findPlayGroup, resolvePlayerCount, type DatabaseDocument } from './document';
 import {
-	ACCOUNT_SUBJECT,
-	type CardsSegmentData,
-	type LogsSegmentData,
-	type MetaSegmentData,
-} from './profile-cache';
+	allRecords,
+	findPlayer,
+	findPlayGroup,
+	resolvePlayerCount,
+	type CampaignRecord as DocCampaign,
+	type DatabaseDocument,
+	type DeckRecord
+} from './document';
+import { ACCOUNT_SUBJECT } from './profile-cache';
 
-/** The local profile payload: ProfileData + the bits the pages also need. */
-export interface LocalProfilePayload extends ProfileData {
-	playedCardCodes: CardCode[];
-	settings: ProfileSettings;
-}
-
-/** Context key: the profile layout computes the payload once and shares it with
- *  every nested page. `base` is the URL prefix for in-subtree links
- *  (`/p/private/<uid>` for the in-browser view of a player/group subject). */
-export const LOCAL_PROFILE_KEY = Symbol('local-profile');
-export interface LocalProfileContext {
-	readonly payload: LocalProfilePayload | null;
-	readonly base: string;
-}
-
-/** One stored campaign (the element type of `doc.campaigns`). */
-type DocCampaign = DatabaseDocument['campaigns'][number];
-
-// A minimal view of an ArkhamDB deck JSON (just the slots we read).
+/** The ArkhamDB deck JSON fields read here. */
 interface AhdbSlots {
 	slots?: Record<string, number>;
-	sideSlots?: Record<string, number>;
 	ignoreDeckLimitSlots?: Record<string, number>;
-	/** ArkhamDB deck meta — a JSON string of `{ cus_<code>: "optIdx|checked,…", … }`. */
 	meta?: string;
 }
 
-// Keep `[token]` icon markers (rendered as glyphs by parseArkhamMarkup at display —
-// e.g. Trust Nobody's [elder_thing]); only strip HTML emphasis + unwrap card links.
-// Exported so the compiled-profile HYDRATOR re-cleans achievement text identically.
+/** The one deck behind a card used exactly once. */
+type UsedOnceContext = Pick<UsedOnceEntry, 'investigator' | 'campaignId'>;
+
+/** Strips HTML emphasis and card links but keeps `[token]` icon markers (rendered as glyphs).
+ *  The compiled-profile hydrator re-cleans achievement text with it. */
 export function cleanText(t: string): string {
 	return t
 		.replace(/<\/?[ib]>/g, '')
@@ -164,10 +139,7 @@ function optionSignature(inv: {
 
 // ─── Subject resolution + filtering ──────────────────────────────────────────
 
-/**
- * Resolve a subject key to the set of uids whose data it covers, or `null` for
- * the whole account (no filter). Unknown keys resolve to an empty set (no data).
- */
+/** The uids a subject key covers: `null` for the whole account, empty for an unknown key. */
 export function subjectUids(doc: DatabaseDocument, key: string): Set<string> | null {
 	if (key === ACCOUNT_SUBJECT) return null;
 	if (doc.owner.uid === key || doc.players.some((p) => p.uid === key)) return new Set([key]);
@@ -176,12 +148,36 @@ export function subjectUids(doc: DatabaseDocument, key: string): Set<string> | n
 	return new Set();
 }
 
-/** Whether a campaign belongs to the subject (account = always). */
+/** Who a payload is about plus the settings that decide which plays count. */
+interface ProfileScope {
+	uids: Set<string> | null;
+	ownedProducts: Product[] | null;
+	trackedTiers: DifficultyTier[];
+	trackedGroups: CampaignGroup[];
+	defaultViz: 'visible' | 'hidden';
+	mergeReturnTo: boolean;
+	/** Only while merging, so hiding a Return-to box never orphans its plays. */
+	hideReturnTo: boolean;
+}
+
+function profileScope(doc: DatabaseDocument, key: string): ProfileScope {
+	const settings = resolveProfileSettings(doc.profileSettings);
+	const mergeReturnTo = settings.mergeReturnToStats !== false;
+	return {
+		uids: subjectUids(doc, key),
+		ownedProducts: settings.ownedProducts,
+		trackedTiers: settings.trackedTiers,
+		trackedGroups: settings.trackedCampaignGroups,
+		defaultViz: settings.defaultArchiveDisplayInProfile,
+		mergeReturnTo,
+		hideReturnTo: mergeReturnTo && settings.hideReturnToCampaigns === true
+	};
+}
+
 function campaignInSubject(c: DocCampaign, uids: Set<string> | null): boolean {
 	return uids === null || c.participants.some((p) => uids.has(p.uid));
 }
 
-/** Whether a deck counts for the subject (account = always; else owner ∈ subject). */
 function deckInSubject(ownerUid: string | null, uids: Set<string> | null): boolean {
 	return uids === null || (ownerUid !== null && uids.has(ownerUid));
 }
@@ -189,12 +185,11 @@ function deckInSubject(ownerUid: string | null, uids: Set<string> | null): boole
 // ─── Record hydration ────────────────────────────────────────────────────────
 
 function toLocalLogs(c: DocCampaign): LocalLog[] {
-	// CampaignLogEntry.args is already the LocalLog arg shape; just add a clientId.
 	return c.logs.map((e, i) => ({
 		clientId: `${c.id}:${i}`,
 		key: e.key,
 		section: e.section,
-		args: e.args.map((a) => ({ type: a.type, value: a.value })),
+		args: e.args.map((a) => ({ type: a.type, value: a.value }))
 	}));
 }
 
@@ -202,7 +197,8 @@ function toLocalLogs(c: DocCampaign): LocalLog[] {
 function subjectInvestigators(c: DocCampaign, uids: Set<string> | null): CardCode[] {
 	const codes = new Set<CardCode>();
 	for (const deck of c.decks) {
-		if (deckInSubject(deck.ownerUid, uids)) codes.add(deck.investigator.investigatorCode as CardCode);
+		if (deckInSubject(deck.ownerUid, uids))
+			codes.add(deck.investigator.investigatorCode as CardCode);
 	}
 	return [...codes];
 }
@@ -210,21 +206,23 @@ function subjectInvestigators(c: DocCampaign, uids: Set<string> | null): CardCod
 function recordFor(
 	c: DocCampaign,
 	log: NonNullable<ReturnType<typeof getCampaignLog>>,
-	uids: Set<string> | null,
+	uids: Set<string> | null
 ): CampaignRecord {
 	const localLogs = toLocalLogs(c);
-	// Cross-fill recorded tier ⇄ resolution implications (e.g. Dead Heat's 25+ time
-	// tier ⇔ R5) before both feed the downstream aggregates, so they stay consistent.
-	const { resolutions: scenarioResolutions, tiers: scenarioTiers } = applyTskTierResolutionInference(
-		scenarioResolutionsFromLogs(localLogs),
-		scenarioTiersFromLogs(localLogs),
-	);
+	// Cross-fill TSK tier ⇄ resolution implications (Dead Heat's 25+ time tier ⇔ R5).
+	const { resolutions: scenarioResolutions, tiers: scenarioTiers } =
+		applyTskTierResolutionInference(
+			scenarioResolutionsFromLogs(localLogs),
+			scenarioTiersFromLogs(localLogs)
+		);
 	return {
 		campaignCode: c.campaignCode,
 		campaignId: c.id,
 		recorded: toRecordedState(log, localLogs, { difficulty: c.difficulty }),
 		manual: new Set(
-			c.manualAchievements.map((a) => (a.itemId ? `${a.achievementId}::${a.itemId}` : a.achievementId)),
+			c.manualAchievements.map((a) =>
+				manualTickKey(a.achievementId, a.itemId)
+			)
 		),
 		scenarioXp: scenarioXpFromLogs(localLogs),
 		scenarioChoices: scenarioChoicesFromLogs(localLogs),
@@ -242,30 +240,21 @@ function recordFor(
 		finishDate: c.finishDate ?? null,
 		playerCount: resolvePlayerCount(c.playerCount, c.participants.length),
 		multiHanded: c.multiHanded,
-		// The Dream-Eaters Linked Campaign Log: project the transcribed sibling entries to a
-		// composite-key set the shared TDE widgets read as the other-campaign axis.
-		linked: new Set((c.linkedLog ?? []).map((e) => e.key)),
+		linked: new Set((c.linkedLog ?? []).map((e) => e.key))
 	};
 }
 
-/** `CampaignRecord[]` for the subject's real (known-code) campaigns. */
+/** The subject's campaigns with a known campaign-data log. */
 function subjectRecords(doc: DatabaseDocument, uids: Set<string> | null): CampaignRecord[] {
 	const records: CampaignRecord[] = [];
 	for (const c of doc.campaigns) {
 		if (!campaignInSubject(c, uids)) continue;
 		const log = getCampaignLog(c.campaignCode);
-		if (!log) continue; // draft / unknown code → skip
+		if (!log) continue;
 		records.push(recordFor(c, log, uids));
 	}
 	return records;
 }
-
-/** The subject's standalone-mode plays (the separate `doc.standalones` array). Raw
- *  records — the standalone aggregate reads their logs + decks directly. */
-function subjectStandaloneRecords(doc: DatabaseDocument, uids: Set<string> | null) {
-	return (doc.standalones ?? []).filter((s) => campaignInSubject(s, uids));
-}
-
 
 /** Build achievements data (families / custom / coverage). */
 function buildAchievementsData(records: CampaignRecord[]): ProfileAchievementsData {
@@ -284,42 +273,37 @@ function buildAchievementsData(records: CampaignRecord[]): ProfileAchievementsDa
 				inferred: achievementInferScope(e.def) !== 'manual',
 				earnCount: e.earnCount,
 				earnedTiers: e.earnedTiers,
-				// List achievements (e.g. "There and Back Again"): each item with its
-				// lifetime earned state, in the def's declared order.
+				// List achievements ("There and Back Again"): each item's lifetime state.
 				...(e.items && e.def.items
 					? {
 							items: e.def.items.map((id) => ({
 								id,
 								label: e.en.items?.[id] ?? id,
-								earned: e.items![id] === true,
-							})),
+								earned: e.items![id] === true
+							}))
 						}
-					: {}),
-			})),
+					: {})
+			}))
 		}))
 		.sort((a, b) => a.name.localeCompare(b.name));
-	return { families, custom: evaluateCustomAchievements(records), coverage: buildCoverage(records) };
+	return {
+		families,
+		custom: evaluateCustomAchievements(records),
+		coverage: buildCoverage(records)
+	};
 }
 
 // ─── Segment builders ────────────────────────────────────────────────────────
 
-/** Whether a campaign's EXISTENCE shows on the profile (calendar + campaigns-played),
- *  resolving `'default'` against the account-wide default. Stats always aggregate
- *  regardless — this gates only the named-campaign widgets, keeping the compiled
- *  profile lean and letting players hide specific archives. */
+/** Whether the campaign itself is listed (calendar, campaigns played); its stats count either way. */
 function archiveVisible(c: DocCampaign, defaultViz: 'visible' | 'hidden'): boolean {
 	const v = c.displayInProfile ?? 'default';
 	return v === 'default' ? defaultViz === 'visible' : v === 'visible';
 }
 
-/** meta: campaigns list (known code, incl. draft) + chronological calendar. */
-function buildMetaSegment(
-	doc: DatabaseDocument,
-	uids: Set<string> | null,
-	defaultViz: 'visible' | 'hidden',
-	trackedTiers: DifficultyTier[],
-	trackedGroups: CampaignGroup[],
-): MetaSegmentData {
+/** The listed campaigns (drafts included) and the chronological calendar. */
+function buildMetaSegment(doc: DatabaseDocument, scope: ProfileScope): MetaSegment {
+	const { uids, defaultViz, trackedTiers, trackedGroups } = scope;
 	const campaigns: ProfileCampaign[] = doc.campaigns
 		.filter(
 			(c) =>
@@ -328,18 +312,17 @@ function buildMetaSegment(
 				campaignInSubject(c, uids) &&
 				archiveVisible(c, defaultViz) &&
 				tierTracked(c.difficulty ?? 'standard', trackedTiers) &&
-				groupTracked(c.campaignCode, trackedGroups),
+				groupTracked(c.campaignCode, trackedGroups)
 		)
 		.map((c) => ({
 			id: c.id,
 			title: c.title,
 			campaignCode: c.campaignCode,
 			difficulty: c.difficulty,
-			// Resolve 'auto' here: the cache can't see the campaign's participants later.
 			playerCount: resolvePlayerCount(c.playerCount, c.participants.length),
 			finishDate: c.finishDate,
 			startDate: c.startDate,
-			draft: c.draft,
+			draft: c.draft
 		}));
 
 	const calendar: CalendarEntry[] = [];
@@ -366,7 +349,7 @@ function buildMetaSegment(
 			difficulty: c.difficulty,
 			date: finish ?? start,
 			dateKind: finish !== null ? 'finish' : start !== null ? 'start' : null,
-			state: playClearState(log, recorded, scenarioChoicesFromLogs(localLogs)),
+			state: playClearState(log, recorded, scenarioChoicesFromLogs(localLogs))
 		});
 	}
 	calendar.sort((a, b) => (a.date ?? Infinity) - (b.date ?? Infinity));
@@ -374,62 +357,41 @@ function buildMetaSegment(
 	return { campaigns, calendar };
 }
 
-/** logs: lifetime aggregates derived from recorded logs + manual ticks. */
-function buildLogsSegment(
-	doc: DatabaseDocument,
-	uids: Set<string> | null,
-	ownedProducts: Product[] | null,
-	trackedCampaignGroups: CampaignGroup[],
-	trackedTiers: DifficultyTier[],
-	mergeReturnTo: boolean,
-	hideReturnTo: boolean,
-): LogsSegmentData {
-	// The single "which plays count" gate: every aggregate below inherits it (totals AND
-	// per-difficulty breakdowns), so no widget needs to know about tier/group tracking.
-	const records = filterTrackedRecords(subjectRecords(doc, uids), trackedTiers, trackedCampaignGroups);
-	// Solo clear grids: same per-family×tier grid as the main one, but folding in only
-	// 1-player plays — every solo play for "Solo Campaign Clears", and only the true-solo
-	// (not multi-handed) subset for "True Solo Campaign Clears".
+function buildLogsSegment(doc: DatabaseDocument, scope: ProfileScope): LogsSegment {
+	const { ownedProducts, trackedGroups, mergeReturnTo, hideReturnTo } = scope;
+	const records = filterTrackedRecords(
+		subjectRecords(doc, scope.uids),
+		scope.trackedTiers,
+		trackedGroups
+	);
 	const soloRecords = records.filter((r) => r.playerCount === 1);
 	const trueSoloRecords = soloRecords.filter((r) => !r.multiHanded);
+	const clearGrid = (recs: CampaignRecord[]) =>
+		buildFullClearGrid(recs, ownedProducts, trackedGroups, mergeReturnTo, hideReturnTo);
 	return {
 		achievements: records.length
 			? buildAchievementsData(records)
 			: { families: [], custom: [], coverage: [] },
-		clearGrid: buildFullClearGrid(records, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
-		soloClearGrid: buildFullClearGrid(soloRecords, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
-		trueSoloClearGrid: buildFullClearGrid(trueSoloRecords, ownedProducts, trackedCampaignGroups, mergeReturnTo, hideReturnTo),
+		clearGrid: clearGrid(records),
+		soloClearGrid: clearGrid(soloRecords),
+		trueSoloClearGrid: clearGrid(trueSoloRecords),
 		winLossRecord: buildWinLossRecord(records, mergeReturnTo, hideReturnTo),
 		endings: buildEndings(records, mergeReturnTo),
 		collections: buildCollections(records, mergeReturnTo),
 		scenarios: buildScenarioStats(records, mergeReturnTo),
 		standaloneUsage: buildStandaloneUsage(records, mergeReturnTo),
-		// First-class Standalone Archives — a SEPARATE record array, so campaign builders
-		// above never see them (and aren't tier/group-filtered: standalones are their own dimension).
-		// Card XP map built from the already-cached getAllCards() (cheap; only runs on rebuild).
+		// Standalone archives are not tier/group filtered.
 		standalones: buildStandaloneArchives(
-			subjectStandaloneRecords(doc, uids),
-			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0])),
+			doc.standalones.filter((s) => campaignInSubject(s, scope.uids)),
+			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0]))
 		),
 		traumaTally: buildTraumaTally(records, mergeReturnTo),
-		eoe: buildEoe(records),
-		tsk: buildTsk(records),
-		dwl: buildDwl(records, mergeReturnTo),
-		ptc: buildPtc(records, mergeReturnTo),
-		tfa: buildTfa(records, mergeReturnTo),
-		tcu: buildTcu(records, mergeReturnTo),
-		tdea: buildTdea(records),
-		tdeb: buildTdeb(records),
-		tic: buildTic(records),
-		fhv: buildFhv(records),
-		tdc: buildTdc(records),
-		notz: buildNotz(records, undefined, mergeReturnTo),
-		specialInteractions: buildSpecialInteractions(records, mergeReturnTo),
+		bespoke: buildBespoke(records, { mergeReturnTo }),
+		specialInteractions: buildSpecialInteractions(records, mergeReturnTo)
 	};
 }
 
-/** Memoized investigator-code → class/traits lookup for special-interaction roster
- *  matching (built once from the bundled card data). */
+/** Investigator code → classes/traits, for special-interaction roster matching. */
 let cardLookupCache: CardLookup | null = null;
 function cardClassTraitLookup(): CardLookup {
 	if (!cardLookupCache) {
@@ -445,37 +407,93 @@ function cardClassTraitLookup(): CardLookup {
 	return cardLookupCache;
 }
 
-/** cards: player-card usage + investigator stats from the subject's decks
- *  (contributing, non-draft campaigns; in-play = main + ignore-limit, never side). */
-function buildCardsSegment(doc: DatabaseDocument, uids: Set<string> | null): CardsSegmentData {
-	const cardUsage: Record<CardCode, number> = {};
-	const playedInPlay = new Set<CardCode>();
-	const invMap = new Map<CardCode, { count: number; options: Set<string> }>();
-	// Per-campaign investigator codes — the join target for per-investigator trauma
-	// attribution at assembly time (deck-derived, so it belongs in this segment).
-	const investigatorsByCampaign: Record<string, CardCode[]> = {};
-	// The deck context (investigator + campaign) the LAST time we counted each code.
-	// Kept only for codes whose final count is 1 (used in exactly one deck) → usedOnceRaw.
-	const lastCtx = new Map<CardCode, { investigator: CardCode; campaignId: string }>();
-	// Specialist (trait-restricted) card code → the distinct investigators whose decks used it.
-	const specialistCodes = specialistCodeSet();
-	const specialistInv = new Map<CardCode, Set<CardCode>>();
-	// Per-deck spotlight-card quantities for the neutral-card insight widgets.
-	const insightCodes = insightTrackedCodeSet();
-	const insightDecks: InsightDeck[] = [];
-	// The four core neutral cantrips, each as its set of printing codes — for the per-version
-	// "most distinct cantrips at once" count (the diversity rows need single-version, not union).
-	const cantripGroups = coreCantripCards().map((s) => s.codes);
-	// Every deck in the subject — the denominator for "% of decks" insights whose card any
-	// investigator can include (e.g. Charisma & Relic Hunter, usable by all).
-	let totalDecks = 0;
-	// Deckbuilding questions every deck is run through (Vicious Blow & Deduction): can this
-	// investigator+meta include the card; did it run any printing at some point; and did it
-	// drop every printing by the final version (removed, not upgraded)? Cards resolved once so
-	// the per-deck loop only does the canUse / membership checks.
+/** One deck version's in-play entries: main slots, then ignore-deck-limit slots (never side). */
+interface VersionSlots {
+	sequenceIndex: number;
+	entries: [CardCode, number][];
+	/** ArkhamDB deck meta, a JSON string of `{ cus_<code>: "optIdx|checked,…" }`. */
+	meta?: string;
+}
+
+/** Each version parsed once; unparsable versions are skipped. */
+function parseVersions(deck: DeckRecord): VersionSlots[] {
+	const out: VersionSlots[] = [];
+	for (const v of deck.versions) {
+		let ahdb: AhdbSlots;
+		try {
+			ahdb = JSON.parse(v.ahdbJson) as AhdbSlots;
+		} catch {
+			continue;
+		}
+		out.push({
+			sequenceIndex: v.sequenceIndex,
+			entries: [
+				...Object.entries(ahdb.slots ?? {}),
+				...Object.entries(ahdb.ignoreDeckLimitSlots ?? {})
+			],
+			meta: ahdb.meta
+		});
+	}
+	return out;
+}
+
+/** What a deck chain put in play across all its versions. */
+interface ChainFootprint {
+	inPlay: Set<CardCode>;
+	/** The highest-`sequenceIndex` version's codes. */
+	finalCodes: Set<CardCode>;
+	/** Max copies of each spotlight-tracked card in any version. */
+	insightSlots: Record<CardCode, number>;
+	/** Most distinct core cantrips in a single version. */
+	cantripMax: number;
+	/** The last version's deck meta (faction selections etc.). */
+	meta: string | undefined;
+}
+
+function chainFootprint(
+	versions: VersionSlots[],
+	insightCodes: Set<CardCode>,
+	cantripGroups: CardCode[][]
+): ChainFootprint {
+	const fp: ChainFootprint = {
+		inPlay: new Set(),
+		finalCodes: new Set(),
+		insightSlots: {},
+		cantripMax: 0,
+		meta: undefined
+	};
+	let finalSeq = -1;
+	for (const v of versions) {
+		if (v.meta) fp.meta = v.meta;
+		const codes = new Set<CardCode>();
+		for (const [code, qty] of v.entries) {
+			fp.inPlay.add(code);
+			codes.add(code);
+			if (insightCodes.has(code)) fp.insightSlots[code] = Math.max(fp.insightSlots[code] ?? 0, qty);
+		}
+		if (v.sequenceIndex >= finalSeq) {
+			finalSeq = v.sequenceIndex;
+			fp.finalCodes = codes;
+		}
+		const cantrips = cantripGroups.filter((group) => group.some((c) => codes.has(c))).length;
+		fp.cantripMax = Math.max(fp.cantripMax, cantrips);
+	}
+	return fp;
+}
+
+/** Up to three distinct investigators kept per bucket. */
+function addCapped(set: Set<CardCode>, code: CardCode): void {
+	if (set.size < 3) set.add(code);
+}
+
+/**
+ * Vicious Blow & Deduction: could each deck's investigator+meta include the card, did it run any
+ * printing, and did its final version drop every printing (removed rather than upgraded)?
+ */
+function eligibilityAccumulator() {
 	const cardByCode = cardsByCode();
 	const resolver = createCardResolver();
-	const eligibilityAcc = viciousBlowDeductionEligibility().map((t) => ({
+	const targets = viciousBlowDeductionEligibility().map((t) => ({
 		id: t.id,
 		cards: t.eligibilityCodes
 			.map((code) => cardByCode.get(code))
@@ -488,270 +506,237 @@ function buildCardsSegment(doc: DatabaseDocument, uids: Set<string> | null): Car
 		notUsedInvestigators: new Set<CardCode>(),
 		removed: 0,
 		removedInvestigators: new Set<CardCode>(),
-		neverRemovedInvestigators: new Set<CardCode>(),
+		neverRemovedInvestigators: new Set<CardCode>()
 	}));
-	// Charisma → allies, Relic Hunter → accessories: per-deck best slotted version; plus
-	// per-customizable-card level/option tallies (parsed from deck meta).
-	const charismaRelic = charismaRelicCards();
-	const charismaCodes = charismaRelic.find((s) => s.name === 'Charisma')?.codes ?? [];
-	const relicCodes = charismaRelic.find((s) => s.name === 'Relic Hunter')?.codes ?? [];
-	const allyCodes = allySlotCodeSet();
-	const accessoryCodes = accessorySlotCodeSet();
-	const custOptXp = customizableOptionXp();
-	const charismaTopDecks: DeckTopEntry[] = [];
-	const relicTopDecks: DeckTopEntry[] = [];
-	const customizableUsage: CustomizableUsage = {};
-	// Per (customizable card # option index) → each activation's investigator + campaign date;
-	// folded after the loop into each option's count + 3 most-recent distinct investigators.
-	const custOptEvents = new Map<string, { inv: CardCode; date: number }[]>();
+	return {
+		add(investigatorCode: CardCode, chain: ChainFootprint): void {
+			const investigatorCard = cardByCode.get(investigatorCode);
+			if (!targets.length || !investigatorCard) return;
+			let meta: DecodedMeta = {};
+			try {
+				if (chain.meta) meta = decodeMeta(chain.meta, resolver);
+			} catch {
+				meta = {};
+			}
+			const inv = canonInvestigatorCode(investigatorCode);
+			for (const t of targets) {
+				if (!t.cards.some((cd) => cardUtils.canUse(investigatorCard, meta, cd))) continue;
+				t.canUse++;
+				if (!t.usedCodes.some((code) => chain.inPlay.has(code))) {
+					t.notUsed++;
+					addCapped(t.notUsedInvestigators, inv);
+					continue;
+				}
+				t.used++;
+				addCapped(t.usedInvestigators, inv);
+				if (t.usedCodes.some((code) => chain.finalCodes.has(code))) {
+					addCapped(t.neverRemovedInvestigators, inv);
+				} else {
+					t.removed++;
+					addCapped(t.removedInvestigators, inv);
+				}
+			}
+		},
+		result(): Record<string, EligibilityInsight> {
+			const out: Record<string, EligibilityInsight> = {};
+			for (const t of targets) {
+				out[t.id] = {
+					canUse: t.canUse,
+					used: t.used,
+					usedInvestigators: [...t.usedInvestigators],
+					notUsed: t.notUsed,
+					notUsedInvestigators: [...t.notUsedInvestigators],
+					removed: t.removed,
+					removedInvestigators: [...t.removedInvestigators],
+					neverRemovedInvestigators: [...t.neverRemovedInvestigators]
+				};
+			}
+			return out;
+		}
+	};
+}
 
-	// Card + investigator usage spans BOTH campaign and standalone-mode decks — a card
-	// you played is a card you played, regardless of mode. (Campaign-only stats live in
-	// the logs/meta segments, which never see standalone records.) usedOnce context that
-	// lands on a standalone id is simply skipped at assembly (resolveUsedOnce).
-	for (const c of [...doc.campaigns, ...(doc.standalones ?? [])]) {
+/** Charisma → allies and Relic Hunter → accessories: each deck's best-slotted version. */
+function spotlightAccumulator() {
+	const sets = charismaRelicCards();
+	const categories = [
+		{
+			trigger: sets.find((s) => s.name === 'Charisma')?.codes ?? [],
+			slot: allySlotCodeSet(),
+			top: [] as DeckTopEntry[]
+		},
+		{
+			trigger: sets.find((s) => s.name === 'Relic Hunter')?.codes ?? [],
+			slot: accessorySlotCodeSet(),
+			top: [] as DeckTopEntry[]
+		}
+	];
+	return {
+		add(investigatorCode: CardCode, versions: VersionSlots[]): void {
+			for (const cat of categories) {
+				let best: { total: number; count: number; cards: Record<CardCode, number> } | null = null;
+				for (const v of versions) {
+					const qty: Record<CardCode, number> = {};
+					for (const [code, n] of v.entries) qty[code] = (qty[code] ?? 0) + n;
+					const count = Math.max(0, ...cat.trigger.map((c) => qty[c] ?? 0));
+					if (count < 1) continue;
+					let total = 0;
+					const cards: Record<CardCode, number> = {};
+					for (const [code, n] of Object.entries(qty)) {
+						if (!cat.slot.has(code)) continue;
+						cards[code] = n;
+						total += n;
+					}
+					if (!best || total > best.total) best = { total, count, cards };
+				}
+				if (best) {
+					cat.top.push({
+						inv: investigatorCode,
+						count: best.count,
+						total: best.total,
+						cards: Object.entries(best.cards).map(([code, qty]) => ({ code, qty }))
+					});
+				}
+			}
+		},
+		charismaTopDecks: categories[0].top,
+		relicTopDecks: categories[1].top
+	};
+}
+
+/**
+ * Customizable cards: each deck's max-ticked state per card (level 0 when included but never
+ * customized), and per option its activation count plus the three most recent investigators.
+ */
+function customizableAccumulator() {
+	const optionXp = customizableOptionXp();
+	const usage: CustomizableUsage = {};
+	/** `${code}#${optionIndex}` → each activation's investigator and campaign date. */
+	const events = new Map<string, { inv: CardCode; date: number }[]>();
+	return {
+		add(
+			investigatorCode: CardCode,
+			versions: VersionSlots[],
+			inPlay: Set<CardCode>,
+			date: number
+		): void {
+			const maxTicked = new Map<CardCode, { total: number; opts: Record<number, number> }>();
+			for (const v of versions) {
+				let meta: Record<string, unknown> | null = null;
+				try {
+					meta = v.meta ? (JSON.parse(v.meta) as Record<string, unknown>) : null;
+				} catch {
+					meta = null;
+				}
+				for (const [key, value] of Object.entries(meta ?? {})) {
+					if (!key.startsWith('cus_') || typeof value !== 'string') continue;
+					const code = key.slice(4);
+					if (!optionXp[code]) continue;
+					const opts: Record<number, number> = {};
+					let total = 0;
+					for (const seg of value.split(',')) {
+						const [idx, checked] = seg.split('|').map((x) => parseInt(x, 10));
+						if (Number.isFinite(idx) && Number.isFinite(checked) && checked > 0) {
+							opts[idx] = checked;
+							total += checked;
+						}
+					}
+					const prev = maxTicked.get(code);
+					if (!prev || total > prev.total) maxTicked.set(code, { total, opts });
+				}
+			}
+			for (const code of inPlay) {
+				const xp = optionXp[code];
+				if (!xp) continue;
+				const u = (usage[code] ??= { levels: {}, options: {} });
+				const ticked = maxTicked.get(code);
+				const level = ticked ? Math.ceil(ticked.total / 2) : 0;
+				u.levels[level] = (u.levels[level] ?? 0) + 1;
+				for (const [idx, checked] of Object.entries(ticked?.opts ?? {})) {
+					if (checked < (xp[Number(idx)] ?? Infinity)) continue;
+					const key = `${code}#${idx}`;
+					const list = events.get(key) ?? [];
+					list.push({ inv: investigatorCode, date });
+					events.set(key, list);
+				}
+			}
+		},
+		result(): CustomizableUsage {
+			for (const [key, list] of events) {
+				const hash = key.indexOf('#');
+				const u = usage[key.slice(0, hash)];
+				if (!u) continue;
+				list.sort((a, b) => b.date - a.date);
+				const recent = [...new Set(list.map((e) => e.inv))].slice(0, 3);
+				u.options[key.slice(hash + 1)] = { count: list.length, recent };
+			}
+			return usage;
+		}
+	};
+}
+
+/** Player-card usage and investigator stats from the subject's non-draft decks. */
+function buildCardsSegment(doc: DatabaseDocument, uids: Set<string> | null): CardsSegment {
+	const cardUsage: Record<CardCode, number> = {};
+	const playedInPlay = new Set<CardCode>();
+	const invMap = new Map<CardCode, { count: number; options: Set<string> }>();
+	const investigatorsByCampaign: Record<string, CardCode[]> = {};
+	/** The last deck that counted each code; kept only where the final count is 1. */
+	const lastCtx = new Map<CardCode, UsedOnceContext>();
+	const specialistCodes = specialistCodeSet();
+	const specialistInv = new Map<CardCode, Set<CardCode>>();
+	const insightCodes = insightTrackedCodeSet();
+	const cantripGroups = coreCantripCards().map((s) => s.codes);
+	const insightDecks: InsightDeck[] = [];
+	const eligibility = eligibilityAccumulator();
+	const spotlight = spotlightAccumulator();
+	const customizable = customizableAccumulator();
+	let totalDecks = 0;
+
+	// A card played is a card played: standalone decks count too. A used-once context that
+	// lands on a standalone is dropped at assembly.
+	for (const c of allRecords(doc)) {
 		if (c.draft || !campaignInSubject(c, uids)) continue;
 		const campaignInvs = subjectInvestigators(c, uids);
 		if (campaignInvs.length) investigatorsByCampaign[c.id] = campaignInvs;
 		for (const deck of c.decks) {
 			if (!deckInSubject(deck.ownerUid, uids)) continue;
 			totalDecks++;
-			const chainInPlay = new Set<CardCode>();
-				// Max copies of each tracked spotlight card across this deck's versions.
-				const insightSlots: Record<CardCode, number> = {};
-			// The deck's build meta (faction selections etc.) — last version that carries it;
-			// stable across the upgrade chain, and the input the eligibility check needs.
-			let lastMetaStr: string | undefined;
-			// The card codes in the FINAL version of the chain (highest sequenceIndex) — lets the
-			// eligibility pass tell "removed (and not upgraded)" from "still in the deck".
-			let finalVersionCodes = new Set<CardCode>();
-			let finalSeq = -1;
-			// Most distinct core cantrips present in any SINGLE version (per-version, not union).
-			let cantripMax = 0;
-			for (const v of deck.versions) {
-				let ahdb: AhdbSlots;
-				try {
-					ahdb = JSON.parse(v.ahdbJson) as AhdbSlots;
-				} catch {
-					continue;
-				}
-				if (ahdb.meta) lastMetaStr = ahdb.meta;
-				const versionCodes = new Set<CardCode>();
-				for (const slots of [ahdb.slots, ahdb.ignoreDeckLimitSlots]) {
-					for (const [code, qty] of Object.entries(slots ?? {})) {
-						chainInPlay.add(code);
-						versionCodes.add(code);
-						playedInPlay.add(code); if (insightCodes.has(code)) insightSlots[code] = Math.max(insightSlots[code] ?? 0, qty);
-					}
-				}
-				if (v.sequenceIndex >= finalSeq) {
-					finalSeq = v.sequenceIndex;
-					finalVersionCodes = versionCodes;
-				}
-				const cantripsHere = cantripGroups.filter((codes) =>
-					codes.some((c) => versionCodes.has(c)),
-				).length;
-				if (cantripsHere > cantripMax) cantripMax = cantripsHere;
+			const inv = deck.investigator.investigatorCode;
+			const versions = parseVersions(deck);
+			const chain = chainFootprint(versions, insightCodes, cantripGroups);
+			if (Object.keys(chain.insightSlots).length) {
+				insightDecks.push({ inv, slots: chain.insightSlots, cantripMax: chain.cantripMax });
 			}
-			if (Object.keys(insightSlots).length) insightDecks.push({ inv: deck.investigator.investigatorCode, slots: insightSlots, cantripMax }); for (const code of chainInPlay) {
+			for (const code of chain.inPlay) {
+				playedInPlay.add(code);
 				cardUsage[code] = (cardUsage[code] ?? 0) + 1;
-				// Remember this deck's context for the code; only survives if count ends at 1.
-				lastCtx.set(code, { investigator: deck.investigator.investigatorCode, campaignId: c.id });
-				// Specialist cards: attribute this code to the deck's investigator.
+				lastCtx.set(code, { investigator: inv, campaignId: c.id });
 				if (specialistCodes.has(code)) {
-					let s = specialistInv.get(code);
-					if (!s) specialistInv.set(code, (s = new Set<CardCode>()));
-					s.add(deck.investigator.investigatorCode);
+					const users = specialistInv.get(code) ?? new Set<CardCode>();
+					users.add(inv);
+					specialistInv.set(code, users);
 				}
 			}
+			eligibility.add(inv, chain);
+			spotlight.add(inv, versions);
+			customizable.add(inv, versions, chain.inPlay, c.finishDate ?? c.startDate ?? 0);
 
-			// Deckbuilding questions: run this deck through each target — could its
-			// investigator+meta include the card; did it run any printing across the chain; and
-			// (of those) was every printing gone from the final version (removed, not upgraded)?
-			if (eligibilityAcc.length) {
-				const investigatorCard = cardByCode.get(deck.investigator.investigatorCode);
-				if (investigatorCard) {
-					let meta: DecodedMeta = {};
-					if (lastMetaStr) {
-						try {
-							meta = decodeMeta(lastMetaStr, resolver);
-						} catch {
-							meta = {};
-						}
-					}
-					const invCanon = canonInvestigatorCode(deck.investigator.investigatorCode);
-					for (const e of eligibilityAcc) {
-						if (!e.cards.some((cd) => cardUtils.canUse(investigatorCard, meta, cd))) continue;
-						e.canUse++;
-						if (!e.usedCodes.some((code) => chainInPlay.has(code))) {
-							// Eligible but never ran any printing.
-							e.notUsed++;
-							if (e.notUsedInvestigators.size < 3) e.notUsedInvestigators.add(invCanon);
-							continue;
-						}
-						e.used++;
-						if (e.usedInvestigators.size < 3) e.usedInvestigators.add(invCanon);
-						// Ran it at some point: did the final version keep a printing (still in the
-						// deck) or drop every printing (removed, neither L0 nor L2 → not upgraded)?
-						if (e.usedCodes.some((code) => finalVersionCodes.has(code))) {
-							if (e.neverRemovedInvestigators.size < 3)
-								e.neverRemovedInvestigators.add(invCanon);
-						} else {
-							e.removed++;
-							if (e.removedInvestigators.size < 3) e.removedInvestigators.add(invCanon);
-						}
-					}
-				}
-			}
-
-			// Spotlight (Charisma → allies / Relic Hunter → accessories) + customizable
-			// analysis: scan each version, keep the best-slotted version per category and
-			// each customizable card's max-ticked state, then fold into the tallies.
-			{
-				let bestCharisma: { total: number; count: number; cards: Record<CardCode, number> } | null =
-					null;
-				let bestRelic: { total: number; count: number; cards: Record<CardCode, number> } | null =
-					null;
-				const custMax = new Map<CardCode, { total: number; opts: Record<number, number> }>();
-				for (const v of deck.versions) {
-					let ahdb: AhdbSlots;
-					try {
-						ahdb = JSON.parse(v.ahdbJson) as AhdbSlots;
-					} catch {
-						continue;
-					}
-					const vslots: Record<CardCode, number> = {};
-					for (const slots of [ahdb.slots, ahdb.ignoreDeckLimitSlots])
-						for (const [code, qty] of Object.entries(slots ?? {}))
-							vslots[code] = (vslots[code] ?? 0) + qty;
-					const charismaQty = Math.max(0, ...charismaCodes.map((c) => vslots[c] ?? 0));
-					const relicQty = Math.max(0, ...relicCodes.map((c) => vslots[c] ?? 0));
-					let allyTotal = 0;
-					let accTotal = 0;
-					const allyCards: Record<CardCode, number> = {};
-					const accCards: Record<CardCode, number> = {};
-					for (const [code, qty] of Object.entries(vslots)) {
-						if (allyCodes.has(code)) {
-							allyCards[code] = qty;
-							allyTotal += qty;
-						}
-						if (accessoryCodes.has(code)) {
-							accCards[code] = qty;
-							accTotal += qty;
-						}
-					}
-					if (charismaQty >= 1 && (!bestCharisma || allyTotal > bestCharisma.total))
-						bestCharisma = { total: allyTotal, count: charismaQty, cards: allyCards };
-					if (relicQty >= 1 && (!bestRelic || accTotal > bestRelic.total))
-						bestRelic = { total: accTotal, count: relicQty, cards: accCards };
-					// Customizable: keep each card's max-ticked version (its final state).
-					let metaObj: Record<string, unknown> | null = null;
-					try {
-						metaObj = ahdb.meta ? (JSON.parse(ahdb.meta) as Record<string, unknown>) : null;
-					} catch {
-						metaObj = null;
-					}
-					if (metaObj)
-						for (const [k, val] of Object.entries(metaObj)) {
-							if (!k.startsWith('cus_') || typeof val !== 'string') continue;
-							const code = k.slice(4);
-							if (!custOptXp[code]) continue;
-							const opts: Record<number, number> = {};
-							let total = 0;
-							for (const seg of val.split(',')) {
-								const parts = seg.split('|');
-								const idx = parseInt(parts[0], 10);
-								const checked = parseInt(parts[1], 10);
-								if (Number.isFinite(idx) && Number.isFinite(checked) && checked > 0) {
-									opts[idx] = checked;
-									total += checked;
-								}
-							}
-							const prev = custMax.get(code);
-							if (!prev || total > prev.total) custMax.set(code, { total, opts });
-						}
-				}
-				const invCode = deck.investigator.investigatorCode;
-				if (bestCharisma)
-					charismaTopDecks.push({
-						inv: invCode,
-						count: bestCharisma.count,
-						total: bestCharisma.total,
-						cards: Object.entries(bestCharisma.cards).map(([code, qty]) => ({ code, qty })),
-					});
-				if (bestRelic)
-					relicTopDecks.push({
-						inv: invCode,
-						count: bestRelic.count,
-						total: bestRelic.total,
-						cards: Object.entries(bestRelic.cards).map(([code, qty]) => ({ code, qty })),
-					});
-				// Record EVERY customizable card the deck ran (from its card list), at its
-				// max-ticked level — level 0 when included but never customized (so L0 lights).
-				for (const code of chainInPlay) {
-					const xp = custOptXp[code];
-					if (!xp) continue; // not a customizable card
-					const u = (customizableUsage[code] ??= { levels: {}, options: {} });
-					const m = custMax.get(code);
-					const level = m ? Math.ceil(m.total / 2) : 0;
-					u.levels[level] = (u.levels[level] ?? 0) + 1;
-					if (m)
-						for (const [idxStr, checked] of Object.entries(m.opts))
-							if (checked >= (xp[Number(idxStr)] ?? Infinity))
-							{ const key = `${code}#${idxStr}`; let ev = custOptEvents.get(key); if (!ev) custOptEvents.set(key, (ev = [])); ev.push({ inv: deck.investigator.investigatorCode, date: c.finishDate ?? c.startDate ?? 0 }); }
-				}
-			}
-
-			const inv = deck.investigator;
-			let e = invMap.get(inv.investigatorCode);
-			if (!e) {
-				e = { count: 0, options: new Set<string>() };
-				invMap.set(inv.investigatorCode, e);
-			}
-			e.count += 1;
-			const sig = optionSignature(inv);
-			if (sig) e.options.add(sig);
+			const stat = invMap.get(inv) ?? { count: 0, options: new Set<string>() };
+			stat.count++;
+			const sig = optionSignature(deck.investigator);
+			if (sig) stat.options.add(sig);
+			invMap.set(inv, stat);
 		}
 	}
 
 	const investigators: InvestigatorStat[] = [...invMap.entries()]
 		.map(([code, e]) => ({ code, count: e.count, options: [...e.options].sort() }))
 		.sort((a, b) => b.count - a.count);
-	// Keep context only for cards present in exactly one deck (raw count 1). The
-	// canon fold + campaign join happens at assembly (which has the campaigns list).
-	const usedOnceRaw: Record<CardCode, { investigator: CardCode; campaignId: string }> = {};
+	const usedOnceRaw: Record<CardCode, UsedOnceContext> = {};
 	for (const [code, ctx] of lastCtx) if (cardUsage[code] === 1) usedOnceRaw[code] = ctx;
 	const specialistUsage: Record<CardCode, CardCode[]> = {};
-	for (const [code, s] of specialistInv) specialistUsage[code] = [...s].sort();
-	const eligibilityInsights: Record<string, EligibilityInsight> = {};
-	for (const e of eligibilityAcc)
-		eligibilityInsights[e.id] = {
-			canUse: e.canUse,
-			used: e.used,
-			usedInvestigators: [...e.usedInvestigators],
-			notUsed: e.notUsed,
-			notUsedInvestigators: [...e.notUsedInvestigators],
-			removed: e.removed,
-			removedInvestigators: [...e.removedInvestigators],
-			neverRemovedInvestigators: [...e.neverRemovedInvestigators],
-		};
-	// Fold per-option activation events into each customizable card's options: total count
-	// + up to 3 most-recent (by campaign date) distinct investigators.
-	for (const [key, events] of custOptEvents) {
-		const hash = key.indexOf('#');
-		const u = customizableUsage[key.slice(0, hash)];
-		if (!u) continue;
-		events.sort((a, b) => b.date - a.date);
-		const recent: CardCode[] = [];
-		const seen = new Set<string>();
-		for (const e of events) {
-			if (seen.has(e.inv)) continue;
-			seen.add(e.inv);
-			recent.push(e.inv);
-			if (recent.length >= 3) break;
-		}
-		u.options[key.slice(hash + 1)] = { count: events.length, recent };
-	}
+	for (const [code, users] of specialistInv) specialistUsage[code] = [...users].sort();
 	return {
 		cardUsage,
 		investigators,
@@ -760,17 +745,17 @@ function buildCardsSegment(doc: DatabaseDocument, uids: Set<string> | null): Car
 		usedOnceRaw,
 		specialistUsage,
 		insightDecks,
-		eligibilityInsights,
+		eligibilityInsights: eligibility.result(),
 		totalDecks,
-		charismaTopDecks,
-		relicTopDecks,
-		customizableUsage,
+		charismaTopDecks: spotlight.charismaTopDecks,
+		relicTopDecks: spotlight.relicTopDecks,
+		customizableUsage: customizable.result()
 	};
 }
 
 // ─── Signatures (cheap change-detection for the cache) ────────────────────────
 
-/** FNV-1a 32-bit → base36; fast and good enough to detect input changes. */
+/** FNV-1a 32-bit, base36. */
 function hashString(s: string): string {
 	let h = 0x811c9dc5;
 	for (let i = 0; i < s.length; i++) {
@@ -781,40 +766,50 @@ function hashString(s: string): string {
 }
 
 function logsToken(c: DocCampaign): string {
-	return c.logs.map((e) => `${e.key}|${e.section}|${e.args.map((a) => `${a.type}:${a.value}`).join('~')}`).join(';');
+	return c.logs
+		.map((e) => `${e.key}|${e.section}|${e.args.map((a) => `${a.type}:${a.value}`).join('~')}`)
+		.join(';');
 }
 
-function metaSig(doc: DatabaseDocument, uids: Set<string> | null, defaultViz: 'visible' | 'hidden', trackedTiers: DifficultyTier[], trackedGroups: CampaignGroup[]): string {
-	// The account default + tracked tiers/groups gate which campaigns appear, so they are inputs.
+function metaSig(doc: DatabaseDocument, scope: ProfileScope): string {
+	const { uids, defaultViz, trackedTiers, trackedGroups } = scope;
 	const parts: string[] = [
 		defaultViz,
 		[...trackedTiers].sort().join(','),
-		[...trackedGroups].sort().join(','),
+		[...trackedGroups].sort().join(',')
 	];
 	for (const c of doc.campaigns) {
 		if (!c.campaignCode || !getCampaignLog(c.campaignCode) || !campaignInSubject(c, uids)) continue;
-		const pids = c.participants.map((p) => p.uid).sort().join(',');
-		// logs included: each calendar entry's clear `state` is log-derived.
-		// displayInProfile included: it gates the campaign's existence in this segment.
+		const pids = c.participants
+			.map((p) => p.uid)
+			.sort()
+			.join(',');
 		parts.push(
 			[
-				c.id, c.title, c.difficulty, c.campaignCode, c.startDate, c.finishDate, c.draft,
-				c.displayInProfile ?? 'default', c.playerCount ?? 'auto', pids, logsToken(c),
-			].join('§'),
+				c.id,
+				c.title,
+				c.difficulty,
+				c.campaignCode,
+				c.startDate,
+				c.finishDate,
+				c.draft,
+				c.displayInProfile ?? 'default',
+				c.playerCount ?? 'auto',
+				pids,
+				logsToken(c)
+			].join('§')
 		);
 	}
 	return hashString(parts.join('¶'));
 }
 
-function logsSig(doc: DatabaseDocument, uids: Set<string> | null, ownedProducts: Product[] | null, trackedCampaignGroups: CampaignGroup[], trackedTiers: DifficultyTier[], mergeReturnTo: boolean, hideReturnTo: boolean): string {
-	// The whole logs segment is scoped by owned products + tracked campaign groups + tracked tiers
-	// (records outside a tracked tier/group are filtered out before every aggregate), plus the
-	// Return-to merge settings (they change which families each play folds into).
+function logsSig(doc: DatabaseDocument, scope: ProfileScope): string {
+	const { uids, ownedProducts, trackedGroups, trackedTiers, mergeReturnTo, hideReturnTo } = scope;
 	const parts: string[] = [
 		ownedProducts === null ? 'ALL' : [...ownedProducts].sort().join(','),
-		[...trackedCampaignGroups].sort().join(','),
+		[...trackedGroups].sort().join(','),
 		[...trackedTiers].sort().join(','),
-		`merge:${mergeReturnTo ? 1 : 0}:${hideReturnTo ? 1 : 0}`,
+		`merge:${mergeReturnTo ? 1 : 0}:${hideReturnTo ? 1 : 0}`
 	];
 	for (const c of doc.campaigns) {
 		if (!c.campaignCode || !getCampaignLog(c.campaignCode) || !campaignInSubject(c, uids)) continue;
@@ -822,33 +817,43 @@ function logsSig(doc: DatabaseDocument, uids: Set<string> | null, ownedProducts:
 			.map((a) => `${a.achievementId}/${a.itemId ?? ''}`)
 			.sort()
 			.join(',');
-		// Everything `recordFor` reads: logs, manual ticks, the player-count settings that gate
-		// the solo clear grids, the finish date, the Linked Campaign Log, and the decks' owner +
-		// investigator (subject scoping / core-only detection).
-		const linked = (c.linkedLog ?? []).map((e) => e.key).sort().join(',');
-		const decks = c.decks.map((d) => `${d.ownerUid ?? ''}:${d.investigator.investigatorCode}`).join(',');
+		// Everything `recordFor` reads.
+		const linked = (c.linkedLog ?? [])
+			.map((e) => e.key)
+			.sort()
+			.join(',');
+		const decks = c.decks
+			.map((d) => `${d.ownerUid ?? ''}:${d.investigator.investigatorCode}`)
+			.join(',');
 		parts.push(
 			[
-				c.id, c.campaignCode, c.difficulty, c.playerCount ?? 'auto', c.multiHanded ?? false,
-				c.finishDate ?? '', linked, decks, logsToken(c), manual,
-			].join('§'),
+				c.id,
+				c.campaignCode,
+				c.difficulty,
+				c.playerCount ?? 'auto',
+				c.multiHanded ?? false,
+				c.finishDate ?? '',
+				linked,
+				decks,
+				logsToken(c),
+				manual
+			].join('§')
 		);
 	}
-	// Standalone archives feed the logs segment's `standalones` aggregate — fold in their
-	// logs (resolution / score) AND decks (the XP-range tier) so any edit rebuilds it.
-	for (const s of doc.standalones ?? []) {
+	// The standalone aggregate reads their logs and decks (XP-range tier).
+	for (const s of doc.standalones) {
 		if (!campaignInSubject(s, uids)) continue;
 		const decks = s.decks.map((d) => d.versions.map((v) => v.ahdbJson).join('~')).join('|');
-		parts.push(['SA', s.id, s.scenario, s.campaignCode, s.difficulty, logsToken(s), decks].join('§'));
+		parts.push(
+			['SA', s.id, s.scenario, s.campaignCode, s.difficulty, logsToken(s), decks].join('§')
+		);
 	}
 	return hashString(parts.join('¶'));
 }
 
 function cardsSig(doc: DatabaseDocument, uids: Set<string> | null): string {
 	const parts: string[] = [];
-	// Card/investigator usage spans campaign AND standalone decks (see buildCardsSegment),
-	// so a standalone deck edit must invalidate this segment too.
-	for (const c of [...doc.campaigns, ...(doc.standalones ?? [])]) {
+	for (const c of allRecords(doc)) {
 		if (c.draft || !campaignInSubject(c, uids)) continue;
 		for (const d of c.decks) {
 			if (!deckInSubject(d.ownerUid, uids)) continue;
@@ -865,73 +870,57 @@ function cardsSig(doc: DatabaseDocument, uids: Set<string> | null): string {
 					inv.faction2 ?? '',
 					inv.optionSelected ?? '',
 					inv.deckSizeSelected ?? '',
-					versions,
-				].join('§'),
+					versions
+				].join('§')
 			);
 		}
 	}
 	return hashString(parts.join('¶'));
 }
 
-/** The three segment signatures for a subject (used to skip unchanged rebuilds). */
+/** The three segment signatures for a subject; an unchanged signature skips the rebuild. */
 export function segmentSignatures(
 	doc: DatabaseDocument,
-	key: string,
+	key: string
 ): { meta: string; logs: string; cards: string } {
-	const uids = subjectUids(doc, key);
-	const settings = resolveProfileSettings(doc.profileSettings);
-	const ownedProducts = settings.ownedProducts as Product[] | null;
-	return {
-		meta: metaSig(doc, uids, settings.defaultArchiveDisplayInProfile, settings.trackedTiers, settings.trackedCampaignGroups),
-		logs: logsSig(doc, uids, ownedProducts, settings.trackedCampaignGroups, settings.trackedTiers, settings.mergeReturnToStats !== false, settings.mergeReturnToStats !== false && settings.hideReturnToCampaigns === true),
-		cards: cardsSig(doc, uids),
-	};
+	const scope = profileScope(doc, key);
+	return { meta: metaSig(doc, scope), logs: logsSig(doc, scope), cards: cardsSig(doc, scope.uids) };
 }
 
-// ─── Per-subject segment builders (resolve uids + settings internally) ────────
-
-export function buildMetaSegmentFor(doc: DatabaseDocument, key: string): MetaSegmentData {
-	const settings = resolveProfileSettings(doc.profileSettings);
-	return buildMetaSegment(
-		doc,
-		subjectUids(doc, key),
-		settings.defaultArchiveDisplayInProfile,
-		settings.trackedTiers,
-		settings.trackedCampaignGroups,
-	);
+export function buildMetaSegmentFor(doc: DatabaseDocument, key: string): MetaSegment {
+	return buildMetaSegment(doc, profileScope(doc, key));
 }
 
-export function buildLogsSegmentFor(doc: DatabaseDocument, key: string): LogsSegmentData {
-	const settings = resolveProfileSettings(doc.profileSettings);
-	// `hideReturnTo` only bites when merging (else hiding a Return-to box would orphan its plays).
-	const mergeReturnTo = settings.mergeReturnToStats !== false;
-	const hideReturnTo = mergeReturnTo && settings.hideReturnToCampaigns === true;
-	return buildLogsSegment(
-		doc,
-		subjectUids(doc, key),
-		settings.ownedProducts as Product[] | null,
-		settings.trackedCampaignGroups,
-		settings.trackedTiers,
-		mergeReturnTo,
-		hideReturnTo,
-	);
+export function buildLogsSegmentFor(doc: DatabaseDocument, key: string): LogsSegment {
+	return buildLogsSegment(doc, profileScope(doc, key));
 }
 
-export function buildCardsSegmentFor(doc: DatabaseDocument, key: string): CardsSegmentData {
+export function buildCardsSegmentFor(doc: DatabaseDocument, key: string): CardsSegment {
 	return buildCardsSegment(doc, subjectUids(doc, key));
 }
 
 // ─── Assembly ────────────────────────────────────────────────────────────────
 
-/** Resolve a subject key to its display identity (avatar code, name, members).
- *  Cheap and doc-derived, so it is computed at assembly time rather than cached. */
+/** A subject's display identity; cheap, so assembled fresh rather than cached. */
 export function buildSubjectIdentity(doc: DatabaseDocument, key: string): ProfileSubject {
 	if (key === ACCOUNT_SUBJECT) {
-		return { kind: 'account', uid: ACCOUNT_SUBJECT, name: doc.owner.name, iconCardCode: doc.owner.iconCardCode, members: [] };
+		return {
+			kind: 'account',
+			uid: ACCOUNT_SUBJECT,
+			name: doc.owner.name,
+			iconCardCode: doc.owner.iconCardCode,
+			members: []
+		};
 	}
 	const player = findPlayer(doc, key);
 	if (player) {
-		return { kind: 'player', uid: key, name: player.name, iconCardCode: player.iconCardCode, members: [] };
+		return {
+			kind: 'player',
+			uid: key,
+			name: player.name,
+			iconCardCode: player.iconCardCode,
+			members: []
+		};
 	}
 	const group = findPlayGroup(doc, key);
 	if (group) {
@@ -944,45 +933,37 @@ export function buildSubjectIdentity(doc: DatabaseDocument, key: string): Profil
 	return { kind: 'unknown', uid: key, name: 'Unknown profile', iconCardCode: null, members: [] };
 }
 
-/** Resolve the cards segment's raw used-once context into the display-ready map:
- *  canon-fold so a card used once total (via the old Core Set OR its Revised twin)
- *  counts as one, then join the surviving codes with their campaign for the icon /
- *  title / difficulty / finish date. Codes whose canon count exceeds 1 (used once via
- *  EACH twin) drop out — they were not used exactly once. */
+/**
+ * Canon-fold the used-once candidates (a card used once via the old Core Set and once via its
+ * Revised twin was not used once) and join each survivor with its campaign.
+ */
 function resolveUsedOnce(
-	raw: Record<CardCode, { investigator: CardCode; campaignId: string }>,
+	raw: Record<CardCode, UsedOnceContext>,
 	cardUsage: Record<CardCode, number>,
-	campaigns: ProfileCampaign[],
+	campaigns: ProfileCampaign[]
 ): UsedOnceMap {
-	const canonUsage: Record<string, number> = {};
-	for (const [code, n] of Object.entries(cardUsage)) {
-		const key = cardUtils.coreToRcore(code);
-		canonUsage[key] = (canonUsage[key] ?? 0) + n;
-	}
+	const canonUsage = foldCanonUsage(cardUsage);
 	const byId = new Map(campaigns.map((c) => [c.id, c]));
 	const out: UsedOnceMap = {};
 	for (const [rawCode, ctx] of Object.entries(raw)) {
 		const canon = cardUtils.coreToRcore(rawCode);
 		if (canonUsage[canon] !== 1) continue;
 		const camp = byId.get(ctx.campaignId);
-		if (!camp) continue; // campaign not in this subject's payload → nothing to show
+		if (!camp) continue;
 		out[canon] = {
 			investigator: ctx.investigator,
 			campaignId: ctx.campaignId,
 			campaignCode: camp.campaignCode,
 			campaignTitle: camp.title,
 			difficulty: camp.difficulty,
-			finishDate: camp.finishDate,
+			finishDate: camp.finishDate
 		};
 	}
 	return out;
 }
 
-/** Cross-family lifetime headline totals — summed once here from the already-built
- *  logs + cards segments so consumers (and `.ahlifepro`) read them directly instead
- *  of re-summing in the UI. Spans both segments, so it lives at assembly, not in a
- *  single cached segment. */
-function buildProfileSummary(logs: LogsSegmentData, cards: CardsSegmentData): ProfileSummary {
+/** Lifetime headline totals; spans the logs and cards segments, so it is summed at assembly. */
+function buildProfileSummary(logs: LogsSegment, cards: CardsSegment): ProfileSummary {
 	const wl = logs.winLossRecord;
 	const owned = logs.clearGrid.filter((r) => r.owned);
 	const clearedByTier: Record<string, number> = {};
@@ -1001,104 +982,50 @@ function buildProfileSummary(logs: LogsSegmentData, cards: CardsSegmentData): Pr
 		achievementsTotal: logs.achievements.families.reduce((n, f) => n + f.total, 0),
 		investigatorsPlayed: cards.investigators.length,
 		cardsPlayed: cards.playedCardCodes.length,
-		standalonePlays: logs.standaloneUsage.reduce((n, r) => n + r.totalPlays, 0),
+		standalonePlays: logs.standaloneUsage.reduce((n, r) => n + r.totalPlays, 0)
 	};
 }
 
-/** Recombine three (cached or freshly-built) segments into the page payload.
- *  NOTE: every field (campaigns, calendar, clearGrid, …, cardUsage) shares
- *  references with the segment data — consumers must treat the payload as
- *  read-only. The payload is JSON-pure (ms dates, no `Date`), so it needs no
- *  revival and round-trips through `JSON.stringify`/`parse` unchanged. */
+/** Recombine three cached or fresh segments into the page payload. Fields share references with
+ *  the segments, so the payload is read-only. */
 export function assemblePayload(
-	seg: { meta: MetaSegmentData; logs: LogsSegmentData; cards: CardsSegmentData },
+	seg: { meta: MetaSegment; logs: LogsSegment; cards: CardsSegment },
 	settings: ProfileSettings,
-	subject: ProfileSubject,
-): LocalProfilePayload {
+	subject: ProfileSubject
+): ProfilePayload {
+	const { investigatorsByCampaign, usedOnceRaw, ...cards } = seg.cards;
 	return {
+		...seg.meta,
+		...seg.logs,
+		...cards,
 		subject,
 		summary: buildProfileSummary(seg.logs, seg.cards),
-		campaigns: seg.meta.campaigns,
-		calendar: seg.meta.calendar,
-		achievements: seg.logs.achievements,
-		clearGrid: seg.logs.clearGrid,
-		soloClearGrid: seg.logs.soloClearGrid,
-		trueSoloClearGrid: seg.logs.trueSoloClearGrid,
-		winLossRecord: seg.logs.winLossRecord,
-		endings: seg.logs.endings,
-		collections: seg.logs.collections,
-		scenarios: seg.logs.scenarios,
-		standaloneUsage: seg.logs.standaloneUsage,
-		standalones: seg.logs.standalones,
-		// Per-investigator trauma joins the logs segment's events (campaignId +
-		// all-target flags) with the cards segment's per-campaign investigator map.
 		traumaTally: {
 			...seg.logs.traumaTally,
 			perInvestigator: attributeTraumaInvestigators(
 				seg.logs.traumaTally.events,
-				seg.cards.investigatorsByCampaign,
-			),
+				investigatorsByCampaign
+			)
 		},
-		// `mementosEarned` is deck-derived (the eoe builder has no card data), so it's
-		// filled here from the cards segment's cardUsage — like traumaTally's perInvestigator.
-		eoe: seg.logs.eoe.map((e) => ({
-			...e,
-			mementosEarned: countEoeMementosEarned(seg.cards.cardUsage),
-		})),
-		tsk: seg.logs.tsk,
-		dwl: seg.logs.dwl,
-		ptc: seg.logs.ptc,
-		tfa: seg.logs.tfa,
-		tcu: seg.logs.tcu,
-		tdea: seg.logs.tdea,
-		tdeb: seg.logs.tdeb,
-		tic: seg.logs.tic,
-		fhv: seg.logs.fhv,
-		tdc: seg.logs.tdc,
-		notz: seg.logs.notz,
-		// Special interactions join the logs partial with the per-campaign roster
-		// (cards segment) + card class/traits, exactly like per-investigator trauma.
 		specialInteractions: resolveSpecialInteractions(
 			seg.logs.specialInteractions,
-			seg.cards.investigatorsByCampaign,
-			cardClassTraitLookup(),
+			investigatorsByCampaign,
+			cardClassTraitLookup()
 		),
-		investigators: seg.cards.investigators,
-		cardUsage: seg.cards.cardUsage,
-		// Resolve raw used-once context against this subject's campaigns (canon-folded).
-		usedOnce: resolveUsedOnce(seg.cards.usedOnceRaw, seg.cards.cardUsage, seg.meta.campaigns),
-		specialistUsage: seg.cards.specialistUsage,
-		insightDecks: seg.cards.insightDecks,
-		eligibilityInsights: seg.cards.eligibilityInsights,
-		totalDecks: seg.cards.totalDecks,
-		charismaTopDecks: seg.cards.charismaTopDecks,
-		relicTopDecks: seg.cards.relicTopDecks,
-		customizableUsage: seg.cards.customizableUsage,
-		playedCardCodes: seg.cards.playedCardCodes,
-		settings,
+		usedOnce: resolveUsedOnce(usedOnceRaw, seg.cards.cardUsage, seg.meta.campaigns),
+		settings
 	};
 }
 
-/** Build a subject's payload fresh (no cache) — the lazy/fallback path + tests. */
-export function buildSubjectPayload(doc: DatabaseDocument, key: string): LocalProfilePayload {
-	const settings = resolveProfileSettings(doc.profileSettings);
-	const uids = subjectUids(doc, key);
-	const ownedProducts = settings.ownedProducts as Product[] | null;
+/** Build a subject's payload fresh, bypassing the cache. */
+export function buildSubjectPayload(doc: DatabaseDocument, key: string): ProfilePayload {
 	return assemblePayload(
 		{
-			meta: buildMetaSegment(doc, uids, settings.defaultArchiveDisplayInProfile, settings.trackedTiers, settings.trackedCampaignGroups),
-			logs: buildLogsSegment(
-				doc,
-				uids,
-				ownedProducts,
-				settings.trackedCampaignGroups,
-				settings.trackedTiers,
-				settings.mergeReturnToStats !== false,
-				settings.mergeReturnToStats !== false && settings.hideReturnToCampaigns === true,
-			),
-			cards: buildCardsSegment(doc, uids),
+			meta: buildMetaSegmentFor(doc, key),
+			logs: buildLogsSegmentFor(doc, key),
+			cards: buildCardsSegmentFor(doc, key)
 		},
-		settings,
-		buildSubjectIdentity(doc, key),
+		resolveProfileSettings(doc.profileSettings),
+		buildSubjectIdentity(doc, key)
 	);
 }

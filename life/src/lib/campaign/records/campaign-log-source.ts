@@ -1,61 +1,55 @@
-/**
- * campaign-log-source.ts — the single accessor for campaign-log *definitions*, all of which
- * come from `@5argon/arkham-campaign-data` (every official campaign incl. fof/gob/side).
- *
- * `getCampaignLog` accepts a kohaku `Campaign` enum value (or raw data code) and
- * internally aliases `eote→eoe` / `tsk→tskc`, so the stored `campaign_code`
- * passes straight through.
- */
+/** Accessors over the campaign-log definitions in `@5argon/arkham-campaign-data`. A kohaku campaign
+ *  value (`eote`) and a data code (`eoe`) are both accepted. */
 import { getCampaignLog, playableScenarios } from '@5argon/arkham-campaign-data';
 import type { CampaignLog, LogSectionDef } from '@5argon/arkham-campaign-data';
 
 export type { CampaignLog, LogSectionDef };
 
-/** Resolve a campaign's full log definition, or undefined for an unknown code. */
 export function loadCampaignLog(campaignCode: string | null | undefined): CampaignLog | undefined {
 	if (!campaignCode) return undefined;
 	return getCampaignLog(campaignCode);
 }
 
-/**
- * Player-facing sections in sheet order, excluding internal/hidden ones. The
- * physical-sheet wording lives in `en.sections[id]`, so the UI heading matches
- * the paper sheet one-to-one.
- */
+/** Player-facing sections in sheet order. */
 export function visibleSections(log: CampaignLog): LogSectionDef[] {
 	return log.db.sections.filter((s) => !s.hidden && s.id !== 'hidden');
 }
 
-/** Verbatim physical-sheet section title (falls back to the id). */
+/** The section title as printed on the campaign log sheet. */
 export function sectionTitle(log: CampaignLog, sectionId: string): string {
 	return log.en.sections[sectionId] ?? sectionId;
 }
 
-/** Label for a special-section item (partner / key / supply / glyph), id fallback. */
+/** A partner / key / supply / glyph item's label. */
 export function itemLabel(log: CampaignLog, itemId: string): string {
 	return log.en.items?.[itemId] ?? itemId;
 }
 
-/** Verbatim physical-sheet text for a log ENTRY (composite `"section.id"` key) —
- *  e.g. a camp location or a recovered supply. Falls back to the key. */
+/** A log entry's text as printed, by its `"section.id"` key. */
 export function entryLabel(log: CampaignLog, key: string): string {
 	return log.en.entries?.[key]?.text ?? key;
 }
 
-/**
- * The campaign's PLAYABLE scenarios (ArkhamCards type `'story'`) in campaign
- * order — for the per-scenario "Extra" tab (XP). Interludes, prologues and
- * epilogues are excluded (you don't earn an XP highscore for an interlude). Backed by campaign-data's `scenarioMeta`.
- */
+/** Story scenarios in campaign order (no interludes or epilogues). */
 export function campaignScenarios(log: CampaignLog): string[] {
 	return playableScenarios(log);
 }
 
-/**
- * Static portrait path for a roster member (EoE Expedition Team, FHV NPCs),
- * cropped from the official campaign-log sheet into `static/image/campaign/portrait/`.
- * Not every campaign has portraits — the consuming `<img>` falls back on error.
- */
+/** A roster member's portrait cropped from the campaign log sheet; not every campaign has them. */
 export function portraitUrl(campaignCode: string, id: string): string {
 	return `/image/campaign/portrait/${campaignCode}/${id}.png`;
+}
+
+/** A scenario's display name from campaign-data; unknown ids pass through. */
+export function scenarioName(campaignCode: string, scenarioId: string): string {
+	return getCampaignLog(campaignCode)?.en.scenarioNames?.[scenarioId] ?? scenarioId;
+}
+
+/** A log entry's printed text by its `"section.id"` key (a bare id means `campaign_notes`),
+ *  with ArkhamCards markup removed and the first letter capitalized. */
+export function logText(campaignCode: string, key: string): string {
+	const full = key.includes('.') ? key : `campaign_notes.${key}`;
+	const text = getCampaignLog(campaignCode)?.en.entries?.[full]?.text ?? key;
+	const clean = text.replace(/<\/?[a-z]+>/g, '').replace(/\[\[([^\]]+)\]\]/g, '$1').trim();
+	return clean.charAt(0).toUpperCase() + clean.slice(1);
 }

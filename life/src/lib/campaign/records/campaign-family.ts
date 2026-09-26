@@ -1,34 +1,44 @@
 /**
- * campaign-family.ts — the single source of truth for "which family does this
- * campaign log belong to?".
- *
- * Return-to campaigns are FIRST-CLASS: each is its own family (keyed by its
- * own `code`), with its own page, card, clears/wins, and achievements — matching
- * how FFG officially ships them as separate campaigns.
- *
- *   • `familyOf`     → the default identity: a campaign's family IS its code
- *     (Return-to included). Use this everywhere a record is bucketed by campaign.
- *   • `baseFamilyOf` → the BASE family (`originalId ?? code`): use ONLY for the
- *     handful of game rules that genuinely span a base + its Return-to (e.g. the
- *     DWL "Lost in Time and Space" R2 silent win) and for the combined "Original + RT"
- *     merge.
- *
- * NOTE: `originalId` is unreliable as the base's NAME — `rtnotz.originalId` is the
- * orphan string `'core'`, not `'notz'`. Drive base/Return-to PAIRING off
- * `RT_PAIRS` (by code), never by reading `originalId` as a code.
+ * Which family a campaign log belongs to. A Return-to box is its own family (keyed by its own
+ * code); `baseFamilyOf` names the original campaign it can be merged into.
  */
 import { getCampaignLog, type CampaignLog } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from './campaign-record';
 
-/** A campaign's family = its own campaign-data code (Return-to is its own family). */
+/** Return-to box ⇄ its original campaign, by campaign-data code. (`originalId` is not usable for
+ *  this: Return to the Night of the Zealot's is `'core'`.) */
+export const RT_PAIRS: { base: string; rt: string }[] = [
+	{ base: 'notz', rt: 'rtnotz' },
+	{ base: 'dwl', rt: 'rtdwl' },
+	{ base: 'ptc', rt: 'rtptc' },
+	{ base: 'tfa', rt: 'rttfa' },
+	{ base: 'tcu', rt: 'rttcu' }
+];
+
 export function familyOf(log: CampaignLog): string {
 	return log.db.code;
 }
 
-/** The records belonging to a family — the standard opener for a per-campaign payload builder.
- *  With `mergeReturnTo` (the default), a BASE family absorbs its Return-to variant's plays too
- *  (bucketing off {@link baseFamilyOf}); with it OFF, each family is only its own plays
- *  ({@link familyOf}), so a Return-to box is never folded into the base. */
+/** The original campaign a Return-to box merges into; a non-Return-to campaign is its own base. */
+export function baseFamilyOf(log: CampaignLog): string {
+	return RT_PAIRS.find((p) => p.rt === log.db.code)?.base ?? log.db.code;
+}
+
+export function baseFamilyOfCode(code: string): string {
+	const log = getCampaignLog(code);
+	return log ? baseFamilyOf(log) : code;
+}
+
+export function isReturnToCode(code: string): boolean {
+	const log = getCampaignLog(code);
+	return log ? baseFamilyOf(log) !== log.db.code : false;
+}
+
+export function returnToCodeFor(baseFamily: string): string | null {
+	return RT_PAIRS.find((p) => p.base === baseFamily)?.rt ?? null;
+}
+
+/** A family's plays. With `mergeReturnTo`, a base family also takes its Return-to box's plays. */
 export function filterFamilyRecords(
 	records: CampaignRecord[],
 	family: string,
@@ -41,11 +51,7 @@ export function filterFamilyRecords(
 	});
 }
 
-/** Every family a record's plays contribute to, honoring the merge setting. Its OWN family always;
- *  plus its BASE family when `mergeReturnTo` is on and it's a Return-to box (so `['rttfa','tfa']`).
- *  Generic per-family aggregates loop over this so a Return-to play lands in both buckets — RT rows
- *  stay distinct (they keep their `return_to_*` scenario ids) while shared-id facts (campaign outcome
- *  coverage) fold into the base. */
+/** Every family a play counts toward: its own, plus its base family when merging a Return-to box. */
 export function contributingFamilies(log: CampaignLog, mergeReturnTo: boolean): string[] {
 	const own = familyOf(log);
 	if (!mergeReturnTo) return [own];
@@ -53,14 +59,42 @@ export function contributingFamilies(log: CampaignLog, mergeReturnTo: boolean): 
 	return base === own ? [own] : [own, base];
 }
 
-/** The Return-to variant CODE for a base family (via {@link RT_PAIRS}), or null if none. */
-export function returnToCodeFor(baseFamily: string): string | null {
-	return RT_PAIRS.find((p) => p.base === baseFamily)?.rt ?? null;
+export interface FamilyRecords {
+	/** The family's own campaign log. */
+	log: CampaignLog;
+	recs: CampaignRecord[];
+	/** Campaign-data codes of the family and of every log its records came from (a merged base
+	 *  family also lists its Return-to box). */
+	codes: Set<string>;
 }
 
-/** A family's scenarioMeta with its Return-to variant's scenarios appended (deduped by id) when
- *  merging — so a base-family aggregate that iterates scenarioMeta (resolution coverage, Succeed/Failed
- *  verdicts) also covers the Return-to scenarios that fold into this family as their own rows. */
+/**
+ * Records grouped by every family they count toward (`contributingFamilies`): with
+ * `mergeReturnTo`, a Return-to play lands in its own family and its base family. Families keep
+ * first-seen order and records keep input order; records of unknown campaigns are dropped.
+ */
+export function recordsByFamily(
+	records: readonly CampaignRecord[],
+	mergeReturnTo: boolean
+): Map<string, FamilyRecords> {
+	const out = new Map<string, FamilyRecords>();
+	for (const rec of records) {
+		const log = getCampaignLog(rec.campaignCode);
+		if (!log) continue;
+		for (const family of contributingFamilies(log, mergeReturnTo)) {
+			let group = out.get(family);
+			if (!group) {
+				group = { log: getCampaignLog(family) ?? log, recs: [], codes: new Set([family]) };
+				out.set(family, group);
+			}
+			group.recs.push(rec);
+			group.codes.add(log.db.code);
+		}
+	}
+	return out;
+}
+
+/** A family's scenarioMeta, followed by its Return-to box's scenarios (deduped by id) when merging. */
 export function familyScenarioMeta(
 	family: string,
 	mergeReturnTo: boolean
@@ -75,50 +109,19 @@ export function familyScenarioMeta(
 	return meta;
 }
 
-/** A family's scenario display names, merged with its Return-to variant's (base names win on
- *  shared ids). Pairs with {@link familyScenarioMeta}. */
-export function familyScenarioNames(family: string, mergeReturnTo: boolean): Record<string, string> {
+/** A family's scenario names merged with its Return-to box's (base names win on shared ids). */
+export function familyScenarioNames(
+	family: string,
+	mergeReturnTo: boolean
+): Record<string, string> {
 	const base = getCampaignLog(family)?.en.scenarioNames ?? {};
 	const rtCode = mergeReturnTo ? returnToCodeFor(family) : null;
 	const rtLog = rtCode ? getCampaignLog(rtCode) : null;
 	return rtLog ? { ...(rtLog.en.scenarioNames ?? {}), ...base } : { ...base };
 }
 
-/** The BASE family a log rolls up to (`originalId ?? code`). For base-spanning game
- *  rules + the combined merge only — NOT for normal record bucketing. */
-export function baseFamilyOf(log: CampaignLog): string {
-	return log.db.originalId ?? log.db.code;
-}
-
-/** Like {@link baseFamilyOf} but from a code string (resolves the log first). */
-export function baseFamilyOfCode(code: string): string {
-	return getCampaignLog(code)?.db.originalId ?? code;
-}
-
-/** True if this code is a Return-to campaign (it carries an `originalId`). */
-export function isReturnToCode(code: string): boolean {
-	return getCampaignLog(code)?.db.originalId != null;
-}
-
-/**
- * The base ⇆ Return-to pairing, keyed by CODE (not `originalId`, which lies for
- * NotZ). Drives the "Original + RT" combined view and any RT-aware UI. The
- * base code is the campaign-data code of the original campaign.
- */
-export const RT_PAIRS: { base: string; rt: string }[] = [
-	{ base: 'notz', rt: 'rtnotz' },
-	{ base: 'dwl', rt: 'rtdwl' },
-	{ base: 'ptc', rt: 'rtptc' },
-	{ base: 'tfa', rt: 'rttfa' },
-	{ base: 'tcu', rt: 'rttcu' }
-];
-
-/**
- * The family a single official achievement should be attributed to. Return-to
- * achievement definitions carry `def.family` = the BASE family (e.g. `rtdwl`
- * achievements declare `family: 'dwl'`); an RT play's achievements belong to the RT family (its own code). Non-Return-to logs honor
- * `def.family` (it may legitimately attribute to another family) falling back to code.
- */
+/** The family an official achievement is attributed to. Return-to definitions declare the base
+ *  family, but an RT play's achievements belong to the RT family; other logs honor `def.family`. */
 export function achievementFamilyOf(log: CampaignLog, defFamily: string | undefined): string {
 	return log.db.originalId ? log.db.code : (defFamily ?? log.db.code);
 }
