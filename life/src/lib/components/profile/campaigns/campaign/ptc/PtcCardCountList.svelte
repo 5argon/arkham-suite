@@ -1,56 +1,38 @@
-<!--
-@component
-Shared PtC helper — a list of cards (by code), each a CardLine, with a trailing column. Used by every
-PtC "cards collected across plays" stat: Black Stars Rise / Pallid Mask random weaknesses, Dim Carcosa
-possessed investigators, Last King slain VIPs, Unspeakable Oath insanity. The caller owns ordering +
-capping. Built on the shared CardLineList.
-
-The trailing column composes (left → right): a `×count` (when > 1), the card's traits (`showTrait`),
-the play's finish `date` (`showDate`), and the `bearer` investigator as a CardStrip. A row's `code`
-may repeat across a date list, so CardLineList keys by index.
--->
+<!-- @component Cards from PtC plays, newest first, each with its play's finish date and, for weakness draws, the pool trait and the bearer. -->
 <script lang="ts">
 	import { CardStrip } from '@5argon/arkham-life-ui';
 	import { cardsByCode } from '$lib/card-data';
-	import CardLineList from '$lib/components/profile/_primitives/CardLineList.svelte';
-	import FinishDate from '$lib/components/profile/_primitives/FinishDate.svelte';
+	import { scenarioMeta } from '$lib/campaign/utils/scenario-meta';
+	import { CardLineList, FinishDate } from '$lib/components/profile/_primitives';
 
 	let {
 		items,
-		/** Show each card's traits (before the date / bearer) — the random-weakness lists are drawn from a
-		 *  fixed trait pool, so the trait says which pool it came from. Filtered to `traitFilter` when given. */
-		showTrait = false,
-		/** Restrict the shown traits to this set — the scenario's random-weakness pool (e.g. Madness / Pact /
-		 *  Cultist / Detective). A drawn weakness keeps its unrelated traits (Humanoid, Silver Twilight…), so
-		 *  without this the column is noisy; filtering leaves only the pool membership that made it drawable. */
-		traitFilter,
-		/** Show each row's play finish `date` — for the chronological (newest-first) weakness lists. */
-		showDate = false
+		weaknessPool
 	}: {
-		items: { code: string; count?: number; bearer?: string; date?: number | null }[];
-		showTrait?: boolean;
-		traitFilter?: string[];
-		showDate?: boolean;
+		items: { code: string; finishDate: number | null; bearer?: string | null }[];
+		/** The scenario whose random-weakness trait pool the shown traits are narrowed to. */
+		weaknessPool?: string;
 	} = $props();
 
 	const byCode = cardsByCode();
+	const pool = $derived(
+		weaknessPool
+			? (scenarioMeta('ptc', weaknessPool)?.choices?.find((c) => c.id === 'randomized_weakness')
+					?.cardFilter?.traits ?? [])
+			: []
+	);
 </script>
 
 <CardLineList {items} align="right">
 	{#snippet trailing(it)}
-		{@const bearerCard = it.bearer ? byCode.get(it.bearer) : undefined}
-		{@const cardTraits = showTrait ? (byCode.get(it.code)?.traits ?? []) : []}
-		{@const traits = traitFilter ? cardTraits.filter((t) => traitFilter.includes(t)) : cardTraits}
-		{@const count = it.count ?? 0}
-		{#if count > 1 || traits.length || showDate || bearerCard}
-			<span class="inline-flex items-center justify-end gap-2">
-				{#if count > 1}<span class="tabular-nums">×{count}</span>{/if}
-				{#if traits.length}
-					<span class="text-primary-500 text-xs whitespace-nowrap">{traits.join(' · ')}</span>
-				{/if}
-				{#if showDate}<FinishDate ms={it.date ?? null} />{/if}
-				{#if bearerCard}<CardStrip card={bearerCard} />{/if}
-			</span>
-		{/if}
+		{@const bearer = it.bearer ? byCode.get(it.bearer) : undefined}
+		{@const traits = (byCode.get(it.code)?.traits ?? []).filter((t) => pool.includes(t))}
+		<span class="inline-flex items-center justify-end gap-2">
+			{#if traits.length}
+				<span class="text-primary-500 text-xs whitespace-nowrap">{traits.join(' · ')}</span>
+			{/if}
+			<FinishDate ms={it.finishDate} />
+			{#if bearer}<CardStrip card={bearer} />{/if}
+		</span>
 	{/snippet}
 </CardLineList>

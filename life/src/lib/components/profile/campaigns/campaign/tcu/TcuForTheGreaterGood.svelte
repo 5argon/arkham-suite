@@ -1,73 +1,37 @@
-<!--
-@component
-TCU bespoke widget — "For the Greater Good". How the Lodge's puzzle box went (opened it / the
-Guardian of the Trap emerged / the Guardian was defeated), plus the following Inner Circle interlude
-— inducted into the Inner Circle vs kept your mementos hidden. Built on grouped StatNumbers.
--->
+<!-- @component For the Greater Good: the puzzle box, then the Inner Circle interlude. -->
 <script lang="ts">
 	import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
 
-	let {
-		tcu,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tcu: CampaignTcu | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tcu, ctx }: CampaignWidgetProps<CampaignTcu> = $props();
 	const g = $derived(tcu?.forTheGreaterGood);
 	const ic = $derived(tcu?.innerCircle);
-	const hasGreater = $derived(!!g && g.openedPuzzleBox + g.guardianEmerged + g.guardianDefeated > 0);
-	const hasInner = $derived(!!ic && ic.inducted + ic.keptHidden > 0);
-	const hasData = $derived(hasGreater || hasInner);
-	const rows = $derived<StatGroup[]>(
-		hasData
-			? [
-					...(hasGreater && g
-						? [
-								{
-									heading: m.campaign_tcu_greater_heading(),
-									stats: [
-										{ value: g.openedPuzzleBox, label: m.campaign_tcu_greater_box() },
-										{ value: g.guardianEmerged, label: m.campaign_tcu_greater_emerged() },
-										{ value: g.guardianDefeated, label: m.campaign_tcu_greater_defeated() }
-									]
-								}
-							]
-						: []),
-					...(hasInner && ic
-						? [
-								{
-									heading: m.campaign_tcu_inner_heading(),
-									stats: [
-										{ value: ic.inducted, label: m.campaign_tcu_inner_inducted() },
-										{ value: ic.keptHidden, label: m.campaign_tcu_inner_hidden() }
-									]
-								}
-							]
-						: [])
-				]
-			: []
-	);
 </script>
 
-<ScenarioInfo scenarioId="for_the_greater_good" {family} {achievements} {scenarios} {logOnly}>
+<ScenarioInfo {ctx}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_tcu_greater_empty()}</WidgetEmpty>
-		{/if}
+		<StatNumbers
+			empty={m.campaign_tcu_greater_empty()}
+			rows={[
+				{
+					heading: m.campaign_tcu_greater_heading(),
+					stats: [
+						{ value: g?.openedPuzzleBox, label: m.campaign_tcu_greater_box() },
+						{ value: g?.guardianEmerged, label: m.campaign_tcu_greater_emerged() },
+						{ value: g?.guardianDefeated, label: m.campaign_tcu_greater_defeated() }
+					]
+				},
+				{
+					heading: m.campaign_tcu_inner_heading(),
+					stats: [
+						{ value: ic?.inducted, label: m.campaign_tcu_inner_inducted() },
+						{ value: ic?.keptHidden, label: m.campaign_tcu_inner_hidden() }
+					]
+				}
+			]}
+		/>
 	{/snippet}
 </ScenarioInfo>

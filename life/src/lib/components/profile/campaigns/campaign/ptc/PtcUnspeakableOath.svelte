@@ -1,116 +1,51 @@
-<!--
-@component
-PtC bespoke widget — "The Unspeakable Oath". How you left the asylum (escaped cleanly, escaped under
-attack, or the King claimed the whole party). Interlude II (Lost Soul, Daniel's fate) is its own widget.
-Plus the scenario's two Act 2 versions ("The Really Bad Ones" v. I / v. II): v. I when you took the
-onyx clasp back in Echoes, else v. II — precomputed (`unspeakableOath.versions`) and shown as an
-always-two-rows matrix. Below, the asylum's toll: the investigators who went insane (Extra picker,
-scoped to the viewed player's own investigator). The returning VIP (Constance Dumaine) rides in the
-shared PtC passport header.
--->
+<!-- @component The Unspeakable Oath: how the asylum was left, its Act 2 versions, and who went insane there. -->
 <script lang="ts">
-	import { scenarioMeta, scenarioVerdicts } from '$lib/campaign/utils/scenario-meta';
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import { scenarioVersions, toVersionRow } from '$lib/campaign/stats/version-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import PtcScenarioInfo from './PtcScenarioInfo.svelte';
-	import VersionBreakdown from '$lib/components/profile/campaigns/campaign/VersionBreakdown.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
-	import PtcCardCountList from './PtcCardCountList.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { SectionLabel, StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioVersionTable from '../ScenarioVersionTable.svelte';
+	import PtcCardCountList from './PtcCardCountList.svelte';
+	import PtcScenarioInfo from './PtcScenarioInfo.svelte';
+	import { DC_TINT, hasVersionTable } from './ptc-spine';
 
-	let {
-		ptc,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		ptc: CampaignPtc | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: ptc, ctx }: CampaignWidgetProps<CampaignPtc> = $props();
 	const o = $derived(ptc?.unspeakableOath);
-	const hasOath = $derived(!!o && (o.escaped > 0 || o.attacked > 0 || o.partyClaimed > 0));
-	// Per-version breakdown (Really Bad Ones v. I / v. II) from the unified scenarios record.
-	const SID = 'the_unspeakable_oath';
-	const meta = scenarioMeta('ptc', SID);
-	// Keep no_resolution so the table shows a "None" column (it's a real ending here).
-	const resolutionIds = meta?.resolutions ?? [];
-	const verdicts = scenarioVerdicts(meta);
-	const labels: Record<string, string> = {
-		I: m.campaign_ptc_oath_version_1(),
-		II: m.campaign_ptc_oath_version_2()
+	const insane = $derived(ctx.logOnly ? [] : (o?.insaneInvestigators ?? []));
+	const LABEL: Record<string, () => string> = {
+		I: m.campaign_ptc_oath_version_1,
+		II: m.campaign_ptc_oath_version_2
 	};
-	const accents: Record<string, string> = {
-		I: 'text-amber-600 dark:text-amber-400',
-		II: 'text-violet-600 dark:text-violet-400'
-	};
-	const versions = $derived(scenarioVersions(scenarios, SID));
-	const versionRows = $derived(
-		versions.stats.map((vs) =>
-			toVersionRow(vs, { label: labels[vs.value] ?? vs.value, accent: accents[vs.value], resolutionIds, verdicts })
-		)
-	);
-
-	// Who went insane — already subject-scoped, newest-first, capped in the payload; each carries its
-	// play's finish date, shown as a dated card list like the random-weakness lists.
-	const insane = $derived(
-		(o?.insaneInvestigators ?? []).map((x) => ({ code: x.code, date: x.finishDate }))
-	);
-	const hasData = $derived(hasOath || versions.hasPlays || insane.length > 0);
-	const rows = $derived<Stat[][]>(
-		o
-			? [
-					[
-						{ value: o.escaped, label: m.campaign_ptc_oath_escaped() },
-						{ value: o.attacked, label: m.campaign_ptc_oath_attacked() },
-						{ value: o.partyClaimed, label: m.campaign_ptc_oath_party_claimed() }
-					]
-				]
-			: []
+	const asylum = $derived([
+		{ value: o?.escaped, label: m.campaign_ptc_oath_escaped() },
+		{ value: o?.attacked, label: m.campaign_ptc_oath_attacked() },
+		{ value: o?.partyClaimed, label: m.campaign_ptc_oath_party_claimed() }
+	]);
+	const hasData = $derived(
+		asylum.some((s) => s.value) || hasVersionTable(ctx) || insane.length > 0
 	);
 </script>
 
-<PtcScenarioInfo
-	scenarioId="the_unspeakable_oath"
-	{ptc}
-	{family}
-	{achievements}
-	{scenarios}
-	{logOnly}
->
+<PtcScenarioInfo {ptc} {ctx} empty={hasData ? null : m.campaign_ptc_oath_empty()}>
 	{#snippet stats()}
-		{#if hasData}
-			<div class="space-y-4">
-				{#if hasOath}
-					<StatNumbers {rows} />
-				{/if}
-				{#if versions.stats.length}
-					<VersionBreakdown
-						title={m.campaign_ptc_oath_versions_title()}
-						rows={versionRows}
-						showSucceedFailed
-						showXp
-						{logOnly}
-					/>
-				{/if}
-				{#if insane.length}
-					<div>
-						<SectionLabel variant="heading" align="center"
-							>{m.campaign_ptc_oath_insane_heading()}</SectionLabel
-						>
-						<PtcCardCountList items={insane} showDate />
-					</div>
-				{/if}
-			</div>
-		{:else}
-			<WidgetEmpty>{m.campaign_ptc_oath_empty()}</WidgetEmpty>
-		{/if}
+		<div class="space-y-4">
+			<StatNumbers rows={[asylum]} />
+			<ScenarioVersionTable
+				{ctx}
+				title={m.campaign_ptc_oath_versions_title()}
+				label={(v) => LABEL[v]?.() ?? v}
+				accent={(v) => DC_TINT[v === 'I' ? 'conviction' : 'doubt']}
+				showSucceedFailed
+				showXp
+			/>
+			{#if insane.length}
+				<div>
+					<SectionLabel variant="heading" align="center"
+						>{m.campaign_ptc_oath_insane_heading()}</SectionLabel
+					>
+					<PtcCardCountList items={insane} />
+				</div>
+			{/if}
+		</div>
 	{/snippet}
 </PtcScenarioInfo>

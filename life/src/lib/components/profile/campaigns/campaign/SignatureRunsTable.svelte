@@ -1,66 +1,61 @@
-<!--
-@component
-The "three signature runs" table shared by the two-sided campaign spines (PtC Doubt/Conviction,
-PtC chaos tokens, TCU Lodge/Coven): one row per title with the run's chain (the caller's `chain`
-snippet), its outcome face and the two side totals. Built on WidgetTable.
--->
-<script lang="ts" module>
-	export interface SignatureSide<T> {
-		abbr: string;
-		tint: string;
-		value: (run: T) => number;
-	}
-</script>
-
-<script lang="ts" generics="T">
+<!-- @component A two-sided spine's signature runs: each run's chain, its ending and its two side totals. -->
+<script lang="ts" generics="R extends SideRun">
 	import type { Snippet } from 'svelte';
-	import type { SignatureRow } from '$lib/campaign/utils/signature-runs';
-	import type { EndingKind } from '$lib/campaign/outcomes/clear-status';
-	import WidgetTable, {
-		widgetTableCell
-	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
-	import OutcomeFace from '$lib/components/profile/_primitives/OutcomeFace.svelte';
+	import type { SideRun } from '$lib/campaign/campaigns/two-sided';
+	import { signatureRows, type SignatureRuns } from '$lib/campaign/utils/signature-runs';
+	import { OutcomeFace, WidgetTable } from '$lib/components/profile/_primitives';
+	import { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import TwoSidedChain from './TwoSidedChain.svelte';
+	import { outcomeText, type TwoSidedSpec } from './two-sided';
 
 	let {
-		rows,
-		chainLabel,
-		resultLabel,
-		chain,
-		outcomeKind,
-		outcomeLabel,
-		sides
+		spec,
+		runs,
+		chainColumn,
+		chain
 	}: {
-		rows: SignatureRow<T>[];
-		chainLabel: string;
-		resultLabel: string;
-		chain: Snippet<[T]>;
-		outcomeKind: (run: T) => EndingKind | null;
-		outcomeLabel: (run: T) => string;
-		sides: [SignatureSide<T>, SignatureSide<T>];
+		spec: TwoSidedSpec;
+		runs: SignatureRuns<R>;
+		chainColumn?: string;
+		/** Draws a run's chain; the spine's decision chain by default. */
+		chain?: Snippet<[R]>;
 	} = $props();
 
+	const rows = $derived(
+		signatureRows([
+			[spec.signatureTitles[0], runs.mostA],
+			[spec.signatureTitles[1], runs.mostB],
+			[spec.signatureTitles[2], runs.leastCombined]
+		])
+	);
 	const columns = $derived([
 		{ label: '' },
-		{ label: chainLabel },
-		{ label: resultLabel, align: 'right' as const }
+		{ label: chainColumn ?? spec.chainColumn },
+		{ label: spec.resultColumn, align: 'right' as const }
 	]);
 </script>
 
-<WidgetTable {columns} {rows} key={(r) => r.topic}>
-	{#snippet row(r)}
-		<td class="{widgetTableCell} font-semibold whitespace-nowrap text-black dark:text-white"
-			>{r.topic}</td
-		>
-		<td class={widgetTableCell}>{@render chain(r.run)}</td>
-		<td class="{widgetTableCell} text-right tabular-nums whitespace-nowrap">
-			<span class="inline-flex items-center justify-end gap-2">
-				<OutcomeFace kind={outcomeKind(r.run)} label={outcomeLabel(r.run)} />
-				<span>
-					<span class="font-semibold {sides[0].tint}">{sides[0].abbr}{sides[0].value(r.run)}</span>
-					<span class="text-primary-400"> · </span>
-					<span class="font-semibold {sides[1].tint}">{sides[1].abbr}{sides[1].value(r.run)}</span>
+{#if rows.length}
+	<WidgetTable {columns} {rows} key={(r) => r.topic}>
+		{#snippet row(r)}
+			<td class="{widgetTableCell} font-semibold whitespace-nowrap text-black dark:text-white"
+				>{r.topic}</td
+			>
+			<td class={widgetTableCell}>
+				{#if chain}{@render chain(r.run)}{:else}<TwoSidedChain {spec} beads={r.run.beads} />{/if}
+			</td>
+			<td class="{widgetTableCell} text-right whitespace-nowrap tabular-nums">
+				<span class="inline-flex items-center justify-end gap-2">
+					<OutcomeFace kind={r.run.outcome} label={outcomeText(spec, r.run)} />
+					<span>
+						{#each spec.sides as side, i (side.key)}
+							{#if i}<span class="text-primary-400"> · </span>{/if}<span
+								class="font-semibold {side.tint}">{side.abbr}{r.run.totals[side.key]}</span
+							>
+						{/each}
+					</span>
 				</span>
-			</span>
-		</td>
-	{/snippet}
-</WidgetTable>
+			</td>
+		{/snippet}
+	</WidgetTable>
+{/if}

@@ -17,8 +17,6 @@
 	"campaign_tcu_alleg_col_chain": "Allegiance",
 	"campaign_tcu_alleg_col_result": "Finale",
 	"campaign_tcu_alleg_src_col_decision": "Decision",
-	"campaign_tcu_alleg_scen_price": "The Price of Progress",
-	"campaign_tcu_alleg_scen_inner": "The Inner Circle",
 	"campaign_tcu_alleg_src_price_lodge": "Became members of the Lodge",
 	"campaign_tcu_alleg_src_price_coven": "Became enemies of the Lodge",
 	"campaign_tcu_alleg_src_secret_lodge": "Told the Lodge about the coven",
@@ -34,10 +32,6 @@
 	"campaign_tcu_alleg_josef_mist": "Josef lost to the mist",
 	"campaign_tcu_outcome_abandoned": "Unfinished",
 
-	"campaign_tcu_person_05046": "Gavriella Mizrah",
-	"campaign_tcu_person_05047": "Jerome Davids",
-	"campaign_tcu_person_05048": "Valentino Rivas",
-	"campaign_tcu_person_05049": "Penny White",
 	"campaign_tcu_fate_taken_by_the_watcher": "Taken by the Watcher",
 	"campaign_tcu_fate_claimed_by_specters": "Claimed by specters",
 	"campaign_tcu_fate_disappeared_into_the_mist": "Disappeared into the mist",
@@ -50,18 +44,8 @@
 
 	"campaign_tcu_mementos_empty": "Discover mementos to fill the collection.",
 	"campaign_tcu_mementos_coverage": "Mementos discovered",
-	"campaign_tcu_memento_found": "Found in {times}",
+	"campaign_tcu_memento_found": "Found {times}",
 	"campaign_tcu_memento_undiscovered": "Not yet discovered",
-	"campaign_tcu_memento_mesmerizing_flute": "Mesmerizing Flute",
-	"campaign_tcu_memento_ritual_components": "Ritual Components",
-	"campaign_tcu_memento_scrap_of_torn_shadow": "Scrap of Torn Shadow",
-	"campaign_tcu_memento_gilmans_journal": "Gilman's Journal",
-	"campaign_tcu_memento_keziahs_formulae": "Keziah's Formulae",
-	"campaign_tcu_memento_worn_crucific": "Worn Crucifix",
-	"campaign_tcu_memento_corn_husk_doll": "Corn Husk Doll",
-	"campaign_tcu_memento_wisp_of_spectral_mist": "Wisp of Spectral Mist",
-	"campaign_tcu_memento_strange_incantation": "Strange Incantation",
-	"campaign_tcu_memento_bloody_tree_carvings": "Bloody Tree Carvings",
 
 	"campaign_tcu_witch_fate_heading": "Your fate",
 	"campaign_tcu_witch_spell_heading": "The witches' spell",
@@ -134,6 +118,5 @@
 	"campaign_tcu_end_clean": "Azathoth slumbers",
 	"campaign_tcu_end_empty": "Reach an ending to tally it.",
 	"campaign_tcu_pathwinds_heading": "Twist of Fate → the finale",
-	"campaign_tcu_pathwinds_col": "Path winds",
 	"campaign_tcu_pathwinds_row": "Tally {tally}"
 }

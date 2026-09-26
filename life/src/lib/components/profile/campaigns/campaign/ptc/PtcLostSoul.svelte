@@ -1,47 +1,30 @@
-<!--
-@component
-PtC interlude widget — "Lost Soul (Interlude II)", the dream after the asylum. Whether you heeded or
-ignored Daniel's warning (a campaign note — log-derived), and Daniel's fate: he survived if you
-resigned with him (the Cuckoo's Nest condition) or was possessed (Extra-supplied, so it hides in
-log-only mode). Reads the `unspeakableOath` aggregate (its Extra lives on the Oath scenario's tab).
--->
+<!-- @component Lost Soul: whether Daniel's warning was heeded, and his fate. -->
 <script lang="ts">
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { ptc, logOnly = false }: { ptc: CampaignPtc | null; logOnly?: boolean } = $props();
+	let { blob: ptc, ctx }: CampaignWidgetProps<CampaignPtc> = $props();
 	const o = $derived(ptc?.unspeakableOath);
-
-	// Heeded / ignored is a campaign note (log); Daniel's fate (survived / possessed) is Extra-supplied,
-	// so it only shows outside log-only mode.
-	const hasWarning = $derived(!!o && (o.danielHeeded > 0 || o.danielIgnored > 0));
-	const hasFate = $derived(!logOnly && !!o && (o.danielSurvived > 0 || o.danielPossessed > 0));
-	const hasData = $derived(hasWarning || hasFate);
-
-	const rows = $derived<Stat[][]>([
-		...(hasWarning
-			? [
-					[
-						{ value: o!.danielHeeded, label: m.campaign_ptc_oath_daniel_heeded() },
-						{ value: o!.danielIgnored, label: m.campaign_ptc_oath_daniel_ignored() }
-					]
-				]
-			: []),
-		...(hasFate
-			? [
-					[
-						{ value: o!.danielSurvived, label: m.campaign_ptc_oath_daniel_survived() },
-						{ value: o!.danielPossessed, label: m.campaign_ptc_oath_daniel_possessed() }
-					]
-				]
-			: [])
-	]);
 </script>
 
-{#if hasData}
-	<StatNumbers {rows} />
-{:else}
-	<WidgetEmpty>{m.campaign_ptc_lost_soul_empty()}</WidgetEmpty>
-{/if}
+<StatNumbers
+	logOnly={ctx.logOnly}
+	empty={m.campaign_ptc_lost_soul_empty()}
+	rows={[
+		{
+			stats: [
+				{ value: o?.danielHeeded, label: m.campaign_ptc_oath_daniel_heeded() },
+				{ value: o?.danielIgnored, label: m.campaign_ptc_oath_daniel_ignored() }
+			]
+		},
+		{
+			nonLog: true,
+			stats: [
+				{ value: o?.danielSurvived, label: m.campaign_ptc_oath_daniel_survived() },
+				{ value: o?.danielPossessed, label: m.campaign_ptc_oath_daniel_possessed() }
+			]
+		}
+	]}
+/>

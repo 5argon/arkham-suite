@@ -1,60 +1,45 @@
-<!--
-@component
-PtC bespoke widget — "The Stranger". How far the Stranger chased you (the final `chasing_the_stranger`
-mark, distributed across plays) and the per-scenario highscore — the most times you defeated The Man
-in the Pallid Mask in a single play of each scenario (Extra-supplied, since the log keeps only the
-running total). He's discarded when defeated, so a deck reshuffle lets you farm multiple defeats —
-some scenarios more than others. Two tables, matching Victory Points Highscore: the pursuit
-distribution on top, the per-scenario highscore below (EVERY scenario; a dash where he was never
-defeated there).
--->
+<!-- @component The Stranger: how far he chased each play, and the most times he was defeated in one play of each scenario. -->
 <script lang="ts">
 	import type { CampaignPtc } from '$lib/campaign/campaigns/ptc';
-	import ScenarioNameCell from '$lib/components/profile/campaigns/campaign/ScenarioNameCell.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import WidgetTable, {
-		widgetTableCell
-	} from '$lib/components/profile/_primitives/WidgetTable.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		CountWithBreakdown,
+		SectionLabel,
+		WidgetEmpty,
+		WidgetTable
+	} from '$lib/components/profile/_primitives';
+	import { widgetTableCell } from '$lib/components/profile/_primitives/WidgetTable.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioNameCell from '../ScenarioNameCell.svelte';
+	import { ptcScenarioName } from './ptc-spine';
 
-	let { ptc }: { ptc: CampaignPtc | null } = $props();
+	let { blob: ptc, ctx }: CampaignWidgetProps<CampaignPtc> = $props();
+	const chased = $derived(ptc?.stranger ?? []);
+	const highscores = $derived(ctx.logOnly ? [] : (ptc?.strangerHighscores ?? []));
 
-	// Top: how far the Stranger chased — final chasing_the_stranger mark → plays, ascending.
-	const proximity = $derived(
-		ptc
-			? Object.keys(ptc.strangerCounts)
-					.map(Number)
-					.sort((a, b) => a - b)
-					.map((n) => ({ marks: n, plays: ptc.strangerCounts[n] }))
-			: []
-	);
-	// Bottom: per-scenario highscore — most defeats in one play of each scenario (0 → a dash).
-	const highscores = $derived(ptc?.strangerByScenario ?? []);
-
-	const hasData = $derived(proximity.length > 0 || highscores.length > 0);
-
-	const proximityCols = [
+	const chasedColumns = [
 		{ label: m.campaign_ptc_stranger_col_marks() },
 		{ label: m.campaign_ptc_stranger_col_plays(), align: 'right' as const }
 	];
-	const highscoreCols = [
+	const highscoreColumns = [
 		{ label: m.campaign_ptc_stranger_col_scenario() },
 		{ label: m.campaign_ptc_stranger_col_defeats(), align: 'right' as const }
 	];
 </script>
 
-{#if hasData}
+{#if chased.length || highscores.length}
 	<div class="space-y-4">
-		{#if proximity.length}
+		{#if chased.length}
 			<div>
 				<SectionLabel variant="heading">{m.campaign_ptc_stranger_proximity_heading()}</SectionLabel>
-				<WidgetTable columns={proximityCols} rows={proximity} key={(p) => p.marks}>
-					{#snippet row(p)}
-						<td class="{widgetTableCell} tabular-nums text-black dark:text-white">{p.marks}</td>
-						<td class="{widgetTableCell} text-primary-600 dark:text-primary-300 text-right tabular-nums"
-							>{p.plays}</td
+				<WidgetTable columns={chasedColumns} rows={chased} key={(c) => c.marks}>
+					{#snippet row(c)}
+						<td class="{widgetTableCell} text-black tabular-nums dark:text-white">{c.marks}</td>
+						<td
+							class="{widgetTableCell} text-primary-600 dark:text-primary-300 text-right tabular-nums"
 						>
+							<CountWithBreakdown tally={c.plays} />
+						</td>
 					{/snippet}
 				</WidgetTable>
 			</div>
@@ -62,12 +47,21 @@ defeated there).
 		{#if highscores.length}
 			<div>
 				<SectionLabel variant="heading">{m.campaign_ptc_stranger_highscore_heading()}</SectionLabel>
-				<WidgetTable columns={highscoreCols} rows={highscores} key={(s) => s.scenario}>
+				<WidgetTable columns={highscoreColumns} rows={highscores} key={(s) => s.scenario}>
 					{#snippet row(s)}
-						<ScenarioNameCell scenarioId={s.scenario} name={s.name} faded={s.max === 0} />
+						<ScenarioNameCell
+							scenarioId={s.scenario}
+							name={ptcScenarioName(s.scenario)}
+							faded={!s.max}
+						/>
 						<td class="{widgetTableCell} text-right tabular-nums">
-							{#if s.max > 0}
-								<span class="text-secondary-600 dark:text-secondary-400 font-semibold">{s.max}</span>
+							{#if s.max}
+								<CountWithBreakdown
+									value={s.max}
+									byTier={s.byTier}
+									format={String}
+									class="text-secondary-600 dark:text-secondary-400 font-semibold"
+								/>
 							{:else}
 								<span class="text-primary-400">—</span>
 							{/if}

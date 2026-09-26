@@ -1,50 +1,24 @@
-<!--
-@component
-TCU bespoke widget — "The Secret Name". A Lodge-allegiance beat: did you tell the Lodge
-about the Coven, or hide that knowledge? Built on StatNumbers.
--->
+<!-- @component The Secret Name: whether the Lodge was told about the coven. -->
 <script lang="ts">
 	import type { CampaignTcu } from '$lib/campaign/campaigns/tcu';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
 
-	let {
-		tcu,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tcu: CampaignTcu | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
-	const s = $derived(tcu?.secretName);
-	const hasData = $derived(!!s && s.toldLodge + s.hidCoven > 0);
-	const rows = $derived<Stat[][]>(
-		hasData && s
-			? [
-					[
-						{ value: s.toldLodge, label: m.campaign_tcu_secret_told() },
-						{ value: s.hidCoven, label: m.campaign_tcu_secret_hid() }
-					]
-				]
-			: []
-	);
+	let { blob: tcu, ctx }: CampaignWidgetProps<CampaignTcu> = $props();
 </script>
 
-<ScenarioInfo scenarioId="the_secret_name" {family} {achievements} {scenarios} {logOnly}>
+<ScenarioInfo {ctx}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_tcu_secret_empty()}</WidgetEmpty>
-		{/if}
+		<StatNumbers
+			empty={m.campaign_tcu_secret_empty()}
+			rows={[
+				[
+					{ value: tcu?.secretName.toldLodge, label: m.campaign_tcu_secret_told() },
+					{ value: tcu?.secretName.hidCoven, label: m.campaign_tcu_secret_hid() }
+				]
+			]}
+		/>
 	{/snippet}
 </ScenarioInfo>
