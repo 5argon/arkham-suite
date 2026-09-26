@@ -1,272 +1,169 @@
-/**
- * dwl.ts — The Dunwich Legacy bespoke per-campaign tallies. ONE builder, ONE
- * payload blob (`dwl`), mirroring `eoe.ts`: a new DWL widget reads another field
- * off this aggregate rather than adding profile-pipeline plumbing.
- *
- * Everything is derived from each play's `RecordedCampaignState` (+ the derived
- * `route`), no raw-log access:
- *   • openers   — the two opener scenarios (Extracurricular Activity / The House Always
- *                 Wins), playable in EITHER order. Each opener's per-position (played
- *                 first vs second) breakdown rides the unified scenarios record via the
- *                 `openerPositionFromRecord` version axis, not this blob.
- *   • persons   — the three kidnapped scholars (Rice / Morgan / Armitage): rescued,
- *                 kidnapped, and "snatched again" (rescued AND kidnapped both recorded —
- *                 a rescued ally re-taken when you LOSE Essex County Express / Miskatonic
- *                 Museum; these notes legitimately co-occur).
- *   • sacrifices— Blood on the Altar: the five Dunwich allies, times they SURVIVED to
- *                 the end (`*_survived`) vs were SACRIFICED (their ally card in the
- *                 `sacrificed` section).
- *   • necronomicon — Miskatonic Museum custody (took / destroyed / failed) + times the
- *                 Necronomicon was stolen back on the Essex County Express.
- *   • silas     — Blood on the Altar: Silas Bishop killed / restored / banished.
- *   • broods    — Undimensioned and Unseen: distribution of how many broods escaped
- *                 (0 = `no_brood_escaped`, else the recorded `brood_escaped` count) +
- *                 townsfolk calmed / warned.
- *   • wda       — Where Doom Awaits: entered the gate vs Yog-Sothoth escaped (the Ascending
- *                 the Hill version breakdown lives in the unified `scenarios` record).
- *   • finale    — Lost in Time and Space endings: closed the tear / Yog-Sothoth fled /
- *                 became one with reality.
- */
-import { getCampaignLog } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { filterFamilyRecords } from '../records/campaign-family';
-import type { ResolutionTally } from '../outcomes/resolution-coverage';
-import { bumpTally, ensureTally, emptyTally } from '../utils/tally';
+/** The Dunwich Legacy per-scenario tallies. */
+import type { CampaignRecord } from '../records/campaign-record';
+import { dwlWonLostForever } from '../outcomes/clear-status';
+import { countNotes, readPlay, type Play } from '../records/play';
+import type { Tally } from '../utils/tally';
+import { bumpTally, emptyTally, ensureTally } from '../utils/tally';
+import { defineCampaignBuilder } from './define';
 
-const DWL_FAMILY = 'dwl';
-const NOTES = 'campaign_notes';
-const k = (id: string) => `${NOTES}.${id}`;
+const EXTRACURRICULAR = 'extracurricular_activity';
+const HOUSE_ALWAYS_WINS = 'the_house_always_wins';
 
-const EA = 'extracurricular_activity';
-const THAW = 'the_house_always_wins';
-
-/** The three kidnapped scholars whose rescue/kidnap drama runs across the campaign.
- *  `code` is their Ally story-asset card (portrait art); `id` keys the log entries. */
+/** The three kidnapped scholars; `code` is their Ally story card. */
 export const DWL_PERSONS: { id: string; code: string }[] = [
 	{ id: 'warren_rice', code: '02061' },
 	{ id: 'francis_morgan', code: '02080' },
 	{ id: 'henry_armitage', code: '02040' }
 ];
 
-/** The five Dunwich allies who can be sacrificed at Blood on the Altar (or survive
- *  to the campaign's end). `code` is the Ally card recorded in the `sacrificed`
- *  section; `*_survived` is the survival note. */
+/** The allies who can be sacrificed at Blood on the Altar; `code` is the card recorded in the
+ *  `sacrificed` section. */
 export const DWL_SACRIFICE_ALLIES: { id: string; code: string }[] = [
-	{ id: 'warren_rice', code: '02061' },
-	{ id: 'francis_morgan', code: '02080' },
-	{ id: 'henry_armitage', code: '02040' },
+	...DWL_PERSONS,
 	{ id: 'zebulon_whateley', code: '02217' },
 	{ id: 'earl_sawyer', code: '02218' }
 ];
 
-const SACRIFICED_SECTION = 'sacrificed';
-
-// ── single notes ──────────────────────────────────────────────────────────────
-const NEC_TOOK = k('took_necronomicon');
-const NEC_DESTROYED = k('destroyed_necronomicon');
-const NEC_FAILED = k('failed_to_recover_necronomicon');
-const NEC_STOLEN = k('necronomicon_stolen');
-const SILAS_KILLED = k('killed_silas_bishop');
-const SILAS_RESTORED = k('restored_silas_bishop');
-const SILAS_BANISHED = k('banished_silas_bishop');
-const BROOD_COUNT = k('brood_escaped');
-const NO_BROOD = k('no_brood_escaped');
-const CALMED = k('calmed_townsfolk');
-const WARNED = k('warned_townsfolk');
-const ENTERED_GATE = k('entered_the_gate');
-const YOG_ESCAPED = k('yog_sothoth_escaped');
-const CLOSED_TEAR = k('closed_tear');
-const YOG_FLED = k('yog_sothoth_fled');
-const YOG_BECAME_ONE = k('yog_sothoth_became_one_with_reality');
+const NOTE = {
+	necTook: 'took_necronomicon',
+	necDestroyed: 'destroyed_necronomicon',
+	necFailed: 'failed_to_recover_necronomicon',
+	necStolen: 'necronomicon_stolen',
+	silasKilled: 'killed_silas_bishop',
+	silasRestored: 'restored_silas_bishop',
+	silasBanished: 'banished_silas_bishop',
+	broodEscaped: 'brood_escaped',
+	noBroodEscaped: 'no_brood_escaped',
+	calmed: 'calmed_townsfolk',
+	warned: 'warned_townsfolk',
+	enteredGate: 'entered_the_gate',
+	yogEscaped: 'yog_sothoth_escaped',
+	closedTear: 'closed_tear',
+	yogFled: 'yog_sothoth_fled',
+	yogBecameOne: 'yog_sothoth_became_one_with_reality'
+} as const;
 
 export interface DwlPersonTally {
-	/** Times rescued at their fate scenario. */
 	rescued: number;
-	/** Times the kidnapped note is recorded (their non-rescue fate, OR a re-kidnap). */
-	kidnapped: number;
-	/** Times rescued AND later kidnapped again (a rescued ally re-taken on a lost
-	 *  Essex County Express / Miskatonic Museum). */
+	/** Plays that left them kidnapped at their own scenario. */
+	leftKidnapped: number;
+	/** Rescued, then kidnapped again on a lost Essex County Express / Miskatonic Museum. */
 	snatchedAgain: number;
-}
-export interface DwlSacrificeTally {
-	/** Times this ally survived to the campaign's end, per difficulty. */
-	survived: ResolutionTally;
-	/** Times this ally was sacrificed at Blood on the Altar, per difficulty. */
-	sacrificed: ResolutionTally;
 }
 
 export interface CampaignDwl {
-	/** Always 'dwl' (the base family; Return-to plays fold in). */
 	family: string;
-	/** Total DWL plays counted. */
 	plays: number;
-	// ── the kidnapped scholars ──
-	/** person id → rescue/kidnap tally. */
 	persons: Record<string, DwlPersonTally>;
-	// ── Blood on the Altar ──
-	/** ally id → survived/sacrificed tally. */
-	sacrifices: Record<string, DwlSacrificeTally>;
-	/** Silas Bishop's fate. */
+	sacrifices: Record<string, { survived: Tally; sacrificed: Tally }>;
 	silas: { killed: number; restored: number; banished: number };
-	// ── The Miskatonic Museum + The Essex County Express ──
 	necronomicon: { took: number; destroyed: number; failed: number; stolen: number };
-	/** The Miskatonic Museum opening approach (unlogged — recorded as an Extra-tab choice). */
+	/** Extra: how the Miskatonic Museum was entered. */
 	miskatonicApproach: { brokeIn: number; spokeToAdam: number };
-	// ── Undimensioned and Unseen ──
-	/** brood-escaped count (0..n, as a string key) → plays that ended with exactly that many
-	 *  escaped, with a per-difficulty breakdown (`byTier`) for the widget's hover. */
-	broodCounts: Record<string, ResolutionTally>;
-	/** Plays that reached U&U and recorded a brood outcome (no_brood OR a count). */
-	broodPlays: number;
+	/** Broods escaped at Undimensioned and Unseen, ascending: count → plays. */
+	broods: { escaped: number; tally: Tally }[];
 	townsfolk: { calmed: number; warned: number };
-	// ── Where Doom Awaits ──
 	wda: { enteredGate: number; yogEscaped: number };
-	// ── Lost in Time and Space (finale endings) ──
-	/** wonLostForever = R2 ("win… lost forever"), a silent ending recovered from the Extra
-	 *  `final_act` = Act 4 (it writes no log note). */
+	/** `wonLostForever` is Lost in Time and Space R2, known only from the Extra `final_act` choice. */
 	finale: { closedTear: number; yogFled: number; yogBecameOne: number; wonLostForever: number };
-	// ── Epilogue (read only after a win; which one depends on calmed vs warned townsfolk) ──
-	/** Among won plays: the Dunwich epilogue reached — peaceful (calmed townsfolk) vs
-	 *  ominous (the sign in the dirt). Inferred from a win (closed tear / Yog fled, or the
-	 *  Act-4 silent R2 win) + the townsfolk note. */
+	/** The epilogue read after a win: peaceful when the townsfolk were calmed. */
 	epilogue: { peaceful: number; ominous: number };
 }
 
-/** Which position one of the two openers was played in this play — 'first' or 'second' — from the
- *  route (the entry-ordered scenario sequence). Both openers must appear in the route to place them
- *  unambiguously; otherwise null (the play is skipped from the per-position breakdown). The version
- *  axis the shared per-position table buckets each opener by. `scenarioId` must be one of the two. */
+/** Whether the opener was played before or after the other one; null unless both are in the route. */
 export function openerPositionFromRecord(
 	rec: CampaignRecord,
 	scenarioId: string
 ): 'first' | 'second' | null {
 	const route = rec.route ?? [];
-	const selfIdx = route.indexOf(scenarioId);
-	if (selfIdx < 0) return null;
-	const otherId = scenarioId === EA ? THAW : EA;
-	const otherIdx = route.indexOf(otherId);
-	if (otherIdx < 0) return null;
-	return selfIdx < otherIdx ? 'first' : 'second';
+	const self = route.indexOf(scenarioId);
+	const other = route.indexOf(scenarioId === EXTRACURRICULAR ? HOUSE_ALWAYS_WINS : EXTRACURRICULAR);
+	if (self < 0 || other < 0) return null;
+	return self < other ? 'first' : 'second';
 }
 
-/** The Act 2 (Ascending the Hill) version a play faced — derived from reaching Where Doom Awaits +
- *  the Silas / Necronomicon notes; null if the play never reached WDA. The version axis the shared
- *  per-version breakdown table buckets by. */
+/** The Ascending the Hill version a play faced, from the Silas and Necronomicon notes; null if the
+ *  play never reached Where Doom Awaits. */
 export function ascendingHillVersionFromRecord(rec: CampaignRecord): 'v1' | 'v2' | 'v3' | null {
-	const logs = rec.recorded.recordedLogs ?? new Set<string>();
-	const has = (key: string) => logs.has(key);
-	if (!has(ENTERED_GATE) && !has(YOG_ESCAPED)) return null;
-	if (has(SILAS_RESTORED)) return 'v1';
-	if (has(NEC_FAILED) || has(NEC_STOLEN)) return 'v2';
+	const p = readPlay(rec);
+	if (!p.has(NOTE.enteredGate) && !p.has(NOTE.yogEscaped)) return null;
+	if (p.has(NOTE.silasRestored)) return 'v1';
+	if (p.has(NOTE.necFailed) || p.has(NOTE.necStolen)) return 'v2';
 	return 'v3';
 }
 
-/** The Dunwich Legacy bespoke aggregate: a single-element array (sliced by `family` like the other
- *  per-campaign data), or empty when the subject has no DWL plays. */
-export function buildDwl(records: CampaignRecord[], mergeReturnTo = true): CampaignDwl[] {
-	const baseLog = getCampaignLog(DWL_FAMILY);
-	if (!baseLog) return [];
-	const dwlRecords = filterFamilyRecords(records, DWL_FAMILY, mergeReturnTo);
-	if (dwlRecords.length === 0) return [];
+function broodsEscaped(p: Play): number | null {
+	if (p.has(NOTE.noBroodEscaped)) return 0;
+	return p.has(NOTE.broodEscaped) ? (p.count(NOTE.broodEscaped) ?? 0) : null;
+}
+
+export const buildDwl = defineCampaignBuilder<CampaignDwl>('dwl', (plays, log) => {
+	const wonLostForever = (p: Play) =>
+		dwlWonLostForever(log, p.rec.recorded, p.rec.scenarioChoices);
 
 	const persons: Record<string, DwlPersonTally> = {};
-	for (const p of DWL_PERSONS) persons[p.id] = { rescued: 0, kidnapped: 0, snatchedAgain: 0 };
-	const sacrifices: Record<string, DwlSacrificeTally> = {};
-	for (const a of DWL_SACRIFICE_ALLIES)
-		sacrifices[a.id] = { survived: emptyTally(), sacrificed: emptyTally() };
-	const silas = { killed: 0, restored: 0, banished: 0 };
-	const necronomicon = { took: 0, destroyed: 0, failed: 0, stolen: 0 };
-	const broodCounts: Record<string, ResolutionTally> = {};
-	let broodPlays = 0;
-	const townsfolk = { calmed: 0, warned: 0 };
-	const wda = { enteredGate: 0, yogEscaped: 0 };
-	const finale = { closedTear: 0, yogFled: 0, yogBecameOne: 0, wonLostForever: 0 };
-	const miskatonicApproach = { brokeIn: 0, spokeToAdam: 0 };
-	const epilogue = { peaceful: 0, ominous: 0 };
+	for (const { id } of DWL_PERSONS) {
+		const rescued = plays.filter((p) => p.has(`${id}_rescued`));
+		const kidnapped = plays.filter((p) => p.has(`${id}_kidnapped`));
+		const snatchedAgain = rescued.filter((p) => p.has(`${id}_kidnapped`)).length;
+		persons[id] = {
+			rescued: rescued.length,
+			leftKidnapped: kidnapped.length - snatchedAgain,
+			snatchedAgain
+		};
+	}
 
-	for (const rec of dwlRecords) {
-		const logs = rec.recorded.recordedLogs ?? new Set<string>();
-		const has = (key: string) => logs.has(key);
-		const tier = rec.recorded.difficulty ?? 'standard';
-
-		// Kidnapped scholars — rescued / kidnapped (and both = snatched again).
-		for (const p of DWL_PERSONS) {
-			const r = has(k(`${p.id}_rescued`));
-			const kid = has(k(`${p.id}_kidnapped`));
-			if (r) persons[p.id].rescued += 1;
-			if (kid) persons[p.id].kidnapped += 1;
-			if (r && kid) persons[p.id].snatchedAgain += 1;
-		}
-
-		// Blood on the Altar — survived vs sacrificed.
-		const sacrificed = rec.recorded.recordedSectionItems?.[SACRIFICED_SECTION];
-		for (const a of DWL_SACRIFICE_ALLIES) {
-			if (has(k(`${a.id}_survived`))) bumpTally(sacrifices[a.id].survived, tier);
-			if (sacrificed?.has(a.code)) bumpTally(sacrifices[a.id].sacrificed, tier);
-		}
-		if (has(SILAS_KILLED)) silas.killed += 1;
-		if (has(SILAS_RESTORED)) silas.restored += 1;
-		if (has(SILAS_BANISHED)) silas.banished += 1;
-
-		// The Necronomicon (Miskatonic Museum custody + stolen back on the train).
-		if (has(NEC_TOOK)) necronomicon.took += 1;
-		if (has(NEC_DESTROYED)) necronomicon.destroyed += 1;
-		if (has(NEC_FAILED)) necronomicon.failed += 1;
-		if (has(NEC_STOLEN)) necronomicon.stolen += 1;
-
-		// The Miskatonic Museum opening approach (Extra choice — the log never records it).
-		const approach = rec.scenarioChoices?.['the_miskatonic_museum.approach'];
-		if (approach === 'broke_in') miskatonicApproach.brokeIn += 1;
-		else if (approach === 'spoke_to_adam') miskatonicApproach.spokeToAdam += 1;
-
-		// Undimensioned and Unseen — brood distribution (per difficulty) + townsfolk.
-		if (has(NO_BROOD)) {
-			bumpTally(ensureTally(broodCounts, '0'), tier);
-			broodPlays += 1;
-		} else if (has(BROOD_COUNT)) {
-			const n = rec.recorded.logCounts?.[BROOD_COUNT] ?? 0;
-			bumpTally(ensureTally(broodCounts, String(n)), tier);
-			broodPlays += 1;
-		}
-		if (has(CALMED)) townsfolk.calmed += 1;
-		if (has(WARNED)) townsfolk.warned += 1;
-
-		// Where Doom Awaits — outcome (the per-version breakdown rides the unified scenarios record).
-		if (has(ENTERED_GATE)) wda.enteredGate += 1;
-		if (has(YOG_ESCAPED)) wda.yogEscaped += 1;
-
-		// Lost in Time and Space — finale endings. R2 ("win… lost forever") writes no note;
-		// the Extra `final_act` = Act 4 is its only signal (Acts 1-3 log the R4 loss).
-		if (has(CLOSED_TEAR)) finale.closedTear += 1;
-		if (has(YOG_FLED)) finale.yogFled += 1;
-		if (has(YOG_BECAME_ONE)) finale.yogBecameOne += 1;
-		const anyFinaleNote =
-			has(CLOSED_TEAR) || has(YOG_FLED) || has(YOG_BECAME_ONE) || has(YOG_ESCAPED);
-		const r2Win = rec.scenarioChoices?.['lost_in_time_and_space.final_act'] === 'act_4' && !anyFinaleNote;
-		if (r2Win) finale.wonLostForever += 1;
-
-		// Epilogue — read after any win (incl. the silent R2); peaceful if you calmed the townsfolk.
-		if (has(CLOSED_TEAR) || has(YOG_FLED) || r2Win) {
-			if (has(CALMED)) epilogue.peaceful += 1;
-			else epilogue.ominous += 1;
+	const sacrifices: CampaignDwl['sacrifices'] = {};
+	for (const { id, code } of DWL_SACRIFICE_ALLIES) {
+		const t = (sacrifices[id] = { survived: emptyTally(), sacrificed: emptyTally() });
+		for (const p of plays) {
+			if (p.has(`${id}_survived`)) bumpTally(t.survived, p.tier);
+			if (p.items('sacrificed').has(code)) bumpTally(t.sacrificed, p.tier);
 		}
 	}
 
-	return [
-		{
-			family: DWL_FAMILY,
-			plays: dwlRecords.length,
-			persons,
-			sacrifices,
-			silas,
-			necronomicon,
-			miskatonicApproach,
-			broodCounts,
-			broodPlays,
-			townsfolk,
-			wda,
-			finale,
-			epilogue
+	const broodTallies: Record<string, Tally> = {};
+	for (const p of plays) {
+		const n = broodsEscaped(p);
+		if (n !== null) bumpTally(ensureTally(broodTallies, String(n)), p.tier);
+	}
+
+	const approach = (value: string) =>
+		plays.filter((p) => p.choice('the_miskatonic_museum', 'approach') === value).length;
+
+	const finale = countNotes(plays, {
+		closedTear: NOTE.closedTear,
+		yogFled: NOTE.yogFled,
+		yogBecameOne: NOTE.yogBecameOne
+	});
+	const won = plays.filter(
+		(p) => p.has(NOTE.closedTear) || p.has(NOTE.yogFled) || wonLostForever(p)
+	);
+
+	return {
+		persons,
+		sacrifices,
+		silas: countNotes(plays, {
+			killed: NOTE.silasKilled,
+			restored: NOTE.silasRestored,
+			banished: NOTE.silasBanished
+		}),
+		necronomicon: countNotes(plays, {
+			took: NOTE.necTook,
+			destroyed: NOTE.necDestroyed,
+			failed: NOTE.necFailed,
+			stolen: NOTE.necStolen
+		}),
+		miskatonicApproach: { brokeIn: approach('broke_in'), spokeToAdam: approach('spoke_to_adam') },
+		broods: Object.entries(broodTallies)
+			.map(([n, tally]) => ({ escaped: Number(n), tally }))
+			.sort((a, b) => a.escaped - b.escaped),
+		townsfolk: countNotes(plays, { calmed: NOTE.calmed, warned: NOTE.warned }),
+		wda: countNotes(plays, { enteredGate: NOTE.enteredGate, yogEscaped: NOTE.yogEscaped }),
+		finale: { ...finale, wonLostForever: plays.filter(wonLostForever).length },
+		epilogue: {
+			peaceful: won.filter((p) => p.has(NOTE.calmed)).length,
+			ominous: won.filter((p) => !p.has(NOTE.calmed)).length
 		}
-	];
-}
+	};
+});

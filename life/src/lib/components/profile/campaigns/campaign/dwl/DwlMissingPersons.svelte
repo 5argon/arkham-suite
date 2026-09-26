@@ -1,52 +1,36 @@
-<!--
-@component
-DWL bespoke widget — "The Missing Persons". The three kidnapped scholars (Warren
-Rice, Francis Morgan, Henry Armitage), each lit whenever their fate was decided at
-their own scenario, with the badge = times that fate was settled and a hover that
-splits it into rescued vs left kidnapped. Re-captures on the Essex County Express
-are NOT counted here — they live in the Essex widget. Portraits are the Ally story
-cards. Built on LitTileGrid.
--->
+<!-- @component The three kidnapped scholars, lit by how often their fate was settled at their own scenario. -->
 <script lang="ts">
-	import { getCardImagePath } from '@5argon/arkham-life-ui';
 	import { DWL_PERSONS, type CampaignDwl } from '$lib/campaign/campaigns/dwl';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { LitTileGrid, WidgetEmpty, type LitTile } from '$lib/components/profile/_primitives';
 	import { times } from '$lib/profile/plural';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { dwlPersonName } from './dwl-labels';
 
-	let { dwl }: { dwl: CampaignDwl | null } = $props();
+	let { blob: dwl }: CampaignWidgetProps<CampaignDwl> = $props();
 
-	const NAME: Record<string, () => string> = {
-		warren_rice: m.campaign_dwl_person_warren_rice,
-		francis_morgan: m.campaign_dwl_person_francis_morgan,
-		henry_armitage: m.campaign_dwl_person_henry_armitage
-	};
-
-	// Each play settles a scholar's fate at their own scenario: rescued, or left kidnapped.
-	// (A rescued scholar re-taken on the Essex County Express is a separate event — the Essex
-	// widget — so the kidnapped count here is the INITIAL "never rescued" fate only.)
-	const tile = (id: string, code: string): LitTile => {
-		const t = dwl?.persons[id] ?? { rescued: 0, kidnapped: 0, snatchedAgain: 0 };
-		const leftKidnapped = Math.max(0, t.kidnapped - t.snatchedAgain);
-		const parts: string[] = [];
-		if (t.rescued > 0) parts.push(m.campaign_dwl_persons_rescued({ times: times(t.rescued) }));
-		if (leftKidnapped > 0)
-			parts.push(m.campaign_dwl_persons_kidnapped({ times: times(leftKidnapped) }));
-		return {
-			id,
-			image: getCardImagePath(code, 'square'),
-			label: (NAME[id] ?? (() => id))(),
-			count: t.rescued + leftKidnapped,
-			detail: parts.length ? parts.join(' · ') : m.campaign_dwl_persons_empty_tile()
-		};
-	};
-
-	const tiles = $derived<LitTile[]>(dwl ? DWL_PERSONS.map((p) => tile(p.id, p.code)) : []);
-	const hasData = $derived(tiles.some((t) => t.count > 0));
+	const tiles = $derived<LitTile[]>(
+		DWL_PERSONS.map(({ id, code }) => {
+			const rescued = dwl?.persons[id]?.rescued ?? 0;
+			const left = dwl?.persons[id]?.leftKidnapped ?? 0;
+			const detail = [
+				rescued ? m.campaign_dwl_persons_rescued({ times: times(rescued) }) : '',
+				left ? m.campaign_dwl_persons_kidnapped({ times: times(left) }) : ''
+			]
+				.filter(Boolean)
+				.join(' · ');
+			return {
+				id,
+				code,
+				label: dwlPersonName(id),
+				count: rescued + left,
+				detail: detail || m.campaign_dwl_persons_empty_tile()
+			};
+		})
+	);
 </script>
 
-{#if hasData}
+{#if tiles.some((t) => t.count > 0)}
 	<LitTileGrid {tiles} colsClass="grid-cols-3" />
 {:else}
 	<WidgetEmpty>{m.campaign_dwl_persons_empty()}</WidgetEmpty>

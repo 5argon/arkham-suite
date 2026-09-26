@@ -1,88 +1,40 @@
-<!--
-@component
-DWL bespoke widget — "Lost in Time and Space". The finale's recorded endings: closed
-the tear (the standard win) / Yog-Sothoth fled (the superior win — you defeated it) /
-Yog-Sothoth became one with reality (the loss). Plus the silent "won, lost forever"
-(Act 4) ending, which writes no log — it's recovered from the Extra `final_act` choice,
-so that one count hides under Log-only mode. Below, the epilogue reached after any win —
-"life returned to normal" (calmed townsfolk) vs "the sign in the dirt". Lifetime counts,
-built on StatNumbers.
--->
+<!-- @component Lost in Time and Space: the finale's endings and the epilogue read after a win. -->
 <script lang="ts">
 	import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, {
-		type Stat,
-		type StatGroup
-	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
 
-	// `logOnly` (global or per-campaign): drop the Extra-derived "won, lost forever" count.
-	let {
-		dwl,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		dwl: CampaignDwl | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: dwl, ctx }: CampaignWidgetProps<CampaignDwl> = $props();
+
 	const f = $derived(dwl?.finale);
-	const hasFinale = $derived(
-		!!f && (f.closedTear > 0 || f.yogFled > 0 || f.yogBecameOne > 0 || (!logOnly && f.wonLostForever > 0))
-	);
-
-	// The epilogue reached after any win (log + Extra), shown regardless of log-only mode.
 	const e = $derived(dwl?.epilogue);
-	const hasEpilogue = $derived(!!e && (e.peaceful > 0 || e.ominous > 0));
-
-	const hasData = $derived(hasFinale || hasEpilogue);
-	const rows = $derived<(Stat[] | StatGroup)[]>([
-		...(hasFinale && f
-			? [
-					[
-						{ value: f.closedTear, label: m.campaign_dwl_finale_closed() },
-						{ value: f.yogFled, label: m.campaign_dwl_finale_fled() },
-						{ value: f.yogBecameOne, label: m.campaign_dwl_finale_became_one() }
-					],
-					...(!logOnly
-						? [[{ value: f.wonLostForever, label: m.campaign_dwl_finale_lost_forever() }]]
-						: [])
-				]
-			: []),
-		...(hasEpilogue && e
-			? [
-					{
-						heading: m.campaign_dwl_epilogue_heading(),
-						stats: [
-							{ value: e.peaceful, label: m.campaign_dwl_epilogue_peaceful() },
-							{ value: e.ominous, label: m.campaign_dwl_epilogue_ominous() }
-						]
-					}
-				]
-			: [])
-	]);
 </script>
 
-<ScenarioInfo
-	scenarioId="lost_in_time_and_space"
-	{family}
-	{achievements}
-	{scenarios}
-	{logOnly}
->
+<ScenarioInfo {ctx}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_dwl_finale_empty()}</WidgetEmpty>
-		{/if}
+		<StatNumbers
+			logOnly={ctx.logOnly}
+			empty={m.campaign_dwl_finale_empty()}
+			rows={[
+				[
+					{ value: f?.closedTear, label: m.campaign_dwl_finale_closed() },
+					{ value: f?.yogFled, label: m.campaign_dwl_finale_fled() },
+					{ value: f?.yogBecameOne, label: m.campaign_dwl_finale_became_one() }
+				],
+				{
+					nonLog: true,
+					stats: [{ value: f?.wonLostForever, label: m.campaign_dwl_finale_lost_forever() }]
+				},
+				{
+					heading: m.campaign_dwl_epilogue_heading(),
+					stats: [
+						{ value: e?.peaceful, label: m.campaign_dwl_epilogue_peaceful() },
+						{ value: e?.ominous, label: m.campaign_dwl_epilogue_ominous() }
+					]
+				}
+			]}
+		/>
 	{/snippet}
 </ScenarioInfo>

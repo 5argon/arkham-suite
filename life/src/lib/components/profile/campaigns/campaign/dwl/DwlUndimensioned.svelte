@@ -1,70 +1,28 @@
-<!--
-@component
-DWL bespoke widget — "Undimensioned and Unseen". A scoreboard of how many broods
-escaped into the wild (0 = none escaped, else the recorded count) across plays —
-each count hovers to a per-difficulty breakdown — plus whether you calmed or warned
-the townsfolk. Built on StatNumbers.
--->
+<!-- @component Undimensioned and Unseen: how many broods escaped, and whether the townsfolk were calmed. -->
 <script lang="ts">
 	import type { CampaignDwl } from '$lib/campaign/campaigns/dwl';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
 
-	let {
-		dwl,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		dwl: CampaignDwl | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
-	const t = $derived(dwl?.townsfolk);
-	const hasData = $derived(!!dwl && (dwl.broodPlays > 0 || (!!t && (t.calmed > 0 || t.warned > 0))));
-
-	const broodRow = $derived<Stat[]>(
-		dwl
-			? Object.keys(dwl.broodCounts)
-					.map(Number)
-					.sort((a, b) => a - b)
-					.map((n) => ({
-						value: dwl.broodCounts[n].total,
-						byTier: dwl.broodCounts[n].byTier,
-						label: n === 0 ? m.campaign_dwl_broods_none() : m.campaign_dwl_broods_label({ n })
-					}))
-			: []
-	);
-	const townsfolkRow = $derived<Stat[]>(
-		t && (t.calmed > 0 || t.warned > 0)
-			? [
-					{ value: t.calmed, label: m.campaign_dwl_townsfolk_calmed() },
-					{ value: t.warned, label: m.campaign_dwl_townsfolk_warned() }
-				]
-			: []
-	);
-	const rows = $derived<Stat[][]>([broodRow, townsfolkRow].filter((r) => r.length));
+	let { blob: dwl, ctx }: CampaignWidgetProps<CampaignDwl> = $props();
 </script>
 
-<ScenarioInfo
-	scenarioId="undimensioned_and_unseen"
-	{family}
-	{achievements}
-	{scenarios}
-	{logOnly}
->
+<ScenarioInfo {ctx}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_dwl_broods_empty()}</WidgetEmpty>
-		{/if}
+		<StatNumbers
+			empty={m.campaign_dwl_broods_empty()}
+			rows={[
+				(dwl?.broods ?? []).map((b) => ({
+					tally: b.tally,
+					label: b.escaped === 0 ? m.campaign_dwl_broods_none() : m.campaign_dwl_broods_label({ n: b.escaped })
+				})),
+				[
+					{ value: dwl?.townsfolk.calmed, label: m.campaign_dwl_townsfolk_calmed() },
+					{ value: dwl?.townsfolk.warned, label: m.campaign_dwl_townsfolk_warned() }
+				]
+			]}
+		/>
 	{/snippet}
 </ScenarioInfo>
