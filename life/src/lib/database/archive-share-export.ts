@@ -1,47 +1,39 @@
-/**
- * archive-share-export.ts — bulk "export these records as a zip of share files",
- * shared by the Campaign Archive and Standalone Archive lists. Each id is bundled
- * as its own gzipped `.ahlifecam` inside one outer `.zip`. Works for BOTH campaign
- * and standalone ids, since the share layer resolves either array (findRecord).
- */
 import { zipSync } from 'fflate';
+
 import { saveBinaryFile } from '$lib/save-file';
+
 import { campaignShareEntryName, serializeCampaignShare } from './campaign-share';
-import { gzipJsonText } from './backup-file';
-import { fileStem } from './export';
 import type { DatabaseDocument } from './document';
+import { FILE_EXTENSION, fileStem, gzipJsonText } from './file-format';
 
 /**
- * Bundle each given record (campaign OR standalone) as its own gzipped `.ahlifecam`
- * inside one `.zip` and prompt to save it. `suffix` tags the filename (e.g.
- * `-campaigns` / `-standalones`); `description` is the save-dialog label.
+ * Save the given records (campaigns or standalones) as one `.zip` of gzipped `.ahlifecam` files.
+ * `suffix` tags the file name (e.g. `-campaigns`); `description` labels the save dialog.
  */
 export async function downloadSharesZip(
 	doc: DatabaseDocument,
 	ids: Iterable<string>,
 	suffix: string,
-	description: string,
+	description: string
 ): Promise<void> {
+	const ext = FILE_EXTENSION.campaign;
 	const files: Record<string, Uint8Array> = {};
-	const used = new Set<string>();
 	for (const id of ids) {
 		const json = serializeCampaignShare(doc, id);
-		if (!json) continue; // record vanished — skip
+		if (!json) continue;
 		const base = campaignShareEntryName(doc, id);
 		let name = base;
-		let i = 2;
-		while (used.has(name)) name = base.replace(/\.ahlifecam$/, `-${i++}.ahlifecam`);
-		used.add(name);
+		for (let i = 2; name in files; i++) name = `${base.slice(0, -ext.length)}-${i}${ext}`;
 		files[name] = gzipJsonText(json);
 	}
 	if (Object.keys(files).length === 0) return;
-	// Entries are already gzipped, so store them uncompressed (level 0) in the zip.
+	// Entries are already gzipped, so the zip only stores them.
 	const zipped = zipSync(files, { level: 0 });
 	await saveBinaryFile({
-		suggestedName: `${fileStem(doc.owner.name, suffix)}.zip`,
+		suggestedName: `${fileStem('arkham-life', doc.owner.name, suffix)}.zip`,
 		data: new Blob([zipped], { type: 'application/zip' }),
 		mime: 'application/zip',
 		extension: '.zip',
-		description,
+		description
 	});
 }

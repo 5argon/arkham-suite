@@ -20,7 +20,7 @@ The **Database** is your entire local data file. It is stored in the browser's *
 
 The Database is *not* just your campaigns — it is the whole document. In code it is the `DatabaseDocument` (`src/lib/database/document.ts`), held in memory by the reactive `databaseStore` (`src/lib/database/database.svelte.ts`).
 
-Because IndexedDB can be evicted by the browser, the only durable backup is the file you export: a compressed **`.ahlifedb`** file (Save / Load Database, or Archive → Import / Export).
+IndexedDB is only the working copy: the browser can evict it without warning (clearing site data, private browsing, disk pressure). The user's durable copy is the **`.ahlifedb`** file they **save** (never called a "backup" in the UI) on Save / Load Database; the header counts changes since the last save (`save-status.svelte.ts`).
 
 ### Campaign Archive
 
@@ -33,7 +33,7 @@ Every person is identified by a stable **UID** (`XXX-XXX-XXX`).
 - **You** — the Database owner (`doc.owner`).
 - **Other Players** — additional players you manage and record on behalf of (`doc.players`). You and your Other Players make up your **roster**.
 - **Play Group** — a named bundle of players with its own combined profile (`doc.playGroups`).
-- **Guest** — someone who isn't in your roster, frozen into a campaign as a baked snapshot (name + portrait + UID). Guests are derived, not stored as a flag: the same shared campaign yields a different guest set in each person's Database. A roster member always shows live (rename once, update everywhere); a guest stays frozen.
+- **Guest** — someone who isn't in your roster, frozen into a campaign as a baked snapshot (name + portrait + UID). Guests are derived, not stored as a flag: the same shared campaign yields a different guest set in each person's Database. A roster member always shows live (renaming writes through to every snapshot); a guest stays frozen. Removing a player freezes them as a guest in their past campaigns.
 
 A **single campaign** can be handed to another player with "Export this campaign" — a self-contained file with every participant baked in (`src/lib/database/campaign-share.ts`).
 
@@ -74,9 +74,10 @@ A per-subject precompute **cache** (`src/lib/database/profile-cache.ts`) keeps p
 ```
 src/
 ├── lib/
-│   ├── database/      # The Database: document model, reactive store, IndexedDB
-│   │                  # persistence, .ahlifedb export/backup, UIDs, single-campaign
-│   │                  # share, and the profile builder + precompute cache.
+│   ├── database/      # The Database: document model (document.ts), reactive store,
+│   │                  # IndexedDB persistence (idb.ts), file formats + saving,
+│   │                  # UIDs, single-campaign share, and the profile builder +
+│   │                  # precompute cache.
 │   ├── campaign/      # Campaign analysis: recorded-state codec, clear status,
 │   │                  # achievements, collections, investigators, ownership, and the
 │   │                  # profile widget catalogue + settings.
@@ -122,16 +123,20 @@ Rules of thumb when adding a component:
 - Generic, domain-free UI → `_primitives/` (prop-driven, no own copy).
 - Campaign-domain but cross-family (e.g. `ResolutionChips` — resolutions only exist for
   campaigns) → `campaigns/campaign/`. Family-specific → `campaigns/campaign/<family>/`.
-- The widget catalogue + `widgetLabel()`/`widgetTitle()` live in
-  `src/lib/campaign/profile-widgets.ts`; `ProfileWidgets.svelte` (in `_framework/`) dispatches
-  every widget id to its component.
+- A profile page renders a `ProfilePayload` (`src/lib/profile/profile-types.ts`) built by
+  `database/profile-local.ts`. Each campaign's aggregate is one blob in `payload.bespoke`, built by
+  the builder registered in `src/lib/campaign/campaigns/registry.ts`.
+- Widget definitions (and each pane's default layout) live in
+  `src/lib/campaign/profile/widgets/<slug>.ts`, listed in `profile-widgets.ts`; each campaign
+  folder's `index.ts` maps widget ids to components for the renderer in `_framework/`. The
+  `campaign-widget` skill (`.claude/skills/campaign-widget/SKILL.md`) is the full guide.
 
 ### Localization (Paraglide / inlang)
 
 User-facing English in the profile layer is authored as **Paraglide messages**, not hardcoded.
 Setup: `@inlang/paraglide-js` v2, `project.inlang/`, the Vite plugin compiles
 `messages/**` → `src/lib/paraglide/` (gitignored, regenerated on dev/build; `yarn paraglide-compile`
-to force). Locales: `en` (source) and `th`.
+to force). Locale: `en`.
 
 **Message namespaces mirror the same nav tree** — `messages/profile/{shared, framework, home,
 campaigns, campaigns/campaign, campaigns/campaign/<family>, cards, cards/class, investigators,
@@ -154,17 +159,16 @@ investigators/class}/{lang}.json` — each declared in `project.inlang/settings.
   text) or `@5argon/arkham-tsk-solver` (scenario reference title/location/key/version labels). Those
   packages own their own translations.
 
-**Adding a new campaign widget** → `campaigns/campaign/<family>/Foo.svelte` +
-`messages/profile/campaigns/campaign/<family>/en.json` keyed `campaign_<family>_foo_*`, registered in
-`profile-widgets.ts` and dispatched in `ProfileWidgets.svelte`.
+**Adding a new campaign widget** → follow the `campaign-widget` skill.
 
 ---
 
-## Persistence & backup
+## Persistence & saving
 
-- **IndexedDB** is the always-on, crash-safe working copy (`IndexedDbAdapter`). The storage seam is `PersistenceAdapter` (`src/lib/database/persistence.ts`).
-- **Save** = export the whole Database to a `.ahlifedb` file and keep it somewhere safe. Loading one **replaces** the Database in this browser.
-- **Share** = export a single campaign and hand the file to another player; they import it as a new campaign.
+- **IndexedDB** holds the working copy (`IndexedDbAdapter` behind the `PersistenceAdapter` seam). Edits write through a debounced save; the derived profile cache stays in memory and is rebuilt after load.
+- **Save** writes the whole Database to a gzipped `.ahlifedb` (`database/export.ts`, `file-format.ts`). **Load** replaces the Database in this browser. Only the current `DATABASE_FORMAT_VERSION` opens; a stored document that fails to load blocks the app behind a screen that saves it out first.
+- **Share** exports one campaign as `.ahlifecam` for another player to import as a new copy (`campaign-share.ts`).
+- **Compiled profile** exports one subject as `.ahlifepro` (`compiled-profile.ts`).
 
 ---
 

@@ -13,7 +13,7 @@ arkham.life can produce three kinds of file. Everything is actually just a `.jso
 
 ## Viewing someone else's profile
 
-Open the **Profiles** page and switch to the **External Profiles** tab. Use **Open `.ahlifepro`…** to load a file someone exported or shared with you. It is kept in this browser — and inside your `.ahlifedb` backup — so you can revisit it offline, and it shows up in the list with the same **Open** and **Export** buttons as your own profiles. Loaded profiles live separately from the players and play groups in your database, and open at `/p/loaded/…` instead of `/p/private/…`. They are immutable snapshots: there is nothing to recompute or customize. Re-loading a newer file for the same person (same UID) overwrites the old copy cleanly instead of duplicating it.
+Open the **Profiles** page and switch to the **External Profiles** tab. Use **Open `.ahlifepro`…** to load a file someone exported or shared with you. It is kept in this browser — and inside your `.ahlifedb` save file — so you can revisit it offline, and it shows up in the list with the same **Open** and **Export** buttons as your own profiles. Loaded profiles live separately from the players and play groups in your database, and open at `/p/loaded/…` instead of `/p/private/…`. They are immutable snapshots: there is nothing to recompute or customize. Re-loading a newer file for the same person (same UID) overwrites the old copy cleanly instead of duplicating it.
 
 ## Online profile viewing
 

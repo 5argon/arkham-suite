@@ -2,5 +2,86 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"database_title": "Save / Load Database",
 	"database_page_title": "arkham.life | Save / Load Database",
-	"database_description": "This site is just a tool to update your database FILE. NO HOSTING. You must Save to keep your work."
+	"database_description": "This site is just a tool to update your database FILE. NO HOSTING. You must Save to keep your work.",
+	"database_loading": "Loading your database…",
+	"database_file_db": "arkham.life database",
+	"database_file_campaign": "arkham.life campaign",
+	"database_file_profile": "arkham.life compiled profile",
+	"database_file_json": "{description} (JSON)",
+	"database_save_ago_now": "just now",
+	"database_save_ago_minutes": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} minute ago",
+				"countPlural=other": "{count} minutes ago"
+			}
+		}
+	],
+	"database_save_ago_hours": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} hour ago",
+				"countPlural=other": "{count} hours ago"
+			}
+		}
+	],
+	"database_save_ago_days": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} day ago",
+				"countPlural=other": "{count} days ago"
+			}
+		}
+	],
+	"database_save_last_saved": "Last saved {when}",
+	"database_save_never": "Never saved",
+	"database_save_changes_since": [
+		{
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
+			"match": {
+				"countPlural=one": "{count} change since",
+				"countPlural=other": "{count} changes since"
+			}
+		}
+	],
+	"database_save_error": "Your latest changes could not be written to this browser's storage ({error}). Save your database to a file to keep them.",
+	"database_open_choose_file": "Choose .ahlifedb file…",
+	"database_open_error": "That file could not be read.",
+	"database_open_replace_confirm": "Loading replaces the ENTIRE campaign database currently in this browser — every campaign and player. Continue?",
+	"database_load_error_title": "Your database could not be opened",
+	"database_load_error_body": "The database stored in this browser could not be read: {error}",
+	"database_load_error_save_first": "Save what is stored to a file before starting over, so nothing is lost. Starting over (creating or loading a database) replaces it in this browser.",
+	"database_load_error_save": "Save stored data",
+	"database_load_error_saved": "Saved. You can start over now.",
+	"database_load_error_start_over": "Start over",
+	"database_load_error_start_over_confirm": "Remove the unreadable database from this browser and start over? Only the file you just saved keeps it.",
+	"database_load_error_unavailable": "This browser's storage could not be read at all, so there is nothing to save yet. Reload the page to try again.",
+	"database_load_error_reload": "Reload"
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { gzipJsonText, readBackupFile } from './backup-file';
+import { fileStem, gzipJsonText, readDataFile, safeFileName } from './file-format';
 
 function fileFrom(data: Uint8Array<ArrayBuffer> | string, name: string): File {
 	return new File([data], name);
@@ -12,15 +12,15 @@ const sample = {
 	campaigns: [{ id: 'abc', title: 'Edge hard 3', decks: [] as unknown[] }],
 };
 
-describe('backup-file', () => {
-	it('round-trips a gzipped backup', async () => {
+describe('file-format', () => {
+	it('round-trips a gzipped file', async () => {
 		const bytes = gzipJsonText(JSON.stringify(sample, null, 2));
-		expect(await readBackupFile(fileFrom(bytes, 'backup.arkhamlife'))).toEqual(sample);
+		expect(await readDataFile(fileFrom(bytes, 'db.ahlifedb'))).toEqual(sample);
 	});
 
-	it('still reads a legacy uncompressed .json export (backward compat)', async () => {
+	it('reads a plain .json export', async () => {
 		const text = JSON.stringify(sample, null, 2);
-		expect(await readBackupFile(fileFrom(text, 'old-export.json'))).toEqual(sample);
+		expect(await readDataFile(fileFrom(text, 'old-export.json'))).toEqual(sample);
 	});
 
 	it('produces a real gzip stream (magic bytes 1f 8b)', () => {
@@ -29,8 +29,6 @@ describe('backup-file', () => {
 	});
 
 	it('compresses redundant data far below the original size', () => {
-		// Many near-identical records (like a real export's deck versions) should
-		// shrink dramatically — this is the whole point of compressing the backup.
 		const big = JSON.stringify({
 			decks: Array.from({ length: 50 }, (_, i) => ({ ...sample.campaigns[0], i })),
 		});
@@ -41,6 +39,12 @@ describe('backup-file', () => {
 	it('throws on a corrupt file so the UI can surface the error', async () => {
 		// Gzip magic bytes followed by garbage → decompression fails.
 		const corrupt = new Uint8Array([0x1f, 0x8b, 0x00, 0x01, 0x02, 0x03]);
-		await expect(readBackupFile(fileFrom(corrupt, 'corrupt.arkhamlife'))).rejects.toThrow();
+		await expect(readDataFile(fileFrom(corrupt, 'corrupt.ahlifedb'))).rejects.toThrow();
+	});
+
+	it('builds filesystem-safe dated stems', () => {
+		expect(safeFileName('The Keeper / #1')).toBe('The_Keeper_1');
+		expect(safeFileName('')).toBe('untitled');
+		expect(fileStem('arkham-life', 'Keeper', '-x')).toMatch(/^arkham-life-Keeper-x-\d{4}-\d{2}-\d{2}$/);
 	});
 });

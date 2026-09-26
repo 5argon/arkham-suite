@@ -17,7 +17,6 @@
 			"./messages/database/{languageTag}.json",
 			"./messages/guides/{languageTag}.json",
 			"./messages/settings/{languageTag}.json",
-			"./messages/export/{languageTag}.json",
 			"./messages/profile/{languageTag}.json",
 			"./messages/profile/shared/{languageTag}.json",
 			"./messages/profile/framework/{languageTag}.json",
@@ -46,7 +45,8 @@
 			"./messages/profile/cards/keywords/{languageTag}.json",
 			"./messages/profile/cards/levels/{languageTag}.json",
 			"./messages/profile/investigators/{languageTag}.json",
-			"./messages/profile/investigators/class/{languageTag}.json"
+			"./messages/profile/investigators/class/{languageTag}.json",
+			"./messages/profile/standalones/{languageTag}.json"
 		]
 	},
 	"sourceLanguageTag": "en",

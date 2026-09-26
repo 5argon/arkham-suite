@@ -2,9 +2,7 @@
 	import { onMount } from 'svelte';
 	import { BackButton, MarginFull, PageLead, Tabs } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	// Eager static imports (not the lazy <Doc>) so the active tab is server-rendered + present at
-	// hydration, and switching tabs is instant. Each topic is its own doc folder under
-	// src/lib/docs/guide/, imported in the base locale.
+	// Static imports (not the lazy <Doc>) so the active tab is server-rendered and switches instantly.
 	import Database from '$lib/docs/guide/database/en.md';
 	import FileTypes from '$lib/docs/guide/file-types/en.md';
 	import Players from '$lib/docs/guide/players/en.md';
@@ -18,8 +16,7 @@
 	let active = $state(0);
 	const Body = $derived(TABS[active].Body);
 
-	// Open the tab named by the URL hash, e.g. /guides#file-types (linked from the profile page).
-	// Done in onMount (client only) so SSR/hydration render the default tab without a mismatch.
+	// Open the tab named by the URL hash (/guides#file-types); client-only to avoid a hydration mismatch.
 	onMount(() => {
 		const key = location.hash.replace(/^#/, '');
 		const i = TABS.findIndex((t) => t.key === key);

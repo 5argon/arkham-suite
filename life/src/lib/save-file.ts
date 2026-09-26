@@ -1,15 +1,6 @@
 /**
- * save-file.ts — save a file to a location the user picks.
- *
- * Uses the File System Access API (`showSaveFilePicker`) so the browser shows a
- * native "Save As" dialog (Chromium, secure contexts). Where that's unavailable
- * (Firefox, Safari, non-secure contexts) it falls back to a normal download to
- * the default location.
- *
- * `saveTextFile` saves a string; `saveBinaryFile` saves raw bytes (e.g. gzipped
- * backups — see database/backup-file.ts). Both return `true` when a file was
- * written, `false` when the user cancelled the dialog — so callers can avoid
- * recording a backup / showing a success toast on cancel.
+ * Save a file where the user picks: the native Save dialog (`showSaveFilePicker`, Chromium in a
+ * secure context), else a plain download. Resolves false when the user cancelled the dialog.
  */
 
 interface SaveFilePickerOptions {
@@ -21,7 +12,6 @@ interface SaveFileHandle {
 }
 type SaveFilePicker = (options?: SaveFilePickerOptions) => Promise<SaveFileHandle>;
 
-/** Shared core: write a Blob via the native picker, falling back to an anchor download. */
 async function saveBlob(opts: {
 	suggestedName: string;
 	blob: Blob;
@@ -40,13 +30,11 @@ async function saveBlob(opts: {
 			await writable.close();
 			return true;
 		} catch (err) {
-			// User dismissed the dialog — report as "not saved".
 			if (err instanceof DOMException && err.name === 'AbortError') return false;
-			// Otherwise (SecurityError, etc.) fall through to the download fallback.
+			// Any other failure (SecurityError, …) falls back to a download.
 		}
 	}
 
-	// Fallback: anchor download to the browser's default location.
 	const url = URL.createObjectURL(blob);
 	const a = document.createElement('a');
 	a.href = url;

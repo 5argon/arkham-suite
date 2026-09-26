@@ -17,17 +17,19 @@ import {
 	createCampaign,
 	createEmptyDatabase,
 	createPlayGroup,
+	createStandalone,
+	defaultCampaignTitle,
 	findCampaign,
 	findPlayGroup,
-	isDatabaseDocument,
+	insertRecord,
 	parseDatabaseDocument,
-	reassignParticipant,
 	removeCampaign,
 	removeDeck,
 	removeParticipant,
 	removePlayer,
 	removePlayGroup,
 	resolveParticipant,
+	setCampaignLinkedLogs,
 	setCampaignLogs,
 	setManualAchievement,
 	updateCampaignGeneral,
@@ -61,6 +63,8 @@ describe('createEmptyDatabase', () => {
 		expect(doc.players).toEqual([]);
 		expect(doc.playGroups).toEqual([]);
 		expect(doc.campaigns).toEqual([]);
+		expect(doc.standalones).toEqual([]);
+		expect(doc.loadedProfiles).toEqual([]);
 	});
 
 	it('defaults a missing icon to 01001', () => {
@@ -181,30 +185,6 @@ describe('participants', () => {
 		expect(cc.participants.find((p) => p.uid === g.uid)).toBeUndefined();
 		expect(cc.decks.find((d) => d.id === deck.id)!.ownerUid).toBeNull();
 	});
-
-	it('reassignParticipant swaps a guest for a roster member and remaps decks', () => {
-		const doc = seed();
-		const ally = addPlayer(doc, { name: 'Ally' });
-		const c = createCampaign(doc, { campaignCode: 'x', title: 'T' });
-		const g = addParticipant(doc, c.id, { uid: 'abc-2de-fgh', name: 'C' })!;
-		const deck = addDeck(doc, c.id, { ownerUid: g.uid, investigator: '01001', versions: [] })!;
-		reassignParticipant(doc, c.id, g.uid, ally.uid);
-		const cc = findCampaign(doc, c.id)!;
-		expect(cc.participants.find((p) => p.uid === g.uid)).toBeUndefined();
-		expect(cc.participants.find((p) => p.uid === ally.uid)).toBeDefined();
-		expect(cc.decks.find((d) => d.id === deck.id)!.ownerUid).toBe(ally.uid);
-	});
-
-	it('reassignParticipant merges when the target is already a participant', () => {
-		const doc = seed();
-		const c = createCampaign(doc, { campaignCode: 'x', title: 'T' }); // owner is a participant
-		const g = addParticipant(doc, c.id, { uid: 'abc-2de-fgh', name: 'C' })!;
-		const deck = addDeck(doc, c.id, { ownerUid: g.uid, investigator: '01001', versions: [] })!;
-		reassignParticipant(doc, c.id, g.uid, doc.owner.uid); // owner already present → merge
-		const cc = findCampaign(doc, c.id)!;
-		expect(cc.participants).toHaveLength(1); // just the owner
-		expect(cc.decks.find((d) => d.id === deck.id)!.ownerUid).toBe(doc.owner.uid);
-	});
 });
 
 describe('logs and achievements', () => {
@@ -220,16 +200,29 @@ describe('logs and achievements', () => {
 		expect(findCampaign(doc, c.id)!.logs).toHaveLength(0);
 	});
 
-	it('changeCampaignCode swaps the code and clears logs + achievements', () => {
+	it('changeCampaignCode swaps the code and clears logs, linked log and achievements', () => {
 		const doc = seed();
-		const c = createCampaign(doc, { campaignCode: 'the_dunwich_legacy', title: 'T' });
+		const c = createCampaign(doc, {
+			campaignCode: 'the_dunwich_legacy',
+			title: defaultCampaignTitle('the_dunwich_legacy')
+		});
 		setCampaignLogs(doc, c.id, [{ key: 'k', section: 's', args: [] }]);
+		setCampaignLinkedLogs(doc, c.id, [{ key: 'k', section: 's', args: [] }]);
 		setManualAchievement(doc, c.id, { family: 'f', achievementId: 'a', itemId: null }, true);
 		changeCampaignCode(doc, c.id, 'the_path_to_carcosa');
 		const after = findCampaign(doc, c.id)!;
 		expect(after.campaignCode).toBe('the_path_to_carcosa');
+		expect(after.title).toBe(defaultCampaignTitle('the_path_to_carcosa'));
 		expect(after.logs).toHaveLength(0);
+		expect(after.linkedLog).toBeUndefined();
 		expect(after.manualAchievements).toHaveLength(0);
+	});
+
+	it('changeCampaignCode keeps a title the user typed', () => {
+		const doc = seed();
+		const c = createCampaign(doc, { campaignCode: 'the_dunwich_legacy', title: 'Edge hard 3' });
+		changeCampaignCode(doc, c.id, 'the_path_to_carcosa');
+		expect(findCampaign(doc, c.id)!.title).toBe('Edge hard 3');
 	});
 
 	it('toggles a manual achievement idempotently', () => {
@@ -241,6 +234,23 @@ describe('logs and achievements', () => {
 		expect(findCampaign(doc, c.id)!.manualAchievements).toHaveLength(1);
 		setManualAchievement(doc, c.id, tick, false);
 		expect(findCampaign(doc, c.id)!.manualAchievements).toHaveLength(0);
+	});
+});
+
+describe('insertRecord', () => {
+	it('routes a standalone to standalones and replaces a record with the same id', () => {
+		const doc = seed();
+		const s = createStandalone(doc, {
+			source: 'pack',
+			campaignCode: 'side',
+			scenario: 'x',
+			title: 'S'
+		});
+		const copy = { ...JSON.parse(JSON.stringify(s)), title: 'Restored' };
+		insertRecord(doc, copy);
+		expect(doc.standalones).toHaveLength(1);
+		expect(doc.standalones[0].title).toBe('Restored');
+		expect(doc.campaigns).toHaveLength(0);
 	});
 });
 
@@ -281,8 +291,16 @@ describe('import validation', () => {
 		expect(round.campaigns).toHaveLength(1);
 	});
 
+	it('fills lists absent from an older format-3 document', () => {
+		const stored: Record<string, unknown> = JSON.parse(JSON.stringify(seed()));
+		delete stored.standalones;
+		delete stored.loadedProfiles;
+		const doc = parseDatabaseDocument(stored);
+		expect(doc.standalones).toEqual([]);
+		expect(doc.loadedProfiles).toEqual([]);
+	});
+
 	it('rejects junk and any off-version format', () => {
-		expect(isDatabaseDocument({ nope: true })).toBe(false);
 		expect(() => parseDatabaseDocument({ nope: true })).toThrow(DatabaseImportError);
 		// Both a newer and an older (un-migratable) format are rejected.
 		const newer = seed() as DatabaseDocument & { formatVersion: number };

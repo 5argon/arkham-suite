@@ -3,11 +3,17 @@
 	import { goto } from '$app/navigation';
 	import { Body, HeaderBar, Main, Toast, createToastContext } from '@5argon/arkham-life-ui';
 	import '../app.css';
+	import * as m from '$lib/paraglide/messages.js';
 	import { themeStorage } from '$lib/storage';
-	import { getAllCards } from '$lib/card-data';
+	import { cardByCode } from '$lib/card-data';
+	import DatabaseLoadError from '$lib/components/DatabaseLoadError.svelte';
 	import { databaseStore } from '$lib/database/database.svelte';
-	import { ensureDatabaseLoaded, requestPersistentStorage, BOOTSTRAP_ROUTES } from '$lib/database/bootstrap';
-	import { backupStatus, isEscalated, lastBackupLabel, needsBackup } from '$lib/database/backup-status';
+	import {
+		BOOTSTRAP_ROUTES,
+		ensureDatabaseLoaded,
+		requestPersistentStorage
+	} from '$lib/database/bootstrap';
+	import { saveStatus } from '$lib/database/save-status.svelte';
 	import { preloader } from '$lib/preload/preloader.svelte';
 
 	import type { LayoutProps } from './$types';
@@ -18,21 +24,12 @@
 
 	onMount(async () => {
 		theme = themeStorage.get();
-
-		// Hydrate the database from IndexedDB, then send first-time visitors to the
-		// bootstrap screen.
 		await ensureDatabaseLoaded();
 		const path = window.location.pathname;
-		// The home page shows its own "Set up your database" card, so don't bounce
-		// people off it on refresh — only force-redirect from gated routes.
-		const isHome = path === '/';
-		const onBootstrapRoute = BOOTSTRAP_ROUTES.some((r) => path.startsWith(r));
-		if (!databaseStore.hasDatabase && !isHome && !onBootstrapRoute) {
-			goto('/new');
-		} else if (databaseStore.hasDatabase) {
-			// Keep the local data durable against eviction (best-effort).
-			void requestPersistentStorage();
-		}
+		// Home shows its own empty state; other routes need a database.
+		const gated = path !== '/' && !BOOTSTRAP_ROUTES.some((r) => path.startsWith(r));
+		if (databaseStore.status === 'empty' && gated) goto('/new');
+		else if (databaseStore.hasDatabase) void requestPersistentStorage();
 	});
 
 	function handleThemeChange(newTheme: 'light' | 'dark') {
@@ -40,24 +37,14 @@
 		themeStorage.set(newTheme);
 	}
 
-	const allCards = getAllCards();
-
 	const userInfo = $derived.by(() => {
 		const owner = databaseStore.doc?.owner;
-		if (!owner) return undefined;
-		const iconCard = allCards.find((c) => c.code === owner.iconCardCode);
-		if (!iconCard) return undefined;
-		// No account to sign out of: the identity is shown but inert.
-		return { name: owner.name, iconCard };
+		const iconCard = owner && cardByCode(owner.iconCardCode);
+		return owner && iconCard ? { name: owner.name, iconCard } : undefined;
 	});
 
-	// Create toast context so all child pages/components can call getToastContext()
 	const toast = createToastContext();
 
-	// ─── Save-to-file status ─────────────────────────────────────────────────────
-	// Edits autosave to IndexedDB, which the browser can evict without warning; the exported
-	// .ahlifedb file is the user's durable copy, so the header shows unsaved (un-exported) changes
-	// and offers a Save button on every page.
 	let exporting = $state(false);
 
 	async function saveToFile() {
@@ -72,38 +59,26 @@
 	const save = $derived.by(() => {
 		const doc = databaseStore.doc;
 		if (!doc) return undefined;
-		// `needsBackup` short-circuits on the change counter (localStorage, not reactive);
-		// read `updatedAt` so this re-runs on every edit and keeps the count/escalation fresh.
-		void doc.updatedAt;
 		if (exporting) return { state: 'saving' as const };
-		const last = backupStatus().lastExportAt;
-		const lastLabel = last != null ? `Last saved ${lastBackupLabel()}` : undefined;
-		if (!needsBackup(doc)) {
-			return { state: 'saved' as const, detail: lastLabel };
-		}
-		const changes = backupStatus().unexportedChanges;
-		const detail =
-			changes > 0
-				? `${changes} change${changes === 1 ? '' : 's'} since last save${last != null ? ` · last saved ${lastBackupLabel()}` : ''}`
-				: lastLabel;
+		const detail = saveStatus.summary() ?? undefined;
+		if (!saveStatus.needsSave(doc)) return { state: 'saved' as const, detail };
 		return {
 			state: 'unsaved' as const,
-			escalated: isEscalated(),
+			escalated: saveStatus.escalated,
 			detail,
 			onSave: saveToFile,
-			help: { href: '/guides' },
+			help: { href: '/guides' }
 		};
 	});
 
 	const loading = $derived({
 		active: preloader.progress.active,
 		progress:
-			preloader.progress.total > 0 ? preloader.progress.done / preloader.progress.total : undefined,
+			preloader.progress.total > 0 ? preloader.progress.done / preloader.progress.total : undefined
 	});
 </script>
 
 <Body {theme}>
-	<!-- Toast overlay – floats above everything at z-index 200 -->
 	{#if toast.state}
 		{#key toast.state.key}
 			<Toast
@@ -125,5 +100,19 @@
 		{loading}
 	/>
 
-	<Main {children} />
+	<Main>
+		{#if databaseStore.status === 'error'}
+			<DatabaseLoadError />
+		{:else}
+			{#if databaseStore.lastError}
+				<div
+					role="alert"
+					class="mb-4 rounded border border-red-400 bg-red-50 p-3 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-300"
+				>
+					{m.database_save_error({ error: databaseStore.lastError })}
+				</div>
+			{/if}
+			{@render children()}
+		{/if}
+	</Main>
 </Body>

@@ -1,67 +1,36 @@
 /**
- * database.svelte.ts — the reactive database store.
- *
- * Holds the in-memory `DatabaseDocument` (a Svelte 5 `$state` proxy) and exposes
- * mutation methods that delegate to the pure operations in `document.ts`, then
- * persist via the active `PersistenceAdapter`.
- *
- * The state is seeded from the loaded document; persistence runs from these mutation methods (a
- * debounced `save`), never from a reactive `$effect`. Components mutate only through these methods.
+ * The reactive database store: the in-memory `DatabaseDocument` plus mutation methods that apply
+ * the pure operations in `document.ts` and schedule a debounced write through the adapter.
  */
-
 import {
-	addDeck as docAddDeck,
-	addParticipant as docAddParticipant,
-	addOneOffGuest as docAddOneOffGuest,
-	addPlayer as docAddPlayer,
-	assignDeckOwner as docAssignDeckOwner,
-	assignDeckHand as docAssignDeckHand,
-	changeCampaignCode as docChangeCampaignCode,
-	createCampaign as docCreateCampaign,
-	createStandalone as docCreateStandalone,
-	removeStandalone as docRemoveStandalone,
-	findRecord,
-	createEmptyDatabase,
-	createPlayGroup as docCreatePlayGroup,
-	addLoadedProfile as docAddLoadedProfile,
-	removeLoadedProfile as docRemoveLoadedProfile,
-	findLoadedProfile,
-	parseDatabaseDocument,
-	reassignParticipant as docReassignParticipant,
-	removeCampaign as docRemoveCampaign,
-	removeDeck as docRemoveDeck,
-	removeParticipant as docRemoveParticipant,
-	removePlayer as docRemovePlayer,
-	removePlayGroup as docRemovePlayGroup,
-	setCampaignLogs as docSetCampaignLogs,
-	setCampaignLinkedLogs as docSetCampaignLinkedLogs,
-	setManualAchievement as docSetManualAchievement,
-	setProfileSettings as docSetProfileSettings,
-	updateCampaignGeneral as docUpdateCampaignGeneral,
-	updateParticipant as docUpdateParticipant,
-	updatePlayer as docUpdatePlayer,
-	updatePlayGroup as docUpdatePlayGroup,
-	type CampaignParticipant,
-	type CampaignRecord,
-	type StandaloneRecord,
-	type DeckRecord,
-	type DatabaseDocument,
-	type CampaignLogEntry,
-	type DeckInvestigator,
-	type DeckVersion,
-	type Difficulty,
-	type LocalPlayer,
-	type LocalPlayGroup,
-	type ManualAchievement
-} from './document';
+	DEFAULT_PROFILE_SETTINGS,
+	resolveProfileSettings,
+	type DifficultyTier
+} from '$lib/campaign/profile/profile-settings';
+import type { ProfilePayload, ProfileSubject } from '$lib/profile/profile-types';
+
 import { importCampaignShare } from './campaign-share';
-import { loadSnapshotCampaign, recordCampaignSnapshot } from './snapshots';
-import { downloadDatabase, downloadDatabaseJson, downloadCompiledProfile, downloadCompiledProfileFile } from './export';
+import { makeCompiledProfileFile, type CompiledProfileFile } from './compiled-profile';
+import * as ops from './document';
+import type {
+	CampaignGeneralFields,
+	CampaignLogEntry,
+	CampaignParticipant,
+	CampaignRecord,
+	DatabaseDocument,
+	DeckInvestigator,
+	DeckRecord,
+	DeckVersion,
+	Difficulty,
+	LocalPlayer,
+	LocalPlayGroup,
+	ManualAchievement,
+	StandaloneRecord
+} from './document';
+import { saveCompiledProfile, saveDatabase, saveUnreadableDatabase } from './export';
 import { hydrateCompiledProfile } from './hydrate-compiled-profile';
-import type { CompiledProfileFile } from './compiled-profile';
-import { clearBackup, noteChange, recordBackup } from './backup-status';
 import type { PersistenceAdapter } from './persistence';
-import { DEFAULT_PROFILE_SETTINGS, resolveProfileSettings, type DifficultyTier } from '$lib/campaign/profile/profile-settings';
+import { ACCOUNT_SUBJECT, CACHE_VERSION, type SubjectCache } from './profile-cache';
 import {
 	assemblePayload,
 	buildCardsSegmentFor,
@@ -69,266 +38,236 @@ import {
 	buildMetaSegmentFor,
 	buildSubjectIdentity,
 	buildSubjectPayload,
-	segmentSignatures,
-	type LocalProfilePayload
+	segmentSignatures
 } from './profile-local';
-import { ACCOUNT_SUBJECT, CACHE_VERSION, type SubjectCache } from './profile-cache';
-import type { ProfileSubject } from '$lib/profile/profile-types';
+import { saveStatus } from './save-status.svelte';
+import { loadSnapshotCampaign, recordCampaignSnapshot } from './snapshots';
 
+/** `error`: the stored document could not be loaded (`doc` is null). */
 export type DatabaseStatus = 'empty' | 'loading' | 'ready' | 'saving' | 'error';
 
-/** Debounce window for autosave after a mutation (ms). */
 const SAVE_DEBOUNCE_MS = 600;
-/** Debounce window for the post-save profile-cache recompute (ms). */
 const RECOMPUTE_DEBOUNCE_MS = 300;
+
+function message(e: unknown): string {
+	return e instanceof Error ? e.message : String(e);
+}
 
 export class DatabaseStore {
 	#adapter: PersistenceAdapter | null = null;
 	#saveTimer: ReturnType<typeof setTimeout> | null = null;
 	#recomputeTimer: ReturnType<typeof setTimeout> | null = null;
-	/** Memoized hydration of externally loaded compiled profiles (uid → payload). They
-	 *  are immutable once loaded, so a plain Map suffices; cleared per uid on load/remove. */
-	#hydratedLoaded = new Map<string, LocalProfilePayload>();
+	/** Edits not yet written through the adapter. */
+	#dirty = false;
+	/** The stored value that failed to load, kept so it can be saved out before starting over. */
+	#unreadable: unknown = null;
+	/** Hydrated loaded profiles by uid; null memoizes a file that failed to hydrate. */
+	#hydratedLoaded = new Map<string, ProfilePayload | null>();
 
 	doc = $state<DatabaseDocument | null>(null);
-	// Starts 'loading' (not 'empty'): until init() has read IndexedDB we don't yet
-	// know whether a database exists, so UI can withhold the empty-vs-ready choice
-	// instead of flashing the "start fresh" state before hydration settles.
+	/** Unknown until `init` has read storage, so the UI never flashes the empty state. */
 	status = $state<DatabaseStatus>('loading');
+	/** The latest load or write failure; cleared by the next successful write. */
 	lastError = $state<string | null>(null);
-	/** Whether a background profile-cache recompute is in progress (UI spinner). */
 	profileStatus = $state<'idle' | 'updating'>('idle');
 
-	/** Whether a database has been created/opened in this store. */
 	get hasDatabase(): boolean {
 		return this.doc !== null;
 	}
 
-	/**
-	 * Attach an adapter and load any previously-stored document into state.
-	 * Call once on app start (client only).
-	 */
+	/** Whether the failed load left something to save out. */
+	get hasUnreadableCopy(): boolean {
+		return this.#unreadable != null;
+	}
+
+	/** Attach the adapter and load the stored document. Call once, on the client. */
 	async init(adapter: PersistenceAdapter): Promise<void> {
 		this.#adapter = adapter;
 		this.status = 'loading';
+		let stored: unknown = null;
 		try {
-			const loaded = await adapter.load();
-			// Validate the stored shape against the current format; throws on a corrupt or
-			// off-version document (caught below → 'error' status).
-			this.doc = loaded ? parseDatabaseDocument(loaded) : null; // seed $state; no $effect involved
+			stored = await adapter.load();
+			this.doc = stored == null ? null : ops.parseDatabaseDocument(stored);
 			this.status = this.doc ? 'ready' : 'empty';
-			// Warm the profile cache for the loaded database (no-op when already fresh).
 			if (this.doc) this.#scheduleRecompute();
 		} catch (e) {
+			this.#unreadable = stored;
+			this.lastError = message(e);
 			this.status = 'error';
-			this.lastError = e instanceof Error ? e.message : String(e);
 		}
 	}
 
-	/** Create a brand-new empty database (the "Create database" bootstrap). */
+	/** Refuses while a stored document that failed to load has not been dealt with. */
+	#assertReplaceable(): void {
+		if (this.status === 'error') {
+			throw new Error('The stored database could not be opened; save it before replacing it.');
+		}
+	}
+
 	async createNew(
 		owner: { name: string; iconCardCode?: string },
-		init?: { trackedTiers?: DifficultyTier[] },
+		init?: { trackedTiers?: DifficultyTier[] }
 	): Promise<void> {
-		const doc = createEmptyDatabase(owner);
-		// Seed the difficulty tiers the player said they care about during onboarding, so their stats
-		// filter to those from the very first campaign (untracked-tier dabbling never pollutes totals;
-		// see ProfileSettings.trackedTiers + the precompute records-filter).
+		this.#assertReplaceable();
+		const doc = ops.createEmptyDatabase(owner);
 		if (init?.trackedTiers) {
-			docSetProfileSettings(
+			ops.setProfileSettings(
 				doc,
-				JSON.stringify({ ...DEFAULT_PROFILE_SETTINGS, trackedTiers: init.trackedTiers }),
+				JSON.stringify({ ...DEFAULT_PROFILE_SETTINGS, trackedTiers: init.trackedTiers })
 			);
 		}
-		this.doc = doc;
-		this.status = 'ready';
+		this.#replace(doc);
+		saveStatus.clear();
 		await this.saveNow();
 	}
 
-	/** Adopt an imported/parsed document (the "Open database file" bootstrap). */
+	/** Adopt an opened `.ahlifedb`. The opened file is the latest save. */
 	async importDocument(value: unknown): Promise<void> {
-		const parsed = parseDatabaseDocument(value); // throws DatabaseImportError on bad input
-		this.doc = parsed;
-		this.status = 'ready';
-		// The file the user just opened IS their backup — start from a clean slate.
-		recordBackup(parsed);
+		this.#assertReplaceable();
+		const parsed = ops.parseDatabaseDocument(value);
+		this.#replace(parsed);
+		saveStatus.recordSave(parsed);
 		await this.saveNow();
 	}
 
-	/**
-	 * Import a single shared campaign into the current database as a new campaign.
-	 * Returns the inserted record so the caller can open it for editing. Throws
-	 * `CampaignShareError` on a malformed file.
-	 */
-	importSharedCampaign(value: unknown): CampaignRecord | undefined {
-		if (!this.doc) return undefined;
-		const rec = importCampaignShare(this.doc, value);
-		noteChange();
-		this.#scheduleSave();
-		return rec;
+	#replace(doc: DatabaseDocument | null): void {
+		this.#dirty = false;
+		this.#hydratedLoaded.clear();
+		this.doc = doc;
+		this.status = doc ? 'ready' : 'empty';
 	}
 
-	// ─── Autosave snapshots (invisible per-campaign history; see snapshots.ts) ────
+	/** Save the stored value that failed to load, verbatim. */
+	async saveUnreadableCopy(): Promise<boolean> {
+		return this.#unreadable != null && saveUnreadableDatabase(this.#unreadable);
+	}
 
-	/** Stash an invisible snapshot of one campaign into the global 20-slot history. */
+	/** Drop the unreadable stored document so a new one can be created or loaded. */
+	async discardUnreadable(): Promise<void> {
+		await this.deleteDatabase();
+		this.#unreadable = null;
+		this.lastError = null;
+	}
+
+	/** Append a shared record as a new copy. Throws `CampaignShareError` on a malformed file. */
+	importSharedCampaign(value: unknown): CampaignRecord | undefined {
+		return this.#mutate((d) => importCampaignShare(d, value));
+	}
+
+	// ─── Campaign snapshots ──────────────────────────────────────────────────
+
 	async snapshotCampaign(campaignId: string): Promise<void> {
-		if (!this.doc) return;
-		const c = findRecord(this.doc, campaignId);
+		const c = this.doc && ops.findRecord(this.doc, campaignId);
 		if (c) await recordCampaignSnapshot(c);
 	}
 
-	/** Replace a campaign with one of its autosaved snapshots. Returns false when the
-	 *  snapshot no longer exists. */
+	/** Replace a record with one of its snapshots; false when the snapshot is gone. */
 	async restoreCampaignSnapshot(snapshotId: string): Promise<boolean> {
 		if (!this.doc) return false;
 		const restored = await loadSnapshotCampaign(snapshotId);
 		if (!restored) return false;
-		const ts = Date.now();
-		const next = { ...restored, updatedAt: ts };
-		// A snapshot may be a campaign or a standalone (which reuses the CampaignRecord
-		// shape). Route by the same structural discriminator as campaign-share's import
-		// (`source` + `scenario`), so a snapshot of a since-deleted standalone is restored
-		// into standalones[] — never campaigns[], where campaign compilation would see it.
-		const sa = next as Partial<StandaloneRecord>;
-		const arr: CampaignRecord[] =
-			typeof sa.source === 'string' && typeof sa.scenario === 'string'
-				? (this.doc.standalones ??= [])
-				: this.doc.campaigns;
-		const idx = arr.findIndex((r) => r.id === restored.id);
-		if (idx >= 0) arr[idx] = next;
-		else arr.push(next);
-		this.doc.updatedAt = ts;
-		noteChange();
+		this.#mutate((d) => ops.insertRecord(d, restored));
 		await this.saveNow();
 		return true;
 	}
 
-	/** Save the whole database to a user-chosen file and record the backup checkpoint. */
+	// ─── Files ───────────────────────────────────────────────────────────────
+
 	async exportDatabaseNow(): Promise<void> {
-		if (!this.doc) return;
-		await downloadDatabase(this.doc);
+		if (this.doc) await saveDatabase(this.doc, 'gzip');
 	}
 
-	/** Advanced: save the raw database as plain (uncompressed) JSON for inspection /
-	 *  reuse. NOT a backup checkpoint — the compressed export is the canonical backup. */
+	/** Plain JSON for inspection; not a save. */
 	async exportDatabaseJsonNow(): Promise<void> {
-		if (!this.doc) return;
-		await downloadDatabaseJson(this.doc);
+		if (this.doc) await saveDatabase(this.doc, 'json');
 	}
 
-	/** The real, exportable subjects (owner + each player + each play group). The
-	 *  whole-account aggregate is deliberately excluded — a compiled profile is shared
-	 *  per person/group so it lands on one home and never leaks tablemates. */
-	exportableSubjects(): ProfileSubject[] {
-		const doc = this.doc;
-		if (!doc) return [];
-		return this.#subjectKeys(doc)
-			.filter((k) => k !== ACCOUNT_SUBJECT)
-			.map((k) => buildSubjectIdentity(doc, k));
-	}
-
-	/** Save ONE subject's "compiled profile" (the precomputed, render-ready payload):
-	 *  `gzip` → compact `.ahlifepro`, `json` → plain JSON for inspection. The
-	 *  account aggregate is never exported. */
+	/** One person's or group's compiled profile. The account aggregate is never exported. */
 	async exportCompiledProfileFor(subjectUid: string, format: 'gzip' | 'json'): Promise<void> {
-		if (!this.doc || subjectUid === ACCOUNT_SUBJECT) return;
+		if (subjectUid === ACCOUNT_SUBJECT) return;
 		const payload = this.getProfilePayload(subjectUid);
 		if (!payload) return;
-		await downloadCompiledProfile(payload.subject, payload, format);
+		const file = makeCompiledProfileFile(payload.subject, payload, new Date().toISOString());
+		await saveCompiledProfile(file, format);
 	}
 
-	// ─── Externally loaded compiled profiles (the External Profiles tab) ───────────
+	// ─── Loaded compiled profiles ────────────────────────────────────────────
 
-	/** Identities of the loaded external profiles, for the External Profiles list. */
 	loadedSubjects(): { subject: ProfileSubject; exportedAt: string }[] {
-		return (this.doc?.loadedProfiles ?? []).map((f) => ({ subject: f.subject, exportedAt: f.exportedAt }));
+		return (this.doc?.loadedProfiles ?? []).map((f) => ({
+			subject: f.subject,
+			exportedAt: f.exportedAt
+		}));
 	}
 
-	/** Adopt an opened `.ahlifepro` into the External Profiles section (overwriting any
-	 *  prior file for the same person). Persisted to IndexedDB + `.ahlifedb`; never enters
-	 *  the precompute cache. */
+	/** Keep an opened `.ahlifepro`, replacing any earlier file for the same subject. */
 	loadCompiledProfile(file: CompiledProfileFile): void {
 		this.#hydratedLoaded.delete(file.subject.uid);
-		this.#mutate((d) => docAddLoadedProfile(d, file));
+		this.#mutate((d) => ops.addLoadedProfile(d, file));
 	}
 
-	/** Forget a loaded external profile. */
 	removeLoadedProfile(uid: string): void {
 		this.#hydratedLoaded.delete(uid);
-		this.#mutate((d) => docRemoveLoadedProfile(d, uid));
+		this.#mutate((d) => ops.removeLoadedProfile(d, uid));
 	}
 
 	/**
-	 * The render-ready payload for a LOADED external profile — hydrated (stripped English
-	 * re-resolved) from the stored file, never rebuilt. Returns null when `uid` is not in
-	 * the loaded section (e.g. a managed uid typed into a `/p/loaded/...` URL). PURE w.r.t.
-	 * the document; memoizes into a non-reactive Map, so it is safe from a `$derived`.
+	 * A loaded profile's payload, hydrated from the stored file. Null when `uid` is not loaded or
+	 * the file fails to hydrate. Never writes reactive state, so it is safe from a `$derived`.
 	 */
-	getLoadedProfilePayload(uid: string): LocalProfilePayload | null {
-		const doc = this.doc;
-		if (!doc) return null;
-		const cached = this.#hydratedLoaded.get(uid);
-		if (cached) return cached;
-		const file = findLoadedProfile(doc, uid);
+	getLoadedProfilePayload(uid: string): ProfilePayload | null {
+		const file = this.doc && ops.findLoadedProfile(this.doc, uid);
 		if (!file) return null;
-		const payload = hydrateCompiledProfile(file);
-		this.#hydratedLoaded.set(uid, payload);
-		return payload;
+		if (!this.#hydratedLoaded.has(uid)) {
+			let payload: ProfilePayload | null = null;
+			try {
+				payload = hydrateCompiledProfile(file);
+			} catch (e) {
+				console.error(`Loaded profile ${uid} could not be hydrated`, e);
+			}
+			this.#hydratedLoaded.set(uid, payload);
+		}
+		return this.#hydratedLoaded.get(uid) ?? null;
 	}
 
-	/** Re-download a kept external profile verbatim (`gzip` `.ahlifepro` / plain `json`). */
+	/** Save a kept `.ahlifepro` verbatim. */
 	async exportLoadedProfile(uid: string, format: 'gzip' | 'json'): Promise<void> {
-		const file = this.doc ? findLoadedProfile(this.doc, uid) : undefined;
-		if (!file) return;
-		await downloadCompiledProfileFile(file, format);
+		const file = this.doc && ops.findLoadedProfile(this.doc, uid);
+		if (file) await saveCompiledProfile(file, format);
 	}
 
-	/**
-	 * Permanently delete the database from this browser (IndexedDB + backup
-	 * checkpoint) and reset to the empty state. The exported file, if any, is the
-	 * only remaining copy — callers must confirm first.
-	 */
+	/** Erase the database from this browser. Callers confirm first. */
 	async deleteDatabase(): Promise<void> {
-		if (this.#saveTimer) {
-			clearTimeout(this.#saveTimer);
-			this.#saveTimer = null;
-		}
-		if (this.#recomputeTimer) {
-			clearTimeout(this.#recomputeTimer);
-			this.#recomputeTimer = null;
-		}
+		this.#clearTimers();
 		try {
-			await this.#adapter?.clear?.();
+			await this.#adapter?.clear();
 		} catch (e) {
-			this.lastError = e instanceof Error ? e.message : String(e);
+			this.lastError = message(e);
 		}
-		this.doc = null;
-		this.status = 'empty';
-		clearBackup();
+		this.#replace(null);
+		saveStatus.clear();
 	}
 
-	// ─── Mutations (delegate to pure ops, then persist) ──────────────────────────
+	// ─── Mutations ───────────────────────────────────────────────────────────
 
 	addPlayer(fields: { name: string; iconCardCode?: string }): LocalPlayer | undefined {
-		return this.#mutate((d) => docAddPlayer(d, fields));
+		return this.#mutate((d) => ops.addPlayer(d, fields));
 	}
 	updatePlayer(uid: string, fields: Partial<Pick<LocalPlayer, 'name' | 'iconCardCode'>>): void {
-		this.#mutate((d) => docUpdatePlayer(d, uid, fields));
+		this.#mutate((d) => ops.updatePlayer(d, uid, fields));
 	}
 	removePlayer(uid: string): void {
-		this.#mutate((d) => docRemovePlayer(d, uid));
+		this.#mutate((d) => ops.removePlayer(d, uid));
 	}
-
-	// ─── Play group ops ──────────────────────────────────────────────────────────
 
 	createPlayGroup(fields: { name: string; memberUids?: string[] }): LocalPlayGroup | undefined {
-		return this.#mutate((d) => docCreatePlayGroup(d, fields));
+		return this.#mutate((d) => ops.createPlayGroup(d, fields));
 	}
 	updatePlayGroup(uid: string, fields: Partial<Pick<LocalPlayGroup, 'name' | 'memberUids'>>): void {
-		this.#mutate((d) => docUpdatePlayGroup(d, uid, fields));
+		this.#mutate((d) => ops.updatePlayGroup(d, uid, fields));
 	}
 	removePlayGroup(uid: string): void {
-		this.#mutate((d) => docRemovePlayGroup(d, uid));
+		this.#mutate((d) => ops.removePlayGroup(d, uid));
 	}
 
 	createCampaign(input: {
@@ -336,10 +275,10 @@ export class DatabaseStore {
 		title: string;
 		difficulty?: Difficulty;
 	}): CampaignRecord | undefined {
-		return this.#mutate((d) => docCreateCampaign(d, input));
+		return this.#mutate((d) => ops.createCampaign(d, input));
 	}
 	removeCampaign(id: string): void {
-		this.#mutate((d) => docRemoveCampaign(d, id));
+		this.#mutate((d) => ops.removeCampaign(d, id));
 	}
 	createStandalone(input: {
 		source: 'pack' | 'campaign';
@@ -348,81 +287,53 @@ export class DatabaseStore {
 		title: string;
 		difficulty?: Difficulty;
 	}): StandaloneRecord | undefined {
-		return this.#mutate((d) => docCreateStandalone(d, input));
+		return this.#mutate((d) => ops.createStandalone(d, input));
 	}
 	removeStandalone(id: string): void {
-		this.#mutate((d) => docRemoveStandalone(d, id));
+		this.#mutate((d) => ops.removeStandalone(d, id));
 	}
-	updateCampaignGeneral(
-		id: string,
-		fields: Partial<
-			Pick<
-				CampaignRecord,
-				| 'title'
-				| 'difficulty'
-				| 'playerCount'
-				| 'multiHanded'
-				| 'draft'
-				| 'displayInProfile'
-				| 'startDate'
-				| 'finishDate'
-			>
-		>
-	): void {
-		this.#mutate((d) => docUpdateCampaignGeneral(d, id, fields));
+	updateCampaignGeneral(id: string, fields: CampaignGeneralFields): void {
+		this.#mutate((d) => ops.updateCampaignGeneral(d, id, fields));
 	}
 	changeCampaignCode(id: string, campaignCode: string): void {
-		this.#mutate((d) => docChangeCampaignCode(d, id, campaignCode));
+		this.#mutate((d) => ops.changeCampaignCode(d, id, campaignCode));
 	}
 	setCampaignLogs(id: string, entries: CampaignLogEntry[]): void {
-		this.#mutate((d) => docSetCampaignLogs(d, id, entries));
+		this.#mutate((d) => ops.setCampaignLogs(d, id, entries));
 	}
 	setCampaignLinkedLogs(id: string, entries: CampaignLogEntry[]): void {
-		this.#mutate((d) => docSetCampaignLinkedLogs(d, id, entries));
+		this.#mutate((d) => ops.setCampaignLinkedLogs(d, id, entries));
 	}
 	setManualAchievement(id: string, tick: ManualAchievement, earned: boolean): void {
-		this.#mutate((d) => docSetManualAchievement(d, id, tick, earned));
+		this.#mutate((d) => ops.setManualAchievement(d, id, tick, earned));
 	}
-	/** Persist the profile composer layout (ProfileSettings JSON, or null). */
+	/** `ProfileSettings` JSON, or null for defaults. */
 	setProfileSettings(json: string | null): void {
-		this.#mutate((d) => docSetProfileSettings(d, json));
+		this.#mutate((d) => ops.setProfileSettings(d, json));
 	}
-
-	// ─── Participant ops ─────────────────────────────────────────────────────────
 
 	addParticipant(
 		campaignId: string,
 		fields: { uid: string; name: string; iconCardCode?: string }
 	): CampaignParticipant | undefined {
-		return this.#mutate((d) => docAddParticipant(d, campaignId, fields));
+		return this.#mutate((d) => ops.addParticipant(d, campaignId, fields));
 	}
-	/** Add a one-off guest with no uid of their own — a fresh uid is minted internally. */
 	addOneOffGuest(
 		campaignId: string,
 		fields: { name: string; iconCardCode?: string }
 	): CampaignParticipant | undefined {
-		return this.#mutate((d) => docAddOneOffGuest(d, campaignId, fields));
+		return this.#mutate((d) => ops.addOneOffGuest(d, campaignId, fields));
 	}
 	updateParticipant(
 		campaignId: string,
 		uid: string,
 		fields: Partial<Pick<CampaignParticipant, 'name' | 'iconCardCode'>>
 	): void {
-		this.#mutate((d) => docUpdateParticipant(d, campaignId, uid, fields));
+		this.#mutate((d) => ops.updateParticipant(d, campaignId, uid, fields));
 	}
 	removeParticipant(campaignId: string, uid: string): void {
-		this.#mutate((d) => docRemoveParticipant(d, campaignId, uid));
+		this.#mutate((d) => ops.removeParticipant(d, campaignId, uid));
 	}
-	reassignParticipant(
-		campaignId: string,
-		fromUid: string,
-		toUid: string,
-		snap?: { name: string; iconCardCode: string }
-	): void {
-		this.#mutate((d) => docReassignParticipant(d, campaignId, fromUid, toUid, snap));
-	}
-
-	// ─── Deck ops ────────────────────────────────────────────────────────────────
 
 	addDeck(
 		campaignId: string,
@@ -432,25 +343,24 @@ export class DatabaseStore {
 			versions: DeckVersion[];
 		}
 	): DeckRecord | undefined {
-		return this.#mutate((d) => docAddDeck(d, campaignId, deck));
+		return this.#mutate((d) => ops.addDeck(d, campaignId, deck));
 	}
 	removeDeck(campaignId: string, deckId: string): void {
-		this.#mutate((d) => docRemoveDeck(d, campaignId, deckId));
+		this.#mutate((d) => ops.removeDeck(d, campaignId, deckId));
 	}
 	assignDeckOwner(campaignId: string, deckId: string, ownerUid: string | null): void {
-		this.#mutate((d) => docAssignDeckOwner(d, campaignId, deckId, ownerUid));
+		this.#mutate((d) => ops.assignDeckOwner(d, campaignId, deckId, ownerUid));
 	}
 	assignDeckHand(campaignId: string, deckId: string, hand: number | null): void {
-		this.#mutate((d) => docAssignDeckHand(d, campaignId, deckId, hand));
+		this.#mutate((d) => ops.assignDeckHand(d, campaignId, deckId, hand));
 	}
 
-	// ─── Persistence ─────────────────────────────────────────────────────────────
+	// ─── Persistence ─────────────────────────────────────────────────────────
 
-	/** Apply a pure operation to the live document, then schedule a debounced save. */
 	#mutate<T>(op: (doc: DatabaseDocument) => T): T | undefined {
 		if (!this.doc) return undefined;
 		const result = op(this.doc);
-		noteChange();
+		this.#dirty = true;
 		this.#scheduleSave();
 		return result;
 	}
@@ -463,29 +373,35 @@ export class DatabaseStore {
 		}, SAVE_DEBOUNCE_MS);
 	}
 
-	/** Flush any pending changes to the adapter immediately. */
+	#clearTimers(): void {
+		if (this.#saveTimer) clearTimeout(this.#saveTimer);
+		if (this.#recomputeTimer) clearTimeout(this.#recomputeTimer);
+		this.#saveTimer = this.#recomputeTimer = null;
+	}
+
+	/** Write pending changes now. */
 	async saveNow(): Promise<void> {
-		if (this.#saveTimer) {
-			clearTimeout(this.#saveTimer);
-			this.#saveTimer = null;
-		}
+		if (this.#saveTimer) clearTimeout(this.#saveTimer);
+		this.#saveTimer = null;
 		if (!this.#adapter || !this.doc) return;
+		const counted = this.#dirty;
+		this.#dirty = false;
 		this.status = 'saving';
 		try {
 			await this.#adapter.save(this.doc);
-			this.status = 'ready';
-			// Refresh the derived profile cache in the background (does not re-save
-			// through this path, so there is no save→recompute→save loop).
+			this.lastError = null;
+			if (counted) saveStatus.noteFlush();
 			this.#scheduleRecompute();
 		} catch (e) {
-			this.status = 'error';
-			this.lastError = e instanceof Error ? e.message : String(e);
+			this.#dirty ||= counted;
+			this.lastError = message(e);
+		} finally {
+			if (this.doc) this.status = 'ready';
 		}
 	}
 
-	// ─── Profile precompute cache ────────────────────────────────────────────────
+	// ─── Profile precompute cache ────────────────────────────────────────────
 
-	/** Every subject key that should currently have a cache entry. */
 	#subjectKeys(doc: DatabaseDocument): string[] {
 		return [
 			ACCOUNT_SUBJECT,
@@ -504,70 +420,57 @@ export class DatabaseStore {
 	}
 
 	/**
-	 * Rebuild only the changed segments of each subject's cache (by signature) and
-	 * prune subjects that no longer exist. Runs after a save and updates the
-	 * IN-MEMORY cache only — it is never persisted (see IndexedDbAdapter.save), so
-	 * there is no second write per edit; the cache is rebuilt cheaply on next load.
+	 * Rebuild the segments whose signature changed and drop removed subjects. The cache lives in
+	 * memory only (the adapter strips it), so this never triggers another write.
 	 */
 	async #recompute(): Promise<void> {
 		const doc = this.doc;
 		if (!doc) return;
 		this.profileStatus = 'updating';
 		try {
-			const fullRebuild = !doc.profileCache || doc.profileCache.version !== CACHE_VERSION;
+			const fullRebuild = doc.profileCache?.version !== CACHE_VERSION;
 			const prev = fullRebuild ? {} : doc.profileCache!.subjects;
 			const next: Record<string, SubjectCache> = {};
 			let changed = fullRebuild;
-
 			const keys = this.#subjectKeys(doc);
 			for (const key of keys) {
 				// Yield so the 'updating' indicator can paint between subjects.
 				await Promise.resolve();
-				if (this.doc !== doc) return; // doc replaced mid-run (import/delete) → abort
+				if (this.doc !== doc) return;
 				const sigs = segmentSignatures(doc, key);
 				const old = prev[key];
 				const meta =
-					old && old.meta.sig === sigs.meta
+					old?.meta.sig === sigs.meta
 						? old.meta
 						: { sig: sigs.meta, data: buildMetaSegmentFor(doc, key) };
 				const logs =
-					old && old.logs.sig === sigs.logs
+					old?.logs.sig === sigs.logs
 						? old.logs
 						: { sig: sigs.logs, data: buildLogsSegmentFor(doc, key) };
 				const cards =
-					old && old.cards.sig === sigs.cards
+					old?.cards.sig === sigs.cards
 						? old.cards
 						: { sig: sigs.cards, data: buildCardsSegmentFor(doc, key) };
 				if (meta !== old?.meta || logs !== old?.logs || cards !== old?.cards) changed = true;
 				next[key] = { meta, logs, cards };
 			}
-
-			// Detect a pruned subject (deleted player/group) even if nothing rebuilt.
 			const prevKeys = Object.keys(prev);
 			if (prevKeys.length !== keys.length || prevKeys.some((k) => !next[k])) changed = true;
-
-			if (changed) {
-				// In-memory only: the adapter strips the cache on save, and the doc was
-				// already persisted by saveNow, so we don't write again here.
-				doc.profileCache = { version: CACHE_VERSION, subjects: next };
-			}
+			if (changed) doc.profileCache = { version: CACHE_VERSION, subjects: next };
 		} finally {
 			this.profileStatus = 'idle';
 		}
 	}
 
 	/**
-	 * The assembled profile payload for a subject (`'__account__'`, a roster uid, or
-	 * a play-group uid). Returns the cached assembly when the cache is current, else
-	 * builds it fresh (the next background recompute will cache it). PURE — never
-	 * writes, so it is safe to call from a `$derived`.
+	 * The payload for `'__account__'`, a roster uid or a play-group uid: the cached segments when
+	 * current, else built fresh. Never writes, so it is safe from a `$derived`.
 	 */
-	getProfilePayload(key: string = ACCOUNT_SUBJECT): LocalProfilePayload | null {
+	getProfilePayload(key: string = ACCOUNT_SUBJECT): ProfilePayload | null {
 		const doc = this.doc;
 		if (!doc) return null;
-		const settings = resolveProfileSettings(doc.profileSettings);
-		const cache = doc.profileCache;
-		const sub = cache && cache.version === CACHE_VERSION ? cache.subjects[key] : undefined;
+		const sub =
+			doc.profileCache?.version === CACHE_VERSION ? doc.profileCache.subjects[key] : undefined;
 		if (sub) {
 			const sigs = segmentSignatures(doc, key);
 			if (
@@ -577,7 +480,7 @@ export class DatabaseStore {
 			) {
 				return assemblePayload(
 					{ meta: sub.meta.data, logs: sub.logs.data, cards: sub.cards.data },
-					settings,
+					resolveProfileSettings(doc.profileSettings),
 					buildSubjectIdentity(doc, key)
 				);
 			}
@@ -586,5 +489,5 @@ export class DatabaseStore {
 	}
 }
 
-/** App-wide singleton. Call `databaseStore.init(adapter)` once on the client. */
+/** App-wide singleton; `bootstrap.ts` initializes it on the client. */
 export const databaseStore = new DatabaseStore();

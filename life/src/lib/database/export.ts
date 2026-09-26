@@ -1,129 +1,39 @@
-/**
- * export.ts — download the whole database as a compressed backup file the user
- * keeps themselves.
- *
- * This is the local build's "save file": the same `DatabaseDocument` shape that the
- * bootstrap "Open database file" flow reads back, gzip-compressed (see
- * backup-file.ts). A successful download is the user's real backup, so it records
- * a backup checkpoint (see backup-status.ts), which clears the "you haven't
- * backed up" banner. Managed participants are re-baked from the roster first so
- * the file carries current names/portraits.
- */
-import { saveBinaryFile, saveTextFile } from '$lib/save-file';
+/** Saving the Database (`.ahlifedb`) and compiled profiles (`.ahlifepro`). */
+import type { CompiledProfileFile } from './compiled-profile';
+import { rebakeManaged, toPlainDocument, type DatabaseDocument } from './document';
+import { fileStem, saveArtifact, type FileFormat } from './file-format';
+import { saveStatus } from './save-status.svelte';
 
-import {
-	BACKUP_MIME,
-	COMPILED_PROFILE_EXTENSION,
-	COMPILED_PROFILE_FILE_DESCRIPTION,
-	DB_BACKUP_EXTENSION,
-	DB_BACKUP_FILE_DESCRIPTION,
-	gzipJsonText,
-} from './backup-file';
-import { recordBackup } from './backup-status';
-import { rebakeManaged, type DatabaseDocument } from './document';
-import { makeCompiledProfileFile, type CompiledProfileFile } from './compiled-profile';
-import type { LocalProfilePayload } from './profile-local';
-import type { ProfileSubject } from '$lib/profile/profile-types';
-
-/** Pretty-printed JSON of the whole database, with managed participants re-baked.
- *  The derived profile cache is dropped — it bloats the file, can go stale across
- *  app versions, and is cheaply recomputed once on import. */
+/** The saved JSON: managed participants re-baked, derived cache dropped. */
 export function serializeDatabase(doc: DatabaseDocument): string {
-	// JSON round-trip (not structuredClone) so a Svelte $state proxy is handled.
-	const clone = JSON.parse(JSON.stringify(doc)) as DatabaseDocument;
-	delete clone.profileCache;
-	rebakeManaged(clone);
-	return JSON.stringify(clone, null, 2);
+	const plain = toPlainDocument(doc);
+	rebakeManaged(plain);
+	return JSON.stringify(plain, null, 2);
 }
 
-/** A friendly, filesystem-safe filename stem like `arkham-life-Keeper-2026-06-21`.
- *  `name` is whoever the file is about — the database owner, or a profile subject. */
-export function fileStem(name: string, suffix = ''): string {
-	const date = new Date().toISOString().slice(0, 10);
-	const safe = name.replace(/[^a-zA-Z0-9_-]+/g, '_').slice(0, 32) || 'database';
-	return `arkham-life-${safe}${suffix}-${date}`;
+/** Save the whole Database. A completed `.ahlifedb` save becomes the latest save. */
+export async function saveDatabase(doc: DatabaseDocument, format: FileFormat): Promise<boolean> {
+	const stem = fileStem('arkham-life', doc.owner.name);
+	const saved = await saveArtifact('db', stem, serializeDatabase(doc), format);
+	if (saved && format === 'gzip') saveStatus.recordSave(doc);
+	return saved;
 }
 
-/** A friendly, filesystem-safe filename like `arkham-life-Keeper-2026-06-21.ahlifedb`. */
-export function databaseFileName(doc: DatabaseDocument): string {
-	return `${fileStem(doc.owner.name)}${DB_BACKUP_EXTENSION}`;
-}
-
-/**
- * Save the whole campaign database to a user-chosen file (native "Save As" dialog
- * where supported), gzip-compressed. Records the backup checkpoint only if the
- * user actually saved.
- */
-export async function downloadDatabase(doc: DatabaseDocument): Promise<void> {
-	const saved = await saveBinaryFile({
-		suggestedName: databaseFileName(doc),
-		data: gzipJsonText(serializeDatabase(doc)),
-		mime: BACKUP_MIME,
-		extension: DB_BACKUP_EXTENSION,
-		description: DB_BACKUP_FILE_DESCRIPTION,
-	});
-	if (saved) recordBackup(doc);
-}
-
-/**
- * Advanced/inspection export: the raw database as plain (uncompressed, pretty)
- * JSON — the same `serializeDatabase` content as the compressed backup, just
- * human-readable. NOT a backup checkpoint (the compressed export is canonical).
- */
-export async function downloadDatabaseJson(doc: DatabaseDocument): Promise<void> {
-	await saveTextFile({
-		suggestedName: `${fileStem(doc.owner.name)}.json`,
-		text: serializeDatabase(doc),
-		extension: '.json',
-		description: 'arkham.life database (JSON)',
-	});
-}
-
-/**
- * Export ONE subject's "compiled profile" — the precomputed, render-ready profile
- * artifact (re-derivable English stripped; keys/ids/numbers/states + user data,
- * JSON-pure). `gzip` writes a compact `.ahlifepro` (hostable behind a `?cp=` link); `json` writes the same envelope as plain pretty JSON for
- * inspection. NOT a backup — never records a backup checkpoint.
- */
-export async function downloadCompiledProfile(
-	subject: ProfileSubject,
-	payload: LocalProfilePayload,
-	format: 'gzip' | 'json',
-): Promise<void> {
-	await downloadCompiledProfileFile(
-		makeCompiledProfileFile(subject, payload, new Date().toISOString()),
-		format,
+/** Save a stored value the app could not open, verbatim. */
+export function saveUnreadableDatabase(value: unknown): Promise<boolean> {
+	return saveArtifact(
+		'db',
+		fileStem('arkham-life', 'unreadable'),
+		JSON.stringify(value, null, 2),
+		'gzip'
 	);
 }
 
-/**
- * Save an already-built {@link CompiledProfileFile} (e.g. an externally LOADED
- * `.ahlifepro` the user kept) as `gzip` (`.ahlifepro`) or plain `json`. Re-emits the
- * stored file verbatim — no re-compilation — so a kept copy round-trips unchanged.
- */
-export async function downloadCompiledProfileFile(
+export function saveCompiledProfile(
 	file: CompiledProfileFile,
-	format: 'gzip' | 'json',
-): Promise<void> {
-	const subject = file.subject;
-	const text = JSON.stringify(file, null, 2);
-	// One .ahlifepro is exactly one subject. The name is for humans, but include the
-	// stable UID by default — names can repeat or change; the UID identifies the subject.
-	const stem = fileStem(subject.name, `-${subject.uid}-compiled-profile`);
-	if (format === 'gzip') {
-		await saveBinaryFile({
-			suggestedName: `${stem}${COMPILED_PROFILE_EXTENSION}`,
-			data: gzipJsonText(text),
-			mime: BACKUP_MIME,
-			extension: COMPILED_PROFILE_EXTENSION,
-			description: COMPILED_PROFILE_FILE_DESCRIPTION,
-		});
-	} else {
-		await saveTextFile({
-			suggestedName: `${stem}.json`,
-			text,
-			extension: '.json',
-			description: 'arkham.life compiled profile (JSON)',
-		});
-	}
+	format: FileFormat
+): Promise<boolean> {
+	// Names repeat and change; the uid identifies the subject.
+	const stem = fileStem('arkham-life', file.subject.name, `-${file.subject.uid}-compiled-profile`);
+	return saveArtifact('profile', stem, JSON.stringify(file, null, 2), format);
 }
