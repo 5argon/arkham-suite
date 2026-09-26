@@ -1,33 +1,24 @@
-<!--
-@component
-TDC bespoke widget — "The Fold". At Expedition to R'lyeh the party commits to a direction
-(`expedition_headed_west` / `_east`); the same five drowned sites are reached from either
-approach, harder the long way round. This tallies which way your expeditions went. StatNumbers.
--->
+<!-- @component The Fold: which way the expeditions headed at Expedition to R'lyeh. -->
 <script lang="ts">
 	import type { CampaignTdc } from '$lib/campaign/campaigns/tdc';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers, WidgetNote } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { tdc }: { tdc: CampaignTdc | null } = $props();
-	const f = $derived(tdc?.fold ?? null);
-	const hasData = $derived(!!f && f.west + f.east > 0);
-	const rows = $derived<Stat[][]>(
-		hasData && f
-			? [
-					[
-						{ value: f.west, label: m.campaign_tdc_fold_west() },
-						{ value: f.east, label: m.campaign_tdc_fold_east() }
-					]
-				]
-			: []
-	);
+	let { blob: tdc }: CampaignWidgetProps<CampaignTdc> = $props();
+
+	const f = $derived(tdc?.fold);
 </script>
 
-{#if hasData}
-	<StatNumbers {rows} />
-	<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdc_fold_note()}</p>
-{:else}
-	<WidgetEmpty>{m.campaign_tdc_fold_empty()}</WidgetEmpty>
+<StatNumbers
+	empty={m.campaign_tdc_fold_empty()}
+	rows={[
+		[
+			{ value: f?.west, label: m.campaign_tdc_fold_west() },
+			{ value: f?.east, label: m.campaign_tdc_fold_east() }
+		]
+	]}
+/>
+{#if f && f.west + f.east > 0}
+	<WidgetNote>{m.campaign_tdc_fold_note()}</WidgetNote>
 {/if}

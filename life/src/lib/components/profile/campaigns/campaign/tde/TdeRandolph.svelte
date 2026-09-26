@@ -1,57 +1,49 @@
-<!--
-@component
-TDE shared widget — "Randolph Carter". His fate across both campaigns: the Dream-Quest (saved you /
-eluded or was captured / survived or died on the voyage) and the Web of Dreams (escaped the hospital
-alone or with you / survived or died on the descent). His two arc-specific cards anchor the widget.
--->
+<!-- @component Randolph Carter's fate across The Dream-Quest and The Web of Dreams. -->
 <script lang="ts">
-	import type { CampaignTdeShared } from '$lib/campaign/campaigns/tde-shared';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import StatNumbers, {
+	import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
+	import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		CardThumb,
+		StatNumbers,
+		WidgetEmpty,
 		type StatGroup
-	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { RANDOLPH_CODES } from './tde-cards';
 
-	let { shared }: { shared: CampaignTdeShared | null } = $props();
-	const r = $derived(shared?.randolph);
-	const hasData = $derived(
-		!!r &&
-			r.savedByCarter + r.eludedCapture + r.captured + r.survivedVoyage + r.diedVoyage +
-				r.escapedAlone + r.escapedWithInvestigators + r.survivedDescent + r.diedDescent >
-				0
-	);
-	const rows = $derived<StatGroup[]>(
-		hasData && r
-			? [
-					{
-						heading: m.campaign_tde_randolph_quest(),
-						stats: [
-							{ value: r.savedByCarter, label: m.campaign_tde_randolph_saved() },
-							{ value: r.eludedCapture, label: m.campaign_tde_randolph_eluded() },
-							{ value: r.captured, label: m.campaign_tde_randolph_captured() },
-							{ value: r.survivedVoyage, label: m.campaign_tde_randolph_survived_voyage() },
-							{ value: r.diedVoyage, label: m.campaign_tde_randolph_died_voyage() }
-						]
-					},
-					{
-						heading: m.campaign_tde_randolph_web(),
-						stats: [
-							{ value: r.escapedAlone, label: m.campaign_tde_randolph_escaped_alone() },
-							{ value: r.escapedWithInvestigators, label: m.campaign_tde_randolph_escaped_with() },
-							{ value: r.survivedDescent, label: m.campaign_tde_randolph_survived_descent() },
-							{ value: r.diedDescent, label: m.campaign_tde_randolph_died_descent() }
-						]
-					}
-				]
-			: []
-	);
+	let { blob }: CampaignWidgetProps<CampaignTdea | CampaignTdeb> = $props();
+
+	const r = $derived(blob?.shared.randolph);
+	const rows = $derived<StatGroup[]>([
+		{
+			heading: m.campaign_tde_randolph_quest(),
+			stats: [
+				{ value: r?.savedByCarter, label: m.campaign_tde_randolph_saved() },
+				{ value: r?.eludedCapture, label: m.campaign_tde_randolph_eluded() },
+				{ value: r?.captured, label: m.campaign_tde_randolph_captured() },
+				{ value: r?.survivedVoyage, label: m.campaign_tde_randolph_survived_voyage() },
+				{ value: r?.diedVoyage, label: m.campaign_tde_randolph_died_voyage() }
+			]
+		},
+		{
+			heading: m.campaign_tde_randolph_web(),
+			stats: [
+				{ value: r?.escapedAlone, label: m.campaign_tde_randolph_escaped_alone() },
+				{ value: r?.escapedWithInvestigators, label: m.campaign_tde_randolph_escaped_with() },
+				{ value: r?.survivedDescent, label: m.campaign_tde_randolph_survived_descent() },
+				{ value: r?.diedDescent, label: m.campaign_tde_randolph_died_descent() }
+			]
+		}
+	]);
+	const hasData = $derived(!!r && Object.values(r).some((n) => n > 0));
 </script>
 
 {#if hasData}
 	<div class="mb-4 flex items-center justify-center gap-2">
-		<CardThumb code="06059" alt="Randolph Carter — the Dream-Quest" size="h-14 w-14" objectTop />
-		<CardThumb code="06079" alt="Randolph Carter — the Web of Dreams" size="h-14 w-14" objectTop />
+		{#each RANDOLPH_CODES as code (code)}
+			<CardThumb {code} size="h-14 w-14" objectTop />
+		{/each}
 	</div>
 	<StatNumbers {rows} />
 {:else}

@@ -2,11 +2,10 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 
 	"campaign_tdea_evidence_signs_heading": "Signs of the Gods · best run",
-	"campaign_tdea_evidence_sign_tip": "Sign {n} of 10",
+	"campaign_tdea_evidence_sign_tip": "Sign {n} of {total}",
 	"campaign_tdea_evidence_max": "Most Evidence",
 	"campaign_tdea_evidence_avg": "Average",
-	"campaign_tdea_evidence_all_signs": "All 10 Signs",
-	"campaign_tdea_evidence_note": "Linear, not tiered: the Where the Gods Dwell scenario card removes 1 clue from the Onyx Gates per tally. 10 = the \"Losing My Religion\" achievement.",
+	"campaign_tdea_evidence_all_signs": "All {total} Signs",
 	"campaign_tdea_evidence_empty": "Play The Search for Kadath to gather Evidence of Kadath.",
 
 	"campaign_tdea_gates_saved": "Saved by Randolph",

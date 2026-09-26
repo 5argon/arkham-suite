@@ -1,60 +1,31 @@
-<!--
-@component
-tdea bespoke widget — "Dark Side of the Moon". Carried vs travelled to the Cold Wastes, and
-whether Randolph survived the voyage. Built on StatNumbers.
--->
+<!-- @component Dark Side of the Moon: how the party reached the Cold Wastes and whether Randolph survived the voyage. -->
 <script lang="ts">
 	import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
 
-	let {
-		tdea,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tdea: CampaignTdea | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tdea, ctx }: CampaignWidgetProps<CampaignTdea> = $props();
+
 	const d = $derived(tdea?.darkSideOfMoon);
-	const growWeaker = $derived(tdea?.dreamersGrowWeaker ?? 0);
-	const hasData = $derived(
-		!!d && d.carried + d.travelled + d.randolphSurvivedVoyage + d.randolphDiedVoyage + growWeaker > 0
-	);
-	const rows = $derived<Stat[][]>(
-		hasData && d
-			? [
-					[
-						{ value: d.carried, label: m.campaign_tdea_moon_carried() },
-						{ value: d.travelled, label: m.campaign_tdea_moon_travelled() }
-					],
-					[
-						{ value: d.randolphSurvivedVoyage, label: m.campaign_tdea_moon_survived() },
-						{ value: d.randolphDiedVoyage, label: m.campaign_tdea_moon_died() }
-					],
-					...(growWeaker > 0
-						? [[{ value: growWeaker, label: m.campaign_tdea_moon_grow_weaker() }]]
-						: [])
-				]
-			: []
-	);
 </script>
 
-<ScenarioInfo scenarioId="dark_side_of_the_moon" {family} {achievements} {scenarios} {logOnly}>
+<ScenarioInfo {ctx}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_tdea_moon_empty()}</WidgetEmpty>
-		{/if}
+		<StatNumbers
+			empty={m.campaign_tdea_moon_empty()}
+			rows={[
+				[
+					{ value: d?.carried, label: m.campaign_tdea_moon_carried() },
+					{ value: d?.travelled, label: m.campaign_tdea_moon_travelled() }
+				],
+				[
+					{ value: d?.randolphSurvivedVoyage, label: m.campaign_tdea_moon_survived() },
+					{ value: d?.randolphDiedVoyage, label: m.campaign_tdea_moon_died() }
+				],
+				[{ value: tdea?.dreamersGrowWeaker, label: m.campaign_tdea_moon_grow_weaker() }]
+			]}
+		/>
 	{/snippet}
 </ScenarioInfo>

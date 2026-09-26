@@ -4,12 +4,7 @@
 	"campaign_tdeb_steps_band_heading": "Weaver doom band · per play",
 	"campaign_tdeb_steps_max": "Most Steps",
 	"campaign_tdeb_steps_avg": "Average",
-	"campaign_tdeb_steps_tier0": "0 doom (0–2)",
-	"campaign_tdeb_steps_tier1": "1 doom (3–5)",
-	"campaign_tdeb_steps_tier2": "2 doom (6–8)",
-	"campaign_tdeb_steps_tier3": "3 doom (9–11)",
-	"campaign_tdeb_steps_tier4": "4 doom (12+)",
-	"campaign_tdeb_steps_note": "Weaver of the Cosmos places doom by band — the higher your Steps, the harder the finale.",
+	"campaign_tdeb_steps_band": "{doom} doom ({range})",
 	"campaign_tdeb_steps_empty": "Play Waking Nightmare to start the Steps of the Bridge.",
 
 	"campaign_tdeb_waking_doctor_heading": "Dr. Maheswaran",

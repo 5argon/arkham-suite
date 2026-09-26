@@ -1,34 +1,25 @@
-<!--
-@component
-TDE shared widget — "How You Played It". Interconnected (eight-part) vs half (four-part).
-Shown on both Dream-Eaters campaign pages from that side's records. Built on StatNumbers.
--->
+<!-- @component How the Dream-Eaters plays were run: interconnected eight-part or half campaign. -->
 <script lang="ts">
-	import type { CampaignTdeShared } from '$lib/campaign/campaigns/tde-shared';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
+	import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { shared }: { shared: CampaignTdeShared | null } = $props();
-	const p = $derived(shared?.playMode);
-	const hasData = $derived(!!p && p.interconnected + p.half + p.unspecified > 0);
-	const rows = $derived<Stat[][]>(
-		hasData && p
-			? [
-					[
-						{ value: p.interconnected, label: m.campaign_tde_mode_interconnected() },
-						{ value: p.half, label: m.campaign_tde_mode_half() },
-						...(p.unspecified > 0
-							? [{ value: p.unspecified, label: m.campaign_tde_mode_unspecified() }]
-							: [])
-					]
-				]
-			: []
-	);
+	let { blob }: CampaignWidgetProps<CampaignTdea | CampaignTdeb> = $props();
+
+	const p = $derived(blob?.shared.playMode);
 </script>
 
-{#if hasData}
-	<StatNumbers {rows} />
-{:else}
-	<WidgetEmpty>{m.campaign_tde_mode_empty()}</WidgetEmpty>
-{/if}
+<StatNumbers
+	empty={m.campaign_tde_mode_empty()}
+	rows={[
+		[
+			{ value: p?.interconnected, label: m.campaign_tde_mode_interconnected() },
+			{ value: p?.half, label: m.campaign_tde_mode_half() },
+			...(p?.unspecified
+				? [{ value: p.unspecified, label: m.campaign_tde_mode_unspecified() }]
+				: [])
+		]
+	]}
+/>

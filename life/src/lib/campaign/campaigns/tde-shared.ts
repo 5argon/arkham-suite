@@ -1,210 +1,184 @@
 /**
- * tde-shared.ts — The Dream-Eaters cross-campaign helpers, shared by `tdea.ts`
- * (The Dream-Quest) and `tdeb.ts` (The Web of Dreams). The two campaigns are stored
- * as SEPARATE, unlinked records; for interconnected play the sibling's needed final
- * notes are transcribed into a record's `linkedLog` (projected to `rec.linked`). These
- * helpers read a play from EITHER perspective by routing own/linked to the right axis,
- * so a shared widget renders the same on both campaign pages.
- *
- *   • play mode      — interconnected (8-part) vs half (4-part).
- *   • the Black Cat  — the companion whose `at_your_side` state MOVES between the two
- *                      logs; resolved to a terminal disposition (with which party /
- *                      abandoned / distrustful / on your own).
- *   • the Silver Key — possessed (and, interconnected, passed to the Dream-Quest).
- *   • Randolph Carter— his fate across both campaigns.
- *   • the epilogue matrix — the 4×4 combined verdict (Dream-Quest row × Web of Dreams
- *                      col → Epilogue 1–16), the interconnected win/loss truth.
+ * The Dream-Eaters threads that span both campaigns: play mode, the Black Cat, the Silver Key,
+ * Randolph Carter and the combined epilogue. A Dream-Quest (tdea) or Web of Dreams (tdeb) record
+ * holds its own log plus the sibling's notes transcribed into `rec.linked`, so a play reads the same
+ * from either campaign page.
  */
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { Play } from '../records/play';
+import { extentOf } from '../utils/tally';
 
 export const TDEA_FAMILY = 'tdea';
 export const TDEB_FAMILY = 'tdeb';
 /** Perspective family → its sibling. */
 export const TDE_SIBLING: Record<string, string> = { tdea: TDEB_FAMILY, tdeb: TDEA_FAMILY };
 
-const N = 'campaign_notes';
-const H = 'hidden';
+const note = (id: string) => `campaign_notes.${id}`;
 
-// ── play mode (hidden setup flags) ──────────────────────────────────────────────
-const INTERCONNECTED = `${H}.interconnected_campaign`;
-const HALF = `${H}.half_campaign`;
+const INTERCONNECTED = 'hidden.interconnected_campaign';
+const HALF = 'hidden.half_campaign';
 
-// ── the epilogue matrix axes (each finale records exactly one) ───────────────────
-/** Dream-Quest (tdea) final outcome → matrix ROW (0–3). */
+/** The Dream-Quest's final outcome, one per play: the epilogue matrix row. */
 export const TDE_MATRIX_ROWS = [
 	'nyarlathoteps_invasion_has_begun',
 	'dreamers_awoke',
 	'dreamers_stayed_in_dreamlands_forever',
-	'dreamers_traveled_beneath_the_monastery',
+	'dreamers_traveled_beneath_the_monastery'
 ] as const;
-/** Web of Dreams (tdeb) final outcome → matrix COLUMN (0–3). */
+/** The Web of Dreams' final outcome, one per play: the epilogue matrix column. */
 export const TDE_MATRIX_COLS = [
 	'bridge_was_completed',
 	'returned_to_reality',
 	'never_escaped',
-	'still_in_the_dreamlands',
+	'still_in_the_dreamlands'
 ] as const;
 
 export type EpilogueVerdict = 'win' | 'partial' | 'loss';
-/** Epilogue 1–16 → verdict (from `a_epilogue.json`): only #1 is a total loss; the six
- *  "averted one form of destruction, but not the other" cells are partials (≈ loss); the
- *  rest are full wins. */
+// prettier-ignore
+/** Only Epilogue 1 is a total loss; the "averted one form of destruction, but not the other"
+ *  cells are partial. */
 const EPILOGUE_VERDICT: Record<number, EpilogueVerdict> = {
-	1: 'loss',
-	2: 'partial', 3: 'partial', 4: 'partial',
+	1: 'loss', 2: 'partial', 3: 'partial', 4: 'partial',
 	5: 'partial', 6: 'win', 7: 'win', 8: 'win',
 	9: 'partial', 10: 'win', 11: 'win', 12: 'win',
-	13: 'partial', 14: 'win', 15: 'win', 16: 'win',
+	13: 'partial', 14: 'win', 15: 'win', 16: 'win'
 };
-/** Epilogue number (1–16) for a (row, col) cell, both 0-based. */
+
+/** Epilogue 1–16 for a 0-based (row, col) cell. */
 export function epilogueNumber(row: number, col: number): number {
-	return row * 4 + col + 1;
+	return row * TDE_MATRIX_COLS.length + col + 1;
 }
+
 export function epilogueVerdict(n: number): EpilogueVerdict {
 	return EPILOGUE_VERDICT[n] ?? 'partial';
 }
-/** (row, col) coordinates (0-based) for an epilogue number. */
-export function epilogueCoords(n: number): { row: number; col: number } {
-	const i = n - 1;
-	return { row: Math.floor(i / 4), col: i % 4 };
-}
 
-// ── the Black Cat ───────────────────────────────────────────────────────────────
-// at_your_side is recorded in interlude I and re-recorded (moved) at the Great Ones —
-// two ids for one state. The data models knows_the_truth on tdea only and
-// is_searching_for_the_truth on tdeb only (even though the guide records both "in both
-// logs"), so each is read on its own side.
-const A_AT_SIDE = [`${N}.black_cat_at_your_side`, `${N}.black_cat_at_your_side_2`];
-const CAT_ABANDONED = `${N}.you_asked_for_it`;
-const CAT_KNOWS_TRUTH = `${N}.black_cat_knows_the_truth`; // tdea side
-const CAT_SEARCHING = `${N}.black_cat_is_searching_for_the_truth`; // tdeb side
-const CAT_HAS_HUNCH = `${N}.black_cat_has_a_hunch`;
-const CAT_ON_YOUR_OWN = `${N}.on_your_own`; // tdeb half play (no cat)
+// `at_your_side` is recorded at The Black Cat and again at The Great Ones.
+const CAT_AT_SIDE = [note('black_cat_at_your_side'), note('black_cat_at_your_side_2')];
+const CAT_ABANDONED = note('you_asked_for_it');
+const CAT_KNOWS_TRUTH = note('black_cat_knows_the_truth');
+const CAT_SEARCHING = note('black_cat_is_searching_for_the_truth');
+const CAT_HAS_HUNCH = note('black_cat_has_a_hunch');
+/** The Web of Dreams half campaign, played without the cat. */
+const CAT_ON_YOUR_OWN = note('on_your_own');
 
-/** Black-cat message choices across the three interludes (a "journey" trail). */
-const TDEA_CAT_CHOICES = [
-	'black_cat_delivered_news',
-	'black_cat_shared_knowledge_of_the_dreamlands',
-	'black_cat_warned_the_others',
-	'threaten_black_cat',
-	'black_cat_spoke_of_nyarlathotep',
-	'black_cat_spoke_of_atlach_nacha',
+/** The messages given to the cat, in trail order, and which campaign's log records each. */
+const CAT_MESSAGES: { id: string; side: 'a' | 'b' | 'both' }[] = [
+	{ id: 'black_cat_delivered_news', side: 'a' },
+	{ id: 'black_cat_shared_knowledge_of_the_dreamlands', side: 'a' },
+	{ id: 'black_cat_spoke_of_nyarlathotep', side: 'a' },
+	{ id: 'black_cat_spoke_of_atlach_nacha', side: 'a' },
+	{ id: 'threaten_black_cat', side: 'a' },
+	{ id: 'black_cat_warned_the_others', side: 'both' },
+	{ id: 'black_cat_requested_aid', side: 'b' },
+	{ id: 'black_cat_shared_knowledge_of_the_underworld', side: 'b' }
 ];
-const TDEB_CAT_CHOICES = [
-	'black_cat_requested_aid',
-	'black_cat_shared_knowledge_of_the_underworld',
-	'black_cat_warned_the_others',
-];
+const catMessagesOn = (side: 'a' | 'b') =>
+	CAT_MESSAGES.filter((c) => c.side === side || c.side === 'both').map((c) => note(c.id));
 
-// ── the Silver Key / Randolph ────────────────────────────────────────────────────
-const SILVER_KEY = `${N}.possess_silver_key`;
+const SILVER_KEY = note('possess_silver_key');
 const TDEA_RANDOLPH = {
-	savedByCarter: `${N}.saved_by_randolph_carter`,
-	eludedCapture: `${N}.randolph_eluded_capture`,
-	captured: `${N}.randolph_was_captured`,
-	survivedVoyage: `${N}.randolph_survived_the_voyage`,
-	diedVoyage: `${N}.randolph_did_not_survive_the_voyage`,
+	savedByCarter: note('saved_by_randolph_carter'),
+	eludedCapture: note('randolph_eluded_capture'),
+	captured: note('randolph_was_captured'),
+	survivedVoyage: note('randolph_survived_the_voyage'),
+	diedVoyage: note('randolph_did_not_survive_the_voyage')
 };
 const TDEB_RANDOLPH = {
-	escapedAlone: `${N}.randolph_escaped_hospital_alone`,
-	escapedWithInvestigators: `${N}.randolph_escaped_hospital_with_investigators`,
-	survivedDescent: `${N}.randolph_survived_descent`,
-	diedDescent: `${N}.randolph_did_not_survive_descent`,
+	escapedAlone: note('randolph_escaped_hospital_alone'),
+	escapedWithInvestigators: note('randolph_escaped_hospital_with_investigators'),
+	survivedDescent: note('randolph_survived_descent'),
+	diedDescent: note('randolph_did_not_survive_descent')
 };
-/** killed-by-cats override (broken the law of Ulthar) — overrides any epilogue to a loss. */
-const BROKEN_LAW = `${N}.broken_the_law_of_ulthar`;
+/** Killed by the cats of Ulthar: a loss whatever the epilogue cell. */
+const BROKEN_LAW = note('broken_the_law_of_ulthar');
 
-export interface CampaignTdeShared {
-	/** Perspective family (tdea or tdeb) — the page this view renders on. */
+export interface TdeCatMessage {
+	/** A `campaign_notes` id. */
+	note: string;
+	/** The campaign whose log holds the note's text. */
 	family: string;
 	plays: number;
+}
+
+export interface CampaignTdeShared {
 	playMode: { interconnected: number; half: number; unspecified: number };
-	/** Epilogue matrix (interconnected only): epilogue number (1–16) → plays reached. */
+	/** Interconnected plays only. */
 	matrix: {
+		/** Epilogue number (1–16) → plays. */
 		cells: Record<number, number>;
-		/** Interconnected plays missing the sibling's final outcome (linked log incomplete). */
+		/** Plays with only one side's final outcome (the linked log is incomplete). */
 		awaitingLinked: number;
-		/** Interconnected plays that resolved to a full cell. */
 		resolved: number;
-		/** Plays flagged "broke the law of Ulthar" (killed by cats — overrides to a loss). */
 		killedByCats: number;
 	};
 	blackCat: {
-		// Mutually-exclusive terminal disposition (priority order).
+		// One terminal disposition per play, in this priority.
 		withDreamQuest: number;
 		withWebOfDreams: number;
 		abandoned: number;
 		distrustful: number;
 		onYourOwn: number;
+		/** Interconnected plays with no disposition recorded. */
 		unresolved: number;
-		// Non-exclusive arc flags.
 		hadHunch: number;
 		searched: number;
-		/** message-choice id → plays that made it (across both logs). */
-		choices: Record<string, number>;
+		/** The messages given to the cat, in trail order; only those given at least once. */
+		trail: TdeCatMessage[];
 	};
+	/** `withDreamQuest`: the Key ended with the Dream-Quest party. */
 	silverKey: { obtained: number; withDreamQuest: number };
-	randolph: {
-		savedByCarter: number;
-		eludedCapture: number;
-		captured: number;
-		survivedVoyage: number;
-		diedVoyage: number;
-		escapedAlone: number;
-		escapedWithInvestigators: number;
-		survivedDescent: number;
-		diedDescent: number;
-	};
+	randolph: Record<keyof typeof TDEA_RANDOLPH | keyof typeof TDEB_RANDOLPH, number>;
 }
 
-/** First present member of `keys` in `set`, else -1 (matrix axis resolver). */
-function firstIndex(set: ReadonlySet<string>, keys: readonly string[], prefix: string): number {
-	for (let i = 0; i < keys.length; i++) if (set.has(`${prefix}.${keys[i]}`)) return i;
-	return -1;
+const NONE: ReadonlySet<string> = new Set();
+
+function firstIndex(logs: ReadonlySet<string>, ids: readonly string[]): number {
+	return ids.findIndex((id) => logs.has(note(id)));
 }
 
-/**
- * Build the shared TDE view for ONE perspective family from its (already family-filtered)
- * records. `own` = the record's recorded logs; `linked` = the transcribed sibling set —
- * routed to the Dream-Quest / Web of Dreams axis by `family` so the result is identical
- * whichever side you view it from.
- */
-export function buildTdeShared(records: CampaignRecord[], family: string): CampaignTdeShared {
+/** The shared view of one perspective family's plays. */
+export function buildTdeShared(plays: readonly Play[], family: string): CampaignTdeShared {
 	const playMode = { interconnected: 0, half: 0, unspecified: 0 };
-	const matrix = { cells: {} as Record<number, number>, awaitingLinked: 0, resolved: 0, killedByCats: 0 };
-	const blackCat = {
-		withDreamQuest: 0, withWebOfDreams: 0, abandoned: 0, distrustful: 0, onYourOwn: 0, unresolved: 0,
-		hadHunch: 0, searched: 0, choices: {} as Record<string, number>,
+	const matrix = {
+		cells: {} as Record<number, number>,
+		awaitingLinked: 0,
+		resolved: 0,
+		killedByCats: 0
 	};
+	const cat = {
+		withDreamQuest: 0,
+		withWebOfDreams: 0,
+		abandoned: 0,
+		distrustful: 0,
+		onYourOwn: 0,
+		unresolved: 0,
+		hadHunch: 0,
+		searched: 0
+	};
+	const messages: Record<string, number> = {};
 	const silverKey = { obtained: 0, withDreamQuest: 0 };
-	const randolph = {
-		savedByCarter: 0, eludedCapture: 0, captured: 0, survivedVoyage: 0, diedVoyage: 0,
-		escapedAlone: 0, escapedWithInvestigators: 0, survivedDescent: 0, diedDescent: 0,
-	};
-	const empty = new Set<string>();
+	const randolphKeys = { ...TDEA_RANDOLPH, ...TDEB_RANDOLPH };
+	const randolph = Object.fromEntries(
+		Object.keys(randolphKeys).map((k) => [k, 0])
+	) as CampaignTdeShared['randolph'];
 
-	for (const rec of records) {
-		const own = rec.recorded.recordedLogs ?? empty;
-		const linked = rec.linked ?? empty;
-		// Route own/linked to the Dream-Quest (A) and Web of Dreams (B) axes.
-		const aLogs = family === TDEA_FAMILY ? own : linked;
-		const bLogs = family === TDEB_FAMILY ? own : linked;
-		const inA = (k: string) => aLogs.has(k);
-		const inB = (k: string) => bLogs.has(k);
-		const inEither = (k: string) => aLogs.has(k) || bLogs.has(k);
+	for (const p of plays) {
+		const own = p.rec.recorded.recordedLogs ?? NONE;
+		const linked = p.rec.linked ?? NONE;
+		// The Dream-Quest (a) and Web of Dreams (b) logs, whichever side this record is.
+		const a = family === TDEA_FAMILY ? own : linked;
+		const b = family === TDEA_FAMILY ? linked : own;
+		const inEither = (k: string) => a.has(k) || b.has(k);
 
-		// Play mode (the flag is set on this record's own side during setup).
 		const interconnected = own.has(INTERCONNECTED);
 		if (interconnected) playMode.interconnected += 1;
 		else if (own.has(HALF)) playMode.half += 1;
 		else playMode.unspecified += 1;
 
-		// Epilogue matrix — interconnected only; row from the Dream-Quest axis, col from
-		// the Web of Dreams axis (one comes from the linked sibling outcome).
 		if (interconnected) {
-			const row = firstIndex(aLogs, TDE_MATRIX_ROWS, N);
-			const col = firstIndex(bLogs, TDE_MATRIX_COLS, N);
-			if (inA(BROKEN_LAW)) matrix.killedByCats += 1;
+			const row = firstIndex(a, TDE_MATRIX_ROWS);
+			const col = firstIndex(b, TDE_MATRIX_COLS);
+			if (a.has(BROKEN_LAW)) matrix.killedByCats += 1;
 			if (row >= 0 && col >= 0) {
 				const n = epilogueNumber(row, col);
 				matrix.cells[n] = (matrix.cells[n] ?? 0) + 1;
@@ -214,70 +188,90 @@ export function buildTdeShared(records: CampaignRecord[], family: string): Campa
 			}
 		}
 
-		// Black Cat — terminal disposition (priority) + arc flags + the choice trail.
-		const catA = A_AT_SIDE.some(inA);
-		const catB = A_AT_SIDE.some(inB);
-		if (inB(CAT_ON_YOUR_OWN)) blackCat.onYourOwn += 1;
-		else if (inEither(CAT_ABANDONED)) blackCat.abandoned += 1;
-		else if (inA(CAT_KNOWS_TRUTH)) blackCat.distrustful += 1;
-		else if (catA) blackCat.withDreamQuest += 1;
-		else if (catB) blackCat.withWebOfDreams += 1;
-		else if (interconnected) blackCat.unresolved += 1;
-		if (inEither(CAT_HAS_HUNCH)) blackCat.hadHunch += 1;
-		if (inB(CAT_SEARCHING)) blackCat.searched += 1;
-		for (const c of TDEA_CAT_CHOICES) if (inA(`${N}.${c}`)) blackCat.choices[c] = (blackCat.choices[c] ?? 0) + 1;
-		for (const c of TDEB_CAT_CHOICES) if (inB(`${N}.${c}`)) blackCat.choices[c] = (blackCat.choices[c] ?? 0) + 1;
+		if (b.has(CAT_ON_YOUR_OWN)) cat.onYourOwn += 1;
+		else if (inEither(CAT_ABANDONED)) cat.abandoned += 1;
+		else if (a.has(CAT_KNOWS_TRUTH)) cat.distrustful += 1;
+		else if (CAT_AT_SIDE.some((k) => a.has(k))) cat.withDreamQuest += 1;
+		else if (CAT_AT_SIDE.some((k) => b.has(k))) cat.withWebOfDreams += 1;
+		else if (interconnected) cat.unresolved += 1;
+		if (inEither(CAT_HAS_HUNCH)) cat.hadHunch += 1;
+		if (b.has(CAT_SEARCHING)) cat.searched += 1;
+		for (const { id, side } of CAT_MESSAGES) {
+			const k = note(id);
+			const given = side === 'a' ? a.has(k) : side === 'b' ? b.has(k) : inEither(k);
+			if (given) messages[id] = (messages[id] ?? 0) + 1;
+		}
 
-		// Silver Key — obtained (either side); in interconnected play it ends in the Dream-Quest.
 		if (inEither(SILVER_KEY)) silverKey.obtained += 1;
-		if (inA(SILVER_KEY)) silverKey.withDreamQuest += 1;
+		if (a.has(SILVER_KEY)) silverKey.withDreamQuest += 1;
 
-		// Randolph Carter — his fate across both campaigns.
-		if (inA(TDEA_RANDOLPH.savedByCarter)) randolph.savedByCarter += 1;
-		if (inA(TDEA_RANDOLPH.eludedCapture)) randolph.eludedCapture += 1;
-		if (inA(TDEA_RANDOLPH.captured)) randolph.captured += 1;
-		if (inA(TDEA_RANDOLPH.survivedVoyage)) randolph.survivedVoyage += 1;
-		if (inA(TDEA_RANDOLPH.diedVoyage)) randolph.diedVoyage += 1;
-		if (inB(TDEB_RANDOLPH.escapedAlone)) randolph.escapedAlone += 1;
-		if (inB(TDEB_RANDOLPH.escapedWithInvestigators)) randolph.escapedWithInvestigators += 1;
-		if (inB(TDEB_RANDOLPH.survivedDescent)) randolph.survivedDescent += 1;
-		if (inB(TDEB_RANDOLPH.diedDescent)) randolph.diedDescent += 1;
+		for (const [field, k] of Object.entries(TDEA_RANDOLPH))
+			if (a.has(k)) randolph[field as keyof typeof TDEA_RANDOLPH] += 1;
+		for (const [field, k] of Object.entries(TDEB_RANDOLPH))
+			if (b.has(k)) randolph[field as keyof typeof TDEB_RANDOLPH] += 1;
 	}
 
-	return { family, plays: records.length, playMode, matrix, blackCat, silverKey, randolph };
+	const trail = CAT_MESSAGES.filter(({ id }) => messages[id]).map(({ id, side }) => ({
+		note: id,
+		family: side === 'b' ? TDEB_FAMILY : TDEA_FAMILY,
+		plays: messages[id]
+	}));
+	return { playMode, matrix, blackCat: { ...cat, trail }, silverKey, randolph };
 }
 
-// ── Linked Campaign Log manifest (for the Logs-tab editor) ───────────────────────
+/** A running count kept in a `count` section, over the plays that recorded it. */
+export interface CountTrack {
+	plays: number;
+	max: number | null;
+	min: number | null;
+	total: number;
+	/** Mean per recording play, to one decimal; null when none recorded it. */
+	avg: number | null;
+	/** Final count → plays that ended on it. */
+	distribution: Record<number, number>;
+}
+
+export function countTrack(plays: readonly Play[], section: string): CountTrack {
+	const values = plays.map((p) => p.count(section)).filter((v): v is number => v !== undefined);
+	const total = values.reduce((sum, v) => sum + v, 0);
+	const distribution: Record<number, number> = {};
+	for (const v of values) distribution[v] = (distribution[v] ?? 0) + 1;
+	return {
+		plays: values.length,
+		...extentOf(values),
+		total,
+		avg: values.length ? Math.round((total / values.length) * 10) / 10 : null,
+		distribution
+	};
+}
+
 export interface TdeLinkedTopic {
-	/** topic id (Black Cat / matrix / Silver Key / Randolph) — labelled via i18n. */
+	/** Black Cat / matrix / Silver Key / Randolph; labelled by the editor. */
 	id: string;
-	/** sibling-log composite keys to transcribe under this topic. */
+	/** The sibling log's keys to transcribe under this topic. */
 	keys: string[];
 }
-const TDEB_SIBLING_TOPICS: TdeLinkedTopic[] = [
-	{ id: 'matrix', keys: TDE_MATRIX_COLS.map((k) => `${N}.${k}`) },
-	{ id: 'blackCat', keys: [
-		`${N}.black_cat_at_your_side`, `${N}.black_cat_at_your_side_2`, `${N}.black_cat_has_a_hunch`,
-		`${N}.black_cat_is_searching_for_the_truth`, CAT_ABANDONED, `${N}.black_cat_requested_aid`,
-		`${N}.black_cat_shared_knowledge_of_the_underworld`, `${N}.black_cat_warned_the_others`,
-	] },
+
+const TDEA_TOPICS: TdeLinkedTopic[] = [
+	{ id: 'matrix', keys: TDE_MATRIX_ROWS.map(note) },
+	{
+		id: 'blackCat',
+		keys: [...CAT_AT_SIDE, CAT_HAS_HUNCH, CAT_KNOWS_TRUTH, CAT_ABANDONED, ...catMessagesOn('a')]
+	},
 	{ id: 'silverKey', keys: [SILVER_KEY] },
-	{ id: 'randolph', keys: Object.values(TDEB_RANDOLPH) },
+	{ id: 'randolph', keys: Object.values(TDEA_RANDOLPH) }
 ];
-const TDEA_SIBLING_TOPICS: TdeLinkedTopic[] = [
-	{ id: 'matrix', keys: TDE_MATRIX_ROWS.map((k) => `${N}.${k}`) },
-	{ id: 'blackCat', keys: [
-		`${N}.black_cat_at_your_side`, `${N}.black_cat_at_your_side_2`, `${N}.black_cat_has_a_hunch`,
-		CAT_KNOWS_TRUTH, CAT_ABANDONED, `${N}.black_cat_delivered_news`,
-		`${N}.black_cat_shared_knowledge_of_the_dreamlands`, `${N}.black_cat_warned_the_others`,
-		`${N}.black_cat_spoke_of_nyarlathotep`, `${N}.black_cat_spoke_of_atlach_nacha`,
-	] },
+const TDEB_TOPICS: TdeLinkedTopic[] = [
+	{ id: 'matrix', keys: TDE_MATRIX_COLS.map(note) },
+	{
+		id: 'blackCat',
+		keys: [...CAT_AT_SIDE, CAT_HAS_HUNCH, CAT_SEARCHING, CAT_ABANDONED, ...catMessagesOn('b')]
+	},
 	{ id: 'silverKey', keys: [SILVER_KEY] },
-	{ id: 'randolph', keys: Object.values(TDEA_RANDOLPH) },
+	{ id: 'randolph', keys: Object.values(TDEB_RANDOLPH) }
 ];
 
-/** The sibling topics+keys a given perspective family must transcribe (the editor reads
- *  display text from the SIBLING campaign-data log). tdea ⇒ tdeb's notes, and vice versa. */
+/** What a record of `family` transcribes from its sibling's log, by topic. */
 export function linkedTopicsFor(family: string): TdeLinkedTopic[] {
-	return family === TDEA_FAMILY ? TDEB_SIBLING_TOPICS : TDEA_SIBLING_TOPICS;
+	return family === TDEA_FAMILY ? TDEB_TOPICS : TDEA_TOPICS;
 }

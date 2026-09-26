@@ -1,67 +1,41 @@
-<!--
-@component
-TDC bespoke widget — "Side Tasks". At "An Offer You Can't Refuse" each investigator picks one of 8
-personal tasks. Shows which of the 8 the crew took (`hidden.picked_*`), the best single-expedition
-and lifetime progress (`task_progress`) + the `obligations` gate (≥5 progress), and — from the Extra
-tab — which task each investigator took (paired card + investigator, newest-first). Half-width;
-nonLog: the assignment roster hides under Log-only mode. Built on LitTileGrid + StatNumbers + CardLineList.
--->
+<!-- @component The side tasks taken, the subject's task progress, and who took which task. -->
 <script lang="ts">
-	import { CardStrip, getCardImagePath } from '@5argon/arkham-life-ui';
+	import { CardStrip } from '@5argon/arkham-life-ui';
+	import { cardByCode } from '$lib/card-data';
 	import { TDC_TASKS, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
-	import { cardsByCode } from '$lib/card-data';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import CardLineList from '$lib/components/profile/_primitives/CardLineList.svelte';
-	import FinishDate from '$lib/components/profile/_primitives/FinishDate.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		CardLineList,
+		FinishDate,
+		LitTileGrid,
+		SectionLabel,
+		StatNumbers,
+		WidgetEmpty,
+		WidgetNote,
+		type LitTile
+	} from '$lib/components/profile/_primitives';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { tdc, logOnly = false }: { tdc: CampaignTdc | null; logOnly?: boolean } = $props();
+	let { blob: tdc, ctx }: CampaignWidgetProps<CampaignTdc> = $props();
 
-	const byCode = cardsByCode();
-	const t = $derived(tdc?.tasks ?? null);
-
+	const t = $derived(tdc?.tasks);
 	const tiles = $derived<LitTile[]>(
-		tdc
-			? TDC_TASKS.map(({ id, code }): LitTile => {
-					const c = tdc.tasks.picked[id] ?? 0;
-					return {
-						id,
-						image: getCardImagePath(code, 'square'),
-						label: byCode.get(code)?.name ?? id,
-						count: c,
-						detail: c > 0 ? m.campaign_tdc_tasks_taken({ times: times(c) }) : m.campaign_tdc_tasks_not_taken()
-					};
-				})
-			: []
+		TDC_TASKS.map(({ id, code }) => {
+			const count = t?.picked[id] ?? 0;
+			return {
+				id,
+				code,
+				count,
+				detail: count
+					? m.campaign_tdc_tasks_taken({ times: times(count) })
+					: m.campaign_tdc_tasks_not_taken()
+			};
+		})
 	);
-	const anyPicked = $derived(tiles.some((t) => t.count > 0));
-
-	const rows = $derived<Stat[][]>(
-		t
-			? [
-					[
-						{ value: t.best, label: m.campaign_tdc_tasks_best() },
-						{ value: t.total, label: m.campaign_tdc_tasks_total() },
-						{ value: t.obligations, label: m.campaign_tdc_tasks_obligations() }
-					]
-				]
-			: []
-	);
-
-	// Extra roster (nonLog): each recorded task → the investigator who took it, newest-first.
-	const roster = $derived(
-		(t?.assignments ?? []).map((a) => ({
-			code: a.code,
-			bearer: a.investigator ?? undefined,
-			date: a.finishDate
-		}))
-	);
-	const showRoster = $derived(!logOnly && roster.length > 0);
-	const hasData = $derived(!!t && (anyPicked || t.total > 0 || showRoster));
+	const anyPicked = $derived(tiles.some((tile) => tile.count > 0));
+	const roster = $derived(ctx.logOnly ? [] : (t?.assignments ?? []));
+	const hasData = $derived(anyPicked || !!t?.total || roster.length > 0);
 </script>
 
 {#if hasData && t}
@@ -69,19 +43,27 @@ nonLog: the assignment roster hides under Log-only mode. Built on LitTileGrid + 
 		{#if anyPicked}
 			<LitTileGrid {tiles} colsClass="grid-cols-4 @3xl:grid-cols-8" />
 		{/if}
-		{#if t.total > 0}
-			<StatNumbers {rows} />
-		{/if}
-		{#if showRoster}
+		<StatNumbers
+			rows={[
+				[
+					{ value: t.best, label: m.campaign_tdc_tasks_best() },
+					{ value: t.total, label: m.campaign_tdc_tasks_total() },
+					{ value: t.obligations, label: m.campaign_tdc_tasks_obligations() }
+				]
+			]}
+		/>
+		{#if roster.length}
 			<div>
-				<SectionLabel variant="heading" align="center">{m.campaign_tdc_tasks_roster_heading()}</SectionLabel>
+				<SectionLabel variant="heading" align="center"
+					>{m.campaign_tdc_tasks_roster_heading()}</SectionLabel
+				>
 				<CardLineList items={roster} align="right">
-					{#snippet trailing(it)}
-						{@const bearerCard = it.bearer ? byCode.get(it.bearer) : undefined}
-						{#if it.date || bearerCard}
+					{#snippet trailing(a)}
+						{@const bearer = a.investigator ? cardByCode(a.investigator) : undefined}
+						{#if a.finishDate || bearer}
 							<span class="inline-flex items-center justify-end gap-2">
-								{#if it.date}<FinishDate ms={it.date} />{/if}
-								{#if bearerCard}<CardStrip card={bearerCard} />{/if}
+								{#if a.finishDate}<FinishDate ms={a.finishDate} />{/if}
+								{#if bearer}<CardStrip card={bearer} />{/if}
 							</span>
 						{/if}
 					{/snippet}
@@ -89,7 +71,7 @@ nonLog: the assignment roster hides under Log-only mode. Built on LitTileGrid + 
 			</div>
 		{/if}
 	</div>
-	<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdc_tasks_note()}</p>
+	<WidgetNote>{m.campaign_tdc_tasks_note()}</WidgetNote>
 {:else}
 	<WidgetEmpty>{m.campaign_tdc_tasks_empty()}</WidgetEmpty>
 {/if}

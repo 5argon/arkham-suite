@@ -1,34 +1,28 @@
-<!--
-@component
-TDE shared widget — "The Silver Key". Times obtained, and (interconnected) times it ended in the
-Dream-Quest after passing across at The Great Ones. The artifact's own card anchors the widget.
--->
+<!-- @component The Silver Key: times obtained, and times it ended with the Dream-Quest party. -->
 <script lang="ts">
-	import type { CampaignTdeShared } from '$lib/campaign/campaigns/tde-shared';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import StatNumbers, { type Stat } from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignTdea } from '$lib/campaign/campaigns/tdea';
+	import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { CardThumb, StatNumbers, WidgetEmpty } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import { SILVER_KEY_CODE } from './tde-cards';
 
-	let { shared }: { shared: CampaignTdeShared | null } = $props();
-	const s = $derived(shared?.silverKey);
-	const hasData = $derived(!!s && s.obtained > 0);
-	const rows = $derived<Stat[][]>(
-		hasData && s
-			? [
-					[
-						{ value: s.obtained, label: m.campaign_tde_key_obtained() },
-						{ value: s.withDreamQuest, label: m.campaign_tde_key_passed() }
-					]
-				]
-			: []
-	);
+	let { blob }: CampaignWidgetProps<CampaignTdea | CampaignTdeb> = $props();
+
+	const s = $derived(blob?.shared.silverKey);
 </script>
 
-{#if hasData}
+{#if s?.obtained}
 	<div class="flex items-center justify-center gap-4">
-		<CardThumb code="06189" alt="The Silver Key" />
-		<StatNumbers {rows} />
+		<CardThumb code={SILVER_KEY_CODE} />
+		<StatNumbers
+			rows={[
+				[
+					{ value: s.obtained, label: m.campaign_tde_key_obtained() },
+					{ value: s.withDreamQuest, label: m.campaign_tde_key_passed() }
+				]
+			]}
+		/>
 	</div>
 {:else}
 	<WidgetEmpty>{m.campaign_tde_key_empty()}</WidgetEmpty>

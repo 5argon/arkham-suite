@@ -1,77 +1,68 @@
-<!--
-@component
-TDC bespoke widget — the Alien Glyph decryption wall. All 26 alien glyphs grouped by
-the scenario they're decrypted in; each glyph is a lit/greyed cell, its decoded meaning on hover.
-Decrypting all 26 is one half of the better-ending gate (`alien_grad`). Reads the precomputed
-`tdc.glyphs`. Full width.
--->
+<!-- @component The 26 alien glyphs by the scenario that decrypts them, lit once decrypted. -->
 <script lang="ts">
-	import { TDC_GLYPHS_BY_SCENARIO, tdcText, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
+	import { getCampaignLog } from '@5argon/arkham-campaign-data';
+	import {
+		TDC_GLYPH_IDS,
+		TDC_GLYPHS_BY_SCENARIO,
+		type CampaignTdc
+	} from '$lib/campaign/campaigns/tdc';
+	import { scenarioName } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		IconTrack,
+		SectionLabel,
+		StatNumbers,
+		WidgetEmpty,
+		type IconTrackItem
+	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
 
-	let { tdc }: { tdc: CampaignTdc | null } = $props();
+	let { blob: tdc }: CampaignWidgetProps<CampaignTdc> = $props();
 
-	const SCEN: Record<string, () => string> = {
-		one_last_job: m.campaign_tdc_sc_one_last_job,
-		the_western_wall: m.campaign_tdc_sc_western_wall,
-		the_drowned_quarter: m.campaign_tdc_sc_drowned_quarter,
-		the_apiary: m.campaign_tdc_sc_apiary,
-		the_grand_vault: m.campaign_tdc_sc_grand_vault,
-		court_of_the_ancients: m.campaign_tdc_sc_court_of_the_ancients,
-		obsidian_canyons: m.campaign_tdc_sc_obsidian_canyons
-	};
-	const scenName = (s: string) => (SCEN[s] ?? (() => s))();
-	// The glyph's slot marker (tdc_rune_a → A).
+	const entries = getCampaignLog('tdc')?.en.entries ?? {};
+	/** The glyph's slot letter: tdc_rune_a → A. */
 	const letter = (id: string) => id.slice(-1).toUpperCase();
-	// The glyph's decoded meaning (campaign-data), when translated; blank when it's just the key.
-	const meaning = (id: string) => {
-		const t = tdcText(`glyphs.${id}`);
-		return t === `glyphs.${id}` ? '' : t;
-	};
-	const collected = $derived(tdc?.glyphs.collected ?? {});
-	const isLit = (id: string) => (collected[id] ?? 0) > 0;
 
-	const groups = $derived(
-		TDC_GLYPHS_BY_SCENARIO.map((g) => ({
-			scenario: g.scenario,
-			ids: g.ids,
-			done: g.ids.filter(isLit).length
+	const rows = $derived(
+		TDC_GLYPHS_BY_SCENARIO.map(({ scenario, ids }) => ({
+			scenario,
+			label: `${scenarioName('tdc', scenario)} · ${tdc?.glyphs.byScenario[scenario] ?? 0}/${ids.length}`,
+			glyphs: ids.map((id): IconTrackItem & { letter: string; lit: boolean } => {
+				const lit = (tdc?.glyphs.collected[id] ?? 0) > 0;
+				const meaning = entries[`glyphs.${id}`]?.text;
+				return { letter: letter(id), lit, tooltip: lit && meaning ? meaning : letter(id) };
+			})
 		}))
 	);
-	const hasData = $derived(!!tdc && tdc.glyphs.everCollected > 0);
 </script>
 
-{#if hasData && tdc}
+{#if tdc?.glyphs.everCollected}
 	<div class="space-y-2.5">
-		{#each groups as g (g.scenario)}
-			<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-				<span class="text-primary-600 dark:text-primary-300 min-w-40 text-sm font-medium">
-					{scenName(g.scenario)}
-					<span class="text-primary-400 tabular-nums">· {g.done}/{g.ids.length}</span>
-				</span>
-				<div class="flex flex-wrap gap-1">
-					{#each g.ids as id (id)}
-						{@const lit = isLit(id)}
-						{@const decoded = meaning(id)}
+		{#each rows as r (r.scenario)}
+			<div>
+				<SectionLabel>{r.label}</SectionLabel>
+				<IconTrack items={r.glyphs} size="0.75rem" cellWidth="2em" gap="0.25rem" wrap>
+					{#snippet icon(g)}
 						<span
-							class="flex h-6 w-6 items-center justify-center rounded border text-center text-xs font-semibold {lit
+							class="flex h-[2em] w-[2em] items-center justify-center rounded border font-semibold {g.lit
 								? 'border-secondary-400 bg-secondary-100 text-secondary-700 dark:bg-secondary-900 dark:text-secondary-300'
-								: 'border-primary-200 text-primary-400 dark:border-primary-700'}"
-							title={lit && decoded ? decoded : letter(id)}>{letter(id)}</span
+								: 'border-primary-200 text-primary-400 dark:border-primary-700'}">{g.letter}</span
 						>
-					{/each}
-				</div>
+					{/snippet}
+				</IconTrack>
 			</div>
 		{/each}
 	</div>
-	<p class="text-primary-500 mt-3 text-xs">
-		{#if tdc.glyphs.allTwentySix > 0}
-			{m.campaign_tdc_glyphs_all26({ count: tdc.glyphs.allTwentySix })}
-		{:else}
-			{m.campaign_tdc_glyphs_progress({ done: tdc.glyphs.everCollected, total: 26 })}
-		{/if}
-	</p>
+	<StatNumbers
+		rows={[
+			[
+				{
+					value: tdc.glyphs.allTwentySix,
+					label: m.campaign_tdc_glyphs_all({ total: TDC_GLYPH_IDS.length })
+				}
+			]
+		]}
+	/>
 {:else}
 	<WidgetEmpty>{m.campaign_tdc_glyphs_empty()}</WidgetEmpty>
 {/if}

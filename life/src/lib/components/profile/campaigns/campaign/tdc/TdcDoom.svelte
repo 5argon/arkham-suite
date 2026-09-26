@@ -1,108 +1,57 @@
-<!--
-@component
-TDC bespoke widget — "The Doom of Arkham" (the finale passport). How you faced Cthulhu in Part II —
-the last stand (`stood_together`) vs the ritual with 5+ artifacts (`your_allies_have_a_plan`) — the
-four endings (drove him off / banished / banished-but-Arkham-destroyed / annihilated), and which
-Arkham neighborhoods flooded. The secret better ending (halting his awakening at the Sepulchre) is
-tracked by the Sepulchre widget. Full width. Built on ScenarioInfo + StatNumbers + LitTileGrid.
--->
+<!-- @component The Doom of Arkham: how Cthulhu was faced, the ending reached, and which neighborhoods flooded. -->
 <script lang="ts">
-	import { TDC_FLOODED, tdcText, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import StatNumbers, { type StatGroup } from '$lib/components/profile/_primitives/StatNumbers.svelte';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
-	import LitTileGrid, { type LitTile } from '$lib/components/profile/_primitives/LitTileGrid.svelte';
+	import { TDC_FLOODED, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
+	import { logText } from '$lib/campaign/records/campaign-log-source';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import {
+		LitTileGrid,
+		SectionLabel,
+		StatNumbers,
+		WidgetNote,
+		type LitTile,
+		type StatGroup
+	} from '$lib/components/profile/_primitives';
 	import { times } from '$lib/profile/plural';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
+	import { tdcOutcomeGroups } from './tdc-outcomes';
 
-	let {
-		tdc,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tdc: CampaignTdc | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tdc, ctx }: CampaignWidgetProps<CampaignTdc> = $props();
 
-	const d = $derived(tdc?.doom ?? null);
-	const approachTotal = $derived(d ? d.stoodTogether + d.alliesPlan : 0);
-	const endingTotal = $derived(
-		d ? d.drivenAway + d.banished + d.banishedButDestroyed + d.annihilated : 0
-	);
 	const rows = $derived<StatGroup[]>(
-		d
-			? [
-					...(approachTotal > 0
-						? [
-								{
-									heading: m.campaign_tdc_doom_approach_heading(),
-									stats: [
-										{ value: d.stoodTogether, label: tdcText('campaign_notes.stood_together') },
-										{ value: d.alliesPlan, label: tdcText('campaign_notes.your_allies_have_a_plan') }
-									]
-								}
-							]
-						: []),
-					...(endingTotal > 0
-						? [
-								{
-									heading: m.campaign_tdc_doom_endings_heading(),
-									stats: [
-										{ value: d.drivenAway, label: tdcText('campaign_notes.cthulhu_was_driven_away') },
-										{ value: d.banished, label: tdcText('campaign_notes.cthulhu_was_banished') },
-										{ value: d.banishedButDestroyed, label: tdcText('campaign_notes.cthulhu_was_banished_but_arkham_was_destroyed') },
-										{ value: d.annihilated, label: tdcText('campaign_notes.cthulhu_annihilated_the_city_of_arkham') }
-									]
-								}
-							]
-						: [])
-				]
-			: []
+		tdcOutcomeGroups(tdc, ctx.scenario ?? '').map((g) => ({
+			heading: g.heading,
+			stats: g.outcomes.map((o) => ({ value: o.plays, label: o.label }))
+		}))
 	);
-
 	const floodTiles = $derived<LitTile[]>(
-		d
-			? TDC_FLOODED.map((id): LitTile => {
-					const c = d.flooded[id] ?? 0;
-					return {
-						id,
-						image: '',
-						label: tdcText(`flooded_neighborhoods.${id}`),
-						count: c,
-						detail: c > 0 ? m.campaign_tdc_doom_flooded_count({ times: times(c) }) : m.campaign_tdc_doom_flooded_dry()
-					};
-				})
-			: []
+		TDC_FLOODED.map((id) => {
+			const count = tdc?.flooded[id] ?? 0;
+			return {
+				id,
+				label: logText('tdc', `flooded_neighborhoods.${id}`),
+				count,
+				detail: count
+					? m.campaign_tdc_doom_flooded_count({ times: times(count) })
+					: m.campaign_tdc_doom_flooded_dry()
+			};
+		})
 	);
-	const anyFlooded = $derived(floodTiles.some((t) => t.count > 0));
-	const hasData = $derived(!!d && approachTotal + endingTotal > 0);
+	const flooded = $derived(floodTiles.some((t) => t.count > 0));
+	const hasData = $derived(flooded || rows.some((g) => g.stats.some((s) => s.value)));
 </script>
 
-<ScenarioInfo scenarioId="the_doom_of_arkham" {family} {achievements} {scenarios} {logOnly} showPlays>
+<ScenarioInfo {ctx} showPlays empty={hasData ? null : m.campaign_tdc_doom_empty()}>
 	{#snippet stats()}
-		{#if hasData}
-			<StatNumbers {rows} />
-		{:else}
-			<WidgetEmpty>{m.campaign_tdc_doom_empty()}</WidgetEmpty>
-		{/if}
-	{/snippet}
-	{#snippet children()}
-		{#if anyFlooded}
+		<StatNumbers {rows} />
+		{#if flooded}
 			<div>
-				<SectionLabel variant="heading" align="center">{m.campaign_tdc_doom_flooded_heading()}</SectionLabel>
+				<SectionLabel variant="heading" align="center"
+					>{m.campaign_tdc_doom_flooded_heading()}</SectionLabel
+				>
 				<LitTileGrid tiles={floodTiles} colsClass="grid-cols-4 @3xl:grid-cols-7" />
 			</div>
 		{/if}
-		{#if hasData}
-			<p class="text-primary-500 mt-3 text-center text-xs">{m.campaign_tdc_doom_note()}</p>
-		{/if}
+		<WidgetNote>{m.campaign_tdc_doom_note()}</WidgetNote>
 	{/snippet}
 </ScenarioInfo>

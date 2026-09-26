@@ -1,69 +1,40 @@
-<!--
-@component
-tdeb bespoke widget — "A Thousand Shapes of Horror". Whether Randolph survived the descent
-into the Underworld, and whether the Silver Key was obtained here (both from the shared
-tracks — the Key passes to the Dream-Quest in interconnected play). Built on StatNumbers.
--->
+<!-- @component A Thousand Shapes of Horror: whether Randolph survived the descent and the Silver Key was found. -->
 <script lang="ts">
 	import type { CampaignTdeb } from '$lib/campaign/campaigns/tdeb';
-	import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
-	import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
-	import ScenarioInfo from '$lib/components/profile/campaigns/campaign/ScenarioInfo.svelte';
-	import CardThumb from '$lib/components/profile/_primitives/CardThumb.svelte';
-	import StatNumbers, {
-		type StatGroup
-	} from '$lib/components/profile/_primitives/StatNumbers.svelte';
+	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
+	import { CardThumb, StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import WidgetEmpty from '$lib/components/profile/_primitives/WidgetEmpty.svelte';
+	import ScenarioInfo from '../ScenarioInfo.svelte';
+	import { SILVER_KEY_CODE } from '../tde/tde-cards';
 
-	let {
-		tdeb,
-		family = null,
-		achievements = [],
-		scenarios = null,
-		logOnly = false
-	}: {
-		tdeb: CampaignTdeb | null;
-		family?: string | null;
-		achievements?: ProfileFamilyAchievement[];
-		scenarios?: CampaignScenarios | null;
-		logOnly?: boolean;
-	} = $props();
+	let { blob: tdeb, ctx }: CampaignWidgetProps<CampaignTdeb> = $props();
+
 	const r = $derived(tdeb?.shared.randolph);
-	const key = $derived(tdeb?.shared.silverKey);
-	const hasData = $derived(
-		!!r && r.survivedDescent + r.diedDescent + (key?.obtained ?? 0) > 0
-	);
-	const rows = $derived<StatGroup[]>(
-		hasData && r
-			? [
+	const keys = $derived(tdeb?.shared.silverKey.obtained ?? 0);
+</script>
+
+<ScenarioInfo {ctx}>
+	{#snippet stats()}
+		<div class="flex items-start justify-center gap-4">
+			{#if keys}
+				<CardThumb code={SILVER_KEY_CODE} />
+			{/if}
+			<StatNumbers
+				empty={m.campaign_tdeb_shapes_empty()}
+				rows={[
 					{
 						heading: m.campaign_tdeb_shapes_descent_heading(),
 						stats: [
-							{ value: r.survivedDescent, label: m.campaign_tdeb_shapes_survived() },
-							{ value: r.diedDescent, label: m.campaign_tdeb_shapes_died() }
+							{ value: r?.survivedDescent, label: m.campaign_tdeb_shapes_survived() },
+							{ value: r?.diedDescent, label: m.campaign_tdeb_shapes_died() }
 						]
 					},
 					{
 						heading: m.campaign_tdeb_shapes_key_heading(),
-						stats: [{ value: key?.obtained ?? 0, label: m.campaign_tdeb_shapes_key() }]
+						stats: [{ value: keys, label: m.campaign_tdeb_shapes_key() }]
 					}
-				]
-			: []
-	);
-</script>
-
-<ScenarioInfo scenarioId="a_thousand_shapes_of_horror" {family} {achievements} {scenarios} {logOnly}>
-	{#snippet stats()}
-		{#if hasData}
-			<div class="flex items-start justify-center gap-4">
-				{#if (key?.obtained ?? 0) > 0}
-					<CardThumb code="06189" alt="The Silver Key" />
-				{/if}
-				<StatNumbers {rows} />
-			</div>
-		{:else}
-			<WidgetEmpty>{m.campaign_tdeb_shapes_empty()}</WidgetEmpty>
-		{/if}
+				]}
+			/>
+		</div>
 	{/snippet}
 </ScenarioInfo>

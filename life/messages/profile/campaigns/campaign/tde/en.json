@@ -15,7 +15,6 @@
 	"campaign_tde_cat_searched": "Searched for the truth",
 	"campaign_tde_cat_unresolved": "Fate unresolved",
 	"campaign_tde_cat_trail_heading": "The cat's messages",
-	"campaign_tde_cat_note": "The cat sides with the Dream-Quest party (cultist) or the Web of Dreams party (tablet). In interconnected play, link the other campaign's log to complete the arc.",
 	"campaign_tde_cat_empty": "Play through the Black Cat interludes to follow the companion.",
 
 	"campaign_tde_key_obtained": "Obtained",
@@ -47,9 +46,8 @@
 	"campaign_tde_matrix_partial": "Averted one form of destruction, but not the other",
 	"campaign_tde_matrix_loss": "No survivors — lose the campaign",
 	"campaign_tde_matrix_cell": "Epilogue {n}",
-	"campaign_tde_matrix_note": "Rows = the Dream-Quest's outcome, columns = the Web of Dreams'. The combined epilogue is the true interconnected verdict — each side's own ending is shown separately.",
-	"campaign_tde_matrix_awaiting": "{count} interconnected play(s) awaiting the other campaign's outcome — link its log to resolve the epilogue.",
-	"campaign_tde_matrix_cats": "{count} play(s) broke the law of Ulthar (killed by cats — a loss regardless of cell).",
+	"campaign_tde_matrix_awaiting": "Awaiting the other campaign's outcome",
+	"campaign_tde_matrix_cats": "Killed by cats",
 	"campaign_tde_matrix_empty": "Finish both finales of an interconnected campaign to reach an epilogue.",
 
 	"campaign_tde_link_interconnected_label": "Played as an interconnected eight-part campaign",
