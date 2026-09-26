@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { BackButton, MarginFull, PageLead } from '@5argon/arkham-life-ui';
-	import { u } from '@5argon/arkham-string';
 	import type { Campaign } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
+	import { defaultCampaignTitle } from '$lib/database/document';
 	import CampaignSelector from '$lib/components/archive/CampaignSelector.svelte';
 
 	let selectedCampaign = $state<Campaign | null | undefined>(undefined);
@@ -17,8 +17,7 @@
 
 		await ensureDatabaseLoaded();
 		const campaignCode = campaign ?? '';
-		const title = campaignCode ? u.campaignName(campaignCode as Campaign) : 'Unspecified Campaign';
-		const created = databaseStore.createCampaign({ campaignCode, title });
+		const created = databaseStore.createCampaign({ campaignCode, title: defaultCampaignTitle(campaignCode) });
 		goto(created ? `/archive/edit?id=${created.id}&created=1` : '/new');
 	}
 </script>

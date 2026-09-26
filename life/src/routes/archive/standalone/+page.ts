@@ -1,35 +1,25 @@
 import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
 import { databaseStore } from '$lib/database/database.svelte';
-import { standaloneListData, type StandaloneListResult } from '$lib/database/repository';
+import {
+	EMPTY_STANDALONE_LIST,
+	standaloneListData,
+	type StandaloneListResult,
+	type StandaloneSort
+} from '$lib/database/standalone-list';
+import { listParam, pageOf, PAGE_SIZE } from '$lib/components/archive/list-url';
 import type { PageLoad } from './$types';
 
-const EMPTY: StandaloneListResult = {
-	items: [],
-	totalCount: 0,
-	filteredIds: [],
-	cardsByCode: {},
-	filterOptions: { sources: [], difficulties: [], verdicts: [] },
-};
-
-/** Parse a comma-separated multi-select query param into a trimmed string list. */
-function list(url: URL, key: string): string[] {
-	const raw = url.searchParams.get(key);
-	return raw ? raw.split(',').filter(Boolean) : [];
-}
-
-/** The standalone-archive list — same URL-param shape (name/sort/page + facets) as
- *  the campaign list, so the shared ArchiveListView drives both identically. */
 export const load: PageLoad = async ({ url }): Promise<StandaloneListResult> => {
 	await ensureDatabaseLoaded();
 	const doc = databaseStore.doc;
-	if (!doc) return EMPTY;
+	if (!doc) return EMPTY_STANDALONE_LIST;
 	return standaloneListData(doc, {
-		page: Math.max(1, Number(url.searchParams.get('page') ?? '1')),
-		pageSize: 20,
+		page: pageOf(url),
+		pageSize: PAGE_SIZE,
 		name: url.searchParams.get('name') ?? '',
-		sort: (url.searchParams.get('sort') ?? 'date') as 'date' | 'name' | 'difficulty',
-		sources: list(url, 'src'),
-		difficulties: list(url, 'diff'),
-		verdicts: list(url, 'verdict'),
+		sort: (url.searchParams.get('sort') ?? 'date') as StandaloneSort,
+		sources: listParam(url, 'src'),
+		difficulties: listParam(url, 'diff'),
+		verdicts: listParam(url, 'verdict')
 	});
 };

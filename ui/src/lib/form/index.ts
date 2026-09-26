@@ -8,6 +8,7 @@ export { default as CheckboxLong } from './CheckboxLong.svelte';
 export { default as Dropdown } from './Dropdown.svelte';
 export type { Option, OptionGroup, OptionOrGroup } from './Dropdown.svelte';
 export { default as FormHelp } from './FormHelp.svelte';
+export { default as HelpButton } from './HelpButton.svelte';
 export { default as FormLabelWithHelp } from './FormLabelWithHelp.svelte';
 export { default as FormRow } from './FormRow.svelte';
 export { default as RadioButtons } from './RadioButtons.svelte';

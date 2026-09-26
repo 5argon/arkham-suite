@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { beforeNavigate, goto, replaceState } from '$app/navigation';
 	import { page } from '$app/state';
-	import { onMount, untrack } from 'svelte';
+	import { onMount } from 'svelte';
 	import {
 		BackButton,
 		Button,
@@ -11,48 +11,29 @@
 		Tabs,
 		getToastContext
 	} from '@5argon/arkham-life-ui';
-	import { type Campaign } from '@5argon/arkham-kohaku';
-	import { u } from '@5argon/arkham-string';
+	import type { Campaign } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
-	import { createCardResolver, getAllCards, loadAllTabooLists } from '$lib/card-data';
-	import type { PageProps } from './$types';
 	import CampaignSelector from '$lib/components/archive/CampaignSelector.svelte';
+	import ConfirmModal from '$lib/components/archive/ConfirmModal.svelte';
 	import SnapshotHistoryModal from '$lib/components/archive/SnapshotHistoryModal.svelte';
-	import GeneralTab from '$lib/components/archive/edit/GeneralTab.svelte';
-	import PlayersAndDecksTab from '$lib/components/archive/edit/PlayersAndDecksTab.svelte';
-	import LogsTab from '$lib/components/archive/edit/LogsTab.svelte';
-	import TdeLinkedLog from '$lib/components/archive/edit/TdeLinkedLog.svelte';
-	import AchievementsTab from '$lib/components/archive/edit/achievements/AchievementsTab.svelte';
-	import ExtraTab from '$lib/components/archive/edit/ExtraTab.svelte';
-	import ValidationBanner from '$lib/components/archive/edit/ValidationBanner.svelte';
-	import { investigatorCodesFromDecks, type InvestigatorRef } from '$lib/campaign/utils/investigators';
-	import { loadCampaignLog } from '$lib/campaign/records/campaign-log-source';
-	import {
-		RESERVED,
-		entriesInSection,
-		hydrate,
-		makeEntry,
-		recordedLogKeys,
-		replaceSection,
-		toRecordedState,
-		toSavePayload,
-		type LocalLog
-	} from '$lib/campaign/records/recorded-state';
-	import {
-		findValidatorConflicts,
-		standaloneSetup,
-		type AchievementDef,
-		type RecordedCampaignState
-	} from '@5argon/arkham-campaign-data';
-	import { databaseStore } from '$lib/database/database.svelte';
+	import ArchiveEditor, { type EditorTab } from '$lib/components/archive/edit/ArchiveEditor.svelte';
+	import { campaignDisplayName } from '$lib/database/archive-list';
 	import { downloadCampaignShare } from '$lib/database/campaign-share';
+	import { databaseStore } from '$lib/database/database.svelte';
+	import { findRecord, isStandaloneRecord } from '$lib/database/document';
 	import { listSnapshotsFor, type SnapshotMeta } from '$lib/database/snapshots';
+	import type { PageProps } from './$types';
 
 	const { data }: PageProps = $props();
 	const toast = getToastContext();
 
-	// Arriving straight from "New Campaign Archive": the campaign record already exists
-	// (it's not an unsaved draft you must Save to create), so confirm that on arrival.
+	const record = $derived(databaseStore.doc ? findRecord(databaseStore.doc, data.id) : undefined);
+	const isStandalone = $derived(!!record && isStandaloneRecord(record));
+	/** Bumped when the record is replaced, to re-seed the editor. */
+	let seed = $state(0);
+
+	const snapshot = () => databaseStore.snapshotCampaign(data.id);
+
 	onMount(() => {
 		if (page.url.searchParams.get('created') === '1') {
 			toast.success(m.archive_created());
@@ -60,286 +41,77 @@
 			url.searchParams.delete('created');
 			replaceState(url, {});
 		}
-		// Snapshot when the tab is hidden/closed — the reliable async point (unlike
-		// `beforeunload`, where an IndexedDB write may not finish).
+		// Hiding the tab is the last reliable async point before it may be closed.
 		const onHide = () => {
-			if (document.visibilityState === 'hidden') {
-				void databaseStore.snapshotCampaign(data.campaign.id);
-			}
+			if (document.visibilityState === 'hidden') void snapshot();
 		};
 		document.addEventListener('visibilitychange', onHide);
 		return () => document.removeEventListener('visibilitychange', onHide);
 	});
+	beforeNavigate(() => void snapshot());
 
-	const cardResolver = createCardResolver();
-	const tabooLists = loadAllTabooLists();
-	const allCards = getAllCards();
-
-	// Investigator roster (for per-investigator log sections), resolved from decks.
-	const investigators = $derived<InvestigatorRef[]>(
-		investigatorCodesFromDecks(data.decks).map((code) => ({
-			code,
-			name: allCards.find((c) => c.code === code)?.name ?? code
-		}))
-	);
-
-	// ─── General form state ─────────────────────────────────────────────────────
-	const initialCampaign = untrack(() => data.campaign);
-	let title = $state(initialCampaign.title);
-	let difficulty = $state<'easy' | 'standard' | 'hard' | 'expert'>(
-		initialCampaign.difficulty as 'easy' | 'standard' | 'hard' | 'expert'
-	);
-	let draft = $state(initialCampaign.draft);
-	let displayInProfile = $state<'default' | 'visible' | 'hidden'>(
-		(initialCampaign.displayInProfile as 'default' | 'visible' | 'hidden') ?? 'default'
-	);
-	let startDate = $state(
-		initialCampaign.startDate instanceof Date
-			? initialCampaign.startDate.toISOString().slice(0, 10)
-			: ''
-	);
-	let finishDate = $state(
-		initialCampaign.finishDate instanceof Date
-			? initialCampaign.finishDate.toISOString().slice(0, 10)
-			: ''
-	);
-
-	// ─── Standalone-mode awareness ───────────────────────────────────────────────
-	// A standalone archive records ONE scenario (data.campaign.scenario); its
-	// difficulty + chaos bag come from campaign-data's standalone setup, the Logs +
-	// Extra tabs scope to that single scenario, and Achievements / Change-campaign /
-	// TDE-linked don't apply.
-	const isStandalone = $derived(data.campaign.kind === 'standalone');
-	const standaloneScenario = $derived(data.campaign.scenario);
-	const standaloneInfo = $derived(
-		isStandalone && standaloneScenario
-			? standaloneSetup(data.campaign.campaignCode, standaloneScenario)
-			: undefined
-	);
-
-	// ─── Campaign log + lifted editor state (shared by Logs + Achievements) ──────
-	const campaignLog = $derived(loadCampaignLog(data.campaign.campaignCode));
-
-	// Working copy of the logs (chaos bag, scenario XP/resolutions, standalones…),
-	// seeded once from the loaded campaign; edits autosave straight to the document.
-	let localLogs = $state<LocalLog[]>(untrack(() => hydrate(data.logs)));
-
-	const recorded = $derived(
-		campaignLog ? toRecordedState(campaignLog, localLogs, { difficulty }) : undefined
-	);
-	const logConflicts = $derived(
-		campaignLog ? findValidatorConflicts(campaignLog, recordedLogKeys(localLogs)) : []
-	);
-
-	// Manual achievement ticks (keys: `def.id` and `def.id::itemId`).
-	let manualAchievements = $state<Set<string>>(
-		untrack(
-			() =>
-				new Set(
-					data.achievements.map((a) =>
-						a.itemId ? `${a.achievementId}::${a.itemId}` : a.achievementId
-					)
-				)
-		)
-	);
-
-	// ─── Autosave (debounced by the store; no manual Save/Discard) ───────────────
-	function persistGeneral() {
-		databaseStore.updateCampaignGeneral(data.campaign.id, {
-			title,
-			difficulty,
-			draft,
-			displayInProfile,
-			startDate: startDate ? new Date(startDate).getTime() : null,
-			finishDate: finishDate ? new Date(finishDate).getTime() : null
-		});
-	}
-	function handleLogsChange(next: LocalLog[]) {
-		localLogs = next;
-		databaseStore.setCampaignLogs(data.campaign.id, toSavePayload(localLogs));
-	}
-
-	// ─── The Dream-Eaters: Linked Campaign Log (interconnected play) ─────────────
-	// TDE is two separate records; for interconnected play the sibling's relevant final
-	// notes are transcribed into a SEPARATE `linkedLog` field (own logs stay untouched).
-	const tdeFamily = $derived(campaignLog ? (campaignLog.db.originalId ?? campaignLog.db.code) : '');
-	const isTde = $derived(tdeFamily === 'tdea' || tdeFamily === 'tdeb');
-	let linkedLogs = $state<LocalLog[]>(untrack(() => hydrate(data.linkedLog)));
-	const interconnected = $derived(
-		localLogs.some((l) => l.key === 'hidden.interconnected_campaign')
-	);
-	// The checkbox flips between the two hidden setup flags (interconnected ⇄ half).
-	function handleInterconnectedChange(next: boolean) {
-		const without = localLogs.filter(
-			(l) => l.key !== 'hidden.interconnected_campaign' && l.key !== 'hidden.half_campaign'
-		);
-		const flag = next ? 'interconnected_campaign' : 'half_campaign';
-		handleLogsChange([...without, makeEntry('hidden', `hidden.${flag}`, [])]);
-	}
-	function handleLinkedChange(next: LocalLog[]) {
-		linkedLogs = next;
-		databaseStore.setCampaignLinkedLogs(data.campaign.id, toSavePayload(next));
-	}
-
-	// Leaving the editor → stash an invisible autosave snapshot of this campaign.
-	beforeNavigate(() => {
-		void databaseStore.snapshotCampaign(data.campaign.id);
-	});
-
-	// ─── Tabs ──────────────────────────────────────────────────────────────────
-	// Autosave means switching tabs is free — no unsaved-changes prompt. Tabs are
-	// keyed (not positional) so a standalone archive can drop the Achievements tab
-	// without index drift.
-	type TabKey = 'general' | 'decks' | 'logs' | 'achievements' | 'extra';
-	const tabDefs = $derived<{ key: TabKey; label: string }[]>([
+	// ─── Tabs ────────────────────────────────────────────────────────────────────
+	const tabs = $derived<{ key: EditorTab; label: string }[]>([
 		{ key: 'general', label: m.archive_tab_general() },
 		{ key: 'decks', label: m.archive_tab_players_and_decks() },
 		{ key: 'logs', label: m.archive_tab_logs() },
-		...(isStandalone
-			? []
-			: ([{ key: 'achievements', label: m.archive_tab_achievements() }] as {
-					key: TabKey;
-					label: string;
-				}[])),
-		{ key: 'extra', label: 'Extra' }
+		...(isStandalone ? [] : [{ key: 'achievements' as const, label: m.archive_tab_achievements() }]),
+		{ key: 'extra', label: m.archive_tab_extra() }
 	]);
-	let activeTab = $state(0);
-	const activeKey = $derived(tabDefs[activeTab]?.key ?? 'general');
-	function requestTabChange(newTab: number) {
-		activeTab = newTab;
-	}
+	let activeTab = $state<EditorTab>('general');
+	const activeIndex = $derived(Math.max(0, tabs.findIndex((t) => t.key === activeTab)));
 
-	// Chaos bag rides in the reserved `__chaos_bag` log section, edited in General;
-	// route it through the logs autosave like any other section edit.
-	function handleChaosBagChange(next: LocalLog[]) {
-		handleLogsChange(replaceSection(localLogs, RESERVED.chaosBag, next));
-	}
-
-	// The starting chaos bag for a difficulty — the scenario's standalone setup for a
-	// standalone archive, otherwise the campaign's per-difficulty starting bag.
-	function startingBagFor(diff: string): Record<string, number> | undefined {
-		return isStandalone ? standaloneInfo?.chaosBag?.[diff] : campaignLog?.db.startingChaosBag?.[diff];
-	}
-
-	// Write a difficulty's starting chaos bag into the reserved section (materialises it).
-	function applyStartingChaosBag(diff: string) {
-		const starting = startingBagFor(diff);
-		if (!starting) return;
-		handleChaosBagChange(
-			Object.entries(starting).map(([code, cnt]) =>
-				makeEntry(RESERVED.chaosBag, code, [{ type: 'number', value: String(cnt) }])
-			)
-		);
-	}
-
-	// On every difficulty change, ask before (re)initializing the chaos bag to that
-	// difficulty's starting tokens. The difficulty value itself already changed (bind).
-	let prevDifficulty: 'easy' | 'standard' | 'hard' | 'expert' = initialCampaign.difficulty as
-		| 'easy'
-		| 'standard'
-		| 'hard'
-		| 'expert';
-	function handleDifficultyChange(newValue: 'easy' | 'standard' | 'hard' | 'expert') {
-		const old = prevDifficulty;
-		prevDifficulty = newValue;
-		if (newValue === old) return;
-		if (startingBagFor(newValue)) {
-			if (confirm(m.archive_chaos_reinit_confirm())) {
-				applyStartingChaosBag(newValue);
-			} else if (entriesInSection(localLogs, RESERVED.chaosBag).length === 0) {
-				// Declined while the bag was still just a preview: freeze the previous
-				// difficulty's composition so it doesn't silently follow the new difficulty.
-				applyStartingChaosBag(old);
-			}
-		}
-		persistGeneral(); // the difficulty itself changed — autosave it
-	}
-
-	// ─── Achievements (incremental, per-tick) ────────────────────────────────────
-	async function toggleAchievement(
-		def: AchievementDef,
-		itemId: string | undefined,
-		earned: boolean
-	) {
-		const key = itemId ? `${def.id}::${itemId}` : def.id;
-		// Optimistic local update.
-		const next = new Set(manualAchievements);
-		if (earned) next.add(key);
-		else next.delete(key);
-		manualAchievements = next;
-
-		databaseStore.setManualAchievement(
-			data.campaign.id,
-			{
-				family: def.family ?? campaignLog?.db.code ?? '',
-				achievementId: def.id,
-				itemId: itemId ?? null
-			},
-			earned
-		);
-	}
-
-	// ─── Campaign display ──────────────────────────────────────────────────────
-	const campaignDisplayName = $derived(
+	const headerName = $derived(
 		isStandalone
-			? (data.campaign.title || 'Standalone')
-			: data.campaign.campaignCode
-				? u.campaignName(data.campaign.campaignCode as Campaign)
+			? record?.title || m.archive_standalone()
+			: record?.campaignCode
+				? campaignDisplayName(record.campaignCode)
 				: m.archive_campaign_unspecified()
 	);
 
-	// ─── Change campaign modal ─────────────────────────────────────────────────
+	// ─── Destructive actions snapshot first, so autosave history can undo them ──
 	let changeCampaignOpen = $state(false);
-	let changingCampaign = $state(false);
-
-	async function handleChangeCampaign(campaign: Campaign | null) {
-		if (!confirm(m.archive_change_campaign_confirm())) return;
-		changingCampaign = true;
-		changeCampaignOpen = false;
-
-		// Switch scenario set in the database store (clears logs + achievements),
-		// then reload to re-hydrate everything.
-		databaseStore.changeCampaignCode(data.campaign.id, campaign ?? '');
-		await databaseStore.saveNow();
-		window.location.reload();
+	let pendingCampaign = $state<Campaign | null | undefined>(undefined);
+	async function changeCampaign() {
+		const code = pendingCampaign;
+		pendingCampaign = undefined;
+		if (code === undefined) return;
+		await snapshot();
+		databaseStore.changeCampaignCode(data.id, code ?? '');
+		seed++;
 	}
 
-	// ─── Delete ────────────────────────────────────────────────────────────────
-	let confirmDeleteOpen = $state(false);
-	// ─── Export (format chosen in a modal — a rare action) ───────────────────────
-	let exportModalOpen = $state(false);
-
-	// ─── Autosave history (per-campaign snapshots) ───────────────────────────────
 	let historyOpen = $state(false);
 	let snapshots = $state<SnapshotMeta[]>([]);
+	let restoreId = $state<string | null>(null);
 	async function openHistory() {
-		snapshots = await listSnapshotsFor(data.campaign.id);
+		snapshots = await listSnapshotsFor(data.id);
 		historyOpen = true;
 	}
-	async function restoreSnapshot(id: string) {
-		if (!confirm(m.archive_history_restore_confirm())) return;
-		const ok = await databaseStore.restoreCampaignSnapshot(id);
-		historyOpen = false;
-		// Reload so the editor re-initializes from the restored campaign.
-		if (ok) window.location.reload();
+	async function restore() {
+		const id = restoreId;
+		restoreId = null;
+		if (!id) return;
+		await snapshot();
+		if (await databaseStore.restoreCampaignSnapshot(id)) seed++;
 	}
 
-	async function handleDelete() {
+	let confirmDeleteOpen = $state(false);
+	async function deleteRecord() {
 		confirmDeleteOpen = false;
-		if (isStandalone) databaseStore.removeStandalone(data.campaign.id);
-		else databaseStore.removeCampaign(data.campaign.id);
+		await snapshot();
+		if (isStandalone) databaseStore.removeStandalone(data.id);
+		else databaseStore.removeCampaign(data.id);
 		await databaseStore.saveNow();
-		goto('/archive');
+		goto(isStandalone ? '/archive/standalone' : '/archive');
 	}
 
-	// Export just this campaign as a file to hand to another player. `.ahlifecam` is
-	// the shareable file; `.json` is an uncompressed copy for inspection/debugging.
-	async function exportThisCampaign(format: 'gzip' | 'json') {
+	let exportModalOpen = $state(false);
+	async function exportRecord(format: 'gzip' | 'json') {
+		exportModalOpen = false;
 		if (!databaseStore.doc) return;
-		const saved = await downloadCampaignShare(databaseStore.doc, data.campaign.id, format);
-		if (saved && format === 'gzip') {
-			toast.success('Campaign exported — give the file to another player to import.');
-		}
+		const saved = await downloadCampaignShare(databaseStore.doc, data.id, format);
+		if (saved && format === 'gzip') toast.success(m.archive_export_done());
 	}
 </script>
 
@@ -349,44 +121,35 @@
 
 <MarginFull>
 	<div class="mb-4">
-		<BackButton label={m.common_back()} onClick="/archive" />
+		<BackButton label={m.common_back()} onClick={isStandalone ? '/archive/standalone' : '/archive'} />
 	</div>
 
-	<!-- Campaign header + actions (icon-only with tooltips to save space) -->
-	<div class="mb-4 flex items-center justify-between gap-4">
-		<div>
-			<p class="text-primary-500 dark:text-primary-400 text-xs tracking-wider uppercase">
-				{isStandalone ? 'Standalone' : m.archive_campaign_label()}
-			</p>
-			<p class="text-base font-semibold text-black dark:text-white">
-				{campaignDisplayName}{title && title !== campaignDisplayName ? ` — ${title}` : ''}
-			</p>
-		</div>
-		<div class="flex gap-2">
-			<Button
-				label={m.archive_export_campaign()}
-				icon={FaIconType.Export}
-				hideLabel
-				onClick={() => (exportModalOpen = true)}
-			/>
-			{#if data.canEdit}
+	{#if record}
+		<div class="mb-4 flex items-center justify-between gap-4">
+			<div>
+				<p class="text-primary-500 dark:text-primary-400 text-xs tracking-wider uppercase">
+					{isStandalone ? m.archive_standalone() : m.archive_campaign_label()}
+				</p>
+				<p class="text-base font-semibold text-black dark:text-white">
+					{headerName}{record.title && record.title !== headerName ? ` — ${record.title}` : ''}
+				</p>
+			</div>
+			<div class="flex gap-2">
 				<Button
-					label={m.archive_history_button()}
-					icon={FaIconType.Reset}
+					label={m.archive_export_campaign()}
+					icon={FaIconType.Export}
 					hideLabel
-					onClick={openHistory}
+					onClick={() => (exportModalOpen = true)}
 				/>
-			{/if}
-			{#if data.isOwner && !isStandalone}
-				<Button
-					label={m.archive_change_campaign()}
-					icon={FaIconType.Edit}
-					hideLabel
-					onClick={() => (changeCampaignOpen = true)}
-					disabled={changingCampaign}
-				/>
-			{/if}
-			{#if data.canDelete}
+				<Button label={m.archive_history_button()} icon={FaIconType.Reset} hideLabel onClick={openHistory} />
+				{#if !isStandalone}
+					<Button
+						label={m.archive_change_campaign()}
+						icon={FaIconType.Edit}
+						hideLabel
+						onClick={() => (changeCampaignOpen = true)}
+					/>
+				{/if}
 				<Button
 					label={m.archive_delete()}
 					icon={FaIconType.Delete}
@@ -394,125 +157,22 @@
 					danger
 					onClick={() => (confirmDeleteOpen = true)}
 				/>
-			{/if}
+			</div>
 		</div>
-	</div>
 
-	<!-- Tabs -->
-	<Tabs
-		direction="horizontal"
-		activeTabIndex={activeTab}
-		onTabChange={requestTabChange}
-		tabs={tabDefs.map((t) => ({ label: t.label }))}
-	/>
-
-	<!-- ── General tab ──────────────────────────────────────────────────────── -->
-	{#if activeKey === 'general'}
-		<GeneralTab
-			canEdit={data.canEdit}
-			{isStandalone}
-			log={campaignLog}
-			difficultyOptions={standaloneInfo?.difficulties}
-			bind:title
-			bind:difficulty
-			bind:draft
-			bind:displayInProfile
-			bind:startDate
-			bind:finishDate
-			chaosBagEntries={entriesInSection(localLogs, RESERVED.chaosBag)}
-			startingChaosBag={isStandalone ? (standaloneInfo?.chaosBag ?? null) : undefined}
-			onChaosBagChange={handleChaosBagChange}
-			onDifficultyChange={handleDifficultyChange}
-			onGeneralChange={persistGeneral}
+		<Tabs
+			direction="horizontal"
+			activeTabIndex={activeIndex}
+			onTabChange={(i) => (activeTab = tabs[i]?.key ?? 'general')}
+			tabs={tabs.map((t) => ({ label: t.label }))}
 		/>
 
-		<!-- ── Players & Decks tab ──────────────────────────────────────────────────── -->
-	{:else if activeKey === 'decks'}
-		<PlayersAndDecksTab
-			campaignId={data.campaign.id}
-			canEdit={data.canEdit}
-			singleDeck={isStandalone}
-			{isStandalone}
-			players={data.players}
-			decks={data.decks}
-			{cardResolver}
-			{tabooLists}
-		/>
-
-		<!-- ── Logs tab ──────────────────────────────────────────────────────────────────── -->
-	{:else if activeKey === 'logs'}
-		{#if !data.campaign.campaignCode}
-			<p class="text-primary-400 dark:text-primary-500 mt-4 text-sm">
-				{m.archive_logs_no_campaign()}
-			</p>
-		{:else}
-			{#if campaignLog && logConflicts.length}
-				<div class="mt-3 max-w-xl">
-					<ValidationBanner log={campaignLog} conflicts={logConflicts} />
-				</div>
-			{/if}
-			{#if isStandalone}
-				<p class="text-primary-500 mt-3 mb-1 text-sm">
-					In Standalone Mode the guide says to "remember" these instead of recording them — but you
-					can still record this scenario's entries here if you like.
-				</p>
-			{/if}
-			<LogsTab
-				log={campaignLog}
-				canEdit={data.canEdit}
-				cards={allCards}
-				{investigators}
-				{localLogs}
-				onlyScenario={isStandalone ? standaloneScenario : undefined}
-				onLogsChange={handleLogsChange}
-			/>
-			{#if isTde && !isStandalone}
-				<TdeLinkedLog
-					family={tdeFamily}
-					{interconnected}
-					{linkedLogs}
-					canEdit={data.canEdit}
-					onInterconnectedChange={handleInterconnectedChange}
-					onLinkedChange={handleLinkedChange}
-				/>
-			{/if}
-		{/if}
-
-		<!-- ── Achievements tab (campaign only) ──────────────────────────────────────── -->
-	{:else if activeKey === 'achievements'}
-		{#if campaignLog && recorded}
-			<AchievementsTab
-				log={campaignLog}
-				{recorded}
-				manual={manualAchievements}
-				canEdit={data.canEdit}
-				onToggle={toggleAchievement}
-			/>
-		{:else}
-			<p class="text-primary-400 dark:text-primary-500 mt-4 text-sm">
-				{m.archive_logs_no_campaign()}
-			</p>
-		{/if}
-	{:else if activeKey === 'extra'}
-		{#if campaignLog}
-			<ExtraTab
-				log={campaignLog}
-				canEdit={data.canEdit}
-				{localLogs}
-				{investigators}
-				onlyScenario={isStandalone ? standaloneScenario : undefined}
-				alwaysShowExperience={isStandalone}
-				onLogsChange={handleLogsChange}
-			/>
-		{:else}
-			<p class="text-primary-400 dark:text-primary-500 mt-4 text-sm">
-				{m.archive_logs_no_campaign()}
-			</p>
-		{/if}
+		{#key `${data.id}:${seed}`}
+			<ArchiveEditor {record} tab={activeTab} />
+		{/key}
 	{/if}
 </MarginFull>
 
-<!-- Change Campaign Modal -->
 <Modal
 	isOpen={changeCampaignOpen}
 	onClose={() => (changeCampaignOpen = false)}
@@ -520,67 +180,72 @@
 	maxWidth="lg"
 >
 	<CampaignSelector
-		selected={data.campaign.campaignCode ? (data.campaign.campaignCode as Campaign) : null}
+		selected={record?.campaignCode ? (record.campaignCode as Campaign) : null}
 		onSelect={(campaign) => {
 			changeCampaignOpen = false;
-			handleChangeCampaign(campaign);
+			pendingCampaign = campaign;
 		}}
 	/>
 </Modal>
 
-<!-- Confirm Delete Modal -->
-<Modal
-	isOpen={confirmDeleteOpen}
-	onClose={() => (confirmDeleteOpen = false)}
-	title={m.archive_delete()}
-	maxWidth="sm"
+<ConfirmModal
+	isOpen={pendingCampaign !== undefined}
+	title={m.archive_change_campaign()}
+	confirmLabel={m.archive_change_campaign()}
+	danger
+	onConfirm={changeCampaign}
+	onCancel={() => (pendingCampaign = undefined)}
 >
-	<p class="mb-4 text-black dark:text-white">{m.archive_delete_confirm()}</p>
-	{#snippet footer()}
-		<div class="flex justify-end gap-2">
-			<Button label={m.common_back()} onClick={() => (confirmDeleteOpen = false)} />
-			<Button label={m.archive_delete()} icon={FaIconType.Delete} danger onClick={handleDelete} />
-		</div>
-	{/snippet}
-</Modal>
+	{m.archive_change_campaign_confirm()}
+</ConfirmModal>
 
-<!-- Export format chooser (rare action → modal instead of two header buttons) -->
+<ConfirmModal
+	isOpen={confirmDeleteOpen}
+	title={m.archive_delete()}
+	confirmLabel={m.archive_delete()}
+	danger
+	onConfirm={deleteRecord}
+	onCancel={() => (confirmDeleteOpen = false)}
+>
+	{m.archive_delete_confirm()}
+</ConfirmModal>
+
+<ConfirmModal
+	isOpen={restoreId !== null}
+	title={m.archive_history_title()}
+	confirmLabel={m.archive_history_restore()}
+	onConfirm={restore}
+	onCancel={() => (restoreId = null)}
+>
+	{m.archive_history_restore_confirm()}
+</ConfirmModal>
+
 <Modal
 	isOpen={exportModalOpen}
 	onClose={() => (exportModalOpen = false)}
 	title={m.archive_export_campaign()}
 	maxWidth="sm"
 >
-	<p class="mb-4 text-black dark:text-white">
-		Share this campaign as a compressed <code>.ahlifecam</code> file, or export plain
-		<code>.json</code> for inspection.
-	</p>
+	<p class="mb-4 text-black dark:text-white">{m.archive_export_help()}</p>
 	{#snippet footer()}
 		<div class="flex justify-end gap-2">
+			<Button label={m.archive_export_json()} onClick={() => exportRecord('json')} />
 			<Button
-				label="Export .json"
-				onClick={() => {
-					exportThisCampaign('json');
-					exportModalOpen = false;
-				}}
-			/>
-			<Button
-				label="Export .ahlifecam"
+				label={m.archive_export_ahlifecam()}
 				icon={FaIconType.Export}
 				highlighted
-				onClick={() => {
-					exportThisCampaign('gzip');
-					exportModalOpen = false;
-				}}
+				onClick={() => exportRecord('gzip')}
 			/>
 		</div>
 	{/snippet}
 </Modal>
 
-<!-- Autosave history (per-campaign snapshots; restore replaces the campaign) -->
 <SnapshotHistoryModal
 	isOpen={historyOpen}
 	{snapshots}
-	onRestore={restoreSnapshot}
+	onRestore={(id) => {
+		historyOpen = false;
+		restoreId = id;
+	}}
 	onClose={() => (historyOpen = false)}
 />

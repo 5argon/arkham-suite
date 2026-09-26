@@ -1,10 +1,7 @@
 <!--
 @component
-The campaign-log recording surface. Controlled component: the flat editor model
-(`localLogs`) is owned by the page (so the achievements tab + validation gate
-share the same live state) and bound in here. Renders each campaign-data section
-through SectionDispatch; section headings are the verbatim physical-sheet titles.
-(The chaos bag — also reserved, not a data section — is edited in the General tab.)
+The Logs tab: every campaign-data log section, grouped under the sheet's header sections. The chaos
+bag is in the General tab.
 -->
 <script lang="ts">
 	import type { Card } from '@5argon/arkham-kohaku';
@@ -22,48 +19,36 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 	import { standaloneResolvedEntries } from '$lib/campaign/outcomes/standalone-logs';
 	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
 	import SectionDispatch from './sections/SectionDispatch.svelte';
-	import TskEditNote from './TskEditNote.svelte';
-	import FhvEditNote from './FhvEditNote.svelte';
+	import CampaignEditNote from './CampaignEditNote.svelte';
 
 	interface Props {
 		log: CampaignLog | undefined;
-		canEdit: boolean;
 		cards: Card[];
 		investigators: InvestigatorRef[];
 		localLogs: LocalLog[];
-		/**
-		 * Standalone archive: scope the log to this single scenario — only sections
-		 * that carry one of its entries are shown (the `side` catalogue / host campaign
-		 * collapses to just this scenario's sheet). Absent ⇒ the whole campaign log.
-		 */
+		/** Standalone archive: only the sections holding this scenario's entries. */
 		onlyScenario?: string;
-		/** Autosave callback: receives the next logs after each edit. */
 		onLogsChange: (next: LocalLog[]) => void;
 	}
 
-	let { log, canEdit, cards, investigators, localLogs, onlyScenario, onLogsChange }: Props = $props();
+	let { log, cards, investigators, localLogs, onlyScenario, onLogsChange }: Props = $props();
 
 	const allSections = $derived(log ? visibleSections(log) : []);
-	// For a standalone, the sections that carry an entry tagged to the chosen scenario
-	// (headers pass through so their group framing survives the filter).
 	const scenarioSectionIds = $derived.by(() => {
 		if (!onlyScenario || !log) return null;
 		const ids = new Set<string>();
 		for (const e of log.db.entries) if (e.scenario === onlyScenario) ids.add(e.section);
 		return ids;
 	});
+	// Headers pass the scenario filter so their grouping survives.
 	const sections = $derived(
 		scenarioSectionIds
 			? allSections.filter((s) => s.type === 'header' || scenarioSectionIds!.has(s.id))
 			: allSections
 	);
 
-	// campaign-data `header` sections (e.g. EotE's "The Ice and Death") are group
-	// titles, not data: each one opens a group whose following sections belong
-	// under it (Locations Revealed, Supplies Recovered…). Render those nested
-	// under the header instead of flat at the same level. A `major` section breaks
-	// back out to the top level even when it trails a header (e.g. EotE's campaign-
-	// wide "Expedition Team", which the source lists after "The Heart of Madness").
+	// A `header` section (EotE's "The Ice and Death") titles the sections after it; a `major` section
+	// (EotE's Expedition Team) starts its own top-level group even when it trails a header.
 	interface SectionGroup {
 		key: string;
 		header: LogSectionDef | null;
@@ -91,10 +76,8 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 		onLogsChange(replaceSection(localLogs, sectionId, next));
 	}
 
-	// Standalones recorded in the Extra tab make their own loggable entries available
-	// in the matching section's dropdown here (Campaign Notes), so the player adds
-	// them into the ordered log stream — a standalone is a stop on the route. Each
-	// carries its source standalone's name (for the "from a standalone" marker).
+	// Side stories recorded in the Extra tab offer their own entries in the matching section, so they
+	// join the ordered log like any stop on the route.
 	const standaloneMeta = new Map(standaloneScenarios().map((s) => [s.scenario, s]));
 	const standaloneExtra = $derived.by(() => {
 		const entriesBySection = new Map<string, ResolvedLogEntry[]>();
@@ -114,8 +97,7 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 </script>
 
 <div class="mt-2 max-w-xl space-y-4">
-	<TskEditNote {log} tab="logs" />
-	<FhvEditNote {log} tab="logs" />
+	<CampaignEditNote {log} tab="logs" />
 	{#if !log || sections.length === 0}
 		<p class="text-primary-400 dark:text-primary-500 text-sm">{m.archive_logs_no_data()}</p>
 	{:else}
@@ -138,7 +120,6 @@ through SectionDispatch; section headings are the verbatim physical-sheet titles
 						{section}
 						{cards}
 						{investigators}
-						{canEdit}
 						standalone={!!onlyScenario}
 						entries={entriesInSection(localLogs, section.id)}
 						extraEntries={standaloneExtra.entriesBySection.get(section.id) ?? []}

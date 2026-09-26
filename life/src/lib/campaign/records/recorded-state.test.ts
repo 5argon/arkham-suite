@@ -4,17 +4,21 @@ import {
 	CROSSED_MARK,
 	RESERVED,
 	entriesInSection,
+	chaosBagEntries,
 	hydrate,
+	isInterconnected,
 	makeEntry,
-	makeStandaloneLogKey,
-	parseStandaloneLogKey,
+	manualTickKey,
+	partnerArgs,
+	readPartner,
 	recordedLogKeys,
 	replaceSection,
 	toRecordedState,
 	toSavePayload,
-	type DbLogRow,
+	withInterconnected,
 	type LocalLog,
 } from './recorded-state';
+import type { CampaignLogEntry } from '$lib/database/document';
 
 // Minimal fake log: only `db.sections` (type classification) is read by the codec.
 const LOG = {
@@ -30,16 +34,14 @@ const LOG = {
 } as unknown as CampaignLog;
 
 describe('hydrate', () => {
-	it('maps DB rows to the flat editor model, typing args by non-null column', () => {
-		const rows: DbLogRow[] = [
-			{ key: 'campaign_notes.accepted_fate', section: 'campaign_notes', params: [] },
-			{ key: 'yigs_fury', section: 'yigs_fury', params: [{ valueString: null, valueNumber: 25 }] },
+	it('adds a unique client id and round-trips through toSavePayload', () => {
+		const stored: CampaignLogEntry[] = [
+			{ key: 'campaign_notes.accepted_fate', section: 'campaign_notes', args: [] },
+			{ key: 'yigs_fury', section: 'yigs_fury', args: [{ type: 'number', value: '25' }] },
 		];
-		const out = hydrate(rows);
-		expect(out).toHaveLength(2);
-		expect(out[0]).toMatchObject({ key: 'campaign_notes.accepted_fate', section: 'campaign_notes', args: [] });
-		expect(out[1].args).toEqual([{ type: 'number', value: '25' }]);
-		expect(out.every((l) => typeof l.clientId === 'string')).toBe(true);
+		const out = hydrate(stored);
+		expect(new Set(out.map((l) => l.clientId)).size).toBe(2);
+		expect(toSavePayload(out)).toEqual(stored);
 	});
 });
 
@@ -105,24 +107,11 @@ describe('toRecordedState', () => {
 		expect(state.crossedLogs).toBeUndefined();
 	});
 
-	it('merges standalone-played logs into recordedLogs under their real entry key', () => {
-		const key = makeStandaloneLogKey(
-			'fortune_and_folly_part_1',
-			'campaign_notes.cell_meddled_in_abarrans_affairs',
-		);
+	it('reads a legacy standalone-log entry under its real entry key', () => {
+		const key = 'fortune_and_folly_part_1::campaign_notes.cell_meddled_in_abarrans_affairs';
 		const state = toRecordedState(LOG, [makeEntry(RESERVED.standaloneLog, key)]);
-		// The standalone's real key is visible to widgets/achievements…
 		expect(state.recordedLogs?.has('campaign_notes.cell_meddled_in_abarrans_affairs')).toBe(true);
-		// …but the reserved composite key itself is not leaked into recordedLogs.
 		expect(state.recordedLogs?.has(key)).toBe(false);
-	});
-
-	it('round-trips a standalone-log key (compose ↔ parse)', () => {
-		const key = makeStandaloneLogKey('carnevale_of_horrors', 'campaign_notes.coh_sun_banished_cnidathqua');
-		expect(parseStandaloneLogKey(key)).toEqual({
-			standalone: 'carnevale_of_horrors',
-			realKey: 'campaign_notes.coh_sun_banished_cnidathqua',
-		});
 	});
 
 	it('takes the max for a per-investigator counter section', () => {
@@ -155,5 +144,48 @@ describe('section slice helpers', () => {
 		const next = replaceSection(logs, 'campaign_notes', [c]);
 		expect(next.filter((l) => l.section === 'yigs_fury')).toEqual([b]);
 		expect(next.filter((l) => l.section === 'campaign_notes')).toEqual([c]);
+	});
+});
+
+describe('partner codec', () => {
+	it('round-trips marks and omits an untouched member', () => {
+		const marks = { nameCrossed: false, resolute: true, mia: true, miaCrossed: false, damage: 2, horror: 0 };
+		const args = partnerArgs(marks)!;
+		expect(args).toEqual([
+			{ type: 'string', value: 'resolute' },
+			{ type: 'string', value: 'mia' },
+			{ type: 'number', value: '2' },
+			{ type: 'number', value: '0' },
+		]);
+		expect(readPartner(args)).toEqual(marks);
+		expect(partnerArgs(readPartner([]))).toBeNull();
+	});
+
+	it('exposes the flags as partner statuses', () => {
+		const args = partnerArgs({ ...readPartner([]), nameCrossed: true })!;
+		const state = toRecordedState(LOG, [makeEntry('expedition_team', 'expedition_team.dyer', args)]);
+		expect(state.partnerStatuses?.expedition_team?.dyer?.has('name_crossed')).toBe(true);
+	});
+});
+
+describe('editor helpers', () => {
+	it('builds manual tick keys', () => {
+		expect(manualTickKey('a')).toBe('a');
+		expect(manualTickKey('a', null)).toBe('a');
+		expect(manualTickKey('a', 'x')).toBe('a::x');
+	});
+
+	it('writes zero-count chaos-bag entries', () => {
+		const state = toRecordedState(LOG, chaosBagEntries({ frost: 0, skull: 2 }));
+		expect(state.finalChaosBag).toEqual({ frost: 0, skull: 2 });
+	});
+
+	it('swaps the TDE interconnected / half-campaign flags', () => {
+		const on = withInterconnected([makeEntry('hidden', 'hidden.half_campaign')], true);
+		expect(on.map((l) => l.key)).toEqual(['hidden.interconnected_campaign']);
+		expect(isInterconnected(on)).toBe(true);
+		const off = withInterconnected(on, false);
+		expect(off.map((l) => l.key)).toEqual(['hidden.half_campaign']);
+		expect(isInterconnected(off)).toBe(false);
 	});
 });

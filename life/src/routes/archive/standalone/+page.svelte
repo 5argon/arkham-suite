@@ -5,97 +5,56 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import ArchiveListView from '$lib/components/archive/ArchiveListView.svelte';
 	import StandaloneArchiveListItem from '$lib/components/archive/StandaloneArchiveListItem.svelte';
-	import StandaloneFilterModal from '$lib/components/archive/StandaloneFilterModal.svelte';
+	import StandaloneFilterModal, {
+		STANDALONE_FACETS,
+		type StandaloneFacet
+	} from '$lib/components/archive/StandaloneFilterModal.svelte';
+	import {
+		activeFilterCount,
+		draftsFromUrl,
+		pageOf,
+		toggleDraft,
+		withFilters,
+		withoutFilters,
+		type FilterDrafts
+	} from '$lib/components/archive/list-url';
 	import type { PageProps } from './$types';
 
 	const { data }: PageProps = $props();
 
-	const PAGE_SIZE = 20;
-	const sortBy = $derived(
-		(page.url.searchParams.get('sort') ?? 'date') as 'date' | 'name' | 'difficulty',
-	);
-	const nameParam = $derived(page.url.searchParams.get('name') ?? '');
-	const currentPage = $derived(Number(page.url.searchParams.get('page') ?? '1'));
-
 	const sortOptions = [
 		{ value: 'date', label: m.archive_sort_date() },
-		{ value: 'name', label: 'Name' },
-		{ value: 'difficulty', label: m.archive_sort_difficulty() },
+		{ value: 'name', label: m.archive_sort_name() },
+		{ value: 'difficulty', label: m.archive_sort_difficulty() }
 	];
 
-	// ─── Filters (standalone facets; URL-driven, before pagination) ──────────────
-	const FILTER_KEYS = ['src', 'diff', 'verdict'] as const;
-	function listParam(key: string): string[] {
-		const raw = page.url.searchParams.get(key);
-		return raw ? raw.split(',').filter(Boolean) : [];
-	}
-	const activeFilters = $derived(FILTER_KEYS.reduce((n, k) => n + listParam(k).length, 0));
-
 	let filterOpen = $state(false);
-	let dSources = $state(new Set<string>());
-	let dDifficulties = $state(new Set<string>());
-	let dVerdicts = $state(new Set<string>());
-
-	function openFilters() {
-		dSources = new Set(listParam('src'));
-		dDifficulties = new Set(listParam('diff'));
-		dVerdicts = new Set(listParam('verdict'));
-		filterOpen = true;
-	}
-	function toggleSet<T>(s: Set<T>, v: T): Set<T> {
-		const n = new Set(s);
-		if (n.has(v)) n.delete(v);
-		else n.add(v);
-		return n;
-	}
-	function toggleFilter(cat: 'source' | 'difficulty' | 'verdict', value: string) {
-		if (cat === 'source') dSources = toggleSet(dSources, value);
-		else if (cat === 'difficulty') dDifficulties = toggleSet(dDifficulties, value);
-		else dVerdicts = toggleSet(dVerdicts, value);
-	}
-	function applyFilters() {
-		const sp = new URLSearchParams(page.url.searchParams);
-		const setParam = (key: string, vals: Set<string>) => {
-			const joined = [...vals].join(',');
-			if (joined) sp.set(key, joined);
-			else sp.delete(key);
-		};
-		setParam('src', dSources);
-		setParam('diff', dDifficulties);
-		setParam('verdict', dVerdicts);
-		sp.set('page', '1');
-		goto(`/archive/standalone?${sp.toString()}`, { keepFocus: true });
+	let drafts = $state<FilterDrafts<StandaloneFacet>>(draftsFromUrl(page.url, STANDALONE_FACETS));
+	const go = (query: string) => goto(`/archive/standalone?${query}`, { keepFocus: true });
+	function apply() {
+		go(withFilters(page.url, drafts));
 		filterOpen = false;
 	}
-	function clearFilters() {
-		const sp = new URLSearchParams(page.url.searchParams);
-		for (const k of FILTER_KEYS) sp.delete(k);
-		sp.set('page', '1');
-		goto(`/archive/standalone?${sp.toString()}`, { keepFocus: true });
-		dSources = new Set();
-		dDifficulties = new Set();
-		dVerdicts = new Set();
+	function clear() {
+		go(withoutFilters(page.url, STANDALONE_FACETS));
 		filterOpen = false;
 	}
 </script>
 
 <svelte:head>
-	<title>Standalone Archives</title>
+	<title>{m.archive_standalone_page_title()}</title>
 </svelte:head>
 
 <MarginFull>
 	<div class="mb-4">
-		<BackButton label="Campaign Archive" onClick="/archive" />
+		<BackButton label={m.archive_title()} onClick="/archive" />
 	</div>
 
-	<PageLead
-		title="Standalone Archives"
-		description="One-off scenarios played in Standalone Mode — Scenario Packs and campaign scenarios played outside their campaign."
-	/>
+	<PageLead title={m.archive_standalone_list_title()} description={m.archive_standalone_list_description()} />
 
 	<div class="mb-6 flex flex-wrap justify-center gap-3">
 		<Button
-			label="New Standalone Archive"
+			label={m.archive_new_standalone()}
 			onClick="/archive/new-standalone"
 			icon={FaIconType.Add}
 			highlighted
@@ -112,24 +71,25 @@
 		items={data.items}
 		totalCount={data.totalCount}
 		filteredIds={data.filteredIds}
-		pageSize={PAGE_SIZE}
-		{currentPage}
-		name={nameParam}
-		namePlaceholder="Title or scenario…"
-		sort={sortBy}
+		currentPage={pageOf(page.url)}
+		name={page.url.searchParams.get('name') ?? ''}
+		namePlaceholder={m.archive_standalone_search_placeholder()}
+		sort={page.url.searchParams.get('sort') ?? 'date'}
 		{sortOptions}
-		{activeFilters}
-		onOpenFilters={openFilters}
-		onClearFilters={clearFilters}
+		activeFilters={activeFilterCount(page.url, STANDALONE_FACETS)}
+		onOpenFilters={() => {
+			drafts = draftsFromUrl(page.url, STANDALONE_FACETS);
+			filterOpen = true;
+		}}
+		onClearFilters={clear}
 		exportSuffix="-standalones"
 		exportDescription="arkham.life standalones (zip)"
-		exportSelectedLabel="Export selected"
-		emptyText="No standalone archives yet. Create one with “New Standalone Archive”."
+		exportSelectedLabel={m.archive_export_selected_standalone()}
+		emptyText={m.archive_no_standalones()}
 	>
 		{#snippet item(s, sel)}
 			<StandaloneArchiveListItem
 				standalone={s}
-				cardsByCode={data.cardsByCode}
 				selectable={sel.selectionMode}
 				selected={sel.selected}
 				onToggle={sel.toggle}
@@ -140,12 +100,10 @@
 	<StandaloneFilterModal
 		isOpen={filterOpen}
 		options={data.filterOptions}
-		sources={dSources}
-		difficulties={dDifficulties}
-		verdicts={dVerdicts}
-		onToggle={toggleFilter}
-		onClear={clearFilters}
-		onApply={applyFilters}
+		{drafts}
+		onToggle={(facet, value) => (drafts = toggleDraft(drafts, facet, value))}
+		onClear={clear}
+		onApply={apply}
 		onClose={() => (filterOpen = false)}
 	/>
 </MarginFull>

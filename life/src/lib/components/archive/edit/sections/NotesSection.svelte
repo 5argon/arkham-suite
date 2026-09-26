@@ -1,23 +1,10 @@
 <!--
 @component
-The workhorse recording component for `notes`-type sections (Campaign Notes,
-Missing Persons, Memories, Locations, Artifacts Earned, Possible Suspects, …).
-Entries come from campaign-data `sectionEntries()`, so the dropdown is naturally
-scoped to *this* section's valid entries only. Recorded entries are kept in the
-flat editor model; the component owns its section's slice and pushes a whole
-replacement up via `onChange`.
-
-Per-entry kind drives the input: `note` → presence checkbox; `count`/`task` →
-a number (with optional min/max); `text` → free text. Entry text is rendered via
-EntryText (plain Arkham markup).
+A `notes` section (Campaign Notes, Missing Persons, Memories, …): search this section's entries to
+add them; an entry with a count, text or `#name#` asks for it first.
 -->
 <script lang="ts">
-	import {
-		sectionEntries,
-		type CampaignLog,
-		type LogSectionDef,
-		type ResolvedLogEntry,
-	} from '@5argon/arkham-campaign-data';
+	import { sectionEntries, type ResolvedLogEntry } from '@5argon/arkham-campaign-data';
 	import {
 		Button,
 		CardFormSingle,
@@ -25,95 +12,106 @@ EntryText (plain Arkham markup).
 		FaIcon,
 		FaIconType,
 		SearchableDropdown,
-		TextInput,
+		TextInput
 	} from '@5argon/arkham-life-ui';
-	import { card, type Card } from '@5argon/arkham-kohaku';
+	import { card } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
-	import { getAllCards, createCardResolver, resolveCardOrNull } from '$lib/card-data';
+	import { getAllCards, resolveCardOrNull } from '$lib/card-data';
 	import { itemLabel, portraitUrl } from '$lib/campaign/records/campaign-log-source';
-	import { CROSSED_MARK, hasCrossedMark, makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
-	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
+	import {
+		CROSSED_MARK,
+		firstNumber,
+		hasCrossedMark,
+		makeEntry,
+		type LocalLog
+	} from '$lib/campaign/records/recorded-state';
 	import EntryText from '../EntryText.svelte';
+	import { cardPoolFor } from '../card-pool';
+	import type { RosterSectionProps } from './types';
 
-	interface Props {
-		log: CampaignLog;
-		section: LogSectionDef;
-		/** This section's current slice of the flat editor model. */
-		entries: LocalLog[];
-		/** The campaign's investigator roster — scopes an investigator `#name#` picker (e.g. PtC's
-		 *  "read Act 2") to the campaign's own investigators instead of every printing of every one. */
-		investigators: InvestigatorRef[];
-		canEdit: boolean;
-		onChange: (next: LocalLog[]) => void;
-		/** Extra recordable entries contributed by standalones played inside this
-		 *  campaign (recorded in the Extra tab) — offered in the dropdown and stored
-		 *  as ordinary ordered entries. Resolved against the standalone's source log. */
+	interface Props extends RosterSectionProps {
+		/** Entries of side stories recorded in the Extra tab, offered here too. */
 		extraEntries?: ResolvedLogEntry[];
-		/** Standalone source name per extra-entry key (drives the "from a standalone" marker). */
+		/** Side-story name per extra entry key. */
 		extraSource?: Map<string, string>;
 	}
+	let {
+		log,
+		section,
+		entries,
+		investigators,
+		onChange,
+		extraEntries = [],
+		extraSource
+	}: Props = $props();
 
-	let { log, section, entries, investigators, canEdit, onChange, extraEntries = [], extraSource }: Props = $props();
-
-	// This section's own entries PLUS any standalone-contributed ones (offered + resolved here).
 	const available = $derived([
 		...sectionEntries(log, section.id).filter((e) => !e.def.hidden),
-		...extraEntries,
+		...extraEntries
 	]);
-	const fromStandalone = (key: string): string | undefined => extraSource?.get(key);
-	// A `cards`/choice entry (e.g. EotE "#name# was killed in the plane crash.")
-	// asks the player to pick an expedition member — offer the campaign's partner
-	// roster as the name choices.
-	const partnerSection = $derived(log.db.sections.find((s) => s.type === 'partner'));
-	const nameChoices = $derived(
-		(partnerSection?.items ?? []).map((it) => ({ value: it.id, label: itemLabel(log, it.id) })),
-	);
-	// A cards/choice `#name#` resolves either to a campaign partner (EotE expedition
-	// roster) or — when the campaign has no partner roster — to a *unique* player
-	// card the player searches for (e.g. TSK "Erased from existence: #name#"). The
-	// chosen value is then a card code rather than a partner item id.
-	const nameMode = $derived<'partner' | 'card'>(partnerSection ? 'partner' : 'card');
-	const cardResolver = createCardResolver();
-	const uniquePlayerCards = $derived(
-		nameMode === 'card'
-			? getAllCards().filter(card.playerCardsNonCampaignFilter).filter((c) => c.unique === true)
-			: [],
-	);
-	/** The card pool offered for the PENDING entry's `#name#`: when the entry declares a
-	 *  `cardFilter` (e.g. Stashed → assets, Alarm level → investigators) use that; otherwise
-	 *  the default unique-player-card pool. */
-	const rosterCodes = $derived(new Set(investigators.map((i) => i.code)));
-	const pendingCardPool = $derived.by(() => {
-		const cf = pending?.def.cardFilter;
-		if (!cf) return uniquePlayerCards;
-		let pool = getAllCards();
-		if (cf.types?.length) pool = pool.filter((c) => cf.types!.includes(c.cardType));
-		// An investigator-only `#name#` (e.g. PtC "read Act 2") offers ONLY the campaign's own
-		// investigators (from the decks), not every printing of every investigator; fall back to all
-		// when no roster is recorded.
-		if (cf.types?.length === 1 && cf.types[0] === 'investigator' && rosterCodes.size)
-			pool = pool.filter((c) => rosterCodes.has(c.code));
-		if (cf.codes?.length) pool = pool.filter((c) => cf.codes!.includes(c.code));
-		return pool;
-	});
-	const isCrossed = (entry: LocalLog) => hasCrossedMark(entry.args);
-	// Card-code-keyed notes sections (TCU Missing Persons 05046–05049) carry a
-	// portrait on the sheet; attempt it and hide gracefully if absent.
-	const hasPortrait = $derived(/^\d{5}$/.test(section.id));
-	let photoFailed = $state(false);
 	const byKey = $derived(new Map(available.map((e) => [e.key, e])));
 	const recordedKeys = $derived(new Set(entries.map((e) => e.key)));
-	/** Entries still offerable: a plain note disappears once recorded (presence — no
-	 *  duplicates), but a `repeatable` entry (its identity is the card + number it carries,
-	 *  e.g. Fortune and Folly's Stashed / Alarm level) stays selectable so you can add more. */
-	const selectable = $derived(
-		available.filter((e) => e.def.repeatable || !recordedKeys.has(e.key)),
+	/** A plain note leaves the dropdown once recorded; a `repeatable` one (its identity is the card +
+	 *  number it carries, e.g. Fortune and Folly's Stashed) stays. */
+	const selectable = $derived(available.filter((e) => e.def.repeatable || !recordedKeys.has(e.key)));
+
+	// A `#name#` entry picks a partner from the campaign's partner roster (EotE), or else a card.
+	const partnerSection = $derived(log.db.sections.find((s) => s.type === 'partner'));
+	const nameChoices = $derived(
+		(partnerSection?.items ?? []).map((it) => ({ value: it.id, label: itemLabel(log, it.id) }))
+	);
+	const rosterCodes = $derived(new Set(investigators.map((i) => i.code)));
+	const uniquePlayerCards = getAllCards()
+		.filter(card.playerCardsNonCampaignFilter)
+		.filter((c) => c.unique === true);
+
+	/** Card-code-keyed sections (TCU Missing Persons) show the sheet portrait when there is one. */
+	const hasPortrait = $derived(/^\d{5}$/.test(section.id));
+	let photoFailed = $state(false);
+
+	// ─── An entry that needs a value before it is added ─────────────────────────
+	let pending = $state<ResolvedLogEntry | null>(null);
+	let pendingValue = $state('');
+	/** The `#X#` of a `#name#` entry like "Stashed: #name# (#X#)". */
+	let pendingCount = $state('');
+	const pendingType = $derived(pending ? paramType(pending) : null);
+	const pendingNeedsCount = $derived(pendingType === 'name' && /#X#/.test(pending?.en.text ?? ''));
+	const pendingCardPool = $derived(
+		pending?.def.cardFilter
+			? cardPoolFor(pending.def.cardFilter, getAllCards(), rosterCodes)
+			: uniquePlayerCards
 	);
 
-	// Entries display in the order recorded (it implies the play order / travel path); the
-	// player can reorder them with the move up/down controls.
+	function paramType(entry: ResolvedLogEntry): 'count' | 'text' | 'name' | null {
+		const p = entry.def.param;
+		if (p?.type === 'count' || p?.type === 'investigatorCount') return 'count';
+		if (p?.type === 'text') return 'text';
+		if (p?.type === 'cards' && p.cards?.mode === 'choice') return 'name';
+		return null;
+	}
 
-	/** Swap a recorded entry with its neighbour (reorder within this section). */
+	function handleSelect(entry: ResolvedLogEntry) {
+		if (paramType(entry)) {
+			pending = entry;
+			pendingValue = '';
+			pendingCount = '';
+		} else {
+			onChange([...entries, makeEntry(section.id, entry.key)]);
+		}
+	}
+
+	function confirmPending() {
+		if (!pending || (pendingType === 'name' && !pendingValue)) return;
+		const num = (v: string) => ({ type: 'number' as const, value: String(Number(v) || 0) });
+		const args: LocalLog['args'] =
+			pendingType === 'count'
+				? [num(pendingValue)]
+				: [{ type: 'string', value: pendingValue }, ...(pendingNeedsCount ? [num(pendingCount)] : [])];
+		onChange([...entries, makeEntry(section.id, pending.key, args)]);
+		pending = null;
+	}
+
+	/** Entries keep their recorded order (the play order); the player can reorder them. */
 	function move(index: number, dir: -1 | 1) {
 		const j = index + dir;
 		if (j < 0 || j >= entries.length) return;
@@ -122,82 +120,23 @@ EntryText (plain Arkham markup).
 		onChange(next);
 	}
 
-	// ─── Pending input (entries that need a count / text before adding) ──────────
-	let pending = $state<ResolvedLogEntry | null>(null);
-	let pendingValue = $state('');
-	/** Secondary count for a cards-choice entry whose text carries `#X#` (e.g. Fortune
-	 *  and Folly's "Stashed: #name# (#X#)") — recorded as a number arg alongside the card. */
-	let pendingCount = $state('');
-	const pendingNeedsCount = $derived(!!pending && paramType(pending) === 'name' && /#X#/.test(pending.en.text));
-
-	function paramType(entry: ResolvedLogEntry): 'count' | 'text' | 'name' | null {
-		const p = entry.def.param;
-		if (!p) return null;
-		if (p.type === 'count' || p.type === 'investigatorCount') return 'count';
-		if (p.type === 'text') return 'text';
-		if (p.type === 'cards' && p.cards?.mode === 'choice') return 'name';
-		return null; // fixed card lists are handled by dedicated section types
-	}
-
-	function handleSelect(entry: ResolvedLogEntry) {
-		const pt = paramType(entry);
-		if (pt) {
-			pending = entry;
-			pendingValue = '';
-			pendingCount = '';
-			return;
-		}
-		add(entry, []);
-	}
-
-	function add(entry: ResolvedLogEntry, args: LocalLog['args']) {
-		onChange([...entries, makeEntry(section.id, entry.key, args)]);
-	}
-
-	function confirmPending() {
-		if (!pending) return;
-		const pt = paramType(pending);
-		if (pt === 'name' && !pendingValue) return; // a name must be chosen
-		const args =
-			pt === 'count'
-				? [{ type: 'number' as const, value: String(Number(pendingValue) || 0) }]
-				: pt === 'text' || pt === 'name'
-					? pendingNeedsCount
-						? [
-								{ type: 'string' as const, value: pendingValue },
-								{ type: 'number' as const, value: String(Number(pendingCount) || 0) },
-							]
-						: [{ type: 'string' as const, value: pendingValue }]
-					: [];
-		add(pending, args);
-		pending = null;
-		pendingValue = '';
-		pendingCount = '';
-	}
-
-	function remove(target: LocalLog) {
-		onChange(entries.filter((e) => e !== target));
-	}
-
-	/** Toggle a cross-off-able entry between recorded and crossed-off (kept on record). */
 	function toggleCrossed(target: LocalLog) {
-		const args = isCrossed(target)
+		const args = hasCrossedMark(target.args)
 			? target.args.filter((a) => !(a.type === 'string' && a.value === CROSSED_MARK))
 			: [...target.args, { type: 'string' as const, value: CROSSED_MARK }];
 		onChange(entries.map((e) => (e === target ? { ...e, args } : e)));
 	}
 
-	/** Display text for a recorded entry (substitutes a recorded count into `#X#`
-	 *  and the chosen member name into `#name#`). */
+	/** The entry text with its recorded `#X#` count and `#name#` pick filled in. */
 	function displayText(entry: LocalLog): string | undefined {
 		const resolved = byKey.get(entry.key);
 		if (!resolved) return undefined;
 		let text = resolved.en.text;
-		const num = entry.args.find((a) => a.type === 'number')?.value;
-		if (num !== undefined) text = text.replace(/#X#/g, num);
+		const num = firstNumber(entry.args);
+		if (num !== undefined) text = text.replace(/#X#/g, String(num));
 		const name = entry.args.find((a) => a.type === 'string' && a.value !== CROSSED_MARK)?.value;
 		if (name) {
-			const label = nameMode === 'card' ? (resolveCardOrNull(name)?.name ?? name) : itemLabel(log, name);
+			const label = partnerSection ? itemLabel(log, name) : (resolveCardOrNull(name)?.name ?? name);
 			text = text.replace(/#name#/gi, label);
 		}
 		return text;
@@ -206,7 +145,6 @@ EntryText (plain Arkham markup).
 
 <div class="space-y-2">
 	{#if hasPortrait && !photoFailed}
-		<!-- Portrait cropped from the official sheet (e.g. TCU Missing Persons mugshot). -->
 		<img
 			src={portraitUrl(log.db.code, section.id)}
 			alt=""
@@ -214,56 +152,53 @@ EntryText (plain Arkham markup).
 			onerror={() => (photoFailed = true)}
 		/>
 	{/if}
-	{#if canEdit}
-		<SearchableDropdown
-			label={m.archive_logs_search_label()}
-			placeholder={m.archive_logs_search_placeholder()}
-			items={selectable}
-			fuzzyThreshold={0.4}
-			searchKeys={['en.text']}
-			onSelect={handleSelect}
-		>
-			{#snippet renderItem(item)}
-				<EntryText class="text-sm text-black dark:text-white" en={item.en} />
-			{/snippet}
-		</SearchableDropdown>
+	<SearchableDropdown
+		label={m.archive_logs_search_label()}
+		placeholder={m.archive_logs_search_placeholder()}
+		items={selectable}
+		fuzzyThreshold={0.4}
+		searchKeys={['en.text']}
+		onSelect={handleSelect}
+	>
+		{#snippet renderItem(item)}
+			<EntryText class="text-sm text-black dark:text-white" en={item.en} />
+		{/snippet}
+	</SearchableDropdown>
 
-		{#if pending}
-			{@const pt = paramType(pending)}
-			<div class="bg-primary-50 dark:bg-primary-900 space-y-2 rounded border p-3">
-				<EntryText class="text-sm font-semibold text-black dark:text-white" en={pending.en} />
-				{#if pt === 'name' && nameMode === 'card'}
-					<CardFormSingle
-						label="Search a card"
-						placeholder="Search by card name"
-						cards={pendingCardPool}
-						selectedCard={pendingValue ? resolveCardOrNull(pendingValue) : null}
-						onSelect={(c) => (pendingValue = c.code)}
-					/>
-				{:else if pt === 'name'}
-					<Dropdown
-						label="Choose a name"
-						value={pendingValue}
-						options={[{ value: '', label: '—' }, ...nameChoices]}
-						onchange={(v) => (pendingValue = v)}
-					/>
-				{:else}
-					<TextInput
-						label={pt === 'count' ? m.archive_logs_count_label() : m.archive_logs_text_label()}
-						bind:value={pendingValue}
-					/>
-				{/if}
-				{#if pendingNeedsCount}
-					<div class="w-28">
-						<TextInput label={m.archive_logs_count_label()} bind:value={pendingCount} />
-					</div>
-				{/if}
-				<div class="flex gap-2 pt-1">
-					<Button label={m.archive_logs_add()} icon={FaIconType.Add} onClick={confirmPending} />
-					<Button label={m.common_back()} onClick={() => (pending = null)} />
+	{#if pending}
+		<div class="bg-primary-50 dark:bg-primary-900 space-y-2 rounded border p-3">
+			<EntryText class="text-sm font-semibold text-black dark:text-white" en={pending.en} />
+			{#if pendingType === 'name' && !partnerSection}
+				<CardFormSingle
+					label={m.archive_logs_search_card()}
+					placeholder={m.archive_logs_search_card_placeholder()}
+					cards={pendingCardPool}
+					selectedCard={pendingValue ? resolveCardOrNull(pendingValue) : null}
+					onSelect={(c) => (pendingValue = c.code)}
+				/>
+			{:else if pendingType === 'name'}
+				<Dropdown
+					label={m.archive_logs_choose_name()}
+					value={pendingValue}
+					options={[{ value: '', label: '—' }, ...nameChoices]}
+					onchange={(v) => (pendingValue = v)}
+				/>
+			{:else}
+				<TextInput
+					label={pendingType === 'count' ? m.archive_logs_count_label() : m.archive_logs_text_label()}
+					bind:value={pendingValue}
+				/>
+			{/if}
+			{#if pendingNeedsCount}
+				<div class="w-28">
+					<TextInput label={m.archive_logs_count_label()} bind:value={pendingCount} />
 				</div>
+			{/if}
+			<div class="flex gap-2 pt-1">
+				<Button label={m.archive_logs_add()} icon={FaIconType.Add} onClick={confirmPending} />
+				<Button label={m.common_back()} onClick={() => (pending = null)} />
 			</div>
-		{/if}
+		</div>
 	{/if}
 
 	{#if entries.length === 0}
@@ -272,16 +207,16 @@ EntryText (plain Arkham markup).
 		<div class="flex flex-col gap-2">
 			{#each entries as entry, i (entry.clientId)}
 				{@const resolved = byKey.get(entry.key)}
-				{@const crossed = isCrossed(entry)}
-				{@const standalone = fromStandalone(entry.key)}
+				{@const crossed = hasCrossedMark(entry.args)}
+				{@const source = extraSource?.get(entry.key)}
 				<div
 					class="bg-primary-100 dark:bg-primary-800 flex items-center justify-between gap-2 rounded p-3"
 				>
 					<div class="flex min-w-0 flex-1 items-center gap-2">
-						{#if standalone}
+						{#if source}
 							<span
 								class="text-secondary-600 dark:text-secondary-400 shrink-0"
-								title={`From the standalone "${standalone}"`}
+								title={m.archive_logs_from_side_story({ name: source })}
 							>
 								<FaIcon icon={FaIconType.StandaloneSource} />
 							</span>
@@ -300,37 +235,35 @@ EntryText (plain Arkham markup).
 							>
 						{/if}
 					</div>
-					{#if canEdit}
-						<div class="flex shrink-0 items-center gap-1">
+					<div class="flex shrink-0 items-center gap-1">
+						<Button
+							label={m.archive_logs_move_up()}
+							icon={FaIconType.ArrowUp}
+							hideLabel
+							disabled={i === 0}
+							onClick={() => move(i, -1)}
+						/>
+						<Button
+							label={m.archive_logs_move_down()}
+							icon={FaIconType.ArrowDown}
+							hideLabel
+							disabled={i === entries.length - 1}
+							onClick={() => move(i, 1)}
+						/>
+						{#if resolved?.def.crossOut}
 							<Button
-								label="Move up"
-								icon={FaIconType.ArrowUp}
-								hideLabel
-								disabled={i === 0}
-								onClick={() => move(i, -1)}
+								label={crossed ? m.archive_logs_restore() : m.archive_logs_cross_off()}
+								onClick={() => toggleCrossed(entry)}
 							/>
-							<Button
-								label="Move down"
-								icon={FaIconType.ArrowDown}
-								hideLabel
-								disabled={i === entries.length - 1}
-								onClick={() => move(i, 1)}
-							/>
-							{#if resolved?.def.crossOut}
-								<Button
-									label={crossed ? 'Restore' : 'Cross off'}
-									onClick={() => toggleCrossed(entry)}
-								/>
-							{/if}
-							<Button
-								label={m.archive_logs_remove()}
-								icon={FaIconType.Delete}
-								danger
-								hideLabel
-								onClick={() => remove(entry)}
-							/>
-						</div>
-					{/if}
+						{/if}
+						<Button
+							label={m.archive_logs_remove()}
+							icon={FaIconType.Delete}
+							danger
+							hideLabel
+							onClick={() => onChange(entries.filter((e) => e !== entry))}
+						/>
+					</div>
 				</div>
 			{/each}
 		</div>

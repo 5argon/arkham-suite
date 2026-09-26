@@ -1,8 +1,6 @@
 <!--
 @component
-Autosave history for one campaign: the invisible snapshots taken when leaving the
-editor (a global 20-slot ring — see snapshots.ts). Presentational; the page loads
-the list on open and handles restore.
+A record's autosave history, newest first; picking one asks the page to restore it.
 -->
 <script lang="ts">
 	import { Modal, Button, FaIconType } from '@5argon/arkham-life-ui';
@@ -17,15 +15,14 @@ the list on open and handles restore.
 	}
 	let { isOpen, snapshots, onRestore, onClose }: Props = $props();
 
-	function fmt(ms: number): string {
-		return new Date(ms).toLocaleString(undefined, {
+	const fmt = (ms: number) =>
+		new Date(ms).toLocaleString(undefined, {
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',
 			hour: '2-digit',
 			minute: '2-digit'
 		});
-	}
 </script>
 
 <Modal {isOpen} {onClose} title={m.archive_history_title()} maxWidth="sm">

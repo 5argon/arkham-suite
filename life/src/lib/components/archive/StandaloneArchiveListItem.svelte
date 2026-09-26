@@ -1,37 +1,31 @@
 <!--
 @component
-One standalone-mode play in the /archive/standalone listing — mirrors the campaign
-list item's look (and its selection behavior): scenario icon + title, the scenario
-name, source (pack / from-campaign), difficulty, date, investigator portraits, and
-the Standalone-Mode win/loss badge.
+One Standalone Archive in the list: scenario, source, difficulty, date, investigators and the
+Standalone Mode verdict.
 -->
 <script lang="ts">
 	import { CardSquare, EncounterSetIcon, FaIcon, FaIconType } from '@5argon/arkham-life-ui';
-	import type { Card } from '@5argon/arkham-kohaku';
-	import { scenarioRepresentativeSet } from '$lib/campaign/utils/standalone-scenarios';
+	import * as m from '$lib/paraglide/messages.js';
+	import { cardByCode } from '$lib/card-data';
 	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
-	import type { ListStandalone } from '$lib/database/repository';
+	import { formatFinishDate } from '$lib/campaign/utils/format-date';
+	import { scenarioRepresentativeSet } from '$lib/campaign/utils/standalone-scenarios';
+	import type { ListStandalone } from '$lib/database/standalone-list';
+	import ArchiveListCard from './ArchiveListCard.svelte';
+	import { standaloneSourceLabel } from './standalone-labels';
 
-	const {
-		standalone,
-		cardsByCode,
-		selectable = false,
-		selected = false,
-		onToggle,
-	}: {
+	interface Props {
 		standalone: ListStandalone;
-		cardsByCode: Record<string, Card>;
 		selectable?: boolean;
 		selected?: boolean;
 		onToggle?: (on: boolean) => void;
-	} = $props();
+	}
+	const { standalone, selectable = false, selected = false, onToggle }: Props = $props();
 
 	const iconSet = $derived(scenarioRepresentativeSet(standalone.scenario));
-	const cardClass =
-		'bg-primary-50 dark:bg-primary-900 border-primary-200 dark:border-primary-700 hover:bg-primary-100 dark:hover:bg-primary-800 flex items-stretch gap-3 overflow-hidden rounded-lg border shadow-sm transition';
 </script>
 
-{#snippet body()}
+<ArchiveListCard href={`/archive/edit?id=${standalone.id}`} {selectable} {selected} {onToggle}>
 	<div class="min-w-0 flex-1 p-3">
 		<div class="flex items-center gap-2">
 			{#if iconSet}
@@ -46,17 +40,17 @@ the Standalone-Mode win/loss badge.
 		>
 			<span>{standalone.scenarioName}</span>
 			<span class="bg-primary-100 dark:bg-primary-800 rounded px-1.5 py-0.5">
-				{standalone.source === 'pack' ? 'Scenario Pack' : 'From Campaign'}
+				{standaloneSourceLabel(standalone.source)}
 			</span>
 			<span>{difficultyLabel(standalone.difficulty)}</span>
-			{#if standalone.finishDate}
-				<span>{new Date(standalone.finishDate).toLocaleDateString()}</span>
+			{#if standalone.finishDate != null}
+				<span>{formatFinishDate(standalone.finishDate)}</span>
 			{/if}
 		</div>
-		{#if standalone.investigatorCodes.length}
+		{#if standalone.decks.length}
 			<div class="mt-1 flex flex-wrap gap-1">
-				{#each standalone.investigatorCodes as code (code)}
-					{@const card = cardsByCode[code]}
+				{#each standalone.decks as deck (deck.id)}
+					{@const card = cardByCode(deck.investigatorCode)}
 					{#if card}<CardSquare {card} small />{/if}
 				{/each}
 			</div>
@@ -64,35 +58,13 @@ the Standalone-Mode win/loss badge.
 	</div>
 	<div class="flex shrink-0 flex-col items-end justify-center gap-1 py-3 pr-3">
 		{#if standalone.verdict === 'won'}
-			<span title="Won" class="text-rogue-500 dark:text-rogue-400">
+			<span title={m.archive_verdict_won()} class="text-rogue-500 dark:text-rogue-400">
 				<FaIcon icon={FaIconType.EndingWin} duotone />
 			</span>
 		{:else if standalone.verdict === 'lost'}
-			<span title="Lost" class="text-survivor-500 dark:text-survivor-400">
+			<span title={m.archive_verdict_lost()} class="text-survivor-500 dark:text-survivor-400">
 				<FaIcon icon={FaIconType.EndingLoss} duotone />
 			</span>
 		{/if}
 	</div>
-{/snippet}
-
-{#if selectable}
-	<button
-		type="button"
-		onclick={() => onToggle?.(!selected)}
-		aria-pressed={selected}
-		class="{cardClass} relative w-full cursor-pointer text-left {selected
-			? 'ring-secondary-500 ring-2'
-			: ''}"
-	>
-		<span
-			class="absolute top-2 right-2 z-10 h-5 w-5 rounded-full border-2 {selected
-				? 'border-secondary-500 bg-secondary-500'
-				: 'border-primary-400 dark:border-primary-500 bg-white/70 dark:bg-black/40'}"
-		></span>
-		{@render body()}
-	</button>
-{:else}
-	<a href={`/archive/edit?id=${standalone.id}`} class="{cardClass} no-underline">
-		{@render body()}
-	</a>
-{/if}
+</ArchiveListCard>

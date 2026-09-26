@@ -1,10 +1,7 @@
 <!--
 @component
-The Achievements tab. Lists every achievement for the campaign (including the
-`shared` ones campaign-data injects from a Return-to box), grouped by the
-scenario each is earned in (in `db.scenarios` play order, campaign-wide last).
-Inferred achievements auto-check from the live recorded state; manual ones are
-ticked and persisted. Read-only when the player cannot edit.
+The Achievements tab: the campaign's achievements (Return-to shared ones included) grouped by
+scenario in play order, campaign-wide last. Inferred ones check themselves from the live logs.
 -->
 <script lang="ts">
 	import {
@@ -21,25 +18,23 @@ ticked and persisted. Read-only when the player cannot edit.
 		type ResolvedAchievement,
 	} from '@5argon/arkham-campaign-data';
 	import { SectionSeparator } from '@5argon/arkham-life-ui';
-	import { tskTrustAchievementConditions, tskTrustAchievements } from '$lib/campaign/campaigns/tsk-profile';
+	import * as m from '$lib/paraglide/messages.js';
+	import { tskTrustAchievements } from '$lib/campaign/campaigns/tsk/rules';
+	import { tskTrustAchievementConditions } from '$lib/components/profile/campaigns/campaign/tsk/tsk-labels';
 	import AchievementRow from './AchievementRow.svelte';
+	import { scenarioTitle } from '../scenario-title';
 
 	interface Props {
 		log: CampaignLog;
 		recorded: RecordedCampaignState;
-		/** All manual tick keys: `def.id` and `def.id::itemId`. */
+		/** Manual tick keys (see `manualTickKey`). */
 		manual: Set<string>;
-		canEdit: boolean;
 		onToggle: (def: AchievementDef, itemId: string | undefined, earned: boolean) => void;
 	}
 
-	let { log, recorded, manual, canEdit, onToggle }: Props = $props();
+	let { log, recorded, manual, onToggle }: Props = $props();
 
-	function scenarioTitle(code: string): string {
-		return log.en.scenarioNames?.[code] ?? code.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-	}
-
-	// arkham.life can auto-check `lifeInfer` achievements (Extra-aware) that the DSL can't express.
+	// TSK's `lifeInfer` Trust achievements need Extra inputs campaign-data's rules can't express.
 	function progressFor(def: AchievementDef): AchievementProgress {
 		if (def.lifeInfer && (def.id === 'trust_nobody' || def.id === 'trust_everybody')) {
 			return {
@@ -55,7 +50,7 @@ ticked and persisted. Read-only when the player cannot edit.
 		return evaluateAchievement(def, recorded);
 	}
 
-	// Condition lines for the gear modal — from the rule, or (for the rule-less lifeInfer ones) from life.
+	/** The gear modal's condition lines. */
 	function conditionsFor(def: AchievementDef): string[] {
 		const fromRule = describeAchievementInference(def, log);
 		if (fromRule.length) return fromRule;
@@ -85,13 +80,13 @@ ticked and persisted. Read-only when the player cannot edit.
 		for (const code of log.db.scenarios) {
 			const items = byScenario.get(code);
 			if (items) {
-				out.push({ key: code, title: scenarioTitle(code), items });
+				out.push({ key: code, title: scenarioTitle(log, code), items });
 				byScenario.delete(code);
 			}
 		}
 		// Any scenario not in the ordered list (e.g. ArkhamCards numeric-prefixed ids).
-		for (const [code, items] of byScenario) out.push({ key: code, title: scenarioTitle(code), items });
-		if (wide.length) out.push({ key: '__wide', title: 'Throughout the campaign', items: wide });
+		for (const [code, items] of byScenario) out.push({ key: code, title: scenarioTitle(log, code), items });
+		if (wide.length) out.push({ key: '__wide', title: m.archive_ach_campaign_wide(), items: wide });
 		return out;
 	});
 </script>
@@ -107,7 +102,6 @@ ticked and persisted. Read-only when the player cannot edit.
 						progress={progressFor(a.def)}
 						scope={achievementInferScope(a.def)}
 						conditions={conditionsFor(a.def)}
-						recordable={canEdit}
 						{manual}
 						prereq={a.def.requires ? checkPrerequisite(a.def, recorded) : 'ok'}
 						onToggle={(itemId, earned) => onToggle(a.def, itemId, earned)}

@@ -1,73 +1,26 @@
 <!--
 @component
-One archived campaign in the listing: thumbnail, title, campaign, difficulty, date and participants.
+One Archived Campaign in the list: campaign art, title, badges, dates, players, investigators and
+outcome.
 -->
 <script lang="ts">
-	import { FaIcon, FaIconType, CardSquare, UserDisplay } from '@5argon/arkham-life-ui';
-	import { u } from '@5argon/arkham-string';
-	import type { Campaign, Card } from '@5argon/arkham-kohaku';
-	import type { ClearState } from '$lib/campaign/outcomes/clear-status';
-	import type { SoloType } from '$lib/database/document';
-
-	interface PlayerStub {
-		userId: string;
-		username: string;
-		iconCardCode: string;
-		/** A frozen label for someone with their own arkham.life — shown with a darker chip. */
-		isGuest: boolean;
-	}
-
-	interface DeckStub {
-		/** Unique deck record id — the keyed-each key, so two decks on the SAME investigator (a
-		 *  mid-campaign swap-back, or two players on one investigator) both render instead of collapsing. */
-		id: string;
-		investigatorCode: string;
-		alternateFrontCode: string | null;
-		ownerUserId: string | null;
-		ownerUsername: string | null;
-		ownerIconCardCode: string | null;
-	}
-
-	interface CampaignItem {
-		id: string;
-		title: string;
-		campaignCode: string;
-		difficulty: string;
-		playerCount: number | null;
-		draft: boolean;
-		startDate: Date | null;
-		finishDate: Date | null;
-		outcome: ClearState | null;
-		reachedBestWin: boolean;
-		soloType: SoloType | null;
-		soloHands: number;
-		userId: string;
-		ownerUsername: string;
-		ownerIconCardCode: string;
-		players: PlayerStub[];
-		decks: DeckStub[];
-	}
+	import { CardSquare, FaIcon, FaIconType, UserDisplay } from '@5argon/arkham-life-ui';
+	import * as m from '$lib/paraglide/messages.js';
+	import { cardByCode } from '$lib/card-data';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
+	import { formatFinishDate } from '$lib/campaign/utils/format-date';
+	import { campaignDisplayName, type ListCampaign } from '$lib/database/archive-list';
+	import ArchiveListCard from './ArchiveListCard.svelte';
+	import { soloLabel } from './solo-label';
 
 	interface Props {
-		campaign: CampaignItem;
-		cardsByCode: Record<string, Card>;
-		currentUserId: string;
-		/** When true, show a selection checkbox overlay (for multi-campaign export). */
+		campaign: ListCampaign;
+		/** Selection mode for multi-campaign export. */
 		selectable?: boolean;
 		selected?: boolean;
 		onToggle?: (on: boolean) => void;
 	}
-
-	const {
-		campaign,
-		cardsByCode,
-		currentUserId,
-		selectable = false,
-		selected = false,
-		onToggle
-	}: Props = $props();
-
-	const isOwn = $derived(campaign.userId === currentUserId);
+	const { campaign, selectable = false, selected = false, onToggle }: Props = $props();
 
 	const difficultyColor: Record<string, string> = {
 		easy: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
@@ -76,51 +29,32 @@ One archived campaign in the listing: thumbnail, title, campaign, difficulty, da
 		expert: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
 	};
 
-	// Solo tag: "True Solo", or "Solo X-Handed" (X = distinct hands; generic when < 2).
-	const soloLabel = $derived.by(() => {
-		if (campaign.soloType === 'true-solo') return 'True Solo';
-		if (campaign.soloType === 'multi-handed')
-			return campaign.soloHands >= 2 ? `Solo ${campaign.soloHands}-Handed` : 'Solo (Multi-Handed)';
-		return null;
-	});
-
-	const campaignImageUrl = $derived(
-		campaign.campaignCode ? `/image/expansion/campaign/${campaign.campaignCode}.webp` : null
+	const solo = $derived(soloLabel(campaign.soloType, campaign.soloHands));
+	const displayName = $derived(
+		campaignDisplayName(campaign.campaignCode) || m.archive_campaign_unspecified()
 	);
-
-	const campaignDisplayName = $derived(
-		campaign.campaignCode ? u.campaignName(campaign.campaignCode as Campaign) : 'Unspecified'
-	);
-
-	function fmtDate(d: Date): string {
-		return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-	}
-
-	// Show the finish date; when a start date is also set, show the range. Never
-	// the creation date — fall back to a lone start date for in-progress runs.
+	/** The finish date, as a range when a start date is also set; a lone start date otherwise. */
 	const dateLabel = $derived.by(() => {
 		const { startDate: start, finishDate: finish } = campaign;
-		if (start && finish) return `${fmtDate(start)} ~ ${fmtDate(finish)}`;
-		if (finish) return fmtDate(finish);
-		if (start) return fmtDate(start);
+		if (start != null && finish != null) return `${formatFinishDate(start)} ~ ${formatFinishDate(finish)}`;
+		if (finish != null) return formatFinishDate(finish);
+		if (start != null) return formatFinishDate(start);
 		return null;
 	});
-
-	const editUrl = $derived(`/archive/edit?id=${campaign.id}`);
-
-	// Shared chrome for both renders: a link (browse) and a button (selection mode).
-	// Fixed height so every card in the list is the same size regardless of content.
-	const cardClass =
-		'bg-primary-50 dark:bg-primary-900 border-primary-200 dark:border-primary-700 hover:bg-primary-100 dark:hover:bg-primary-800 flex h-36 items-stretch gap-3 overflow-hidden rounded-lg border shadow-sm transition';
 </script>
 
-{#snippet body()}
-	<!-- Campaign image: spans the full card height, fixed 150px wide (clipped) -->
+<ArchiveListCard
+	href={`/archive/edit?id=${campaign.id}`}
+	{selectable}
+	{selected}
+	{onToggle}
+	class="h-36"
+>
 	<div class="bg-primary-200 dark:bg-primary-700 w-37.5 flex-shrink-0 overflow-hidden">
-		{#if campaignImageUrl}
+		{#if campaign.campaignCode}
 			<img
-				src={campaignImageUrl}
-				alt={campaignDisplayName}
+				src={`/image/expansion/campaign/${campaign.campaignCode}.webp`}
+				alt={displayName}
 				class="h-full w-full object-cover"
 				onerror={(e) => {
 					(e.currentTarget as HTMLImageElement).style.display = 'none';
@@ -129,63 +63,50 @@ One archived campaign in the listing: thumbnail, title, campaign, difficulty, da
 		{/if}
 	</div>
 
-	<!-- Main info -->
 	<div class="min-w-0 flex-1 py-3">
 		<div class="flex flex-wrap items-center gap-2">
 			<span class="truncate text-sm font-bold text-black dark:text-white">{campaign.title}</span>
-
-			<!-- Draft badge -->
 			{#if campaign.draft}
 				<span
 					class="rounded bg-yellow-200 px-1.5 py-0.5 text-xs font-semibold text-yellow-900 dark:bg-yellow-700 dark:text-yellow-100"
 				>
-					Draft
+					{m.archive_draft_badge()}
 				</span>
 			{/if}
-
-			<!-- Difficulty badge -->
 			<span
-				class="rounded px-1.5 py-0.5 text-xs font-semibold capitalize {difficultyColor[
-					campaign.difficulty
-				] ?? ''}"
+				class="rounded px-1.5 py-0.5 text-xs font-semibold {difficultyColor[campaign.difficulty] ?? ''}"
 			>
-				{campaign.difficulty}
+				{difficultyLabel(campaign.difficulty)}
 			</span>
-
-			<!-- Player-count badge -->
 			{#if campaign.playerCount}
 				<span
-					title="{campaign.playerCount}-player campaign"
+					title={m.archive_player_count_title({ count: campaign.playerCount })}
 					class="bg-primary-200 dark:bg-primary-700 text-primary-700 dark:text-primary-200 rounded px-1.5 py-0.5 text-xs font-semibold"
 				>
 					{campaign.playerCount}P
 				</span>
 			{/if}
-
-			<!-- Solo badge: True Solo / Solo X-Handed -->
-			{#if soloLabel}
+			{#if solo}
 				<span
-					title={soloLabel}
 					class="bg-secondary-100 dark:bg-secondary-900 text-secondary-800 dark:text-secondary-200 rounded px-1.5 py-0.5 text-xs font-semibold"
 				>
-					{soloLabel}
+					{solo}
 				</span>
 			{/if}
 		</div>
 
-		<p class="text-primary-500 dark:text-primary-400 truncate text-xs">{campaignDisplayName}</p>
+		<p class="text-primary-500 dark:text-primary-400 truncate text-xs">{displayName}</p>
 
 		{#if dateLabel}
 			<p class="text-primary-400 dark:text-primary-500 mt-0.5 text-xs">{dateLabel}</p>
 		{/if}
 
-		<!-- Players row: everyone in the campaign. Guests render in a muted, darker primary. -->
 		{#if campaign.players.length > 0}
 			<div class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
-				{#each campaign.players as p (p.userId)}
+				{#each campaign.players as p (p.uid)}
 					<UserDisplay
-						username={p.username}
-						card={cardsByCode[p.iconCardCode] ?? null}
+						username={p.name}
+						card={cardByCode(p.iconCardCode) ?? null}
 						size="sm"
 						guest={p.isGuest}
 					/>
@@ -193,14 +114,11 @@ One archived campaign in the listing: thumbnail, title, campaign, difficulty, da
 			</div>
 		{/if}
 
-		<!-- Decks row: investigator cards used -->
 		{#if campaign.decks.length > 0}
 			<div class="mt-1 flex flex-wrap gap-1">
 				{#each campaign.decks as deck (deck.id)}
-					<!-- `|| ` not `?? `: an absent alternate front is often an EMPTY string (not null), which
-					     `??` would keep — leaving the parallel-front lookup blank and dropping the deck. -->
-					{@const cardCode = deck.alternateFrontCode || deck.investigatorCode}
-					{@const card = cardsByCode[cardCode]}
+					<!-- An absent parallel front is often '' rather than null. -->
+					{@const card = cardByCode(deck.alternateFrontCode || deck.investigatorCode)}
 					{#if card}
 						<CardSquare {card} small />
 					{/if}
@@ -209,20 +127,10 @@ One archived campaign in the listing: thumbnail, title, campaign, difficulty, da
 		{/if}
 	</div>
 
-	<!-- Right side: ownership badge + outcome -->
 	<div class="flex flex-shrink-0 flex-col items-end gap-1 py-3 pr-3">
-		{#if isOwn}
-			<span title="Your campaign" class="text-secondary-600 dark:text-secondary-400">
-				<FaIcon icon={FaIconType.Investigator} duotone />
-			</span>
-		{:else}
-			<span title="You are a participant" class="text-primary-400 dark:text-primary-500">
-				<FaIcon icon={FaIconType.NoticeInfo} duotone />
-			</span>
-		{/if}
 		{#if campaign.outcome === 'cleared'}
 			<span
-				title={campaign.reachedBestWin ? 'Cleared (best ending)' : 'Cleared'}
+				title={campaign.reachedBestWin ? m.archive_outcome_best_win() : m.archive_outcome_win()}
 				class="text-rogue-500 dark:text-rogue-400"
 			>
 				<FaIcon
@@ -231,38 +139,15 @@ One archived campaign in the listing: thumbnail, title, campaign, difficulty, da
 				/>
 			</span>
 		{:else if campaign.outcome === 'special'}
-			<span title="Special ending" class="text-violet-500 dark:text-violet-400">
+			<span title={m.archive_outcome_special()} class="text-violet-500 dark:text-violet-400">
 				<FaIcon icon={FaIconType.EndingSpecial} duotone />
 			</span>
 		{:else if campaign.outcome === 'attempted'}
-			<span title="Attempted" class="text-survivor-500 dark:text-survivor-400">
+			<span title={m.archive_outcome_attempted()} class="text-survivor-500 dark:text-survivor-400">
 				<FaIcon icon={FaIconType.EndingLoss} duotone />
 			</span>
 		{:else}
 			<span class="text-primary-400 dark:text-primary-500 text-xs font-semibold">?</span>
 		{/if}
 	</div>
-{/snippet}
-
-{#if selectable}
-	<!-- Selection mode: the whole card toggles selection; click anywhere works (no navigation). -->
-	<button
-		type="button"
-		onclick={() => onToggle?.(!selected)}
-		aria-pressed={selected}
-		class="{cardClass} relative w-full cursor-pointer text-left {selected
-			? 'ring-secondary-500 ring-2'
-			: ''}"
-	>
-		<span
-			class="absolute top-2 right-2 z-10 h-5 w-5 rounded-full border-2 {selected
-				? 'border-secondary-500 bg-secondary-500'
-				: 'border-primary-400 dark:border-primary-500 bg-white/70 dark:bg-black/40'}"
-		></span>
-		{@render body()}
-	</button>
-{:else}
-	<a href={editUrl} class="{cardClass} no-underline">
-		{@render body()}
-	</a>
-{/if}
+</ArchiveListCard>

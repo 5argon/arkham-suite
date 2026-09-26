@@ -1,75 +1,82 @@
-<script lang="ts">
-	import { Button, Modal, TextInput, UserDisplay } from '@5argon/arkham-life-ui';
-	import type { Card } from '@5argon/arkham-kohaku';
-
-	type RosterMember = { uid: string; name: string; iconCardCode: string };
-
-	let {
-		isOpen,
-		title,
-		submitLabel,
-		roster,
-		resolveCard,
-		initialName = '',
-		initialMemberUids = [],
-		onClose,
-		onSubmit,
-	}: {
-		isOpen: boolean;
-		title: string;
-		submitLabel: string;
-		roster: RosterMember[];
-		resolveCard: (code: string) => Card | null;
-		initialName?: string;
-		initialMemberUids?: string[];
-		onClose: () => void;
-		onSubmit: (fields: { name: string; memberUids: string[] }) => void;
-	} = $props();
-
-	let name = $state(initialName);
-	let selected = $state<Set<string>>(new Set(initialMemberUids));
-
-	// Re-seed the form whenever the modal (re)opens with new inputs.
-	let lastOpen = $state(false);
-	$effect(() => {
-		if (isOpen && !lastOpen) {
-			name = initialName;
-			selected = new Set(initialMemberUids);
-		}
-		lastOpen = isOpen;
-	});
-
-	function toggle(uid: string) {
-		const next = new Set(selected);
-		if (next.has(uid)) next.delete(uid);
-		else next.add(uid);
-		selected = next;
-	}
-
-	function submit() {
-		const trimmed = name.trim();
-		if (trimmed.length === 0) return;
-		onSubmit({ name: trimmed, memberUids: [...selected] });
+<!--
+@component
+Create or edit a play group. Controlled: the page owns the draft, and the modal is open while
+there is one.
+-->
+<script module lang="ts">
+	export interface PlayGroupDraft {
+		/** null when creating. */
+		uid: string | null;
+		name: string;
+		memberUids: string[];
 	}
 </script>
 
-<Modal {isOpen} {onClose} {title} maxWidth="md">
-	<div class="flex flex-col gap-3 py-2">
-		<TextInput label="Name" bind:value={name} placeholder="e.g. Thursday Crew" />
-		<div>
-			<p class="text-primary-900 dark:text-primary-100 mb-1 text-sm font-semibold">Members</p>
-			<div class="flex flex-col gap-1">
-				{#each roster as m (m.uid)}
-					<label class="bg-primary-100 dark:bg-primary-800 flex cursor-pointer items-center gap-3 rounded p-2">
-						<input type="checkbox" checked={selected.has(m.uid)} onchange={() => toggle(m.uid)} />
-						<UserDisplay username={m.name} card={resolveCard(m.iconCardCode)} size="sm" />
-					</label>
-				{/each}
-				{#if roster.length === 0}
-					<p class="text-primary-500 dark:text-primary-400 text-sm">No players to add yet.</p>
-				{/if}
+<script lang="ts">
+	import { Button, Checkbox, Modal, TextInput, UserDisplay } from '@5argon/arkham-life-ui';
+	import * as m from '$lib/paraglide/messages.js';
+	import { resolveCardOrNull } from '$lib/card-data';
+	import type { LocalPlayer } from '$lib/database/document';
+
+	interface Props {
+		draft: PlayGroupDraft | null;
+		roster: LocalPlayer[];
+		onClose: () => void;
+		onSubmit: (draft: PlayGroupDraft) => void;
+	}
+	let { draft = $bindable(), roster, onClose, onSubmit }: Props = $props();
+
+	function toggle(uid: string) {
+		if (!draft) return;
+		const members = draft.memberUids;
+		draft.memberUids = members.includes(uid) ? members.filter((u) => u !== uid) : [...members, uid];
+	}
+</script>
+
+<Modal
+	isOpen={draft !== null}
+	{onClose}
+	title={draft?.uid ? m.players_group_edit() : m.players_group_create()}
+	maxWidth="md"
+>
+	{#if draft}
+		<div class="flex flex-col gap-3 py-2">
+			<TextInput
+				label={m.players_name()}
+				bind:value={draft.name}
+				placeholder={m.players_group_name_placeholder()}
+			/>
+			<div>
+				<p class="text-primary-900 dark:text-primary-100 mb-1 text-sm font-semibold">
+					{m.players_group_members()}
+				</p>
+				<div class="flex flex-col gap-1">
+					{#each roster as member (member.uid)}
+						<div class="bg-primary-100 dark:bg-primary-800 flex items-center gap-3 rounded p-2">
+							<Checkbox
+								label={member.name}
+								hideLabel
+								checked={draft.memberUids.includes(member.uid)}
+								onChange={() => toggle(member.uid)}
+							/>
+							<UserDisplay
+								username={member.name}
+								card={resolveCardOrNull(member.iconCardCode)}
+								size="sm"
+							/>
+						</div>
+					{/each}
+					{#if roster.length === 0}
+						<p class="text-primary-500 dark:text-primary-400 text-sm">{m.players_group_no_roster()}</p>
+					{/if}
+				</div>
 			</div>
+			<Button
+				highlighted
+				label={draft.uid ? m.players_save() : m.players_group_create_submit()}
+				disabled={draft.name.trim().length === 0}
+				onClick={() => draft && onSubmit({ ...draft, name: draft.name.trim() })}
+			/>
 		</div>
-		<Button highlighted label={submitLabel} disabled={name.trim().length === 0} onClick={submit} />
-	</div>
+	{/if}
 </Modal>

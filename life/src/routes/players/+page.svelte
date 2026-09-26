@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, untrack } from 'svelte';
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import {
 		BackButton,
@@ -11,23 +11,22 @@
 		Modal,
 		PageLead,
 		SectionSeparator,
-		TextInput,
 		UserDisplay,
-		getToastContext,
+		getToastContext
 	} from '@5argon/arkham-life-ui';
+	import { card as cardUtils, type Card } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
-	import { card, type Card } from '@5argon/arkham-kohaku';
-
-	import { getAllCards, createCardResolver, resolveCardOrNull } from '$lib/card-data';
+	import { getAllCards, resolveCardOrNull } from '$lib/card-data';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
-	import { allPlayers } from '$lib/database/document';
-	import PlayerIconSelector from '$lib/components/PlayerIconSelector.svelte';
-	import PlayGroupModal from './PlayGroupModal.svelte';
+	import { allPlayers, type LocalPlayer } from '$lib/database/document';
+	import ConfirmModal from '$lib/components/archive/ConfirmModal.svelte';
+	import PlayerIdentityForm from '$lib/components/archive/PlayerIdentityForm.svelte';
+	import PlayGroupModal, { type PlayGroupDraft } from './PlayGroupModal.svelte';
 
-	const cardResolver = createCardResolver();
-	const playerCards = getAllCards().filter(card.playerCardsNonCampaignFilter);
 	const toast = getToastContext();
+	const playerCards = getAllCards().filter(cardUtils.playerCardsNonCampaignFilter);
+	const randomCard = () => playerCards[Math.floor(Math.random() * playerCards.length)] ?? null;
 
 	let ready = $state(false);
 	onMount(async () => {
@@ -43,87 +42,39 @@
 	const subPlayers = $derived(databaseStore.doc?.players ?? []);
 	const roster = $derived(databaseStore.doc ? allPlayers(databaseStore.doc) : []);
 	const playGroups = $derived(databaseStore.doc?.playGroups ?? []);
-
-	function memberName(uid: string): string {
-		return roster.find((p) => p.uid === uid)?.name ?? uid;
-	}
+	const memberName = (uid: string) => roster.find((p) => p.uid === uid)?.name ?? uid;
 
 	async function copyUid(uid: string) {
 		try {
 			await navigator.clipboard.writeText(uid);
-			toast.success?.('Copied UID');
+			toast.success(m.players_uid_copied());
 		} catch {
-			toast.error?.('Could not copy — select and copy it manually.');
+			toast.error(m.players_uid_copy_failed());
 		}
 	}
 
-	// ── Edit a roster member (owner or sub-player) ──────────────────────────────
-	let editTarget = $state<{ uid: string; name: string; card: Card | null } | null>(null);
-	function openEdit(member: { uid: string; name: string; iconCardCode: string }) {
-		editTarget = { uid: member.uid, name: member.name, card: resolveCardOrNull(member.iconCardCode) };
-	}
-	function saveEdit() {
-		if (!editTarget || editTarget.name.trim().length === 0) return;
-		databaseStore.updatePlayer(editTarget.uid, {
-			name: editTarget.name.trim(),
-			...(editTarget.card ? { iconCardCode: editTarget.card.code } : {}),
-		});
-		editTarget = null;
-	}
-
-	// ── Add a sub-player ────────────────────────────────────────────────────────
-	let addOpen = $state(false);
-	let newName = $state('');
-	let newCard = $state<Card | null>(untrack(() => playerCards[Math.floor(Math.random() * playerCards.length)] ?? null));
-	function addSubPlayer() {
-		if (newName.trim().length === 0) return;
-		databaseStore.addPlayer({ name: newName.trim(), iconCardCode: newCard?.code });
-		newName = '';
-		newCard = playerCards[Math.floor(Math.random() * playerCards.length)] ?? null;
-		addOpen = false;
-	}
-
-	// ── Remove a sub-player ─────────────────────────────────────────────────────
-	let removeTarget = $state<{ uid: string; name: string } | null>(null);
-	function confirmRemove() {
-		if (!removeTarget) return;
-		databaseStore.removePlayer(removeTarget.uid);
-		removeTarget = null;
-	}
-
-	// ── Play groups: create / edit ──────────────────────────────────────────────
-	let groupModalOpen = $state(false);
-	let groupEditUid = $state<string | null>(null);
-	let groupInitialName = $state('');
-	let groupInitialMembers = $state<string[]>([]);
-
-	function openCreateGroup() {
-		groupEditUid = null;
-		groupInitialName = '';
-		groupInitialMembers = [];
-		groupModalOpen = true;
-	}
-	function openEditGroup(group: { uid: string; name: string; memberUids: string[] }) {
-		groupEditUid = group.uid;
-		groupInitialName = group.name;
-		groupInitialMembers = [...group.memberUids];
-		groupModalOpen = true;
-	}
-	function submitGroup(fields: { name: string; memberUids: string[] }) {
-		if (groupEditUid) {
-			databaseStore.updatePlayGroup(groupEditUid, fields);
+	/** The roster member being edited, or a new player (uid null). */
+	let identity = $state<{ uid: string | null; name: string; card: Card | null } | null>(null);
+	function saveIdentity({ name, card }: { name: string; card: Card | null }) {
+		if (!identity) return;
+		if (identity.uid) {
+			databaseStore.updatePlayer(identity.uid, { name, ...(card ? { iconCardCode: card.code } : {}) });
 		} else {
-			databaseStore.createPlayGroup(fields);
+			databaseStore.addPlayer({ name, iconCardCode: card?.code });
 		}
-		groupModalOpen = false;
+		identity = null;
 	}
+	const editPlayer = (p: LocalPlayer) =>
+		(identity = { uid: p.uid, name: p.name, card: resolveCardOrNull(p.iconCardCode) });
 
-	// ── Remove a play group ──────────────────────────────────────────────────────
+	let removeTarget = $state<LocalPlayer | null>(null);
+	let groupDraft = $state<PlayGroupDraft | null>(null);
 	let removeGroupTarget = $state<{ uid: string; name: string } | null>(null);
-	function confirmRemoveGroup() {
-		if (!removeGroupTarget) return;
-		databaseStore.removePlayGroup(removeGroupTarget.uid);
-		removeGroupTarget = null;
+
+	function submitGroup({ uid, name, memberUids }: PlayGroupDraft) {
+		if (uid) databaseStore.updatePlayGroup(uid, { name, memberUids });
+		else databaseStore.createPlayGroup({ name, memberUids });
+		groupDraft = null;
 	}
 </script>
 
@@ -131,79 +82,74 @@
 	<title>{m.players_page_title()}</title>
 </svelte:head>
 
+{#snippet rowActions(uid: string, onEdit: () => void, onRemove?: () => void)}
+	<div class="ml-auto flex gap-1">
+		<Button
+			label={m.players_view_profile()}
+			icon={FaIconType.ExternalLink}
+			hideLabel
+			onClick={`/p/private/${uid}`}
+		/>
+		<Button label={m.players_copy_uid()} icon={FaIconType.Export} hideLabel onClick={() => copyUid(uid)} />
+		<Button label={m.players_edit()} icon={FaIconType.Edit} hideLabel onClick={onEdit} />
+		{#if onRemove}
+			<Button label={m.players_remove()} icon={FaIconType.Delete} danger hideLabel onClick={onRemove} />
+		{/if}
+	</div>
+{/snippet}
+
 <MarginFull>
 	<div class="mb-4">
-		<BackButton label="Home" onClick="/" />
+		<BackButton label={m.players_home()} onClick="/" />
 	</div>
 
 	<PageLead title={m.players_title()} description={m.players_description()} />
 
 	{#if ready && owner}
-		<!-- ── You (owner) ─────────────────────────────────────────── -->
-		<SectionSeparator title="You" />
+		<SectionSeparator title={m.players_you()} />
 		<BorderedContainer>
 			<div class="flex flex-wrap items-center gap-4 p-4">
 				<UserDisplay username={owner.name} card={resolveCardOrNull(owner.iconCardCode)} />
 				<div class="flex flex-col">
-					<span class="text-primary-500 dark:text-primary-400 text-xs">Your UID</span>
+					<span class="text-primary-500 dark:text-primary-400 text-xs">{m.players_your_uid()}</span>
 					<span class="font-mono text-lg text-black dark:text-white">{owner.uid}</span>
 				</div>
 				<div class="ml-auto flex gap-2">
-					<Button label="View Profile" icon={FaIconType.ExternalLink} onClick={`/p/private/${owner.uid}`} />
-					<Button label="Copy UID" icon={FaIconType.Export} onClick={() => copyUid(owner.uid)} />
-					<Button label="Edit" icon={FaIconType.Edit} onClick={() => openEdit(owner)} />
+					<Button
+						label={m.players_view_profile()}
+						icon={FaIconType.ExternalLink}
+						onClick={`/p/private/${owner.uid}`}
+					/>
+					<Button label={m.players_copy_uid()} icon={FaIconType.Export} onClick={() => copyUid(owner.uid)} />
+					<Button label={m.players_edit()} icon={FaIconType.Edit} onClick={() => editPlayer(owner)} />
 				</div>
 			</div>
 		</BorderedContainer>
-		<HelpParagraph>
-			Read your UID aloud to a friend so they can add you as a guest in a campaign they record. When they
-			share that campaign back to you, your entry resolves to your current name and portrait automatically.
-		</HelpParagraph>
+		<HelpParagraph>{m.players_you_help()}</HelpParagraph>
 
-		<!-- ── Other players ─────────────────────────────────────────── -->
-		<SectionSeparator title="Other Players" />
-		<HelpParagraph>
-			Other players are people you record on behalf of (e.g. family at your table). They get their own UID
-			and their own campaign history inside your database.
-		</HelpParagraph>
+		<SectionSeparator title={m.players_others()} />
+		<HelpParagraph>{m.players_others_help()}</HelpParagraph>
 
 		<div class="mb-4 flex flex-col gap-2">
 			{#each subPlayers as p (p.uid)}
 				<div class="bg-primary-100 dark:bg-primary-800 flex flex-wrap items-center gap-3 rounded p-3">
 					<UserDisplay username={p.name} card={resolveCardOrNull(p.iconCardCode)} size="sm" />
 					<span class="font-mono text-sm text-black dark:text-white">{p.uid}</span>
-					<div class="ml-auto flex gap-1">
-						<Button
-							label="View Profile"
-							icon={FaIconType.ExternalLink}
-							hideLabel
-							onClick={`/p/private/${p.uid}`}
-						/>
-						<Button label="Copy UID" icon={FaIconType.Export} hideLabel onClick={() => copyUid(p.uid)} />
-						<Button label="Edit" icon={FaIconType.Edit} hideLabel onClick={() => openEdit(p)} />
-						<Button
-							label="Remove"
-							icon={FaIconType.Delete}
-							danger
-							hideLabel
-							onClick={() => (removeTarget = { uid: p.uid, name: p.name })}
-						/>
-					</div>
+					{@render rowActions(p.uid, () => editPlayer(p), () => (removeTarget = p))}
 				</div>
+			{:else}
+				<p class="text-primary-500 dark:text-primary-400 text-sm">{m.players_others_empty()}</p>
 			{/each}
-			{#if subPlayers.length === 0}
-				<p class="text-primary-500 dark:text-primary-400 text-sm">No other players yet.</p>
-			{/if}
 		</div>
 
-		<Button label="Add player" icon={FaIconType.Add} onClick={() => (addOpen = true)} />
+		<Button
+			label={m.players_add()}
+			icon={FaIconType.Add}
+			onClick={() => (identity = { uid: null, name: '', card: randomCard() })}
+		/>
 
-		<!-- ── Play groups ─────────────────────────────────────────── -->
-		<SectionSeparator title="Play Groups" />
-		<HelpParagraph>
-			Play groups bundle several players together so you can view a shared profile across everyone's
-			campaigns. A player can belong to any number of groups.
-		</HelpParagraph>
+		<SectionSeparator title={m.players_groups()} />
+		<HelpParagraph>{m.players_groups_help()}</HelpParagraph>
 
 		<div class="mb-4 flex flex-col gap-2">
 			{#each playGroups as g (g.uid)}
@@ -212,115 +158,78 @@
 						<span class="text-base font-semibold text-black dark:text-white">{g.name}</span>
 						<span class="font-mono text-sm text-black dark:text-white">{g.uid}</span>
 						<span class="text-primary-500 dark:text-primary-400 text-xs">
-							{#if g.memberUids.length > 0}
-								{g.memberUids.map(memberName).join(', ')}
-							{:else}
-								No members
-							{/if}
+							{g.memberUids.length ? g.memberUids.map(memberName).join(', ') : m.players_group_no_members()}
 						</span>
 					</div>
-					<div class="ml-auto flex gap-1">
-						<Button
-							label="View Profile"
-							icon={FaIconType.ExternalLink}
-							hideLabel
-							onClick={`/p/private/${g.uid}`}
-						/>
-						<Button label="Copy UID" icon={FaIconType.Export} hideLabel onClick={() => copyUid(g.uid)} />
-						<Button label="Edit" icon={FaIconType.Edit} hideLabel onClick={() => openEditGroup(g)} />
-						<Button
-							label="Remove"
-							icon={FaIconType.Delete}
-							danger
-							hideLabel
-							onClick={() => (removeGroupTarget = { uid: g.uid, name: g.name })}
-						/>
-					</div>
+					{@render rowActions(
+						g.uid,
+						() => (groupDraft = { uid: g.uid, name: g.name, memberUids: [...g.memberUids] }),
+						() => (removeGroupTarget = g)
+					)}
 				</div>
+			{:else}
+				<p class="text-primary-500 dark:text-primary-400 text-sm">{m.players_groups_empty()}</p>
 			{/each}
-			{#if playGroups.length === 0}
-				<p class="text-primary-500 dark:text-primary-400 text-sm">No play groups yet.</p>
-			{/if}
 		</div>
 
-		<Button label="Create play group" icon={FaIconType.Add} onClick={openCreateGroup} />
+		<Button
+			label={m.players_group_create()}
+			icon={FaIconType.Add}
+			onClick={() => (groupDraft = { uid: null, name: '', memberUids: [] })}
+		/>
 	{/if}
 </MarginFull>
 
-<!-- Edit member modal -->
-<Modal isOpen={editTarget !== null} onClose={() => (editTarget = null)} title="Edit" maxWidth="md">
-	{#if editTarget}
-		<div class="flex flex-col gap-3 py-2">
-			<TextInput label="Name" bind:value={editTarget.name} />
-			<PlayerIconSelector bind:selectedCard={editTarget.card} cards={playerCards} placeholder="Search with a player card's name" />
-			<div>
-				<p class="text-primary-900 dark:text-primary-100 mb-1 text-sm font-semibold">Preview</p>
-				<UserDisplay username={editTarget.name || 'Name'} card={editTarget.card} />
-			</div>
-			<Button highlighted label="Save" disabled={editTarget.name.trim().length === 0} onClick={saveEdit} />
+<Modal
+	isOpen={identity !== null}
+	onClose={() => (identity = null)}
+	title={identity?.uid ? m.players_edit() : m.players_add()}
+	maxWidth="md"
+>
+	{#if identity}
+		<div class="py-2">
+			<PlayerIdentityForm
+				bind:name={identity.name}
+				bind:card={identity.card}
+				namePlaceholder={identity.uid ? undefined : m.players_name_placeholder()}
+				submitLabel={identity.uid ? m.players_save() : m.players_add_submit()}
+				onSubmit={saveIdentity}
+			/>
 		</div>
 	{/if}
 </Modal>
 
-<!-- Add player modal -->
-<Modal isOpen={addOpen} onClose={() => (addOpen = false)} title="Add player" maxWidth="md">
-	<div class="flex flex-col gap-3 py-2">
-		<TextInput label="Name" bind:value={newName} placeholder="e.g. Bryn" />
-		<PlayerIconSelector bind:selectedCard={newCard} cards={playerCards} placeholder="Search with a player card's name" />
-		<div>
-			<p class="text-primary-900 dark:text-primary-100 mb-1 text-sm font-semibold">Preview</p>
-			<UserDisplay username={newName || 'Name'} card={newCard} />
-		</div>
-		<Button highlighted label="Add" disabled={newName.trim().length === 0} onClick={addSubPlayer} />
-	</div>
-</Modal>
+<ConfirmModal
+	isOpen={removeTarget !== null}
+	title={m.players_remove_title()}
+	confirmLabel={m.players_remove()}
+	danger
+	onConfirm={() => {
+		if (removeTarget) databaseStore.removePlayer(removeTarget.uid);
+		removeTarget = null;
+	}}
+	onCancel={() => (removeTarget = null)}
+>
+	{m.players_remove_confirm({ name: removeTarget?.name ?? '' })}
+</ConfirmModal>
 
-<!-- Remove confirm modal -->
-<Modal isOpen={removeTarget !== null} onClose={() => (removeTarget = null)} title="Remove player" maxWidth="sm">
-	{#if removeTarget}
-		<div class="flex flex-col gap-3 py-2">
-			<p class="text-sm text-black dark:text-white">
-				Stop managing <strong>{removeTarget.name}</strong>? Their past campaigns are kept — they simply
-				become a frozen guest there. This can't be undone from here.
-			</p>
-			<div class="flex justify-end gap-2">
-				<Button label="Cancel" onClick={() => (removeTarget = null)} />
-				<Button label="Remove" icon={FaIconType.Delete} danger onClick={confirmRemove} />
-			</div>
-		</div>
-	{/if}
-</Modal>
-
-<!-- Create / edit play group modal -->
 <PlayGroupModal
-	isOpen={groupModalOpen}
-	title={groupEditUid ? 'Edit play group' : 'Create play group'}
-	submitLabel={groupEditUid ? 'Save' : 'Create'}
-	roster={roster}
-	resolveCard={resolveCardOrNull}
-	initialName={groupInitialName}
-	initialMemberUids={groupInitialMembers}
-	onClose={() => (groupModalOpen = false)}
+	bind:draft={groupDraft}
+	{roster}
+	onClose={() => (groupDraft = null)}
 	onSubmit={submitGroup}
 />
 
-<!-- Remove play group confirm modal -->
-<Modal
+<ConfirmModal
 	isOpen={removeGroupTarget !== null}
-	onClose={() => (removeGroupTarget = null)}
-	title="Remove play group"
-	maxWidth="sm"
+	title={m.players_group_remove_title()}
+	confirmLabel={m.players_remove()}
+	danger
+	onConfirm={() => {
+		if (removeGroupTarget) databaseStore.removePlayGroup(removeGroupTarget.uid);
+		removeGroupTarget = null;
+	}}
+	onCancel={() => (removeGroupTarget = null)}
 >
-	{#if removeGroupTarget}
-		<div class="flex flex-col gap-3 py-2">
-			<p class="text-sm text-black dark:text-white">
-				Remove the play group <strong>{removeGroupTarget.name}</strong>? The players in it are not
-				affected — only the group is deleted. This can't be undone from here.
-			</p>
-			<div class="flex justify-end gap-2">
-				<Button label="Cancel" onClick={() => (removeGroupTarget = null)} />
-				<Button label="Remove" icon={FaIconType.Delete} danger onClick={confirmRemoveGroup} />
-			</div>
-		</div>
-	{/if}
-</Modal>
+	{m.players_group_remove_confirm({ name: removeGroupTarget?.name ?? '' })}
+</ConfirmModal>

@@ -1,11 +1,8 @@
 <!--
 @component
-One achievement row in the recording UI. Inferred achievements (def.infer /
-def.itemInfer) are auto-evaluated from the recorded logs and shown checked +
-disabled (a cog marks them auto). Manual achievements get a real checkbox bound
-to the player's ticks; when ticked, a missing `requires` prerequisite surfaces
-an inline warning. `list` achievements render per-item rows (inferred items auto,
-manual items ticked).
+One achievement in the editor. A log-inferred one shows its state (the gear opens what it checks);
+a manual one, or an Extra-inferred one without its data, gets a tick box, warning when its
+prerequisite is missing. A `list` achievement has a row per item.
 -->
 <script lang="ts">
 	import type { AchievementProgress, ResolvedAchievement } from '@5argon/arkham-campaign-data';
@@ -17,29 +14,26 @@ manual items ticked).
 		parseArkhamMarkup
 	} from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
+	import { manualTickKey } from '$lib/campaign/records/recorded-state';
 	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
 	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
 
 	interface Props {
 		resolved: ResolvedAchievement;
 		progress: AchievementProgress;
-		/** How it's auto-derived: 'log' (gears), 'extra' (gear-code, needs the Extra tabs), 'manual' (pencil). */
+		/** How it checks itself: from the log, from the log plus Extra inputs, or not at all. */
 		scope: 'log' | 'extra' | 'manual';
-		/** Human-readable conditions it auto-checks (for the gear modal); empty for manual / unexpressible. */
+		/** What it checks, for the gear modal; empty for manual ones. */
 		conditions: string[];
-		/** True in life (show checkboxes); false = read-only display. */
-		recordable: boolean;
-		/** Manual tick keys present for this achievement (def.id, and def.id::itemId). */
+		/** Manual tick keys (see `manualTickKey`). */
 		manual: Set<string>;
 		prereq: 'ok' | 'warn' | 'unknown';
 		onToggle: (itemId: string | undefined, earned: boolean) => void;
 	}
 
-	let { resolved, progress, scope, conditions, recordable, manual, prereq, onToggle }: Props =
-		$props();
+	let { resolved, progress, scope, conditions, manual, prereq, onToggle }: Props = $props();
 
 	const def = $derived(resolved.def);
-	// 'log' and 'extra' both auto-check in arkham.life (it holds the Extra inputs); only 'manual' is hand-ticked.
 	const inferred = $derived(scope !== 'manual');
 	const isList = $derived(def.type === 'list' && Array.isArray(def.items));
 	const statusIcon = $derived(
@@ -57,23 +51,17 @@ manual items ticked).
 		return def.items.map((id) => ({ id, label: labels[id] ?? id }));
 	});
 
-	function key(itemId?: string) {
-		return itemId ? `${def.id}::${itemId}` : def.id;
-	}
-	/** Auto-derived earned (log or extra scope), when the data is present. */
+	const key = (itemId?: string) => manualTickKey(def.id, itemId);
 	const autoEarned = $derived(inferred && progress.earned === true);
-	/** Whole-achievement earned. `extra` achievements ALSO honor a manual tick — a pen-and-paper
-	 *  player who never fills the Extra tab can still mark them Earned by hand. */
+	/** An `extra` achievement also takes a manual tick, for players who never fill the Extra tab. */
 	const earned = $derived(scope === 'log' ? autoEarned : autoEarned || manual.has(def.id));
 
-	// Tooltip for the inferred-vs-manual indicator icon.
 	const tipText = $derived(
 		scope === 'extra' ? m.archive_ach_tip_extra() : scope === 'log' ? m.archive_ach_tip_log() : m.archive_ach_tip_manual(),
 	);
 	const tip = new HoverTipState();
 
-	// Strip HTML emphasis + unwrap card links, but KEEP `[token]` icon markers — they're
-	// rendered as glyphs by parseArkhamMarkup (e.g. Trust Nobody's [elder_thing]).
+	// Strips emphasis and card links; `[token]` markers stay for parseArkhamMarkup to draw.
 	function clean(text: string): string {
 		return text
 			.replace(/<\/?[ib]>/g, '')
@@ -128,7 +116,7 @@ manual items ticked).
 						? progress.items?.[it.id] === true
 						: manual.has(key(it.id))}
 					<li class="flex items-center gap-2 text-sm">
-						{#if recordable && !itemInferred}
+						{#if !itemInferred}
 							<Checkbox
 								label={it.label}
 								checked={manual.has(key(it.id))}
@@ -147,10 +135,9 @@ manual items ticked).
 					</li>
 				{/each}
 			</ul>
-		{:else if recordable}
+		{:else}
 			<div class="mt-1.5">
 				{#if autoEarned}
-					<!-- Data is present (logs and, for `extra`, the Extra tab) → checked for you. -->
 					<span class="text-secondary-600 inline-flex items-center gap-1.5 text-xs">
 						<FaIcon icon={FaIconType.CheckBox} />
 						{m.archive_ach_earned_auto()}
@@ -161,8 +148,6 @@ manual items ticked).
 						{m.archive_ach_not_earned()}
 					</span>
 				{:else}
-					<!-- `extra` (data not entered) and `manual`: a hand tick. Lets pen-and-paper players,
-					     who never fill the Extra tab, still mark it Earned. -->
 					<Checkbox
 						label={m.archive_ach_earned()}
 						checked={manual.has(def.id)}

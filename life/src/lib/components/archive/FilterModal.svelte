@@ -1,117 +1,90 @@
 <!--
 @component
-Campaign Archive filter modal. Presentational: the draft selections live in the page (seeded
-from the URL on open). Apply navigates; the page filters in `listData`. Campaigns / players /
-investigators use searchable pickers (icon + name); outcome / player-count / solo are small
-checkbox sets.
+Campaign Archive filters: searchable pickers for campaigns, players (a play group adds its members)
+and investigators, and checkbox facets for outcome, player count and solo. Selections stay drafts
+until Apply.
 -->
+<script module lang="ts">
+	export const CAMPAIGN_FACETS = ['camp', 'who', 'inv', 'outcome', 'pc', 'solo'] as const;
+	export type CampaignFacet = (typeof CAMPAIGN_FACETS)[number];
+</script>
+
 <script lang="ts">
 	import {
-		Modal,
 		Button,
-		Checkbox,
 		CardFormMultiple,
+		FaIconType,
+		Modal,
 		SearchableDropdown,
 		UserDisplay,
-		FaIconType,
 		type SelectedCardEntry
 	} from '@5argon/arkham-life-ui';
-	import { campaignToProductMap, type Card, type Campaign } from '@5argon/arkham-kohaku';
+	import { campaignToProductMap, type Campaign, type Card } from '@5argon/arkham-kohaku';
 	import { ProductIcon } from '@5argon/arkham-icon';
-	import { createCardResolver, resolveCardOrNull } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { FilterOptions, OutcomeFilter, SoloFilter } from '$lib/database/repository';
+	import { resolveCardOrNull } from '$lib/card-data';
+	import type { FilterOptions } from '$lib/database/archive-list';
+	import type { LocalPlayGroup } from '$lib/database/document';
+	import FacetCheckboxes from './FacetCheckboxes.svelte';
+	import type { FilterDrafts } from './list-url';
+	import { soloLabel } from './solo-label';
 
 	interface Props {
 		isOpen: boolean;
 		options: FilterOptions;
-		playGroups: { uid: string; name: string; memberUids: string[] }[];
-		campaigns: Set<string>;
-		players: Set<string>;
-		investigators: Set<string>;
-		outcomes: Set<string>;
-		playerCounts: Set<number>;
-		soloTypes: Set<string>;
-		onToggle: (cat: 'outcome' | 'pc' | 'solo', value: string | number) => void;
-		onSetCampaigns: (codes: string[]) => void;
-		onSetPlayers: (uids: string[]) => void;
-		onSetInvestigators: (codes: string[]) => void;
-		onToggleGroup: (memberUids: string[]) => void;
+		playGroups: LocalPlayGroup[];
+		drafts: FilterDrafts<CampaignFacet>;
+		onToggle: (facet: CampaignFacet, value: string) => void;
+		onSet: (facet: CampaignFacet, values: string[]) => void;
 		onClear: () => void;
 		onApply: () => void;
 		onClose: () => void;
 	}
-	let {
-		isOpen,
-		options,
-		playGroups,
-		campaigns,
-		players,
-		investigators,
-		outcomes,
-		playerCounts,
-		soloTypes,
-		onToggle,
-		onSetCampaigns,
-		onSetPlayers,
-		onSetInvestigators,
-		onToggleGroup,
-		onClear,
-		onApply,
-		onClose
-	}: Props = $props();
+	let { isOpen, options, playGroups, drafts, onToggle, onSet, onClear, onApply, onClose }: Props =
+		$props();
 
-	const OUTCOMES: { value: OutcomeFilter; label: string }[] = [
+	const outcomes = [
 		{ value: 'cleared', label: m.archive_filter_outcome_win() },
 		{ value: 'special', label: m.archive_filter_outcome_special() },
 		{ value: 'attempted', label: m.archive_filter_outcome_lose() },
 		{ value: 'unknown', label: m.archive_filter_outcome_unknown() }
 	];
 
-	const soloLabel: Record<SoloFilter, string> = {
-		'true-solo': m.archive_filter_solo_true(),
-		'multi-handed': m.archive_filter_solo_multi()
-	};
-
-	// Shared resolver (cached) for player avatars and investigator card objects.
-	const resolver = createCardResolver();
-
-	// ─── Campaigns ───────────────────────────────────────────────────────────────
-	const campaignByCode = $derived(new Map(options.campaigns.map((c) => [c.code, c])));
-	const campaignName = (code: string) => campaignByCode.get(code)?.name ?? code;
+	const campaignName = $derived(new Map(options.campaigns.map((c) => [c.code, c.name])));
 	const campaignProduct = (code: string) => campaignToProductMap[code as Campaign] ?? null;
-	function addCampaign(item: { code: string; name: string }) {
-		if (!campaigns.has(item.code)) onSetCampaigns([...campaigns, item.code]);
-	}
-	function removeCampaign(code: string) {
-		onSetCampaigns([...campaigns].filter((c) => c !== code));
-	}
-
-	// ─── Players ─────────────────────────────────────────────────────────────────
-	const playerByUid = $derived(new Map(options.players.map((p) => [p.uid, p])));
-	const playerName = (uid: string) => playerByUid.get(uid)?.name ?? uid;
-	const playerIcon = (uid: string) => resolveCardOrNull(playerByUid.get(uid)?.iconCardCode ?? '');
-	function addPlayer(item: { uid: string; name: string }) {
-		if (!players.has(item.uid)) onSetPlayers([...players, item.uid]);
-	}
-	function removePlayer(uid: string) {
-		onSetPlayers([...players].filter((u) => u !== uid));
-	}
-
-	// ─── Investigators (CardFormMultiple) ────────────────────────────────────────
-	// Only offer investigators that actually appear in the archive.
-	const investigatorCards = $derived.by((): Card[] => {
-		const out: Card[] = [];
-		for (const o of options.investigators) {
-			const c = resolveCardOrNull(o.code);
-			if (c) out.push(c);
-		}
-		return out;
-	});
-	const investigatorEntries = $derived(
-		[...investigators].map((code): SelectedCardEntry => ({ code }))
+	const player = $derived(new Map(options.players.map((p) => [p.uid, p])));
+	const investigatorCards = $derived(
+		options.investigators.flatMap((o) => resolveCardOrNull(o.code) ?? []) as Card[]
 	);
+
+	const add = (facet: CampaignFacet, value: string) => onSet(facet, [...drafts[facet], value]);
+	const remove = (facet: CampaignFacet, value: string) =>
+		onSet(facet, [...drafts[facet]].filter((v) => v !== value));
+
+	/** Adds the group's members, or removes them when all are already selected. */
+	function toggleGroup(memberUids: string[]) {
+		const members = memberUids.filter((u) => player.has(u));
+		const selected = drafts.who;
+		const allOn = members.length > 0 && members.every((u) => selected.has(u));
+		const next = new Set(selected);
+		for (const u of members) {
+			if (allOn) next.delete(u);
+			else next.add(u);
+		}
+		onSet('who', [...next]);
+	}
 </script>
+
+{#snippet removeButton(facet: CampaignFacet, value: string)}
+	<Button label={m.common_clear()} onClick={() => remove(facet, value)} hideLabel icon={FaIconType.Delete} />
+{/snippet}
+
+{#snippet productIcon(code: string)}
+	{@const product = campaignProduct(code)}
+	<span class="text-primary-600 dark:text-primary-400">
+		{#if product != null}<ProductIcon {product} />{/if}
+	</span>
+{/snippet}
 
 <Modal {isOpen} {onClose} title={m.archive_filter_title()} maxWidth="lg">
 	<div class="flex flex-col gap-4 py-2">
@@ -121,40 +94,24 @@ checkbox sets.
 					label={m.archive_filter_campaigns()}
 					items={options.campaigns}
 					searchKeys={['name']}
-					filter={(c) => !campaigns.has(c.code)}
-					onSelect={addCampaign}
+					filter={(c) => !drafts.camp.has(c.code)}
+					onSelect={(c) => add('camp', c.code)}
 					fuzzyThreshold={0.3}
 				>
 					{#snippet renderItem(item)}
-						{@const product = campaignProduct(item.code)}
-						<span class="text-primary-600 dark:text-primary-400">
-							{#if product != null}<ProductIcon {product} />{/if}
-						</span>
+						{@render productIcon(item.code)}
 						<span class="text-primary-900 dark:text-primary-100">{item.name}</span>
 					{/snippet}
-
 					{#snippet selectedItems()}
-						{#if campaigns.size > 0}
-							<div class="mt-2 space-y-1">
-								{#each [...campaigns] as code (code)}
-									{@const product = campaignProduct(code)}
-									<div
-										class="hover:bg-primary-100 dark:hover:bg-primary-800 flex items-center gap-2 rounded p-1.5 transition-colors"
-									>
-										<Button
-											label={m.common_clear()}
-											onClick={() => removeCampaign(code)}
-											hideLabel
-											icon={FaIconType.Delete}
-										/>
-										<span class="text-primary-600 dark:text-primary-400">
-											{#if product != null}<ProductIcon {product} />{/if}
-										</span>
-										<span class="text-primary-900 dark:text-primary-100">{campaignName(code)}</span>
-									</div>
-								{/each}
-							</div>
-						{/if}
+						<div class="mt-2 space-y-1" class:hidden={drafts.camp.size === 0}>
+							{#each [...drafts.camp] as code (code)}
+								<div class="hover:bg-primary-100 dark:hover:bg-primary-800 flex items-center gap-2 rounded p-1.5">
+									{@render removeButton('camp', code)}
+									{@render productIcon(code)}
+									<span class="text-primary-900 dark:text-primary-100">{campaignName.get(code) ?? code}</span>
+								</div>
+							{/each}
+						</div>
 					{/snippet}
 				</SearchableDropdown>
 			</section>
@@ -168,7 +125,7 @@ checkbox sets.
 							>{m.archive_filter_play_group_shortcut()}</span
 						>
 						{#each playGroups as g (g.uid)}
-							<Button label={g.name} onClick={() => onToggleGroup(g.memberUids)} />
+							<Button label={g.name} onClick={() => toggleGroup(g.memberUids)} />
 						{/each}
 					</div>
 				{/if}
@@ -176,32 +133,26 @@ checkbox sets.
 					label={m.archive_filter_players()}
 					items={options.players}
 					searchKeys={['name']}
-					filter={(p) => !players.has(p.uid)}
-					onSelect={addPlayer}
+					filter={(p) => !drafts.who.has(p.uid)}
+					onSelect={(p) => add('who', p.uid)}
 					fuzzyThreshold={0.3}
 				>
 					{#snippet renderItem(item)}
 						<UserDisplay username={item.name} card={resolveCardOrNull(item.iconCardCode)} size="sm" />
 					{/snippet}
-
 					{#snippet selectedItems()}
-						{#if players.size > 0}
-							<div class="mt-2 space-y-1">
-								{#each [...players] as uid (uid)}
-									<div
-										class="hover:bg-primary-100 dark:hover:bg-primary-800 flex items-center gap-2 rounded p-1.5 transition-colors"
-									>
-										<Button
-											label={m.common_clear()}
-											onClick={() => removePlayer(uid)}
-											hideLabel
-											icon={FaIconType.Delete}
-										/>
-										<UserDisplay username={playerName(uid)} card={playerIcon(uid)} size="sm" />
-									</div>
-								{/each}
-							</div>
-						{/if}
+						<div class="mt-2 space-y-1" class:hidden={drafts.who.size === 0}>
+							{#each [...drafts.who] as uid (uid)}
+								<div class="hover:bg-primary-100 dark:hover:bg-primary-800 flex items-center gap-2 rounded p-1.5">
+									{@render removeButton('who', uid)}
+									<UserDisplay
+										username={player.get(uid)?.name ?? uid}
+										card={resolveCardOrNull(player.get(uid)?.iconCardCode ?? '')}
+										size="sm"
+									/>
+								</div>
+							{/each}
+						</div>
 					{/snippet}
 				</SearchableDropdown>
 			</section>
@@ -212,60 +163,34 @@ checkbox sets.
 				<CardFormMultiple
 					label={m.archive_filter_investigators()}
 					cards={investigatorCards}
-					selectedEntries={investigatorEntries}
-					onEntriesChange={(entries) => onSetInvestigators(entries.map((e) => e.code))}
+					selectedEntries={[...drafts.inv].map((code): SelectedCardEntry => ({ code }))}
+					onEntriesChange={(entries) => onSet('inv', entries.map((e) => e.code))}
 					allowDuplicates={false}
 				/>
 			</section>
 		{/if}
 
-		<section>
-			<h3 class="text-primary-800 dark:text-primary-200 mb-1 text-sm font-semibold">
-				{m.archive_filter_outcome()}
-			</h3>
-			<div class="flex flex-wrap gap-2">
-				{#each OUTCOMES as o (o.value)}
-					<Checkbox
-						label={o.label}
-						checked={outcomes.has(o.value)}
-						onChange={() => onToggle('outcome', o.value)}
-					/>
-				{/each}
-			</div>
-		</section>
-
+		<FacetCheckboxes
+			title={m.archive_filter_outcome()}
+			options={outcomes}
+			selected={drafts.outcome}
+			onToggle={(v) => onToggle('outcome', v)}
+		/>
 		{#if options.playerCounts.length}
-			<section>
-				<h3 class="text-primary-800 dark:text-primary-200 mb-1 text-sm font-semibold">
-					{m.archive_filter_player_count()}
-				</h3>
-				<div class="flex flex-wrap gap-2">
-					{#each options.playerCounts as pc (pc)}
-						<Checkbox
-							label={`${pc}P`}
-							checked={playerCounts.has(pc)}
-							onChange={() => onToggle('pc', pc)}
-						/>
-					{/each}
-				</div>
-			</section>
+			<FacetCheckboxes
+				title={m.archive_filter_player_count()}
+				options={options.playerCounts.map((pc) => ({ value: String(pc), label: `${pc}P` }))}
+				selected={drafts.pc}
+				onToggle={(v) => onToggle('pc', v)}
+			/>
 		{/if}
-
 		{#if options.soloTypes.length}
-			<section>
-				<h3 class="text-primary-800 dark:text-primary-200 mb-1 text-sm font-semibold">
-					{m.archive_filter_solo()}
-				</h3>
-				<div class="flex flex-wrap gap-2">
-					{#each options.soloTypes as st (st)}
-						<Checkbox
-							label={soloLabel[st]}
-							checked={soloTypes.has(st)}
-							onChange={() => onToggle('solo', st)}
-						/>
-					{/each}
-				</div>
-			</section>
+			<FacetCheckboxes
+				title={m.archive_filter_solo()}
+				options={options.soloTypes.map((st) => ({ value: st, label: soloLabel(st, 0) ?? st }))}
+				selected={drafts.solo}
+				onToggle={(v) => onToggle('solo', v)}
+			/>
 		{/if}
 	</div>
 

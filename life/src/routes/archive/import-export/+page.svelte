@@ -10,7 +10,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { databaseStore } from '$lib/database/database.svelte';
 	import { ensureDatabaseLoaded } from '$lib/database/bootstrap';
-	import { readBackupFile } from '$lib/database/backup-file';
+	import { readDataFile } from '$lib/database/file-format';
 	import FilePickerButton from '$lib/components/FilePickerButton.svelte';
 
 	// ─── Single-campaign import (the whole database lives at /database) ───────────
@@ -22,7 +22,7 @@
 		busy = true;
 		try {
 			await ensureDatabaseLoaded();
-			const parsed: unknown = await readBackupFile(file);
+			const parsed: unknown = await readDataFile(file);
 			const rec = databaseStore.importSharedCampaign(parsed);
 			if (rec) goto(`/archive/edit?id=${rec.id}`);
 			else sharedError = 'No campaign database is open to import into.';

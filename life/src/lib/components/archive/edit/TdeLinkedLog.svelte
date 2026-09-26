@@ -1,14 +1,12 @@
 <!--
 @component
-The Dream-Eaters "Linked Campaign Log" editor. TDE is two separate, unlinked campaign
-records; for interconnected play the shared widgets (the Black Cat, the Silver Key, Randolph,
-and the epilogue matrix) need the OTHER campaign's final results. Rather than auto-join the
-records, the player ticks an "interconnected" box and transcribes the handful of needed
-sibling-log entries here — genuine log data (in the Logs tab, not Extra), so it survives
-Log-only mode. Grouped by topic; display text comes from the sibling campaign's own log.
+The Dream-Eaters Linked Campaign Log: for interconnected play, the sibling campaign's entries the
+shared widgets need (Black Cat, Silver Key, Randolph, the epilogue matrix), transcribed by topic.
+It is log data, so it counts in Log-only mode.
 -->
 <script lang="ts">
 	import { getCampaignLog } from '@5argon/arkham-campaign-data';
+	import { Checkbox } from '@5argon/arkham-life-ui';
 	import { TDE_SIBLING, linkedTopicsFor } from '$lib/campaign/campaigns/tde-shared';
 	import { makeEntry, type LocalLog } from '$lib/campaign/records/recorded-state';
 	import * as m from '$lib/paraglide/messages.js';
@@ -17,17 +15,13 @@ Log-only mode. Grouped by topic; display text comes from the sibling campaign's 
 		family,
 		interconnected,
 		linkedLogs,
-		canEdit,
 		onInterconnectedChange,
 		onLinkedChange
 	}: {
-		/** This campaign's family (tdea or tdeb). */
+		/** tdea or tdeb. */
 		family: string;
-		/** Whether `hidden.interconnected_campaign` is recorded on this campaign. */
 		interconnected: boolean;
-		/** The transcribed sibling entries (flat LocalLog list). */
 		linkedLogs: LocalLog[];
-		canEdit: boolean;
 		onInterconnectedChange: (next: boolean) => void;
 		onLinkedChange: (next: LocalLog[]) => void;
 	} = $props();
@@ -49,7 +43,6 @@ Log-only mode. Grouped by topic; display text comes from the sibling campaign's 
 		return siblingLog?.en.entries[key]?.text ?? key;
 	}
 	function toggle(key: string) {
-		if (!canEdit) return;
 		const next = has(key)
 			? linkedLogs.filter((l) => l.key !== key)
 			: [...linkedLogs, makeEntry(key.slice(0, key.indexOf('.')), key, [])];
@@ -58,21 +51,12 @@ Log-only mode. Grouped by topic; display text comes from the sibling campaign's 
 </script>
 
 <div class="border-primary-200 dark:border-primary-700 mt-6 rounded-lg border p-4">
-	<label class="flex cursor-pointer items-start gap-2">
-		<input
-			type="checkbox"
-			class="mt-0.5"
-			checked={interconnected}
-			disabled={!canEdit}
-			onchange={(e) => onInterconnectedChange((e.currentTarget as HTMLInputElement).checked)}
-		/>
-		<span>
-			<span class="font-semibold text-black dark:text-white"
-				>{m.campaign_tde_link_interconnected_label()}</span
-			>
-			<span class="text-primary-500 mt-0.5 block text-xs">{m.campaign_tde_link_interconnected_help()}</span>
-		</span>
-	</label>
+	<Checkbox
+		label={m.campaign_tde_link_interconnected_label()}
+		checked={interconnected}
+		onChange={() => onInterconnectedChange(!interconnected)}
+	/>
+	<p class="text-primary-500 mt-1 text-xs">{m.campaign_tde_link_interconnected_help()}</p>
 
 	{#if interconnected}
 		<div class="mt-4 space-y-4">
@@ -84,17 +68,9 @@ Log-only mode. Grouped by topic; display text comes from the sibling campaign's 
 					<p class="text-primary-500 mb-1.5 text-xs font-semibold tracking-wide uppercase">
 						{(TOPIC_LABEL[topic.id] ?? (() => topic.id))()}
 					</p>
-					<div class="space-y-1">
+					<div class="flex flex-col items-start gap-1">
 						{#each topic.keys as key (key)}
-							<label class="flex cursor-pointer items-center gap-2 text-sm">
-								<input
-									type="checkbox"
-									checked={has(key)}
-									disabled={!canEdit}
-									onchange={() => toggle(key)}
-								/>
-								<span class="text-black dark:text-white">{entryText(key)}</span>
-							</label>
+							<Checkbox label={entryText(key)} checked={has(key)} onChange={() => toggle(key)} />
 						{/each}
 					</div>
 				</div>

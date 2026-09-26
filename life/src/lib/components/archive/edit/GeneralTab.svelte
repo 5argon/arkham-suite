@@ -1,73 +1,62 @@
+<!--
+@component
+The General tab: title, difficulty, dates, draft, profile visibility, and the final chaos bag. Every
+field saves as it changes.
+-->
 <script lang="ts">
-	import {
-		Checkbox,
-		DateField,
-		RadioButtons,
-		SectionSeparator,
-		TextInput
-	} from '@5argon/arkham-life-ui';
+	import { Checkbox, DateField, RadioButtons, SectionSeparator, TextInput } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { CampaignLog } from '$lib/campaign/records/campaign-log-source';
-	import type { LocalLog } from '$lib/campaign/records/recorded-state';
-	import ChaosBagSection from './sections/ChaosBagSection.svelte';
 	import Doc from '$lib/docs/Doc.svelte';
+	import type { LocalLog } from '$lib/campaign/records/recorded-state';
+	import { DIFFICULTY_ORDER, difficultyLabel } from '$lib/campaign/utils/difficulty';
+	import { databaseStore } from '$lib/database/database.svelte';
+	import type {
+		CampaignGeneralFields,
+		CampaignRecord,
+		Difficulty,
+		DisplayInProfile
+	} from '$lib/database/document';
+	import ChaosBagSection from './sections/ChaosBagSection.svelte';
+	import { fromDateInput, toDateInput } from './date-input';
 
 	interface Props {
-		canEdit: boolean;
-		/** Standalone archive — swaps campaign-specific labels for standalone wording. */
-		isStandalone?: boolean;
-		title: string;
-		difficulty: 'easy' | 'standard' | 'hard' | 'expert';
-		draft: boolean;
-		displayInProfile: 'default' | 'visible' | 'hidden';
-		startDate: string;
-		finishDate: string;
-		/** Campaign log — drives the chaos bag's starting-bag seeding. */
-		log: CampaignLog | undefined;
-		/** Limit the difficulty radio to these (standalone setup); absent ⇒ all four. */
+		record: CampaignRecord;
+		isStandalone: boolean;
+		/** Difficulties a standalone scenario offers; absent = all four. */
 		difficultyOptions?: string[];
-		/** Standalone override for the chaos-bag starting bags; `undefined` ⇒ use the campaign log's. */
-		startingChaosBag?: Record<string, Record<string, number>> | null;
-		/** Chaos bag entries (reserved `__chaos_bag` log section). */
+		/** No campaign log (unspecified campaign) has no chaos bag to record. */
+		showChaosBag: boolean;
+		/** Starting chaos bags per difficulty; null = none. */
+		startingBags: Record<string, Record<string, number>> | null;
 		chaosBagEntries: LocalLog[];
 		onChaosBagChange: (next: LocalLog[]) => void;
-		/** Called when the difficulty radio changes (lets the page prompt about chaos-bag re-init). */
-		onDifficultyChange?: (value: 'easy' | 'standard' | 'hard' | 'expert') => void;
-		/** Autosave callback: fired whenever a general field changes. */
-		onGeneralChange: () => void;
+		/** The difficulty changed (the page may re-seed the chaos bag). */
+		onDifficultyChange: (next: Difficulty, previous: Difficulty) => void;
 	}
-
 	let {
-		canEdit,
-		isStandalone = false,
-		title = $bindable(),
-		difficulty = $bindable(),
-		draft = $bindable(),
-		displayInProfile = $bindable(),
-		startDate = $bindable(),
-		finishDate = $bindable(),
-		log,
+		record,
+		isStandalone,
 		difficultyOptions,
-		startingChaosBag,
+		showChaosBag,
+		startingBags,
 		chaosBagEntries,
 		onChaosBagChange,
-		onDifficultyChange,
-		onGeneralChange
+		onDifficultyChange
 	}: Props = $props();
 
-	const allDifficultyChoices: { value: 'easy' | 'standard' | 'hard' | 'expert'; label: string }[] = [
-		{ value: 'easy', label: 'Easy' },
-		{ value: 'standard', label: 'Standard' },
-		{ value: 'hard', label: 'Hard' },
-		{ value: 'expert', label: 'Expert' }
-	];
-	// A standalone scenario allows only a subset of difficulties; a single allowed
-	// difficulty is shown as a fixed label rather than a radio.
+	const update = (fields: CampaignGeneralFields) =>
+		databaseStore.updateCampaignGeneral(record.id, fields);
+
 	const difficultyChoices = $derived(
-		difficultyOptions && difficultyOptions.length
-			? allDifficultyChoices.filter((c) => difficultyOptions.includes(c.value))
-			: allDifficultyChoices
+		DIFFICULTY_ORDER.filter((d) => !difficultyOptions?.length || difficultyOptions.includes(d)).map(
+			(d) => ({ value: d as Difficulty, label: difficultyLabel(d) })
+		)
 	);
+	const displayChoices: { value: DisplayInProfile; label: string }[] = [
+		{ value: 'default', label: m.archive_display_default() },
+		{ value: 'visible', label: m.archive_display_visible() },
+		{ value: 'hidden', label: m.archive_display_hidden() }
+	];
 </script>
 
 {#snippet difficultyHelp()}<Doc path="archive/edit/difficulty" />{/snippet}
@@ -78,24 +67,31 @@
 
 <div class="mt-4 max-w-xl space-y-4">
 	<TextInput
-		label={isStandalone ? 'Title' : m.archive_campaign_name()}
-		bind:value={title}
-		oninput={() => onGeneralChange()}
-		placeholder={isStandalone ? 'e.g. Carnevale solo run' : m.archive_campaign_name_placeholder()}
+		label={isStandalone ? m.archive_standalone_title() : m.archive_campaign_name()}
+		value={record.title}
+		oninput={(title) => update({ title })}
+		placeholder={isStandalone
+			? m.archive_standalone_title_placeholder()
+			: m.archive_campaign_name_placeholder()}
 	/>
 
 	{#if difficultyChoices.length <= 1}
 		<div>
 			<p class="text-primary-500 text-xs">{m.archive_difficulty()}</p>
 			<p class="text-primary-700 dark:text-primary-300">
-				{difficultyChoices[0]?.label ?? 'Standard'}
+				{difficultyChoices[0]?.label ?? difficultyLabel('standard')}
 			</p>
 		</div>
 	{:else}
 		<RadioButtons
 			label={m.archive_difficulty()}
-			bind:selectedValue={difficulty}
-			onChange={onDifficultyChange}
+			selectedValue={record.difficulty}
+			onChange={(next) => {
+				const previous = record.difficulty;
+				if (next === previous) return;
+				update({ difficulty: next });
+				onDifficultyChange(next, previous);
+			}}
 			helpContent={difficultyHelp}
 			choices={difficultyChoices}
 		/>
@@ -103,8 +99,8 @@
 
 	<DateField
 		label={m.archive_start_date()}
-		bind:value={startDate}
-		onchange={() => onGeneralChange()}
+		value={toDateInput(record.startDate)}
+		onchange={(v) => update({ startDate: fromDateInput(v) })}
 		name="startDate"
 		helpContent={startDateHelp}
 		clearable
@@ -112,8 +108,8 @@
 
 	<DateField
 		label={m.archive_finish_date()}
-		bind:value={finishDate}
-		onchange={() => onGeneralChange()}
+		value={toDateInput(record.finishDate)}
+		onchange={(v) => update({ finishDate: fromDateInput(v) })}
 		name="finishDate"
 		helpContent={finishDateHelp}
 		clearable
@@ -121,32 +117,25 @@
 
 	<Checkbox
 		label={m.archive_draft()}
-		bind:checked={draft}
-		onChange={() => onGeneralChange()}
+		checked={record.draft}
+		onChange={() => update({ draft: !record.draft })}
 		helpContent={draftModeHelp}
 	/>
 
 	<RadioButtons
 		label={m.archive_display_in_profile()}
-		bind:selectedValue={displayInProfile}
-		onChange={() => onGeneralChange()}
+		selectedValue={record.displayInProfile ?? 'default'}
+		onChange={(displayInProfile) => update({ displayInProfile })}
 		helpContent={displayInProfileHelp}
-		choices={[
-			{ value: 'default', label: 'Default' },
-			{ value: 'visible', label: 'Visible' },
-			{ value: 'hidden', label: 'Hidden' }
-		]}
+		choices={displayChoices}
 	/>
 
-	<!-- Chaos bag: campaign setup, seeded from the difficulty selected above. -->
-	{#if log}
+	{#if showChaosBag}
 		<div class="space-y-3">
 			<SectionSeparator title={m.archive_chaos_bag()} />
 			<ChaosBagSection
-				{log}
-				{difficulty}
-				{canEdit}
-				{startingChaosBag}
+				{startingBags}
+				difficulty={record.difficulty}
 				entries={chaosBagEntries}
 				onChange={onChaosBagChange}
 			/>

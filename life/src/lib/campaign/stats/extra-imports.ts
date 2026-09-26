@@ -12,7 +12,7 @@ import {
   playableScenarios,
   type CampaignLog,
 } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 import { contributingFamilies, RT_PAIRS } from '../records/campaign-family';
 import { choiceLabel } from './scenario-extras';
 

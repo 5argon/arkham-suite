@@ -1,74 +1,41 @@
 <!--
 @component
-Per-investigator card assignment for the Extra tab (e.g. PtC's random weakness + "investigator who
-drew it"): a row per campaign investigator, each a single-card browse box. Picking a card for an
-investigator adds that pairing; clearing removes it. The two underlying choice values stay
-index-paired (card[i] ↔ investigator[i]) so the precompute is unchanged. Any pairing already
-recorded against a non-roster investigator is preserved untouched.
+One card box per campaign investigator for a `cards` choice with a bearer list (e.g. PtC's random
+weakness and who drew it). Pairs recorded against an investigator outside the roster are kept and
+listed.
 -->
 <script lang="ts">
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { CardFormSingle, CardLine } from '@5argon/arkham-life-ui';
+	import * as m from '$lib/paraglide/messages.js';
+	import { decodeCardPairs, encodeCardPairs } from '$lib/campaign/records/extra-fields';
 	import type { InvestigatorRef } from '$lib/campaign/utils/investigators';
 
-	let {
-		investigators,
-		cards,
-		cardCsv,
-		investigatorCsv,
-		canEdit,
-		placeholder = '—',
-		onChange
-	}: {
+	interface Props {
 		investigators: InvestigatorRef[];
-		/** The pickable pool (already filtered to the choice's cardFilter). */
+		/** The pickable pool. */
 		cards: Card[];
-		/** Current card codes (comma-joined), paired by index with `investigatorCsv`. */
 		cardCsv: string;
 		investigatorCsv: string;
-		canEdit: boolean;
-		placeholder?: string;
 		onChange: (cardCsv: string, investigatorCsv: string) => void;
-	} = $props();
+	}
+	let { investigators, cards, cardCsv, investigatorCsv, onChange }: Props = $props();
 
 	const byCode = $derived(new Map(cards.map((c) => [c.code, c])));
 	const rosterCodes = $derived(new Set(investigators.map((i) => i.code)));
-
-	// Current pairings: investigator code → card code (paired by index; last write wins if an
-	// investigator somehow appears twice — one draw per investigator is the norm).
-	const assigned = $derived.by(() => {
-		const cs = cardCsv.split(',').filter(Boolean);
-		const is = investigatorCsv.split(',').filter(Boolean);
-		const m = new Map<string, string>();
-		is.forEach((inv, i) => {
-			if (cs[i]) m.set(inv, cs[i]);
-		});
-		return m;
-	});
+	/** Investigator → card. */
+	const assigned = $derived(decodeCardPairs(cardCsv, investigatorCsv));
+	const orphans = $derived([...assigned].filter(([inv]) => !rosterCodes.has(inv)));
 
 	function write(next: Map<string, string>) {
-		const inv: string[] = [];
-		const card: string[] = [];
-		for (const [i, c] of next) {
-			inv.push(i);
-			card.push(c);
-		}
-		onChange(card.join(','), inv.join(','));
-	}
-	function set(inv: string, cardCode: string) {
-		write(new Map(assigned).set(inv, cardCode));
+		const { cards, investigators } = encodeCardPairs(next);
+		onChange(cards, investigators);
 	}
 	function clear(inv: string) {
 		const next = new Map(assigned);
 		next.delete(inv);
 		write(next);
 	}
-
-	// Pairings recorded against investigators NOT in the roster — shown read-only so they aren't lost
-	// (e.g. recorded before the deck was added, or a guest investigator).
-	const orphans = $derived(
-		[...assigned].filter(([inv]) => !rosterCodes.has(inv)).map(([inv, card]) => ({ inv, card }))
-	);
 </script>
 
 {#if investigators.length}
@@ -77,46 +44,39 @@ recorded against a non-roster investigator is preserved untouched.
 			{@const code = assigned.get(inv.code)}
 			{@const card = code ? byCode.get(code) : null}
 			<div class="border-primary-100 dark:border-primary-800 rounded border p-2">
-				{#if canEdit && !card}
-					<!-- Empty: the search box. Once a card is picked it collapses to the CardLine below
-					     (re-appearing only after Remove), so a filled list stays compact. -->
+				{#if !card}
 					<CardFormSingle
 						label={inv.name}
 						{cards}
-						{placeholder}
+						placeholder="—"
 						selectedCard={null}
-						onSelect={(c) => set(inv.code, c.code)}
+						onSelect={(c) => write(new Map(assigned).set(inv.code, c.code))}
 					/>
 				{:else}
 					<p class="text-primary-500 text-xs">{inv.name}</p>
-					{#if card}
-						<div class="mt-1 flex items-center justify-between gap-2">
-							<CardLine {card} hideQuantity />
-							{#if canEdit}
-								<button
-									type="button"
-									class="text-primary-400 hover:text-error-500 shrink-0 text-xs"
-									onclick={() => clear(inv.code)}>× Remove</button
-								>
-							{/if}
-						</div>
-					{:else}
-						<p class="text-primary-700 dark:text-primary-300">—</p>
-					{/if}
+					<div class="mt-1 flex items-center justify-between gap-2">
+						<CardLine {card} hideQuantity />
+						<button
+							type="button"
+							class="text-primary-400 hover:text-error-500 shrink-0 text-xs"
+							onclick={() => clear(inv.code)}>× {m.archive_logs_remove()}</button
+						>
+					</div>
 				{/if}
 			</div>
 		{/each}
 	</div>
 {:else}
-	<p class="text-primary-500 text-sm italic">
-		Record this campaign's investigator decks to assign each drawn card to who drew it.
-	</p>
+	<p class="text-primary-500 text-sm italic">{m.archive_extra_picker_no_decks()}</p>
 {/if}
 
 {#if orphans.length}
 	<div class="text-primary-500 mt-2 space-y-0.5 text-xs">
-		{#each orphans as o (o.inv)}
-			<p>{byCode.get(o.card)?.name ?? o.card} <span class="text-primary-400">(not in roster)</span></p>
+		{#each orphans as [inv, code] (inv)}
+			<p>
+				{byCode.get(code)?.name ?? code}
+				<span class="text-primary-400">{m.archive_extra_picker_not_in_roster()}</span>
+			</p>
 		{/each}
 	</div>
 {/if}
