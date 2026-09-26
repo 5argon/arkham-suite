@@ -149,9 +149,7 @@
   "code": "53012",
   "name": "Dendromorphosis",
   "text": "<b>Revelation</b> - Put Dendromorphosis into play in your threat area. It cannot leave play while it has no damage on it.\n[fast] Take 1 direct damage: Deal 1 damage to Dendromorphosis.\n<b>Card design by the Botanists at Arkham Nights 2018.</b>",
-  "tags": [
-   "{ type: TagTypeCostFree.CostFreeDamageSelf }"
-  ]
+  "tags": []
  },
  {
   "code": "53013",

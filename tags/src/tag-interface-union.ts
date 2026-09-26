@@ -331,7 +331,6 @@ import type {
   TagHealHorrorInvestigator,
   TagHealHorrorSelf,
   TagHealHorrorYou,
-  TagHealRemovesWeakness,
 } from "./tags/heal/index.js";
 
 import type {
@@ -896,7 +895,6 @@ export type Tag =
   | TagHealHorrorInvestigator
   | TagHealHorrorSelf
   | TagHealHorrorYou
-  | TagHealRemovesWeakness
   // Limit tags
   | TagLimitInPlay
   // Location tags

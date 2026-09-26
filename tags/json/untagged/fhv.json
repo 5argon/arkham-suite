@@ -29,11 +29,7 @@
   "code": "10003",
   "name": "Hasty Repairs",
   "text": "<b>Revelation</b> - Put Hasty Repairs into play in your threat area.\nWhile triggering abilities on assets you control, set your base skill value to 0.\n[action] [action]: Discard Hasty Repairs.",
-  "tags": [
-   "{ type: TagTypeStatsModSetBase.StatsModSetBase, value: 0 }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "10004",
@@ -94,10 +90,7 @@
   "code": "10008",
   "name": "Failed Experiment",
   "text": "<b>Revelation</b> - Test [willpower] (3). This test gets +1 difficulty for each asset you control with a clue on it. For each point you fail by, you must either take 1 horror or place 1 of your clues on your location.",
-  "tags": [
-   "{ type: TagTypeTestInitiate.TestInitiateWillpower, difficulty: 3 }",
-   "{ type: TagTypeTestDifficulty.TestDifficultyIncrease, value: \"dynamic\" }"
-  ]
+  "tags": []
  },
  {
   "code": "10009",
@@ -215,7 +208,9 @@
   "name": "Cleaning Kit",
   "text": "Uses (3 supplies).\nSupplies on Cleaning Kit may be spent as if they were supplies or ammo on assets you control.",
   "tags": [
-   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }"
+   "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 3 }",
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"pool\" }",
+   "{ type: TagTypeUsesSupport.UsesSupportSupply, supportType: \"pool\" }"
   ]
  },
  {
@@ -278,7 +273,8 @@
    "{ type: TagTypeHeal.HealHorrorInvestigator, value: \"dynamic\" }",
    "{ type: TagTypeHeal.HealHorrorAlly, value: \"dynamic\" }",
    "{ type: TagTypeLocationYour.LocationYourInvestigator }",
-   "{ type: TagTypeLocationYour.LocationYourAlly }"
+   "{ type: TagTypeLocationYour.LocationYourAlly }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -390,7 +386,9 @@
   "tags": [
    "{ type: TagTypeUsesStarting.UsesStartingSupply, value: 4 }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
-   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }"
+   "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 }",
+   "{ type: TagTypeUsesSupport.UsesSupportAmmo, supportType: \"pool\" }",
+   "{ type: TagTypeUsesSupport.UsesSupportSupply, supportType: \"pool\" }"
   ]
  },
  {
@@ -740,7 +738,8 @@
    "{ type: TagTypeBonded.BondedFetch }",
    "{ type: TagTypeCancel.CancelRevelation }",
    "{ type: TagTypeCancel.CancelEncounterEffect }",
-   "{ type: TagTypeLocationShroud.LocationShroudDependent }"
+   "{ type: TagTypeLocationShroud.LocationShroudDependent }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -790,12 +789,7 @@
   "code": "10063",
   "name": "Bianca \"Die Katz\"",
   "text": "Bonded (Bianca \"Die Katz\"). Hunter.\n<b>Prey</b> - Bearer only.\n[action] If \"you owe Bianca X resources,\" spend X resources: <b>Parley.</b> Add Bianca \"Die Katz\" to the victory display.\n<b>Forced</b> - When Bianca \"Die Katz\" leaves play (except by the above ability): Shuffle her into your deck.",
-  "tags": [
-   "{ type: TagTypeBonded.BondedCard }",
-   "{ type: TagTypeActionBold.ActionBoldParley }",
-   "{ type: TagTypeCostAction.CostActionSpendResource }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "10064",
@@ -959,7 +953,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeTestMisc.TestYouPerform }",
    "{ type: TagTypeSkillCommit.SkillCommitGainIcon }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -1092,7 +1087,8 @@
    "{ type: TagTypeCostFree.CostFreeSpendOffering }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestWillpower, value: 2 }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2 }",
-   "{ type: TagTypeLimit.LimitInPlay, trait: \"Mask\", count: 1 }"
+   "{ type: TagTypeLimit.LimitInPlay, trait: \"Mask\", count: 1 }",
+   "{ type: TagTypeDoom.DoomCheck }"
   ]
  },
  {
@@ -1105,7 +1101,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealManual }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeAttach.AttachEnemy }"
+   "{ type: TagTypeAttach.AttachEnemy }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -1174,7 +1171,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenSkull }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
-   "{ type: TagTypeRecursion.RecursionEvent }"
+   "{ type: TagTypeRecursion.RecursionEvent }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -1255,7 +1253,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealManual }",
    "{ type: TagTypeChaosReveal.ChaosRevealTokenCurse }",
    "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeAttach.AttachEnemy }"
+   "{ type: TagTypeAttach.AttachEnemy }",
+   "{ type: TagTypeChaosPayoff.ChaosSymbolPayoff }"
   ]
  },
  {
@@ -1473,7 +1472,8 @@
    "{ type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeTestless.TestlessDamageYourLocationMultiple, value: 1 }",
-   "{ type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 }"
+   "{ type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }"
   ]
  },
  {
@@ -1760,36 +1760,24 @@
   "code": "10135",
   "name": "Maimed Hand",
   "text": "<b>Revelation</b> - You must either put Maimed Hand into play in your threat area, or take 1 damage and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 health.\n[action] [action]: Discard Maimed Hand.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "10136",
   "name": "Back Injury",
   "text": "<b>Revelation</b> - You must either put Back Injury into play in your threat area, or take 1 damage and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 health.\n[action] [action]: Discard Back Injury.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "10137",
   "name": "The Silver Moth",
   "text": "<b>Revelation</b> - You must either put The Silver Moth into play in your threat area, or take 1 horror and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 sanity.\n[action] [action]: Discard The Silver Moth.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "10138",
   "name": "Vow of Drzytelech",
   "text": "<b>Revelation</b> - You must either put Vow of Drzytelech into play in your threat area, or take 1 horror and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 sanity.\n[action] [action]: Discard Vow of Drzytelech.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  }
 ]

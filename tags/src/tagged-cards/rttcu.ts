@@ -210,29 +210,25 @@ const taggedCards: TaggedCard[] = [
     level: 4,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "54014",
     name: "Damned",
     text: "Permanent.\nBefore setting up each game, draw a random card from the tarot deck and place the chosen card in front of you, in the reverse position. Each other investigator ignores its effects.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "54015",
     name: "The Devil • XV",
     text: "You cannot play assets other than The Devil • XV while it is in your hand.\nIf The Devil • XV is drawn in your opening hand during setup <i>(before or after taking a mulligan)</i>, you cannot replace it. It must stay in your opening hand.",
     cardType: "asset",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

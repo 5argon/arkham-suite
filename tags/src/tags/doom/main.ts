@@ -12,9 +12,9 @@ interface TagDoomBase extends TagBase {}
 
 /**
  * Places doom. `target` says WHERE: "own-card" is the Marie/Amina archetype (doom on an
- * asset or investigator you control — Arcane Initiate, Baron Samedi, Ghastly Possession),
- * "agenda" is a pure penalty (Dark Memory, The Price of Failure), "enemy" puts it on an
- * enemy (The Nameless Lurker). Only own-card feeds the Doom Adding compound.
+ * asset or investigator you control — Arcane Initiate, Ghastly Possession), "agenda" puts it
+ * on the current agenda (Fickle Fortune), "enemy" on an enemy (Whispers of Doom, String of
+ * Curses). Every target feeds the Doom Adding compound.
  */
 export interface TagDoomAdd extends TagDoomBase {
   type: TagTypeDoom.DoomAdd;
@@ -39,9 +39,8 @@ export interface TagDoomPreventAdvance extends TagDoomBase {
 }
 
 /**
- * RELOCATE doom from one card to another live destination — an asset to the agenda
- * (Deafening Silence), between two cards at your location (Amina Zidane's elder sign),
- * or from an asset onto itself (Sin-Eater). Not removal (doom-remove returns the token
+ * RELOCATE doom from one card to another live destination — between two cards at your
+ * location (Amina Zidane's elder sign), or from an asset onto itself (Sin-Eater). Not removal (doom-remove returns the token
  * to the pool) and not placement from the pool (doom-add / cost-add-doom-self).
  */
 export interface TagDoomMove extends TagDoomBase {

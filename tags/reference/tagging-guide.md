@@ -5,6 +5,13 @@ type-safe TypeScript objects (see the top-level `README.md` for the data model).
 durable process + accumulated reasoning so that **adding a new card pack later resumes from
 everything decided so far** rather than starting cold.
 
+## What the tags are for
+
+A player picks a card they know and follows its tags / compounds to cards doing the same job (a
+sidegrade when their copies run out), or browses the tag list by function. Every tagging and taxonomy
+decision is checked against that: a card's main job must connect it to its peers, and a tag's members
+must be what its player-facing description (`messages/en.json`) promises.
+
 ## The persistent knowledge (what makes resumption possible)
 
 1. **The taxonomy itself** — `src/tags/**` + `src/compound-tags/compound-tags.ts`. The source of
@@ -40,6 +47,16 @@ everything decided so far** rather than starting cold.
 will already exist; only genuinely new mechanics surface) → steps 3–5. The digest guarantees the new
 pass "thinks" with the full accumulated taxonomy.
 
+## Review workflows (after tagging)
+
+- **Tag-major membership pass** — for tags with few members, hunt the corpus for missed members,
+  merges and intruders (`yarn roster`, `yarn corpus`); e.g. `reports/2026-09-25-membership-suspects.md`.
+- **Card-major sweep** — every card re-read against the glossary with `yarn suggest` hints, in chunks
+  by agents that return JSON ops; e.g. the 2026-09-05 adversarial review and the 2026-09 full sweep.
+- Either way: verify claims (`yarn apply-ops --check`), apply, `yarn build && yarn lint-tags`, read
+  every compound join/leave, `--snapshot`, and record rulings + a report. The skill
+  (`.claude/skills/tag-cards/SKILL.md`, "Reviewing tagged cards") has the tool details.
+
 ## Judgment rubric
 
 - **Argument vs new tag** — add an argument to an existing tag when the broad aspect is the
@@ -50,6 +67,8 @@ pass "thinks" with the full accumulated taxonomy.
 - **Consolidate / split** — merge near-duplicate proposals into one; split only for genuinely
   different aspects. Respect the deliberate structure (draw/search under `deck`; `testless` separate;
   no `deal` category; obvious-from-text things are intentionally untagged).
+- **Weaknesses are never tagged** (signature, bonded, basic — `subtype` set in the pack file). They
+  have no functional peers a player would look for; lint `weakness-tagged` enforces it.
 
 ## Naming convention
 

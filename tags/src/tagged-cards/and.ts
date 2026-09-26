@@ -14,7 +14,6 @@ import {
   TagTypeDamage,
   TagTypeDeckDraw,
   TagTypeDeckMisc,
-  TagTypeDeckShuffle,
   TagTypeDiscardFromPlay,
   TagTypeDuration,
   TagTypeEnemyDebuff,
@@ -106,22 +105,18 @@ const taggedCards: TaggedCard[] = [
     name: "Weight of the World",
     text: "<b>Revelation</b> - Put Weight of the World into play in your threat area.\n<b>Forced</b> - When you fail a skill test while Weight of the World is in play, take 1 horror and shuffle it back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "60356",
     name: "Unaware",
     text: "<b>Revelation</b> - Put Unaware into play in your threat area.\n<b>Forced</b> - The first time you fail a skill test during your turn: Draw the top card of the encounter deck. If that card is an enemy, discard Unaware.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "60357",
@@ -178,6 +173,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTimingSkill.TimingSkillSt6DetermineResult, timing: TimingQualifier.When },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 2 },
+      { type: TagTypeSkillValue.SkillValueMarginAdjust },
     ],
   },
   {
@@ -221,6 +217,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 },
       { type: TagTypeEnemyElite.EnemyEliteNonEliteOnly },
       { type: TagTypeAuto.AutoEvade },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {

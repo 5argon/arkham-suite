@@ -43,7 +43,7 @@ Sections A–F were applied; section G is untouched. The build is green, lint sh
 - **Per-symbol seal tags were not merged** (C). They mirror `chaos-reveal-token-*`; their compound membership was fixed instead.
 - **Optional tidy-ups** (C, last bullet) change shape only, with no search gain.
 - **`uses-starting-other`** is G5. **The Maleson co-tag** is G3.
-- **String of Curses into Doom Adding** would pull in the Tony's Quarry and Nameless Lurker weakness enemies, so it waits on G9.
+- **String of Curses into Doom Adding** would pull in the Tony's Quarry and Nameless Lurker weakness enemies, so it waits on G9. (G9 is now resolved: those enemies carry no tags. `doom-add{target:"enemy"}` holds only String of Curses and Whispers of Doom. **Joined 2026-09-26:** Doom Adding now takes every `doom-add` target, so Fickle Fortune (agenda) joined with them.)
 - **Stargazing:** no tag separates seeding the encounter deck from the shuffles after an enemy is removed.
 - **Riot Whistle** needs `Engage` added to kohaku's `BasicAction`.
 - **Chicago Typewriter:** there is no action-pump tag, and a one-card tag would recreate the problem this pass removes.
@@ -419,7 +419,8 @@ Per compound:
 8. Fail Forward is "payoffs only". How should "If this test fails, ‹benefit›" cards enter it: a new base tag,
    or the after-fail timing, as Rabbit's Foot does?
 9. Weaknesses in archetype compounds: exclude them by rule (a card-level flag the compound evaluation
-   honors), or accept the leaks?
+   honors), or accept the leaks? **Resolved 2026-09-26: weaknesses are not tagged at all** (see the
+   2026-09-26 report, §5), so nothing leaks.
 10. Does [`commit-fetch`](http://localhost:5173/tool/tag-browser?tag=commit-fetch) include picking from *your own* discard pile (Gift of Nodens, Isabelle 12013, Silas)?
 11. Engaged-enemy count: [`condition-engaged-alone`](http://localhost:5173/tool/tag-browser?tag=condition-engaged-alone) (= 1) and [`enemy-engage-none`](http://localhost:5173/tool/tag-browser?tag=enemy-engage-none) (= 0) exist, but the
     scalers (Trench Knife, "Not without a fight!") have no tag. A `condition-engaged-count{comparison,value}`

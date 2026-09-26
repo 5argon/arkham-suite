@@ -1,5 +1,4 @@
 import {
-  TagTypeTestDifficulty,
   TagTypeActionBold,
   TagTypeActionLose,
   TagTypeChaosDownside,
@@ -21,6 +20,7 @@ import {
   TagTypeStatsModBoostInTest,
   TagTypeStatsModBoostPassive,
   TagTypeStatsModUseInstead,
+  TagTypeTestDifficulty,
   TagTypeTestMisc,
   TagTypeTimingAfter,
   TagTypeTimingForced,
@@ -188,10 +188,9 @@ const taggedCards: TaggedCard[] = [
     name: "Through the Gates",
     text: "<b>Revelation</b> - Draw the top card of your deck. If it is not a weakness, remove that card from the game. Then, search your deck, discard pile, hand, and all play areas for each other copy of that card you own, and remove them from the game, as well.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

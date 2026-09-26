@@ -21,7 +21,7 @@
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { flagValue, loadCorpus, referenceDir, type CorpusCard as Card, type CorpusTag as Tag } from "./lib.ts";
+import { flagValue, i18nKey, loadCorpus, loadMessages, loadTagDefs, referenceDir, type CorpusCard as Card, type CorpusTag as Tag } from "./lib.ts";
 
 // ---------- args ----------
 const argv = process.argv.slice(2);
@@ -80,6 +80,13 @@ const typeEq = (id: string) => (t: Tag) => t.type === id;
 for (const c of corpus) {
   const text = c.text ?? "";
 
+  // weakness-tagged: weaknesses (signature, bonded, basic) are never tagged, not even the
+  // stat-derived tags, so none of the checks below apply to them
+  if (c.subtype) {
+    if (c.tags.length) report("ERROR", "weakness-tagged", c, `${c.subtype} card carries ${c.tags.length} tag(s) — weaknesses stay untagged`);
+    continue;
+  }
+
   // dup-identical: two byte-identical tags carry no information (ledger: dedup convention)
   const seen = new Set<string>();
   for (const t of c.tags) {
@@ -119,6 +126,20 @@ for (const c of corpus) {
     report("WARN", "margin-rider", c, "skill-value-succeed-by-* alongside skill-test-condition-successful* (margin-only riders get skill-value only)");
   if (has(c, typeIs("skill-value-fail-by")) && has(c, typeEq("skill-test-condition-fail")))
     report("WARN", "margin-rider", c, "skill-value-fail-by-* alongside skill-test-condition-fail");
+
+  // success-variant: one success clause gets ONE of skill-test-condition-successful /
+  // -during-an-attack / -during-an-evade — both together is usually the same clause tagged twice
+  // (allowlist cards with genuinely separate clauses)
+  if (
+    has(c, typeEq("skill-test-condition-successful")) &&
+    has(c, (t) => /^skill-test-condition-successful-during-an-(attack|evade)$/.test(t.type))
+  )
+    report("WARN", "success-variant", c, "skill-test-condition-successful alongside a -during-an-attack/-evade variant — one clause gets one variant");
+
+  // shared-pool: "tokens on this card may be spent as if they were on <other assets>" is a pool
+  // — uses-support-*{supportType:"pool"}, never "move" (nothing is relocated)
+  if (/spent as if (they|it) were (\w+ )*on /i.test(text) && !has(c, (t) => t.type.startsWith("uses-support-") && t.supportType === "pool"))
+    report("WARN", "shared-pool", c, "'may be spent as if they were on …' but no uses-support-*{supportType:\"pool\"}");
 
   // own-action-defeat: defeat riders on the card's own attack don't get the persistent window
   if (has(c, typeEq("timing-when-defeat-enemy")) && (has(c, typeEq("action-bold-fight")) || /\bFight\./.test(text)))
@@ -248,6 +269,50 @@ if (!onlyPack && singletons.length)
     rule: "singleton-tags",
     msg: `${singletons.length} tags with exactly ONE member (fine, but each first application deserved scrutiny): ${singletons.map(([t, cs]) => `${t}→${cs[0].code}`).join(", ")}`,
   });
+
+// ---------- compound members matching no card (a dead where-filter or an emptied tag) ----------
+const { compoundTags, memberMatches, tagGroupIds } = await import("../dist/index.js");
+for (const ct of compoundTags as { type: string; tags: unknown[] }[]) {
+  for (const m of ct.tags) {
+    const key = `${ct.type}:${typeof m === "string" ? m : JSON.stringify(m)}`;
+    if (corpus.some((c) => c.tags.some((t) => memberMatches(m as never, t as never)))) continue;
+    if (isAllowed("compound-dead-member", key)) suppressed++;
+    else if (!onlyPack) findings.push({ level: "WARN", rule: "compound-dead-member", msg: `${key} matches no card — drop the member or fix the filter` });
+  }
+}
+
+// ---------- i18n: every tag / group / compound needs a name and a player-facing description ----------
+if (!onlyPack) {
+  const messages = await loadMessages();
+  const defs = await loadTagDefs();
+  const expected = new Map<string, string>(); // key → what it names
+  for (const id of defs.keys()) {
+    expected.set(`tag_${i18nKey(id)}`, id);
+    expected.set(`desc_tag_${i18nKey(id)}`, id);
+  }
+  for (const g of tagGroupIds as string[]) {
+    expected.set(`tag_group_${i18nKey(g)}`, g);
+    expected.set(`desc_group_${i18nKey(g)}`, g);
+  }
+  for (const ct of compoundTags as { type: string }[]) {
+    expected.set(`tag_compound_${i18nKey(ct.type)}`, ct.type);
+    expected.set(`desc_compound_${i18nKey(ct.type)}`, ct.type);
+  }
+  for (const [key, what] of expected) {
+    if (messages[key]) continue;
+    if (isAllowed("i18n", key)) suppressed++;
+    else findings.push({ level: "WARN", rule: "i18n", msg: `messages/en.json ${key} (${what}) is ${key in messages ? "empty" : "missing"}` });
+  }
+  for (const key of Object.keys(messages))
+    if (key !== "$schema" && !expected.has(key) && !isAllowed("i18n", key))
+      findings.push({ level: "WARN", rule: "i18n", msg: `messages/en.json ${key} names nothing in the taxonomy (dead key — prune with seed-strings --prune)` });
+
+  // unused tags: defined but on no card (framework slots are expected here)
+  const used = new Set(corpus.flatMap((c) => c.tags.map((t) => t.type)));
+  const unused = [...defs.keys()].filter((id) => !used.has(id));
+  if (unused.length)
+    findings.push({ level: "INFO", rule: "unused-tags", msg: `${unused.length} defined tags on no card: ${unused.join(", ")}` });
+}
 
 // ---------- compound ratchet: diff vs snapshot ----------
 try {

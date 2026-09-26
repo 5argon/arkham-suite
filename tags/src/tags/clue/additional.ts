@@ -15,9 +15,9 @@ interface TagClueAdditionalBase extends TagBase {
 }
 
 /**
- * Part of a SUCCESSFUL investigation's result: discover MORE clues at the investigated
- * location than the normal one (Rite of Seeking, Divination's clue per charge spent).
- * A standalone discovery effect is clue-discover-* instead.
+ * Discover MORE clues at the location than the normal amount — on a successful investigation
+ * (Rite of Seeking, Divination's clue per charge spent) or on any discovery (Newspaper (2),
+ * Trish Scarborough). A standalone discovery effect is clue-discover-* instead.
  */
 export interface TagClueAdditionalThisLocation extends TagClueAdditionalBase {
   type: TagTypeClueAdditional.ClueAdditionalThisLocation;

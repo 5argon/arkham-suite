@@ -41,7 +41,6 @@ import {
   TagTypeExile,
   TagTypeGainKeyword,
   TagTypeGainResource,
-  TagTypeHandSize,
   TagTypeHeal,
   TagTypeLimit,
   TagTypeLocationMove,
@@ -114,10 +113,9 @@ const taggedCards: TaggedCard[] = [
     name: "Shell Shock",
     text: "<b>Revelation</b> - For every 2 damage on you, take 1 horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "03009",
@@ -165,10 +163,9 @@ const taggedCards: TaggedCard[] = [
     name: "The King in Yellow",
     text: "<b>Revelation</b> - Put The King in Yellow into play in your threat area. It cannot leave play except through the [reaction] ability below.\nYou cannot commit exactly 1 or 2 cards to a skill test.\n[reaction] After a skill test is successful in which Minh Thi Phan has committed at least 6 matching skill icons for that test: Discard The King in Yellow.",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "03003",
@@ -198,10 +195,9 @@ const taggedCards: TaggedCard[] = [
     name: "Stars of Hyades",
     text: "<b>Revelation</b> - Randomly choose an event beneath Sefina Rousseau and remove it from the game. If you cannot, take 1 damage and 1 horror. If your deck has 5 or more cards in it, shuffle Stars of Hyades back into your deck instead of discarding it.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "03004",
@@ -231,10 +227,9 @@ const taggedCards: TaggedCard[] = [
     name: "Angered Spirits",
     text: "<b>Revelation</b> - Put Angered Spirits into play in your threat area.\n[free] Exhaust a [[Spell]] asset: Move 1 charge from that asset to Angered Spirits.\n<b>Forced</b> - When the game ends, if Angered Spirits has fewer than 4 charges on it: You suffer 1 physical trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "03005",
@@ -270,10 +265,9 @@ const taggedCards: TaggedCard[] = [
     name: "Graveyard Ghouls",
     text: "<b>Prey</b> - William Yorick only.\nHunter.\nWhile Graveyard Ghouls is engaged with you, cards cannot leave your discard pile.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "03006",
@@ -304,10 +298,9 @@ const taggedCards: TaggedCard[] = [
     name: "Crisis of Identity",
     text: "<b>Revelation</b> - Discard all cards you control of your current role. Then, discard the top card of your deck. Switch your role to the class of the discarded card (if the discarded card is a weakness, switch your role to neutral).",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckDiscard.DeckDiscardDeck },
-    ],
+    tags: [],
   },
   {
     code: "03020",
@@ -360,6 +353,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeTank.TankRedirectEncounter },
       { type: TagTypeStatsModBoostLasting.StatsModBoostLastingAny, value: 2 },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -729,6 +723,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeActionBold.ActionBoldMove },
       { type: TagTypeLocationMove.LocationMoveInvestigatorAny },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -961,9 +956,7 @@ const taggedCards: TaggedCard[] = [
     level: 1,
     cardType: "asset",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "03195",
@@ -1277,6 +1270,7 @@ const taggedCards: TaggedCard[] = [
     tags: [
       { type: TagTypeCostOther.CostHorrorSelf },
       { type: TagTypeCancel.CancelRevelation },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -1691,32 +1685,27 @@ const taggedCards: TaggedCard[] = [
     name: "Overzealous",
     text: "<b>Revelation</b> - Draw the top card of the encounter deck. That card gains surge.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "03041",
     name: "Drawing the Sign",
     text: "<b>Revelation</b> - Put Drawing the Sign into play in your threat area.\nYour maximum hand size is reduced by 5.\n[action] [action]: Discard Drawing the Sign.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-      { type: TagTypeHandSize.HandSizeMaxDecrease, value: 5 },
-    ],
+    tags: [],
   },
   {
     code: "03042",
     name: "The Thing That Follows",
     text: "<b>Spawn</b> - Location farthest from you.\n<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - When The Thing That Follows would be defeated: Instead shuffle it into its bearer's deck.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

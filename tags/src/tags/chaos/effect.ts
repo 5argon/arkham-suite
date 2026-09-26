@@ -43,13 +43,18 @@ export interface TagChaosEffectResolveChoose extends TagChaosEffectBase {
   type: TagTypeChaosEffect.ChaosEffectResolveChoose;
 }
 
+/**
+ * Acts in the window just BEFORE chaos tokens are revealed for a test — add tokens (Guided by
+ * Faith), name a symbol to ignore (Defiance), or reveal extra (Breath of the Sleeper) or early
+ * (Scrying Mirror).
+ */
 export interface TagChaosEffectRevealBeforeEffect extends TagChaosEffectBase {
   type: TagTypeChaosEffect.ChaosEffectRevealBeforeEffect;
 }
 
 /**
  * Treat a revealed token as a DIFFERENT token (`to`) — Eucatastrophe and Father Mateo
- * turn it into an [elder_sign]; The Necronomicon turns [elder_sign] into [auto_fail].
+ * turn it into an [elder_sign]; Jim Culver may treat an [elder_sign] as a [skull].
  */
 export interface TagChaosEffectTreatTokenAs extends TagChaosEffectBase {
   type: TagTypeChaosEffect.ChaosEffectTreatTokenAs;

@@ -19,7 +19,7 @@ export interface TagDeckDiscardCardChoose extends TagDeckDiscardBase {
 }
 
 /**
- * Discard a RANDOM card from your HAND (Obsessive, Liquid Courage's failed test).
+ * Discard a RANDOM card from your HAND (Liquid Courage's failed test, Occult Records).
  * Despite the deck- prefix (its group folder), this is a HAND discard — milling
  * the player deck is deck-discard-deck.
  */
@@ -28,7 +28,7 @@ export interface TagDeckDiscardCardRandom extends TagDeckDiscardBase {
 }
 
 /**
- * Discard from the top of the PLAYER deck — mill (Crisis of Identity, Daredevil,
+ * Discard from the top of the PLAYER deck — mill (Daredevil, Key of Ys,
  * Scroll of Secrets' bottom-card discard).
  */
 export interface TagDeckDiscardDeck extends TagDeckDiscardBase {

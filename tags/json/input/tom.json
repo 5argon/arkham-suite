@@ -39,6 +39,7 @@
   "name": "Loose Cannon",
   "text": "<b>Revelation</b> - You must either discard each [[Firearm]] asset you control or lose 5 resources.",
   "type": "treachery",
+  "subtype": "weakness",
   "traits": "Flaw.",
   "icons": []
  },
@@ -47,6 +48,7 @@
   "name": "Overconfident",
   "text": "<b>Revelation</b> - Put Overconfident into play in your threat area.\n<b>Forced</b> - After you fail a skill test: Take 1 damage.\n[action] [action]: Discard Overconfident.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Flaw.",
   "icons": []
  },

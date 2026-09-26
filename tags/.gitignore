@@ -7,3 +7,5 @@ json/export/
 
 # Work files for the tagging pass (reproducible)
 reference/_taxonomy-digest.md
+reference/_tag-glossary.md
+reference/_corpus.tsv

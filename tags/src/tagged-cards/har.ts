@@ -11,7 +11,6 @@ import {
   TagTypeCostOther,
   TagTypeCostReaction,
   TagTypeDamage,
-  TagTypeDeckDiscard,
   TagTypeDeckDraw,
   TagTypeDeckMisc,
   TagTypeDeckSearch,
@@ -20,6 +19,7 @@ import {
   TagTypeDuration,
   TagTypeEnemyElite,
   TagTypeEnemyEngage,
+  TagTypeGainKeyword,
   TagTypeGainResource,
   TagTypeHandSize,
   TagTypeLocationMove,
@@ -43,13 +43,12 @@ import {
   TagTypeTimingAfter,
   TagTypeTimingDuring,
   TagTypeTimingForced,
-  TagTypeTimingPhaseSequence,
   TagTypeTimingWhen,
   TagTypeTraitSupport,
   TagTypeUsesStarting,
 } from "../tags/index.js";
 import { BasicAction, SkillType } from "../kohaku.js";
-import { TaggedCard, TimingQualifier } from "../type.js";
+import { TaggedCard } from "../type.js";
 
 const taggedCards: TaggedCard[] = [
   {
@@ -85,24 +84,18 @@ const taggedCards: TaggedCard[] = [
     name: "Thrice-Damned Curiosity",
     text: "<b>Revelation</b> - For every 3 cards in your hand: Take 1 damage.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeHandSize.HandSizeDependent, comparison: "max" },
-      { type: TagTypeDamage.DamageToInvestigator, value: "dynamic" },
-    ],
+    tags: [],
   },
   {
     code: "60204",
     name: "Obsessive",
     text: "<b>Revelation</b> - Put Obsessive into play in your threat area.\n<b>Forced</b> - When your turn begins: Discard 1 non-weakness card at random from your hand.\n[action] [action]: Discard Obsessive.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingPhaseSequence.PhaseInvestigationTurnBegins, timing: TimingQualifier.When },
-      { type: TagTypeDeckDiscard.DeckDiscardCardRandom },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "60205",
@@ -508,6 +501,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostFree.CostFreeExhaustSelf },
       { type: TagTypeTimingDuring.TimingDuringYourTurn },
       { type: TagTypeCondition.ConditionHandSize, comparison: "min", value: 8 },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {

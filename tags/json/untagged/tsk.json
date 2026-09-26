@@ -29,9 +29,7 @@
   "code": "09003",
   "name": "Selfless to a Fault",
   "text": "<b>Revelation</b> - Put Selfless to a Fault into play in your threat area.\n<b>Forced</b> - At the end of your turn, if you did not commit at least 1 card to a skill test performed by another investigator this turn: Take 1 horror and shuffle Selfless to a Fault into your deck.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "09004",
@@ -76,9 +74,7 @@
   "code": "09007",
   "name": "Wounded Bystander",
   "text": "<b>Revelation</b> - Put Wounded Bystander into play in your play area with 3 damage on it. It cannot leave play while it has damage (unless it is defeated). If it has no damage, discard it.\n<b>Forced</b> - When you take non-direct damage: At least 1 of it must be assigned to Wounded Bystander, if able.\n<b>Forced</b> - If Wounded Bystander is defeated: You suffer 1 mental trauma.",
-  "tags": [
-   "{ type: TagTypeSoak.SoakHealth, value: 5 }"
-  ]
+  "tags": []
  },
  {
   "code": "09008",
@@ -158,10 +154,7 @@
   "code": "09014",
   "name": "Deafening Silence",
   "text": "<b>Revelation</b> - Move 1 doom from an asset you control to the current agenda. This may cause the current agenda to advance. If no doom is moved in this way, shuffle Deafening Silence back into your deck.",
-  "tags": [
-   "{ type: TagTypeDoom.DoomMove }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "09015",
@@ -222,9 +215,7 @@
   "code": "09020",
   "name": "Burden of Leadership",
   "text": "<b>Revelation</b> - If you control no [[Ally]] assets, shuffle Burden of Leadership back into your deck. Otherwise, for each [[Ally]] asset you control, you must either exhaust it or deal it 1 direct damage and 1 direct horror.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "09021",
@@ -488,7 +479,9 @@
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
    "{ type: TagTypeUsesAccumulate.UsesAccumulate, tokenName: \"evidence\" }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
-   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"card\" }"
+   "{ type: TagTypeCostFree.CostFreeSpendResource, source: \"card\" }",
+   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
+   "{ type: TagTypeCostReaction.CostReactionExhaustSelf }"
   ]
  },
  {
@@ -706,7 +699,12 @@
   "tags": [
    "{ type: TagTypeTestInitiate.TestInitiateIntellect, difficulty: 1 }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
-   "{ type: TagTypeDuration.DurationNext, window: \"round\" }"
+   "{ type: TagTypeDuration.DurationNext, window: \"round\" }",
+   "{ type: TagTypeDamage.DamagePlus, value: \"dynamic\" }",
+   "{ type: TagTypeHeal.HealDamageInvestigator, value: \"dynamic\" }",
+   "{ type: TagTypeHeal.HealHorrorInvestigator, value: \"dynamic\" }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }",
+   "{ type: TagTypeLocationYour.LocationYourEnemy }"
   ]
  },
  {
@@ -729,7 +727,7 @@
   "text": "Customizable. When you purchase Friends in Low Places, choose and record a [[Trait]] on its upgrade sheet.\nLook at the top 6 cards of your deck. For each looked-at card with the chosen [[Trait]](s), you may spend 1 resource to add that card to your hand. Shuffle the remaining cards into your deck.",
   "tags": [
    "{ type: TagTypeCustomizable.Customizable }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: \"dynamic\" }",
+   "{ type: TagTypeDeckSearch.DeckSearchYou, range: { type: \"top\", cards: 6 } }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
    "{ type: TagTypeDeckLook.DeckLookYou, value: 6, reorder: false }"
   ]
@@ -911,7 +909,8 @@
    "{ type: TagTypeLocationYour.LocationYourEnemy }",
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 3 }",
    "{ type: TagTypeRecursion.RecursionSelfToHand }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeTestless.TestlessEvade }"
   ]
  },
  {
@@ -1106,7 +1105,8 @@
    "{ type: TagTypeTestless.TestlessClue, value: 1 }",
    "{ type: TagTypeEnemyMitigation.EnemyMitigationDefeat }",
    "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
-   "{ type: TagTypeDoom.DoomAdd, target: \"enemy\" }"
+   "{ type: TagTypeDoom.DoomAdd, target: \"enemy\" }",
+   "{ type: TagTypeDoom.DoomCheck }"
   ]
  },
  {
@@ -1156,7 +1156,8 @@
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeSoak.SoakSanity, value: 2 }",
-   "{ type: TagTypeDoom.DoomPreventAdvance }"
+   "{ type: TagTypeDoom.DoomPreventAdvance }",
+   "{ type: TagTypeDoom.DoomCheck }"
   ]
  },
  {
@@ -1165,7 +1166,8 @@
   "text": "Fast. Play only during your turn.\nRemove all doom from a non-[[Elite]] card at your location.",
   "tags": [
    "{ type: TagTypeTimingDuring.TimingDuringYourTurn }",
-   "{ type: TagTypeDoom.DoomRemove }"
+   "{ type: TagTypeDoom.DoomRemove }",
+   "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }"
   ]
  },
  {
@@ -1365,7 +1367,7 @@
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before }",
    "{ type: TagTypeAuto.AutoSuccess }",
    "{ type: TagTypeClueAdditional.ClueAdditionalThisLocation, value: 1 }",
-   "{ type: TagTypeClueDiscover.ClueDiscoverAnyLocation, value: 1 }",
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: false }",
    "{ type: TagTypeTestMisc.TestYouPerform }"
   ]
  },
@@ -1557,36 +1559,24 @@
   "code": "09125",
   "name": "Quantum Paradox",
   "text": "[seeker] investigator only.\nAs an additional cost to play Quantum Paradox, you must choose and discard 4 other cards from your hand.\n<b>Forced</b> - If Quantum Paradox is in your hand at the end of your turn: Reveal it and take 1 horror.",
-  "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
-   "{ type: TagTypeCostOther.CostDiscardCard }"
-  ]
+  "tags": []
  },
  {
   "code": "09126",
   "name": "Pay Your Due",
   "text": "[rogue] investigator only.\nAs an additional cost to play Pay Your Due, you may spend any number of additional actions. Reduce its cost by 5 for each additional action spent.\n<b>Forced</b> - If Pay Your Due is in your hand at the end of your turn: Reveal it and take 1 damage.",
-  "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
-   "{ type: TagTypeCostOther.CostPlaySpendAction }",
-   "{ type: TagTypeCostDiscount.CostDiscountSelf, amount: \"dynamic\" }"
-  ]
+  "tags": []
  },
  {
   "code": "09127",
   "name": "Ectoplasmic Horror",
   "text": "[mystic] investigator only.\nHunter.\nThe first time you reveal a chaos token while attacking or attempting to evade Ectoplasmic Horror, reveal an additional token for each empty arcane slot you have.",
-  "tags": [
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
-   "{ type: TagTypeChaosReveal.ChaosRevealMore }"
-  ]
+  "tags": []
  },
  {
   "code": "09128",
   "name": "Underprepared",
   "text": "[survivor] investigator only.\nPlay only if Underprepared is the only card in your hand and you have exactly 1 resource in your resource pool.\nWhile Underprepared is in your hand, each card you commit to skill tests is considered to have 1 fewer matching skill icon.",
-  "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }"
-  ]
+  "tags": []
  }
 ]

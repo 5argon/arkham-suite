@@ -4,6 +4,7 @@ import {
   TagTypeAttach,
   TagTypeAuto,
   TagTypeChaosDownside,
+  TagTypeChaosPredict,
   TagTypeChaosReveal,
   TagTypeClueAdditional,
   TagTypeClueDiscover,
@@ -47,7 +48,7 @@ import {
   TagTypeTimingSkill,
   TagTypeTimingWhen,
   TagTypeTraitSupport,
-  TagTypeUsesSelfPlace,
+  TagTypeUsesReplenish,
   TagTypeUsesStarting,
 } from "../tags/index.js";
 import { BasicAction, SkillType } from "../kohaku.js";
@@ -86,20 +87,18 @@ const taggedCards: TaggedCard[] = [
     name: "Feline Hybrid",
     text: "Elusive. Hunter. Prey (Miguel de la Cruz only).\nFeline Hybrid is immune to player card effects.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "60554",
     name: "Blood Drinker",
     text: "Hunter. Retaliate.\n<b>Forced</b> - After Blood Drinker attacks: Heal 1 damage from it.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "60555",
@@ -155,6 +154,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationShroud.LocationShroudReduction, value: 1 },
       { type: TagTypeSkillTestCondition.SkillTestConditionFail },
       { type: TagTypeTestRepeat.TestRepeatFailed },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {
@@ -169,6 +169,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Agility, instead: SkillType.Combat, action: BasicAction.Fight },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Fight },
       { type: TagTypeGainResource.GainResourceYou, value: 1 },
+      { type: TagTypeCostAction.CostActionExhaustSelf },
     ],
   },
   {
@@ -217,9 +218,10 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModUseInstead.StatsModUseInstead, use: SkillType.Intellect, instead: SkillType.Agility, action: BasicAction.Evade },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1, action: BasicAction.Evade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
+      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeCostReaction.CostReactionDiscardSelf },
       { type: TagTypeLocationMove.LocationMoveInvestigatorSelf },
+      { type: TagTypeRemote.RemoteMove },
     ],
   },
   {
@@ -453,6 +455,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeTestless.TestlessDamageYourLocation, value: 1 },
       { type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 },
+      { type: TagTypeTestless.TestlessDamageEvadedEnemy, value: 1 },
     ],
   },
   {
@@ -515,7 +518,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 2, action: BasicAction.Fight },
       { type: TagTypeDamage.DamagePlus, value: 2 },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Aloof" },
-      { type: TagTypeUsesSelfPlace.UsesSelfPlace, useType: "arrow", conditional: false },
+      { type: TagTypeUsesReplenish.UsesReplenish, useType: "arrow", conditional: true },
     ],
   },
   {
@@ -546,6 +549,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitMax, value: 1 },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When },
       { type: TagTypeTestMisc.TestYouPerform },
+      { type: TagTypeChaosPredict.ChaosPredict },
     ],
   },
 ];

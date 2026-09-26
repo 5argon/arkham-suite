@@ -71,7 +71,6 @@ import {
   TagTypeTimingAfter,
   TagTypeTimingDuring,
   TagTypeTimingForced,
-  TagTypeTimingGame,
   TagTypeTimingPhaseSequence,
   TagTypeTimingSkill,
   TagTypeTimingWhen,
@@ -119,10 +118,9 @@ const taggedCards: TaggedCard[] = [
     name: "Bought in Blood",
     text: "<b>Revelation</b> - You must either discard an [[Ally]] asset you control from play, or discard each [[Ally]] asset from your hand. If no assets are discarded by this effect, shuffle Bought in Blood back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "04002",
@@ -157,10 +155,9 @@ const taggedCards: TaggedCard[] = [
     name: "Call of the Unknown",
     text: "<b>Revelation</b> - Put Call of the Unknown into play in your threat area.\n<b>Forced</b> - At the beginning of your turn: Choose a location other than your location. When your turn ends, if you did not successfully investigate the chosen location this turn, take 2 horror and shuffle Call of the Unknown back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-    ],
+    tags: [],
   },
   {
     code: "04003",
@@ -212,11 +209,9 @@ const taggedCards: TaggedCard[] = [
     name: "Caught Red-Handed",
     text: "<b>Revelation</b> - Ready each enemy at your location or a connecting location. Each hunter enemy at a connecting location moves 1 location toward you. If no enemies move as a result of this effect, shuffle Caught Red-Handed back into your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDeckShuffle.DeckShufflePlayer },
-      { type: TagTypeLocationConnecting.LocationConnectingEnemy },
-    ],
+    tags: [],
   },
   {
     code: "04004",
@@ -256,10 +251,9 @@ const taggedCards: TaggedCard[] = [
     name: "Serpents of Yig",
     text: "<b>Prey</b> - Father Mateo only.\nHunter.\n<b>Revelation</b> - Search the chaos bag for the [elder_sign] chaos token and seal it on Serpents of Yig.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "04005",
@@ -294,10 +288,9 @@ const taggedCards: TaggedCard[] = [
     name: "Voice of the Messenger",
     text: "<b>Revelation</b> - You must either (choose one):\n - Take 1 direct damage and suffer 1 physical trauma.\n - Take 1 direct horror and suffer 1 mental trauma.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-    ],
+    tags: [],
   },
   {
     code: "04017",
@@ -1136,6 +1129,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealSealedInstead },
       { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
       { type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.Before },
+      { type: TagTypeChaosPredict.ChaosPredict },
     ],
   },
   {
@@ -1651,54 +1645,45 @@ const taggedCards: TaggedCard[] = [
     name: "Dark Pact",
     text: "Campaign Mode only.\nDeal 2 damage to an investigator at your location.\n<b>Forced</b> - When the game ends or you are eliminated, if Dark Pact is still in your hand: Remove Dark Pact from your deck. Search the collection for The Price of Failure and add it to your deck.",
     cardType: "event",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeSkillCommit.SkillCommitNoIcons },
-      { type: TagTypeDamage.DamageToInvestigator, value: 2 },
-      { type: TagTypeLocationYour.LocationYourInvestigator },
-      { type: TagTypeTimingGame.TimingGameEnds },
-    ],
+    tags: [],
   },
   {
     code: "04039",
     name: "The Price of Failure",
     text: "<b>Revelation</b> - Take 2 damage and 2 horror. Place 1 doom on the current agenda (this effect can cause the current agenda to advance). Remove The Price of Failure from your deck. Search the collection for Dark Pact and place it in your discard pile.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeDoom.DoomAdd, target: "agenda" },
-      { type: TagTypeDamage.DamageToInvestigator, value: 2 },
-    ],
+    tags: [],
   },
   {
     code: "04040",
     name: "Doomed",
     text: "Campaign Mode only.\n<b>Revelation</b> - Take 1 horror. In your Campaign Log, under your investigator's earned story assets/weaknesses, record that \"doom approaches.\" If this was already recorded, remove Doomed from your deck, search the collection for Accursed Fate, and place it on the bottom of your deck.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "04041",
     name: "Accursed Fate",
     text: "<b>Revelation</b> - Take 2 horror. In your Campaign Log, under your investigator's earned story assets/weaknesses, record that \"the hour is nigh.\" If this was already recorded, remove Accursed Fate from your deck, search the collection for The Bell Tolls, and place it on the bottom of your deck.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "04042",
     name: "The Bell Tolls",
     text: "<b>Revelation</b> - The hour of your demise has arrived. You are <b>killed</b>.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

@@ -17,7 +17,7 @@
  */
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { loadCorpus, root, type CorpusCard as Card } from "./lib.ts";
+import { cosine, loadCorpus, root, tfidfIndex, type CorpusCard as Card } from "./lib.ts";
 
 // ---------- args ----------
 const argv = process.argv.slice(2);
@@ -76,46 +76,20 @@ if (/^\d{5}[a-z]?$/.test(query)) {
   }
   queryText = found.text;
   queryName = found.name;
+  if ((found as { subtype?: string }).subtype)
+    console.log(`NOTE: ${found.name} is a weakness — weaknesses are never tagged; leave its tags empty.\n`);
   queryLabel = `${found.name} (${found.code}) [${found.pack}]`;
 }
 
-// the precedent POOL excludes calibration cards (query resolution above used the full corpus)
-const pool = corpus.filter((c) => !exclude.has(c.code));
+// the precedent POOL excludes calibration cards and the untagged weaknesses (query resolution
+// above used the full corpus)
+const pool = corpus.filter((c) => !exclude.has(c.code) && !c.subtype);
 
 // ---------- TF-IDF cosine ----------
-function tokenize(text: string): string[] {
-  const norm = text
-    .toLowerCase()
-    .replace(/<[^>]+>/g, " ") // <b>Forced</b> → forced
-    .replace(/\[\[([^\]]+)\]\]/g, "trait_$1") // [[Monster]] → trait_monster
-    .replace(/\[([a-z_ ]+)\]/g, "icon_$1"); // [action]/[elder_sign] → icon_action…
-  const uni = norm.split(/[^a-z0-9_+]+/).filter((t) => t.length > 1);
-  const grams = [...uni];
-  for (let i = 0; i < uni.length - 1; i++) grams.push(uni[i] + " " + uni[i + 1]);
-  return grams;
-}
-const docTokens = pool.map((c) => tokenize(c.text));
-const df = new Map<string, number>();
-for (const toks of docTokens) for (const t of new Set(toks)) df.set(t, (df.get(t) ?? 0) + 1);
-const N = pool.length;
-const idf = (t: string) => Math.log((N + 1) / ((df.get(t) ?? 0) + 1));
-function vec(tokens: string[]): Map<string, number> {
-  const tf = new Map<string, number>();
-  for (const t of tokens) tf.set(t, (tf.get(t) ?? 0) + 1);
-  const v = new Map<string, number>();
-  for (const [t, f] of tf) v.set(t, (1 + Math.log(f)) * idf(t));
-  return v;
-}
-function cosine(a: Map<string, number>, b: Map<string, number>): number {
-  let dot = 0;
-  const [small, large] = a.size < b.size ? [a, b] : [b, a];
-  for (const [t, w] of small) dot += w * (large.get(t) ?? 0);
-  const norm = (m: Map<string, number>) => Math.sqrt([...m.values()].reduce((s, w) => s + w * w, 0));
-  return dot / (norm(a) * norm(b) || 1);
-}
-const qv = vec(tokenize(queryText));
+const index = tfidfIndex(pool.map((c) => c.text));
+const qv = index.vectorize(queryText);
 const scored = pool
-  .map((c, i) => ({ c, score: cosine(qv, vec(docTokens[i])) }))
+  .map((c, i) => ({ c, score: cosine(qv, index.docs[i]) }))
   .filter(({ c, score }) => score > 0 && c.code !== query)
   .sort((a, b) => b.score - a.score);
 

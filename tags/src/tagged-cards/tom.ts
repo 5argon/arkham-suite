@@ -21,6 +21,7 @@ import {
   TagTypeEnemyElite,
   TagTypeEnemyRestriction,
   TagTypeEnemyValue,
+  TagTypeGainKeyword,
   TagTypeGainResource,
   TagTypeHeal,
   TagTypeLocationMove,
@@ -87,23 +88,18 @@ const taggedCards: TaggedCard[] = [
     name: "Loose Cannon",
     text: "<b>Revelation</b> - You must either discard each [[Firearm]] asset you control or lose 5 resources.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "60154",
     name: "Overconfident",
     text: "<b>Revelation</b> - Put Overconfident into play in your threat area.\n<b>Forced</b> - After you fail a skill test: Take 1 damage.\n[action] [action]: Discard Overconfident.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "60155",
@@ -227,6 +223,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeTraitSupport.TraitSupportFirearm },
       { type: TagTypeCostFree.CostFreeDiscardSelf },
       { type: TagTypePlayArea.PlayAreaToHand },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -305,6 +302,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCommit.CommitDuringEvade },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Alert" },
       { type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: "Retaliate" },
+      { type: TagTypeCommit.CommitBenefitsPerformer },
     ],
   },
   {

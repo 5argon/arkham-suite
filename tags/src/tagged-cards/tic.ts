@@ -140,6 +140,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostDiscount.CostDiscount, amount: 1 },
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeDeckDraw.DeckDrawYou, value: 1 },
+      { type: TagTypeGainKeyword.GainKeywordFastOther },
     ],
   },
   {
@@ -178,10 +179,9 @@ const taggedCards: TaggedCard[] = [
     name: "Crisis of Faith",
     text: "<b>Revelation</b> - For each [bless] token in the chaos bag, you must either replace it with a [curse] token or take 1 horror.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosBag.ChaosBagReplace, value: "dynamic", from: "bless", to: "curse" },
-    ],
+    tags: [],
   },
   {
     code: "07008",
@@ -199,10 +199,9 @@ const taggedCards: TaggedCard[] = [
     name: "Whispers from the Deep",
     text: "This skill's icons subtract from your skill value instead of adding to it.\n<b>Forced</b> - When choosing a card to place beneath Amanda Sharpe, if Whispers from the Deep is in your hand: You must choose it.",
     cardType: "skill",
+    subtype: "weakness",
     icons: ["wild"],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "07010",
@@ -223,10 +222,9 @@ const taggedCards: TaggedCard[] = [
     name: "Shadow Agents",
     text: "<b>Prey</b> - Trish Scarborough only.\nHunter.\nWhile Shadow Agents is engaged with you, you cannot discover clues except by investigating.\n<b>Forced</b> - After Shadow Agents is evaded: Discard it.",
     cardType: "enemy",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "07012",
@@ -245,10 +243,9 @@ const taggedCards: TaggedCard[] = [
     name: "Occult Scraps",
     text: "Occult Scraps cannot be played using a play action.\nWhile Occult Scraps is in your hand, you get -2 [willpower].\nWhile Occult Scraps is in play, you get -1 [willpower].",
     cardType: "asset",
+    subtype: "weakness",
     icons: [],
-    tags: [
-
-    ],
+    tags: [],
   },
   {
     code: "07014",
@@ -278,7 +275,6 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDeckMisc.DeckRestriction },
       { type: TagTypeActionBold.ActionBoldEvade },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAgility, value: 1, action: BasicAction.Evade },
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
       { type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade },
       { type: TagTypeAuto.AutoEvade },
       { type: TagTypeEnemyEngage.EnemyEngageTargetEngaged },
@@ -286,6 +282,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypePlayArea.PlayAreaToHand },
       { type: TagTypeRecursion.RecursionSkill },
       { type: TagTypeEnemyEngage.EnemyEngageEvadeMultiple },
+      { type: TagTypeTestless.TestlessEvade },
     ],
   },
   {
@@ -293,11 +290,9 @@ const taggedCards: TaggedCard[] = [
     name: "Siren Call",
     text: "<b>Revelation</b> - Put Siren Call into play in your threat area.\nAs an additional cost to commit 1 or more cards to a skill test, you must pay 1 resource for each matching skill icon those cards have.\n[action][action]: Discard Siren Call.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "07017",
@@ -526,6 +521,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeChaosReveal.ChaosRevealTokenBless },
       { type: TagTypeChaosReveal.ChaosRevealTokenElderSign },
       { type: TagTypeCancel.CancelRevelation },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -616,30 +612,27 @@ const taggedCards: TaggedCard[] = [
     name: "Accursed Follower",
     text: "<b>Spawn</b> - Location farthest from you.\nAloof.\n<b>Forced</b> - At the end of the enemy phase: Add 1 [curse] token to the chaos bag.",
     cardType: "enemy",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosBag.ChaosBagAddCurse, value: 1 },
-    ],
+    tags: [],
   },
   {
     code: "07039",
     name: "Dread Curse",
     text: "<b>Revelation</b> - Add 5 [curse] tokens to the chaos bag.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosBag.ChaosBagAddCurse, value: 5 },
-    ],
+    tags: [],
   },
   {
     code: "07040",
     name: "Day of Reckoning",
     text: "<b>Revelation</b> - Attach Day of Reckoning to the current agenda. Then, search the chaos bag for an [elder_sign] token and seal it on Day of Reckoning.\n<b>Card design inspired by the events of Arkham Nights 2018.</b>",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosSeal.ChaosSealTokenElderSign },
-    ],
+    tags: [],
   },
   {
     code: "07108",
@@ -682,6 +675,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeChaosReveal.ChaosRevealTokenBless },
       { type: TagTypeChaosEffect.ChaosEffectIgnoreModifier },
+      { type: TagTypeLocationYour.LocationYourInvestigator },
     ],
   },
   {
@@ -745,6 +739,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeAuto.AutoEvade },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeTestless.TestlessEvade },
     ],
   },
   {
@@ -951,6 +946,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeDamage.DamageSpread, value: "dynamic" },
       { type: TagTypeLocationYour.LocationYourEnemy },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1076,6 +1072,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeLocationYour.LocationYourAlly },
       { type: TagTypeAoo.AooNoProvoke },
+      { type: TagTypeChaosPayoff.ChaosSymbolPayoff },
     ],
   },
   {
@@ -1702,6 +1699,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeGainResource.GainResourceYou, value: 1 },
       { type: TagTypeCostFree.CostFreeSpendResource },
       { type: TagTypeUsesSupport.UsesSupportSecret, supportType: "move" },
+      { type: TagTypeUsesSupport.UsesSupportSecret, supportType: "pool" },
     ],
   },
   {

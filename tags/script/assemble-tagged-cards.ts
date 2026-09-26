@@ -65,7 +65,7 @@ const body = rows
       `    name: ${JSON.stringify(r.name)},\n` +
       `    text: ${JSON.stringify(r.text)},\n` +
       metaBlock +
-      `    tags: [\n${tags}\n    ],\n` +
+      (tags ? `    tags: [\n${tags}\n    ],\n` : `    tags: [],\n`) +
       `  },`
     );
   })

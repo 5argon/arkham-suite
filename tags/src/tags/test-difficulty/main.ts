@@ -36,9 +36,8 @@ export interface TagTestDifficultyIncrease extends TagTestDifficultyBase {
 /**
  * GATES on the test's difficulty value itself — "only if the difficulty of that test is
  * higher than your base skill value" (Rise to the Occasion, Signum Crucis), "only if the
- * difficulty of this test is currently 0" (Exploit Weakness, Shed a Light), "a skill test
- * with a difficulty of 4 or higher" (Called by the Mists). A condition, so it carries no
- * value; the reduce/increase siblings CHANGE the difficulty instead.
+ * difficulty of this test is currently 0" (Exploit Weakness, Shed a Light). A condition, so
+ * it carries no value; the reduce/increase siblings CHANGE the difficulty instead.
  */
 export interface TagTestDifficultyCondition extends TagBase {
   type: TagTypeTestDifficulty.TestDifficultyCondition;

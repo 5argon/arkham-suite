@@ -57,6 +57,7 @@
   "name": "Weight of the World",
   "text": "<b>Revelation</b> - Put Weight of the World into play in your threat area.\n<b>Forced</b> - When you fail a skill test while Weight of the World is in play, take 1 horror and shuffle it back into your deck.",
   "type": "treachery",
+  "subtype": "weakness",
   "traits": "Terror.",
   "icons": []
  },
@@ -65,6 +66,7 @@
   "name": "Unaware",
   "text": "<b>Revelation</b> - Put Unaware into play in your threat area.\n<b>Forced</b> - The first time you fail a skill test during your turn: Draw the top card of the encounter deck. If that card is an enemy, discard Unaware.",
   "type": "treachery",
+  "subtype": "basicweakness",
   "traits": "Flaw.",
   "icons": []
  },

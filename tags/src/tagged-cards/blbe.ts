@@ -1,12 +1,11 @@
 import {
-  TagTypeTimingSkill,
-  TagTypeChaosReveal,
   TagTypeDeckDraw,
   TagTypeDeckMisc,
   TagTypeHeal,
   TagTypeStatsModBoostPassive,
   TagTypeTimingDuring,
   TagTypeTimingGame,
+  TagTypeTimingSkill,
 } from "../tags/index.js";
 import { TaggedCard, TimingQualifier } from "../type.js";
 
@@ -52,10 +51,9 @@ const taggedCards: TaggedCard[] = [
     name: "Reality Acid",
     text: "<b>Revelation</b> - If Ravenous <i>(Controlled Hunger)</i> is face up, flip it over. You devour a random aspect of reality. Reveal a random chaos token from the chaos bag and consult Reality Acid reference card to determine what you devoured.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeChaosReveal.ChaosRevealManual },
-    ],
+    tags: [],
   },
 ];
 export default taggedCards;

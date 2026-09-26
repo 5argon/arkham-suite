@@ -57,10 +57,7 @@
   "code": "08006",
   "name": "The Harbinger",
   "text": "<b>Revelation</b> - Place this card on top of your deck.\nWhile The Harbinger is revealed and on top of your deck, cards in your deck cannot be searched, drawn, or manipulated in any way except by the below ability.\n[action] [action]: Discard The Harbinger. This ability may be activated while The Harbinger is on top of your deck, as if it were in your threat area.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "08007",
@@ -90,13 +87,7 @@
   "code": "08009",
   "name": "Buried Secrets",
   "text": "<b>Revelation</b> - Put Buried Secrets into play in your threat area.\nIf your location can be investigated, you cannot move except by scenario card effects.\n[action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Buried Secrets. If you fail, you may take 2 horror to shuffle it into your deck.",
-  "tags": [
-   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionFail }"
-  ]
+  "tags": []
  },
  {
   "code": "08010",
@@ -111,9 +102,7 @@
   "code": "08015",
   "name": "Burden of Destiny",
   "text": "<b>Revelation</b> - You must either (choose one):\n- Flip a Discipline you control to its [[Broken]] side. It cannot be flipped back this round.\n- Take 1 damage and 1 horror.",
-  "tags": [
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }"
-  ]
+  "tags": []
  },
  {
   "code": "08016",
@@ -280,7 +269,8 @@
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
    "{ type: TagTypeRemote.RemoteMove }",
    "{ type: TagTypeStatsModAddStat.StatsModAddStat, from: SkillType.Agility, action: BasicAction.Fight }",
-   "{ type: TagTypeDamage.DamagePlus, value: 3 }"
+   "{ type: TagTypeDamage.DamagePlus, value: 3 }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }"
   ]
  },
  {
@@ -429,7 +419,8 @@
    "{ type: TagTypeUsesMarker.UsesBoardMarker }",
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
-   "{ type: TagTypeRemote.RemoteMove }"
+   "{ type: TagTypeRemote.RemoteMove }",
+   "{ type: TagTypeTestless.TestlessDamageConnectingLocation, value: 1 }"
   ]
  },
  {
@@ -441,7 +432,8 @@
    "{ type: TagTypeUsesMarker.UsesBoardMarker }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorAny }",
    "{ type: TagTypeRemote.RemoteMove }",
-   "{ type: TagTypeActionBold.ActionBoldInvestigate }"
+   "{ type: TagTypeActionBold.ActionBoldInvestigate }",
+   "{ type: TagTypeActionAdditional.ActionTakeImmediate }"
   ]
  },
  {
@@ -552,7 +544,8 @@
    "{ type: TagTypePlayArea.PlayAreaFromInvestigator }",
    "{ type: TagTypePlayArea.PlayAreaPlayFromOtherZone, zone: \"other-hand\" }",
    "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
-   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }"
+   "{ type: TagTypeGainResource.GainResourceYou, value: \"dynamic\" }",
+   "{ type: TagTypeControl.ControlTransferAsset }"
   ]
  },
  {
@@ -585,7 +578,8 @@
   "tags": [
    "{ type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.When }",
    "{ type: TagTypeSkillValueSource.SkillValueFromResource, per: 2 }",
-   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }"
+   "{ type: TagTypeDeckDraw.DeckDrawYou, value: 1 }",
+   "{ type: TagTypeLocationYour.LocationYourInvestigator }"
   ]
  },
  {
@@ -848,7 +842,8 @@
    "{ type: TagTypeClueDiscover.ClueDiscoverYourLocation, value: 2 }",
    "{ type: TagTypeTestless.TestlessClue, value: 2 }",
    "{ type: TagTypeDoom.DoomRemove }",
-   "{ type: TagTypeExile.ExileSelf }"
+   "{ type: TagTypeExile.ExileSelf }",
+   "{ type: TagTypeCostOther.CostDiscardCard }"
   ]
  },
  {
@@ -992,7 +987,8 @@
    "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }",
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeChaosEffect.ChaosEffectIgnoreModifier }",
-   "{ type: TagTypeAoo.AooNoProvoke }"
+   "{ type: TagTypeAoo.AooNoProvoke }",
+   "{ type: TagTypeChaosEffect.ChaosEffectIgnoreEffect }"
   ]
  },
  {
@@ -1230,7 +1226,8 @@
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
    "{ type: TagTypeTraitSupport.TraitSupportItem }",
    "{ type: TagTypeSoak.SoakSanity, value: 2 }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true }"
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -1254,7 +1251,8 @@
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
    "{ type: TagTypeTraitSupport.TraitSupportItem }",
    "{ type: TagTypeSoak.SoakSanity, value: 3 }",
-   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true }"
+   "{ type: TagTypeClueAdditional.ClueAdditionalOtherLocation, value: 1, instead: true }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -1264,7 +1262,6 @@
   "tags": [
    "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 }",
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnAttack }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
@@ -1279,7 +1276,8 @@
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeRemote.RemoteMove }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
-   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }"
+   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }"
   ]
  },
  {
@@ -1305,7 +1303,8 @@
    "{ type: TagTypeEnemyElite.EnemyEliteNonEliteOnly }",
    "{ type: TagTypeRemote.RemoteMove }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorSelf }",
-   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }"
+   "{ type: TagTypeLocationMove.LocationMoveEnemyDisplace }",
+   "{ type: TagTypeLocationConnecting.LocationConnectingEnemy }"
   ]
  },
  {
@@ -1585,36 +1584,24 @@
   "code": "08130",
   "name": "Arm Injury",
   "text": "<b>Revelation</b> - Put Arm Injury into play in your threat area.\nArm Injury can be healed as if it were a single point of damage on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a fight or activate action: You cannot take any of those types of actions for the remainder of the turn.",
-  "tags": [
-   "{ type: TagTypeHeal.HealRemovesWeakness }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "08131",
   "name": "Leg Injury",
   "text": "<b>Revelation</b> - Put Leg Injury into play in your threat area.\nLeg Injury can be healed as if it were a single point of damage on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a move, resign, or evade action: You cannot take any of those types of actions for the remainder of the turn.",
-  "tags": [
-   "{ type: TagTypeHeal.HealRemovesWeakness }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "08132",
   "name": "Panic",
   "text": "<b>Revelation</b> - Put Panic into play in your threat area.\nPanic can be healed as if it were a single point of horror on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a play, engage, or resource action: You cannot take any of those types of actions for the remainder of the turn.",
-  "tags": [
-   "{ type: TagTypeHeal.HealRemovesWeakness }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "08133",
   "name": "Stupor",
   "text": "<b>Revelation</b> - Put Stupor into play in your threat area.\nStupor can be healed as if it were a single point of horror on you <i>(if it is healed, discard it)</i>.\n<b>Forced</b> - After you take a parley, draw, or investigate action: You cannot take any of those types of actions for the remainder of the turn.",
-  "tags": [
-   "{ type: TagTypeHeal.HealRemovesWeakness }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  }
 ]

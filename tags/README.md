@@ -12,7 +12,7 @@ For example, a card that trigger things on a certain symbols, and a card that se
 
 ## Example Usages
 
-Cards were overlapping between decks to play with one collection. Each overlapping cards contains a number of tags. For each tag, we can search for all other cards in the game with the same tag but possibly different arguments, as potentially good enough replacement of that card. We can then further filter by investigator access but it is not the task of this package.
+Cards were overlapping between decks to play with one collection. Each overlapping cards contains a number of tags. Weaknesses (signature, bonded and basic) are left untagged: nobody picks one for what it does, so they carry `subtype` and an empty `tags` list. For each tag, we can search for all other cards in the game with the same tag but possibly different arguments, as potentially good enough replacement of that card. We can then further filter by investigator access but it is not the task of this package.
 
 Additionally for each tag, search all compound tags that use it. For each compound tag found, all its tags could also be used to search for more cards that are broadly matching.
 
@@ -57,6 +57,15 @@ The script follows the established conventions:
 - Sorts all types and interfaces alphabetically
 
 **Important**: Do NOT manually edit `tag-type-union.ts` or `tag-interface-union.ts` - they are auto-generated. If the generated files are out of sync, the `Tag` type will show as `any` and TypeScript will not catch errors.
+
+## Maintenance Tools
+
+All read the built package (`yarn build` first). `yarn lint-tags` (convention checks, dead compound
+members, missing descriptions, compound ratchet), `yarn digest` (full taxonomy digest + compact
+`_tag-glossary.md` for agents), `yarn precedent <code>` (most similar tagged cards), `yarn roster
+<tag>` (every member of a tag or compound), `yarn corpus` (one-card-per-line TSV), `yarn suggest`
+(tags a card's look-alikes carry but it lacks), `yarn apply-ops <ops.json>` (bulk card edits from
+plain tag objects). Details in `.claude/skills/tag-cards/SKILL.md`.
 
 ## Tagging Mechanism
 

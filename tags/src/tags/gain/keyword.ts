@@ -26,9 +26,10 @@ export interface TagGainKeywordAlert extends TagGainKeywordBase {
 }
 
 /**
- * Grant the FAST keyword to ANOTHER card you play (Daisy's Tote Bag, Directive,
- * Chuck Fergus, Fence). Distinct from cost/fast tags that describe a card that
- * IS fast; this grants fast to other cards — a tempo/action-compression enabler.
+ * Play ANOTHER card without spending an action — it gains FAST (Daisy's Tote Bag, Directive,
+ * Chuck Fergus, Fence), or you play it through a fast ability, a reaction, or a Fast event
+ * (Joey "The Rat" Vigil, Farsight, Dexter Drake, Marion Tavares, Leading Lady). Distinct from
+ * a card that IS fast itself; a tempo / action-compression enabler.
  */
 export interface TagGainKeywordFastOther extends TagGainKeywordBase {
   type: TagTypeGainKeyword.GainKeywordFastOther;

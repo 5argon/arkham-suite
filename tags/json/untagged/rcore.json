@@ -717,7 +717,8 @@
    "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: 2 }",
    "{ type: TagTypeCostReaction.CostReactionExhaustSelf }",
    "{ type: TagTypeDiscardPile.DiscardPileToHand }",
-   "{ type: TagTypeTraitSupport.TraitSupportItem }"
+   "{ type: TagTypeTraitSupport.TraitSupportItem }",
+   "{ type: TagTypeRecursion.RecursionAsset }"
   ]
  },
  {
@@ -813,7 +814,6 @@
   "name": "Survival Instinct",
   "text": "If this skill test is successful during an evasion attempt, the evading investigator may immediately disengage from each other enemy engaged with him or her, and may move to a connecting location.",
   "tags": [
-   "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessful }",
    "{ type: TagTypeEnemyEngage.EnemyEngageDisengage, fromAll: true }",
    "{ type: TagTypeLocationMove.LocationMoveInvestigatorPerformer }",
    "{ type: TagTypeSkillTestCondition.SkillTestConditionSuccessfulDuringAnEvade }"
@@ -1108,7 +1108,8 @@
   "tags": [
    "{ type: TagTypeCancel.CancelChaos }",
    "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }",
-   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }"
+   "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }"
   ]
  },
  {
@@ -1197,36 +1198,25 @@
   "code": "01507",
   "name": "Cover Up",
   "text": "<b>Revelation</b> - Put Cover Up into play in your threat area, with 3 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma.",
-  "tags": [
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
-  ]
+  "tags": []
  },
  {
   "code": "01509",
   "name": "The Necronomicon",
   "text": "<b>Revelation</b> - Put The Necronomicon into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nTreat each [elder_sign] you reveal on a chaos token as a [auto_fail].\n[action]: Move 1 horror from The Necronomicon to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it.",
-  "tags": [
-   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"auto-fail\" }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeChaosReveal.ChaosRevealTokenElderSign }"
-  ]
+  "tags": []
  },
  {
   "code": "01511",
   "name": "Hospital Debts",
   "text": "<b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[fast]: Move 1 resource from your resource pool to Hospital Debts. (Limit twice per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 6 resources on it: You earn 2 fewer experience for this scenario.",
-  "tags": [
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
-  ]
+  "tags": []
  },
  {
   "code": "01513",
   "name": "Dark Memory",
   "text": "Place 1 doom on the current agenda. This effect can cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror.",
-  "tags": [
-   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }",
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }"
-  ]
+  "tags": []
  },
  {
   "code": "01515",
@@ -1238,48 +1228,31 @@
   "code": "01598",
   "name": "Haunted",
   "text": "<b>Revelation</b> - Add Haunted to your threat area.\nYou get -1 to each of your skills.\n[action] [action]: Discard Haunted.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "01599",
   "name": "Psychosis",
   "text": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct damage.\n[action] [action]: Discard Psychosis.",
-  "tags": [
-   "{ type: TagTypeTimingForced.TimingForcedWhenTakeHorror }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "01600",
   "name": "Hypochondria",
   "text": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more damage: Take 1 direct horror.\n[action] [action]: Discard Hypochondria.",
-  "tags": [
-   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "01601",
   "name": "Mob Enforcer",
   "text": "<b>Prey</b> - Bearer only.\nHunter.\n[action] Spend 4 resources: <b>Parley.</b> Discard Mob Enforcer.",
-  "tags": [
-   "{ type: TagTypeActionBold.ActionBoldParley }",
-   "{ type: TagTypeCostAction.CostActionSpendResource }"
-  ]
+  "tags": []
  },
  {
   "code": "01602",
   "name": "Silver Twilight Acolyte",
   "text": "<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - After Silver Twilight Acolyte attacks: Place 1 doom on the current agenda.",
-  "tags": [
-   "{ type: TagTypeDoom.DoomAdd, target: \"agenda\" }"
-  ]
+  "tags": []
  },
  {
   "code": "01603",

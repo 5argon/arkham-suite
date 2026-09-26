@@ -85,10 +85,7 @@
   "code": "05008",
   "name": "Rational Thought",
   "text": "<b>Revelation</b> - Put Rational Thought into play in your threat area, with 4 horror on it. Horror on Rational Thought may be healed as if it were on Carolyn Fern. If there is no horror on Rational Thought, discard it.\nYou cannot heal horror from cards other than Rational Thought. You cannot gain resources from Carolyn Fern's [reaction] ability.",
-  "tags": [
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }",
-   "{ type: TagTypeHeal.HealRemovesWeakness }"
-  ]
+  "tags": []
  },
  {
   "code": "05009",
@@ -103,19 +100,15 @@
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 1, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
    "{ type: TagTypeDiscardPile.DiscardPileToDeck, bottom: true }",
-   "{ type: TagTypeTraitSupport.TraitSupportInsight }"
+   "{ type: TagTypeTraitSupport.TraitSupportInsight }",
+   "{ type: TagTypeTraitSupport.TraitSupportTool }"
   ]
  },
  {
   "code": "05010",
   "name": "Unsolved Case",
   "text": "Place 1 of your clues on the location with the highest shroud. Remove Unsolved Case from the game.\n<b>Forced</b> - If Unsolved Case would be shuffled into your hunch deck: Add it to your threat area instead. For the remainder of the game, it gains: \"<b>Forced</b> - When the game ends: Joe Diamond earns 2 fewer experience for this scenario.\"",
-  "tags": [
-   "{ type: TagTypeLocationMove.LocationMoveClue }",
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
-   "{ type: TagTypeRfg.RfgSelf }",
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
-  ]
+  "tags": []
  },
  {
   "code": "05011",
@@ -131,11 +124,7 @@
   "code": "05012",
   "name": "Lodge \"Debts\"",
   "text": "Remove Lodge \"Debts\" from the game.\n<b>Forced</b> - When the game ends or you are eliminated, if Lodge \"Debts\" is still in your hand: You suffer 1 mental trauma.",
-  "tags": [
-   "{ type: TagTypeSkillCommit.SkillCommitNoIcons }",
-   "{ type: TagTypeRfg.RfgSelf }",
-   "{ type: TagTypeTimingGame.TimingGameEnds }"
-  ]
+  "tags": []
  },
  {
   "code": "05013",
@@ -168,9 +157,7 @@
   "code": "05015",
   "name": "Terrible Secret",
   "text": "<b>Revelation</b> - If there are no card beneath Diana Stanley, shuffle Terrible Secret back into your deck. Otherwise, for each card beneath Diana Stanley, you must either discard that card or take 1 horror. Cannot be canceled.",
-  "tags": [
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
-  ]
+  "tags": []
  },
  {
   "code": "05016",
@@ -210,14 +197,7 @@
   "code": "05019",
   "name": "Baron Samedi",
   "text": "<b>Revelation</b> - Put Baron Samedi into play. He cannot leave play while he has less than 3 doom on him.\n<b>Forced</b> - When any amount of damage is placed on an investigator in Baron Samedi's location: Place 1 additional damage on that investigator.\n[fast] Exhaust Baron Samedi: Place 1 doom on Baron Samedi. If he has 3 or more doom on him, discard him.",
-  "tags": [
-   "{ type: TagTypeDoom.DoomCheck }",
-   "{ type: TagTypeTimingForced.TimingForcedWhenTakeDamage }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeCostFree.CostFreeExhaustSelf }",
-   "{ type: TagTypeDoom.DoomAdd, target: \"own-card\" }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "05020",
@@ -467,10 +447,7 @@
   "code": "05041",
   "name": "The 13th Vision",
   "text": "<b>Revelation</b> - Put The 13th Vision into play in your threat area.\nInvestigators at your location fail ties during skill tests.\n[action] [action]: Discard The 13th Vision.",
-  "tags": [
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "05042",
@@ -783,7 +760,7 @@
    "{ type: TagTypeActionBold.ActionBoldFight }",
    "{ type: TagTypeStatsModBoostInTest.StatsModBoostInTestCombat, value: 2, action: BasicAction.Fight }",
    "{ type: TagTypeDamage.DamagePlus, value: 1 }",
-   "{ type: TagTypeSkillValue.SkillValueSucceedByDynamic }",
+   "{ type: TagTypeSkillValue.SkillValueSucceedByOrMore, amount: \"dynamic\" }",
    "{ type: TagTypeDamage.DamageRedirectOwnAttack }",
    "{ type: TagTypeEnemyValue.EnemyValueFight }"
   ]
@@ -1199,7 +1176,6 @@
   "name": "Hallowed Mirror",
   "text": "Limit 1 per deck.\n<b>Forced</b> - After Hallowed Mirror enter play: Search your bonded cards for 3 copies of Soothing Melody. Add 1 to your hand and shuffle the other 2 into your deck. When Hallowed Mirror leaves play, find each of those copies of Soothing Melody (<i>even if they are out of play</i>) and set them aside, out of play.",
   "tags": [
-   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }",
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeBonded.BondedFetch }",
    "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
@@ -1239,8 +1215,7 @@
   "tags": [
    "{ type: TagTypeTimingAfter.TimingAfterEntersPlay }",
    "{ type: TagTypeBonded.BondedFetch }",
-   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }",
-   "{ type: TagTypeTimingForced.TimingForcedLeavesPlay }"
+   "{ type: TagTypeDeckShuffle.DeckShufflePlayer }"
   ]
  },
  {
@@ -1344,7 +1319,8 @@
   "tags": [
    "{ type: TagTypeTimingSkill.TimingSkillSt3RevealChaosToken, timing: TimingQualifier.When }",
    "{ type: TagTypeCancel.CancelChaos }",
-   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }"
+   "{ type: TagTypeChaosEffect.ChaosEffectTreatTokenAs, to: \"elder-sign\" }",
+   "{ type: TagTypeChaosReveal.ChaosRevealTokenAutoFail }"
   ]
  }
 ]

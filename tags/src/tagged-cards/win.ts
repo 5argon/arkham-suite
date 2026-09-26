@@ -77,24 +77,18 @@ const taggedCards: TaggedCard[] = [
     name: "Arrogance",
     text: "You must commit Arrogance to each eligible skill test you perform.\nThis skill's icons subtract from your skill value instead of adding to it.\nIf this test succeeds, return this skill to your hand.",
     cardType: "skill",
+    subtype: "weakness",
     icons: ["wild"],
-    tags: [
-      { type: TagTypeSkillTestCondition.SkillTestConditionSuccessful },
-      { type: TagTypeRecursion.RecursionSelfToHand },
-    ],
+    tags: [],
   },
   {
     code: "60304",
     name: "Reckless",
     text: "Commit only to a skill test you are performing (of any type) that has no other cards committed to it. Other cards cannot be committed to this skill test.\nIf this test fails, return this skill to your hand.\n<b>Forced</b> - If Reckless is in your hand at the end of your turn: Reveal it and lose 2 resources.",
     cardType: "skill",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeCommit.CommitMax, value: 1 },
-      { type: TagTypeTestMisc.TestYouPerform },
-      { type: TagTypeSkillTestCondition.SkillTestConditionFail },
-      { type: TagTypeRecursion.RecursionSelfToHand },
-    ],
+    tags: [],
   },
   {
     code: "60305",

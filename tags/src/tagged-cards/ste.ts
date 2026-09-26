@@ -79,26 +79,18 @@ const taggedCards: TaggedCard[] = [
     name: "Called by the Mists",
     text: "<b>Revelation</b> - Put Called by the Mists into play in your threat area.\n<b>Forced</b> - After you initiate a skill test with a difficulty of 4 or higher: Take 1 damage.\n[action] [action]: Discard Called by the Mists.",
     cardType: "treachery",
+    subtype: "weakness",
     icons: [],
-    tags: [
-      { type: TagTypeTestDifficulty.TestDifficultyCondition },
-      { type: TagTypeTimingSkill.TimingSkillSt1DetermineSkillType, timing: TimingQualifier.After },
-      { type: TagTypeDamage.DamageToInvestigator, value: 1 },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "60504",
     name: "Atychiphobia",
     text: "<b>Revelation</b> - Put Atychiphobia into play in your threat area.\n<b>Forced</b> - After you fail a skill test: Take 1 horror.\n[action] [action]: Discard Atychiphobia.",
     cardType: "treachery",
+    subtype: "basicweakness",
     icons: [],
-    tags: [
-      { type: TagTypeTimingAfter.TimingAfterFailSkillTest },
-      { type: TagTypeCostAction.CostActionMultiple },
-      { type: TagTypeDiscardFromPlay.DiscardFromPlaySelf },
-    ],
+    tags: [],
   },
   {
     code: "60505",
@@ -452,6 +444,7 @@ const taggedCards: TaggedCard[] = [
       { type: TagTypeLocationYour.LocationYourInvestigator },
       { type: TagTypeCostReaction.CostReactionExhaustSelf },
       { type: TagTypeStatsModBoostInTest.StatsModBoostInTestAny, value: 1 },
+      { type: TagTypeSkillValue.SkillValueMarginAdjust },
     ],
   },
   {

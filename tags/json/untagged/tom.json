@@ -36,12 +36,7 @@
   "code": "60154",
   "name": "Overconfident",
   "text": "<b>Revelation</b> - Put Overconfident into play in your threat area.\n<b>Forced</b> - After you fail a skill test: Take 1 damage.\n[action] [action]: Discard Overconfident.",
-  "tags": [
-   "{ type: TagTypeTimingAfter.TimingAfterFailSkillTest }",
-   "{ type: TagTypeDamage.DamageToInvestigator, value: 1 }",
-   "{ type: TagTypeCostAction.CostActionMultiple }",
-   "{ type: TagTypeDiscardFromPlay.DiscardFromPlaySelf }"
-  ]
+  "tags": []
  },
  {
   "code": "60155",
@@ -140,7 +135,8 @@
    "{ type: TagTypeAttach.AttachAsset }",
    "{ type: TagTypeTraitSupport.TraitSupportFirearm }",
    "{ type: TagTypeCostFree.CostFreeDiscardSelf }",
-   "{ type: TagTypePlayArea.PlayAreaToHand }"
+   "{ type: TagTypePlayArea.PlayAreaToHand }",
+   "{ type: TagTypeGainKeyword.GainKeywordFastOther }"
   ]
  },
  {
@@ -203,7 +199,8 @@
    "{ type: TagTypeCommit.CommitDuringAttack }",
    "{ type: TagTypeCommit.CommitDuringEvade }",
    "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Alert\" }",
-   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Retaliate\" }"
+   "{ type: TagTypeEnemyRestriction.EnemyIgnoreKeyword, keyword: \"Retaliate\" }",
+   "{ type: TagTypeCommit.CommitBenefitsPerformer }"
   ]
  },
  {

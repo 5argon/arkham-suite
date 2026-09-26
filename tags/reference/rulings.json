@@ -16,15 +16,17 @@
       "A timing WINDOW id must stay neutral even when most members are Forced — timing-forced-leaves-play was renamed timing-when-leaves-play when Tetsuo Mori responded with a [reaction] (2026-07-16; same precedent as timing-when-take-damage).",
       "TimingQualifier conventions: 'at the end of <phase/round/turn>' forced triggers → AtIf; 'when your turn begins' → When; 'would reveal/would advance' pre-windows → Before.",
       "Level variants of the same card may LEGITIMATELY diverge — the higher-level card is intentionally better (Survival Instinct 01581 'disengage' vs 02235 'evade' is a real design difference, ruled 2026-07-03). Never force different-level variants to match; but DO check same-name twins for accidental divergence (values, missing halves) — that was a large bug class.",
-      "Self-harm (cost-*-damage/horror-self) is only for VOLUNTARY player-ability cards (asset/event). Treacheries/weaknesses that force horror/damage on you (Doomed, Shell Shock, Nihilism) are NOT self-harm — a 'treachery hurts you' concept has intentionally no tag yet.",
+      "Self-harm (cost-*-damage/horror-self) is only for VOLUNTARY player-ability cards (asset/event). Harm a card forces on you is not a self-harm cost.",
       "A card playing itself from hand on a special trigger (Cryptic Writings) is play-from-hand, NOT recursion — recursion tags need a non-hand zone.",
       "Discovery vs investigation payoff: timing-after-discover-clue fires on clue DISCOVERY including testless; timing-after-successfully-investigate requires a successful investigate TEST by someone.",
       "PLAY ≠ INTO PLAY, generalized corpus-wide (2026-09-05 retro review): a card that lets you PLAY another card 'paying its cost' or 'reducing its cost' is a play (cost-discount / play-area-play-from-other-zone / play-area-play-ignoring-cost), NOT play-area-into-play-from-*. Into-play tags are only for text that puts a card into play bypassing the play action ('put it into play', 'enters play'). Stripped from 27 cards (Old Book of Lore, Joey, Leo Anderson, Dexter, Tommy, Prestidigitation, Ever Vigilant, Motivational Speech, …); searches that then play the card use play-area-play-from-other-zone{zone:'deck'}. A card playing ITSELF on a draw trigger (Cryptic Writings, Winds of Power, Quick Shot) keeps play-area-into-play-from-hand per the 2026-07-03 ruling.",
       "Test-free clue discovery ALWAYS pairs clue-discover-* with testless-clue (2026-09-05): the 2026-07-03 rule was applied to Revised Core only; 15 later cards (Evidence! 60120, Art Student, Grete Wagner, Lucius Galloway, Lesson Learned, …) were brought in line.",
-      "Signature investigators and their weaknesses are tagged for EVERY product, including Core/Dunwich (added 2026-09-05), parallel investigators (Advanced/Replacement signatures, Directives, Leading Ladies) and novella promos. Enemy weaknesses stay untagged; treachery weaknesses get their light convention (cost-action-multiple + discard-from-play-self, timing-game-ends, deck-shuffle-player, damage-to-investigator).",
+      "Signature investigators and their signature player cards are tagged for EVERY product, including Core/Dunwich (added 2026-09-05), parallel investigators (Advanced/Replacement signatures, Directives, Leading Ladies) and novella promos.",
+      "WEAKNESSES ARE NEVER TAGGED (maintainer ruling 2026-09-26): signature, bonded and basic weaknesses — every card whose pack file carries `subtype: \"weakness\" | \"basicweakness\"` — keep `tags: []`, including the stat-derived skill-commit-* / soak-* tags. Nobody picks a weakness for what it does, so it has no peers to lead to; tagged, weaknesses spawned tags of their own (heal-removes-weakness, deleted) and crowded player tags with their removal chores (before the strip: cost-action-multiple 30 of 38 names, discard-from-play-self 50 of 87, damage-to-investigator 23 of 33, timing-game-ends 12 of 17) and leaked into 19 compounds. Lint `weakness-tagged` enforces it. PLAYER cards that interact with weaknesses (cancel-weakness-draw, enemy-nonweakness, …) are tagged as usual.",
       "COMPOUND ROSTER AUDIT (2026-09-05, whole game tagged): every compound's evaluated roster was read card by card. Removed 10 compounds that were single-tag aliases or strict subsets (enemy-field-control, shroud-reduction, self-harm-cost, healing, exile-package, multiclass-payoff, copies-matter, return-to-hand, failure-prevention, getaway — disengage now lives in Evasion Package); added Willpower Boost, Skill Value Boost (the stat-agnostic '+N skill value' family, split out of Combat/Agility/Intellect Boost) and Testless Damage (split out of Efficient Damage). Over-broad members dropped: deck-shuffle-encounter from Encounter Deck (Persuasion/Hypnotize/Close Call are enemy removal), discard-from-play-self from Discard Self (weakness self-removal is not the discard-for-value archetype), play-area-play-from-other-zone from Into-Play Cheat, the into-play-* trio from Economy, weakness doom on the agenda from Doom Adding (doom-add now carries target). Attack Mitigation and Investigate Payoff were widened instead of deleted. Bold Action (406) and Exhausts (366) are wide by design — mechanical properties the ready/action synergies key on.",
       "ADVERSARIAL REVIEW (2026-09-05/06, whole game): 31 hostile reviewer agents re-read all 1851 cards against the digest (one ~60-card chunk each, every claim quoted + precedent-cited); 323 findings, 9 chunks also skeptic-verified (91% agreement, so the rest were adjudicated by hand). 366 edits landed across ~300 cards; ~8 findings refuted. Recurring classes, each swept corpus-wide and recorded under its tag: own-Fight/Evade success riders use the during-an-attack/-evade variant; 'would reveal' → Before; 'skill test at your location' and 'enemy at your location' scope tags; cost-discard vs discard-from-play-self; 'last clue' → location-clue-zero; Footwear limit; reducedeffect vs noneliteonly; chaos-symbol-payoff on every symbol bonus; deferred self-exhaust riders; ammo pump; 'After this test ends' → st8{after}. Lint rules rejected two proposals (own-action defeat window on Jenny's Twin .45s, margin rider + success condition on Momentum) — the rules stand.",
-      "MEMBERSHIP SUSPECT PASS (2026-09-26): every tag with ≤4 distinct names and every compound was hunted corpus-wide for missed members, merges and intruders (report: reference/reports/2026-09-25-membership-suspects.md). Merged: chaos-treat-as-elder-sign → chaos-treat-token-as{elder-sign}; test-succeed-by → skill-value-succeed-by-dynamic (test-fail-by dropped); cost-reaction-spend-evidence → cost-reaction-spend-resource{card}; cost-action-discard-from-hand → cost-discard-card; enemy-defeat-on-attack-success → enemy-mitigation-defeat; ready-ally → ready-asset{restrictedToTrait}; discard-pile-to-bottom-deck → discard-pile-to-deck{bottom}; the shroud trio → location-shroud-reduction{value}; the duration-next trio → duration-next{window}; pump ammo/charge → stats-mod-pump-uses{useType}; timing-after-enemy-deal-damage-* → timing-when-take-damage/-horror{source}; timing-forced-spawn-your-location → timing-when-enemy-spawns-your-location. Renamed: timing-forced-enters-location → timing-when-enemy-enters-location, enemy-blank-text → encounter-blank-text{target}, clue-additional-revealed-locations → clue-additional-other-location{instead}. New: chaos-seal-token-plus-1, enemy-target-attacking, testless-move-enemy, skill-value-margin-adjust; compounds Seal and Doom Control. Section G (policy calls) of the report was left open."
+      "MEMBERSHIP SUSPECT PASS (2026-09-26): every tag with ≤4 distinct names and every compound was hunted corpus-wide for missed members, merges and intruders (report: reference/reports/2026-09-25-membership-suspects.md). Merged: chaos-treat-as-elder-sign → chaos-treat-token-as{elder-sign}; test-succeed-by → skill-value-succeed-by-dynamic (test-fail-by dropped); cost-reaction-spend-evidence → cost-reaction-spend-resource{card}; cost-action-discard-from-hand → cost-discard-card; enemy-defeat-on-attack-success → enemy-mitigation-defeat; ready-ally → ready-asset{restrictedToTrait}; discard-pile-to-bottom-deck → discard-pile-to-deck{bottom}; the shroud trio → location-shroud-reduction{value}; the duration-next trio → duration-next{window}; pump ammo/charge → stats-mod-pump-uses{useType}; timing-after-enemy-deal-damage-* → timing-when-take-damage/-horror{source}; timing-forced-spawn-your-location → timing-when-enemy-spawns-your-location. Renamed: timing-forced-enters-location → timing-when-enemy-enters-location, enemy-blank-text → encounter-blank-text{target}, clue-additional-revealed-locations → clue-additional-other-location{instead}. New: chaos-seal-token-plus-1, enemy-target-attacking, testless-move-enemy, skill-value-margin-adjust; compounds Seal and Doom Control. Section G (policy calls) of the report was left open.",
+      "FULL-GAME SWEEP (2026-09-26): every card re-read in release order against the compact glossary with `yarn suggest` hints (18 agents, ~103 cards each), judged by \"does this card's tagging lead a player to its functional peers / sidegrades?\". 125 card edits + compound fixes (move-damage into Testless Damage & Health Safety, the Shotguns into Efficient Damage, encounter-offload into Treachery Handling, gain-aloof into Enemy Nerf); every tag and compound got a player-facing description. Report: reference/reports/2026-09-26-descriptions-harness-sweep.md."
     ]
   },
   "uses-replenish": {
@@ -51,7 +53,8 @@
   },
   "uses-support-*": {
     "rulings": [
-      "conditional: true when the placement is gated on a trigger/symbol (Luke Robinson's elder sign, Twila's reaction) rather than a plain play/action effect (Extra Ammunition, Recharge) — mirrors uses-self-place's flag (Empty Vessel). Ruled 2026-07-16 for Luke/Empty Vessel consistency."
+      "conditional: true when the placement is gated on a trigger/symbol (Luke Robinson's elder sign, Twila's reaction) rather than a plain play/action effect (Extra Ammunition, Recharge) — mirrors uses-self-place's flag (Empty Vessel). Ruled 2026-07-16 for Luke/Empty Vessel consistency.",
+      "A pool whose tokens \"may be spent as if they were on\" your other assets is uses-support-<use>{supportType:\"pool\"} — the tokens stay on the card, nothing moves (Typewriter, Cleaning Kit ×2, Lost Arcana, Ariadne's Twine's first clause; corrected 2026-09-26 after they were mis-tagged \"move\"). \"move\" is only for tokens relocated onto another asset (Eldritch Sophist, Ariadne's Twine's pool→asset ability)."
     ]
   },
   "uses-starting-*": {
@@ -128,7 +131,7 @@
   "skill-value-*": {
     "rulings": [
       "Margin-only riders ('succeed by N or more', 'fail by N or less') get skill-value-* ONLY — never skill-test-condition-successful/fail alongside. The margin already implies the result.",
-      "A margin tag marks a margin the card REWARDS. A PENALTY keyed to a margin is untagged, extending the Lethal Curiosity ruling to player cards: Chemistry Set's \"fail by exactly 2, discard\" and the \"if you succeed by 0, lose / take …\" riders on Brand of Cthugha, Divination, Blur and Earthly Serenity (removed 2026-09-26). Cards that SHIFT the margin (Steady-Handed, Inquisitive, Granny Orne 60508, Lab Coat) are skill-value-margin-adjust."
+      "A margin tag marks a margin the card REWARDS. A PENALTY keyed to a margin is untagged: Chemistry Set's \"fail by exactly 2, discard\" and the \"if you succeed by 0, lose / take …\" riders on Brand of Cthugha, Divination, Blur and Earthly Serenity (removed 2026-09-26). Cards that SHIFT the margin (Steady-Handed, Inquisitive, Granny Orne 60508, Lab Coat) are skill-value-margin-adjust."
     ]
   },
   "skill-test-condition-*": {
@@ -247,12 +250,12 @@
   },
   "deck-discard-card-*": {
     "rulings": [
-      "NAME TRAP: despite the deck- prefix (the group folder), deck-discard-card-choose/-random mean discarding from your HAND (choose vs random — Mists of R'lyeh / Obsessive, Liquid Courage). Milling the player deck is deck-discard-deck. (An earlier ruling here had this backwards and cost a calibration miss — corrected 2026-07-13.)"
+      "NAME TRAP: despite the deck- prefix (the group folder), deck-discard-card-choose/-random mean discarding from your HAND (choose vs random — Mists of R'lyeh / Liquid Courage, Occult Records). Milling the player deck is deck-discard-deck. (An earlier ruling here had this backwards and cost a calibration miss — corrected 2026-07-13.)"
     ]
   },
   "deck-search-*": {
     "rulings": [
-      "Searching your DECK (or discard, via deck-search-discard). Searching the COLLECTION/outside the game is not a deck search (Dark Pact fetching its Price is collection-search — untagged).",
+      "Searching your DECK (or discard, via deck-search-discard). Searching the COLLECTION/outside the game is not a deck search — untagged.",
       "'Search' is a MECHANICAL term (looking through hidden cards) — apply deck-search-* ONLY when the text literally searches. Choosing a card from the OPEN discard pile ('Choose a card in your discard pile' — Scrounge for Supplies, A Chance Encounter, Resourceful) is NOT a search; discard-pile-to-* carries it (ruled 2026-07-17, full-TDE review; 4 cards stripped)."
     ]
   },
@@ -278,7 +281,7 @@
   },
   "control-transfer-asset": {
     "rulings": [
-      "Asset control moving between investigators: give (Teamwork 02018, Solemn Vow 06020 played under another's control) or take (Kleptomania 06036). Resource transfers = gain-resource-move-investigator (both on Teamwork/Kleptomania). Moving DAMAGE/HORROR between player cards (Solemn Vow's second ability, Tommy Muldoon) still has NO tag."
+      "Asset control moving between investigators: give (Teamwork 02018, Solemn Vow 06020 and Shrewd Dealings' items played under another's control) or take (Pitchfork 10110 left at a location for anyone there to take). Resource transfers = gain-resource-move-investigator (Teamwork). Moving DAMAGE/HORROR between player cards (Solemn Vow's second ability, Tommy Muldoon) still has NO tag."
     ]
   },
   "remote-play-event": {
@@ -335,7 +338,8 @@
   "chaos-symbol-payoff": {
     "rulings": [
       "BONUS on revealing a symbol token (Song of the Dead) — the positive counterpart of chaos-downside; Shrivelling/Blinding Light-style penalties are chaos-downside instead.",
-      "Applied to EVERY bonus keyed to a specific symbol reveal, not only damage: ready (Jacob Morrison), return-to-hand (Fey), clue (Control Variable, Keeper of the Key), enemy debuff (Wither, Banish), remote investigate (Sixth Sense), auto-success (Beloved), doom removal (Dread Curse of Azathoth), enemy self-damage on a manual reveal (Hypnotic Gaze ×3, Voice of Ra) — added 2026-09-06."
+      "Applied to EVERY bonus keyed to a specific symbol reveal, not only damage: ready (Jacob Morrison), return-to-hand (Fey), clue (Control Variable, Keeper of the Key), enemy debuff (Wither, Banish), remote investigate (Sixth Sense), auto-success (Beloved), doom removal (Dread Curse of Azathoth), enemy self-damage on a manual reveal (Hypnotic Gaze ×3, Voice of Ra) — added 2026-09-06.",
+      "Manual-reveal sweep 2026-09-26: Rod of Carnamagos ×2, Speak to the Dead, Gaze of Ouraxsh, Manipulate Destiny, Ward of Radiance, Absolution; reaction payoffs Jim's Trumpet ×2, Ritual Candles ×2, Jewel of Aureolus, Jim Culver 90049, Diabolical Luck."
     ]
   },
   "soak-*": {
@@ -387,11 +391,6 @@
       "AUTONOMOUS TAG (2026-07-17, EOTE ingestion — REVIEW WELCOME): card-local resources pay for trait-X cards (the EOTE wallet family: Prophetic/Sleuth/Bruiser/Crafty/Antiquary/Schoffner's; traits arg lists what it pays for). trait-support-* enum extended with Fortune/Charm/Armor/Tool/Creature for these; Favor/Ritual/Tactic-wallet halves use existing members where available."
     ]
   },
-  "heal-removes-weakness": {
-    "rulings": [
-      "AUTONOMOUS TAG (2026-07-17, EOTE ingestion — REVIEW WELCOME): the injury/panic weakness family healable as damage/horror (4 members). Their action-type-lockout clauses stay untagged per the behavior-restriction convention (Promise, Self-Centered)."
-    ]
-  },
   "chaos-recycle-token": {
     "rulings": [
       "AUTONOMOUS TAG (2026-07-17, TIC ingestion — REVIEW WELCOME): revealed bless/curse returns to the BAG instead of the token pool (the Innsmouth conservation mechanic; 5 TIC members)."
@@ -426,7 +425,8 @@
   "timing-skill-st3-reveal-chaos-token": {
     "rulings": [
       "ST.3 of a SKILL TEST ('the investigator performing the skill test reveals one chaos token'). A card that manually reveals tokens outside a test (chaos-reveal-manual gambles) does NOT get this timing tag (ruled 2026-07-13; 7 cards stripped).",
-      "'When you would reveal a chaos token' / 'When a chaos token would be revealed' → timing Before, per the general qualifier convention (swept 2026-09-05: The Codex of Ages, Olive McBride ×2, Premonition 04199, Katarina Sojka)."
+      "'When you would reveal a chaos token' / 'When a chaos token would be revealed' → timing Before, per the general qualifier convention (swept 2026-09-05: The Codex of Ages, Olive McBride ×2, Premonition 04199, Katarina Sojka).",
+      "\"After a <token> is revealed\" reactions use timing When — the reveal step itself (22 cards); Before is only for \"would reveal\". Jim Culver 90049 aligned 2026-09-26."
     ]
   },
   "skill-commit-nonskill-lv0-two-effective-icons": {
@@ -527,7 +527,7 @@
   },
   "location-your-*": {
     "rulings": [
-      "A pure targeting SCOPE, beneficial or harmful: Dark Pact 04038 'deal 2 damage to an investigator at your location' carries location-your-investigator despite being a weakness's self-inflicted harm. Don't drop scope tags because the effect is negative."
+      "A pure targeting SCOPE, beneficial or harmful: Medical Texts 01535 'if you fail, deal 1 damage to that investigator' carries location-your-investigator for its harmful branch too. Don't drop scope tags because the effect is negative."
     ]
   },
   "buff-cannot-attack-you": {
@@ -588,7 +588,7 @@
   },
   "cost-action-multiple": {
     "rulings": [
-      "Skip on boring weaknesses — investigators and basic/story weaknesses get few or no tags; only genuine player-facing effects."
+      "Player abilities that cost two or more actions or take extra actions for more effect (Sledgehammer, Chicago Typewriter, Microscope, Grappling Hook). The '[action][action]: discard this' way out of a weakness is not a member — weaknesses are untagged."
     ]
   },
   "condition-resource": {
@@ -598,17 +598,17 @@
   },
   "doom-move": {
     "rulings": [
-      "AUTONOMOUS TAG (2026-09-05, coverage/retro pass — REVIEW WELCOME): resolves the OPEN 'doom relocation' cluster flagged in the TSK ingestion. Members: Deafening Silence 09014 (asset → agenda), Amina Zidane 09011 (card → card at your location, elder sign), Sin-Eater 09094 (asset → itself). Handcuffs 09035 stays doom-remove only ('remove all doom' + 'doom cannot be placed' is removal + prevention, not relocation)."
+      "AUTONOMOUS TAG (2026-09-05, coverage/retro pass — REVIEW WELCOME): resolves the OPEN 'doom relocation' cluster flagged in the TSK ingestion. Members: Amina Zidane 09011 (card → card at your location, elder sign), Sin-Eater 09094 (asset → itself). Handcuffs 09035 stays doom-remove only ('remove all doom' + 'doom cannot be placed' is removal + prevention, not relocation)."
     ]
   },
   "test-difficulty-increase": {
     "rulings": [
-      "AUTONOMOUS TAG (2026-09-05 — REVIEW WELCOME): the deferred 'Drawing Thin difficulty increase' one-off grew to 5 members at 1851 cards (Drawing Thin 05159, Quick Learner 60530, Fake Credentials 10066/10082, Failed Experiment 10008). Only for text that RAISES a test's difficulty; 'the difficulty of this test is equal to X' (Deciphered Reality, Unearth the Ancients) is a dynamic difficulty, not an increase — untagged."
+      "AUTONOMOUS TAG (2026-09-05 — REVIEW WELCOME): the deferred 'Drawing Thin difficulty increase' one-off grew past one member at 1851 cards (Drawing Thin 05159, Quick Learner 60530, Fake Credentials 10066/10082, Interrogate, Persuasion, Double or Nothing, Whispers of Doom). Only for text that RAISES a test's difficulty; 'the difficulty of this test is equal to X' (Deciphered Reality, Unearth the Ancients) is a dynamic difficulty, not an increase — untagged."
     ]
   },
   "test-difficulty-condition": {
     "rulings": [
-      "AUTONOMOUS TAG (2026-09-05 — REVIEW WELCOME): gates on the test's difficulty itself — Rise to the Occasion 02192/51010 and Signum Crucis 07197 ('difficulty higher than your base skill'), Exploit Weakness 09105 / Shed a Light 09108 ('difficulty is currently 0'), Called by the Mists 60503 ('difficulty of 4 or higher'). No value: a condition, not a change."
+      "AUTONOMOUS TAG (2026-09-05 — REVIEW WELCOME): gates on the test's difficulty itself — Rise to the Occasion 02192/51010 and Signum Crucis 07197 ('difficulty higher than your base skill'), Exploit Weakness 09105 / Shed a Light 09108 ('difficulty is currently 0'). No value: a condition, not a change."
     ]
   },
   "timing-after-seal-cancel-ignore-token": {
@@ -639,12 +639,12 @@
   },
   "doom-add": {
     "rulings": [
-      "target (added 2026-09-05): 'own-card' = doom placed on an asset/investigator you control (Arcane Initiate, Baron Samedi, Marie's elder sign, Amina's enters-play doom, Ghastly Possession) — the only target that joins Doom Adding; 'agenda' = a pure penalty (Dark Memory, Silver Twilight Acolyte, The Price of Failure, Fickle Fortune, To Fight the Black Wind); 'enemy' = The Nameless Lurker. cost-add-doom-self stays the COST-side sibling."
+      "target (added 2026-09-05): 'own-card' = doom placed on an asset/investigator you control (Arcane Initiate, Marie's elder sign, Amina's enters-play doom, Ghastly Possession); 'agenda' = doom on the current agenda (Fickle Fortune's heal-for-doom choice); 'enemy' = doom on an enemy (Whispers of Doom, String of Curses). All three targets join Doom Adding (maintainer ruling 2026-09-26: they all put doom into play; the own-card-only filter existed to keep weakness doom out, and weaknesses are untagged). cost-add-doom-self stays the COST-side sibling."
     ]
   },
   "hand-size-max-decrease": {
     "rulings": [
-      "Added 2026-09-05: a hand-size REDUCTION (Drawing the Sign 5, Patrice Hathaway 3, Pelt Shipment 3) with a positive value, so Big Hand no longer lists drawbacks. hand-size-max-increase values are now always positive."
+      "Added 2026-09-05: a hand-size REDUCTION (Patrice Hathaway 3, Pelt Shipment 3, George Barnaby) with a positive value, so Big Hand no longer lists drawbacks. hand-size-max-increase values are now always positive."
     ]
   },
   "damage-redirect-attack": {
@@ -669,7 +669,8 @@
   },
   "location-your-investigator": {
     "rulings": [
-      "'during a skill test at your location' / 'a chaos token revealed at your location' triggers carry the scope even when the card is a Fast event (swept 2026-09-05: Darrell Simmons, Book of Living Myths, Ofuda, Miracle Wish, Seal of the Elders, Keeper of the Key, Dawn Star)."
+      "'during a skill test at your location' / 'a chaos token revealed at your location' triggers carry the scope even when the card is a Fast event (swept 2026-09-05: Darrell Simmons, Book of Living Myths, Ofuda, Miracle Wish, Seal of the Elders, Keeper of the Key, Dawn Star).",
+      "An \"any investigator (at any location)\" scope also carries this tag — it includes your location, and the tag is how teammate-help cards are browsed (2026-09-26: Ward of Protection (2), Psychic Sensitivity, Money Talks (2), Sacred Covenant, Ravenous Myconid, \"Let me handle this!\")."
     ]
   },
   "location-your-enemy": {
@@ -694,7 +695,7 @@
   },
   "skill-value-fail-by-dynamic": {
     "rulings": [
-      "Weakness punishment that scales per point failed by (Lethal Curiosity, Failed Experiment) stays UNTAGGED — the fail-forward archetype must hold only player payoffs (Lethal Curiosity's tag removed 2026-09-06; test-initiate-* on the weakness test is kept)."
+      "A punishment that scales per point failed by stays UNTAGGED — the fail-forward archetype must hold only player payoffs."
     ]
   },
   "clue-additional-*": {
@@ -734,7 +735,7 @@
   },
   "hand-size-dependent": {
     "rulings": [
-      "comparison \"min\" = more cards in hand is better; \"max\" = more cards is worse (Last Chance, Feed the Mind's excess horror, Thrice-Damned Curiosity). Only \"min\" is Big Hand."
+      "comparison \"min\" = more cards in hand is better; \"max\" = more cards is worse (Last Chance, Feed the Mind's excess horror). Only \"min\" is Big Hand."
     ]
   },
   "discard-pile-to-deck": {
@@ -754,7 +755,7 @@
   },
   "doom-prevent-advance": {
     "rulings": [
-      "Any stall: the agenda cannot advance, doom on a card does not count toward the threshold (Elle Rubash), or doom cannot be placed / is cancelled as placed (Handcuffs, Fortune or Fate, Tidal Memento — which also keep doom-remove)."
+      "Any stall: the agenda cannot advance, doom on a card does not count toward the threshold (Elle Rubash), or doom cannot be placed / is cancelled as placed (Handcuffs, Fortune or Fate, Tidal Memento — Fortune or Fate also keeps doom-remove (it cancels doom already placed); Tidal Memento only prevents placement, so no doom-remove (2026-09-26))."
     ]
   },
   "cost-damage-self": {
@@ -776,15 +777,6 @@
       }
     ]
   },
-  "victory-display-self": {
-    "rulings": [],
-    "notMembers": [
-      {
-        "card": "Bianca \"Die Katz\" (10063)",
-        "reason": "adding a weakness enemy to the victory display is how you get rid of it, not banking victory points (removed 2026-09-26)"
-      }
-    ]
-  },
   "enemy-exhaust": {
     "rulings": [],
     "notMembers": [
@@ -792,6 +784,36 @@
         "card": "\"Where's the party?\" (11053)",
         "reason": "spawns an enemy exhausted — it adds an enemy, it does not debuff one (removed 2026-09-26)"
       }
+    ]
+  },
+  "cost-free-spend-secret": {
+    "rulings": [
+      "Converting a card's uses into resources counts as spending them — Forbidden Knowledge and Ariadne's Twine keep cost-free-spend-secret (players replacing them look among the secret spenders)."
+    ]
+  },
+  "doom-check": {
+    "rulings": [
+      "Also a trigger on doom being PLACED on your cards (Blood of Thoth, Cat Mask) — the doom-matters payoff side."
+    ]
+  },
+  "gain-fast-other": {
+    "rulings": [
+      "Widened 2026-09-26 from \"gains fast\" to any play of ANOTHER card without spending an action: through a fast ability (Joey \"The Rat\" Vigil, Farsight, Custom Grip, Dexter Drake 07004), a reaction (Dexter Drake 12010, Marion Tavares), or a Fast event (Leading Lady ×5)."
+    ]
+  },
+  "auto-evade": {
+    "rulings": [
+      "auto-evade = the text says \"automatically evade\" (a whole effect, or a rider after a successful test of any kind). testless-evade = an enemy evaded with no evasion attempt against IT. A card evading the enemy it just tested (Cheap Shot) is auto-evade only; one evading a different, untested enemy (Breaking and Entering, Silas's Net, Survival Instinct) also carries testless-evade."
+    ]
+  },
+  "timing-when-leaves-play": {
+    "rulings": [
+      "Bonded plumbing — \"when X leaves play, set the bonded cards aside, out of play\" — is not this window (general bonded ruling; Hallowed Mirror, Occult Lexicon, Miss Doyle, Nightmare Bauble stripped 2026-09-26)."
+    ]
+  },
+  "chaos-predict": {
+    "rulings": [
+      "Also: committing AFTER the reveal (Timely Intervention) and a sealed token you know will resolve next (Premonition ×2)."
     ]
   }
 }
