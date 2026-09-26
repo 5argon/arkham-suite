@@ -2,13 +2,16 @@ import { describe, expect, it } from 'vitest';
 import {
 	DEFAULT_PROFILE_SETTINGS,
 	SHARED_PANES,
-	defaultCampaignLayout,
 	freshDefaultPanes,
-	isFullWidth,
 	resolveProfileSettings,
 	type ProfileRow
 } from './profile-settings';
-import { campaignDetailWidgetIds, sharedWidgetsForPane } from './profile-widgets';
+import {
+	campaignDetailWidgetIds,
+	defaultCampaignLayout,
+	isFullWidth,
+	sharedWidgetsForPane
+} from './profile-widgets';
 import { isCampaignOwned, ownedCampaignCodes } from '../utils/ownership';
 import { Product } from '@5argon/arkham-kohaku';
 

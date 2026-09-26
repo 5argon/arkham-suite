@@ -1,31 +1,29 @@
-<!--
-@component
-A single square card thumbnail — the bordered, shadowed `getCardImagePath(code,'square')` image
-(passport header art, key widgets). `tone` sets the
-border (neutral primary vs danger red); `objectTop` frames portraits from the top; `size` overrides
-the default `h-16 w-16`.
--->
+<!-- @component A bordered square thumbnail of a card (by `code`) or any image (by `src`). -->
 <script lang="ts">
 	import { getCardImagePath } from '@5argon/arkham-life-ui';
+	import { cardByCode } from '$lib/card-data';
 
 	let {
 		code,
-		alt = '',
+		src,
+		alt,
 		title,
 		tone = 'primary',
 		objectTop = false,
 		size = 'h-16 w-16'
 	}: {
-		code: string;
+		code?: string;
+		src?: string;
+		/** Defaults to the card's name. */
 		alt?: string;
-		/** Native hover tooltip (e.g. a coterie member's name). */
+		/** Native tooltip; defaults to `alt`. */
 		title?: string;
 		tone?: 'primary' | 'danger';
 		objectTop?: boolean;
-		/** Size utility classes (default `h-16 w-16`). */
 		size?: string;
 	} = $props();
 
+	const name = $derived(alt ?? (code ? (cardByCode(code)?.name ?? '') : ''));
 	const border = $derived(
 		tone === 'danger'
 			? 'border-error-300 dark:border-error-700'
@@ -34,9 +32,9 @@ the default `h-16 w-16`.
 </script>
 
 <img
-	src={getCardImagePath(code, 'square')}
-	{alt}
-	{title}
+	src={src ?? (code ? getCardImagePath(code, 'square') : '')}
+	alt={name}
+	title={title ?? name}
 	loading="lazy"
 	class="{size} {border} shrink-0 rounded border object-cover shadow {objectTop ? 'object-top' : ''}"
 />

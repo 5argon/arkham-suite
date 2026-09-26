@@ -1,9 +1,4 @@
-<!--
-@component
-Shared widget date — a campaign play's finish date (ms-since-epoch) rendered as a short, muted,
-locale-aware "MMM D, YYYY" (or an em dash when unrecorded). Format lives in `format-date.ts`;
-callers pass the precomputed `finishDate`.
--->
+<!-- @component A play's finish date, short and muted, or a dash when unrecorded. -->
 <script lang="ts">
 	import { formatFinishDate } from '$lib/campaign/utils/format-date';
 

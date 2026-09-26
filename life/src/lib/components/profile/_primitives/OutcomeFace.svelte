@@ -1,9 +1,4 @@
-<!--
-@component
-Shared win/loss "outcome face" — the ending-kind FaIcon (better-win / win / special / loss)
-with a hover tooltip naming it. `kind = null` renders a muted dash (e.g. an abandoned / unfinished
-run). `reached = false` greys it (an ending you haven't hit yet).
--->
+<!-- @component An ending-kind icon (better win / win / special / loss) with its name on hover; null shows a dash. -->
 <script lang="ts">
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import type { EndingKind } from '$lib/campaign/outcomes/clear-status';
@@ -16,9 +11,7 @@ run). `reached = false` greys it (an ending you haven't hit yet).
 		reached = true,
 		size = 'text-lg'
 	}: {
-		/** null → a muted dash (abandoned / no outcome). */
 		kind: EndingKind | null;
-		/** Tooltip text + aria-label (what this face means). */
 		label: string;
 		reached?: boolean;
 		size?: string;

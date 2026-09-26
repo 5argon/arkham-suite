@@ -1,88 +1,102 @@
 <!--
 @component
-Shared "big number + small caption" stat display. Takes EXPLICIT rows so the grouping is fixed on
-every screen size. Each row is a centred group; cells are width-capped so long labels wrap inside
-a cell instead of the row breaking apart.
-
-A row may be a plain `Stat[]` OR a `{ heading, stats }` group — the optional `heading`
-renders as a centred topic line above that row, so a group of numbers can say what
-they're about (e.g. "The Necronomicon" over took / destroyed / failed).
-
-A stat may carry a `byTier` map (per-difficulty counts); when present the number
-becomes hoverable and reveals a per-difficulty breakdown tooltip — the shared "see
-this number by difficulty" feature, matching the resolution-chip hover.
+Big numbers with captions, in fixed rows. A group with a `heading` gets a centred title; a stat
+with a tally hovers to its per-difficulty breakdown. Groups whose values are all zero or empty are
+left out, and `empty` shows when nothing is left.
 -->
 <script lang="ts" module>
-	import HoverTip from './HoverTip.svelte';
-	import { HoverTipState } from './hover-tip.svelte';
+	import type { Tally } from '$lib/campaign/utils/tally';
+
 	export interface Stat {
-		/** `null` / `undefined` render as a long dash (—) — e.g. a high-score that has no qualifying run. */
-		value: number | string | null | undefined;
 		label: string;
-		/** Optional per-difficulty breakdown; enables the difficulty hover on this number. */
+		/** Defaults to the tally's total; null or undefined shows a dash. */
+		value?: number | string | null;
+		tally?: Tally;
+		/** A breakdown for a value that is not a tally total. */
 		byTier?: Record<string, number>;
 	}
-	/** A labelled group of stats: an optional centred topic line above the row. */
+
 	export interface StatGroup {
 		heading?: string;
 		stats: Stat[];
+		/** Hidden in log-only mode. */
+		nonLog?: boolean;
+		/** Shown even when every value is zero or empty. */
+		keepEmpty?: boolean;
 	}
 </script>
 
 <script lang="ts">
-		import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
-	import SectionLabel from '$lib/components/profile/_primitives/SectionLabel.svelte';
+	import { difficultyBreakdown } from '$lib/campaign/utils/difficulty';
+	import HoverTip from './HoverTip.svelte';
+	import { HoverTipState } from './hover-tip.svelte';
+	import SectionLabel from './SectionLabel.svelte';
+	import WidgetEmpty from './WidgetEmpty.svelte';
 
-	let { rows }: { rows: (Stat[] | StatGroup)[] } = $props();
+	let {
+		rows,
+		logOnly = false,
+		empty
+	}: {
+		rows: (Stat[] | StatGroup)[];
+		logOnly?: boolean;
+		/** Shown when no group is left to display. */
+		empty?: string;
+	} = $props();
 
-	// Normalise each row to a {heading?, stats} group (a bare array = no heading).
+	const valueOf = (s: Stat) => s.value ?? s.tally?.total ?? null;
+	const hasValue = (s: Stat) => {
+		const v = valueOf(s);
+		return typeof v === 'number' ? v !== 0 : !!v;
+	};
+	const breakdownOf = (s: Stat) => {
+		const byTier = s.byTier ?? s.tally?.byTier;
+		return byTier ? difficultyBreakdown(byTier) : '';
+	};
+
 	const groups = $derived(
-		rows.map((r): StatGroup => (Array.isArray(r) ? { stats: r } : r))
+		rows
+			.map((r): StatGroup => (Array.isArray(r) ? { stats: r } : r))
+			.filter((g) => !(g.nonLog && logOnly) && g.stats.length && (g.keepEmpty || g.stats.some(hasValue)))
 	);
 
-	const breakdownOf = (s: Stat): string =>
-		s.byTier ? difficultyBreakdown(s.byTier, times) : '';
-
+	const number = 'text-4xl leading-none font-bold text-black tabular-nums dark:text-white';
 	const tip = new HoverTipState();
 </script>
 
-{#if groups.some((g) => g.stats.length)}
+{#if groups.length}
 	<div class="space-y-4">
 		{#each groups as g, i (i)}
-			{#if g.stats.length}
-				<div>
-					{#if g.heading}
-						<SectionLabel variant="heading" align="center">{g.heading}</SectionLabel>
-					{/if}
-					<div class="flex flex-wrap justify-center gap-x-6 gap-y-3">
-						{#each g.stats as s (s.label)}
-							{@const breakdown = breakdownOf(s)}
-							<div class="max-w-32 text-center">
-								{#if breakdown}
-									<div
-										role="img"
-										aria-label="{s.label}: {s.value ?? '—'} — {breakdown}"
-										class="cursor-default text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
-										onmouseenter={(e) => tip.show(s.label, breakdownOf(s), e)}
-										onmouseleave={tip.hide}
-									>
-										{s.value ?? '—'}
-									</div>
-								{:else}
-									<div
-										class="text-4xl leading-none font-bold text-black tabular-nums dark:text-white"
-									>
-										{s.value ?? '—'}
-									</div>
-								{/if}
-								<div class="text-primary-500 mt-1.5 text-sm">{s.label}</div>
-							</div>
-						{/each}
-					</div>
+			<div>
+				{#if g.heading}
+					<SectionLabel variant="heading" align="center">{g.heading}</SectionLabel>
+				{/if}
+				<div class="flex flex-wrap justify-center gap-x-6 gap-y-3">
+					{#each g.stats as s (s.label)}
+						{@const breakdown = breakdownOf(s)}
+						{@const value = valueOf(s) ?? '—'}
+						<div class="max-w-32 text-center">
+							{#if breakdown}
+								<div
+									role="img"
+									aria-label="{s.label}: {value} — {breakdown}"
+									class="{number} cursor-default"
+									onmouseenter={(e) => tip.show(s.label, breakdown, e)}
+									onmouseleave={tip.hide}
+								>
+									{value}
+								</div>
+							{:else}
+								<div class={number}>{value}</div>
+							{/if}
+							<div class="text-primary-500 mt-1.5 text-sm">{s.label}</div>
+						</div>
+					{/each}
 				</div>
-			{/if}
+			</div>
 		{/each}
 	</div>
-
 	<HoverTip {tip} />
+{:else if empty}
+	<WidgetEmpty>{empty}</WidgetEmpty>
 {/if}

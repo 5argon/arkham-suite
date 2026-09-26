@@ -1,11 +1,4 @@
-<!--
-@component
-Account-wide profile settings (NOT widgets): the default tracked difficulty tiers,
-the default Archived Campaign visibility, and owned products. Snapshots `initialSettings`,
-edits only the globals, and `currentPayload()` returns the FULL settings JSON with
-the panes/campaigns layouts preserved. Lives on /settings; widgets are customized
-per-page.
--->
+<!-- @component The account-wide profile settings on /settings: tracked tiers and groups, owned products, visibility and log-only switches. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { Checkbox, SectionSeparator, TextButton } from '@5argon/arkham-life-ui';
@@ -29,13 +22,13 @@ per-page.
 	let { initialSettings }: { initialSettings: ProfileSettings } = $props();
 
 	const PRODUCT_GROUPS: { label: string; products: Product[] }[] = [
-		{ label: 'Core Sets', products: productCoreSets },
-		{ label: 'Campaign Expansions', products: [...productChapterOneCampaignExpansions, ...productChapterTwoCampaignExpansions] },
-		{ label: 'Investigator Expansions', products: productChapterOneInvestigatorExpansions },
-		{ label: 'Return-to', products: productReturnTo },
-		{ label: 'Investigator Decks', products: [...productInvestigatorStarterDeck, ...productInvestigatorDeck] },
-		{ label: 'Standalone', products: productStandalone },
-		{ label: 'Other', products: productOther },
+		{ label: m.framework_product_group_core(), products: productCoreSets },
+		{ label: m.framework_product_group_campaign(), products: [...productChapterOneCampaignExpansions, ...productChapterTwoCampaignExpansions] },
+		{ label: m.framework_product_group_investigator(), products: productChapterOneInvestigatorExpansions },
+		{ label: m.framework_product_group_return_to(), products: productReturnTo },
+		{ label: m.framework_product_group_decks(), products: [...productInvestigatorStarterDeck, ...productInvestigatorDeck] },
+		{ label: m.framework_product_group_standalone(), products: productStandalone },
+		{ label: m.framework_product_group_other(), products: productOther },
 	];
 	const ALL_PRODUCTS: Product[] = PRODUCT_GROUPS.flatMap((g) => g.products);
 
@@ -50,12 +43,8 @@ per-page.
 	let hideExpert = $state(untrack(() => initialSettings.hideUntrackedDifficultyAchievements));
 	let hideArchivesByDefault = $state(untrack(() => initialSettings.defaultArchiveDisplayInProfile === 'hidden'));
 	let owned = $state<Set<Product>>(untrack(() => new Set<Product>(initialSettings.ownedProducts ?? ALL_PRODUCTS)));
-	// Accessibility: pen-and-paper / log-only players hide everything that needs the Extra tab or
-	// imported decks (`logOnly`), and hide the deck-only Cards/Investigators categories wholesale.
 	let logOnly = $state(untrack(() => initialSettings.logOnly ?? false));
 	let campaignCategoriesOnly = $state(untrack(() => initialSettings.campaignCategoriesOnly ?? false));
-	// Return-to merge: fold each Return-to campaign's plays into its base campaign too (default ON);
-	// optionally hide the separate Return-to pages so those plays surface only on the base (default OFF).
 	let mergeReturnToStats = $state(untrack(() => initialSettings.mergeReturnToStats !== false));
 	let hideReturnToCampaigns = $state(untrack(() => initialSettings.hideReturnToCampaigns ?? false));
 

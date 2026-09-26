@@ -1,18 +1,14 @@
 <!--
 @component
-The shared per-VERSION breakdown table — one row per version a scenario can be played in, with
-toggleable columns (Succeed / Failed / Plays / Resolutions / XP high score) plus an optional free
-`extra` column (TSK's route). The caller maps its `ScenarioStat.versions` (or bespoke data) to
-`VersionRow[]` and supplies the version labels.
-
-Log-only mode: if the version axis isn't recoverable from the log alone (`versionFromLog` false),
-the table renders nothing; otherwise it keeps only Version + Plays (+ the `extra` column) and drops
-the Extra-tab-derived columns (Succeed / Failed / Resolutions / XP).
+A per-version table: Succeed / Failed / Plays / Resolutions / reward highscore columns plus an
+optional `extra` column. In log-only mode it keeps Version + Plays, or hides when the version
+itself needs Extra data (`versionFromLog` false).
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import type { VersionRow } from '$lib/campaign/stats/version-stats';
+	import type { Tally } from '$lib/campaign/utils/tally';
 	import WidgetTable, {
 		widgetTableCell,
 		type WidgetTableColumn
@@ -43,21 +39,16 @@ the Extra-tab-derived columns (Succeed / Failed / Resolutions / XP).
 		showPlays?: boolean;
 		showResolutions?: boolean;
 		showXp?: boolean;
-		/** Whether this scenario's reward is the Victory display (VP) vs flat Experience (XP) — words
-		 *  the XP column + cells the way the app does. Defaults to VP (the common case). */
+		/** VP (victory display) or XP wording. */
 		victoryDisplay?: boolean;
 		extraLabel?: string;
 		extra?: Snippet<[VersionRow]>;
-		/** Override the first column's header (default "Version") — TSK passes "Variant". */
 		versionLabel?: string;
-		/** Override the Plays column header (default "Plays") — TSK passes "Runs". */
 		playsLabel?: string;
 		logOnly?: boolean;
 		versionFromLog?: boolean;
 	} = $props();
 
-	// Log-only: Succeed/Failed/Resolutions/XP all ride Extra-tab sections → drop them; keep the
-	// log-known Version + Plays (+ the `extra` column, which the caller only fills with log data).
 	const sf = $derived(showSucceedFailed && !logOnly);
 	const res = $derived(showResolutions && !logOnly);
 	const xp = $derived(showXp && !logOnly);
@@ -74,6 +65,12 @@ the Extra-tab-derived columns (Succeed / Failed / Resolutions / XP).
 	});
 </script>
 
+{#snippet count(t: Tally | null | undefined, tone: string)}
+	{#if t?.total}
+		<CountWithBreakdown value="×{t.total}" tally={t} class="{tone} font-semibold" />
+	{:else}<span class="text-primary-400">—</span>{/if}
+{/snippet}
+
 {#if !(logOnly && !versionFromLog)}
 	<div>
 		{#if title}
@@ -87,35 +84,15 @@ the Extra-tab-derived columns (Succeed / Failed / Resolutions / XP).
 				</td>
 				{#if sf}
 					<td class="{widgetTableCell} tabular-nums">
-						{#if r.noOutcome}<!-- skip row: no win/loss applies -->
-						{:else if r.succeed && r.succeed.total > 0}
-							<CountWithBreakdown
-								value="×{r.succeed.total}"
-								byTier={r.succeed.byTier}
-								class="text-secondary-700 dark:text-secondary-300 font-semibold"
-							/>
-						{:else}<span class="text-primary-400">—</span>{/if}
+						{#if !r.noOutcome}{@render count(r.succeed, 'text-secondary-700 dark:text-secondary-300')}{/if}
 					</td>
 					<td class="{widgetTableCell} tabular-nums">
-						{#if r.noOutcome}<!-- skip row: no win/loss applies -->
-						{:else if r.failed && r.failed.total > 0}
-							<CountWithBreakdown
-								value="×{r.failed.total}"
-								byTier={r.failed.byTier}
-								class="text-primary-700 dark:text-primary-300 font-semibold"
-							/>
-						{:else}<span class="text-primary-400">—</span>{/if}
+						{#if !r.noOutcome}{@render count(r.failed, 'text-primary-700 dark:text-primary-300')}{/if}
 					</td>
 				{/if}
 				{#if plays}
 					<td class="{widgetTableCell} tabular-nums">
-						{#if r.plays && r.plays.total > 0}
-							<CountWithBreakdown
-								value="×{r.plays.total}"
-								byTier={r.plays.byTier}
-								class="text-secondary-700 dark:text-secondary-300 font-semibold"
-							/>
-						{:else}<span class="text-primary-400">—</span>{/if}
+						{@render count(r.plays, 'text-secondary-700 dark:text-secondary-300')}
 					</td>
 				{/if}
 				{#if extra}

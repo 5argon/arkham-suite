@@ -1,17 +1,9 @@
-/**
- * profile-slugs.ts — URL slug ⇆ campaign-family / card-class resolution for the
- * hierarchical profile routes (client-safe). A campaign's public slug is its
- * kohaku `Campaign` value (e.g. `tsk`, `eote`) — NOT the campaign-data code
- * (`tskc`, `eoe`); `getCampaignLog` bridges the two. Card-class slugs are the
- * `CardClass` enum values verbatim.
- */
-
+/** Profile URL slugs: a campaign's slug is its kohaku `Campaign` value (`tsk`), not its campaign-data
+ *  code (`tskc`); a class slug is its `CardClass` value. */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import { Campaign, CardClass } from '@5argon/arkham-kohaku';
+import { u as stringUtils } from '@5argon/arkham-string';
 
-// family (the ProfileData array key = campaign code) → canonical slug (URL).
-// Every campaign is its own family, Return-to included, so each gets a slug
-// (a Return-to campaign's kohaku `Campaign` value equals its code, e.g. 'rtdwl').
 const FAMILY_TO_SLUG = new Map<string, string>();
 for (const c of Object.values(Campaign)) {
 	const log = getCampaignLog(c);
@@ -19,7 +11,20 @@ for (const c of Object.values(Campaign)) {
 	FAMILY_TO_SLUG.set(log.db.code, c as string);
 }
 
-/** Canonical URL slug for a folded family code (falls back to the family). */
+/** A kohaku campaign code's display name; unknown codes pass through. */
+export function campaignDisplayName(code: string): string {
+	return (Object.values(Campaign) as string[]).includes(code)
+		? stringUtils.campaignName(code as Campaign)
+		: code;
+}
+
+/** A card class slug's display name; unknown slugs pass through. */
+export function classDisplayName(slug: string): string {
+	return (Object.values(CardClass) as string[]).includes(slug)
+		? stringUtils.cardClass(slug as CardClass)
+		: slug;
+}
+
 export function slugForFamily(family: string): string {
 	return FAMILY_TO_SLUG.get(family) ?? family;
 }

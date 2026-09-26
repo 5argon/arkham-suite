@@ -1,7 +1,4 @@
-<!--
-@component
-The muted one-line message a widget shows when it has nothing to render yet.
--->
+<!-- @component The muted line a widget shows when there is nothing recorded yet. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 

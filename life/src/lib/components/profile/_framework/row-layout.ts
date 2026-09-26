@@ -1,30 +1,19 @@
 /**
- * row-layout.ts — editor-side helpers for the row-based widget layout.
- *
- * The editor works on `EditorRow[]` — a `ProfileRow` plus a transient `_uid` used
- * ONLY as a stable `{#each}` key (so moving/deleting rows doesn't mis-associate
- * config inputs). Uids never persist: `toStoredRows` strips them (and drops
- * fully-empty rows) back to the `ProfileRow[]` the settings document stores.
- *
- * All mutations are PURE: they return a new array, leaving the input untouched,
- * so the owning component can drive `$state` by reassignment.
- */
-import type { ProfileRow, SplitSide, WidgetSlot } from '$lib/campaign/profile/profile-settings';
+ * Pure helpers for the layout editor. Editor rows carry a transient `_uid` for `{#each}` keys;
+ * `toStoredRows` strips it and drops empty rows.
+ */import type { ProfileRow, SplitSide, WidgetSlot } from '$lib/campaign/profile/profile-settings';
 
 export type SlotSide = 'full' | SplitSide;
 
-/** A row carrying a transient editor-only key. */
 export type EditorRow = ProfileRow & { _uid: string };
 
 let seq = 0;
 const newUid = (): string => `row${seq++}`;
 
-/** Attach transient uids to stored rows (on snapshot / reset). */
 export function toEditorRows(rows: ProfileRow[]): EditorRow[] {
 	return rows.map((r) => ({ ...r, _uid: newUid() }) as EditorRow);
 }
 
-/** Strip transient uids and drop fully-empty rows, for persistence. */
 export function toStoredRows(rows: EditorRow[]): ProfileRow[] {
 	const out: ProfileRow[] = [];
 	for (const r of rows) {

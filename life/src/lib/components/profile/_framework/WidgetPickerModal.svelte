@@ -45,7 +45,7 @@ so they can be interleaved freely. Selecting an enabled widget fills the slot.
 				placed,
 				tooWide,
 				disabled: placed || tooWide,
-				campaignSpecific: !!def?.perCampaignExtra,
+				campaignSpecific: !!def?.campaign,
 				fullWidth: !!def?.fullWidth,
 				requiresExtra: def?.nonLog === 'full',
 			};

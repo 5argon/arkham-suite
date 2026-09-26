@@ -1,22 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
-import { WIDGET_CATALOGUE } from './profile-widgets';
+import {
+	WIDGET_CATALOGUE,
+	campaignDetailWidgetIds,
+	defaultCampaignLayout,
+	isFullWidth
+} from './profile-widgets';
 
-/**
- * Guard rails that keep the "Log-only mode" non-log filtering COMPLETE as widgets are added.
- *
- * The filtering has an implicit contract a new campaign widget must satisfy: (1) declare `nonLog`
- * in the catalogue, and — if `partial` — (2) accept `logOnly` and gate its non-log sections, and
- * (3) be passed `logOnly` by the renderer. The failure mode is silent (an unfillable "hole" just
- * stays for log-only players), so these tests turn "easy to forget" into "CI won't let you forget".
- *
- * `EXPECTED_NONLOG` is the explicit manifest: every EotE / TSK campaign widget, with its audited
- * classification (`'none'` = no non-log dependence). Adding a campaign widget fails the first test
- * until it's listed here — which forces a conscious decision and puts it in front of a reviewer.
- *
- * SCOPE: only the campaigns audited in this pass. Other campaigns (tdc / ptc / tcu / tfa) are not
- * yet classified — audit them when they get the Log-only pass, then add them below.
- */
+/** The Log-only classification of every audited campaign widget. Adding a widget to an audited
+ *  campaign fails this until its classification is decided here. */
 const EXPECTED_NONLOG: Record<string, 'full' | 'partial' | 'none'> = {
 	// ── Edge of the Earth ──
 	eoeCity: 'full', // City of the Elder Things — version/plays/resolutions/VP, all Extra
@@ -72,45 +63,35 @@ describe('Log-only: every audited campaign widget is classified', () => {
 	});
 });
 
-describe('Log-only: the renderer wires `logOnly` to partial widgets only', () => {
-	// Split the ProfileWidgets `{#if widget.id === '…'}` switch into per-id blocks: each block runs
-	// from its own id marker to the next, so it contains exactly that widget's component invocation.
-	const src = readFileSync(
-		new URL('../../components/profile/_framework/ProfileWidgets.svelte', import.meta.url),
-		'utf8'
-	);
-	const blocks = new Map<string, string>();
-	for (const part of src.split("widget.id === '").slice(1)) {
-		const id = part.slice(0, part.indexOf("'"));
-		if (!blocks.has(id)) blocks.set(id, part);
-	}
-	// Widgets dispatched through a lookup table (`const TABLE = { id: Component }` rendered by one
-	// `{:else if widget.id in TABLE}` branch) share that branch's invocation.
-	for (const table of ['TSK_SCENARIO_WIDGETS', 'TSK_PLAIN_SCENARIOS']) {
-		const decl = src.slice(src.indexOf(`const ${table}`));
-		const keys = [...decl.slice(0, decl.indexOf('};')).matchAll(/^\t\t(\w+):/gm)].map((m) => m[1]);
-		const branch = src.slice(src.indexOf(`widget.id in ${table}`));
-		const block = branch.slice(0, branch.indexOf('{:else', 1));
-		for (const id of keys) if (!blocks.has(id)) blocks.set(id, block);
-	}
+describe('catalogue and renderers', () => {
+	it('every catalogue widget has a renderer', async () => {
+		const { UNRENDERED_WIDGETS } = await import(
+			'../../components/profile/_framework/widget-renderers'
+		);
+		expect(UNRENDERED_WIDGETS).toEqual([]);
+	}, 60_000);
 
-	it('every audited campaign widget has a render branch', () => {
-		for (const id of Object.keys(EXPECTED_NONLOG)) {
-			expect(blocks.has(id), `${id} must have a render branch in ProfileWidgets`).toBe(true);
-		}
-	});
-
-	it('partial widgets are passed a `logOnly` prop', () => {
-		for (const [id, kind] of Object.entries(EXPECTED_NONLOG)) {
-			if (kind !== 'partial') continue;
-			expect(blocks.get(id)?.includes('logOnly={'), `${id} must be passed logOnly`).toBe(true);
-		}
-	});
-
-	it('full widgets are NOT passed `logOnly` (they render the placeholder centrally)', () => {
-		for (const [id, kind] of Object.entries(EXPECTED_NONLOG)) {
-			if (kind !== 'full') continue;
-			expect(blocks.get(id)?.includes('logOnly={'), `${id} must not be passed logOnly`).toBe(false);
+	it('every campaign default layout is valid and places all of its widgets', () => {
+		const slugs = [...new Set(WIDGET_CATALOGUE.flatMap((w) => (w.campaign ? [w.campaign] : [])))];
+		for (const slug of slugs) {
+			const allowed = new Set(campaignDetailWidgetIds(slug));
+			const ids: string[] = [];
+			for (const row of defaultCampaignLayout(slug)) {
+				if (row.kind === 'full') {
+					if (row.slot) ids.push(row.slot.id);
+					continue;
+				}
+				for (const slot of [row.left, row.right]) {
+					if (!slot) continue;
+					expect(isFullWidth(slot.id), `${slug}: ${slot.id} is full-width in a split`).toBe(false);
+					ids.push(slot.id);
+				}
+			}
+			for (const id of ids) expect(allowed.has(id), `${slug}: ${id} is not allowed`).toBe(true);
+			expect(new Set(ids).size, `${slug}: duplicate widgets`).toBe(ids.length);
+			for (const w of WIDGET_CATALOGUE.filter((w) => w.campaign === slug)) {
+				expect(ids, `${slug}: ${w.id} is not placed`).toContain(w.id);
+			}
 		}
 	});
 });

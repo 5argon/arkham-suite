@@ -1,9 +1,4 @@
-<!--
-@component
-A table cell with a scenario's encounter-set icon and name — the first column of the per-scenario
-tables. Resolve the icon from `scenarioId`, or pass a precomputed `iconSet` (+ `fallback`) for
-decision points that borrow another scenario's set.
--->
+<!-- @component A table cell with a scenario's encounter-set icon and name; `iconSet` overrides the icon of `scenarioId`. -->
 <script lang="ts">
 	import type { EncounterSet } from '@5argon/arkham-kohaku';
 	import ScenarioSetIcon from '$lib/components/profile/_primitives/ScenarioSetIcon.svelte';
@@ -21,9 +16,8 @@ decision points that borrow another scenario's set.
 		iconSet?: EncounterSet | null;
 		fallback?: string;
 		name: string;
-		/** Render the name in the muted primary tone instead of black/white. */
 		muted?: boolean;
-		/** Fade the whole cell (e.g. a scenario with no score to show). */
+		/** Fade the whole cell. */
 		faded?: boolean;
 	} = $props();
 </script>

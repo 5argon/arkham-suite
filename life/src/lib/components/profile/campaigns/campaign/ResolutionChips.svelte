@@ -1,21 +1,11 @@
-<!--
-@component
-A row of compact resolution chips — the shared building block for every place we
-show "which endings?" (the Resolution Coverage widget and the per-scenario TSK
-widget's per-variant column). Each chip is `resolutionShort` (e.g. `R1`), lit when
-the player has reached that resolution and dimmed otherwise. Hovering a chip
-reveals its full name and — when `tallies` are supplied — how many times it was
-reached, broken down per difficulty (one shared tooltip per chip set).
-
-Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
--->
+<!-- @component Resolution chips (R1, R2, …) lit when reached; hover for the full name and, with `tallies`, the per-difficulty count. -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import HoverTip from '$lib/components/profile/_primitives/HoverTip.svelte';
 	import { HoverTipState } from '$lib/components/profile/_primitives/hover-tip.svelte';
-		import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
+	import { difficultyBreakdown, nTimes } from '$lib/campaign/utils/difficulty';
 	import { resolutionLabel, resolutionShort } from '$lib/campaign/utils/resolutions';
-	import type { ResolutionTally } from '$lib/campaign/outcomes/resolution-coverage';
+	import type { Tally } from '$lib/campaign/utils/tally';
 
 	let {
 		ids,
@@ -24,28 +14,21 @@ Pass `tallies` to enable the breakdown; omit it for plain labelled chips.
 		verdicts = null,
 		nowrap = false,
 	}: {
-		/** Resolution ids to render, in order. */
 		ids: string[];
-		/** Which ids the player has reached (those chips are lit). */
 		visited: ReadonlySet<string>;
-		/** Per-resolution reach counts; enables the per-difficulty hover breakdown. */
-		tallies?: Record<string, ResolutionTally> | null;
-		/** Per-resolution Success/Failure verdict (campaign-data `resolutionOutcomes`); when set, a
-		 *  win/loss chip's hover label is suffixed "(Success)" / "(Failure)" so the player sees how
-		 *  each ending is scored. */
+		tallies?: Record<string, Tally> | null;
+		/** Adds "(Success)" / "(Failure)" to the hover name (campaign-data `resolutionOutcomes`). */
 		verdicts?: Record<string, 'win' | 'loss' | 'neutral'> | null;
-		/** Keep the chips on ONE line (no wrapping) — for tight table cells that scroll instead. */
 		nowrap?: boolean;
 	} = $props();
 
-	function tallyText(t: ResolutionTally): string {
-		const breakdown = difficultyBreakdown(t.byTier, times);
+	function tallyText(t: Tally): string {
+		const breakdown = difficultyBreakdown(t.byTier, nTimes);
 		return breakdown
-			? m.campaign_chips_total_breakdown({ count: times(t.total), breakdown })
-			: m.campaign_chips_total({ count: times(t.total) });
+			? m.campaign_chips_total_breakdown({ count: nTimes(t.total), breakdown })
+			: m.campaign_chips_total({ count: nTimes(t.total) });
 	}
 
-	/** Full resolution name suffixed with its verdict — "Resolution 1 (Success)" — when classified. */
 	function labelWithVerdict(id: string): string {
 		const v = verdicts?.[id];
 		const suffix =

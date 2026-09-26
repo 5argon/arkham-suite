@@ -1,45 +1,41 @@
-<!--
-@component
-A single inline number that, when a per-difficulty `byTier` map is supplied, reveals a
-hover tooltip breaking the count down by difficulty — the shared "see this number by
-difficulty" feature for tight TABLE CELLS (where StatNumbers' big-number layout doesn't
-fit). The caller formats the display string (e.g. `×3`) and styles it via `class`.
-Without `byTier` (or an all-zero one) it renders as a plain span, no hover.
--->
+<!-- @component An inline number for table cells; hovers to its per-difficulty breakdown. -->
 <script lang="ts">
+	import { difficultyBreakdown, nTimes } from '$lib/campaign/utils/difficulty';
+	import type { Tally } from '$lib/campaign/utils/tally';
 	import HoverTip from './HoverTip.svelte';
 	import { HoverTipState } from './hover-tip.svelte';
-		import { difficultyBreakdown, times } from '$lib/campaign/utils/difficulty';
 
 	let {
 		value,
+		tally = null,
 		byTier = null,
 		class: klass = '',
-		format = times
+		format = nTimes
 	}: {
-		/** The display string/number (e.g. `×3`). */
-		value: number | string;
-		/** Per-difficulty counts; enables the hover breakdown when present. */
+		/** Defaults to the tally's total. */
+		value?: number | string;
+		tally?: Tally | null;
 		byTier?: Record<string, number> | null;
 		class?: string;
-		/** How each per-difficulty value is rendered in the breakdown — defaults to the count form
-		 *  (`×3`). Pass a unit formatter (e.g. `n => "${n} VP"`) when the number isn't a count. */
+		/** Renders each tier's value in the breakdown. */
 		format?: (n: number) => string;
 	} = $props();
 
-	const breakdown = $derived(byTier ? difficultyBreakdown(byTier, format) : '');
+	const shown = $derived(value ?? tally?.total ?? 0);
+	const tiers = $derived(byTier ?? tally?.byTier ?? null);
+	const breakdown = $derived(tiers ? difficultyBreakdown(tiers, format) : '');
 	const tip = new HoverTipState();
 </script>
 
 {#if breakdown}
 	<span
 		role="img"
-		aria-label="{value} — {breakdown}"
+		aria-label="{shown} — {breakdown}"
 		class="cursor-default {klass}"
 		onmouseenter={(e) => tip.show('', breakdown, e)}
-		onmouseleave={tip.hide}>{value}</span
+		onmouseleave={tip.hide}>{shown}</span
 	>
 	<HoverTip {tip} />
 {:else}
-	<span class={klass}>{value}</span>
+	<span class={klass}>{shown}</span>
 {/if}

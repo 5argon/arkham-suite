@@ -1,17 +1,11 @@
-<!--
-@component
-OutcomeList — the shared "● lit / ○ greyed" story-fork list. Each item is a label (usually resolved
-from campaign-data so the wording matches the physical campaign log) with a hit flag and an optional
-×count. An optional trailing annotation (`note`, muted) tags each line — e.g. the scenario it was
-found in.
--->
+<!-- @component A ● reached / ○ not reached list of story outcomes with optional ×counts. -->
 <script lang="ts">
 	export interface OutcomeItem {
 		label: string;
 		hit: boolean;
-		/** Plays that hit this outcome (shown as ×N when > 1). */
+		/** Shown as ×N when above 1. */
 		count?: number;
-		/** Muted trailing annotation (e.g. the scenario the outcome belongs to). */
+		/** A muted trailing note, e.g. the scenario. */
 		note?: string;
 	}
 

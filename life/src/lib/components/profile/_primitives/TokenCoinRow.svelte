@@ -1,9 +1,4 @@
-<!--
-@component
-A labelled row of chaos-token coins with a trailing ×count — the shared inner rendering for the
-token-range widgets. Draws `count` copies of the token's coin art (the same art as the Campaign
-Archive's chaos-bag editor) followed by `×count`.
--->
+<!-- @component A labelled row of chaos-token coins followed by ×count. -->
 <script lang="ts">
 	import type { ChaosToken } from '@5argon/arkham-kohaku';
 	import { ChaosTokenDisplay } from '@5argon/arkham-life-ui';
@@ -17,7 +12,7 @@ Archive's chaos-bag editor) followed by `×count`.
 		token: ChaosToken;
 		label: string;
 		count: number;
-		/** Tailwind width for the label column, so a widget's rows line up. */
+		/** The label column's width, so rows line up. */
 		labelClass?: string;
 	} = $props();
 </script>

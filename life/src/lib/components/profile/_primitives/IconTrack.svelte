@@ -1,23 +1,11 @@
-<!--
-@component
-Shared "icon track" — a horizontal, equal-width, non-wrapping sequence of cells. Each cell is an
-icon/glyph with an optional sublabel beneath it (text, chaos-token glyphs, a letter — anything),
-a per-cell tint or dim, and a per-cell hover tooltip (one shared tooltip element for the row).
-Every cell is the SAME fixed width, so the row reads as an evenly spaced left-to-right sequence
-and stays on one line (pass `wrap` to let it wrap).
-
-The icon + sublabel are caller-supplied snippets (each receives the item), so the track owns only
-the layout, the equal-width cells, the tint/dim, and the shared tooltip.
--->
+<!-- @component A one-line row of equal-width icon cells with sublabels, each tinted or dimmed, sharing one tooltip. -->
 <script lang="ts" module>
 	import HoverTip from './HoverTip.svelte';
 	import { HoverTipState } from './hover-tip.svelte';
 	export interface IconTrackItem {
-		/** Hover tooltip text for this cell. */
 		tooltip: string;
-		/** Dim the cell (a not-reached / neutral step). */
 		dim?: boolean;
-		/** Colour class applied to the icon + sublabel (an amber / violet / secondary tint, etc.). */
+		/** A text colour class for the icon and sublabel. */
 		tint?: string;
 	}
 </script>

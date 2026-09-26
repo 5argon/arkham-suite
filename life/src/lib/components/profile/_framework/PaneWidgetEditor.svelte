@@ -1,19 +1,8 @@
-<!--
-@component
-Edits the ROW LAYOUT of ONE profile page: either a shared pane (home, cards, …)
-or a SINGLE campaign's detail page. A campaign's page has its OWN complete layout
-(shared campaign-detail widgets AND that campaign's own widgets, interleaved as
-the user likes).
-
-It snapshots `initialSettings`, edits only this page's rows, and `currentPayload()`
-returns the FULL settings JSON with that slice replaced — every other page and all
-globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
--->
+<!-- @component Edits one page's row layout: a shared pane, or a campaign's own detail page. -->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import {
-		defaultCampaignLayout,
 		freshDefaultPanes,
 		type PaneId,
 		type ProfileSettings,
@@ -22,9 +11,11 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 	} from '$lib/campaign/profile/profile-settings';
 	import {
 		campaignDetailWidgetIds,
+		defaultCampaignLayout,
 		sharedWidgetsForPane,
 		WIDGET_BY_ID
 	} from '$lib/campaign/profile/profile-widgets';
+	import type { WidgetConfigOption } from '$lib/campaign/profile/widget-def';
 	import { Checkbox, RadioButtons } from '@5argon/arkham-life-ui';
 	import RowLayoutEditor from '$lib/components/profile/_framework/RowLayoutEditor.svelte';
 	import {
@@ -46,7 +37,6 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 		campaign?: string | null;
 	} = $props();
 
-	// A campaign slug edits that campaign's own layout; otherwise a shared pane.
 	let rows = $state<EditorRow[]>(
 		untrack(() =>
 			toEditorRows(
@@ -64,11 +54,6 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 			: sharedWidgetsForPane(pane).map((w) => w.id)
 	);
 
-	/** Per-slot configured item count, else the family default. */
-	const widgetCount = (slot: WidgetSlot, fallback: number): number =>
-		typeof slot.config?.count === 'number' ? slot.config.count : fallback;
-
-	// Per-campaign "Log-only mode" (campaign detail page only); hidden while the global switch is on.
 	let campaignLogOnly = $state(
 		untrack(() => campaign != null && initialSettings.campaignLogOnly?.[campaign] === true)
 	);
@@ -96,105 +81,34 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 		return JSON.stringify(next);
 	});
 
-	/** The full settings as a JSON string (this page updated) — read by the page on save. */
+	/** The full settings with this page's layout replaced, as JSON. */
 	export function currentPayload(): string {
 		return payload;
 	}
 </script>
 
-{#snippet countConfig(rowIndex: number, side: SlotSide, current: number)}
-	<div class="mt-2">
-		<RadioButtons
-			label={m.framework_top()}
-			selectedValue={current}
-			onChange={(v) => (rows = patchConfig(rows, rowIndex, side, { count: v }))}
-			choices={[
-				{ value: 5, label: '5' },
-				{ value: 10, label: '10' },
-				{ value: 15, label: '15' }
-			]}
-		/>
-	</div>
+{#snippet toggle(rowIndex: number, side: SlotSide, slot: WidgetSlot, key: string, label: string)}
+	<Checkbox
+		{label}
+		checked={slot.config?.[key] === true}
+		onChange={() => (rows = patchConfig(rows, rowIndex, side, { [key]: slot.config?.[key] !== true }))}
+	/>
 {/snippet}
 
-{#snippet investigatorFilters(rowIndex: number, side: SlotSide, slot: WidgetSlot)}
+{#snippet options(rowIndex: number, side: SlotSide, slot: WidgetSlot, config: WidgetConfigOption[])}
 	<div class="mt-2 flex flex-wrap items-center gap-2">
-		<Checkbox
-			label={m.framework_ignore_parallel_investigators()}
-			checked={slot.config?.ignoreParallel === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					ignoreParallel: !(slot.config?.ignoreParallel === true)
-				}))}
-		/>
-		<Checkbox
-			label={m.framework_ignore_subject_5u21()}
-			checked={slot.config?.ignore5u21 === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					ignore5u21: !(slot.config?.ignore5u21 === true)
-				}))}
-		/>
-	</div>
-{/snippet}
-
-{#snippet keysWallConfig(rowIndex: number, side: SlotSide, slot: WidgetSlot)}
-	<div class="mt-2">
-		<Checkbox
-			label={m.framework_hide_wellspring()}
-			checked={slot.config?.hideWellspring === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					hideWellspring: !(slot.config?.hideWellspring === true)
-				}))}
-		/>
-	</div>
-{/snippet}
-
-{#snippet scenarioConfig(rowIndex: number, side: SlotSide, slot: WidgetSlot)}
-	<div class="mt-2 space-y-1">
-		<Checkbox
-			label={m.framework_hide_variant_breakdown()}
-			checked={slot.config?.hideVariants === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					hideVariants: !(slot.config?.hideVariants === true)
-				}))}
-		/>
-		<Checkbox
-			label={m.framework_hide_achievements()}
-			checked={slot.config?.hideAchievements === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					hideAchievements: !(slot.config?.hideAchievements === true)
-				}))}
-		/>
-	</div>
-{/snippet}
-
-{#snippet routesConfig(rowIndex: number, side: SlotSide, slot: WidgetSlot)}
-	<div class="mt-2">
-		<Checkbox
-			label={m.framework_hide_achievement_routes()}
-			checked={slot.config?.hideAchievements === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					hideAchievements: !(slot.config?.hideAchievements === true)
-				}))}
-		/>
-	</div>
-{/snippet}
-
-{#snippet nonLogConfig(rowIndex: number, side: SlotSide, slot: WidgetSlot)}
-	<div class="mt-2">
-		<Checkbox
-			label={m.framework_ignore_non_log()}
-			checked={slot.config?.ignoreNonLog === true}
-			onChange={() =>
-				(rows = patchConfig(rows, rowIndex, side, {
-					ignoreNonLog: !(slot.config?.ignoreNonLog === true)
-				}))}
-		/>
+		{#each config as option, i (i)}
+			{#if option.kind === 'count'}
+				<RadioButtons
+					label={m.framework_top()}
+					selectedValue={typeof slot.config?.count === 'number' ? slot.config.count : option.fallback}
+					onChange={(v) => (rows = patchConfig(rows, rowIndex, side, { count: v }))}
+					choices={option.choices.map((n) => ({ value: n, label: String(n) }))}
+				/>
+			{:else}
+				{@render toggle(rowIndex, side, slot, option.key, option.label())}
+			{/if}
+		{/each}
 	</div>
 {/snippet}
 
@@ -207,27 +121,18 @@ globals preserved. Thin orchestrator; positioning UI lives in <RowLayoutEditor>.
 	side: SlotSide;
 	slot: WidgetSlot;
 })}
-	{#if slot.id === 'favoriteCard' || slot.id.startsWith('favoriteCard_')}
-		{@render countConfig(rowIndex, side, widgetCount(slot, 10))}
-	{:else if slot.id === 'deckStats' || slot.id.startsWith('deckStats_')}
-		{@render countConfig(rowIndex, side, widgetCount(slot, 5))}
-	{:else if slot.id === 'investigatorInsights'}
-		{@render investigatorFilters(rowIndex, side, slot)}
-	{:else if slot.id === 'tskKeysObtained' || slot.id === 'tskKeysBearer'}
-		{@render keysWallConfig(rowIndex, side, slot)}
-	{:else if slot.id === 'tskRoutes'}
-		{@render routesConfig(rowIndex, side, slot)}
-	{:else if slot.id.startsWith('tskScenario_')}
-		{@render scenarioConfig(rowIndex, side, slot)}
+	{@const def = WIDGET_BY_ID[slot.id]}
+	{#if def?.config}
+		{@render options(rowIndex, side, slot, def.config)}
 	{/if}
-	<!-- Auto-generated for any `nonLog: 'partial'` widget — hide its Extra/deck-derived sections. -->
-	{#if WIDGET_BY_ID[slot.id]?.nonLog === 'partial'}
-		{@render nonLogConfig(rowIndex, side, slot)}
+	{#if def?.nonLog === 'partial'}
+		<div class="mt-2">
+			{@render toggle(rowIndex, side, slot, 'ignoreNonLog', m.framework_ignore_non_log())}
+		</div>
 	{/if}
 {/snippet}
 
-<!-- Per-campaign Log-only toggle. Hidden when the global `logOnly` is on (it already covers
-     every campaign, so a per-campaign switch would be moot). -->
+<!-- The global switch already covers every campaign. -->
 {#if campaign != null && initialSettings.logOnly !== true}
 	<div class="mb-2">
 		<Checkbox

@@ -1,40 +1,30 @@
 <!--
 @component
-Shared "lit tile" wall — a flex or grid of square tiles. Each tile is a square image
-(a card crop, a portrait, or a diagram) that lights up (a primary ring + its count) when
-its `count` is > 0 and is greyed out otherwise, with a single shared hover tooltip. A
-missing image degrades to a labelled placeholder.
-
-Layout (tiles are a uniform fixed size — `w-20` — so a wall looks the same in any slot):
-  • `tiles` + `layout='grid'` (default) — a content-width, centred grid of `colsClass` columns.
-  • `tiles` + `layout='flex'`           — a centred flex-wrap row.
-  • `rows`                              — explicit rows of tiles, each row centred.
-
-Per-tile chrome is opt-in: `showLabel` (a name under the tile), `countPosition` ('corner'
-badge vs 'below' the tile), `fit` ('cover' crop vs 'contain' for diagrams that must not be
-cropped), `objectTop` (top-framing for portraits), and `markup` (render the label + tooltip
-title as Arkham glyphs, e.g. chaos-token symbols).
+A wall of fixed-size square tiles, each lit with its count when above zero and greyed out otherwise,
+sharing one tooltip. Pass `tiles` (a grid or a flex row) or explicit `rows`.
 -->
 <script lang="ts" module>
 	import HoverTip from './HoverTip.svelte';
 	import { HoverTipState } from './hover-tip.svelte';
 	export interface LitTile {
 		id: string;
-		/** Square image url (card crop / portrait / diagram); '' or a load failure → placeholder. */
-		image: string;
-		label: string;
-		/** 0 → greyed out; > 0 → lit, with its count shown. */
+		/** A card whose square art is the image and whose name is the default label. */
+		code?: string;
+		/** Any other square image; missing or failing shows the label instead. */
+		image?: string;
+		label?: string;
+		/** Lit when above zero. */
 		count: number;
-		/** Hover tooltip's detail line. */
+		/** The tooltip's detail line. */
 		detail: string;
-		/** Optional card code (e.g. a Scarlet Key's bearer investigator) — its square art is inset
-		 *  at the tile's BOTTOM-RIGHT corner. Omitted → no corner art. */
+		/** A card inset at the bottom-right corner, e.g. a Scarlet Key's bearer. */
 		cornerCode?: string;
 	}
 </script>
 
 <script lang="ts">
 	import { getCardImagePath, parseArkhamMarkup } from '@5argon/arkham-life-ui';
+	import { cardByCode } from '$lib/card-data';
 
 	let {
 		tiles = null,
@@ -50,25 +40,21 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 	}: {
 		tiles?: LitTile[] | null;
 		rows?: LitTile[][] | null;
-		/** Grid column classes for the flat `tiles` grid layout (e.g. `grid-cols-3 @3xl:grid-cols-9`). */
+		/** Grid columns for `tiles`, e.g. `grid-cols-3 @3xl:grid-cols-9`. */
 		colsClass?: string;
-		/** `tiles` layout: a `colsClass` grid (default) or a centred flex-wrap row. */
 		layout?: 'grid' | 'flex';
-		/** Show the tile's label underneath the image. */
 		showLabel?: boolean;
-		/** Where the count shows when lit: a corner badge, or a line below the tile. */
 		countPosition?: 'corner' | 'below';
-		/** Show the count when lit. False = a lit ring only, no number (e.g. a "which ones" highlight row). */
+		/** False lights the ring without a number. */
 		showCount?: boolean;
-		/** Image fit: cover-crop (card art / portraits) or contain (diagrams that must not crop). */
+		/** `contain` for diagrams that must not be cropped. */
 		fit?: 'cover' | 'contain';
-		/** Frame the image from the top (portraits) instead of centred. */
+		/** Frame portraits from the top. */
 		objectTop?: boolean;
-		/** Render the label + tooltip title as Arkham markup (chaos-token glyphs etc.). */
+		/** Render labels and tooltip titles as Arkham markup (chaos-token glyphs). */
 		markup?: boolean;
 	} = $props();
 
-	// Image load failures fall back to a labelled placeholder tile.
 	let failed = $state<Record<string, boolean>>({});
 
 	const tip = new HoverTipState();
@@ -79,11 +65,13 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 </script>
 
 {#snippet tile(t: LitTile)}
+	{@const label = t.label ?? (t.code ? (cardByCode(t.code)?.name ?? t.code) : t.id)}
+	{@const image = t.image ?? (t.code ? getCardImagePath(t.code, 'square') : '')}
 	<div
 		role="img"
-		aria-label="{t.label} — {t.detail}"
+		aria-label="{label} — {t.detail}"
 		class="flex w-full cursor-default flex-col items-center gap-1"
-		onmouseenter={(e) => tip.show(t.label, t.detail, e)}
+		onmouseenter={(e) => tip.show(label, t.detail, e)}
 		onmouseleave={tip.hide}
 	>
 		<div
@@ -92,9 +80,9 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 				? 'p-1.5'
 				: ''} {t.count > 0 ? 'ring-primary-500 ring-2' : ''}"
 		>
-			{#if t.image && !failed[t.id]}
+			{#if image && !failed[t.id]}
 				<img
-					src={t.image}
+					src={image}
 					alt=""
 					onerror={() => (failed = { ...failed, [t.id]: true })}
 					class="h-full w-full {imgFit} transition {t.count > 0 ? '' : 'opacity-30 grayscale'}"
@@ -105,7 +93,7 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 					0
 						? ''
 						: 'opacity-40'}"
-					>{#if markup}{@html parseArkhamMarkup(t.label)}{:else}{t.label}{/if}</span
+					>{#if markup}{@html parseArkhamMarkup(label)}{:else}{label}{/if}</span
 				>
 			{/if}
 			{#if t.count > 0 && countPosition === 'corner' && showCount}
@@ -115,7 +103,6 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 				>
 			{/if}
 			{#if t.cornerCode && !failed[`${t.id}-corner`]}
-				<!-- Bearer art: a small inset card square at the bottom-right corner. -->
 				<img
 					src={getCardImagePath(t.cornerCode, 'square')}
 					alt=""
@@ -132,7 +119,7 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 				class="w-full text-center text-[0.7rem] {markup ? '' : 'truncate'} {t.count > 0
 					? 'text-black dark:text-white'
 					: 'text-primary-400'}"
-				>{#if markup}{@html parseArkhamMarkup(t.label)}{:else}{t.label}{/if}</span
+				>{#if markup}{@html parseArkhamMarkup(label)}{:else}{label}{/if}</span
 			>
 		{/if}
 		{#if countPosition === 'below' && showCount}
@@ -156,8 +143,6 @@ title as Arkham glyphs, e.g. chaos-token symbols).
 		{/each}
 	</div>
 {:else if tiles}
-	<!-- Content-width + centred (mx-auto / justify-center) so tiles stay close together
-	     instead of spreading across a full-width widget. -->
 	<div class="@container">
 		{#if layout === 'flex'}
 			<div class="flex flex-wrap justify-center gap-3">

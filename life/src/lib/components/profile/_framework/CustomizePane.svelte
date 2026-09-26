@@ -1,10 +1,4 @@
-<!--
-@component
-Body for a per-page "customize widgets" route. Loads the database, renders the
-single-pane widget editor for `pane` (+ optional `campaign` for a campaign detail
-page), and saves into the database document. The Back button returns to the page
-being customized (the current path minus the trailing `/customize`).
--->
+<!-- @component A page's "customize widgets" screen: the layout editor for one pane, saved into the database. -->
 <script lang="ts">
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
@@ -17,14 +11,12 @@ being customized (the current path minus the trailing `/customize`).
 
 	let { pane, campaign = null, title }: { pane: PaneId; campaign?: string | null; title: string } = $props();
 
-	// Idempotent: resolves the store's loading status on a direct visit.
 	onMount(() => void ensureDatabaseLoaded());
 
 	const initialSettings = $derived(resolveProfileSettings(databaseStore.doc?.profileSettings));
 	const backHref = $derived(page.url.pathname.replace(/\/customize\/?$/, ''));
-	// Only a managed (`private`) profile has a live document to persist layout into; every other
-	// scope is read-only. These `customize` pages reset past the profile layout (`+page@.svelte`),
-	// so this guard is what blocks them.
+	// Only a `private` profile has a database to save into; these pages reset past the profile
+	// layout, so the scope guard lives here.
 	const isReadOnly = $derived((page.params as { scope?: string }).scope !== 'private');
 
 	const toast = getToastContext();

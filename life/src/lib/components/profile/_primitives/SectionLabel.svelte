@@ -1,9 +1,4 @@
-<!--
-@component
-Shared section label — the small muted heading/caption that titles a widget's sub-block. Two tiers:
-`heading` (a prominent group title, sm semibold) and `label` (a quiet field / table caption, xs
-medium); `align` overrides left vs centre.
--->
+<!-- @component A small heading (`heading`) or muted caption (`label`) over a widget's sub-block. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
@@ -12,7 +7,6 @@ medium); `align` overrides left vs centre.
 		align = 'left',
 		children
 	}: {
-		/** `heading` = prominent group title (sm, semibold, primary-600); `label` = quiet caption. */
 		variant?: 'heading' | 'label';
 		align?: 'left' | 'center';
 		children: Snippet;

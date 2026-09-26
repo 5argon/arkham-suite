@@ -1,32 +1,28 @@
-/**
- * Reactive state for one HoverTooltip that several hover targets take turns owning — pair it
- * with the `HoverTip` component, which renders the tooltip body.
- */
+/** One tooltip shared by several hover targets; render it once with `<HoverTip {tip} />`. */
 export class HoverTipState {
 	visible = $state(false);
 	ref = $state<HTMLElement | null>(null);
-	/** Plain single-line text (used when `title` is empty). */
+	/** Plain text, used when there is no title. */
 	text = $state('');
-	/** Emphasised first line. */
 	title = $state('');
-	/** Muted line under the title. */
-	detail = $state('');
+	/** Muted lines under the title. */
+	details = $state<string[]>([]);
 
-	/** Show plain text at the hovered element; empty text keeps the tooltip hidden. */
 	showText = (text: string, e: MouseEvent) => {
 		if (!text) return;
 		this.text = text;
 		this.title = '';
-		this.detail = '';
+		this.details = [];
 		this.#open(e);
 	};
 
-	/** Show a title with an optional detail line at the hovered element (either may be empty). */
-	show = (title: string, detail: string, e: MouseEvent) => {
-		if (!title && !detail) return;
+	/** Empty details are skipped; nothing shows when everything is empty. */
+	show = (title: string, detail: string | string[], e: MouseEvent) => {
+		const details = (Array.isArray(detail) ? detail : [detail]).filter(Boolean);
+		if (!title && !details.length) return;
 		this.text = '';
 		this.title = title;
-		this.detail = detail;
+		this.details = details;
 		this.#open(e);
 	};
 

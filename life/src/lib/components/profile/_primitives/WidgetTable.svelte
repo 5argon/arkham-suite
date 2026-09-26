@@ -1,11 +1,4 @@
-<!--
-@component
-Shared table chrome for widgets, so every in-widget table looks the same: a thin
-uppercase header (bold `th`, per-column alignment) and bordered rows. The consumer
-renders each row's cells in the `row` snippet using the exported `widgetTableCell`
-class for consistent padding/alignment (cells can hold rich content — icons,
-chips, routing tracks — so cells aren't data-driven).
--->
+<!-- @component The table look for widgets; cells come from the `row` snippet, styled with `widgetTableCell`. -->
 <script lang="ts" module>
 	export interface WidgetTableColumn {
 		label: string;

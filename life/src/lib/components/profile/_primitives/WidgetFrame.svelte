@@ -1,23 +1,15 @@
 <!--
 @component
-The default card frame for a profile widget — a bordered, rounded card that gives
-every widget a clear visual boundary, with its own HEADER TAB: a distinct banded
-strip across the top (its own fill + a "fold" edge below it), like the labelled
-tab of a physical reference card. The tab optionally carries an artistic image from the static
-folder:
-right-aligned, with a left-to-right scrim so the left title stays legible over
-ANY image. A missing image degrades to the plain tab.
-
-A placed widget ALWAYS shows its frame, even with no data (an empty body) — placing
-a widget is a deliberate choice, so it stays visible as a blank to fill in rather than
-silently disappearing.
+A widget's card: a header tab with the title (plus the scenario's icon, optional right-aligned art,
+and an info button opening `noteDoc`) above the body. A placed widget keeps its frame even when
+empty, as a visible blank to fill in.
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { EncounterSetIcon, FaIcon, FaIconType, Modal } from '@5argon/arkham-life-ui';
-	import { getScenarioData, Scenario } from '@5argon/arkham-kohaku';
 	import * as m from '$lib/paraglide/messages.js';
 	import Doc from '$lib/docs/Doc.svelte';
+	import { scenarioIconSet } from './ScenarioSetIcon.svelte';
 
 	let {
 		title = null,
@@ -26,35 +18,20 @@ silently disappearing.
 		scenario = null,
 		children
 	}: {
-		/** The card's header-tab title. When null, the card has no tab (just the boundary). */
+		/** No title, no tab. */
 		title?: string | null;
-		/** Static-root image path (e.g. `/image/widget/...webp`) shown right-aligned in the tab. */
+		/** Static path of the tab art. */
 		image?: string | null;
-		/** Optional doc path (under src/lib/docs) explaining this widget's data caveats. When set
-		 *  (and the card has a title), a clickable info icon in the header opens a modal rendering
-		 *  the doc. The generic "this widget's data has caveats" hook. */
+		/** Doc path under src/lib/docs. */
 		noteDoc?: string | null;
-		/** For a per-scenario widget: the kohaku scenario id, so the tab shows its encounter-set
-		 *  icon next to the title (the body omits the scenario name/icon — the frame shows them). */
 		scenario?: string | null;
 		children: Snippet;
 	} = $props();
 
-	// Hide a broken image gracefully so a missing asset degrades to the plain tab.
 	let imageFailed = $state(false);
 	const showImage = $derived(!!image && !imageFailed);
 
-	// The scenario's representative encounter set (when this is a per-scenario widget) — drives
-	// the title-tab icon. Guarded: only kohaku-known scenarios resolve.
-	const KOHAKU = new Set<string>(Object.values(Scenario));
-	const iconSet = $derived.by(() => {
-		if (!scenario || !KOHAKU.has(scenario)) return null;
-		try {
-			return getScenarioData(scenario as Scenario)?.representativeSet ?? null;
-		} catch {
-			return null;
-		}
-	});
+	const iconSet = $derived(scenario ? scenarioIconSet(scenario) : null);
 
 	let noteOpen = $state(false);
 </script>
@@ -67,8 +44,6 @@ silently disappearing.
 			class="border-primary-200 dark:border-primary-700 bg-primary-100 dark:bg-primary-800/70 relative flex items-center overflow-hidden border-b px-4 py-2.5"
 		>
 			{#if showImage}
-				<!-- The image fills the right of the tab; its left edge is clipped to a slant (the
-				     "tab fold", see the style below). -->
 				<img
 					src={image}
 					alt=""
@@ -116,14 +91,11 @@ silently disappearing.
 {/if}
 
 <style>
-	/* A placed but data-less widget keeps a visible, uniform blank body to fill in
-	   (rather than hiding) — placing a widget is a deliberate choice. */
 	.widget-frame__body:empty {
 		min-height: 3rem;
 	}
 
-	/* Slanted "tab fold" on the header image: the top-left corner is inset (4% of the image's
-	   width) while the bottom-left sits flush, so the header colour shows through as a slant. */
+	/* The image's left edge slants: the top-left corner is inset, the bottom-left is flush. */
 	.widget-frame__tab-img {
 		clip-path: polygon(4% 0, 100% 0, 100% 100%, 0 100%);
 	}

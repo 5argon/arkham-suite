@@ -2,14 +2,15 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"campaign_detail_head_fallback": "Campaign",
 	"campaign_detail_not_played": "You haven't played that campaign, or it isn't recognized.",
-	"campaign_coverage_outcomes": "{explored}/{total} outcomes ({pct}%)",
-	"campaign_coverage_route_better": "Harder / better route",
-	"campaign_coverage_route_easier": "Easier route",
-	"campaign_endings_reached": "{reached}/{total} reached",
 	"campaign_achievements_earned_in_plays": [
 		{
-			"declarations": ["input count", "local countPlural = count: plural"],
-			"selectors": ["countPlural"],
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
 			"match": {
 				"countPlural=one": "Earned in {count} play",
 				"countPlural=other": "Earned in {count} plays"
@@ -53,8 +54,13 @@
 	"campaign_summary_not_played_yet": "Not played yet.",
 	"campaign_summary_play": [
 		{
-			"declarations": ["input count", "local countPlural = count: plural"],
-			"selectors": ["countPlural"],
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
 			"match": {
 				"countPlural=one": "play",
 				"countPlural=other": "plays"
@@ -63,8 +69,13 @@
 	],
 	"campaign_summary_reached_times": [
 		{
-			"declarations": ["input count", "local countPlural = count: plural"],
-			"selectors": ["countPlural"],
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
 			"match": {
 				"countPlural=one": "Reached {count} time",
 				"countPlural=other": "Reached {count} times"
@@ -75,8 +86,13 @@
 	"campaign_special_trait": "{trait} trait",
 	"campaign_special_class": [
 		{
-			"declarations": ["input count", "local countPlural = count: plural"],
-			"selectors": ["countPlural"],
+			"declarations": [
+				"input count",
+				"local countPlural = count: plural"
+			],
+			"selectors": [
+				"countPlural"
+			],
 			"match": {
 				"countPlural=one": "{factions} class",
 				"countPlural=other": "{factions} classes"
