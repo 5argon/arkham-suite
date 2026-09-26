@@ -1,9 +1,7 @@
 /**
- * achievement-aggregate.ts — pure cross-campaign aggregation over the player's
- * recorded campaigns. Lifetime totals: an achievement is earned if earned in ANY
- * play; a Return-to `shared` achievement (which campaign-data injects into the
- * base campaign under the same `family` + id) thus counts toward the base family.
- * Union states power life-local custom achievements (lifetime tallies, coverage).
+ * Lifetime official achievements (earned in any play) and the union state custom achievements
+ * measure. A Return-to `shared` achievement, which campaign-data injects into the base campaign
+ * under the same family and id, counts toward the base family.
  */
 import {
 	achievementsFor,
@@ -13,84 +11,17 @@ import {
 	type AchievementDef,
 	type CampaignLog,
 	type EnAchievement,
-	type RecordedCampaignState,
+	type RecordedCampaignState
 } from '@5argon/arkham-campaign-data';
-import type { StandaloneEntry } from '../records/recorded-state';
-import { tskTrustAchievements } from '../campaigns/tsk-profile';
-import { achievementFamilyOf, familyOf, baseFamilyOf } from '../records/campaign-family';
+import type { CampaignRecord } from '../records/campaign-record';
+import { manualTickKey } from '../records/recorded-state';
+import { tskTrustAchievements } from '../campaigns/tsk/rules';
+import { achievementFamilyOf } from '../records/campaign-family';
 
-/** One recorded campaign: its kohaku code + the derived state + manual tick keys. */
-export interface CampaignRecord {
-	campaignCode: string;
-	recorded: RecordedCampaignState;
-	/** Manual tick keys: `def.id` and `def.id::itemId`. */
-	manual: ReadonlySet<string>;
-	/** Extra Imports: per-scenario earned XP (reserved `__xp` section). */
-	scenarioXp?: Record<string, number>;
-	/** Extra Imports: per-scenario choices (key `"scenario.choiceId"` → value). */
-	scenarioChoices?: Record<string, string>;
-	/** Extra Imports: per-scenario resolution reached (scenario id → resolution id). */
-	scenarioResolutions?: Record<string, string>;
-	/** Extra Imports: scenario ids manually marked SKIPPED (e.g. EotE Ice and Death II/III). */
-	scenarioSkipped?: string[];
-	/** Cards-CHOICE `#name#` picks (composite entry key → chosen item id), e.g. EotE
-	 *  "killed in the plane crash" → the expedition member. Read from raw log args. */
-	nameChoices?: Record<string, string>;
-	/** Scenarios played in entry order (the travel "route") — TSK Routings. */
-	route?: string[];
-	/** Per-scenario TSK-solver tier picks: `"<scenarioId>.<level|version>"` → option id. */
-	scenarioTiers?: Record<string, string>;
-	/** Per Scarlet Key item id → non-NPC bearer investigator codes (TSK Scarlet Keys widgets). */
-	scarletKeyBearers?: Record<string, string[]>;
-	/** Card codes erased from existence (TSK Dancing Mad / On Thin Ice), in log order. A
-	 *  campaign-level log fact (not investigator-specific) — feeds the Erased From Existence widget. */
-	erasedCards?: string[];
-	/** Investigator codes recorded as possessed at the end of Dim Carcosa (the repeatable
-	 *  `campaign_notes.possessed` `#name#` picks) — feeds PtC's Possessed Investigators list. */
-	possessedInvestigators?: string[];
-	/** Investigator codes the profile SUBJECT ran in this campaign — splits a Key BORNE by
-	 *  your own investigator from one merely OBTAINED by the cell (a teammate bears it). */
-	subjectInvestigators?: string[];
-	/** Deck-derived: every subject deck used only Core / Revised Core / Core 2026 cards with a
-	 *  non-parallel investigator — the NotZ "Core-Set purist" feat. Absent (⇒ falsy) in unit-test
-	 *  records and when no verifiable decks exist. */
-	coreOnly?: boolean;
-	/** Recorded finish date (ms epoch), for "most recent" ordering. null when unset. */
-	finishDate?: number | null;
-	/** Resolved player count for the play (`auto` resolved from participants); null when unknown.
-	 *  Used by player-count-keyed widgets (e.g. Dead Heat's per-player-count civilian tables). */
-	playerCount?: number | null;
-	/** A 1-player play where one human piloted several decks. With `playerCount === 1` this
-	 *  splits the solo clear grids: true solo (`!multiHanded`) vs solo X-handed (`multiHanded`). */
-	multiHanded?: boolean;
-	/** Extra Imports: standalone scenarios played inside this campaign (reserved `__standalone`). */
-	standalones?: StandaloneEntry[];
-	/**
-	 * The doc campaign id this record came from. Used as the join key to attribute
-	 * a play's `all`-target trauma to its deck investigators at assembly time
-	 * (deck data the logs segment must not depend on). Absent in unit-test records.
-	 */
-	campaignId?: string;
-	/** Cross-campaign SIBLING log keys (composite "section.id") transcribed for The
-	 *  Dream-Eaters interconnected play — the projection of the storage record's
-	 *  `linkedLog`. Read by the shared TDE widgets (epilogue matrix, Black Cat, Silver
-	 *  Key, Randolph) as the other-campaign axis. Absent for non-interconnected plays. */
-	linked?: ReadonlySet<string>;
-}
-
-export interface EarnedAchievement {
-	def: AchievementDef;
-	en: EnAchievement;
-	family: string;
-	earned: boolean;
-}
-
-// Serializable view types (shared with the profile components).
 /** One sub-item of a `list` achievement (e.g. each survivor in "There and Back Again"). */
 export interface ProfileAchievementItem {
 	id: string;
 	label: string;
-	/** Earned in at least one play (OR across plays). */
 	earned: boolean;
 }
 export interface ProfileFamilyAchievement {
@@ -99,11 +30,10 @@ export interface ProfileFamilyAchievement {
 	text: string;
 	earned: boolean;
 	inferred: boolean;
-	/** How many plays earned it (for "×N" badges). */
+	/** Plays that earned it. */
 	earnCount: number;
-	/** Sorted difficulty tiers it was earned at (e.g. `['hard','standard']`). */
 	earnedTiers: string[];
-	/** For `list` achievements: each item with its lifetime earned state, in order. */
+	/** `list` achievements only. */
 	items?: ProfileAchievementItem[];
 }
 export interface ProfileFamily {
@@ -118,13 +48,17 @@ function isInferred(def: AchievementDef): boolean {
 	return Boolean(def.infer || def.itemInfer);
 }
 
-/**
- * Earned for ONE play. arkham.life can auto-check both `infer` (log + scenarioChoice rules) and
- * `lifeInfer` achievements, since it holds the per-scenario Extra inputs. The two `lifeInfer` TSK
- * "Trust …" achievements have no expressible rule, so we compute them here.
- */
-function playEarned(def: AchievementDef, rec: CampaignRecord, log: CampaignLog, progress?: ReturnType<typeof evaluateAchievement>): boolean {
-	const base = isInferred(def) ? (progress ?? evaluateAchievement(def, rec.recorded)).earned === true || rec.manual.has(def.id) : rec.manual.has(def.id);
+/** Whether one play earned the achievement, inferred or ticked. TSK's two "Trust …" achievements
+ *  (`lifeInfer`) need Extra inputs and a rule campaign-data can't express, so they are computed here. */
+export function playEarned(
+	def: AchievementDef,
+	rec: CampaignRecord,
+	log: CampaignLog,
+	progress?: ReturnType<typeof evaluateAchievement>
+): boolean {
+	const base = isInferred(def)
+		? (progress ?? evaluateAchievement(def, rec.recorded)).earned === true || rec.manual.has(def.id)
+		: rec.manual.has(def.id);
 	if (base) return true;
 	if (def.lifeInfer && (def.id === 'trust_nobody' || def.id === 'trust_everybody')) {
 		return tskTrustAchievements({
@@ -132,89 +66,58 @@ function playEarned(def: AchievementDef, rec: CampaignRecord, log: CampaignLog, 
 			crossedLogs: rec.recorded.crossedLogs,
 			scenarioChoices: rec.scenarioChoices,
 			finalChaosBag: rec.recorded.finalChaosBag,
-			won: isCleared(log, rec.recorded) === true,
+			won: isCleared(log, rec.recorded) === true
 		})[def.id];
 	}
 	return false;
 }
 
-/**
- * Lifetime earned status per `(family, achievementId)`, ORed across every play.
- * Grouped by family (base campaign code).
- */
-export function aggregateOfficial(records: CampaignRecord[]): Map<string, EarnedAchievement[]> {
-	const byKey = new Map<string, EarnedAchievement>();
-	for (const rec of records) {
-		const log = getCampaignLog(rec.campaignCode);
-		if (!log) continue;
-		for (const a of achievementsFor(log)) {
-			const family = achievementFamilyOf(log, a.def.family);
-			const earned = playEarned(a.def, rec, log);
-			const key = `${family}::${a.def.id}`;
-			const existing = byKey.get(key);
-			if (existing) existing.earned = existing.earned || earned;
-			else byKey.set(key, { def: a.def, en: a.en, family, earned });
-		}
-	}
-	const byFamily = new Map<string, EarnedAchievement[]>();
-	for (const e of byKey.values()) {
-		const arr = byFamily.get(e.family);
-		if (arr) arr.push(e);
-		else byFamily.set(e.family, [e]);
-	}
-	return byFamily;
-}
-
-/** Per-(family, achievement) earned status enriched with difficulty-tier detail. */
 export interface AchievementTierStats {
 	def: AchievementDef;
 	en: EnAchievement;
 	family: string;
-	/** Earned in at least one play (OR across plays). */
 	earned: boolean;
-	/** How many plays earned it (for "✦×N" badges / signature ranking). */
+	/** Plays that earned it. */
 	earnCount: number;
-	/** Sorted difficulty tiers it was earned at (e.g. `['hard','standard']`). */
 	earnedTiers: string[];
-	/**
-	 * For `list` achievements: per-item earned state, ORed across plays (an item
-	 * is earned if it was earned in any play, auto-inferred or manually ticked).
-	 * Present (possibly all-false) only for list achievements; absent otherwise.
-	 */
+	/** `list` achievements only: each item, earned in any play (inferred or ticked). */
 	items?: Record<string, boolean>;
 }
 
-/**
- * Like {@link aggregateOfficial}, but records per achievement the set of
- * difficulty tiers it was earned at and how many plays earned it — powering
- * per-tier completion (Standard 100% / Hard 0%), "re-earn on Hard" goals, and
- * earn-count badges. Inferred achievements are evaluated from recorded state;
- * manual ones from the play's manual ticks; each carries the play's difficulty.
- */
-export function aggregateOfficialTiered(records: CampaignRecord[]): Map<string, AchievementTierStats[]> {
+/** Lifetime state per (family, achievement), grouped by family. */
+export function aggregateOfficialTiered(
+	records: CampaignRecord[]
+): Map<string, AchievementTierStats[]> {
 	const byKey = new Map<string, AchievementTierStats & { _tiers: Set<string> }>();
 	for (const rec of records) {
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
-		const tier = rec.recorded.difficulty ?? 'standard'; // match clear-status bucketing
+		const tier = rec.recorded.difficulty ?? 'standard';
 		for (const a of achievementsFor(log)) {
 			const family = achievementFamilyOf(log, a.def.family);
 			const isList = a.def.type === 'list' && Array.isArray(a.def.items);
-			// Evaluate once when the result is needed (inferred whole, or a list's items).
-			const progress = isInferred(a.def) || isList ? evaluateAchievement(a.def, rec.recorded) : undefined;
+			const progress =
+				isInferred(a.def) || isList ? evaluateAchievement(a.def, rec.recorded) : undefined;
 			const earned = playEarned(a.def, rec, log, progress);
 			const key = `${family}::${a.def.id}`;
 			let e = byKey.get(key);
 			if (!e) {
-				e = { def: a.def, en: a.en, family, earned: false, earnCount: 0, earnedTiers: [], _tiers: new Set() };
+				e = {
+					def: a.def,
+					en: a.en,
+					family,
+					earned: false,
+					earnCount: 0,
+					earnedTiers: [],
+					_tiers: new Set()
+				};
 				if (isList) e.items = {};
 				byKey.set(key, e);
 			}
-			// List achievements: OR each item's earned state (auto via itemInfer, or manual tick).
 			if (e.items && a.def.items) {
 				for (const itemId of a.def.items) {
 					const auto = progress?.items?.[itemId] === true;
-					const manual = rec.manual.has(`${a.def.id}::${itemId}`);
+					const manual = rec.manual.has(manualTickKey(a.def.id, itemId));
 					e.items[itemId] = (e.items[itemId] ?? false) || auto || manual;
 				}
 			}
@@ -236,7 +139,7 @@ export function aggregateOfficialTiered(records: CampaignRecord[]): Map<string, 
 	return byFamily;
 }
 
-/** A merged (lifetime) projection: union sets, summed counts. */
+/** Several plays' recorded states merged: sets unioned, counts summed. */
 export interface AggregateState extends RecordedCampaignState {
 	recordedLogs: Set<string>;
 	logCounts: Record<string, number>;
@@ -244,7 +147,6 @@ export interface AggregateState extends RecordedCampaignState {
 	finalChaosBag: Record<string, number>;
 }
 
-/** Merge several recorded states into one lifetime projection. */
 export function buildUnionState(records: CampaignRecord[]): AggregateState {
 	const recordedLogs = new Set<string>();
 	const logCounts: Record<string, number> = {};
@@ -260,7 +162,8 @@ export function buildUnionState(records: CampaignRecord[]): AggregateState {
 			const target = (recordedSectionItems[sec] ??= new Set<string>());
 			for (const id of set) target.add(id);
 		}
-		for (const [t, n] of Object.entries(s.finalChaosBag ?? {})) finalChaosBag[t] = (finalChaosBag[t] ?? 0) + n;
+		for (const [t, n] of Object.entries(s.finalChaosBag ?? {}))
+			finalChaosBag[t] = (finalChaosBag[t] ?? 0) + n;
 		for (const [sec, partners] of Object.entries(s.partnerStatuses ?? {})) {
 			const tp = (partnerStatuses[sec] ??= {});
 			for (const [pid, statuses] of Object.entries(partners)) {
@@ -272,22 +175,10 @@ export function buildUnionState(records: CampaignRecord[]): AggregateState {
 	return { recordedLogs, logCounts, recordedSectionItems, finalChaosBag, partnerStatuses };
 }
 
-/** Count recorded log keys under a `"<section>."` prefix (lifetime tally helper). */
+/** Distinct recorded log keys in a section. */
 export function countLogsWithPrefix(state: AggregateState, sectionId: string): number {
 	const prefix = sectionId + '.';
 	let n = 0;
 	for (const k of state.recordedLogs) if (k.startsWith(prefix)) n++;
 	return n;
-}
-
-/** Records in a family's scope for custom-achievement aggregation: the family's own
- *  plays PLUS — when `family` is a BASE campaign — its Return-to variant (a Return-to
- *  family resolves to just its own plays). This keeps base-family lifetime tallies (e.g.
- *  TFA Yig's Fury) inclusive of the Return-to box, matching the TFA-family bespoke builders,
- *  which fold Return-to. */
-export function recordsForFamily(records: CampaignRecord[], family: string): CampaignRecord[] {
-	return records.filter((r) => {
-		const log = getCampaignLog(r.campaignCode);
-		return log ? familyOf(log) === family || baseFamilyOf(log) === family : false;
-	});
 }

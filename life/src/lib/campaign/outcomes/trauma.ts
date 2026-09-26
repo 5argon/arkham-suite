@@ -1,94 +1,61 @@
 /**
- * trauma.ts — lifetime "how often did an ending kill or madden my party?"
- * aggregation. Each campaign-data resolution carries the death/madness trauma the
- * ArkhamCards app auto-applies when it is reached (`scenarioMeta[].resolutionEffects`,
- * surfaced as `resolutionTraumaEffects`). Joining that against the resolution a
- * player recorded per scenario (Extra tab, reserved `__resolution`) lets us tally:
- *   - per ENDING: killed vs insane reached, pyrrhic wins, mid-campaign casualties;
- *   - per INVESTIGATOR: deaths/insanities, but only for `all`-target endings (the
- *     only target derivable from the log — lead/defeated/not_resigned depend on
- *     in-scenario state we don't record, so they count only toward the per-ending
- *     totals).
- *
- * A resolution whose trauma sits behind an in-resolution choice is `conditional`:
- * the recorded `__resolution` can't tell which branch was taken, so it counts as
- * "could kill/madden" (`possible`), never a definite death.
- *
- * The per-ENDING tally is pure log data → it lives in the cached "logs" segment.
- * The per-INVESTIGATOR attribution needs each play's deck investigators (deck
- * data), so it is computed at ASSEMBLY time via {@link attributeTraumaInvestigators}
- * — joining each event's `campaignId` + `all`-target flags against a per-campaign
- * investigator map from the "cards" segment. This keeps the logs segment
- * independent of deck edits (the segment-signature contract).
+ * Deaths and insanity reached through recorded resolutions: the trauma ArkhamCards applies on each
+ * resolution (`resolutionTraumaEffects`) joined with the Extra-tab resolution.
  */
 import { getCampaignLog, resolutionTraumaEffects } from '@5argon/arkham-campaign-data';
 import type { CardCode } from '@5argon/arkham-kohaku';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 import { familyOf, contributingFamilies } from '../records/campaign-family';
 
-/** One recorded ending whose resolution kills and/or drives the party insane. */
+/** One recorded resolution that kills and/or maddens. */
 export interface TraumaEvent {
-	/** The play's OWN campaign family code — the campaign name in the cross-play list re-derives from it. */
+	/** The play's own family. */
 	family: string;
-	/** The families this event counts toward: its own, plus its base family when Return-to stats merge.
-	 *  The per-campaign trauma slice filters on this so a Return-to play also shows on the base page;
-	 *  the cross-play headline still counts each event once (events aren't duplicated). */
+	/** Its own family plus, when merging Return-to, its base family. An event is listed once;
+	 *  per-campaign views filter on this. */
 	families: string[];
-	/** The doc campaign id this play belongs to — the join key for per-investigator
-	 *  attribution at assembly time. Absent when the record carried none (tests). */
+	/** Joins the play's investigators at assembly. */
 	campaignId?: string;
 	scenario: string;
 	resolution: string;
-	/** `'yes'` = guaranteed by reaching the resolution; `'maybe'` = only via a branch. */
+	/** `'maybe'`: behind an in-resolution choice the recorded resolution can't tell apart. */
 	killed: 'yes' | 'maybe' | null;
 	insane: 'yes' | 'maybe' | null;
-	/** Whom the trauma targets, verbatim (`all`, `lead_investigator`, …). */
+	/** Trauma targets as campaign-data names them (`all`, `lead_investigator`, …). */
 	targets: string[];
-	/** Guaranteed party-wide death — attributable to every investigator in the play. */
+	/** Guaranteed party-wide, so attributable to every investigator in the play. Other targets
+	 *  (lead, defeated, not resigned) depend on in-scenario state the log doesn't hold. */
 	allKilled: boolean;
-	/** Guaranteed party-wide insanity — attributable to every investigator in the play. */
 	allInsane: boolean;
-	/** The result this ending set, if any (absent = a mid-campaign casualty). */
+	/** Absent for a mid-campaign casualty. */
 	result?: 'win' | 'lose' | 'mixed';
-	/** A win ending that still killed/maddened — a pyrrhic victory. */
+	/** A win that still killed or maddened. */
 	pyrrhic: boolean;
 	difficulty: string;
 }
 
-/** Per-investigator death/insanity counts (attributable for `all`-target endings only). */
 export interface InvestigatorTrauma {
 	code: CardCode;
 	killed: number;
 	insane: number;
 }
 
+/** Counts of events; `killed` / `insane` count guaranteed trauma only. */
 export interface TraumaTally {
-	/** Endings reached that guaranteed a death. */
 	killed: number;
-	/** Endings reached that guaranteed insanity. */
 	insane: number;
-	/** Of the killed endings, those that did NOT also drive insane. */
 	killedNotInsane: number;
-	/** Of the insane endings, those that did NOT also kill. */
 	insaneNotKilled: number;
-	/** Pyrrhic wins (a win ending that still killed/maddened). */
 	pyrrhic: number;
-	/** Casualty endings — death/madness with no win/lose result (campaign continued). */
+	/** Guaranteed trauma on a resolution that ends nothing (the campaign went on). */
 	casualties: number;
-	/** Endings that could kill/madden via a branch we can't tell apart (conditional only). */
+	/** Conditional trauma only. */
 	possible: number;
-	/** Per-investigator deaths/insanities, attributable only for `all`-target endings. */
+	/** Empty until {@link attributeTraumaInvestigators} fills it at assembly (it needs deck data). */
 	perInvestigator: InvestigatorTrauma[];
-	/** Every contributing event, in record → campaign-data order. */
 	events: TraumaEvent[];
 }
 
-/**
- * Per-ending trauma tally from recorded resolutions (pure log data). The
- * `perInvestigator` field comes back EMPTY here — fill it at assembly time with
- * {@link attributeTraumaInvestigators}, which needs deck data the logs segment
- * must not depend on.
- */
 export function buildTraumaTally(records: CampaignRecord[], mergeReturnTo = true): TraumaTally {
 	const events: TraumaEvent[] = [];
 
@@ -101,7 +68,7 @@ export function buildTraumaTally(records: CampaignRecord[], mergeReturnTo = true
 		const families = contributingFamilies(log, mergeReturnTo);
 		const difficulty = rec.recorded.difficulty ?? 'standard';
 		const byKey = new Map(
-			resolutionTraumaEffects(log).map((e) => [`${e.scenario}.${e.resolution}`, e.effect]),
+			resolutionTraumaEffects(log).map((e) => [`${e.scenario}.${e.resolution}`, e.effect])
 		);
 
 		for (const [scenario, resolution] of Object.entries(recorded)) {
@@ -148,7 +115,7 @@ export function buildTraumaTally(records: CampaignRecord[], mergeReturnTo = true
 				allInsane,
 				result: effect.result,
 				pyrrhic: effect.result === 'win' && (killedG || insaneG),
-				difficulty,
+				difficulty
 			});
 		}
 	}
@@ -159,25 +126,22 @@ export function buildTraumaTally(records: CampaignRecord[], mergeReturnTo = true
 		killedNotInsane: events.filter((e) => e.killed === 'yes' && e.insane !== 'yes').length,
 		insaneNotKilled: events.filter((e) => e.insane === 'yes' && e.killed !== 'yes').length,
 		pyrrhic: events.filter((e) => e.pyrrhic).length,
-		casualties: events.filter((e) => !e.result && (e.killed === 'yes' || e.insane === 'yes')).length,
-		possible: events.filter((e) => e.killed !== 'yes' && e.insane !== 'yes' && (e.killed === 'maybe' || e.insane === 'maybe')).length,
+		casualties: events.filter((e) => !e.result && (e.killed === 'yes' || e.insane === 'yes'))
+			.length,
+		possible: events.filter(
+			(e) =>
+				e.killed !== 'yes' && e.insane !== 'yes' && (e.killed === 'maybe' || e.insane === 'maybe')
+		).length,
 		perInvestigator: [],
-		events,
+		events
 	};
 }
 
-/**
- * Attribute guaranteed `all`-target deaths/insanities to each play's investigators,
- * joining trauma events (by `campaignId`) against a per-campaign investigator map.
- * Returns the sorted per-investigator counts; events without a `campaignId` or with
- * no mapped investigators contribute nothing.
- */
+/** Guaranteed `all`-target deaths / insanities per investigator of each play, most first. */
 export function attributeTraumaInvestigators(
 	events: TraumaEvent[],
-	// Defaults to `{}` so a payload assembled from a cards segment that lacks
-	// `investigatorsByCampaign` (field absent → arg is `undefined`) yields no
-	// attribution rather than throwing.
-	investigatorsByCampaign: Record<string, CardCode[]> = {},
+	// A cards segment cached before `investigatorsByCampaign` existed passes undefined.
+	investigatorsByCampaign: Record<string, CardCode[]> = {}
 ): InvestigatorTrauma[] {
 	const perInv = new Map<CardCode, { killed: number; insane: number }>();
 	for (const e of events) {

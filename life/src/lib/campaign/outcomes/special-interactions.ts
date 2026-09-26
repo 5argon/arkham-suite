@@ -1,73 +1,42 @@
 /**
- * special-interactions.ts — "Special Interactions": the roster-gated flavor
- * moments a campaign hides (a specific investigator, trait, or class triggers a
- * bonus paragraph / setup role). The catalogue + match logic ship in
- * `@5argon/arkham-campaign-data`; here we light up which ones a player has hit
- * across their plays of a campaign family.
- *
- * Detection is fully derived — no Extra input:
- *   • a moment that RECORDS a campaign-log entry carries an `infer` rule, so it is
- *     proven from the recorded log (roster-independent);
- *   • everything else fires when an eligible investigator was in the roster AND
- *     the gating scenario was reached.
- *
- * Choice-gated, unrecorded moments (`optional`, e.g. the Dream-Eaters' dreams)
- * can't be derived without interlude input the archive doesn't collect, so they
- * are SKIPPED here (they still exist in the campaign-data package for completeness).
- *
- * Like the EotE/TSK builders this is one builder → one payload blob. But the
- * roster lives in the cards segment, so — exactly like per-investigator trauma —
- * the logs segment emits a roster-free PARTIAL ({@link SpecialInteractionsPartial})
- * and {@link resolveSpecialInteractions} joins the per-campaign roster at assembly.
+ * Roster-gated moments (an investigator, trait or class unlocks a bonus paragraph or setup role).
+ * The roster lives in the cards segment, so the logs segment emits a roster-free partial that
+ * {@link resolveSpecialInteractions} joins at assembly.
  */
 import {
-	getCampaignLog,
 	evaluateInference,
 	evaluateSpecialInteractionMatch,
 	type CampaignLog,
 	type SpecialInteractionDef,
-	type RosterInvestigator,
+	type RosterInvestigator
 } from '@5argon/arkham-campaign-data';
 import type { CardCode } from '@5argon/arkham-kohaku';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { contributingFamilies } from '../records/campaign-family';
+import type { CampaignRecord } from '../records/campaign-record';
+import { recordsByFamily } from '../records/campaign-family';
 
-/**
- * One special interaction's lifetime state for the subject — KEYS + USER STATE ONLY.
- * The display strings (the "why" text, scenario name) and the gating condition
- * (`match`/`scope`/`role`) are ALL re-derivable from `(family, id)` via the
- * campaign-data package, so they are NOT stored here — the widget resolves them at
- * render time (the same lean/localizable contract as the EotE/achievement blobs).
- * This keeps a compiled/shared profile small without a bespoke strip step.
- */
+/** State only: the text and gating condition re-derive from `(family, id)` via campaign-data. */
 export interface SpecialInteractionState {
 	id: string;
-	/** Triggered in at least one of the subject's plays of this family. */
 	triggered: boolean;
-	/** Investigator codes that satisfied a roster-gated match (most-recent first, capped);
-	 *  empty for log-proven moments. */
+	/** Investigators that satisfied a roster gate, most recent first, capped; empty for
+	 *  log-proven moments. */
 	triggeredBy: CardCode[];
 }
 
-/** A campaign family's special interactions (keys + state; family re-derives the name). */
 export interface CampaignSpecialInteractions {
-	/** Base family code (e.g. 'ptc'). */
 	family: string;
 	interactions: SpecialInteractionState[];
 }
 
-// ── Roster-free partial (logs segment) ───────────────────────────────────────
-
 interface PartialInteraction {
 	def: SpecialInteractionDef;
-	/** OR of the def's `infer` rule across plays (null when the def has no `infer`). */
+	/** Null when the def has no `infer` rule. */
 	inferTriggered: boolean | null;
-	/** Plays that reached the gating scenario, MOST-RECENT FIRST (roster join at
-	 *  assembly). Recency lets the "via" credit show the latest investigators. */
+	/** Plays that reached the gating scenario, most recent first. */
 	rosterPlays: { campaignId: string; finishDate: number | null }[];
 }
 
-/** Max investigators shown as the "via" credit for a triggered interaction. */
+/** Investigators credited on a triggered interaction. */
 const VIA_CAP = 5;
 
 export interface SpecialInteractionsPartial {
@@ -75,11 +44,8 @@ export interface SpecialInteractionsPartial {
 	interactions: PartialInteraction[];
 }
 
-/**
- * Scenarios a play reached: every scenario with a recorded entry/resolution, plus
- * — since you can't skip earlier scenarios — all scenarios up to the furthest one
- * reached in campaign order (so a no-log prologue counts once the play got past it).
- */
+/** Every scenario up to the furthest one the play recorded, since earlier scenarios can't be
+ *  skipped (a prologue that logs nothing still counts). */
 function reachedScenarios(rec: CampaignRecord, log: CampaignLog): Set<string> {
 	const order = (log.db.scenarioMeta ?? []).map((m) => m.id);
 	const idx = new Map(order.map((id, i) => [id, i]));
@@ -95,50 +61,34 @@ function reachedScenarios(rec: CampaignRecord, log: CampaignLog): Set<string> {
 	return reached;
 }
 
-/**
- * Build the roster-free partial, one entry per campaign family that has special
- * interactions. `optional` (choice-gated, unrecorded) interactions are skipped.
- */
+/** A moment that records a log entry is proven by its `infer` rule; any other waits for the roster
+ *  join. `optional` moments (choice-gated and never recorded, e.g. Dream-Eaters dreams) are skipped. */
 export function buildSpecialInteractions(
 	records: CampaignRecord[],
 	mergeReturnTo = true
 ): SpecialInteractionsPartial[] {
-	// Group plays by family — a Return-to play folds into its base family too when merging.
-	const playsByFamily = new Map<string, CampaignRecord[]>();
-	for (const rec of records) {
-		const log = getCampaignLog(rec.campaignCode);
-		if (!log) continue;
-		for (const fam of contributingFamilies(log, mergeReturnTo)) {
-			(playsByFamily.get(fam) ?? playsByFamily.set(fam, []).get(fam)!).push(rec);
-		}
-	}
-
 	const out: SpecialInteractionsPartial[] = [];
-	for (const [family, plays] of playsByFamily) {
-		const log = getCampaignLog(family);
-		const defs = log?.db.specialInteractions;
-		if (!log || !defs || !defs.length) continue;
+	for (const [family, { log, recs }] of recordsByFamily(records, mergeReturnTo)) {
+		const defs = log.db.specialInteractions;
+		if (!defs?.length) continue;
 		const enSi = log.en.specialInteractions ?? {};
-
-		// Precompute each play's reached-scenario set once.
-		const reachedByPlay = plays.map((rec) => ({ rec, reached: reachedScenarios(rec, log) }));
+		const reachedByPlay = recs.map((rec) => ({ rec, reached: reachedScenarios(rec, log) }));
 
 		const interactions: PartialInteraction[] = [];
 		for (const def of defs) {
-			if (def.optional) continue; // not derivable → the widget ignores these
-			// Require a curated "why" so the widget never renders a blank moment; the
-			// text itself is resolved from the package at render time, not stored here.
-			if (!enSi[def.id]?.text) continue;
+			// A moment without curated text would render blank.
+			if (def.optional || !enSi[def.id]?.text) continue;
 			let inferTriggered: boolean | null = null;
 			if (def.infer) {
-				inferTriggered = reachedByPlay.some((p) => evaluateInference(def.infer!, p.rec.recorded) === true);
+				inferTriggered = reachedByPlay.some(
+					(p) => evaluateInference(def.infer!, p.rec.recorded) === true
+				);
 			}
 			const rosterPlays = def.infer
 				? []
 				: reachedByPlay
 						.filter((p) => p.reached.has(def.scenario) && p.rec.campaignId)
 						.map((p) => ({ campaignId: p.rec.campaignId!, finishDate: p.rec.finishDate ?? null }))
-						// Most-recent first (no finish date sorts last) so the "via" credit favours recent runs.
 						.sort((a, b) => (b.finishDate ?? -Infinity) - (a.finishDate ?? -Infinity));
 			interactions.push({ def, inferTriggered, rosterPlays });
 		}
@@ -147,22 +97,17 @@ export function buildSpecialInteractions(
 	return out;
 }
 
-// ── Roster join (assembly) ───────────────────────────────────────────────────
-
-/** Resolve one investigator code to the fields a match needs (class + traits). */
+/** The class and traits of an investigator code. */
 export type CardLookup = (code: string) => { factions: string[]; traits: string[] } | undefined;
 
-/**
- * Finalize the partials with the per-campaign roster: a roster-gated interaction
- * triggers if any reaching play had an eligible investigator; a log-proven one
- * uses its precomputed `inferTriggered`.
- */
+/** Joins the partials with each play's roster: a roster-gated interaction triggers when any play
+ *  that reached its scenario had an eligible investigator. */
 export function resolveSpecialInteractions(
 	partials: SpecialInteractionsPartial[] | undefined,
 	investigatorsByCampaign: Record<string, CardCode[]>,
-	cardLookup: CardLookup,
+	cardLookup: CardLookup
 ): CampaignSpecialInteractions[] {
-	if (!partials) return []; // a logs segment compiled by an older version lacks this field
+	if (!partials) return []; // logs segments cached before this field existed
 	const roster = (campaignId: string): RosterInvestigator[] =>
 		(investigatorsByCampaign[campaignId] ?? []).map((code) => {
 			const c = cardLookup(code);
@@ -173,16 +118,17 @@ export function resolveSpecialInteractions(
 		family: p.family,
 		interactions: p.interactions.map((it): SpecialInteractionState => {
 			let triggered: boolean;
-			// "via" credit: the distinct investigators who satisfied the gate, most-recent
-			// first, capped — so a long history shows the latest few, not a wall of codes.
 			const via: CardCode[] = [];
 			if (it.def.infer) {
-				triggered = it.inferTriggered === true; // log-proven, roster-independent
+				triggered = it.inferTriggered === true;
 			} else {
 				triggered = false;
 				const seen = new Set<string>();
 				for (const rp of it.rosterPlays ?? []) {
-					const { matched, investigators } = evaluateSpecialInteractionMatch(it.def, roster(rp.campaignId));
+					const { matched, investigators } = evaluateSpecialInteractionMatch(
+						it.def,
+						roster(rp.campaignId)
+					);
 					if (!matched) continue;
 					triggered = true;
 					for (const code of investigators) {
@@ -195,6 +141,6 @@ export function resolveSpecialInteractions(
 				}
 			}
 			return { id: it.def.id, triggered, triggeredBy: via.slice(0, VIA_CAP) };
-		}),
+		})
 	}));
 }

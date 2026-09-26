@@ -20,7 +20,7 @@ describe('toDirectDownloadUrl', () => {
 		const r = toDirectDownloadUrl('https://drive.google.com/file/d/1AbC_dEfG/view?usp=sharing');
 		expect(r).toEqual({
 			provider: 'gdrive',
-			url: 'https://drive.google.com/uc?export=download&id=1AbC_dEfG',
+			url: 'https://drive.google.com/uc?export=download&id=1AbC_dEfG'
 		});
 	});
 
@@ -45,8 +45,13 @@ describe('toDirectDownloadUrl', () => {
 
 describe('buildCpViewerUrl', () => {
 	it('encodes the direct URL into a /p?cp= viewer link', () => {
-		const link = buildCpViewerUrl('https://drive.google.com/uc?export=download&id=ABC', 'https://arkham.life');
-		expect(link).toBe('https://arkham.life/p?cp=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3DABC');
+		const link = buildCpViewerUrl(
+			'https://drive.google.com/uc?export=download&id=ABC',
+			'https://arkham.life'
+		);
+		expect(link).toBe(
+			'https://arkham.life/p?cp=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3DABC'
+		);
 		// Round-trips back to the original direct URL.
 		const cp = new URL(link).searchParams.get('cp');
 		expect(cp).toBe('https://drive.google.com/uc?export=download&id=ABC');

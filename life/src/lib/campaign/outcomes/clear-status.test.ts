@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { getCampaignLog, type RecordedCampaignState } from '@5argon/arkham-campaign-data';
-import { buildClearGrid, playClearState } from './clear-status';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import {
+	buildClearGrid,
+	buildEndings,
+	DWL_WIN_LOST_FOREVER_KEY,
+	playClearState
+} from './clear-status';
+import type { CampaignRecord } from '../records/campaign-record';
 
 function rec(campaignCode: string, recorded: RecordedCampaignState): CampaignRecord {
 	return { campaignCode, recorded, manual: new Set() };
@@ -19,7 +24,9 @@ describe('playClearState', () => {
 		expect(playClearState(tcu, { recordedLogs: new Set([WIN]) })).toBe('cleared');
 		expect(playClearState(tcu, { recordedLogs: new Set([LOSS]) })).toBe('attempted');
 		expect(playClearState(tcu, { recordedLogs: new Set([LODGE]) })).toBe('special');
-		expect(playClearState(tcu, { recordedLogs: new Set(['campaign_notes.mementos_collected']) })).toBeNull();
+		expect(
+			playClearState(tcu, { recordedLogs: new Set(['campaign_notes.mementos_collected']) })
+		).toBeNull();
 		expect(playClearState(tcu, {})).toBeNull();
 	});
 
@@ -33,7 +40,7 @@ describe('buildClearGrid', () => {
 		rec('tcu', { difficulty: 'standard', recordedLogs: new Set([WIN]) }), // cleared @ standard
 		rec('tcu', { difficulty: 'hard', recordedLogs: new Set([LOSS]) }), // attempted @ hard
 		rec('tcu', { difficulty: 'standard', recordedLogs: new Set([LODGE]) }), // special @ standard (weaker than cleared)
-		rec('rttcu', { difficulty: 'standard', recordedLogs: new Set([COVEN]) }), // rttcu special @ standard
+		rec('rttcu', { difficulty: 'standard', recordedLogs: new Set([COVEN]) }) // rttcu special @ standard
 	];
 
 	it('merging (default): Return-to stays its own family AND folds into the base', () => {
@@ -59,10 +66,42 @@ describe('buildClearGrid', () => {
 	it('separates distinct families and defaults missing difficulty to standard', () => {
 		const grid = buildClearGrid([
 			rec('notz', { recordedLogs: new Set(['campaign_notes.umordhoth_repelled']) }), // win, no difficulty
-			rec('tfa', { difficulty: 'expert', recordedLogs: new Set(['campaign_notes.mended_tear_in_time']) }),
+			rec('tfa', {
+				difficulty: 'expert',
+				recordedLogs: new Set(['campaign_notes.mended_tear_in_time'])
+			})
 		]);
 		const byFamily = Object.fromEntries(grid.map((g) => [g.family, g]));
 		expect(byFamily.notz.byTier.standard).toBe('cleared');
 		expect(byFamily.tfa.byTier.expert).toBe('cleared');
+	});
+});
+
+describe('DWL Lost in Time and Space R2', () => {
+	const act4 = { 'lost_in_time_and_space.final_act': 'act_4' };
+	const dwl = getCampaignLog('dwl')!;
+
+	it('Act 4 with no finale note is a win; a finale note decides otherwise', () => {
+		expect(playClearState(dwl, { recordedLogs: new Set(['campaign_notes.x']) }, act4)).toBe(
+			'cleared'
+		);
+		expect(playClearState(dwl, { recordedLogs: new Set(['campaign_notes.x']) })).toBeNull();
+		const escaped = new Set(['campaign_notes.yog_sothoth_escaped']);
+		expect(playClearState(dwl, { recordedLogs: escaped }, act4)).toBe('attempted');
+	});
+
+	it('counts the synthetic ending for Return to Dunwich too, as nonLog', () => {
+		const play: CampaignRecord = {
+			campaignCode: 'rtdwl',
+			recorded: { difficulty: 'hard', recordedLogs: new Set(['campaign_notes.x']) },
+			manual: new Set(),
+			scenarioChoices: act4
+		};
+		for (const family of ['dwl', 'rtdwl']) {
+			const e = buildEndings([play])
+				.find((c) => c.family === family)!
+				.endings.find((x) => x.key === DWL_WIN_LOST_FOREVER_KEY)!;
+			expect(e).toMatchObject({ kind: 'win', count: 1, byTier: { hard: 1 }, nonLog: true });
+		}
 	});
 });

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { RecordedCampaignState } from '@5argon/arkham-campaign-data';
-import { buildUnionState, countLogsWithPrefix, type CampaignRecord } from './achievement-aggregate';
+import { buildUnionState, countLogsWithPrefix } from './achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 
 function rec(campaignCode: string, recorded: RecordedCampaignState): CampaignRecord {
 	return { campaignCode, recorded, manual: new Set() };
@@ -12,19 +13,19 @@ describe('buildUnionState', () => {
 			recordedLogs: new Set(['memories_banished.a', 'memories_banished.b']),
 			logCounts: { yigs_fury: 5 },
 			recordedSectionItems: { supplies: new Set(['provisions']) },
-			finalChaosBag: { tablet: 1 },
+			finalChaosBag: { tablet: 1 }
 		});
 		const b = rec('eoe', {
 			recordedLogs: new Set(['memories_banished.b', 'memories_banished.c']),
 			logCounts: { yigs_fury: 7 },
 			recordedSectionItems: { supplies: new Set(['medicine']) },
-			finalChaosBag: { tablet: 2, frost: 1 },
+			finalChaosBag: { tablet: 2, frost: 1 }
 		});
 		const u = buildUnionState([a, b]);
 		expect([...u.recordedLogs].sort()).toEqual([
 			'memories_banished.a',
 			'memories_banished.b',
-			'memories_banished.c',
+			'memories_banished.c'
 		]);
 		expect(u.logCounts.yigs_fury).toBe(12); // summed
 		expect([...u.recordedSectionItems.supplies].sort()).toEqual(['medicine', 'provisions']);
@@ -37,7 +38,7 @@ describe('countLogsWithPrefix', () => {
 	it('counts distinct recorded entries under a section prefix (lifetime tally)', () => {
 		const u = buildUnionState([
 			rec('eoe', { recordedLogs: new Set(['memories_banished.a', 'memories_banished.b']) }),
-			rec('eoe', { recordedLogs: new Set(['memories_banished.b', 'memories_discovered.x']) }),
+			rec('eoe', { recordedLogs: new Set(['memories_banished.b', 'memories_discovered.x']) })
 		]);
 		// a, b (deduped) under memories_banished.
 		expect(countLogsWithPrefix(u, 'memories_banished')).toBe(2);

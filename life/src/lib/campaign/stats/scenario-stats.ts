@@ -1,81 +1,76 @@
 /**
- * scenario-stats.ts — the UNIFIED per-scenario record. One structure per campaign holding
- * everything the scenario passport (and external `.ahlifepro` readers) need, uniformly across
- * every campaign: plays, victory-display highscore, the resolutions reached (+ each one's
- * win/loss verdict from campaign-data), the resolution-derived Succeed / Failed, and the Extra
- * choices. Shape: campaigns → scenarios → { plays, succeed, failed, … }.
- *
- * Built by merging two internal aggregations — `buildScenarioXp` (XP / choices / scenario order +
- * names) and `buildResolutionCoverage` (resolutions reached + Succeed/Failed) — then computing the
- * generic `plays` (records that recorded the scenario via XP OR a resolution) and layering each
- * scenario's `resolutionOutcomes` verdict. Only this merged structure is serialized.
+ * The per-scenario record behind every scenario passport and external `.ahlifepro` readers:
+ * plays, reward highscore, resolutions reached with their verdicts, Succeed / Failed, Extra choices
+ * and per-version breakdowns, merged from the XP and resolution-coverage aggregations.
  */
-import { getCampaignLog, playableScenarios } from '@5argon/arkham-campaign-data';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { contributingFamilies, familyScenarioMeta, familyScenarioNames } from '../records/campaign-family';
+import { getCampaignLog } from '@5argon/arkham-campaign-data';
+import type { CampaignRecord } from '../records/campaign-record';
+import {
+	contributingFamilies,
+	familyScenarioMeta,
+	familyScenarioNames,
+	recordsByFamily
+} from '../records/campaign-family';
 import {
 	buildScenarioXp,
 	scenarioDisplayName,
 	type ScenarioChoiceAgg,
 	type ScenarioXpStat
 } from './extra-imports';
-import { buildResolutionCoverage, type ResolutionTally } from '../outcomes/resolution-coverage';
+import { buildResolutionCoverage } from '../outcomes/resolution-coverage';
+import type { Tally } from '../utils/tally';
+import { scenarioVerdicts, type ResolutionVerdict } from '../utils/scenario-meta';
 import { buildVersionStats, VERSION_AXES, type VersionStat } from './version-stats';
-
-export type ResolutionVerdict = 'win' | 'loss' | 'neutral';
 
 export interface ScenarioStat {
 	scenario: string;
-	/** Display name (campaign-data `scenarioNames`), de-slugged id as fallback. */
 	name: string;
-	/** Victory-display highscore + its per-difficulty breakdown, and the lifetime XP sum. */
+	/** Extra: highest reward (VP or XP, see `isVictoryDisplay`) and the lifetime sum. */
 	best: number;
 	total: number;
 	bestByTier: Record<string, number>;
-	/** Plays that recorded this scenario in ANY way (XP or a resolution), with difficulty breakdown. */
+	/** Plays that recorded the scenario's reward or resolution. */
+	/** Plays that recorded the scenario's reward, a resolution or a TSK tier. */
 	plays: number;
 	playsByTier: Record<string, number>;
-	/** Every first-choice resolution id (book order), the subset reached, and per-resolution tallies. */
+	/** Every first-choice resolution id in book order. */
 	resolutions: string[];
 	visited: string[];
-	tallies: Record<string, ResolutionTally>;
-	/** Per-resolution Succeed/Failure verdict (campaign-data `resolutionOutcomes`). */
+	tallies: Record<string, Tally>;
 	verdicts: Record<string, ResolutionVerdict>;
-	/** Resolution-derived Succeed / Failed across plays (each by difficulty); null when unscored. */
-	succeed: ResolutionTally | null;
-	failed: ResolutionTally | null;
-	/** Per-scenario Extra choices (e.g. PtC Hastur version) with played/won split. */
+	/** Null when no reached resolution has a win / loss verdict. */
+	succeed: Tally | null;
+	failed: Tally | null;
 	choices?: ScenarioChoiceAgg[];
-	/** Per-version breakdown (plays / Succeed / Failed / resolutions / XP) for scenarios played in
-	 *  several versions — present only for scenarios in the version-axis registry. */
+	/** Only for scenarios with a `VERSION_AXES` entry. */
 	versions?: VersionStat[];
 }
 export interface CampaignScenarios {
 	family: string;
 	name: string;
 	scenarios: ScenarioStat[];
-	/** Sum of best XP across scenarios (Scenario XP Highscore widget header). */
+	/** Sum of `best` across scenarios. */
 	totalBest: number;
-	/** Distinct resolutions visited / total available (Resolution Coverage widget header). */
 	resolutionsVisited: number;
 	resolutionsTotal: number;
 }
 
-/** Per (family → scenario) play count — records that recorded the scenario via XP OR a resolution,
- *  per difficulty. This is the accurate generic "played" count (XP alone undershoots when a play
- *  recorded only a resolution). */
+/** Per (family → scenario) play count, per difficulty: records that recorded the scenario's XP, a
+ *  resolution or a tier (TSK's time level / version). */
 function playsByFamilyScenario(
 	records: CampaignRecord[],
 	mergeReturnTo: boolean
-): Map<string, Map<string, ResolutionTally>> {
-	const out = new Map<string, Map<string, ResolutionTally>>();
+): Map<string, Map<string, Tally>> {
+	const out = new Map<string, Map<string, Tally>>();
 	for (const rec of records) {
 		const log = getCampaignLog(rec.campaignCode);
 		if (!log) continue;
 		const tier = rec.recorded.difficulty ?? 'standard';
 		const touched = new Set([
 			...Object.keys(rec.scenarioXp ?? {}),
-			...Object.keys(rec.scenarioResolutions ?? {})
+			...Object.keys(rec.scenarioResolutions ?? {}),
+			// Tier keys are `<scenario>.<level | version>`.
+			...Object.keys(rec.scenarioTiers ?? {}).map((k) => k.slice(0, k.lastIndexOf('.')))
 		]);
 		if (!touched.size) continue;
 		for (const family of contributingFamilies(log, mergeReturnTo)) {
@@ -105,17 +100,7 @@ export function buildScenarioStats(
 	const xp = buildScenarioXp(records, mergeReturnTo);
 	const coverage = buildResolutionCoverage(records, mergeReturnTo);
 	const plays = playsByFamilyScenario(records, mergeReturnTo);
-	// Records grouped by family — the per-version builder buckets a family's plays by version.
-	const recordsByFamily = new Map<string, CampaignRecord[]>();
-	for (const rec of records) {
-		const log = getCampaignLog(rec.campaignCode);
-		if (!log) continue;
-		for (const fam of contributingFamilies(log, mergeReturnTo)) {
-			let list = recordsByFamily.get(fam);
-			if (!list) recordsByFamily.set(fam, (list = []));
-			list.push(rec);
-		}
-	}
+	const groups = recordsByFamily(records, mergeReturnTo);
 	const xpByFamily = new Map(xp.map((c) => [c.family, c]));
 	const covByFamily = new Map(coverage.map((c) => [c.family, c]));
 
@@ -124,19 +109,19 @@ export function buildScenarioStats(
 		const cx = xpByFamily.get(family) ?? null;
 		const cov = covByFamily.get(family) ?? null;
 		const log = getCampaignLog(family);
-		const meta = familyScenarioMeta(family, mergeReturnTo);
 		const verdictsById = new Map(
-			meta.map((m) => [m.id, (m.resolutionOutcomes ?? {}) as Record<string, ResolutionVerdict>])
+			familyScenarioMeta(family, mergeReturnTo).map((m) => [m.id, scenarioVerdicts(m)])
 		);
 		const covByScenario = new Map((cov?.scenarios ?? []).map((s) => [s.scenario, s]));
-		const famPlays = plays.get(family) ?? new Map<string, ResolutionTally>();
-		const famRecords = recordsByFamily.get(family) ?? [];
+		const famPlays = plays.get(family) ?? new Map<string, Tally>();
+		const famRecords = groups.get(family)?.recs ?? [];
 
 		const merge = (s: ScenarioXpStat): ScenarioStat => {
 			const sc = covByScenario.get(s.scenario);
 			const p = famPlays.get(s.scenario);
 			const axis = VERSION_AXES[s.scenario];
-			const versions = axis && log ? buildVersionStats(famRecords, s.scenario, axis, log) : undefined;
+			const versions =
+				axis && log ? buildVersionStats(famRecords, s.scenario, axis, log) : undefined;
 			return {
 				scenario: s.scenario,
 				name: s.name,
@@ -160,14 +145,12 @@ export function buildScenarioStats(
 		let name: string;
 		let totalBest: number;
 		if (cx) {
-			// Common path: the XP aggregation already lists every playable scenario in book order.
+			// The XP aggregation lists every playable scenario in book order.
 			scenarios = cx.scenarios.map(merge);
 			name = cx.name;
 			totalBest = cx.totalBest;
 		} else {
-			// Rare: a campaign played with ONLY resolutions recorded (no XP / choices), so the XP
-			// aggregation skipped it. Build the scenario list from the campaign-data playable order —
-			// unioned with the Return-to variant's scenarios (when merging) so its rows still appear.
+			// Only resolutions were recorded, so the XP aggregation skipped this family.
 			const order = log
 				? familyScenarioMeta(family, mergeReturnTo)
 						.filter((m) => m.type === 'story')

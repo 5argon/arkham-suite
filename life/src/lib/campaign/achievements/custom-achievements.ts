@@ -1,23 +1,12 @@
 /**
- * custom-achievements.ts — life-local **unofficial** achievements + coverage.
- * These live in the life app (not campaign-data) but reuse campaign-data shapes,
- * evaluated against the lifetime union state (see achievement-aggregate.ts).
- *
- *  - `scope: 'family'` aggregates across a base campaign + its Return-to box.
- *  - `scope: 'global'` aggregates across every recorded campaign.
- * Examples: lifetime "Memories Banished" in EoE Fatal Mirage (nothing official
- * tracks it), and branch coverage ("what haven't I explored?") derived from the
- * mutually-exclusive validators.
+ * Unofficial lifetime achievements measured on the union state of a family's plays (or every play),
+ * and branch coverage: which side of each mutually-exclusive log decision the player has recorded.
  */
-import { getCampaignLog, type CampaignLog } from '@5argon/arkham-campaign-data';
-import {
-	buildUnionState,
-	countLogsWithPrefix,
-	recordsForFamily,
-	type AggregateState,
-	type CampaignRecord,
-} from './achievement-aggregate';
-import { familyOf } from '../records/campaign-family';
+import { getCampaignLog } from '@5argon/arkham-campaign-data';
+import { buildUnionState, countLogsWithPrefix, type AggregateState } from './achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
+import { familyOf, recordsByFamily } from '../records/campaign-family';
+import { cleanEntryText } from '../utils/entry-text';
 import { routeQuality, type RouteQuality } from './route-quality';
 
 export interface CustomAchievement {
@@ -25,11 +14,10 @@ export interface CustomAchievement {
 	title: string;
 	description: string;
 	scope: 'family' | 'global';
-	/** For family scope: the base campaign code. */
+	/** Family scope only; includes the family's Return-to plays. */
 	family?: string;
-	/** Current lifetime value. */
 	value: number;
-	/** Optional target (a "goal" achievement); absent for a pure tally. */
+	/** Absent for a pure tally (earned once above zero). */
 	goal?: number;
 	earned: boolean;
 }
@@ -44,7 +32,6 @@ interface CustomDef {
 	measure: (state: AggregateState) => number;
 }
 
-/** The life-local custom achievement catalogue. Extend freely. */
 const CUSTOM_DEFS: CustomDef[] = [
 	{
 		id: 'eoe_memories_banished_lifetime',
@@ -52,7 +39,7 @@ const CUSTOM_DEFS: CustomDef[] = [
 		description: 'Total memories banished across every Fatal Mirage you have braved.',
 		scope: 'family',
 		family: 'eoe',
-		measure: (s) => countLogsWithPrefix(s, 'memories_banished'),
+		measure: (s) => countLogsWithPrefix(s, 'memories_banished')
 	},
 	{
 		id: 'eoe_memories_discovered_lifetime',
@@ -60,7 +47,7 @@ const CUSTOM_DEFS: CustomDef[] = [
 		description: 'Total memories discovered across every Edge of the Earth play.',
 		scope: 'family',
 		family: 'eoe',
-		measure: (s) => countLogsWithPrefix(s, 'memories_discovered'),
+		measure: (s) => countLogsWithPrefix(s, 'memories_discovered')
 	},
 	{
 		id: 'tfa_yigs_fury_lifetime',
@@ -68,25 +55,23 @@ const CUSTOM_DEFS: CustomDef[] = [
 		description: "Total Yig's Fury accumulated across every Forgotten Age expedition.",
 		scope: 'family',
 		family: 'tfa',
-		measure: (s) => s.logCounts['yigs_fury'] ?? 0,
-	},
+		measure: (s) => s.logCounts['yigs_fury'] ?? 0
+	}
 ];
 
-/** A custom achievement's display strings by id (the life-local catalogue is the
- *  source of truth). Exported so the compiled-profile hydrator re-resolves the
- *  stripped `title` / `description` identically. */
 export function customAchievementText(
-	id: string,
+	id: string
 ): { title: string; description: string } | undefined {
 	const def = CUSTOM_DEFS.find((d) => d.id === id);
 	return def ? { title: def.title, description: def.description } : undefined;
 }
 
 export function evaluateCustomAchievements(records: CampaignRecord[]): CustomAchievement[] {
+	const families = recordsByFamily(records, true);
 	const out: CustomAchievement[] = [];
 	for (const def of CUSTOM_DEFS) {
 		const scoped =
-			def.scope === 'family' && def.family ? recordsForFamily(records, def.family) : records;
+			def.scope === 'family' && def.family ? (families.get(def.family)?.recs ?? []) : records;
 		if (scoped.length === 0) continue;
 		const value = def.measure(buildUnionState(scoped));
 		out.push({
@@ -97,19 +82,16 @@ export function evaluateCustomAchievements(records: CampaignRecord[]): CustomAch
 			family: def.family,
 			value,
 			goal: def.goal,
-			earned: def.goal != null ? value >= def.goal : value > 0,
+			earned: def.goal != null ? value >= def.goal : value > 0
 		});
 	}
 	return out;
 }
 
-// ─── Branch coverage ("what haven't I explored?") ────────────────────────────
-
 export interface CoverageBranch {
 	key: string;
 	text: string;
 	recorded: boolean;
-	/** Optional route-quality badge ('better' = harder/heroic, 'easier'). */
 	quality?: RouteQuality;
 }
 export interface CoverageGroup {
@@ -118,34 +100,17 @@ export interface CoverageGroup {
 }
 export interface CampaignCoverage {
 	campaignCode: string;
-	/** Folded family code (base campaign), so detail pages filter uniformly. */
 	family: string;
 	campaignName: string;
 	exploredBranches: number;
 	totalBranches: number;
-	/** exploredBranches / totalBranches as a 0–100 percent (0 when no branches).
-	 *  Precomputed so consumers read it directly (see compiled-profile.ts). */
+	/** Rounded 0–100; 0 when there are no branches. */
 	exploredPct: number;
 	groups: CoverageGroup[];
 }
 
-function cleanText(t: string): string {
-	return t
-		.replace(/<\/?[ib]>/g, '')
-		.replace(/\[\[([^\]]+)\]\]/g, '$1')
-		.replace(/\[[a-z_]+\]/g, '')
-		.replace(/#name#/g, 'them')
-		.replace(/\s+/g, ' ')
-		.trim();
-}
-
-/**
- * For each recorded campaign, report every mutually-exclusive decision and which
- * branch(es) the player has ever recorded — the unrecorded branches are the
- * "unexplored paths". Aggregated across all the player's plays of that campaign.
- */
+/** Per campaign code (Return-to boxes stay separate). */
 export function buildCoverage(records: CampaignRecord[]): CampaignCoverage[] {
-	// Union of recorded keys per campaign code.
 	const byCode = new Map<string, Set<string>>();
 	for (const rec of records) {
 		const set = byCode.get(rec.campaignCode) ?? new Set<string>();
@@ -155,22 +120,21 @@ export function buildCoverage(records: CampaignRecord[]): CampaignCoverage[] {
 
 	const out: CampaignCoverage[] = [];
 	for (const [code, recorded] of byCode) {
-		const log: CampaignLog | undefined = getCampaignLog(code);
+		const log = getCampaignLog(code);
 		if (!log || !log.db.validators?.length) continue;
-		const enText = (key: string) => cleanText(log.en.entries[key]?.text ?? key);
+		const enText = (key: string) => cleanEntryText(log.en.entries[key]?.text ?? key);
 
 		const groups: CoverageGroup[] = [];
 		let explored = 0;
 		let total = 0;
 		for (const v of log.db.validators) {
-			// Coverage tracks story-branch exploration; `disjointSections` rules are consistency
-			// checks (no alternatives to explore), so they don't contribute branches.
+			// `disjointSections` validators are consistency checks with no branches to explore.
 			if (v.type !== 'mutuallyExclusive') continue;
 			const branches: CoverageBranch[] = v.entries.map((key) => ({
 				key,
 				text: enText(key),
 				recorded: recorded.has(key),
-				quality: routeQuality(log.db.code, key),
+				quality: routeQuality(log.db.code, key)
 			}));
 			total += branches.length;
 			explored += branches.filter((b) => b.recorded).length;
@@ -183,7 +147,7 @@ export function buildCoverage(records: CampaignRecord[]): CampaignCoverage[] {
 			exploredBranches: explored,
 			totalBranches: total,
 			exploredPct: total > 0 ? Math.round((explored / total) * 100) : 0,
-			groups,
+			groups
 		});
 	}
 	return out;

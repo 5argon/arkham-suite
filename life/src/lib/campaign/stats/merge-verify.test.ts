@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { buildScenarioStats } from './scenario-stats';
 import { buildEndings, buildWinLossRecord } from '../outcomes/clear-status';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 
 function rec(campaignCode: string, scenario: string, resolution: string): CampaignRecord {
 	return {
 		campaignCode,
 		recorded: { difficulty: 'standard', recordedLogs: new Set([`campaign_notes.${resolution}`]) },
 		scenarioResolutions: { [scenario]: resolution },
-		manual: new Set(),
+		manual: new Set()
 	} as unknown as CampaignRecord;
 }
 
@@ -20,7 +20,10 @@ describe('Return-to merge', () => {
 		const tfa = out.find((c) => c.family === 'tfa');
 		expect(tfa, 'base tfa family should exist from RT-only plays').toBeTruthy();
 		expect(tfa!.scenarios.some((s) => s.scenario === 'return_to_the_untamed_wilds')).toBe(true);
-		expect(out.find((c) => c.family === 'rttfa'), 'rttfa still first-class').toBeTruthy();
+		expect(
+			out.find((c) => c.family === 'rttfa'),
+			'rttfa still first-class'
+		).toBeTruthy();
 	});
 
 	it('merge OFF: an rttfa play stays only under rttfa', () => {
@@ -36,7 +39,11 @@ describe('Return-to merge', () => {
 	});
 
 	it('hideReturnTo: win/loss drops the separate rttfa row', () => {
-		expect(buildWinLossRecord(rttfaPlay(), true, true).find((r) => r.family === 'rttfa')).toBeFalsy();
-		expect(buildWinLossRecord(rttfaPlay(), true, true).find((r) => r.family === 'tfa')).toBeTruthy();
+		expect(
+			buildWinLossRecord(rttfaPlay(), true, true).find((r) => r.family === 'rttfa')
+		).toBeFalsy();
+		expect(
+			buildWinLossRecord(rttfaPlay(), true, true).find((r) => r.family === 'tfa')
+		).toBeTruthy();
 	});
 });

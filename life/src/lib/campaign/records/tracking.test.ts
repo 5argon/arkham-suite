@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { chapterOneCampaigns, chapterTwoSmallCampaigns } from '@5argon/arkham-kohaku';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
-import { campaignGroupOf } from '../outcomes/clear-status';
+import type { CampaignRecord } from './campaign-record';
+import { campaignGroupOf } from '../utils/campaign-group';
 import { filterTrackedRecords, groupTracked, tierTracked } from './tracking';
 
 // Real campaign codes from kohaku so the group lookup is exercised end-to-end.
@@ -54,11 +54,11 @@ describe('filterTrackedRecords', () => {
 
 	it('empty trackedTiers + all groups keeps everything', () => {
 		const records = [rec(ch2, 'expert'), rec(ch1, 'easy')];
-		const kept = filterTrackedRecords(records, [], [
-			'chapterOne',
-			'chapterOneReturnTo',
-			'chapterTwo'
-		]);
+		const kept = filterTrackedRecords(
+			records,
+			[],
+			['chapterOne', 'chapterOneReturnTo', 'chapterTwo']
+		);
 		expect(kept).toHaveLength(2);
 	});
 });

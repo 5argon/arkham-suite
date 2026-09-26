@@ -1,31 +1,14 @@
 /**
- * scenario-reward.ts — how a scenario's end-of-scenario reward is worded.
- *
- * ArkhamCards shows EITHER a "Victory display:" counter (it tallies the victory points itself → the
- * value is Victory Points / VP) OR a flat "Experience" total (the scenario adds XP the app can't
- * count, e.g. "+1 per clue on X", so it asks the player for the total → the value is XP). campaign-
- * data records which, per scenario, in `scenarioMeta.victoryDisplay`. These helpers pick the matching
- * label + unit so our editor input and profile widgets read exactly what the player saw in the app.
+ * How a scenario's reward is worded. ArkhamCards asks either for the Victory display (VP) or, when
+ * the scenario adds XP it can't count ("+1 per clue on X"), for a flat Experience total (XP);
+ * campaign-data records which in `scenarioMeta.victoryDisplay`.
  */
 import * as m from '$lib/paraglide/messages.js';
-import { getCampaignLog } from '@5argon/arkham-campaign-data';
+import { scenarioMeta } from './scenario-meta';
 
-// Per-family scenarioId → victoryDisplay, memoised (campaign-data is static).
-const cache = new Map<string, Map<string, boolean>>();
-
-/** Whether the scenario tallies the Victory display (VP, `true`) vs a flat Experience total (XP,
- *  `false`), per campaign-data. Defaults to `true` (the common case) when unknown. */
+/** True for Victory display (VP), false for a flat Experience total (XP); true when unknown. */
 export function isVictoryDisplay(family: string | null | undefined, scenarioId: string): boolean {
-	const fam = family ?? '';
-	let byId = cache.get(fam);
-	if (!byId) {
-		byId = new Map();
-		for (const sm of getCampaignLog(fam)?.db.scenarioMeta ?? []) {
-			if (typeof sm.victoryDisplay === 'boolean') byId.set(sm.id, sm.victoryDisplay);
-		}
-		cache.set(fam, byId);
-	}
-	return byId.get(scenarioId) ?? true;
+	return scenarioMeta(family, scenarioId)?.victoryDisplay ?? true;
 }
 
 /** "{n} VP" / "{n} XP" depending on the reward kind. */

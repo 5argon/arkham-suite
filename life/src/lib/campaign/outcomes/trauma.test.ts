@@ -1,25 +1,27 @@
 import { describe, expect, it } from 'vitest';
 import type { RecordedCampaignState } from '@5argon/arkham-campaign-data';
 import { buildTraumaTally, attributeTraumaInvestigators } from './trauma';
-import type { CampaignRecord } from '../achievements/achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 
 function rec(
 	campaignCode: string,
 	scenarioResolutions: Record<string, string>,
-	opts: { difficulty?: string; campaignId?: string } = {},
+	opts: { difficulty?: string; campaignId?: string } = {}
 ): CampaignRecord {
 	return {
 		campaignCode,
 		campaignId: opts.campaignId,
 		recorded: { difficulty: opts.difficulty ?? 'standard' } as RecordedCampaignState,
 		manual: new Set(),
-		scenarioResolutions,
+		scenarioResolutions
 	};
 }
 
 describe('buildTraumaTally (per-ending)', () => {
 	it('counts a guaranteed party kill (all-target) and flags it attributable', () => {
-		const t = buildTraumaTally([rec('notz', { the_devourer_below: 'no_resolution' }, { campaignId: 'A' })]);
+		const t = buildTraumaTally([
+			rec('notz', { the_devourer_below: 'no_resolution' }, { campaignId: 'A' })
+		]);
 		expect(t.killed).toBe(1);
 		expect(t.insane).toBe(0);
 		expect(t.killedNotInsane).toBe(1);
@@ -33,7 +35,7 @@ describe('buildTraumaTally (per-ending)', () => {
 			allKilled: true,
 			allInsane: false,
 			result: 'lose',
-			pyrrhic: false,
+			pyrrhic: false
 		});
 	});
 
@@ -62,10 +64,11 @@ describe('buildTraumaTally (per-ending)', () => {
 		expect(t.events[0].allKilled).toBe(false); // conditional → not attributable
 	});
 
-	it('keeps Return-to as its own family (no longer folded onto the base)', () => {
+	it('keeps a Return-to play in its own family, listing the base in `families`', () => {
 		const t = buildTraumaTally([rec('rttcu', { before_the_black_throne: 'no_resolution' })]);
 		expect(t.events).toHaveLength(1);
-		expect(t.events[0].family).toBe('rttcu'); // Return-to is a first-class family now
+		expect(t.events[0].family).toBe('rttcu');
+		expect(t.events[0].families).toEqual(['rttcu', 'tcu']);
 		expect(t.killed).toBe(1);
 	});
 
@@ -78,23 +81,29 @@ describe('buildTraumaTally (per-ending)', () => {
 
 describe('attributeTraumaInvestigators (assembly join)', () => {
 	it('attributes a guaranteed all-target ending to every investigator in that play', () => {
-		const t = buildTraumaTally([rec('notz', { the_devourer_below: 'no_resolution' }, { campaignId: 'A' })]);
+		const t = buildTraumaTally([
+			rec('notz', { the_devourer_below: 'no_resolution' }, { campaignId: 'A' })
+		]);
 		const per = attributeTraumaInvestigators(t.events, { A: ['01001', '01004'] });
 		expect(per).toEqual(
 			expect.arrayContaining([
 				{ code: '01001', killed: 1, insane: 0 },
-				{ code: '01004', killed: 1, insane: 0 },
-			]),
+				{ code: '01004', killed: 1, insane: 0 }
+			])
 		);
 	});
 
 	it('does not attribute a non-all target (lead/not_resigned) to anyone', () => {
-		const t = buildTraumaTally([rec('tcu', { before_the_black_throne: 'R2' }, { campaignId: 'A' })]);
+		const t = buildTraumaTally([
+			rec('tcu', { before_the_black_throne: 'R2' }, { campaignId: 'A' })
+		]);
 		expect(attributeTraumaInvestigators(t.events, { A: ['01001'] })).toHaveLength(0);
 	});
 
 	it('skips events whose campaign has no mapped investigators', () => {
-		const t = buildTraumaTally([rec('notz', { the_devourer_below: 'no_resolution' }, { campaignId: 'A' })]);
+		const t = buildTraumaTally([
+			rec('notz', { the_devourer_below: 'no_resolution' }, { campaignId: 'A' })
+		]);
 		expect(attributeTraumaInvestigators(t.events, { B: ['01001'] })).toHaveLength(0);
 	});
 });

@@ -1,24 +1,15 @@
-/**
- * cloud-url.ts — turn a pasted Dropbox / Google Drive *share* URL (which serves an HTML preview,
- * not the file bytes) into a direct-download URL, and build the `/p?cp=…` link for it.
- */
+/** Dropbox / Google Drive share links serve an HTML preview; these helpers turn them into direct
+ *  downloads. */
 
 export type CloudProvider = 'dropbox' | 'gdrive' | 'direct';
 
 export interface DirectDownloadResult {
-	/** Which provider we recognized (`direct` = passed through unchanged). */
+	/** `direct`: an unrecognized host, passed through unchanged. */
 	provider: CloudProvider;
-	/** The direct-download URL. */
 	url: string;
 }
 
-/**
- * Convert a pasted share URL to a direct-download URL for the hosts we recognize:
- *  - **Dropbox** (`dropbox.com/s/…`, `/scl/fi/…`): force the raw-bytes flag `dl=1`.
- *  - **Google Drive** (`/file/d/<id>/…` or `?id=<id>`): `uc?export=download&id=<id>`.
- *  - **anything else**: returned unchanged (assumed already a direct link).
- * Returns `null` for empty input or a non-http(s) URL.
- */
+/** Null for empty input or a non-http(s) URL. */
 export function toDirectDownloadUrl(shareUrl: string): DirectDownloadResult | null {
 	const raw = shareUrl.trim();
 	if (!raw) return null;
@@ -31,23 +22,25 @@ export function toDirectDownloadUrl(shareUrl: string): DirectDownloadResult | nu
 	if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
 	const host = u.hostname.toLowerCase();
 
-	// Dropbox: flip/append dl=1 (the "serve raw bytes" flag) on the share link.
+	// dl=1 makes Dropbox serve the raw bytes.
 	if (host === 'dropbox.com' || host.endsWith('.dropbox.com')) {
 		u.searchParams.set('dl', '1');
 		return { provider: 'dropbox', url: u.toString() };
 	}
 
-	// Google Drive: pull the file id from /file/d/<id>/…, /d/<id>, or ?id=<id>.
+	// The file id sits in /file/d/<id>/…, /d/<id> or ?id=<id>.
 	if (host === 'drive.google.com' || host === 'docs.google.com') {
-		const id = (u.pathname.match(/\/(?:file\/)?d\/([^/]+)/)?.[1] ?? u.searchParams.get('id'))?.trim();
-		if (id) return { provider: 'gdrive', url: `https://drive.google.com/uc?export=download&id=${id}` };
+		const id = (
+			u.pathname.match(/\/(?:file\/)?d\/([^/]+)/)?.[1] ?? u.searchParams.get('id')
+		)?.trim();
+		if (id)
+			return { provider: 'gdrive', url: `https://drive.google.com/uc?export=download&id=${id}` };
 	}
 
 	return { provider: 'direct', url: raw };
 }
 
-/** Build the shareable viewer URL (`<origin>/p?cp=<encoded direct url>`). `origin`
- *  defaults to a relative URL so it works without knowing the deployed host. */
+/** `<origin>/p?cp=<encoded direct url>`; relative without an origin. */
 export function buildCpViewerUrl(directUrl: string, origin = ''): string {
 	return `${origin}/p?cp=${encodeURIComponent(directUrl)}`;
 }

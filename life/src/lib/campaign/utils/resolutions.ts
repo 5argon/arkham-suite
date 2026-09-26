@@ -1,12 +1,4 @@
-/**
- * resolutions.ts — display helpers for scenario resolutions.
- *
- * campaign-data carries each scenario's first-choice resolution ids
- * (`scenarioMeta[].resolutions`, e.g. `['no_resolution', 'R1', 'R3']`). The
- * labels are generic and derivable from the id, so we render them client-side
- * (matching how the Extra tab already derives scenario names) rather than
- * carrying English text in the data.
- */
+/** Labels for campaign-data resolution ids (`R1`, `no_resolution`, `no_resolution_<tail>`). */
 import * as m from '$lib/paraglide/messages.js';
 
 /** Human label for a resolution id, e.g. `R1` → "Resolution 1". */

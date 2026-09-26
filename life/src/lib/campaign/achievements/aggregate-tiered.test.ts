@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { RecordedCampaignState } from '@5argon/arkham-campaign-data';
-import { aggregateOfficialTiered, type CampaignRecord } from './achievement-aggregate';
+import { aggregateOfficialTiered } from './achievement-aggregate';
+import type { CampaignRecord } from '../records/campaign-record';
 
 function rec(campaignCode: string, recorded: RecordedCampaignState): CampaignRecord {
 	return { campaignCode, recorded, manual: new Set() };
@@ -9,8 +10,14 @@ function rec(campaignCode: string, recorded: RecordedCampaignState): CampaignRec
 describe('aggregateOfficialTiered', () => {
 	it('tracks earn-count and the difficulty tiers an inferred achievement was earned at', () => {
 		const map = aggregateOfficialTiered([
-			rec('notz', { difficulty: 'standard', recordedLogs: new Set(['campaign_notes.lita_finds_others']) }),
-			rec('notz', { difficulty: 'hard', recordedLogs: new Set(['campaign_notes.lita_finds_others']) }),
+			rec('notz', {
+				difficulty: 'standard',
+				recordedLogs: new Set(['campaign_notes.lita_finds_others'])
+			}),
+			rec('notz', {
+				difficulty: 'hard',
+				recordedLogs: new Set(['campaign_notes.lita_finds_others'])
+			})
 		]);
 		const notz = map.get('notz');
 		expect(notz).toBeDefined();
@@ -29,7 +36,11 @@ describe('aggregateOfficialTiered', () => {
 		const id = manual!.def.id;
 
 		const map = aggregateOfficialTiered([
-			{ campaignCode: 'notz', recorded: { difficulty: 'expert', recordedLogs: new Set() }, manual: new Set([id]) },
+			{
+				campaignCode: 'notz',
+				recorded: { difficulty: 'expert', recordedLogs: new Set() },
+				manual: new Set([id])
+			}
 		]);
 		const a = map.get('notz')!.find((x) => x.def.id === id)!;
 		expect(a.earned).toBe(true);

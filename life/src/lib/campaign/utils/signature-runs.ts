@@ -1,7 +1,6 @@
 /**
- * signature-runs.ts — the three "signature" plays of a two-sided campaign spine (PtC Doubt vs
- * Conviction, TCU Lodge vs Coven): the run that leaned furthest to each side and the least
- * committed one. A run can hold more than one title.
+ * The signature plays of a two-sided campaign spine (PtC Doubt vs Conviction, TCU Lodge vs Coven):
+ * the run that leaned furthest to each side and the least committed one. A run can hold several.
  */
 export interface SignatureRuns<T> {
 	mostA: T | null;
