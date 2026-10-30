@@ -94,9 +94,8 @@
 	// navigation; refinements (search, card selection, settings) replace instead.
 	function apply(updates: Record<string, string | null>, opts: { push?: boolean } = {}) {
 		goto(withParams(page.url, updates), {
-			replaceState: !opts.push,
-			keepFocus: true,
-			noScroll: true
+			replace: !opts.push,
+			reset: false
 		});
 	}
 	function setTab(index: number) {
@@ -160,9 +159,8 @@
 	}
 	function applyCardSettings(settings: GroupingSortingSettings) {
 		goto(buildUrlForSettings(settings, page.url), {
-			replaceState: true,
-			keepFocus: true,
-			noScroll: true
+			replace: true,
+			reset: false
 		});
 	}
 

@@ -62,7 +62,7 @@ function encodeList<T extends string>(values: readonly T[], validSet: Set<string
 	return cleaned.join(',');
 }
 
-export function searchParamsToSettings(sp: URLSearchParams): GroupingSortingSettings {
+export function searchParamsToSettings(sp: Pick<URLSearchParams, 'get'>): GroupingSortingSettings {
 	return {
 		grouping: decodeList<Grouping>(sp.get(GROUP_PARAM), VALID_GROUPING_SET),
 		sortingOrder: decodeList<SortingType>(sp.get(SORT_PARAM), VALID_SORTING_SET)
