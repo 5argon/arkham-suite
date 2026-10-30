@@ -11,6 +11,8 @@ import { theDreamQuestCampaign, theWebOfDreamsCampaign } from './tde/campaign';
 import { returnToTheForgottenAgeCampaign, theForgottenAgeCampaign } from './tfa/campaign';
 import { theInnsmouthConspiracyCampaign } from './tic/campaign';
 import { theScarletKeysCampaign } from './tsk/campaign';
+import { brethrenOfAshCampaign } from './boa/campaign';
+import { childrenOfBloodCampaign } from './cob/campaign';
 
 /**
  * Order of this array reflects in the UI.
@@ -33,5 +35,8 @@ export const allCampaigns: Campaign[] = [
 	returnToTheDunwichLegacyCampaign,
 	returnToThePathToCarcosaCampaign,
 	returnToTheForgottenAgeCampaign,
-	returnToTheCircleUndoneCampaign
+	returnToTheCircleUndoneCampaign,
+
+	brethrenOfAshCampaign,
+	childrenOfBloodCampaign
 ];

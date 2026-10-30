@@ -410,8 +410,72 @@ export const courtOfTheAncientsEasternScenario: Scenario = {
 	}
 };
 
-export const obsidianCanyonsScenario: Scenario = {
+export const obsidianCanyonsWesternScenario: Scenario = {
 	kohakuScenario: KohakuScenario.ObsidianCanyons,
+	overrideName: m.campaignRegularTheDrownedCityScenarioObsidianCanyons() + ' (West)',
+	shortName: '?',
+	setups: [
+		{
+			name: 'Creature not defeated',
+			shuffles: [
+				{ encounterSet: obsidianCanyons, overwriteCount: 12 },
+				cosmicLegacy,
+				elderMist,
+				{ encounterSet: theInescapable, overwriteCount: 3 },
+				rlyeh,
+				{ encounterSet: starSpawn, overwriteCount: 2 },
+				{ encounterSet: ancientEvils, overwriteCount: 0 },
+				{ encounterSet: chillingCold, overwriteCount: 0 },
+				nightgaunts,
+				{ encounterSet: strikingFear, overwriteCount: 0 }
+			],
+			notes: [
+				{
+					encounterSet: theInescapable,
+					what: 'Only 3x **Still Behind You** enter the encounter deck.'
+				}
+			]
+		},
+		{
+			name: 'Creature defeated',
+			shuffles: [
+				{ encounterSet: obsidianCanyons, overwriteCount: 12 },
+				cosmicLegacy,
+				elderMist,
+				rlyeh,
+				{ encounterSet: starSpawn, overwriteCount: 2 },
+				{ encounterSet: ancientEvils, overwriteCount: 0 },
+				{ encounterSet: chillingCold, overwriteCount: 0 },
+				nightgaunts,
+				{ encounterSet: strikingFear, overwriteCount: 0 }
+			]
+		}
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: starSpawn,
+				what: 'Shuffle the **Star Spawn** enemies and remove two at random from the game; the rest enter the encounter deck.'
+			},
+			{
+				encounterSet: ancientEvils,
+				what: 'The **Ancient Evils** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
+			},
+			{
+				encounterSet: chillingCold,
+				what: 'The **Chilling Cold** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
+			},
+			{
+				encounterSet: strikingFear,
+				what: 'The **Striking Fear** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
+			}
+		]
+	}
+};
+
+export const obsidianCanyonsEasternScenario: Scenario = {
+	kohakuScenario: KohakuScenario.ObsidianCanyons,
+	overrideName: m.campaignRegularTheDrownedCityScenarioObsidianCanyons() + ' (East)',
 	shortName: '?',
 	setups: [
 		{

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GraphicButton, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
+	import { GraphicButton, SectionSeparator } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
 	import {
 		Campaign,
@@ -13,6 +13,11 @@
 	import { ProductIcon } from '@5argon/arkham-icon';
 	import { quintOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+
+	/**
+	 * Only Chapter Two campaigns that already have campaign reference data.
+	 */
+	const chapterTwoCampaigns: Campaign[] = [Campaign.BrethrenOfAsh, Campaign.ChildrenOfBlood];
 
 	function campaignToLink(campaign: Campaign): string {
 		return '/campaign/' + strings.campaignAbbreviation(campaign);
@@ -64,7 +69,21 @@
 
 <SectionSeparator title={m.campaign_chapter_two()} />
 
-<TextParagraph>Coming Soon...</TextParagraph>
+<div class="flex gap-1">
+	{#each chapterTwoCampaigns as campaign (campaign)}
+		<div in:slide|global={{ duration: 200, delay: 200, easing: quintOut }}>
+			<GraphicButton
+				text={u.campaignName(campaign)}
+				graphic={getCampaignImage(campaign)}
+				accentColor={color.getColor(campaignToColor(campaign), 950, false)}
+				small
+				onClick={campaignToLink(campaign)}
+			>
+				<ProductIcon product={convert.campaignToProduct(campaign)} />
+			</GraphicButton>
+		</div>
+	{/each}
+</div>
 
 <style>
 	.flex {

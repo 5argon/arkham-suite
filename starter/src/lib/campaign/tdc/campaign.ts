@@ -4,7 +4,8 @@ import { ChaosToken } from '@5argon/arkham-kohaku';
 import {
 	courtOfTheAncientsEasternScenario,
 	courtOfTheAncientsWesternScenario,
-	obsidianCanyonsScenario,
+	obsidianCanyonsEasternScenario,
+	obsidianCanyonsWesternScenario,
 	oneLastJobScenario,
 	sepulchreOfTheSleeperScenario,
 	theApiaryEasternScenario,
@@ -28,7 +29,8 @@ export const theDrownedCityCampaign: Campaign = {
 		theGrandVaultScenario,
 		courtOfTheAncientsWesternScenario,
 		courtOfTheAncientsEasternScenario,
-		obsidianCanyonsScenario,
+		obsidianCanyonsWesternScenario,
+		obsidianCanyonsEasternScenario,
 		sepulchreOfTheSleeperScenario,
 		theDoomOfArkhamPart1Scenario,
 		theDoomOfArkhamPart2Scenario

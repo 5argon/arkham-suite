@@ -23,7 +23,9 @@ export const load: PageServerLoad = async ({ params }) => {
 		rtdwl: KohakuCampaign.ReturnToTheDunwichLegacy,
 		rtptc: KohakuCampaign.ReturnToThePathToCarcosa,
 		rttfa: KohakuCampaign.ReturnToTheForgottenAge,
-		rttcu: KohakuCampaign.ReturnToTheCircleUndone
+		rttcu: KohakuCampaign.ReturnToTheCircleUndone,
+		boa: KohakuCampaign.BrethrenOfAsh,
+		cob: KohakuCampaign.ChildrenOfBlood
 	};
 
 	const kohakuCampaign = urlToKohakuCampaign[campaignCode];
@@ -117,6 +119,16 @@ export const load: PageServerLoad = async ({ params }) => {
 		case KohakuCampaign.ReturnToTheCircleUndone: {
 			const { returnToTheCircleUndoneCampaign } = await import('$lib/campaign/tcu/campaign');
 			campaignData = returnToTheCircleUndoneCampaign;
+			break;
+		}
+		case KohakuCampaign.BrethrenOfAsh: {
+			const { brethrenOfAshCampaign } = await import('$lib/campaign/boa/campaign');
+			campaignData = brethrenOfAshCampaign;
+			break;
+		}
+		case KohakuCampaign.ChildrenOfBlood: {
+			const { childrenOfBloodCampaign } = await import('$lib/campaign/cob/campaign');
+			campaignData = childrenOfBloodCampaign;
 			break;
 		}
 		default:
