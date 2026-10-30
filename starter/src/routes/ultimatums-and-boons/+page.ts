@@ -3,7 +3,7 @@ import type { PageLoad } from './$types';
 
 export const prerender = false;
 
-export const load: PageLoad = ({ url }) => {
+export const load: PageLoad = ({ url, data }) => {
 	const itemParam = url.searchParams.get('i');
 	const chapterParam = Number(url.searchParams.get('c')) as Chapter;
 
@@ -16,6 +16,7 @@ export const load: PageLoad = ({ url }) => {
 				const index = chapterLists[chapter][tab].indexOf(itemParam);
 				if (index !== -1) {
 					return {
+						...data,
 						initialChapter: chapter,
 						initialTab: tab,
 						initialIndex: index
@@ -26,6 +27,7 @@ export const load: PageLoad = ({ url }) => {
 	}
 
 	return {
+		...data,
 		initialChapter: candidateChapters[0],
 		initialTab: 'ultimatums' as TabType,
 		initialIndex: 0

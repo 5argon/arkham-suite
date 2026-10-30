@@ -11,12 +11,15 @@
 		Tabs,
 		TextParagraph,
 		MagnifiedModal,
-		UltimatumBoonItem
+		UltimatumBoonItem,
+		Button
 	} from '@5argon/arkham-life-ui';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import { ultimatumBoonImagePath } from '$lib/ultimatum-boon';
 	import { browser } from '$app/env';
+	import { resolve } from '$app/paths';
 	import type { PageData } from './$types';
+	import type { RefractionCampaignLink } from './+page.server';
 	import { chapterLists, chapters, tabTypes, type Chapter, type TabType } from './chapter';
 
 	interface Props {
@@ -63,6 +66,16 @@
 				return u.u.refractionName(selectedItem as Refraction);
 		}
 	});
+
+	// A refraction links to its campaign's reference, on the setup card of its scenario if it has one
+	const selectedCampaignLink = $derived(
+		selectedItem ? (data.refractionLinks[selectedItem] ?? null) : null
+	);
+
+	function campaignHref(link: RefractionCampaignLink): string {
+		const path = resolve('/campaign/[campaignCode]', { campaignCode: link.campaign });
+		return link.scenarioPage === undefined ? path : `${path}?tab=setup&s=${link.scenarioPage}`;
+	}
 
 	function markImageMissing(item: string | null) {
 		if (item) missingImages.add(item);
@@ -155,6 +168,12 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
+{#snippet campaignLink()}
+	{#if selectedCampaignLink}
+		<Button label="Campaign Reference" onClick={campaignHref(selectedCampaignLink)} />
+	{/if}
+{/snippet}
+
 {#snippet missingCard()}
 	<div
 		class="flex h-96 w-64 flex-col items-center justify-center gap-2 rounded-[20px] border border-dashed border-gray-400 p-4 text-center text-gray-500"
@@ -187,15 +206,17 @@
 		section in the <a
 			href="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc_faq_v25_february_2026-web-1.pdf"
 			target="_blank">FAQ version 2.5</a
-		> (Chapter 1) and <a
+		>
+		(Chapter 1) and
+		<a
 			href="https://www.fantasyflightgames.com/product/arkham-horror-the-card-game/"
 			target="_blank">The Arkham Grimoire</a
 		> (Chapter 2).
 	</TextParagraph>
 
 	<TextParagraph>
-		These visual representation aren't official and only made for easier browsing. If you are interested in
-		these graphic assets, you can find them in this <a
+		These visual representation aren't official and only made for easier browsing. If you are
+		interested in these graphic assets, you can find them in this <a
 			href="https://drive.google.com/drive/folders/12M8eFWklxruSpeojdZiCCbJfJ2oBmMYm?usp=share_link"
 			target="_blank">Google Drive folder</a
 		>.
@@ -218,16 +239,19 @@
 
 	<!-- Magnified modal for mobile – only opens on narrow screens -->
 	<MagnifiedModal isShowing={magnifiedOpen} onClose={() => (magnifiedOpen = false)}>
-		{#if selectedItem && missingImages.has(selectedItem)}
-			{@render missingCard()}
-		{:else}
-			<img
-				src={selectedImagePath}
-				alt={selectedName()}
-				class="max-h-[90vh] max-w-[90vw] w-auto rounded-xl object-contain"
-				onerror={() => markImageMissing(selectedItem)}
-			/>
-		{/if}
+		<div class="flex flex-col items-center gap-3">
+			{#if selectedItem && missingImages.has(selectedItem)}
+				{@render missingCard()}
+			{:else}
+				<img
+					src={selectedImagePath}
+					alt={selectedName()}
+					class="max-h-[80vh] max-w-[90vw] w-auto rounded-xl object-contain"
+					onerror={() => markImageMissing(selectedItem)}
+				/>
+			{/if}
+			{@render campaignLink()}
+		</div>
 	</MagnifiedModal>
 
 	<div class="flex flex-col gap-4 lg:flex-row lg:items-start">
@@ -259,14 +283,14 @@
 		<!-- Image display – hidden on mobile, shown only at lg breakpoint and above -->
 		<div class="hidden lg:block lg:w-1/2">
 			<BorderedContainer>
-				<div class="h-150 flex items-center justify-center">
+				<div class="h-150 flex flex-col items-center justify-center gap-3">
 					{#if selectedItem && missingImages.has(selectedItem)}
 						{@render missingCard()}
 					{:else if selectedImagePath}
 						<img
 							src={selectedImagePath}
 							alt={selectedName()}
-							class="max-h-150 w-auto rounded-[20px]"
+							class="w-auto rounded-[20px] {selectedCampaignLink ? 'max-h-136' : 'max-h-150'}"
 							onerror={() => markImageMissing(selectedItem)}
 						/>
 					{:else}
@@ -274,6 +298,7 @@
 							Select an item to view its card
 						</div>
 					{/if}
+					{@render campaignLink()}
 				</div>
 			</BorderedContainer>
 		</div>

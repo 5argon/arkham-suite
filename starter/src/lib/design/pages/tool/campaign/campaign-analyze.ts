@@ -7,6 +7,9 @@ import {
 import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
 import {
 	type Campaign as KohakuCampaign,
+	type EncounterSet as KohakuEncounterSet,
+	type RefractionDetails,
+	type Scenario as KohakuScenario,
 	encounterSet,
 	getScenarioData,
 	specialOrderingEncounterSets
@@ -72,6 +75,22 @@ export function mergeEncounters(s: Scenario | null): EncounterSet[] {
 		}
 	});
 	return Array.from(es);
+}
+
+/**
+ * Whether a scenario-specific refraction applies to a scenario of its own campaign, given the
+ * encounter sets in that scenario's setup. A refraction that names an encounter set (one part
+ * of a multi-part scenario) needs that set in the setup.
+ */
+export function refractionMatchesScenario(
+	details: RefractionDetails,
+	scenario: KohakuScenario,
+	encounterSets: KohakuEncounterSet[]
+): boolean {
+	return (
+		details.scenario === scenario &&
+		(details.encounterSet === undefined || encounterSets.includes(details.encounterSet))
+	);
 }
 
 export function mergeEncountersPure(encounters: EncounterSet[]): EncounterSet[] {
