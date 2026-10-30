@@ -298,7 +298,7 @@ function apply(code) {
 
 const ALL = [
   'notz', 'dwl', 'ptc', 'tfa', 'tcu', 'tdea', 'tdeb', 'tic', 'eoe', 'tskc', 'fhv', 'tdc',
-  'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu', 'boa', 'fof', 'gob', 'side',
+  'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu', 'boa', 'cob', 'fof', 'gob', 'side',
 ];
 
 const arg = process.argv[2];

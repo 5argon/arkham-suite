@@ -59,6 +59,23 @@ const inlineIconPattern = new RegExp(
  * every `what` / paragraph render through it so the supported syntax stays in
  * sync across the setup reference card.
  */
+/**
+ * Render ArkhamDB-style card text (as found in campaign data such as
+ * achievements) into an HTML string for use with `{@html}`. Keeps `<i>` / `<b>`,
+ * renders `[[Trait]]` as bold italic like printed card text, and turns known
+ * inline icon tokens such as `[blood]` into icons. Unknown tokens are dropped.
+ */
+export function parseArkhamDbText(text: string): string {
+	return text
+		.replace(/\[\[([^\]]+)\]\]/g, '<b><i>$1</i></b>')
+		.replace(/\[[a-z_]+\]/g, (token) => {
+			const iconClass = inlineIconClass[token as ArkhamInlineIcon];
+			return iconClass ? `<span class="${iconClass}"></span>` : '';
+		})
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+
 export function parseArkhamMarkup(text: string): string {
 	let parsed = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 	parsed = parsed.replace(/\*(.+?)\*/g, '<em>$1</em>');

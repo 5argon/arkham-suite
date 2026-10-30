@@ -428,8 +428,8 @@ const ALL = [
   'notz', 'dwl', 'ptc', 'tfa', 'tcu', 'tdea', 'tdeb', 'tic', 'eoe', 'tskc', 'fhv', 'tdc',
   // 5 return
   'rtnotz', 'rtdwl', 'rtptc', 'rttfa', 'rttcu',
-  // boa
-  'boa',
+  // Chapter Two small campaigns
+  'boa', 'cob',
   // standalones
   'fof', 'gob', 'side',
 ];

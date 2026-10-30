@@ -1,0 +1,82 @@
+{
+  "code": "cob",
+  "_notes": "Children of Blood (small campaign, 3 scenarios + the Friends in Low Places interlude). Log entries name only the front-loaded NPCs (Julia Stern, Zburamoarte) and the campaign title, so nothing is blurred. Achievement scenario ties follow where ArkhamCards records each event: Fang of Zburamoarte is added in River of Blood, Forged Permit / Sanguine Song in New Horizons, Chosen of Zburamoarte in Blood Money. Charlie Kane joins during the interlude right before Blood Money (and is used there), so thanks_for_your_vote is tied to blood_money. Campaign completion = either Blood Money ending outcome is recorded (left_to_the_cults_mercy is a New Horizons note, not a campaign end). its_part_of_my_backstory stays manual: there is no investigator inference.",
+  "spoilers": {},
+  "achievements": {
+    "hide_and_seek": { "scenario": "river_of_blood" },
+    "friendly_neighborhood_investigator": { "scenario": "river_of_blood" },
+    "trophy_collector": { "scenario": "river_of_blood" },
+    "no_meat_slab_unhooked": { "scenario": "new_horizons" },
+    "filing_paperwork": { "scenario": "new_horizons" },
+    "thatll_learn_him": { "scenario": "new_horizons" },
+    "safety_inspector": { "scenario": "new_horizons" },
+    "thanks_for_your_vote": { "scenario": "blood_money" },
+    "hell_hath_no_fury": { "scenario": "blood_money" },
+    "look_out_below": { "scenario": "blood_money" },
+    "a_party_everyone_can_enjoy": { "scenario": "blood_money" },
+    "if_you_cant_beat_them": { "scenario": "blood_money" },
+    "and_all_i_got": { "scenario": "blood_money" },
+    "dont_forget_your_ppe": {
+      "infer": { "type": "chaosToken", "token": "blood", "max": 0 }
+    },
+    "bathed_in_blood": {
+      "infer": { "type": "chaosToken", "token": "blood", "min": 12 }
+    },
+    "waterfront_wet_work": {
+      "itemInfer": {
+        "easy": {
+          "type": "allOf",
+          "of": [
+            { "type": "difficulty", "is": "easy" },
+            {
+              "type": "anyOf",
+              "of": [
+                { "type": "log", "key": "campaign_notes.stopped_the_children_of_blood" },
+                { "type": "log", "key": "campaign_notes.failed_to_stop_the_children_of_blood" }
+              ]
+            }
+          ]
+        },
+        "standard": {
+          "type": "allOf",
+          "of": [
+            { "type": "difficulty", "is": "standard" },
+            {
+              "type": "anyOf",
+              "of": [
+                { "type": "log", "key": "campaign_notes.stopped_the_children_of_blood" },
+                { "type": "log", "key": "campaign_notes.failed_to_stop_the_children_of_blood" }
+              ]
+            }
+          ]
+        },
+        "hard": {
+          "type": "allOf",
+          "of": [
+            { "type": "difficulty", "is": "hard" },
+            {
+              "type": "anyOf",
+              "of": [
+                { "type": "log", "key": "campaign_notes.stopped_the_children_of_blood" },
+                { "type": "log", "key": "campaign_notes.failed_to_stop_the_children_of_blood" }
+              ]
+            }
+          ]
+        },
+        "expert": {
+          "type": "allOf",
+          "of": [
+            { "type": "difficulty", "is": "expert" },
+            {
+              "type": "anyOf",
+              "of": [
+                { "type": "log", "key": "campaign_notes.stopped_the_children_of_blood" },
+                { "type": "log", "key": "campaign_notes.failed_to_stop_the_children_of_blood" }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ResolvedAchievement } from '@5argon/arkham-campaign-data';
 	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
+	import { parseArkhamDbText } from '$lib/utility/arkham-markup';
 	import AchievementStatusIcon from './AchievementStatusIcon.svelte';
 
 	let { achievement }: { achievement: ResolvedAchievement } = $props();
@@ -16,15 +17,6 @@
 		return def.items.map((id) => ({ id, label: labels[id] ?? id }));
 	});
 
-	// Strip ArkhamDB markup for a plain readable line.
-	function clean(text: string): string {
-		return text
-			.replace(/<\/?[ib]>/g, '')
-			.replace(/\[\[([^\]]+)\]\]/g, '$1')
-			.replace(/\[[a-z_]+\]/g, '')
-			.replace(/\s+/g, ' ')
-			.trim();
-	}
 </script>
 
 <li class="flex gap-3">
@@ -37,7 +29,7 @@
 			<AchievementStatusIcon {inferred} />
 		</div>
 		<div class="text-sm text-primary-700 dark:text-primary-300">
-			{clean(achievement.en.text)}
+			{@html parseArkhamDbText(achievement.en.text)}
 		</div>
 		{#if listItems.length > 0}
 			<ul class="mt-1.5 space-y-1">
