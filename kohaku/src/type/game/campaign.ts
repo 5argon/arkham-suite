@@ -25,6 +25,7 @@ export enum Campaign {
   ReturnToTheCircleUndone = 'rttcu',
 
   BrethrenOfAsh = 'boa',
+  ChildrenOfBlood = 'cob',
 }
 
 export const chapterOneCampaigns: Campaign[] = [
@@ -50,7 +51,21 @@ export const chapterOneReturnToCampaigns: Campaign[] = [
   Campaign.ReturnToTheCircleUndone,
 ];
 
-export const chapterTwoSmallCampaigns: Campaign[] = [Campaign.BrethrenOfAsh];
+/**
+ * The campaign each Return To campaign revisits.
+ */
+export const returnToCampaignOriginal: Partial<Record<Campaign, Campaign>> = {
+  [Campaign.ReturnToNightOfTheZealot]: Campaign.NightOfTheZealot,
+  [Campaign.ReturnToTheDunwichLegacy]: Campaign.TheDunwichLegacy,
+  [Campaign.ReturnToThePathToCarcosa]: Campaign.ThePathToCarcosa,
+  [Campaign.ReturnToTheForgottenAge]: Campaign.TheForgottenAge,
+  [Campaign.ReturnToTheCircleUndone]: Campaign.TheCircleUndone,
+};
+
+export const chapterTwoSmallCampaigns: Campaign[] = [
+  Campaign.BrethrenOfAsh,
+  Campaign.ChildrenOfBlood,
+];
 
 export enum StandaloneScenario {
   CurseOfTheRougarou = 'cotr',
@@ -91,4 +106,5 @@ export const campaignToProductMap: Record<Campaign, Product> = {
   [Campaign.ReturnToTheForgottenAge]: Product.ReturnToTheForgottenAge,
   [Campaign.ReturnToTheCircleUndone]: Product.ReturnToTheCircleUndone,
   [Campaign.BrethrenOfAsh]: Product.CoreSet2026,
+  [Campaign.ChildrenOfBlood]: Product.ChildrenOfBlood,
 };

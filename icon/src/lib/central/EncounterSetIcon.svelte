@@ -699,6 +699,93 @@
         return import("../individual/svelte/AssimilatingSwarm.svelte");
       case EncounterSet.WarOfTheOuterGods:
         return import("../individual/svelte/WarOfTheOuterGods.svelte");
+      case EncounterSet.EnthrallingEncore:
+        return import("../individual/svelte/EnthrallingEncore.svelte");
+      // Core Set 2026
+      case EncounterSet.ArcaneLock:
+        return import("../individual/svelte/ArcaneLock.svelte");
+      case EncounterSet.ArkhamCh2:
+        return import("../individual/svelte/ArkhamCh2.svelte");
+      case EncounterSet.AshenPilgrims:
+        return import("../individual/svelte/AshenPilgrims.svelte");
+      case EncounterSet.BadWeather:
+        return import("../individual/svelte/BadWeather.svelte");
+      case EncounterSet.Bystanders:
+        return import("../individual/svelte/Bystanders.svelte");
+      case EncounterSet.CosmicEvils:
+        return import("../individual/svelte/CosmicEvils.svelte");
+      case EncounterSet.CultistsCh2:
+        return import("../individual/svelte/CultistsCh2.svelte");
+      case EncounterSet.DeadEnds:
+        return import("../individual/svelte/DeadEnds.svelte");
+      case EncounterSet.EldritchLore:
+        return import("../individual/svelte/EldritchLore.svelte");
+      case EncounterSet.FireCh2:
+        return import("../individual/svelte/FireCh2.svelte");
+      case EncounterSet.FlyingTerrors:
+        return import("../individual/svelte/FlyingTerrors.svelte");
+      case EncounterSet.GangsOfArkham:
+        return import("../individual/svelte/GangsOfArkham.svelte");
+      case EncounterSet.Hallucinations:
+        return import("../individual/svelte/Hallucinations.svelte");
+      case EncounterSet.MadScience:
+        return import("../individual/svelte/MadScience.svelte");
+      case EncounterSet.MiskatonicUniversity:
+        return import("../individual/svelte/MiskatonicUniversity.svelte");
+      case EncounterSet.PeopleOfArkham:
+        return import("../individual/svelte/PeopleOfArkham.svelte");
+      case EncounterSet.ReekingDecay:
+        return import("../individual/svelte/ReekingDecay.svelte");
+      case EncounterSet.Sewers:
+        return import("../individual/svelte/ArkhamSewers.svelte");
+      case EncounterSet.Torment:
+        return import("../individual/svelte/Torment.svelte");
+      case EncounterSet.WhippoorwillsCh2:
+        return import("../individual/svelte/WhippoorwillsCh2.svelte");
+      // Brethren of Ash
+      case EncounterSet.SpreadingFlames:
+        return import("../individual/svelte/SpreadingFlames.svelte");
+      case EncounterSet.SmokeAndMirrors:
+        return import("../individual/svelte/SmokeAndMirrors.svelte");
+      case EncounterSet.QueenOfAsh:
+        return import("../individual/svelte/QueenOfAsh.svelte");
+      // Children of Blood
+      case EncounterSet.RiverOfBlood:
+        return import("../individual/svelte/RiverOfBlood.svelte");
+      case EncounterSet.NewHorizons:
+        return import("../individual/svelte/NewHorizons.svelte");
+      case EncounterSet.BloodMoney:
+        return import("../individual/svelte/BloodMoney.svelte");
+      case EncounterSet.Afflicted:
+        return import("../individual/svelte/Afflicted.svelte");
+      case EncounterSet.AgentsOfZburamoarte:
+        return import("../individual/svelte/AgentsOfZburamoarte.svelte");
+      case EncounterSet.BloodBlight:
+        return import("../individual/svelte/BloodBlight.svelte");
+      case EncounterSet.BloodMoon:
+        return import("../individual/svelte/BloodMoon.svelte");
+      case EncounterSet.Bloodthirst:
+        return import("../individual/svelte/Bloodthirst.svelte");
+      case EncounterSet.ChildrenOfBlood:
+        return import("../individual/svelte/ChildrenOfBlood.svelte");
+      case EncounterSet.FriendsInLowPlaces:
+        return import("../individual/svelte/FriendsInLowPlaces.svelte");
+      case EncounterSet.Hunted:
+        return import("../individual/svelte/Hunted.svelte");
+      case EncounterSet.Infected:
+        return import("../individual/svelte/Infected.svelte");
+      case EncounterSet.Misinformation:
+        return import("../individual/svelte/Misinformation.svelte");
+      case EncounterSet.Mongrels:
+        return import("../individual/svelte/Mongrels.svelte");
+      case EncounterSet.PreyedUpon:
+        return import("../individual/svelte/PreyedUpon.svelte");
+      case EncounterSet.SanguineSecrets:
+        return import("../individual/svelte/SanguineSecrets.svelte");
+      case EncounterSet.Stalked:
+        return import("../individual/svelte/Stalked.svelte");
+      case EncounterSet.Vermin:
+        return import("../individual/svelte/Vermin.svelte");
       default:
         const _exhaustive: never = set;
         throw new Error(`Unhandled encounter set: ${_exhaustive}`);

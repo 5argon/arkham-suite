@@ -158,6 +158,11 @@ export enum Scenario {
   SpreadingFlames = 'spreading_flames',
   SmokeAndMirrors = 'smoke_and_mirrors',
   QueenOfAsh = 'queen_of_ash',
+
+  // Children of Blood
+  RiverOfBlood = 'river_of_blood',
+  NewHorizons = 'new_horizons',
+  BloodMoney = 'blood_money',
 }
 
 /**
@@ -170,6 +175,8 @@ export interface ScenarioData {
   index: number;
   /** The primary encounter set that represents this scenario */
   representativeSet: EncounterSet;
+  /** For a Return To scenario, the scenario it revisits. */
+  original?: Scenario;
 }
 
 /**
@@ -196,16 +203,19 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
   },
   [Scenario.ReturnToTheGathering]: {
     scenario: Scenario.ReturnToTheGathering,
+    original: Scenario.TheGathering,
     index: 1,
     representativeSet: EncounterSet.ReturnToTheGathering,
   },
   [Scenario.ReturnToTheMidnightMasks]: {
     scenario: Scenario.ReturnToTheMidnightMasks,
+    original: Scenario.TheMidnightMasks,
     index: 2,
     representativeSet: EncounterSet.ReturnToTheMidnightMasks,
   },
   [Scenario.ReturnToTheDevourerBelow]: {
     scenario: Scenario.ReturnToTheDevourerBelow,
+    original: Scenario.TheDevourerBelow,
     index: 3,
     representativeSet: EncounterSet.ReturnToTheDevourerBelow,
   },
@@ -253,41 +263,49 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
   },
   [Scenario.ReturnToExtracurricularActivity]: {
     scenario: Scenario.ReturnToExtracurricularActivity,
+    original: Scenario.ExtracurricularActivity,
     index: 1,
     representativeSet: EncounterSet.ReturnToExtracurricularActivity,
   },
   [Scenario.ReturnToTheHouseAlwaysWins]: {
     scenario: Scenario.ReturnToTheHouseAlwaysWins,
+    original: Scenario.TheHouseAlwaysWins,
     index: 2,
     representativeSet: EncounterSet.ReturnToTheHouseAlwaysWins,
   },
   [Scenario.ReturnToTheMiskatonicMuseum]: {
     scenario: Scenario.ReturnToTheMiskatonicMuseum,
+    original: Scenario.TheMiskatonicMuseum,
     index: 5,
     representativeSet: EncounterSet.ReturnToTheMiskatonicMuseum,
   },
   [Scenario.ReturnToTheEssexCountyExpress]: {
     scenario: Scenario.ReturnToTheEssexCountyExpress,
+    original: Scenario.TheEssexCountyExpress,
     index: 6,
     representativeSet: EncounterSet.ReturnToTheEssexCountyExpress,
   },
   [Scenario.ReturnToBloodOnTheAltar]: {
     scenario: Scenario.ReturnToBloodOnTheAltar,
+    original: Scenario.BloodOnTheAltar,
     index: 7,
     representativeSet: EncounterSet.ReturnToBloodOnTheAltar,
   },
   [Scenario.ReturnToUndimensionedAndUnseen]: {
     scenario: Scenario.ReturnToUndimensionedAndUnseen,
+    original: Scenario.UndimensionedAndUnseen,
     index: 8,
     representativeSet: EncounterSet.ReturnToUndimensionedAndUnseen,
   },
   [Scenario.ReturnToWhereDoomAwaits]: {
     scenario: Scenario.ReturnToWhereDoomAwaits,
+    original: Scenario.WhereDoomAwaits,
     index: 9,
     representativeSet: EncounterSet.ReturnToWhereDoomAwaits,
   },
   [Scenario.ReturnToLostInTimeAndSpace]: {
     scenario: Scenario.ReturnToLostInTimeAndSpace,
+    original: Scenario.LostInTimeAndSpace,
     index: 10,
     representativeSet: EncounterSet.ReturnToLostInTimeAndSpace,
   },
@@ -335,41 +353,49 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
   },
   [Scenario.ReturnToCurtainCall]: {
     scenario: Scenario.ReturnToCurtainCall,
+    original: Scenario.CurtainCall,
     index: 1,
     representativeSet: EncounterSet.ReturnToCurtainCall,
   },
   [Scenario.ReturnToTheLastKing]: {
     scenario: Scenario.ReturnToTheLastKing,
+    original: Scenario.TheLastKing,
     index: 2,
     representativeSet: EncounterSet.ReturnToTheLastKing,
   },
   [Scenario.ReturnToEchoesOfThePast]: {
     scenario: Scenario.ReturnToEchoesOfThePast,
+    original: Scenario.EchoesOfThePast,
     index: 3,
     representativeSet: EncounterSet.ReturnToEchoesOfThePast,
   },
   [Scenario.ReturnToTheUnspeakableOath]: {
     scenario: Scenario.ReturnToTheUnspeakableOath,
+    original: Scenario.TheUnspeakableOath,
     index: 4,
     representativeSet: EncounterSet.ReturnToTheUnspeakableOath,
   },
   [Scenario.ReturnToAPhantomOfTruth]: {
     scenario: Scenario.ReturnToAPhantomOfTruth,
+    original: Scenario.APhantomOfTruth,
     index: 5,
     representativeSet: EncounterSet.ReturnToAPhantomOfTruth,
   },
   [Scenario.ReturnToThePallidMask]: {
     scenario: Scenario.ReturnToThePallidMask,
+    original: Scenario.ThePallidMask,
     index: 6,
     representativeSet: EncounterSet.ReturnToThePallidMask,
   },
   [Scenario.ReturnToBlackStarsRise]: {
     scenario: Scenario.ReturnToBlackStarsRise,
+    original: Scenario.BlackStarsRise,
     index: 7,
     representativeSet: EncounterSet.ReturnToBlackStarsRise,
   },
   [Scenario.ReturnToDimCarcosa]: {
     scenario: Scenario.ReturnToDimCarcosa,
+    original: Scenario.DimCarcosa,
     index: 8,
     representativeSet: EncounterSet.ReturnToDimCarcosa,
   },
@@ -427,51 +453,61 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
   },
   [Scenario.ReturnToTheUntamedWilds]: {
     scenario: Scenario.ReturnToTheUntamedWilds,
+    original: Scenario.TheUntamedWilds,
     index: 1,
     representativeSet: EncounterSet.ReturnToTheUntamedWilds,
   },
   [Scenario.ReturnToTheDoomOfEztli]: {
     scenario: Scenario.ReturnToTheDoomOfEztli,
+    original: Scenario.TheDoomOfEztli,
     index: 2,
     representativeSet: EncounterSet.ReturnToTheDoomOfEztli,
   },
   [Scenario.ReturnToThreadsOfFate]: {
     scenario: Scenario.ReturnToThreadsOfFate,
+    original: Scenario.ThreadsOfFate,
     index: 3,
     representativeSet: EncounterSet.ReturnToThreadsOfFate,
   },
   [Scenario.ReturnToTheBoundaryBeyond]: {
     scenario: Scenario.ReturnToTheBoundaryBeyond,
+    original: Scenario.TheBoundaryBeyond,
     index: 4,
     representativeSet: EncounterSet.ReturnToTheBoundaryBeyond,
   },
   [Scenario.ReturnToHeartOfTheEldersPart1]: {
     scenario: Scenario.ReturnToHeartOfTheEldersPart1,
+    original: Scenario.HeartOfTheEldersPart1,
     index: 5,
     representativeSet: EncounterSet.ReturnToPillarsOfJudgment,
   },
   [Scenario.ReturnToHeartOfTheEldersPart2]: {
     scenario: Scenario.ReturnToHeartOfTheEldersPart2,
+    original: Scenario.HeartOfTheEldersPart2,
     index: 6,
     representativeSet: EncounterSet.ReturnToKnyan,
   },
   [Scenario.ReturnToTheCityOfArchives]: {
     scenario: Scenario.ReturnToTheCityOfArchives,
+    original: Scenario.TheCityOfArchives,
     index: 7,
     representativeSet: EncounterSet.ReturnToTheCityOfArchives,
   },
   [Scenario.ReturnToTheDepthsOfYoth]: {
     scenario: Scenario.ReturnToTheDepthsOfYoth,
+    original: Scenario.TheDepthsOfYoth,
     index: 8,
     representativeSet: EncounterSet.ReturnToTheDepthsOfYoth,
   },
   [Scenario.ReturnToShatteredAeons]: {
     scenario: Scenario.ReturnToShatteredAeons,
+    original: Scenario.ShatteredAeons,
     index: 9,
     representativeSet: EncounterSet.ReturnToShatteredAeons,
   },
   [Scenario.ReturnToTurnBackTime]: {
     scenario: Scenario.ReturnToTurnBackTime,
+    original: Scenario.TurnBackTime,
     index: 10,
     representativeSet: EncounterSet.ReturnToTurnBackTime,
   },
@@ -524,46 +560,55 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
   },
   [Scenario.ReturnToDisappearanceAtTheTwilightEstate]: {
     scenario: Scenario.ReturnToDisappearanceAtTheTwilightEstate,
+    original: Scenario.DisappearanceAtTheTwilightEstate,
     index: 1,
     representativeSet: EncounterSet.ReturnToDisappearanceAtTheTwilightEstate,
   },
   [Scenario.ReturnToTheWitchingHour]: {
     scenario: Scenario.ReturnToTheWitchingHour,
+    original: Scenario.TheWitchingHour,
     index: 2,
     representativeSet: EncounterSet.ReturnToTheWitchingHour,
   },
   [Scenario.ReturnToAtDeathsDoorstep]: {
     scenario: Scenario.ReturnToAtDeathsDoorstep,
+    original: Scenario.AtDeathsDoorstep,
     index: 3,
     representativeSet: EncounterSet.ReturnToAtDeathsDoorstep,
   },
   [Scenario.ReturnToTheSecretName]: {
     scenario: Scenario.ReturnToTheSecretName,
+    original: Scenario.TheSecretName,
     index: 4,
     representativeSet: EncounterSet.ReturnToTheSecretName,
   },
   [Scenario.ReturnToTheWagesOfSin]: {
     scenario: Scenario.ReturnToTheWagesOfSin,
+    original: Scenario.TheWagesOfSin,
     index: 5,
     representativeSet: EncounterSet.ReturnToTheWagesOfSin,
   },
   [Scenario.ReturnToForTheGreaterGood]: {
     scenario: Scenario.ReturnToForTheGreaterGood,
+    original: Scenario.ForTheGreaterGood,
     index: 6,
     representativeSet: EncounterSet.ReturnToForTheGreaterGood,
   },
   [Scenario.ReturnToUnionAndDisillusion]: {
     scenario: Scenario.ReturnToUnionAndDisillusion,
+    original: Scenario.UnionAndDisillusion,
     index: 7,
     representativeSet: EncounterSet.ReturnToUnionAndDisillusion,
   },
   [Scenario.ReturnToInTheClutchesOfChaos]: {
     scenario: Scenario.ReturnToInTheClutchesOfChaos,
+    original: Scenario.InTheClutchesOfChaos,
     index: 8,
     representativeSet: EncounterSet.ReturnToInTheClutchesOfChaos,
   },
   [Scenario.ReturnToBeforeTheBlackThrone]: {
     scenario: Scenario.ReturnToBeforeTheBlackThrone,
+    original: Scenario.BeforeTheBlackThrone,
     index: 10,
     representativeSet: EncounterSet.ReturnToBeforeTheBlackThrone,
   },
@@ -850,6 +895,23 @@ export const scenarioData: Record<Scenario, ScenarioData> = {
     scenario: Scenario.QueenOfAsh,
     index: 3,
     representativeSet: EncounterSet.QueenOfAsh,
+  },
+
+  // Children of Blood
+  [Scenario.RiverOfBlood]: {
+    scenario: Scenario.RiverOfBlood,
+    index: 1,
+    representativeSet: EncounterSet.RiverOfBlood,
+  },
+  [Scenario.NewHorizons]: {
+    scenario: Scenario.NewHorizons,
+    index: 2,
+    representativeSet: EncounterSet.NewHorizons,
+  },
+  [Scenario.BloodMoney]: {
+    scenario: Scenario.BloodMoney,
+    index: 3,
+    representativeSet: EncounterSet.BloodMoney,
   },
 };
 

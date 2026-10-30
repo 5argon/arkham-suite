@@ -33,6 +33,7 @@ const inlineIconClass: Record<ArkhamInlineIcon, string> = {
 	'[sanity]': 'icon-sanity',
 	'[per_investigator]': 'icon-per_investigator',
 	'[frost]': 'icon-frost',
+	'[blood]': 'icon-blood',
 	'[seal_a]': 'icon-seal_a',
 	'[seal_b]': 'icon-seal_b',
 	'[seal_c]': 'icon-seal_c',

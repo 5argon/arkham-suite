@@ -318,6 +318,9 @@
 .icon-frost:before {
   content: "\e900";
 }
+.icon-blood:before {
+  content: "\e94a";
+}
 .icon-codex:before {
   content: "\e901";
 }

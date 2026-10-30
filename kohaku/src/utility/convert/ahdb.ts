@@ -812,6 +812,44 @@ export function encounterSetToEncounterSet(ahdbEncounterSet: string): EncounterS
     case 'queen_of_ash':
       return EncounterSet.QueenOfAsh;
 
+    // Children of Blood
+    case 'river_of_blood':
+      return EncounterSet.RiverOfBlood;
+    case 'new_horizons':
+      return EncounterSet.NewHorizons;
+    case 'blood_money':
+      return EncounterSet.BloodMoney;
+    case 'afflicted':
+      return EncounterSet.Afflicted;
+    case 'agents_of_zburamoarte':
+      return EncounterSet.AgentsOfZburamoarte;
+    case 'blood_blight':
+      return EncounterSet.BloodBlight;
+    case 'blood_moon':
+      return EncounterSet.BloodMoon;
+    case 'bloodthirst':
+      return EncounterSet.Bloodthirst;
+    case 'children_of_blood':
+      return EncounterSet.ChildrenOfBlood;
+    case 'friends_in_low_places':
+      return EncounterSet.FriendsInLowPlaces;
+    case 'hunted':
+      return EncounterSet.Hunted;
+    case 'infected':
+      return EncounterSet.Infected;
+    case 'misinformation':
+      return EncounterSet.Misinformation;
+    case 'mongrels':
+      return EncounterSet.Mongrels;
+    case 'preyed_upon':
+      return EncounterSet.PreyedUpon;
+    case 'sanguine_secrets':
+      return EncounterSet.SanguineSecrets;
+    case 'stalked':
+      return EncounterSet.Stalked;
+    case 'vermin':
+      return EncounterSet.Vermin;
+
     default:
       throw new Error(`Unknown AHDB encounter set: ${ahdbEncounterSet}`);
   }
@@ -1104,6 +1142,10 @@ export function codeToProduct(packCode: string, encounterCode: string | undefine
       return Product.Promotional;
     case 'core_2026':
       return Product.CoreSet2026;
+    case 'cob':
+      return Product.ChildrenOfBlood;
+    case 'potd':
+      return Product.PowerOfTheDreamlands;
     case 'tom':
       return Product.TommyMuldoon;
     case 'car':
@@ -1125,6 +1167,8 @@ export function cycleCodeToProducts(cycleCode: string): Product[] {
       return [Product.CoreSet, Product.RevisedCoreSet];
     case 'core_ch2':
       return [Product.CoreSet2026];
+    case 'small_campaign_expansions':
+      return [Product.ChildrenOfBlood];
     case 'dwl':
       return [
         Product.TheDunwichLegacyInvestigatorExpansion,

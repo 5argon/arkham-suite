@@ -808,6 +808,44 @@ export function encounterSetName(encounterSet: EncounterSet): string {
     case EncounterSet.QueenOfAsh:
       return m.campaignRegularBrethrenOfAshScenarioQueenOfAsh();
 
+    // Children of Blood
+    case EncounterSet.RiverOfBlood:
+      return m.campaignSmallChildrenOfBloodScenarioRiverOfBlood();
+    case EncounterSet.NewHorizons:
+      return m.campaignSmallChildrenOfBloodScenarioNewHorizons();
+    case EncounterSet.BloodMoney:
+      return m.campaignSmallChildrenOfBloodScenarioBloodMoney();
+    case EncounterSet.Afflicted:
+      return m.campaignSmallChildrenOfBloodEncounterAfflicted();
+    case EncounterSet.AgentsOfZburamoarte:
+      return m.campaignSmallChildrenOfBloodEncounterAgentsOfZburamoarte();
+    case EncounterSet.BloodBlight:
+      return m.campaignSmallChildrenOfBloodEncounterBloodBlight();
+    case EncounterSet.BloodMoon:
+      return m.campaignSmallChildrenOfBloodEncounterBloodMoon();
+    case EncounterSet.Bloodthirst:
+      return m.campaignSmallChildrenOfBloodEncounterBloodthirst();
+    case EncounterSet.ChildrenOfBlood:
+      return m.campaignSmallChildrenOfBloodEncounterChildrenOfBlood();
+    case EncounterSet.FriendsInLowPlaces:
+      return m.campaignSmallChildrenOfBloodEncounterFriendsInLowPlaces();
+    case EncounterSet.Hunted:
+      return m.campaignSmallChildrenOfBloodEncounterHunted();
+    case EncounterSet.Infected:
+      return m.campaignSmallChildrenOfBloodEncounterInfected();
+    case EncounterSet.Misinformation:
+      return m.campaignSmallChildrenOfBloodEncounterMisinformation();
+    case EncounterSet.Mongrels:
+      return m.campaignSmallChildrenOfBloodEncounterMongrels();
+    case EncounterSet.PreyedUpon:
+      return m.campaignSmallChildrenOfBloodEncounterPreyedUpon();
+    case EncounterSet.SanguineSecrets:
+      return m.campaignSmallChildrenOfBloodEncounterSanguineSecrets();
+    case EncounterSet.Stalked:
+      return m.campaignSmallChildrenOfBloodEncounterStalked();
+    case EncounterSet.Vermin:
+      return m.campaignSmallChildrenOfBloodEncounterVermin();
+
     default: {
       const _exhaustive: never = encounterSet;
       throw new Error(`Unhandled encounter set: ${_exhaustive}`);

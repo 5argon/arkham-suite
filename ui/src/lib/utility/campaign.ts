@@ -47,6 +47,8 @@ export function campaignColor(campaign: Campaign): string {
 			return '#000000';
 		case Campaign.BrethrenOfAsh:
 			return '#091832';
+		case Campaign.ChildrenOfBlood:
+			return '#1f0710';
 		default:
 			throw new Error('Unknown campaign:' + campaign);
 	}

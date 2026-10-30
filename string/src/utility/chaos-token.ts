@@ -46,6 +46,8 @@ export function chaosTokenToString(token: ChaosToken, tokenSuffix?: boolean): st
 			return m.gameChaosTokenBless() + suffix
 		case ChaosToken.TokenCurse:
 			return m.gameChaosTokenCurse() + suffix
+		case ChaosToken.TokenBlood:
+			return m.gameChaosTokenBlood() + suffix
 		default:
 			return 'Unknown' + suffix
 	}

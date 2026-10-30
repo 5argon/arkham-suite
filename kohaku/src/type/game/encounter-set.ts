@@ -433,6 +433,26 @@ export enum EncounterSet {
   SpreadingFlames = 'spreading_flames',
   SmokeAndMirrors = 'smoke_and_mirrors',
   QueenOfAsh = 'queen_of_ash',
+
+  // Children of Blood
+  RiverOfBlood = 'river_of_blood',
+  NewHorizons = 'new_horizons',
+  BloodMoney = 'blood_money',
+  Afflicted = 'afflicted',
+  AgentsOfZburamoarte = 'agents_of_zburamoarte',
+  BloodBlight = 'blood_blight',
+  BloodMoon = 'blood_moon',
+  Bloodthirst = 'bloodthirst',
+  ChildrenOfBlood = 'children_of_blood',
+  FriendsInLowPlaces = 'friends_in_low_places',
+  Hunted = 'hunted',
+  Infected = 'infected',
+  Misinformation = 'misinformation',
+  Mongrels = 'mongrels',
+  PreyedUpon = 'preyed_upon',
+  SanguineSecrets = 'sanguine_secrets',
+  Stalked = 'stalked',
+  Vermin = 'vermin',
 }
 
 /**
@@ -862,6 +882,26 @@ export const productEncounterSetsMap: Partial<Record<Product, EncounterSet[]>> =
     EncounterSet.SmokeAndMirrors,
     EncounterSet.QueenOfAsh,
   ],
+  [Product.ChildrenOfBlood]: [
+    EncounterSet.RiverOfBlood,
+    EncounterSet.NewHorizons,
+    EncounterSet.BloodMoney,
+    EncounterSet.Afflicted,
+    EncounterSet.AgentsOfZburamoarte,
+    EncounterSet.BloodBlight,
+    EncounterSet.BloodMoon,
+    EncounterSet.Bloodthirst,
+    EncounterSet.ChildrenOfBlood,
+    EncounterSet.FriendsInLowPlaces,
+    EncounterSet.Hunted,
+    EncounterSet.Infected,
+    EncounterSet.Misinformation,
+    EncounterSet.Mongrels,
+    EncounterSet.PreyedUpon,
+    EncounterSet.SanguineSecrets,
+    EncounterSet.Stalked,
+    EncounterSet.Vermin,
+  ],
 };
 
 /**
@@ -898,6 +938,7 @@ export const campaignEncounterSetsMap: Record<Campaign, EncounterSet[]> = {
   [Campaign.ReturnToTheCircleUndone]:
     productEncounterSetsMap[Product.ReturnToTheCircleUndone] || [],
   [Campaign.BrethrenOfAsh]: productEncounterSetsMap[Product.CoreSet2026] || [],
+  [Campaign.ChildrenOfBlood]: productEncounterSetsMap[Product.ChildrenOfBlood] || [],
 };
 
 /**
@@ -930,15 +971,19 @@ export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet
  * Separated so they do not get used in scenarioExclusiveEncounterSets,
  * these could be reused in other scenarios even though they were
  * one of the scenario's name.
- * 
- * I think we don't need to include Core Set 2026 ones, I assume in Chapter Two
- * they had fixed their previous mistakes.
+ *
+ * They are shown as scenario sets only when viewing their own core campaign.
  */
 export const coreScenarioNameEncounterSets: readonly EncounterSet[] = [
   // Core Set
   EncounterSet.TheGathering,
   EncounterSet.TheMidnightMasks,
   EncounterSet.TheDevourerBelow,
+
+  // Core Set 2026
+  EncounterSet.SpreadingFlames,
+  EncounterSet.SmokeAndMirrors,
+  EncounterSet.QueenOfAsh,
 ];
 
 /**
@@ -1048,6 +1093,11 @@ export const noncoreScenarioNameEncounterSets: readonly EncounterSet[] = [
   EncounterSet.SepulchreOfTheSleeper,
   EncounterSet.TheDoomOfArkhamPart1,
   EncounterSet.TheDoomOfArkhamPart2,
+
+  // Children of Blood
+  EncounterSet.RiverOfBlood,
+  EncounterSet.NewHorizons,
+  EncounterSet.BloodMoney,
 
   // Return to Night of the Zealot
   EncounterSet.ReturnToTheGathering,

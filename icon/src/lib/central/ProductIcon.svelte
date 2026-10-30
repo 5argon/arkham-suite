@@ -97,6 +97,11 @@
         return import("../individual/svelte/Novella.svelte");
       case Product.CoreSet2026:
         return import("../individual/svelte/Core2026.svelte");
+      case Product.ChildrenOfBlood:
+        return import("../individual/svelte/Cob.svelte");
+      // Stand-in until the product's own icon is added to the IcoMoon project.
+      case Product.PowerOfTheDreamlands:
+        return import("../individual/svelte/Dreamlands.svelte");
       case Product.TommyMuldoon:
         return import("../individual/svelte/Tommy.svelte");
       case Product.CarolynFern:

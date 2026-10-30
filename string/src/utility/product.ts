@@ -8,6 +8,8 @@ import {
   campaignNameTheCircleUndone,
   campaignNameTheDreamEaters,
   campaignNameTheDrownedCity,
+  campaignNameChildrenOfBlood,
+  deckbuildingExpansionPowerOfTheDreamlands,
   campaignNameTheDunwichLegacy,
   campaignNameTheFeastOfHemlockVale,
   campaignNameTheForgottenAge,
@@ -192,6 +194,12 @@ export function productName(product: Product, removeExpansionSuffix?: boolean): 
 
     case Product.CoreSet2026:
       return productCoreCoreSet2026();
+
+    case Product.ChildrenOfBlood:
+      return campaignNameChildrenOfBlood();
+
+    case Product.PowerOfTheDreamlands:
+      return deckbuildingExpansionPowerOfTheDreamlands();
 
     case Product.TommyMuldoon:
       return investigatorDeckTommyMuldoon();

@@ -29,6 +29,7 @@ export type ArkhamInlineIcon =
   | '[sanity]'
   | '[per_investigator]'
   | '[frost]'
+  | '[blood]'
   | '[seal_a]'
   | '[seal_b]'
   | '[seal_c]'

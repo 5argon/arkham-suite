@@ -19,5 +19,6 @@ export enum ChaosToken {
 	TokenElderSign,
 	TokenFrost,
     TokenBless,
-    TokenCurse
+    TokenCurse,
+    TokenBlood
 }

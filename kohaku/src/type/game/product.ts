@@ -58,6 +58,13 @@ export enum Product {
 
   CoreSet2026 = 'core_2026',
 
+  ChildrenOfBlood = 'cob',
+
+  /**
+   * Provisional code: ArkhamDB has not assigned a pack code for this product yet.
+   */
+  PowerOfTheDreamlands = 'potd',
+
   TommyMuldoon = 'tom',
   CarolynFern = 'car',
   AndrePatel = 'and',
@@ -122,8 +129,7 @@ export const productChapterOneExpansions: Product[] = [
   ...productChapterOneCampaignExpansions,
 ];
 
-export const productChapterTwoCampaignExpansions: Product[] = [
-]
+export const productChapterTwoCampaignExpansions: Product[] = [Product.ChildrenOfBlood];
 
 export const productReturnTo: Product[] = [
   Product.ReturnToTheNightOfTheZealot,
@@ -156,6 +162,11 @@ export const productInvestigatorDeck: Product[] = [
   Product.MarieLambeau,
   Product.MiguelDeLaCruz,
 ];
+
+/**
+ * Chapter Two products that contain only player cards for deckbuilding.
+ */
+export const productDeckbuildingExpansions: Product[] = [Product.PowerOfTheDreamlands];
 
 export const productStandalone: Product[] = [
   Product.CurseOfTheRougarou,
@@ -194,6 +205,7 @@ export const productOrdering: Product[] = [
   ...productInvestigatorStarterDeck,
   ...productCoreSetsChapterTwo,
   ...productInvestigatorDeck,
+  ...productDeckbuildingExpansions,
   ...productStandalone,
   ...productChapterOneCampaignExpansions,
   ...productChapterTwoCampaignExpansions,

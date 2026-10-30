@@ -61,6 +61,8 @@ export function productToCampaign(product: Product): Campaign {
       return Campaign.ReturnToTheCircleUndone;
     case Product.CoreSet2026:
       return Campaign.BrethrenOfAsh;
+    case Product.ChildrenOfBlood:
+      return Campaign.ChildrenOfBlood;
     default:
       throw new Error('Product does not map to a campaign: ' + product);
   }

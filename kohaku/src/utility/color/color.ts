@@ -740,4 +740,32 @@ const productColors: Record<Product, ColorPalette> = {
     900: '#712b2b',
     950: '#3c1313',
   },
+
+  [Product.ChildrenOfBlood]: {
+    50: '#fdf2f4',
+    100: '#fbe7ea',
+    200: '#f6d0d8',
+    300: '#efaab8',
+    400: '#e47a92',
+    500: '#d54e6f',
+    600: '#bf3058',
+    700: '#a02349',
+    800: '#862042',
+    900: '#731e3d',
+    950: '#400c1d',
+  },
+
+  [Product.PowerOfTheDreamlands]: {
+    50: '#f4f3ff',
+    100: '#ebe9fe',
+    200: '#d9d6fe',
+    300: '#bdb5fd',
+    400: '#9b8bfa',
+    500: '#7c5df5',
+    600: '#6b3bec',
+    700: '#5c29d8',
+    800: '#4c22b5',
+    900: '#401f94',
+    950: '#261165',
+  },
 };

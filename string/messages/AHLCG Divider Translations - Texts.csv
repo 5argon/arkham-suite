@@ -386,6 +386,24 @@ Campaign,Return To,The Path to Carcosa,Scenario,Return to Echoes of the Past,Cam
 Campaign,Return To,The Path to Carcosa,Scenario,Return to The Last King,Campaign/Return To/The Path to Carcosa/Scenario/Return to The Last King,TRUE,Return to The Last King,Rückkehr zu: Der letzte König,,,Regreso a El Último Rey,Renouveau - Le Dernier Roi,,,,,
 Campaign,Return To,The Path to Carcosa,Scenario,Return to The Pallid Mask,Campaign/Return To/The Path to Carcosa/Scenario/Return to The Pallid Mask,TRUE,Return to The Pallid Mask,Rückkehr zu: Die bleiche Maske,,,Regreso a La Máscara Pálida,Renouveau - Le Masque Blême,,,,,
 Campaign,Return To,The Path to Carcosa,Scenario,Return to The Unspeakable Oath,Campaign/Return To/The Path to Carcosa/Scenario/Return to The Unspeakable Oath,TRUE,Return to The Unspeakable Oath,Rückkehr zu: Der unaussprechliche Eid,,,Regreso a El Juramento Inconfesable,Renouveau - Le Serment Indicible,,,,,
+Campaign,Small,Children of Blood,Encounter,Afflicted,Campaign/Small/Children of Blood/Encounter/Afflicted,,Afflicted,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Agents of Zburamoarte,Campaign/Small/Children of Blood/Encounter/Agents of Zburamoarte,,Agents of Zburamoarte,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Blood Blight,Campaign/Small/Children of Blood/Encounter/Blood Blight,,Blood Blight,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Blood Moon,Campaign/Small/Children of Blood/Encounter/Blood Moon,,Blood Moon,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Bloodthirst,Campaign/Small/Children of Blood/Encounter/Bloodthirst,,Bloodthirst,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Children of Blood,Campaign/Small/Children of Blood/Encounter/Children of Blood,,Children of Blood,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Friends in Low Places,Campaign/Small/Children of Blood/Encounter/Friends in Low Places,,Friends in Low Places,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Hunted,Campaign/Small/Children of Blood/Encounter/Hunted,,Hunted,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Infected,Campaign/Small/Children of Blood/Encounter/Infected,,Infected,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Misinformation,Campaign/Small/Children of Blood/Encounter/Misinformation,,Misinformation,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Mongrels,Campaign/Small/Children of Blood/Encounter/Mongrels,,Mongrels,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Preyed Upon,Campaign/Small/Children of Blood/Encounter/Preyed Upon,,Preyed Upon,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Sanguine Secrets,Campaign/Small/Children of Blood/Encounter/Sanguine Secrets,,Sanguine Secrets,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Stalked,Campaign/Small/Children of Blood/Encounter/Stalked,,Stalked,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Vermin,Campaign/Small/Children of Blood/Encounter/Vermin,,Vermin,,,,,,,,,,
+Campaign,Small,Children of Blood,Scenario,Blood Money,Campaign/Small/Children of Blood/Scenario/Blood Money,,Blood Money,,,,,,,,,,
+Campaign,Small,Children of Blood,Scenario,New Horizons,Campaign/Small/Children of Blood/Scenario/New Horizons,,New Horizons,,,,,,,,,,
+Campaign,Small,Children of Blood,Scenario,River of Blood,Campaign/Small/Children of Blood/Scenario/River of Blood,,River of Blood,,,,,,,,,,
 Campaign Name,Brethren of Ash,,,,Campaign Name/Brethren of Ash,,Brethren of Ash,,La Confraternita delle Ceneri,,,,,,,,
 Campaign Name,Challenge Scenario,,,,Campaign Name/Challenge Scenario,TRUE,Challenge Scenario,Herausforderungs Szenario,,,Escenario Desafío,,,,,,
 Campaign Name,Children of Blood,,,,Campaign Name/Children of Blood,,Children of Blood,,,,,,,,,,
@@ -422,20 +440,7 @@ Challenge Scenario Name,Relics of the Past,,,,Challenge Scenario Name/Relics of 
 Custom,Boon,,,,Custom/Boon,,Boon,,,,Beneficio,,,,,,
 Custom,Refraction,,,,Custom/Refraction,,Refraction,,,,Refracción,,,,,,
 Custom,Ultimatum,,,,Custom/Ultimatum,,Ultimatum,,,,Ultimátum,,,,,,
-Game,Chaos Token,Auto-fail,,,Game/Chaos Token/Auto-fail,,Auto-fail,,,,,,,,,,
-Game,Chaos Token,Bless,,,Game/Chaos Token/Bless,,Bless,,,,,,,,,,
-Game,Chaos Token,Cultist,,,Game/Chaos Token/Cultist,,Cultist,,,,,,,,,,
-Game,Chaos Token,Curse,,,Game/Chaos Token/Curse,,Curse,,,,,,,,,,
-Game,Chaos Token,Elder Sign,,,Game/Chaos Token/Elder Sign,,Elder Sign,,,,,,,,,,
-Game,Chaos Token,Elder Thing,,,Game/Chaos Token/Elder Thing,,Elder Thing,,,,,,,,,,
-Game,Chaos Token,Frost,,,Game/Chaos Token/Frost,,Frost,,,,,,,,,,
-Game,Chaos Token,Skull,,,Game/Chaos Token/Skull,,Skull,,,,,,,,,,
-Game,Chaos Token,Tablet,,,Game/Chaos Token/Tablet,,Tablet,,,,,,,,,,
-Game,Chaos Token,Token,,,Game/Chaos Token/Token,,Token,,,,,,,,,,
-Game,Difficulty,Easy,,,Game/Difficulty/Easy,,Easy,,,,,,,,,,
-Game,Difficulty,Expert,,,Game/Difficulty/Expert,,Expert,,,,,,,,,,
-Game,Difficulty,Hard,,,Game/Difficulty/Hard,,Hard,,,,,,,,,,
-Game,Difficulty,Standard,,,Game/Difficulty/Standard,,Standard,,,,,,,,,,
+Deckbuilding Expansion,Power of the Dreamlands,,,,Deckbuilding Expansion/Power of the Dreamlands,,Power of the Dreamlands,,,,,,,,,,
 Game,Terms,Random Basic Weakness,,,Game/Terms/Random Basic Weakness,,Random Basic Weakness,,,,,,,,,,
 Investigator Deck,André Patel,,,,Investigator Deck/André Patel,,André Patel,,,,,,,,,,
 Investigator Deck,Carolyn Fern,,,,Investigator Deck/Carolyn Fern,,Carolyn Fern,,,,,,,,,,
@@ -464,13 +469,13 @@ Player,Category,Investigators,,,Player/Category/Investigators,TRUE,Investigators
 Player,Category,Novella,,,Player/Category/Novella,TRUE,Novella,Roman,Novella,,Novela,Nouvelle,,,Novella,,Novella
 Player,Category,Parallel Investigator,,,Player/Category/Parallel Investigator,TRUE,Parallel Investigator,Parallele Ermittler,Investigatore Parallelo,,Investigador Paralelo,Investigateur Parallèle,Investigador Paralelo,,Paralelní vyšetřovatel,นักสืบโลกคู่ขนาน,Párhuzamos nyomozók
 Player,Category,Permanent,,,Player/Category/Permanent,TRUE,Permanent,Dauerhaft,Permanente,Постоянный,Permanente,Permanent,,Trwala,Permanentní,ถาวร,Állandó
+Player,Category,Player Reference Card,,,Player/Category/Player Reference Card,,Player Reference Card,,,,,,,,,,
 Player,Category,Promotional,,,Player/Category/Promotional,,Promotional,,,,,,,,,,
 Player,Category,Proxy,,,Player/Category/Proxy,TRUE,Proxy,,,,,Substituts,,,Proxy,,Módosított
 Player,Category,Reward,,,Player/Category/Reward,TRUE,Reward,,,награда,,,,,,,
 Player,Category,Specialist,,,Player/Category/Specialist,TRUE,Specialist,,,,,,,,,,Szakértő
 Player,Category,Upgrade Sheet,,,Player/Category/Upgrade Sheet,TRUE,Upgrade Sheet,,,,,Fiche Amélioration,,,Aktualizační list,,Fejlesztéslap
 Player,Category,Weakness,,,Player/Category/Weakness,TRUE,Weakness,Schwäche,Debolezza,слабости,Debilidad,Faiblesse,Fraqueza,Osłabienie,Slabost,จุดอ่อน,Gyengeség
-Player,Category,Player Reference Card,,,Player/Category/Player Reference Card,,Player Reference Card,,,,,,,,,,
 Player,Class,Guardian,,,Player/Class/Guardian,TRUE,Guardian,Wächter,Guardiano,Хранитель,Guardián,Gardien,Guardião,Straznik,Strážce,ผู้พิทักษ์,Őrző
 Player,Class,Multi-Class,,,Player/Class/Multi-Class,TRUE,Multi-Class,Multi-Klassen,Multi-Classe,Мультиклассовые,Multi-Clase,Multi-Classe,Multiclasse,Wieloklasowe,Multi-Class,หลายคลาส,Többosztályú
 Player,Class,Mystic,,,Player/Class/Mystic,TRUE,Mystic,Mystiker,Mistico,Мистик,Místico,Mystique,Místico,Mistyk,Mystik,ผู้ใช้เวทมนตร์,Misztikus
@@ -478,11 +483,11 @@ Player,Class,Neutral,,,Player/Class/Neutral,TRUE,Neutral,Neutral,Neutrale,Ней
 Player,Class,Rogue,,,Player/Class/Rogue,TRUE,Rogue,Schurke,Canaglia,Ловкач,Rebelde,Truand,Ladino,Lotr,Samotář,ผู้มีเล่ห์กล,Zsivány
 Player,Class,Seeker,,,Player/Class/Seeker,TRUE,Seeker,Sucher,Studioso,Искатель,Buscador,Chercheur,Buscador,Poszukiwacz,Hledač,ผู้แสวงหา,Kutató
 Player,Class,Survivor,,,Player/Class/Survivor,TRUE,Survivor,Überlebender,Sopravvissuto,Выживший,Superviviente,Survivant,Sobrevivente,Ocalaly,Přeživší,ผู้รอดชีวิต,Túlélő
+Player,Core Special Category,Broken Bottle,,,Player/Core Special Category/Broken Bottle,,Broken Bottle,,,,,,,,,,
 Player,Core Special Category,Emergency Cache,,,Player/Core Special Category/Emergency Cache,TRUE,Emergency Cache,,,,Alijo de emergencia,,,,,ของใช้ยามฉุกเฉิน,
 Player,Core Special Category,Flashlight,,,Player/Core Special Category/Flashlight,TRUE,Flashlight,,,,Linterna,,,,,ไฟฉาย,
-Player,Core Special Category,Knife,,,Player/Core Special Category/Knife,TRUE,Knife,,,,Cuchillo,,,,,มีด,
 Player,Core Special Category,Hand-Crank Flashlight,,,Player/Core Special Category/Hand-Crank Flashlight,,Hand-Crank Flashlight,,,,,,,,,,
-Player,Core Special Category,Broken Bottle,,,Player/Core Special Category/Broken Bottle,,Broken Bottle,,,,,,,,,,
+Player,Core Special Category,Knife,,,Player/Core Special Category/Knife,TRUE,Knife,,,,Cuchillo,,,,,มีด,
 Player,Core Special Category,Neutral Skill,,,Player/Core Special Category/Neutral Skill,TRUE,Neutral Skill,,,,,,,,,ทักษะทั่วไป,
 Player,Deck Divider,Deck,,,Player/Deck Divider/Deck,,Deck,Deck,Mazzo,Колода,Mazo,Deck,Deck,Talia,Balíček,เด็ค,Pakli
 Player,Deck Divider,Deck 1,,,Player/Deck Divider/Deck 1,TRUE,Deck 1,Deck 1,Mazzo 1,Колода 1,Mazo 1,Deck 1,Deck 1,Talia 1,Balíček 1,เด็ค 1,1. Pakli

@@ -18,6 +18,7 @@ import {
   campaignNameTheDreamEatersTheWebOfDreams,
   campaignNameReturnToTheNightOfTheZealot,
   campaignNameBrethrenOfAsh,
+  campaignNameChildrenOfBlood,
 } from '../paraglide/messages.js';
 
 export function campaignName(campaign: Campaign): string {
@@ -75,6 +76,9 @@ export function campaignName(campaign: Campaign): string {
     }
     case Campaign.BrethrenOfAsh: {
       return campaignNameBrethrenOfAsh();
+    }
+    case Campaign.ChildrenOfBlood: {
+      return campaignNameChildrenOfBlood();
     }
     default: {
       throw new Error('Unknown campaign');

@@ -50,6 +50,8 @@
         return import("../individual/svelte/TokenBlessFill.svelte");
       case ChaosToken.TokenCurse:
         return import("../individual/svelte/TokenCurseFill.svelte");
+      case ChaosToken.TokenBlood:
+        return import("../individual/svelte/TokenBloodFill.svelte");
       default:
         const _exhaustive: never = token;
         throw new Error(`Unhandled chaos token: ${_exhaustive}`);
@@ -90,6 +92,8 @@
         return import("../individual/svelte/TokenCurseOverlay.svelte");
       case ChaosToken.TokenFrost:
         return import("../individual/svelte/TokenFrostOverlay.svelte");
+      case ChaosToken.TokenBlood:
+        return import("../individual/svelte/TokenBloodOverlay.svelte");
       default:
         const _exhaustive: never = token;
         throw new Error(`Unhandled chaos token: ${_exhaustive}`);
@@ -132,6 +136,8 @@
         return import("../individual/svelte/TokenElderSignHighlight.svelte");
       case ChaosToken.TokenFrost:
         return import("../individual/svelte/TokenFrostHighlight.svelte");
+      case ChaosToken.TokenBlood:
+        return import("../individual/svelte/TokenBloodHighlight.svelte");
       case ChaosToken.TokenBless:
         return import("../individual/svelte/TokenBlessOverlay.svelte");
       case ChaosToken.TokenCurse:
@@ -178,6 +184,8 @@
         return import("../individual/svelte/TokenElderSignSealed.svelte");
       case ChaosToken.TokenFrost:
         return import("../individual/svelte/TokenFrostSealed.svelte");
+      case ChaosToken.TokenBlood:
+        return import("../individual/svelte/TokenBloodSealed.svelte");
       case ChaosToken.TokenBless:
         return import("../individual/svelte/TokenBlessSealed.svelte");
       case ChaosToken.TokenCurse:

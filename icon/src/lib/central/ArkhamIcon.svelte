@@ -61,6 +61,8 @@
         return import('../individual/svelte/PerInvestigator1.svelte');
       case '[frost]':
         return import('../individual/svelte/Frost1.svelte');
+      case '[blood]':
+        return import('../individual/svelte/Blood2.svelte');
       case '[seal_a]':
         return import('../individual/svelte/SealA1.svelte');
       case '[seal_b]':
