@@ -42,7 +42,7 @@
 	description={m.starter_decks_all_series({ author: data.author.name })}
 	image="image/resource/starter.webp"
 	title={data.author.name}
-	url={resolve(`/starter/${data.author.slug}`, {})}
+	url={resolve('/starter/[author]', { author: data.author.slug })}
 />
 
 <svelte:head>

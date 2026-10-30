@@ -238,7 +238,7 @@ Block element with fixed height that display some overall information about the 
 				: undefined}
 		>
 			{#if onClick && typeof onClick === 'string'}
-				<a href={resolve(onClick as any, {})} class="block w-full">{deckLatestForwarded.name}</a>
+				<a href={resolve(onClick as any)} class="block w-full">{deckLatestForwarded.name}</a>
 			{:else}
 				{deckLatestForwarded.name}
 			{/if}
@@ -257,7 +257,7 @@ Block element with fixed height that display some overall information about the 
 						>
 					{/if}
 					{#if line.href}
-						<a class="hover:underline" href={resolve(line.href as any, {})}>{line.label}</a>
+						<a class="hover:underline" href={resolve(line.href as any)}>{line.label}</a>
 					{:else}
 						<span>{line.label}</span>
 					{/if}

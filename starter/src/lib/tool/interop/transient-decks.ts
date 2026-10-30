@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { type AhdbDeck, type Deck, deck as deckUtils } from '@5argon/arkham-kohaku';
 
 import { getFromStorage, removeFromStorage, saveToStorage, STORAGE_KEYS } from '$lib/storage';

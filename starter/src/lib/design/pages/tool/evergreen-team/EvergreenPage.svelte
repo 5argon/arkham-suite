@@ -79,7 +79,7 @@
 		planningState = null;
 		savedDraft = null;
 		removeFromStorage(STORAGE_KEYS.EVERGREEN_DRAFT);
-		goto(resolve('/tool/team-builder', {}));
+		goto(resolve('/tool/team-builder'));
 	}
 </script>
 

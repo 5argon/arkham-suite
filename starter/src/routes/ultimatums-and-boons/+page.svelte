@@ -28,7 +28,7 @@
 	} from '@5argon/arkham-life-ui';
 	import { ProductIcon, EncounterSetIcon } from '@5argon/arkham-icon';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import type { PageData } from './$types';
 
 	type TabType = 'ultimatums' | 'boons' | 'refractions';

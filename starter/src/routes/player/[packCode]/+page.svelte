@@ -34,9 +34,9 @@
 		sorter
 	} from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { replaceState } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import type { PageProps } from './$types';
 	import { SvelteMap } from 'svelte/reactivity';
@@ -52,7 +52,7 @@
 	function handleSettingsApply(settings: GroupingSortingSettings) {
 		if (!browser) return;
 		// eslint-disable-next-line svelte/no-navigation-without-resolve
-		replaceState(buildUrlForSettings(settings, window.location), $page.state);
+		replaceState(buildUrlForSettings(settings, window.location), page.state);
 	}
 
 	const allCards = getAllCards();

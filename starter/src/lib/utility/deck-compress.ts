@@ -1,4 +1,4 @@
-import pako from 'pako';
+import * as pako from 'pako';
 import type { AhdbDeck, CardCode } from '@5argon/arkham-kohaku';
 import {
 	CompactDeck,

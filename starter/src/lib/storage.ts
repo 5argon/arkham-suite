@@ -2,7 +2,7 @@
  * Local storage helper utilities for arkham-starter.com
  */
 
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 /**
  * Storage keys used throughout the application

@@ -10,7 +10,7 @@ derived from. The whole banner opens that deck in a new tab.
 
 	import { createCardResolver, loadAllTabooLists } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
-	import { starterDeckHref, type PrebuiltTeamSource } from '$lib/starter-content';
+	import { type PrebuiltTeamSource } from '$lib/starter-content';
 
 	interface Prop {
 		source: PrebuiltTeamSource;
@@ -22,7 +22,11 @@ derived from. The whole banner opens that deck in a new tab.
 		linkedAhdbDeckToDeck({ deck: source.primary }, resolver, loadAllTabooLists())
 	);
 	const href = $derived(
-		resolve(starterDeckHref(source) as '/starter/[author]/[series]/[deck]', {})
+		resolve('/starter/[author]/[series]/[deck]', {
+			author: source.series.author.slug,
+			series: source.series.slug,
+			deck: source.slug
+		})
 	);
 </script>
 

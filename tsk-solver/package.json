@@ -14,12 +14,12 @@
     "prepare": "npm run paraglide && npm run build"
   },
   "dependencies": {
-    "@inlang/paraglide-js": "2.11.0"
+    "@inlang/paraglide-js": "2.29.3"
   },
   "devDependencies": {
-    "@types/node": "^25.2.3",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "@types/node": "^26.6.6",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

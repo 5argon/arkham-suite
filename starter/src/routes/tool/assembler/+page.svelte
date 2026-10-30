@@ -75,14 +75,14 @@
 			deckIds.forEach((id, index) => {
 				params.set(`p${index + 1}`, id);
 			});
-			goto(`?${params.toString()}`, { replaceState: true, noScroll: true });
+			goto(`?${params.toString()}`, { replace: true, reset: false });
 		}
 	}
 
 	function handleClearDecks() {
 		importedDecks = [];
 		// Clear URL parameters
-		goto('?', { replaceState: true, noScroll: true });
+		goto('?', { replace: true, reset: false });
 	}
 
 	// Decks are handed to the other tools as JSON through browser storage, so

@@ -55,7 +55,7 @@
 				<Button
 					icon={FaIconType.Edit}
 					label={m.tool_evergreen_team_view_edit()}
-					onClick={() => goto(resolve(`/tool/team-builder?t=${encoded}`, {}))}
+					onClick={() => goto(resolve(`/tool/team-builder?t=${encoded}`))}
 				/>
 			</div>
 			<div class="mb-3">
@@ -69,7 +69,7 @@
 				{m.tool_evergreen_team_view_invalid()}
 			</p>
 			<div class="mt-2 flex justify-center">
-				<Button label={m.tool_evergreen_team_title()} onClick={resolve('/tool/team-builder', {})} />
+				<Button label={m.tool_evergreen_team_title()} onClick={resolve('/tool/team-builder')} />
 			</div>
 		</MarginText>
 	{/if}

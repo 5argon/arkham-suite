@@ -56,7 +56,7 @@
 		if (e) load(e);
 	}
 	function edit() {
-		goto(resolve(`/tool/tsk?p=${encoded}`, {}));
+		goto(resolve(`/tool/tsk?p=${encoded}`));
 	}
 </script>
 

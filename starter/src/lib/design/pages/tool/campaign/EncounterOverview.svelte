@@ -19,7 +19,7 @@
 	import EncounterScenariosTab from './EncounterScenariosTab.svelte';
 	import CampaignAchievements from './CampaignAchievements.svelte';
 	import { fly } from 'svelte/transition';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 

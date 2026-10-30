@@ -5,7 +5,7 @@ import {
 	CardResolver,
 	type TabooLists
 } from '@5argon/arkham-kohaku';
-import { PUBLIC_CARD_CDN_URL } from '$env/static/public';
+import { PUBLIC_CARD_CDN_URL } from '$app/env/public';
 import tabooData from '../data/taboos.json'; // Constant for cards.json URL
 
 // Constant for cards.json URL

@@ -9,12 +9,12 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "@types/node": "^25.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.55.0",
-    "@typescript-eslint/parser": "^8.55.0",
-    "eslint": "^9.39.2",
-    "prettier": "^3.8.1",
-    "typescript": "^5.9.3"
+    "@types/node": "^26.6.6",
+    "@typescript-eslint/eslint-plugin": "^8.72.1",
+    "@typescript-eslint/parser": "^8.72.1",
+    "eslint": "^10.13.0",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "dist"
   ],
   "dependencies": {
-    "@types/pako": "^2.0.4",
-    "pako": "^2.1.0"
+    "@types/pako": "^3.0.0",
+    "pako": "^3.0.3"
   }
 }

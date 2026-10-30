@@ -103,7 +103,7 @@
 		}
 	}
 	function preview() {
-		goto(resolve(`/tool/tsk/view?p=${encodedNow}`, {}));
+		goto(resolve(`/tool/tsk/view?p=${encodedNow}`));
 	}
 </script>
 

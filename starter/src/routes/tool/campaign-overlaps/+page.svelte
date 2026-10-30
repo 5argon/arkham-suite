@@ -214,11 +214,8 @@
 			searchParams.push(`b${i + 1}=${deck.id}`);
 		});
 
-		const newUrl =
-			searchParams.length > 0
-				? `/tool/campaign-overlaps?${searchParams.join('&')}`
-				: '/tool/campaign-overlaps';
-		goto(resolve(newUrl, {}), { replaceState: true });
+		const query = searchParams.join('&');
+		goto(resolve(query.length > 0 ? `/tool/campaign-overlaps?${query}` : '/tool/campaign-overlaps'), { replace: true });
 	}
 
 	const sharingUrl = $derived.by(() => {

@@ -7,7 +7,7 @@ pool usage, members) linking to the team page.
 	import { resolve } from '$app/paths';
 
 	import TeamBanner from '$lib/design/components/team/TeamBanner.svelte';
-	import { type PrebuiltTeam, prebuiltTeamHref } from '$lib/starter-content';
+	import { type PrebuiltTeam } from '$lib/starter-content';
 	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
 
 	interface Prop {
@@ -19,7 +19,7 @@ pool usage, members) linking to the team page.
 
 <a
 	class="block rounded-lg transition-shadow hover:shadow-lg"
-	href={resolve(prebuiltTeamHref(team) as '/team/[slug]', {})}
+	href={resolve('/team/[slug]', { slug: team.slug })}
 >
 	<TeamBanner
 		info={{ name: team.name, author: team.author, description: team.description }}

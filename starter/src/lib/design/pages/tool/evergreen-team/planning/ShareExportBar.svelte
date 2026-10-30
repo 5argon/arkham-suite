@@ -43,7 +43,7 @@ actions.
 	}: Prop = $props();
 
 	function finish() {
-		goto(resolve(`/tool/team-builder/view?t=${encoded}`, {}));
+		goto(resolve(`/tool/team-builder/view?t=${encoded}`));
 	}
 </script>
 

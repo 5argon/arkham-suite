@@ -1,4 +1,4 @@
-import pako from 'pako';
+import * as pako from 'pako';
 import type { AhdbDeck } from '../../type/data/deck.js';
 
 /**
@@ -61,7 +61,7 @@ export function decompressDeck(compressed: string): AhdbDeck {
     }
 
     // Decompress
-    const decompressed = pako.ungzip(bytes, { to: 'string' });
+    const decompressed = pako.ungzip(bytes, { toText: true });
     const deck = JSON.parse(decompressed) as Partial<AhdbDeck>;
 
     // Fill in default values for any missing fields

@@ -13,7 +13,7 @@
 	import { CardResolver, type Deck, deck as deckUtils } from '@5argon/arkham-kohaku';
 	import { getAllCards, loadAllTabooLists } from '$lib/card-data';
 	import { compressDeckProtobuf } from '$lib/utility/deck-compress';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 
 	interface Props {
 		preLoadedDeck: Deck | null;

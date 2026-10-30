@@ -20,7 +20,7 @@ reads Resolve Overlaps instead.
 	import { createCardResolver, getAllCards } from '$lib/card-data';
 	import PoolSummary from '$lib/design/components/team/PoolSummary.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { starterDeck, starterDeckHref } from '$lib/starter-content';
+	import { starterDeck } from '$lib/starter-content';
 	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 	import { defaultTeamInfo } from '$lib/tool/evergreen-team/team-info';
 	import { STARTER_TEAM_MAX, starterTeam } from '$lib/tool/starter/team-cart.svelte';
@@ -62,7 +62,7 @@ reads Resolve Overlaps instead.
 	function useTeam() {
 		if (built === null) return;
 		const encoded = encodeEvergreen(built.state);
-		window.open(resolve(`/tool/team-builder?t=${encoded}`, {}), '_blank', 'noopener');
+		window.open(resolve(`/tool/team-builder?t=${encoded}`), '_blank', 'noopener');
 	}
 </script>
 
@@ -107,7 +107,11 @@ reads Resolve Overlaps instead.
 								<CardLine noReserveCardTypeIcon hideIcons card={investigator} />
 								<a
 									class="text-primary-900 dark:text-primary-100 block max-w-56 truncate pl-1 text-xs font-semibold hover:underline"
-									href={resolve(starterDeckHref(entry) as '/starter/[author]/[series]/[deck]', {})}
+									href={resolve('/starter/[author]/[series]/[deck]', {
+										author: entry.series.author.slug,
+										series: entry.series.slug,
+										deck: entry.slug
+									})}
 								>
 									{entry.primary.name}
 								</a>

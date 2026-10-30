@@ -111,14 +111,17 @@
 		<p class="text-primary-800 dark:text-primary-200 text-center text-sm">
 			<a
 				class="font-semibold hover:underline"
-				href={resolve(starterAuthorHref(author) as '/starter/[author]', {})}
+				href={resolve('/starter/[author]', { author: author.slug })}
 			>
 				{m.starter_decks_by_author({ author: author.name })}
 			</a>
 			·
 			<a
 				class="font-semibold hover:underline"
-				href={resolve(starterSeriesHref(entry.series) as '/starter/[author]/[series]', {})}
+				href={resolve('/starter/[author]/[series]', {
+					author: entry.series.author.slug,
+					series: entry.series.slug
+				})}
 			>
 				{entry.series.name}
 			</a>

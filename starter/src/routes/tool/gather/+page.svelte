@@ -265,9 +265,8 @@
 			searchParams.push(`p${i + 1}=${deck.id}`);
 		});
 
-		const newUrl =
-			searchParams.length > 0 ? `/tool/gather?${searchParams.join('&')}` : '/tool/gather';
-		goto(resolve(newUrl, {}), { replaceState: true });
+		const query = searchParams.join('&');
+		goto(resolve(query.length > 0 ? `/tool/gather?${query}` : '/tool/gather'), { replace: true });
 	}
 
 	const sharingUrl = $derived.by(() => {

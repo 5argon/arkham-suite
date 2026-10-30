@@ -37,7 +37,7 @@ export function encodeState(state: PlanShareState): string {
 
 export function decodeState(encoded: string): PlanShareState | null {
 	try {
-		const json = inflate(base64UrlToBytes(encoded), { to: 'string' });
+		const json = inflate(base64UrlToBytes(encoded), { toText: true });
 		const parsed = JSON.parse(json);
 		if (!parsed || !Array.isArray(parsed.plan)) return null;
 		return {

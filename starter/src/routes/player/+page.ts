@@ -1,8 +1,8 @@
-import type { Load } from '@sveltejs/kit';
+import { browser } from '$app/env';
 
-import { browser } from '$app/environment';
+import type { PageLoad } from './$types';
 
-export const load: Load<ExploreParam, ExploreInputData, ExploreParentData, ExploreData> = () => {
+export const load: PageLoad<ExploreData> = () => {
 	let q = '';
 	if (browser) {
 		q = new URL(window.location.href).searchParams.get('q') ?? '';
@@ -12,20 +12,6 @@ export const load: Load<ExploreParam, ExploreInputData, ExploreParentData, Explo
 	};
 	return ret;
 };
-
-export interface ExploreParam {
-	q: string;
-
-	[s: string]: string;
-}
-
-export interface ExploreInputData {
-	[s: string]: string;
-}
-
-export interface ExploreParentData {
-	[s: string]: string;
-}
 
 export interface ExploreData {
 	q: string;

@@ -6,14 +6,14 @@
 
 	let { theme = $bindable('light'), language = $bindable('en') }: Props = $props();
 
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { localizeHref, deLocalizeUrl, locales } from '../paraglide/runtime';
 
 	type AvailableLanguageTag = (typeof locales)[number];
 
 	function switchToLanguage(newLanguage: AvailableLanguageTag) {
-		const canonicalPath = deLocalizeUrl($page.url).pathname;
+		const canonicalPath = deLocalizeUrl(page.url).pathname;
 		const localisedPath = localizeHref(canonicalPath, { locale: newLanguage });
 		goto(localisedPath);
 	}

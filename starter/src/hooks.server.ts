@@ -1,9 +1,9 @@
 import { v4 as uuid } from '@lukeed/uuid';
-import type { Handle } from '@sveltejs/kit';
-import * as cookie from 'cookie';
+import type { Handle } from '@sveltejs/kit/hooks';
+import { parseCookie, stringifySetCookie } from 'cookie';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+	const cookies = parseCookie(event.request.headers.get('cookie') || '');
 	event.locals.userid = cookies['userid'] || uuid();
 
 	const response = await resolve(event);
@@ -13,7 +13,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 		// set a cookie so that we recognise them when they return
 		response.headers.set(
 			'set-cookie',
-			cookie.serialize('userid', event.locals.userid, {
+			stringifySetCookie({
+				name: 'userid',
+				value: event.locals.userid,
 				path: '/',
 				httpOnly: true
 			})
