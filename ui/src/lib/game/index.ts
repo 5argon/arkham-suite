@@ -1,2 +1,3 @@
 export { default as ChaosTokenDisplay } from './ChaosTokenDisplay.svelte'
 export * from './chaos-token-helper.js'
+export { default as UltimatumBoonItem } from './UltimatumBoonItem.svelte'

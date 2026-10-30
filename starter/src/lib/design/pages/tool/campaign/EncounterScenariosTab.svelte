@@ -6,6 +6,7 @@
 	import { Campaign as KohakuCampaign } from '@5argon/arkham-kohaku';
 	import SetupReferenceCardFront from './SetupReferenceCardFront.svelte';
 	import ScenarioAchievements from './ScenarioAchievements.svelte';
+	import ScenarioRefractions from './ScenarioRefractions.svelte';
 	import { fly } from 'svelte/transition';
 
 	let {
@@ -78,4 +79,5 @@
 
 {#if selectedScenario}
 	<ScenarioAchievements campaign={kohakuCampaign} scenario={selectedScenario.kohakuScenario} />
+	<ScenarioRefractions campaign={kohakuCampaign} scenario={selectedScenario} />
 {/if}

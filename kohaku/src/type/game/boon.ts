@@ -11,6 +11,8 @@ export enum Boon {
   Hermes = 'boon_of_hermes',
   /** When a player would add a random basic weakness to their deck during deckbuilding, they instead draw three random basic weaknesses, return one of their choice to the collection, and select one at random from the remaining two. The selected weakness is added to their deck. */
   Morrigan = 'boon_of_the_morrigan',
+  /** Hard or Expert difficulty only. While playing, use the “Easy/Standard” side of the scenario reference card. */
+  Nodens = 'boon_of_nodens',
   /** The first time each investigator would be defeated in a scenario, after suffering trauma, heal all damage and horror from that investigator. That investigator cannot be damaged until the beginning of their next turn. */
   Osiris = 'boon_of_osiris',
   /** Campaign Mode only. If an investigator is defeated, they gain 3 additional experience. */
@@ -18,6 +20,37 @@ export enum Boon {
   /** Each investigator begins the game with 1 additional card in their opening hand. */
   Thoth = 'boon_of_thoth',
 }
+
+/**
+ * Boons listed in the Chapter One FAQ, in display order.
+ */
+export const chapterOneBoons: Boon[] = [
+  Boon.Ancients,
+  Boon.Athena,
+  Boon.Destiny,
+  Boon.Hades,
+  Boon.Hermes,
+  Boon.Morrigan,
+  Boon.Osiris,
+  Boon.Persephone,
+  Boon.Thoth,
+];
+
+/**
+ * Boons listed in the Chapter Two rules, in display order.
+ */
+export const chapterTwoBoons: Boon[] = [
+  Boon.Ancients,
+  Boon.Athena,
+  Boon.Destiny,
+  Boon.Hades,
+  Boon.Hermes,
+  Boon.Morrigan,
+  Boon.Nodens,
+  Boon.Osiris,
+  Boon.Persephone,
+  Boon.Thoth,
+];
 
 /**
  * Boons that only apply in Campaign Mode

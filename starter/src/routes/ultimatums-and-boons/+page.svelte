@@ -1,19 +1,7 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { SvelteMap } from 'svelte/reactivity';
-	import {
-		Boon,
-		Ultimatum,
-		Refraction,
-		getScenarioData,
-		refractions,
-		type RefractionDetails,
-		convert,
-		color,
-		chapterOneCampaigns,
-		chapterOneReturnToCampaigns,
-		chapterTwoSmallCampaigns
-	} from '@5argon/arkham-kohaku';
+	import { SvelteSet } from 'svelte/reactivity';
+	import { Boon, Ultimatum, Refraction } from '@5argon/arkham-kohaku';
 	import * as u from '@5argon/arkham-string';
 	import {
 		BorderedContainer,
@@ -22,16 +10,14 @@
 		PageLead,
 		Tabs,
 		TextParagraph,
-		FaIcon,
-		FaIconType,
-		MagnifiedModal
+		MagnifiedModal,
+		UltimatumBoonItem
 	} from '@5argon/arkham-life-ui';
-	import { ProductIcon, EncounterSetIcon } from '@5argon/arkham-icon';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
+	import { ultimatumBoonImagePath } from '$lib/ultimatum-boon';
 	import { browser } from '$app/env';
 	import type { PageData } from './$types';
-
-	type TabType = 'ultimatums' | 'boons' | 'refractions';
+	import { chapterLists, chapters, tabTypes, type Chapter, type TabType } from './chapter';
 
 	interface Props {
 		data: PageData;
@@ -39,99 +25,31 @@
 
 	let { data }: Props = $props();
 
-	// Create lookup map for refraction details
-	const refractionDetailsMap = new SvelteMap<Refraction, RefractionDetails>();
-	for (const details of refractions) {
-		refractionDetailsMap.set(details.refraction, details);
-	}
-
-	// Create a combined campaign order list for sorting
-	const campaignReleaseOrder = [
-		...chapterOneCampaigns,
-		...chapterOneReturnToCampaigns,
-		...chapterTwoSmallCampaigns
-	];
-
-	// Define all items with their enums
-	const ultimatums = Object.values(Ultimatum);
-	const boons = Object.values(Boon);
-	// Sort refractions: first by campaign order, then within each campaign by scenario presence and index
-	const refractionsEnum = Object.values(Refraction).sort((a, b) => {
-		const detailsA = refractions.find((r) => r.refraction === a);
-		const detailsB = refractions.find((r) => r.refraction === b);
-
-		// First, sort by campaign order
-		if (!detailsA?.campaign) return 1;
-		if (!detailsB?.campaign) return -1;
-
-		const campaignIndexA = campaignReleaseOrder.indexOf(detailsA.campaign);
-		const campaignIndexB = campaignReleaseOrder.indexOf(detailsB.campaign);
-
-		if (campaignIndexA !== campaignIndexB) {
-			return campaignIndexA - campaignIndexB;
-		}
-
-		// Within the same campaign, refractions without scenario come first
-		const hasScenarioA = !!detailsA.scenario;
-		const hasScenarioB = !!detailsB.scenario;
-
-		if (!hasScenarioA && hasScenarioB) return -1;
-		if (hasScenarioA && !hasScenarioB) return 1;
-
-		// If both have scenarios, sort by scenario index
-		if (hasScenarioA && hasScenarioB) {
-			const indexA = getScenarioData(detailsA.scenario!).index;
-			const indexB = getScenarioData(detailsB.scenario!).index;
-			return indexA - indexB;
-		}
-
-		// If neither has scenario, keep original order
-		return 0;
-	});
-
 	// Initialize state from server-provided data
+	let activeChapter = $state<Chapter>(chapters[0]);
 	let activeTab = $state<TabType>('ultimatums');
 	let selectedIndex = $state(0);
 	let magnifiedOpen = $state(false);
-	let isDark = $state(false);
 
-	// Track dark mode reactively
-	$effect(() => {
-		if (!browser) return;
-		isDark = document.documentElement.classList.contains('dark');
-		const observer = new MutationObserver(() => {
-			isDark = document.documentElement.classList.contains('dark');
-		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-		return () => observer.disconnect();
-	});
+	// Items whose card image failed to load, shown as a placeholder instead
+	const missingImages = new SvelteSet<string>();
 
 	// Update state when data changes (e.g., navigation), then scroll into view
 	$effect(() => {
+		activeChapter = data.initialChapter;
 		activeTab = data.initialTab;
 		selectedIndex = data.initialIndex;
 		scrollToSelectedItem();
 	});
 
-	// Get current list based on active tab
-	const currentList = $derived(() => {
-		switch (activeTab) {
-			case 'ultimatums':
-				return ultimatums;
-			case 'boons':
-				return boons;
-			case 'refractions':
-				return refractionsEnum;
-		}
-	});
+	// Get current list based on active chapter and tab
+	const currentList = $derived(() => chapterLists[activeChapter][activeTab]);
 
 	// Get currently selected item
 	const selectedItem = $derived(currentList()[selectedIndex] ?? null);
 
 	// Get image path for selected item
-	const selectedImagePath = $derived(
-		selectedItem ? `/image/ultimatum-boon-refraction/${selectedItem}.webp` : null
-	);
+	const selectedImagePath = $derived(selectedItem ? ultimatumBoonImagePath(selectedItem) : null);
 
 	// Get name for selected item
 	const selectedName = $derived(() => {
@@ -146,33 +64,32 @@
 		}
 	});
 
-	// Get thumbnail path for list items
-	function getThumbnailPath(item: string): string {
-		return `/image/ultimatum-boon-refraction/${item}.webp`;
-	}
-
-	// Get campaign color for refractions — adapts to light/dark theme
-	function getCampaignColor(item: string): string | null {
-		if (activeTab !== 'refractions') return null;
-		const details = refractionDetailsMap.get(item as Refraction);
-		if (!details?.campaign) return null;
-		const product = convert.campaignToProduct(details.campaign);
-		const palette = color.productToColors(product);
-		return color.getColor(palette, 800, isDark);
+	function markImageMissing(item: string | null) {
+		if (item) missingImages.add(item);
 	}
 
 	// Update URL when selection changes
 	function updateUrl(item: string) {
 		if (!browser) return;
 		const url = new URL(window.location.href);
+		url.searchParams.set('c', String(activeChapter));
 		url.searchParams.set('i', item);
 		window.history.replaceState({}, '', url);
 	}
 
+	// Handle chapter change, keeping the same item selected if the other chapter also lists it
+	function handleChapterChange(index: number) {
+		const previousItem = currentList()[selectedIndex];
+		activeChapter = chapters[index];
+		selectedIndex = Math.max(currentList().indexOf(previousItem), 0);
+		const newItem = currentList()[selectedIndex];
+		if (newItem) updateUrl(newItem);
+		scrollToSelectedItem();
+	}
+
 	// Handle tab change
 	function handleTabChange(index: number) {
-		const tabs: TabType[] = ['ultimatums', 'boons', 'refractions'];
-		activeTab = tabs[index];
+		activeTab = tabTypes[index];
 		selectedIndex = 0; // Reset selection when changing tabs
 		const newItem = currentList()[0];
 		if (newItem) updateUrl(newItem);
@@ -238,6 +155,15 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
+{#snippet missingCard()}
+	<div
+		class="flex h-96 w-64 flex-col items-center justify-center gap-2 rounded-[20px] border border-dashed border-gray-400 p-4 text-center text-gray-500"
+	>
+		<span class="font-semibold">{selectedName()}</span>
+		<span class="text-sm">Card image not available yet</span>
+	</div>
+{/snippet}
+
 <OpenGraph
 	description="Browse official Ultimatum, Boon, and Refraction cards to alter gameplay difficulty."
 	image="image/resource/ultimatum.webp"
@@ -259,9 +185,12 @@
 		that group of investigators. Conversely, Boons reduce certain limitations and restrictions to
 		make the game easier for a group of investigators. For more details, read "Ultimatums and Boons"
 		section in the <a
-			href="https://images-cdn.fantasyflightgames.com/filer_public/c1/d0/c1d0fab6-7fa6-4ce2-af6a-16416381a19b/ahc_faq_v25_february_2026-web.pdf"
+			href="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc_faq_v25_february_2026-web-1.pdf"
 			target="_blank">FAQ version 2.5</a
-		>.
+		> (Chapter 1) and <a
+			href="https://www.fantasyflightgames.com/product/arkham-horror-the-card-game/"
+			target="_blank">The Arkham Grimoire</a
+		> (Chapter 2).
 	</TextParagraph>
 
 	<TextParagraph>
@@ -275,7 +204,13 @@
 	<div class="mb-4">
 		<Tabs
 			direction="horizontal"
-			activeTabIndex={activeTab === 'ultimatums' ? 0 : activeTab === 'boons' ? 1 : 2}
+			activeTabIndex={chapters.indexOf(activeChapter)}
+			onTabChange={handleChapterChange}
+			tabs={chapters.map((chapter) => ({ label: `Chapter ${chapter}` }))}
+		/>
+		<Tabs
+			direction="horizontal"
+			activeTabIndex={tabTypes.indexOf(activeTab)}
 			onTabChange={handleTabChange}
 			tabs={[{ label: 'Ultimatums' }, { label: 'Boons' }, { label: 'Refractions' }]}
 		/>
@@ -283,11 +218,16 @@
 
 	<!-- Magnified modal for mobile – only opens on narrow screens -->
 	<MagnifiedModal isShowing={magnifiedOpen} onClose={() => (magnifiedOpen = false)}>
-		<img
-			src={selectedImagePath}
-			alt={selectedName()}
-			class="max-h-[90vh] max-w-[90vw] w-auto rounded-xl object-contain"
-		/>
+		{#if selectedItem && missingImages.has(selectedItem)}
+			{@render missingCard()}
+		{:else}
+			<img
+				src={selectedImagePath}
+				alt={selectedName()}
+				class="max-h-[90vh] max-w-[90vw] w-auto rounded-xl object-contain"
+				onerror={() => markImageMissing(selectedItem)}
+			/>
+		{/if}
 	</MagnifiedModal>
 
 	<div class="flex flex-col gap-4 lg:flex-row lg:items-start">
@@ -297,92 +237,19 @@
 				<div class="flex flex-col h-150 overflow-y-auto list-scroll-container">
 					{#each currentList() as item, index (item)}
 						{@const isSelected = index === selectedIndex}
-						{@const itemName =
-							activeTab === 'ultimatums'
-								? u.u.ultimatumName(item as Ultimatum)
-								: activeTab === 'boons'
-									? u.u.boonName(item as Boon)
-									: u.u.refractionName(item as Refraction)}
-						{@const campaignColor = getCampaignColor(item)}
 						<button
 							type="button"
 							data-item-index={index}
-							class="text-left p-3 transition-colors rounded flex items-center gap-3
+							class="text-left p-3 transition-colors rounded
 								{isSelected
 								? 'bg-primary-500/20 dark:bg-primary-500/30'
 								: 'hover:bg-primary-500/10 dark:hover:bg-primary-500/20'}"
 							onclick={() => handleItemClick(index)}
 						>
-							<!-- Thumbnail image -->
-							<div class="shrink-0 w-16 h-16 rounded overflow-hidden bg-gray-100 dark:bg-gray-800">
-								<img
-									src={getThumbnailPath(item)}
-									alt={itemName}
-									class="w-full h-full object-cover object-top"
-								/>
-							</div>
-
-							<div class="flex-1">
-								<div
-									class="font-semibold flex items-center gap-2"
-									style={campaignColor ? `color: ${campaignColor}` : ''}
-								>
-									{#if activeTab === 'ultimatums'}
-										<FaIcon icon={FaIconType.Ultimatum} duotone={true} />
-										<span class="text-primary-950 dark:text-primary-50">{itemName}</span>
-									{:else if activeTab === 'boons'}
-										<FaIcon icon={FaIconType.Boon} duotone={true} />
-										<span class="text-primary-950 dark:text-primary-50">{itemName}</span>
-									{:else if activeTab === 'refractions'}
-										{@const details = refractionDetailsMap.get(item as Refraction)}
-										{#if details}
-											<FaIcon
-												icon={details.refractionType === 'ultimatum'
-													? FaIconType.Ultimatum
-													: FaIconType.Boon}
-												duotone={true}
-											/>
-										{/if}
-										<span>{itemName}</span>
-									{/if}
-								</div>
-
-								{#if activeTab === 'refractions'}
-									{@const details = refractionDetailsMap.get(item as Refraction)}
-									{#if details}
-										<div class="text-sm opacity-70 mt-1 flex items-center gap-2 flex-wrap">
-											{#if details.campaign}
-												{@const product = convert.campaignToProduct(details.campaign)}
-												<div class="flex items-center justify-center gap-1">
-													<div
-														class="flex items-center"
-														style={campaignColor ? `color: ${campaignColor}` : ''}
-													>
-														<ProductIcon {product} />
-													</div>
-													<span style={campaignColor ? `color: ${campaignColor}` : ''}
-														>{u.u.campaignName(details.campaign)}</span
-													>
-												</div>
-											{/if}
-											{#if details.scenario}
-												{@const scenarioData = getScenarioData(details.scenario)}
-												<div class="flex items-center gap-1">
-													<div
-														class="flex items-center"
-														style={campaignColor ? `color: ${campaignColor}` : ''}
-													>
-														<EncounterSetIcon encounterSet={scenarioData.representativeSet} />
-													</div>
-													<span style={campaignColor ? `color: ${campaignColor}` : ''}
-														>{u.u.encounterSetName(scenarioData.representativeSet)}</span
-													>
-												</div>
-											{/if}
-										</div>
-									{/if}
-								{/if}
-							</div>
+							<UltimatumBoonItem
+								item={item as Ultimatum | Boon | Refraction}
+								imageSrc={ultimatumBoonImagePath(item)}
+							/>
 						</button>
 					{/each}
 				</div>
@@ -393,8 +260,15 @@
 		<div class="hidden lg:block lg:w-1/2">
 			<BorderedContainer>
 				<div class="h-150 flex items-center justify-center">
-					{#if selectedImagePath}
-						<img src={selectedImagePath} alt={selectedName()} class="max-h-150 w-auto rounded-[20px]" />
+					{#if selectedItem && missingImages.has(selectedItem)}
+						{@render missingCard()}
+					{:else if selectedImagePath}
+						<img
+							src={selectedImagePath}
+							alt={selectedName()}
+							class="max-h-150 w-auto rounded-[20px]"
+							onerror={() => markImageMissing(selectedItem)}
+						/>
 					{:else}
 						<div class="flex items-center justify-center h-96 text-gray-500">
 							Select an item to view its card

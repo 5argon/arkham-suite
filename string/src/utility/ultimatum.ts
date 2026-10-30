@@ -19,6 +19,8 @@ export function ultimatumName(ultimatum: Ultimatum): string {
       return m.ultimatumDisaster();
     case Ultimatum.Dread:
       return m.ultimatumDread();
+    case Ultimatum.Exile:
+      return m.ultimatumExile();
     case Ultimatum.Failure:
       return m.ultimatumFailure();
     case Ultimatum.Finality:

@@ -39,6 +39,12 @@ export function refractionName(refraction: Refraction): string {
       return m.refractionUltimatumOfAmbuscade();
     case Refraction.UltimatumOfSpoilage:
       return m.refractionUltimatumOfSpoilage();
+    case Refraction.UltimatumOfTheFaultyCarburetor:
+      return m.refractionUltimatumOfTheFaultyCarburetor();
+    case Refraction.UltimatumOfTheSleeper:
+      return m.refractionUltimatumOfTheSleeper();
+    case Refraction.UltimatumOfScorchedEarth:
+      return m.refractionUltimatumOfScorchedEarth();
     default:
       throw new Error(`Unknown refraction: ${refraction}`);
   }

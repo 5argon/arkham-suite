@@ -19,6 +19,8 @@ export function boonName(boon: Boon): string {
       return m.boonHermes();
     case Boon.Morrigan:
       return m.boonMorrgan();
+    case Boon.Nodens:
+      return m.boonNodens();
     case Boon.Osiris:
       return m.boonOsiris();
     case Boon.Persephone:

@@ -1,4 +1,5 @@
 import { Campaign } from './campaign.js';
+import { EncounterSet } from './encounter-set.js';
 import { Scenario } from './scenario.js';
 
 export enum Refraction {
@@ -120,7 +121,29 @@ export enum Refraction {
    *
    * Investigators cannot trigger abilities on or assign damage to Artifact assets. If an Item asset from the Expedition encounter set is ever defeated or discarded, it cannot be chosen during setup for the remainder of the campaign.
    */
-  UltimatumOfSpoilage = 'ultimatum_of_spoilage',}
+  UltimatumOfSpoilage = 'ultimatum_of_spoilage',
+
+  /**
+   * **Horror in High Gear (The Innsmouth Conspiracy Campaign)**
+   *
+   * During scenario setup, if you are playing with exactly 2 investigators, each investigator must choose to board the same vehicle.
+   */
+  UltimatumOfTheFaultyCarburetor = 'ultimatum_of_the_faulty_carburetor',
+
+  /**
+   * **The Doom of Arkham Pt II (The Drowned City Campaign)**
+   *
+   * The health value of each Cthulhu enemy’s Enraged side ( 202b, 203b, 204b) now reads “X .”
+   */
+  UltimatumOfTheSleeper = 'ultimatum_of_the_sleeper',
+
+  /**
+   * **Spreading Flames (Brethren of Ash Campaign)**
+   *
+   * The Servant of Flame enemy gains elusive and “Forced — When 1 or more damage is dealt via a Fire! treachery: Heal that much damage from Servant of Flame.”
+   */
+  UltimatumOfScorchedEarth = 'ultimatum_of_scorched_earth',
+}
 
 export interface RefractionDetails {
   refraction: Refraction;
@@ -132,6 +155,12 @@ export interface RefractionDetails {
    * If `undefined`, applies to an entire campaign.
    */
   scenario?: Scenario;
+
+  /**
+   * The encounter set that identifies the part of `scenario` this refraction applies to,
+   * when it isn't the scenario's representative set. (e.g. Part II of The Doom of Arkham.)
+   */
+  encounterSet?: EncounterSet;
 }
 
 export type RefractionType = 'boon' | 'ultimatum';
@@ -233,4 +262,53 @@ export const refractions: RefractionDetails[] = [
     campaign: Campaign.TheDrownedCity,
     scenario: undefined,
   },
+  {
+    refraction: Refraction.UltimatumOfTheFaultyCarburetor,
+    refractionType: 'ultimatum',
+    campaign: Campaign.TheInnsmouthConspiracy,
+    scenario: Scenario.HorrorInHighGear,
+  },
+  {
+    refraction: Refraction.UltimatumOfTheSleeper,
+    refractionType: 'ultimatum',
+    campaign: Campaign.TheDrownedCity,
+    scenario: Scenario.TheDoomOfArkham,
+    encounterSet: EncounterSet.TheDoomOfArkhamPart2,
+  },
+  {
+    refraction: Refraction.UltimatumOfScorchedEarth,
+    refractionType: 'ultimatum',
+    campaign: Campaign.BrethrenOfAsh,
+    scenario: Scenario.SpreadingFlames,
+  },
 ];
+
+/**
+ * Refractions listed in the Chapter One FAQ, in display order:
+ * by campaign release, campaign-wide ones before scenario-specific ones, then by scenario.
+ */
+export const chapterOneRefractions: Refraction[] = [
+  Refraction.UltimatumOfInvisibility,
+  Refraction.UltimatumOfMultiplication,
+  Refraction.UltimatumOfTheUnspeakableName,
+  Refraction.UltimatumOfTheBrassCrown,
+  Refraction.UltimatumOfDeath,
+  Refraction.UltimatumOfTheMan,
+  Refraction.UltimatumOfVenom,
+  Refraction.UltimatumOfAmbuscade,
+  Refraction.BoonOfTheDreamer,
+  Refraction.UltimatumOfTheFaultyCarburetor,
+  Refraction.UltimatumOfTheDrowned,
+  Refraction.UltimatumOfAnnoyance,
+  Refraction.BoonOfAtonement,
+  Refraction.BoonOfTheDance,
+  Refraction.BoonOfBliss,
+  Refraction.BoonOfTheMiners,
+  Refraction.UltimatumOfSpoilage,
+  Refraction.UltimatumOfTheSleeper,
+];
+
+/**
+ * Refractions listed in the Chapter Two rules, in display order.
+ */
+export const chapterTwoRefractions: Refraction[] = [Refraction.UltimatumOfScorchedEarth];

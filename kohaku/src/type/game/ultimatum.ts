@@ -11,6 +11,8 @@ export enum Ultimatum {
   Disaster = 'ultimatum_of_disaster',
   /** Do not skip the mythos phase during the first round of each game. */
   Dread = 'ultimatum_of_dread',
+  /** Treat each card with “exile” in its text box as if it also had “Campaign Mode only.” */
+  Exile = 'ultimatum_of_exile',
   /** Add an additional autofail token to the chaos bag during setup of a campaign (or standalone scenario). */
   Failure = 'ultimatum_of_failure',
   /** Campaign Mode only. If an investigator is defeated by damage, they are killed. If an investigator is defeated by horror, they are driven insane. */
@@ -34,6 +36,56 @@ export enum Ultimatum {
   /** Campaign Mode only. Before each game in the campaign, choose 1 ultimatum/boon at random and begin the game with that boon or ultimatum active. (This does not apply to ultimatums or boons that affect deckbuilding or chaos bag construction.) */
   Ultimatums = 'ultimatum_of_ultimatums',
 }
+
+/**
+ * Ultimatums listed in the Chapter One FAQ, in display order.
+ */
+export const chapterOneUltimatums: Ultimatum[] = [
+  Ultimatum.Agony,
+  Ultimatum.BrokenPromises,
+  Ultimatum.BrokenVeil,
+  Ultimatum.Chaos,
+  Ultimatum.Disaster,
+  Ultimatum.Dread,
+  Ultimatum.Exile,
+  Ultimatum.Failure,
+  Ultimatum.Finality,
+  Ultimatum.ForbiddenKnowledge,
+  Ultimatum.Hardship,
+  Ultimatum.Highlander,
+  Ultimatum.Induction,
+  Ultimatum.Malevolence,
+  Ultimatum.Orthodoxy,
+  Ultimatum.TheScream,
+  Ultimatum.Spiral,
+  Ultimatum.Survival,
+  Ultimatum.Ultimatums,
+];
+
+/**
+ * Ultimatums listed in the Chapter Two rules, in display order.
+ */
+export const chapterTwoUltimatums: Ultimatum[] = [
+  Ultimatum.Agony,
+  Ultimatum.BrokenPromises,
+  Ultimatum.BrokenVeil,
+  Ultimatum.Chaos,
+  Ultimatum.Disaster,
+  Ultimatum.Dread,
+  Ultimatum.Exile,
+  Ultimatum.Failure,
+  Ultimatum.Finality,
+  Ultimatum.ForbiddenKnowledge,
+  Ultimatum.Hardship,
+  Ultimatum.Highlander,
+  Ultimatum.Induction,
+  Ultimatum.Malevolence,
+  Ultimatum.Orthodoxy,
+  Ultimatum.TheScream,
+  Ultimatum.Spiral,
+  Ultimatum.Survival,
+  Ultimatum.Ultimatums,
+];
 
 /**
  * Ultimatums that only apply in Campaign Mode
