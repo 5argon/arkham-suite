@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { gotoKeepingFocus } from '$lib/components/archive/list-navigation';
 	import { page } from '$app/state';
 	import { BackButton, Button, FaIconType, MarginFull, PageLead } from '@5argon/arkham-life-ui';
 	import * as m from '$lib/paraglide/messages.js';
@@ -30,7 +30,7 @@
 
 	let filterOpen = $state(false);
 	let drafts = $state<FilterDrafts<StandaloneFacet>>(draftsFromUrl(page.url, STANDALONE_FACETS));
-	const go = (query: string) => goto(`/archive/standalone?${query}`, { keepFocus: true });
+	const go = (query: string) => gotoKeepingFocus(`/archive/standalone?${query}`);
 	function apply() {
 		go(withFilters(page.url, drafts));
 		filterOpen = false;

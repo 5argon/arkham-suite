@@ -4,8 +4,9 @@
  * offline. Runs only from explicit `warm*` calls, and every preload swallows its errors.
  */
 
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { preloadCode } from '$app/navigation';
+import { match } from '$app/paths';
 import { databaseStore } from '$lib/database/database.svelte';
 
 export type PreloadProgress = {
@@ -79,7 +80,8 @@ class Preloader {
 		};
 		for (const href of hrefs) {
 			try {
-				await preloadCode(href);
+				const route = await match(href);
+				if (route) await preloadCode(route.id);
 			} catch {
 				// A failed preload only means that page loads on demand.
 			}

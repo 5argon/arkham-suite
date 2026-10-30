@@ -1,31 +1,19 @@
 import { defineParams } from '@sveltejs/kit/params';
-import { Campaign, strings } from '@5argon/arkham-kohaku';
+import { match as campaignSlug } from './campaignSlug';
+import { match as cardSection } from './cardSection';
+import { match as playerClass } from './playerClass';
+import { match as profileScope } from './profileScope';
+import { match as standaloneScenario } from './standaloneScenario';
 
-const supportedCampaigns: Campaign[] = [
-	Campaign.NightOfTheZealot,
-	Campaign.TheDunwichLegacy,
-	Campaign.ThePathToCarcosa,
-	Campaign.TheForgottenAge,
-	Campaign.TheCircleUndone,
-	Campaign.TheDreamQuest,
-	Campaign.TheWebOfDreams,
-	Campaign.TheInnsmouthConspiracy,
-	Campaign.EdgeOfTheEarth,
-	Campaign.TheScarletKeys,
-	Campaign.TheFeastOfHemlockVale,
-	Campaign.TheDrownedCity
-];
-
-function appleOrOrange(param: string): 'apple' | 'orange' | undefined {
-	return param === 'apple' || param === 'orange' ? param : undefined;
-}
+/** SvelteKit reads every route matcher from this module. Each per-file `match` is a boolean
+ *  predicate over the raw segment; a matcher accepts by returning the segment unchanged. */
+const accept = (test: (param: string) => boolean) => (param: string) =>
+	test(param) ? param : undefined;
 
 export const params = defineParams({
-	campaignCode: (param: string): string | undefined => {
-		const supportedUrls = supportedCampaigns.map((c) => strings.campaignAbbreviation(c));
-		return supportedUrls.includes(param) ? param : undefined;
-	},
-	cardId: appleOrOrange,
-	investigatorId: appleOrOrange,
-	standaloneCode: appleOrOrange
+	campaignSlug: accept(campaignSlug),
+	cardSection: accept(cardSection),
+	playerClass: accept(playerClass),
+	profileScope: accept(profileScope),
+	standaloneScenario: accept(standaloneScenario)
 });

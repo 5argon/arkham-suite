@@ -37,7 +37,7 @@
 	onMount(() => {
 		if (page.url.searchParams.get('created') === '1') {
 			toast.success(m.archive_created());
-			const url = new URL(page.url);
+			const url = new URL(page.url.href);
 			url.searchParams.delete('created');
 			replaceState(url, {});
 		}

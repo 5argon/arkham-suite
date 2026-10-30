@@ -2,7 +2,7 @@
  * arkham.life files: gzip-compressed JSON under a per-kind extension, or plain `.json` for
  * inspection. Reading tells the two apart by the gzip magic bytes, not the file name.
  */
-import pako from 'pako';
+import * as pako from 'pako';
 
 import * as m from '$lib/paraglide/messages.js';
 import { saveBinaryFile, saveTextFile } from '$lib/save-file';
@@ -68,6 +68,6 @@ export async function readDataFile(file: File): Promise<unknown> {
 	const bytes = new Uint8Array(await file.arrayBuffer());
 	const isGzip = bytes.length >= 2 && bytes[0] === 0x1f && bytes[1] === 0x8b;
 	return JSON.parse(
-		isGzip ? pako.ungzip(bytes, { to: 'string' }) : new TextDecoder().decode(bytes)
+		isGzip ? pako.ungzip(bytes, { toText: true }) : new TextDecoder().decode(bytes)
 	);
 }

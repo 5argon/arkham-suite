@@ -4,7 +4,8 @@ The Campaign Archive and Standalone Archive list: search, sort, filters, selecti
 paging, all kept in the URL. The page supplies the rows, the row card and its filter modal.
 -->
 <script lang="ts" generics="T extends { id: string }">
-	import { afterNavigate, goto } from '$app/navigation';
+	import { afterNavigate } from '$app/navigation';
+	import { gotoKeepingFocus } from './list-navigation';
 	import { page } from '$app/state';
 	import { untrack, type Snippet } from 'svelte';
 	import {
@@ -66,14 +67,14 @@ paging, all kept in the URL. The page supplies the rows, the row card and its fi
 	} = $props();
 
 	function navigate(params: { name?: string; sort?: string; page?: number }) {
-		const sp = new URLSearchParams(page.url.searchParams);
+		const sp = new URLSearchParams(page.url.searchParams.toString());
 		if (params.name !== undefined) {
 			if (params.name) sp.set('name', params.name);
 			else sp.delete('name');
 		}
 		if (params.sort !== undefined) sp.set('sort', params.sort);
 		sp.set('page', String(params.page ?? 1));
-		goto(`${basePath}?${sp.toString()}`, { keepFocus: true });
+		gotoKeepingFocus(`${basePath}?${sp.toString()}`);
 	}
 
 	// The search box is the source of truth while typing; the URL only re-seeds it on back/forward.

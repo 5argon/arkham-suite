@@ -2,7 +2,7 @@
  * Autosave history: gzipped copies of a record, taken when the editor is left and before a
  * destructive action, kept in their own IndexedDB store (never in the document or its exports).
  */
-import pako from 'pako';
+import * as pako from 'pako';
 import type { CampaignRecord } from './document';
 import { hasIndexedDb, openDb, SNAPSHOT_STORE, tx } from './idb';
 
@@ -72,6 +72,6 @@ export async function loadSnapshotCampaign(id: string): Promise<CampaignRecord |
 	if (!hasIndexedDb()) return null;
 	return withDb(async (db) => {
 		const rec = await tx<SnapshotRecord | undefined>(db, SNAPSHOT_STORE, 'readonly', (s) => s.get(id));
-		return rec ? (JSON.parse(pako.ungzip(rec.gz, { to: 'string' })) as CampaignRecord) : null;
+		return rec ? (JSON.parse(pako.ungzip(rec.gz, { toText: true })) as CampaignRecord) : null;
 	});
 }

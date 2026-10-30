@@ -2,7 +2,7 @@
  * Whether the Database has been saved to a `.ahlifedb` file since it last changed. Kept in
  * localStorage, outside the document: recording a save inside the document would itself be a change.
  */
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 import * as m from '$lib/paraglide/messages.js';
 

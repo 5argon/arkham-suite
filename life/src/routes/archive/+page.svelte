@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { gotoKeepingFocus } from '$lib/components/archive/list-navigation';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { BackButton, Button, FaIconType, MarginFull, PageLead } from '@5argon/arkham-life-ui';
@@ -35,7 +35,7 @@
 
 	let filterOpen = $state(false);
 	let drafts = $state<FilterDrafts<CampaignFacet>>(draftsFromUrl(page.url, CAMPAIGN_FACETS));
-	const go = (query: string) => goto(`/archive?${query}`, { keepFocus: true });
+	const go = (query: string) => gotoKeepingFocus(`/archive?${query}`);
 	function apply() {
 		go(withFilters(page.url, drafts));
 		filterOpen = false;
