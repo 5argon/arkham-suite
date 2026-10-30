@@ -2,6 +2,11 @@ import * as fs from "jsr:@std/fs";
 
 const inputFile: string = "tool/selection.json";
 const svgFolder: string = "tool/svg";
+/**
+ * Icons that are not in the ArkhamCards IcoMoon export, kept as standalone
+ * SVGs. See the README in that folder for where each one comes from.
+ */
+const extraSvgFolder: string = "tool/svg-arkham-build";
 const styleFile: string = "tool/style.css";
 const outputSvelteFolder: string = "src/lib/individual/svelte";
 const outputReactFolder: string = "src/lib/individual/react";
@@ -50,8 +55,29 @@ const promises: Promise<void>[] = [];
 console.log("Generating...");
 for (const outerIcon of allIcons) {
   promises.push(
-    generateSvelte(outerIcon, componentNames.get(outerIcon.properties.name)!)
+    generateSvelte(
+      await readSvg(`${svgFolder}/${outerIcon.properties.name}.svg`),
+      getStyleWidth(outerIcon),
+      componentNames.get(outerIcon.properties.name)!
+    )
   );
+}
+
+const takenNames = new Set(
+  [...componentNames.values()].map((n) => n.toLowerCase())
+);
+for await (const entry of Deno.readDir(extraSvgFolder)) {
+  if (!entry.isFile || !entry.name.endsWith(".svg")) continue;
+  const name = entry.name.slice(0, -".svg".length);
+  const componentName = makeIconComponentName(name);
+  if (takenNames.has(componentName.toLowerCase())) {
+    throw new Error(
+      `${extraSvgFolder}/${entry.name} collides with existing component ${componentName}`
+    );
+  }
+  takenNames.add(componentName.toLowerCase());
+  const svg = await readSvg(`${extraSvgFolder}/${entry.name}`);
+  promises.push(generateSvelte(svg, getViewBoxWidth(svg), componentName));
 }
 await Promise.all(promises);
 console.log("Done");
@@ -123,8 +149,17 @@ function getStyleWidth(icon: IconOuter): number {
   return 1; // Default width if not found
 }
 
-async function readSvg(icon: IconOuter): Promise<string> {
-  const iconPath = `${svgFolder}/${icon.properties.name}.svg`;
+/**
+ * Width in em for icons without a style.css entry: the viewBox aspect ratio,
+ * since every icon is rendered 1em tall.
+ */
+function getViewBoxWidth(svg: string): number {
+  const match = svg.match(/viewBox="[\d.]+ [\d.]+ ([\d.]+) ([\d.]+)"/);
+  if (!match) return 1;
+  return parseFloat(match[1]) / parseFloat(match[2]);
+}
+
+async function readSvg(iconPath: string): Promise<string> {
   const svgText = await Deno.readTextFile(iconPath);
   // Add class="icon" to the svg element.
   const svgWithClass = svgText.replace("<svg", '<svg class="icon"');
@@ -132,11 +167,10 @@ async function readSvg(icon: IconOuter): Promise<string> {
 }
 
 async function generateSvelte(
-  iconOuter: IconOuter,
+  svg: string,
+  styleWidth: number,
   componentName: string
 ): Promise<void> {
-  const svg = await readSvg(iconOuter);
-  const styleWidth = getStyleWidth(iconOuter);
   const svelteContent = `${svg}
 <style>
   .icon {
