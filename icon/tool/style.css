@@ -15,136 +15,68 @@ Single-colored icons can be modified like so:
 }
 ========================================== */
 
-.ahicon-set {
-  width: 1.1201171875em;
+.ahicon-core_2026 {
+  width: 0.9912109375em;
 }
 
-.ahicon-extracurricular_activity {
-  width: 0.923828125em;
+.ahicon-arcane_lock {
+  width: 0.9931640625em;
 }
 
-.ahicon-the_house_always_wins {
-  width: 0.865234375em;
+.ahicon-arkham_ch2 {
+  width: 0.990234375em;
 }
 
-.ahicon-armitages_fate {
-  width: 0.9267578125em;
+.ahicon-bystanders {
+  width: 0.9853515625em;
 }
 
-.ahicon-the_miskatonic_museum {
-  width: 1.123046875em;
+.ahicon-cosmic_evils {
+  width: 1.0078125em;
 }
 
-.ahicon-the_essex_county_express {
-  width: 0.62890625em;
+.ahicon-cultists_ch2 {
+  width: 0.9775390625em;
 }
 
-.ahicon-blood_on_the_altar {
-  width: 0.9228515625em;
+.ahicon-mad_science {
+  width: 1.01171875em;
 }
 
-.ahicon-undimensioned_and_unseen {
-  width: 1.0751953125em;
+.ahicon-people_of_arkham {
+  width: 1.015625em;
 }
 
-.ahicon-where_doom_awaits {
-  width: 1.0205078125em;
+.ahicon-queen_of_ash {
+  width: 0.984375em;
 }
 
-.ahicon-lost_in_time_and_space {
-  width: 1.037109375em;
+.ahicon-reeking_decay {
+  width: 1.0009765625em;
 }
 
-.ahicon-bad_luck {
-  width: 0.9736328125em;
+.ahicon-smoke_and_mirrors {
+  width: 0.99609375em;
 }
 
-.ahicon-beast_thralls {
-  width: 0.796875em;
+.ahicon-spreading_flames {
+  width: 1.0029296875em;
 }
 
-.ahicon-bishops_thralls {
-  width: 1.181640625em;
+.ahicon-whippoorwills_ch2 {
+  width: 1.0166015625em;
 }
 
-.ahicon-dunwich {
-  width: 0.8046875em;
+.ahicon-tommy {
+  width: 0.986328125em;
 }
 
-.ahicon-hideous_abominations {
-  width: 0.9951171875em;
+.ahicon-marie {
+  width: 1.001953125em;
 }
 
-.ahicon-naomis_crew {
-  width: 0.658203125em;
-}
-
-.ahicon-sorcery {
-  width: 0.962890625em;
-}
-
-.ahicon-the_beyond {
-  width: 1.125em;
-}
-
-.ahicon-whippoorwills {
-  width: 1.205078125em;
-}
-
-.ahicon-return_to_the_dunwich_legacy {
-  width: 1.0625em;
-}
-
-.ahicon-return_to_extracurricular_activities {
-  width: 1.056640625em;
-}
-
-.ahicon-return_to_the_house_always_wins {
-  width: 1.056640625em;
-}
-
-.ahicon-return_to_the_miskatonic_museum {
-  width: 1.056640625em;
-}
-
-.ahicon-return_to_the_essex_county_express {
-  width: 1.056640625em;
-}
-
-.ahicon-return_to_blood_on_the_altar {
-  width: 1.056640625em;
-}
-
-.ahicon-return_to_undimensioned_and_unseen {
-  width: 1.056640625em;
-}
-
-.ahicon-return_to_where_doom_awaits {
-  width: 1.056640625em;
-}
-
-.ahicon-resurgent_evils {
-  width: 1.125em;
-}
-
-.ahicon-erratic_fear {
-  width: 0.7783203125em;
-}
-
-.ahicon-creeping_cold {
-  width: 0.8271484375em;
-}
-
-.ahicon-secret_doors {
-  width: 1.1162109375em;
-}
-
-.ahicon-yog_sothoths_emissaries {
-  width: 1.08203125em;
-}
-
-.ahicon-beyond_the_threshold {
-  width: 1.0400390625em;
+.ahicon-miguel {
+  width: 1.0048828125em;
 }
 
 .ahicon-ages_unwound {
@@ -937,6 +869,10 @@ Single-colored icons can be modified like so:
 
 .ahicon-frost {
   width: 0.9375em;
+}
+
+.ahicon-blood1 {
+  width: 0.98046875em;
 }
 
 .ahicon-seal_a {
@@ -1831,7 +1767,7 @@ Single-colored icons can be modified like so:
   width: 1.0107421875em;
 }
 
-.ahicon-deep_ones1 {
+.ahicon-deep_ones {
   width: 0.9833984375em;
 }
 
@@ -1981,6 +1917,22 @@ Single-colored icons can be modified like so:
 
 .ahicon-onigawa {
   width: 1.021484375em;
+}
+
+.ahicon-ztg_military_maneuvers {
+  width: 0.6513671875em;
+}
+
+.ahicon-ztg_red_guard {
+  width: 0.8623046875em;
+}
+
+.ahicon-ztg_flood {
+  width: 0.9697265625em;
+}
+
+.ahicon-ztg_unbound_dimensions {
+  width: 0.8857421875em;
 }
 
 .ahicon-curtain_call {
@@ -2151,8 +2103,12 @@ Single-colored icons can be modified like so:
   width: 1.05859375em;
 }
 
-.ahicon-core_2026 {
+.ahicon-core_20261 {
   width: 0.9921875em;
+}
+
+.ahicon-filter {
+  width: 0.9580078125em;
 }
 
 .ahicon-parallel {
@@ -2403,6 +2359,10 @@ Single-colored icons can be modified like so:
   width: 0.990234375em;
 }
 
+.ahicon-blood2 {
+  width: 0.98046875em;
+}
+
 .ahicon-codex1 {
   width: 1.16796875em;
 }
@@ -2413,6 +2373,138 @@ Single-colored icons can be modified like so:
 
 .ahicon-day1 {
   width: 0.9921875em;
+}
+
+.ahicon-set {
+  width: 1.1201171875em;
+}
+
+.ahicon-extracurricular_activity {
+  width: 0.923828125em;
+}
+
+.ahicon-the_house_always_wins {
+  width: 0.865234375em;
+}
+
+.ahicon-armitages_fate {
+  width: 0.9267578125em;
+}
+
+.ahicon-the_miskatonic_museum {
+  width: 1.123046875em;
+}
+
+.ahicon-the_essex_county_express {
+  width: 0.62890625em;
+}
+
+.ahicon-blood_on_the_altar {
+  width: 0.9228515625em;
+}
+
+.ahicon-undimensioned_and_unseen {
+  width: 1.0751953125em;
+}
+
+.ahicon-where_doom_awaits {
+  width: 1.0205078125em;
+}
+
+.ahicon-lost_in_time_and_space {
+  width: 1.037109375em;
+}
+
+.ahicon-bad_luck {
+  width: 0.9736328125em;
+}
+
+.ahicon-beast_thralls {
+  width: 0.796875em;
+}
+
+.ahicon-bishops_thralls {
+  width: 1.181640625em;
+}
+
+.ahicon-dunwich {
+  width: 0.8046875em;
+}
+
+.ahicon-hideous_abominations {
+  width: 0.9951171875em;
+}
+
+.ahicon-naomis_crew {
+  width: 0.658203125em;
+}
+
+.ahicon-sorcery {
+  width: 0.962890625em;
+}
+
+.ahicon-the_beyond {
+  width: 1.125em;
+}
+
+.ahicon-whippoorwills {
+  width: 1.205078125em;
+}
+
+.ahicon-return_to_the_dunwich_legacy {
+  width: 1.0625em;
+}
+
+.ahicon-return_to_extracurricular_activities {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_the_house_always_wins {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_the_miskatonic_museum {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_the_essex_county_express {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_blood_on_the_altar {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_undimensioned_and_unseen {
+  width: 1.056640625em;
+}
+
+.ahicon-return_to_where_doom_awaits {
+  width: 1.056640625em;
+}
+
+.ahicon-resurgent_evils {
+  width: 1.125em;
+}
+
+.ahicon-erratic_fear {
+  width: 0.7783203125em;
+}
+
+.ahicon-creeping_cold {
+  width: 0.8271484375em;
+}
+
+.ahicon-secret_doors {
+  width: 1.1162109375em;
+}
+
+.ahicon-yog_sothoths_emissaries {
+  width: 1.08203125em;
+}
+
+.ahicon-beyond_the_threshold {
+  width: 1.0400390625em;
 }
 
 .ahicon-carcosa {
@@ -2453,4 +2545,164 @@ Single-colored icons can be modified like so:
 
 .ahicon-return_to_dim_carcosa {
   width: 0.9931640625em;
+}
+
+.ahicon-s_level_0 {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-s_level_1 {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-s_level_2 {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-s_level_3 {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-s_level_4 {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-s_level_5 {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-sort {
+  width: 1.080078125em;
+}
+
+.ahicon-level_none {
+  width: 1.0048828125em;
+}
+
+.ahicon-level_0 {
+  width: 1.0048828125em;
+}
+
+.ahicon-level_1 {
+  width: 1.0048828125em;
+}
+
+.ahicon-level_2 {
+  width: 1.0048828125em;
+}
+
+.ahicon-level_3 {
+  width: 1.0048828125em;
+}
+
+.ahicon-level_4 {
+  width: 1.0048828125em;
+}
+
+.ahicon-level_5 {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_none {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_0 {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_1 {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_2 {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_3 {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_4 {
+  width: 1.0048828125em;
+}
+
+.ahicon-inverted_level_5 {
+  width: 1.0048828125em;
+}
+
+.ahicon-fleur_bottom_left {
+  width: 1.2177734375em;
+}
+
+.ahicon-fleur_bottom_right {
+  width: 1.2177734375em;
+}
+
+.ahicon-fleur_top_left {
+  width: 1.1875em;
+}
+
+.ahicon-fleur_top_right {
+  width: 1.1875em;
+}
+
+.ahicon-crate {
+  width: 1.0205078125em;
+}
+
+.ahicon-edit {
+  width: 0.904296875em;
+}
+
+.ahicon-check {
+  width: 1.0302734375em;
+}
+
+.ahicon-mythos_button_frame {
+  width: 1.9501953125em;
+}
+
+.ahicon-kofi {
+  width: 1.0048828124999982em;
+}
+
+.ahicon-cross_c {
+  width: 0.9885602678571428em;
+}
+
+.ahicon-down_pin {
+  width: 0.6669921875em;
+}
+
+.ahicon-up_pin {
+  width: 0.6669921875em;
+}
+
+.ahicon-rail {
+  width: 1.009765625em;
+}
+
+.ahicon-short_arrow {
+  width: 0.2666015625em;
+}
+
+.ahicon-swoop_arrow {
+  width: 3.8984375em;
+}
+
+.ahicon-swoop_arrow_right {
+  width: 3.8984375em;
+}
+
+.ahicon-long_single_arrow {
+  width: 3.4866071428571574em;
+}
+
+.ahicon-s_frame_background {
+  width: 1.0059988839285696em;
+}
+
+.ahicon-s_level_null {
+  width: 1.0059988839285696em;
 }

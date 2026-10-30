@@ -7,7 +7,7 @@
 <style>
   .icon {
     display: inline-block;
-    width: 1em;
+    width: 1.0029296875em;
     height: 1em;
     stroke-width: 0;
     stroke: currentColor;

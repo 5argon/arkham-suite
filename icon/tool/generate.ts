@@ -44,10 +44,14 @@ const inputText = await Deno.readTextFile(inputFile);
 const inputJson = JSON.parse(inputText) as Json;
 const allIcons = inputJson.icons;
 
+const componentNames = assignComponentNames(allIcons);
+
 const promises: Promise<void>[] = [];
 console.log("Generating...");
 for (const outerIcon of allIcons) {
-  promises.push(generateSvelte(outerIcon));
+  promises.push(
+    generateSvelte(outerIcon, componentNames.get(outerIcon.properties.name)!)
+  );
 }
 await Promise.all(promises);
 console.log("Done");
@@ -65,10 +69,41 @@ function makeIconComponentName(tagName: string): string {
       return `Minus${word.slice(1)}`;
     }
     // Remove any other dashes.
-    word = word.replace("-", "");
+    word = word.replaceAll("-", "");
     return word.charAt(0).toUpperCase() + word.slice(1);
   });
   return result.join("");
+}
+
+/**
+ * Map each icon name to a component name. Names that differ only by case
+ * (e.g. "check_circle" -> "CheckCircle" and "check-circle" -> "Checkcircle")
+ * would overwrite each other on a case-insensitive file system, so the later
+ * one gets a numeric suffix like IcoMoon does for duplicated names.
+ */
+function assignComponentNames(icons: IconOuter[]): Map<string, string> {
+  const baseNames = icons.map((i) => makeIconComponentName(i.properties.name));
+  const taken = new Set<string>();
+  const reserved = new Set(baseNames.map((n) => n.toLowerCase()));
+  const result = new Map<string, string>();
+  icons.forEach((icon, idx) => {
+    const base = baseNames[idx];
+    let name = base;
+    if (taken.has(name.toLowerCase())) {
+      let suffix = 1;
+      while (
+        taken.has(`${base}${suffix}`.toLowerCase()) ||
+        reserved.has(`${base}${suffix}`.toLowerCase())
+      ) {
+        suffix++;
+      }
+      name = `${base}${suffix}`;
+      console.log(`Renamed ${icon.properties.name} -> ${name}`);
+    }
+    taken.add(name.toLowerCase());
+    result.set(icon.properties.name, name);
+  });
+  return result;
 }
 
 function getStyleWidth(icon: IconOuter): number {
@@ -96,8 +131,10 @@ async function readSvg(icon: IconOuter): Promise<string> {
   return svgWithClass;
 }
 
-async function generateSvelte(iconOuter: IconOuter): Promise<void> {
-  const componentName = makeIconComponentName(iconOuter.properties.name);
+async function generateSvelte(
+  iconOuter: IconOuter,
+  componentName: string
+): Promise<void> {
   const svg = await readSvg(iconOuter);
   const styleWidth = getStyleWidth(iconOuter);
   const svelteContent = `${svg}

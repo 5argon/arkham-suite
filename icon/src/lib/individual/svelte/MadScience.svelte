@@ -8,7 +8,7 @@
 <style>
   .icon {
     display: inline-block;
-    width: 1em;
+    width: 1.01171875em;
     height: 1em;
     stroke-width: 0;
     stroke: currentColor;

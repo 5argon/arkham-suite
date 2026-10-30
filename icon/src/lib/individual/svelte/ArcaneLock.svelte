@@ -25,7 +25,7 @@
 <style>
   .icon {
     display: inline-block;
-    width: 1em;
+    width: 0.9931640625em;
     height: 1em;
     stroke-width: 0;
     stroke: currentColor;

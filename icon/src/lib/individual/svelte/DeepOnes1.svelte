@@ -23,7 +23,7 @@
 <style>
   .icon {
     display: inline-block;
-    width: 0.9833984375em;
+    width: 1em;
     height: 1em;
     stroke-width: 0;
     stroke: currentColor;
