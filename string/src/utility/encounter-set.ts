@@ -692,6 +692,12 @@ export function encounterSetName(encounterSet: EncounterSet): string {
     case EncounterSet.ForgottenIsland:
       return m.standaloneScenarioFilmFataleForgottenIsland();
 
+    // Traces to Nowhere
+    case EncounterSet.DimensionalMadness:
+      return m.standaloneScenarioTracesToNowhereDimensionalMadness();
+    case EncounterSet.TracesToNowhere:
+      return m.standaloneScenarioTracesToNowhereTracesToNowhere();
+
     // Fortune and Folly
     case EncounterSet.FortuneAndFolly:
       return m.standaloneScenarioFortuneAndFollyFortuneAndFolly();

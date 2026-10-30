@@ -52,6 +52,10 @@ export enum Product {
   FortuneAndFolly = 'fof',
   TheMidwinterGala = 'tmg',
   FilmFatale = 'film_fatale',
+  /**
+   * Provisional code from arkham.build: ArkhamDB has not assigned a pack code for this product yet.
+   */
+  TracesToNowhere = 'traces_to_nowhere_pack',
 
   ParallelInvestigators = 'parallel',
   Promotional = 'promo',
@@ -181,6 +185,7 @@ export const productStandalone: Product[] = [
   Product.FortuneAndFolly,
   Product.TheMidwinterGala,
   Product.FilmFatale,
+  Product.TracesToNowhere,
 ];
 
 export const productOther: Product[] = [Product.ParallelInvestigators, Product.Promotional];

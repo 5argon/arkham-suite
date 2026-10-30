@@ -368,6 +368,10 @@ export enum EncounterSet {
   FilmFatale = 'film_fatale',
   ForgottenIsland = 'forgotten_island',
 
+  // Traces to Nowhere
+  DimensionalMadness = 'dimensional_madness',
+  TracesToNowhere = 'traces_to_nowhere',
+
   // Fortune and Folly
   FortuneAndFolly = 'fortune_and_folly',
   FortunesChosen = 'fortunes_chosen',
@@ -857,6 +861,7 @@ export const productEncounterSetsMap: Partial<Record<Product, EncounterSet[]>> =
     EncounterSet.FilmFatale,
     EncounterSet.ForgottenIsland,
   ],
+  [Product.TracesToNowhere]: [EncounterSet.DimensionalMadness, EncounterSet.TracesToNowhere],
   [Product.CoreSet2026]: [
     EncounterSet.ArcaneLock,
     EncounterSet.ArkhamCh2,
@@ -965,6 +970,7 @@ export const standaloneEncounterSetsMap: Record<StandaloneScenario, EncounterSet
   [StandaloneScenario.FortuneAndFolly]: productEncounterSetsMap[Product.FortuneAndFolly] || [],
   [StandaloneScenario.TheMidwinterGala]: productEncounterSetsMap[Product.TheMidwinterGala] || [],
   [StandaloneScenario.FilmFatale]: productEncounterSetsMap[Product.FilmFatale] || [],
+  [StandaloneScenario.TracesToNowhere]: productEncounterSetsMap[Product.TracesToNowhere] || [],
 };
 
 /**
@@ -1161,6 +1167,7 @@ export const noncoreScenarioNameEncounterSets: readonly EncounterSet[] = [
   EncounterSet.FortuneAndFolly,
   EncounterSet.TheMidwinterGala,
   EncounterSet.FilmFatale,
+  EncounterSet.TracesToNowhere,
 
   // Parallel Scenarios
   EncounterSet.AllOrNothing,

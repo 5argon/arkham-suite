@@ -696,6 +696,12 @@ export function encounterSetToEncounterSet(ahdbEncounterSet: string): EncounterS
     case 'forgotten_island':
       return EncounterSet.ForgottenIsland;
 
+    // Traces to Nowhere
+    case 'dimensional_madness':
+      return EncounterSet.DimensionalMadness;
+    case 'traces_to_nowhere':
+      return EncounterSet.TracesToNowhere;
+
     // Fortune and Folly
     case 'fortune_and_folly':
       return EncounterSet.FortuneAndFolly;
@@ -1116,6 +1122,8 @@ export function codeToProduct(packCode: string, encounterCode: string | undefine
       return Product.TheMidwinterGala;
     case 'film_fatale':
       return Product.FilmFatale;
+    case 'traces_to_nowhere_pack':
+      return Product.TracesToNowhere;
     case 'rod':
     case 'aon':
     case 'bad':

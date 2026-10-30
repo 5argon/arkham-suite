@@ -633,6 +633,19 @@ const productColors: Record<Product, ColorPalette> = {
     900: '#14171f',
     950: '#0e1016',
   },
+  [Product.TracesToNowhere]: {
+    50: '#f2f7f6',
+    100: '#e0ebe9',
+    200: '#c1d7d3',
+    300: '#98bbb5',
+    400: '#6e9a94',
+    500: '#527e78',
+    600: '#406560',
+    700: '#35524e',
+    800: '#2d4441',
+    900: '#283a37',
+    950: '#13201e',
+  },
 
   [Product.ParallelInvestigators]: {
     50: '#eff1f5',

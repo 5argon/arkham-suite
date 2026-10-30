@@ -80,6 +80,7 @@ export enum StandaloneScenario {
   FortuneAndFolly = 'fof',
   TheMidwinterGala = 'tmg',
   FilmFatale = 'film_fatale',
+  TracesToNowhere = 'traces_to_nowhere_pack',
 }
 
 /**

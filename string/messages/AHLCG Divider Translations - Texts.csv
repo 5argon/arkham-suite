@@ -54,9 +54,9 @@ Campaign,Custom,Dark Matter,Scenario,Starfall,Campaign/Custom/Dark Matter/Scenar
 Campaign,Custom,Dark Matter,Scenario,Strange Moons,Campaign/Custom/Dark Matter/Scenario/Strange Moons,TRUE,Strange Moons,Fremdartige Monde,,,Lunas Extrañas,,,,,,
 Campaign,Custom,Dark Matter,Scenario,The Machine in Yellow,Campaign/Custom/Dark Matter/Scenario/The Machine in Yellow,TRUE,The Machine in Yellow,Die Maschine in Gelb,,,La Máquina Amarilla,,,,,,
 Campaign,Custom,Dark Matter,Scenario,The Tatterdemalion,Campaign/Custom/Dark Matter/Scenario/The Tatterdemalion,TRUE,The Tatterdemalion,Die Tatterdemalion,,,La Tatterdemalion,,,,,,
-Campaign,Regular,Brethren of Ash,Scenario,Queen of Ash,Campaign/Regular/Brethren of Ash/Scenario/Queen of Ash,,Queen of Ash,,La Regina delle Ceneri,,,,,,,,
-Campaign,Regular,Brethren of Ash,Scenario,Smoke and Mirrors,Campaign/Regular/Brethren of Ash/Scenario/Smoke and Mirrors,,Smoke and Mirrors,,Fumo negli Occhi,,,,,,,,
-Campaign,Regular,Brethren of Ash,Scenario,Spreading Flames,Campaign/Regular/Brethren of Ash/Scenario/Spreading Flames,,Spreading Flames,,Fiamme Dilaganti,,,,,,,,
+Campaign,Regular,Brethren of Ash,Scenario,Queen of Ash,Campaign/Regular/Brethren of Ash/Scenario/Queen of Ash,TRUE,Queen of Ash,,La Regina delle Ceneri,,,,,,,,
+Campaign,Regular,Brethren of Ash,Scenario,Smoke and Mirrors,Campaign/Regular/Brethren of Ash/Scenario/Smoke and Mirrors,TRUE,Smoke and Mirrors,,Fumo negli Occhi,,,,,,,,
+Campaign,Regular,Brethren of Ash,Scenario,Spreading Flames,Campaign/Regular/Brethren of Ash/Scenario/Spreading Flames,TRUE,Spreading Flames,,Fiamme Dilaganti,,,,,,,,
 Campaign,Regular,Core Set,Encounter,Agents of Cthulhu,Campaign/Regular/Core Set/Encounter/Agents of Cthulhu,TRUE,Agents of Cthulhu,Anhänger von Cthulhu,Agenti di Cthulhu,Агенты Ктулху,Agentes de Cthulhu,Agents de Cthulhu,Agentes de Cthulhu,Agenci Cthulhu,Agenti Cthulhu,สมุนแห่งคธูลู,Cthulhu szolgálói
 Campaign,Regular,Core Set,Encounter,Agents of Hastur,Campaign/Regular/Core Set/Encounter/Agents of Hastur,TRUE,Agents of Hastur,Anhänger von Hastur,Agenti di Hastur,Агенты Хастура,Agentes de Hastur,Agents d'Hastur,Agentes de Hastur,Agenci Hastura,Agenti Hastura,สมุนแห่งฮัสเทอร์,Hastur szolgálói
 Campaign,Regular,Core Set,Encounter,Agents of Shub Niggurath,Campaign/Regular/Core Set/Encounter/Agents of Shub Niggurath,TRUE,Agents of Shub Niggurath,Anhänger von Shub-Niggurath,Agenti di Shub-Niggurath,Агенты Шуб-Ниггурат,Agentes de Shub Niggurath,Agents de Shub-Niggurath,Agentes de Shub Niggurath,Agenci Shub-Niggurath,Agenti Shub-Niggurath,สมุนแห่งชุบ-นิกกูรัธ,Shub Niggurath szolgálói
@@ -70,26 +70,26 @@ Campaign,Regular,Core Set,Encounter,Locked Doors,Campaign/Regular/Core Set/Encou
 Campaign,Regular,Core Set,Encounter,Nightgaunts,Campaign/Regular/Core Set/Encounter/Nightgaunts,TRUE,Nightgaunts,Dunkeldürre,Magri Notturni,Ночные призраки,Ángeles Descarnados,Maigres Bêtes de la Nuit,Noctétricos,Dzieci nocy,Noční zebouni,ไนท์กอนท์,Éji huhogányok
 Campaign,Regular,Core Set,Encounter,Rats,Campaign/Regular/Core Set/Encounter/Rats,TRUE,Rats,Rattenschwarm,Ratti,Крысы,Ratas,Rats,Ratos,Szczury,Krysy,หนู,Patkányok
 Campaign,Regular,Core Set,Encounter,Striking Fear,Campaign/Regular/Core Set/Encounter/Striking Fear,TRUE,Striking Fear,Lähmende Angst,Paura Incombente,Охваченные страхом,Miedo Impactante,Répandre la Peur,Medo Avassalador,Paniczny strach,Sílící strach,ความกลัวที่ถาโถม,Lesújtó félelem
-Campaign,Regular,Core Set 2026,Encounter,Arcane Lock,Campaign/Regular/Core Set 2026/Encounter/Arcane Lock,,Arcane Lock,,Serratura Arcana,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Arkham,Campaign/Regular/Core Set 2026/Encounter/Arkham,,Arkham,,Arkham,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Ashen Pilgrims,Campaign/Regular/Core Set 2026/Encounter/Ashen Pilgrims,,Ashen Pilgrims,,Pellegrini Cinerei,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Bad Weather,Campaign/Regular/Core Set 2026/Encounter/Bad Weather,,Bad Weather,,Maltempo,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Bystanders,Campaign/Regular/Core Set 2026/Encounter/Bystanders,,Bystanders,,Passanti,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Cosmic Evils,Campaign/Regular/Core Set 2026/Encounter/Cosmic Evils,,Cosmic Evils,,Mali Cosmici,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Cultists,Campaign/Regular/Core Set 2026/Encounter/Cultists,,Cultists,,Cultisti,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Dead Ends,Campaign/Regular/Core Set 2026/Encounter/Dead Ends,,Dead Ends,,Vicoli Ciechi,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Eldritch Lore,Campaign/Regular/Core Set 2026/Encounter/Eldritch Lore,,Eldritch Lore,,Sapere Esoterico,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Fire!,Campaign/Regular/Core Set 2026/Encounter/Fire!,,Fire!,,Al Fuoco!,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Flying Terrors,Campaign/Regular/Core Set 2026/Encounter/Flying Terrors,,Flying Terrors,,Orrori Volanti,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Gangs of Arkham,Campaign/Regular/Core Set 2026/Encounter/Gangs of Arkham,,Gangs of Arkham,,Gang di Arkham,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Hallucinations,Campaign/Regular/Core Set 2026/Encounter/Hallucinations,,Hallucinations,,Allucinazioni,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Mad Science,Campaign/Regular/Core Set 2026/Encounter/Mad Science,,Mad Science,,Scienza Folle,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Miskatonic University,Campaign/Regular/Core Set 2026/Encounter/Miskatonic University,,Miskatonic University,,Università Miskatonic,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,People of Arkham,Campaign/Regular/Core Set 2026/Encounter/People of Arkham,,People of Arkham,,Abitanti di Arkham,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Reeking Decay,Campaign/Regular/Core Set 2026/Encounter/Reeking Decay,,Reeking Decay,,Putrefazione Maleodorante,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Sewers,Campaign/Regular/Core Set 2026/Encounter/Sewers,,Sewers,,Fogne,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Torment,Campaign/Regular/Core Set 2026/Encounter/Torment,,Torment,,Tormento,,,,,,,,
-Campaign,Regular,Core Set 2026,Encounter,Whippoorwills,Campaign/Regular/Core Set 2026/Encounter/Whippoorwills,,Whippoorwills,,Succiacapre,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Arcane Lock,Campaign/Regular/Core Set 2026/Encounter/Arcane Lock,TRUE,Arcane Lock,,Serratura Arcana,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Arkham,Campaign/Regular/Core Set 2026/Encounter/Arkham,TRUE,Arkham,,Arkham,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Ashen Pilgrims,Campaign/Regular/Core Set 2026/Encounter/Ashen Pilgrims,TRUE,Ashen Pilgrims,,Pellegrini Cinerei,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Bad Weather,Campaign/Regular/Core Set 2026/Encounter/Bad Weather,TRUE,Bad Weather,,Maltempo,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Bystanders,Campaign/Regular/Core Set 2026/Encounter/Bystanders,TRUE,Bystanders,,Passanti,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Cosmic Evils,Campaign/Regular/Core Set 2026/Encounter/Cosmic Evils,TRUE,Cosmic Evils,,Mali Cosmici,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Cultists,Campaign/Regular/Core Set 2026/Encounter/Cultists,TRUE,Cultists,,Cultisti,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Dead Ends,Campaign/Regular/Core Set 2026/Encounter/Dead Ends,TRUE,Dead Ends,,Vicoli Ciechi,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Eldritch Lore,Campaign/Regular/Core Set 2026/Encounter/Eldritch Lore,TRUE,Eldritch Lore,,Sapere Esoterico,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Fire!,Campaign/Regular/Core Set 2026/Encounter/Fire!,TRUE,Fire!,,Al Fuoco!,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Flying Terrors,Campaign/Regular/Core Set 2026/Encounter/Flying Terrors,TRUE,Flying Terrors,,Orrori Volanti,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Gangs of Arkham,Campaign/Regular/Core Set 2026/Encounter/Gangs of Arkham,TRUE,Gangs of Arkham,,Gang di Arkham,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Hallucinations,Campaign/Regular/Core Set 2026/Encounter/Hallucinations,TRUE,Hallucinations,,Allucinazioni,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Mad Science,Campaign/Regular/Core Set 2026/Encounter/Mad Science,TRUE,Mad Science,,Scienza Folle,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Miskatonic University,Campaign/Regular/Core Set 2026/Encounter/Miskatonic University,TRUE,Miskatonic University,,Università Miskatonic,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,People of Arkham,Campaign/Regular/Core Set 2026/Encounter/People of Arkham,TRUE,People of Arkham,,Abitanti di Arkham,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Reeking Decay,Campaign/Regular/Core Set 2026/Encounter/Reeking Decay,TRUE,Reeking Decay,,Putrefazione Maleodorante,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Sewers,Campaign/Regular/Core Set 2026/Encounter/Sewers,TRUE,Sewers,,Fogne,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Torment,Campaign/Regular/Core Set 2026/Encounter/Torment,TRUE,Torment,,Tormento,,,,,,,,
+Campaign,Regular,Core Set 2026,Encounter,Whippoorwills,Campaign/Regular/Core Set 2026/Encounter/Whippoorwills,TRUE,Whippoorwills,,Succiacapre,,,,,,,,
 Campaign,Regular,Edge of the Earth,Encounter,Agents of the Unknown,Campaign/Regular/Edge of the Earth/Encounter/Agents of the Unknown,TRUE,Agents of the Unknown,Anhänger des Unbekannten,,Агенты неизведанного,Agentes de lo Desconocido,Agents de l'Inconnu,Agentes do Desconhecido,Agenci Nieznanego,,,
 Campaign,Regular,Edge of the Earth,Encounter,Creatures in the Ice,Campaign/Regular/Edge of the Earth/Encounter/Creatures in the Ice,TRUE,Creatures in the Ice,Kreaturen im Eis,,Твари во льду,Criaturas en el Hielo,Créatures dans la Glace,Criaturas no Gelo,Stworzenia w lodzie,,,
 Campaign,Regular,Edge of the Earth,Encounter,Deadly Weather,Campaign/Regular/Edge of the Earth/Encounter/Deadly Weather,TRUE,Deadly Weather,Tödliches Wetter,,Убийственная погода,Tiempo Letal,Climat Mortel,Clima Mortal,Mordercza pogoda,,,
@@ -112,12 +112,12 @@ Campaign,Regular,Edge of the Earth,Encounter,The Great Seal,Campaign/Regular/Edg
 Campaign,Regular,Edge of the Earth,Scenario,City of the Elder Things,Campaign/Regular/Edge of the Earth/Scenario/City of the Elder Things,TRUE,City of the Elder Things,Stadt der alten Wesen,,Город Старцев,Ciudad de los Antiguos,La Cité des Anciens,Cidade dos Seres Ancestrais,Miasto Starszych Istot,,,
 Campaign,Regular,Edge of the Earth,Scenario,Fatal Mirage,Campaign/Regular/Edge of the Earth/Scenario/Fatal Mirage,TRUE,Fatal Mirage,Tödliches Trugbild,,Роковой мираж,Espejismo Letal,Mirage Fatal,Miragem Fatal,Zdradzieckie miraze,,,
 Campaign,Regular,Edge of the Earth,Scenario,Ice and Death,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death,TRUE,Ice and Death,Eis und Tod,,Лед и смерть,Hielo y Muerte,De Glace et de Mort,Gelo e Morte,Lod i smierc,,,
-Campaign,Regular,Edge of the Earth,Scenario,Ice and Death; Part I,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death; Part I,,Ice and Death; Part I,,,,,,,,,,
-Campaign,Regular,Edge of the Earth,Scenario,Ice and Death; Part II,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death; Part II,,Ice and Death; Part II,,,,,,,,,,
-Campaign,Regular,Edge of the Earth,Scenario,Ice and Death; Part III,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death; Part III,,Ice and Death; Part III,,,,,,,,,,
+Campaign,Regular,Edge of the Earth,Scenario,Ice and Death; Part I,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death; Part I,TRUE,Ice and Death; Part I,,,,,,,,,,
+Campaign,Regular,Edge of the Earth,Scenario,Ice and Death; Part II,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death; Part II,TRUE,Ice and Death; Part II,,,,,,,,,,
+Campaign,Regular,Edge of the Earth,Scenario,Ice and Death; Part III,Campaign/Regular/Edge of the Earth/Scenario/Ice and Death; Part III,TRUE,Ice and Death; Part III,,,,,,,,,,
 Campaign,Regular,Edge of the Earth,Scenario,The Heart of Madness,Campaign/Regular/Edge of the Earth/Scenario/The Heart of Madness,TRUE,The Heart of Madness,Das Herz des Wahnsinns,,Сердце безумия,El Corazón de la Locura,Le Coeur de la Folie,O Coração da Loucura,Serce szalenstwa,,,
-Campaign,Regular,Edge of the Earth,Scenario,The Heart of Madness; Part I,Campaign/Regular/Edge of the Earth/Scenario/The Heart of Madness; Part I,,The Heart of Madness; Part I,,,,,,,,,,
-Campaign,Regular,Edge of the Earth,Scenario,The Heart of Madness; Part II,Campaign/Regular/Edge of the Earth/Scenario/The Heart of Madness; Part II,,The Heart of Madness; Part II,,,,,,,,,,
+Campaign,Regular,Edge of the Earth,Scenario,The Heart of Madness; Part I,Campaign/Regular/Edge of the Earth/Scenario/The Heart of Madness; Part I,TRUE,The Heart of Madness; Part I,,,,,,,,,,
+Campaign,Regular,Edge of the Earth,Scenario,The Heart of Madness; Part II,Campaign/Regular/Edge of the Earth/Scenario/The Heart of Madness; Part II,TRUE,The Heart of Madness; Part II,,,,,,,,,,
 Campaign,Regular,Edge of the Earth,Scenario,To the Forbidden Peaks,Campaign/Regular/Edge of the Earth/Scenario/To the Forbidden Peaks,TRUE,To the Forbidden Peaks,Zu den Verbotenen Gipfeln,,К запретным вершинам,Hacia los Picos Prohibidos,Vers les Sommets Interdits,Para os Picos Proibidos,Na zakazane szczyty,,,
 Campaign,Regular,Night of the Zealot,Scenario,The Devourer Below,Campaign/Regular/Night of the Zealot/Scenario/The Devourer Below,TRUE,The Devourer Below,Der Verschlinger aus der Tiefe,Il Divoratore Sotterraneo,Пожиратель из глубин,El Devorador de las Profundidades,Le Dévoreur du Dessous,O Devorador das Profundezas,Pozeracz z otchlani,Ničitel v zemi,ผู้กลืนกินจากเบื้องล่าง,A pusztító a mélyben
 Campaign,Regular,Night of the Zealot,Scenario,The Gathering,Campaign/Regular/Night of the Zealot/Scenario/The Gathering,TRUE,The Gathering,Die Zusammenkunft,L'Adunanza,Встреча,El Encuentro,Le Rassemblement,A Assembleia,Zgromadzenie,Shromáždění,การรวมตัว,Az összejövetel
@@ -246,8 +246,8 @@ Campaign,Regular,The Forgotten Age,Encounter,Serpents,Campaign/Regular/The Forgo
 Campaign,Regular,The Forgotten Age,Encounter,Temporal Flux,Campaign/Regular/The Forgotten Age/Encounter/Temporal Flux,TRUE,Temporal Flux,Zeitströmung,Flusso Temporale,Искажения времени,Flujo Temporal,Flux Temporel,,,,,Időfolyam
 Campaign,Regular,The Forgotten Age,Encounter,Yig's Venom,Campaign/Regular/The Forgotten Age/Encounter/Yig's Venom,TRUE,Yig's Venom,Yigs Gift,Veleno di Yig,Яд Йига,Ponzoña de Yig,Venin de Yig,,,,,Yig mérge
 Campaign,Regular,The Forgotten Age,Scenario,Heart of the Elders,Campaign/Regular/The Forgotten Age/Scenario/Heart of the Elders,TRUE,Heart of the Elders,Das Herz der Älteren,Cuore degli Antichi,Сердце древних,El Corazón de los Ancianos,Les Coeur des Anciens,,,,,Vének szíve
-Campaign,Regular,The Forgotten Age,Scenario,Heart of the Elders; Part 1,Campaign/Regular/The Forgotten Age/Scenario/Heart of the Elders; Part 1,,Heart of the Elders; Part 1,,,,,,,,,,
-Campaign,Regular,The Forgotten Age,Scenario,Heart of the Elders; Part 2,Campaign/Regular/The Forgotten Age/Scenario/Heart of the Elders; Part 2,,Heart of the Elders; Part 2,,,,,,,,,,
+Campaign,Regular,The Forgotten Age,Scenario,Heart of the Elders; Part 1,Campaign/Regular/The Forgotten Age/Scenario/Heart of the Elders; Part 1,TRUE,Heart of the Elders; Part 1,,,,,,,,,,
+Campaign,Regular,The Forgotten Age,Scenario,Heart of the Elders; Part 2,Campaign/Regular/The Forgotten Age/Scenario/Heart of the Elders; Part 2,TRUE,Heart of the Elders; Part 2,,,,,,,,,,
 Campaign,Regular,The Forgotten Age,Scenario,Shattered Aeons,Campaign/Regular/The Forgotten Age/Scenario/Shattered Aeons,TRUE,Shattered Aeons,Zestörte Zeitalter,Eoni Infranti,Расколотая вечность,Eones Destrozados,Paradoxes Temporels,,,,,Meghasadt korszakok
 Campaign,Regular,The Forgotten Age,Scenario,The Boundary Beyond,Campaign/Regular/The Forgotten Age/Scenario/The Boundary Beyond,TRUE,The Boundary Beyond,Die jenseitige Grenze,Oltre i Confini,Потусторонний предел,El Límite del Otro Lado,Par-delà les Limites,,,,,A túlsó határ
 Campaign,Regular,The Forgotten Age,Scenario,The City of Archives,Campaign/Regular/The Forgotten Age/Scenario/The City of Archives,TRUE,The City of Archives,Die Archivstadt,Città degli Archivi,Город архивов,La Ciudad de los Archivos,La Cité des Archives,,,,,A feljegyzések városa
@@ -361,8 +361,8 @@ Campaign,Return To,The Forgotten Age,Encounter,Return to the Rainforest,Campaign
 Campaign,Return To,The Forgotten Age,Encounter,Temporal Hunters,Campaign/Return To/The Forgotten Age/Encounter/Temporal Hunters,TRUE,Temporal Hunters,Jäger der Zeit,,,Cazadores temporales,Chasseurs Temporels,,,,,
 Campaign,Return To,The Forgotten Age,Encounter,Venomous Hate,Campaign/Return To/The Forgotten Age/Encounter/Venomous Hate,TRUE,Venomous Hate,Giftiger Hass,,,Odio ponzoñoso,Haine Venimeuse,,,,,
 Campaign,Return To,The Forgotten Age,Scenario,Return to Heart of the Elders,Campaign/Return To/The Forgotten Age/Scenario/Return to Heart of the Elders,TRUE,Return to Heart of the Elders,Rückkehr zu: Das Herz der Älteren,,,Regreso a El corazón de los ancianos,Renouveau - Le Coeur des Anciens,,,,,
-Campaign,Return To,The Forgotten Age,Scenario,Return to Heart of the Elders; Part 1,Campaign/Return To/The Forgotten Age/Scenario/Return to Heart of the Elders; Part 1,,Return to Heart of the Elders; Part 1,,,,,,,,,,
-Campaign,Return To,The Forgotten Age,Scenario,Return to Heart of the Elders; Part 2,Campaign/Return To/The Forgotten Age/Scenario/Return to Heart of the Elders; Part 2,,Return to Heart of the Elders; Part 2,,,,,,,,,,
+Campaign,Return To,The Forgotten Age,Scenario,Return to Heart of the Elders; Part 1,Campaign/Return To/The Forgotten Age/Scenario/Return to Heart of the Elders; Part 1,TRUE,Return to Heart of the Elders; Part 1,,,,,,,,,,
+Campaign,Return To,The Forgotten Age,Scenario,Return to Heart of the Elders; Part 2,Campaign/Return To/The Forgotten Age/Scenario/Return to Heart of the Elders; Part 2,TRUE,Return to Heart of the Elders; Part 2,,,,,,,,,,
 Campaign,Return To,The Forgotten Age,Scenario,Return to K'n-yan,Campaign/Return To/The Forgotten Age/Scenario/Return to K'n-yan,TRUE,Return to K'n-yan,Rückkehr zu: K'n-yan,,,Regreso a K'n-yan,Renouveau - K'n-yan,,,,,
 Campaign,Return To,The Forgotten Age,Scenario,Return to Pillars of Judgement,Campaign/Return To/The Forgotten Age/Scenario/Return to Pillars of Judgement,TRUE,Return to Pillars of Judgement,Rückkehr zu: Säulen des Urteils,,,Regreso a Columnas del juicio,Renouveau - Pilliers du Jugement,,,,,
 Campaign,Return To,The Forgotten Age,Scenario,Return to Shattered Aeons,Campaign/Return To/The Forgotten Age/Scenario/Return to Shattered Aeons,TRUE,Return to Shattered Aeons,Rückkehr zu: Zestörte Zeitalter,,,Regreso a Eones destrozados,Renouveau - Paradoxes Temporels,,,,,
@@ -386,27 +386,27 @@ Campaign,Return To,The Path to Carcosa,Scenario,Return to Echoes of the Past,Cam
 Campaign,Return To,The Path to Carcosa,Scenario,Return to The Last King,Campaign/Return To/The Path to Carcosa/Scenario/Return to The Last King,TRUE,Return to The Last King,Rückkehr zu: Der letzte König,,,Regreso a El Último Rey,Renouveau - Le Dernier Roi,,,,,
 Campaign,Return To,The Path to Carcosa,Scenario,Return to The Pallid Mask,Campaign/Return To/The Path to Carcosa/Scenario/Return to The Pallid Mask,TRUE,Return to The Pallid Mask,Rückkehr zu: Die bleiche Maske,,,Regreso a La Máscara Pálida,Renouveau - Le Masque Blême,,,,,
 Campaign,Return To,The Path to Carcosa,Scenario,Return to The Unspeakable Oath,Campaign/Return To/The Path to Carcosa/Scenario/Return to The Unspeakable Oath,TRUE,Return to The Unspeakable Oath,Rückkehr zu: Der unaussprechliche Eid,,,Regreso a El Juramento Inconfesable,Renouveau - Le Serment Indicible,,,,,
-Campaign,Small,Children of Blood,Encounter,Afflicted,Campaign/Small/Children of Blood/Encounter/Afflicted,,Afflicted,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Agents of Zburamoarte,Campaign/Small/Children of Blood/Encounter/Agents of Zburamoarte,,Agents of Zburamoarte,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Blood Blight,Campaign/Small/Children of Blood/Encounter/Blood Blight,,Blood Blight,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Blood Moon,Campaign/Small/Children of Blood/Encounter/Blood Moon,,Blood Moon,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Bloodthirst,Campaign/Small/Children of Blood/Encounter/Bloodthirst,,Bloodthirst,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Children of Blood,Campaign/Small/Children of Blood/Encounter/Children of Blood,,Children of Blood,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Friends in Low Places,Campaign/Small/Children of Blood/Encounter/Friends in Low Places,,Friends in Low Places,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Hunted,Campaign/Small/Children of Blood/Encounter/Hunted,,Hunted,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Infected,Campaign/Small/Children of Blood/Encounter/Infected,,Infected,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Misinformation,Campaign/Small/Children of Blood/Encounter/Misinformation,,Misinformation,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Mongrels,Campaign/Small/Children of Blood/Encounter/Mongrels,,Mongrels,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Preyed Upon,Campaign/Small/Children of Blood/Encounter/Preyed Upon,,Preyed Upon,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Sanguine Secrets,Campaign/Small/Children of Blood/Encounter/Sanguine Secrets,,Sanguine Secrets,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Stalked,Campaign/Small/Children of Blood/Encounter/Stalked,,Stalked,,,,,,,,,,
-Campaign,Small,Children of Blood,Encounter,Vermin,Campaign/Small/Children of Blood/Encounter/Vermin,,Vermin,,,,,,,,,,
-Campaign,Small,Children of Blood,Scenario,Blood Money,Campaign/Small/Children of Blood/Scenario/Blood Money,,Blood Money,,,,,,,,,,
-Campaign,Small,Children of Blood,Scenario,New Horizons,Campaign/Small/Children of Blood/Scenario/New Horizons,,New Horizons,,,,,,,,,,
-Campaign,Small,Children of Blood,Scenario,River of Blood,Campaign/Small/Children of Blood/Scenario/River of Blood,,River of Blood,,,,,,,,,,
-Campaign Name,Brethren of Ash,,,,Campaign Name/Brethren of Ash,,Brethren of Ash,,La Confraternita delle Ceneri,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Afflicted,Campaign/Small/Children of Blood/Encounter/Afflicted,TRUE,Afflicted,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Agents of Zburamoarte,Campaign/Small/Children of Blood/Encounter/Agents of Zburamoarte,TRUE,Agents of Zburamoarte,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Blood Blight,Campaign/Small/Children of Blood/Encounter/Blood Blight,TRUE,Blood Blight,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Blood Moon,Campaign/Small/Children of Blood/Encounter/Blood Moon,TRUE,Blood Moon,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Bloodthirst,Campaign/Small/Children of Blood/Encounter/Bloodthirst,TRUE,Bloodthirst,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Children of Blood,Campaign/Small/Children of Blood/Encounter/Children of Blood,TRUE,Children of Blood,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Friends in Low Places,Campaign/Small/Children of Blood/Encounter/Friends in Low Places,TRUE,Friends in Low Places,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Hunted,Campaign/Small/Children of Blood/Encounter/Hunted,TRUE,Hunted,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Infected,Campaign/Small/Children of Blood/Encounter/Infected,TRUE,Infected,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Misinformation,Campaign/Small/Children of Blood/Encounter/Misinformation,TRUE,Misinformation,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Mongrels,Campaign/Small/Children of Blood/Encounter/Mongrels,TRUE,Mongrels,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Preyed Upon,Campaign/Small/Children of Blood/Encounter/Preyed Upon,TRUE,Preyed Upon,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Sanguine Secrets,Campaign/Small/Children of Blood/Encounter/Sanguine Secrets,TRUE,Sanguine Secrets,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Stalked,Campaign/Small/Children of Blood/Encounter/Stalked,TRUE,Stalked,,,,,,,,,,
+Campaign,Small,Children of Blood,Encounter,Vermin,Campaign/Small/Children of Blood/Encounter/Vermin,TRUE,Vermin,,,,,,,,,,
+Campaign,Small,Children of Blood,Scenario,Blood Money,Campaign/Small/Children of Blood/Scenario/Blood Money,TRUE,Blood Money,,,,,,,,,,
+Campaign,Small,Children of Blood,Scenario,New Horizons,Campaign/Small/Children of Blood/Scenario/New Horizons,TRUE,New Horizons,,,,,,,,,,
+Campaign,Small,Children of Blood,Scenario,River of Blood,Campaign/Small/Children of Blood/Scenario/River of Blood,TRUE,River of Blood,,,,,,,,,,
+Campaign Name,Brethren of Ash,,,,Campaign Name/Brethren of Ash,TRUE,Brethren of Ash,,La Confraternita delle Ceneri,,,,,,,,
 Campaign Name,Challenge Scenario,,,,Campaign Name/Challenge Scenario,TRUE,Challenge Scenario,Herausforderungs Szenario,,,Escenario Desafío,,,,,,
-Campaign Name,Children of Blood,,,,Campaign Name/Children of Blood,,Children of Blood,,,,,,,,,,
+Campaign Name,Children of Blood,,,,Campaign Name/Children of Blood,TRUE,Children of Blood,,,,,,,,,,
 Campaign Name,Core Set,,,,Campaign Name/Core Set,TRUE,Core Set,Grundspiel,Scatola Base,База,Caja Básica,Boîte de Base,Core Set,Podstawka,Core Set,กล่องหลัก,Alapszett
 Campaign Name,Custom,Alice in Wonderland,,,Campaign Name/Custom/Alice in Wonderland,TRUE,Alice in Wonderland,,,,,,,,,,
 Campaign Name,Custom,Cyclopean Foundations,,,Campaign Name/Custom/Cyclopean Foundations,TRUE,Cyclopean Foundations,,,,,,,,,,
@@ -432,21 +432,21 @@ Campaign Name,The Scarlet Keys,,,,Campaign Name/The Scarlet Keys,TRUE,The Scarle
 Challenge Scenario Name,All or Nothing,,,,Challenge Scenario Name/All or Nothing,TRUE,All or Nothing,Alles oder nichts,,,Todo o Nada,,,,,,
 Challenge Scenario Name,Bad Blood,,,,Challenge Scenario Name/Bad Blood,TRUE,Bad Blood,Böses Blut,,,Mala Sangre,,,,,,
 Challenge Scenario Name,By the Book,,,,Challenge Scenario Name/By the Book,TRUE,By the Book,Streng nach Vorschrift,,,Siguiendo el Procedimiento,,,,Podle předpisů,,
-Challenge Scenario Name,Enthralling Encore,,,,Challenge Scenario Name/Enthralling Encore,,Enthralling Encore,,,,,,,,,,
+Challenge Scenario Name,Enthralling Encore,,,,Challenge Scenario Name/Enthralling Encore,TRUE,Enthralling Encore,,,,,,,,,,
 Challenge Scenario Name,Laid to Rest,,,,Challenge Scenario Name/Laid to Rest,TRUE,Laid to Rest,Zur Ruhe gebettet,,,Reposo eterno,,,,,,
 Challenge Scenario Name,Read or Die,,,,Challenge Scenario Name/Read or Die,TRUE,Read or Die,Lies oder Stirb,,,Lee o Muere,,,,,,
 Challenge Scenario Name,Red Tide Rising,,,,Challenge Scenario Name/Red Tide Rising,TRUE,Red Tide Rising,Die Rote Flut,,,Sube la Marea Roja,,,,,,
 Challenge Scenario Name,Relics of the Past,,,,Challenge Scenario Name/Relics of the Past,TRUE,Relics of the Past,,,,Reliquias del pasado,,,,,,
-Custom,Boon,,,,Custom/Boon,,Boon,,,,Beneficio,,,,,,
-Custom,Refraction,,,,Custom/Refraction,,Refraction,,,,Refracción,,,,,,
-Custom,Ultimatum,,,,Custom/Ultimatum,,Ultimatum,,,,Ultimátum,,,,,,
+Custom,Boon,,,,Custom/Boon,TRUE,Boon,,,,Beneficio,,,,,,
+Custom,Refraction,,,,Custom/Refraction,TRUE,Refraction,,,,Refracción,,,,,,
+Custom,Ultimatum,,,,Custom/Ultimatum,TRUE,Ultimatum,,,,Ultimátum,,,,,,
 Deckbuilding Expansion,Power of the Dreamlands,,,,Deckbuilding Expansion/Power of the Dreamlands,,Power of the Dreamlands,,,,,,,,,,
-Game,Terms,Random Basic Weakness,,,Game/Terms/Random Basic Weakness,,Random Basic Weakness,,,,,,,,,,
-Investigator Deck,André Patel,,,,Investigator Deck/André Patel,,André Patel,,,,,,,,,,
-Investigator Deck,Carolyn Fern,,,,Investigator Deck/Carolyn Fern,,Carolyn Fern,,,,,,,,,,
-Investigator Deck,Marie Lambeau,,,,Investigator Deck/Marie Lambeau,,Marie Lambeau,,,,,,,,,,
-Investigator Deck,Miguel de la Cruz,,,,Investigator Deck/Miguel de la Cruz,,Miguel de la Cruz,,,,,,,,,,
-Investigator Deck,Tommy Muldoon,,,,Investigator Deck/Tommy Muldoon,,Tommy Muldoon,,,,,,,,,,
+Game,Terms,Random Basic Weakness,,,Game/Terms/Random Basic Weakness,TRUE,Random Basic Weakness,,,,,,,,,,
+Investigator Deck,André Patel,,,,Investigator Deck/André Patel,TRUE,André Patel,,,,,,,,,,
+Investigator Deck,Carolyn Fern,,,,Investigator Deck/Carolyn Fern,TRUE,Carolyn Fern,,,,,,,,,,
+Investigator Deck,Marie Lambeau,,,,Investigator Deck/Marie Lambeau,TRUE,Marie Lambeau,,,,,,,,,,
+Investigator Deck,Miguel de la Cruz,,,,Investigator Deck/Miguel de la Cruz,TRUE,Miguel de la Cruz,,,,,,,,,,
+Investigator Deck,Tommy Muldoon,,,,Investigator Deck/Tommy Muldoon,TRUE,Tommy Muldoon,,,,,,,,,,
 Investigator Starter Decks,Harvey Walters,,,,Investigator Starter Decks/Harvey Walters,TRUE,Harvey Walters,Harvey Walters,,Харви Уолтерс,Harvey Walters,,,,Harvey Walters,,Harvey Walters
 Investigator Starter Decks,Jacqueline Fine,,,,Investigator Starter Decks/Jacqueline Fine,TRUE,Jacqueline Fine,Jaqueline Fine,,Жаклин Файн,Jacqueline Fine,,,,Jacqueline Finová,,Jacqueline Fine
 Investigator Starter Decks,Nathaniel Cho,,,,Investigator Starter Decks/Nathaniel Cho,TRUE,Nathaniel Cho,Nathaniel Cho,,Натаниэль Чо,Nathaniel Cho,,,,Nathaniel Cho,,Nathaniel Cho
@@ -455,6 +455,8 @@ Investigator Starter Decks,Winifred Habbamock,,,,Investigator Starter Decks/Wini
 Player,Card Level,Lv. 0,,,Player/Card Level/Lv. 0,TRUE,Lv. 0,St. 0,Liv. 0,Ур. 0,Nvl. 0,Niv. 0,Nv. 0,poziom 0,Lv. 0,ระดับ 0,0. Szint
 Player,Card Level,Lv. 1,,,Player/Card Level/Lv. 1,TRUE,Lv. 1,St. 1,Liv. 1,Ур. 1,Nvl. 1,Niv. 1,Nv. 1,poziom 1,Lv. 1,ระดับ 1,1. Szint
 Player,Card Level,Lv. 1 ~ 5,,,Player/Card Level/Lv. 1 ~ 5,TRUE,Lv. 1 ~ 5,St. 1 ~ 5,Liv. 1 ~ 5,Ур. 1-5,Nvl. 1 ~ 5,Niv. 1 ~ 5,Nv. 1 ~ 5,poziom 1 ~ 5,Lv. 1 ~ 5,ระดับ 1~5,1-5. Szint
+Player,Card Level,Lv. 1 ~ 2,,,Player/Card Level/Lv. 1 ~ 2,TRUE,Lv. 1 ~ 2,St. 1 ~ 2,Liv. 1 ~ 2,Ур. 1-2,Nvl. 1 ~ 2,Niv. 1 ~ 2,Nv. 1 ~ 2,poziom 1 ~ 2,Lv. 1 ~ 2,ระดับ 1~2,1-2. Szint
+Player,Card Level,Lv. 3 ~ 5,,,Player/Card Level/Lv. 3 ~ 5,TRUE,Lv. 3 ~ 5,St. 3 ~ 5,Liv. 3 ~ 5,Ур. 3-5,Nvl. 3 ~ 5,Niv. 3 ~ 5,Nv. 3 ~ 5,poziom 3 ~ 5,Lv. 3 ~ 5,ระดับ 3~5,3-5. Szint
 Player,Card Level,Lv. 2,,,Player/Card Level/Lv. 2,TRUE,Lv. 2,St. 2,Liv. 2,Ур. 2,Nvl. 2,Niv. 2,Nv. 2,poziom 2,Lv. 2,ระดับ 2,2. Szint
 Player,Card Level,Lv. 3,,,Player/Card Level/Lv. 3,TRUE,Lv. 3,St. 3,Liv. 3,Ур. 3,Nvl. 3,Niv. 3,Nv. 3,poziom 3,Lv. 3,ระดับ 3,3. Szint
 Player,Card Level,Lv. 4,,,Player/Card Level/Lv. 4,TRUE,Lv. 4,St. 4,Liv. 4,Ур. 4,Nvl. 4,Niv. 4,Nv. 4,poziom 4,Lv. 4,ระดับ 4,4. Szint
@@ -469,8 +471,8 @@ Player,Category,Investigators,,,Player/Category/Investigators,TRUE,Investigators
 Player,Category,Novella,,,Player/Category/Novella,TRUE,Novella,Roman,Novella,,Novela,Nouvelle,,,Novella,,Novella
 Player,Category,Parallel Investigator,,,Player/Category/Parallel Investigator,TRUE,Parallel Investigator,Parallele Ermittler,Investigatore Parallelo,,Investigador Paralelo,Investigateur Parallèle,Investigador Paralelo,,Paralelní vyšetřovatel,นักสืบโลกคู่ขนาน,Párhuzamos nyomozók
 Player,Category,Permanent,,,Player/Category/Permanent,TRUE,Permanent,Dauerhaft,Permanente,Постоянный,Permanente,Permanent,,Trwala,Permanentní,ถาวร,Állandó
-Player,Category,Player Reference Card,,,Player/Category/Player Reference Card,,Player Reference Card,,,,,,,,,,
-Player,Category,Promotional,,,Player/Category/Promotional,,Promotional,,,,,,,,,,
+Player,Category,Player Reference Card,,,Player/Category/Player Reference Card,TRUE,Player Reference Card,,,,,,,,,,
+Player,Category,Promotional,,,Player/Category/Promotional,TRUE,Promotional,,,,,,,,,,
 Player,Category,Proxy,,,Player/Category/Proxy,TRUE,Proxy,,,,,Substituts,,,Proxy,,Módosított
 Player,Category,Reward,,,Player/Category/Reward,TRUE,Reward,,,награда,,,,,,,
 Player,Category,Specialist,,,Player/Category/Specialist,TRUE,Specialist,,,,,,,,,,Szakértő
@@ -483,13 +485,13 @@ Player,Class,Neutral,,,Player/Class/Neutral,TRUE,Neutral,Neutral,Neutrale,Ней
 Player,Class,Rogue,,,Player/Class/Rogue,TRUE,Rogue,Schurke,Canaglia,Ловкач,Rebelde,Truand,Ladino,Lotr,Samotář,ผู้มีเล่ห์กล,Zsivány
 Player,Class,Seeker,,,Player/Class/Seeker,TRUE,Seeker,Sucher,Studioso,Искатель,Buscador,Chercheur,Buscador,Poszukiwacz,Hledač,ผู้แสวงหา,Kutató
 Player,Class,Survivor,,,Player/Class/Survivor,TRUE,Survivor,Überlebender,Sopravvissuto,Выживший,Superviviente,Survivant,Sobrevivente,Ocalaly,Přeživší,ผู้รอดชีวิต,Túlélő
-Player,Core Special Category,Broken Bottle,,,Player/Core Special Category/Broken Bottle,,Broken Bottle,,,,,,,,,,
+Player,Core Special Category,Broken Bottle,,,Player/Core Special Category/Broken Bottle,TRUE,Broken Bottle,,,,,,,,,,
 Player,Core Special Category,Emergency Cache,,,Player/Core Special Category/Emergency Cache,TRUE,Emergency Cache,,,,Alijo de emergencia,,,,,ของใช้ยามฉุกเฉิน,
 Player,Core Special Category,Flashlight,,,Player/Core Special Category/Flashlight,TRUE,Flashlight,,,,Linterna,,,,,ไฟฉาย,
-Player,Core Special Category,Hand-Crank Flashlight,,,Player/Core Special Category/Hand-Crank Flashlight,,Hand-Crank Flashlight,,,,,,,,,,
+Player,Core Special Category,Hand-Crank Flashlight,,,Player/Core Special Category/Hand-Crank Flashlight,TRUE,Hand-Crank Flashlight,,,,,,,,,,
 Player,Core Special Category,Knife,,,Player/Core Special Category/Knife,TRUE,Knife,,,,Cuchillo,,,,,มีด,
 Player,Core Special Category,Neutral Skill,,,Player/Core Special Category/Neutral Skill,TRUE,Neutral Skill,,,,,,,,,ทักษะทั่วไป,
-Player,Deck Divider,Deck,,,Player/Deck Divider/Deck,,Deck,Deck,Mazzo,Колода,Mazo,Deck,Deck,Talia,Balíček,เด็ค,Pakli
+Player,Deck Divider,Deck,,,Player/Deck Divider/Deck,TRUE,Deck,Deck,Mazzo,Колода,Mazo,Deck,Deck,Talia,Balíček,เด็ค,Pakli
 Player,Deck Divider,Deck 1,,,Player/Deck Divider/Deck 1,TRUE,Deck 1,Deck 1,Mazzo 1,Колода 1,Mazo 1,Deck 1,Deck 1,Talia 1,Balíček 1,เด็ค 1,1. Pakli
 Player,Deck Divider,Deck 2,,,Player/Deck Divider/Deck 2,TRUE,Deck 2,Deck 2,Mazzo 2,Колода 2,Mazo 2,Deck 2,Deck 2,Talia 2,Balíček 2,เด็ค 2,2. Pakli
 Player,Deck Divider,Deck 3,,,Player/Deck Divider/Deck 3,TRUE,Deck 3,Deck 3,Mazzo 3,Колода 3,Mazo 3,Deck 3,Deck 3,Talia 3,Balíček 3,เด็ค 3,3. Pakli
@@ -504,7 +506,7 @@ Player,Slot Requirement,2 Hand Slots,,,Player/Slot Requirement/2 Hand Slots,TRUE
 Player,Slot Requirement,Accessory Slot,,,Player/Slot Requirement/Accessory Slot,TRUE,Accessory Slot,1 Zubehörslot,Slot Accessori,,,Emplacement d'Accessoire,,strefa drobiazgu,Místo pro doplňky,ช่องเครื่องประดับ,Tartozék férőhely
 Player,Slot Requirement,Ally Slot,,,Player/Slot Requirement/Ally Slot,TRUE,Ally Slot,1 Verbündeter-Slot,Slot Alleato,,,Emplacement d'Allié,,strefa sprzymierzenca,Místo pro spojence,ช่องพรรคพวก,Társ férőhely
 Player,Slot Requirement,Body Slot,,,Player/Slot Requirement/Body Slot,TRUE,Body Slot,1 Körperslot,Slot Corpo,,,Emplacement de Corps,,strefa ciala,Místo na těle,ช่องลำตัว,Test férőhely
-Player,Slot Requirement,Head Slot,,,Player/Slot Requirement/Head Slot,,Head Slot,,,,,,,,,,
+Player,Slot Requirement,Head Slot,,,Player/Slot Requirement/Head Slot,TRUE,Head Slot,,,,,,,,,,
 Player,Slot Requirement,Other,,,Player/Slot Requirement/Other,TRUE,Other,,Altro,,,Autre Emplacement,,inne,Ostatní,อื่นๆ,Egyéb
 Player,Slot Requirement,Tarot Slot,,,Player/Slot Requirement/Tarot Slot,TRUE,Tarot Slot,1 Tarotslot,Slot Tarocco,,,Emplacement de Tarot,,,Tarotový slot,ช่องทาโรต์,Tarot férőhely
 Product,Core,Core Set,,,Product/Core/Core Set,,Core Set,Grundspiel,Scatola Base,База,Caja Básica,Boîte de Base,Core Set,Podstawka,Core Set,กล่องหลัก,Alapszett
@@ -546,6 +548,8 @@ Standalone Scenario,The Blob That Ate Everything Else,The Blob That Ate Everythi
 Standalone Scenario,The Labyrinths of Lunacy,Epic Multiplayer,,,Standalone Scenario/The Labyrinths of Lunacy/Epic Multiplayer,TRUE,Epic Multiplayer,Epischer Mehrspielermodus,,,Multijugador Épico,Multijoueur Épique,,,,,
 Standalone Scenario,The Labyrinths of Lunacy,Single Group,,,Standalone Scenario/The Labyrinths of Lunacy/Single Group,TRUE,Single Group,Einzelspielermodus,,,Grupo Único,Groupe Unique,,,,,
 Standalone Scenario,The Midwinter Gala,The Midwinter Gala,,,Standalone Scenario/The Midwinter Gala/The Midwinter Gala,TRUE,The Midwinter Gala,Die Mittwinter-Gala,,,La gala del ecuador del invierno,Gala au Cœur de l'Hiver,,,,,
+Standalone Scenario,Traces to Nowhere,Dimensional Madness,,,Standalone Scenario/Traces to Nowhere/Dimensional Madness,TRUE,Dimensional Madness,,,,,,,,,,
+Standalone Scenario,Traces to Nowhere,Traces to Nowhere,,,Standalone Scenario/Traces to Nowhere/Traces to Nowhere,TRUE,Traces to Nowhere,,,,,,,,,,
 Standalone Scenario,War of the Outer Gods,Children of Paradise,,,Standalone Scenario/War of the Outer Gods/Children of Paradise,TRUE,Children of Paradise,Kinder des Paradieses,,Дети Рая,Hijos del Paraíso,Les Enfants du Paradis,,,,,
 Standalone Scenario,War of the Outer Gods,Death of Stars,,,Standalone Scenario/War of the Outer Gods/Death of Stars,TRUE,Death of Stars,Der Tod der Sterne,,Смерть звёзд,Muerte de las Estrellas,La Mort des Étoiles,,,,,
 Standalone Scenario,War of the Outer Gods,Swarm of Assimilation,,,Standalone Scenario/War of the Outer Gods/Swarm of Assimilation,TRUE,Swarm of Assimilation,Assimilierender Schwarm,,Поглощающий рой,Enjambre de Asimilación,La Nuée de l'Assimilation,,,,,
@@ -561,5 +565,5 @@ Standalone Scenario Name,The Blob That Ate Everything,,,,Standalone Scenario Nam
 Standalone Scenario Name,The Blob That Ate Everything ELSE!,,,,Standalone Scenario Name/The Blob That Ate Everything ELSE!,TRUE,The Blob That Ate Everything ELSE!,,,,La masa que devoraba todo ¡LO DEMÁS!,Le Dévoreur de Toute Chose... et du RESTE,,,,,
 Standalone Scenario Name,The Labyrinths of Lunacy,,,,Standalone Scenario Name/The Labyrinths of Lunacy,TRUE,The Labyrinths of Lunacy,Die Labyrinthe des Irrsinns,I Labirinti della Follia,Лабиринты безумия,Los laberintos de la demencia,Les Labyrinthes de la Folie,,,,,
 Standalone Scenario Name,The Midwinter Gala,,,,Standalone Scenario Name/The Midwinter Gala,TRUE,The Midwinter Gala,Die Mittwinter-Gala,,,La gala del ecuador del invierno,Gala au Cœur de l'Hiver,,,,,
-Standalone Scenario Name,Traces to Nowhere,,,,Standalone Scenario Name/Traces to Nowhere,,Traces to Nowhere,,,,,,,,,,
+Standalone Scenario Name,Traces to Nowhere,,,,Standalone Scenario Name/Traces to Nowhere,TRUE,Traces to Nowhere,,,,,,,,,,
 Standalone Scenario Name,War of the Outer Gods,,,,Standalone Scenario Name/War of the Outer Gods,TRUE,War of the Outer Gods,Krieg der Äußeren Götter,La Guerra degli Dei Esterni,Война внешних богов,Guerra de los Dioses Exteriores,La Guerre des Dieux Extérieurs,,,,,

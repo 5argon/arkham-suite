@@ -41,6 +41,7 @@ import {
   standaloneScenarioNameTheBlobThatAteEverythingELSE,
   productCoreCoreSet2026,
   standaloneScenarioNameFilmFatale,
+  standaloneScenarioNameTracesToNowhere,
   gameTermsRandomBasicWeakness,
   investigatorDeckTommyMuldoon,
   investigatorDeckCarolynFern,
@@ -186,6 +187,8 @@ export function productName(product: Product, removeExpansionSuffix?: boolean): 
       return standaloneScenarioNameTheMidwinterGala();
     case Product.FilmFatale:
       return standaloneScenarioNameFilmFatale();
+    case Product.TracesToNowhere:
+      return standaloneScenarioNameTracesToNowhere();
 
     case Product.ParallelInvestigators:
       return playerCategoryParallelInvestigator();

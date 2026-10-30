@@ -89,6 +89,8 @@
         return import("../individual/svelte/FortuneAndFolly.svelte");
       case Product.FilmFatale:
         return import("../individual/svelte/FilmFatale.svelte");
+      case Product.TracesToNowhere:
+        return import("../individual/svelte/TracesToNowherePack.svelte");
       case Product.TheMidwinterGala:
         return import("../individual/svelte/Gala.svelte");
       case Product.ParallelInvestigators:

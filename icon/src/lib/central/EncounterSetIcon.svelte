@@ -647,6 +647,10 @@
         return import("../individual/svelte/FilmFatale.svelte");
       case EncounterSet.ForgottenIsland:
         return import("../individual/svelte/ForgottenIsland.svelte");
+      case EncounterSet.DimensionalMadness:
+        return import("../individual/svelte/DimensionalMadness.svelte");
+      case EncounterSet.TracesToNowhere:
+        return import("../individual/svelte/TracesToNowhere.svelte");
       case EncounterSet.FortuneAndFolly:
         return import("../individual/svelte/FortuneAndFolly.svelte");
       case EncounterSet.FortunesChosen:
