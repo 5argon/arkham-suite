@@ -48,11 +48,18 @@
 			}
 		}
 		const out: Group[] = [];
-		for (const s of findUniqueScenarios(campaign)) {
+		const scenarios = findUniqueScenarios(campaign);
+		for (const s of scenarios) {
 			const code = s.kohakuScenario as string;
 			const items = byScenario.get(code);
 			if (items) {
-				out.push({ key: code, title: makeLongScenarioName(s), items });
+				// Variants of one scenario (e.g. Obsidian Canyons West / East) share
+				// its achievements, so the group takes the scenario's own name.
+				const variants = scenarios.filter((x) => x.kohakuScenario === s.kohakuScenario);
+				const title = makeLongScenarioName(
+					variants.length > 1 ? { ...s, overrideName: undefined, shortName: undefined } : s
+				);
+				out.push({ key: code, title, items });
 				byScenario.delete(code);
 			}
 		}
