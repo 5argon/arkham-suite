@@ -1,5 +1,5 @@
 import { type Scenario } from '$lib/core/campaign';
-import { ChaosToken, EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import { ChaosToken, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfYogSothoth,
@@ -98,7 +98,7 @@ export const theHouseAlwaysWinsScenario: Scenario = {
 			}
 		]
 	},
-	extraInfo: {	
+	extraInfo: {
 		back: [
 			{
 				image: 'dwl/dwl-2-b.webp'

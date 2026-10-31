@@ -1,6 +1,6 @@
 import type { Scenario } from '$lib/core/campaign';
 
-import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import { Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 import { m } from '@5argon/arkham-string';
 import {
 	agentsOfYogSothoth,

@@ -1,9 +1,5 @@
 import { type Scenario } from '$lib/core/campaign';
-import {
-	ChaosToken,
-	EncounterSet as KohakuEncounterSet,
-	Scenario as KohakuScenario
-} from '@5argon/arkham-kohaku';
+import { ChaosToken, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfHastur,

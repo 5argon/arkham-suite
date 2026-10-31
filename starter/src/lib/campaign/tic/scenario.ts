@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { EncounterSet as KohakuEncounterSet, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import { Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfCthulhu,
