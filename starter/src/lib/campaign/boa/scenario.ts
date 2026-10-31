@@ -85,7 +85,7 @@ export const smokeAndMirrorsScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: smokeAndMirrors,
-				what: 'Each **Mark of Elokoss** is set aside, out of play. **Servant of Flame** is dealt beneath a location with **People of Arkham**.'
+				what: '**Servant of Flame** is dealt beneath a location with **People of Arkham**.'
 			},
 			{
 				encounterSet: peopleOfArkham,
@@ -94,6 +94,9 @@ export const smokeAndMirrorsScenario: Scenario = {
 			{
 				encounterSet: arkham,
 				what: 'Choose 1 of each **Downtown** and **Uptown** at random. **Miskatonic University** version depends on the campaign log.'
+			},
+			{
+				what: 'Place doom on the agenda equal to the number of investigators, plus 1 more if *the investigators saved Miskatonic University*.'
 			}
 		]
 	}
@@ -104,6 +107,7 @@ export const queenOfAshScenario: Scenario = {
 	shortName: 'III',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: queenOfAsh, overwriteCount: 2 },
 				ashenPilgrims,
@@ -114,7 +118,12 @@ export const queenOfAshScenario: Scenario = {
 				reekingDecay,
 				torment
 			],
-			remaining: [sewers]
+			remaining: [sewers],
+			notes: [
+				{
+					what: 'If *the investigators stirred up trouble*, shuffle each **Cultist** enemy from **Ashen Pilgrims** and **Cultists**, and put 1 [per_investigator] of them into play, each at a different **Sewer Tunnels**. The encounter deck has 1 [per_investigator] fewer cards.'
+				}
+			]
 		}
 	],
 	commonSetup: {
@@ -132,18 +141,14 @@ export const queenOfAshScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: queenOfAsh,
-				what: 'Only 2x **Ashen Rebirth** enter the encounter deck. Both **Collector**, **Elokoss**, **Queen’s Knight**, and **Herald of Flame** are set aside, out of play. **Servant of Flame** is set aside, or removed if the investigators killed it.'
+				what: 'Only 2x **Ashen Rebirth** enter the encounter deck.'
 			},
 			{
 				encounterSet: fire,
 				what: 'All 5 copies of **Fire!** are set aside, out of play. Only 2x **Noxious Smoke** enter the encounter deck.'
 			},
 			{
-				encounterSet: sewers,
-				what: 'Each location is put into play unrevealed. **Sluice Control** is set aside, out of play.'
-			},
-			{
-				what: 'If the investigators stirred up trouble: shuffle each **Cultist** enemy from **Ashen Pilgrims** and **Cultists**, and put 1 [per_investigator] of them into play, each at a different **Sewer Tunnels**.'
+				what: 'Place 1 doom on the agenda if there are 3 or 4 investigators, plus 1 more unless *the investigators discovered the cult’s whereabouts*.'
 			}
 		]
 	}
