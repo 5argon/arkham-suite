@@ -356,6 +356,12 @@ export const unionAndDisillusionScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+X',
+				condition: 'If *X heretics were unleashed unto Arkham*'
+			}
+		],
 		specialGather: [
 			{
 				encounterSet: theWitchingHour,
@@ -367,9 +373,6 @@ export const unionAndDisillusionScenario: Scenario = {
 			}
 		],
 		notes: [
-			{
-				what: 'For each heretic that was unleashed unto Arkham, place 1 doom on agenda 1a.'
-			},
 			{
 				what: 'If *the investigators sided with the coven*, the braziers at **Forbidding Shore** and both **Unvisited Isle** in play start lit. Place 1 resource on each of them.'
 			},
@@ -817,6 +820,12 @@ export const returnToUnionAndDisillusionScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+X',
+				condition: 'If *X heretics were unleashed unto Arkham*'
+			}
+		],
 		specialGather: [
 			{
 				encounterSet: theWitchingHour,
@@ -828,9 +837,6 @@ export const returnToUnionAndDisillusionScenario: Scenario = {
 			}
 		],
 		notes: [
-			{
-				what: 'For each heretic that was unleashed unto Arkham, place 1 doom on agenda 1a.'
-			},
 			{
 				what: 'If *the investigators sided with the coven*, the braziers at **Forbidding Shore** and both **Unvisited Isle** in play start lit. Place 1 resource on each of them.'
 			},

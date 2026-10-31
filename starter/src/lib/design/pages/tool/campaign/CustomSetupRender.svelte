@@ -103,7 +103,7 @@
 {/snippet}
 
 <ul class="custom">
-	{#if setup.addBasicWeakness !== undefined || setup.addChaosToken !== undefined || setup.addChaosTokenPerDifficulty !== undefined || setup.addChaosTokenConditional !== undefined}
+	{#if setup.addBasicWeakness !== undefined || setup.addChaosToken !== undefined || setup.addChaosTokenPerDifficulty !== undefined || setup.addChaosTokenConditional !== undefined || setup.startingDoom !== undefined}
 		{#if !notCommon}
 			<div class="my-1">
 				<FaIcon duotone icon={FaIconType.SetupReferenceSetupChanges} />
@@ -167,6 +167,29 @@
 								<span class="text-primary-500 dark:text-primary-300"
 									>{@html parseArkhamMarkup(c.condition)}</span
 								>
+							</div>
+						{/each}
+					</div>
+				{/if}
+			{/snippet}
+
+			{#if setup.startingDoom !== undefined}
+				{@render levelTwo('Starting Doom', startingDoomContent)}
+			{/if}
+
+			{#snippet startingDoomContent()}
+				{#if setup.startingDoom !== undefined}
+					<div class="flex flex-col gap-1">
+						{#each setup.startingDoom as d, i (i)}
+							<div class="flex items-baseline gap-2">
+								<span class="shrink-0 text-primary-700 dark:text-primary-300"
+									>{@html parseArkhamMarkup(d.amount)}</span
+								>
+								{#if d.condition !== undefined}
+									<span class="text-primary-500 dark:text-primary-300"
+										>{@html parseArkhamMarkup(d.condition)}</span
+									>
+								{/if}
 							</div>
 						{/each}
 					</div>

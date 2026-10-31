@@ -242,6 +242,16 @@ export const aLightInTheFogScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'If *the investigators reached Falcon Point after sunrise*'
+			},
+			{
+				amount: '+1',
+				condition: 'If *the tide has grown stronger*'
+			}
+		],
 		notes: [
 			{
 				encounterSet: aLightInTheFog,

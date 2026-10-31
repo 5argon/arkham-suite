@@ -159,6 +159,20 @@ export const theDevourerBelowScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: '1 or 2 *Cultists Who Got Away*'
+			},
+			{
+				amount: '+2',
+				condition: '3 or 4 *Cultists Who Got Away*'
+			},
+			{
+				amount: '+3',
+				condition: '5 or 6 *Cultists Who Got Away*'
+			}
+		],
 		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
@@ -326,6 +340,20 @@ export const returnToTheDevourerBelowScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: '1 or 2 *Cultists Who Got Away*'
+			},
+			{
+				amount: '+2',
+				condition: '3 or 4 *Cultists Who Got Away*'
+			},
+			{
+				amount: '+3',
+				condition: '5 or 6 *Cultists Who Got Away*'
+			}
+		],
 		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{

@@ -81,6 +81,12 @@ export const deadHeatScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '1 [per_investigator]',
+				condition: 'If 15 or more *time* has passed (the game begins at act 2a)'
+			}
+		],
 		notes: [
 			{
 				encounterSet: deadHeat,
@@ -219,6 +225,12 @@ export const onThinIceScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'For every 5 *time* that has passed'
+			}
+		],
 		notes: [
 			{
 				topic: 'Concealed Mini-Cards (9)',
@@ -298,6 +310,12 @@ export const shadesOfSufferingScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'If 27 or more *time* has passed'
+			}
+		],
 		notes: [
 			{
 				topic: 'Concealed Mini-Card',

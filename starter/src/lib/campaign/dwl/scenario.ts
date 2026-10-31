@@ -191,6 +191,12 @@ export const bloodOnTheAltarScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'If *the investigators were delayed on their way to Dunwich*'
+			}
+		],
 		notes: [
 			{
 				what: 'Take out 3 encounter cards to attach under locations. The encounter deck has 3 fewer cards.'
@@ -288,6 +294,12 @@ export const whereDoomAwaitsScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+X',
+				condition: 'If *X brood escaped into the wild*'
+			}
+		],
 		addChaosTokenPerDifficulty: {
 			easy: [ChaosToken.TokenM3],
 			standard: [ChaosToken.TokenM5],
@@ -505,6 +517,12 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'If *the investigators were delayed on their way to Dunwich*'
+			}
+		],
 		notes: [
 			{
 				what: "Take out 3 encounter cards to attach under locations, before any **Naomi's Crew** or **Hired Gun** card is shuffled in. The encounter deck has 3 fewer cards."
@@ -597,6 +615,12 @@ export const returnToWhereDoomAwaitsScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+X',
+				condition: 'If *X brood escaped into the wild*'
+			}
+		],
 		addChaosTokenPerDifficulty: {
 			easy: [ChaosToken.TokenM3],
 			standard: [ChaosToken.TokenM5],

@@ -225,6 +225,16 @@ export const theThingInTheDepthsScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'On Day 2 or Night 2'
+			},
+			{
+				amount: '+2',
+				condition: 'On Day 3'
+			}
+		],
 		specialGather: [
 			{ encounterSet: residents, what: ['**Judith Park** (Day 1): place at North Shore.'] },
 			{

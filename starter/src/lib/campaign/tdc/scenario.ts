@@ -616,10 +616,12 @@ export const theDoomOfArkhamPart1Scenario: Scenario = {
 		}
 	],
 	commonSetup: {
-		notes: [
+		startingDoom: [
 			{
-				what: 'Place starting doom on the agenda equal to the number of investigators.'
-			},
+				amount: '1 [per_investigator]'
+			}
+		],
+		notes: [
 			{
 				encounterSet: theDoomOfArkhamPt1,
 				what: '**Randall Tillinghast** is set aside, out of play. None of this set’s cards enter the encounter deck.'

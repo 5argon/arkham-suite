@@ -44,6 +44,16 @@ export const iceAndDeathPart1Scenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		],
 		notes: [
 			{
 				encounterSet: iceAndDeath,
@@ -126,7 +136,19 @@ export const fatalMirageScenario: Scenario = {
 				silenceAndMystery
 			]
 		}
-	]
+	],
+	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		]
+	}
 };
 
 export const toTheForbiddenPeaksScenario: Scenario = {
@@ -144,6 +166,16 @@ export const toTheForbiddenPeaksScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		],
 		addChaosToken: [ChaosToken.TokenElderThing]
 	}
 };
@@ -166,6 +198,16 @@ export const cityOfTheElderThings1Scenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		],
 		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
@@ -202,6 +244,16 @@ export const cityOfTheElderThings2Scenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		],
 		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
@@ -238,6 +290,16 @@ export const cityOfTheElderThings3Scenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		],
 		notes: [
 			{
 				encounterSet: cityOfTheElderThings,
@@ -272,7 +334,19 @@ export const theHeartOfMadness1Scenario: Scenario = {
 				shoggoths
 			]
 		}
-	]
+	],
+	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'Hard'
+			},
+			{
+				amount: '+2',
+				condition: 'Expert'
+			}
+		]
+	}
 };
 
 export const theHeartOfMadness2Scenario: Scenario = {

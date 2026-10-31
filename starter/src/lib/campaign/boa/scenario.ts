@@ -81,6 +81,15 @@ export const smokeAndMirrorsScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '1 [per_investigator]'
+			},
+			{
+				amount: '+1',
+				condition: 'If *the investigators saved Miskatonic University*'
+			}
+		],
 		addChaosToken: [ChaosToken.TokenCultist, ChaosToken.TokenCultist],
 		notes: [
 			{
@@ -94,9 +103,6 @@ export const smokeAndMirrorsScenario: Scenario = {
 			{
 				encounterSet: arkham,
 				what: 'Choose 1 of each **Downtown** and **Uptown** at random. **Miskatonic University** version depends on the campaign log.'
-			},
-			{
-				what: 'Place doom on the agenda equal to the number of investigators, plus 1 more if *the investigators saved Miskatonic University*.'
 			}
 		]
 	}
@@ -127,6 +133,16 @@ export const queenOfAshScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		startingDoom: [
+			{
+				amount: '+1',
+				condition: 'With 3 or 4 investigators'
+			},
+			{
+				amount: '+1',
+				condition: 'Unless *the investigators discovered the cult’s whereabouts*'
+			}
+		],
 		addChaosTokenPerDifficulty: {
 			easy: [ChaosToken.TokenElderThing],
 			standard: [ChaosToken.TokenElderThing, ChaosToken.TokenTablet],
@@ -146,9 +162,6 @@ export const queenOfAshScenario: Scenario = {
 			{
 				encounterSet: fire,
 				what: 'All 5 copies of **Fire!** are set aside, out of play. Only 2x **Noxious Smoke** enter the encounter deck.'
-			},
-			{
-				what: 'Place 1 doom on the agenda if there are 3 or 4 investigators, plus 1 more unless *the investigators discovered the cult’s whereabouts*.'
 			}
 		]
 	}

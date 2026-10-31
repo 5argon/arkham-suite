@@ -400,10 +400,21 @@ export const dimCarcosaScenario: Scenario = {
 		}
 	],
 	commonSetup: {
-		notes: [
+		startingDoom: [
 			{
-				what: 'Add starting doom to agenda 1a from your **Chasing the Stranger** tally: 3 doom (0 to 2), 2 doom (3 to 5), 1 doom (6 to 8), or none (9+).'
+				amount: '+3',
+				condition: '0 to 2 tally marks under *Chasing the Stranger*'
 			},
+			{
+				amount: '+2',
+				condition: '3 to 5 tally marks under *Chasing the Stranger*'
+			},
+			{
+				amount: '+1',
+				condition: '6 to 8 tally marks under *Chasing the Stranger*'
+			}
+		],
+		notes: [
 			{
 				what: 'Each investigator takes direct horror equal to half their sanity, rounded down (cannot be prevented). In the Realm of Carcosa, horror cannot defeat investigators.'
 			},
@@ -802,10 +813,21 @@ export const returnToDimCarcosaScenario: Scenario = {
 		}
 	],
 	commonSetup: {
-		notes: [
+		startingDoom: [
 			{
-				what: 'Add starting doom to agenda 1a from your **Chasing the Stranger** tally: 3 doom (0 to 2), 2 doom (3 to 5), 1 doom (6 to 8), or none (9+).'
+				amount: '+3',
+				condition: '0 to 2 tally marks under *Chasing the Stranger*'
 			},
+			{
+				amount: '+2',
+				condition: '3 to 5 tally marks under *Chasing the Stranger*'
+			},
+			{
+				amount: '+1',
+				condition: '6 to 8 tally marks under *Chasing the Stranger*'
+			}
+		],
+		notes: [
 			{
 				what: 'Each investigator takes direct horror equal to half their sanity, rounded down (cannot be prevented). In the Realm of Carcosa, horror cannot defeat investigators.'
 			},

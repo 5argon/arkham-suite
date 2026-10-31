@@ -54,6 +54,8 @@ export interface ScenarioSetupSub {
 	addChaosTokenPerDifficulty?: PerDifficultySettings<ChaosToken[]>;
 	/** Chaos tokens added only under a condition, each shown with its condition as small text. */
 	addChaosTokenConditional?: ConditionalChaosTokens[];
+	/** Doom placed on the agenda during setup. Rows add up. */
+	startingDoom?: StartingDoom[];
 	notes?: ScenarioNote[];
 	specialGather?: EncounterSetItem[];
 }
@@ -62,6 +64,13 @@ export interface ConditionalChaosTokens {
 	/** Markdown, e.g. 'If *you have accepted your fate*' (campaign log text in italics). */
 	condition: string;
 	tokens: ChaosToken[];
+}
+
+export interface StartingDoom {
+	/** Markdown, e.g. '1 [per_investigator]', or '+1' for a row that adds under a condition. */
+	amount: string;
+	/** Markdown, e.g. 'If *the investigators were delayed on their way to Dunwich*'. */
+	condition?: string;
 }
 
 export interface ScenarioNote {
