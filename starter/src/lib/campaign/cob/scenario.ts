@@ -74,7 +74,7 @@ export const riverOfBloodStandardScenario: Scenario = {
 			...riverOfBloodNotes,
 			{
 				encounterSet: preyedUpon,
-				what: 'Each **Night Feeder** is set aside, out of play.'
+				what: '3x **Night Feeder** are set aside, out of play.'
 			}
 		]
 	}
@@ -104,7 +104,7 @@ export const riverOfBloodHardScenario: Scenario = {
 			...riverOfBloodNotes,
 			{
 				encounterSet: agentsOfZburamoarte,
-				what: 'Each **Spawn of Zburamoarte** is set aside, out of play.'
+				what: '3x **Spawn of Zburamoarte** are set aside, out of play.'
 			}
 		]
 	}
@@ -178,7 +178,7 @@ export const newHorizonsNightScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: newHorizons,
-				what: 'No cards enter the encounter deck. **Night Watchman** is set aside, out of play. **Javier Rivera** and each **Factory Worker** are removed from the game.'
+				what: 'No cards enter the encounter deck. **Night Watchman** is set aside, out of play. **Javier Rivera** and 4x **Factory Worker** are removed from the game.'
 			},
 			...newHorizonsNotes
 		]
@@ -209,11 +209,11 @@ export const bloodMoneyScenario: Scenario = {
 			},
 			{
 				encounterSet: agentsOfZburamoarte,
-				what: 'Each **Spawn of Zburamoarte** is set aside, out of play.'
+				what: '3x **Spawn of Zburamoarte** are set aside, out of play.'
 			},
 			{
 				encounterSet: childrenOfBlood,
-				what: 'Each **Child of Blood** is set aside, out of play.'
+				what: '3x **Child of Blood** are set aside, out of play.'
 			},
 			{
 				encounterSet: sanguineSecrets,

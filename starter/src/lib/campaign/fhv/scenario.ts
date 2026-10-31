@@ -379,7 +379,7 @@ export const fateOfTheValeScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its locations and both **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled into **The Abyss**.'
+				what: 'Its locations and 2x **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled into **The Abyss**.'
 			},
 			{
 				encounterSet: residents,

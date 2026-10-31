@@ -57,7 +57,7 @@ export const iceAndDeathPart1Scenario: Scenario = {
 		notes: [
 			{
 				encounterSet: iceAndDeath,
-				what: 'Set each **Skittering Nonsense** enemy aside, out of play. (3 cards)'
+				what: '3x **Skittering Nonsense** are set aside, out of play.'
 			},
 			{
 				encounterSet: creaturesInTheIce,
