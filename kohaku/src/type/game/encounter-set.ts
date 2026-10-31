@@ -1005,6 +1005,7 @@ export const standaloneScenarioRepresentativeSet: Record<StandaloneScenario, Enc
   [StandaloneScenario.FortuneAndFolly]: EncounterSet.FortuneAndFolly,
   [StandaloneScenario.TheMidwinterGala]: EncounterSet.TheMidwinterGala,
   [StandaloneScenario.FilmFatale]: EncounterSet.FilmFatale,
+  [StandaloneScenario.TracesToNowhere]: EncounterSet.TracesToNowhere,
 };
 
 /**
