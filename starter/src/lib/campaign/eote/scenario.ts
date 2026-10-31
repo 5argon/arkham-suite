@@ -101,11 +101,11 @@ export const iceAndDeathPart3Scenario: Scenario = {
 		notes: [
 			{
 				encounterSet: iceAndDeath,
-				what: '3x *Eidolon* enemies from the **Ice and Death** set are under **Seeping Nightmares**.'
+				what: '3x ***Eidolon*** enemies from the **Ice and Death** set are under **Seeping Nightmares**.'
 			},
 			{
 				encounterSet: creaturesInTheIce,
-				what: '5x *Eidolon* enemies from the **Creatures in the Ice** set are under **Seeping Nightmares**.'
+				what: '5x ***Eidolon*** enemies from the **Creatures in the Ice** set are under **Seeping Nightmares**.'
 			}
 		]
 	}

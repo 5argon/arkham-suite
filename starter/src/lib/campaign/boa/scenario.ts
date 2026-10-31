@@ -121,7 +121,7 @@ export const queenOfAshScenario: Scenario = {
 			remaining: [sewers],
 			notes: [
 				{
-					what: 'If *the investigators stirred up trouble*, shuffle each **Cultist** enemy from **Ashen Pilgrims** and **Cultists**, and put 1 [per_investigator] of them into play, each at a different **Sewer Tunnels**. The encounter deck has 1 [per_investigator] fewer cards.'
+					what: 'If *the investigators stirred up trouble*, shuffle each ***Cultist*** enemy from **Ashen Pilgrims** and **Cultists**, and put 1 [per_investigator] of them into play, each at a different **Sewer Tunnels**. The encounter deck has 1 [per_investigator] fewer cards.'
 				}
 			]
 		}

@@ -115,7 +115,7 @@
 
 			{#snippet basicWeaknessContent()}
 				{#if setup.addBasicWeakness}
-					<span class="italic">
+					<span class="font-bold italic">
 						{setup.addBasicWeakness.map((x) => x.trait).join(', ')}
 					</span>
 				{/if}

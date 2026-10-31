@@ -141,7 +141,7 @@ export const dealingsInTheDarkScenario: Scenario = {
 				what: '3x **Acolyte** (any), **Wizard of the Order**, **Sinister Aspirants** (A, B and C), and **Emissary from Yuggoth**.'
 			},
 			{
-				what: 'Each investigator draws a *Cultist* enemy from the encounter deck at the start. The encounter deck has 1 [per_investigator] fewer cards.'
+				what: 'Each investigator draws a ***Cultist*** enemy from the encounter deck at the start. The encounter deck has 1 [per_investigator] fewer cards.'
 			},
 			{
 				encounterSet: agentsOfYuggoth,
@@ -186,7 +186,7 @@ export const dancingMadScenario: Scenario = {
 					what: '2x **Otherworldly Mimic** are set aside, out of play.'
 				},
 				{
-					what: 'Each investigator other than the one drawing **Desiderio Delgado Álvarez** discards from the encounter deck until a different *Coterie* enemy and draws it. The encounter deck has 1 fewer card for each investigator after the first.'
+					what: 'Each investigator other than the one drawing **Desiderio Delgado Álvarez** discards from the encounter deck until a different ***Coterie*** enemy and draws it. The encounter deck has 1 fewer card for each investigator after the first.'
 				}
 			]
 		}
@@ -398,7 +398,7 @@ export const congressOfTheKeysScenario: Scenario = {
 			},
 			{
 				encounterSet: redCoterie,
-				what: 'For each *Coterie* enemy gathered, check if they are the bearer of any key(s) and also gather those keys.'
+				what: 'For each ***Coterie*** enemy gathered, check if they are the bearer of any key(s) and also gather those keys.'
 			}
 		]
 	}

@@ -195,7 +195,7 @@ export const theDrownedQuarterScenario: Scenario = {
 				what: 'Only 3x **Medusa** enter the encounter deck.'
 			},
 			{
-				what: 'If *the expedition headed east*, increase the flood level of 1 [per_investigator] **Sea Floor** locations.'
+				what: 'If *the expedition headed east*, increase the flood level of 1 [per_investigator] ***Sea Floor*** locations.'
 			}
 		]
 	}

@@ -47,7 +47,7 @@ const riverOfBloodNotes = [
 		what: 'The entire **Infected** encounter set is set aside, out of play.'
 	},
 	{
-		what: 'Shuffle the top 2 cards of the encounter deck with the set-aside **Julia Stern**, then place 1 facedown beneath each **Lair** location.'
+		what: 'Shuffle the top 2 cards of the encounter deck with the set-aside **Julia Stern**, then place 1 facedown beneath each ***Lair*** location.'
 	}
 ];
 

@@ -75,7 +75,7 @@ export const writtenInRockScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its 6 **Cave** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled in.'
+				what: 'Its 6 ***Cave*** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled in.'
 			}
 		]
 	}
