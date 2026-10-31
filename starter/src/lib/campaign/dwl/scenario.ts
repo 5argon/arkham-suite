@@ -167,6 +167,7 @@ export const bloodOnTheAltarScenario: Scenario = {
 	shortName: 'IV',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
 				ancientEvils,
@@ -176,6 +177,7 @@ export const bloodOnTheAltarScenario: Scenario = {
 			]
 		},
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
 				ancientEvils,
@@ -189,7 +191,7 @@ export const bloodOnTheAltarScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				what: 'Take out 3 encounter cards to attach under locations.'
+				what: 'Take out 3 encounter cards to attach under locations. The encounter deck has 3 fewer cards.'
 			}
 		],
 		specialGather: [
@@ -461,6 +463,7 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 	shortName: 'IV',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
 				nightgaunts,
@@ -477,6 +480,7 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 			]
 		},
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
 				{ encounterSet: returnToBloodOnTheAltar, overwriteCount: 1 },
@@ -497,7 +501,7 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				what: "Take out 3 non-**Naomi's Crew** encounter cards to attach under locations."
+				what: "Take out 3 non-**Naomi's Crew** encounter cards to attach under locations. The encounter deck has 3 fewer cards."
 			}
 		],
 		specialGather: [

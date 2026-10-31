@@ -2,7 +2,8 @@
 	import {
 		type EncounterSetItem,
 		isEncounterSetWithModification,
-		type Scenario
+		type Scenario,
+		type ScenarioSetup
 	} from '$lib/core/campaign';
 	import { SectionSeparator } from '@5argon/arkham-life-ui';
 	import { Campaign } from '@5argon/arkham-kohaku';
@@ -43,6 +44,10 @@
 		}, 0);
 		return count;
 	}
+
+	function countLabel(setup: ScenarioSetup): string {
+		return `${computeCount(setup.shuffles)}${setup.asteriskCount ? '*' : ''} Cards`;
+	}
 </script>
 
 <!-- Front card -->
@@ -62,7 +67,7 @@
 			<div in:fly|global={{ x: -10, duration: 200, delay: 130 }}>
 				<SectionSeparator
 					title={'Starting Encounter Deck' +
-						(!multipleSetups ? ` : ${computeCount(scenario.setups[0].shuffles)} Cards` : '')}
+						(!multipleSetups ? ` : ${countLabel(scenario.setups[0])}` : '')}
 				/>
 				{#each scenario.setups as setup, i (i)}
 					{#if multipleSetups}
@@ -70,7 +75,7 @@
 							inner
 							title={(setup.name ? `${setup.name} Variant` : 'Variant ' + (i + 1)) +
 								' : ' +
-								`${computeCount(setup.shuffles)} Cards`}
+								countLabel(setup)}
 						/>
 						<div class="pl-4 border-l border-secondary-700/20 dark:border-secondary-300/20">
 							<EncounterIconFlex

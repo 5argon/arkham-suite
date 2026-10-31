@@ -48,6 +48,7 @@ export const theMidnightMasksScenario: Scenario = {
 	shortName: 'II',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
 				chillingCold,
@@ -55,7 +56,12 @@ export const theMidnightMasksScenario: Scenario = {
 				lockedDoors,
 				nightgaunts
 			],
-			remaining: [cultOfUmordhoth]
+			remaining: [cultOfUmordhoth],
+			notes: [
+				{
+					what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
+				}
+			]
 		}
 	]
 };
@@ -65,6 +71,7 @@ export const theDevourerBelowScenario: Scenario = {
 	shortName: 'III',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
 				ancientEvils,
@@ -76,6 +83,7 @@ export const theDevourerBelowScenario: Scenario = {
 			remaining: [cultOfUmordhoth]
 		},
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
 				ancientEvils,
@@ -87,6 +95,7 @@ export const theDevourerBelowScenario: Scenario = {
 			remaining: [cultOfUmordhoth]
 		},
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
 				ancientEvils,
@@ -98,6 +107,7 @@ export const theDevourerBelowScenario: Scenario = {
 			remaining: [cultOfUmordhoth]
 		},
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
 				ancientEvils,
@@ -108,7 +118,14 @@ export const theDevourerBelowScenario: Scenario = {
 			],
 			remaining: [cultOfUmordhoth]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
+			}
+		]
+	}
 };
 
 export const returnToTheGatheringScenario: Scenario = {
@@ -142,6 +159,7 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 	shortName: 'II',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
 				{ encounterSet: returnToTheMidnightMasks, overwriteCount: 2 },
@@ -158,6 +176,9 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 			{
 				encounterSet: returnToTheMidnightMasks,
 				what: '2x **Masked Horrors** are shuffled into the encounter deck (**Narôgath** is set aside, entering play via the agenda). **The Devourer’s Cult** replaces the regular **Dark Cult** set.'
+			},
+			{
+				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
 			}
 		]
 	}
@@ -168,6 +189,7 @@ export const returnToTheDevourerBelowScenario: Scenario = {
 	shortName: 'III',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
 				{ encounterSet: returnToTheDevourerBelow, overwriteCount: 2 },
@@ -191,6 +213,9 @@ export const returnToTheDevourerBelowScenario: Scenario = {
 			{
 				encounterSet: returnToTheDevourerBelow,
 				what: '2x **Umôrdhoth’s Hunger** are shuffled into the encounter deck (**Vault of Earthly Demise** is attached to Umôrdhoth and set aside). **Ghouls of Umördhoth** and **The Devourer’s Cult** replace the regular **Ghouls** and **Dark Cult** sets.'
+			},
+			{
+				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
 			}
 		]
 	}

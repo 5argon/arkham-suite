@@ -1,7 +1,7 @@
 import {
 	ChaosToken,
 	EncounterSet as KohakuEncounterSet,
-	Scenario as KohakuScenario,
+	Scenario as KohakuScenario
 } from '@5argon/arkham-kohaku';
 
 export interface EncounterSet {
@@ -41,6 +41,11 @@ export type ScenarioSetup = {
 	name?: string;
 	shuffles: EncounterSetItem[];
 	remaining?: EncounterSetItem[];
+	/**
+	 * The starting encounter deck count can still change during setup (campaign log, player count,
+	 * cards drawn out of the deck), so it is shown with an asterisk. Explain how in a note.
+	 */
+	asteriskCount?: boolean;
 } & ScenarioSetupSub;
 
 export interface ScenarioSetupSub {

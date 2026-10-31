@@ -121,6 +121,7 @@ export const dealingsInTheDarkScenario: Scenario = {
 	shortName: '21-F',
 	setups: [
 		{
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: dealingsInTheDark, overwriteCount: 9 },
 				{ encounterSet: agentsOfYuggoth, overwriteCount: 3 },
@@ -140,7 +141,7 @@ export const dealingsInTheDarkScenario: Scenario = {
 				what: '3x **Acolyte** (any), **Wizard of the Order**, **Sinister Aspirants** (A, B and C), and **Emissary from Yuggoth**.'
 			},
 			{
-				what: 'The starting encounter deck count is reduced equal to amount of players, since each investigator draws a *Cultist* enemy at the start.'
+				what: 'Each investigator draws a *Cultist* enemy from the encounter deck at the start. The encounter deck has 1 [per_investigator] fewer cards.'
 			},
 			{
 				encounterSet: agentsOfYuggoth,
@@ -166,6 +167,7 @@ export const dancingMadScenario: Scenario = {
 		},
 		{
 			name: 'v. II',
+			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: dancingMad, overwriteCount: 2 },
 				{ encounterSet: agentsOfTheOutside, overwriteCount: 2 },
@@ -182,6 +184,9 @@ export const dancingMadScenario: Scenario = {
 				{
 					encounterSet: secretWar,
 					what: '2x **Otherworldly Mimic** are set aside, out of play.'
+				},
+				{
+					what: 'Each investigator other than the one drawing **Desiderio Delgado Álvarez** discards from the encounter deck until a different *Coterie* enemy and draws it. The encounter deck has 1 fewer card for each investigator after the first.'
 				}
 			]
 		}
