@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import { ChaosToken, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfCthulhu,
@@ -48,6 +48,43 @@ export const theMidnightMasksScenario: Scenario = {
 	shortName: 'II',
 	setups: [
 		{
+			name: '4 Players',
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				chillingCold,
+				{ encounterSet: darkCult, overwriteCount: 3 },
+				lockedDoors,
+				nightgaunts
+			],
+			remaining: [cultOfUmordhoth]
+		},
+		{
+			name: '3 Players',
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				chillingCold,
+				{ encounterSet: darkCult, overwriteCount: 4 },
+				lockedDoors,
+				nightgaunts
+			],
+			remaining: [cultOfUmordhoth]
+		},
+		{
+			name: '2 Players',
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				chillingCold,
+				{ encounterSet: darkCult, overwriteCount: 5 },
+				lockedDoors,
+				nightgaunts
+			],
+			remaining: [cultOfUmordhoth]
+		},
+		{
+			name: '1 Player',
 			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
@@ -56,14 +93,20 @@ export const theMidnightMasksScenario: Scenario = {
 				lockedDoors,
 				nightgaunts
 			],
-			remaining: [cultOfUmordhoth],
-			notes: [
-				{
-					what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
-				}
-			]
+			remaining: [cultOfUmordhoth]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				encounterSet: darkCult,
+				what: '1 **Acolyte** per investigator beyond the first is spawned at setup instead of entering the encounter deck (at Southside, then Downtown, then the Graveyard).'
+			},
+			{
+				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
+			}
+		]
+	}
 };
 
 export const theDevourerBelowScenario: Scenario = {
@@ -79,8 +122,7 @@ export const theDevourerBelowScenario: Scenario = {
 				ghouls,
 				strikingFear,
 				{ encounterSet: agentsOfCthulhu }
-			],
-			remaining: [cultOfUmordhoth]
+			]
 		},
 		{
 			asteriskCount: true,
@@ -91,8 +133,7 @@ export const theDevourerBelowScenario: Scenario = {
 				ghouls,
 				strikingFear,
 				{ encounterSet: agentsOfShubNiggurath }
-			],
-			remaining: [cultOfUmordhoth]
+			]
 		},
 		{
 			asteriskCount: true,
@@ -103,8 +144,7 @@ export const theDevourerBelowScenario: Scenario = {
 				ghouls,
 				strikingFear,
 				{ encounterSet: agentsOfHastur }
-			],
-			remaining: [cultOfUmordhoth]
+			]
 		},
 		{
 			asteriskCount: true,
@@ -115,11 +155,11 @@ export const theDevourerBelowScenario: Scenario = {
 				ghouls,
 				strikingFear,
 				{ encounterSet: agentsOfYogSothoth }
-			],
-			remaining: [cultOfUmordhoth]
+			]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
 				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
@@ -148,7 +188,7 @@ export const returnToTheGatheringScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: returnToTheGathering,
-				what: '**Corpse-Hungry Ghoul**, **Ghoul from the Depths**, and 2x **The Zealot’s Seal** are shuffled into the encounter deck. **Ghouls of Umördhoth** replaces the regular **Ghouls** set.'
+				what: '**Corpse-Hungry Ghoul**, **Ghoul from the Depths**, and 2x **The Zealot’s Seal** are shuffled into the encounter deck.'
 			}
 		]
 	}
@@ -159,6 +199,46 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 	shortName: 'II',
 	setups: [
 		{
+			name: '4 Players',
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				{ encounterSet: returnToTheMidnightMasks, overwriteCount: 2 },
+				chillingCold,
+				lockedDoors,
+				nightgaunts,
+				{ encounterSet: theDevourersCult, overwriteCount: 3 }
+			],
+			remaining: [cultOfUmordhoth, returnToCultOfUmordhoth]
+		},
+		{
+			name: '3 Players',
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				{ encounterSet: returnToTheMidnightMasks, overwriteCount: 2 },
+				chillingCold,
+				lockedDoors,
+				nightgaunts,
+				{ encounterSet: theDevourersCult, overwriteCount: 4 }
+			],
+			remaining: [cultOfUmordhoth, returnToCultOfUmordhoth]
+		},
+		{
+			name: '2 Players',
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
+				{ encounterSet: returnToTheMidnightMasks, overwriteCount: 2 },
+				chillingCold,
+				lockedDoors,
+				nightgaunts,
+				{ encounterSet: theDevourersCult, overwriteCount: 5 }
+			],
+			remaining: [cultOfUmordhoth, returnToCultOfUmordhoth]
+		},
+		{
+			name: '1 Player',
 			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
@@ -175,7 +255,15 @@ export const returnToTheMidnightMasksScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: returnToTheMidnightMasks,
-				what: '2x **Masked Horrors** are shuffled into the encounter deck (**Narôgath** is set aside, entering play via the agenda). **The Devourer’s Cult** replaces the regular **Dark Cult** set.'
+				what: 'Only 2x **Masked Horrors** enter the encounter deck. 1 out of 2 randomized **Predator or Prey?** (agenda 1a) is used without looking at its other side, the other is removed from the game.'
+			},
+			{
+				topic: 'Cultist Deck (5)',
+				what: '**Cult of Umôrdhoth** and **Return to Cult of Umôrdhoth** shuffled together, then 3 random cards are removed from the game without looking.'
+			},
+			{
+				encounterSet: theDevourersCult,
+				what: '1 **Disciple of the Devourer** per investigator beyond the first is spawned at setup instead of entering the encounter deck (at Southside, then Downtown, then the Graveyard).'
 			},
 			{
 				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
@@ -197,22 +285,52 @@ export const returnToTheDevourerBelowScenario: Scenario = {
 				ghoulsOfUmordhoth,
 				theDevourersCult,
 				strikingFear,
-				returnToCultOfUmordhoth
-			],
-			remaining: [
-				agentsOfCthulhu,
-				agentsOfHastur,
-				agentsOfShubNiggurath,
-				agentsOfYogSothoth,
-				cultOfUmordhoth
+				agentsOfCthulhu
+			]
+		},
+		{
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
+				{ encounterSet: returnToTheDevourerBelow, overwriteCount: 2 },
+				ancientEvils,
+				ghoulsOfUmordhoth,
+				theDevourersCult,
+				strikingFear,
+				agentsOfShubNiggurath
+			]
+		},
+		{
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
+				{ encounterSet: returnToTheDevourerBelow, overwriteCount: 2 },
+				ancientEvils,
+				ghoulsOfUmordhoth,
+				theDevourersCult,
+				strikingFear,
+				agentsOfHastur
+			]
+		},
+		{
+			asteriskCount: true,
+			shuffles: [
+				{ encounterSet: theDevourerBelow, overwriteCount: 2 },
+				{ encounterSet: returnToTheDevourerBelow, overwriteCount: 2 },
+				ancientEvils,
+				ghoulsOfUmordhoth,
+				theDevourersCult,
+				strikingFear,
+				agentsOfYogSothoth
 			]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
 				encounterSet: returnToTheDevourerBelow,
-				what: '2x **Umôrdhoth’s Hunger** are shuffled into the encounter deck (**Vault of Earthly Demise** is attached to Umôrdhoth and set aside). **Ghouls of Umördhoth** and **The Devourer’s Cult** replace the regular **Ghouls** and **Dark Cult** sets.'
+				what: 'Only 2x **Umôrdhoth’s Hunger** enter the encounter deck.'
 			},
 			{
 				what: 'If *the Ghoul Priest is still alive*, shuffle it into the encounter deck. The encounter deck has 1 more card.'
