@@ -851,6 +851,13 @@
       "hidden": true
     },
     {
+      "id": "the_turning_gear_stolen",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "core",
+      "hidden": true
+    },
+    {
       "id": "key_thief",
       "section": "hidden",
       "kind": "cards",

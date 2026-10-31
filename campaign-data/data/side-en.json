@@ -262,6 +262,18 @@
     "campaign_notes.zez_all_is_quiet": {
       "text": "all is quiet at Rue d'Auseil… for now."
     },
+    "campaign_notes.cell_slowed_gear": {
+      "text": "the cell slowed the Turning Gear"
+    },
+    "campaign_notes.investigators_slowed_gear": {
+      "text": "the investigators slowed the Turning Gear"
+    },
+    "campaign_notes.other_turning_gear": {
+      "text": "another cell posesses the Turning Gear"
+    },
+    "campaign_notes.coterie_turning_gear": {
+      "text": "the Coterie took posession of the Turning Gear"
+    },
     "campaign_notes.testsuo_made_a_noble_sacrifice": {
       "text": "Tetsuo made a noble sacrifice."
     },

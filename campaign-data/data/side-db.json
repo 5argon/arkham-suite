@@ -39,7 +39,8 @@
     "mysterious_benefits",
     "legions_of_fire",
     "when_the_world_screamed",
-    "film_fatale"
+    "film_fatale",
+    "the_turning_gear"
   ],
   "sections": [
     {
@@ -982,6 +983,37 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "the_symphony_of_erich_zann"
+    },
+    {
+      "id": "gear_emp_mixed_success",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "the_turning_gear",
+      "hidden": true
+    },
+    {
+      "id": "cell_slowed_gear",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_turning_gear"
+    },
+    {
+      "id": "investigators_slowed_gear",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_turning_gear"
+    },
+    {
+      "id": "other_turning_gear",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_turning_gear"
+    },
+    {
+      "id": "coterie_turning_gear",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "the_turning_gear"
     },
     {
       "id": "testsuo_made_a_noble_sacrifice",
