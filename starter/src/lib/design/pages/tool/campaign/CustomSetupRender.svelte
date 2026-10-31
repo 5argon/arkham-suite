@@ -21,6 +21,17 @@
 
 	let { setup, notCommon = false, campaign = undefined }: Props = $props();
 
+	// Runs of the same token, so 5 Curse tokens can show as "5×" and 1 icon.
+	function groupTokens(tokens: ChaosToken[]): { token: ChaosToken; count: number }[] {
+		const groups: { token: ChaosToken; count: number }[] = [];
+		for (const token of tokens) {
+			const last = groups.at(-1);
+			if (last?.token === token) last.count++;
+			else groups.push({ token, count: 1 });
+		}
+		return groups;
+	}
+
 	function getTopicIcon(): FaIconType | undefined {
 		if (!campaign) return undefined;
 
@@ -68,7 +79,7 @@
 
 {#snippet levelTwo(topic: string, content: Snippet)}
 	<div class="pl-4 flex items-center gap-2 my-1">
-		<span class="text-primary-700 dark:text-primary-300">{topic}:</span>
+		<span class="shrink-0 text-primary-700 dark:text-primary-300">{topic}:</span>
 		<span class="text-primary-700 dark:text-primary-300">
 			{@render content()}
 		</span>
@@ -86,7 +97,7 @@
 {/snippet}
 
 <ul class="custom">
-	{#if setup.addBasicWeakness !== undefined || setup.addChaosToken !== undefined || setup.addChaosTokenPerDifficulty !== undefined}
+	{#if setup.addBasicWeakness !== undefined || setup.addChaosToken !== undefined || setup.addChaosTokenPerDifficulty !== undefined || setup.addChaosTokenConditional !== undefined}
 		{#if !notCommon}
 			<div class="my-1">
 				<FaIcon duotone icon={FaIconType.SetupReferenceSetupChanges} />
@@ -110,7 +121,7 @@
 				{/if}
 			{/snippet}
 
-			{#if setup.addChaosToken !== undefined || setup.addChaosTokenPerDifficulty !== undefined}
+			{#if setup.addChaosToken !== undefined || setup.addChaosTokenPerDifficulty !== undefined || setup.addChaosTokenConditional !== undefined}
 				{@render levelTwo('Add Chaos Token', chaosTokenContent)}
 			{/if}
 
@@ -131,6 +142,27 @@
 							m.gameDifficultyExpert,
 							setup.addChaosTokenPerDifficulty.expert
 						)}
+					</div>
+				{/if}
+				{#if setup.addChaosTokenConditional !== undefined}
+					<div class="flex flex-col gap-1">
+						{#each setup.addChaosTokenConditional as c, i (i)}
+							<div class="flex items-center gap-1 whitespace-nowrap">
+								{#each groupTokens(c.tokens) as g, j (j)}
+									{#if g.count > 2}
+										<span class="text-primary-700 dark:text-primary-300">{g.count}×</span>
+										<ChaosTokenDisplay token={g.token} hideLabel />
+									{:else}
+										{#each Array(g.count).fill(g.token) as t, k (k)}
+											<ChaosTokenDisplay token={t} hideLabel />
+										{/each}
+									{/if}
+								{/each}
+								<span class="text-primary-500 dark:text-primary-300"
+									>{@html parseArkhamMarkup(c.condition)}</span
+								>
+							</div>
+						{/each}
 					</div>
 				{/if}
 			{/snippet}

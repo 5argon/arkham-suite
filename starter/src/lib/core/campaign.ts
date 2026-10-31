@@ -52,8 +52,16 @@ export interface ScenarioSetupSub {
 	addBasicWeakness?: AdditionalWeakness[];
 	addChaosToken?: ChaosToken[];
 	addChaosTokenPerDifficulty?: PerDifficultySettings<ChaosToken[]>;
+	/** Chaos tokens added only under a condition, each shown with its condition as small text. */
+	addChaosTokenConditional?: ConditionalChaosTokens[];
 	notes?: ScenarioNote[];
 	specialGather?: EncounterSetItem[];
+}
+
+export interface ConditionalChaosTokens {
+	/** Markdown, e.g. 'If *you have accepted your fate*' (campaign log text in italics). */
+	condition: string;
+	tokens: ChaosToken[];
 }
 
 export interface ScenarioNote {
