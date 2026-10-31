@@ -1,5 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import { Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
+import { ChaosToken, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfShubNiggurath,
@@ -59,25 +59,25 @@ export const disappearanceAtTheTwilightEstateScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: disappearanceAtTheTwilightEstate, overwriteCount: 0 },
-				{ encounterSet: atDeathsDoorstep, overwriteCount: 0 },
 				chillingCold,
 				inexorableFate,
 				realmOfDeath,
 				spectralPredators,
 				{ encounterSet: theWatcher, overwriteCount: 2 },
 				trappedSpirits
-			]
+			],
+			remaining: [disappearanceAtTheTwilightEstate, atDeathsDoorstep],
+			asteriskCount: true
 		}
 	],
 	commonSetup: {
 		notes: [
 			{
-				what: 'The starting encounter deck is reduced by setup instructions on the back of investigator cards.'
+				what: 'Each investigator card back puts 1 or 2 encounter cards into play.'
 			},
 			{
 				encounterSet: atDeathsDoorstep,
-				what: 'Only gather 7x *Spectral* locations.'
+				what: 'Only gather the 7x ***Spectral*** locations.'
 			},
 			{
 				encounterSet: theWatcher,
@@ -109,7 +109,21 @@ export const theWitchingHourScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		addChaosTokenConditional: [
+			{
+				condition: 'If *you have accepted your fate*',
+				tokens: [ChaosToken.TokenTablet, ChaosToken.TokenTablet]
+			},
+			{
+				condition: 'If *you have rejected your fate*',
+				tokens: [ChaosToken.TokenElderThing, ChaosToken.TokenElderThing]
+			}
+		],
 		notes: [
+			{
+				encounterSet: theWitchingHour,
+				what: 'In player order, each investigator puts 1 random **Witch-Haunted Woods** into play in front of them, until 5 are in play. Remove the other 2 from the game.'
+			},
 			{
 				encounterSet: agentsOfAzathoth,
 				what: 'The entire **Agents of Azathoth** encounter set is set aside, out of play.'
@@ -139,14 +153,13 @@ export const atDeathsDoorstepScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: atDeathsDoorstep, overwriteCount: 0 },
 				chillingCold,
 				inexorableFate,
 				silverTwilightLodge,
 				spectralPredators,
 				trappedSpirits
 			],
-			remaining: [realmOfDeath, theWatcher]
+			remaining: [atDeathsDoorstep, realmOfDeath, theWatcher]
 		}
 	],
 	commonSetup: {
@@ -186,10 +199,16 @@ export const theSecretNameScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		addChaosTokenConditional: [
+			{
+				condition: 'If *the investigators told the Lodge about the coven*',
+				tokens: [ChaosToken.TokenCultist]
+			}
+		],
 		notes: [
 			{
 				encounterSet: theSecretName,
-				what: 'In the starting encounter deck : **Meddlesome Familiar** (3x), **Extradimensional Visions** (2x), **Pulled by the Stars** (2x), **Disquieting Dreams** (2x), **Brown Jenkin**. (10 cards)'
+				what: 'Only 3x **Meddlesome Familiar**, 2x **Extradimensional Visions**, 2x **Pulled by the Stars**, 2x **Disquieting Dreams** and **Brown Jenkin** enter the encounter deck.'
 			}
 		]
 	},
@@ -224,23 +243,27 @@ export const theWagesOfSinScenario: Scenario = {
 			},
 			{
 				encounterSet: theWagesOfSin,
-				what: 'In the spectral encounter deck : **Malevolent Spirit** (2x), **Burdens of the Past** (2x), and **Bane of the Living** (2x). (6 cards)'
+				what: 'Only 8 non-***Spectral*** cards of this set enter the standard encounter deck. 2x **Malevolent Spirit**, 2x **Burdens of the Past** and 2x **Bane of the Living** go into the spectral encounter deck.'
 			},
 			{
 				encounterSet: inexorableFate,
-				what: 'The entire **Inexorable Fate** set in the spectral encounter deck. (6 cards)'
+				what: 'The entire **Inexorable Fate** encounter set goes into the spectral encounter deck.'
 			},
 			{
 				encounterSet: realmOfDeath,
-				what: 'The entire **Realm of Death** set in the spectral encounter deck. (4 cards)'
+				what: 'The entire **Realm of Death** encounter set goes into the spectral encounter deck.'
+			},
+			{
+				encounterSet: trappedSpirits,
+				what: 'The entire **Trapped Spirits** encounter set goes into the spectral encounter deck.'
 			},
 			{
 				encounterSet: theWatcher,
 				what: 'The entire **The Watcher** encounter set is set aside, out of play.'
 			},
 			{
-				encounterSet: trappedSpirits,
-				what: 'The entire **Trapped Spirits** set in the spectral encounter deck. (4 cards)'
+				encounterSet: theWagesOfSin,
+				what: 'Locations start in play with their non-***Spectral*** side faceup.'
 			}
 		]
 	},
@@ -270,16 +293,16 @@ export const forTheGreaterGoodScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: forTheGreaterGood,
-					what: 'Remove 3 cards from the game : **Cell Keeper** (1x), **Knight of the Inner Circle** (2x).'
+					what: 'Remove **Cell Keeper** and 2x **Knight of the Inner Circle** from the game.'
 				},
 				{
 					encounterSet: darkCult,
-					what: 'Remove 4 cards from the game : **Acolyte** (3x), **Wizard of the Order** (1x).'
+					what: 'Remove 3x **Acolyte** and **Wizard of the Order** from the game.'
 				}
 			]
 		},
 		{
-			name: 'Other',
+			name: 'Not members of the Lodge',
 			shuffles: [
 				{ encounterSet: forTheGreaterGood, overwriteCount: 11 },
 				ancientEvils,
@@ -291,15 +314,22 @@ export const forTheGreaterGoodScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: forTheGreaterGood,
-					what: 'Remove 3 cards from the game : **Lodge Jailor** (1x), **Knight of the Outer Void** (2x).'
+					what: 'Remove **Lodge Jailor** and 2x **Knight of the Outer Void** from the game.'
 				},
 				{
 					encounterSet: silverTwilightLodge,
-					what: 'Remove 4 cards from the game : **Lodge Neophyte** (3x), **Keeper of Secrets** (1x).'
+					what: 'Remove 3x **Lodge Neophyte** and **Keeper of Secrets** from the game.'
 				}
 			]
 		}
 	],
+	commonSetup: {
+		notes: [
+			{
+				what: 'Set aside 1 each of [skull], [cultist], [tablet] and [elder_thing] tokens from your collection (not from the chaos bag) as keys.'
+			}
+		]
+	},
 	extraInfo: {
 		back: [
 			{
@@ -341,8 +371,11 @@ export const unionAndDisillusionScenario: Scenario = {
 				what: 'For each heretic that was unleashed unto Arkham, place 1 doom on agenda 1a.'
 			},
 			{
+				what: 'If *the investigators sided with the coven*, the braziers at **Forbidding Shore** and both **Unvisited Isle** in play start lit. Place 1 resource on each of them.'
+			},
+			{
 				encounterSet: unionAndDisillusion,
-				what: "**The Watcher's Gaze** treachery is set aside, out of play."
+				what: "**Watcher's Gaze** is set aside, out of play."
 			},
 			{
 				encounterSet: anettesCoven,
@@ -381,7 +414,8 @@ export const inTheClutchesOfChaosScenario: Scenario = {
 				anettesCoven,
 				cityOfSins,
 				witchcraft
-			]
+			],
+			remaining: [secretsOfTheUniverse]
 		},
 		{
 			name: '"Carl Sanford possesses the secrets of the universe"',
@@ -394,6 +428,7 @@ export const inTheClutchesOfChaosScenario: Scenario = {
 				strikingFear,
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 }
 			],
+			remaining: [musicOfTheDamned],
 			notes: [
 				{
 					encounterSet: theMidnightMasks,
@@ -405,7 +440,7 @@ export const inTheClutchesOfChaosScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				what: "Gather **Silver Twilight Lodge** and **Hangman's Hill** from the other variant for breach randomization."
+				what: "Also gather the other variant's set for its **Hangman's Hill** and **Silver Twilight Lodge**. Shuffle them with the 6 removed locations to choose random locations."
 			},
 			{
 				encounterSet: agentsOfAzathoth,
@@ -506,18 +541,41 @@ export const returnToDisappearanceAtTheTwilightEstateScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: disappearanceAtTheTwilightEstate, overwriteCount: 0 },
-				{ encounterSet: returnToDisappearanceAtTheTwilightEstate, overwriteCount: 0 },
-				{ encounterSet: atDeathsDoorstep, overwriteCount: 7 },
 				spectralPredators,
-				theWatcher,
+				{ encounterSet: theWatcher, overwriteCount: 2 },
 				bloodthirstySpirits,
 				chillingMists,
 				unspeakableFate,
 				unstableRealm
-			]
+			],
+			remaining: [
+				disappearanceAtTheTwilightEstate,
+				returnToDisappearanceAtTheTwilightEstate,
+				atDeathsDoorstep,
+				returnToAtDeathsDoorstep
+			],
+			asteriskCount: true
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				what: 'Each investigator card back puts 1 or 2 encounter cards into play. Use **Mists from Beyond** for **Obscuring Fog**, **Unavoidable Demise** for **Terror in the Night** and **Screeching Banshee** for **Wraith**.'
+			},
+			{
+				encounterSet: atDeathsDoorstep,
+				what: 'Only gather the 7x ***Spectral*** locations.'
+			},
+			{
+				encounterSet: returnToAtDeathsDoorstep,
+				what: 'Only gather the ***Spectral*** **Wine Cellar**. It enters play with the other ***Spectral*** locations.'
+			},
+			{
+				encounterSet: theWatcher,
+				what: 'Put **The Spectral Watcher** into play in the **Entry Hall**.'
+			}
+		]
+	}
 };
 
 export const returnToTheWitchingHourScenario: Scenario = {
@@ -525,19 +583,45 @@ export const returnToTheWitchingHourScenario: Scenario = {
 	shortName: 'I',
 	setups: [
 		{
-			shuffles: [
-				{ encounterSet: theWitchingHour, overwriteCount: 0 },
-				{ encounterSet: returnToTheWitchingHour, overwriteCount: 0 },
-				{ encounterSet: theDevourerBelow, overwriteCount: 0 },
-				strikingFear,
-				anettesCoven,
-				cityOfTheDamned,
-				hexcraft,
-				impendingEvils
-			],
-			remaining: [agentsOfShubNiggurath, agentsOfAzathoth]
+			shuffles: [strikingFear, anettesCoven, cityOfTheDamned, hexcraft, impendingEvils],
+			remaining: [
+				theWitchingHour,
+				returnToTheWitchingHour,
+				theDevourerBelow,
+				agentsOfShubNiggurath,
+				agentsOfAzathoth
+			]
 		}
-	]
+	],
+	commonSetup: {
+		addChaosTokenConditional: [
+			{
+				condition: 'If *you have accepted your fate*',
+				tokens: [ChaosToken.TokenTablet, ChaosToken.TokenTablet]
+			},
+			{
+				condition: 'If *you have rejected your fate*',
+				tokens: [ChaosToken.TokenElderThing, ChaosToken.TokenElderThing]
+			}
+		],
+		notes: [
+			{
+				what: 'Include the 2 new **Witch-Haunted Woods** for 9 in total. In player order, each investigator puts 1 random **Witch-Haunted Woods** into play in front of them, until 5 are in play. Remove the other 4 from the game.'
+			},
+			{
+				encounterSet: agentsOfAzathoth,
+				what: 'The entire **Agents of Azathoth** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: agentsOfShubNiggurath,
+				what: 'The entire **Agents of Shub-Niggurath** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: theDevourerBelow,
+				what: 'Only gather 6x **Arkham Woods** locations.'
+			}
+		]
+	}
 };
 
 export const returnToAtDeathsDoorstepScenario: Scenario = {
@@ -546,7 +630,6 @@ export const returnToAtDeathsDoorstepScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: atDeathsDoorstep, overwriteCount: 0 },
 				{ encounterSet: returnToAtDeathsDoorstep, overwriteCount: 1 },
 				silverTwilightLodge,
 				spectralPredators,
@@ -554,11 +637,19 @@ export const returnToAtDeathsDoorstepScenario: Scenario = {
 				chillingMists,
 				unspeakableFate
 			],
-			remaining: [unstableRealm, theWatcher],
+			remaining: [atDeathsDoorstep, unstableRealm, theWatcher],
 			notes: [
 				{
 					encounterSet: returnToAtDeathsDoorstep,
-					what: '**Dmitri Konstantinov** is shuffled into the encounter deck (**Senator Nathaniel Rhodes** is put into play in the Entry Hall).'
+					what: 'Only **Dmitri Konstantinov** enters the encounter deck. **Senator Nathaniel Rhodes** starts in play in the **Entry Hall** with 1 [per_investigator] clues.'
+				},
+				{
+					encounterSet: unstableRealm,
+					what: 'The entire **Unstable Realm** encounter set is set aside, out of play. When act 1b shuffles **Realm of Death** into the encounter deck, shuffle **Unstable Realm** in instead.'
+				},
+				{
+					encounterSet: theWatcher,
+					what: 'The entire **The Watcher** encounter set is set aside, out of play.'
 				}
 			]
 		}
@@ -572,15 +663,29 @@ export const returnToTheSecretNameScenario: Scenario = {
 		{
 			shuffles: [
 				{ encounterSet: theSecretName, overwriteCount: 10 },
-				{ encounterSet: returnToTheSecretName, overwriteCount: 0 },
 				rats,
 				cityOfTheDamned,
 				hexcraft,
 				unspeakableFate,
 				unstableRealm
-			]
+			],
+			remaining: [returnToTheSecretName]
 		}
-	]
+	],
+	commonSetup: {
+		addChaosTokenConditional: [
+			{
+				condition: 'If *the investigators told the Lodge about the coven*',
+				tokens: [ChaosToken.TokenCultist]
+			}
+		],
+		notes: [
+			{
+				encounterSet: theSecretName,
+				what: 'Only 3x **Meddlesome Familiar**, 2x **Extradimensional Visions**, 2x **Pulled by the Stars**, 2x **Disquieting Dreams** and **Brown Jenkin** enter the encounter deck.'
+			}
+		]
+	}
 };
 
 export const returnToTheWagesOfSinScenario: Scenario = {
@@ -605,8 +710,32 @@ export const returnToTheWagesOfSinScenario: Scenario = {
 				what: '20 Cards'
 			},
 			{
+				encounterSet: theWagesOfSin,
+				what: 'Only 8 non-***Spectral*** cards of this set enter the standard encounter deck. 2x **Malevolent Spirit**, 2x **Burdens of the Past** and 2x **Bane of the Living** go into the spectral encounter deck.'
+			},
+			{
 				encounterSet: returnToTheWagesOfSin,
-				what: '2x **Witchweed** are shuffled into the starting encounter deck.'
+				what: 'Only 2x **Witchweed** enter the standard encounter deck.'
+			},
+			{
+				encounterSet: bloodthirstySpirits,
+				what: 'The entire **Bloodthirsty Spirits** encounter set goes into the spectral encounter deck.'
+			},
+			{
+				encounterSet: unspeakableFate,
+				what: 'The entire **Unspeakable Fate** encounter set goes into the spectral encounter deck.'
+			},
+			{
+				encounterSet: unstableRealm,
+				what: 'The entire **Unstable Realm** encounter set goes into the spectral encounter deck.'
+			},
+			{
+				encounterSet: theWatcher,
+				what: 'The entire **The Watcher** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: theWagesOfSin,
+				what: 'Locations start in play with their non-***Spectral*** side faceup.'
 			}
 		]
 	}
@@ -617,17 +746,57 @@ export const returnToForTheGreaterGoodScenario: Scenario = {
 	shortName: 'V',
 	setups: [
 		{
+			name: '"The investigators are members of the Lodge"',
 			shuffles: [
-				{ encounterSet: forTheGreaterGood, overwriteCount: 7 },
-				{ encounterSet: returnToForTheGreaterGood, overwriteCount: 0 },
-				darkCult,
+				{ encounterSet: forTheGreaterGood, overwriteCount: 11 },
+				{ encounterSet: darkCult, overwriteCount: 2 },
 				lockedDoors,
 				silverTwilightLodge,
 				cityOfTheDamned,
 				impendingEvils
+			],
+			remaining: [returnToForTheGreaterGood],
+			notes: [
+				{
+					encounterSet: forTheGreaterGood,
+					what: 'Remove **Cell Keeper** and 2x **Knight of the Inner Circle** from the game.'
+				},
+				{
+					encounterSet: darkCult,
+					what: 'Remove 3x **Acolyte** and **Wizard of the Order** from the game.'
+				}
+			]
+		},
+		{
+			name: 'Not members of the Lodge',
+			shuffles: [
+				{ encounterSet: forTheGreaterGood, overwriteCount: 11 },
+				darkCult,
+				lockedDoors,
+				{ encounterSet: silverTwilightLodge, overwriteCount: 2 },
+				cityOfTheDamned,
+				impendingEvils
+			],
+			remaining: [returnToForTheGreaterGood],
+			notes: [
+				{
+					encounterSet: forTheGreaterGood,
+					what: 'Remove **Lodge Jailor** and 2x **Knight of the Outer Void** from the game.'
+				},
+				{
+					encounterSet: silverTwilightLodge,
+					what: 'Remove 3x **Lodge Neophyte** and **Keeper of Secrets** from the game.'
+				}
 			]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				what: 'Set aside 1 each of [skull], [cultist], [tablet] and [elder_thing] tokens from your collection (not from the chaos bag) as keys.'
+			}
+		]
+	}
 };
 
 export const returnToUnionAndDisillusionScenario: Scenario = {
@@ -644,15 +813,49 @@ export const returnToUnionAndDisillusionScenario: Scenario = {
 				unspeakableFate,
 				unstableRealm
 			],
-			remaining: [anettesCoven, silverTwilightLodge, theWatcher],
-			notes: [
-				{
-					encounterSet: returnToUnionAndDisillusion,
-					what: '2x **Brazier Enchantment** are shuffled into the encounter deck.'
-				}
-			]
+			remaining: [anettesCoven, silverTwilightLodge, theWatcher]
 		}
-	]
+	],
+	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theWitchingHour,
+				what: ['**Anette Mason**']
+			},
+			{
+				encounterSet: atDeathsDoorstep,
+				what: ['**Josef Meiger**']
+			}
+		],
+		notes: [
+			{
+				what: 'For each heretic that was unleashed unto Arkham, place 1 doom on agenda 1a.'
+			},
+			{
+				what: 'If *the investigators sided with the coven*, the braziers at **Forbidding Shore** and both **Unvisited Isle** in play start lit. Place 1 resource on each of them.'
+			},
+			{
+				encounterSet: unionAndDisillusion,
+				what: "**Watcher's Gaze** is set aside, out of play."
+			},
+			{
+				encounterSet: returnToUnionAndDisillusion,
+				what: 'Only 2x **Brazier Enchantment** enter the encounter deck.'
+			},
+			{
+				encounterSet: anettesCoven,
+				what: "The entire **Anette's Coven** encounter set is set aside, out of play."
+			},
+			{
+				encounterSet: silverTwilightLodge,
+				what: 'The entire **Silver Twilight Lodge** encounter set is set aside, out of play.'
+			},
+			{
+				encounterSet: theWatcher,
+				what: 'The entire **The Watcher** encounter set is set aside, out of play.'
+			}
+		]
+	}
 };
 
 export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
@@ -660,18 +863,30 @@ export const returnToInTheClutchesOfChaos1Scenario: Scenario = {
 	shortName: 'VII (v.I)',
 	setups: [
 		{
+			name: '"Anette Mason is possessed by evil"',
 			shuffles: [
 				{ encounterSet: inTheClutchesOfChaos, overwriteCount: 8 },
-				{ encounterSet: returnToInTheClutchesOfChaos, overwriteCount: 0 },
 				{ encounterSet: musicOfTheDamned, overwriteCount: 4 },
 				nightgaunts,
 				{ encounterSet: agentsOfAzathoth, overwriteCount: 3 },
 				anettesCoven,
 				cityOfTheDamned,
 				hexcraft
-			]
+			],
+			remaining: [returnToInTheClutchesOfChaos, secretsOfTheUniverse]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				what: "Also gather **Secrets of the Universe** for its **Hangman's Hill** and **Silver Twilight Lodge**. Shuffle them with the removed locations to choose random locations."
+			},
+			{
+				encounterSet: agentsOfAzathoth,
+				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
+			}
+		]
+	}
 };
 
 export const returnToInTheClutchesOfChaos2Scenario: Scenario = {
@@ -679,18 +894,34 @@ export const returnToInTheClutchesOfChaos2Scenario: Scenario = {
 	shortName: 'VII (v.II)',
 	setups: [
 		{
+			name: '"Carl Sanford possesses the secrets of the universe"',
 			shuffles: [
 				{ encounterSet: inTheClutchesOfChaos, overwriteCount: 8 },
-				{ encounterSet: returnToInTheClutchesOfChaos, overwriteCount: 0 },
 				{ encounterSet: secretsOfTheUniverse, overwriteCount: 4 },
 				{ encounterSet: theMidnightMasks, overwriteCount: 5 },
 				nightgaunts,
 				strikingFear,
 				{ encounterSet: agentsOfAzathoth, overwriteCount: 3 },
 				silverTwilightLodge
-			]
+			],
+			remaining: [returnToInTheClutchesOfChaos, musicOfTheDamned]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				what: "Also gather **Music of the Damned** for its **Hangman's Hill** and **Silver Twilight Lodge**. Shuffle them with the removed locations to choose random locations."
+			},
+			{
+				encounterSet: theMidnightMasks,
+				what: 'Only gather the 5 treachery cards (2x **False Lead** and 3x **Hunting Shadow**).'
+			},
+			{
+				encounterSet: agentsOfAzathoth,
+				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
+			}
+		]
+	}
 };
 
 export const returnToBeforeTheBlackThroneScenario: Scenario = {
@@ -700,12 +931,23 @@ export const returnToBeforeTheBlackThroneScenario: Scenario = {
 		{
 			shuffles: [
 				{ encounterSet: beforeTheBlackThrone, overwriteCount: 12 },
-				{ encounterSet: returnToBeforeTheBlackThrone, overwriteCount: 0 },
 				darkCult,
 				{ encounterSet: agentsOfAzathoth, overwriteCount: 3 },
 				impendingEvils,
 				unspeakableFate
-			]
+			],
+			remaining: [returnToBeforeTheBlackThrone]
 		}
-	]
+	],
+	commonSetup: {
+		notes: [
+			{
+				what: "Don't forget potential chaos bag changes in the prior Interlude IV."
+			},
+			{
+				encounterSet: agentsOfAzathoth,
+				what: 'Set the **Piper of Azathoth** enemy aside, out of play.'
+			}
+		]
+	}
 };
