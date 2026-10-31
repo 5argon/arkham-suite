@@ -159,6 +159,13 @@ Earned-state should be keyed by `(family, id)` so earning it in any family membe
 counts once and shows in both. See `tools/rt-achievements-csv.mjs` →
 `curation/rt-achievements-review.csv` for the human review of which are shared.
 
+**Errata.** When FFG corrects an achievement's wording, put the corrected English
+in the curation (`"text"`). `apply.mjs` uses it instead of the extracted text:
+
+```jsonc
+"achievements": { "deep_end": { "text": "Escape <i>The Grand Vault</i> … every eligible location …" } }
+```
+
 **Inferred achievements.** Some achievements are auto-derivable from recorded
 campaign data — the UI can grey out the manual toggle and explain it's inferred.
 Add an `infer` rule in curation (`AchievementInference` in the types):

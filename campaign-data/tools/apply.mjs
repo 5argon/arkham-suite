@@ -63,7 +63,7 @@ function buildSharedInjections() {
       (out[base] ||= []).push({
         from: rt,
         def: { id: a.id, type: a.type, items: a.items, max: a.max, infer: ov.infer, itemInfer: ov.itemInfer, requires: ov.requires, scenario: ov.scenario },
-        en: en.achievements?.[a.id] ?? { title: a.id, text: '' },
+        en: { ...(en.achievements?.[a.id] ?? { title: a.id, text: '' }), ...(ov.text ? { text: ov.text } : {}) },
       });
     }
   }
@@ -232,6 +232,8 @@ function apply(code) {
       if (ov.itemInfer) a.itemInfer = ov.itemInfer;
       if (ov.requires) a.requires = ov.requires;
       if (ov.scenario) a.scenario = ov.scenario;
+      // Errata: the printed text replaced by the corrected wording.
+      if (ov.text && en.achievements[a.id]) en.achievements[a.id].text = ov.text;
     }
     // RT campaign's own data: base scenario slot -> return_to_* surfaced code.
     if (a.scenario && code in RT_TO_BASE) a.scenario = toReturnScenario(a.scenario);

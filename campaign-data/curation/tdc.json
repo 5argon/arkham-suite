@@ -216,7 +216,8 @@
       "scenario": "the_apiary"
     },
     "deep_end": {
-      "scenario": "the_grand_vault"
+      "scenario": "the_grand_vault",
+      "text": "Escape <i>The Grand Vault</i> with the Tidal Tablet after every eligible location has been fully flooded."
     },
     "sorry": {
       "scenario": "court_of_the_ancients"
