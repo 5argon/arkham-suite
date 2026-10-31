@@ -38,22 +38,15 @@ export const thePitOfDespairScenario: Scenario = {
 	shortName: 'I',
 	setups: [
 		{
-			shuffles: [
-				{ encounterSet: thePitOfDespair, overwriteCount: 0 },
-				agentsOfCthulhu,
-				rats,
-				creaturesOfTheDeep,
-				{ encounterSet: floodedCaverns, overwriteCount: 0 },
-				risingTide,
-				shatteredMemories
-			]
+			shuffles: [agentsOfCthulhu, rats, creaturesOfTheDeep, risingTide, shatteredMemories],
+			remaining: [thePitOfDespair, floodedCaverns]
 		}
 	],
 	commonSetup: {
 		notes: [
 			{
 				encounterSet: thePitOfDespair,
-				what: 'None of **The Pit of Despair** enters the deck: **The Amalgam**, 2x **Blindsense**, and 3x **From the Depths** are set aside, out of play.'
+				what: '**The Amalgam** enemy, 2x **Blindsense** and 3x **From the Depths** treacheries are set aside, out of play.'
 			}
 		]
 	}
@@ -65,7 +58,6 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: theVanishingOfElinaHarper, overwriteCount: 0 },
 				chillingCold,
 				lockedDoors,
 				{ encounterSet: nightgaunts, overwriteCount: 2 },
@@ -73,11 +65,16 @@ export const theVanishingOfElinaHarperScenario: Scenario = {
 				agentsOfDagon,
 				{ encounterSet: fogOverInnsmouth, overwriteCount: 2 },
 				theLocals
-			]
+			],
+			remaining: [theVanishingOfElinaHarper]
 		}
 	],
 	commonSetup: {
 		notes: [
+			{
+				topic: 'Leads Deck (10)',
+				what: '1 random ***Suspect*** enemy and 1 random ***Hideout*** location go facedown beneath **Finding Agent Harper** without looking at them. The other 10 are shuffled together to form the Leads deck.'
+			},
 			{
 				encounterSet: fogOverInnsmouth,
 				what: 'The **Winged One** enemy is set aside, out of play.'
@@ -100,8 +97,8 @@ export const inTooDeepScenario: Scenario = {
 	setups: [
 		{
 			shuffles: [
-				{ encounterSet: inTooDeep, overwriteCount: 7 },
-				agentsOfCthulhu,
+				{ encounterSet: inTooDeep, overwriteCount: 9 },
+				{ encounterSet: agentsOfCthulhu, overwriteCount: 2 },
 				creaturesOfTheDeep,
 				risingTide,
 				syzygy,
@@ -110,10 +107,28 @@ export const inTooDeepScenario: Scenario = {
 		}
 	],
 	commonSetup: {
+		specialGather: [
+			{
+				encounterSet: theVanishingOfElinaHarper,
+				overwriteCount: 1,
+				what: ['**Angry Mob** (back of **Finding Agent Harper**): set aside, out of play.']
+			}
+		],
 		notes: [
 			{
 				encounterSet: inTooDeep,
-				what: 'The **Innsmouth Shoggoth** and 2x **Ravager from the Deep** are set aside, out of play.'
+				what: 'The **Innsmouth Shoggoth** and 2x **Ravager from the Deep** enemies are set aside, out of play.'
+			},
+			{
+				encounterSet: agentsOfCthulhu,
+				what: '2x **Young Deep One** enemies are set aside, out of play.'
+			},
+			{
+				encounterSet: theVanishingOfElinaHarper,
+				what: 'Each ***Suspect*** enemy that is *out for blood* in the Campaign Log is put into play at its location by its revelation ability, without clues on it.'
+			},
+			{
+				what: '**The House on Water Street**, **Innsmouth Harbour** and **Desolate Coastline** start partially flooded.'
 			}
 		]
 	},
@@ -129,8 +144,8 @@ export const inTooDeepScenario: Scenario = {
 			{
 				bullets: [
 					'If 1 or more barriers sit between two locations, investigators cannot move between them, even if they are connected.',
-					'Barriers are removed by certain location abilities or the act 1a ability; more barriers between two locations require more uses to clear the path.',
-					'A hunter enemy moves along the shortest path not blocked by barriers (ignoring barriers only if no such path exists); all other enemy movement ignores barriers.'
+					'Barriers are removed by certain location abilities or the act 1a ability. More barriers between two locations require more uses to clear the path.',
+					'A hunter enemy moves along the shortest path not blocked by barriers, ignoring barriers only if no such path exists. All other enemy movement ignores barriers.'
 				]
 			}
 		]
@@ -146,17 +161,17 @@ export const devilReefScenario: Scenario = {
 				{ encounterSet: devilReef, overwriteCount: 15 },
 				agentsOfHydra,
 				creaturesOfTheDeep,
-				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				malfunction,
 				risingTide
-			]
+			],
+			remaining: [floodedCaverns]
 		}
 	],
 	commonSetup: {
 		notes: [
 			{
-				encounterSet: devilReef,
-				what: 'Only its story-asset relics are set aside. All of its enemies and treacheries enter the deck.'
+				topic: 'Tidal Tunnel Deck (8)',
+				what: "The 6 Tidal Tunnel locations of this set and 2x **Bootlegger's Hideaway** are shuffled into the Tidal Tunnel deck, unrevealed side faceup."
 			}
 		]
 	}
@@ -184,6 +199,12 @@ export const horrorInHighGearScenario: Scenario = {
 				fogOverInnsmouth,
 				malfunction,
 				shatteredMemories
+			],
+			notes: [
+				{
+					encounterSet: horrorInHighGear,
+					what: '1 random ***Vehicle*** enemy spawns at the rearmost location.'
+				}
 			]
 		},
 		{
@@ -194,17 +215,15 @@ export const horrorInHighGearScenario: Scenario = {
 				fogOverInnsmouth,
 				malfunction,
 				shatteredMemories
+			],
+			notes: [
+				{
+					encounterSet: horrorInHighGear,
+					what: '2 random ***Vehicle*** enemies spawn at the rearmost location.'
+				}
 			]
 		}
-	],
-	commonSetup: {
-		notes: [
-			{
-				encounterSet: horrorInHighGear,
-				what: 'Additional vehicle enemies spawn at setup as the player count rises, so the starting encounter deck shrinks accordingly.'
-			}
-		]
-	}
+	]
 };
 
 export const aLightInTheFogScenario: Scenario = {
@@ -216,17 +235,17 @@ export const aLightInTheFogScenario: Scenario = {
 				{ encounterSet: aLightInTheFog, overwriteCount: 13 },
 				strikingFear,
 				creaturesOfTheDeep,
-				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				risingTide,
 				syzygy
-			]
+			],
+			remaining: [floodedCaverns]
 		}
 	],
 	commonSetup: {
 		notes: [
 			{
 				encounterSet: aLightInTheFog,
-				what: 'The **Oceiros Marsh** enemy and both **Worth His Salt** and **Taken Captive** treacheries are set aside, out of play.'
+				what: 'The **Oceiros Marsh** enemy, 2x **Worth His Salt** and 2x **Taken Captive** treacheries are set aside, out of play.'
 			}
 		]
 	}
@@ -241,21 +260,23 @@ export const theLairOfDagonScenario: Scenario = {
 				{ encounterSet: theLairOfDagon, overwriteCount: 15 },
 				darkCult,
 				lockedDoors,
-				agentsOfDagon,
-				{ encounterSet: floodedCaverns, overwriteCount: 0 },
-				{ encounterSet: syzygy, overwriteCount: 0 }
-			]
+				agentsOfDagon
+			],
+			remaining: [floodedCaverns, syzygy]
 		}
 	],
 	commonSetup: {
 		notes: [
+			{
+				what: 'Count the entries under *Memories Recovered* in the Campaign Log. With 4 or fewer, add 5 [bless] tokens to the chaos bag. With 5 to 7, add 2 [curse] tokens. With 8 or more, add 5 [curse] tokens.'
+			},
 			{
 				encounterSet: theLairOfDagon,
 				what: 'The **Apostle of Dagon** and **Dagon** enemies are set aside, out of play.'
 			},
 			{
 				encounterSet: syzygy,
-				what: '2x **Syzygy** and 2x **Tidal Alignment** treacheries are set aside, out of play.'
+				what: 'The entire **Syzygy** encounter set is set aside, out of play.'
 			}
 		]
 	}
@@ -271,10 +292,10 @@ export const intoTheMaelstromScenario: Scenario = {
 				ancientEvils,
 				{ encounterSet: agentsOfHydra, overwriteCount: 3 },
 				creaturesOfTheDeep,
-				{ encounterSet: floodedCaverns, overwriteCount: 0 },
 				shatteredMemories,
 				syzygy
-			]
+			],
+			remaining: [floodedCaverns]
 		}
 	],
 	commonSetup: {
