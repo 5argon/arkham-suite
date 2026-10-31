@@ -1,6 +1,7 @@
 import type { Campaign } from '$lib/core/campaign';
 import { ChaosToken } from '@5argon/arkham-kohaku';
 
+import { friendsInLowPlaces } from './encounter';
 import {
 	bloodMoneyScenario,
 	newHorizonsDayScenario,
@@ -17,6 +18,7 @@ export const childrenOfBloodCampaign: Campaign = {
 		newHorizonsNightScenario,
 		bloodMoneyScenario
 	],
+	commonEncounterSets: [friendsInLowPlaces],
 	startingChaosBag: {
 		easy: [
 			ChaosToken.TokenP1,

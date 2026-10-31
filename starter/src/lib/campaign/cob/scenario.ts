@@ -11,7 +11,6 @@ import {
 	bloodMoon,
 	bloodthirst,
 	childrenOfBlood,
-	friendsInLowPlaces,
 	hunted,
 	infected,
 	misinformation,
@@ -199,7 +198,7 @@ export const bloodMoneyScenario: Scenario = {
 			hunted,
 			arcaneLock
 		],
-		[sanguineSecrets, friendsInLowPlaces]
+		[sanguineSecrets]
 	),
 	commonSetup: {
 		addChaosToken: [ChaosToken.TokenCultist],
@@ -219,10 +218,6 @@ export const bloodMoneyScenario: Scenario = {
 			{
 				encounterSet: sanguineSecrets,
 				what: 'Only the 3x **Sanguine Cultist** and **Blood-Crazed Zealot** are gathered and set aside, out of play. **Morbid Rituals** is not gathered.'
-			},
-			{
-				encounterSet: friendsInLowPlaces,
-				what: 'If **Charlie Kane** agreed to join you, any one investigator may be his bearer.'
 			}
 		]
 	}
