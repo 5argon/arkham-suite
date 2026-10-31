@@ -1,10 +1,22 @@
 import type { Campaign } from '$lib/core/campaign';
 import { ChaosToken } from '@5argon/arkham-kohaku';
 
-import { bloodMoneyScenario, newHorizonsScenario, riverOfBloodScenario } from './scenario';
+import {
+	bloodMoneyScenario,
+	newHorizonsDayScenario,
+	newHorizonsNightScenario,
+	riverOfBloodHardScenario,
+	riverOfBloodStandardScenario
+} from './scenario';
 
 export const childrenOfBloodCampaign: Campaign = {
-	scenarios: [riverOfBloodScenario, newHorizonsScenario, bloodMoneyScenario],
+	scenarios: [
+		riverOfBloodStandardScenario,
+		riverOfBloodHardScenario,
+		newHorizonsDayScenario,
+		newHorizonsNightScenario,
+		bloodMoneyScenario
+	],
 	startingChaosBag: {
 		easy: [
 			ChaosToken.TokenP1,
