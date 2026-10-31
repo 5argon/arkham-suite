@@ -21,6 +21,12 @@
 
 	let { setup, notCommon = false, campaign = undefined }: Props = $props();
 
+	// Notes with an encounter set icon first, then the plain ones, each in data order.
+	const sortedNotes = $derived([
+		...(setup.notes ?? []).filter((n) => n.encounterSet !== undefined),
+		...(setup.notes ?? []).filter((n) => n.encounterSet === undefined)
+	]);
+
 	// Runs of the same token, so 5 Curse tokens can show as "5×" and 1 icon.
 	function groupTokens(tokens: ChaosToken[]): { token: ChaosToken; count: number }[] {
 		const groups: { token: ChaosToken; count: number }[] = [];
@@ -176,7 +182,7 @@
 					<span class="text-primary-700 dark:text-primary-300">Notes</span>
 				</div>
 			{/if}
-			{#each setup.notes as n, i (i)}
+			{#each sortedNotes as n, i (i)}
 				<div
 					class={notCommon
 						? 'pl-4 border-l border-secondary-700/20 dark:border-secondary-300/20'
@@ -195,7 +201,7 @@
 						{#if n.topic !== undefined}
 							{@const topicIcon = getTopicIcon()}
 							<span
-								class="inline-flex items-center border rounded-l px-2 mr-1 text-sm border-primary-200 dark:border-primary-700 bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300"
+								class="inline-flex items-center border rounded-l px-2 mr-1 border-primary-200 dark:border-primary-700 bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300"
 							>
 								{#if topicIcon !== undefined}
 									<span class="flex mr-1.5"><FaIcon duotone icon={topicIcon} /></span>
@@ -203,7 +209,7 @@
 								{n.topic}
 							</span>
 						{/if}
-						<span class="text-sm text-primary-500 dark:text-primary-300"
+						<span class="text-primary-500 dark:text-primary-300"
 							>{@html parseArkhamMarkup(n.what)}</span
 						>
 					{/if}

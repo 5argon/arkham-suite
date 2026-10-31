@@ -105,7 +105,7 @@
 					</td>
 					<td class="border-x border-primary-300 px-1 py-1 dark:border-primary-700">
 						{#if r.specificSets.length > 0}
-							<div class="flex flex-wrap items-center justify-center gap-1">
+							<div class="flex items-center justify-center gap-1">
 								{#each r.specificSets as s, j (j)}
 									{#if s.kohakuEncounterSet}
 										<EncounterSetDisplayWithTooltip encounterSet={s.kohakuEncounterSet} flag="scenario" />
