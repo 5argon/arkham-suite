@@ -1,8 +1,5 @@
 import type { Scenario } from '$lib/core/campaign';
-import {
-	EncounterSet as KohakuEncounterSet,
-	Scenario as KohakuScenario
-} from '@5argon/arkham-kohaku';
+import { ChaosToken, Scenario as KohakuScenario } from '@5argon/arkham-kohaku';
 
 import {
 	agentsOfCthulhu,
@@ -52,10 +49,10 @@ export const oneLastJobScenario: Scenario = {
 				dreams,
 				chillingCold,
 				lockedDoors,
-				{ encounterSet: theMidnightMasks, overwriteCount: 0 },
 				rats,
 				strikingFear
-			]
+			],
+			remaining: [theMidnightMasks]
 		}
 	],
 	commonSetup: {
@@ -84,11 +81,11 @@ export const theWesternWallWesternScenario: Scenario = {
 				deepOnes,
 				flood,
 				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 0 },
 				{ encounterSet: theInescapable, overwriteCount: 3 },
 				underseaCreatures,
 				agentsOfCthulhu
-			]
+			],
+			remaining: [starSpawn]
 		}
 	],
 	commonSetup: {
@@ -99,11 +96,14 @@ export const theWesternWallWesternScenario: Scenario = {
 			},
 			{
 				encounterSet: starSpawn,
-				what: 'Only the **Coral Star Spawn** is gathered, set aside out of play.'
+				what: 'Only the **Coral Star Spawn** is gathered and set aside, out of play.'
 			},
 			{
 				encounterSet: theInescapable,
-				what: 'Only 3x **Still Behind You** enter the encounter deck.'
+				what: '**The Inescapable** is set aside, out of play. Only 3x **Still Behind You** enter the encounter deck.'
+			},
+			{
+				what: 'Add the flood tokens to the token pool. Each location on levels 2–3 starts **partially flooded**, and each location on levels 4–5 starts **fully flooded**.'
 			}
 		]
 	}
@@ -122,11 +122,11 @@ export const theWesternWallEasternScenario: Scenario = {
 				deepOnes,
 				flood,
 				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 0 },
-				{ encounterSet: theInescapable, overwriteCount: 4 },
+				theInescapable,
 				underseaCreatures,
 				agentsOfCthulhu
 			],
+			remaining: [starSpawn],
 			notes: [
 				{
 					encounterSet: theInescapable,
@@ -142,9 +142,15 @@ export const theWesternWallEasternScenario: Scenario = {
 				deepOnes,
 				flood,
 				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 0 },
 				underseaCreatures,
 				agentsOfCthulhu
+			],
+			remaining: [starSpawn],
+			notes: [
+				{
+					encounterSet: theInescapable,
+					what: 'The entire **The Inescapable** encounter set is removed from the game.'
+				}
 			]
 		}
 	],
@@ -156,7 +162,10 @@ export const theWesternWallEasternScenario: Scenario = {
 			},
 			{
 				encounterSet: starSpawn,
-				what: 'Only the **Coral Star Spawn** is gathered, set aside out of play.'
+				what: 'Only the **Coral Star Spawn** is gathered and set aside, out of play.'
+			},
+			{
+				what: 'Add the flood tokens to the token pool. Each location on levels 1–2 starts **fully flooded**, and each location on levels 3–4 starts **partially flooded**.'
 			}
 		]
 	}
@@ -184,6 +193,9 @@ export const theDrownedQuarterScenario: Scenario = {
 			{
 				encounterSet: theDrownedQuarter,
 				what: 'Only 3x **Medusa** enter the encounter deck.'
+			},
+			{
+				what: 'If *the expedition headed east*, increase the flood level of 1 [per_investigator] **Sea Floor** locations.'
 			}
 		]
 	}
@@ -199,14 +211,14 @@ export const theApiaryWesternScenario: Scenario = {
 				{ encounterSet: theApiary, overwriteCount: 14 },
 				cosmicLegacy,
 				elderMist,
-				{ encounterSet: theInescapable, overwriteCount: 0 },
-				{ encounterSet: pilgrims, overwriteCount: 0 },
 				darkCult,
 				strikingFear
-			]
+			],
+			remaining: [theInescapable, pilgrims]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenCultist],
 		notes: [
 			{
 				encounterSet: theApiary,
@@ -214,7 +226,7 @@ export const theApiaryWesternScenario: Scenario = {
 			},
 			{
 				encounterSet: theApiary,
-				what: '13 cards from this set enter the encounter deck: 3 locations (**Growing Fields** and 2x **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. **Luminous Tunnels** is then shuffled into the bottom ten cards.'
+				what: '14 cards from this set enter the encounter deck. First shuffle 13: 3 locations (**Growing Fields** and 2x **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. Then shuffle **Luminous Tunnels** into the bottom 10 cards.'
 			},
 			{
 				encounterSet: theApiary,
@@ -222,11 +234,11 @@ export const theApiaryWesternScenario: Scenario = {
 			},
 			{
 				encounterSet: pilgrims,
-				what: 'The entire **Pilgrims** encounter set is gathered but set aside, out of play.'
+				what: 'The entire **Pilgrims** encounter set is set aside, out of play.'
 			},
 			{
 				encounterSet: theInescapable,
-				what: '**The Inescapable** encounter set is gathered but set aside, out of play. Remove it from the game instead if *the creature was defeated*.'
+				what: 'The entire **The Inescapable** encounter set is set aside, out of play.'
 			}
 		]
 	}
@@ -242,14 +254,15 @@ export const theApiaryEasternScenario: Scenario = {
 				{ encounterSet: theApiary, overwriteCount: 14 },
 				cosmicLegacy,
 				elderMist,
-				{ encounterSet: theInescapable, overwriteCount: 0 },
 				{ encounterSet: starSpawn, overwriteCount: 1 },
 				stowaways,
 				strikingFear
-			]
+			],
+			remaining: [theInescapable]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenTablet],
 		notes: [
 			{
 				encounterSet: theApiary,
@@ -257,7 +270,7 @@ export const theApiaryEasternScenario: Scenario = {
 			},
 			{
 				encounterSet: theApiary,
-				what: '13 cards from this set enter the encounter deck: 3 locations (**Growing Fields** and 2x **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. **Grasping Corridor** is then shuffled into the bottom ten cards.'
+				what: '14 cards from this set enter the encounter deck. First shuffle 13: 3 locations (**Growing Fields** and 2x **Fleshy Paths**) plus 3x **Apiary Tender**, 2x **Dangerous Curiosity**, 2x **Hungry Walls**, and 3x **Alien Eggs**. Then shuffle **Grasping Corridor** into the bottom 10 cards.'
 			},
 			{
 				encounterSet: theApiary,
@@ -265,11 +278,11 @@ export const theApiaryEasternScenario: Scenario = {
 			},
 			{
 				encounterSet: starSpawn,
-				what: 'Only the **Infected Star Spawn** enemy is gathered.'
+				what: 'Only the **Infected Star Spawn** is gathered and shuffled into the encounter deck.'
 			},
 			{
 				encounterSet: theInescapable,
-				what: '**The Inescapable** encounter set is gathered but set aside, out of play. Remove it from the game instead if *the creature was defeated*.'
+				what: 'The entire **The Inescapable** encounter set is set aside, out of play. Remove it from the game instead if *the creature was defeated*.'
 			}
 		]
 	}
@@ -280,29 +293,30 @@ export const theGrandVaultScenario: Scenario = {
 	shortName: '?',
 	setups: [
 		{
-			shuffles: [
-				{ encounterSet: theGrandVault, overwriteCount: 4 },
-				alienMachinery,
-				flood,
-				{ encounterSet: theInescapable, overwriteCount: 3 },
-				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 0 }
-			]
+			shuffles: [{ encounterSet: theGrandVault, overwriteCount: 4 }, alienMachinery, flood, rlyeh],
+			remaining: [theInescapable, starSpawn]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
 				encounterSet: theGrandVault,
-				what: 'Only 1x **Slitherer in Darkness** and 3x **Deadly Mechanisms** enter the encounter deck; the **Vault Attendant** enemies are set aside, out of play.'
+				what: 'Only 1x **Slitherer in Darkness** and 3x **Deadly Mechanisms** enter the encounter deck. The **Vault Attendant** enemies are set aside, out of play.'
 			},
 			{
 				encounterSet: starSpawn,
-				what: 'Shuffle the **Star Spawn** enemies, remove two at random from the game, and set the rest aside, out of play.'
+				what: '2 out of 4 randomized **Star Spawn** enemy set aside, out of play, the rest are removed from the game.'
 			},
 			{
 				encounterSet: theInescapable,
-				what: 'Only 3x **Still Behind You** enter the encounter deck.'
+				what: 'The entire **The Inescapable** encounter set is set aside, out of play.'
+			},
+			{
+				what: 'Add the flood tokens to the token pool. The 3 **Vault Chamber** locations in the bottom row start **partially flooded**.'
+			},
+			{
+				what: 'If *the power was diverted*, place 1 resource on the bottom left **Vault Chamber**. Otherwise, place 1 resource on each of the bottom left, bottom right, and top right **Vault Chamber** locations. Each location with a resource is *activated*.'
 			}
 		]
 	}
@@ -328,7 +342,7 @@ export const courtOfTheAncientsWesternScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: theInescapable,
-					what: 'Only 3x **Still Behind You** enter the encounter deck.'
+					what: '**The Inescapable** is set aside, out of play. Only 3x **Still Behind You** enter the encounter deck.'
 				}
 			]
 		},
@@ -342,10 +356,17 @@ export const courtOfTheAncientsWesternScenario: Scenario = {
 				rlyeh,
 				{ encounterSet: starSpawn, overwriteCount: 1 },
 				stowaways
+			],
+			notes: [
+				{
+					encounterSet: theInescapable,
+					what: 'The entire **The Inescapable** encounter set is removed from the game.'
+				}
 			]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenCultist],
 		notes: [
 			{
 				encounterSet: courtOfTheAncients,
@@ -353,7 +374,7 @@ export const courtOfTheAncientsWesternScenario: Scenario = {
 			},
 			{
 				encounterSet: starSpawn,
-				what: 'Set the **Star Spawn Observer** aside, then remove two of the other three at random. The last one enters the encounter deck.'
+				what: '**Star Spawn Observer** is set aside, out of play. 1 out of the other 3 randomized **Star Spawn** enemy in the encounter deck, the rest are removed from the game.'
 			}
 		]
 	}
@@ -373,13 +394,13 @@ export const courtOfTheAncientsEasternScenario: Scenario = {
 				elderMist,
 				{ encounterSet: theInescapable, overwriteCount: 3 },
 				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 0 },
 				pilgrims
 			],
+			remaining: [starSpawn],
 			notes: [
 				{
 					encounterSet: theInescapable,
-					what: 'Only 3x **Still Behind You** enter the encounter deck.'
+					what: '**The Inescapable** is set aside, out of play. Only 3x **Still Behind You** enter the encounter deck.'
 				}
 			]
 		},
@@ -391,12 +412,19 @@ export const courtOfTheAncientsEasternScenario: Scenario = {
 				dreams,
 				elderMist,
 				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 0 },
 				pilgrims
+			],
+			remaining: [starSpawn],
+			notes: [
+				{
+					encounterSet: theInescapable,
+					what: 'The entire **The Inescapable** encounter set is removed from the game.'
+				}
 			]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenTablet],
 		notes: [
 			{
 				encounterSet: courtOfTheAncients,
@@ -404,11 +432,26 @@ export const courtOfTheAncientsEasternScenario: Scenario = {
 			},
 			{
 				encounterSet: starSpawn,
-				what: 'Only the **Star Spawn Observer** is gathered, set aside out of play.'
+				what: 'Only the **Star Spawn Observer** is gathered and set aside, out of play.'
+			},
+			{
+				what: 'Add the flood tokens to the token pool. Each location on level 1 starts **fully flooded**, and each location on level 2 starts **partially flooded**.'
 			}
 		]
 	}
 };
+
+// The act 1 grid is 3 rows by 4 columns: R’lyeh Streets, 4 open sky, and 7 cards from the bottom
+// of the Summit deck. Both expeditions start the Summit deck with 14 locations.
+const obsidianCanyonsSummitNote = (removed: string, setAside: string) => ({
+	topic: 'Summit Deck (8)',
+	what: `Counted after filling act 1 grid, **Central Spire** shuffled into the top 3. ${setAside} stay set aside. ${removed}`
+});
+
+const obsidianCanyonsOpenSkyNote = (sets: string, gathered: number) => ({
+	topic: `Open Sky (${gathered - 4})`,
+	what: `This deck is ${gathered} cards from ${sets} with 4 of them go into the act 1 grid.`
+});
 
 export const obsidianCanyonsWesternScenario: Scenario = {
 	kohakuScenario: KohakuScenario.ObsidianCanyons,
@@ -424,15 +467,13 @@ export const obsidianCanyonsWesternScenario: Scenario = {
 				{ encounterSet: theInescapable, overwriteCount: 3 },
 				rlyeh,
 				{ encounterSet: starSpawn, overwriteCount: 2 },
-				{ encounterSet: ancientEvils, overwriteCount: 0 },
-				{ encounterSet: chillingCold, overwriteCount: 0 },
-				nightgaunts,
-				{ encounterSet: strikingFear, overwriteCount: 0 }
+				nightgaunts
 			],
+			remaining: [ancientEvils, chillingCold, strikingFear],
 			notes: [
 				{
 					encounterSet: theInescapable,
-					what: 'Only 3x **Still Behind You** enter the encounter deck.'
+					what: '**The Inescapable** spawns at the location farthest from all investigators, exhausted. Only 3x **Still Behind You** enter the encounter deck.'
 				}
 			]
 		},
@@ -444,31 +485,32 @@ export const obsidianCanyonsWesternScenario: Scenario = {
 				elderMist,
 				rlyeh,
 				{ encounterSet: starSpawn, overwriteCount: 2 },
-				{ encounterSet: ancientEvils, overwriteCount: 0 },
-				{ encounterSet: chillingCold, overwriteCount: 0 },
-				nightgaunts,
-				{ encounterSet: strikingFear, overwriteCount: 0 }
+				nightgaunts
+			],
+			remaining: [ancientEvils, chillingCold, strikingFear],
+			notes: [
+				{
+					encounterSet: theInescapable,
+					what: 'The entire **The Inescapable** encounter set is removed from the game.'
+				}
 			]
 		}
 	],
 	commonSetup: {
 		notes: [
 			{
+				encounterSet: obsidianCanyons,
+				what: 'The story card starts **Eastern Winds** side faceup in a **western expedition**.'
+			},
+			{
 				encounterSet: starSpawn,
-				what: 'Shuffle the **Star Spawn** enemies and remove two at random from the game; the rest enter the encounter deck.'
+				what: '2 out of 4 randomized **Star Spawn** enemy in the encounter deck, the rest are removed from the game.'
 			},
-			{
-				encounterSet: ancientEvils,
-				what: 'The **Ancient Evils** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			},
-			{
-				encounterSet: chillingCold,
-				what: 'The **Chilling Cold** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			},
-			{
-				encounterSet: strikingFear,
-				what: 'The **Striking Fear** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			}
+			obsidianCanyonsSummitNote(
+				'**Ancient Dome** is not used in this version.',
+				'**Floating Spire**, **Western Wall**, and **Aerial Waterfall**'
+			),
+			obsidianCanyonsOpenSkyNote('**Ancient Evils**, **Chilling Cold**, and **Striking Fear**', 14)
 		]
 	}
 };
@@ -479,59 +521,36 @@ export const obsidianCanyonsEasternScenario: Scenario = {
 	shortName: '?',
 	setups: [
 		{
-			name: 'Creature not defeated',
 			shuffles: [
-				{ encounterSet: obsidianCanyons, overwriteCount: 12 },
+				{ encounterSet: obsidianCanyons, overwriteCount: 11 },
 				cosmicLegacy,
 				elderMist,
-				{ encounterSet: theInescapable, overwriteCount: 3 },
 				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 2 },
-				{ encounterSet: ancientEvils, overwriteCount: 0 },
-				{ encounterSet: chillingCold, overwriteCount: 0 },
-				nightgaunts,
-				{ encounterSet: strikingFear, overwriteCount: 0 }
+				{ encounterSet: starSpawn, overwriteCount: 1 },
+				nightgaunts
 			],
-			notes: [
-				{
-					encounterSet: theInescapable,
-					what: 'Only 3x **Still Behind You** enter the encounter deck.'
-				}
-			]
-		},
-		{
-			name: 'Creature defeated',
-			shuffles: [
-				{ encounterSet: obsidianCanyons, overwriteCount: 12 },
-				cosmicLegacy,
-				elderMist,
-				rlyeh,
-				{ encounterSet: starSpawn, overwriteCount: 2 },
-				{ encounterSet: ancientEvils, overwriteCount: 0 },
-				{ encounterSet: chillingCold, overwriteCount: 0 },
-				nightgaunts,
-				{ encounterSet: strikingFear, overwriteCount: 0 }
-			]
+			remaining: [theInescapable, chillingCold, strikingFear]
 		}
 	],
 	commonSetup: {
 		notes: [
 			{
+				encounterSet: obsidianCanyons,
+				what: 'The story card starts **Western Winds** side faceup in an **eastern expedition**. One **Star Vampire** is removed from the game.'
+			},
+			{
+				encounterSet: theInescapable,
+				what: 'The entire **The Inescapable** encounter set is set aside, out of play.'
+			},
+			{
 				encounterSet: starSpawn,
-				what: 'Shuffle the **Star Spawn** enemies and remove two at random from the game; the rest enter the encounter deck.'
+				what: '1 out of 4 randomized **Star Spawn** enemy in the encounter deck, the rest are removed from the game.'
 			},
-			{
-				encounterSet: ancientEvils,
-				what: 'The **Ancient Evils** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			},
-			{
-				encounterSet: chillingCold,
-				what: 'The **Chilling Cold** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			},
-			{
-				encounterSet: strikingFear,
-				what: 'The **Striking Fear** set is used only for its **open sky** backs; set aside, not in the encounter deck.'
-			}
+			obsidianCanyonsSummitNote(
+				'**Western Wall** and **Floating Spire** are not used in this version',
+				'**Aerial Waterfall** and **Ancient Dome**'
+			),
+			obsidianCanyonsOpenSkyNote('**Chilling Cold** and **Striking Fear**', 11)
 		]
 	}
 };
@@ -567,13 +586,13 @@ export const theDoomOfArkhamPart1Scenario: Scenario = {
 				domination,
 				dreams,
 				{ encounterSet: starSpawn, overwriteCount: 2 },
-				agentsOfCthulhu,
-				{ encounterSet: theMidnightMasks, overwriteCount: 0 }
+				agentsOfCthulhu
 			],
+			remaining: [theMidnightMasks],
 			notes: [
 				{
 					encounterSet: starSpawn,
-					what: 'Shuffle the **Star Spawn** enemies and remove two at random from the game.'
+					what: '2 out of 4 randomized **Star Spawn** enemy in the encounter deck, the rest are removed from the game.'
 				}
 			]
 		},
@@ -585,13 +604,13 @@ export const theDoomOfArkhamPart1Scenario: Scenario = {
 				domination,
 				dreams,
 				{ encounterSet: starSpawn, overwriteCount: 1 },
-				agentsOfCthulhu,
-				{ encounterSet: theMidnightMasks, overwriteCount: 0 }
+				agentsOfCthulhu
 			],
+			remaining: [theMidnightMasks],
 			notes: [
 				{
 					encounterSet: starSpawn,
-					what: 'Shuffle the **Star Spawn** enemies and remove three at random from the game.'
+					what: '1 out of 4 randomized **Star Spawn** enemy in the encounter deck, the rest are removed from the game.'
 				}
 			]
 		}
@@ -603,7 +622,7 @@ export const theDoomOfArkhamPart1Scenario: Scenario = {
 			},
 			{
 				encounterSet: theDoomOfArkhamPt1,
-				what: '**Randall Tillinghast** is set aside, out of play; none of this set’s cards enter the encounter deck.'
+				what: '**Randall Tillinghast** is set aside, out of play. None of this set’s cards enter the encounter deck.'
 			},
 			{
 				encounterSet: theMidnightMasks,
@@ -624,13 +643,13 @@ export const theDoomOfArkhamPart2Scenario: Scenario = {
 				domination,
 				elderMist,
 				flood,
-				{ encounterSet: starSpawn, overwriteCount: 0 },
-				agentsOfCthulhu,
-				{ encounterSet: theMidnightMasks, overwriteCount: 0 }
-			]
+				agentsOfCthulhu
+			],
+			remaining: [starSpawn, theMidnightMasks]
 		}
 	],
 	commonSetup: {
+		addChaosToken: [ChaosToken.TokenElderThing],
 		notes: [
 			{
 				encounterSet: starSpawn,
