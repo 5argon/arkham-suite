@@ -167,6 +167,7 @@ export const bloodOnTheAltarScenario: Scenario = {
 	shortName: 'IV',
 	setups: [
 		{
+			name: 'No bone to pick',
 			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
@@ -177,6 +178,7 @@ export const bloodOnTheAltarScenario: Scenario = {
 			]
 		},
 		{
+			name: 'Bone to pick',
 			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
@@ -254,6 +256,7 @@ export const whereDoomAwaitsScenario: Scenario = {
 	shortName: 'VI',
 	setups: [
 		{
+			name: 'Silas Bishop not killed',
 			shuffles: [
 				{ encounterSet: whereDoomAwaits, overwriteCount: 12 },
 				ancientEvils,
@@ -265,6 +268,7 @@ export const whereDoomAwaitsScenario: Scenario = {
 			]
 		},
 		{
+			name: 'Silas Bishop killed',
 			shuffles: [
 				{ encounterSet: whereDoomAwaits, overwriteCount: 12 },
 				ancientEvils,
@@ -278,7 +282,7 @@ export const whereDoomAwaitsScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: hideousAbominations,
-					what: 'One **Conglomeration of Spheres** at **Ascending Path**, the rest of the **Hideous Abominations** set in the encounter deck.'
+					what: 'If *the investigators put Silas Bishop out of his misery*, 1x **Conglomeration of Spheres** is put into play at **Ascending Path** and the rest of the **Hideous Abominations** set enters the encounter deck.'
 				}
 			]
 		}
@@ -330,7 +334,6 @@ export const returnToExtracurricularActivityScenario: Scenario = {
 		{
 			name: 'As 1st Scenario',
 			shuffles: [
-				{ encounterSet: extracurricularActivity, overwriteCount: 0 },
 				{ encounterSet: returnToExtracurricularActivity, overwriteCount: 2 },
 				bishopsThralls,
 				sorcery,
@@ -340,17 +343,17 @@ export const returnToExtracurricularActivityScenario: Scenario = {
 				secretDoors,
 				yogSothothsEmissaries
 			],
+			remaining: [extracurricularActivity],
 			notes: [
 				{
 					encounterSet: returnToExtracurricularActivity,
-					what: 'Both copies of **Enthralled Security Guard** in the encounter deck.'
+					what: '2x **Enthralled Security Guard** enter the encounter deck.'
 				}
 			]
 		},
 		{
 			name: 'As 2nd Scenario',
 			shuffles: [
-				{ encounterSet: extracurricularActivity, overwriteCount: 0 },
 				{ encounterSet: returnToExtracurricularActivity, overwriteCount: 1 },
 				bishopsThralls,
 				sorcery,
@@ -360,10 +363,11 @@ export const returnToExtracurricularActivityScenario: Scenario = {
 				secretDoors,
 				yogSothothsEmissaries
 			],
+			remaining: [extracurricularActivity],
 			notes: [
 				{
 					encounterSet: returnToExtracurricularActivity,
-					what: '1 **Enthralled Security Guard** is at the **Administration Building**, 1 in the encounter deck.'
+					what: '1x **Enthralled Security Guard** spawns at the **Administration Building**, the other copy enters the encounter deck.'
 				}
 			]
 		}
@@ -422,7 +426,7 @@ export const returnToTheMiskatonicMuseumScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToTheMiskatonicMuseum,
-					what: '2x **Dark Bidding** and 2x **Night Beyond the Void** are shuffled into the encounter deck.'
+					what: '2x **Dark Bidding** and 2x **Night Beyond Void** are shuffled into the encounter deck.'
 				},
 				{
 					encounterSet: theMiskatonicMuseum,
@@ -440,12 +444,12 @@ export const returnToTheEssexCountyExpressScenario: Scenario = {
 		{
 			shuffles: [
 				{ encounterSet: theEssexCountyExpress, overwriteCount: 13 },
-				{ encounterSet: returnToTheEssexCountyExpress, overwriteCount: 0 },
 				darkCult,
 				beyondTheThreshold,
 				erraticFear,
 				resurgentEvils
-			]
+			],
+			remaining: [returnToTheEssexCountyExpress]
 		}
 	],
 	commonSetup: {
@@ -463,6 +467,7 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 	shortName: 'IV',
 	setups: [
 		{
+			name: 'No bone to pick',
 			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
@@ -475,11 +480,12 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToBloodOnTheAltar,
-					what: 'Both copies of **Hired Gun** are set aside.'
+					what: '2x **Hired Gun** are set aside, out of play.'
 				}
 			]
 		},
 		{
+			name: 'Bone to pick',
 			asteriskCount: true,
 			shuffles: [
 				{ encounterSet: bloodOnTheAltar, overwriteCount: 13 },
@@ -493,7 +499,7 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToBloodOnTheAltar,
-					what: 'One **Hired Gun** at a location not connected to **Village Commons**, the other copy in the encounter deck.'
+					what: '1x **Hired Gun** spawns at a location not connected to **Village Commons**, the other copy enters the encounter deck.'
 				}
 			]
 		}
@@ -501,7 +507,7 @@ export const returnToBloodOnTheAltarScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				what: "Take out 3 non-**Naomi's Crew** encounter cards to attach under locations. The encounter deck has 3 fewer cards."
+				what: "Take out 3 encounter cards to attach under locations, before any **Naomi's Crew** or **Hired Gun** card is shuffled in. The encounter deck has 3 fewer cards."
 			}
 		],
 		specialGather: [
@@ -532,7 +538,7 @@ export const returnToUndimensionedAndUnseenScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToUndimensionedAndUnseen,
-					what: '2x **Imperceptible Creature** are shuffled into the encounter deck. The 4 new **Brood of Yog-Sothoth** replace the original copies and are set aside, then put into play at random.'
+					what: '2x **Imperceptible Creature** are shuffled into the encounter deck. The 4 new **Brood of Yog-Sothoth** replace 4 of the original copies. Whenever a **Brood of Yog-Sothoth** would be put into play, including during setup, choose it at random from the set-aside copies.'
 				}
 			]
 		}
@@ -540,13 +546,13 @@ export const returnToUndimensionedAndUnseenScenario: Scenario = {
 	commonSetup: {
 		addBasicWeakness: [
 			{
-				trait: '*Madness*'
+				trait: 'Madness'
 			},
 			{
-				trait: '*Injury*'
+				trait: 'Injury'
 			},
 			{
-				trait: '*Pact*'
+				trait: 'Pact'
 			}
 		]
 	}
@@ -557,21 +563,22 @@ export const returnToWhereDoomAwaitsScenario: Scenario = {
 	shortName: 'VI',
 	setups: [
 		{
+			name: 'Silas Bishop not killed',
 			shuffles: [
 				{ encounterSet: whereDoomAwaits, overwriteCount: 12 },
-				{ encounterSet: returnToWhereDoomAwaits, overwriteCount: 0 },
 				beastThralls,
 				bishopsThralls,
 				sorcery,
 				creepingCold,
 				erraticFear,
 				resurgentEvils
-			]
+			],
+			remaining: [returnToWhereDoomAwaits]
 		},
 		{
+			name: 'Silas Bishop killed',
 			shuffles: [
 				{ encounterSet: whereDoomAwaits, overwriteCount: 12 },
-				{ encounterSet: returnToWhereDoomAwaits, overwriteCount: 0 },
 				beastThralls,
 				bishopsThralls,
 				sorcery,
@@ -580,10 +587,11 @@ export const returnToWhereDoomAwaitsScenario: Scenario = {
 				resurgentEvils,
 				{ encounterSet: hideousAbominations, overwriteCount: 2 }
 			],
+			remaining: [returnToWhereDoomAwaits],
 			notes: [
 				{
 					encounterSet: hideousAbominations,
-					what: '1x **Conglomeration of Spheres** at **Ascending Path**, the rest of the **Hideous Abominations** set in the encounter deck.'
+					what: 'If *the investigators put Silas Bishop out of his misery*, 1x **Conglomeration of Spheres** is put into play at **Ascending Path** and the rest of the **Hideous Abominations** set enters the encounter deck.'
 				}
 			]
 		}
@@ -614,7 +622,7 @@ export const returnToLostInTimeAndSpaceScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToLostInTimeAndSpace,
-					what: '**Indecipherable Stairs**, **Towering Luminosity**, and **Unstable Vortex** are shuffled into the encounter deck. **Realms Beyond** is put into play with **Yog-Sothoth**. **Seth Bishop** is set aside.'
+					what: '**Indecipherable Stairs**, **Towering Luminosity**, and **Unstable Vortex** are shuffled into the encounter deck. **Realms Beyond** is put into play with **Yog-Sothoth**.'
 				}
 			]
 		}
