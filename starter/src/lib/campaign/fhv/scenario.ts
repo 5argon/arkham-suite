@@ -75,7 +75,7 @@ export const writtenInRockScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its 6 **Cave** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled in.'
+				what: 'Its 6 **Cave** locations are used by the setup and 2x **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled in.'
 			}
 		]
 	}
@@ -115,7 +115,7 @@ export const hemlockHouseScenario: Scenario = {
 			},
 			{
 				encounterSet: hemlockHouse,
-				what: 'Only 2x **Grappling Spawn** enter the deck; the **Out of the Walls** and **Pulled In** treacheries are set aside, out of play.'
+				what: 'Only 2x **Grappling Spawn** enter the deck. The **Out of the Walls** and **Pulled In** treacheries are set aside, out of play.'
 			},
 			{
 				encounterSet: fire,
@@ -161,7 +161,7 @@ export const theSilentHeathScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: '3 random **Horrors in the Rock** locations are set aside and the rest removed from the game; 2x **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) enter the deck.'
+				what: '3 random **Horrors in the Rock** locations are set aside and the rest removed from the game. 2x **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) enter the deck.'
 			}
 		]
 	}
@@ -198,11 +198,11 @@ export const theLostSisterScenario: Scenario = {
 			},
 			{
 				encounterSet: theLostSister,
-				what: 'The **Limulus Hybrid** and 2x **Crustacean Hybrid** enemies are set aside; its locations form the Caverns deck. The 9 cards shuffled in are 3x **Cavern Moss**, 3x **Reclaimed by Nature**, and 3x **Luminous Growth**.'
+				what: 'The **Limulus Hybrid** and 2x **Crustacean Hybrid** enemies are set aside. Its locations form the Caverns deck. The 9 cards shuffled in are 3x **Cavern Moss**, 3x **Reclaimed by Nature**, and 3x **Luminous Growth**.'
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: '2x **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) enter the deck (its locations join the Caverns deck).'
+				what: '2x **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) enter the deck (its locations join the Caverns deck).'
 			}
 		]
 	}
@@ -240,7 +240,7 @@ export const theThingInTheDepthsScenario: Scenario = {
 			},
 			{
 				encounterSet: theThingInTheDepths,
-				what: 'The **Thing in the Depths**, **Chelydran Hybrid**, and 5x **Grasping Tendril** enemies are set aside; only its 7 treacheries enter the deck: 3x **Ground Disturbance** and 4x **Sinking Sludge**.'
+				what: 'The **Thing in the Depths**, **Chelydran Hybrid**, and 5x **Grasping Tendril** enemies are set aside. Only its 7 treacheries enter the deck: 3x **Ground Disturbance** and 4x **Sinking Sludge**.'
 			}
 		]
 	}
@@ -353,7 +353,7 @@ export const fateOfTheValeScenario: Scenario = {
 	commonSetup: {
 		notes: [
 			{
-				what: '**The Abyss** replaces the encounter deck. The count shown is the encounter portion only; it does not include the top 5 cards of each investigator’s deck or each investigator card, which are also shuffled into **The Abyss**.'
+				what: '**The Abyss** replaces the encounter deck. The count shown is the encounter portion only. It does not include the top 5 cards of each investigator’s deck or each investigator card, which are also shuffled into **The Abyss**.'
 			},
 			{
 				encounterSet: dayOfTheFeast,
@@ -369,7 +369,7 @@ export const fateOfTheValeScenario: Scenario = {
 			},
 			{
 				encounterSet: horrorsInTheRock,
-				what: 'Its locations and both **Crystal Parasite** enemies are set aside; only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled into **The Abyss**.'
+				what: 'Its locations and both **Crystal Parasite** enemies are set aside. Only its 4 treacheries (2x **Chroma Blight** and 2x **Calcification**) are shuffled into **The Abyss**.'
 			},
 			{
 				encounterSet: residents,

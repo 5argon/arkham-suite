@@ -361,7 +361,7 @@ export const returnToExtracurricularActivityScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToExtracurricularActivity,
-					what: 'One **Enthralled Security Guard** is at the **Administration Building**, one in the encounter deck.'
+					what: '1 **Enthralled Security Guard** is at the **Administration Building**, 1 in the encounter deck.'
 				}
 			]
 		}
@@ -610,7 +610,7 @@ export const returnToLostInTimeAndSpaceScenario: Scenario = {
 			notes: [
 				{
 					encounterSet: returnToLostInTimeAndSpace,
-					what: '**Indecipherable Stairs**, **Towering Luminosity**, and **Unstable Vortex** are shuffled into the encounter deck. **Realms Beyond** is put into play with **Yog-Sothoth**; **Seth Bishop** is set aside.'
+					what: '**Indecipherable Stairs**, **Towering Luminosity**, and **Unstable Vortex** are shuffled into the encounter deck. **Realms Beyond** is put into play with **Yog-Sothoth**. **Seth Bishop** is set aside.'
 				}
 			]
 		}

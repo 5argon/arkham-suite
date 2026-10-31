@@ -193,7 +193,7 @@ export const theUnspeakableOathScenario: Scenario = {
 				what: 'If **Constance Dumaine** is under **VIPs Interviewed**: each investigator places the top card of their deck facedown as a **Courage** asset (2 sanity).'
 			},
 			{
-				what: 'Set aside two piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
+				what: 'Set aside 2 piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
 			},
 			{
 				encounterSet: theUnspeakableOath,
@@ -201,7 +201,7 @@ export const theUnspeakableOathScenario: Scenario = {
 			},
 			{
 				encounterSet: hastursGift,
-				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
+				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside. Only 2x **Dance of the Yellow King** enter the encounter deck.'
 			},
 			{
 				encounterSet: inhabitantsOfCarcosa,
@@ -209,7 +209,7 @@ export const theUnspeakableOathScenario: Scenario = {
 			},
 			{
 				encounterSet: agentsOfHastur,
-				what: '2x **Screeching Byakhee** ***(Monster)*** are set aside; only 2x **The Yellow Sign** enter the encounter deck.'
+				what: '2x **Screeching Byakhee** ***(Monster)*** are set aside. Only 2x **The Yellow Sign** enter the encounter deck.'
 			}
 		]
 	}
@@ -464,7 +464,7 @@ export const returnToTheLastKingScenario: Scenario = {
 			},
 			{
 				encounterSet: returnToTheLastKing,
-				what: 'The new **Dianne Devine** asset and the **Shocking Display** treachery are set aside; the original Dianne Devine enemy is removed.'
+				what: 'The new **Dianne Devine** asset and the **Shocking Display** treachery are set aside. The original Dianne Devine enemy is removed.'
 			},
 			{
 				encounterSet: returnToTheLastKing,
@@ -580,7 +580,7 @@ export const returnToTheUnspeakableOathScenario: Scenario = {
 				what: 'If **Constance Dumaine** is under **VIPs Interviewed**: each investigator places the top card of their deck facedown as a **Courage** asset (2 sanity).'
 			},
 			{
-				what: 'Set aside two piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
+				what: 'Set aside 2 piles: 7 ***Monster*** and 7 ***Possessed*** enemies.'
 			},
 			{
 				encounterSet: returnToTheUnspeakableOath,
@@ -592,11 +592,11 @@ export const returnToTheUnspeakableOathScenario: Scenario = {
 			},
 			{
 				encounterSet: hastursEnvoys,
-				what: '2x **Preying Byakhee** ***(Monster)*** are set aside; only 2x **The Sign of Hastur** enter the encounter deck.'
+				what: '2x **Preying Byakhee** ***(Monster)*** are set aside. Only 2x **The Sign of Hastur** enter the encounter deck.'
 			},
 			{
 				encounterSet: hastursGift,
-				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside; only 2x **Dance of the Yellow King** enter the encounter deck.'
+				what: '2x **Puppet of Hastur** and 2x **Seer of the Sign** ***(Possessed)*** are set aside. Only 2x **Dance of the Yellow King** enter the encounter deck.'
 			},
 			{
 				encounterSet: inhabitantsOfCarcosa,

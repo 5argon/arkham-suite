@@ -156,7 +156,7 @@ export const devilReefScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: devilReef,
-				what: 'Only its story-asset relics are set aside; all of its enemies and treacheries enter the deck.'
+				what: 'Only its story-asset relics are set aside. All of its enemies and treacheries enter the deck.'
 			}
 		]
 	}

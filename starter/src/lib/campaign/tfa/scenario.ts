@@ -549,7 +549,7 @@ export const returnToTheDoomOfEztliScenario: Scenario = {
 		notes: [
 			{
 				topic: 'Exploration Deck (5)',
-				what: '5x Locations (no Treacheries; they start in the encounter deck)'
+				what: '5x Locations (no Treacheries, they start in the encounter deck)'
 			},
 			{
 				encounterSet: returnToTheDoomOfEztli,
@@ -579,7 +579,7 @@ export const returnToThreadsOfFateScenario: Scenario = {
 		notes: [
 			{
 				encounterSet: cultOfPnakotus,
-				what: 'Replaces the regular **Dark Cult** set. **Return to Threads of Fate** locations are placed during setup; none enter the encounter deck.'
+				what: 'Replaces the regular **Dark Cult** set. **Return to Threads of Fate** locations are placed during setup. None enter the encounter deck.'
 			}
 		]
 	}
@@ -605,7 +605,7 @@ export const returnToTheBoundaryBeyondScenario: Scenario = {
 		notes: [
 			{
 				topic: 'Exploration Deck (12)',
-				what: '12x Locations (no Treacheries; they start in the encounter deck)'
+				what: '12x Locations (no Treacheries, they start in the encounter deck)'
 			},
 			{
 				what: 'You might need a *Madness* or *Injury* random basic weakness.'
@@ -640,7 +640,7 @@ export const returnToHeartOfTheEldersPart1Scenario: Scenario = {
 		notes: [
 			{
 				topic: 'Exploration Deck (6~7)',
-				what: '6~7x Locations (no Treacheries; they start in the encounter deck) : 6x *Jungle* + 1x *Ruins* if no **Map**'
+				what: '6~7x Locations (no Treacheries, they start in the encounter deck) : 6x *Jungle* + 1x *Ruins* if no **Map**'
 			},
 			{
 				encounterSet: returnToPillarsOfJudgement,
@@ -661,8 +661,8 @@ export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
 				{ encounterSet: knyan, overwriteCount: 3 },
 				{ encounterSet: returnToKnyan, overwriteCount: 0 },
 				agentsOfYig,
-				{ encounterSet: deadlyTraps, overwriteCount: 5 },
-				{ encounterSet: forgottenRuins, overwriteCount: 7 },
+				deadlyTraps,
+				forgottenRuins,
 				{ encounterSet: poison, overwriteCount: 2 },
 				venomousHate
 			]
@@ -673,7 +673,7 @@ export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
 		notes: [
 			{
 				topic: 'Exploration Deck (5)',
-				what: '5x Locations (no Treacheries; they start in the encounter deck)'
+				what: '5x Locations (no Treacheries, they start in the encounter deck)'
 			},
 			{
 				encounterSet: returnToKnyan,
@@ -681,7 +681,7 @@ export const returnToHeartOfTheEldersPart2Scenario: Scenario = {
 			},
 			{
 				encounterSet: knyan,
-				what: '5 locations other than **Descent to Yoth** are in the exploration deck; **No Turning Back** starts in the encounter deck.'
+				what: '5 locations other than **Descent to Yoth** are in the exploration deck. **No Turning Back** starts in the encounter deck.'
 			}
 		]
 	}
@@ -762,7 +762,7 @@ export const returnToShatteredAeonsScenario: Scenario = {
 		notes: [
 			{
 				topic: 'Exploration Deck (3)',
-				what: '3x Locations (no Treacheries; they start in the encounter deck)'
+				what: '3x Locations (no Treacheries, they start in the encounter deck)'
 			},
 			{
 				encounterSet: returnToShatteredAeons,
@@ -770,7 +770,7 @@ export const returnToShatteredAeonsScenario: Scenario = {
 			},
 			{
 				encounterSet: shatteredAeons,
-				what: '3 *Otherworld* locations are in the exploration deck; **Wracked by Time** and **Between Worlds** start in the encounter deck.'
+				what: '3 *Otherworld* locations are in the exploration deck. **Wracked by Time** and **Between Worlds** start in the encounter deck.'
 			}
 		]
 	}
