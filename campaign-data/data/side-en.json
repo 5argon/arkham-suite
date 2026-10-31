@@ -41,7 +41,8 @@
     "mysterious_benefits": "Mysterious Benefits",
     "legions_of_fire": "Legions of Fire",
     "when_the_world_screamed": "When the World Screamed",
-    "film_fatale": "Film Fatale"
+    "film_fatale": "Film Fatale",
+    "the_turning_gear": "The Turning Gear"
   },
   "items": {
     "84028": "Alien Device",
@@ -272,6 +273,18 @@
     },
     "campaign_notes.world_screamed": {
       "text": "the World screamed."
+    },
+    "campaign_notes.cell_slowed_gear": {
+      "text": "the cell slowed the Turning Gear"
+    },
+    "campaign_notes.investigators_slowed_gear": {
+      "text": "the investigators slowed the Turning Gear"
+    },
+    "campaign_notes.other_turning_gear": {
+      "text": "another cell posesses the Turning Gear"
+    },
+    "campaign_notes.coterie_turning_gear": {
+      "text": "the Coterie took posession of the Turning Gear"
     },
     "campaign_notes.fof_stashed": {
       "text": "Stashed: #name# (#X#)"
