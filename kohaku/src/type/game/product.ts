@@ -186,11 +186,10 @@ export const productStandaloneChapterOne: Product[] = [
   Product.FortuneAndFolly,
   Product.TheMidwinterGala,
   Product.FilmFatale,
-  Product.TracesToNowhere,
 ];
 
 /** Standalone "Scenario Pack" products released in the Chapter Two era. */
-export const productStandaloneChapterTwo: Product[] = [];
+export const productStandaloneChapterTwo: Product[] = [Product.TracesToNowhere];
 
 export const productStandalone: Product[] = [
   ...productStandaloneChapterOne,
