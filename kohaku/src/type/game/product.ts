@@ -168,9 +168,22 @@ export const productInvestigatorDeck: Product[] = [
 ];
 
 /**
+ * Products that stay in print and never rotate out of the Current environment, as defined by
+ * https://www.fantasyflightgames.com/a-look-at-things-to-come/
+ */
+export const productEvergreen: Product[] = [Product.CoreSet2026, ...productInvestigatorDeck];
+
+/**
  * Chapter Two products that contain only player cards for deckbuilding.
  */
 export const productDeckbuildingExpansions: Product[] = [Product.PowerOfTheDreamlands];
+
+/**
+ * Investigator expansions released after Core Set 2026.
+ */
+export const productChapterTwoInvestigatorExpansions: Product[] = [];
+
+export const productChapterTwoScenarioPacks: Product[] = [Product.TracesToNowhere];
 
 export const productStandalone: Product[] = [
   Product.CurseOfTheRougarou,
@@ -189,6 +202,18 @@ export const productStandalone: Product[] = [
 ];
 
 export const productOther: Product[] = [Product.ParallelInvestigators, Product.Promotional];
+
+/**
+ * Every product of Chapter Two. Only these can ever be in the Current environment.
+ */
+export const productChapterTwo: Product[] = [
+  ...productCoreSetsChapterTwo,
+  ...productInvestigatorDeck,
+  ...productChapterTwoInvestigatorExpansions,
+  ...productDeckbuildingExpansions,
+  ...productChapterTwoCampaignExpansions,
+  ...productChapterTwoScenarioPacks,
+];
 
 export const productOrdering: Product[] = [
   ...productCoreSetsChapterOne,
@@ -210,9 +235,93 @@ export const productOrdering: Product[] = [
   ...productInvestigatorStarterDeck,
   ...productCoreSetsChapterTwo,
   ...productInvestigatorDeck,
+  ...productChapterTwoInvestigatorExpansions,
   ...productDeckbuildingExpansions,
   ...productStandalone,
   ...productChapterOneCampaignExpansions,
   ...productChapterTwoCampaignExpansions,
   ...productOther,
 ];
+
+/**
+ * Not something released on one date you could buy.
+ */
+type UndatedProduct =
+  | Product.RandomBasicWeakness
+  | Product.ParallelInvestigators
+  | Product.Promotional;
+
+/**
+ * Calendar day in `YYYY-MM-DD` of each product, from ArkhamDB's `available` so repackaged products
+ * have the repackaged date. Products ArkhamDB does not list yet are noted individually. Adding a
+ * new `Product` fails compilation here until it has a date.
+ */
+export const productReleaseDate: Record<Exclude<Product, UndatedProduct>, string> = {
+  [Product.CoreSet]: '2016-11-10',
+  [Product.RevisedCoreSet]: '2020-10-01',
+
+  [Product.TheDunwichLegacyCampaignExpansion]: '2024-01-12',
+  [Product.TheDunwichLegacyInvestigatorExpansion]: '2024-01-12',
+  [Product.ThePathToCarcosaCampaignExpansion]: '2024-01-25',
+  [Product.ThePathToCarcosaInvestigatorExpansion]: '2024-01-25',
+  [Product.TheForgottenAgeCampaignExpansion]: '2024-05-10',
+  [Product.TheForgottenAgeInvestigatorExpansion]: '2024-05-10',
+  [Product.TheCircleUndoneCampaignExpansion]: '2024-01-31',
+  [Product.TheCircleUndoneInvestigatorExpansion]: '2024-01-31',
+  [Product.TheDreamEatersCampaignExpansion]: '2024-09-27',
+  [Product.TheDreamEatersInvestigatorExpansion]: '2024-09-27',
+  [Product.TheInnsmouthConspiracyCampaignExpansion]: '2024-10-02',
+  [Product.TheInnsmouthConspiracyInvestigatorExpansion]: '2024-10-02',
+  [Product.EdgeOfTheEarthCampaignExpansion]: '2021-11-12',
+  [Product.EdgeOfTheEarthInvestigatorExpansion]: '2021-09-10',
+  [Product.TheScarletKeysCampaignExpansion]: '2022-11-18',
+  [Product.TheScarletKeysInvestigatorExpansion]: '2022-09-30',
+  [Product.TheFeastOfHemlockValeCampaignExpansion]: '2024-02-24',
+  [Product.TheFeastOfHemlockValeInvestigatorExpansion]: '2024-02-16',
+  [Product.TheDrownedCityCampaignExpansion]: '2025-03-31',
+  [Product.TheDrownedCityInvestigatorExpansion]: '2025-02-07',
+
+  [Product.ReturnToTheNightOfTheZealot]: '2018-06-28',
+  [Product.ReturnToTheDunwichLegacy]: '2019-01-10',
+  [Product.ReturnToThePathToCarcosa]: '2019-09-06',
+  [Product.ReturnToTheForgottenAge]: '2020-08-07',
+  [Product.ReturnToTheCircleUndone]: '2021-06-24',
+
+  [Product.NathanielCho]: '2020-08-28',
+  [Product.HarveyWalters]: '2020-08-28',
+  [Product.WinifredHabbamock]: '2020-08-28',
+  [Product.JacquelineFine]: '2020-08-28',
+  [Product.StellaClark]: '2020-08-28',
+
+  [Product.CurseOfTheRougarou]: '2016-11-17',
+  [Product.CarnevaleOfHorrors]: '2016-12-08',
+  [Product.TheLabyrinthsOfLunacy]: '2018-06-07',
+  [Product.GuardiansOfTheAbyss]: '2018-12-06',
+  [Product.MurderAtTheExcelsiorHotel]: '2019-10-25',
+  [Product.TheBlobThatAteEverything]: '2020-07-03',
+  [Product.TheBlobThatAteEverythingElse]: '2023-08-01',
+  [Product.WarOfTheOuterGods]: '2020-07-03',
+  [Product.MachinationsThroughTime]: '2022-02-04',
+  [Product.FortuneAndFolly]: '2023-04-01',
+  [Product.TheMidwinterGala]: '2024-08-23',
+  [Product.FilmFatale]: '2025-08-15',
+  /**
+   * Not on ArkhamDB yet, from hallofarkham.com/arkham-horror-lcg-release-dates-us
+   */
+  [Product.TracesToNowhere]: '2026-10-16',
+
+  [Product.CoreSet2026]: '2026-03-20',
+
+  [Product.ChildrenOfBlood]: '2026-08-14',
+
+  /**
+   * Not on ArkhamDB yet, announced date from the Asmodee store listing.
+   */
+  [Product.PowerOfTheDreamlands]: '2027-02-19',
+
+  [Product.TommyMuldoon]: '2026-04-17',
+  [Product.CarolynFern]: '2026-04-17',
+  [Product.AndrePatel]: '2026-04-17',
+  [Product.MarieLambeau]: '2026-04-17',
+  [Product.MiguelDeLaCruz]: '2026-04-17',
+};
