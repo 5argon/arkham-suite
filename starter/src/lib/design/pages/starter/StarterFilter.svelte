@@ -11,9 +11,9 @@ about, unless `initiallyAll` asks for everything shown up front.
 	import { snapshot } from '$app/navigation';
 	import {
 		Button,
-		Checkbox,
 		HelpParagraph,
 		InvestigatorPicker,
+		RadioButtons,
 		SectionSeparator
 	} from '@5argon/arkham-life-ui';
 	import type { Card, CardCode, Product } from '@5argon/arkham-kohaku';
@@ -62,6 +62,8 @@ about, unless `initiallyAll` asks for everything shown up front.
 	const allInvestigatorsOn = $derived(
 		investigators.every((c) => selectedInvestigators.has(c.code))
 	);
+	// No team has every investigator, so must-include-all only ever offers clearing.
+	const offersDeselect = $derived(mustIncludeAll || allInvestigatorsOn);
 
 	function emit() {
 		onChange({
@@ -117,13 +119,28 @@ about, unless `initiallyAll` asks for everything shown up front.
 />
 
 <SectionSeparator title={m.starter_decks_filter_investigators()} />
-<div class="mb-2 flex flex-wrap items-center gap-2">
+<div class="mb-2 flex flex-wrap items-end gap-3">
+	{#if showMustIncludeAll}
+		<RadioButtons
+			choices={[
+				{ value: false, label: m.team_filter_include_any() },
+				{ value: true, label: m.team_filter_include_all() }
+			]}
+			label={m.team_filter_include()}
+			bind:selectedValue={() => mustIncludeAll,
+			(value) => {
+				mustIncludeAll = value;
+				emit();
+			}}
+		/>
+	{/if}
 	<Button
-		label={allInvestigatorsOn
+		disabled={mustIncludeAll && activeInvestigators.size === 0}
+		label={offersDeselect
 			? m.tool_evergreen_team_deselect_all()
 			: m.tool_evergreen_team_select_all()}
 		onClick={() => {
-			if (allInvestigatorsOn) {
+			if (offersDeselect) {
 				selectedInvestigators.clear();
 			} else {
 				for (const c of investigators) selectedInvestigators.add(c.code);
@@ -131,13 +148,6 @@ about, unless `initiallyAll` asks for everything shown up front.
 			emit();
 		}}
 	/>
-	{#if showMustIncludeAll}
-		<Checkbox
-			bind:checked={mustIncludeAll}
-			label={m.team_filter_must_include_all()}
-			onChange={emit}
-		/>
-	{/if}
 </div>
 <InvestigatorPicker
 	{investigators}
