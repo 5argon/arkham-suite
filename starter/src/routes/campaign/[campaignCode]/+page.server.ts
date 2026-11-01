@@ -1,3 +1,4 @@
+import { u as stringUtils } from '@5argon/arkham-string';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { Campaign as KohakuCampaign } from '@5argon/arkham-kohaku';
@@ -40,6 +41,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	return {
 		kohakuCampaign: kohakuCampaign,
+		backName: stringUtils.campaignName(kohakuCampaign),
 		campaignData: campaignData
 	};
 };

@@ -50,6 +50,14 @@ This monorepo uses different build strategies for different packages:
 
 - **`svelte/require-each-key`**: Every `{#each}` block MUST have a key expression: `{#each items as item (item.id)}`. Never write `{#each items as item}` without a key. Use a stable unique property (`id`, `code`, `href`, etc.) or the item itself if it is a primitive.
 
+## Going Back in `starter`
+
+This site is for beginners, so it is built as if the browser's back button doesn't exist.
+
+- Pages never add their own back button. The root layout renders `PageBackButton` on every page except home. It follows where the visitor came from and otherwise walks up through parents.
+- Adding a page: give it a hand-written label and a parent in `src/lib/navigation/back-routes.ts`. A test fails until you do. Write the label for a beginner, it is not derived from the page's title.
+- Adding a listing page with choices (filters, tabs, randomized results): make it remember them with `snapshot` from `$app/navigation`, so coming back restores them. A test cannot judge which state is worth keeping, so this one takes diligence.
+
 ## Workflow
 
 ## Current Progress

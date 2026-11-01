@@ -50,7 +50,6 @@
 
 <MarginText>
 	<div class="mb-3 flex flex-wrap justify-center gap-2">
-		<Button icon={FaIconType.Back} label={m.team_back()} onClick="/team" />
 		<Button
 			highlighted
 			icon={FaIconType.ExternalLink}

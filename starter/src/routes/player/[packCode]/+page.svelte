@@ -1,7 +1,6 @@
 <script lang="ts">
 	import {
 		type ActionButton,
-		BackButton,
 		BorderedContainer,
 		Button,
 		buildUrlForSettings,
@@ -232,7 +231,6 @@
 
 <MarginFull>
 	<div class="mb-4 flex gap-4">
-		<BackButton label={m.explore_back_to_home()} onClick="/player" />
 		<Button
 			highlighted={fittingRoomMode}
 			icon={FaIconType.Investigator}

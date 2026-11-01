@@ -96,7 +96,6 @@
 		</TextParagraph>
 	{/if}
 	<div class="mb-4 flex flex-wrap justify-center gap-2">
-		<Button icon={FaIconType.Back} label={m.starter_decks_back()} onClick="/starter" />
 		{#if data.author.arkhamdbUrl}
 			<Button
 				icon={FaIconType.ExternalLink}

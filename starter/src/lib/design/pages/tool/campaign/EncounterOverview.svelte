@@ -1,6 +1,5 @@
 <script lang="ts">
 	import {
-		BackButton,
 		campaignBoxImageUrl,
 		Checkbox,
 		PageLead,
@@ -117,8 +116,6 @@
 	const campaignNameText = $derived(u.campaignName(kohakuCampaign));
 	const campaignImage = $derived(campaignBoxImageUrl(kohakuCampaign));
 </script>
-
-<BackButton label={m.campaign_back_to_list()} onClick="/campaign" />
 
 <PageLead image={campaignImage} title={campaignNameText} />
 

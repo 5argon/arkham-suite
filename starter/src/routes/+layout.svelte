@@ -4,6 +4,7 @@
 	import { Body, HeaderBar, Main } from '@5argon/arkham-life-ui';
 	import '../app.css';
 	import Footer from '$lib/design/components/layout/Footer.svelte';
+	import PageBackButton from '$lib/design/components/layout/PageBackButton.svelte';
 	import { themeStorage } from '$lib/storage';
 
 	interface Props {
@@ -32,6 +33,9 @@
 		siteName="arkham-starter.com"
 		{theme}
 	/>
-	<Main {children} />
+	<Main>
+		<PageBackButton />
+		{@render children()}
+	</Main>
 	<Footer />
 </Body>

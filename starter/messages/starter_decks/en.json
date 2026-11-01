@@ -36,7 +36,6 @@
 	"starter_decks_resolve_overlaps": "Resolve Overlaps ({count})",
 	"starter_decks_overlaps_count": "{count} Overlaps",
 	"starter_decks_no_overlaps": "No overlaps",
-	"starter_decks_back": "Starter Decks",
 	"starter_decks_tab_decks": "Decks ({count})",
 	"starter_decks_tab_teams": "Pre-Built Teams ({count})",
 	"starter_decks_total": "This site hosts {count} starter decks in total.",

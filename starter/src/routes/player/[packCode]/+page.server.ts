@@ -11,6 +11,7 @@ import {
 	productOther,
 	productReturnTo
 } from '@5argon/arkham-kohaku';
+import { u as stringUtils } from '@5argon/arkham-string';
 import { productToExploreRoute } from '$lib/utility/product';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -36,6 +37,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		throw new Error(`Unknown product for pack code: ${urlPackCode}`);
 	}
 	return {
-		product: product
+		product: product,
+		backName: stringUtils.productName(product)
 	};
 };

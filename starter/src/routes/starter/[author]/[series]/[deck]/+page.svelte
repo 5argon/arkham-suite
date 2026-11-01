@@ -133,7 +133,6 @@
 			</a>
 		</p>
 		<div class="flex flex-wrap justify-center gap-2">
-			<Button icon={FaIconType.Back} label={m.starter_decks_title()} onClick="/starter" />
 			<Button
 				highlighted={!inTeam && !starterTeam.isFull && !investigatorTaken}
 				disabled={!inTeam && (starterTeam.isFull || investigatorTaken)}
