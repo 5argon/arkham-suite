@@ -64,6 +64,7 @@ export const backRoutes = {
 	'/precon/[name]': { label: () => m.common_back_to_the_precon(), parent: '/precon' },
 	'/proxy': { label: () => m.common_back_to_proxy(), parent: '/' },
 	'/starter': { label: () => m.common_back_to_starter(), parent: '/' },
+	'/starter/authors': { label: () => m.common_back_to_starter_authors(), parent: '/starter' },
 	'/starter/[author]': {
 		label: ({ author }) => m.common_back_to_author({ name: author!.name }),
 		parent: '/starter'
