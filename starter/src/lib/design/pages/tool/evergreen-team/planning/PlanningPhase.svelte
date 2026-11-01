@@ -18,7 +18,7 @@ rules.ts, shared by drag-drop and the click picker.
 		buildEligibility,
 		moveBetweenDecks,
 		moveToDeck,
-		overlappingCodes,
+		teamOverlaps,
 		returnToCollection
 	} from '$lib/tool/evergreen-team/rules';
 	import type { EvergreenFocus, EvergreenState, TeamInfo } from '$lib/tool/evergreen-team/types';
@@ -60,7 +60,7 @@ rules.ts, shared by drag-drop and the click picker.
 		)
 	);
 	let swapIndex = $state<number | null>(null);
-	const overlaps = $derived(overlappingCodes(team, pool));
+	const overlaps = $derived(teamOverlaps(team, pool));
 
 	const dnd = new EvergreenDnd();
 	let pickerSource = $state<DragSource | null>(null);

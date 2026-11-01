@@ -21,6 +21,7 @@ destination zone is decided by the card's level, not the drop position.
 		mainDeckCount,
 		matchesFocus,
 		availableOf,
+		type Overlap,
 		sideDeckXp,
 		titleCountInDeck,
 		wantOf
@@ -66,9 +67,10 @@ destination zone is decided by the card's level, not the drop position.
 		onCardHover?: (card: Card, el: HTMLElement) => void;
 		onCardHoverEnd?: () => void;
 		/**
-		 * Cards claimed beyond the pool; their whole stacks render red.
+		 * Cards claimed beyond the pool; their whole stacks render red with
+		 * the team-wide copies used over the copies available.
 		 */
-		overlaps?: ReadonlySet<CardCode>;
+		overlaps?: ReadonlyMap<CardCode, Overlap>;
 	}
 	const {
 		team,
@@ -209,6 +211,15 @@ destination zone is decided by the card's level, not the drop position.
 	const investigatorClass = $derived(investigator.cardClass?.class1 ?? CardClass.Neutral);
 </script>
 
+{#snippet overlapCount(code: CardCode)}
+	{@const overlap = overlaps?.get(code)}
+	{#if overlap}
+		<span class="overlap-count" aria-label={m.tool_evergreen_team_overlap_count(overlap)}>
+			{overlap.used}/{overlap.available}
+		</span>
+	{/if}
+{/snippet}
+
 <div
 	class={clsx(
 		'area relative min-w-0 rounded-lg border bg-white/50 shadow dark:bg-black/30',
@@ -323,6 +334,7 @@ destination zone is decided by the card's level, not the drop position.
 							onHoverEnd={onCardHoverEnd}
 						/>
 					{/if}
+					{@render overlapCount(entry.card.code)}
 				</div>
 			{/each}
 		</div>
@@ -388,6 +400,7 @@ destination zone is decided by the card's level, not the drop position.
 									onHoverEnd={onCardHoverEnd}
 								/>
 							{/if}
+							{@render overlapCount(entry.card.code)}
 						</div>
 					{/each}
 				</div>
@@ -432,6 +445,25 @@ destination zone is decided by the card's level, not the drop position.
 		border-radius: 0.25rem;
 		outline: 2px solid rgb(220, 38, 38);
 		outline-offset: 1px;
+	}
+
+	/* Team-wide copies used over copies available, above the tint. */
+	.overlap-count {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 1;
+		transform: translate(-50%, -50%);
+		border-radius: 9999px;
+		padding: 0 0.25rem;
+		background-color: rgb(185, 28, 28);
+		color: white;
+		font-size: 0.625rem;
+		font-weight: 700;
+		line-height: 0.875rem;
+		white-space: nowrap;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+		pointer-events: none;
 	}
 
 	.overlap::after {

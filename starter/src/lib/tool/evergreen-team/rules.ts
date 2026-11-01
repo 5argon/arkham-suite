@@ -1,4 +1,11 @@
-import { type Card, type CardCode, CardType, card as cardUtils, Slot } from '@5argon/arkham-kohaku';
+import {
+	type Card,
+	type CardCode,
+	CardType,
+	card as cardUtils,
+	deck as deckUtils,
+	Slot
+} from '@5argon/arkham-kohaku';
 
 import type {
 	EvergreenDeckState,
@@ -84,23 +91,25 @@ export function availableOf(
 }
 
 /**
+ * Copies of an overlapping card claimed across the whole team, against what
+ * the owned products physically contain.
+ */
+export type Overlap = deckUtils.QuantityOverlap;
+
+/**
  * Cards claimed by the decks beyond what the products physically contain.
  * Only possible for teams assembled from published decks; a whole stack
  * counts as overlapping wherever it sits.
  */
-export function overlappingCodes(
+export function teamOverlaps(
 	state: EvergreenState,
 	pool: Map<CardCode, PoolEntry>
-): Set<CardCode> {
-	const result = new Set<CardCode>();
-	for (const deck of state.decks) {
-		for (const code of [...Object.keys(deck.main), ...Object.keys(deck.side)]) {
-			if (result.has(code)) continue;
-			const entry = pool.get(code);
-			if (entry !== undefined && draftedOf(state, code) > entry.total) result.add(code);
-		}
-	}
-	return result;
+): Map<CardCode, Overlap> {
+	const overlaps = deckUtils.findQuantityOverlaps(
+		state.decks.map((deck) => [...Object.entries(deck.main), ...Object.entries(deck.side)]),
+		(code) => pool.get(code)?.total
+	);
+	return new Map(overlaps.map((overlap) => [overlap.code, overlap]));
 }
 
 /**
@@ -108,7 +117,7 @@ export function overlappingCodes(
  */
 export function overlappingStacksOf(
 	deck: EvergreenDeckState,
-	overlaps: ReadonlySet<CardCode>
+	overlaps: ReadonlyMap<CardCode, Overlap>
 ): number {
 	return [...Object.keys(deck.main), ...Object.keys(deck.side)].filter((code) => overlaps.has(code))
 		.length;

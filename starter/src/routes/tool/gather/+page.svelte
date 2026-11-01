@@ -184,19 +184,14 @@
 		return items;
 	});
 
-	const decksForOverlapDetection = $derived.by(() => {
-		return importedDecks.map((d) => {
-			const forwarded = deckUtility.forwardDefault(d, cardResolver).deck;
-			if (excludeSideDecks) {
-				// Create a copy without side deck for overlap detection
-				return { ...forwarded, sideDeck: [] };
-			}
-			return forwarded;
-		});
-	});
+	const decksForOverlapDetection = $derived(
+		importedDecks.map((d) => deckUtility.forwardDefault(d, cardResolver).deck)
+	);
 
 	const overlaps = $derived.by(() => {
-		const deckOverlaps = deckUtility.findDeckOverlaps(decksForOverlapDetection);
+		const deckOverlaps = deckUtility.findDeckOverlaps(decksForOverlapDetection, {
+			includeSideDeck: !excludeSideDecks
+		});
 		return deckOverlaps.map((overlap) => ({
 			cardCode: overlap.cardCode,
 			totalQuantity: overlap.totalQuantity,

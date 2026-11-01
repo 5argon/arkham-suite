@@ -12,7 +12,7 @@ board to the selected members, bringing far-apart decks closer for dragging.
 	import clsx from 'clsx';
 
 	import * as m from '$lib/paraglide/messages.js';
-	import { mainDeckCount, overlappingStacksOf } from '$lib/tool/evergreen-team/rules';
+	import { mainDeckCount, type Overlap, overlappingStacksOf } from '$lib/tool/evergreen-team/rules';
 	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
 
 	interface Prop {
@@ -26,7 +26,7 @@ board to the selected members, bringing far-apart decks closer for dragging.
 		/**
 		 * Cards claimed beyond the pool (teams assembled from starter decks).
 		 */
-		overlaps?: ReadonlySet<CardCode>;
+		overlaps?: ReadonlyMap<CardCode, Overlap>;
 	}
 	const { team, resolver, soloIndices, onToggleSolo, overlaps }: Prop = $props();
 

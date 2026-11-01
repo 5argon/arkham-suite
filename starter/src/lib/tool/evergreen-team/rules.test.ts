@@ -10,7 +10,7 @@ import {
 	mainDeckCount,
 	moveBetweenDecks,
 	moveToDeck,
-	overlappingCodes,
+	teamOverlaps,
 	overlappingStacksOf,
 	remainingOf,
 	returnToCollection,
@@ -167,12 +167,17 @@ describe('buildEligibility', () => {
 		// 4 copies exist; 2 + 2 is fine, a third deck-worth is not.
 		state.decks[0].main['01592'] = 2;
 		state.decks[1].main['01592'] = 2;
-		expect(overlappingCodes(state, pool).has('01592')).toBe(false);
+		expect(teamOverlaps(state, pool).has('01592')).toBe(false);
 		// Dodge: 2 copies exist, claimed 2 + 2.
 		state.decks[0].main['01523'] = 2;
 		state.decks[1].main['01523'] = 2;
-		const overlaps = overlappingCodes(state, pool);
-		expect(overlaps.has('01523')).toBe(true);
+		const overlaps = teamOverlaps(state, pool);
+		expect(overlaps.get('01523')).toEqual({
+			code: '01523',
+			used: 4,
+			available: 2,
+			perDeck: [2, 2]
+		});
 		expect(overlaps.has('01592')).toBe(false);
 		expect(overlappingStacksOf(state.decks[0], overlaps)).toBe(1);
 		expect(overlappingStacksOf(state.decks[1], overlaps)).toBe(1);
@@ -190,7 +195,7 @@ describe('buildEligibility', () => {
 		expect(availableOf(state, pool, '01523')).toBe(2);
 		expect(moveToDeck(state, pool, pool.get('01523')!.card, 1)).toBe(2);
 		expect(state.decks[1].main['01523']).toBe(2);
-		expect(overlappingCodes(state, pool).has('01523')).toBe(true);
+		expect(teamOverlaps(state, pool).has('01523')).toBe(true);
 		// One-at-a-time pick mode still takes one.
 		state.pickMode = 'one';
 		state.decks[1].main['01523'] = 0;

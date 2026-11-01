@@ -31,7 +31,7 @@ team page.
 	import { toAhdbDeck } from '$lib/tool/evergreen-team/export';
 	import { openInDeckGather } from '$lib/tool/interop/transient-decks';
 	import { buildPool, poolSections } from '$lib/tool/evergreen-team/pool';
-	import { buildEligibility, overlappingCodes, remainingOf } from '$lib/tool/evergreen-team/rules';
+	import { buildEligibility, teamOverlaps, remainingOf } from '$lib/tool/evergreen-team/rules';
 	import type { DeckMeta, EvergreenState } from '$lib/tool/evergreen-team/types';
 
 	interface Prop {
@@ -74,7 +74,7 @@ team page.
 		tooltipCard = null;
 	}
 
-	const overlaps = $derived(overlappingCodes(team, pool));
+	const overlaps = $derived(teamOverlaps(team, pool));
 	let compact = $state(false);
 	let showUnused = $state(false);
 	let showExport = $state(false);

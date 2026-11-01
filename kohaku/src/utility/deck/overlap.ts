@@ -1,6 +1,55 @@
 import { Card } from '../../type/data/player-card.js';
-import { CardQuantity, Deck } from '../../type/data/deck.js';
+import { Deck } from '../../type/data/deck.js';
 import { isRandomBasicWeakness } from '../card/util.js';
+
+/**
+ * A card whose copies across a group of decks exceed what is available.
+ */
+export interface QuantityOverlap {
+	code: string;
+	used: number;
+	available: number;
+	/**
+	 * Copies in each deck, by the deck's position in the input.
+	 */
+	perDeck: number[];
+}
+
+/**
+ * Cards whose combined copies across decks exceed what is available. Each
+ * tool supplies its own idea of availability (one copy of each product, the
+ * products the player owns, ...).
+ *
+ * @param decks - Each deck's copies, as card code and quantity pairs. A code
+ * may repeat within a deck (main and side deck); its copies add up.
+ * @param availableOf - Copies available of a code; `undefined` leaves the
+ * card out entirely.
+ */
+export function findQuantityOverlaps(
+	decks: Iterable<readonly [string, number]>[],
+	availableOf: (code: string) => number | undefined
+): QuantityOverlap[] {
+	const perCode = new Map<string, number[]>();
+	decks.forEach((deck, deckIndex) => {
+		for (const [code, quantity] of deck) {
+			let perDeck = perCode.get(code);
+			if (perDeck === undefined) {
+				perDeck = decks.map(() => 0);
+				perCode.set(code, perDeck);
+			}
+			perDeck[deckIndex] += quantity;
+		}
+	});
+
+	const overlaps: QuantityOverlap[] = [];
+	for (const [code, perDeck] of perCode) {
+		const available = availableOf(code);
+		if (available === undefined) continue;
+		const used = perDeck.reduce((sum, quantity) => sum + quantity, 0);
+		if (used > available) overlaps.push({ code, used, available, perDeck });
+	}
+	return overlaps;
+}
 
 export interface DeckOverlapInfo {
 	cardCode: string;
@@ -19,62 +68,48 @@ export interface DeckCombinationOverlap {
 }
 
 /**
- * Find overlapping cards across multiple decks.
- * A card is considered overlapping if the combined quantity across all decks
- * exceeds the card's per-deck limit.
- * 
+ * Find overlapping cards across multiple decks, assuming one copy of each
+ * product: a card overlaps when the combined quantity across all decks
+ * exceeds the quantity its product contains. Random basic weaknesses are
+ * never counted.
+ *
  * @param decks - Array of decks to check for overlaps
- * @param includeLinkedCards - Whether to include bonded and customizable linked cards (default: true)
+ * @param options.includeSideDeck - Count side deck copies too (default: main deck only)
  * @returns Array of overlap information for cards that exceed limits
  */
 export function findDeckOverlaps(
 	decks: Deck[],
-	includeLinkedCards: boolean = true
+	options: { includeSideDeck?: boolean } = {}
 ): DeckOverlapInfo[] {
-	const cardTotals: Map<string, { card: Card; total: number; deckQuantities: Map<string | number, number> }> = new Map();
+	const cards = new Map<string, Card>();
+	const counted = decks.map((deck) => {
+		const zones = options.includeSideDeck ? [...deck.mainDeck, ...deck.sideDeck] : deck.mainDeck;
+		return zones.map((cq): [string, number] => {
+			cards.set(cq.card.code, cq.card);
+			return [cq.card.code, cq.quantity];
+		});
+	});
 
-	// Count total quantity of each card across all decks (main deck only, not side deck)
-	for (const deck of decks) {
-		const cardsToProcess: CardQuantity[] = deck.mainDeck;
-
-		for (const cq of cardsToProcess) {
-			const code = cq.card.code;
-
-			// Skip random basic weaknesses
-			if (isRandomBasicWeakness(cq.card)) {
-				continue;
-			}
-
-			if (!cardTotals.has(code)) {
-				cardTotals.set(code, {
-					card: cq.card,
-					total: 0,
-					deckQuantities: new Map()
-				});
-			}
-
-			const entry = cardTotals.get(code)!;
-			entry.total += cq.quantity;
-			entry.deckQuantities.set(deck.id, (entry.deckQuantities.get(deck.id) || 0) + cq.quantity);
-		}
-	}
-
-	// Find cards that exceed their limit
-	const overlaps: DeckOverlapInfo[] = [];
-	for (const [code, entry] of cardTotals.entries()) {
-		const card = entry.card;
-		if (card.quantity > 0 && entry.total > card.quantity) {
-			overlaps.push({
-				cardCode: code,
-				card: card,
-				totalQuantity: entry.total,
-				cardLimit: card.quantity,
-				deckQuantities: entry.deckQuantities
-			});
-		}
-	}
-
-	return overlaps;
+	return findQuantityOverlaps(counted, (code) => {
+		const card = cards.get(code);
+		if (card === undefined || isRandomBasicWeakness(card) || card.quantity <= 0) return undefined;
+		return card.quantity;
+	}).map((overlap) => {
+		const deckQuantities = new Map<string | number, number>();
+		overlap.perDeck.forEach((quantity, deckIndex) => {
+			if (quantity === 0) return;
+			const id = decks[deckIndex].id;
+			deckQuantities.set(id, (deckQuantities.get(id) ?? 0) + quantity);
+		});
+		const card = cards.get(overlap.code)!;
+		return {
+			cardCode: overlap.code,
+			card,
+			totalQuantity: overlap.used,
+			cardLimit: overlap.available,
+			deckQuantities
+		};
+	});
 }
 
 /**
