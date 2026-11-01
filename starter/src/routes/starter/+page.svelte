@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { snapshot } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import {
 		Button,
 		FaIconType,
@@ -61,7 +62,7 @@
 	<TextParagraph>{m.starter_decks_intro()}</TextParagraph>
 	<TextParagraph>
 		{m.starter_decks_teams_note_before()}
-		<a href="/team">{m.starter_decks_teams_note_link()}</a>
+		<a href={resolve('/team')}>{m.starter_decks_teams_note_link()}</a>
 		{m.starter_decks_teams_note_after()}
 	</TextParagraph>
 	<StarterFilter onChange={(f) => (filter = f)} />

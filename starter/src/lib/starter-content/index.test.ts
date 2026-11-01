@@ -191,7 +191,7 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 			expect(team.name.split(' : ')[1], team.slug).toBe(investigators.join(', '));
 			expect(team.slug, team.name).toMatch(new RegExp(`-${investigatorSlugs}$`));
 			expect(
-				team.members.every((member) => member.deck.id.startsWith(`${team.slug}/`)),
+				team.members.every((member) => String(member.deck.id).startsWith(`${team.slug}/`)),
 				team.slug
 			).toBe(true);
 		}

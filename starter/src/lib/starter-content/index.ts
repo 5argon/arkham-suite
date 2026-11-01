@@ -237,7 +237,7 @@ export function publishedVersion(files: AhdbDeck[], id: number, owner: string): 
  */
 function withCuratedMeta(deck: AhdbDeck, introMd?: string, bannerUrl?: string): AhdbDeck {
 	if (introMd === undefined && bannerUrl === undefined) return deck;
-	let meta: Record<string, unknown> = {};
+	let meta: Record<string, unknown>;
 	try {
 		meta = JSON.parse(deck.meta || '{}');
 	} catch {
