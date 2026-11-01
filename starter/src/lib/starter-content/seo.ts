@@ -106,12 +106,13 @@ export function starterDeckJsonLd(entry: StarterDeckEntry) {
 }
 
 /**
- * Crawlers need this to find author and deck pages: the /starter page only
- * lists decks after a reader picks investigators.
+ * Crawlers can also reach these through /starter/authors, but /starter itself
+ * only lists decks after a reader picks investigators.
  */
 export function starterSitemapPaths(): string[] {
 	return [
 		'/starter',
+		'/starter/authors',
 		...starterAuthors().map(contributorHref),
 		...allStarterDecks().map(starterDeckHref)
 	];

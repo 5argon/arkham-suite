@@ -87,9 +87,13 @@ describe('starter deck meta', () => {
 		}
 	});
 
+	it('reserves the authors listing URL', () => {
+		expect(allContributors().map((person) => person.slug)).not.toContain('authors');
+	});
+
 	it('lists every author and deck in the sitemap once', () => {
 		const paths = starterSitemapPaths();
 		expect(new Set(paths).size).toBe(paths.length);
-		expect(paths).toHaveLength(1 + starterAuthors().length + allStarterDecks().length);
+		expect(paths).toHaveLength(2 + starterAuthors().length + allStarterDecks().length);
 	});
 });

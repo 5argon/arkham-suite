@@ -65,6 +65,9 @@
 		<a href={resolve('/team')}>{m.starter_decks_teams_note_link()}</a>
 		{m.starter_decks_teams_note_after()}
 	</TextParagraph>
+	<div class="mb-4 flex justify-center">
+		<Button label={m.starter_decks_authors_button()} onClick="/starter/authors" />
+	</div>
 	<StarterFilter onChange={(f) => (filter = f)} />
 	{#if nonePicked}
 		<div class="mt-3 mb-4 flex flex-col items-center gap-2">
