@@ -9,7 +9,7 @@
 	}
 	const { isOpen, onClose }: Prop = $props();
 
-	const ffgArticleUrl = 'https://www.fantasyflightgames.com/en/news/2026/2/12/ever-investigating/';
+	const ffgArticleUrl = 'https://www.fantasyflightgames.com/a-look-at-things-to-come/';
 </script>
 
 <Modal {isOpen} {onClose} maxWidth="lg" title={m.tool_evergreen_team_whats_evergreen()}>

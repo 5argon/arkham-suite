@@ -5,12 +5,11 @@ import {
 	type CardResolver,
 	card as cardUtils,
 	Product,
-	productChapterOneInvestigatorExpansions,
-	productCoreSetsNoOldCore,
+	productChapterTwoInvestigatorExpansions,
+	productDeckbuildingExpansions,
 	productInvestigatorDeck,
 	productInvestigatorStarterDeck,
 	productOrdering,
-	productReturnTo,
 	randomBasicWeakness
 } from '@5argon/arkham-kohaku';
 
@@ -25,31 +24,48 @@ export function deckProductsForCore(core: EvergreenCore): Product[] {
 }
 
 /**
- * Products whose investigators join the roster: the Evergreen products only.
- * Extra (advanced) products contribute cards, never investigators.
+ * Everything that can be picked on top of Core Set 2026.
+ */
+const selectableProducts: Product[] = [
+	...productInvestigatorDeck,
+	...productDeckbuildingExpansions,
+	...productChapterTwoInvestigatorExpansions
+];
+
+export function isSelectableProduct(product: Product): boolean {
+	return selectableProducts.includes(product);
+}
+
+/**
+ * A Core Set 2026 setup over the given products, excluding the core itself.
+ */
+export function setupForProducts(
+	products: readonly Product[],
+	investigators: CardCode[] = []
+): EvergreenSetup {
+	return {
+		core: Product.CoreSet2026,
+		deckProducts: productInvestigatorDeck.filter((p) => products.includes(p)),
+		extraProducts: products.filter((p) => !productInvestigatorDeck.includes(p)),
+		investigators
+	};
+}
+
+/**
+ * Products whose investigators join the roster: the core box, the prebuilt
+ * decks, and Chapter Two investigator expansions. Any other extra products
+ * contribute cards, never investigators.
  */
 export function rosterProducts(setup: EvergreenSetup): Product[] {
-	return [setup.core, ...setup.deckProducts];
+	return [
+		setup.core,
+		...setup.deckProducts,
+		...setup.extraProducts.filter((p) => productChapterTwoInvestigatorExpansions.includes(p))
+	];
 }
 
 export function poolProducts(setup: EvergreenSetup): Product[] {
 	return [...rosterProducts(setup), ...setup.extraProducts];
-}
-
-/**
- * The choices offered in the setup page's Advanced section: every product the
- * Limited Pool Explorer covers plus both eras' prebuilt decks, minus what the
- * main setup controls already include.
- */
-export function extraProductOptions(core: EvergreenCore): Product[] {
-	const covered = new Set<Product>([core, ...deckProductsForCore(core)]);
-	return [
-		...productCoreSetsNoOldCore,
-		...productChapterOneInvestigatorExpansions,
-		...productInvestigatorStarterDeck,
-		...productInvestigatorDeck,
-		...productReturnTo
-	].filter((p) => !covered.has(p));
 }
 
 /**
@@ -92,7 +108,7 @@ export interface PoolSection {
 
 /**
  * The collection panel's product sections, in setup order: core box first,
- * then each included prebuilt deck, then advanced extra products. Every
+ * then each included prebuilt deck, then extra products. Every
  * printing lives in its own product's section, like the real boxes.
  */
 export function poolSections(setup: EvergreenSetup, pool: Map<CardCode, PoolEntry>): PoolSection[] {
@@ -148,7 +164,7 @@ export interface AccessSummaryResult {
 	lines: AccessLine[];
 	/**
 	 * True when the investigator has deckbuilding beyond simple class + level
-	 * access (none in the Evergreen environment; defensive for future data).
+	 * access (none among the Team Builder's investigators; defensive for future data).
 	 */
 	special: boolean;
 }

@@ -4,20 +4,19 @@
 		Button,
 		FaIconType,
 		HelpParagraph,
-		InvestigatorExpansionFormMultiple,
 		MarginFull,
 		SectionSeparator
 	} from '@5argon/arkham-life-ui';
-	import { type CardCode, Product } from '@5argon/arkham-kohaku';
+	import type { CardCode, Product } from '@5argon/arkham-kohaku';
 
 	import { getAllCards } from '$lib/card-data';
+	import EnvironmentProductPicker from '$lib/design/components/product/EnvironmentProductPicker.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { extraProductOptions, investigatorsForSetup } from '$lib/tool/evergreen-team/pool';
-	import type { EvergreenCore, EvergreenSetup } from '$lib/tool/evergreen-team/types';
+	import { investigatorsForSetup, setupForProducts } from '$lib/tool/evergreen-team/pool';
+	import type { EvergreenSetup } from '$lib/tool/evergreen-team/types';
 
 	import AccessMatrix from './AccessMatrix.svelte';
 	import InvestigatorPicker from './InvestigatorPicker.svelte';
-	import PoolPicker from './PoolPicker.svelte';
 	import TipsModal from './TipsModal.svelte';
 	import WhatsEvergreenModal from './WhatsEvergreenModal.svelte';
 
@@ -28,51 +27,20 @@
 
 	const allCards = getAllCards();
 
-	let core = $state<EvergreenCore>(Product.CoreSet2026);
-	let deckProducts = $state<Product[]>([]);
-	let extraProducts = $state<Product[]>([]);
+	let products = $state<Product[]>([]);
 	let investigators = $state<CardCode[]>([]);
 	let showWhatsEvergreen = $state(false);
 	let showTips = $state(false);
-	let showAdvanced = $state(false);
 
-	const roster = $derived(
-		investigatorsForSetup({ core, deckProducts, extraProducts: [], investigators: [] }, allCards)
-	);
+	const roster = $derived(investigatorsForSetup(setupForProducts(products), allCards));
 	const selectedCards = $derived(
 		investigators.map((code) => roster.find((c) => c.code === code)).filter((c) => c !== undefined)
 	);
-	const advancedOptions = $derived(extraProductOptions(core));
 
-	function handleCoreChange(newCore: EvergreenCore) {
-		core = newCore;
-		deckProducts = [];
-		extraProducts = [];
-		investigators = [];
-	}
-
-	function pruneInvestigatorsToRoster() {
-		const rosterCodes = new Set(
-			investigatorsForSetup(
-				{ core, deckProducts, extraProducts: [], investigators: [] },
-				allCards
-			).map((c) => c.code)
-		);
+	function handleProductsChange(newProducts: Product[]) {
+		products = newProducts;
+		const rosterCodes = new Set(roster.map((c) => c.code));
 		investigators = investigators.filter((code) => rosterCodes.has(code));
-	}
-
-	function handleDeckProductToggle(product: Product, included: boolean) {
-		if (included) {
-			deckProducts = [...deckProducts, product];
-		} else {
-			deckProducts = deckProducts.filter((p) => p !== product);
-			pruneInvestigatorsToRoster();
-		}
-	}
-
-	function handleSetAllDeckProducts(products: Product[]) {
-		deckProducts = products;
-		pruneInvestigatorsToRoster();
 	}
 
 	function handleInvestigatorToggle(code: CardCode) {
@@ -84,12 +52,12 @@
 	}
 
 	function proceed() {
-		onProceed({
-			core,
-			deckProducts: $state.snapshot(deckProducts) as Product[],
-			extraProducts: $state.snapshot(extraProducts) as Product[],
-			investigators: $state.snapshot(investigators) as CardCode[]
-		});
+		onProceed(
+			setupForProducts(
+				$state.snapshot(products) as Product[],
+				$state.snapshot(investigators) as CardCode[]
+			)
+		);
 	}
 </script>
 
@@ -103,32 +71,11 @@
 			/>
 		</div>
 
-		<PoolPicker
-			{core}
-			{deckProducts}
-			onCoreChange={handleCoreChange}
-			onDeckProductToggle={handleDeckProductToggle}
-			onSetAllDeckProducts={handleSetAllDeckProducts}
-		/>
-
-		<div class="mt-2">
-			<Button
-				icon={showAdvanced ? FaIconType.Collapse : FaIconType.FoldoutRight}
-				label={m.tool_evergreen_team_advanced()}
-				onClick={() => (showAdvanced = !showAdvanced)}
-			/>
-		</div>
-		{#if showAdvanced}
-			<HelpParagraph>
-				{m.tool_evergreen_team_advanced_help()}
-			</HelpParagraph>
-			<InvestigatorExpansionFormMultiple
-				label={m.tool_evergreen_team_advanced_search()}
-				onSelectionChange={(products) => (extraProducts = products)}
-				products={advancedOptions}
-				selectedProducts={extraProducts}
-			/>
-		{/if}
+		<SectionSeparator title={m.tool_evergreen_team_include_decks()} />
+		<HelpParagraph>
+			{m.tool_evergreen_team_include_decks_help()}
+		</HelpParagraph>
+		<EnvironmentProductPicker selected={products} onChange={handleProductsChange} />
 
 		<SectionSeparator title={m.tool_evergreen_team_team()} />
 		<HelpParagraph>

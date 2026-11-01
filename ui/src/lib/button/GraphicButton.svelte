@@ -23,15 +23,21 @@ TODO: Make the tab index work.
 		 * `undefined` has different look from both `true` and `false`.
 		 */
 		active?: boolean;
+		/**
+		 * Shows its `active` state but cannot be pressed. Only for the `<button>` form.
+		 */
+		locked?: boolean;
 		small?: boolean;
 		children?: Snippet;
 	}
-	const { text, subtext, graphic, onClick, accentColor, active, small, children }: Prop = $props();
+	const { text, subtext, graphic, onClick, accentColor, active, locked, small, children }: Prop =
+		$props();
 </script>
 
 {#snippet inside()}
 	<div class:small class:big={!small} class="h-full w-full" style="--accent-color:{accentColor}">
 		<div
+			class:pointer-events-none={locked}
 			class="bg-primary-400/30 dark:bg-primary-950/30
 			dark:hover:bg-primary-300/30 hover:bg-primary-400/60 dark:active:bg-secondary-200/40
 			active:bg-secondary-600/40 group h-full w-full p-1"
@@ -125,7 +131,8 @@ TODO: Make the tab index work.
 {#if typeof onClick === 'function'}
 	<button
 		type="button"
-		class="cursor-pointer"
+		disabled={locked}
+		class={locked ? 'cursor-not-allowed' : 'cursor-pointer'}
 		onclick={() => {
 			onClick?.();
 		}}

@@ -1,4 +1,11 @@
-import { CardResolver, deck as deckUtility, linkedAhdbDeckToDeck } from '@5argon/arkham-kohaku';
+import {
+	type AhdbDeck,
+	CardResolver,
+	deck as deckUtility,
+	environment,
+	linkedAhdbDeckToDeck,
+	Product
+} from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
 import { getAllCards, loadAllTabooLists } from '../card-data';
@@ -45,6 +52,28 @@ describe('starter deck export tags', () => {
 			expect(series, team.slug).toBeDefined();
 			expect(deck.tags, deck.id.toString()).toBe(tagsBySeries[series!]);
 			expect(deck.tags?.split(/\s+/), deck.id.toString()).toHaveLength(3);
+		}
+	});
+});
+
+describe('Not-legacy guarantee', () => {
+	const resolver = new CardResolver(getAllCards());
+
+	function deckProducts(deck: AhdbDeck): Product[] {
+		return Object.keys({ ...deck.slots, ...deck.sideSlots })
+			.map((code) => resolver.resolve(code).product)
+			.filter((product) => product !== Product.RandomBasicWeakness);
+	}
+
+	it('builds every starter deck version and team deck within some Current environment', () => {
+		const decks = [
+			...allStarterDecks().flatMap((entry) => entry.versions.map((version) => version.deck)),
+			...allPrebuiltTeams().flatMap((team) => team.members.map((member) => member.deck))
+		];
+		expect(decks.length).toBeGreaterThan(0);
+		for (const deck of decks) {
+			const versions = environment.currentEnvironmentVersionsWith(deckProducts(deck), '2099-01-01');
+			expect(versions.length, `${deck.id}`).toBeGreaterThan(0);
 		}
 	});
 });

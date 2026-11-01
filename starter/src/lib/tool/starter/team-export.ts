@@ -1,12 +1,16 @@
 import { type Card, type CardCode, Product } from '@5argon/arkham-kohaku';
 
 import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
-import { buildPool, deckProductsForCore } from '$lib/tool/evergreen-team/pool';
+import {
+	buildPool,
+	deckProductsForCore,
+	isSelectableProduct,
+	setupForProducts
+} from '$lib/tool/evergreen-team/pool';
 import { draftedOf } from '$lib/tool/evergreen-team/rules';
 import type {
 	EvergreenCore,
 	EvergreenDeckState,
-	EvergreenSetup,
 	EvergreenState,
 	PoolEntry,
 	TeamInfo
@@ -19,7 +23,7 @@ const CORE: EvergreenCore = Product.CoreSet2026;
 /**
  * The cart as an Evergreen Team Builder state: the exact decks (0 XP main
  * deck, upgrades as side deck) over the exact product set, which is the
- * user's ticked Investigator Decks plus whatever the chosen decks themselves
+ * user's ticked products plus whatever the chosen decks themselves
  * require. Card overlaps between decks are kept for the tool to show and
  * resolve.
  */
@@ -30,19 +34,16 @@ export function starterTeamState(args: {
 	info: TeamInfo;
 }): { state: EvergreenState; pool: Map<CardCode, PoolEntry> } {
 	const { entries, products, allCards, info } = args;
-	const allowed = deckProductsForCore(CORE);
-	const required = new Set<Product>(products ?? allowed);
+	const required = new Set<Product>(products ?? deckProductsForCore(CORE));
 	for (const entry of entries) {
 		for (const p of deckCardPool(entry.primary)) {
-			if (p !== CORE && allowed.includes(p as Product)) required.add(p as Product);
+			if (isSelectableProduct(p as Product)) required.add(p as Product);
 		}
 	}
-	const setup: EvergreenSetup = {
-		core: CORE,
-		deckProducts: allowed.filter((p) => required.has(p)),
-		extraProducts: [],
-		investigators: entries.map((e) => e.primary.investigator_code)
-	};
+	const setup = setupForProducts(
+		[...required],
+		entries.map((e) => e.primary.investigator_code)
+	);
 	const pool = buildPool(setup, allCards);
 	const decks: EvergreenDeckState[] = entries.map((entry) => {
 		const main: Record<string, number> = {};

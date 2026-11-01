@@ -1,7 +1,8 @@
 import type { Card, CardClass, CardCode, Product } from '@5argon/arkham-kohaku';
 
 /**
- * The two mutually exclusive core box choices of the Evergreen environment.
+ * The two mutually exclusive core boxes a team can use. The setup page always
+ * starts on Core Set 2026, Revised Core Set comes from older share links.
  */
 export type EvergreenCore = Product.RevisedCoreSet | Product.CoreSet2026;
 
@@ -19,8 +20,9 @@ export interface EvergreenSetup {
 	 */
 	deckProducts: Product[];
 	/**
-	 * Advanced: any other products whose cards join the shared pool. Their
-	 * investigators are never added to the roster - the team stays Evergreen.
+	 * Any other products whose cards join the shared pool: the rotating products
+	 * picked on the setup page, or whatever an older share link carries. Only
+	 * Chapter Two investigator expansions add their investigators to the roster.
 	 */
 	extraProducts: Product[];
 	/**

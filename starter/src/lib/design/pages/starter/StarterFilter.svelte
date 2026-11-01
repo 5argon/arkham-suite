@@ -1,9 +1,9 @@
 <!--
 @component
 The starter library filter shared by the Starter Decks and Pre-Built Teams
-pages: the Investigator Decks you own (Core Set 2026 is always in) and the
-investigators to show, each with select / deselect all. The product choice
-is remembered with the starter team cart so Use This Team carries it.
+pages: the products you own (Core Set 2026 is always in), preset by the
+environment selector, and the investigators to show. The product choice is
+remembered with the starter team cart so Use This Team carries it.
 Investigators start unpicked so the reader chooses who they are curious
 about, unless `initiallyAll` asks for everything shown up front.
 -->
@@ -16,14 +16,15 @@ about, unless `initiallyAll` asks for everything shown up front.
 		InvestigatorPicker,
 		SectionSeparator
 	} from '@5argon/arkham-life-ui';
-	import { type Card, type CardCode, Product } from '@5argon/arkham-kohaku';
+	import type { Card, CardCode, Product } from '@5argon/arkham-kohaku';
 	import { untrack } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
 
 	import { getAllCards } from '$lib/card-data';
-	import DeckProductPicker from '$lib/design/components/product/DeckProductPicker.svelte';
+	import EnvironmentProductPicker from '$lib/design/components/product/EnvironmentProductPicker.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { deckProductsForCore, investigatorsForSetup } from '$lib/tool/evergreen-team/pool';
+	import { environmentChoices } from '$lib/tool/environment-choices';
+	import { investigatorsForSetup, setupForProducts } from '$lib/tool/evergreen-team/pool';
 	import type { StarterFilterValue } from '$lib/tool/starter/filter';
 	import { starterTeam } from '$lib/tool/starter/team-cart.svelte';
 
@@ -37,25 +38,22 @@ about, unless `initiallyAll` asks for everything shown up front.
 	}
 	const { onChange, showMustIncludeAll = false, initiallyAll = false }: Prop = $props();
 
-	const core = Product.CoreSet2026;
-	const deckProducts = deckProductsForCore(core);
 	const allCards = getAllCards();
 
 	function rosterOf(products: Product[]): Card[] {
-		return investigatorsForSetup(
-			{ core, deckProducts: products, extraProducts: [], investigators: [] },
-			allCards
-		);
+		return investigatorsForSetup(setupForProducts(products), allCards);
 	}
 
-	// Every Investigator Deck starts selected; the choice still travels with
-	// the starter team cart so Use This Team carries it.
-	const selectedProducts = new SvelteSet<Product>(deckProducts);
-	// The roster follows the owned products: five from the core box plus one
-	// per selected Investigator Deck.
+	// Starts on the newest environment choice so nothing legal today is hidden;
+	// the choice still travels with the starter team cart so Use This Team
+	// carries it.
+	const initialProducts = environmentChoices(new Date(), allCards).at(-1)?.products ?? [];
+	const selectedProducts = new SvelteSet<Product>(initialProducts);
+	// The roster follows the owned products: five from the core box plus the
+	// ones each selected product brings.
 	const investigators = $derived(rosterOf([...selectedProducts]));
 	const selectedInvestigators = new SvelteSet<CardCode>(
-		untrack(() => initiallyAll) ? rosterOf(deckProducts).map((c) => c.code) : []
+		untrack(() => initiallyAll) ? rosterOf(initialProducts).map((c) => c.code) : []
 	);
 	let mustIncludeAll = $state(false);
 	const activeInvestigators = $derived(
@@ -109,15 +107,9 @@ about, unless `initiallyAll` asks for everything shown up front.
 
 <SectionSeparator title={m.starter_decks_filter_products()} />
 <HelpParagraph>{m.starter_decks_filter_products_help()}</HelpParagraph>
-<DeckProductPicker
-	{core}
+<EnvironmentProductPicker
 	selected={[...selectedProducts]}
-	onToggle={(product, included) =>
-		changeProducts(() => {
-			if (included) selectedProducts.add(product);
-			else selectedProducts.delete(product);
-		})}
-	onSetAll={(products) =>
+	onChange={(products) =>
 		changeProducts(() => {
 			selectedProducts.clear();
 			for (const p of products) selectedProducts.add(p);

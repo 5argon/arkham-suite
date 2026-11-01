@@ -1,21 +1,13 @@
-import { type AhdbDeck, type Card, Product } from '@5argon/arkham-kohaku';
+import type { AhdbDeck, Card, Product } from '@5argon/arkham-kohaku';
 
 import { encodeEvergreen } from './codec';
-import { buildPool, deckProductsForCore } from './pool';
+import { buildPool, isSelectableProduct, setupForProducts } from './pool';
 import { defaultTeamInfo } from './team-info';
-import type {
-	EvergreenCore,
-	EvergreenDeckState,
-	EvergreenSetup,
-	EvergreenState,
-	TeamInfo
-} from './types';
-
-const CORE: EvergreenCore = Product.CoreSet2026;
+import type { EvergreenDeckState, EvergreenSetup, EvergreenState, TeamInfo } from './types';
 
 /**
  * Any ArkhamDB-shaped decks as a Team Builder state: the Core Set 2026 plus
- * only the Investigator Decks these decks actually draw from (cards or
+ * only the other products these decks actually draw from (cards or
  * investigators), so the product set is the minimum that builds them all.
  * Level 0 cards form the main deck, upgrades the side deck, cards outside the
  * pool are dropped, and overlaps are kept for the tool to resolve.
@@ -42,12 +34,7 @@ export function decksToEvergreenState(
 			if (product !== undefined) used.add(product);
 		}
 	}
-	const setup: EvergreenSetup = {
-		core: CORE,
-		deckProducts: deckProductsForCore(CORE).filter((p) => used.has(p)),
-		extraProducts: [],
-		investigators
-	};
+	const setup: EvergreenSetup = setupForProducts([...used].filter(isSelectableProduct), investigators);
 	const pool = buildPool(setup, allCards);
 	const evergreenDecks: EvergreenDeckState[] = investigators.map((investigator) => {
 		const deck = decks.find((d) => d.investigator_code === investigator)!;

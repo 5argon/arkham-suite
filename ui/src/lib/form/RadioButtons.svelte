@@ -71,7 +71,7 @@ Single line radio buttons styled as buttons.
 {/snippet}
 
 <FormLabelWithHelp disableClick {label} {help} {helpMd}>
-	<div class="flex">
+	<div class="flex flex-wrap">
 		{#each choices as { value, label, icon }, index (index)}
 			{@render eachButton(value, label, icon, index)}
 		{/each}

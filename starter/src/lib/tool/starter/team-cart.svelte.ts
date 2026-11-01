@@ -17,7 +17,7 @@ export interface StarterTeamMember {
 interface StoredTeam {
 	members: StarterTeamMember[];
 	/**
-	 * Investigator Deck product codes the user ticked on the listing;
+	 * Product codes the user ticked on the listing;
 	 * undefined until they touch the filter.
 	 */
 	products?: string[];

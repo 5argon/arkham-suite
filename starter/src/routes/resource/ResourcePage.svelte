@@ -5,15 +5,14 @@
 <InnerHeading title="Starter Contents"></InnerHeading>
 
 <TextParagraph>
-	Welcome to the game! These contents are guaranteed to be within the Current Environment, and
-	especially the evergreen card pool. (The Core Set 2026 and the five investigator decks.) As the
-	site's name might suggest, I wanted to make it a priority that new players are not intimidated by
+	Welcome to the game! These contents are easily built using just a few purchases. As the site's
+	name might suggest, I wanted to make it a priority that new players are not intimidated by
 	the sheer amount of player cards in the game.
 </TextParagraph>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="Pick up and play beginner-friendly decks buildable only from the Current Environment card pool."
+		description="Pick up and play beginner-friendly decks, easily built using just a few purchases."
 		imageUrl="image/resource/starter.webp"
 		onClick="/starter"
 		title="Starter Decks"
