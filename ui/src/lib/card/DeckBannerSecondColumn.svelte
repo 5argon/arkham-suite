@@ -30,7 +30,7 @@ The second column of DeckBanner showing XP, deck utilization, interesting cards,
 	);
 </script>
 
-<div class="flex flex-col items-center gap-1 md:basis-60">
+<div class="flex flex-col items-center gap-1 @min-[500px]:basis-60">
 	<div class="flex items-center">
 		{#if deckXp > 0}
 			<div

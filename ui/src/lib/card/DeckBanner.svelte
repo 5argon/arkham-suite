@@ -86,6 +86,12 @@ Block element with fixed height that display some overall information about the 
 		 * If true, renders only the colored title and optional byline.
 		 */
 		headerOnly?: boolean;
+		/**
+		 * If true, fills the parent's width instead of a fixed width, so the parent must give it
+		 * one (a shrink-to-fit parent collapses it). Only for the full banner, not `small` or
+		 * `headerOnly`. The layout follows the banner's own width either way.
+		 */
+		fluid?: boolean;
 	}
 	const {
 		deck,
@@ -100,8 +106,10 @@ Block element with fixed height that display some overall information about the 
 		small = false,
 		hideTitle = false,
 		smallSingleLine = false,
-		headerOnly = false
+		headerOnly = false,
+		fluid = false
 	}: Prop = $props();
+	const fullBanner = $derived(!headerOnly && !small);
 
 	// Generate unique ID for this component instance to avoid SVG mask ID collisions
 	const uniqueId = `mask-${Math.random().toString(36).substring(2, 11)}`;
@@ -219,7 +227,12 @@ Block element with fixed height that display some overall information about the 
 
 <div
 	class={clsx(
-		headerOnly ? 'w-full' : !(small && smallSingleLine) && 'w-[330px] md:w-[550px]',
+		headerOnly
+			? 'w-full'
+			: fullBanner && fluid
+				? 'w-full'
+				: !(small && smallSingleLine) && 'w-[330px] md:w-[550px]',
+		fullBanner && '@container',
 		'relative border bg-white/50 shadow-lg dark:bg-black/30',
 		borderColorClass,
 		small && 'md:w-auto'
@@ -229,7 +242,10 @@ Block element with fixed height that display some overall information about the 
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div
 			class={clsx(
-				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-xs text-ellipsis text-black md:line-clamp-1 md:h-6 md:justify-start md:text-left md:text-base dark:text-white',
+				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-xs text-ellipsis text-black dark:text-white',
+				fullBanner
+					? '@min-[400px]:text-sm @min-[500px]:line-clamp-1 @min-[500px]:h-6 @min-[500px]:justify-start @min-[500px]:text-left @min-[500px]:text-base'
+					: 'md:line-clamp-1 md:h-6 md:justify-start md:text-left md:text-base',
 				bgColorClass,
 				onClick && 'cursor-pointer transition-opacity hover:opacity-80'
 			)}
@@ -254,7 +270,8 @@ Block element with fixed height that display some overall information about the 
 		{#if byline && byline.length > 0}
 			<div
 				class={clsx(
-					'flex flex-wrap items-center justify-center gap-x-1.5 px-2 pb-0.5 text-[0.65rem] leading-tight text-black/80 md:justify-start dark:text-white/80',
+					'flex flex-wrap items-center justify-center gap-x-1.5 px-2 pb-0.5 text-[0.65rem] leading-tight text-black/80 dark:text-white/80',
+					fullBanner ? '@min-[500px]:justify-start' : 'md:justify-start',
 					bgColorClass
 				)}
 			>
@@ -283,21 +300,25 @@ Block element with fixed height that display some overall information about the 
 		<div class="relative">
 			<div class="absolute">
 				<img
-					class="h-48 opacity-40 md:h-32"
+					class="h-48 opacity-40 @min-[500px]:h-32"
 					src={squareBgPath}
 					alt={frontInvestigator.name}
 					style="mask: url(#{maskId}); filter: grayscale(100%);"
 				/>
 				<div
-					class="bg-primary-500 absolute inset-0 h-48 md:h-32"
+					class="bg-primary-500 absolute inset-0 h-48 @min-[500px]:h-32"
 					style="mask: url(#{maskId}); mix-blend-mode: multiply; opacity: 0.4;"
 				></div>
 			</div>
 			<div
-				class="relative flex h-48 flex-col justify-center gap-2 p-2 md:h-32 md:flex-row md:justify-evenly"
+				class="relative flex h-48 flex-col justify-center gap-2 p-2 @min-[500px]:h-32 @min-[500px]:flex-row @min-[500px]:justify-evenly"
 			>
 				<!-- First Column -->
-				<div class={clsx('flex flex-col items-center justify-center gap-0.5 md:basis-[280px]')}>
+				<div
+					class={clsx(
+						'flex flex-col items-center justify-center gap-0.5 @min-[500px]:basis-[280px]'
+					)}
+				>
 					{@render investigatorCardLine()}
 					<div>
 						<span>{@render parallelIndicator(isParallelFront, isParallelBack)}</span>

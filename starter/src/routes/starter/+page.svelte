@@ -109,10 +109,6 @@
 
 <style>
 	/* Counteracts the site Main's reading padding so two banners fit per row. */
-	.decks {
-		margin-inline: -1.25rem;
-	}
-
 	@media (min-width: 768px) {
 		.decks {
 			margin-inline: -1.75rem;

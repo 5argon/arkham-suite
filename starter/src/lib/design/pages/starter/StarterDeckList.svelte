@@ -1,6 +1,6 @@
 <!--
 @component
-Two-column list of starter deck banners; each links to its deck page and
+One or two columns of starter deck banners that fill the width they get; each links to its deck page and
 carries a small author / series byline linking to their pages.
 -->
 <script lang="ts">
@@ -28,7 +28,12 @@ carries a small author / series byline linking to their pages.
 </script>
 
 <div
-	class="grid grid-cols-1 justify-center justify-items-center gap-3 min-[1200px]:grid-cols-[auto_auto]"
+	class={[
+		'grid grid-cols-1 justify-center gap-3',
+		items.length > 1
+			? 'min-[700px]:grid-cols-[repeat(2,minmax(0,550px))] min-[1200px]:grid-cols-[550px_550px]'
+			: 'min-[700px]:grid-cols-[minmax(0,550px)]'
+	]}
 >
 	{#each items as item (item.id)}
 		<!-- Wrapped: DeckBanner renders a helper svg sibling that would take its own cell. -->
@@ -37,6 +42,7 @@ carries a small author / series byline linking to their pages.
 				cardResolver={resolver}
 				deck={item.deck}
 				mode="decklist"
+				fluid
 				onClick={item.href}
 				byline={item.byline}
 				highlightStatsAtLeast={4}
