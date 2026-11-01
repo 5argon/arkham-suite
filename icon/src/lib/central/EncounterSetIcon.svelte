@@ -800,8 +800,8 @@
 </script>
 
 {#await iconComponent}
-  <!-- Optional: Loading state -->
-  <span class="icon-loading" aria-label="Loading icon">...</span>
+  <!-- Holds the icon's 1em box so nothing shifts when it arrives. -->
+  <span class="icon-loading" aria-hidden="true"></span>
 {:then module}
   {@const Icon = module.default}
   <Icon />
@@ -809,3 +809,11 @@
   <!-- Error fallback -->
   <span class="icon-error" aria-label="Icon failed to load">⚠</span>
 {/await}
+
+<style>
+  .icon-loading {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+  }
+</style>

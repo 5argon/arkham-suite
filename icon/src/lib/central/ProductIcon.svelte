@@ -124,10 +124,8 @@
 </script>
 
 {#await iconComponent}
-  <!-- Optional: Loading state -->
-  <div class="icon-loading" aria-label="Loading icon">
-    <!-- You can add a spinner or placeholder here if needed -->
-  </div>
+  <!-- Holds the icon's 1em box so nothing shifts when it arrives. -->
+  <span class="icon-loading" aria-hidden="true"></span>
 {:then module}
   {@const Icon = module.default}
   <Icon />
@@ -137,3 +135,11 @@
     <span>⚠</span>
   </div>
 {/await}
+
+<style>
+  .icon-loading {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+  }
+</style>
