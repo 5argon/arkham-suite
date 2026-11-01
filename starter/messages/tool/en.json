@@ -204,5 +204,6 @@
 	"tool_assembler_replacement": "Replacement",
 	"tool_assembler_replacement_placeholder": "Search a card this investigator can use...",
 	"tool_assembler_unique_investigator_classes": "Unique Classes Only",
+	"tool_assembler_no_filter_matches": "No {playerCount} player combinations match the filters. Turn off a filter to see more.",
 	"tool_evergreen_team_overlap_count": "{used} copies used across the team, but only {available} available"
 }

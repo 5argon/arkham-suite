@@ -567,6 +567,26 @@ export function starterDeck(
 	return starterSeries(authorSlug, seriesSlug)?.entries.find((e) => e.slug === deckSlug);
 }
 
+const starterDeckRef = /(?:^|\/starter\/)([\w-]+)\/([\w-]+)\/([\w-]+)\/?$/;
+
+/**
+ * The hosted deck behind a link to its page, or behind the id of an imported
+ * copy (see {@link importedStarterDeck}).
+ */
+export function starterDeckFromRef(ref: string): StarterDeckEntry | undefined {
+	const match = starterDeckRef.exec(ref.trim());
+	return match === null ? undefined : starterDeck(match[1], match[2], match[3]);
+}
+
+/**
+ * A hosted deck as tools import it: its 0 XP build (upgrades in the side
+ * deck), with an "author/series/slug" id that leads back to the entry.
+ */
+export function importedStarterDeck(entry: StarterDeckEntry): { deck: AhdbDeck } {
+	const id = `${entry.series.author.slug}/${entry.series.slug}/${entry.slug}`;
+	return { deck: { ...entry.primary, id } };
+}
+
 export function arkhamdbDecklistUrl(deck: AhdbDeck): string {
 	return `https://arkhamdb.com/decklist/view/${deck.id}`;
 }

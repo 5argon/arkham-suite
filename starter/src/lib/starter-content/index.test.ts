@@ -14,7 +14,10 @@ import {
 	allPrebuiltTeams,
 	allStarterAuthors,
 	allStarterDecks,
+	importedStarterDeck,
 	prebuiltTeamsOf,
+	starterDeckFromRef,
+	starterDeckHref,
 	starterSeries,
 	starterSeriesOf,
 	type PrebuiltTeam
@@ -26,6 +29,28 @@ const tagsBySeries = {
 	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
 	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited'
 } as const;
+
+describe('starter deck references', () => {
+	it('finds every deck from its page link and from its imported id', () => {
+		for (const entry of allStarterDecks()) {
+			const href = starterDeckHref(entry);
+			expect(starterDeckFromRef(href)).toBe(entry);
+			expect(starterDeckFromRef(`https://arkham-starter.com${href}/`)).toBe(entry);
+			expect(starterDeckFromRef(String(importedStarterDeck(entry).deck.id))).toBe(entry);
+		}
+	});
+
+	it('leaves everything else to the other deck sources', () => {
+		for (const ref of [
+			'66007',
+			'https://arkhamdb.com/decklist/view/66007/dragged-across-concrete-ch2-combo-cult-1.0',
+			'https://arkham.build/deck/view/OqbZzMP0XjoPAaV',
+			'no-such-author/no-such-series/no-such-deck'
+		]) {
+			expect(starterDeckFromRef(ref), ref).toBeUndefined();
+		}
+	});
+});
 
 describe('starter series order', () => {
 	const seriesJson = Object.entries(

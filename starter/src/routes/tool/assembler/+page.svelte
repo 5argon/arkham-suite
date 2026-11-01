@@ -28,7 +28,7 @@
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { getAllCards, loadAllTabooLists } from '$lib/card-data';
-	import { starterDeck } from '$lib/starter-content';
+	import { importedStarterDeck, starterByline, starterDeckFromRef } from '$lib/starter-content';
 	import { decksToEvergreen } from '$lib/tool/evergreen-team/from-decks';
 	import { deckToAhdb, openInDeckGather } from '$lib/tool/interop/transient-decks';
 	import type { PageProps } from './$types';
@@ -102,20 +102,17 @@
 
 	// This site's own starter deck pages resolve locally to the deck's 0 XP
 	// build (upgrades in the side deck), no network involved.
-	const starterDeckUrl = /\/starter\/([\w-]+)\/([\w-]+)\/([\w-]+)\/?$/;
 	const localSources = [
 		{
-			matches: (input: string) => {
-				const match = starterDeckUrl.exec(input);
-				return match !== null && starterDeck(match[1], match[2], match[3]) !== undefined;
-			},
-			fetch: async (input: string) => {
-				const match = starterDeckUrl.exec(input)!;
-				const entry = starterDeck(match[1], match[2], match[3])!;
-				return { deck: { ...entry.primary, id: `${match[1]}/${match[2]}/${match[3]}` } };
-			}
+			matches: (input: string) => starterDeckFromRef(input) !== undefined,
+			fetch: async (input: string) => importedStarterDeck(starterDeckFromRef(input)!)
 		}
 	];
+
+	function starterBylineOf(deck: Deck) {
+		const entry = starterDeckFromRef(String(deck.id));
+		return entry && starterByline(entry.series, false);
+	}
 
 	// Overlap resolutions per combination (keyed by its deck ids), kept while
 	// the page lives so reopening the modal continues where the user left off.
@@ -360,8 +357,12 @@
 			{#if currentCombinations.length === 0}
 				<BorderedContainer>
 					<p class="p-4 text-center text-muted">
-						Not enough decks for {activeTeamSize} player combinations. Import at least {activeTeamSize}
-						decks.
+						{#if importedDecks.length < activeTeamSize}
+							Not enough decks for {activeTeamSize} player combinations. Import at least {activeTeamSize}
+							decks.
+						{:else}
+							{m.tool_assembler_no_filter_matches({ playerCount: activeTeamSize })}
+						{/if}
 					</p>
 				</BorderedContainer>
 			{:else}
@@ -380,6 +381,7 @@
 											{deck}
 											mode="decklist"
 											small
+											byline={starterBylineOf(deck)}
 											onClick={() => (deckModalDeck = deck)}
 										/>
 									{/each}
@@ -475,5 +477,10 @@
 	onClose={() => (deckModalDeck = null)}
 	title="Deck Details"
 >
-	<DeckDisplay {cardResolver} deck={deckModalDeck!} mode="decklist" />
+	<DeckDisplay
+		{cardResolver}
+		deck={deckModalDeck!}
+		mode="decklist"
+		byline={deckModalDeck === null ? undefined : starterBylineOf(deckModalDeck)}
+	/>
 </Modal>

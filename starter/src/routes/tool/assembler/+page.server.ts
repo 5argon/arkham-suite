@@ -1,17 +1,12 @@
 import type { PageServerLoad } from './$types';
 import { createCardResolver, loadAllTabooLists } from '$lib/server/card-data';
+import { importedStarterDeck, starterDeckFromRef } from '$lib/starter-content';
+import { deckParamsFrom } from '$lib/tool/assembler/deck-params';
 import { type Deck, linkedAhdbDeckToDeck, service } from '@5argon/arkham-kohaku';
 
 export const prerender = false;
 export const load: PageServerLoad = async ({ url, fetch }) => {
-	// Check for p1-p20 parameters to pre-load decks (allowing up to 20 decks)
-	const deckParams: string[] = [];
-	for (let i = 1; i <= 20; i++) {
-		const param = url.searchParams.get(`p${i}`);
-		if (param) {
-			deckParams.push(param);
-		}
-	}
+	const deckParams = deckParamsFrom(url.searchParams);
 
 	// Load decks from URL if present
 	let preLoadedDecks: Deck[] = [];
@@ -25,7 +20,11 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
 		const deckPromises = deckParams.map(async (param) => {
 			try {
-				const linkedDeck = await service.fetchDeckRecursive(noCacheFetch, param);
+				const starter = starterDeckFromRef(param);
+				const linkedDeck =
+					starter !== undefined
+						? importedStarterDeck(starter)
+						: await service.fetchDeckRecursive(noCacheFetch, param);
 				const deck = linkedAhdbDeckToDeck(linkedDeck, cardResolver, tabooLists);
 				return deck;
 			} catch (error) {
