@@ -30,6 +30,7 @@
 			image: MarkdownImage,
 			// @ts-expect-error - svelte-marked 0.8.0 expects Svelte 4 component types, but we're using Svelte 5
 			paragraph: MarkdownParagraph,
+			// @ts-expect-error - svelte-marked 0.8.0 expects Svelte 4 component types, but we're using Svelte 5
 			heading: MarkdownHeading,
 			list: MarkdownList,
 			listitem: MarkdownListItem,
