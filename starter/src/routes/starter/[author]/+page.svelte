@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { snapshot } from '$app/navigation';
-	import { resolve } from '$app/paths';
 	import {
 		Button,
 		CardCircle,
@@ -22,7 +21,8 @@
 	import StarterSeriesSection from '$lib/design/pages/starter/StarterSeriesSection.svelte';
 	import PrebuiltTeamList from '$lib/design/pages/team/PrebuiltTeamList.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { prebuiltTeamsOf } from '$lib/starter-content';
+	import { prebuiltTeamsOf, starterAuthorHref } from '$lib/starter-content';
+	import { starterAuthorJsonLd } from '$lib/starter-content/seo';
 	import {
 		deckMatches,
 		decodeTeams,
@@ -72,7 +72,10 @@
 		m.starter_decks_author_description({ author: data.author.name })}
 	image="image/resource/starter.webp"
 	{title}
-	url={resolve('/starter/[author]', { author: data.author.slug })}
+	url={starterAuthorHref(data.author)}
+	canonical
+	author={data.author.name}
+	jsonLd={starterAuthorJsonLd(data.author)}
 />
 
 <PageLead {title} />

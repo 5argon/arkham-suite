@@ -25,6 +25,7 @@
 		starterDeckHref,
 		toCore2026Code
 	} from '$lib/starter-content';
+	import { starterDeckDescription, starterDeckJsonLd } from '$lib/starter-content/seo';
 	import { protoStringRestore } from '$lib/tool/script/export/proto-string-restore';
 	import { starterTeam } from '$lib/tool/starter/team-cart.svelte';
 
@@ -94,15 +95,14 @@
 </script>
 
 <OpenGraph
-	description={m.starter_decks_by_author({ author: author.name })}
-	image="image/resource/starter.webp"
-	title={entry.primary.name}
+	description={starterDeckDescription(entry)}
+	image={entry.bannerUrl ?? 'image/resource/starter.webp'}
+	title={m.starter_decks_deck_title({ deck: entry.primary.name, author: author.name })}
 	url={starterDeckHref(entry)}
+	canonical
+	author={author.name}
+	jsonLd={starterDeckJsonLd(entry)}
 />
-
-<svelte:head>
-	<title>{m.starter_decks_deck_viewer_title()} | {entry.primary.name}</title>
-</svelte:head>
 
 <PageLead title={entry.primary.name} />
 

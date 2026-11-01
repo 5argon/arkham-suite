@@ -1,21 +1,47 @@
 <script lang="ts">
+	import { siteOrigin } from '$lib/const';
+
 	interface Props {
 		title: string;
 		description: string;
+		/**
+		 * Path under the site root, or a full URL for an image hosted elsewhere.
+		 */
 		image: string;
 		url?: string;
+		/**
+		 * Declares `url` as the page's canonical address. Only for pages whose
+		 * `url` is exactly their own path.
+		 */
+		canonical?: boolean;
+		author?: string;
+		/**
+		 * schema.org structured data.
+		 */
+		jsonLd?: object;
 	}
 
-	let { title, description, image, url }: Props = $props();
+	let { title, description, image, url, canonical = false, author, jsonLd }: Props = $props();
 
-	const canonicalUrl = 'https://arkham-starter.com';
-	const fullUrl = $derived(url ? `${canonicalUrl}${url}` : canonicalUrl);
-	const fullImageUrl = $derived(`${canonicalUrl}/${image}`);
+	const fullUrl = $derived(url ? `${siteOrigin}${url}` : siteOrigin);
+	const fullImageUrl = $derived(/^https?:/.test(image) ? image : `${siteOrigin}/${image}`);
+	// Escaped so text inside the data can't close the script tag.
+	const jsonLdText = $derived(jsonLd && JSON.stringify(jsonLd).replaceAll('<', '\\u003c'));
 </script>
 
 <svelte:head>
 	<title>{title} | Arkham Starter</title>
 	<meta content={description} name="description" />
+	{#if author}
+		<meta content={author} name="author" />
+	{/if}
+	{#if canonical}
+		<link href={fullUrl} rel="canonical" />
+	{/if}
+	{#if jsonLdText}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags, no-useless-escape -->
+		{@html `<script type="application/ld+json">${jsonLdText}<\/script>`}
+	{/if}
 
 	<!-- Open Graph / Facebook -->
 	<meta content="website" property="og:type" />
