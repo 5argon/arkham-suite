@@ -32,6 +32,33 @@ function combo() {
 	return { entries, decks, overlaps: deckUtils.findDeckOverlaps(decks) };
 }
 
+describe('team overlap order', () => {
+	const code = '12094';
+	const limit = resolver.resolve(code).quantity;
+
+	function deckWithCopies(id: string, copies: number) {
+		const { primary } = starterDeck('hungry-colquhoun', 'ch2-core-only', 'dexter-drake-the-prestige')!;
+		return linkedAhdbDeckToDeck(
+			{ deck: { ...primary, id, slots: { [code]: copies }, sideSlots: {} } },
+			resolver,
+			loadAllTabooLists()
+		);
+	}
+
+	it('lists teams with the same overlap count by fewest copies beyond the limit', () => {
+		const teams = deckUtils.findTeamOverlaps(
+			[deckWithCopies('a', limit), deckWithCopies('b', limit), deckWithCopies('c', 1)],
+			2
+		);
+		expect(teams.map((team) => team.decks.map((deck) => deck.id).join('+'))).toEqual([
+			'a+c',
+			'b+c',
+			'a+b'
+		]);
+		expect(teams.map((team) => team.overlaps.length)).toEqual([1, 1, 1]);
+	});
+});
+
 describe('resolve overlaps', () => {
 	it('expands overlaps into one row per copy and tracks resolution', () => {
 		const c = combo();

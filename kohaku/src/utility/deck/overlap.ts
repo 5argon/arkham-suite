@@ -139,10 +139,19 @@ export function generateDeckCombinations(decks: Deck[], size: number): Deck[][] 
 }
 
 /**
+ * Copies a team needs beyond what is available, across all its overlapping
+ * cards: 8 copies of a card limited to 4 counts as 4.
+ */
+function excessCopies(overlaps: DeckOverlapInfo[]): number {
+	return overlaps.reduce((sum, overlap) => sum + overlap.totalQuantity - overlap.cardLimit, 0);
+}
+
+/**
  * Find overlaps for all possible combinations of decks of a given size
  * @param decks - Array of all available decks
  * @param teamSize - Size of each team (2, 3, or 4)
- * @returns Array of combinations with their overlaps, sorted by fewest overlaps first
+ * @returns Array of combinations with their overlaps, sorted by fewest overlaps
+ * first, then by fewest copies beyond what is available
  */
 export function findTeamOverlaps(decks: Deck[], teamSize: number): DeckCombinationOverlap[] {
 	const combinations = generateDeckCombinations(decks, teamSize);
@@ -156,8 +165,10 @@ export function findTeamOverlaps(decks: Deck[], teamSize: number): DeckCombinati
 		});
 	}
 
-	// Sort by number of overlaps (fewest first)
-	results.sort((a, b) => a.overlaps.length - b.overlaps.length);
+	results.sort(
+		(a, b) =>
+			a.overlaps.length - b.overlaps.length || excessCopies(a.overlaps) - excessCopies(b.overlaps)
+	);
 
 	return results;
 }
