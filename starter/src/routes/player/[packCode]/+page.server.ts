@@ -2,8 +2,10 @@ import type { PageServerLoad } from './$types';
 import {
 	Product,
 	productChapterOneInvestigatorExpansions,
+	productChapterTwoInvestigatorExpansions,
 	productCoreSetsChapterOne,
 	productCoreSetsChapterTwo,
+	productDeckbuildingExpansions,
 	productInvestigatorDeck,
 	productInvestigatorStarterDeck,
 	productOther,
@@ -19,6 +21,8 @@ export const load: PageServerLoad = async ({ params }) => {
 		...productChapterOneInvestigatorExpansions,
 		...productInvestigatorStarterDeck,
 		...productInvestigatorDeck,
+		...productDeckbuildingExpansions,
+		...productChapterTwoInvestigatorExpansions,
 		...productReturnTo,
 		...productOther
 	];

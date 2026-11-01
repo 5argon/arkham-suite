@@ -15,4 +15,4 @@
 	url="/player"
 />
 
-<ExpansionSpread />
+<ExpansionSpread rotatingProducts={data.rotatingProducts} />

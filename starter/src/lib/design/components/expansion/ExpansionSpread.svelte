@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {
+		Button,
 		GraphicButton,
 		PageLead,
 		productImageUrl,
@@ -14,13 +15,24 @@
 		productInvestigatorDeck,
 		productInvestigatorStarterDeck,
 		productOther,
-		productReturnTo
+		productReturnTo,
+		type Product
 	} from '@5argon/arkham-kohaku';
 	import { m, u } from '@5argon/arkham-string';
+	import ProductTiles from '$lib/design/components/product/ProductTiles.svelte';
+	import * as siteMessages from '$lib/paraglide/messages.js';
 	import { productToExploreRoute } from '$lib/utility/product';
 	import { ProductIcon } from '@5argon/arkham-icon';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+
+	interface Prop {
+		/**
+		 * Chapter Two rotating products that have cards to show.
+		 */
+		rotatingProducts: Product[];
+	}
+	const { rotatingProducts }: Prop = $props();
 
 	let innerWidth = $state(0);
 	let isLargeScreen = $derived(innerWidth >= 1024); // lg breakpoint
@@ -36,6 +48,10 @@
 	description="View cards inside a particular product to help with purchasing decisions."
 	title="Player Cards"
 />
+
+<div class="flex justify-center">
+	<Button label={siteMessages.explore_view_by_environment()} onClick="/player/env" />
+</div>
 
 <SectionSeparator title="Chapter Two" />
 
@@ -73,6 +89,14 @@
 		</div>
 	{/each}
 </div>
+
+{#if rotatingProducts.length > 0}
+	<SectionSeparator inner title={siteMessages.common_rotating_products()} />
+	<ProductTiles
+		products={rotatingProducts}
+		onClick={(product) => '/player/' + productToExploreRoute(product)}
+	/>
+{/if}
 
 <SectionSeparator title="Chapter One" />
 
