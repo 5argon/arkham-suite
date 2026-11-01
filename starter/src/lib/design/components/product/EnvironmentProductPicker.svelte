@@ -1,10 +1,10 @@
 <!--
 @component
 What to build from on top of Core Set 2026: an environment selector presets the products, and every
-product can still be toggled individually below it, sectioned into Evergreen and Rotating products.
+product can still be toggled individually below it, sectioned into Evergreen products and Rotating expansions.
 Only the latest Current environment is shown up front, a smaller button opens the previous ones.
 Core Set 2026 is always shown in Evergreen Products, checked and locked, so it is clear what every
-choice includes. It is all that shows on Core Set 2026 Only, and Rotating Products only shows once
+choice includes. It is all that shows on Core Set 2026 Only, and Rotating Expansions only shows once
 something rotating has been released. Shared by the Team Builder setup and the starter library
 filter.
 -->
@@ -135,6 +135,6 @@ filter.
 <ProductTiles products={coreOnly ? [Product.CoreSet2026] : productEvergreen} {...tileProps} />
 
 {#if !coreOnly && rotating.length > 0}
-	<SectionSeparator inner title={m.common_rotating_products()} />
+	<SectionSeparator inner title={m.common_rotating_expansions()} />
 	<ProductTiles products={rotating} {...tileProps} />
 {/if}

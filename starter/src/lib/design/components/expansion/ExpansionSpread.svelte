@@ -91,7 +91,7 @@
 </div>
 
 {#if rotatingProducts.length > 0}
-	<SectionSeparator inner title={siteMessages.common_rotating_products()} />
+	<SectionSeparator inner title={siteMessages.common_rotating_expansions()} />
 	<ProductTiles
 		products={rotatingProducts}
 		onClick={(product) => '/player/' + productToExploreRoute(product)}
