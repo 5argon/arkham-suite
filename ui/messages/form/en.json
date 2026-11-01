@@ -29,6 +29,7 @@
 	"form_sorting_set": "Set",
 	"form_sorting_slot": "Slot",
 	"form_sorting_position": "Position",
+	"form_sorting_box_order": "Box Order",
 	"form_sorting_commit_power": "Commit Power",
 	"form_group_label_no_level": "No Level",
 	"form_group_label_level_0": "Level 0",

@@ -59,6 +59,7 @@ Modal for configuring grouping and sorting settings for card display.
 		{ value: 'set', label: m.form_sorting_set() },
 		{ value: 'slot', label: m.form_sorting_slot() },
 		{ value: 'position', label: m.form_sorting_position() },
+		{ value: 'box-order', label: m.form_sorting_box_order() },
 		{ value: 'commit-power', label: m.form_sorting_commit_power() }
 	];
 

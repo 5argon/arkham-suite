@@ -13,7 +13,64 @@ export type SortingType =
   | 'set'
   | 'cost'
   | 'commit-power'
-  | 'type-special';
+  | 'type-special'
+  | 'box-order';
+
+/**
+ * The order cards come out of a box, which also works with several products poured together:
+ * - Investigators and their restricted cards come first, by set, grouped together by investigator.
+ * - Non-weaknesses : class -> level -> type (asset, event, skill) -> set -> position.
+ * - Weaknesses come last : set -> position.
+ * Bonded card should follow the main card no matter what.
+ */
+function boxOrder(cardA: Card, cardB: Card): number {
+  const a = cardA.bondedTo ?? cardA;
+  const b = cardB.bondedTo ?? cardB;
+  const setOrder = productOrdering.indexOf(a.product) - productOrdering.indexOf(b.product);
+  const positionOrder = a.position - b.position || cardA.position - cardB.position;
+
+  const aIsInvestigator = a.cardType === CardType.Investigator;
+  const bIsInvestigator = b.cardType === CardType.Investigator;
+  const aIsRestricted = a.restrictions !== undefined && a.restrictions.investigator.length > 0;
+  const bIsRestricted = b.restrictions !== undefined && b.restrictions.investigator.length > 0;
+  const aIsInvestigatorOrRestricted = aIsInvestigator || aIsRestricted;
+  const bIsInvestigatorOrRestricted = bIsInvestigator || bIsRestricted;
+  if (aIsInvestigatorOrRestricted && !bIsInvestigatorOrRestricted) {
+    return -1;
+  }
+  if (!aIsInvestigatorOrRestricted && bIsInvestigatorOrRestricted) {
+    return 1;
+  }
+  if (aIsInvestigatorOrRestricted && bIsInvestigatorOrRestricted) {
+    const aInvestigatorCode = aIsInvestigator ? a.code : a.restrictions!.investigator[0].code;
+    const bInvestigatorCode = bIsInvestigator ? b.code : b.restrictions!.investigator[0].code;
+    return setOrder || aInvestigatorCode.localeCompare(bInvestigatorCode) || positionOrder;
+  }
+
+  if (a.weakness !== undefined && b.weakness === undefined) {
+    return 1;
+  }
+  if (a.weakness === undefined && b.weakness !== undefined) {
+    return -1;
+  }
+  if (a.weakness !== undefined || b.weakness !== undefined) {
+    return setOrder || positionOrder;
+  }
+  const classComparison = cardClass.classSlotsSorter(a.cardClass, b.cardClass);
+  if (classComparison !== 0) {
+    return classComparison;
+  }
+  const levelComparison = (a.xp ?? -1) - (b.xp ?? -1);
+  if (levelComparison !== 0) {
+    return levelComparison;
+  }
+  const typePriority = [CardType.Asset, CardType.Event, CardType.Skill];
+  const typeComparison = typePriority.indexOf(a.cardType) - typePriority.indexOf(b.cardType);
+  if (typeComparison !== 0) {
+    return typeComparison;
+  }
+  return setOrder || positionOrder;
+}
 
 export function sorter(sortingType: SortingType, a: Card, b: Card): number {
   // Random Basic Weakness always last.
@@ -34,78 +91,18 @@ export function sorter(sortingType: SortingType, a: Card, b: Card): number {
 
       // To make bonded sorting works, it need to assume the same sorting property
       // as the card it is bonded to, except when comparing with that card, then it should be sorted by position and come right behind it.
-      const aBondedTo = a.bondedTo;
-      const bBondedTo = b.bondedTo;
-
-      const aBeforeBondedTo = a;
-      const bBeforeBondedTo = b;
-
-      // Overwrite incoming a and b with the bondedTo.
-      a = aBondedTo ?? a;
-      b = bBondedTo ?? b;
+      const aMain = a.bondedTo ?? a;
+      const bMain = b.bondedTo ?? b;
 
       // Position is not exactly sorting by collector's number.
       // If it is one of the repackaged products, sort according to how they came out of that box instead of by position.
-      const isRepackaged = productRepackaged.includes(a.product);
-      if (!isRepackaged) {
-        return a.position - b.position;
+      if (!productRepackaged.includes(aMain.product)) {
+        return aMain.position - bMain.position;
       }
-      // Repackaged product
-      // Investigators and their restricted cards come first, grouped together by investigator.
-      const aIsInvestigator = a.cardType === CardType.Investigator;
-      const bIsInvestigator = b.cardType === CardType.Investigator;
-      const aIsRestricted = a.restrictions !== undefined && a.restrictions.investigator.length > 0;
-      const bIsRestricted = b.restrictions !== undefined && b.restrictions.investigator.length > 0;
-      const aIsInvestigatorOrRestricted = aIsInvestigator || aIsRestricted;
-      const bIsInvestigatorOrRestricted = bIsInvestigator || bIsRestricted;
-      if (aIsInvestigatorOrRestricted && !bIsInvestigatorOrRestricted) {
-        return -1;
-      }
-      if (!aIsInvestigatorOrRestricted && bIsInvestigatorOrRestricted) {
-        return 1;
-      }
-      if (aIsInvestigatorOrRestricted && bIsInvestigatorOrRestricted) {
-        const aInvestigatorCode = aIsInvestigator ? a.code : a.restrictions!.investigator[0].code;
-        const bInvestigatorCode = bIsInvestigator ? b.code : b.restrictions!.investigator[0].code;
-        if (aInvestigatorCode !== bInvestigatorCode) {
-          return aInvestigatorCode.localeCompare(bInvestigatorCode);
-        } else {
-          return a.position - b.position;
-        }
-      }
-
-      // Non-investigator and non-restricted cards are sorted by :
-      // Non-weaknesses : class -> level -> type (asset, event, skill) -> position.
-      // Bonded card should follow the main card no matter what.
-      // Weaknesses : position.
-
-      if (a.weakness !== undefined && b.weakness === undefined) {
-        return 1;
-      }
-      if (a.weakness === undefined && b.weakness !== undefined) {
-        return -1;
-      }
-      if (a.weakness !== undefined || b.weakness !== undefined) {
-        return a.position - b.position;
-      }
-      const classSlots1 = a.cardClass;
-      const classSlots2 = b.cardClass;
-      const classComparison = cardClass.classSlotsSorter(classSlots1, classSlots2);
-      if (classComparison !== 0) {
-        return classComparison;
-      }
-      const levelComparison = (a.xp ?? -1) - (b.xp ?? -1);
-      if (levelComparison !== 0) {
-        return levelComparison;
-      }
-      const typePriority = [CardType.Asset, CardType.Event, CardType.Skill];
-      const aTypeScore = typePriority.indexOf(a.cardType);
-      const bTypeScore = typePriority.indexOf(b.cardType);
-      if (aTypeScore !== bTypeScore) {
-        return aTypeScore - bTypeScore;
-      }
-      return aBeforeBondedTo.position - bBeforeBondedTo.position;
+      return boxOrder(a, b);
     }
+    case 'box-order':
+      return boxOrder(a, b);
     case 'name':
       return a.name.localeCompare(b.name);
     case 'class': {

@@ -29,6 +29,7 @@
 	"form_sorting_set": "ชุด",
 	"form_sorting_slot": "ช่อง",
 	"form_sorting_position": "ตำแหน่ง",
+	"form_sorting_box_order": "ลำดับในกล่อง",
 	"form_sorting_commit_power": "พลังคอมมิท",
 	"form_group_label_no_level": "ไม่มีเลเวล",
 	"form_group_label_level_0": "เลเวล 0",

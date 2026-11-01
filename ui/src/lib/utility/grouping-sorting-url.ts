@@ -27,7 +27,8 @@ const VALID_SORTINGS: readonly SortingType[] = [
 	'set',
 	'cost',
 	'commit-power',
-	'type-special'
+	'type-special',
+	'box-order'
 ] as const;
 
 const VALID_GROUPING_SET = new Set<string>(VALID_GROUPINGS);
