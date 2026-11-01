@@ -1,0 +1,113 @@
+<h2 style="color:rgb(186, 129, 242);"><span class="icon-mystic"></span> 
+</span> <strong>A Faustian Bargain</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_article_mysticclass_splash.png">
+</style><hr/></h2>
+
+> This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). If Mystics are about power at a price, then Faustian bargains don't come much more Faustian than [Dread Curse of Azathoth](/card/60474)! Here Dexter uses that and upgraded [Cosmic Flame](/card/12071) for some serious diabolic firepower - made all the more accessible with [Arcane Initiate](/card/60455) and ["For my next trick..."](/card/12011).
+
+`If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
+
+<hr/>
+
+<h2 style="color:rgb(186, 129, 242);"><strong>Series Decks</strong></h2>
+
+|             &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp;              |                  &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp;                   |                 &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp;                 |                 &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp;                  |                    &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp;                     |
+| :-------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+| <strong><a href="https://arkhamdb.com/decklist/view/62238/blood-money-chapter-2-starter-guide-1.0">Marie</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/62386/money-buys-happiness-chapter-2-starter-guide-1.0">André</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/62530/got-yourself-a-gun-chapter-2-starter-guide-1.0">Tommy</a></strong>  |   <strong><a href="https://arkhamdb.com/decklist/view/62680/rancher-rambo-chapter-2-starter-guide-1.0">Miguel</a></strong>    | <strong><a href="https://arkhamdb.com/decklist/view/62841/who-looks-inside-awakes-chapter-2-starter-guide-1.0">Carolyn</a></strong> |
+|                                                <strong>Dexter</strong>                                                |     <strong><a href="https://arkhamdb.com/decklist/view/62387/pocket-sand-chapter-2-starter-guide-1.0">Trish</a></strong>      | <strong><a href="https://arkhamdb.com/decklist/view/62531/hurting-for-clues-chapter-2-starter-guide-1.0">Daniela</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/62681/jenny-s-retribution-chapter-2-starter-guide-1.0">Izzie</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/62842/shoot-first-questions-later-chapter-2-starter-guide-1.0">Joe</a></strong> |
+
+<hr/>
+
+<h2 style="color:rgb(186, 129, 242);"><strong>At a Glance</strong></h2>
+
+> | <strong style="color:rgb(186, 129, 242);">Stats</strong> |             |
+> | :------------------------------------------------------- | :---------- |
+> | Clue-finding:                                            | &nbsp;★★★☆☆ |
+> | Consistency:                                             | &nbsp;★★★★★ |
+> | Enemy Management:                                        | &nbsp;★★★★★ |
+> | Encounter Defense:                                       | &nbsp;★★★★★ |
+> | Survivability:                                           | &nbsp;★★★★☆ |
+> | Simplicity:                                              | &nbsp;★★★★☆ |
+
+<hr/>
+<table style="margin:0 auto; border-spacing: 4px; border-collapse: separate; table-layout: fixed; width:fit-content;">
+<colgroup>
+<col style="width: 156px; max-width: 156px;">
+<col style="width: 156px; max-width: 156px;">
+<col style="width: 156px; max-width: 156px;">
+</colgroup>
+<tr>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/60474.avif"/></td>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/12011.avif"/></td>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/12071.avif"/></td>
+</tr>
+</table>
+
+<hr/>
+<h2 style="color:rgb(186, 129, 242);"><strong>Overview</strong></h2>
+
+- <strong><ins>The Devil's righthand man</ins>:</strong> With the addition of [Dread Curse of Azathoth](/card/60474), then combined with [Cosmic Flame](/card/12071) Dexter has some of the best damage dealing assets in Chapter 2. With [Lucky Cigarette Case](/card/12044), [Arcane Initiate](/card/60455) and ["For my next trick..."](/card/12011) he's highly effective at getting these assets played early to fry enemies. Using Dexter's ability, it's also easy to slap down multiple cheap assets like Initiate and Curse for one fewer action (or bounce back Curse when it's getting doomy).
+
+- <strong><ins>Infernal luck</ins>:</strong> With the advent of [Out the Door](/card/60370), the return of ["Watch this!"](/card/60371) and by being able to cash in on enemies with [Spiritual Charm](/card/60466), Dexter is richer than the Devil himself! Using upgraded [Spiritual Intuition](/card/60476) you can turn this cash into <span class="icon-willpower"></span> boosts.
+
+- <strong><ins>Uncovering dark secrets</ins>:</strong> While enemy management is the focus here, Dexter does have reasonable clue-finding with [Second Sight](/card/60460) and [Lockpicks](/card/60305). As Lockpicks are a backup, I don't recommend upgrading these. This will bite you from time to time but - unlike my previous Core box only deck - the addition of [Arcane Initiate](/card/60455) makes finding Second Sight substantially easier.
+
+- <strong><ins>Soak and encounter management</ins>:</strong> Horror soak is covered between [Arcane Initiate](/card/60455) and [Cloak of Resonance](/card/12058), and your Initiate can soak a damage as well. [Consume Life](/card/60462) is a fun way to kill enemies to heal. [Ward of Protection](/card/12065) is your main encounter management, and it's tutorable with Initiate. Your [Necronomicon](/card/12012) can be a pain, especially as [Spiritual Intuition](/card/60476) _can't_ be used against it. You do however have a lot of <span class="icon-wild"></span> and <span class="icon-willpower"></span> symbols in the deck to help mitigate (with <span class="icon-wild"></span> icons further combatting treacheries).
+
+- <strong><ins>Luxury upgrades</ins>:</strong> Moving beyong 19XP, [Arcane Experience](/card/60478) is the epitome of a superfluous upgrade, but it does mean that [The Necronomicon](/card/12012) never bumps a spell asset out of an Arcane slot - so I'm a fan. Upgraded [Blood Curse](/card/60477) is a fun time: you get a big <span class="icon-wild"></span> boost, <ins>and</ins> you damage an enemy (assuming there's one at location). In higher XP campaigns I recommend both of these.
+
+<sub><strong style="color:rgb(186, 129, 242);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons!</sub>
+<HR/>
+
+<h2 style="color:rgb(186, 129, 242);"><strong>Campaign starter and planned progression</strong></h2>
+
+If you're not running Marie and want [Jim Culver](/card/12060), then [Consume Life](/card/60462) is an easy trade (going from damage healing to damage soak, in essence). 0 XP deck is below (and <a href="https://arkham.build/share/ggMbxNjAF2Rvu1X"><strong>link here</strong></a>):
+
+<img src="https://pbs.twimg.com/media/HFybnzobAAAtPiq.png"/>
+<br/>
+<strong style="color:rgb(186, 129, 242);">A recommended order of purchases/upgrades is:</strong>
+
+- <strong>1 x [Spiritual Intuition](/card/12063) → 1 x [Spiritual Intuition •••](/card/60476)</strong>
+
+- <strong>[Cosmic Flame](/card/12059) → [Cosmic Flame •••••](/card/12071)</strong>
+
+- <strong>1 x [Guts](/card/12090) → [Dread Curse of Azathoth](/card/60474)</strong>
+
+<strong style="color:rgb(186, 129, 242);">Post-19 XP suggestions are:</strong>
+
+- <strong>[Arcane Experience](/card/60478)</strong>
+
+- <strong>[Unexpected Courage](/card/12094) → [Blood Curse •••](/card/60477)</strong>
+
+<hr/>
+<h2 style="color:rgb(186, 129, 242);"><strong>Explain Yourself!</strong></h2>
+
+I know, I know - where's [Jim](/card/12060)? As I couldn't separate the entertainers, Jim went into Marie's deck. Without Jim's resource cost, it's easier to play things like [Cloak of Resonance](/card/12058) which allows you to do more damage. Upgraded [Spiritual Intuition](/card/60476) mostly offsets the need for persistent <span class="icon-willpower"></span> boosts, and the effective 7 test value when using your fight spells is nothing to sneeze. As [Arcane Initiates](/card/60455) are a very expendable ally, you can use them as cannon fodder much more than you would with Jim - suitable for the diabolical themeing of the deck!
+
+Excepting Jim, there's no other Mystic deck in Marie's deck I'd think of including. The deck is plenty consistent with [Arcane Initiate](/card/60455) and [Lucky Cigarette Case](/card/12044), so cantrips are a bit of a waste. The large sanity soak of [Cloak of Resonance](/card/12058) means stuff like [Fearless](/card/12069) feels pointless. Dexter is a suitable [Dread Curse of Azathoth](/card/60474) user by being able to bump it out with his ability, and the additional fight asset does lend itself to further consistency, so I like it in spite of the XP pricetag. [Will of the Cosmos](/card/12066) is nice, but then you have to persistently manage doom on assets by discarding them or bouncing them back - I like Dread Curse being the only consideration for this.
+
+<HR/>
+<h2 style="color:rgb(186, 129, 242);"><strong>Compatability Matrix</strong></h2>
+
+Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
+
+<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+
+For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
+
+- Swap with an appropriate level 0 class skill which that deck can use (e.g. [On the Brink](/card/60569) for [Unexpected Courage](/card/12094)).
+
+- Swap with a class event or asset with matching or similar symbols (e.g. [Working a Hunch](/card/12038) for [Perception](/card/12093)).
+
+- Swap with a different underused basic skill you still believe would be useful for the deck (e.g. [Guts](/card/12090) for [Unexpected Courage](/card/12094)).
+
+- Proxy however you see fit (especially if you own Chapter 1 cards, just use the old school versions and remember the slight difference around who draws the card).
+
+I empower you to do sensible things!
+<hr/>
+<h2 style="color:rgb(186, 129, 242);"><strong>Final thoughts</strong></h2>
+
+I did originally have this deck as Mr. King Dice themed, but I'm not sure how many people have played Cuphead so that theming went away. Him and Dexter do look very similar...
+
+Anyway! This deck presented an interesting challenge - could it be built without [Jim Culver](/card/12060) and [Bloodstone](/card/60457) and not suck? For me the answer is yes. As Dexter does have innately high Willpower he's not crying out for boosts as much as Marie is, and with him now generating resources through Rogue skills then splurging cash with [Spiritual Intuition](/card/60476) makes a lot of sense. This deck is also fun for finding a use for [Dread Curse of Azathoth](/card/60474) - while it's a lot of XP, with both it and [Cosmic Flame](/card/12071) there's no other investigator who can deal big damage so easily. For me this was like taking the idea behind OG [Faustian Bargain](/card/07028) and putting it in Chapter 2 deck form...
+
+Any thoughts - drop them below!

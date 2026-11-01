@@ -1,0 +1,122 @@
+<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Shoot First, Questions Later</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_seekerclass_splash.png"/>
+</style><hr/></h2>
+
+> This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here, Joe has had enough of your crap! Rather than quietly investigating, he's whipping out his [M1911](/card/60171) and going pow-pow-pow! He may do some sleuthing on the side, with [Sharp Rhetoric](/card/60277) or whatever, but really this PI is all about the DIY - and by DIY I mean DIY vigilantism...
+
+`If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
+
+<hr/>
+<h2 style="color:rgb(239, 163, 69);"><strong>Series Decks</strong></h2>
+
+|                 &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp;                  |                  &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp;                   |                 &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp;                 |                 &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp;                  |                    &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp;                     |
+| :---------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+|     <strong><a href="https://arkhamdb.com/decklist/view/62238/blood-money-chapter-2-starter-guide-1.0">Marie</a></strong>     | <strong><a href="https://arkhamdb.com/decklist/view/62386/money-buys-happiness-chapter-2-starter-guide-1.0">André</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/62530/got-yourself-a-gun-chapter-2-starter-guide-1.0">Tommy</a></strong>  |   <strong><a href="https://arkhamdb.com/decklist/view/62680/rancher-rambo-chapter-2-starter-guide-1.0">Miguel</a></strong>    | <strong><a href="https://arkhamdb.com/decklist/view/62841/who-looks-inside-awakes-chapter-2-starter-guide-1.0">Carolyn</a></strong> |
+| <strong><a href="https://arkhamdb.com/decklist/view/62239/a-faustian-bargain-chapter-2-starter-guide-1.0">Dexter</a></strong> |     <strong><a href="https://arkhamdb.com/decklist/view/62387/pocket-sand-chapter-2-starter-guide-1.0">Trish</a></strong>      | <strong><a href="https://arkhamdb.com/decklist/view/62531/hurting-for-clues-chapter-2-starter-guide-1.0">Daniela</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/62681/jenny-s-retribution-chapter-2-starter-guide-1.0">Izzie</a></strong> |                                                        <strong>Joe</strong>                                                         |
+
+<hr/>
+<h2 style="color:rgb(239, 163, 69);"><strong>At a Glance</strong></h2>
+
+> | <strong style="color:rgb(239, 163, 69);">Stats</strong> |             |
+> | :------------------------------------------------------ | :---------- |
+> | Clue-finding:                                           | &nbsp;★★★★☆ |
+> | Consistency:                                            | &nbsp;★★★★☆ |
+> | Enemy Management:                                       | &nbsp;★★★★☆ |
+> | Encounter Defense:                                      | &nbsp;★★★★☆ |
+> | Survivability:                                          | &nbsp;★★★★☆ |
+> | Simplicity:                                             | &nbsp;★★★★★ |
+
+<hr/>
+
+<table style="margin:0 auto; border-spacing: 4px; border-collapse: separate; table-layout: fixed; width:fit-content;">
+<colgroup>
+<col style="width: 156px; max-width: 156px;">
+<col style="width: 156px; max-width: 156px;">
+<col style="width: 156px; max-width: 156px;">
+</colgroup>
+<tr>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/60277.avif"/></td>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/60171.avif"/></td>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/60266.avif"/></td>
+</tr>
+</table>
+
+<hr/>
+<h2 style="color:rgb(239, 163, 69);"><strong>Overview</strong></h2>
+
+- <strong><ins>So anyway, I started blastin'</ins>:</strong> Tommy's starter deck gave us the upgraded [M1911](/card/60171) with its juicy +2 <span class="icon-combat"></span> boost. With this and [Logan](/card/12018), Joe can now attack consistently at a 7 value (higher with [Extended Barrel](/card/60172)). Meanwhile he retains respectable <span class="icon-intellect"></span> for clue-finding, allowing you to trigger his <span class="icon-reaction"></span> ability. If you attack twice with [Insidious Truths](/card/60266), once with the M1911 and commit both upgraded [Vicious Blows](/card/60176), it's possible to deal up to 12 damage in a single turn - that's Guardian levels of damage!
+
+- <strong><ins>Dusting for prints, pried up the floorboards</ins>:</strong> Even with the combat focus, Joe is _still_ relatively strong at investigating. The key is upgraded [Sharp Rhetoric](/card/60277), which starts in your opening hand and allows trivial boosting of <span class="icon-intellect"></span> when needed. Coupled to [Fingerprint Kit](/card/12031), this provides clue compression. On top of this there's [On the Beat](/card/60173), which provides a +3 boost for a whole turn, as well as [Stakeout](/card/60166) which heals horror from you.
+
+- <strong><ins>Cash and consistency</ins>:</strong> By running [Logan](/card/12018), [Bounty](/card/60161) and [Emergency Cache](/card/12089) alongside your [Detective's Intuition](/card/12005), this is a richer deck than most - bankrolling your assets but also boosts (e.g. [On the Beat](/card/60173) and [Sharp Rhetoric](/card/60277)). [Right Tool for the Job](/card/12023) helps with tutoring, able to locate [Fingerprint Kit](/card/12031) or your [M1911](/card/60171). For card draw, just use Joe's <span class="icon-reaction"></span> ability and the occasional <span class="icon-elder_sign"></span> pull. It's easy enough to get in an investigate most turns, and unlike most Joe decks your goal here isn't to cycle - just to maintain good card advantage. [Machete](/card/12020) is a back-up weapon, only play it if M1911 very stubbornly won't come out of your deck.
+
+- <strong><ins>Encounter management and healing</ins>:</strong> [Sharp Rhetoric](/card/60277) allows you to boost <span class="icon-willpower"></span> for treacheries. There's less coverage for <span class="icon-agility"></span> targeting treacheries, but [Logan](/card/12018) provides a little soak on the physical side. [Physical Fitness](/card/60164), [Stakeout](/card/60166) and [Detective's Intuition](/card/12005) all provide healing should you need it. The upgraded [M1911](/card/60171) also blocks Retaliate - preventing the relevant attacks.
+
+- <strong><ins>Weakness management</ins>:</strong> With the aforementioned riches, [Dead Ends](/card/12006) is fairly manageable. Further, with Joe's deck typically not cycling, then once it's in your discard pile it should stay gone. [Right Tool for the Job](/card/12023) may draw [Dead Ends](/card/12006), however if you play Right Tool turn 1 (i.e. when you'll most often play it if you don't have a weapon) there's a 68% you'll avoid Dead Ends anyway - and as discussed it isn't overly worrisome.
+
+<sub><strong style="color:rgb(239, 163, 69);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons!</sub>
+<hr/>
+
+<h2 style="color:rgb(239, 163, 69);"><strong>Explain Yourself!</strong></h2>
+
+With the new and improved [M1911](/card/60171), you can now hit a good enough effective <span class="icon-combat"></span> score for Joe to be a competent fighter. This very much puts you in a have your cake and eat it situation, as you can deal with enemies fairly well but your <span class="icon-intellect"></span> is still strong enough to be viable and so draw you cards. The card draw gives the means to better find [Stock Ammo Reload](/card/60175), which Joe therefore has an innately easier time locating than investigators like Daniela. Overall, there's a real synergy here which makes a Guardian-leaning deck not just a cheap gimmick.
+
+I did originally forgo a [Machete](/card/12020) on this deck. However, on playtesting I did get the nightmare situation - no [M1911](/card/60155) in my opening hand, or after drawing 10 or so cards. I did get [Right Tool for the Job](/card/12023), but it hit [Dead Ends](/card/12006) and the search was cancelled. As such, I never got M1911 played (but I did just about get by with [Insidious Truths](/card/60266) and [Vicious Blow](/card/60176)). While this was a severe case of bad luck, I think avoiding situations like this still makes including a single Machete worthwhile (if you're feeling conservative, you could swap a [Physical Fitness](/card/60164) for a second copy).
+
+You might wonder why [Autopsy Report](/card/60276) isn't here. While it leverages killing enemies with a boosted <span class="icon-reaction"></span> investigate, for me [Fingerprint Kit](/card/12031) is more generalizable despite it having limited uses. If Autopsy Report was slotless I would consider it, but as it goes there's just too much goodness Joe wants in his hands. Regarding [Custom Grip](/card/60162), it's a good way to replay an out-of-ammo [M1911](/card/60155) (without an attack of opportunity, no less). However, in the level 0 deck I simply take another [Machete](/card/12020) instead as it's less combo dependent (e.g. need a gun out and have Custom Grip in hand) - also the strategy is on the expensive here side given [Fingerprint Kit](/card/12031) and [Sharp Rhetoric](/card/12035) compete for resources. [Stock Ammo Reload](/card/60175) serves a similar purpose in the fully upgraded deck (and it's better here specifically because it's cheaper!).
+
+<hr/>
+
+<h2 style="color:rgb(239, 163, 69);"><strong>Campaign starter and planned progression</strong></h2>
+
+[Working a Hunch](/card/12038) can be used in place of ["Make 'em sing"](/card/60160) in the starting deck if you choose (though I like the extra enemy management of "Make 'em sing", and Working a Hunch is also used in my Trish deck so it's nice to have the two non-overlapping). 0 XP deck is as follows (and <a href="https://arkham.build/share/RW6kpY7vjPJngVp"><strong>link here</strong></a>):
+
+<img src="https://pbs.twimg.com/media/HH1JXFwWUAAH_e_.png"/>
+
+<strong style="color:rgb(239, 163, 69);">A recommended order of purchases/upgrades is:</strong>
+
+- <strong>1 x [Sharp Rhetoric](/card/12035) → 1 x [Sharp Rhetoric •••](/card/60277)</strong>
+
+- <strong>1 x [Sharp Rhetoric](/card/12035) → 1 x [Stock Ammo Reload](/card/60175)</strong>
+
+- <strong>1 x [Machete](/card/12020) → 1 x [Stock Ammo Reload](/card/60175)</strong>
+
+- <strong>[M1911](/card/60155) → [M1911 ••](/card/60171)</strong>
+
+- <strong>[Armed to the Teeth](/card/60168) → [Extended Barrel](/card/60172)</strong>
+
+- <strong>["Make 'em sing"](/card/60160) → [On the Beat](/card/60173)</strong>
+
+- <strong>[Vicious Blow](/card/12025) → [Vicious Blow ••](/card/60176)</strong>
+
+<strong style="color:rgb(239, 163, 69);">Post-19 XP suggestions are:</strong>
+
+- <strong>[Stakeout](/card/60166) → [Psychoanalysis •••](/card/60278)</strong>
+
+- <strong>[Physical Fitness](/card/60164) → [Physical Fitness ••](/card/60174)</strong>
+
+- <strong>Alternatively you can upgrade into [Deduction ••](/card/60275) if it's not used by another investigator</strong>
+
+<hr/>
+<h2 style="color:rgb(239, 163, 69);"><strong>Compatability Matrix</strong></h2>
+
+Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
+
+<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+
+For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
+
+- Swap with an appropriate level 0 class skill which that deck can use (e.g. [On the Brink](/card/60569) for [Unexpected Courage](/card/12094)).
+
+- Swap with a class event or asset with matching or similar symbols (e.g. [Working a Hunch](/card/12038) for [Perception](/card/12093)).
+
+- Swap with a different underused basic skill you still believe would be useful for the deck (e.g. [Guts](/card/12090) for [Unexpected Courage](/card/12094)).
+
+- Proxy however you see fit (especially if you own Chapter 1 cards, just use the old school versions and remember the slight difference around who draws the card).
+
+I empower you to do sensible things!
+<hr/>
+<h2 style="color:rgb(239, 163, 69);"><strong>Final thoughts</strong></h2>
+
+This is the deck Joe's been waiting for, like he's stepped straight out of a noir movie! It's in stark contrast to Joe deck I built with just the Chapter 2 core box - i.e. investigating with a little bit of combat there, compared to mostly combat with alright investigating here - which is neat. I think this will be one of the decks I'll take through Children of Blood, something about a PI with a gun hunting down vampires just feels _right_. If you're not already listening to [Private Eye by Alkaline Trio](https://www.youtube.com/watch?v=4OeTOS2VBVw), then you should be!
+
+Any thoughts - drop them below!

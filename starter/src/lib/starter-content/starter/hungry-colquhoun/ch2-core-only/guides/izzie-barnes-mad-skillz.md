@@ -1,0 +1,104 @@
+<h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
+ <strong>Mad Skillz</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://pbs.twimg.com/media/G_vkZnMXAAAhy1U.jpg"/>
+</style><hr/></h2>
+
+`These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1. If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
+
+> It's Chapter 2 time! By committing [Fearless](/card/12069) using her ability, [Izzie](/card/12013) can both heal horror and draw a card with [Jim Culver](/card/12060). [Second Sight](/card/12062) and [Cosmic Flame](/card/12059) pair perfectly to provide clue plus damage compression, accompanied by 14 <span class="icon-wild"></span> icons so Izzie can survive survive against all odds.
+
+<strong>NOTE:</strong> There is an error where decks containing newer versions of cards cannot be posted currently (e.g. [Overpower](/card/01091) vs. [Overpower](/card/12092)). I won't be able to change the deck retrospectively to the new Ch2 cards, so please <strong><a href="https://arkhamdb.com/deck/view/5813063">click this link for a version of the deck with the Chapter 2 cards.</a></strong>
+
+<hr/>
+
+<h2 style="color:rgb(238, 74, 83);"><strong>Series Decks</strong></h2>
+
+|                 &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp;                 | &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp; |                      &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp;                      |                      &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp;                       |                   &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp;                   |
+| :--------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: |
+| <strong><a href="https://arkhamdb.com/decklist/view/60807/joe-diamond-the-drawlord-chapter-2-core-only-1.0">Joe</a></strong> |                                    <strong>Izzie</strong>                                    | <strong><a href="https://arkhamdb.com/decklist/view/60847/daniela-reyes-arkham-linebacker-chapter-2-core-only-1.0">Daniela</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/60848/trish-scarborough-i-spy-a-seeker-chapter-2-core-only-1.0">Trish</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/60859/dexter-drake-the-prestige-chapter-2-core-only-1.0">Dexter</a></strong> |
+
+<hr/>
+<h2 style="color:rgb(238, 74, 83);"><strong>At a Glance</strong></h2>
+
+> | <strong style="color:rgb(238, 74, 83);">Stats</strong> |             |
+> | :----------------------------------------------------- | :---------- |
+> | Clue-finding:                                          | &nbsp;★★★☆☆ |
+> | Consistency:                                           | &nbsp;★★★☆☆ |
+> | Enemy Management:                                      | &nbsp;★★★☆☆ |
+> | Encounter Defense:                                     | &nbsp;★★★★★ |
+> | Survivability:                                         | &nbsp;★★★☆☆ |
+> | Simplicity:                                            | &nbsp;★★★★☆ |
+
+<sub>I thought I'd implement a [Valentin](https://arkhamdb.com/user/profile/42890/Valentin1331)-style rating system to make these guides more accessible. "Consistency" covers card draw and resource economy. In essence it's an outcome measure of "does the resource economy cover the costs of my asset engine and desirable events, and can I find my engine and play it?"</sub>
+
+<hr/>
+
+<table style="margin:0 auto; border-spacing: 4px; border-collapse: separate; table-layout: fixed; width:fit-content;">
+<colgroup>
+<col style="width: 156px; max-width: 156px;">
+<col style="width: 156px; max-width: 156px;">
+<col style="width: 156px; max-width: 156px;">
+</colgroup>
+<tr>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/12090.avif"/></td>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/12060.avif"/></td>
+<td style="padding:0;"><img style="height:156px; width:156px; border-radius: 8px;" src="https://assets.arkham.build/thumbnails/12069.avif"/></td>
+</tr>
+</table>
+
+<hr/>
+<h2 style="color:rgb(238, 74, 83);"><strong>Overview</strong></h2>
+
+- <strong><ins>Masquerading as a </ins></strong><strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins>:</strong> This deck uses a 3 card engine of [Jim Culver](/card/12060), [Second Sight](/card/12062) and [Cosmic Flame](/card/12059) to make everything about <span class="icon-willpower"></span> tests. With Jim in particular, every time you use your ability you draw a card. [Guts](/card/12090) and [Fearless](/card/12069) pair perfectly to this approach, drawing more cards and healing direct horror. When the engine is up and running, this deck is <ins>fun</ins>!
+
+- <strong><ins>But prepping as a </ins></strong><strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins>:</strong> [Scrape By](/card/12082) and a copy of [Ward of Protection](/card/12065) are strong answers to treachery cards, with residual horror absorbed by [Fearless](/card/12069) or [Jim](/card/12060). Ward of Protection addresses no-test treacheries like Unspeakable Truths, which Scrape By can't help with. This deck goes heavy on physical soak and healing, with [Bandages](/card/12073), Jim and one [Jumpsuit](/card/12075). Multiple solutions take the tension out of [Breaking Point](/card/12015), allowing you to better spam your ability. Your [Twin .45s](/card/12014) and [Old Compasses](/card/12083) are backups should your spells not come out of the deck.
+
+- <strong><ins>The titular mad skillz</ins>:</strong> This deck has ten different skills packed in, which feature ten <span class="icon-wild"></span> icons, ten <span class="icon-willpower"></span> icons and two <span class="icon-agility"></span> icons. While you could go harder on skill cards, these are still plenty - especially with [Jim's](/card/12060) card draw and your ability to recur them (the horror you take being the "mad" part). [Soul Link](/card/12067) is phased out for this reason, as there's too many things which deal horror in the deck already (your ability, [Ward of Protection](/card/12065), sometimes [Scrape By](/card/12082), sometimes [Second Sight](/card/12062)).
+
+- <strong><ins>Bad intellect, big clues</ins>:</strong> [Second Sight](/card/12062) allows for reliable clue-finding, with [Old Compass](/card/12083) as a backup (especially useful when a <span class="icon-cultist"></span> pull discards Sight). ["Look what I found!"](/card/12078) pairs very well to [Timely Intervention](/card/12081) to ensure failures of 2 or less, with Old Compass giving you a free chance to fail. [Will of the Cosmos](/card/12066) gives clues for 0 resources, and can be played when the agenda is going to advance already or if you have an asset that can soon be discarded ([Jumpsuit](/card/12075), [Bandages](/card/12073) or an out-of-charge spell asset). [Scrape By](/card/12082) can turn investigate failures into successes.
+
+- <strong><ins>What to mulligan</ins>:</strong> The downside to this deck is without Jim you don't have card draw, and without [Emergency Cache](/card/12089) you don't have resources. Resources can wait to an extent (though it is a headache), but card draw can't. Mulligan targets are therefore [Jim](/card/12060) first, clue-finding assets second and fight assets third. Your 14 <span class="icon-wild"></span> icons help you do things (e.g. evade) while waiting on your engine.
+
+<sub><strong style="color:rgb(238, 74, 83);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)), [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)) and [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) - linking their Patreons!</sub></sub>
+
+<hr/>
+<h2 style="color:rgb(238, 74, 83);"><strong>Explain Yourself!</strong></h2>
+
+This deck was a toughie. With the reveal of [Fearless](/card/12069), I felt like a spell asset deck is a very strong way to play [Izzie](/card/12013). You have a critical mass of <span class="icon-willpower"></span> icons to commit to tests with Fearless and [Guts](/card/12090), [Jim](/card/12060) gives you card draw for your ability, and willpower is your strongest stat. But consistency is a worry - if you have no spell assets and no Jim then there's no good card draw and so you're often dead weight for several rounds. Another problem I noticed was [Bandages](/card/12073) and Jim alone weren't enough to address the threat of [Breaking Point](/card/12015).
+
+I picked up on the health issue first and added two [Jumpsuits](/card/12075) in place of [Lucky Charms](/card/12061). After further playtesting I found that clue-finding consistency in particular was iffy, so I removed a Jumpsuit and one [Ward of Protection](/card/12065) to make space for two [Old Compasses](/card/12083). My reasoning was [Scrape By](/card/12082) can often fill a Ward of Protection role, and Old Compass is a good way to guarantee a clue on locations with 2 shroud or less.
+
+In terms of nice cards that are omitted, e.g. [Hunter's Instinct](/card/12074), there's just no way to make space and the resource economy isn't strong here to support more upfront costs (even if you can use Instinct to recur [Emergency Cache](/card/12089) itself).
+
+<strong style="color:rgb(238, 74, 83);"><ins>New starter deck additions</ins>:</strong> I would remove [Jumpsuit](/card/12075), [Bandages](/card/08073) and [Old Compass](/card/12083) as well as [On the Brink](/card/12084), and replace with Arcane Initiate, Bloodstone, Cosmic Guidance and add back the copy of [Ward of Protection](/card/01565). This gives you a bedrock of damage soak and recurrable skill damage healing that synergises perfectly with Izzie's ability, with Arcane Initiate being clutch to improve spell-finding consistency which also providing disposable soak.
+
+Unless a better Survivor economy card presents itself (they're revealed next week), I would replace [Will of the Cosmos](/card/12066) with Spiritual Charm for more resources. My thinking on this is Bloodstone is less disposable than [Jumpsuit](/card/12075) or [Bandages](/card/12073), and while Arcane Initiate is disposable 2 doom on her is a little uncomfortable! This still leaves ["Look what I found!"](/card/12078) as clue support that plays well with [Timely Intervention](/card/12081), with Arcane Initiate helping you find [Second Sight](/card/12062) more readily and so making [Old Compass](/card/12083) more redundant.
+
+Post-Survivor reveal UPDATE: There's not too much that caught my eye in the new Survivor cards. Upgraded Timely Intervention seems like a slam dunk, and Loner is always going to be good - but otherwise there's no additional resource economy really that suits Izzie (Hidden Shelter is underwhelming). Note sure what you'd swap out of the deck for Loner (possibly you could upgrade Ward of Protection into Scrape By, assuming 2 copies as discussed above, to create some space...). Resource economy would still be tight with this deck, in any case! I don't think Eldritch Whispers or Blood Ward were revealed at the time of original writing as well - I would squeeze in the former but perhaps not the latter...
+
+<hr/>
+<h2 style="color:rgb(238, 74, 83);"><strong>Campaign starter and planned progression</strong></h2>
+
+In terms of side deck, you could take [Manual Dexterity](/card/12091) over [Perception](/card/12093) in the campaign starter ([Fearless](/card/12069) replaces whatever you pick). I liked Perception a little more given clue-finding consistency is an issue for the deck (whereas you can usually find a way to evade). 0 XP deck is below (and <a href="https://arkhamdb.com/deck/view/5813068"><strong>link here</strong></a>):
+
+<img src="https://pbs.twimg.com/media/HA9sS-2bMAAcguz.png"/>
+
+A recommended order of purchases/upgrades is:
+
+- <strong>1 x [Jumpsuit](/card/12075) → 1 x [Scrape By](/card/12082)</strong>
+
+- <strong>1 x [Ward of Protection](/card/12065) → 1 x [Scrape By](/card/12082)</strong>
+
+- <strong>[Perception](/card/12093) → [Fearless ••](/card/12069)</strong>
+
+- <strong>[Soul Link](/card/12067) → [On the Brink](/card/12084)</strong>
+
+- <strong>[Hand-Crank Flashlight](/card/12088) → [Old Compass](/card/12083)</strong>
+
+The changes from the starter are relatively straight forward. [Scrape By](/card/12082) By is purchased as a splashy failure-to-success card. There's some overlap of function with the [Ward of Protection](/card/12065) you replace, and the second copy of [Jumpsuit](/card/12075) isn't too missed. Then skills swap for skills, with [Fearless](/card/12069) being more relevant to the deck than [Perception](/card/12093), and [On the Brink](/card/12084) not giving horror like [Soul Link](/card/12067). Finally, [Old Compass](/card/12083) is more or less an upgrade of [Hand-Crank Flashlight](/card/12088).
+
+<hr/>
+<h2 style="color:rgb(238, 74, 83);"><strong>Final thoughts</strong></h2>
+
+I think Izzie is going to remain a persistent joy to build with, as with every new skill people will be thinking about what kind of deck you can make. The addition of [Fearless](/card/12069) really slants her into playing like a Mystic, as otherwise it's tricky to persistently find <span class="icon-willpower"></span> tests to commit it to, but even so I think there's still some considerations for that style of deck (do you throw in some <span class="icon-agility"></span> skills, do you add in [Cloak of Resonance](/card/12058), etc.). Skill recursion never gets old!
+
+Hope that you enjoy Izzie and the deck! [Jenny](/card/02003), your sacrifice was not in vain...

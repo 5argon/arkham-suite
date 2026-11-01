@@ -10,6 +10,7 @@ The definition of one "starter deck" actually consist of multiple decks and othe
 - Upgrade plan is optional but recommended. It could be embedded inside deck description, but we prefer having an explicit page to show it because beginners might not want to start reading the description yet.
 - Starter Deck should be able to mark some Side Deck cards as optional. They will NOT count in the summary of required products. Therefore we can mark optional cards by specifying the card pool of the starter deck explicitly, any other cards out of pool became optional. Also the overlap processing tool will skip processing all optional cards.
 - Intro Markdown is required, so they can read excerpt of the description in the starter deck listing.
+- Guide Markdown is required: an editable copy of the published description at `guides/<slug>.md` beside `series.json`. The deck JSON stays a verbatim archive, so corrections like a moved image go in the guide.
 - "Series" is a new metadata specifying subfolder of one author's decks. This let user see other decks in the same series quickly, because they are likely using the same product pool. Author used to put series on the deck's name in arkhamDB, we should offer a new overridden name that removes all those suffixes.
 
 ## Implementation

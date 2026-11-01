@@ -1,13 +1,15 @@
 {
 	"slug": "ch2-starter-guide",
+	"order": 2,
 	"name": "Chapter 2 Starter Guide",
 	"description": "This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts).",
-	"iconCardCode": "60456",
+	"iconCardCode": "60356",
 	"decks": [
 		{
 			"id": 62238,
 			"slug": "blood-money",
 			"introMd": "Marie gets Cash4Blood using [Offering Bowl](/card/60456) and [Jim Culver](/card/60479), which also activates her excellent ability. She also hoovers up clues like a Seeker, while giving enemies the slip with [Shadowmeld](/card/60461) - definitely more the Witch and less the Performer!",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc104_marie-lambeau.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -24,6 +26,7 @@
 			"id": 62386,
 			"slug": "money-buys-happiness",
 			"introMd": "Here big money André makes it rain with [Marcus](/card/60375), [Sticky Fingers](/card/12048), [Thieves' Kit](/card/12049), [Emergency Cache](/card/01088), [\"Watch this!\"](/card/60371) and [Out the Door](/card/60370). He then puts this cash to work, with [Well Connected](/card/60381) for boosts and [Black Fan](/card/60379) for a raft of benefits. Don't believe what they say - money <ins>does</ins> buy happiness!",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc103_andre_patel.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -40,6 +43,7 @@
 			"id": 62530,
 			"slug": "got-yourself-a-gun",
 			"introMd": "Here, Tommy uses [Winchester Model 12](/card/12029) with plenty of bullets from [Stock Ammo Reload](/card/60175) to blast away enemies, dealing up to 17 damage with two [Vicious Blows](/card/12025). Did you expect anything else?!",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc101_tommy-muldoon.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -56,6 +60,7 @@
 			"id": 62841,
 			"slug": "who-looks-inside-awakes",
 			"introMd": "Here Carolyn uses books to get clues while taking horror ([Dreamer's Chronicle](/card/60255), [Scroll of the Pharaohs](/card/60281)), and then she uses other books to heal horror and get a clue from her ability ([Experimental Psychology](/card/60252), [Occult Records](/card/60256)). *Then*, she uses another book ([Mysterious Grimoire](/card/12040)) to draw cards. Makes [Daisy](/card/01502) look like a rank, ill-educated freshman!",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc102_carolyn-fern.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -72,6 +77,7 @@
 			"id": 62680,
 			"slug": "rancher-rambo",
 			"introMd": "Using his trusty [Knapsack](/card/60552), Miguel lays fast traps like [Lie in Wait](/card/60566) or [Glassing](/card/60563) one location away and then drags enemies into them with [Loner](/card/60557). For any foes that survive the trip, this rancher Rambo uses [Longbow](/card/60580) to finish them off.",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc105_miguel-de-la-cruz.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -88,6 +94,7 @@
 			"id": 62239,
 			"slug": "a-faustian-bargain",
 			"introMd": "If Mystics are about power at a price, then Faustian bargains don't come much more Faustian than [Dread Curse of Azathoth](/card/60474)! Here Dexter uses that and upgraded [Cosmic Flame](/card/12071) for some serious diabolic firepower - made all the more accessible with [Arcane Initiate](/card/60455) and [\"For my next trick...\"](/card/12011).",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_article_mysticclass_splash.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -104,6 +111,7 @@
 			"id": 62387,
 			"slug": "pocket-sand",
 			"introMd": "Rather than cowering from the [Black Chamber Operative](/card/12009), Trish uses pocket sand (or [Caustic Reaction](/card/60261) if you want to get technical) and [pushing him off a roof](/card/60378) to excellent effect! She even hunts the Operative out of her deck with [Mysterious Grimoire](/card/12040) - a bold move if I ever saw one...",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_article_rogueclass_splash.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -120,6 +128,7 @@
 			"id": 62531,
 			"slug": "hurting-for-clues",
 			"introMd": "Here Daniela uses [Stalk Prey](/card/60567) to spawn enemies, [Lesson Learned](/card/12022) and [Detective Sherman](/card/60177) to exploit those enemies for clues, and then [Hunter's Instinct](/card/12074) to recycle events. Oh, and she also still [Sledgehammers](/card/12028) bad guys into meaty paste (yes I did use \"sledgehammer\" as a verb...).",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_guardianclass_splash.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -136,6 +145,7 @@
 			"id": 62681,
 			"slug": "jennys-retribution",
 			"introMd": "Here avenging Izzie heals both damage and horror through <span class=\"icon-willpower\"></span> skill tests on Mystic assets, which allows her to readily soak attacks and so dish out [Retribution](/card/60473). #Justice4Jenny",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_survivorclass_splash.png",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -152,6 +162,7 @@
 			"id": 62842,
 			"slug": "shoot-first-questions-later",
 			"introMd": "Here, Joe has had enough of your crap! Rather than quietly investigating, he's whipping out his [M1911](/card/60171) and going pow-pow-pow! He may do some sleuthing on the side, with [Sharp Rhetoric](/card/60277) or whatever, but really this PI is all about the DIY - and by DIY I mean DIY vigilantism...",
+			"bannerUrl": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_seekerclass_splash.png",
 			"versions": [
 				{
 					"breakpoint": 0,

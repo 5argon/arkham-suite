@@ -12,9 +12,11 @@ import { getAllCards, loadAllTabooLists } from '../card-data';
 import { hasUniqueInvestigatorClasses } from '../tool/assembler/filter';
 import {
 	allPrebuiltTeams,
+	allStarterAuthors,
 	allStarterDecks,
 	prebuiltTeamsOf,
 	starterSeries,
+	starterSeriesOf,
 	type PrebuiltTeam
 } from '.';
 
@@ -23,6 +25,29 @@ const tagsBySeries = {
 	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
 	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited'
 } as const;
+
+describe('starter series order', () => {
+	const seriesJson = Object.entries(
+		import.meta.glob<{ slug: string; order: number }>('./starter/*/*/series.json', {
+			eager: true,
+			import: 'default'
+		})
+	);
+
+	it('lists each author series by its own unique order number', () => {
+		for (const author of allStarterAuthors()) {
+			const own = seriesJson
+				.filter(([path]) => path.startsWith(`./starter/${author.slug}/`))
+				.map(([, json]) => json);
+			const orders = own.map((json) => json.order);
+			expect(orders.every(Number.isInteger), author.slug).toBe(true);
+			expect(new Set(orders).size, author.slug).toBe(orders.length);
+			expect(starterSeriesOf(author.slug).map((series) => series.slug)).toEqual(
+				[...own].sort((a, b) => a.order - b.order).map((json) => json.slug)
+			);
+		}
+	});
+});
 
 describe('starter deck export tags', () => {
 	it('gives every listed deck version exactly the two common tags and its series tag', () => {

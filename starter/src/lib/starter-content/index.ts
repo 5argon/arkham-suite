@@ -59,6 +59,14 @@ export interface StarterDeckEntry {
 	 */
 	primary: AhdbDeck;
 	/**
+	 * Hand-picked excerpt of the deck's own description, as markdown.
+	 */
+	introMd?: string;
+	/**
+	 * Image representing the deck.
+	 */
+	bannerUrl?: string;
+	/**
 	 * Upgrade Planner share string (its ?i= parameter).
 	 */
 	upgradePlan?: string;
@@ -82,10 +90,17 @@ export interface StarterSeries {
 
 interface SeriesJson {
 	slug: string;
+	/**
+	 * Position among the author's series, ascending. Unique per author.
+	 */
+	order: number;
 	name: string;
 	description: string;
 	iconCardCode?: string;
 	decks: {
+		/**
+		 * Id of the version the author listed, one of `versions`.
+		 */
 		id: number;
 		/**
 		 * Hand-assigned URL slug, e.g. "hurting-for-clues".
@@ -96,6 +111,11 @@ interface SeriesJson {
 		 * arkham.build's meta.intro_md so listings show what the deck is about.
 		 */
 		introMd?: string;
+		/**
+		 * Image representing the deck, surfaced as arkham.build's meta.banner_url
+		 * and used as the page's share image.
+		 */
+		bannerUrl?: string;
 		/**
 		 * Files under decks/, ascending by breakpoint.
 		 */
@@ -114,6 +134,15 @@ const seriesFiles = import.meta.glob<SeriesJson>('./starter/*/*/series.json', {
 });
 const deckFiles = import.meta.glob<AhdbDeck>('./starter/*/*/decks/*.json', {
 	eager: true,
+	import: 'default'
+});
+/**
+ * Editable copies of the published guides, one per deck slug, for what an
+ * archive can't change (like an image host retiring an address).
+ */
+const guideFiles = import.meta.glob<string>('./starter/*/*/guides/*.md', {
+	eager: true,
+	query: '?raw',
 	import: 'default'
 });
 
@@ -191,16 +220,37 @@ export function withRemovedCards(higher: AhdbDeck, lower: AhdbDeck): AhdbDeck {
 }
 
 /**
- * The archived JSON stays verbatim; the excerpt is merged into a copy's meta.
+ * The version the author actually listed, identified by the deck's id. It can
+ * be any of them: some authors publish the highest build, others publish only
+ * the 0 XP one. Lower builds saved elsewhere often have working titles like
+ * "(0XP)", and readers should be sent to the published listing.
  */
-function withIntro(deck: AhdbDeck, introMd: string): AhdbDeck {
+export function publishedVersion(files: AhdbDeck[], id: number, owner: string): AhdbDeck {
+	const published = files.find((deck) => deck.id === id);
+	if (published === undefined) throw new Error(`Starter deck not published: ${owner}`);
+	return published;
+}
+
+/**
+ * The archived JSON stays verbatim; curated fields are merged into a copy's
+ * meta under their arkham.build names.
+ */
+function withCuratedMeta(deck: AhdbDeck, introMd?: string, bannerUrl?: string): AhdbDeck {
+	if (introMd === undefined && bannerUrl === undefined) return deck;
 	let meta: Record<string, unknown> = {};
 	try {
 		meta = JSON.parse(deck.meta || '{}');
 	} catch {
 		meta = {};
 	}
-	return { ...deck, meta: JSON.stringify({ ...meta, intro_md: introMd }) };
+	return {
+		...deck,
+		meta: JSON.stringify({
+			...meta,
+			...(introMd === undefined ? {} : { intro_md: introMd }),
+			...(bannerUrl === undefined ? {} : { banner_url: bannerUrl })
+		})
+	};
 }
 
 /**
@@ -226,11 +276,13 @@ const authors: StarterAuthor[] = Object.values(authorFiles).map(({ avatarCardCod
 	...json,
 	avatarCard: iconCard(avatarCardCode, json.slug)
 }));
-const series: StarterSeries[] = Object.entries(seriesFiles).map(([path, json]) => {
+const seriesFilesInOrder = Object.entries(seriesFiles).sort(([, a], [, b]) => a.order - b.order);
+const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 	const authorSlug = path.replace(/^\.\/starter\//, '').split('/')[0];
 	const author = authors.find((a) => a.slug === authorSlug);
 	if (author === undefined) throw new Error(`Starter series without author: ${path}`);
 	const dir = path.replace(/series\.json$/, 'decks/');
+	const guideDir = path.replace(/series\.json$/, 'guides/');
 	const result: StarterSeries = {
 		slug: json.slug,
 		name: json.name,
@@ -246,10 +298,10 @@ const series: StarterSeries[] = Object.entries(seriesFiles).map(([path, json]) =
 			if (deck === undefined) throw new Error(`Starter deck file missing: ${dir}${file}`);
 			return normalizeDeck(deck);
 		});
-		// The published (highest) version names, describes, and identifies the
-		// deck; the lower builds are often saved elsewhere under working titles
-		// like "(0XP)", and readers should be sent to the published listing.
-		const published = files[files.length - 1];
+		const owner = `${path} ${d.slug}`;
+		const published = publishedVersion(files, d.id, owner);
+		const guide = guideFiles[`${guideDir}${d.slug}.md`];
+		if (guide === undefined) throw new Error(`Starter deck guide missing: ${owner}`);
 		// ArkhamDB has no notion of series, so authors append it to the deck
 		// name ("Blood Money | Chapter 2 Starter Guide"); here the series is
 		// shown on its own, so the suffix goes.
@@ -259,9 +311,9 @@ const series: StarterSeries[] = Object.entries(seriesFiles).map(([path, json]) =
 				...deck,
 				id: published.id,
 				name,
-				description_md: published.description_md
+				description_md: guide
 			};
-			return d.introMd === undefined ? named : withIntro(named, d.introMd);
+			return withCuratedMeta(named, d.introMd, d.bannerUrl);
 		});
 		const versions = sorted.map(({ breakpoint }, i) => ({
 			breakpoint,
@@ -277,6 +329,8 @@ const series: StarterSeries[] = Object.entries(seriesFiles).map(([path, json]) =
 			slug: d.slug,
 			versions,
 			primary: versions[0].deck,
+			introMd: d.introMd,
+			bannerUrl: d.bannerUrl,
 			upgradePlan: d.upgradePlan,
 			series: result
 		};
