@@ -242,10 +242,10 @@ Block element with fixed height that display some overall information about the 
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div
 			class={clsx(
-				'line-clamp-2 flex h-12 items-center justify-center px-2 text-center text-xs text-ellipsis text-black dark:text-white',
+				'flex items-center justify-center px-2 text-center text-ellipsis text-black dark:text-white',
 				fullBanner
-					? '@min-[400px]:text-sm @min-[500px]:line-clamp-1 @min-[500px]:h-6 @min-[500px]:justify-start @min-[500px]:text-left @min-[500px]:text-base'
-					: 'md:line-clamp-1 md:h-6 md:justify-start md:text-left md:text-base',
+					? 'h-6 text-sm @min-[500px]:justify-start @min-[500px]:text-left @min-[500px]:text-base'
+					: 'line-clamp-2 h-12 text-xs md:line-clamp-1 md:h-6 md:justify-start md:text-left md:text-base',
 				bgColorClass,
 				onClick && 'cursor-pointer transition-opacity hover:opacity-80'
 			)}
@@ -262,7 +262,15 @@ Block element with fixed height that display some overall information about the 
 				: undefined}
 		>
 			{#if onClick && typeof onClick === 'string'}
-				<a href={resolve(onClick as any)} class="block w-full">{deckLatestForwarded.name}</a>
+				<a
+					href={resolve(onClick as any)}
+					class={clsx('block w-full', fullBanner && 'truncate')}
+					title={fullBanner ? deckLatestForwarded.name : undefined}>{deckLatestForwarded.name}</a
+				>
+			{:else if fullBanner}
+				<span class="w-full truncate" title={deckLatestForwarded.name}
+					>{deckLatestForwarded.name}</span
+				>
 			{:else}
 				{deckLatestForwarded.name}
 			{/if}
