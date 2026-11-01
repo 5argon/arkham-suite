@@ -28,7 +28,7 @@
 	}
 
 	img {
-		max-width: 600px;
+		max-width: min(600px, 100%);
 		max-height: 400px;
 		box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
 	}

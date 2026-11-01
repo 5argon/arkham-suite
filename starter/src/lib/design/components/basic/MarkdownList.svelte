@@ -3,11 +3,11 @@
 </script>
 
 {#if ordered}
-	<ol class="list-decimal list-inside space-y-2 text-secondary-900 dark:text-secondary-100">
+	<ol class="list-decimal space-y-2 pl-6 text-secondary-900 dark:text-secondary-100">
 		<slot />
 	</ol>
 {:else}
-	<ul class="list-disc list-inside space-y-1 text-secondary-900 dark:text-secondary-100">
+	<ul class="list-disc space-y-1 pl-6 text-secondary-900 dark:text-secondary-100">
 		<slot />
 	</ul>
 {/if}
