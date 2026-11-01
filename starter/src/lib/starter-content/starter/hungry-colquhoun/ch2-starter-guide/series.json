@@ -2,6 +2,7 @@
 	"slug": "ch2-starter-guide",
 	"name": "Chapter 2 Starter Guide",
 	"description": "This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts).",
+	"iconCardCode": "60456",
 	"decks": [
 		{
 			"id": 62238,

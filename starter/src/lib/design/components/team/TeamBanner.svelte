@@ -5,7 +5,9 @@ pool summary. Shared by the team builder's view mode and the pre-built team
 listing.
 -->
 <script lang="ts">
-	import { BorderedContainer } from '@5argon/arkham-life-ui';
+	import { resolve } from '$app/paths';
+	import { BorderedContainer, CardCircle } from '@5argon/arkham-life-ui';
+	import type { Card } from '@5argon/arkham-kohaku';
 
 	import { createCardResolver, getAllCards } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
@@ -24,13 +26,30 @@ listing.
 		/** Hosted starter sources parallel to team.decks. Omit to keep the banner compact. */
 		sources?: (PrebuiltTeamSource | undefined)[];
 		exclusive?: boolean;
+		/** Shown before the author's name. */
+		authorAvatar?: Card;
+		/**
+		 * Links the author's name to their starter deck page; leave out when the
+		 * whole banner is already a link.
+		 */
+		authorSlug?: string;
 	}
-	const { info, team, sources, exclusive = false }: Prop = $props();
+	const { info, team, sources, exclusive = false, authorAvatar, authorSlug }: Prop = $props();
 
 	const getFrozenSetup = () => team.setup;
 	const pool = buildPool(getFrozenSetup(), getAllCards());
 	const resolver = createCardResolver();
 </script>
+
+<!-- The avatar already reads as attribution, so the name stands alone beside it. -->
+{#snippet byAuthor()}
+	{#if authorAvatar}
+		<CardCircle card={authorAvatar} />
+		{info.author}
+	{:else}
+		{m.tool_evergreen_team_by_author({ author: info.author })}
+	{/if}
+{/snippet}
 
 <div class="relative">
 	{#if exclusive}
@@ -46,9 +65,20 @@ listing.
 				>{info.name}</span
 			>
 			{#if info.author.length > 0}
-				<span class="text-primary-700 dark:text-primary-300 text-sm">
-					{m.tool_evergreen_team_by_author({ author: info.author })}
-				</span>
+				{#if authorSlug}
+					<a
+						class="text-primary-700 dark:text-primary-300 inline-flex items-center gap-1.5 text-sm hover:underline"
+						href={resolve('/starter/[author]', { author: authorSlug })}
+					>
+						{@render byAuthor()}
+					</a>
+				{:else}
+					<span
+						class="text-primary-700 dark:text-primary-300 inline-flex items-center gap-1.5 text-sm"
+					>
+						{@render byAuthor()}
+					</span>
+				{/if}
 			{/if}
 			{#if info.description.length > 0}
 				<p class="text-primary-800 dark:text-primary-200 max-w-2xl text-sm break-words">

@@ -10,7 +10,7 @@ derived from. The whole banner opens that deck in a new tab.
 
 	import { createCardResolver, loadAllTabooLists } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
-	import { type PrebuiltTeamSource } from '$lib/starter-content';
+	import { type PrebuiltTeamSource, starterByline } from '$lib/starter-content';
 
 	interface Prop {
 		source: PrebuiltTeamSource;
@@ -45,7 +45,7 @@ derived from. The whole banner opens that deck in a new tab.
 			{deck}
 			mode="decklist"
 			headerOnly
-			byline={[{ label: source.series.author.name }, { label: source.series.name }]}
+			byline={starterByline(source.series, false)}
 		/>
 	</a>
 </div>

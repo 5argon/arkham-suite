@@ -8,12 +8,7 @@ carries a small author / series byline linking to their pages.
 	import { linkedAhdbDeckToDeck } from '@5argon/arkham-kohaku';
 
 	import { createCardResolver, loadAllTabooLists } from '$lib/card-data';
-	import {
-		starterAuthorHref,
-		starterDeckHref,
-		type StarterDeckEntry,
-		starterSeriesHref
-	} from '$lib/starter-content';
+	import { starterByline, starterDeckHref, type StarterDeckEntry } from '$lib/starter-content';
 
 	interface Prop {
 		entries: StarterDeckEntry[];
@@ -27,10 +22,7 @@ carries a small author / series byline linking to their pages.
 			id: String(entry.id),
 			deck: linkedAhdbDeckToDeck({ deck: entry.primary }, resolver, tabooLists),
 			href: starterDeckHref(entry),
-			byline: [
-				{ label: entry.series.author.name, href: starterAuthorHref(entry.series.author) },
-				{ label: entry.series.name, href: starterSeriesHref(entry.series) }
-			]
+			byline: starterByline(entry.series)
 		}))
 	);
 </script>

@@ -2,6 +2,7 @@
 	"slug": "ch2-core-only",
 	"name": "Chapter 2 Core Only",
 	"description": "These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1.",
+	"iconCardCode": "12004",
 	"decks": [
 		{
 			"id": 60807,

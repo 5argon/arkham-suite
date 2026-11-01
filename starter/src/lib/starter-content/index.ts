@@ -1,4 +1,5 @@
 import { type AhdbDeck, type Card, Product } from '@5argon/arkham-kohaku';
+import type { BylineEntry } from '@5argon/arkham-life-ui';
 
 import { getAllCards } from '../card-data';
 
@@ -13,6 +14,24 @@ export interface StarterAuthor {
 	name: string;
 	arkhamdbUserId?: number;
 	arkhamdbUrl?: string;
+	/**
+	 * Card whose square art is the author's circular avatar.
+	 */
+	avatarCard?: Card;
+	/**
+	 * The author's own words, plain text with bare URLs. Also the page's meta
+	 * description.
+	 */
+	profile?: string;
+}
+
+interface AuthorJson {
+	slug: string;
+	name: string;
+	arkhamdbUserId?: number;
+	arkhamdbUrl?: string;
+	avatarCardCode?: string;
+	profile?: string;
 }
 
 /**
@@ -50,6 +69,10 @@ export interface StarterSeries {
 	slug: string;
 	name: string;
 	description: string;
+	/**
+	 * Card whose square art represents the series, in a rounded square.
+	 */
+	iconCard?: Card;
 	author: StarterAuthor;
 	/**
 	 * In the series' intended order.
@@ -61,6 +84,7 @@ interface SeriesJson {
 	slug: string;
 	name: string;
 	description: string;
+	iconCardCode?: string;
 	decks: {
 		id: number;
 		/**
@@ -80,7 +104,7 @@ interface SeriesJson {
 	}[];
 }
 
-const authorFiles = import.meta.glob<StarterAuthor>('./starter/*/author.json', {
+const authorFiles = import.meta.glob<AuthorJson>('./starter/*/author.json', {
 	eager: true,
 	import: 'default'
 });
@@ -191,7 +215,17 @@ export function deckCardPool(deck: AhdbDeck): string[] {
 	}
 }
 
-const authors: StarterAuthor[] = Object.values(authorFiles);
+function iconCard(code: string | undefined, owner: string): Card | undefined {
+	if (code === undefined) return undefined;
+	const card = cardByCode.get(code);
+	if (card === undefined) throw new Error(`Starter icon card missing: ${code} (${owner})`);
+	return card;
+}
+
+const authors: StarterAuthor[] = Object.values(authorFiles).map(({ avatarCardCode, ...json }) => ({
+	...json,
+	avatarCard: iconCard(avatarCardCode, json.slug)
+}));
 const series: StarterSeries[] = Object.entries(seriesFiles).map(([path, json]) => {
 	const authorSlug = path.replace(/^\.\/starter\//, '').split('/')[0];
 	const author = authors.find((a) => a.slug === authorSlug);
@@ -201,6 +235,7 @@ const series: StarterSeries[] = Object.entries(seriesFiles).map(([path, json]) =
 		slug: json.slug,
 		name: json.name,
 		description: json.description,
+		iconCard: iconCard(json.iconCardCode, path),
 		author,
 		entries: []
 	};
@@ -287,6 +322,7 @@ export interface PrebuiltTeamSource {
 	series: {
 		slug: string;
 		name: string;
+		iconCard?: Card;
 		author: StarterAuthor;
 	};
 }
@@ -362,6 +398,7 @@ const teams: PrebuiltTeam[] = Object.entries(teamFiles).map(([path, json]) => {
 							series: {
 								slug: sourceEntry.series.slug,
 								name: sourceEntry.series.name,
+								iconCard: sourceEntry.series.iconCard,
 								author: sourceEntry.series.author
 							}
 						};
@@ -400,8 +437,31 @@ export function starterAuthorHref(author: StarterAuthor): string {
 	return `/starter/${author.slug}`;
 }
 
-export function starterSeriesHref(series: StarterSeries): string {
+export function starterSeriesHref(series: Pick<StarterSeries, 'slug' | 'author'>): string {
 	return `/starter/${series.author.slug}/${series.slug}`;
+}
+
+/**
+ * Author (with avatar) then series (with icon), as shown under a starter
+ * deck's name. Without links when the whole banner is already one.
+ */
+export function starterByline(
+	series: Pick<StarterSeries, 'slug' | 'name' | 'iconCard' | 'author'>,
+	links = true
+): BylineEntry[] {
+	return [
+		{
+			label: series.author.name,
+			href: links ? starterAuthorHref(series.author) : undefined,
+			iconCard: series.author.avatarCard
+		},
+		{
+			label: series.name,
+			href: links ? starterSeriesHref(series) : undefined,
+			iconCard: series.iconCard,
+			iconShape: 'rounded'
+		}
+	];
 }
 
 export function starterDeckHref(entry: {
