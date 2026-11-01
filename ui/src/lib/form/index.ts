@@ -21,6 +21,7 @@ export {
 	type ActionButton
 } from './card-form/CardFormMultiple.svelte';
 export { default as InvestigatorExpansionFormMultiple } from './InvestigatorExpansionFormMultiple.svelte';
+export { default as InvestigatorPicker } from './InvestigatorPicker.svelte';
 export type { CardFormFilter } from './card-form/types.js';
 export {
 	createKeyboardNavigationHandler,

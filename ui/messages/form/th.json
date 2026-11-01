@@ -43,5 +43,6 @@
 	"form_group_label_1_icon": "1 ไอคอน",
 	"form_group_label_2_icons": "2 ไอคอน",
 	"form_group_label_3_icons": "3 ไอคอน",
-	"form_group_label_4_plus_icons": "4+ ไอคอน"
+	"form_group_label_4_plus_icons": "4+ ไอคอน",
+	"form_read_investigator_card": "อ่านการ์ดของ {investigator}"
 }

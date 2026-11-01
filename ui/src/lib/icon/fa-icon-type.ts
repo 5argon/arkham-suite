@@ -93,5 +93,8 @@ export enum FaIconType {
 	AchievementInferred,
 
 	// World map (TSK solver map tool)
-	Map
+	Map,
+
+	Randomize,
+	Magnify
 }

@@ -78,6 +78,8 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.CloseModal]: 'fa-xmark',
 		[FaIconType.DeleteList]: 'fa-trash-can-list',
 		[FaIconType.ExternalLink]: 'fa-arrow-up-right-from-square',
+		[FaIconType.Randomize]: 'fa-shuffle',
+		[FaIconType.Magnify]: 'fa-magnifying-glass-plus',
 		[FaIconType.Logout]: 'fa-right-from-bracket',
 		[FaIconType.Achievement]: 'fa-trophy',
 		[FaIconType.AchievementManual]: 'fa-pencil',
