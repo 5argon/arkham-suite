@@ -19,6 +19,7 @@
 
 	<!-- Open Graph / Facebook -->
 	<meta content="website" property="og:type" />
+	<meta content="Arkham Starter" property="og:site_name" />
 	<meta content={fullUrl} property="og:url" />
 	<meta content={title} property="og:title" />
 	<meta content={description} property="og:description" />
