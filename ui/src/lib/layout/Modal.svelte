@@ -3,6 +3,7 @@
 Generic modal with dark overlay that can be closed with Escape or clicking the overlay.
 -->
 <script lang="ts">
+	import { lockPageScroll } from '../utility/scroll-lock.js';
 	import type { Snippet } from 'svelte';
 	import { fade, scale } from 'svelte/transition';
 	import { FaIconType } from '../icon/fa-icon-type.js';
@@ -66,6 +67,7 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 	<div
 		bind:this={modalElement}
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+		{@attach lockPageScroll}
 		transition:fade={{ duration: 200 }}
 		onclick={handleOverlayClick}
 		onkeydown={handleKeydown}

@@ -32,6 +32,7 @@ A generic tooltip that displays custom content inside a rounded frame with trans
 
 			const { x: newX, y: newY } = await computePosition(referenceElement, floatingElement, {
 				placement: 'top',
+				strategy: 'fixed',
 				middleware: [
 					offset(8), // 8px gap between element and tooltip
 					flip(), // Flip to bottom if not enough space on top

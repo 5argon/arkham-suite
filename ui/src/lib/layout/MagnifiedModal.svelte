@@ -4,6 +4,7 @@ A full-screen modal with a black translucent background that can show any conten
 Clicking the overlay or pressing Escape closes the modal.
 -->
 <script lang="ts">
+	import { lockPageScroll } from '../utility/scroll-lock.js';
 	import type { Snippet } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -27,6 +28,7 @@ Clicking the overlay or pressing Escape closes the modal.
 {#if isShowing}
 	<div
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+		{@attach lockPageScroll}
 		onclick={onClose}
 		role="button"
 		tabindex="0"

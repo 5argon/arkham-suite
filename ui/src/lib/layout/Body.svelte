@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { snapshot } from '$app/navigation';
+	import { tick, type Snippet } from 'svelte';
 	interface Prop {
 		theme: 'light' | 'dark';
 		children: Snippet;
@@ -16,18 +17,37 @@
 			document.documentElement.classList.remove('dark');
 		}
 	});
+
+	// SvelteKit restores the scroll position on back / forward before pages
+	// restore their own snapshots (filters, tabs...), while the page may still
+	// be too short to reach it. Scroll again once that content is back.
+	snapshot({
+		id: 'body-scroll',
+		capture: () => window.scrollY,
+		restore: async (top: number) => {
+			await tick();
+			requestAnimationFrame(() => window.scrollTo(0, top));
+		}
+	});
 </script>
 
-<div
-	class:light={theme === 'light'}
-	class="h-screen overflow-scroll bg-primary-100 dark:bg-primary-900"
->
+<div class:light={theme === 'light'} class="bg-primary-100 dark:bg-primary-900">
 	<div class="more-bg bg-primary-100 dark:bg-primary-900 flex flex-col">
 		{@render children()}
 	</div>
 </div>
 
 <style>
+	/* The window scrolls, so the root carries the theme color for overscroll
+	   bounce, and keeps the scrollbar's space so short and long pages line up. */
+	:global(html) {
+		background-color: var(--color-primary-100);
+		scrollbar-gutter: stable;
+	}
+	:global(html.dark) {
+		background-color: var(--color-primary-900);
+	}
+
 	.more-bg {
 		min-height: 100vh;
 	}

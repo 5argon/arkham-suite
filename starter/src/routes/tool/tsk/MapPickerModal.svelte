@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { CampaignState, PlanTrajectory } from '@5argon/arkham-tsk-solver';
+	import { lockPageScroll } from '@5argon/arkham-life-ui';
+
 	import TskMap from './TskMap.svelte';
 
 	interface Props {
@@ -19,7 +21,7 @@
 
 {#if open}
 	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-	<div class="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4" onclick={onClose} role="presentation">
+	<div class="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4" onclick={onClose} role="presentation" {@attach lockPageScroll}>
 		<div class="relative max-h-[92vh] w-full max-w-5xl overflow-auto rounded-lg bg-primary-50 p-4 shadow-2xl dark:bg-primary-950" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
 			<div class="mb-2 flex items-center justify-between">
 				<h3 class="font-heading text-lg text-primary-900 dark:text-primary-100">Choose a destination</h3>
