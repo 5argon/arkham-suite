@@ -2,11 +2,11 @@ import { siteOrigin } from '$lib/const';
 import * as m from '$lib/paraglide/messages.js';
 
 import {
-	allStarterAuthors,
 	allStarterDecks,
-	type StarterAuthor,
-	starterAuthorHref,
+	type Contributor,
+	contributorHref,
 	type StarterDeckEntry,
+	starterAuthors,
 	starterDeckHref
 } from './index';
 
@@ -34,13 +34,13 @@ export function starterDeckDescription(entry: StarterDeckEntry): string {
 		: introPlainText(entry.introMd);
 }
 
-function personJsonLd(author: StarterAuthor) {
+function personJsonLd(person: Contributor) {
 	return {
 		'@type': 'Person',
-		name: author.name,
-		url: `${siteOrigin}${starterAuthorHref(author)}`,
-		...(author.profile === undefined ? {} : { description: author.profile }),
-		...(author.arkhamdbUrl === undefined ? {} : { sameAs: [author.arkhamdbUrl] })
+		name: person.name,
+		url: `${siteOrigin}${contributorHref(person)}`,
+		...(person.profile === undefined ? {} : { description: person.profile }),
+		...(person.arkhamdbUrl === undefined ? {} : { sameAs: [person.arkhamdbUrl] })
 	};
 }
 
@@ -57,17 +57,17 @@ function breadcrumbJsonLd(crumbs: { name: string; href: string }[]) {
 }
 
 /**
- * Ties the author's name to their profile, so searching for them can surface
- * the page.
+ * Ties the contributor's name to their profile, so searching for them can
+ * surface the page.
  */
-export function starterAuthorJsonLd(author: StarterAuthor) {
+export function contributorJsonLd(person: Contributor) {
 	return {
 		'@context': 'https://schema.org',
 		'@graph': [
-			{ '@type': 'ProfilePage', mainEntity: personJsonLd(author) },
+			{ '@type': 'ProfilePage', mainEntity: personJsonLd(person) },
 			breadcrumbJsonLd([
 				{ name: m.starter_decks_title(), href: '/starter' },
-				{ name: author.name, href: starterAuthorHref(author) }
+				{ name: person.name, href: contributorHref(person) }
 			])
 		]
 	};
@@ -92,13 +92,13 @@ export function starterDeckJsonLd(entry: StarterDeckEntry) {
 				isPartOf: {
 					'@type': 'CreativeWorkSeries',
 					name: entry.series.name,
-					url: `${siteOrigin}${starterAuthorHref(author)}#${entry.series.slug}`
+					url: `${siteOrigin}${contributorHref(author)}#${entry.series.slug}`
 				},
 				about: { '@type': 'Game', name: 'Arkham Horror: The Card Game' }
 			},
 			breadcrumbJsonLd([
 				{ name: m.starter_decks_title(), href: '/starter' },
-				{ name: author.name, href: starterAuthorHref(author) },
+				{ name: author.name, href: contributorHref(author) },
 				{ name: entry.primary.name, href: starterDeckHref(entry) }
 			])
 		]
@@ -112,7 +112,7 @@ export function starterDeckJsonLd(entry: StarterDeckEntry) {
 export function starterSitemapPaths(): string[] {
 	return [
 		'/starter',
-		...allStarterAuthors().map(starterAuthorHref),
+		...starterAuthors().map(contributorHref),
 		...allStarterDecks().map(starterDeckHref)
 	];
 }

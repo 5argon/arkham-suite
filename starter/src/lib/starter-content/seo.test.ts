@@ -1,10 +1,16 @@
 import type { AhdbDeck } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
-import { allStarterAuthors, allStarterDecks, publishedVersion } from './index';
+import {
+	allContributors,
+	allStarterDecks,
+	publishedVersion,
+	starterAuthors,
+	starterSeriesOf
+} from './index';
 import {
 	introPlainText,
-	starterAuthorJsonLd,
+	contributorJsonLd,
 	starterDeckDescription,
 	starterDeckJsonLd,
 	starterSitemapPaths
@@ -67,15 +73,23 @@ describe('starter deck meta', () => {
 	});
 
 	it('links an author profile to their ArkhamDB page', () => {
-		const author = allStarterAuthors().find((a) => a.arkhamdbUrl !== undefined);
+		const author = allContributors().find((a) => a.arkhamdbUrl !== undefined);
 		expect(author).toBeDefined();
-		const [profile] = starterAuthorJsonLd(author!)['@graph'];
+		const [profile] = contributorJsonLd(author!)['@graph'];
 		expect(profile).toMatchObject({ mainEntity: { sameAs: [author!.arkhamdbUrl] } });
+	});
+
+	it('counts only contributors with a series as starter authors', () => {
+		for (const person of allContributors()) {
+			expect(starterAuthors().includes(person), person.slug).toBe(
+				starterSeriesOf(person.slug).length > 0
+			);
+		}
 	});
 
 	it('lists every author and deck in the sitemap once', () => {
 		const paths = starterSitemapPaths();
 		expect(new Set(paths).size).toBe(paths.length);
-		expect(paths).toHaveLength(1 + allStarterAuthors().length + allStarterDecks().length);
+		expect(paths).toHaveLength(1 + starterAuthors().length + allStarterDecks().length);
 	});
 });

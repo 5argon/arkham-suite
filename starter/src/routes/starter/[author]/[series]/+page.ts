@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 
-import { allStarterAuthors, starterSeries, starterSeriesOf } from '$lib/starter-content';
+import { starterAuthors, starterSeries, starterSeriesOf } from '$lib/starter-content';
 
 import type { EntryGenerator, PageLoad } from './$types';
 
@@ -15,6 +15,6 @@ export const load: PageLoad = ({ params }) => {
 };
 
 export const entries: EntryGenerator = () =>
-	allStarterAuthors().flatMap((author) =>
+	starterAuthors().flatMap((author) =>
 		starterSeriesOf(author.slug).map((series) => ({ author: author.slug, series: series.slug }))
 	);

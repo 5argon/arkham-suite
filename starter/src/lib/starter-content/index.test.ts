@@ -12,7 +12,7 @@ import { getAllCards, loadAllTabooLists } from '../card-data';
 import { hasUniqueInvestigatorClasses } from '../tool/assembler/filter';
 import {
 	allPrebuiltTeams,
-	allStarterAuthors,
+	allContributors,
 	allStarterDecks,
 	importedStarterDeck,
 	prebuiltTeamsOf,
@@ -61,7 +61,7 @@ describe('starter series order', () => {
 	);
 
 	it('lists each author series by its own unique order number', () => {
-		for (const author of allStarterAuthors()) {
+		for (const author of allContributors()) {
 			const own = seriesJson
 				.filter(([path]) => path.startsWith(`./starter/${author.slug}/`))
 				.map(([, json]) => json);

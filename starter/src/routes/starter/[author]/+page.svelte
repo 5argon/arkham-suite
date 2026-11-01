@@ -21,8 +21,8 @@
 	import StarterSeriesSection from '$lib/design/pages/starter/StarterSeriesSection.svelte';
 	import PrebuiltTeamList from '$lib/design/pages/team/PrebuiltTeamList.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { prebuiltTeamsOf, starterAuthorHref } from '$lib/starter-content';
-	import { starterAuthorJsonLd } from '$lib/starter-content/seo';
+	import { contributorHref, prebuiltTeamsOf } from '$lib/starter-content';
+	import { contributorJsonLd } from '$lib/starter-content/seo';
 	import {
 		deckMatches,
 		decodeTeams,
@@ -36,8 +36,19 @@
 	const profileUrl = /(https?:\/\/[^\s)]+)/;
 
 	const { data } = $props();
-	const title = $derived(m.starter_decks_author_title({ author: data.author.name }));
 	const teams = $derived(decodeTeams(prebuiltTeamsOf(data.author.slug), getAllCards()));
+	// Contributors may have no decks or teams, like someone who only writes reviews.
+	const hasDecks = $derived(data.series.length > 0 || teams.length > 0);
+	const title = $derived(
+		hasDecks
+			? m.starter_decks_author_title({ author: data.author.name })
+			: m.starter_decks_contributor_title({ name: data.author.name })
+	);
+	const fallbackDescription = $derived(
+		hasDecks
+			? m.starter_decks_author_description({ author: data.author.name })
+			: m.starter_decks_contributor_description({ name: data.author.name })
+	);
 
 	let filter = $state<StarterFilterValue>({ products: new Set(), investigators: new Set() });
 	const deckCount = $derived(
@@ -68,14 +79,13 @@
 </script>
 
 <OpenGraph
-	description={data.author.profile ??
-		m.starter_decks_author_description({ author: data.author.name })}
+	description={data.author.profile ?? fallbackDescription}
 	image="image/resource/starter.webp"
 	{title}
-	url={starterAuthorHref(data.author)}
+	url={contributorHref(data.author)}
 	canonical
 	author={data.author.name}
-	jsonLd={starterAuthorJsonLd(data.author)}
+	jsonLd={contributorJsonLd(data.author)}
 />
 
 <PageLead {title} />
@@ -107,61 +117,66 @@
 			/>
 		{/if}
 	</div>
-	<SectionSeparator title={m.starter_decks_series_heading()} />
-	<ul class="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-		{#each data.series as series (series.slug)}
-			<li>
-				<a
-					class="bg-primary-200 dark:bg-primary-900 hover:bg-primary-300 dark:hover:bg-primary-800 flex items-center gap-3 rounded-md px-2 py-1.5"
-					href="#{series.slug}"
-					onclick={(event) => jumpToSeries(event, series.slug)}
-				>
-					{#if series.iconCard}
-						<CardCircle card={series.iconCard} shape="rounded" size="md" />
-					{/if}
-					<span class="flex min-w-0 flex-col">
-						<span class="text-primary-900 dark:text-primary-100 font-semibold">{series.name}</span>
-						<span class="text-primary-700 dark:text-primary-300 text-xs">
-							{m.starter_decks_deck_count({ count: series.entries.length })}
-						</span>
-					</span>
-				</a>
-			</li>
-		{/each}
-	</ul>
-
-	<div class="mt-4">
-		<Foldout title={m.starter_decks_filter()} keepMounted>
-			<div class="p-3">
-				<HelpParagraph>{m.starter_decks_filter_help()}</HelpParagraph>
-				<StarterFilter initiallyAll onChange={(f) => (filter = f)} />
-			</div>
-		</Foldout>
-	</div>
-</MarginText>
-<MarginFull>
-	<div class="mt-4">
-		<Tabs
-			direction="horizontal"
-			activeTabIndex={tab}
-			onTabChange={(index) => (tab = index)}
-			tabs={[
-				{ label: m.starter_decks_tab_decks({ count: deckCount }) },
-				{ label: m.starter_decks_tab_teams({ count: visibleTeams.length }) }
-			]}
-		/>
-	</div>
-	{#if tab === 0}
-		<div class="mt-4">
+	{#if hasDecks}
+		<SectionSeparator title={m.starter_decks_series_heading()} />
+		<ul class="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
 			{#each data.series as series (series.slug)}
-				<div class="mb-8">
-					<StarterSeriesSection {series} {filter} />
-				</div>
+				<li>
+					<a
+						class="bg-primary-200 dark:bg-primary-900 hover:bg-primary-300 dark:hover:bg-primary-800 flex items-center gap-3 rounded-md px-2 py-1.5"
+						href="#{series.slug}"
+						onclick={(event) => jumpToSeries(event, series.slug)}
+					>
+						{#if series.iconCard}
+							<CardCircle card={series.iconCard} shape="rounded" size="md" />
+						{/if}
+						<span class="flex min-w-0 flex-col">
+							<span class="text-primary-900 dark:text-primary-100 font-semibold">{series.name}</span
+							>
+							<span class="text-primary-700 dark:text-primary-300 text-xs">
+								{m.starter_decks_deck_count({ count: series.entries.length })}
+							</span>
+						</span>
+					</a>
+				</li>
 			{/each}
-		</div>
-	{:else}
+		</ul>
+
 		<div class="mt-4">
-			<PrebuiltTeamList entries={visibleTeams} />
+			<Foldout title={m.starter_decks_filter()} keepMounted>
+				<div class="p-3">
+					<HelpParagraph>{m.starter_decks_filter_help()}</HelpParagraph>
+					<StarterFilter initiallyAll onChange={(f) => (filter = f)} />
+				</div>
+			</Foldout>
 		</div>
 	{/if}
-</MarginFull>
+</MarginText>
+{#if hasDecks}
+	<MarginFull>
+		<div class="mt-4">
+			<Tabs
+				direction="horizontal"
+				activeTabIndex={tab}
+				onTabChange={(index) => (tab = index)}
+				tabs={[
+					{ label: m.starter_decks_tab_decks({ count: deckCount }) },
+					{ label: m.starter_decks_tab_teams({ count: visibleTeams.length }) }
+				]}
+			/>
+		</div>
+		{#if tab === 0}
+			<div class="mt-4">
+				{#each data.series as series (series.slug)}
+					<div class="mb-8">
+						<StarterSeriesSection {series} {filter} />
+					</div>
+				{/each}
+			</div>
+		{:else}
+			<div class="mt-4">
+				<PrebuiltTeamList entries={visibleTeams} />
+			</div>
+		{/if}
+	</MarginFull>
+{/if}

@@ -4,35 +4,39 @@ import type { BylineEntry } from '@5argon/arkham-life-ui';
 import { getAllCards } from '../card-data';
 
 /**
- * Hand-curated starter deck library: one folder per author, one folder per
- * series inside it, and verbatim copies of each deck JSON under decks/. The
- * copies exist so the decks stay available even if the original listing goes
- * offline; pages always point readers back to the original.
+ * Someone credited on the site, shared by everything they make. One file per
+ * person under contributor/, named by slug.
  */
-export interface StarterAuthor {
+export interface Contributor {
 	slug: string;
 	name: string;
 	arkhamdbUserId?: number;
 	arkhamdbUrl?: string;
 	/**
-	 * Card whose square art is the author's circular avatar.
+	 * Card whose square art is the contributor's circular avatar.
 	 */
 	avatarCard?: Card;
 	/**
-	 * The author's own words, plain text with bare URLs. Also the page's meta
+	 * Their own words, plain text with bare URLs. Also the page's meta
 	 * description.
 	 */
 	profile?: string;
 }
 
-interface AuthorJson {
-	slug: string;
+interface ContributorJson {
 	name: string;
 	arkhamdbUserId?: number;
 	arkhamdbUrl?: string;
 	avatarCardCode?: string;
 	profile?: string;
 }
+
+/**
+ * Hand-curated starter deck library: one folder per author, one folder per
+ * series inside it, and verbatim copies of each deck JSON under decks/. The
+ * copies exist so the decks stay available even if the original listing goes
+ * offline; pages always point readers back to the original.
+ */
 
 /**
  * One deck at one XP breakpoint (0, 9, 19, 29, 39...).
@@ -81,7 +85,7 @@ export interface StarterSeries {
 	 * Card whose square art represents the series, in a rounded square.
 	 */
 	iconCard?: Card;
-	author: StarterAuthor;
+	author: Contributor;
 	/**
 	 * In the series' intended order.
 	 */
@@ -124,7 +128,7 @@ interface SeriesJson {
 	}[];
 }
 
-const authorFiles = import.meta.glob<AuthorJson>('./starter/*/author.json', {
+const contributorFiles = import.meta.glob<ContributorJson>('./contributor/*.json', {
 	eager: true,
 	import: 'default'
 });
@@ -272,15 +276,18 @@ function iconCard(code: string | undefined, owner: string): Card | undefined {
 	return card;
 }
 
-const authors: StarterAuthor[] = Object.values(authorFiles).map(({ avatarCardCode, ...json }) => ({
-	...json,
-	avatarCard: iconCard(avatarCardCode, json.slug)
-}));
+const contributors: Contributor[] = Object.entries(contributorFiles).map(
+	([path, { avatarCardCode, ...json }]) => ({
+		...json,
+		slug: path.replace(/^.*\/|\.json$/g, ''),
+		avatarCard: iconCard(avatarCardCode, path)
+	})
+);
 const seriesFilesInOrder = Object.entries(seriesFiles).sort(([, a], [, b]) => a.order - b.order);
 const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 	const authorSlug = path.replace(/^\.\/starter\//, '').split('/')[0];
-	const author = authors.find((a) => a.slug === authorSlug);
-	if (author === undefined) throw new Error(`Starter series without author: ${path}`);
+	const author = contributor(authorSlug);
+	if (author === undefined) throw new Error(`Starter series without contributor: ${path}`);
 	const dir = path.replace(/series\.json$/, 'decks/');
 	const guideDir = path.replace(/series\.json$/, 'guides/');
 	const result: StarterSeries = {
@@ -352,7 +359,7 @@ export interface PrebuiltTeam {
 	 */
 	author: string;
 	/**
-	 * Starter deck author slug the team is listed under.
+	 * Slug of the contributor the team is listed under.
 	 */
 	authorSlug: string;
 	description: string;
@@ -377,7 +384,7 @@ export interface PrebuiltTeamSource {
 		slug: string;
 		name: string;
 		iconCard?: Card;
-		author: StarterAuthor;
+		author: Contributor;
 	};
 }
 
@@ -390,7 +397,6 @@ interface TeamSourceJson {
 interface TeamJson {
 	slug: string;
 	name: string;
-	author: string;
 	authorSlug: string;
 	description: string;
 	/**
@@ -459,10 +465,12 @@ const teams: PrebuiltTeam[] = Object.entries(teamFiles).map(([path, json]) => {
 			return { deck, source };
 		})
 		.sort((a, b) => a.deck.investigator_code.localeCompare(b.deck.investigator_code));
+	const author = contributor(json.authorSlug);
+	if (author === undefined) throw new Error(`Pre-built team without contributor: ${path}`);
 	return {
 		slug: json.slug,
 		name: json.name,
-		author: json.author,
+		author: author.name,
 		authorSlug: json.authorSlug,
 		description: json.description,
 		members,
@@ -487,8 +495,8 @@ export function prebuiltTeamHref(team: PrebuiltTeam): string {
 	return `/team/${team.slug}`;
 }
 
-export function starterAuthorHref(author: StarterAuthor): string {
-	return `/starter/${author.slug}`;
+export function contributorHref(person: Contributor): string {
+	return `/starter/${person.slug}`;
 }
 
 export function starterSeriesHref(series: Pick<StarterSeries, 'slug' | 'author'>): string {
@@ -506,7 +514,7 @@ export function starterByline(
 	return [
 		{
 			label: series.author.name,
-			href: links ? starterAuthorHref(series.author) : undefined,
+			href: links ? contributorHref(series.author) : undefined,
 			iconCard: series.author.avatarCard
 		},
 		{
@@ -543,12 +551,19 @@ export function sortByInvestigator(entries: StarterDeckEntry[]): StarterDeckEntr
 	);
 }
 
-export function allStarterAuthors(): StarterAuthor[] {
-	return authors;
+export function allContributors(): Contributor[] {
+	return contributors;
 }
 
-export function starterAuthor(slug: string): StarterAuthor | undefined {
-	return authors.find((a) => a.slug === slug);
+export function contributor(slug: string): Contributor | undefined {
+	return contributors.find((person) => person.slug === slug);
+}
+
+/**
+ * Contributors with at least one starter deck series.
+ */
+export function starterAuthors(): Contributor[] {
+	return contributors.filter((person) => starterSeriesOf(person.slug).length > 0);
 }
 
 export function starterSeriesOf(authorSlug: string): StarterSeries[] {
