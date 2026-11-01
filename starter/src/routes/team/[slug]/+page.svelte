@@ -15,7 +15,7 @@
 	import FullScreenTeamViewer from '$lib/design/components/team/FullScreenTeamViewer.svelte';
 	import TeamBanner from '$lib/design/components/team/TeamBanner.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { prebuiltTeamHref } from '$lib/starter-content';
+	import { prebuiltTeamHref, starterAuthor } from '$lib/starter-content';
 	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 	import { teamState } from '$lib/tool/starter/filter';
 
@@ -27,6 +27,7 @@
 		mounted = true;
 	});
 	const team = $derived(data.team);
+	const teamAuthor = $derived(starterAuthor(team.authorSlug));
 	const resolver = createCardResolver();
 	const builderState = $derived(teamState(team, getAllCards()));
 	const deckMeta = $derived(
@@ -68,6 +69,8 @@
 				team={builderState}
 				sources={team.members.map((member) => member.source)}
 				exclusive={team.exclusive}
+				authorAvatar={teamAuthor?.avatarCard}
+				authorSlug={teamAuthor?.slug}
 			/>
 		</div>
 		<FullScreenTeamViewer

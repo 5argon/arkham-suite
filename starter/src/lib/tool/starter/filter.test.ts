@@ -1,7 +1,7 @@
 import { type CardCode, Product } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
-import { matchesInvestigators, type StarterFilterValue } from './filter';
+import { matchesInvestigators, pickRandom, type StarterFilterValue } from './filter';
 
 const roland = '01001' as CardCode;
 const daisy = '01002' as CardCode;
@@ -35,5 +35,18 @@ describe('pre-built team investigator filter', () => {
 	it('does not match results when every investigator is deselected', () => {
 		expect(matchesInvestigators([roland, daisy], filter([], false))).toBe(false);
 		expect(matchesInvestigators([roland, daisy], filter([], true))).toBe(false);
+	});
+});
+
+describe('pickRandom', () => {
+	it('never repeats the previous pick when there is another choice', () => {
+		for (let i = 0; i < 50; i++) {
+			expect(pickRandom([roland, daisy], roland)).toBe(daisy);
+		}
+	});
+
+	it('repeats the only item and returns null for nothing', () => {
+		expect(pickRandom([roland], roland)).toBe(roland);
+		expect(pickRandom([], null)).toBe(null);
 	});
 });

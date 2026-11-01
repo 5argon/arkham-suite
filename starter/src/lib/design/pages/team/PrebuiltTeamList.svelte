@@ -1,14 +1,17 @@
 <!--
 @component
 Pre-built teams browsed by player count: 2 / 3 / 4 Players tabs (with the
-count of matching teams), paginated team cards.
+count of matching teams), paginated team cards. Bind `sizeIndex` to share the
+chosen player count with the rest of the page.
 -->
 <script lang="ts">
+	import { snapshot } from '$app/navigation';
 	import { Pagination, Tabs } from '@5argon/arkham-life-ui';
 
 	import * as m from '$lib/paraglide/messages.js';
 	import type { PrebuiltTeam } from '$lib/starter-content';
 	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
+	import { TEAM_SIZES } from '$lib/tool/starter/filter';
 
 	import PrebuiltTeamCard from './PrebuiltTeamCard.svelte';
 
@@ -22,14 +25,16 @@ count of matching teams), paginated team cards.
 		 * Already filtered; this component only splits by player count.
 		 */
 		entries: PrebuiltTeamEntry[];
+		/**
+		 * Index into the player counts; 3 players by default.
+		 */
+		sizeIndex?: number;
 	}
-	const { entries }: Prop = $props();
+	let { entries, sizeIndex = $bindable(1) }: Prop = $props();
 
-	const SIZES = [2, 3, 4] as const;
 	const bySize = $derived(
-		SIZES.map((size) => entries.filter((x) => x.builderState.decks.length === size))
+		TEAM_SIZES.map((size) => entries.filter((x) => x.builderState.decks.length === size))
 	);
-	let sizeIndex = $state(1);
 	const PAGE_SIZE = 20;
 	let page = $state(1);
 	let tabsEl = $state<HTMLElement | null>(null);
@@ -41,6 +46,14 @@ count of matching teams), paginated team cards.
 			Math.min(page, pageCount) * PAGE_SIZE
 		)
 	);
+	snapshot({
+		id: 'prebuilt-team-list',
+		capture: () => ({ sizeIndex, page }),
+		restore: (value) => {
+			sizeIndex = value.sizeIndex;
+			page = value.page;
+		}
+	});
 	function changePage(next: number) {
 		page = next;
 		tabsEl?.scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -55,7 +68,7 @@ count of matching teams), paginated team cards.
 		sizeIndex = index;
 		page = 1;
 	}}
-	tabs={SIZES.map((size, i) => ({
+	tabs={TEAM_SIZES.map((size, i) => ({
 		label: m.team_players_tab({ count: size, teams: bySize[i].length })
 	}))}
 />

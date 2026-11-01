@@ -13,11 +13,27 @@ export interface StarterFilterValue {
 
 const CORE = Product.CoreSet2026;
 
+/**
+ * Buildable from the owned products, whoever the investigator is.
+ */
+export function deckMatchesProducts(entry: StarterDeckEntry, filter: StarterFilterValue): boolean {
+	return deckCardPool(entry.primary).every((p) => p === CORE || filter.products.has(p as Product));
+}
+
 export function deckMatches(entry: StarterDeckEntry, filter: StarterFilterValue): boolean {
 	return (
-		deckCardPool(entry.primary).every((p) => p === CORE || filter.products.has(p as Product)) &&
-		filter.investigators.has(entry.primary.investigator_code)
+		deckMatchesProducts(entry, filter) && filter.investigators.has(entry.primary.investigator_code)
 	);
+}
+
+/**
+ * A random item, avoiding `previous` when there is anything else to show so
+ * pressing Randomize again always changes the result.
+ */
+export function pickRandom<T>(items: T[], previous: T | null): T | null {
+	const pool = items.length > 1 ? items.filter((x) => x !== previous) : items;
+	if (pool.length === 0) return null;
+	return pool[Math.floor(Math.random() * pool.length)];
 }
 
 export function matchesInvestigators(
@@ -60,10 +76,23 @@ export function teamState(team: PrebuiltTeam, allCards: Card[]): EvergreenState 
 	);
 }
 
+/**
+ * Player counts pre-built teams are browsed by.
+ */
+export const TEAM_SIZES = [2, 3, 4] as const;
+
+export function teamSize(entry: PrebuiltTeamEntry): number {
+	return entry.builderState.decks.length;
+}
+
+export function teamMatchesProducts(entry: PrebuiltTeamEntry, filter: StarterFilterValue): boolean {
+	return entry.builderState.setup.deckProducts.every((p) => p === CORE || filter.products.has(p));
+}
+
 export function teamMatches(entry: PrebuiltTeamEntry, filter: StarterFilterValue): boolean {
-	const { setup, decks } = entry.builderState;
+	const { decks } = entry.builderState;
 	return (
-		setup.deckProducts.every((p) => p === CORE || filter.products.has(p)) &&
+		teamMatchesProducts(entry, filter) &&
 		matchesInvestigators(
 			decks.map((deck) => deck.investigator),
 			filter

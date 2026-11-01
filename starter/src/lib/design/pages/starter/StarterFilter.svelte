@@ -4,19 +4,20 @@ The starter library filter shared by the Starter Decks and Pre-Built Teams
 pages: the Investigator Decks you own (Core Set 2026 is always in) and the
 investigators to show, each with select / deselect all. The product choice
 is remembered with the starter team cart so Use This Team carries it.
+Investigators start unpicked so the reader chooses who they are curious
+about, unless `initiallyAll` asks for everything shown up front.
 -->
 <script lang="ts">
+	import { snapshot } from '$app/navigation';
 	import {
 		Button,
-		CardLine,
 		Checkbox,
-		HealthSanity,
 		HelpParagraph,
-		ImageIconCommit,
+		InvestigatorPicker,
 		SectionSeparator
 	} from '@5argon/arkham-life-ui';
-	import { type CardCode, Product } from '@5argon/arkham-kohaku';
-	import clsx from 'clsx';
+	import { type Card, type CardCode, Product } from '@5argon/arkham-kohaku';
+	import { untrack } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
 
 	import { getAllCards } from '$lib/card-data';
@@ -29,33 +30,39 @@ is remembered with the starter team cart so Use This Team carries it.
 	interface Prop {
 		onChange: (filter: StarterFilterValue) => void;
 		showMustIncludeAll?: boolean;
+		/**
+		 * Starts with every investigator picked instead of none.
+		 */
+		initiallyAll?: boolean;
 	}
-	const { onChange, showMustIncludeAll = false }: Prop = $props();
+	const { onChange, showMustIncludeAll = false, initiallyAll = false }: Prop = $props();
 
 	const core = Product.CoreSet2026;
 	const deckProducts = deckProductsForCore(core);
 	const allCards = getAllCards();
+
+	function rosterOf(products: Product[]): Card[] {
+		return investigatorsForSetup(
+			{ core, deckProducts: products, extraProducts: [], investigators: [] },
+			allCards
+		);
+	}
 
 	// Every Investigator Deck starts selected; the choice still travels with
 	// the starter team cart so Use This Team carries it.
 	const selectedProducts = new SvelteSet<Product>(deckProducts);
 	// The roster follows the owned products: five from the core box plus one
 	// per selected Investigator Deck.
-	const investigators = $derived(
-		investigatorsForSetup(
-			{ core, deckProducts: [...selectedProducts], extraProducts: [], investigators: [] },
-			allCards
-		)
+	const investigators = $derived(rosterOf([...selectedProducts]));
+	const selectedInvestigators = new SvelteSet<CardCode>(
+		untrack(() => initiallyAll) ? rosterOf(deckProducts).map((c) => c.code) : []
 	);
-	// Codes the user turned off; everything available is on by default, so
-	// newly appearing investigators start selected.
-	const excludedInvestigators = new SvelteSet<CardCode>();
 	let mustIncludeAll = $state(false);
 	const activeInvestigators = $derived(
-		new Set(investigators.map((c) => c.code).filter((code) => !excludedInvestigators.has(code)))
+		new Set(investigators.map((c) => c.code).filter((code) => selectedInvestigators.has(code)))
 	);
 	const allInvestigatorsOn = $derived(
-		investigators.every((c) => !excludedInvestigators.has(c.code))
+		investigators.every((c) => selectedInvestigators.has(c.code))
 	);
 
 	function emit() {
@@ -65,11 +72,39 @@ is remembered with the starter team cart so Use This Team carries it.
 			mustIncludeAll
 		});
 	}
+	/**
+	 * Investigators a newly owned product brings in join the selection only
+	 * when everyone was already picked, so "show me everything" stays so.
+	 */
+	function changeProducts(apply: () => void) {
+		const wasAll = allInvestigatorsOn;
+		apply();
+		if (wasAll) for (const c of investigators) selectedInvestigators.add(c.code);
+		rememberProducts();
+	}
 	function rememberProducts() {
 		starterTeam.setProducts([...selectedProducts]);
 		emit();
 	}
 	rememberProducts();
+
+	// Coming back to the page restores what was picked.
+	snapshot({
+		id: 'starter-filter',
+		capture: () => ({
+			products: [...selectedProducts],
+			investigators: [...selectedInvestigators],
+			mustIncludeAll
+		}),
+		restore: (value) => {
+			selectedProducts.clear();
+			for (const p of value.products) selectedProducts.add(p);
+			selectedInvestigators.clear();
+			for (const code of value.investigators) selectedInvestigators.add(code);
+			mustIncludeAll = value.mustIncludeAll;
+			rememberProducts();
+		}
+	});
 </script>
 
 <SectionSeparator title={m.starter_decks_filter_products()} />
@@ -77,16 +112,16 @@ is remembered with the starter team cart so Use This Team carries it.
 <DeckProductPicker
 	{core}
 	selected={[...selectedProducts]}
-	onToggle={(product, included) => {
-		if (included) selectedProducts.add(product);
-		else selectedProducts.delete(product);
-		rememberProducts();
-	}}
-	onSetAll={(products) => {
-		selectedProducts.clear();
-		for (const p of products) selectedProducts.add(p);
-		rememberProducts();
-	}}
+	onToggle={(product, included) =>
+		changeProducts(() => {
+			if (included) selectedProducts.add(product);
+			else selectedProducts.delete(product);
+		})}
+	onSetAll={(products) =>
+		changeProducts(() => {
+			selectedProducts.clear();
+			for (const p of products) selectedProducts.add(p);
+		})}
 />
 
 <SectionSeparator title={m.starter_decks_filter_investigators()} />
@@ -97,9 +132,9 @@ is remembered with the starter team cart so Use This Team carries it.
 			: m.tool_evergreen_team_select_all()}
 		onClick={() => {
 			if (allInvestigatorsOn) {
-				for (const c of investigators) excludedInvestigators.add(c.code);
+				selectedInvestigators.clear();
 			} else {
-				excludedInvestigators.clear();
+				for (const c of investigators) selectedInvestigators.add(c.code);
 			}
 			emit();
 		}}
@@ -112,57 +147,14 @@ is remembered with the starter team cart so Use This Team carries it.
 		/>
 	{/if}
 </div>
-<!-- The same investigator block as the deck banner's left side, so beginners
-     meet each investigator's name, health, sanity, and stats while filtering. -->
-<div class="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-	{#each investigators as investigator (investigator.code)}
-		{@const on = activeInvestigators.has(investigator.code)}
-		<button
-			type="button"
-			class={clsx(
-				'investigator-toggle bg-primary-200 dark:bg-primary-900 flex flex-col items-start gap-1 rounded-md border-2 px-2 py-1.5 text-left',
-				on ? 'on border-primary-500' : 'border-transparent opacity-50 grayscale'
-			)}
-			aria-pressed={on}
-			onclick={() => {
-				if (on) excludedInvestigators.add(investigator.code);
-				else excludedInvestigators.delete(investigator.code);
-				emit();
-			}}
-		>
-			<CardLine noReserveCardTypeIcon hideIcons card={investigator} />
-			<span class="flex items-center gap-2">
-				<HealthSanity health={investigator.health} sanity={investigator.sanity} />
-				<ImageIconCommit card={investigator} highlightAtLeast={4} dimAtMost={2} />
-			</span>
-		</button>
-	{/each}
-</div>
-
-<style>
-	.investigator-toggle {
-		cursor: pointer;
-	}
-
-	.investigator-toggle:hover {
-		opacity: 1;
-		filter: none;
-		background-color: var(--color-primary-200);
-	}
-
-	.investigator-toggle.on:hover {
-		background-color: var(--color-primary-300);
-	}
-
-	.investigator-toggle:active {
-		transform: scale(0.99);
-	}
-
-	:global(.dark) .investigator-toggle:hover {
-		background-color: var(--color-primary-800);
-	}
-
-	:global(.dark) .investigator-toggle.on:hover {
-		background-color: var(--color-primary-700);
-	}
-</style>
+<InvestigatorPicker
+	{investigators}
+	selected={activeInvestigators}
+	highlightStatsAtLeast={4}
+	dimStatsAtMost={2}
+	onToggle={(investigator, on) => {
+		if (on) selectedInvestigators.add(investigator.code);
+		else selectedInvestigators.delete(investigator.code);
+		emit();
+	}}
+/>

@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import {
 		Button,
+		CardCircle,
 		DeckDisplay,
 		FaIconType,
 		MarginFull,
@@ -19,10 +20,9 @@
 	import UpgradePlanView from '$lib/design/pages/tool/upgrade/layout/UpgradePlanView.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import {
+		starterByline,
 		starterDeck,
-		starterAuthorHref,
 		starterDeckHref,
-		starterSeriesHref,
 		toCore2026Code
 	} from '$lib/starter-content';
 	import { protoStringRestore } from '$lib/tool/script/export/proto-string-restore';
@@ -110,19 +110,25 @@
 	<div class="mb-3 flex flex-col items-center gap-2">
 		<p class="text-primary-800 dark:text-primary-200 text-center text-sm">
 			<a
-				class="font-semibold hover:underline"
+				class="inline-flex items-center gap-1.5 align-middle font-semibold hover:underline"
 				href={resolve('/starter/[author]', { author: author.slug })}
 			>
+				{#if author.avatarCard}
+					<CardCircle card={author.avatarCard} />
+				{/if}
 				{m.starter_decks_by_author({ author: author.name })}
 			</a>
 			·
 			<a
-				class="font-semibold hover:underline"
+				class="inline-flex items-center gap-1.5 align-middle font-semibold hover:underline"
 				href={resolve('/starter/[author]/[series]', {
 					author: entry.series.author.slug,
 					series: entry.series.slug
 				})}
 			>
+				{#if entry.series.iconCard}
+					<CardCircle card={entry.series.iconCard} shape="rounded" />
+				{/if}
 				{entry.series.name}
 			</a>
 		</p>
@@ -168,10 +174,7 @@
 		cardResolver={resolver}
 		deck={versions[0].deck}
 		mode="decklist"
-		byline={[
-			{ label: author.name, href: starterAuthorHref(author) },
-			{ label: entry.series.name, href: starterSeriesHref(entry.series) }
-		]}
+		byline={starterByline(entry.series)}
 		beforeList={versionTabs}
 		hideList={shownVersion.index !== 0 || tab === 'plan'}
 		highlightStatsAtLeast={4}

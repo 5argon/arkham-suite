@@ -11,5 +11,9 @@
 	"team_guide": "Team Guide",
 	"team_view": "View Team",
 	"team_from_starter_deck": "From this starter deck:",
-	"team_exclusive": "Exclusive"
+	"team_exclusive": "Exclusive",
+	"team_total": "This site hosts {total} pre-built teams in total: {two} for 2 players, {three} for 3 players, and {four} for 4 players.",
+	"team_pick_prompt": "Pick the investigators your group would like to play above to see the teams that include them.",
+	"team_randomize": "Random {count}-Player Team",
+	"team_randomize_again": "Another {count}-Player Team"
 }
