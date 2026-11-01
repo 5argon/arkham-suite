@@ -29,6 +29,8 @@ Block element with fixed height that display some overall information about the 
 	import { createTooltipState } from '../utility/tooltip-state.svelte.js';
 	import { resolve } from '$app/paths';
 	import { getCardImagePath } from '../utility/image';
+	import CardCircle from './CardCircle.svelte';
+	import type { BylineEntry } from './byline.js';
 	interface Prop {
 		/**
 		 * This deck supports an entire history chain stored within one variable.
@@ -66,7 +68,7 @@ Block element with fixed height that display some overall information about the 
 		 * Small attribution lines under the deck name (author, series, ...).
 		 * Entries with an href render as internal links.
 		 */
-		byline?: { label: string; href?: string }[];
+		byline?: BylineEntry[];
 		/**
 		 * If true, shows only the deck name and investigator info in a compact format.
 		 */
@@ -145,6 +147,12 @@ Block element with fixed height that display some overall information about the 
 	const squareBgPath = $derived(getCardImagePath(frontInvestigator.code, 'square'));
 	const tooltip = createTooltipState<Card>();
 </script>
+
+{#snippet bylineIcon(line: BylineEntry)}
+	{#if line.iconCard}
+		<CardCircle card={line.iconCard} shape={line.iconShape} size="xs" />
+	{/if}
+{/snippet}
 
 {#snippet parallelIndicator(front: boolean, back: boolean)}
 	{@const parallelFront = m.card_parallel_front()}
@@ -257,9 +265,14 @@ Block element with fixed height that display some overall information about the 
 						>
 					{/if}
 					{#if line.href}
-						<a class="hover:underline" href={resolve(line.href as any)}>{line.label}</a>
+						<a
+							class="inline-flex items-center gap-1 hover:underline"
+							href={resolve(line.href as any)}>{@render bylineIcon(line)}{line.label}</a
+						>
 					{:else}
-						<span>{line.label}</span>
+						<span class="inline-flex items-center gap-1"
+							>{@render bylineIcon(line)}{line.label}</span
+						>
 					{/if}
 				{/each}
 			</div>

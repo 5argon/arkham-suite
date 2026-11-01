@@ -47,3 +47,4 @@ export type { RecursivelyGroupedCardItem } from './card-item.js';
 export { findLinkedCardsSpecial } from './card-item.js';
 export type { CardLabelProp } from './CardLabel.svelte';
 export { default as UserDisplay } from './UserDisplay.svelte';
+export type { BylineEntry } from './byline.js';

@@ -22,6 +22,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	import ExportDeckModal from './ExportDeckModal.svelte';
 	import CardScanFullSmallGridInvestigator from './CardScanFullSmallGridInvestigator.svelte';
 	import type { CardItem, GroupingSortingSettings } from './card-item.js';
+	import type { BylineEntry } from './byline.js';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
 	import FlexibleCardDisplay from './FlexibleCardDisplay.svelte';
 	import Checkbox from '../form/Checkbox.svelte';
@@ -77,7 +78,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		/**
 		 * Passed to the banner: small attribution lines under the deck name.
 		 */
-		byline?: { label: string; href?: string }[];
+		byline?: BylineEntry[];
 		/**
 		 * Passed to the banner: investigator stats at or above this value render emphasized.
 		 */

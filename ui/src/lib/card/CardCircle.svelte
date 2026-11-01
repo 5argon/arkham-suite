@@ -2,7 +2,8 @@
 @component
 Circular profile icon for a card.
 Layers mirror CardSquare (class-colored outer border → accent border → white border → image)
-but with full rounded shape and no level pips.
+but with full rounded shape and no level pips. The `rounded` shape keeps the same
+layers as a rounded square, for icons that should read as a thing rather than a person.
 -->
 <script lang="ts">
 	import { getCardImagePath } from '../utility/image.js';
@@ -12,9 +13,31 @@ but with full rounded shape and no level pips.
 	interface Prop {
 		card: Card;
 		greyedOut?: boolean;
+		/**
+		 * Default `circle`.
+		 */
+		shape?: 'circle' | 'rounded';
+		/**
+		 * Image edge length. Default `sm` (1.5rem).
+		 * `xs` 1rem, `md` 2.5rem, `lg` 4rem, `xl` 6rem.
+		 */
+		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 	}
 
-	const { card, greyedOut = false }: Prop = $props();
+	const { card, greyedOut = false, shape = 'circle', size = 'sm' }: Prop = $props();
+	const roundClass = $derived(shape === 'circle' ? 'rounded-full' : 'rounded-[25%]');
+	const sizeClass = $derived(
+		{
+			xs: 'h-4 w-4',
+			sm: 'h-6 w-6',
+			md: 'h-10 w-10',
+			lg: 'h-16 w-16',
+			xl: 'h-24 w-24'
+		}[size]
+	);
+	const outerBorderClass = $derived(
+		size === 'xs' ? 'border' : size === 'lg' || size === 'xl' ? 'border-4' : 'border-2'
+	);
 	const completePath = $derived(getCardImagePath(card.code, 'square'));
 
 	const borderColorClass = $derived.by(() => {
@@ -65,12 +88,20 @@ but with full rounded shape and no level pips.
 </script>
 
 <!-- outer: thick class-colored border -->
-<div class={clsx('inline-flex rounded-full border-2', borderColorClass, greyedOut && 'opacity-20')}>
+<span
+	class={clsx(
+		'inline-flex shrink-0',
+		roundClass,
+		outerBorderClass,
+		borderColorClass,
+		greyedOut && 'opacity-20'
+	)}
+>
 	<!-- middle: thin accent-colored border -->
-	<div class={clsx('rounded-full border', borderAccentClass)}>
-		<!-- inner: thin white border + clip to circle -->
-		<div class="overflow-hidden rounded-full border border-white">
-			<img class="block h-6 w-6 object-cover" src={completePath} alt={card.name} />
-		</div>
-	</div>
-</div>
+	<span class={clsx('block border', roundClass, borderAccentClass)}>
+		<!-- inner: thin white border + clip to shape -->
+		<span class={clsx('block overflow-hidden border border-white', roundClass)}>
+			<img class={clsx('block object-cover', sizeClass)} src={completePath} alt={card.name} />
+		</span>
+	</span>
+</span>
