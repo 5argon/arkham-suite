@@ -1,0 +1,43 @@
+{
+	"slug": "ch2-combo-cult",
+	"order": 4,
+	"name": "Ch2 Combo Cult",
+	"description": "In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos.",
+	"iconCardCode": "12026",
+	"decks": [
+		{
+			"id": 66007,
+			"slug": "dragged-across-concrete",
+			"introMd": "Here Daniela drags enemies kicking and screaming into [Lie in Wait](/card/60566) or [Rope Trap](/card/60578), getting <span class=\"icon-reaction\"></span> attacks with her ability and a [Service Revolver](/card/60158) for up to 6 attacks in a round rather than the usual 5. For soaking attacks, [Bodyguard](/card/12027) takes a bullet or a tentacle for you and dishes out auto-damage.",
+			"bannerUrl": "https://pbs.twimg.com/media/HRTsAgJbIAAuJh6.png",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66007.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66007.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDk0GgUxMjA4MjABOAEKEhIFMTIwOTQaBTEyMDgyMAE4AgoLGgUxMjA5NTADOAUKEhIFMTIwMTYaBTEyMDI3MAI4BwoSEgUxMjAxNhoFMTIwMjcwAjgJChISBTEyMDI0GgU2MDU3ODACOAsKEhIFMTIwMjQaBTYwNTc4MAI4DQoSEgUxMjAyNRoFNjAxNzYwAjgPChISBTEyMDI1GgU2MDE3NjACOBEKEhIFMTIwODEaBTEyMDI2MAE4EgoSEgUxMjA4MRoFMTIwMjYwATgTChA4E0IKUG9zdC0xOSBYUEgBChISBTEyMDIwGgU2MDE3MTACOBUKEhIFMTIwMjAaBTYwMTcxMAI4FwoSEgUxMjAyMhoFNjA1NzYwAjgZChISBTEyMDIyGgU2MDU3NjACOBsKEhIFNjA1NjcaBTYwMTc4MAM4HhJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 66008,
+			"slug": "the-combo-queen",
+			"introMd": "Why have one combo, when you can have four?! Here Izzie uses [Old Compass](/card/12083) and [Rabbit's Foot](/card/60560) as fail tech, getting clues off 4 shroud locations with [\"Look what I found!\"](/card/12078). She gets testless clues with [Will of the Cosmos](/card/12066), and places the doom on self-discarding [Hunter's Instinct](/card/12074) or [Same Old Thing](/card/60561). She heals horror and damage with [Consume Life](/card/60462) kills paired to [Cosmic Guidance](/card/60468) and [Fearless](/card/12069). Lastly, through double-dipping [Do-or-Die](/card/60568) with her ability then Izzie trivially recurs the ever-powerful [Scrape By](/card/12082). How I got this all into one deck I'll never know!",
+			"bannerUrl": "https://pbs.twimg.com/media/HRSwbI_b0AAfl-K.png",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66008.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66008.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTEyMDk2MAM4AwoSEgUxMjA5NBoFMTIwODIwATgEChISBTEyMDk0GgUxMjA4MjABOAUKEhIFMTIwOTMaBTEyMDg0MAI4BwoSEgUxMjA5MxoFMTIwODQwAjgJChISBTEyMDYxGgU2MDU3MzACOAsKEhIFMTIwNjEaBTYwNTczMAI4DQoSEgU2MDU1OBoFMTIwODMwAjgPChISBTYwNTU4GgUxMjA4MzACOBEKEhIFMTIwNzIaBTEyMDY5MAI4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgUxMjA4MRoFNjA1ODIwAzgWChISBTEyMDgxGgU2MDU4MjADOBkKEhIFMTIwNzQaBTYwNTc0MAI4GwoSEgUxMjA3NBoFNjA1NzQwAjgdEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		}
+	]
+}

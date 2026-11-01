@@ -21,6 +21,7 @@ import {
 } from '.';
 
 const tagsBySeries = {
+	'ch2-combo-cult': 'starter beginner hc-ch2-combo-cult',
 	'ch2-core-only': 'starter beginner hc-ch2-core-only',
 	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
 	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited'
@@ -57,7 +58,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(40);
+		expect(versions).toHaveLength(44);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
