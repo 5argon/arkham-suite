@@ -2,7 +2,7 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"team_title": "Pre-Built Teams",
 	"team_page_title": "arkham-starter.com | Pre-Built Teams",
-	"team_intro": "Ready-to-go teams of various player counts. Many of these were mix and matched from the starter decks hosted on this site with overlaps resolved for you, or even tailor-made team where individual decks in it won't work on its own!",
+	"team_intro": "Ready-to-go teams of various player counts. Many of these were mix and matched from the starter decks hosted on this site with overlaps resolved for you.",
 	"team_filter_include": "Teams Must Include",
 	"team_filter_include_any": "Any Picked Investigator",
 	"team_filter_include_all": "All Picked Investigators",
