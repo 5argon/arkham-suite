@@ -1,6 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"starter_decks_title": "Starter Decks",
+	"starter_decks_whats": "Starter Decks?",
 	"starter_decks_page_title": "arkham-starter.com | Starter Decks",
 	"starter_decks_deck_title": "{deck} - Starter Deck by {author}",
 	"starter_decks_deck_description": "{deck}, a starter deck for Arkham Horror: The Card Game by {author}.",

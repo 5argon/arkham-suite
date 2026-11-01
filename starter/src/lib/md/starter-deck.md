@@ -1,94 +1,34 @@
-# Starter Deck
+Since this site specializes in beginners and also accepts contributions, I'd like to define concretely what a starter deck is. To be very technical, it comes down to just 4 rules:
 
-These decks are curated from arkhamdb.com. Since majority of decks in that site are made by power users with access to
-every cards in the game, it is very common for a highly-rated deck there to touch only 1~4 cards in an entire
-Investigator Expansion to get the deck to do its best thing in any mulligan combination. Though that would perform well,
-in beginner's perspective it might appear as wasteful to buy such an expensive product for only a few cards, and the
-cost of building those decks appears insane.
+- The deck must be compatible with the Current Environment at some point in time.
+- The deck must not use more than 2 Rotating Expansions.
+- The deck must have a 0 XP state with its upgrade cards waiting in the Side Deck. The upgrades required to execute its main idea must not exceed 19 XP.
+- The deck must hold up on Standard difficulty with 2~4 players.
 
-Those who don't want to deckbuild and just want to go on an adventure might be led to think unless they buy more, they
-can't follow any deck. The ultimate objective of this page is to say that's not true!
+Here are the longer implications of those, if you are curious...
 
-Unlike arkhamdb, this site's decklist design has "expansion used" icon array displaying upfront so beginners can
-immediately see that the deck is cheap and buildable even before going into it. Each icon is one unit of purchase, so
-all the decks here will look immediately friendly for their low amount of icons. If using this display for decks in
-arkhamdb (you can try it by viewing a popular deck in arkhamdb, then modify URL from `arkhamdb.com` to
-`arkham-starter.com`), each deck can easily hit 8+ icons.
+# Low entry cost, products easy to obtain
 
-Each deck has a backlink to it to read the deck guide. There you can like the deck to show appreciation and can comment
-to talk with the author.
+Even if the deck guide is well-written and the deck is very simple to play, it is not a "starter" deck if it uses just 2~4 cards from each product and needs 10 different products to reach that beginner-friendly power. The cost of a deck in an LCG is measured in units of "product", unlike a TCG where you can purchase singles. In my opinion, having a **low entry cost** is very important for a starter deck.
 
-## Submit your starter decks
+Chapter 2 already defined some useful official terms for me to use: Current Environment, Evergreen Products, and Rotating Expansions. The Current Environment is the Evergreen Products (Core Set 2026 and the 5 Investigator Decks, always in print), plus up to 4 Rotating Expansions: the latest 2 Investigator Expansions and the latest 2 Deckbuilding Expansions. (Anything no longer among the latest 2 of its kind could go out of print.)
 
-Are you a **starter deck author** looking to help out future AHLCG beginners? Such is the objective of this site! If
-your deck aligns with criterias below, direct message me on the contacts below with a URL to your **published** deck and
-I'll work on adding it to the site. Many combination of purchases are still missing at this point (e.g. Core + Dunwich +
-Carcosa which is quite a common sequence of purchase.) so this site could always use your help.
+For a deck to be compatible with a Current Environment, any Investigator Expansions or Deckbuilding Expansions it uses can't be further apart than 2 consecutive releases of their own kind, and all of them must have been in the same Current Environment at one point. A deck using only a few products is technically low cost, but if it requires hunting down one product printed in 2027 (no longer in print because it's the rotating kind) and another printed in 2032, the deck is hardcore and not considered a starter.
 
-## What is a Starter Deck?
+This improves the chances for someone who got into the game at some point in the past, purchased some Rotating Expansions at that time, and went on hiatus. If they come back in the future when those products are all out of print and they don't want to buy anything new, they can still find some decks from their period.
 
-This site defined a "Starter Deck" as :
+I've decided to go one step further and limit decks to just 2 Rotating Expansions (even though a Current Environment can hold up to 4). This further improves the chance of being able to build the deck without spending too much, and also the chance that several starter decks can happen to live in the same team when they occupy different Rotating Expansions.
 
-- **New distribution format** : First, it means each player having one copy of Revised Core Set. You should not ever
-  assume player having only 1x Machete or 1x Deduction again. Such deck will be underpowered for modern new players
-  buying Revised Core Set. Second, it means Investigator Expansion. If the player has Zoey Samaras, they also has
-  Prepared for the Worst (that was originally given in one of the Mythos Pack.)
+# Friendly handholding
 
-  Finally, player always have the Revised-additional cards such as Lockpicks and Charisma. Make sure you are not
-  unintentionally use the one from Investigator Expansion. For example, when making a deck not intended to require
-  Dunwich Legacy but wants to use Charisma or Relic Hunter, in arkhamdb you need to unselect the entire The Dunwich
-  Legacy checkboxes so it uses Revised Core Set's Charisma and Relic Hunter instead. Make sure it doesn't say "The Essex
-  County Express" when you hover on them. Same for Lockpicks, arkhamdb seems to prioritize The Path to Carcosa ones
-  rather than Revised Core Set.
+Many deckbuilders publish their deck only in its fully powered-up state to express their idea. But this game is best played in Campaign Mode, where you start from 0 XP and the deck's name might not even make sense yet. A good beginner's deck has to prove it is functional at any XP point on the way to that state, slowly replacing parts in a seamless manner. It's a lot of work to ask beginners to reverse-engineer a deck down to 0 XP on their own, so I decided to make the 0 XP state a must.
 
-- **No more than 3 additional purchases** : In new release format, Investigator Expansion and Investigator Starter Deck
-  counts as 1 unit of purchase. This site wants to show that the options expanded by a lot when player clicks on even
-  one additional expansions. Since Parallel Investigator are all free to print and play, they are always available for
-  use without taking this quota.
-- **0 XP Deck with Side Deck as upgrades** : Beginners can't easily work backwards from full XP deck to 0 XP deck to
-  start playing like intermediate players. Rather we would like them able to gather all the cards listed and being able
-  to just sit and play for an entire campaign without touching the collection box again. They can still make choices of
-  upgrade decisions from cards in the Side Deck. You are not required to eventually purchase everything in the Side
-  Deck.
+Since beginners have limited cards to work with, the Lv. 0 state of the deck with all upgrade cards in the Side Deck is the best way to foresee whether its cards clash with other team members at any point from start to finish.
 
-  Note that in arkhamdb Side Deck cards neither contribute towards packs required nor being searchable. In this site,
-  Side Deck are treated importantly as real, required cards to build the deck (since they are the future state of the
-  deck), and are compatible with filters that let you look for decks using cards you are interested in (in the future).
+# Competency
 
-- **For Standard difficulty** : Though it is generally advised that newcomers to play on Easy, all the deck in this site
-  should be Standard compatible. If they decided to play on Easy anyway then the deck will be even performing better
-  than expected. It means that the investigator is able to use their dominant stats to win tests on Standard difficulty
-  after setting up appropriately. (e.g. Someone with 3 stat wouldn't able to do much on Standard without boosts or
-  commits, but would be able to in Easy.)
-- **Has a deck guide** : Put this guide in the Description section. It is a good idea to explain how to play at various
-  XP point this deck would journey through. Upgrade guide, what to look for in mulligans, and so on. If you are feeling
-  generous, how to play the investigator here and there would help. (e.g. In Wendy deck, it'd be helpful to remind
-  readers about her token redraw ability at various point in the guide.)
+I set the 19 XP requirement after seeing that a perfect play of Children of Blood earns you about 19 XP. It is also one of the breakpoints for Standalone Scenario decks, the one with 2 Basic Weaknesses. This number seems like a good one for maximizing compatibility with all game modes. There will be no question of whether the deck is compatible with a Small Campaign Expansion's XP or only with the big ones. Any XP past this point should be for nice-to-have cards.
 
-## New Metadata
+"Holding up on Standard difficulty" doesn't mean it must always win effortlessly. Losing is also fun and often the case in this game after all, so you be the judge of whether it holds up or not. My main interests in this criterion are rather that the deck doesn't have to be compatible with Hard or Expert difficulty (which favor certain strategies more), and that it is not so sloppy or whimsical that it can only be enjoyed on Easy.
 
-These decks can use special fields that arkhamdb doesn't support.
-
-- **Excerpt** : You are able to add about 250 characters text-only short description that would get shown in the
-  listing, instead of requiring user to take a look inside.
-- **Optional/suggested cards** : You can flag some cards in Side Deck as optional. Those cards will be separated to a
-  new section below Side Deck to show that they are not strictly needed to progress the deck but would be nice to have.
-  They will not contribute towards the 3 purchases quota. For example, you can have "Double, Double" as an optional card
-  in Sefina deck while preventing The Circle Undone Investigator Expansion to appear as a requirement since you are only
-  suggesting this 1 card from an entire box.
-- **Series** : If you are making a deck as a series, you can specify series' name of your deck. Multiple decks of the
-  same series could get linked to each other, improving discoverability. (In the future.)
-- **Modified name** : You can use different name than what you use in arkhamdb. arkhamdb has no organization so people
-  often put series name in the deck's title. For example, my decks in arkhamdb always have "2 Packs Deck Guide :" prefix
-  that I would like to remove here since the fact that it uses 2 packs are obvious in the UI.
-
-<!-- - **Tag** : You can tag your deck what it is dealing with. In the future user can look for a missing role to fill their team with the filter. Each tag supports a short explanation (~100 characters) why it is able to fill that role, and a flag whether it is the deck's main role (can do with high success rate, has acceleration) or off-role (can do sometimes, can't do alone).
-
-### Available Tags
-
-- **Fight** : Use Fight action to deal damage to enemies.
-- **Evade** : Use Evade action to exhaust enemies.
-- **Investigate** : Can pick up clues from location consistently.
-- **Treachery** : Deal with various kind of treacheries. (Commit, cancel, ignore, discard.)
-- **Heal** : Can remove damage / horror counters from investigators.
-- **Support** : Has something not related to treachery and healing that affects other investigator. For example Minh and Carson would always have a Teamplay role from their ability. Teamwork, Encyclopedia, Stand Together, Extra Ammunition, etc. all also works targeting other investigators. -->
+The 2~4 players means it doesn't have to work in true solo, though if it does, that'd be fantastic. (Starter true solo decks might be available separately.)

@@ -13,6 +13,7 @@
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import StarterDeckList from '$lib/design/pages/starter/StarterDeckList.svelte';
 	import StarterFilter from '$lib/design/pages/starter/StarterFilter.svelte';
+	import WhatsStarterDeckModal from '$lib/design/pages/starter/WhatsStarterDeckModal.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { allStarterDecks, type StarterDeckEntry, starterDeckHref } from '$lib/starter-content';
 	import {
@@ -30,6 +31,7 @@
 	// random deck they can buy with what they own.
 	const nonePicked = $derived(filter.investigators.size === 0);
 	let randomDeck = $state<StarterDeckEntry | null>(null);
+	let showWhatsStarterDeck = $state(false);
 	function randomize() {
 		randomDeck = pickRandom(
 			allDecks.filter((entry) => deckMatchesProducts(entry, filter)),
@@ -65,7 +67,12 @@
 		<a href={resolve('/team')}>{m.starter_decks_teams_note_link()}</a>
 		{m.starter_decks_teams_note_after()}
 	</TextParagraph>
-	<div class="mb-4 flex justify-center">
+	<div class="mb-4 flex flex-wrap justify-center gap-2">
+		<Button
+			icon={FaIconType.NoticeInfo}
+			label={m.starter_decks_whats()}
+			onClick={() => (showWhatsStarterDeck = true)}
+		/>
 		<Button label={m.starter_decks_authors_button()} onClick="/starter/authors" />
 	</div>
 	<StarterFilter onChange={(f) => (filter = f)} />
@@ -127,3 +134,5 @@
 		}
 	}
 </style>
+
+<WhatsStarterDeckModal isOpen={showWhatsStarterDeck} onClose={() => (showWhatsStarterDeck = false)} />
