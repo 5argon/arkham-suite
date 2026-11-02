@@ -7,7 +7,7 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 
 ### Overlap Resolution
 
-The author's original starter decks use Unexpected Courage six times, two more than the four copies available. Miguel plays <span class="icon-survivor"></span> On the Brink instead — one <span class="icon-wild"></span> icon rather than two, but it returns his other committed cards to hand when the test fails, right at home in a deck built to fail on purpose.
+The author's original starter decks use Unexpected Courage six times, two more than the four copies available. Miguel plays <span class="icon-survivor"></span> Slippery instead — one <span class="icon-agility"></span> icon rather than two <span class="icon-wild"></span> icons, but Miguel's 4 <span class="icon-agility"></span> suits it, and a non-Elite enemy evaded with it does not ready during the next upkeep phase.
 
 <table><thead>
   <tr>
@@ -48,14 +48,14 @@ The author's original starter decks use Unexpected Courage six times, two more t
     <td><strong><span class="fg-survivor">Miguel de la Cruz</span></strong></td>
     <td>Unexpected Courage</td>
     <td>→</td>
-    <td><span class="icon-survivor"></span> <strong><span class="fg-survivor">On the Brink</span></strong> <span class="small">(Miguel de la Cruz #19)</span></td>
+    <td><span class="icon-survivor"></span> <strong><span class="fg-survivor">Slippery</span></strong> <span class="small">(Core Set 2026 #80)</span></td>
   </tr>
   <tr>
     <td>•</td>
     <td><strong><span class="fg-survivor">Miguel de la Cruz</span></strong></td>
     <td>Unexpected Courage</td>
     <td>→</td>
-    <td><span class="icon-survivor"></span> <strong><span class="fg-survivor">On the Brink</span></strong> <span class="small">(Miguel de la Cruz #19)</span></td>
+    <td><span class="icon-survivor"></span> <strong><span class="fg-survivor">Slippery</span></strong> <span class="small">(Core Set 2026 #80)</span></td>
   </tr>
 </tbody>
 </table>
