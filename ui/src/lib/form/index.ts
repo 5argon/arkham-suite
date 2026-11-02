@@ -22,6 +22,8 @@ export {
 } from './card-form/CardFormMultiple.svelte';
 export { default as InvestigatorExpansionFormMultiple } from './InvestigatorExpansionFormMultiple.svelte';
 export { default as InvestigatorPicker } from './InvestigatorPicker.svelte';
+export { default as TagChip } from './TagChip.svelte';
+export { default as TagFilter } from './TagFilter.svelte';
 export type { CardFormFilter } from './card-form/types.js';
 export {
 	createKeyboardNavigationHandler,

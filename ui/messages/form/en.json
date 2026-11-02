@@ -63,5 +63,7 @@
 	"form_share_url": "Persistent Deck URL",
 	"form_share_url_description": "The string after json= in this URL is a heavily compressed form of the deck, with deck name and description all removed. In exchange, the deck displayed after visiting this URL never changes. It is no longer connecting to any external deck hosting sites.",
 	"form_no_url_available": "No URL available",
-	"form_read_investigator_card": "Read {investigator}'s card"
+	"form_read_investigator_card": "Read {investigator}'s card",
+	"form_tag_filter_active": "Filtered :",
+	"form_tag_remove": "Remove {tag}"
 }
