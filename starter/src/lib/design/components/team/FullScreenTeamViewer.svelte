@@ -41,16 +41,13 @@ team page.
 		 */
 		deckMeta: DeckMeta[];
 		/**
-		 * What Copy Share Link copies; defaults to the Team Builder link of
-		 * this team. Curated pages pass their own URL.
+		 * For a team with its own page: hides the readiness chips, since curated
+		 * teams are valid by definition, and swaps Copy Share Link, since the page's
+		 * URL is already the link, for opening the team in the Team Builder.
 		 */
-		shareUrl?: string;
-		/**
-		 * Hides the readiness chips; curated teams are valid by definition.
-		 */
-		hideStatus?: boolean;
+		curated?: boolean;
 	}
-	const { team, deckMeta, shareUrl, hideStatus = false }: Prop = $props();
+	const { team, deckMeta, curated = false }: Prop = $props();
 
 	const allCards = getAllCards();
 	const resolver = createCardResolver();
@@ -81,13 +78,18 @@ team page.
 	let showExport = $state(false);
 	let copied = $state(false);
 
+	function encodedTeam(): string {
+		return encodeEvergreen($state.snapshot(team) as EvergreenState);
+	}
+
 	function copyShareLink() {
-		const encoded = encodeEvergreen($state.snapshot(team) as EvergreenState);
-		navigator.clipboard.writeText(
-			shareUrl ?? `https://arkham-starter.com/tool/team-builder?t=${encoded}`
-		);
+		navigator.clipboard.writeText(`https://arkham-starter.com/tool/team-builder?t=${encodedTeam()}`);
 		copied = true;
 		setTimeout(() => (copied = false), 1800);
+	}
+
+	function openInTeamBuilder() {
+		window.open(`/tool/team-builder?t=${encodedTeam()}`, '_blank', 'noopener');
 	}
 
 	function ahdbDeckOf(deckIndex: number) {
@@ -156,11 +158,19 @@ team page.
 		checked={showUnused}
 		onChange={() => (showUnused = !showUnused)}
 	/>
-	<Button
-		icon={FaIconType.Export}
-		label={copied ? m.tool_evergreen_team_share_copied() : m.tool_evergreen_team_share_copy()}
-		onClick={copyShareLink}
-	/>
+	{#if curated}
+		<Button
+			icon={FaIconType.ExternalLink}
+			label={m.team_open_builder()}
+			onClick={openInTeamBuilder}
+		/>
+	{:else}
+		<Button
+			icon={FaIconType.Export}
+			label={copied ? m.tool_evergreen_team_share_copied() : m.tool_evergreen_team_share_copy()}
+			onClick={copyShareLink}
+		/>
+	{/if}
 	<Button
 		icon={FaIconType.Import}
 		label={m.tool_evergreen_team_export()}
@@ -172,7 +182,7 @@ team page.
 		onClick={gatherCards}
 	/>
 </div>
-{#if !hideStatus}
+{#if !curated}
 	<TeamStatusBar {team} {resolver} {overlaps} />
 {/if}
 {#if showUnused}

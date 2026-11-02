@@ -124,7 +124,7 @@
 	"tool_evergreen_team_discard_button": "Discard Saved Team",
 	"tool_evergreen_team_collapse_all": "Collapse All",
 	"tool_evergreen_team_expand_all": "Expand All",
-	"tool_evergreen_team_export": "Export Decks",
+	"tool_evergreen_team_export": "Download All JSON",
 	"tool_evergreen_team_export_help": "You can import these JSON into the recommended full-fledged deckbuilder: arkham.build. (Inside \"...\" menu, \"Import from JSON files\".) You can then sync to arkhamdb.com as well from there.",
 	"tool_evergreen_team_download_json": "Download JSON",
 	"tool_evergreen_team_download_all": "Download All",

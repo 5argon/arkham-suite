@@ -1,8 +1,6 @@
 <script lang="ts">
 	import {
 		ArkhamdbMarkdownRenderer,
-		Button,
-		FaIconType,
 		MarginFull,
 		MarginText,
 		PageLead,
@@ -16,7 +14,6 @@
 	import TeamBanner from '$lib/design/components/team/TeamBanner.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { contributor, prebuiltTeamHref } from '$lib/starter-content';
-	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 	import { teamState } from '$lib/tool/starter/filter';
 
 	const { data } = $props();
@@ -48,18 +45,6 @@
 
 <PageLead title={team.name} />
 
-<MarginText>
-	<div class="mb-3 flex flex-wrap justify-center gap-2">
-		<Button
-			highlighted
-			icon={FaIconType.ExternalLink}
-			label={m.team_open_builder()}
-			onClick={() =>
-				window.open(`/tool/team-builder?t=${encodeEvergreen(builderState)}`, '_blank', 'noopener')}
-		/>
-	</div>
-</MarginText>
-
 {#if builderState}
 	<MarginFull>
 		<div class="mb-3">
@@ -75,8 +60,7 @@
 		<FullScreenTeamViewer
 			team={builderState}
 			{deckMeta}
-			shareUrl={`https://arkham-starter.com${prebuiltTeamHref(team)}`}
-			hideStatus
+			curated
 		/>
 	</MarginFull>
 {/if}
