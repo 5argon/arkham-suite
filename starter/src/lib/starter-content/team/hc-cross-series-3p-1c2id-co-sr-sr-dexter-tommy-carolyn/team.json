@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-1c2id-co-sr-sr-dexter-tommy-carolyn",
+	"name": "HC Cross Series 3P - 1C+2ID - Dexter (CO), Tommy (SR), Carolyn (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "1C+2ID"],
+	"decks": [
+		{
+			"file": "dexter.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "dexter-drake-the-prestige"
+			}
+		},
+		{
+			"file": "tommy.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "tommy-squared"
+			}
+		},
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		}
+	]
+}

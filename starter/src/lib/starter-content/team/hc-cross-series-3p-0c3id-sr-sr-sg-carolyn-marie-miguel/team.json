@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-0c3id-sr-sr-sg-carolyn-marie-miguel",
+	"name": "HC Cross Series 3P - 0C+3ID - Carolyn (SR), Marie (SR), Miguel (SG)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "0C+3ID"],
+	"decks": [
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "rancher-rambo"
+			}
+		}
+	]
+}

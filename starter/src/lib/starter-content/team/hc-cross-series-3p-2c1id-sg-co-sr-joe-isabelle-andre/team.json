@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-2c1id-sg-co-sr-joe-isabelle-andre",
+	"name": "HC Cross Series 3P - 2C+1ID - Joe (SG), Isabelle (CO), André (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "2C+1ID"],
+	"decks": [
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		},
+		{
+			"file": "isabelle.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "izzie-barnes-mad-skillz"
+			}
+		},
+		{
+			"file": "andre.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "the-fatal-thespian"
+			}
+		}
+	]
+}

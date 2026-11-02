@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-1c2id-sg-sr-sr-daniela-carolyn-marie",
+	"name": "HC Cross Series 3P - 1C+2ID - Daniela (SG), Carolyn (SR), Marie (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "1C+2ID"],
+	"decks": [
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			}
+		},
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		}
+	]
+}

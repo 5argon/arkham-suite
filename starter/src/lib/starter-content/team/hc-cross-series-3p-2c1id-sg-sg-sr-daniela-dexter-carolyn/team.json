@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-2c1id-sg-sg-sr-daniela-dexter-carolyn",
+	"name": "HC Cross Series 3P - 2C+1ID - Daniela (SG), Dexter (SG), Carolyn (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "2C+1ID"],
+	"decks": [
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			}
+		},
+		{
+			"file": "dexter.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "a-faustian-bargain"
+			}
+		},
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		}
+	]
+}

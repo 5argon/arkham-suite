@@ -1,0 +1,59 @@
+This team is assembled from decks across multiple of [HungryColquhoun](/starter/hungry-colquhoun)'s starter deck series, where their cards do not overlap apart from a reprinted Deduction. Follow these links to read the play guide written for each deck.
+
+- <span class="icon-seeker"></span> **Joe Diamond** — [Shoot First, Questions Later](/starter/hungry-colquhoun/ch2-starter-guide/shoot-first-questions-later) (SG)
+- <span class="icon-rogue"></span> **Trish Scarborough** — [Pocket Sand!](/starter/hungry-colquhoun/ch2-starter-guide/pocket-sand) (SG)
+- <span class="icon-mystic"></span> **Dexter Drake** — [The Prestige](/starter/hungry-colquhoun/ch2-core-only/dexter-drake-the-prestige) (CO)
+
+In the team's name, **3C+0ID** means 3 Core Set investigators and 0 Investigator Deck investigators, and the letters after each name are the deck's series: **CO** is [Chapter 2 Core Only](/starter/hungry-colquhoun/ch2-core-only/) and **SG** is [Chapter 2 Starter Guide](/starter/hungry-colquhoun/ch2-starter-guide/).
+
+### Class Access
+
+In a 3 player team with 3 Core Set investigators, there are 2 possible outcomes :
+
+- They span 4 classes, because they form a chain where each overlaps with the next in the class access. (Chain)
+- They span all 5 classes, because only 2 of them overlap in the class access. (Not a chain)
+
+In this team, Joe, Trish and Dexter form a **chain**, with Joe next to Trish and Trish next to Dexter, and therefore cover 4 classes : Seeker, Guardian, Rogue, Mystic, and nobody on this team can use Survivor.
+
+Joe and Trish both run 2 copies of Deduction. The Core Set has 2 and Carolyn's Investigator Deck has another 2. This team already uses cards from Carolyn's deck, so Trish takes those copies.
+
+### Overlap Resolutions
+
+The author's original starter decks were slightly modified to resolve card overlaps. It was done in a way that I think preserve the original deck's flavor as much as possible.
+
+<table><thead>
+  <tr>
+    <th colspan="3"><span class="icon-seeker"></span> <span class="fg-seeker">Deduction</span> <span class="small">(Core Set 2026 #39)</span></th>
+    <th colspan="2">Used 4 / 2 Available</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td>•</td>
+    <td><strong><span class="fg-rogue">Trish Scarborough</span></strong></td>
+    <td><span class="icon-seeker"></span> <span class="fg-seeker">Deduction</span></td>
+    <td>→</td>
+    <td><span class="icon-seeker"></span> <strong><span class="fg-seeker">Deduction</span></strong> <span class="small">(Carolyn Fern #17)</span></td>
+  </tr>
+  <tr>
+    <td>•</td>
+    <td><strong><span class="fg-rogue">Trish Scarborough</span></strong></td>
+    <td><span class="icon-seeker"></span> <span class="fg-seeker">Deduction</span></td>
+    <td>→</td>
+    <td><span class="icon-seeker"></span> <strong><span class="fg-seeker">Deduction</span></strong> <span class="small">(Carolyn Fern #17)</span></td>
+  </tr>
+  <tr>
+    <td>•</td>
+    <td><strong><span class="fg-seeker">Joe Diamond</span></strong></td>
+    <td><span class="icon-seeker"></span> <span class="fg-seeker">Deduction</span></td>
+    <td></td>
+    <td>(No Change)</td>
+  </tr>
+  <tr>
+    <td>•</td>
+    <td><strong><span class="fg-seeker">Joe Diamond</span></strong></td>
+    <td><span class="icon-seeker"></span> <span class="fg-seeker">Deduction</span></td>
+    <td></td>
+    <td>(No Change)</td>
+  </tr>
+</tbody>
+</table>

@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-2c1id-sg-sg-sr-joe-trish-marie",
+	"name": "HC Cross Series 3P - 2C+1ID - Joe (SG), Trish (SG), Marie (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap apart from a reprinted Deduction.",
+	"tags": ["HC Cross Series", "2C+1ID"],
+	"decks": [
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		},
+		{
+			"file": "trish.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "pocket-sand"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		}
+	]
+}

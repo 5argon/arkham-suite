@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-3c0id-sg-sg-co-joe-trish-dexter",
+	"name": "HC Cross Series 3P - 3C+0ID - Joe (SG), Trish (SG), Dexter (CO)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap apart from a reprinted Deduction.",
+	"tags": ["HC Cross Series", "3C+0ID"],
+	"decks": [
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		},
+		{
+			"file": "trish.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "pocket-sand"
+			}
+		},
+		{
+			"file": "dexter.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "dexter-drake-the-prestige"
+			}
+		}
+	]
+}

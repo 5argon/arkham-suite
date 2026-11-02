@@ -94,7 +94,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(384);
+		expect(members).toHaveLength(564);
 		for (const { team, deck, source } of members) {
 			const series = (
 				team.slug.startsWith('hc-cross-series-')
@@ -313,10 +313,11 @@ describe('Cross Series pre-built teams', () => {
 			.filter((product) => product !== Product.RandomBasicWeakness);
 	}
 
-	it('assembles 4 hosted decks from more than one series, with different main classes', () => {
-		expect(teams).toHaveLength(32);
+	it('assembles hosted decks from more than one series, with different main classes', () => {
+		expect(teams.filter((team) => team.slug.includes('-4p-'))).toHaveLength(32);
+		expect(teams.filter((team) => team.slug.includes('-3p-'))).toHaveLength(60);
 		for (const team of teams) {
-			expect(team.members, team.slug).toHaveLength(4);
+			expect(team.members, team.slug).toHaveLength(team.slug.includes('-4p-') ? 4 : 3);
 			expect(team.exclusive, team.slug).toBe(false);
 			const series = team.members.map((member) => member.source!.series.slug);
 			expect(new Set(series).size, team.slug).toBeGreaterThan(1);
@@ -332,8 +333,9 @@ describe('Cross Series pre-built teams', () => {
 			const core = team.members.filter(
 				(member) => resolver.resolve(member.deck.investigator_code).product === Product.CoreSet2026
 			).length;
-			expect(team.name, team.slug).toContain(` - ${core}C+${4 - core}ID - `);
-			expect([2, 3], team.slug).toContain(core);
+			const size = team.members.length;
+			expect(team.name, team.slug).toContain(` ${size}P - ${core}C+${size - core}ID - `);
+			if (size === 4) expect([2, 3], team.slug).toContain(core);
 		}
 	});
 
@@ -342,7 +344,8 @@ describe('Cross Series pre-built teams', () => {
 			const decks = team.members.map(({ deck }) =>
 				linkedAhdbDeckToDeck({ deck }, resolver, tabooLists)
 			);
-			expect(deckUtility.findTeamOverlaps(decks, 4)[0].overlaps, team.slug).toHaveLength(0);
+			const overlaps = deckUtility.findTeamOverlaps(decks, decks.length)[0].overlaps;
+			expect(overlaps, team.slug).toHaveLength(0);
 		}
 	});
 

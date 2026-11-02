@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-0c3id-sg-sr-sg-tommy-carolyn-miguel",
+	"name": "HC Cross Series 3P - 0C+3ID - Tommy (SG), Carolyn (SR), Miguel (SG)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "0C+3ID"],
+	"decks": [
+		{
+			"file": "tommy.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "got-yourself-a-gun"
+			}
+		},
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "rancher-rambo"
+			}
+		}
+	]
+}

@@ -1,0 +1,33 @@
+{
+	"slug": "hc-cross-series-3p-3c0id-sg-co-sg-joe-trish-isabelle",
+	"name": "HC Cross Series 3P - 3C+0ID - Joe (SG), Trish (CO), Isabelle (SG)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap apart from a reprinted Deduction.",
+	"tags": ["HC Cross Series", "3C+0ID"],
+	"decks": [
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		},
+		{
+			"file": "trish.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "trish-scarborough-i-spy-a-seeker"
+			}
+		},
+		{
+			"file": "isabelle.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "jennys-retribution"
+			}
+		}
+	]
+}
