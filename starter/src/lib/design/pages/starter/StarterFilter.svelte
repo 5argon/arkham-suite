@@ -5,7 +5,9 @@ pages: the products you own (Core Set 2026 is always in), preset by the
 environment selector, and the investigators to show. The product choice is
 remembered with the starter team cart so Use This Team carries it.
 Investigators start unpicked so the reader chooses who they are curious
-about, unless `initiallyAll` asks for everything shown up front.
+about, unless `initiallyAll` asks for everything shown up front. Products start
+on the newest environment, unless `withChapterTwo` offers and starts on all of
+them. A page with more than one filter gives each its own `snapshotId`.
 -->
 <script lang="ts">
 	import { snapshot } from '$app/navigation';
@@ -23,7 +25,7 @@ about, unless `initiallyAll` asks for everything shown up front.
 	import { getAllCards } from '$lib/card-data';
 	import EnvironmentProductPicker from '$lib/design/components/product/EnvironmentProductPicker.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { environmentChoices } from '$lib/tool/environment-choices';
+	import { chapterTwoChoice, environmentChoices } from '$lib/tool/environment-choices';
 	import { investigatorsForSetup, setupForProducts } from '$lib/tool/evergreen-team/pool';
 	import type { StarterFilterValue } from '$lib/tool/starter/filter';
 	import { starterTeam } from '$lib/tool/starter/team-cart.svelte';
@@ -35,8 +37,23 @@ about, unless `initiallyAll` asks for everything shown up front.
 		 * Starts with every investigator picked instead of none.
 		 */
 		initiallyAll?: boolean;
+		/**
+		 * Whether the products chosen here are what the starter team cart carries.
+		 */
+		remembersProducts?: boolean;
+		withChapterTwo?: boolean;
+		hideProductsHelp?: boolean;
+		snapshotId?: string;
 	}
-	const { onChange, showMustIncludeAll = false, initiallyAll = false }: Prop = $props();
+	const {
+		onChange,
+		showMustIncludeAll = false,
+		initiallyAll = false,
+		remembersProducts = true,
+		withChapterTwo = false,
+		hideProductsHelp = false,
+		snapshotId = 'starter-filter'
+	}: Prop = $props();
 
 	const allCards = getAllCards();
 
@@ -47,7 +64,9 @@ about, unless `initiallyAll` asks for everything shown up front.
 	// Starts on the newest environment choice so nothing legal today is hidden;
 	// the choice still travels with the starter team cart so Use This Team
 	// carries it.
-	const initialProducts = environmentChoices(new Date(), allCards).at(-1)?.products ?? [];
+	const initialProducts = untrack(() => withChapterTwo)
+		? chapterTwoChoice(new Date(), allCards).products
+		: (environmentChoices(new Date(), allCards).at(-1)?.products ?? []);
 	const selectedProducts = new SvelteSet<Product>(initialProducts);
 	// The roster follows the owned products: five from the core box plus the
 	// ones each selected product brings.
@@ -56,6 +75,7 @@ about, unless `initiallyAll` asks for everything shown up front.
 		untrack(() => initiallyAll) ? rosterOf(initialProducts).map((c) => c.code) : []
 	);
 	let mustIncludeAll = $state(false);
+	let resetCount = $state(0);
 	const activeInvestigators = $derived(
 		new Set(investigators.map((c) => c.code).filter((code) => selectedInvestigators.has(code)))
 	);
@@ -83,14 +103,27 @@ about, unless `initiallyAll` asks for everything shown up front.
 		rememberProducts();
 	}
 	function rememberProducts() {
-		starterTeam.setProducts([...selectedProducts]);
+		if (remembersProducts) starterTeam.setProducts([...selectedProducts]);
 		emit();
 	}
 	rememberProducts();
 
+	/**
+	 * Back to how the filter starts.
+	 */
+	export function reset() {
+		selectedProducts.clear();
+		for (const p of initialProducts) selectedProducts.add(p);
+		selectedInvestigators.clear();
+		if (initiallyAll) for (const c of rosterOf(initialProducts)) selectedInvestigators.add(c.code);
+		mustIncludeAll = false;
+		resetCount++;
+		rememberProducts();
+	}
+
 	// Coming back to the page restores what was picked.
 	snapshot({
-		id: 'starter-filter',
+		id: untrack(() => snapshotId),
 		capture: () => ({
 			products: [...selectedProducts],
 			investigators: [...selectedInvestigators],
@@ -108,15 +141,20 @@ about, unless `initiallyAll` asks for everything shown up front.
 </script>
 
 <SectionSeparator title={m.starter_decks_filter_products()} />
-<HelpParagraph>{m.starter_decks_filter_products_help()}</HelpParagraph>
-<EnvironmentProductPicker
-	selected={[...selectedProducts]}
-	onChange={(products) =>
-		changeProducts(() => {
-			selectedProducts.clear();
-			for (const p of products) selectedProducts.add(p);
-		})}
-/>
+{#if !hideProductsHelp}
+	<HelpParagraph>{m.starter_decks_filter_products_help()}</HelpParagraph>
+{/if}
+{#key resetCount}
+	<EnvironmentProductPicker
+		{withChapterTwo}
+		selected={[...selectedProducts]}
+		onChange={(products) =>
+			changeProducts(() => {
+				selectedProducts.clear();
+				for (const p of products) selectedProducts.add(p);
+			})}
+	/>
+{/key}
 
 <SectionSeparator title={m.starter_decks_filter_investigators()} />
 <div class="mb-2 flex flex-wrap items-end gap-3">
@@ -129,6 +167,8 @@ about, unless `initiallyAll` asks for everything shown up front.
 			label={m.team_filter_include()}
 			bind:selectedValue={() => mustIncludeAll,
 			(value) => {
+				// Everyone picked can never match, so start the picks over instead.
+				if (value && allInvestigatorsOn) selectedInvestigators.clear();
 				mustIncludeAll = value;
 				emit();
 			}}

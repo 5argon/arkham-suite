@@ -24,7 +24,8 @@
 	"starter_decks_filter_products": "Products",
 	"starter_decks_filter_products_help": "Pick an environment, or check any other purchases you have in addition to the Core Set 2026. The results below will be filtered accordingly to what you could build.",
 	"starter_decks_filter_investigators": "Investigators",
-	"starter_decks_showing": "Showing {shown} of {total} decks",
+	"starter_decks_showing": "Filtered : showing {shown} of {total} decks",
+	"starter_decks_remove_filter": "Remove the filter",
 	"starter_decks_none_match": "No starter deck matches your filtering criteria.",
 	"starter_decks_download_json": "Download JSON",
 	"starter_decks_xp_tab": "{xp} XP",
@@ -50,6 +51,5 @@
 	"starter_decks_randomize": "Random Starter Deck",
 	"starter_decks_randomize_again": "Another Random Deck",
 	"starter_decks_read_card": "Read {investigator}'s card",
-	"starter_decks_filter": "Filter",
-	"starter_decks_filter_help": "Narrow down the decks and teams below by the products you own and the investigators you would like to play."
+	"starter_decks_filter": "Filter"
 }

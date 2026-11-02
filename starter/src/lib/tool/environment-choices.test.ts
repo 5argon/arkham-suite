@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { getAllCards } from '$lib/card-data';
 
 import {
+	chapterTwoChoice,
 	environmentChoicePath,
 	environmentChoices,
 	environmentPointPages,
@@ -39,6 +40,20 @@ describe('official catalog', () => {
 			products: [...productInvestigatorDeck, Product.PowerOfTheDreamlands]
 		});
 		expect(rotatingProducts('2027-02-19', allOfficialCards)).toEqual([
+			Product.PowerOfTheDreamlands
+		]);
+	});
+
+	it('has every Evergreen product in Chapter 2 before anything rotating is released', () => {
+		expect(chapterTwoChoice('2026-11-01', allOfficialCards)).toEqual({
+			kind: 'chapter-two',
+			products: productInvestigatorDeck
+		});
+	});
+
+	it('adds each released rotating product to Chapter 2', () => {
+		expect(chapterTwoChoice('2027-02-19', allOfficialCards).products).toEqual([
+			...productInvestigatorDeck,
 			Product.PowerOfTheDreamlands
 		]);
 	});

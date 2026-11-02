@@ -2,11 +2,11 @@
 @component
 One series of starter decks on an author's page: an anchored heading
 ("Series: ...") beside the series icon, the count of decks shown out of the
-series' total when the current filter hides some, the description, and the
-deck list.
+series' total with a way to remove the filter when it hides some, the
+description, and the deck list.
 -->
 <script lang="ts">
-	import { CardCircle, TextParagraph } from '@5argon/arkham-life-ui';
+	import { CardCircle, FaIcon, FaIconType, TextParagraph } from '@5argon/arkham-life-ui';
 
 	import * as m from '$lib/paraglide/messages.js';
 	import { sortByInvestigator, type StarterSeries } from '$lib/starter-content';
@@ -21,8 +21,9 @@ deck list.
 		 * matches, so the reader knows it exists.
 		 */
 		filter?: StarterFilterValue;
+		onRemoveFilter?: () => void;
 	}
-	const { series, filter }: Prop = $props();
+	const { series, filter, onRemoveFilter }: Prop = $props();
 
 	const entries = $derived(
 		sortByInvestigator(
@@ -43,8 +44,19 @@ deck list.
 			</h3>
 			<hr class="dark:border-secondary-400/20 border-secondary-800/40 mb-1" />
 			{#if entries.length < series.entries.length}
-				<p class="text-primary-700 dark:text-primary-300 text-sm">
+				<p class="text-primary-700 dark:text-primary-300 flex items-center gap-1.5 text-sm">
 					{m.starter_decks_showing({ shown: entries.length, total: series.entries.length })}
+					{#if onRemoveFilter}
+						<button
+							type="button"
+							class="hover:bg-primary-300 dark:hover:bg-primary-700 cursor-pointer rounded px-1"
+							aria-label={m.starter_decks_remove_filter()}
+							title={m.starter_decks_remove_filter()}
+							onclick={onRemoveFilter}
+						>
+							<FaIcon icon={FaIconType.Delete} />
+						</button>
+					{/if}
 				</p>
 			{/if}
 		</div>

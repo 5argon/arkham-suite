@@ -23,7 +23,7 @@ const anyRelease = '9999-12-31';
  * in every choice and is not listed.
  */
 export interface EnvironmentChoice {
-	kind: 'core' | 'evergreen' | 'current';
+	kind: 'core' | 'evergreen' | 'current' | 'chapter-two';
 	/**
 	 * Permanent id of the Current environment point of a choice other than `core`.
 	 */
@@ -117,6 +117,21 @@ export function environmentChoices(
 				})
 			)
 	];
+}
+
+/**
+ * Everything from every point of the Current environment so far, for showing what was made for any
+ * of them. Not one environment, since products that rotated out are in it too, so it has no page.
+ */
+export function chapterTwoChoice(
+	asOf: Date | string,
+	cards: CardsWithProduct,
+	catalog: Catalog = officialCurrentEnvironmentCatalog
+): EnvironmentChoice {
+	return {
+		kind: 'chapter-two',
+		products: [...withoutCore(catalog.evergreen), ...rotatingProducts(asOf, cards, catalog)]
+	};
 }
 
 /**

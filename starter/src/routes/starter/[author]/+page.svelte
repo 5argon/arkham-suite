@@ -5,7 +5,6 @@
 		CardCircle,
 		FaIconType,
 		Foldout,
-		HelpParagraph,
 		MarginFull,
 		MarginText,
 		PageLead,
@@ -50,14 +49,16 @@
 			: m.starter_decks_contributor_description({ name: data.author.name })
 	);
 
-	let filter = $state<StarterFilterValue>({ products: new Set(), investigators: new Set() });
+	let deckFilter = $state<StarterFilterValue>({ products: new Set(), investigators: new Set() });
+	let teamFilter = $state<StarterFilterValue>({ products: new Set(), investigators: new Set() });
+	let deckFilterPanel = $state<StarterFilter>();
 	const deckCount = $derived(
 		data.series.reduce(
-			(sum, series) => sum + series.entries.filter((e) => deckMatches(e, filter)).length,
+			(sum, series) => sum + series.entries.filter((e) => deckMatches(e, deckFilter)).length,
 			0
 		)
 	);
-	const visibleTeams = $derived(teams.filter((entry) => teamMatches(entry, filter)));
+	const visibleTeams = $derived(teams.filter((entry) => teamMatches(entry, teamFilter)));
 	let tab = $state(0);
 	snapshot({
 		id: 'starter-author-tab',
@@ -141,15 +142,6 @@
 				</li>
 			{/each}
 		</ul>
-
-		<div class="mt-4">
-			<Foldout title={m.starter_decks_filter()} keepMounted>
-				<div class="p-3">
-					<HelpParagraph>{m.starter_decks_filter_help()}</HelpParagraph>
-					<StarterFilter initiallyAll onChange={(f) => (filter = f)} />
-				</div>
-			</Foldout>
-		</div>
 	{/if}
 </MarginText>
 {#if hasDecks}
@@ -165,11 +157,48 @@
 				]}
 			/>
 		</div>
+	</MarginFull>
+	<!-- Both stay mounted: the tab labels count what each filter matches. -->
+	<MarginText>
+		<div class="mt-4" class:hidden={tab !== 0}>
+			<Foldout title={m.starter_decks_filter()} keepMounted>
+				<div class="p-3">
+					<StarterFilter
+						bind:this={deckFilterPanel}
+						initiallyAll
+						withChapterTwo
+						hideProductsHelp
+						onChange={(f) => (deckFilter = f)}
+					/>
+				</div>
+			</Foldout>
+		</div>
+		<div class="mt-4" class:hidden={tab !== 1}>
+			<Foldout title={m.starter_decks_filter()} keepMounted>
+				<div class="p-3">
+					<StarterFilter
+						initiallyAll
+						withChapterTwo
+						hideProductsHelp
+						showMustIncludeAll
+						remembersProducts={false}
+						snapshotId="starter-author-team-filter"
+						onChange={(f) => (teamFilter = f)}
+					/>
+				</div>
+			</Foldout>
+		</div>
+	</MarginText>
+	<MarginFull>
 		{#if tab === 0}
 			<div class="mt-4">
 				{#each data.series as series (series.slug)}
 					<div class="mb-8">
-						<StarterSeriesSection {series} {filter} />
+						<StarterSeriesSection
+							{series}
+							filter={deckFilter}
+							onRemoveFilter={() => deckFilterPanel?.reset()}
+						/>
 					</div>
 				{/each}
 			</div>

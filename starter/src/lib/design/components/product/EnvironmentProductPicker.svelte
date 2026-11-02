@@ -6,16 +6,19 @@ Only the latest Current environment is shown up front, a smaller button opens th
 Core Set 2026 is always shown in Evergreen Products, checked and locked, so it is clear what every
 choice includes. It is all that shows on Core Set 2026 Only, and Rotating Expansions only shows once
 something rotating has been released. Shared by the Team Builder setup and the starter library
-filter.
+filter. `withChapterTwo` adds a choice of everything across all the Current environments so far, and
+starts on it. It has no page of its own to view its cards on.
 -->
 <script lang="ts">
 	import { Button, FaIconType, RadioButtons, SectionSeparator } from '@5argon/arkham-life-ui';
 	import { Product, productEvergreen } from '@5argon/arkham-kohaku';
 	import { u as stringUtils } from '@5argon/arkham-string';
+	import { untrack } from 'svelte';
 
 	import { getAllCards } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import {
+		chapterTwoChoice,
 		type EnvironmentChoice,
 		environmentChoicePath,
 		environmentChoices,
@@ -31,19 +34,37 @@ filter.
 		 */
 		selected: Product[];
 		onChange: (products: Product[]) => void;
+		withChapterTwo?: boolean;
 	}
-	const { selected, onChange }: Prop = $props();
+	const { selected, onChange, withChapterTwo = false }: Prop = $props();
 
 	const today = new Date();
 	const allCards = getAllCards();
-	const choices = environmentChoices(today, allCards);
+	const chapterTwo = chapterTwoChoice(today, allCards);
+	const choices = [
+		...environmentChoices(today, allCards),
+		...(untrack(() => withChapterTwo) ? [chapterTwo] : [])
+	];
 	const rotating = rotatingProducts(today, allCards);
 	const currentChoices = choices.filter((choice) => choice.kind === 'current');
 	const mainChoices = choices.filter(
 		(choice) => choice.kind !== 'current' || choice === currentChoices.at(-1)
 	);
 	const previousChoices = currentChoices.slice(0, -1).reverse();
-	const selectedChoice = $derived(matchingChoice(choices, selected));
+	// Chapter 2 and an environment can have the same products, so the one clicked stays lit.
+	let picked = $state.raw<EnvironmentChoice | undefined>(
+		untrack(() => withChapterTwo) ? chapterTwo : undefined
+	);
+	const selectedChoice = $derived(
+		picked !== undefined && matchingChoice([picked], selected) !== undefined
+			? picked
+			: matchingChoice(choices, selected)
+	);
+	function pick(choice: EnvironmentChoice | undefined) {
+		if (choice === undefined) return;
+		picked = choice;
+		onChange([...choice.products]);
+	}
 	const coreOnly = $derived(selectedChoice?.kind === 'core');
 	let previousOpen = $state(false);
 	const previousVisible = $derived(
@@ -64,6 +85,8 @@ filter.
 				return m.common_evergreen_products();
 			case 'current':
 				return m.common_environment_current({ name: productNameOf(choice) });
+			case 'chapter-two':
+				return m.common_environment_chapter_two();
 		}
 	}
 
@@ -89,10 +112,7 @@ filter.
 		label: choiceLabel(choice)
 	}))}
 	label={m.common_environment()}
-	bind:selectedValue={() => selectedChoice,
-	(choice) => {
-		if (choice !== undefined) onChange([...choice.products]);
-	}}
+	bind:selectedValue={() => selectedChoice, pick}
 />
 {#if previousChoices.length > 0}
 	{#if previousVisible}
@@ -102,15 +122,12 @@ filter.
 				label: productNameOf(choice)
 			}))}
 			label={m.common_environment_previous()}
-			bind:selectedValue={() => selectedChoice,
-			(choice) => {
-				if (choice !== undefined) onChange([...choice.products]);
-			}}
+			bind:selectedValue={() => selectedChoice, pick}
 		/>
 	{/if}
 {/if}
 <div class="my-2 flex flex-wrap items-center gap-3">
-	{#if selectedChoice === undefined}
+	{#if selectedChoice === undefined || selectedChoice.kind === 'chapter-two'}
 		<Button disabled icon={FaIconType.ExternalLink} label={m.explore_view_all_cards()} onClick={() => {}} />
 	{:else}
 		<Button
