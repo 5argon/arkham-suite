@@ -1,10 +1,11 @@
 import { type CardCode, Product } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
+import type { PrebuiltTeamSummary } from '$lib/starter-content';
+
 import {
 	matchesInvestigators,
 	pickRandom,
-	type PrebuiltTeamEntry,
 	type StarterFilterValue,
 	tagChoices,
 	teamHasTags
@@ -59,7 +60,7 @@ describe('pickRandom', () => {
 });
 
 describe('pre-built team tags', () => {
-	const entry = (...tags: string[]) => ({ team: { tags } }) as unknown as PrebuiltTeamEntry;
+	const entry = (...tags: string[]) => ({ tags }) as unknown as PrebuiltTeamSummary;
 	const entries = [
 		entry('HC Cross Series', '2C+2ID'),
 		entry('HC Cross Series', '3C+1ID'),

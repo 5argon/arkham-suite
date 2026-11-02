@@ -24,6 +24,7 @@ reads Resolve Overlaps instead.
 	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 	import { defaultTeamInfo } from '$lib/tool/evergreen-team/team-info';
 	import { STARTER_TEAM_MAX, starterTeam } from '$lib/tool/starter/team-cart.svelte';
+	import { poolUsage } from '$lib/tool/evergreen-team/team-display';
 	import { starterTeamOverlaps, starterTeamState } from '$lib/tool/starter/team-export';
 
 	export const HIGHLIGHT_STAT_AT_LEAST = 4;
@@ -151,9 +152,7 @@ reads Resolve Overlaps instead.
 			</table>
 		</div>
 		<div class="mt-1.5 flex justify-center">
-			{#key built.state.setup.deckProducts.join(',') + '|' + entries.length}
-				<PoolSummary team={built.state} pool={built.pool} />
-			{/key}
+			<PoolSummary usages={poolUsage(built.state, built.pool)} />
 		</div>
 	{/if}
 </div>

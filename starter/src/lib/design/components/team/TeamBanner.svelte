@@ -9,12 +9,11 @@ listing.
 	import { BorderedContainer, CardCircle, TagChip } from '@5argon/arkham-life-ui';
 	import type { Card } from '@5argon/arkham-kohaku';
 
-	import { createCardResolver, getAllCards } from '$lib/card-data';
+	import { createCardResolver } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import type { PrebuiltTeamSource } from '$lib/starter-content';
-	import { notableDeckCards } from '$lib/tool/evergreen-team/notable-cards';
-	import { teamPool } from '$lib/tool/evergreen-team/pool';
-	import type { EvergreenState, TeamInfo } from '$lib/tool/evergreen-team/types';
+	import type { TeamDisplay } from '$lib/tool/evergreen-team/team-display';
+	import type { TeamInfo } from '$lib/tool/evergreen-team/types';
 
 	import MemberHeader from './MemberHeader.svelte';
 	import PoolSummary from './PoolSummary.svelte';
@@ -22,9 +21,9 @@ listing.
 
 	interface Prop {
 		info: TeamInfo;
-		team: EvergreenState;
+		display: TeamDisplay;
 		tags?: string[];
-		/** Hosted starter sources parallel to team.decks. Omit to keep the banner compact. */
+		/** Hosted starter sources parallel to the members. Omit to keep the banner compact. */
 		sources?: (PrebuiltTeamSource | undefined)[];
 		exclusive?: boolean;
 		/** Shown before the author's name. */
@@ -35,11 +34,9 @@ listing.
 		 */
 		authorSlug?: string;
 	}
-	const { info, team, tags = [], sources, exclusive = false, authorAvatar, authorSlug }: Prop =
+	const { info, display, tags = [], sources, exclusive = false, authorAvatar, authorSlug }: Prop =
 		$props();
 
-	const getFrozenTeam = () => team;
-	const pool = teamPool(getFrozenTeam(), getAllCards());
 	const resolver = createCardResolver();
 </script>
 
@@ -95,20 +92,19 @@ listing.
 				</p>
 			{/if}
 			<div class="mt-1">
-				<PoolSummary {team} {pool} />
+				<PoolSummary usages={display.poolUsage} />
 			</div>
 			<div class="mt-2 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
-				{#each team.decks as deck, deckIndex (deck.investigator)}
-					{@const source = sources?.[deckIndex]}
+				{#each display.members as member, memberIndex (member.investigator)}
+					{@const source = sources?.[memberIndex]}
 					<div
 						class="border-primary-300 dark:border-primary-700 rounded-lg border bg-white/50 dark:bg-black/30"
 					>
 						<MemberHeader
-							{team}
-							{deckIndex}
-							{pool}
-							{resolver}
-							notableCards={notableDeckCards(deck, pool)}
+							investigator={resolver.resolve(member.investigator)}
+							mainCount={member.mainCount}
+							classCounts={member.classCounts}
+							notableCards={member.notable.map((code) => resolver.resolve(code))}
 						/>
 						{#if source}
 							<StarterDeckSourceBanner {source} />

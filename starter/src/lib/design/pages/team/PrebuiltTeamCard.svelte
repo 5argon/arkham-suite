@@ -7,14 +7,12 @@ pool usage, members) linking to the team page.
 	import { resolve } from '$app/paths';
 
 	import TeamBanner from '$lib/design/components/team/TeamBanner.svelte';
-	import { contributor, type PrebuiltTeam } from '$lib/starter-content';
-	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
+	import { contributor, type PrebuiltTeamSummary } from '$lib/starter-content';
 
 	interface Prop {
-		team: PrebuiltTeam;
-		builderState: EvergreenState;
+		team: PrebuiltTeamSummary;
 	}
-	const { team, builderState }: Prop = $props();
+	const { team }: Prop = $props();
 </script>
 
 <a
@@ -23,7 +21,7 @@ pool usage, members) linking to the team page.
 >
 	<TeamBanner
 		info={{ name: team.name, author: team.author, description: team.description }}
-		team={builderState}
+		display={team.display}
 		tags={team.tags}
 		exclusive={team.exclusive}
 		authorAvatar={contributor(team.authorSlug)?.avatarCard}

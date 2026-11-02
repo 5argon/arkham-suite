@@ -10,6 +10,7 @@
 	import TeamBanner from '$lib/design/components/team/TeamBanner.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { decodeEvergreen } from '$lib/tool/evergreen-team/codec';
+	import { teamDisplay } from '$lib/tool/evergreen-team/team-display';
 	import { deckMetaFor } from '$lib/tool/evergreen-team/team-info';
 	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
 
@@ -59,7 +60,7 @@
 				/>
 			</div>
 			<div class="mb-3">
-				<TeamBanner info={team.info} {team} />
+				<TeamBanner info={team.info} display={teamDisplay(team, getAllCards())} />
 			</div>
 			<FullScreenTeamViewer {team} {deckMeta} />
 		</MarginFull>

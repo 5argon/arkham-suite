@@ -9,13 +9,12 @@ import {
 import { describe, expect, it } from 'vitest';
 
 import { getAllCards, loadAllTabooLists } from '../card-data';
+import { allPrebuiltTeams, prebuiltTeamsOf } from '../server/prebuilt-teams';
 import { hasUniqueInvestigatorClasses } from '../tool/assembler/filter';
 import {
-	allPrebuiltTeams,
 	allContributors,
 	allStarterDecks,
 	importedStarterDeck,
-	prebuiltTeamsOf,
 	starterDeckFromRef,
 	starterDeckHref,
 	starterSeries,

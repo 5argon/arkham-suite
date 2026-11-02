@@ -8,46 +8,17 @@ can tell at a glance whether they own everything the team needs.
 <script lang="ts">
 	import { HoverTooltip } from '@5argon/arkham-life-ui';
 	import { ProductIcon } from '@5argon/arkham-icon';
-	import type { CardCode, Product } from '@5argon/arkham-kohaku';
 	import { u as stringUtils } from '@5argon/arkham-string';
 
 	import * as m from '$lib/paraglide/messages.js';
-	import { poolSections } from '$lib/tool/evergreen-team/pool';
-	import { remainingOf } from '$lib/tool/evergreen-team/rules';
-	import type { EvergreenState, PoolEntry } from '$lib/tool/evergreen-team/types';
+	import type { PoolUsage } from '$lib/tool/evergreen-team/team-display';
 
 	interface Prop {
-		team: EvergreenState;
-		pool: Map<CardCode, PoolEntry>;
+		usages: PoolUsage[];
 	}
-	const { team, pool }: Prop = $props();
+	const { usages }: Prop = $props();
 
-	interface Usage {
-		product: Product;
-		used: number;
-		total: number;
-		percent: number;
-	}
-	const getFrozen = () => ({ setup: team.setup, pool });
-	const sections = poolSections(getFrozen().setup, getFrozen().pool);
-	const usages = $derived(
-		sections.map((section): Usage => {
-			const total = section.entries.reduce((sum, e) => sum + e.total, 0);
-			const remaining = section.entries.reduce(
-				(sum, e) => sum + remainingOf(team, pool, e.card.code),
-				0
-			);
-			const used = total - remaining;
-			return {
-				product: section.product,
-				used,
-				total,
-				percent: total > 0 ? Math.floor((used / total) * 100) : 0
-			};
-		})
-	);
-
-	let tooltipUsage = $state<Usage | null>(null);
+	let tooltipUsage = $state<PoolUsage | null>(null);
 	let tooltipEl = $state<HTMLElement | null>(null);
 </script>
 

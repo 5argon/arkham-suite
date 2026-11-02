@@ -15,6 +15,7 @@ destination zone is decided by the card's level, not the drop position.
 	import * as m from '$lib/paraglide/messages.js';
 	import MemberHeader from '$lib/design/components/team/MemberHeader.svelte';
 	import { fixedItemsFor } from '$lib/tool/evergreen-team/pool';
+	import { memberDisplay } from '$lib/tool/evergreen-team/team-display';
 	import {
 		computeMoveQuantity,
 		deckLimitOf,
@@ -98,6 +99,7 @@ destination zone is decided by the card's level, not the drop position.
 	const deckSize = $derived(investigator.deckRequirements?.size ?? 30);
 	const mainCount = $derived(mainDeckCount(deck));
 	const sideXp = $derived(sideDeckXp(deck, (code) => resolver.resolve(code)));
+	const member = $derived(memberDisplay(deck, pool));
 
 	const cardWidth = $derived(viewMode && compact ? 48 : 64);
 
@@ -238,7 +240,11 @@ destination zone is decided by the card's level, not the drop position.
 	}}
 	ondrop={handleDrop}
 >
-	<MemberHeader {team} {deckIndex} {pool} {resolver}>
+	<MemberHeader
+		investigator={resolver.resolve(deck.investigator)}
+		mainCount={member.mainCount}
+		classCounts={member.classCounts}
+	>
 		{#snippet trailing()}
 			{#if viewMode && onOpenDeck}
 				<Button

@@ -14,6 +14,7 @@
 	import TeamBanner from '$lib/design/components/team/TeamBanner.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { contributor, prebuiltTeamHref } from '$lib/starter-content';
+	import { teamDisplay } from '$lib/tool/evergreen-team/team-display';
 	import { teamState } from '$lib/tool/starter/filter';
 
 	const { data } = $props();
@@ -50,7 +51,7 @@
 		<div class="mb-3">
 			<TeamBanner
 				info={{ name: team.name, author: team.author, description: team.description }}
-				team={builderState}
+				display={teamDisplay(builderState, getAllCards())}
 				tags={team.tags}
 				sources={team.members.map((member) => member.source)}
 				exclusive={team.exclusive}

@@ -14,17 +14,15 @@
 	} from '@5argon/arkham-life-ui';
 	import { tick } from 'svelte';
 
-	import { getAllCards } from '$lib/card-data';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import StarterFilter from '$lib/design/pages/starter/StarterFilter.svelte';
 	import StarterSeriesSection from '$lib/design/pages/starter/StarterSeriesSection.svelte';
 	import PrebuiltTeamList from '$lib/design/pages/team/PrebuiltTeamList.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { contributorHref, prebuiltTeamsOf } from '$lib/starter-content';
+	import { contributorHref } from '$lib/starter-content';
 	import { contributorJsonLd } from '$lib/starter-content/seo';
 	import {
 		deckMatches,
-		decodeTeams,
 		type StarterFilterValue,
 		teamHasTags,
 		teamMatches
@@ -36,7 +34,7 @@
 	const profileUrl = /(https?:\/\/[^\s)]+)/;
 
 	const { data } = $props();
-	const teams = $derived(decodeTeams(prebuiltTeamsOf(data.author.slug), getAllCards()));
+	const teams = $derived(data.teams);
 	// Contributors may have no decks or teams, like someone who only writes reviews.
 	const hasDecks = $derived(data.series.length > 0 || teams.length > 0);
 	const title = $derived(

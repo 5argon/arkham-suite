@@ -9,23 +9,17 @@ and `activeTags` to share them with the rest of the page.
 	import { Pagination, Tabs, TagFilter } from '@5argon/arkham-life-ui';
 
 	import * as m from '$lib/paraglide/messages.js';
-	import type { PrebuiltTeam } from '$lib/starter-content';
-	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
-	import { tagChoices, TEAM_SIZES, teamHasTags } from '$lib/tool/starter/filter';
+	import type { PrebuiltTeamSummary } from '$lib/starter-content';
+	import { tagChoices, TEAM_SIZES, teamHasTags, teamSize } from '$lib/tool/starter/filter';
 
 	import PrebuiltTeamCard from './PrebuiltTeamCard.svelte';
-
-	export interface PrebuiltTeamEntry {
-		team: PrebuiltTeam;
-		builderState: EvergreenState;
-	}
 
 	interface Prop {
 		/**
 		 * Filtered by everything but tags; this component handles those and splits
 		 * by player count.
 		 */
-		entries: PrebuiltTeamEntry[];
+		entries: PrebuiltTeamSummary[];
 		activeTags?: string[];
 		/**
 		 * Index into the player counts; 3 players by default.
@@ -35,7 +29,7 @@ and `activeTags` to share them with the rest of the page.
 	let { entries, activeTags = $bindable([]), sizeIndex = $bindable(1) }: Prop = $props();
 
 	const anyTagBySize = $derived(
-		TEAM_SIZES.map((size) => entries.filter((x) => x.builderState.decks.length === size))
+		TEAM_SIZES.map((size) => entries.filter((team) => teamSize(team) === size))
 	);
 	const bySize = $derived(
 		anyTagBySize.map((teams) => teams.filter((x) => teamHasTags(x, activeTags)))
@@ -96,8 +90,8 @@ and `activeTags` to share them with the rest of the page.
 		<div class="flex justify-center">
 			<Pagination page={Math.min(page, pageCount)} {pageCount} onChange={changePage} />
 		</div>
-		{#each paged as { team, builderState } (team.slug)}
-			<PrebuiltTeamCard {team} {builderState} />
+		{#each paged as team (team.slug)}
+			<PrebuiltTeamCard {team} />
 		{/each}
 		<div class="flex justify-center">
 			<Pagination page={Math.min(page, pageCount)} {pageCount} onChange={changePage} />

@@ -2,6 +2,7 @@ import { type AhdbDeck, type Card, Product } from '@5argon/arkham-kohaku';
 import type { BylineEntry } from '@5argon/arkham-life-ui';
 
 import { getAllCards } from '../card-data';
+import type { TeamDisplay } from '../tool/evergreen-team/team-display';
 
 /**
  * Someone credited on the site, shared by everything they make. One file per
@@ -381,6 +382,25 @@ export interface PrebuiltTeamMember {
 	source?: PrebuiltTeamSource;
 }
 
+/**
+ * A team as listings use it: compiled at build time from the team's decks, with
+ * only what searching for it and showing its banner need.
+ */
+export interface PrebuiltTeamSummary {
+	slug: string;
+	name: string;
+	author: string;
+	authorSlug: string;
+	description: string;
+	tags: string[];
+	exclusive: boolean;
+	/**
+	 * Investigator Decks needed, for filtering by what the reader owns.
+	 */
+	deckProducts: Product[];
+	display: TeamDisplay;
+}
+
 /** The non-recursive subset of a starter entry needed for team attribution. */
 export interface PrebuiltTeamSource {
 	slug: string;
@@ -391,111 +411,6 @@ export interface PrebuiltTeamSource {
 		iconCard?: Card;
 		author: Contributor;
 	};
-}
-
-interface TeamSourceJson {
-	author: string;
-	series: string;
-	slug: string;
-}
-
-interface TeamJson {
-	slug: string;
-	name: string;
-	authorSlug: string;
-	description: string;
-	tags: string[];
-	/**
-	 * Files under decks/, explicitly paired with their optional hosted source.
-	 * Omitting source makes the team Exclusive.
-	 */
-	decks: { file: string; source?: TeamSourceJson }[];
-}
-
-const teamFiles = import.meta.glob<TeamJson>('./team/*/team.json', {
-	eager: true,
-	import: 'default'
-});
-const teamDeckFiles = import.meta.glob<AhdbDeck>('./team/*/decks/*.json', {
-	eager: true,
-	import: 'default'
-});
-const teamGuideFiles = import.meta.glob<string>('./team/*/guide.md', {
-	eager: true,
-	query: '?raw',
-	import: 'default'
-});
-
-const teams: PrebuiltTeam[] = Object.entries(teamFiles).map(([path, json]) => {
-	const dir = path.replace(/team\.json$/, '');
-	const members = json.decks
-		.map(({ file, source: sourceJson }) => {
-			const rawDeck = teamDeckFiles[`${dir}decks/${file}`];
-			if (rawDeck === undefined) {
-				throw new Error(`Pre-built team deck missing: ${dir}decks/${file}`);
-			}
-			// A pre-built team's deck files are already the resolved source of truth.
-			// Preserve their printing codes: two printings of the same card may be
-			// assigned to different investigators to represent distinct physical copies.
-			const deck = rawDeck;
-			const sourceEntry =
-				sourceJson === undefined
-					? undefined
-					: starterDeck(sourceJson.author, sourceJson.series, sourceJson.slug);
-			if (sourceJson !== undefined && sourceEntry === undefined) {
-				throw new Error(
-					`Pre-built team source missing: ${sourceJson.author}/${sourceJson.series}/${sourceJson.slug}`
-				);
-			}
-			if (
-				sourceEntry !== undefined &&
-				sourceEntry.primary.investigator_code !== deck.investigator_code
-			) {
-				throw new Error(
-					`Pre-built team source investigator mismatch: ${dir}decks/${file} -> ${sourceEntry.series.author.slug}/${sourceEntry.series.slug}/${sourceEntry.slug}`
-				);
-			}
-			const source: PrebuiltTeamSource | undefined =
-				sourceEntry === undefined
-					? undefined
-					: {
-							slug: sourceEntry.slug,
-							primary: sourceEntry.primary,
-							series: {
-								slug: sourceEntry.series.slug,
-								name: sourceEntry.series.name,
-								iconCard: sourceEntry.series.iconCard,
-								author: sourceEntry.series.author
-							}
-						};
-			return { deck, source };
-		})
-		.sort((a, b) => a.deck.investigator_code.localeCompare(b.deck.investigator_code));
-	const author = contributor(json.authorSlug);
-	if (author === undefined) throw new Error(`Pre-built team without contributor: ${path}`);
-	return {
-		slug: json.slug,
-		name: json.name,
-		author: author.name,
-		authorSlug: json.authorSlug,
-		description: json.description,
-		tags: json.tags,
-		members,
-		exclusive: members.some((member) => member.source === undefined),
-		guideMd: teamGuideFiles[`${dir}guide.md`] ?? ''
-	};
-});
-
-export function allPrebuiltTeams(): PrebuiltTeam[] {
-	return teams;
-}
-
-export function prebuiltTeamsOf(authorSlug: string): PrebuiltTeam[] {
-	return teams.filter((t) => t.authorSlug === authorSlug);
-}
-
-export function prebuiltTeam(slug: string): PrebuiltTeam | undefined {
-	return teams.find((t) => t.slug === slug);
 }
 
 export function prebuiltTeamHref(team: PrebuiltTeam): string {

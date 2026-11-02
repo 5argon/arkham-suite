@@ -13,20 +13,20 @@ at a glance. Shared by the deck areas and the team banner.
 		HealthSanity,
 		ImageIconCommit
 	} from '@5argon/arkham-life-ui';
-	import { type Card, CardClass, type CardCode, type CardResolver } from '@5argon/arkham-kohaku';
+	import { type Card, CardClass } from '@5argon/arkham-kohaku';
 	import clsx from 'clsx';
 	import type { Snippet } from 'svelte';
 
 	import AccessSummary from '$lib/design/pages/tool/evergreen-team/setup/AccessSummary.svelte';
 	import { accessSummary } from '$lib/tool/evergreen-team/pool';
-	import { mainDeckCount } from '$lib/tool/evergreen-team/rules';
-	import type { EvergreenState, PoolEntry } from '$lib/tool/evergreen-team/types';
 
 	interface Prop {
-		team: EvergreenState;
-		deckIndex: number;
-		pool: Map<CardCode, PoolEntry>;
-		resolver: CardResolver;
+		investigator: Card;
+		/**
+		 * Main deck copies, in total and by class.
+		 */
+		mainCount: number;
+		classCounts: Partial<Record<CardClass, number>>;
 		/**
 		 * Controls rendered at the right end of the colored strip.
 		 */
@@ -36,15 +36,12 @@ at a glance. Shared by the deck areas and the team banner.
 		 */
 		notableCards?: Card[];
 	}
-	const { team, deckIndex, pool, resolver, trailing, notableCards }: Prop = $props();
+	const { investigator, mainCount, classCounts, trailing, notableCards }: Prop = $props();
 
 	let tooltipCard = $state<Card | null>(null);
 	let tooltipEl = $state<HTMLElement | null>(null);
 
-	const deck = $derived(team.decks[deckIndex]);
-	const investigator = $derived(resolver.resolve(deck.investigator));
 	const deckSize = $derived(investigator.deckRequirements?.size ?? 30);
-	const mainCount = $derived(mainDeckCount(deck));
 	const investigatorClass = $derived(investigator.cardClass?.class1 ?? CardClass.Neutral);
 
 	// Class composition of the main deck (fixed items never count), with a
@@ -64,16 +61,11 @@ at a glance. Shared by the deck areas and the team banner.
 		return [...accessOrder, ...rest];
 	});
 	const classBarSegments = $derived.by(() => {
-		const counts: Partial<Record<CardClass, number>> = {};
-		for (const [code, quantity] of Object.entries(deck.main)) {
-			const cardClass = pool.get(code)?.card.cardClass?.class1 ?? CardClass.Neutral;
-			counts[cardClass] = (counts[cardClass] ?? 0) + quantity;
-		}
 		const missing = Math.max(0, deckSize - mainCount);
 		const denominator = Math.max(deckSize, mainCount);
 		const segments = classBarOrder
-			.filter((c) => (counts[c] ?? 0) > 0)
-			.map((c) => ({ key: c as string, count: counts[c] ?? 0, colorClass: classBarColor(c) }));
+			.filter((c) => (classCounts[c] ?? 0) > 0)
+			.map((c) => ({ key: c as string, count: classCounts[c] ?? 0, colorClass: classBarColor(c) }));
 		if (missing > 0) {
 			segments.push({ key: 'missing', count: missing, colorClass: 'bar-missing' });
 		}

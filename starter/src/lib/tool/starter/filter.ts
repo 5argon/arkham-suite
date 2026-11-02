@@ -1,6 +1,11 @@
 import { type CardCode, Product } from '@5argon/arkham-kohaku';
 
-import { deckCardPool, type PrebuiltTeam, type StarterDeckEntry } from '$lib/starter-content';
+import {
+	deckCardPool,
+	type PrebuiltTeam,
+	type PrebuiltTeamSummary,
+	type StarterDeckEntry
+} from '$lib/starter-content';
 import { decksToEvergreenState } from '$lib/tool/evergreen-team/from-decks';
 import type { EvergreenState } from '$lib/tool/evergreen-team/types';
 import type { Card } from '@5argon/arkham-kohaku';
@@ -50,20 +55,6 @@ export function matchesInvestigators(
 	return [...resultInvestigators].some((code) => filter.investigators.has(code));
 }
 
-export interface PrebuiltTeamEntry {
-	team: PrebuiltTeam;
-	builderState: EvergreenState;
-}
-
-/**
- * Builds each team's Team Builder state from its deck JSON once; it carries
- * the products and investigators the filter matches against, and the team's
- * name / author / description for the banner.
- */
-export function decodeTeams(teams: PrebuiltTeam[], allCards: Card[]): PrebuiltTeamEntry[] {
-	return teams.map((team) => ({ team, builderState: teamState(team, allCards) }));
-}
-
 export function teamState(team: PrebuiltTeam, allCards: Card[]): EvergreenState {
 	return decksToEvergreenState(
 		team.members.map((member) => member.deck),
@@ -89,8 +80,8 @@ function compositionOf(tag: string): { players: number; core: number } | null {
  * Every tag these teams have, in the order to offer them: series first, then
  * Core Set and Investigator Deck mixes by player count, most Core Set first.
  */
-function teamTags(entries: PrebuiltTeamEntry[]): string[] {
-	return [...new Set(entries.flatMap((entry) => entry.team.tags))].sort((a, b) => {
+function teamTags(teams: PrebuiltTeamSummary[]): string[] {
+	return [...new Set(teams.flatMap((team) => team.tags))].sort((a, b) => {
 		const [mixA, mixB] = [compositionOf(a), compositionOf(b)];
 		if (mixA === null || mixB === null) {
 			return mixA === mixB ? a.localeCompare(b) : mixA === null ? -1 : 1;
@@ -99,8 +90,8 @@ function teamTags(entries: PrebuiltTeamEntry[]): string[] {
 	});
 }
 
-export function teamHasTags(entry: PrebuiltTeamEntry, tags: readonly string[]): boolean {
-	return tags.every((tag) => entry.team.tags.includes(tag));
+export function teamHasTags(team: PrebuiltTeamSummary, tags: readonly string[]): boolean {
+	return tags.every((tag) => team.tags.includes(tag));
 }
 
 /**
@@ -108,15 +99,15 @@ export function teamHasTags(entry: PrebuiltTeamEntry, tags: readonly string[]): 
  * be left by adding it.
  */
 export function tagChoices(
-	entries: PrebuiltTeamEntry[],
+	teams: PrebuiltTeamSummary[],
 	active: readonly string[]
 ): { label: string; count: number }[] {
-	const matching = entries.filter((entry) => teamHasTags(entry, active));
+	const matching = teams.filter((team) => teamHasTags(team, active));
 	return teamTags(matching)
 		.filter((tag) => !active.includes(tag))
 		.map((label) => ({
 			label,
-			count: matching.filter((entry) => entry.team.tags.includes(label)).length
+			count: matching.filter((team) => team.tags.includes(label)).length
 		}));
 }
 
@@ -125,20 +116,22 @@ export function tagChoices(
  */
 export const TEAM_SIZES = [2, 3, 4] as const;
 
-export function teamSize(entry: PrebuiltTeamEntry): number {
-	return entry.builderState.decks.length;
+export function teamSize(team: PrebuiltTeamSummary): number {
+	return team.display.members.length;
 }
 
-export function teamMatchesProducts(entry: PrebuiltTeamEntry, filter: StarterFilterValue): boolean {
-	return entry.builderState.setup.deckProducts.every((p) => p === CORE || filter.products.has(p));
+export function teamMatchesProducts(
+	team: PrebuiltTeamSummary,
+	filter: StarterFilterValue
+): boolean {
+	return team.deckProducts.every((p) => p === CORE || filter.products.has(p));
 }
 
-export function teamMatches(entry: PrebuiltTeamEntry, filter: StarterFilterValue): boolean {
-	const { decks } = entry.builderState;
+export function teamMatches(team: PrebuiltTeamSummary, filter: StarterFilterValue): boolean {
 	return (
-		teamMatchesProducts(entry, filter) &&
+		teamMatchesProducts(team, filter) &&
 		matchesInvestigators(
-			decks.map((deck) => deck.investigator),
+			team.display.members.map((member) => member.investigator),
 			filter
 		)
 	);

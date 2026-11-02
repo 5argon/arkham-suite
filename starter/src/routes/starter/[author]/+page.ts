@@ -4,10 +4,10 @@ import { allContributors, contributor, starterSeriesOf } from '$lib/starter-cont
 
 import type { EntryGenerator, PageLoad } from './$types';
 
-export const load: PageLoad = ({ params }) => {
+export const load: PageLoad = ({ params, data }) => {
 	const author = contributor(params.author);
 	if (author === undefined) error(404, 'Not found');
-	return { author, series: starterSeriesOf(author.slug) };
+	return { ...data, author, series: starterSeriesOf(author.slug) };
 };
 
 /**
