@@ -1,10 +1,57 @@
+import { deck as deckUtility, linkedAhdbDeckToDeck } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
-import { getAllCards } from '$lib/card-data';
+import { createCardResolver, getAllCards, loadAllTabooLists } from '$lib/card-data';
 import { teamDisplay } from '$lib/tool/evergreen-team/team-display';
 import { teamMatchesProducts, teamState } from '$lib/tool/starter/filter';
 
 import { allPrebuiltTeams, allPrebuiltTeamSummaries } from './prebuilt-teams';
+import { OVERLAP_TABLE_MARKER } from './team-deck-changes';
+
+/**
+ * Source decks can change, and every team built on one follows. These fail when
+ * that leaves a team or its guide wrong.
+ */
+describe('pre-built teams built on hosted decks', () => {
+	const teams = allPrebuiltTeams();
+	const resolver = createCardResolver();
+
+	const sameCards = (a?: Record<string, number> | null, b?: Record<string, number> | null) =>
+		JSON.stringify(Object.entries(a ?? {}).sort()) === JSON.stringify(Object.entries(b ?? {}).sort());
+
+	it('leave no overlap unresolved', () => {
+		for (const team of teams) {
+			const decks = team.members.map(({ deck }) =>
+				linkedAhdbDeckToDeck({ deck }, resolver, loadAllTabooLists())
+			);
+			expect(deckUtility.findDeckOverlaps(decks), team.slug).toHaveLength(0);
+		}
+	});
+
+	it('show a table exactly when a main deck differs from its source', () => {
+		for (const team of teams) {
+			const changed = team.members.some(
+				({ deck, source }) => source !== undefined && !sameCards(deck.slots, source.primary.slots)
+			);
+			expect(team.guideMd.includes('<table>'), team.slug).toBe(changed);
+			expect(team.guideMd, team.slug).not.toContain(OVERLAP_TABLE_MARKER);
+		}
+	});
+
+	it('still mention every replacement in guides that explain them by hand', () => {
+		const boilerplate = "The author's original starter decks were slightly modified";
+		for (const team of teams) {
+			const prose = team.guideMd.split(/### Overlap Resolutions?/)[1]?.split('<table>')[0] ?? '';
+			if (prose.trim() === '' || prose.includes(boilerplate)) continue;
+			for (const { deck, source } of team.members) {
+				for (const code of Object.keys(deck.slots ?? {})) {
+					if ((source?.primary.slots?.[code] ?? 0) >= (deck.slots?.[code] ?? 0)) continue;
+					expect(prose, `${team.slug} ${code}`).toContain(resolver.resolve(code).name);
+				}
+			}
+		}
+	});
+});
 
 describe('pre-built team summaries', () => {
 	const teams = allPrebuiltTeams();

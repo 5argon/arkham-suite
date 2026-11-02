@@ -6,7 +6,6 @@
 	"tags": ["HC Cross Series", "2C+2ID"],
 	"decks": [
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,7 +13,6 @@
 			}
 		},
 		{
-			"file": "dexter.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
@@ -22,20 +20,24 @@
 			}
 		},
 		{
-			"file": "tommy.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "got-yourself-a-gun"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "60167", "copies": 2 }
+			]
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
 				"slug": "disaster-artist"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12080", "copies": 2 }
+			]
 		}
 	]
 }

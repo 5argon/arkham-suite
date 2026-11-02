@@ -6,7 +6,6 @@
 	"tags": ["HC Chapter 2 Starter Guide", "2C+0ID"],
 	"decks": [
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,7 +13,6 @@
 			}
 		},
 		{
-			"file": "izzie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",

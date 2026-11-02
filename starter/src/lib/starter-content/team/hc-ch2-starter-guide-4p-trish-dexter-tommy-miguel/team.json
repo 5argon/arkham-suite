@@ -6,23 +6,26 @@
 	"tags": ["HC Chapter 2 Starter Guide", "2C+2ID"],
 	"decks": [
 		{
-			"file": "tommy.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "got-yourself-a-gun"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "60167", "copies": 2 }
+			]
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "rancher-rambo"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12081", "copies": 2 }
+			]
 		},
 		{
-			"file": "dexter.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -30,7 +33,6 @@
 			}
 		},
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",

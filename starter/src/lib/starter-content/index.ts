@@ -347,10 +347,9 @@ const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 });
 
 /**
- * A pre-built team: standalone deck JSON (already overlap-resolved, the
- * single source of truth), the starter decks it was assembled from, and a
- * long-form guide in ArkhamDB markdown. Everything else (the Team Builder
- * state and link) derives from the deck JSON.
+ * A pre-built team: hosted starter decks with any changes applied, or tailor-made
+ * decks, and a long-form guide in ArkhamDB markdown. Everything else (the Team
+ * Builder state and link) derives from the decks.
  */
 export interface PrebuiltTeam {
 	slug: string;

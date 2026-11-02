@@ -6,15 +6,16 @@
 	"tags": ["HC Cross Series", "2C+2ID"],
 	"decks": [
 		{
-			"file": "daniela.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "daniela-reyes-arkham-linebacker"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12021", "copies": 2 }
+			]
 		},
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
@@ -22,7 +23,6 @@
 			}
 		},
 		{
-			"file": "marie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
@@ -30,12 +30,14 @@
 			}
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "rancher-rambo"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12080", "copies": 2 }
+			]
 		}
 	]
 }

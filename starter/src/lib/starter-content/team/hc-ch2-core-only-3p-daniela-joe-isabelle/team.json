@@ -6,28 +6,40 @@
 	"tags": ["HC Chapter 2 Core Only", "3C+0ID"],
 	"decks": [
 		{
-			"file": "daniela.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "daniela-reyes-arkham-linebacker"
-			}
+			},
+			"changes": [
+				{ "remove": "12025", "add": "12072", "copies": 1 },
+				{ "remove": "12073", "add": "12086", "copies": 2 },
+				{ "remove": "12081", "add": "12019", "copies": 2 },
+				{ "remove": "12094", "add": "12021", "copies": 2 },
+				{ "remove": "12084", "copies": 1, "side": true }
+			]
 		},
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "joe-diamond-the-drawlord"
-			}
+			},
+			"changes": [
+				{ "remove": "12025", "add": "12033", "copies": 1 },
+				{ "remove": "12090", "add": "12031", "copies": 2 }
+			]
 		},
 		{
-			"file": "izzie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "izzie-barnes-mad-skillz"
-			}
+			},
+			"changes": [
+				{ "remove": "12078", "add": "12064", "copies": 2 },
+				{ "remove": "12084", "copies": 1, "side": true }
+			]
 		}
 	]
 }

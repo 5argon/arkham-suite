@@ -6,15 +6,16 @@
 	"tags": ["HC Chapter 2 Starter Guide", "1C+3ID"],
 	"decks": [
 		{
-			"file": "marie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "blood-money"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12067", "copies": 2 }
+			]
 		},
 		{
-			"file": "andre.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -22,7 +23,6 @@
 			}
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -30,7 +30,6 @@
 			}
 		},
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",

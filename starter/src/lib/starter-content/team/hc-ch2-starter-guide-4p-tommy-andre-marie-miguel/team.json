@@ -6,7 +6,6 @@
 	"tags": ["HC Chapter 2 Starter Guide", "0C+4ID"],
 	"decks": [
 		{
-			"file": "marie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,28 +13,35 @@
 			}
 		},
 		{
-			"file": "andre.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "money-buys-happiness"
-			}
+			},
+			"changes": [
+				{ "remove": "12093", "add": "12053", "copies": 1 }
+			]
 		},
 		{
-			"file": "tommy.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "got-yourself-a-gun"
-			}
+			},
+			"changes": [
+				{ "remove": "12093", "add": "12090", "copies": 1 },
+				{ "remove": "12094", "add": "60167", "copies": 2 }
+			]
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "rancher-rambo"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12081", "copies": 2 }
+			]
 		}
 	]
 }

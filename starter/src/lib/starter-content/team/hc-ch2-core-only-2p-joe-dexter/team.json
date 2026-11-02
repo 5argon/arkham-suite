@@ -6,7 +6,6 @@
 	"tags": ["HC Chapter 2 Core Only", "2C+0ID"],
 	"decks": [
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
@@ -14,7 +13,6 @@
 			}
 		},
 		{
-			"file": "dexter.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",

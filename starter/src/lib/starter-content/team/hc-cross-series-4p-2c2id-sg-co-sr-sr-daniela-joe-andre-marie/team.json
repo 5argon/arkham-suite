@@ -6,15 +6,17 @@
 	"tags": ["HC Cross Series", "2C+2ID"],
 	"decks": [
 		{
-			"file": "daniela.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "hurting-for-clues"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12081", "copies": 2 },
+				{ "remove": "12025", "add": "60169", "copies": 2 }
+			]
 		},
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
@@ -22,7 +24,6 @@
 			}
 		},
 		{
-			"file": "andre.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
@@ -30,12 +31,14 @@
 			}
 		},
 		{
-			"file": "marie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
 				"slug": "marie-poppin-cultists"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12064", "copies": 2 }
+			]
 		}
 	]
 }

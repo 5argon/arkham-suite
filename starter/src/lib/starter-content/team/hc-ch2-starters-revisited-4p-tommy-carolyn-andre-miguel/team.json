@@ -6,7 +6,6 @@
 	"tags": ["HC Ch2 Starters Revisited", "0C+4ID"],
 	"decks": [
 		{
-			"file": "andre.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
@@ -14,23 +13,26 @@
 			}
 		},
 		{
-			"file": "carolyn.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
 				"slug": "living-her-bast-life"
-			}
+			},
+			"changes": [
+				{ "remove": "12093", "add": "60264", "copies": 2 }
+			]
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
 				"slug": "disaster-artist"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12080", "copies": 2 }
+			]
 		},
 		{
-			"file": "tommy.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",

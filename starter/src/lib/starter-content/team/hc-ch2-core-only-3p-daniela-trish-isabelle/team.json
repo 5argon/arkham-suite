@@ -6,15 +6,19 @@
 	"tags": ["HC Chapter 2 Core Only", "3C+0ID"],
 	"decks": [
 		{
-			"file": "daniela.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "daniela-reyes-arkham-linebacker"
-			}
+			},
+			"changes": [
+				{ "remove": "12073", "add": "12086", "copies": 2 },
+				{ "remove": "12081", "add": "12024", "copies": 2 },
+				{ "remove": "12094", "add": "12021", "copies": 2 },
+				{ "remove": "12084", "copies": 1, "side": true }
+			]
 		},
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
@@ -22,12 +26,15 @@
 			}
 		},
 		{
-			"file": "izzie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "izzie-barnes-mad-skillz"
-			}
+			},
+			"changes": [
+				{ "remove": "12078", "add": "12064", "copies": 2 },
+				{ "remove": "12084", "copies": 1, "side": true }
+			]
 		}
 	]
 }

@@ -6,20 +6,26 @@
 	"tags": ["HC Chapter 2 Core Only", "2C+0ID"],
 	"decks": [
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "trish-scarborough-i-spy-a-seeker"
-			}
+			},
+			"changes": [
+				{ "remove": "12044", "add": "12048", "copies": 1 },
+				{ "remove": "12052", "add": "12036", "copies": 1 }
+			]
 		},
 		{
-			"file": "dexter.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "dexter-drake-the-prestige"
-			}
+			},
+			"changes": [
+				{ "remove": "12044", "add": "12048", "copies": 1 },
+				{ "remove": "12052", "add": "12064", "copies": 1 }
+			]
 		}
 	]
 }

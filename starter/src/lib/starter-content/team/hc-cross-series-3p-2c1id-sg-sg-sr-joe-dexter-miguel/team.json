@@ -6,7 +6,6 @@
 	"tags": ["HC Cross Series", "2C+1ID"],
 	"decks": [
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,7 +13,6 @@
 			}
 		},
 		{
-			"file": "dexter.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -22,7 +20,6 @@
 			}
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",

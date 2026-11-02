@@ -6,7 +6,6 @@
 	"tags": ["HC Chapter 2 Starter Guide", "2C+0ID"],
 	"decks": [
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,12 +13,14 @@
 			}
 		},
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "shoot-first-questions-later"
-			}
+			},
+			"changes": [
+				{ "remove": "12039", "add": "60267", "copies": 2 }
+			]
 		}
 	]
 }

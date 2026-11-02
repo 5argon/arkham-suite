@@ -6,28 +6,35 @@
 	"tags": ["HC Chapter 2 Core Only", "3C+0ID"],
 	"decks": [
 		{
-			"file": "daniela.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "daniela-reyes-arkham-linebacker"
-			}
+			},
+			"changes": [
+				{ "remove": "12025", "add": "12086", "copies": 1 }
+			]
 		},
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "joe-diamond-the-drawlord"
-			}
+			},
+			"changes": [
+				{ "remove": "12025", "add": "12086", "copies": 1 },
+				{ "remove": "12090", "add": "12088", "copies": 2 }
+			]
 		},
 		{
-			"file": "dexter.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-core-only",
 				"slug": "dexter-drake-the-prestige"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12064", "copies": 2 }
+			]
 		}
 	]
 }

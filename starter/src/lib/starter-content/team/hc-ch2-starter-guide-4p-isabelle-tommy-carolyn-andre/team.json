@@ -6,7 +6,6 @@
 	"tags": ["HC Chapter 2 Starter Guide", "1C+3ID"],
 	"decks": [
 		{
-			"file": "andre.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,23 +13,27 @@
 			}
 		},
 		{
-			"file": "tommy.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "got-yourself-a-gun"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "60167", "copies": 2 },
+				{ "remove": "12090", "add": "12021", "copies": 1 }
+			]
 		},
 		{
-			"file": "carolyn.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "who-looks-inside-awakes"
-			}
+			},
+			"changes": [
+				{ "remove": "12093", "add": "12038", "copies": 2 }
+			]
 		},
 		{
-			"file": "izzie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",

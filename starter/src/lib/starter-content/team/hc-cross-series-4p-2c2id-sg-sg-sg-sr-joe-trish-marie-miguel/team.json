@@ -6,7 +6,6 @@
 	"tags": ["HC Cross Series", "2C+2ID"],
 	"decks": [
 		{
-			"file": "joe.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -14,15 +13,16 @@
 			}
 		},
 		{
-			"file": "trish.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "pocket-sand"
-			}
+			},
+			"changes": [
+				{ "remove": "12039", "add": "60267", "copies": 2 }
+			]
 		},
 		{
-			"file": "marie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -30,12 +30,14 @@
 			}
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
 				"slug": "disaster-artist"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12080", "copies": 2 }
+			]
 		}
 	]
 }

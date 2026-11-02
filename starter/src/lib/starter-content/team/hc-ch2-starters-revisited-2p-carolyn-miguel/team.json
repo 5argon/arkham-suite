@@ -6,7 +6,6 @@
 	"tags": ["HC Ch2 Starters Revisited", "0C+2ID"],
 	"decks": [
 		{
-			"file": "carolyn.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",
@@ -14,7 +13,6 @@
 			}
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starters-revisited",

@@ -6,15 +6,16 @@
 	"tags": ["HC Chapter 2 Starter Guide", "0C+4ID"],
 	"decks": [
 		{
-			"file": "marie.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "blood-money"
-			}
+			},
+			"changes": [
+				{ "remove": "12093", "add": "12067", "copies": 2 }
+			]
 		},
 		{
-			"file": "tommy.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
@@ -22,20 +23,24 @@
 			}
 		},
 		{
-			"file": "carolyn.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "who-looks-inside-awakes"
-			}
+			},
+			"changes": [
+				{ "remove": "12090", "add": "60265", "copies": 1 }
+			]
 		},
 		{
-			"file": "miguel.json",
 			"source": {
 				"author": "hungry-colquhoun",
 				"series": "ch2-starter-guide",
 				"slug": "rancher-rambo"
-			}
+			},
+			"changes": [
+				{ "remove": "12094", "add": "12081", "copies": 2 }
+			]
 		}
 	]
 }
