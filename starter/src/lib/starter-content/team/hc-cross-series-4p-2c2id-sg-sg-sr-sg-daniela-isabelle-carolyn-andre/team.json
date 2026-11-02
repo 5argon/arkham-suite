@@ -1,0 +1,40 @@
+{
+	"slug": "hc-cross-series-4p-2c2id-sg-sg-sr-sg-daniela-isabelle-carolyn-andre",
+	"name": "HC Cross Series 4P - 2C+2ID - Daniela (SG), Isabelle (SG), Carolyn (SR), André (SG)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their overlaps are only a few of Core Set neutral skill cards. Those overlaps were resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			}
+		},
+		{
+			"file": "isabelle.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "jennys-retribution"
+			}
+		},
+		{
+			"file": "carolyn.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		},
+		{
+			"file": "andre.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "money-buys-happiness"
+			}
+		}
+	]
+}

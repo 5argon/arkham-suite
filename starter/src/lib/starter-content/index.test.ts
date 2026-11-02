@@ -93,12 +93,14 @@ describe('starter deck export tags', () => {
 	it('gives every embedded team deck exactly the same three tags', () => {
 		const teams = allPrebuiltTeams();
 		const members = teams.flatMap((team) =>
-			team.members.map((member) => ({ team, deck: member.deck }))
+			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(256);
-		for (const { team, deck } of members) {
-			const series = Object.keys(tagsBySeries).find((slug) =>
-				team.slug.startsWith(`hc-${slug}-`)
+		expect(members).toHaveLength(384);
+		for (const { team, deck, source } of members) {
+			const series = (
+				team.slug.startsWith('hc-cross-series-')
+					? source?.series.slug
+					: Object.keys(tagsBySeries).find((slug) => team.slug.startsWith(`hc-${slug}-`))
 			) as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();
 			expect(deck.tags, deck.id.toString()).toBe(tagsBySeries[series!]);
@@ -188,7 +190,10 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 						.toLowerCase()
 				)
 				.join('-');
-			expect(team.name.split(' : ')[1], team.slug).toBe(investigators.join(', '));
+			const listed = team.slug.startsWith('hc-cross-series-')
+				? team.name.split(' - ')[2].replace(/ \([A-Z]{2}\)/g, '')
+				: team.name.split(' : ')[1];
+			expect(listed, team.slug).toBe(investigators.join(', '));
 			expect(team.slug, team.name).toMatch(new RegExp(`-${investigatorSlugs}$`));
 			expect(
 				team.members.every((member) => String(member.deck.id).startsWith(`${team.slug}/`)),
@@ -272,5 +277,66 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 		expect(isabelle.deck.slots?.['12092']).toBeUndefined();
 		expect(team.guideMd).toContain('Lie in Wait');
 		expect(team.guideMd).not.toContain('Overpower');
+	});
+});
+
+describe('Cross Series pre-built teams', () => {
+	const resolver = new CardResolver(getAllCards());
+	const tabooLists = loadAllTabooLists();
+	const teams = allPrebuiltTeams().filter((team) => team.slug.startsWith('hc-cross-series-'));
+
+	function productsOf(deck: AhdbDeck): Product[] {
+		return Object.keys({ ...deck.slots, ...deck.sideSlots })
+			.map((code) => resolver.resolve(code).product)
+			.filter((product) => product !== Product.RandomBasicWeakness);
+	}
+
+	it('assembles 4 hosted decks from more than one series, with different main classes', () => {
+		expect(teams).toHaveLength(32);
+		for (const team of teams) {
+			expect(team.members, team.slug).toHaveLength(4);
+			expect(team.exclusive, team.slug).toBe(false);
+			const series = team.members.map((member) => member.source!.series.slug);
+			expect(new Set(series).size, team.slug).toBeGreaterThan(1);
+			const decks = team.members.map(({ deck }) =>
+				linkedAhdbDeckToDeck({ deck }, resolver, tabooLists)
+			);
+			expect(hasUniqueInvestigatorClasses(decks), team.slug).toBe(true);
+		}
+	});
+
+	it('states the Core Set and Investigator Deck split in its name', () => {
+		for (const team of teams) {
+			const core = team.members.filter(
+				(member) => resolver.resolve(member.deck.investigator_code).product === Product.CoreSet2026
+			).length;
+			expect(team.name, team.slug).toContain(` - ${core}C+${4 - core}ID - `);
+			expect([2, 3], team.slug).toContain(core);
+		}
+	});
+
+	it('resolves every overlap', () => {
+		for (const team of teams) {
+			const decks = team.members.map(({ deck }) =>
+				linkedAhdbDeckToDeck({ deck }, resolver, tabooLists)
+			);
+			expect(deckUtility.findTeamOverlaps(decks, 4)[0].overlaps, team.slug).toHaveLength(0);
+		}
+	});
+
+	it('uses only products its source decks already use', () => {
+		for (const team of teams) {
+			const pool = new Set(
+				team.members.flatMap((member) => [
+					...productsOf(member.source!.primary),
+					resolver.resolve(member.deck.investigator_code).product
+				])
+			);
+			for (const member of team.members) {
+				for (const product of productsOf(member.deck)) {
+					expect(pool.has(product), `${member.deck.id} ${product}`).toBe(true);
+				}
+			}
+		}
 	});
 });

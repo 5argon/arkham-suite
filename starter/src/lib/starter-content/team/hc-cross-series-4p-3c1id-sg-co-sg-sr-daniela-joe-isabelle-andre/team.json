@@ -1,0 +1,40 @@
+{
+	"slug": "hc-cross-series-4p-3c1id-sg-co-sg-sr-daniela-joe-isabelle-andre",
+	"name": "HC Cross Series 4P - 3C+1ID - Daniela (SG), Joe (CO), Isabelle (SG), André (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their overlaps are only a few of Core Set neutral skill cards and a reprinted Vicious Blow. Those overlaps were resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			}
+		},
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "joe-diamond-the-drawlord"
+			}
+		},
+		{
+			"file": "isabelle.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "jennys-retribution"
+			}
+		},
+		{
+			"file": "andre.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "the-fatal-thespian"
+			}
+		}
+	]
+}

@@ -1,0 +1,40 @@
+{
+	"slug": "hc-cross-series-4p-3c1id-sg-sg-sg-sr-joe-trish-dexter-miguel",
+	"name": "HC Cross Series 4P - 3C+1ID - Joe (SG), Trish (SG), Dexter (SG), Miguel (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their overlaps are only a few of Core Set neutral skill cards and a reprinted Deduction. Those overlaps were resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		},
+		{
+			"file": "trish.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "pocket-sand"
+			}
+		},
+		{
+			"file": "dexter.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "a-faustian-bargain"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "disaster-artist"
+			}
+		}
+	]
+}

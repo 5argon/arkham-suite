@@ -1,0 +1,40 @@
+{
+	"slug": "hc-cross-series-4p-2c2id-sg-co-sg-sr-daniela-joe-andre-marie",
+	"name": "HC Cross Series 4P - 2C+2ID - Daniela (SG), Joe (CO), André (SG), Marie (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their overlaps are only a few of Core Set neutral skill cards and a reprinted Vicious Blow. Those overlaps were resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			}
+		},
+		{
+			"file": "joe.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "joe-diamond-the-drawlord"
+			}
+		},
+		{
+			"file": "andre.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "money-buys-happiness"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		}
+	]
+}

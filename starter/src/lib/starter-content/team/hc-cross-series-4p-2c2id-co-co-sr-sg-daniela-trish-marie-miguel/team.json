@@ -1,0 +1,40 @@
+{
+	"slug": "hc-cross-series-4p-2c2id-co-co-sr-sg-daniela-trish-marie-miguel",
+	"name": "HC Cross Series 4P - 2C+2ID - Daniela (CO), Trish (CO), Marie (SR), Miguel (SG)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their overlaps are only a few of Core Set neutral skill cards. Those overlaps were resolved for your convenience by arkham-starter.com's editor.",
+	"decks": [
+		{
+			"file": "daniela.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "daniela-reyes-arkham-linebacker"
+			}
+		},
+		{
+			"file": "trish.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "trish-scarborough-i-spy-a-seeker"
+			}
+		},
+		{
+			"file": "marie.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "marie-poppin-cultists"
+			}
+		},
+		{
+			"file": "miguel.json",
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "rancher-rambo"
+			}
+		}
+	]
+}
