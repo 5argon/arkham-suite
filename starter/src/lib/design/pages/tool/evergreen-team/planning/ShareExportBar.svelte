@@ -1,8 +1,8 @@
 <!--
 @component
 Editor toolbar: undo / redo, Finish (to view mode, where sharing, exporting
-and gathering live), team info, collection toggle, and the two destructive
-actions.
+and gathering live), team info, products, collection toggle, and the two
+destructive actions.
 -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
@@ -21,6 +21,10 @@ actions.
 		onToggleCollection: () => void;
 		onEditInfo: () => void;
 		/**
+		 * Omit when the team's products cannot be changed.
+		 */
+		onEditProducts?: () => void;
+		/**
 		 * Returns every drafted card to the collection, keeping the team.
 		 */
 		onStartOver: () => void;
@@ -38,6 +42,7 @@ actions.
 		onRedo,
 		onToggleCollection,
 		onEditInfo,
+		onEditProducts,
 		onStartOver,
 		onDeleteTeam
 	}: Prop = $props();
@@ -74,6 +79,13 @@ actions.
 			label={m.tool_evergreen_team_info_button()}
 			onClick={onEditInfo}
 		/>
+		{#if onEditProducts}
+			<Button
+				icon={FaIconType.CheckBoxChecked}
+				label={m.tool_evergreen_team_include_decks()}
+				onClick={onEditProducts}
+			/>
+		{/if}
 		<Button
 			icon={collectionVisible ? FaIconType.Collapse : FaIconType.FoldoutRight}
 			label={collectionVisible

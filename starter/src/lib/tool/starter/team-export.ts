@@ -1,15 +1,13 @@
-import { type Card, type CardCode, Product } from '@5argon/arkham-kohaku';
+import type { Card, CardCode, Product } from '@5argon/arkham-kohaku';
 
 import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 import {
 	buildPool,
-	deckProductsForCore,
 	isSelectableProduct,
 	setupForProducts
 } from '$lib/tool/evergreen-team/pool';
 import { draftedOf } from '$lib/tool/evergreen-team/rules';
 import type {
-	EvergreenCore,
 	EvergreenDeckState,
 	EvergreenState,
 	PoolEntry,
@@ -18,23 +16,19 @@ import type {
 
 import { deckCardPool, type StarterDeckEntry } from '../../starter-content';
 
-const CORE: EvergreenCore = Product.CoreSet2026;
-
 /**
  * The cart as an Evergreen Team Builder state: the exact decks (0 XP main
- * deck, upgrades as side deck) over the exact product set, which is the
- * user's ticked products plus whatever the chosen decks themselves
- * require. Card overlaps between decks are kept for the tool to show and
- * resolve.
+ * deck, upgrades as side deck) over only the products the chosen decks
+ * require; the tool can add more. Card overlaps between decks are kept for the
+ * tool to show and resolve.
  */
 export function starterTeamState(args: {
 	entries: StarterDeckEntry[];
-	products: Product[] | undefined;
 	allCards: Card[];
 	info: TeamInfo;
 }): { state: EvergreenState; pool: Map<CardCode, PoolEntry> } {
-	const { entries, products, allCards, info } = args;
-	const required = new Set<Product>(products ?? deckProductsForCore(CORE));
+	const { entries, allCards, info } = args;
+	const required = new Set<Product>();
 	for (const entry of entries) {
 		for (const p of deckCardPool(entry.primary)) {
 			if (isSelectableProduct(p as Product)) required.add(p as Product);

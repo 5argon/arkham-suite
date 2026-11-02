@@ -45,7 +45,6 @@ reads Resolve Overlaps instead.
 			? null
 			: starterTeamState({
 					entries: entries.map((x) => x.entry),
-					products: starterTeam.products,
 					allCards,
 					info: {
 						...defaultTeamInfo(),

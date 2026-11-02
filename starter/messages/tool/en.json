@@ -172,6 +172,7 @@
 	"tool_evergreen_team_default_team_name": "Your Team",
 	"tool_evergreen_team_default_team_description": "Created with the Team Builder tool.",
 	"tool_evergreen_team_info_button": "Team Info",
+	"tool_evergreen_team_products_help": "Check what you own to find more cards in the collection. Cards already in a deck stay there when you uncheck their product, but if you throw one back, you won't find it in the collection anymore. Products of the investigators on your team stay checked.",
 	"tool_evergreen_team_info_title": "Edit Team Info",
 	"tool_evergreen_team_info_help": "Shown in the view mode of this team's link, and copied into the exported decks.",
 	"tool_evergreen_team_info_name": "Team Name",

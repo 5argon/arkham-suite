@@ -2,8 +2,7 @@
 @component
 The starter library filter shared by the Starter Decks and Pre-Built Teams
 pages: the products you own (Core Set 2026 is always in), preset by the
-environment selector, and the investigators to show. The product choice is
-remembered with the starter team cart so Use This Team carries it.
+environment selector, and the investigators to show.
 Investigators start unpicked so the reader chooses who they are curious
 about, unless `initiallyAll` asks for everything shown up front. Products start
 on the newest environment, unless `withChapterTwo` offers and starts on all of
@@ -28,7 +27,6 @@ them. A page with more than one filter gives each its own `snapshotId`.
 	import { chapterTwoChoice, environmentChoices } from '$lib/tool/environment-choices';
 	import { investigatorsForSetup, setupForProducts } from '$lib/tool/evergreen-team/pool';
 	import type { StarterFilterValue } from '$lib/tool/starter/filter';
-	import { starterTeam } from '$lib/tool/starter/team-cart.svelte';
 
 	interface Prop {
 		onChange: (filter: StarterFilterValue) => void;
@@ -37,10 +35,6 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		 * Starts with every investigator picked instead of none.
 		 */
 		initiallyAll?: boolean;
-		/**
-		 * Whether the products chosen here are what the starter team cart carries.
-		 */
-		remembersProducts?: boolean;
 		withChapterTwo?: boolean;
 		hideProductsHelp?: boolean;
 		snapshotId?: string;
@@ -49,7 +43,6 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		onChange,
 		showMustIncludeAll = false,
 		initiallyAll = false,
-		remembersProducts = true,
 		withChapterTwo = false,
 		hideProductsHelp = false,
 		snapshotId = 'starter-filter'
@@ -61,9 +54,7 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		return investigatorsForSetup(setupForProducts(products), allCards);
 	}
 
-	// Starts on the newest environment choice so nothing legal today is hidden;
-	// the choice still travels with the starter team cart so Use This Team
-	// carries it.
+	// Starts on the newest environment choice so nothing legal today is hidden.
 	const initialProducts = untrack(() => withChapterTwo)
 		? chapterTwoChoice(new Date(), allCards).products
 		: (environmentChoices(new Date(), allCards).at(-1)?.products ?? []);
@@ -100,13 +91,9 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		const wasAll = allInvestigatorsOn;
 		apply();
 		if (wasAll) for (const c of investigators) selectedInvestigators.add(c.code);
-		rememberProducts();
-	}
-	function rememberProducts() {
-		if (remembersProducts) starterTeam.setProducts([...selectedProducts]);
 		emit();
 	}
-	rememberProducts();
+	emit();
 
 	/**
 	 * Back to how the filter starts.
@@ -118,7 +105,7 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		if (initiallyAll) for (const c of rosterOf(initialProducts)) selectedInvestigators.add(c.code);
 		mustIncludeAll = false;
 		resetCount++;
-		rememberProducts();
+		emit();
 	}
 
 	// Coming back to the page restores what was picked.
@@ -135,7 +122,7 @@ them. A page with more than one filter gives each its own `snapshotId`.
 			selectedInvestigators.clear();
 			for (const code of value.investigators) selectedInvestigators.add(code);
 			mustIncludeAll = value.mustIncludeAll;
-			rememberProducts();
+			emit();
 		}
 	});
 </script>

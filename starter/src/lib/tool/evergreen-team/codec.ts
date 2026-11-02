@@ -1,7 +1,7 @@
 import { type Card, type CardCode, Product } from '@5argon/arkham-kohaku';
 
 import { EvergreenTeamProto } from '../../proto/generated/evergreen_team';
-import { buildPool, deckProductsForCore, investigatorsForSetup } from './pool';
+import { allPlayerCards, deckProductsForCore, investigatorsForSetup } from './pool';
 import { deckLimitOf, routeZone } from './rules';
 import { clampTeamInfo } from './team-info';
 import type { EvergreenCore, EvergreenDeckState, EvergreenState } from './types';
@@ -100,7 +100,8 @@ export function decodeEvergreen(encoded: string, allCards: Card[]): EvergreenSta
 
 	const setup = { core, deckProducts, extraProducts, investigators: [] as CardCode[] };
 	const rosterCodes = new Set(investigatorsForSetup(setup, allCards).map((c) => c.code));
-	const pool = buildPool(setup, allCards);
+	// Decks may keep cards from products that were deselected after picking them.
+	const playerCards = allPlayerCards(allCards);
 
 	const decks: EvergreenDeckState[] = [];
 	for (const protoDeck of proto.decks.slice(0, 4)) {
@@ -112,7 +113,7 @@ export function decodeEvergreen(encoded: string, allCards: Card[]): EvergreenSta
 		const titleCounts = new Map<string, number>();
 		for (const entry of protoDeck.cards) {
 			const { code, quantity } = unpackEntry(entry);
-			const poolEntry = pool.get(code);
+			const poolEntry = playerCards.get(code);
 			if (poolEntry === undefined) continue;
 			const inThisTitle = titleCounts.get(poolEntry.titleKey) ?? 0;
 			const qty = Math.min(quantity, deckLimitOf(poolEntry.card) - inThisTitle);

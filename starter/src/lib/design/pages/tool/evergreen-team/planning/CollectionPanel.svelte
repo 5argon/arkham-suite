@@ -88,9 +88,7 @@ pool). The whole panel is the drop target for returns.
 		onCardHoverEnd
 	}: Prop = $props();
 
-	// Setup and pool are frozen for the lifetime of the planning phase.
-	const getFrozen = () => ({ setup: team.setup, pool, eligibility });
-	const allProductSections = poolSections(getFrozen().setup, getFrozen().pool);
+	const allProductSections = $derived(poolSections(team.setup, pool));
 
 	// Cards that no active member can use are filtered out of the collection
 	// entirely; with Solo active this narrows to the soloed members only.

@@ -181,7 +181,6 @@
 						withChapterTwo
 						hideProductsHelp
 						showMustIncludeAll
-						remembersProducts={false}
 						snapshotId="starter-author-team-filter"
 						onChange={(f) => (teamFilter = f)}
 					/>

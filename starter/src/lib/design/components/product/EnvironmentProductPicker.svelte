@@ -35,8 +35,12 @@ starts on it. It has no page of its own to view its cards on.
 		selected: Product[];
 		onChange: (products: Product[]) => void;
 		withChapterTwo?: boolean;
+		/**
+		 * Stay checked whatever is picked, on top of Core Set 2026.
+		 */
+		lockedProducts?: Product[];
 	}
-	const { selected, onChange, withChapterTwo = false }: Prop = $props();
+	const { selected, onChange, withChapterTwo = false, lockedProducts = [] }: Prop = $props();
 
 	const today = new Date();
 	const allCards = getAllCards();
@@ -63,7 +67,7 @@ starts on it. It has no page of its own to view its cards on.
 	function pick(choice: EnvironmentChoice | undefined) {
 		if (choice === undefined) return;
 		picked = choice;
-		onChange([...choice.products]);
+		onChange([...new Set([...choice.products, ...lockedProducts])]);
 	}
 	const coreOnly = $derived(selectedChoice?.kind === 'core');
 	let previousOpen = $state(false);
@@ -91,6 +95,7 @@ starts on it. It has no page of its own to view its cards on.
 	}
 
 	function toggle(product: Product) {
+		if (isLocked(product)) return;
 		onChange(
 			selected.includes(product)
 				? selected.filter((p) => p !== product)
@@ -98,7 +103,8 @@ starts on it. It has no page of its own to view its cards on.
 		);
 	}
 
-	const isLocked = (product: Product) => product === Product.CoreSet2026;
+	const isLocked = (product: Product) =>
+		product === Product.CoreSet2026 || lockedProducts.includes(product);
 	const tileProps = {
 		onClick: (product: Product) => () => toggle(product),
 		active: (product: Product) => isLocked(product) || selected.includes(product),

@@ -13,7 +13,7 @@ listing.
 	import * as m from '$lib/paraglide/messages.js';
 	import type { PrebuiltTeamSource } from '$lib/starter-content';
 	import { notableDeckCards } from '$lib/tool/evergreen-team/notable-cards';
-	import { buildPool } from '$lib/tool/evergreen-team/pool';
+	import { teamPool } from '$lib/tool/evergreen-team/pool';
 	import type { EvergreenState, TeamInfo } from '$lib/tool/evergreen-team/types';
 
 	import MemberHeader from './MemberHeader.svelte';
@@ -36,8 +36,8 @@ listing.
 	}
 	const { info, team, sources, exclusive = false, authorAvatar, authorSlug }: Prop = $props();
 
-	const getFrozenSetup = () => team.setup;
-	const pool = buildPool(getFrozenSetup(), getAllCards());
+	const getFrozenTeam = () => team;
+	const pool = teamPool(getFrozenTeam(), getAllCards());
 	const resolver = createCardResolver();
 </script>
 

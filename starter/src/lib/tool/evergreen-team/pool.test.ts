@@ -5,6 +5,7 @@ import { createCardResolver, getAllCards } from '../../card-data';
 import {
 	accessSummary,
 	buildPool,
+	withHeldCards,
 	classGroupFor,
 	fixedItemsFor,
 	investigatorsForSetup
@@ -138,5 +139,21 @@ describe('fixedItemsFor', () => {
 		const items = fixedItemsFor(andre, resolver);
 		expect(items.length).toBe(5);
 		expect(items[4].code).toBe('01000');
+	});
+});
+
+describe('withHeldCards', () => {
+	const collection = buildPool(setup(Product.CoreSet2026), allCards);
+	const deck = (main: Record<string, number>) => ({ investigator: '12001', main, side: {} });
+
+	it('returns the collection itself when decks hold nothing else', () => {
+		expect(withHeldCards(collection, [deck({ '12094': 2 })], allCards)).toBe(collection);
+	});
+
+	it('adds what decks hold from a product not selected, leaving the collection alone', () => {
+		const pool = withHeldCards(collection, [deck({ '60569': 2 })], allCards);
+		expect(pool.get('60569')?.card.name).toBe('On the Brink');
+		expect(pool.get('60569')?.total).toBe(2);
+		expect(collection.has('60569')).toBe(false);
 	});
 });

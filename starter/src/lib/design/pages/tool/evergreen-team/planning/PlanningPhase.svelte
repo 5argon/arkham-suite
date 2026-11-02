@@ -7,13 +7,18 @@ rules.ts, shared by drag-drop and the click picker.
 -->
 <script lang="ts">
 	import { CardLineHoverTooltip } from '@5argon/arkham-life-ui';
-	import type { Card, CardCode } from '@5argon/arkham-kohaku';
+	import { type Card, type CardCode, Product } from '@5argon/arkham-kohaku';
 	import { SvelteSet } from 'svelte/reactivity';
 
 	import { createCardResolver, getAllCards } from '$lib/card-data';
 	import * as m from '$lib/paraglide/messages.js';
 	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
-	import { buildPool, investigatorsForSetup } from '$lib/tool/evergreen-team/pool';
+	import {
+		buildPool,
+		investigatorsForSetup,
+		setupForProducts,
+		withHeldCards
+	} from '$lib/tool/evergreen-team/pool';
 	import {
 		buildEligibility,
 		moveBetweenDecks,
@@ -26,6 +31,7 @@ rules.ts, shared by drag-drop and the click picker.
 	import CollectionPanel from './CollectionPanel.svelte';
 	import { DRAG_MIME, type DragSource, EvergreenDnd } from './dnd.svelte';
 	import InvestigatorArea from './InvestigatorArea.svelte';
+	import ProductsModal from './ProductsModal.svelte';
 	import ShareExportBar from './ShareExportBar.svelte';
 	import StackActionModal from './StackActionModal.svelte';
 	import SwapInvestigatorModal from './SwapInvestigatorModal.svelte';
@@ -47,12 +53,12 @@ rules.ts, shared by drag-drop and the click picker.
 
 	const allCards = getAllCards();
 	const resolver = createCardResolver();
-	// Products are immutable once planning starts, so the pool and roster are
-	// computed exactly once; investigators can still be swapped while a deck
-	// is empty, so eligibility follows them.
-	const getFrozenSetup = () => team.setup;
-	const pool = buildPool(getFrozenSetup(), allCards);
-	const roster = investigatorsForSetup(getFrozenSetup(), allCards);
+	// The collection is what the selected products offer. The pool also has what
+	// decks still hold from products no longer selected, for looking up any
+	// card on the board.
+	const collection = $derived(buildPool(team.setup, allCards));
+	const pool = $derived(withHeldCards(collection, team.decks, allCards));
+	const roster = $derived(investigatorsForSetup(team.setup, allCards));
 	const eligibility = $derived(
 		buildEligibility(
 			team.setup.investigators.map((code) => resolver.resolve(code)),
@@ -65,6 +71,20 @@ rules.ts, shared by drag-drop and the click picker.
 	const dnd = new EvergreenDnd();
 	let pickerSource = $state<DragSource | null>(null);
 	let showInfo = $state(false);
+	let showProducts = $state(false);
+	const selectedProducts = $derived([...team.setup.deckProducts, ...team.setup.extraProducts]);
+	const investigatorProducts = $derived(
+		team.setup.investigators
+			.map((code) => resolver.resolve(code).product)
+			.filter((product) => product !== team.setup.core)
+	);
+
+	function changeProducts(products: Product[]) {
+		const { deckProducts, extraProducts } = setupForProducts(products);
+		team.setup.deckProducts = deckProducts;
+		team.setup.extraProducts = extraProducts;
+		onChange?.();
+	}
 	const encodedNow = $derived(encodeEvergreen($state.snapshot(team) as EvergreenState));
 
 	function saveInfo(info: TeamInfo) {
@@ -304,6 +324,9 @@ rules.ts, shared by drag-drop and the click picker.
 			onRedo={redo}
 			onToggleCollection={() => (showCollection = !showCollection)}
 			onEditInfo={() => (showInfo = true)}
+			onEditProducts={team.setup.core === Product.CoreSet2026
+				? () => (showProducts = true)
+				: undefined}
 			onStartOver={handleStartOver}
 			{onDeleteTeam}
 		/>
@@ -339,7 +362,7 @@ rules.ts, shared by drag-drop and the click picker.
 				<div class="collection-panel">
 					<CollectionPanel
 						{team}
-						{pool}
+						pool={collection}
 						{eligibility}
 						activeDeckIndices={visibleDeckIndices}
 						{focus}
@@ -381,6 +404,15 @@ rules.ts, shared by drag-drop and the click picker.
 	onSwap={swapInvestigator}
 	onClose={() => (swapIndex = null)}
 />
+
+{#if showProducts}
+	<ProductsModal
+		products={selectedProducts}
+		lockedProducts={investigatorProducts}
+		onChange={changeProducts}
+		onClose={() => (showProducts = false)}
+	/>
+{/if}
 
 {#if showInfo}
 	<TeamInfoModal

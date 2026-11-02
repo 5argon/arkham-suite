@@ -14,7 +14,15 @@ import {
 } from '@5argon/arkham-kohaku';
 
 import { routeZone } from './rules';
-import type { AccessLine, EvergreenCore, EvergreenSetup, EvergreenZone, PoolEntry } from './types';
+import type {
+	AccessLine,
+	EvergreenCore,
+	EvergreenDeckState,
+	EvergreenSetup,
+	EvergreenState,
+	EvergreenZone,
+	PoolEntry
+} from './types';
 
 /**
  * The 5 prebuilt deck products that belong to the chosen core's era.
@@ -92,13 +100,58 @@ export function buildPool(setup: EvergreenSetup, allCards: Card[]): Map<CardCode
 	const products = poolProducts(setup);
 	const entries = allCards
 		.filter((c) => cardUtils.deckbuildingPlayerCardsFilter(c) && products.includes(c.product))
-		.map((card): PoolEntry => ({
-			card,
-			total: card.quantity,
-			titleKey: `${card.name}|${card.subname ?? ''}|${card.xp ?? ''}|${card.cardType}`
-		}))
+		.map(poolEntry)
 		.sort((a, b) => a.card.code.localeCompare(b.card.code));
 	return new Map(entries.map((e) => [e.card.code, e]));
+}
+
+function poolEntry(card: Card): PoolEntry {
+	return {
+		card,
+		total: card.quantity,
+		titleKey: `${card.name}|${card.subname ?? ''}|${card.xp ?? ''}|${card.cardType}`
+	};
+}
+
+/**
+ * Every draftable player card of any product, for what a deck may hold whether
+ * or not its product is selected.
+ */
+export function allPlayerCards(allCards: Card[]): Map<CardCode, PoolEntry> {
+	return new Map(
+		allCards.filter((c) => cardUtils.deckbuildingPlayerCardsFilter(c)).map((c) => [c.code, poolEntry(c)])
+	);
+}
+
+/**
+ * The collection plus what the decks still hold from products no longer
+ * selected, so those cards can be shown and moved. Throwing one back removes it
+ * from here too, since the collection has no box for it. Returns the same map
+ * when there is nothing to add. Added entries come after the collection's.
+ */
+export function withHeldCards(
+	collection: Map<CardCode, PoolEntry>,
+	decks: readonly EvergreenDeckState[],
+	allCards: Card[]
+): Map<CardCode, PoolEntry> {
+	const held = new Set(
+		decks
+			.flatMap((deck) => [...Object.keys(deck.main), ...Object.keys(deck.side)])
+			.filter((code) => !collection.has(code))
+	);
+	if (held.size === 0) return collection;
+	const pool = new Map(collection);
+	for (const card of allCards) {
+		if (held.has(card.code)) pool.set(card.code, poolEntry(card));
+	}
+	return pool;
+}
+
+/**
+ * The pool of a finished team, for looking up everything its decks hold.
+ */
+export function teamPool(team: EvergreenState, allCards: Card[]): Map<CardCode, PoolEntry> {
+	return withHeldCards(buildPool(team.setup, allCards), team.decks, allCards);
 }
 
 export interface PoolSection {

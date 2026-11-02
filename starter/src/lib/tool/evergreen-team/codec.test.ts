@@ -99,7 +99,14 @@ describe('evergreen codec', () => {
 		expect(decodeEvergreen('', allCards)).toBeNull();
 	});
 
-	it('drops cards that are not in the rebuilt pool', () => {
+	it('keeps cards from a product that is not selected', () => {
+		const state = fullTeam();
+		state.decks[0].main['12094'] = 2;
+		const decoded = decodeEvergreen(encodeEvergreen(state), allCards);
+		expect(decoded!.decks[0].main['12094']).toBe(2);
+	});
+
+	it('drops cards that do not exist', () => {
 		const state = fullTeam();
 		state.decks[0].main['59999'] = 2;
 		const decoded = decodeEvergreen(encodeEvergreen(state), allCards);

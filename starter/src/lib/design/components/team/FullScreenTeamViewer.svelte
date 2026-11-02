@@ -30,7 +30,7 @@ team page.
 	import { encodeEvergreen } from '$lib/tool/evergreen-team/codec';
 	import { toAhdbDeck } from '$lib/tool/evergreen-team/export';
 	import { openInDeckGather } from '$lib/tool/interop/transient-decks';
-	import { buildPool, poolSections } from '$lib/tool/evergreen-team/pool';
+	import { poolSections, teamPool } from '$lib/tool/evergreen-team/pool';
 	import { buildEligibility, teamOverlaps, remainingOf } from '$lib/tool/evergreen-team/rules';
 	import type { DeckMeta, EvergreenState } from '$lib/tool/evergreen-team/types';
 
@@ -55,7 +55,8 @@ team page.
 	const allCards = getAllCards();
 	const resolver = createCardResolver();
 	const getFrozenSetup = () => team.setup;
-	const pool = buildPool(getFrozenSetup(), allCards);
+	const getFrozenTeam = () => team;
+	const pool = teamPool(getFrozenTeam(), allCards);
 	const eligibility = buildEligibility(
 		getFrozenSetup().investigators.map((code) => resolver.resolve(code)),
 		pool

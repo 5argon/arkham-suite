@@ -1,5 +1,4 @@
 import { browser } from '$app/env';
-import type { Product } from '@5argon/arkham-kohaku';
 
 import { getFromStorage, removeFromStorage, saveToStorage, STORAGE_KEYS } from '$lib/storage';
 
@@ -16,11 +15,6 @@ export interface StarterTeamMember {
 
 interface StoredTeam {
 	members: StarterTeamMember[];
-	/**
-	 * Product codes the user ticked on the listing;
-	 * undefined until they touch the filter.
-	 */
-	products?: string[];
 }
 
 function sameMember(a: StarterTeamMember, b: StarterTeamMember): boolean {
@@ -33,14 +27,12 @@ function sameMember(a: StarterTeamMember, b: StarterTeamMember): boolean {
  */
 export class StarterTeamCart {
 	members = $state<StarterTeamMember[]>([]);
-	products = $state<Product[] | undefined>(undefined);
 
 	constructor() {
 		if (!browser) return;
 		const stored = getFromStorage<StoredTeam | null>(STORAGE_KEYS.STARTER_TEAM, null);
 		if (stored !== null && Array.isArray(stored.members)) {
 			this.members = stored.members.slice(0, STARTER_TEAM_MAX);
-			this.products = stored.products as Product[] | undefined;
 		}
 	}
 
@@ -79,21 +71,13 @@ export class StarterTeamCart {
 		this.persist();
 	}
 
-	setProducts(products: Product[]): void {
-		this.products = [...products];
-		this.persist();
-	}
-
 	private persist(): void {
 		if (!browser) return;
-		if (this.members.length === 0 && this.products === undefined) {
+		if (this.members.length === 0) {
 			removeFromStorage(STORAGE_KEYS.STARTER_TEAM);
 			return;
 		}
-		const stored: StoredTeam = {
-			members: $state.snapshot(this.members),
-			products: this.products === undefined ? undefined : [...this.products]
-		};
+		const stored: StoredTeam = { members: $state.snapshot(this.members) };
 		saveToStorage(STORAGE_KEYS.STARTER_TEAM, stored);
 	}
 }
