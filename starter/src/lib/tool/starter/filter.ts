@@ -76,6 +76,50 @@ export function teamState(team: PrebuiltTeam, allCards: Card[]): EvergreenState 
 	);
 }
 
+const COMPOSITION_TAG = /^(\d+)C\+(\d+)ID$/;
+
+function compositionOf(tag: string): { players: number; core: number } | null {
+	const match = COMPOSITION_TAG.exec(tag);
+	return match === null
+		? null
+		: { players: Number(match[1]) + Number(match[2]), core: Number(match[1]) };
+}
+
+/**
+ * Every tag these teams have, in the order to offer them: series first, then
+ * Core Set and Investigator Deck mixes by player count, most Core Set first.
+ */
+function teamTags(entries: PrebuiltTeamEntry[]): string[] {
+	return [...new Set(entries.flatMap((entry) => entry.team.tags))].sort((a, b) => {
+		const [mixA, mixB] = [compositionOf(a), compositionOf(b)];
+		if (mixA === null || mixB === null) {
+			return mixA === mixB ? a.localeCompare(b) : mixA === null ? -1 : 1;
+		}
+		return mixA.players - mixB.players || mixB.core - mixA.core;
+	});
+}
+
+export function teamHasTags(entry: PrebuiltTeamEntry, tags: readonly string[]): boolean {
+	return tags.every((tag) => entry.team.tags.includes(tag));
+}
+
+/**
+ * The tags of the teams left by those in effect, each with how many teams would
+ * be left by adding it.
+ */
+export function tagChoices(
+	entries: PrebuiltTeamEntry[],
+	active: readonly string[]
+): { label: string; count: number }[] {
+	const matching = entries.filter((entry) => teamHasTags(entry, active));
+	return teamTags(matching)
+		.filter((tag) => !active.includes(tag))
+		.map((label) => ({
+			label,
+			count: matching.filter((entry) => entry.team.tags.includes(label)).length
+		}));
+}
+
 /**
  * Player counts pre-built teams are browsed by.
  */

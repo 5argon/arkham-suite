@@ -1,12 +1,12 @@
 <!--
 @component
-Compact banner for a team: name, author, description, and the team-wide card
-pool summary. Shared by the team builder's view mode and the pre-built team
+Compact banner for a team: name, tags, author, description, and the team-wide
+card pool summary. Shared by the team builder's view mode and the pre-built team
 listing.
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { BorderedContainer, CardCircle } from '@5argon/arkham-life-ui';
+	import { BorderedContainer, CardCircle, TagChip } from '@5argon/arkham-life-ui';
 	import type { Card } from '@5argon/arkham-kohaku';
 
 	import { createCardResolver, getAllCards } from '$lib/card-data';
@@ -23,6 +23,7 @@ listing.
 	interface Prop {
 		info: TeamInfo;
 		team: EvergreenState;
+		tags?: string[];
 		/** Hosted starter sources parallel to team.decks. Omit to keep the banner compact. */
 		sources?: (PrebuiltTeamSource | undefined)[];
 		exclusive?: boolean;
@@ -34,7 +35,8 @@ listing.
 		 */
 		authorSlug?: string;
 	}
-	const { info, team, sources, exclusive = false, authorAvatar, authorSlug }: Prop = $props();
+	const { info, team, tags = [], sources, exclusive = false, authorAvatar, authorSlug }: Prop =
+		$props();
 
 	const getFrozenTeam = () => team;
 	const pool = teamPool(getFrozenTeam(), getAllCards());
@@ -64,6 +66,13 @@ listing.
 			<span class="team-name text-primary-900 dark:text-primary-100 text-xl" class:px-16={exclusive}
 				>{info.name}</span
 			>
+			{#if tags.length > 0}
+				<div class="flex flex-wrap justify-center gap-1">
+					{#each tags as tag (tag)}
+						<TagChip label={tag} />
+					{/each}
+				</div>
+			{/if}
 			{#if info.author.length > 0}
 				{#if authorSlug}
 					<a

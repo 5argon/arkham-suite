@@ -3,6 +3,7 @@
 	"name": "HC Ch2 Starters Revisited - 3P : Tommy, André, Marie",
 	"authorSlug": "hungry-colquhoun",
 	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Starters Revisited series, with an overlap resolved for your convenience by arkham-starter.com's editor.",
+	"tags": ["HC Ch2 Starters Revisited", "0C+3ID"],
 	"decks": [
 		{
 			"file": "andre.json",

@@ -51,6 +51,7 @@
 			<TeamBanner
 				info={{ name: team.name, author: team.author, description: team.description }}
 				team={builderState}
+				tags={team.tags}
 				sources={team.members.map((member) => member.source)}
 				exclusive={team.exclusive}
 				authorAvatar={teamAuthor?.avatarCard}

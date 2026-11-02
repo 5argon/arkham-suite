@@ -3,6 +3,7 @@
 	"name": "HC Chapter 2 Starter Guide - 2P : Tommy, Carolyn",
 	"authorSlug": "hungry-colquhoun",
 	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series.",
+	"tags": ["HC Chapter 2 Starter Guide", "0C+2ID"],
 	"decks": [
 		{
 			"file": "tommy.json",

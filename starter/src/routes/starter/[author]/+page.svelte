@@ -26,6 +26,7 @@
 		deckMatches,
 		decodeTeams,
 		type StarterFilterValue,
+		teamHasTags,
 		teamMatches
 	} from '$lib/tool/starter/filter';
 
@@ -59,6 +60,15 @@
 		)
 	);
 	const visibleTeams = $derived(teams.filter((entry) => teamMatches(entry, teamFilter)));
+	let activeTags = $state<string[]>([]);
+	const taggedTeamCount = $derived(
+		visibleTeams.filter((entry) => teamHasTags(entry, activeTags)).length
+	);
+	snapshot({
+		id: 'starter-author-team-tags',
+		capture: () => [...activeTags],
+		restore: (value) => (activeTags = value)
+	});
 	let tab = $state(0);
 	snapshot({
 		id: 'starter-author-tab',
@@ -153,7 +163,7 @@
 				onTabChange={(index) => (tab = index)}
 				tabs={[
 					{ label: m.starter_decks_tab_decks({ count: deckCount }) },
-					{ label: m.starter_decks_tab_teams({ count: visibleTeams.length }) }
+					{ label: m.starter_decks_tab_teams({ count: taggedTeamCount }) }
 				]}
 			/>
 		</div>
@@ -203,7 +213,7 @@
 			</div>
 		{:else}
 			<div class="mt-4">
-				<PrebuiltTeamList entries={visibleTeams} />
+				<PrebuiltTeamList entries={visibleTeams} bind:activeTags />
 			</div>
 		{/if}
 	</MarginFull>

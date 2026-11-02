@@ -24,6 +24,7 @@ pool usage, members) linking to the team page.
 	<TeamBanner
 		info={{ name: team.name, author: team.author, description: team.description }}
 		team={builderState}
+		tags={team.tags}
 		exclusive={team.exclusive}
 		authorAvatar={contributor(team.authorSlug)?.avatarCard}
 	/>

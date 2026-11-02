@@ -3,6 +3,7 @@
 	"name": "HC Cross Series 4P - 2C+2ID - Trish (SG), Dexter (CO), Tommy (SG), Miguel (SG)",
 	"authorSlug": "hungry-colquhoun",
 	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their overlaps are only a few of Core Set neutral skill cards. Those overlaps were resolved for your convenience by arkham-starter.com's editor.",
+	"tags": ["HC Cross Series", "2C+2ID"],
 	"decks": [
 		{
 			"file": "trish.json",

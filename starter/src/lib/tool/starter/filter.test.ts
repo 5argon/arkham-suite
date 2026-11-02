@@ -1,7 +1,14 @@
 import { type CardCode, Product } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
-import { matchesInvestigators, pickRandom, type StarterFilterValue } from './filter';
+import {
+	matchesInvestigators,
+	pickRandom,
+	type PrebuiltTeamEntry,
+	type StarterFilterValue,
+	tagChoices,
+	teamHasTags
+} from './filter';
 
 const roland = '01001' as CardCode;
 const daisy = '01002' as CardCode;
@@ -48,5 +55,39 @@ describe('pickRandom', () => {
 	it('repeats the only item and returns null for nothing', () => {
 		expect(pickRandom([roland], roland)).toBe(roland);
 		expect(pickRandom([], null)).toBe(null);
+	});
+});
+
+describe('pre-built team tags', () => {
+	const entry = (...tags: string[]) => ({ team: { tags } }) as unknown as PrebuiltTeamEntry;
+	const entries = [
+		entry('HC Cross Series', '2C+2ID'),
+		entry('HC Cross Series', '3C+1ID'),
+		entry('HC Chapter 2 Core Only', '2C+0ID'),
+		entry('HC Chapter 2 Core Only', '1C+1ID')
+	];
+
+	it('offers series first, then mixes by player count with the most Core Set first', () => {
+		expect(tagChoices(entries, []).map((choice) => choice.label)).toEqual([
+			'HC Chapter 2 Core Only',
+			'HC Cross Series',
+			'2C+0ID',
+			'1C+1ID',
+			'3C+1ID',
+			'2C+2ID'
+		]);
+	});
+
+	it('needs a team to have every tag in effect', () => {
+		expect(teamHasTags(entries[0], ['HC Cross Series', '2C+2ID'])).toBe(true);
+		expect(teamHasTags(entries[0], ['HC Cross Series', '3C+1ID'])).toBe(false);
+		expect(teamHasTags(entries[0], [])).toBe(true);
+	});
+
+	it('offers only tags of the teams left, with what adding each would leave', () => {
+		expect(tagChoices(entries, ['HC Cross Series'])).toEqual([
+			{ label: '3C+1ID', count: 1 },
+			{ label: '2C+2ID', count: 1 }
+		]);
 	});
 });

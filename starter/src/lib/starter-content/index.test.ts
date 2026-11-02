@@ -280,6 +280,29 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 	});
 });
 
+describe('pre-built team tags', () => {
+	const resolver = new CardResolver(getAllCards());
+	const seriesTags = {
+		'hc-ch2-core-only-': 'HC Chapter 2 Core Only',
+		'hc-ch2-starter-guide-': 'HC Chapter 2 Starter Guide',
+		'hc-ch2-starters-revisited-': 'HC Ch2 Starters Revisited',
+		'hc-cross-series-': 'HC Cross Series'
+	};
+
+	it('tags every team with its series, then its Core Set and Investigator Deck mix', () => {
+		for (const team of allPrebuiltTeams()) {
+			const series = Object.entries(seriesTags).find(([prefix]) => team.slug.startsWith(prefix));
+			const core = team.members.filter(
+				(member) => resolver.resolve(member.deck.investigator_code).product === Product.CoreSet2026
+			).length;
+			expect(team.tags, team.slug).toEqual([
+				series?.[1],
+				`${core}C+${team.members.length - core}ID`
+			]);
+		}
+	});
+});
+
 describe('Cross Series pre-built teams', () => {
 	const resolver = new CardResolver(getAllCards());
 	const tabooLists = loadAllTabooLists();

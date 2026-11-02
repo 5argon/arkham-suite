@@ -3,6 +3,7 @@
 	"name": "HC Chapter 2 Starter Guide - 4P : Carolyn, André, Marie, Miguel",
 	"authorSlug": "hungry-colquhoun",
 	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"tags": ["HC Chapter 2 Starter Guide", "0C+4ID"],
 	"decks": [
 		{
 			"file": "marie.json",

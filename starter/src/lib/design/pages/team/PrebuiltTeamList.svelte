@@ -1,17 +1,17 @@
 <!--
 @component
 Pre-built teams browsed by player count: 2 / 3 / 4 Players tabs (with the
-count of matching teams), paginated team cards. Bind `sizeIndex` to share the
-chosen player count with the rest of the page.
+count of matching teams), a tag filter, paginated team cards. Bind `sizeIndex`
+and `activeTags` to share them with the rest of the page.
 -->
 <script lang="ts">
 	import { snapshot } from '$app/navigation';
-	import { Pagination, Tabs } from '@5argon/arkham-life-ui';
+	import { Pagination, Tabs, TagFilter } from '@5argon/arkham-life-ui';
 
 	import * as m from '$lib/paraglide/messages.js';
 	import type { PrebuiltTeam } from '$lib/starter-content';
 	import type { EvergreenState } from '$lib/tool/evergreen-team/types';
-	import { TEAM_SIZES } from '$lib/tool/starter/filter';
+	import { tagChoices, TEAM_SIZES, teamHasTags } from '$lib/tool/starter/filter';
 
 	import PrebuiltTeamCard from './PrebuiltTeamCard.svelte';
 
@@ -22,18 +22,23 @@ chosen player count with the rest of the page.
 
 	interface Prop {
 		/**
-		 * Already filtered; this component only splits by player count.
+		 * Filtered by everything but tags; this component handles those and splits
+		 * by player count.
 		 */
 		entries: PrebuiltTeamEntry[];
+		activeTags?: string[];
 		/**
 		 * Index into the player counts; 3 players by default.
 		 */
 		sizeIndex?: number;
 	}
-	let { entries, sizeIndex = $bindable(1) }: Prop = $props();
+	let { entries, activeTags = $bindable([]), sizeIndex = $bindable(1) }: Prop = $props();
 
-	const bySize = $derived(
+	const anyTagBySize = $derived(
 		TEAM_SIZES.map((size) => entries.filter((x) => x.builderState.decks.length === size))
+	);
+	const bySize = $derived(
+		anyTagBySize.map((teams) => teams.filter((x) => teamHasTags(x, activeTags)))
 	);
 	const PAGE_SIZE = 20;
 	let page = $state(1);
@@ -58,6 +63,10 @@ chosen player count with the rest of the page.
 		page = next;
 		tabsEl?.scrollIntoView({ block: 'start', behavior: 'smooth' });
 	}
+	function changeTags(next: string[]) {
+		activeTags = next;
+		page = 1;
+	}
 </script>
 
 <div bind:this={tabsEl} class="scroll-mt-2"></div>
@@ -72,6 +81,14 @@ chosen player count with the rest of the page.
 		label: m.team_players_tab({ count: size, teams: bySize[i].length })
 	}))}
 />
+<div class="mt-3">
+	<TagFilter
+		tags={tagChoices(anyTagBySize[sizeIndex], activeTags)}
+		active={activeTags}
+		onAdd={(tag) => changeTags([...activeTags, tag])}
+		onRemove={(tag) => changeTags(activeTags.filter((t) => t !== tag))}
+	/>
+</div>
 <div class="mt-4 flex flex-col gap-4">
 	{#if current.length === 0}
 		<p class="text-primary-700 dark:text-primary-300 text-center">{m.team_none_match()}</p>

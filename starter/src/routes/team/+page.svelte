@@ -7,6 +7,7 @@
 		MarginText,
 		PageLead,
 		Tabs,
+		TagFilter,
 		TextParagraph
 	} from '@5argon/arkham-life-ui';
 
@@ -22,7 +23,9 @@
 		pickRandom,
 		type PrebuiltTeamEntry,
 		type StarterFilterValue,
+		tagChoices,
 		TEAM_SIZES,
+		teamHasTags,
 		teamMatches,
 		teamMatchesProducts,
 		teamSize
@@ -30,6 +33,7 @@
 
 	const teams = decodeTeams(allPrebuiltTeams(), getAllCards());
 	const teamsOfSize = (size: number) => teams.filter((entry) => teamSize(entry) === size).length;
+	let activeTags = $state<string[]>([]);
 	let filter = $state<StarterFilterValue>({
 		products: new Set(),
 		investigators: new Set(),
@@ -43,24 +47,28 @@
 	// random team of the chosen player count they can build with what they
 	// own. Each player count keeps its own pick.
 	const nonePicked = $derived(filter.investigators.size === 0);
-	const poolBySize = $derived(
+	const anyTagPoolBySize = $derived(
 		TEAM_SIZES.map((size) =>
 			teams.filter((entry) => teamSize(entry) === size && teamMatchesProducts(entry, filter))
 		)
 	);
+	const poolBySize = $derived(
+		anyTagPoolBySize.map((pool) => pool.filter((entry) => teamHasTags(entry, activeTags)))
+	);
 	const randomSlugs = $state<(string | null)[]>(TEAM_SIZES.map(() => null));
 	const randomTeam = $derived<PrebuiltTeamEntry | null>(
-		teams.find((entry) => entry.team.slug === randomSlugs[sizeIndex]) ?? null
+		poolBySize[sizeIndex].find((entry) => entry.team.slug === randomSlugs[sizeIndex]) ?? null
 	);
 	function randomize() {
 		randomSlugs[sizeIndex] = pickRandom(poolBySize[sizeIndex], randomTeam)?.team.slug ?? null;
 	}
 	snapshot({
 		id: 'team-random',
-		capture: () => ({ sizeIndex, randomSlugs: [...randomSlugs] }),
+		capture: () => ({ sizeIndex, randomSlugs: [...randomSlugs], activeTags: [...activeTags] }),
 		restore: (value) => {
 			sizeIndex = value.sizeIndex;
 			value.randomSlugs.forEach((slug, i) => (randomSlugs[i] = slug));
+			activeTags = value.activeTags ?? [];
 		}
 	});
 </script>
@@ -99,7 +107,7 @@
 <MarginFull>
 	<div class="mt-4">
 		{#if !nonePicked}
-			<PrebuiltTeamList entries={visible} bind:sizeIndex />
+			<PrebuiltTeamList entries={visible} bind:activeTags bind:sizeIndex />
 		{:else}
 			<Tabs
 				direction="horizontal"
@@ -109,6 +117,14 @@
 					label: m.team_players_tab({ count: size, teams: poolBySize[i].length })
 				}))}
 			/>
+			<div class="mt-3">
+				<TagFilter
+					tags={tagChoices(anyTagPoolBySize[sizeIndex], activeTags)}
+					active={activeTags}
+					onAdd={(tag) => (activeTags = [...activeTags, tag])}
+					onRemove={(tag) => (activeTags = activeTags.filter((t) => t !== tag))}
+				/>
+			</div>
 			<div class="mt-4 flex flex-col gap-4">
 				{#if poolBySize[sizeIndex].length === 0}
 					<p class="text-primary-700 dark:text-primary-300 text-center">{m.team_none_match()}</p>

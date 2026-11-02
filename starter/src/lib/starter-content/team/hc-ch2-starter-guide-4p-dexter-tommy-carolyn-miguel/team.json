@@ -3,6 +3,7 @@
 	"name": "HC Chapter 2 Starter Guide - 4P : Dexter, Tommy, Carolyn, Miguel",
 	"authorSlug": "hungry-colquhoun",
 	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Starter Guide series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"tags": ["HC Chapter 2 Starter Guide", "1C+3ID"],
 	"decks": [
 		{
 			"file": "tommy.json",

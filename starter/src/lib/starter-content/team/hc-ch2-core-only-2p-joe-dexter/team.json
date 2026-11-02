@@ -3,6 +3,7 @@
 	"name": "HC Chapter 2 Core Only - 2P : Joe, Dexter",
 	"authorSlug": "hungry-colquhoun",
 	"description": "This team is assembled from decks within HungryColquhoun's Chapter 2 Core Only starter decks series.",
+	"tags": ["HC Chapter 2 Core Only", "2C+0ID"],
 	"decks": [
 		{
 			"file": "joe.json",

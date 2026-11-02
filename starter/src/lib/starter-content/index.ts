@@ -363,6 +363,11 @@ export interface PrebuiltTeam {
 	 */
 	authorSlug: string;
 	description: string;
+	/**
+	 * Ways to browse the team by: which series it comes from, then its mix of
+	 * Core Set and Investigator Deck investigators.
+	 */
+	tags: string[];
 	/** Always in investigator card code order. */
 	members: PrebuiltTeamMember[];
 	/** A team is exclusive when at least one member is not based on a hosted starter deck. */
@@ -399,6 +404,7 @@ interface TeamJson {
 	name: string;
 	authorSlug: string;
 	description: string;
+	tags: string[];
 	/**
 	 * Files under decks/, explicitly paired with their optional hosted source.
 	 * Omitting source makes the team Exclusive.
@@ -473,6 +479,7 @@ const teams: PrebuiltTeam[] = Object.entries(teamFiles).map(([path, json]) => {
 		author: author.name,
 		authorSlug: json.authorSlug,
 		description: json.description,
+		tags: json.tags,
 		members,
 		exclusive: members.some((member) => member.source === undefined),
 		guideMd: teamGuideFiles[`${dir}guide.md`] ?? ''
