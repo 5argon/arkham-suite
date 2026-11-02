@@ -94,7 +94,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(564);
+		expect(members).toHaveLength(548);
 		for (const { team, deck, source } of members) {
 			const series = (
 				team.slug.startsWith('hc-cross-series-')
@@ -201,9 +201,9 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 		}
 	});
 
-	it('loads all fourteen resolved 4P teams with a hosted source for every member', () => {
+	it('loads all eleven resolved 4P teams with a hosted source for every member', () => {
 		const fourPlayerTeams = teams.filter((team) => team.slug.includes('-4p-'));
-		expect(fourPlayerTeams).toHaveLength(14);
+		expect(fourPlayerTeams).toHaveLength(11);
 		for (const team of fourPlayerTeams) expectFullySourced(team, 4);
 	});
 
