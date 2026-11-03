@@ -1,0 +1,26 @@
+{
+	"slug": "hc-cross-series-2p-2c0id-sg-co-joe-trish",
+	"name": "HC Cross Series 2P - 2C+0ID - Joe (SG), Trish (CO)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap apart from a reprinted Deduction.",
+	"tags": ["HC Cross Series", "2C+0ID", "Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "shoot-first-questions-later"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "trish-scarborough-i-spy-a-seeker"
+			},
+			"changes": [
+				{ "remove": "12039", "add": "60267", "copies": 2 }
+			]
+		}
+	]
+}

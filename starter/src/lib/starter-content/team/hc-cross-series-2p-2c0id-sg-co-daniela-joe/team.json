@@ -1,0 +1,26 @@
+{
+	"slug": "hc-cross-series-2p-2c0id-sg-co-daniela-joe",
+	"name": "HC Cross Series 2P - 2C+0ID - Daniela (SG), Joe (CO)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap apart from a reprinted Vicious Blow.",
+	"tags": ["HC Cross Series", "2C+0ID", "Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "hurting-for-clues"
+			},
+			"changes": [
+				{ "remove": "12025", "add": "60169", "copies": 2 }
+			]
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "joe-diamond-the-drawlord"
+			}
+		}
+	]
+}

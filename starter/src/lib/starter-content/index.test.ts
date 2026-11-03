@@ -94,7 +94,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(524);
+		expect(members).toHaveLength(582);
 		for (const { team, deck, source } of members) {
 			const series = (
 				team.slug.startsWith('hc-cross-series-')
@@ -358,8 +358,10 @@ describe('Cross Series pre-built teams', () => {
 	it('assembles hosted decks from more than one series, with different main classes', () => {
 		expect(teams.filter((team) => team.slug.includes('-4p-'))).toHaveLength(32);
 		expect(teams.filter((team) => team.slug.includes('-3p-'))).toHaveLength(60);
+		expect(teams.filter((team) => team.slug.includes('-2p-'))).toHaveLength(29);
 		for (const team of teams) {
-			expect(team.members, team.slug).toHaveLength(team.slug.includes('-4p-') ? 4 : 3);
+			const size = Number(team.slug.match(/-(\d)p-/)?.[1]);
+			expect(team.members, team.slug).toHaveLength(size);
 			expect(team.exclusive, team.slug).toBe(false);
 			const series = team.members.map((member) => member.source!.series.slug);
 			expect(new Set(series).size, team.slug).toBeGreaterThan(1);

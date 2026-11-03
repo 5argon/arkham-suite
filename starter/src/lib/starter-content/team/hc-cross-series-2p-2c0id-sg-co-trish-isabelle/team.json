@@ -1,0 +1,23 @@
+{
+	"slug": "hc-cross-series-2p-2c0id-sg-co-trish-isabelle",
+	"name": "HC Cross Series 2P - 2C+0ID - Trish (SG), Isabelle (CO)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "2C+0ID", "Non-Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "pocket-sand"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-core-only",
+				"slug": "izzie-barnes-mad-skillz"
+			}
+		}
+	]
+}

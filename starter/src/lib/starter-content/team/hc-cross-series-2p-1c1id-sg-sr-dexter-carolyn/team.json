@@ -1,0 +1,23 @@
+{
+	"slug": "hc-cross-series-2p-1c1id-sg-sr-dexter-carolyn",
+	"name": "HC Cross Series 2P - 1C+1ID - Dexter (SG), Carolyn (SR)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "1C+1ID"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "a-faustian-bargain"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "living-her-bast-life"
+			}
+		}
+	]
+}

@@ -1,0 +1,23 @@
+{
+	"slug": "hc-cross-series-2p-0c2id-sr-sg-tommy-marie",
+	"name": "HC Cross Series 2P - 0C+2ID - Tommy (SR), Marie (SG)",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks across multiple of HungryColquhoun's starter deck series, where their cards do not overlap.",
+	"tags": ["HC Cross Series", "0C+2ID"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starters-revisited",
+				"slug": "tommy-squared"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-starter-guide",
+				"slug": "blood-money"
+			}
+		}
+	]
+}
