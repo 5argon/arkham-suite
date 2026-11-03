@@ -3,8 +3,11 @@ import { describe, expect, it } from 'vitest';
 
 import { createCardResolver, getAllCards, loadAllTabooLists } from '$lib/card-data';
 import { teamDisplay } from '$lib/tool/evergreen-team/team-display';
+import { toCore2026Code } from '$lib/starter-content';
 import {
+	type StarterFilterValue,
 	teamCardCodes,
+	teamCardMatches,
 	teamMatchesProducts,
 	teamState
 } from '$lib/tool/starter/filter';
@@ -91,6 +94,28 @@ describe('pre-built team summaries', () => {
 		const summary = summaries.find((team) => team.slug === printed.slug)!;
 		expect(teamCardCodes(summary)).toContain('12039');
 		expect(teamCardCodes(summary)).not.toContain('60267');
+	});
+
+	it('rebuild the same cards each member really plays, without the decks', () => {
+		teams.forEach((team, i) => {
+			const looking = (code: string): StarterFilterValue => ({
+				products: new Set(),
+				investigators: new Set(),
+				pickBy: 'cards',
+				cards: new Set([code])
+			});
+			const matches = (code: string) => teamCardMatches(summaries[i], looking(code));
+			team.members.forEach(({ deck }, m) => {
+				for (const [code, quantity] of Object.entries(deck.slots ?? {})) {
+					const core = toCore2026Code(code);
+					const owned = Object.entries(deck.slots ?? {})
+						.filter(([held]) => toCore2026Code(held) === core)
+						.reduce((sum, [, q]) => sum + q, 0);
+					const starting = matches(code)[m].find((match) => match.addedAtXp.length === 0);
+					expect(starting?.quantity, `${team.slug} ${code} ${quantity}`).toBe(owned);
+				}
+			});
+		});
 	});
 
 	it('can be matched by owned products without the decks', () => {

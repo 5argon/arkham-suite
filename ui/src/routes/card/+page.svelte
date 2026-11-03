@@ -6,6 +6,7 @@
 	prefix="/card/"
 	list={[
 		'CardStrip',
+		'CardLineNotes',
 		'CardLine',
 		'CardScanFullSmallGrid',
 		'CardSquareGrid',

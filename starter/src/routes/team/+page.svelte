@@ -97,6 +97,7 @@
 	<div class="mt-4">
 		<PrebuiltTeamList
 			entries={listed}
+			{filter}
 			{nothingPicked}
 			bind:activeTags
 			bind:randomSlugs

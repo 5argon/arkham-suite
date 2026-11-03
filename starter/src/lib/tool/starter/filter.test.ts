@@ -2,10 +2,12 @@ import { type CardCode, Product, productInvestigatorDeck } from '@5argon/arkham-
 import { describe, expect, it } from 'vitest';
 
 import { getAllCards } from '$lib/card-data';
-import type { PrebuiltTeamSummary } from '$lib/starter-content';
+import { type PrebuiltTeamSummary, starterDeck } from '$lib/starter-content';
 
 import {
 	deckCardCodes,
+	deckCardMatches,
+	entryCardCodes,
 	matchesCards,
 	matchesInvestigators,
 	pickedNothing,
@@ -14,6 +16,7 @@ import {
 	type StarterFilterValue,
 	tagChoices,
 	teamCardCodes,
+	teamCardMatches,
 	teamHasTags
 } from './filter';
 
@@ -186,18 +189,86 @@ describe('cards to look for', () => {
 	});
 });
 
+describe('how a deck plays the picked cards', () => {
+	const hurting = starterDeck('hungry-colquhoun', 'ch2-starter-guide', 'hurting-for-clues')!;
+	const looking = (...picked: string[]): StarterFilterValue => ({
+		products: new Set<Product>(),
+		investigators: new Set(),
+		pickBy: 'cards',
+		cards: new Set(picked)
+	});
+
+	it('shows nothing when not looking for cards', () => {
+		expect(deckCardMatches(hurting, { products: new Set(), investigators: new Set() })).toEqual([]);
+	});
+
+	it('shows a starting card with no XP', () => {
+		expect(deckCardMatches(hurting, looking('12094'))).toEqual([
+			{ code: '12094', quantity: 2, addedAtXp: [] }
+		]);
+	});
+
+	it('shows when each copy of an upgrade arrives', () => {
+		expect(deckCardMatches(hurting, looking('12028'))).toEqual([
+			{ code: '12028', quantity: 2, addedAtXp: [5, 13] }
+		]);
+	});
+
+	it('finds upgrades planned past the last listed version', () => {
+		const tommy = starterDeck('hungry-colquhoun', 'ch2-starters-revisited', 'tommy-squared')!;
+		expect(deckCardCodes(tommy.primary)).not.toContain('60179');
+		expect(entryCardCodes(tommy)).toContain('60179');
+		expect(deckCardMatches(tommy, looking('60179'))).toEqual([
+			{ code: '60179', quantity: 2, addedAtXp: [21, 24] }
+		]);
+	});
+
+	it('lists what it starts with first, then upgrades as they arrive', () => {
+		const lines = deckCardMatches(hurting, looking('60180', '12028', '12094'));
+		expect(lines.map((line) => line.code)).toEqual(['12094', '12028', '60180']);
+	});
+
+	it('leaves out picked cards the deck does not play', () => {
+		expect(deckCardMatches(hurting, looking('12080'))).toEqual([]);
+	});
+});
+
 describe('how each team member plays the picked cards', () => {
 	const summary = (members: PrebuiltTeamSummary['members']) =>
 		({ members }) as unknown as PrebuiltTeamSummary;
 	const rambo = 'hungry-colquhoun/ch2-starter-guide/rancher-rambo';
+	const looking = (...picked: string[]): StarterFilterValue => ({
+		products: new Set<Product>(),
+		investigators: new Set(),
+		pickBy: 'cards',
+		cards: new Set(picked)
+	});
 	const team = summary([
 		{ source: rambo, changes: [{ remove: '12094', add: '12080', copies: 2 }] },
 		{ source: rambo }
 	]);
 
+	it('applies a member\'s changes before matching', () => {
+		expect(teamCardMatches(team, looking('12080'))).toEqual([
+			[{ code: '12080', quantity: 2, addedAtXp: [] }],
+			[]
+		]);
+		expect(teamCardMatches(team, looking('12094'))).toEqual([
+			[],
+			[{ code: '12094', quantity: 2, addedAtXp: [] }]
+		]);
+	});
+
 	it('searches the team by what any member plays', () => {
 		expect(teamCardCodes(team)).toContain('12080');
 		expect(teamCardCodes(team)).toContain('12094');
 		expect(teamCardCodes(summary([{ source: rambo, changes: [{ remove: '12094', add: '12080', copies: 2 }] }]))).not.toContain('12094');
+	});
+
+	it('uses a tailor-made deck\'s own cards', () => {
+		const tailor = summary([{ deck: { slots: { '12080': 1 }, sideSlots: {} } }]);
+		expect(teamCardMatches(tailor, looking('12080'))).toEqual([
+			[{ code: '12080', quantity: 1, addedAtXp: [] }]
+		]);
 	});
 });

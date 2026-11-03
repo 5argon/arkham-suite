@@ -129,11 +129,11 @@
 		style:min-height={randomDeck !== null && randomHeight !== null ? `${randomHeight}px` : undefined}
 	>
 		{#if randomDeck !== null}
-			<StarterDeckList entries={[randomDeck]} />
+			<StarterDeckList entries={[randomDeck]} {filter} />
 		{:else if nothingPicked}
 			<!-- Nothing to list until the reader picks something. -->
 		{:else if visible.length > 0}
-			<StarterDeckList entries={visible} />
+			<StarterDeckList entries={visible} {filter} />
 		{:else}
 			<p class="text-primary-700 dark:text-primary-300 text-center">
 				{m.starter_decks_none_match()}

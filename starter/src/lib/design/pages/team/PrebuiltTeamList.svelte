@@ -15,6 +15,7 @@ not narrowed anything yet, so only the random pick is on offer.
 	import type { PrebuiltTeamSummary } from '$lib/starter-content';
 	import {
 		pickRandom,
+		type StarterFilterValue,
 		tagChoices,
 		TEAM_SIZES,
 		teamHasTags,
@@ -32,6 +33,10 @@ not narrowed anything yet, so only the random pick is on offer.
 		activeTags?: string[];
 		nothingPicked?: boolean;
 		/**
+		 * When looking for cards, each team shows how its members play them.
+		 */
+		filter?: StarterFilterValue;
+		/**
 		 * The random pick of each player count, by slug. Leave out to not offer it.
 		 */
 		randomSlugs?: (string | null)[];
@@ -45,6 +50,7 @@ not narrowed anything yet, so only the random pick is on offer.
 		activeTags = $bindable([]),
 		sizeIndex = $bindable(1),
 		nothingPicked = false,
+		filter,
 		randomSlugs = $bindable()
 	}: Prop = $props();
 
@@ -152,13 +158,13 @@ not narrowed anything yet, so only the random pick is on offer.
 			</div>
 		{/if}
 		{#if randomTeam !== undefined}
-			<PrebuiltTeamCard team={randomTeam} />
+			<PrebuiltTeamCard team={randomTeam} {filter} />
 		{:else if !nothingPicked}
 			<div class="flex justify-center">
 				<Pagination page={Math.min(page, pageCount)} {pageCount} onChange={changePage} />
 			</div>
 			{#each paged as team (team.slug)}
-				<PrebuiltTeamCard {team} />
+				<PrebuiltTeamCard {team} {filter} />
 			{/each}
 			<div class="flex justify-center">
 				<Pagination page={Math.min(page, pageCount)} {pageCount} onChange={changePage} />

@@ -64,7 +64,7 @@ description, and the deck list.
 	<TextParagraph>{series.description}</TextParagraph>
 	<div class="mt-3">
 		{#if entries.length > 0}
-			<StarterDeckList {entries} />
+			<StarterDeckList {entries} {filter} />
 		{:else}
 			<p class="text-primary-700 dark:text-primary-300 text-center text-sm">
 				{m.starter_decks_none_match()}

@@ -52,6 +52,7 @@
 	"starter_decks_randomize_filtered": "Random Starter Deck Within Filters",
 	"starter_decks_randomize_exit": "Exit Random",
 	"starter_decks_read_card": "Read {investigator}'s card",
+	"starter_decks_match_added_at": "At {xp} XP",
 	"starter_decks_filter": "Filter",
 	"starter_decks_filter_pick_by": "I Want To Play With",
 	"starter_decks_filter_by_investigators": "These Investigators",

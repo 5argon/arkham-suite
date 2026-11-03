@@ -3,6 +3,7 @@ export { default as CardSquare } from './CardSquare.svelte';
 export { default as CardCircle } from './CardCircle.svelte';
 export { default as CardLabel } from './CardLabel.svelte';
 export { default as CardLine } from './CardLine.svelte';
+export { default as CardLineNotes, type CardLineNote } from './CardLineNotes.svelte';
 export { default as CardLineHoverTooltip } from './CardLineHoverTooltip.svelte';
 export { default as CardMagnifiedModal } from './CardMagnifiedModal.svelte';
 export { default as CardSquareGrid } from './CardSquareGrid.svelte';

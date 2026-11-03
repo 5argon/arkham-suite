@@ -125,6 +125,61 @@ export function teamCardCodes(team: PrebuiltTeamSummary): CardCode[] {
 }
 
 /**
+ * One line of how a deck plays a picked card. `addedAtXp` has the running XP
+ * total of each copy, empty for copies not on the upgrade plan.
+ */
+export interface DeckCardMatch {
+	code: CardCode;
+	quantity: number;
+	addedAtXp: number[];
+}
+
+/**
+ * How a deck plays the picked cards: what it starts with, then what it gets later
+ * in the order it arrives. Empty when not looking for cards.
+ */
+export function deckCardMatches(
+	entry: StarterDeckEntry,
+	filter: StarterFilterValue
+): DeckCardMatch[] {
+	return cardMatches({ deck: entry.primary, planned: plannedCopies(entry) }, filter);
+}
+
+/**
+ * The same for each member of a team, parallel to its members.
+ */
+export function teamCardMatches(
+	team: PrebuiltTeamSummary,
+	filter: StarterFilterValue
+): DeckCardMatch[][] {
+	return team.members.map((member) => cardMatches(memberCards(member), filter));
+}
+
+function cardMatches({ deck, planned }: PlayableCards, filter: StarterFilterValue): DeckCardMatch[] {
+	if (filter.pickBy !== 'cards') return [];
+	const copiesIn = (slots: Record<string, number> | null | undefined, code: CardCode) =>
+		Object.entries(slots ?? {}).reduce(
+			(sum, [held, quantity]) => (toCore2026Code(held) === code ? sum + quantity : sum),
+			0
+		);
+	const picked = [...new Set([...(filter.cards ?? [])].map(toCore2026Code))];
+	const matches = picked.flatMap((code): DeckCardMatch[] => {
+		const main = copiesIn(deck.slots, code);
+		const addedAtXp = planned.get(code) ?? [];
+		const lines: DeckCardMatch[] = [];
+		if (main > 0) lines.push({ code, quantity: main, addedAtXp: [] });
+		if (addedAtXp.length > 0) lines.push({ code, quantity: addedAtXp.length, addedAtXp });
+		if (lines.length === 0) {
+			const side = copiesIn(deck.sideSlots, code);
+			if (side > 0) lines.push({ code, quantity: side, addedAtXp: [] });
+		}
+		return lines;
+	});
+	const arrival = (match: DeckCardMatch) => match.addedAtXp[0] ?? 0;
+	return matches.sort((a, b) => arrival(a) - arrival(b));
+}
+
+/**
  * The cards to look for decks and teams by: from Core Set 2026 and the chosen
  * products, without signature cards or weaknesses. Each printing of a reprint
  * has its own entry, and picking either finds the same decks.

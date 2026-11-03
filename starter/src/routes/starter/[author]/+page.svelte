@@ -211,7 +211,7 @@
 			</div>
 		{:else}
 			<div class="mt-4">
-				<PrebuiltTeamList entries={visibleTeams} bind:activeTags />
+				<PrebuiltTeamList entries={visibleTeams} filter={teamFilter} bind:activeTags />
 			</div>
 		{/if}
 	</MarginFull>

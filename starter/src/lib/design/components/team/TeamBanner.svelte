@@ -6,7 +6,13 @@ listing.
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { BorderedContainer, CardCircle, TagChip } from '@5argon/arkham-life-ui';
+	import {
+		BorderedContainer,
+		CardCircle,
+		type CardLineNote,
+		CardLineNotes,
+		TagChip
+	} from '@5argon/arkham-life-ui';
 	import type { Card } from '@5argon/arkham-kohaku';
 
 	import { createCardResolver } from '$lib/card-data';
@@ -23,6 +29,8 @@ listing.
 		info: TeamInfo;
 		display: TeamDisplay;
 		tags?: string[];
+		/** How each member plays what the reader is looking for, parallel to the members. */
+		memberNotes?: CardLineNote[][];
 		/** Hosted starter sources parallel to the members. Omit to keep the banner compact. */
 		sources?: (PrebuiltTeamSource | undefined)[];
 		exclusive?: boolean;
@@ -34,8 +42,16 @@ listing.
 		 */
 		authorSlug?: string;
 	}
-	const { info, display, tags = [], sources, exclusive = false, authorAvatar, authorSlug }: Prop =
-		$props();
+	const {
+		info,
+		display,
+		tags = [],
+		memberNotes,
+		sources,
+		exclusive = false,
+		authorAvatar,
+		authorSlug
+	}: Prop = $props();
 
 	const resolver = createCardResolver();
 </script>
@@ -97,6 +113,7 @@ listing.
 			<div class="mt-2 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
 				{#each display.members as member, memberIndex (member.investigator)}
 					{@const source = sources?.[memberIndex]}
+					{@const notes = memberNotes?.[memberIndex] ?? []}
 					<div
 						class="border-primary-300 dark:border-primary-700 rounded-lg border bg-white/50 dark:bg-black/30"
 					>
@@ -108,6 +125,11 @@ listing.
 						/>
 						{#if source}
 							<StarterDeckSourceBanner {source} />
+						{/if}
+						{#if notes.length > 0}
+							<div class="px-2 pt-1 pb-2 text-left">
+								<CardLineNotes items={notes} />
+							</div>
 						{/if}
 					</div>
 				{/each}
