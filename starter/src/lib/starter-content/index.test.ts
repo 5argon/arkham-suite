@@ -94,7 +94,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(548);
+		expect(members).toHaveLength(524);
 		for (const { team, deck, source } of members) {
 			const series = (
 				team.slug.startsWith('hc-cross-series-')
@@ -214,14 +214,28 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 		for (const team of threePlayerTeams) expectFullySourced(team, 3);
 	});
 
-	it('includes the thirty-two untouched 2P combinations plus Trish–Joe', () => {
+	it('includes the untouched 2P combinations plus Trish–Joe, except those missing a role', () => {
 		const twoPlayerTeams = teams.filter((team) => team.slug.includes('-2p-'));
 		const untouched = twoPlayerTeams.filter(
 			(team) => team.slug !== 'hc-ch2-starter-guide-2p-joe-trish'
 		);
-		expect(twoPlayerTeams).toHaveLength(33);
-		expect(untouched).toHaveLength(32);
-		expect(untouched.map(rosterKey).sort()).toEqual(eligibleRosterKeys(2));
+		// Neither deck is rated 4 stars or higher at finding clues, or at handling enemies.
+		const missingARole = [
+			['12001', '12010'],
+			['12001', '12013'],
+			['12010', '60551'],
+			['12010', '60151'],
+			['12013', '60151'],
+			['60151', '60551'],
+			['60251', '60351'],
+			['60351', '60451'],
+			['60251', '60451']
+		].map((roster) => roster.sort().join('|'));
+		expect(twoPlayerTeams).toHaveLength(24);
+		expect(untouched).toHaveLength(23);
+		expect(untouched.map(rosterKey).sort()).toEqual(
+			eligibleRosterKeys(2).filter((roster) => !missingARole.includes(roster))
+		);
 		for (const team of twoPlayerTeams) expectFullySourced(team, 2);
 	});
 
