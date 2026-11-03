@@ -2,7 +2,9 @@
 @component
 The starter library filter shared by the Starter Decks and Pre-Built Teams
 pages: the products you own (Core Set 2026 is always in), preset by the
-environment selector, and the investigators to show.
+environment selector, and what to look for: the investigators to show, or the
+cards to play. Cards come from the products chosen, without signature cards or
+weaknesses.
 Investigators start unpicked so the reader chooses who they are curious
 about, unless `initiallyAll` asks for everything shown up front. Products start
 on the newest environment, unless `withChapterTwo` offers and starts on all of
@@ -12,6 +14,7 @@ them. A page with more than one filter gives each its own `snapshotId`.
 	import { snapshot } from '$app/navigation';
 	import {
 		Button,
+		CardFormMultiple,
 		HelpParagraph,
 		InvestigatorPicker,
 		RadioButtons,
@@ -26,7 +29,7 @@ them. A page with more than one filter gives each its own `snapshotId`.
 	import * as m from '$lib/paraglide/messages.js';
 	import { chapterTwoChoice, environmentChoices } from '$lib/tool/environment-choices';
 	import { investigatorsForSetup, setupForProducts } from '$lib/tool/evergreen-team/pool';
-	import type { StarterFilterValue } from '$lib/tool/starter/filter';
+	import { pickableCards, type StarterFilterValue } from '$lib/tool/starter/filter';
 
 	interface Prop {
 		onChange: (filter: StarterFilterValue) => void;
@@ -65,6 +68,13 @@ them. A page with more than one filter gives each its own `snapshotId`.
 	const selectedInvestigators = new SvelteSet<CardCode>(
 		untrack(() => initiallyAll) ? rosterOf(initialProducts).map((c) => c.code) : []
 	);
+	let pickBy = $state<'investigators' | 'cards'>('investigators');
+	let pickedCards = $state<CardCode[]>([]);
+	const cardChoices = $derived(pickableCards(allCards, selectedProducts));
+	// A card whose product is no longer chosen waits, like a roster investigator.
+	const activeCards = $derived(
+		pickedCards.filter((code) => cardChoices.some((c) => c.code === code))
+	);
 	let mustIncludeAll = $state(false);
 	let resetCount = $state(0);
 	const activeInvestigators = $derived(
@@ -80,6 +90,8 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		onChange({
 			products: new Set(selectedProducts),
 			investigators: activeInvestigators,
+			pickBy,
+			cards: new Set(activeCards),
 			mustIncludeAll
 		});
 	}
@@ -103,6 +115,8 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		for (const p of initialProducts) selectedProducts.add(p);
 		selectedInvestigators.clear();
 		if (initiallyAll) for (const c of rosterOf(initialProducts)) selectedInvestigators.add(c.code);
+		pickBy = 'investigators';
+		pickedCards = [];
 		mustIncludeAll = false;
 		resetCount++;
 		emit();
@@ -114,6 +128,8 @@ them. A page with more than one filter gives each its own `snapshotId`.
 		capture: () => ({
 			products: [...selectedProducts],
 			investigators: [...selectedInvestigators],
+			pickBy,
+			pickedCards: [...pickedCards],
 			mustIncludeAll
 		}),
 		restore: (value) => {
@@ -121,6 +137,8 @@ them. A page with more than one filter gives each its own `snapshotId`.
 			for (const p of value.products) selectedProducts.add(p);
 			selectedInvestigators.clear();
 			for (const code of value.investigators) selectedInvestigators.add(code);
+			pickBy = value.pickBy ?? 'investigators';
+			pickedCards = value.pickedCards ?? [];
 			mustIncludeAll = value.mustIncludeAll;
 			emit();
 		}
@@ -143,47 +161,90 @@ them. A page with more than one filter gives each its own `snapshotId`.
 	/>
 {/key}
 
-<SectionSeparator title={m.starter_decks_filter_investigators()} />
-<div class="mb-2 flex flex-wrap items-end gap-3">
-	{#if showMustIncludeAll}
-		<RadioButtons
-			choices={[
-				{ value: false, label: m.team_filter_include_any() },
-				{ value: true, label: m.team_filter_include_all() }
-			]}
-			label={m.team_filter_include()}
-			bind:selectedValue={() => mustIncludeAll,
-			(value) => {
-				// Everyone picked can never match, so start the picks over instead.
-				if (value && allInvestigatorsOn) selectedInvestigators.clear();
-				mustIncludeAll = value;
-				emit();
-			}}
-		/>
-	{/if}
-	<Button
-		disabled={mustIncludeAll && activeInvestigators.size === 0}
-		label={offersDeselect
-			? m.tool_evergreen_team_deselect_all()
-			: m.tool_evergreen_team_select_all()}
-		onClick={() => {
-			if (offersDeselect) {
-				selectedInvestigators.clear();
-			} else {
-				for (const c of investigators) selectedInvestigators.add(c.code);
-			}
+<div class="mt-3">
+	<RadioButtons
+		choices={[
+			{ value: 'investigators', label: m.starter_decks_filter_by_investigators() },
+			{ value: 'cards', label: m.starter_decks_filter_by_cards() }
+		]}
+		label={m.starter_decks_filter_pick_by()}
+		bind:selectedValue={() => pickBy,
+		(value) => {
+			pickBy = value;
 			emit();
 		}}
 	/>
 </div>
-<InvestigatorPicker
-	{investigators}
-	selected={activeInvestigators}
-	highlightStatsAtLeast={4}
-	dimStatsAtMost={2}
-	onToggle={(investigator, on) => {
-		if (on) selectedInvestigators.add(investigator.code);
-		else selectedInvestigators.delete(investigator.code);
-		emit();
-	}}
-/>
+
+{#if pickBy === 'cards'}
+	<SectionSeparator title={m.starter_decks_filter_cards()} />
+	<div class="mb-2 flex flex-wrap items-end gap-3">
+		<RadioButtons
+			choices={[
+				{ value: false, label: m.starter_decks_filter_include_any_card() },
+				{ value: true, label: m.starter_decks_filter_include_all_cards() }
+			]}
+			label={showMustIncludeAll ? m.team_filter_include() : m.starter_decks_filter_decks_include()}
+			bind:selectedValue={() => mustIncludeAll,
+			(value) => {
+				mustIncludeAll = value;
+				emit();
+			}}
+		/>
+	</div>
+	<CardFormMultiple
+		cards={cardChoices}
+		label={m.starter_decks_filter_card_search()}
+		placeholder={m.common_search_placeholder()}
+		selectedCodes={activeCards}
+		onSelectionChange={(codes: CardCode[]) => {
+			pickedCards = codes;
+			emit();
+		}}
+	/>
+{:else}
+	<SectionSeparator title={m.starter_decks_filter_investigators()} />
+	<div class="mb-2 flex flex-wrap items-end gap-3">
+		{#if showMustIncludeAll}
+			<RadioButtons
+				choices={[
+					{ value: false, label: m.team_filter_include_any() },
+					{ value: true, label: m.team_filter_include_all() }
+				]}
+				label={m.team_filter_include()}
+				bind:selectedValue={() => mustIncludeAll,
+				(value) => {
+					// Everyone picked can never match, so start the picks over instead.
+					if (value && allInvestigatorsOn) selectedInvestigators.clear();
+					mustIncludeAll = value;
+					emit();
+				}}
+			/>
+		{/if}
+		<Button
+			disabled={mustIncludeAll && activeInvestigators.size === 0}
+			label={offersDeselect
+				? m.tool_evergreen_team_deselect_all()
+				: m.tool_evergreen_team_select_all()}
+			onClick={() => {
+				if (offersDeselect) {
+					selectedInvestigators.clear();
+				} else {
+					for (const c of investigators) selectedInvestigators.add(c.code);
+				}
+				emit();
+			}}
+		/>
+	</div>
+	<InvestigatorPicker
+		{investigators}
+		selected={activeInvestigators}
+		highlightStatsAtLeast={4}
+		dimStatsAtMost={2}
+		onToggle={(investigator, on) => {
+			if (on) selectedInvestigators.add(investigator.code);
+			else selectedInvestigators.delete(investigator.code);
+			emit();
+		}}
+	/>
+{/if}

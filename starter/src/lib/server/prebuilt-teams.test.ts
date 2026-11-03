@@ -3,7 +3,11 @@ import { describe, expect, it } from 'vitest';
 
 import { createCardResolver, getAllCards, loadAllTabooLists } from '$lib/card-data';
 import { teamDisplay } from '$lib/tool/evergreen-team/team-display';
-import { teamMatchesProducts, teamState } from '$lib/tool/starter/filter';
+import {
+	teamCardCodes,
+	teamMatchesProducts,
+	teamState
+} from '$lib/tool/starter/filter';
 
 import { allPrebuiltTeams, allPrebuiltTeamSummaries } from './prebuilt-teams';
 import { OVERLAP_TABLE_MARKER } from './team-deck-changes';
@@ -78,6 +82,15 @@ describe('pre-built team summaries', () => {
 				team.members.map((member) => member.deck.investigator_code)
 			);
 		});
+	});
+
+	it('find a reprint by its Core Set printing', () => {
+		const printed = teams.find((team) =>
+			team.members.some(({ deck }) => deck.slots?.['60267'] !== undefined)
+		)!;
+		const summary = summaries.find((team) => team.slug === printed.slug)!;
+		expect(teamCardCodes(summary)).toContain('12039');
+		expect(teamCardCodes(summary)).not.toContain('60267');
 	});
 
 	it('can be matched by owned products without the decks', () => {

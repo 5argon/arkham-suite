@@ -10,11 +10,10 @@ import {
 	starterDeck
 } from '$lib/starter-content';
 import { teamDisplay } from '$lib/tool/evergreen-team/team-display';
+import { applyDeckChanges, type DeckChange } from '$lib/tool/starter/deck-changes';
 import { teamState } from '$lib/tool/starter/filter';
 
 import {
-	applyDeckChanges,
-	type DeckChange,
 	OVERLAP_TABLE_MARKER,
 	overlapTable,
 	type OverlapTableMember
@@ -146,7 +145,7 @@ const teams: PrebuiltTeam[] = Object.entries(teamFiles).map(([path, json]) => {
 		authorSlug: json.authorSlug,
 		description: json.description,
 		tags: json.tags,
-		members: members.map(({ deck, source }) => ({ deck, source })),
+		members: members.map(({ deck, source, changes }) => ({ deck, source, changes })),
 		exclusive: members.some((member) => member.source === undefined),
 		guideMd: withOverlapTable(json.slug, teamGuideFiles[`${dir}guide.md`] ?? '', hosted)
 	};
@@ -175,6 +174,14 @@ function summarize(team: PrebuiltTeam): PrebuiltTeamSummary {
 		tags: team.tags,
 		exclusive: team.exclusive,
 		deckProducts: state.setup.deckProducts,
+		members: team.members.map(({ deck, source, changes }) =>
+			source === undefined
+				? { deck: { slots: deck.slots, sideSlots: deck.sideSlots } }
+				: {
+						source: `${source.series.author.slug}/${source.series.slug}/${source.slug}`,
+						...(changes === undefined || changes.length === 0 ? {} : { changes })
+					}
+		),
 		display: teamDisplay(state, getAllCards())
 	};
 }

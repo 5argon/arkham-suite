@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest';
 
 import { starterDeck } from '$lib/starter-content';
 
-import { applyDeckChanges, overlapTable } from './team-deck-changes';
+import { applyDeckChanges } from '$lib/tool/starter/deck-changes';
+
+import { overlapTable } from './team-deck-changes';
 
 const source = { slots: { a: 2, b: 2 }, sideSlots: { c: 1 } };
 

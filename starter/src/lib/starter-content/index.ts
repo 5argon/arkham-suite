@@ -3,6 +3,7 @@ import type { BylineEntry } from '@5argon/arkham-life-ui';
 
 import { getAllCards } from '../card-data';
 import type { TeamDisplay } from '../tool/evergreen-team/team-display';
+import type { DeckChange } from '../tool/starter/deck-changes';
 
 /**
  * Someone credited on the site, shared by everything they make. One file per
@@ -379,6 +380,8 @@ export interface PrebuiltTeamMember {
 	deck: AhdbDeck;
 	/** The hosted starter deck this build derives from, when it has one. */
 	source?: PrebuiltTeamSource;
+	/** What differs from the source. */
+	changes?: DeckChange[];
 }
 
 /**
@@ -397,8 +400,19 @@ export interface PrebuiltTeamSummary {
 	 * Investigator Decks needed, for filtering by what the reader owns.
 	 */
 	deckProducts: Product[];
+	/**
+	 * What each member's cards are made from, parallel to the display's members:
+	 * a hosted deck's author/series/slug with any changes, or the cards of a
+	 * tailor-made deck. Enough to work out which member plays a card, without the
+	 * decks themselves.
+	 */
+	members: PrebuiltTeamSummaryMember[];
 	display: TeamDisplay;
 }
+
+export type PrebuiltTeamSummaryMember =
+	| { source: string; changes?: DeckChange[] }
+	| { deck: Pick<AhdbDeck, 'slots' | 'sideSlots'> };
 
 /** The non-recursive subset of a starter entry needed for team attribution. */
 export interface PrebuiltTeamSource {

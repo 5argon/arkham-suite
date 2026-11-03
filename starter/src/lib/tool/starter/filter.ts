@@ -1,18 +1,30 @@
-import { type CardCode, Product } from '@5argon/arkham-kohaku';
+import { type AhdbDeck, card as cardUtils, type CardCode, Product } from '@5argon/arkham-kohaku';
 
 import {
 	deckCardPool,
 	type PrebuiltTeam,
 	type PrebuiltTeamSummary,
-	type StarterDeckEntry
+	type PrebuiltTeamSummaryMember,
+	type StarterDeckEntry,
+	starterDeckFromRef,
+	toCore2026Code
 } from '$lib/starter-content';
 import { decksToEvergreenState } from '$lib/tool/evergreen-team/from-decks';
+import { protoStringRestore } from '$lib/tool/script/export/proto-string-restore';
+
+import { applyDeckChanges } from './deck-changes';
 import type { EvergreenState } from '$lib/tool/evergreen-team/types';
 import type { Card } from '@5argon/arkham-kohaku';
 
 export interface StarterFilterValue {
 	products: ReadonlySet<Product>;
 	investigators: ReadonlySet<CardCode>;
+	/**
+	 * What to look for: decks and teams of the picked investigators, or ones
+	 * playing the picked cards. Only the chosen one applies.
+	 */
+	pickBy?: 'investigators' | 'cards';
+	cards?: ReadonlySet<CardCode>;
 	mustIncludeAll?: boolean;
 }
 
@@ -20,7 +32,119 @@ export interface StarterFilterValue {
  * Whether the reader has yet to pick anything to look for.
  */
 export function pickedNothing(filter: StarterFilterValue): boolean {
-	return filter.investigators.size === 0;
+	return filter.pickBy === 'cards'
+		? (filter.cards?.size ?? 0) === 0
+		: filter.investigators.size === 0;
+}
+
+/**
+ * The cards a deck plays, including its upgrades. A reprint counts as its Core
+ * Set printing, so picking a card finds every deck playing either one.
+ */
+export function deckCardCodes(deck: Pick<AhdbDeck, 'slots' | 'sideSlots'>): CardCode[] {
+	const codes = Object.keys({ ...deck.slots, ...deck.sideSlots }).map(toCore2026Code);
+	return [...new Set(codes)];
+}
+
+const plannedCopiesOf = new WeakMap<StarterDeckEntry, Map<CardCode, number[]>>();
+
+/**
+ * Cards a deck's upgrade plan adds, as Core Set printings where one exists: the
+ * running XP total at which each copy arrives. Includes upgrades beyond the
+ * deck's last listed version.
+ */
+export function plannedCopies(entry: StarterDeckEntry): Map<CardCode, number[]> {
+	const known = plannedCopiesOf.get(entry);
+	if (known !== undefined) return known;
+	const copies = new Map<CardCode, number[]>();
+	if (entry.upgradePlan !== undefined) {
+		for (const row of protoStringRestore(decodeURIComponent(entry.upgradePlan)).rows) {
+			if (row.divider || !row.right) continue;
+			const code = toCore2026Code(row.right);
+			copies.set(code, [...(copies.get(code) ?? []), row.carryoverXp]);
+		}
+	}
+	plannedCopiesOf.set(entry, copies);
+	return copies;
+}
+
+/**
+ * Every card a hosted deck plays or plans to, to search it by.
+ */
+export function entryCardCodes(entry: StarterDeckEntry): CardCode[] {
+	return [...new Set([...deckCardCodes(entry.primary), ...plannedCopies(entry).keys()])];
+}
+
+interface PlayableCards {
+	deck: Pick<AhdbDeck, 'slots' | 'sideSlots'>;
+	planned: Map<CardCode, number[]>;
+}
+
+const memberCardsOf = new WeakMap<PrebuiltTeamSummaryMember, PlayableCards>();
+
+/**
+ * A team member's cards: its source deck with the changes applied, and what that
+ * source plans to add. Tailor-made decks have no plan.
+ */
+function memberCards(member: PrebuiltTeamSummaryMember): PlayableCards {
+	const known = memberCardsOf.get(member);
+	if (known !== undefined) return known;
+	let cards: PlayableCards;
+	if ('deck' in member) {
+		cards = { deck: member.deck, planned: new Map() };
+	} else {
+		const entry = starterDeckFromRef(member.source);
+		if (entry === undefined) throw new Error(`Pre-built team source missing: ${member.source}`);
+		cards = {
+			deck: applyDeckChanges(entry.primary, member.changes ?? [], member.source),
+			planned: plannedCopies(entry)
+		};
+	}
+	memberCardsOf.set(member, cards);
+	return cards;
+}
+
+const teamCardCodesOf = new WeakMap<PrebuiltTeamSummary, CardCode[]>();
+
+/**
+ * Every card anyone on a team plays or plans to, to search it by.
+ */
+export function teamCardCodes(team: PrebuiltTeamSummary): CardCode[] {
+	const known = teamCardCodesOf.get(team);
+	if (known !== undefined) return known;
+	const codes = [
+		...new Set(
+			team.members.flatMap((member) => {
+				const { deck, planned } = memberCards(member);
+				return [...deckCardCodes(deck), ...planned.keys()];
+			})
+		)
+	];
+	teamCardCodesOf.set(team, codes);
+	return codes;
+}
+
+/**
+ * The cards to look for decks and teams by: from Core Set 2026 and the chosen
+ * products, without signature cards or weaknesses. Each printing of a reprint
+ * has its own entry, and picking either finds the same decks.
+ */
+export function pickableCards(allCards: Card[], products: ReadonlySet<Product>): Card[] {
+	return allCards.filter(
+		(c) =>
+			(c.product === CORE || products.has(c.product)) && cardUtils.deckbuildingPlayerCardsFilter(c)
+	);
+}
+
+/**
+ * @param played Core Set printings where one exists, see {@link deckCardCodes}.
+ */
+export function matchesCards(played: readonly CardCode[], filter: StarterFilterValue): boolean {
+	const picked = [...new Set([...(filter.cards ?? [])].map(toCore2026Code))];
+	if (picked.length === 0) return false;
+	return filter.mustIncludeAll
+		? picked.every((code) => played.includes(code))
+		: picked.some((code) => played.includes(code));
 }
 
 const CORE = Product.CoreSet2026;
@@ -33,9 +157,10 @@ export function deckMatchesProducts(entry: StarterDeckEntry, filter: StarterFilt
 }
 
 export function deckMatches(entry: StarterDeckEntry, filter: StarterFilterValue): boolean {
-	return (
-		deckMatchesProducts(entry, filter) && filter.investigators.has(entry.primary.investigator_code)
-	);
+	if (!deckMatchesProducts(entry, filter)) return false;
+	return filter.pickBy === 'cards'
+		? matchesCards(entryCardCodes(entry), filter)
+		: filter.investigators.has(entry.primary.investigator_code);
 }
 
 /**
@@ -142,11 +267,11 @@ export function teamMatchesProducts(
 }
 
 export function teamMatches(team: PrebuiltTeamSummary, filter: StarterFilterValue): boolean {
-	return (
-		teamMatchesProducts(team, filter) &&
-		matchesInvestigators(
-			team.display.members.map((member) => member.investigator),
-			filter
-		)
-	);
+	if (!teamMatchesProducts(team, filter)) return false;
+	return filter.pickBy === 'cards'
+		? matchesCards(teamCardCodes(team), filter)
+		: matchesInvestigators(
+				team.display.members.map((member) => member.investigator),
+				filter
+			);
 }
