@@ -1,5 +1,5 @@
 <h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
- <strong>Mad Skillz</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://pbs.twimg.com/media/G_vkZnMXAAAhy1U.jpg"/>
+ <strong>Mad Skillz</strong> <span class="icon-survivor"></span> <br/> <br/><img src="/image/starter/hungry-colquhoun/ch2-core-only/izzie-barnes-mad-skillz/G_vkZnMXAAAhy1U.webp"/>
 </style><hr/></h2>
 
 `These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1. If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
@@ -80,7 +80,7 @@ Post-Survivor reveal UPDATE: There's not too much that caught my eye in the new 
 
 In terms of side deck, you could take [Manual Dexterity](/card/12091) over [Perception](/card/12093) in the campaign starter ([Fearless](/card/12069) replaces whatever you pick). I liked Perception a little more given clue-finding consistency is an issue for the deck (whereas you can usually find a way to evade). 0 XP deck is below (and <a href="https://arkhamdb.com/deck/view/5813068"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HA9sS-2bMAAcguz.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-core-only/izzie-barnes-mad-skillz/HA9sS-2bMAAcguz.webp"/>
 
 A recommended order of purchases/upgrades is:
 

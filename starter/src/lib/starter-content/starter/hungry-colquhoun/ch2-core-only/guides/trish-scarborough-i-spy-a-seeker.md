@@ -1,5 +1,5 @@
 <h2 style="color:rgb(72, 177, 79);"><span class="icon-rogue"></span> 
-</span> <strong>I Spy a Seeker</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="https://pbs.twimg.com/media/HAN-g6sWIAANBYE.jpg"/>
+</span> <strong>I Spy a Seeker</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-core-only/trish-scarborough-i-spy-a-seeker/HAN-g6sWIAANBYE.webp"/>
 </style><hr/></h2>
 
 `These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1. If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
@@ -80,7 +80,7 @@ This deck then has horror healing and more <span class="icon-willpower"></span> 
 
 0 XP deck is below (and <a href="https://arkhamdb.com/deck/view/5813112"><strong>link here</strong></a>).
 
-<img src="https://pbs.twimg.com/media/HA9lKasWIAArhhR.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-core-only/trish-scarborough-i-spy-a-seeker/HA9lKasWIAArhhR.webp"/>
 
 A recommended order of purchases/upgrades is:
 

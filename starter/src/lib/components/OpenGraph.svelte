@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { siteOrigin } from '$lib/const';
+	import { siteOrigin, siteUrl } from '$lib/const';
 
 	interface Props {
 		title: string;
@@ -24,7 +24,7 @@
 	let { title, description, image, url, canonical = false, author, jsonLd }: Props = $props();
 
 	const fullUrl = $derived(url ? `${siteOrigin}${url}` : siteOrigin);
-	const fullImageUrl = $derived(/^https?:/.test(image) ? image : `${siteOrigin}/${image}`);
+	const fullImageUrl = $derived(/^https?:/.test(image) ? image : siteUrl(image));
 	// Escaped so text inside the data can't close the script tag.
 	const jsonLdText = $derived(jsonLd && JSON.stringify(jsonLd).replaceAll('<', '\\u003c'));
 </script>

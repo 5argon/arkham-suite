@@ -1,4 +1,4 @@
-<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Who Looks Inside, Awakes</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc102_carolyn-fern.png"/>
+<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Who Looks Inside, Awakes</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes/ahc100_p2_evergreen-investigators-preview_art-splash_ahc102_carolyn-fern.webp"/>
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here Carolyn uses books to get clues while taking horror ([Dreamer's Chronicle](/card/60255), [Scroll of the Pharaohs](/card/60281)), and then she uses other books to heal horror and get a clue from her ability ([Experimental Psychology](/card/60252), [Occult Records](/card/60256)). _Then_, she uses another book ([Mysterious Grimoire](/card/12040)) to draw cards. Makes [Daisy](/card/01502) look like a rank, ill-educated freshman!
@@ -72,7 +72,7 @@ In terms of cards I didn't take, no [Psychoanalysis](/card/60264) as it's deck s
 
 0 XP deck is as follows (and <a href="https://arkham.build/share/pW3izrDCqSpx1pW"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HITtGCBW4AAAQwn.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes/HITtGCBW4AAAQwn.webp"/>
 
 <strong style="color:rgb(239, 163, 69);">A recommended order of purchases/upgrades is:</strong>
 
@@ -100,7 +100,7 @@ In terms of cards I didn't take, no [Psychoanalysis](/card/60264) as it's deck s
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

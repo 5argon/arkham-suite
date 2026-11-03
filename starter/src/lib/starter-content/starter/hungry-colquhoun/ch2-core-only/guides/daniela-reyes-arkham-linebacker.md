@@ -1,5 +1,5 @@
 <h2 style="color:rgb(92, 180, 253);"><span class="icon-guardian"></span> 
- <strong>Arkham Linebacker</strong> <span class="icon-guardian"></span> <br/><br/><img src="https://pbs.twimg.com/media/G_gOaWbXIAAbnen.jpg"/></style><hr/></h2>
+ <strong>Arkham Linebacker</strong> <span class="icon-guardian"></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-core-only/daniela-reyes-arkham-linebacker/G_gOaWbXIAAbnen.webp"/></style><hr/></h2>
 
 `These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1. If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
 
@@ -65,7 +65,7 @@
 
 0 XP deck is below (and <a href="https://arkhamdb.com/deck/view/5813081"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HA9URMHbMAALTvF.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-core-only/daniela-reyes-arkham-linebacker/HA9URMHbMAALTvF.webp"/>
 
 A recommended order of purchases/upgrades is:
 

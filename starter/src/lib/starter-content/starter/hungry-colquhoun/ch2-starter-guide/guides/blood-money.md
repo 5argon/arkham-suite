@@ -1,5 +1,5 @@
 <h2 style="color:rgb(186, 129, 242);"><span class="icon-mystic"></span> 
-</span> <strong>Blood Money</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc104_marie-lambeau.png">
+</span> <strong>Blood Money</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/blood-money/ahc100_p2_evergreen-investigators-preview_art-splash_ahc104_marie-lambeau.webp">
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Marie gets Cash4Blood using [Offering Bowl](/card/60456) and [Jim Culver](/card/60479), which also activates her excellent ability. She also hoovers up clues like a Seeker, while giving enemies the slip with [Shadowmeld](/card/60461) - definitely more the Witch and less the Performer!
@@ -62,7 +62,7 @@
 
 If you want [Ward of Protection](/card/12065) (in this case it was put in [Dexter](/card/12010)'s complementary deck), you can easily swap it for [Unexpected Courage](/card/12094) if you're not playing with Dexter. 0 XP deck is below (and <a href="https://arkham.build/share/sEe3srWAGZz9He4"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HFjf1IPWoAA3u66.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/blood-money/HFjf1IPWoAA3u66.webp"/>
 <br/>
 <strong style="color:rgb(186, 129, 242);">A recommended order of purchases/upgrades is:</strong>
 
@@ -90,7 +90,7 @@ Even considering the Mystic cards I ringfenced for Dexter, I don't think there's
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/blood-money/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

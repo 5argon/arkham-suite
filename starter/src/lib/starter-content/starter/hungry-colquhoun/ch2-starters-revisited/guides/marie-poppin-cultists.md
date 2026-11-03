@@ -1,5 +1,5 @@
 <h2 style="color:rgb(186, 129, 242);"><span class="icon-mystic"></span> 
-</span> <strong>Marie Poppin' Cultists</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="https://pbs.twimg.com/media/HL-M4QQWUAAN4cH.png">
+</span> <strong>Marie Poppin' Cultists</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/marie-poppin-cultists/HL-M4QQWUAAN4cH.webp">
 </style><hr/></h2>
 
 > In this mini-series I'm focusing on powerful decks built from the Chapter 2 starters. Here Marie be poppin' cultists with [Cosmic Flame](/card/12071) and [Consume Life](/card/60462), which she can easily find with [Jim Culver](/card/60479), [Arcane Initiate](/card/60455) and her ability.
@@ -56,7 +56,7 @@
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/4Oo5WvRXFE8SJff"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HLhcakBasAAf3Qh.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/marie-poppin-cultists/HLhcakBasAAf3Qh.webp"/>
 <br/>
 <strong style="color:rgb(186, 129, 242);">A recommended order of purchases/upgrades is:</strong>
 

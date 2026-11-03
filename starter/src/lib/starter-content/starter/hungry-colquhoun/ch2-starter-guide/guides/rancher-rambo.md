@@ -1,5 +1,5 @@
 <h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
- <strong>Rancher Rambo</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc105_miguel-de-la-cruz.png"/>
+ <strong>Rancher Rambo</strong> <span class="icon-survivor"></span> <br/> <br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/rancher-rambo/ahc100_p2_evergreen-investigators-preview_art-splash_ahc105_miguel-de-la-cruz.webp"/>
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Using his trusty [Knapsack](/card/60552), Miguel lays fast traps like [Lie in Wait](/card/60566) or [Glassing](/card/60563) one location away and then drags enemies into them with [Loner](/card/60557). For any foes that survive the trip, this rancher Rambo uses [Longbow](/card/60580) to finish them off.
@@ -71,7 +71,7 @@ I bumped this deck up to a 3 ★ rating in clue-finding on a playtest. The [Scra
 
 0 XP deck is below (and <a href="https://arkham.build/share/p7lHYci0GSM3pq4"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HFyfq8GaYAA9WZs.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/rancher-rambo/HFyfq8GaYAA9WZs.webp"/>
 
 <strong style="color:rgb(238, 74, 83);">A recommended order of purchases/upgrades is:</strong>
 
@@ -98,7 +98,7 @@ I bumped this deck up to a 3 ★ rating in clue-finding on a playtest. The [Scra
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/rancher-rambo/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

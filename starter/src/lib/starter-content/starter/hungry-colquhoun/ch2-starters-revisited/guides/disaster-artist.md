@@ -1,5 +1,5 @@
 <h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
- <strong>Disaster Artist</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://pbs.twimg.com/media/HLhZdQHWIAAUwPH.png"/>
+ <strong>Disaster Artist</strong> <span class="icon-survivor"></span> <br/> <br/><img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/disaster-artist/HLhZdQHWIAAUwPH.webp"/>
 </style><hr/></h2>
 
 > In this mini-series I'm focusing on powerful decks built from the Chapter 2 starters. Here Miguel benefits from failure, with [Rabbit's Foot](/card/60560) for card draw, [Old Compass](/card/12083) and [Daniel Jameson](/card/60555) for do-overs, and ["Look what I found!"](/card/12078) for clues. If you're gonna fail, fail in style!
@@ -57,7 +57,7 @@
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/kDT2IeAnLXbLeXa"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HLhgSaHWMAAFpYV.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/disaster-artist/HLhgSaHWMAAFpYV.webp"/>
 
 <strong style="color:rgb(238, 74, 83);">A recommended order of purchases/upgrades is:</strong>
 

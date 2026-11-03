@@ -1,5 +1,5 @@
 <h2 style="color:rgb(186, 129, 242);"><span class="icon-mystic"></span> 
-</span> <strong>The Prestige</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="https://pbs.twimg.com/media/G_2atA3XQAAcbJG.jpg">
+</span> <strong>The Prestige</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-core-only/dexter-drake-the-prestige/G_2atA3XQAAcbJG.webp">
 </style><hr/></h2>
 
 `These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1. If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
@@ -64,7 +64,7 @@
 
 In terms of side deck, you could keep [Unexpected Courage](/card/12094) in the deck long term instead of [Manual Dexterity](/card/12091), but I like the card draw of the latter a little more. 0 XP deck is below (and <a href="https://arkhamdb.com/deck/view/5813229"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HA9qY5sbsAIxUTn.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-core-only/dexter-drake-the-prestige/HA9qY5sbsAIxUTn.webp"/>
 
 A recommended order of purchases/upgrades is:
 

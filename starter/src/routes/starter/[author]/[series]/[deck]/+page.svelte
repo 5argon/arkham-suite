@@ -25,7 +25,7 @@
 		starterDeckHref,
 		toCore2026Code
 	} from '$lib/starter-content';
-	import { starterDeckDescription, starterDeckJsonLd } from '$lib/starter-content/seo';
+	import { deckForExport, starterDeckDescription, starterDeckJsonLd } from '$lib/starter-content/seo';
 	import { protoStringRestore } from '$lib/tool/script/export/proto-string-restore';
 	import { starterTeam } from '$lib/tool/starter/team-cart.svelte';
 
@@ -88,7 +88,7 @@
 	const downloadItems = $derived(
 		versions.map((v) => ({
 			label: m.starter_decks_xp_tab({ xp: v.xp }),
-			deck: entry.versions[v.index].deck,
+			deck: deckForExport(entry.versions[v.index].deck),
 			fileName: `${entry.slug}-${v.xp}xp.json`
 		}))
 	);

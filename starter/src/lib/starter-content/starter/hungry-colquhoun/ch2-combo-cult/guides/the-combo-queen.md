@@ -1,5 +1,5 @@
 <h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
- <strong>The Combo Queen</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://pbs.twimg.com/media/HRSwbI_b0AAfl-K.png"/>
+ <strong>The Combo Queen</strong> <span class="icon-survivor"></span> <br/> <br/><img src="/image/starter/hungry-colquhoun/ch2-combo-cult/the-combo-queen/HRSwbI_b0AAfl-K.webp"/>
 </style><hr/></h2>
 
 > In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos. Why have one combo, when you can have four?! Here Izzie uses [Old Compass](/card/12083) and [Rabbit's Foot](/card/60560) as fail tech, getting clues off 4 shroud locations with ["Look what I found!"](/card/12078). She gets testless clues with [Will of the Cosmos](/card/12066), and places the doom on self-discarding [Hunter's Instinct](/card/12074) or [Same Old Thing](/card/60561). She heals horror and damage with [Consume Life](/card/60462) kills paired to [Cosmic Guidance](/card/60468) and [Fearless](/card/12069). Lastly, through double-dipping [Do-or-Die](/card/60568) with her ability then Izzie trivially recurs the ever-powerful [Scrape By](/card/12082). How I got this all into one deck I'll never know!
@@ -60,7 +60,7 @@ I did think about [Ward of Protection](/card/12065) in the starting deck, but yo
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/OqbZzMP0XjoPAaV"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HRWrnBMaIAEmya1.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-combo-cult/the-combo-queen/HRWrnBMaIAEmya1.webp"/>
 
 <strong style="color:rgb(238, 74, 83);">A recommended order of purchases/upgrades is:</strong>
 

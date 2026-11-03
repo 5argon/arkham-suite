@@ -1,5 +1,5 @@
 <h2 style="color:rgb(72, 177, 79);"><span class="icon-rogue"></span> 
-</span> <strong>The Fatal Thespian</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="https://pbs.twimg.com/media/HLz9shgWkAAmCNx.png"/>
+</span> <strong>The Fatal Thespian</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/the-fatal-thespian/HLz9shgWkAAmCNx.webp"/>
 </style><hr/></h2>
 
 > In this mini-series I'm focusing on powerful decks built from the Chapter 2 starters. Here André can deal up to 9 damage in a turn by [bashing enemies' legs in](/card/60363), [pushing them off roofs](/card/60378) (twice) and [shooting them](/card/12045). Who knew show business was so cutthroat?!
@@ -57,7 +57,7 @@
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/tLC0dqBLLF1fEIc"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HLheX5ZWUAArm_e.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/the-fatal-thespian/HLheX5ZWUAArm_e.webp"/>
 
 <strong style="color:rgb(72, 177, 79);">A recommended order of purchases/upgrades is:</strong>
 

@@ -1,5 +1,5 @@
 <h2 style="color:rgb(92, 180, 253);"><span class="icon-guardian"></span> 
- <strong>Dragged Across Concrete</strong> <span class="icon-guardian"></span> <br/><br/><img src="https://pbs.twimg.com/media/HRTsAgJbIAAuJh6.png"/></style><hr/></h2>
+ <strong>Dragged Across Concrete</strong> <span class="icon-guardian"></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-combo-cult/dragged-across-concrete/HRTsAgJbIAAuJh6.webp"/></style><hr/></h2>
 
 > In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos. Here Daniela drags enemies kicking and screaming into [Lie in Wait](/card/60566) or [Rope Trap](/card/60578), getting <span class="icon-reaction"></span> attacks with her ability and a [Service Revolver](/card/60158) for up to 6 attacks in a round rather than the usual 5. For soaking attacks, [Bodyguard](/card/12027) takes a bullet or a tentacle for you and dishes out auto-damage.
 
@@ -56,7 +56,7 @@
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/w2XKPNMlFZL52HB"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HRWuK_aakAArYrI.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-combo-cult/dragged-across-concrete/HRWuK_aakAArYrI.webp"/>
 
 <strong style="color:rgb(92, 180, 253);">A recommended order of purchases/upgrades is:</strong>
 

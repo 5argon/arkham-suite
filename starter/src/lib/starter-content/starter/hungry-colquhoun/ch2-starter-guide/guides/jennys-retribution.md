@@ -1,5 +1,5 @@
 <h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
- <strong>Jenny's Retribution</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_survivorclass_splash.png"/>
+ <strong>Jenny's Retribution</strong> <span class="icon-survivor"></span> <br/> <br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/jennys-retribution/ahc100_article_survivorclass_splash.webp"/>
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here avenging Izzie heals both damage and horror through <span class="icon-willpower"></span> skill tests on Mystic assets, which allows her to readily soak attacks and so dish out [Retribution](/card/60473). #Justice4Jenny
@@ -69,7 +69,7 @@ In terms of omissions, [Scrape By](/card/12082) is on Miguel's deck - thereby ma
 
 0 XP deck is below (and <a href="https://arkham.build/share/yFJk4NCmEcy0mvk"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HIOPhc7W0AEiDiv.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/jennys-retribution/HIOPhc7W0AEiDiv.webp"/>
 
 <strong style="color:rgb(238, 74, 83);">A recommended order of purchases/upgrades is:</strong>
 
@@ -100,7 +100,7 @@ In terms of omissions, [Scrape By](/card/12082) is on Miguel's deck - thereby ma
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/jennys-retribution/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

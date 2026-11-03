@@ -1,5 +1,10 @@
+import { existsSync, readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import type { AhdbDeck } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
+
+import { siteUrl } from '$lib/const';
 
 import {
 	allContributors,
@@ -9,12 +14,15 @@ import {
 	starterSeriesOf
 } from './index';
 import {
+	deckForExport,
 	introPlainText,
 	contributorJsonLd,
 	starterDeckDescription,
 	starterDeckJsonLd,
 	starterSitemapPaths
 } from './seo';
+
+const staticDir = resolve(import.meta.dirname, '../../../static');
 
 describe('introPlainText', () => {
 	it('keeps card link text and names game icons', () => {
@@ -63,6 +71,48 @@ describe('starter deck meta', () => {
 			if (entry.bannerUrl === undefined) continue;
 			expect(entry.primary.description_md, entry.slug).toContain(entry.bannerUrl);
 			expect(JSON.parse(entry.primary.meta ?? '{}').banner_url, entry.slug).toBe(entry.bannerUrl);
+		}
+	});
+
+	it("hosts every guide image in that guide's own folder", () => {
+		const used = new Set<string>();
+		for (const entry of allStarterDecks()) {
+			const folder = `/image/starter/${entry.series.author.slug}/${entry.series.slug}/${entry.slug}/`;
+			const images = [
+				...(entry.primary.description_md ?? '').matchAll(/(?:src=["']|!\[[^\]]*\]\()([^"')\s]+)/g)
+			].map((match) => match[1]);
+			expect(images.length, entry.slug).toBeGreaterThan(0);
+			if (entry.bannerUrl !== undefined) images.push(entry.bannerUrl);
+			for (const image of images) {
+				if (image.startsWith('https://assets.arkham.build/')) continue;
+				expect(image.startsWith(folder), `${entry.slug}: ${image}`).toBe(true);
+				expect(existsSync(`${staticDir}${image}`), image).toBe(true);
+				used.add(image);
+			}
+		}
+		// Images prepared for a deck not hosted yet are left alone.
+		const hostedFolders = allStarterDecks().map(
+			({ slug, series }) =>
+				`${staticDir}/image/starter/${series.author.slug}/${series.slug}/${slug}`
+		);
+		const stored = hostedFolders.flatMap((folder) =>
+			readdirSync(folder, { recursive: true, withFileTypes: true })
+				.filter((item) => item.isFile())
+				.map((item) => `${item.parentPath}/${item.name}`.slice(staticDir.length))
+		);
+		expect(stored.sort()).toEqual([...used].sort());
+	});
+
+	it('exports guide images and banners by their full address', () => {
+		for (const entry of allStarterDecks()) {
+			for (const { deck } of entry.versions) {
+				const exported = deckForExport(deck);
+				expect(JSON.stringify(exported), entry.slug).not.toMatch(
+					/(?<!arkham-starter\.com)\/image\/starter\//
+				);
+				expect(exported.description_md, entry.slug).toContain(siteUrl('image/starter/'));
+				expect(JSON.parse(exported.meta ?? '{}').banner_url, entry.slug).toMatch(/^https:/);
+			}
 		}
 	});
 

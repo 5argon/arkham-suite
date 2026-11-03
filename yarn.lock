@@ -207,6 +207,7 @@ __metadata:
     postcss: "npm:^8.5.32"
     prettier: "npm:^3.9.10"
     prettier-plugin-svelte: "npm:^4.1.1"
+    sharp: "npm:^0.35.5"
     svelte: "npm:^5.57.3"
     svelte-check: "npm:^4.7.7"
     svelte-marked: "npm:^0.8.0"
@@ -7756,7 +7757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:0.35.5":
+"sharp@npm:0.35.5, sharp@npm:^0.35.5":
   version: 0.35.5
   resolution: "sharp@npm:0.35.5"
   dependencies:

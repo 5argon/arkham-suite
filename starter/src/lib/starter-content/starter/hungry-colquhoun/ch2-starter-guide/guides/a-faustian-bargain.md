@@ -1,5 +1,5 @@
 <h2 style="color:rgb(186, 129, 242);"><span class="icon-mystic"></span> 
-</span> <strong>A Faustian Bargain</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_article_mysticclass_splash.png">
+</span> <strong>A Faustian Bargain</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/a-faustian-bargain/ahc100_article_mysticclass_splash.webp">
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). If Mystics are about power at a price, then Faustian bargains don't come much more Faustian than [Dread Curse of Azathoth](/card/60474)! Here Dexter uses that and upgraded [Cosmic Flame](/card/12071) for some serious diabolic firepower - made all the more accessible with [Arcane Initiate](/card/60455) and ["For my next trick..."](/card/12011).
@@ -62,7 +62,7 @@
 
 If you're not running Marie and want [Jim Culver](/card/12060), then [Consume Life](/card/60462) is an easy trade (going from damage healing to damage soak, in essence). 0 XP deck is below (and <a href="https://arkham.build/share/ggMbxNjAF2Rvu1X"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HFybnzobAAAtPiq.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/a-faustian-bargain/HFybnzobAAAtPiq.webp"/>
 <br/>
 <strong style="color:rgb(186, 129, 242);">A recommended order of purchases/upgrades is:</strong>
 
@@ -90,7 +90,7 @@ Excepting Jim, there's no other Mystic deck in Marie's deck I'd think of includi
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/a-faustian-bargain/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

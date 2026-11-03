@@ -1,4 +1,4 @@
-<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>The Drawlord</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="https://pbs.twimg.com/media/G_gY9vnXMAAMk9i.jpg"/>
+<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>The Drawlord</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-core-only/joe-diamond-the-drawlord/G_gY9vnXMAAMk9i.webp"/>
 </style><hr/></h2>
 
 `These are replacement decks for Chapter 2 investigators. All have been playtested in Chapter 2, and also extensively in Chapter 1. If you want to support my work, give it a like ❤︎ and a favorite ★ on here!`
@@ -79,7 +79,7 @@ I think Restrained is really good, I'd probably get rid of [Guts](/card/12090) i
 
 If you are keen on [Fingerprint Kit](/card/12031), I would suggest removing [Scene of the Crime](/card/12024) in its place. 0 XP deck is as follows (and <a href="https://arkhamdb.com/deck/view/5813033"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HA9XEMia0AAqqN6.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-core-only/joe-diamond-the-drawlord/HA9XEMia0AAqqN6.webp"/>
 
 A recommended order of purchases/upgrades is:
 

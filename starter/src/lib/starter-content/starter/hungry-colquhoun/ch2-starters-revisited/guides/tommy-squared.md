@@ -1,5 +1,5 @@
 <h2 style="color:rgb(92, 180, 253);"><span class="icon-guardian"></span> 
- <strong>Tommy²</strong> <span class="icon-guardian"></span> <br/><br/><img src="https://pbs.twimg.com/media/HLzpfohXYAACS0b.png"/></style><hr/></h2>
+ <strong>Tommy²</strong> <span class="icon-guardian"></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/tommy-squared/HLzpfohXYAACS0b.webp"/></style><hr/></h2>
 
 > In this mini-series I'm focusing on powerful decks built from the Chapter 2 starters. Here, Tommy uses the [Thompson Submachine Gun](/card/60182) as a <strong><ins>big</ins></strong> gun. With it and upgraded [Vicious Blow](/card/60176), you can deal up to 16 damage in a turn - toasty!
 
@@ -55,7 +55,7 @@
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/bPLtYBSxdpTVkqB"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HQLCDtRWgAA3KuO.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/tommy-squared/HQLCDtRWgAA3KuO.webp"/>
 
 <strong style="color:rgb(92, 180, 253);">A recommended order of purchases/upgrades is:</strong>
 

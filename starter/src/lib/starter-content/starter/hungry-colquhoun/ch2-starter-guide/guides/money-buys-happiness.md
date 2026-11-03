@@ -1,5 +1,5 @@
 <h2 style="color:rgb(72, 177, 79);"><span class="icon-rogue"></span> 
-</span> <strong>Money Buys Happiness</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc103_andre_patel.png"/>
+</span> <strong>Money Buys Happiness</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/money-buys-happiness/ahc100_p2_evergreen-investigators-preview_art-splash_ahc103_andre_patel.webp"/>
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here big money André makes it rain with [Marcus](/card/60375), [Sticky Fingers](/card/12048), [Thieves' Kit](/card/12049), [Emergency Cache](/card/01088), ["Watch this!"](/card/60371) and [Out the Door](/card/60370). He then puts this cash to work, with [Well Connected](/card/60381) for boosts and [Black Fan](/card/60379) for a raft of benefits. Don't believe what they say - money <ins>does</ins> buy happiness!
@@ -74,7 +74,7 @@ In terms of side deck, <a href="https://arkham.build/share/wJY5la1fVagqCDk"><str
 
 0 XP deck is below (and <a href="https://arkham.build/share/DVdQsjG2JobDwL4"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HHOPuH9WEAAQxiC.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/money-buys-happiness/HHOPuH9WEAAQxiC.webp"/>
 
 <strong style="color:rgb(72, 177, 79);">A recommended order of purchases/upgrades is:</strong>
 
@@ -104,7 +104,7 @@ In terms of side deck, <a href="https://arkham.build/share/wJY5la1fVagqCDk"><str
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/money-buys-happiness/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

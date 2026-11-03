@@ -1,4 +1,6 @@
-import { siteOrigin } from '$lib/const';
+import type { AhdbDeck } from '@5argon/arkham-kohaku';
+
+import { siteOrigin, siteUrl } from '$lib/const';
 import * as m from '$lib/paraglide/messages.js';
 
 import {
@@ -77,6 +79,19 @@ export function contributorJsonLd(person: Contributor) {
  * Ties the deck to its author and series, so searching for the author can
  * surface the deck.
  */
+/**
+ * A deck ready to leave the site: its guide and banner point at the images hosted
+ * here by full address, so they still show wherever the deck is imported.
+ */
+export function deckForExport(deck: AhdbDeck): AhdbDeck {
+	const absolute = (text: string) => text.replaceAll('/image/starter/', siteUrl('image/starter/'));
+	return {
+		...deck,
+		description_md: absolute(deck.description_md ?? ''),
+		...(deck.meta ? { meta: absolute(deck.meta) } : {})
+	};
+}
+
 export function starterDeckJsonLd(entry: StarterDeckEntry) {
 	const { author } = entry.series;
 	return {
@@ -87,7 +102,7 @@ export function starterDeckJsonLd(entry: StarterDeckEntry) {
 				name: entry.primary.name,
 				description: starterDeckDescription(entry),
 				url: `${siteOrigin}${starterDeckHref(entry)}`,
-				...(entry.bannerUrl === undefined ? {} : { image: entry.bannerUrl }),
+				...(entry.bannerUrl === undefined ? {} : { image: siteUrl(entry.bannerUrl) }),
 				author: personJsonLd(author),
 				isPartOf: {
 					'@type': 'CreativeWorkSeries',

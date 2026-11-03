@@ -1,5 +1,5 @@
 <h2 style="color:rgb(92, 180, 253);"><span class="icon-guardian"></span> 
- <strong>Hurting for Clues</strong> <span class="icon-guardian"></span> <br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_guardianclass_splash.png"/></style><hr/></h2>
+ <strong>Hurting for Clues</strong> <span class="icon-guardian"></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/hurting-for-clues/ahc100_article_guardianclass_splash.webp"/></style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here Daniela uses [Stalk Prey](/card/60567) to spawn enemies, [Lesson Learned](/card/12022) and [Detective Sherman](/card/60177) to exploit those enemies for clues, and then [Hunter's Instinct](/card/12074) to recycle events. Oh, and she also still [Sledgehammers](/card/12028) bad guys into meaty paste (yes I did use "sledgehammer" as a verb...).
 
@@ -62,7 +62,7 @@
 
 If not playing with Tommy, you can replace an [Overpower](/card/12092) with a second copy of [Right Tool for the Job](/card/12023) if you choose. 0 XP deck is below (and <a href="https://arkham.build/share/HoJrKEDd2hAFYWN"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HFyx0QMXUAAFY4Q.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/hurting-for-clues/HFyx0QMXUAAFY4Q.webp"/>
 
 <strong style="color:rgb(92, 180, 253);">A recommended order of purchases/upgrades is:</strong>
 
@@ -98,7 +98,7 @@ In terms of what's missing, there's [Bounty](/card/60161) - but with [Same Old T
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/hurting-for-clues/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

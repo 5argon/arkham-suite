@@ -1,5 +1,5 @@
 <h2 style="color:rgb(92, 180, 253);"><span class="icon-guardian"></span> 
- <strong>Got Yourself a Gun</strong> <span class="icon-guardian"></span> <br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/ahc100_p2_evergreen-investigators-preview_art-splash_ahc101_tommy-muldoon.png"/></style><hr/></h2>
+ <strong>Got Yourself a Gun</strong> <span class="icon-guardian"></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/got-yourself-a-gun/ahc100_p2_evergreen-investigators-preview_art-splash_ahc101_tommy-muldoon.webp"/></style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here, Tommy uses [Winchester Model 12](/card/12029) with plenty of bullets from [Stock Ammo Reload](/card/60175) to blast away enemies, dealing up to 17 damage with two [Vicious Blows](/card/12025). Did you expect anything else?!
 
@@ -62,7 +62,7 @@
 
 If playing without Daniela, you can consider swapping a [Perception](/card/12093) with the second copy of [Right Tool for the Job](/card/12023). 0 XP deck is below (and <a href="https://arkham.build/share/0s8JNE9PfkGduaR"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HFyiSu1aIAA6IIT.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/got-yourself-a-gun/HFyiSu1aIAA6IIT.webp"/>
 
 <strong style="color:rgb(92, 180, 253);">A recommended order of purchases/upgrades is:</strong>
 
@@ -98,7 +98,7 @@ For the luxury post-19 XP purchases, I genuinely think [Thompson Submachine Gun]
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/got-yourself-a-gun/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 

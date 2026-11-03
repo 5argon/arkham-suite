@@ -1,4 +1,4 @@
-<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Living her Bast Life</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="https://pbs.twimg.com/media/HLucbhAXsAAZd_0.png"/>
+<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Living her Bast Life</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/living-her-bast-life/HLucbhAXsAAZd_0.webp"/>
 </style><hr/></h2>
 
 > In this mini-series I'm focusing on powerful decks built from the Chapter 2 starters. Here Carolyn uses [Scroll of the Pharaohs (Words of Bast)](/card/60279) to manipulate the encounter deck, with [Occult Records](/card/60256) healing off the horror for a <span class="icon-free"></span> clue. I guess the best way to manage enemies is not to draw them!
@@ -54,7 +54,7 @@
 
 0 XP starting deck is as follows (and <a href="https://arkham.build/deck/view/qMmNzEA6LEfaVo9"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HQLYnL8XcAA4uf3.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starters-revisited/living-her-bast-life/HQLYnL8XcAA4uf3.webp"/>
 
 <strong style="color:rgb(239, 163, 69);">A recommended order of purchases/upgrades is:*</strong>
 

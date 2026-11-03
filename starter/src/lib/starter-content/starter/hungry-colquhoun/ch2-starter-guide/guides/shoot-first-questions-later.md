@@ -1,4 +1,4 @@
-<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Shoot First, Questions Later</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/09/ahc100_article_seekerclass_splash.png"/>
+<h2 style="color:rgb(239, 163, 69);"><span class="icon-seeker"></span></span> <strong>Shoot First, Questions Later</strong> <span class="icon-seeker"></span></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-starter-guide/shoot-first-questions-later/ahc100_article_seekerclass_splash.webp"/>
 </style><hr/></h2>
 
 > This series provides 10 playtested decks using the Chapter 2 Core and new Starters, with each deck compatible for two player with at least 7 others (and working well at high player counts). Here, Joe has had enough of your crap! Rather than quietly investigating, he's whipping out his [M1911](/card/60171) and going pow-pow-pow! He may do some sleuthing on the side, with [Sharp Rhetoric](/card/60277) or whatever, but really this PI is all about the DIY - and by DIY I mean DIY vigilantism...
@@ -70,7 +70,7 @@ You might wonder why [Autopsy Report](/card/60276) isn't here. While it leverage
 
 [Working a Hunch](/card/12038) can be used in place of ["Make 'em sing"](/card/60160) in the starting deck if you choose (though I like the extra enemy management of "Make 'em sing", and Working a Hunch is also used in my Trish deck so it's nice to have the two non-overlapping). 0 XP deck is as follows (and <a href="https://arkham.build/share/RW6kpY7vjPJngVp"><strong>link here</strong></a>):
 
-<img src="https://pbs.twimg.com/media/HH1JXFwWUAAH_e_.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/shoot-first-questions-later/HH1JXFwWUAAH_e_.webp"/>
 
 <strong style="color:rgb(239, 163, 69);">A recommended order of purchases/upgrades is:</strong>
 
@@ -101,7 +101,7 @@ You might wonder why [Autopsy Report](/card/60276) isn't here. While it leverage
 
 Everyone likes a good matrix! Below are all the decks that are compatible at two player using one Chapter 2 Core and one 2026 Starter Deck set:
 
-<img src="https://pbs.twimg.com/media/HFjVlxmWUAAlUZ0.png"/>
+<img src="/image/starter/hungry-colquhoun/ch2-starter-guide/shoot-first-questions-later/HFjVlxmWUAAlUZ0.webp"/>
 
 For higher player counts I've not 'compatabilized' the basic skills ([Overpower](/card/12092), [Manual Dexterity](/card/12091), [Guts](/card/12090), [Perception](/card/12093) and [Unexpected Courage](/card/12094)). There are only 4 copies of each in the Chapter 2 core, enough for any two decks. If playing 3+ players and there's a clash, you can either:
 
