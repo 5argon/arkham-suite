@@ -76,17 +76,24 @@ function compositionOf(tag: string): { players: number; core: number } | null {
 		: { players: Number(match[1]) + Number(match[2]), core: Number(match[1]) };
 }
 
+const ADJACENCY_TAGS = ['Adjacent Core', 'Non-Adjacent Core'];
+
 /**
  * Every tag these teams have, in the order to offer them: series first, then
- * Core Set and Investigator Deck mixes by player count, most Core Set first.
+ * Core Set and Investigator Deck mixes by player count, most Core Set first, then
+ * whether the Core Set investigators are adjacent.
  */
 function teamTags(teams: PrebuiltTeamSummary[]): string[] {
+	const groupOf = (tag: string) =>
+		ADJACENCY_TAGS.includes(tag) ? 2 : compositionOf(tag) === null ? 0 : 1;
 	return [...new Set(teams.flatMap((team) => team.tags))].sort((a, b) => {
 		const [mixA, mixB] = [compositionOf(a), compositionOf(b)];
-		if (mixA === null || mixB === null) {
-			return mixA === mixB ? a.localeCompare(b) : mixA === null ? -1 : 1;
-		}
-		return mixA.players - mixB.players || mixB.core - mixA.core;
+		return (
+			groupOf(a) - groupOf(b) ||
+			(mixA !== null && mixB !== null
+				? mixA.players - mixB.players || mixB.core - mixA.core
+				: a.localeCompare(b))
+		);
 	});
 }
 

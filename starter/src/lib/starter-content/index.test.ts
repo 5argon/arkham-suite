@@ -302,7 +302,34 @@ describe('pre-built team tags', () => {
 		'hc-cross-series-': 'HC Cross Series'
 	};
 
-	it('tags every team with its series, then its Core Set and Investigator Deck mix', () => {
+	/**
+	 * Adjacent when every Core Set investigator can reach the others through classes
+	 * they share, so a chain counts. Non-adjacent when no two share a class. A team
+	 * in between is neither, and fewer than 2 of them have nothing to compare.
+	 */
+	function adjacencyTag(team: PrebuiltTeam): string[] {
+		const classesOf = (code: string) =>
+			(resolver.resolve(code).deckOptions ?? [])
+				.flatMap((option) => option.faction ?? [])
+				.filter((faction) => faction !== 'neutral');
+		const shareClass = (a: string, b: string) =>
+			classesOf(a).some((cardClass) => classesOf(b).includes(cardClass));
+		const core = team.members
+			.map((member) => member.deck.investigator_code)
+			.filter((code) => resolver.resolve(code).product === Product.CoreSet2026);
+		if (core.length < 2) return [];
+		const reached = new Set([core[0]]);
+		for (let round = 0; round < core.length; round++) {
+			for (const code of core) {
+				if ([...reached].some((other) => shareClass(code, other))) reached.add(code);
+			}
+		}
+		if (reached.size === core.length) return ['Adjacent Core'];
+		const anyPair = core.some((a, i) => core.slice(i + 1).some((b) => shareClass(a, b)));
+		return anyPair ? [] : ['Non-Adjacent Core'];
+	}
+
+	it('tags every team with its series, Core Set and Investigator Deck mix, and core adjacency', () => {
 		for (const team of allPrebuiltTeams()) {
 			const series = Object.entries(seriesTags).find(([prefix]) => team.slug.startsWith(prefix));
 			const core = team.members.filter(
@@ -310,7 +337,8 @@ describe('pre-built team tags', () => {
 			).length;
 			expect(team.tags, team.slug).toEqual([
 				series?.[1],
-				`${core}C+${team.members.length - core}ID`
+				`${core}C+${team.members.length - core}ID`,
+				...adjacencyTag(team)
 			]);
 		}
 	});

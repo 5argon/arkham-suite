@@ -65,7 +65,9 @@ describe('pre-built team tags', () => {
 		entry('HC Cross Series', '2C+2ID'),
 		entry('HC Cross Series', '3C+1ID'),
 		entry('HC Chapter 2 Core Only', '2C+0ID'),
-		entry('HC Chapter 2 Core Only', '1C+1ID')
+		entry('HC Chapter 2 Core Only', '1C+1ID'),
+		entry('HC Cross Series', '2C+2ID', 'Non-Adjacent Core'),
+		entry('HC Cross Series', '2C+2ID', 'Adjacent Core')
 	];
 
 	it('offers series first, then mixes by player count with the most Core Set first', () => {
@@ -75,7 +77,9 @@ describe('pre-built team tags', () => {
 			'2C+0ID',
 			'1C+1ID',
 			'3C+1ID',
-			'2C+2ID'
+			'2C+2ID',
+			'Adjacent Core',
+			'Non-Adjacent Core'
 		]);
 	});
 
@@ -88,7 +92,9 @@ describe('pre-built team tags', () => {
 	it('offers only tags of the teams left, with what adding each would leave', () => {
 		expect(tagChoices(entries, ['HC Cross Series'])).toEqual([
 			{ label: '3C+1ID', count: 1 },
-			{ label: '2C+2ID', count: 1 }
+			{ label: '2C+2ID', count: 3 },
+			{ label: 'Adjacent Core', count: 1 },
+			{ label: 'Non-Adjacent Core', count: 1 }
 		]);
 	});
 });
