@@ -29,6 +29,8 @@ listing.
 		info: TeamInfo;
 		display: TeamDisplay;
 		tags?: string[];
+		/** Shows the name in the normal font, for listings where it is one of many. */
+		plainName?: boolean;
 		/** How each member plays what the reader is looking for, parallel to the members. */
 		memberNotes?: CardLineNote[][];
 		/** Hosted starter sources parallel to the members. Omit to keep the banner compact. */
@@ -46,6 +48,7 @@ listing.
 		info,
 		display,
 		tags = [],
+		plainName = false,
 		memberNotes,
 		sources,
 		exclusive = false,
@@ -76,8 +79,10 @@ listing.
 	{/if}
 	<BorderedContainer>
 		<div class="flex flex-col items-center gap-1 text-center">
-			<span class="team-name text-primary-900 dark:text-primary-100 text-xl" class:px-16={exclusive}
-				>{info.name}</span
+			<span
+				class="text-primary-900 dark:text-primary-100 text-xl"
+				class:team-name={!plainName}
+				class:px-16={exclusive}>{info.name}</span
 			>
 			{#if tags.length > 0}
 				<div class="flex flex-wrap justify-center gap-1">

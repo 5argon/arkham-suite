@@ -37,6 +37,7 @@ pool usage, members) linking to the team page.
 	<TeamBanner
 		info={{ name: team.name, author: team.author, description: team.description }}
 		display={team.display}
+		plainName
 		{memberNotes}
 		tags={team.tags}
 		exclusive={team.exclusive}
