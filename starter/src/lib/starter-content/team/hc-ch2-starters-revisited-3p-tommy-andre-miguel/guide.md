@@ -4,6 +4,12 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-survivor"></span> **Miguel de la Cruz** — [Disaster Artist](/starter/hungry-colquhoun/ch2-starters-revisited/disaster-artist)
 - <span class="icon-guardian"></span> **Tommy Muldoon** — [Tommy²](/starter/hungry-colquhoun/ch2-starters-revisited/tommy-squared)
 
+### Class Access
+
+In a 3 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 3 classes.
+
+In this team, Tommy, André and Miguel cover Guardian, Rogue and Survivor, and nobody on this team can use Seeker or Mystic.
+
 ### Overlap Resolution
 
 The author's original starter decks use Unexpected Courage six times, two more than the four copies available. Miguel plays <span class="icon-survivor"></span> Slippery instead — one <span class="icon-agility"></span> icon rather than two <span class="icon-wild"></span> icons, but Miguel's 4 <span class="icon-agility"></span> suits it, and a non-Elite enemy evaded with it does not ready during the next upkeep phase.

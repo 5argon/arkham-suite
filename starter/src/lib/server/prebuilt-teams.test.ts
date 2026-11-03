@@ -35,6 +35,10 @@ describe('pre-built teams built on hosted decks', () => {
 		}
 	});
 
+	it('explain their class access in their guide', () => {
+		for (const team of teams) expect(team.guideMd, team.slug).toContain('### Class Access');
+	});
+
 	it('show a table exactly when a main deck differs from its source', () => {
 		for (const team of teams) {
 			const changed = team.members.some(

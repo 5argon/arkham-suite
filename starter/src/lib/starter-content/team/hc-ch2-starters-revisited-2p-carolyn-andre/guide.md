@@ -2,3 +2,9 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 
 - <span class="icon-rogue"></span> **André Patel** — [The Fatal Thespian](/starter/hungry-colquhoun/ch2-starters-revisited/the-fatal-thespian)
 - <span class="icon-seeker"></span> **Carolyn Fern** — [Living her Bast Life](/starter/hungry-colquhoun/ch2-starters-revisited/living-her-bast-life)
+
+### Class Access
+
+In a 2 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 2 classes.
+
+In this team, Carolyn and André cover Seeker and Rogue, and nobody on this team can use Guardian, Mystic or Survivor.

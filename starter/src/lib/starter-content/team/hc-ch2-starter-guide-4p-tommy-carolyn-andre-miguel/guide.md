@@ -5,6 +5,12 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-seeker"></span> **Carolyn Fern** — [Who Looks Inside, Awakes](/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes)
 - <span class="icon-survivor"></span> **Miguel de la Cruz** — [Rancher Rambo](/starter/hungry-colquhoun/ch2-starter-guide/rancher-rambo)
 
+### Class Access
+
+In a 4 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 4 classes.
+
+In this team, Tommy, Carolyn, André and Miguel cover Guardian, Seeker, Rogue and Survivor, and nobody on this team can use Mystic.
+
 ### Overlap Resolutions
 
 The author's original starter decks were slightly modified to resolve card overlaps. It was done in a way that I think preserve the original deck's flavor as much as possible.

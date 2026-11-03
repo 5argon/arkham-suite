@@ -3,3 +3,9 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-guardian"></span> **Tommy Muldoon** — [Got Yourself a Gun](/starter/hungry-colquhoun/ch2-starter-guide/got-yourself-a-gun)
 - <span class="icon-seeker"></span> **Carolyn Fern** — [Who Looks Inside, Awakes](/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes)
 - <span class="icon-survivor"></span> **Miguel de la Cruz** — [Rancher Rambo](/starter/hungry-colquhoun/ch2-starter-guide/rancher-rambo)
+
+### Class Access
+
+In a 3 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 3 classes.
+
+In this team, Tommy, Carolyn and Miguel cover Guardian, Seeker and Survivor, and nobody on this team can use Rogue or Mystic.

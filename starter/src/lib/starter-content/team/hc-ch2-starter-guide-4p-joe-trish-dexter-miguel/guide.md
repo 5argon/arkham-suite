@@ -5,6 +5,21 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-rogue"></span> **Trish Scarborough** — [Pocket Sand!](/starter/hungry-colquhoun/ch2-starter-guide/pocket-sand)
 - <span class="icon-seeker"></span> **Joe Diamond** — [Shoot First, Questions Later](/starter/hungry-colquhoun/ch2-starter-guide/shoot-first-questions-later)
 
+### Class Access
+
+In a 4 player team with 3 Core Set investigators, there are 2 possible outcomes :
+
+- They span 4 classes, because they form a chain where each overlaps with the next in the class access. (Chain)
+- They span all 5 classes, because only 2 of them overlap in the class access. (Not a chain)
+
+In the first case, we would have 1 "vacant" class that can be conveniently filled with the corresponding Investigator Deck investigator, and so solved 4 players team composition easily.
+
+In the 2nd case, no class is left vacant, so the Investigator Deck investigator will step on one of the classes of the 3 Core Set investigators. It is still possible to find a way out but harder.
+
+In this team, Joe, Trish and Dexter form a **chain**, with Joe next to Trish and Trish next to Dexter, and therefore cover 4 classes : Seeker, Guardian, Rogue, Mystic. Miguel accordingly filled in the vacant class.
+
+Joe and Trish both run 2 copies of Deduction. The Core Set has 2 and Carolyn's Investigator Deck has another 2. This team already uses cards from Carolyn's deck, so Trish takes those copies.
+
 ### Overlap Resolutions
 
 The author's original starter decks were slightly modified to resolve card overlaps. It was done in a way that I think preserve the original deck's flavor as much as possible.

@@ -2,3 +2,9 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 
 - <span class="icon-seeker"></span> **Carolyn Fern** — [Who Looks Inside, Awakes](/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes)
 - <span class="icon-survivor"></span> **Miguel de la Cruz** — [Rancher Rambo](/starter/hungry-colquhoun/ch2-starter-guide/rancher-rambo)
+
+### Class Access
+
+In a 2 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 2 classes.
+
+In this team, Carolyn and Miguel cover Seeker and Survivor, and nobody on this team can use Guardian, Rogue or Mystic.

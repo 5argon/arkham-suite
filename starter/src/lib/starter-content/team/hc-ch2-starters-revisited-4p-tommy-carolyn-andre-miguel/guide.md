@@ -5,6 +5,12 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-survivor"></span> **Miguel de la Cruz** — [Disaster Artist](/starter/hungry-colquhoun/ch2-starters-revisited/disaster-artist)
 - <span class="icon-guardian"></span> **Tommy Muldoon** — [Tommy²](/starter/hungry-colquhoun/ch2-starters-revisited/tommy-squared)
 
+### Class Access
+
+In a 4 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 4 classes.
+
+In this team, Tommy, Carolyn, André and Miguel cover Guardian, Seeker, Rogue and Survivor, and nobody on this team can use Mystic.
+
 ### Overlap Resolutions
 
 The author's original starter decks use both Perception and Unexpected Courage six times, two more than the four copies available of each. Carolyn plays <span class="icon-seeker"></span> Psychoanalysis in place of Perception — still an <span class="icon-intellect"></span> commit, and one she can also play for the horror healing her deck already revolves around. Miguel plays <span class="icon-survivor"></span> Slippery instead — one <span class="icon-agility"></span> icon rather than two <span class="icon-wild"></span> icons, but Miguel's 4 <span class="icon-agility"></span> suits it, and a non-Elite enemy evaded with it does not ready during the next upkeep phase.

@@ -3,3 +3,9 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-rogue"></span> **André Patel** — [Money Buys Happiness](/starter/hungry-colquhoun/ch2-starter-guide/money-buys-happiness)
 - <span class="icon-seeker"></span> **Carolyn Fern** — [Who Looks Inside, Awakes](/starter/hungry-colquhoun/ch2-starter-guide/who-looks-inside-awakes)
 - <span class="icon-survivor"></span> **Isabelle Barnes** — [Jenny's Retribution](/starter/hungry-colquhoun/ch2-starter-guide/jennys-retribution)
+
+### Class Access
+
+In a 3 player team with 1 Core Set investigator, they span 2 classes. The 2 Investigator Deck investigators can fill 2 other classes and reach 4 classes in total. If one of them shares the Core Set investigator's second class instead, the team only reaches 3 classes.
+
+In this team, Isabelle covers Survivor and Mystic. Carolyn and André accordingly filled in Seeker and Rogue, and nobody on this team can use Guardian.

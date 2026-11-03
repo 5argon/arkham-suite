@@ -9,6 +9,17 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - From 10 possible 3P teams : 4 remains. (There are 3 teams each with Joe-Trish or Dexter-Isabelle, totalling to 6 teams I could not.)
 - From 5 possible 4P teams : None remains, and I do not want to heavily modify HC's deck just to make 4P teams, it'd not be their decks anymore.
 
+### Class Access
+
+In a 2 player team with 2 Core Set investigators, there are 2 possible outcomes :
+
+- They span 3 classes, because they overlap in the class access. (Adjacent)
+- They span 4 classes, because they didn't overlap in the class access. (Not adjacent)
+
+With only 2 players, some classes always stay out of reach : 2 classes in the first case, and 1 class in the 2nd case.
+
+In this team, Trish and Dexter are **adjacent** and therefore cover 3 classes : Rogue, Seeker, Mystic, and nobody on this team can use Guardian or Survivor.
+
 ### Overlap Resolutions
 
 The author's original starter decks were slightly modified to resolve card overlaps. It was done in a way that I think preserve the original deck's flavor as much as possible.

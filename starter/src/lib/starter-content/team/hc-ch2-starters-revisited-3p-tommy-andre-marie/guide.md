@@ -4,6 +4,12 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 - <span class="icon-mystic"></span> **Marie Lambeau** — [Marie Poppin' Cultists](/starter/hungry-colquhoun/ch2-starters-revisited/marie-poppin-cultists)
 - <span class="icon-guardian"></span> **Tommy Muldoon** — [Tommy²](/starter/hungry-colquhoun/ch2-starters-revisited/tommy-squared)
 
+### Class Access
+
+In a 3 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 3 classes.
+
+In this team, Tommy, André and Marie cover Guardian, Rogue and Mystic, and nobody on this team can use Seeker or Survivor.
+
 ### Overlap Resolution
 
 The author's original starter decks use Unexpected Courage six times, two more than the four copies available. Tommy plays Guts instead, trading two <span class="icon-wild"></span> icons for two <span class="icon-willpower"></span> ones and a card whenever the test succeeds.

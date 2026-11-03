@@ -2,3 +2,9 @@ This team is assembled from decks within [HungryColquhoun](/starter/hungry-colqu
 
 - <span class="icon-rogue"></span> **André Patel** — [The Fatal Thespian](/starter/hungry-colquhoun/ch2-starters-revisited/the-fatal-thespian)
 - <span class="icon-mystic"></span> **Marie Lambeau** — [Marie Poppin' Cultists](/starter/hungry-colquhoun/ch2-starters-revisited/marie-poppin-cultists)
+
+### Class Access
+
+In a 2 player team with only Investigator Deck investigators, each one uses their own class only, so the team reaches exactly 2 classes.
+
+In this team, André and Marie cover Rogue and Mystic, and nobody on this team can use Guardian, Seeker or Survivor.
