@@ -10,11 +10,13 @@
 		RadioButtons
 	} from '@5argon/arkham-life-ui';
 	import { card } from '@5argon/arkham-kohaku';
-	import { getAllCards } from '$lib/card-data';
+	import { createCardResolver, getAllCards } from '$lib/card-data';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	const allCards = getAllCards();
+	const cardResolver = createCardResolver();
+	const cardAspectRatio = 88 / 61.5;
 
 	type FilterMode = 'deckbuilding' | 'all';
 	let filterMode = $state<FilterMode>('deckbuilding');
@@ -45,22 +47,27 @@
 	}
 
 	// Calculate dimensions for a row
-	function getRowDimensions(cardCount: number, isSquare: boolean) {
-		const effectiveCount = Math.max(3, Math.min(6, cardCount));
+	function getRowDimensions(codes: string[], isSquare: boolean) {
+		const effectiveCount = Math.max(3, Math.min(6, codes.length));
 		const startingWidth = 470;
+		const borderRadius = Math.max(5, 8 - (effectiveCount - 3));
 
 		if (isSquare) {
 			// Square mode: width capped at 160px, height equals width
 			const width = Math.min(160, Math.floor(startingWidth / effectiveCount));
-			const height = width;
-			const borderRadius = Math.max(5, 8 - (effectiveCount - 3));
-			return { width, height, borderRadius };
+			return { widths: codes.map(() => width), height: width, borderRadius };
 		} else {
-			// Default mode: rectangular aspect ratio
-			const width = Math.floor(startingWidth / effectiveCount);
-			const height = Math.round((width * 88) / 61.5);
-			const borderRadius = Math.max(5, 8 - (effectiveCount - 3));
-			return { width, height, borderRadius };
+			// Default mode: rectangular aspect ratio, all cards in a row share the same height,
+			// so a horizontal card takes up more of the row's width than a vertical one
+			const isHorizontal = codes.map((code) => card.isHorizontalCard(cardResolver.resolve(code)));
+			const horizontalCount = isHorizontal.filter(Boolean).length;
+			const verticalCount = codes.length - horizontalCount;
+			const widthUnits = Math.max(3, verticalCount + horizontalCount * cardAspectRatio ** 2);
+			const verticalWidth = Math.floor(startingWidth / widthUnits);
+			const height = Math.round(verticalWidth * cardAspectRatio);
+			const horizontalWidth = Math.round(height * cardAspectRatio);
+			const widths = isHorizontal.map((horizontal) => (horizontal ? horizontalWidth : verticalWidth));
+			return { widths, height, borderRadius };
 		}
 	}
 
@@ -77,7 +84,7 @@
 			if (row.length === 0) continue;
 
 			const isSquare = rowSquareModes[rowIndex] || false;
-			const { width, height, borderRadius } = getRowDimensions(row.length, isSquare);
+			const { widths, height, borderRadius } = getRowDimensions(row, isSquare);
 			const baseUrl = isSquare
 				? 'https://assets.arkham.build/thumbnails'
 				: 'https://assets.arkham.build/optimized';
@@ -88,7 +95,7 @@
 
 			// Define column widths using colgroup
 			tableHtml += '<colgroup>\n';
-			for (let i = 0; i < row.length; i++) {
+			for (const width of widths) {
 				tableHtml += `<col style="width: ${width}px; max-width: ${width}px;">\n`;
 			}
 			tableHtml += '</colgroup>\n';
@@ -96,8 +103,8 @@
 			tableHtml += '<tr>\n';
 
 			// Generate table cells for each image
-			for (const code of row) {
-				tableHtml += `<td style="padding:0;"><img style="height:${height}px; width:${width}px; border-radius: ${borderRadius}px;" src="${baseUrl}/${code}.avif"/></td>\n`;
+			for (let i = 0; i < row.length; i++) {
+				tableHtml += `<td style="padding:0;"><img style="height:${height}px; width:${widths[i]}px; border-radius: ${borderRadius}px;" src="${baseUrl}/${row[i]}.avif"/></td>\n`;
 			}
 
 			tableHtml += '</tr>\n';
