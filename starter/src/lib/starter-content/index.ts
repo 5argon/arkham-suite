@@ -168,7 +168,7 @@ export function composeStarterDeck(lower: AhdbDeck, higher: AhdbDeck): AhdbDeck 
 	}
 	for (const [code, quantity] of Object.entries(higher.sideSlots ?? {})) {
 		if ((lower.slots?.[code] ?? 0) > 0) continue;
-		sideSlots[code] = Math.max(sideSlots[code] ?? 0, quantity);
+		sideSlots[code] = (sideSlots[code] ?? 0) + quantity;
 	}
 	return { ...lower, sideSlots, ignoreDeckLimitSlots: {} };
 }
@@ -411,8 +411,7 @@ export interface PrebuiltTeamSummary {
 }
 
 export type PrebuiltTeamSummaryMember =
-	| { source: string; changes?: DeckChange[] }
-	| { deck: Pick<AhdbDeck, 'slots' | 'sideSlots'> };
+	{ source: string; changes?: DeckChange[] } | { deck: Pick<AhdbDeck, 'slots' | 'sideSlots'> };
 
 /** The non-recursive subset of a starter entry needed for team attribution. */
 export interface PrebuiltTeamSource {

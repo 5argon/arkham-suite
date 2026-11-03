@@ -15,6 +15,7 @@ import {
 	allContributors,
 	allStarterDecks,
 	importedStarterDeck,
+	starterDeck,
 	starterDeckFromRef,
 	starterDeckHref,
 	starterSeries,
@@ -71,6 +72,16 @@ describe('starter series order', () => {
 				[...own].sort((a, b) => a.order - b.order).map((json) => json.slug)
 			);
 		}
+	});
+});
+
+describe('starter deck side decks', () => {
+	it('gathers both the copy an upgrade plays and the copy it keeps for later', () => {
+		const rambo = starterDeck('hungry-colquhoun', 'ch2-starter-guide', 'rancher-rambo')!;
+		const makeshiftBomb = '60581';
+		expect(rambo.versions[1].deck.slots?.[makeshiftBomb]).toBe(1);
+		expect(rambo.versions[1].deck.sideSlots?.[makeshiftBomb]).toBe(1);
+		expect(rambo.primary.sideSlots?.[makeshiftBomb]).toBe(2);
 	});
 });
 
