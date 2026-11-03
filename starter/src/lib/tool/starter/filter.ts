@@ -16,6 +16,13 @@ export interface StarterFilterValue {
 	mustIncludeAll?: boolean;
 }
 
+/**
+ * Whether the reader has yet to pick anything to look for.
+ */
+export function pickedNothing(filter: StarterFilterValue): boolean {
+	return filter.investigators.size === 0;
+}
+
 const CORE = Product.CoreSet2026;
 
 /**

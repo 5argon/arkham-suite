@@ -7,6 +7,7 @@
 	"team_filter_include_any": "Any Picked Investigator",
 	"team_filter_include_all": "All Picked Investigators",
 	"team_players_tab": "{count} Players ({teams})",
+	"team_players_tab_plain": "{count} Players",
 	"team_none_match": "No pre-built team fits this selection yet.",
 	"team_open_builder": "Open in Team Builder",
 	"team_guide": "Team Guide",
@@ -16,5 +17,6 @@
 	"team_total": "This site hosts {total} pre-built teams in total: {two} for 2 players, {three} for 3 players, and {four} for 4 players.",
 	"team_pick_prompt": "Pick the investigators your group would like to play above to see the teams that include them.",
 	"team_randomize": "Random {count}-Player Team",
-	"team_randomize_again": "Another {count}-Player Team"
+	"team_randomize_filtered": "Random {count}-Player Team Within Filters",
+	"team_randomize_exit": "Exit Random"
 }

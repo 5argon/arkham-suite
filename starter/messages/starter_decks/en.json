@@ -49,7 +49,8 @@
 	"starter_decks_total": "This site hosts {count} starter decks in total.",
 	"starter_decks_pick_prompt": "Pick the investigators that interest you above to see their starter decks.",
 	"starter_decks_randomize": "Random Starter Deck",
-	"starter_decks_randomize_again": "Another Random Deck",
+	"starter_decks_randomize_filtered": "Random Starter Deck Within Filters",
+	"starter_decks_randomize_exit": "Exit Random",
 	"starter_decks_read_card": "Read {investigator}'s card",
 	"starter_decks_filter": "Filter"
 }
