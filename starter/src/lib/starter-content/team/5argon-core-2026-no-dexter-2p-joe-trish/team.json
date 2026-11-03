@@ -1,0 +1,23 @@
+{
+	"slug": "5argon-core-2026-no-dexter-2p-joe-trish",
+	"name": "Pre-Built Team for 4P Core 2026 Played at 2P : Joe, Trish",
+	"authorSlug": "5argon",
+	"description": "This team is assembled from decks within 5argon's Pre-Built Team for 4P Core 2026 series, playing at a lower player count than intended.",
+	"tags": ["Pre-Built Team for 4P Core 2026", "2C+0ID", "Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "5argon",
+				"series": "pre-built-team-4p-core-2026",
+				"slug": "no-dexter-2"
+			}
+		},
+		{
+			"source": {
+				"author": "5argon",
+				"series": "pre-built-team-4p-core-2026",
+				"slug": "no-dexter-3"
+			}
+		}
+	]
+}

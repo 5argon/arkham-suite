@@ -23,6 +23,10 @@ export interface Contributor {
 	 * description.
 	 */
 	profile?: string;
+	/**
+	 * The person running this site, whose decks need no permission to host.
+	 */
+	siteOwner?: boolean;
 }
 
 interface ContributorJson {
@@ -31,6 +35,7 @@ interface ContributorJson {
 	arkhamdbUrl?: string;
 	avatarCardCode?: string;
 	profile?: string;
+	siteOwner?: boolean;
 }
 
 /**

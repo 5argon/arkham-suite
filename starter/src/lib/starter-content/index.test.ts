@@ -27,7 +27,8 @@ const tagsBySeries = {
 	'ch2-combo-cult': 'starter beginner hc-ch2-combo-cult',
 	'ch2-core-only': 'starter beginner hc-ch2-core-only',
 	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
-	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited'
+	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited',
+	'pre-built-team-4p-core-2026': 'starter beginner 5argon-pre-built-team-4p-core-2026'
 } as const;
 
 describe('starter deck references', () => {
@@ -93,7 +94,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(44);
+		expect(versions).toHaveLength(56);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
@@ -105,13 +106,9 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(582);
+		expect(members).toHaveLength(610);
 		for (const { team, deck, source } of members) {
-			const series = (
-				team.slug.startsWith('hc-cross-series-')
-					? source?.series.slug
-					: Object.keys(tagsBySeries).find((slug) => team.slug.startsWith(`hc-${slug}-`))
-			) as keyof typeof tagsBySeries | undefined;
+			const series = source?.series.slug as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();
 			expect(deck.tags, deck.id.toString()).toBe(tagsBySeries[series!]);
 			expect(deck.tags?.split(/\s+/), deck.id.toString()).toHaveLength(3);
@@ -310,7 +307,8 @@ describe('pre-built team tags', () => {
 		'hc-ch2-core-only-': 'HC Chapter 2 Core Only',
 		'hc-ch2-starter-guide-': 'HC Chapter 2 Starter Guide',
 		'hc-ch2-starters-revisited-': 'HC Ch2 Starters Revisited',
-		'hc-cross-series-': 'HC Cross Series'
+		'hc-cross-series-': 'HC Cross Series',
+		'5argon-core-2026-no-dexter-': 'Pre-Built Team for 4P Core 2026'
 	};
 
 	/**
@@ -417,6 +415,83 @@ describe('Cross Series pre-built teams', () => {
 					expect(pool.has(product), `${member.deck.id} ${product}`).toBe(true);
 				}
 			}
+		}
+	});
+});
+
+describe('5argon No Dexter pre-built teams', () => {
+	const resolver = new CardResolver(getAllCards());
+	const tabooLists = loadAllTabooLists();
+	const teams = prebuiltTeamsOf('5argon');
+	const sized = (size: number) => teams.filter((team) => team.members.length === size);
+
+	it('has every roster of the 4 decks', () => {
+		expect(sized(4)).toHaveLength(1);
+		expect(sized(3)).toHaveLength(4);
+		expect(sized(2)).toHaveLength(6);
+		expect(new Set(teams.map((team) => team.slug)).size).toBe(teams.length);
+		for (const team of teams) {
+			expect(team.exclusive, team.slug).toBe(false);
+			for (const member of team.members) {
+				expect(member.source?.series.slug, team.slug).toBe('pre-built-team-4p-core-2026');
+				expect(member.changes ?? [], team.slug).toEqual([]);
+			}
+		}
+	});
+
+	it('never overlaps, even in the upgrades waiting in the side decks', () => {
+		const decks = sized(4)[0].members.map(({ deck }) =>
+			linkedAhdbDeckToDeck({ deck }, resolver, tabooLists)
+		);
+		const overlaps = deckUtility.findDeckOverlaps(decks, { includeSideDeck: true });
+		expect(overlaps.map((overlap) => overlap.card.name)).toEqual([]);
+	});
+
+	it('keeps the side deck as published, and only what is still to come after the upgrades', () => {
+		const sideSizes = [1, 2, 3, 4].map((n) => {
+			const entry = starterDeck('5argon', 'pre-built-team-4p-core-2026', `no-dexter-${n}`)!;
+			return Object.values(entry.primary.sideSlots ?? {}).reduce((sum, q) => sum + q, 0);
+		});
+		expect(sideSizes).toEqual([6, 8, 6, 8]);
+		const daniela = starterDeck('5argon', 'pre-built-team-4p-core-2026', 'no-dexter-1')!;
+		const winchester = '12029';
+		expect(daniela.primary.sideSlots?.[winchester]).toBe(2);
+		expect(daniela.versions[1].deck.slots?.[winchester]).toBeUndefined();
+		expect(daniela.versions[1].deck.sideSlots?.[winchester]).toBe(2);
+		expect(daniela.versions[2].deck.slots?.[winchester]).toBe(1);
+		expect(daniela.versions[2].deck.sideSlots?.[winchester]).toBe(1);
+	});
+
+	it('lists everything swapped out since 0 XP in the side deck of each build', () => {
+		const isabelle = starterDeck('5argon', 'pre-built-team-4p-core-2026', 'no-dexter-4')!;
+		const flashlight = '12088';
+		const unexpectedCourage = '12094';
+		const [, nine, nineteen] = isabelle.versions;
+		expect(nine.deck.sideSlots?.[flashlight]).toBe(2);
+		expect(nine.deck.sideSlots?.[unexpectedCourage]).toBeUndefined();
+		expect(nineteen.deck.sideSlots?.[flashlight]).toBe(2);
+		expect(nineteen.deck.sideSlots?.[unexpectedCourage]).toBe(2);
+	});
+
+	it('offers builds at the 9 and 19 XP breakpoints', () => {
+		const spent = [1, 2, 3, 4].map((n) => {
+			const entry = starterDeck('5argon', 'pre-built-team-4p-core-2026', `no-dexter-${n}`)!;
+			expect(entry.versions.map((version) => version.breakpoint)).toEqual([0, 9, 19]);
+			return entry.versions.map(({ deck }) =>
+				deckUtility.calculateDeckXp(linkedAhdbDeckToDeck({ deck }, resolver, tabooLists))
+			);
+		});
+		expect(spent).toEqual([
+			[0, 8, 16],
+			[0, 9, 17],
+			[0, 9, 16],
+			[0, 9, 16]
+		]);
+	});
+
+	it('leaves HungryColquhoun with only their own teams', () => {
+		for (const team of prebuiltTeamsOf('hungry-colquhoun')) {
+			expect(team.slug, team.slug).toMatch(/^hc-/);
 		}
 	});
 });

@@ -154,7 +154,9 @@
 		</div>
 	</div>
 	<p class="text-primary-700 dark:text-primary-300 mb-4 text-center text-sm">
-		{m.starter_decks_arkhamdb_note({ author: author.name })}
+		{author.siteOwner
+			? m.starter_decks_arkhamdb_note_own()
+			: m.starter_decks_arkhamdb_note({ author: author.name })}
 	</p>
 </MarginText>
 

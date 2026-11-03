@@ -21,6 +21,7 @@
 	"starter_decks_contributor_description": "{name} is a contributor to Arkham Starter, a fan site for Arkham Horror: The Card Game.",
 	"starter_decks_view_on_arkhamdb": "View on ArkhamDB",
 	"starter_decks_arkhamdb_note": "This deck was originally published by {author} on ArkhamDB. At my request, they kindly allowed me to include a copy of it here for more beginners out there to see. Since social features are available in ArkhamDB, please go there to like, favorite, and comment / interact with the author if you love this deck.",
+	"starter_decks_arkhamdb_note_own": "I also published this deck on ArkhamDB. Since social features are available in ArkhamDB, please go there to like, favorite, and comment if you love this deck.",
 	"starter_decks_filter_products": "Products",
 	"starter_decks_filter_products_help": "Pick an environment, or check any other purchases you have in addition to the Core Set 2026. The results below will be filtered accordingly to what you could build.",
 	"starter_decks_filter_investigators": "Investigators",

@@ -1,0 +1,93 @@
+{
+	"slug": "pre-built-team-4p-core-2026",
+	"order": 1,
+	"name": "Pre-Built Team for 4P Core 2026",
+	"description": "A set of 4 Core 2026 investigator decks built together, taking every advantage of the cards donated from the one missing Core investigator stated in the team name. They are automatically compatible with 2P or 3P games as well, as long as that one investigator stays missing.",
+	"iconCardCode": "12088",
+	"decks": [
+		{
+			"id": 66077,
+			"slug": "no-dexter-1",
+			"introMd": "[Daniela](/card/12001) gets both [Logan Hastings](/card/12018) and [Aleksey Saburov](/card/12072) and will be the other [Charisma](/card/12095) user of this team. [Meat Cleaver](/card/12077) is a powerful asset that reaches the +2 <span class=\"icon-combat\"></span> range quickly, and for +1 damage, you can keep healing back if it's not a boss fight.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-1/4p-no-dexter-daniela.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66077.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66077.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66077.19xp.json"
+				}
+			],
+			"upgradePlan": "CgsaBTEyMDk1MAM4AwoSEgUxMjAxNhoFMTIwMjcwAjgFChISBTEyMDg2GgUxMjAyODADOAgKEhIFMTIwMjEaBTEyMDI5MAU4DQoSEgUxMjA4NhoFMTIwMjgwAzgQChISBTEyMDIxGgUxMjAyOTAFOBUSShoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhgKBAgBEAMSBBIAGgAaCggBEAEgASgBMAEqCQoFMTIwMDIQASoJCgUxMjAwMxABKgkKBTEyMDE2EAEqCQoFMTIwMTcQASoJCgUxMjAxOBACKgkKBTEyMDE5EAIqCQoFMTIwMjEQAioJCgUxMjAyMhACKgkKBTEyMDIzEAIqCQoFMTIwMjUQAioJCgUxMjA3MhACKgkKBTEyMDczEAIqCQoFMTIwNzQQASoJCgUxMjA3NhABKgkKBTEyMDc3EAIqCQoFMTIwODYQAioJCgUxMjA4ORACKgkKBTEyMDkwEAIqCQoFMTIwOTIQAioJCgUwMTAwMBABMgkKBTEyMDI3EAEyCQoFMTIwMjgQAjIJCgUxMjAyORACMgkKBTEyMDk1EAE%3D"
+		},
+		{
+			"id": 66078,
+			"slug": "no-dexter-2",
+			"introMd": "[Joe](/card/12004) holds [Magnifying Glass](/card/12034) permanently, adding to his [Dorothy Simmons](/card/12030) for unlimited decent investigation. [Endurance](/card/12017) has the potential to be super good in the endgame, when he has too many resources from Dorothy, and suddenly Joe is evading at 6 <span class=\"icon-agility\"></span> by paying 2.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-2/4p-no-dexter-joe.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66078.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66078.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66078.19xp.json"
+				}
+			],
+			"upgradePlan": "CgsaBTEyMDk1MAM4AwoSEgUxMjAxNhoFMTIwMjcwAjgFChISBTEyMDM1GgUxMjA0MTACOAcKEhIFMTIwMzUaBTEyMDQxMAI4CQoLGgUxMjA0MjADOAwKEhIFMTIwODYaBTEyMDI2MAE4DQoSEgUxMjA4NhoFMTIwMjYwATgOCgsaBTEyMDQyMAM4ERJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAwNRABKgkKBTEyMDA2EAEqCQoFMTIwMTYQASoJCgUxMjAxNxABKgkKBTEyMDIwEAIqCQoFMTIwMjQQAioJCgUxMjAzMBACKgkKBTEyMDMyEAIqCQoFMTIwMzQQAioJCgUxMjAzNRACKgkKBTEyMDM2EAIqCQoFMTIwMzgQAioJCgUxMjA4NhACKgkKBTEyMDg4EAIqCQoFMTIwODkQAioJCgUxMjA5MhACKgkKBTEyMDkzEAIqCQoFMTIwOTQQAioJCgUwMTAwMBABMgkKBTEyMDI2EAIyCQoFMTIwMjcQATIJCgUxMjA0MRACMgkKBTEyMDQyEAIyCQoFMTIwOTUQAQ%3D%3D"
+		},
+		{
+			"id": 66079,
+			"slug": "no-dexter-3",
+			"introMd": "[Trish](/card/12007) is a [Prestidigitation](/card/12052) user with [Olivier Bishop](/card/12046) as her ally, of course, since she has the free evade. This allows discounting expensive hand assets like [Local Map](/card/12033) and [Fingerprint Kit](/card/12031), while returning much cheaper ***Item*** assets that have been used up.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-3/4p-no-dexter-trish.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66079.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66079.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66079.19xp.json"
+				}
+			],
+			"upgradePlan": "CgsaBTEyMDU2MAM4AwoLGgUxMjA1NjADOAYKEhIFMTIwNTMaBTEyMDU3MAM4CQoSEgUxMjA1MxoFMTIwNTcwAzgMChISBTEyMDQ4GgUxMjA1NDACOA4KEhIFMTIwNDgaBTEyMDU0MAI4EBJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAwOBABKgkKBTEyMDA5EAEqCQoFMTIwMzEQAioJCgUxMjAzMxACKgkKBTEyMDM5EAIqCQoFMTIwNDQQAioJCgUxMjA0NRACKgkKBTEyMDQ2EAIqCQoFMTIwNDgQAioJCgUxMjA0ORACKgkKBTEyMDUwEAIqCQoFMTIwNTIQAioJCgUxMjA1MxACKgkKBTEyMDg4EAIqCQoFMTIwODkQAioJCgUxMjA5MRACKgkKBTEyMDkzEAIqCQoFMDEwMDAQATIJCgUxMjA1NBACMgkKBTEyMDU2EAIyCQoFMTIwNTcQAg%3D%3D"
+		},
+		{
+			"id": 66080,
+			"slug": "no-dexter-4",
+			"introMd": "[Isabelle](/card/12013) gets the full Mystic suite of 2x [Cosmic Flame](/card/12059) + 2x [Second Sight](/card/12062). She has the clue-cheating [Will of the Cosmos](/card/12066) technique (usually Dexter's thing) with [Premonition](/card/12064) and [Jumpsuit](/card/12075) to void away the doom.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-4/4p-no-dexter-isabelle.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66080.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66080.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66080.19xp.json"
+				}
+			],
+			"upgradePlan": "ChISBTEyMDg4GgUxMjA2OTACOAIKEhIFMTIwODgaBTEyMDY5MAI4BAoSEgUxMjA3OBoFMTIwODIwATgFChISBTEyMDc4GgUxMjA4MjABOAYKEhIFMTIwODAaBTEyMDg1MAM4CQoSEgUxMjA5MRoFMTIwODUwAzgMChISBTEyMDk0GgUxMjA4NDACOA4KEhIFMTIwOTQaBTEyMDg0MAI4EBJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAxNBABKgkKBTEyMDE1EAEqCQoFMTIwNTkQAioJCgUxMjA2MBACKgkKBTEyMDYxEAEqCQoFMTIwNjIQAioJCgUxMjA2NBACKgkKBTEyMDY2EAIqCQoFMTIwNzQQASoJCgUxMjA3NRACKgkKBTEyMDc2EAEqCQoFMTIwNzgQAioJCgUxMjA4MBABKgkKBTEyMDgxEAIqCQoFMTIwODgQAioJCgUxMjA4ORACKgkKBTEyMDkwEAIqCQoFMTIwOTEQAioJCgUxMjA5NBACKgkKBTAxMDAwEAEyCQoFMTIwNjkQAjIJCgUxMjA4MhACMgkKBTEyMDgzEAIyCQoFMTIwODQQAjIJCgUxMjA4NRAC"
+		}
+	]
+}
