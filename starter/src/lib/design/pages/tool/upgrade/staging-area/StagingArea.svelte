@@ -60,6 +60,8 @@
 				cardId,
 				quantity
 			}));
+			// The import button only shows while editing, so this ends the edit.
+			onToggleEditMode();
 		}
 		showImportModal = false;
 	}
