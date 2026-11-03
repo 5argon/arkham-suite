@@ -212,8 +212,8 @@ function normalizeDeck(deck: AhdbDeck): AhdbDeck {
 }
 
 /**
- * The higher version's side deck also lists what the lower version played
- * and this one dropped, so the path from one build to the next stays visible
+ * The higher version's side deck also lists what the 0 XP version played and
+ * this one dropped, so the path from the start to this build stays visible
  * (authors do this by hand inconsistently; here it is uniform).
  */
 export function withRemovedCards(higher: AhdbDeck, lower: AhdbDeck): AhdbDeck {
@@ -329,9 +329,12 @@ const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 			deck:
 				decks.length === 1
 					? decks[i]
-					: i === 0
-						? composeStarterDeck(decks[0], decks[1])
-						: withRemovedCards(decks[i], decks[i - 1])
+					: i > 0
+						? withRemovedCards(decks[i], decks[0])
+						: // An author who published the 0 XP build already gathered its side deck.
+							files[0] === published
+							? decks[0]
+							: composeStarterDeck(decks[0], decks[1])
 		}));
 		return {
 			id: d.id,
