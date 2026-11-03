@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { snapshot } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import {
 		MarginFull,
 		MarginText,
@@ -77,6 +78,11 @@
 
 <MarginText>
 	<TextParagraph>{m.team_intro()}</TextParagraph>
+	<TextParagraph>
+		{m.team_starter_note_before()}
+		<a href={resolve('/starter')}>{m.team_starter_note_link()}</a>
+		{m.team_starter_note_after()}
+	</TextParagraph>
 	<StarterFilter showMustIncludeAll onChange={changeFilter} />
 	{#if nothingPicked}
 		<div class="mt-3 mb-4 flex flex-col items-center gap-2">

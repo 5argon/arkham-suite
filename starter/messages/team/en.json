@@ -1,6 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"team_title": "Pre-Built Teams",
+	"team_starter_note_before": "The individual starter decks these teams are made from are available in the",
+	"team_starter_note_link": "Starter Decks",
+	"team_starter_note_after": "page.",
 	"team_page_title": "arkham-starter.com | Pre-Built Teams",
 	"team_intro": "Ready-to-go teams of various player counts. Many of these were mix and matched from the starter decks hosted on this site with overlaps resolved for you.",
 	"team_filter_include": "Teams Must Include",
