@@ -1,4 +1,4 @@
-This team is assembled from decks within [5argon](/starter/5argon)'s [**Pre-Built Team for 4P Core 2026** series](/starter/5argon/pre-built-team-4p-core-2026/), playing at a lower player count than intended. Follow these links to read the play guide, which is shared by every deck in the series.
+This team is assembled from decks within [5argon](/starter/5argon)'s [**Pre-Built Team for 4P Core 2026** series](/starter/5argon/pre-built-team-4p-core-2026/), playing at a lower player count than intended. Follow these links to read the play guide, which is shared by every deck in the team.
 
 - <span class="icon-seeker"></span> **Joe Diamond** — [No Dexter (#2)](/starter/5argon/pre-built-team-4p-core-2026/no-dexter-2)
 - <span class="icon-survivor"></span> **Isabelle Barnes** — [No Dexter (#4)](/starter/5argon/pre-built-team-4p-core-2026/no-dexter-4)
