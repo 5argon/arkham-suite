@@ -1,0 +1,37 @@
+{
+	"slug": "hc-ch2-quickie-4p-daniela-trish-dexter-isabelle",
+	"name": "HC Quickie - 4P : Daniela, Trish, Dexter, Isabelle",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's HC Quickie starter decks series.",
+	"tags": ["HC Quickie", "4C+0ID", "Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-quickie",
+				"slug": "daniela-reyes-4-player-compatible"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-quickie",
+				"slug": "trish-scarborough-4-player-compatible"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-quickie",
+				"slug": "dexter-drake-4-player-compatible"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-quickie",
+				"slug": "izzie-barnes-4-player-compatible"
+			}
+		}
+	]
+}

@@ -1,0 +1,77 @@
+{
+	"slug": "ch2-quickie",
+	"order": 5,
+	"name": "HC Quickie",
+	"description": "I've seen a lot of requests for 4 player compatible decks for Brethren of Ash (i.e. requiring one core set) - this is my take on it. I'll keep these guides briefer than normal!",
+	"iconCardCode": "12029",
+	"decks": [
+		{
+			"id": 61015,
+			"name": "Daniela Reyes: 4 Player Compatible",
+			"slug": "daniela-reyes-4-player-compatible",
+			"introMd": "You have ample strong weapons to fight enemies with, likely saving any [Winchester Model 12](/card/12029) you find for the big bad guy. Clues are [Lesson Learned](/card/12022), [\"Look what I found!\"](/card/12078) and [Scene of the Crime](/card/12024), with these events being recurable with [Hunter's Instinct](/card/12074).",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "61015.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "61015.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDc1GgUxMjAyODADOAMKEhIFMTIwNzUaBTEyMDI4MAM4BgoSEgUxMjA4NhoFMTIwMjYwATgHChISBTEyMDg2GgUxMjAyNjABOAgKEhIFMTIwMjAaBTEyMDI5MAU4DQoSEgUxMjAyMBoFMTIwMjkwBTgSEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		},
+		{
+			"id": 61017,
+			"name": "Trish Scarborough: 4 Player Compatible",
+			"slug": "trish-scarborough-4-player-compatible",
+			"introMd": "Draw cards with [Lucky Cigarette Case](/card/12044), move around with [Olivier Bishop](/card/12046), find clues with [Magnifying Glasses](/card/12034) plus [Dorothy Simmons](/card/12030), and occasionally shoot things with [M1903 Hammerless](/card/12045).",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "61017.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "61017.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTEyMDU2MAM4AwoLGgUxMjA5NTADOAYKCxoFMTIwNTYwAzgJChISBTEyMDM3GgUxMjA0MTACOAsKEhIFMTIwMzcaBTEyMDQxMAI4DQoSEgUxMjA1MxoFMTIwNTcwAzgQChISBTEyMDUzGgUxMjA1NzADOBMSTBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 61014,
+			"name": "Dexter Drake: 4 Player Compatible",
+			"slug": "dexter-drake-4-player-compatible",
+			"introMd": "With [Jim Culver](/card/12060) you can clue-find at a 6 with [Second Sight](/card/12062) or fight at an 8 with upgraded [Cosmic Flame](/card/12071). [Lucky Charm](/card/12061) allows you to move horror off other investigators, which [Fearless](/card/12069) can then heal.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "61014.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "61014.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDU5GgUxMjA3MTAFOAUKEhIFMTIwODcaBTEyMDY5MAI4BwoSEgUxMjA4NxoFMTIwNjkwAjgJChISBTEyMDU5GgUxMjA3MTAFOA4STBoCWFAqBwoD4oaSEAEyDQoEQ29zdBIFVG90YWw6BggBEAEYAUICCAFIAVABWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaFgoCEAMSBBIAGgAaCggBEAEgASgBMAE%3D"
+		},
+		{
+			"id": 61016,
+			"name": "Izzie Barnes: 4 Player Compatible",
+			"slug": "izzie-barnes-4-player-compatible",
+			"introMd": "[Meat Cleaver](/card/12077) with [Aleksey Saburov](/card/12072) and [Cloak of Resonance](/card/12058) allow you to deal good damage (putting the horror on your soak assets) and heal horror off yourself from Izzie's <span class=\"icon-fast\"></span> ability.",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "61016.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "61016.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTEyMDYzGgUxMjA4MzACOAIKEhIFMTIwNjMaBTEyMDgzMAI4BAoSEgUxMjA3ORoFMTIwODIwATgFChISBTEyMDc5GgUxMjA4MjABOAYKEhIFMTIwODAaBTEyMDg0MAI4CAoSEgUxMjA4MBoFMTIwODQwAjgKChISBTEyMDc3GgUxMjA4NTADOA0KEhIFMTIwNzcaBTEyMDg1MAM4EBJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		}
+	]
+}

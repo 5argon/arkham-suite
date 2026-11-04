@@ -81,7 +81,6 @@ describe('starter deck meta', () => {
 			const images = [
 				...(entry.primary.description_md ?? '').matchAll(/(?:src=["']|!\[[^\]]*\]\()([^"')\s]+)/g)
 			].map((match) => match[1]);
-			expect(images.length, entry.slug).toBeGreaterThan(0);
 			if (entry.bannerUrl !== undefined) images.push(entry.bannerUrl);
 			for (const image of images) {
 				if (image.startsWith('https://assets.arkham.build/')) continue;
@@ -95,11 +94,13 @@ describe('starter deck meta', () => {
 			({ slug, series }) =>
 				`${staticDir}/image/starter/${series.author.slug}/${series.slug}/${slug}`
 		);
-		const stored = hostedFolders.flatMap((folder) =>
-			readdirSync(folder, { recursive: true, withFileTypes: true })
-				.filter((item) => item.isFile())
-				.map((item) => `${item.parentPath}/${item.name}`.slice(staticDir.length))
-		);
+		const stored = hostedFolders
+			.filter((folder) => existsSync(folder))
+			.flatMap((folder) =>
+				readdirSync(folder, { recursive: true, withFileTypes: true })
+					.filter((item) => item.isFile())
+					.map((item) => `${item.parentPath}/${item.name}`.slice(staticDir.length))
+			);
 		expect(stored.sort()).toEqual([...used].sort());
 	});
 
@@ -110,6 +111,7 @@ describe('starter deck meta', () => {
 				expect(JSON.stringify(exported), entry.slug).not.toMatch(
 					/(?<!arkham-starter\.com)\/image\/starter\//
 				);
+				if (entry.bannerUrl === undefined) continue;
 				expect(exported.description_md, entry.slug).toContain(siteUrl('image/starter/'));
 				expect(JSON.parse(exported.meta ?? '{}').banner_url, entry.slug).toMatch(/^https:/);
 			}

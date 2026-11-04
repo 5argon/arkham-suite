@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest';
 import { getAllCards, loadAllTabooLists } from '../card-data';
 import { allPrebuiltTeams, prebuiltTeamsOf } from '../server/prebuilt-teams';
 import { hasUniqueInvestigatorClasses } from '../tool/assembler/filter';
+import { plannedCopies } from '../tool/starter/filter';
 import {
 	allContributors,
 	allStarterDecks,
@@ -26,6 +27,7 @@ import {
 const tagsBySeries = {
 	'ch2-combo-cult': 'starter beginner hc-ch2-combo-cult',
 	'ch2-core-only': 'starter beginner hc-ch2-core-only',
+	'ch2-quickie': 'starter beginner hc-ch2-quickie',
 	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
 	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited',
 	'pre-built-team-4p-core-2026': 'starter beginner 5argon-pre-built-team-4p-core-2026'
@@ -94,7 +96,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(68);
+		expect(versions).toHaveLength(76);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
@@ -106,7 +108,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(638);
+		expect(members).toHaveLength(642);
 		for (const { team, deck, source } of members) {
 			const series = source?.series.slug as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();
@@ -305,6 +307,7 @@ describe('pre-built team tags', () => {
 	const resolver = new CardResolver(getAllCards());
 	const seriesTags = {
 		'hc-ch2-core-only-': 'HC Chapter 2 Core Only',
+		'hc-ch2-quickie-': 'HC Quickie',
 		'hc-ch2-starter-guide-': 'HC Chapter 2 Starter Guide',
 		'hc-ch2-starters-revisited-': 'HC Ch2 Starters Revisited',
 		'hc-cross-series-': 'HC Cross Series',
@@ -417,6 +420,56 @@ describe('Cross Series pre-built teams', () => {
 				}
 			}
 		}
+	});
+});
+
+describe('HC Quickie', () => {
+	const resolver = new CardResolver(getAllCards());
+	const tabooLists = loadAllTabooLists();
+	const entries = starterSeries('hungry-colquhoun', 'ch2-quickie')!.entries;
+	const teams = prebuiltTeamsOf('hungry-colquhoun').filter((team) =>
+		team.slug.startsWith('hc-ch2-quickie-')
+	);
+
+	it('has one team, for 4 players only as the author intends', () => {
+		expect(teams.map((team) => team.members.length)).toEqual([4]);
+		expect(teams[0].members.flatMap((member) => member.changes ?? [])).toEqual([]);
+	});
+
+	it('shows clean deck names', () => {
+		for (const entry of entries) {
+			expect(entry.primary.name, entry.slug).toMatch(
+				/^[A-Z][a-z]+ [A-Z][a-z]+: 4 Player Compatible$/
+			);
+		}
+	});
+
+	it('plays Core Set 2026 printings only', () => {
+		for (const entry of entries) {
+			for (const { deck } of entry.versions) {
+				const products = Object.keys({ ...deck.slots, ...deck.sideSlots })
+					.map((code) => resolver.resolve(code).product)
+					.filter((product) => product !== Product.RandomBasicWeakness);
+				expect(new Set(products), entry.slug).toEqual(new Set([Product.CoreSet2026]));
+			}
+		}
+	});
+
+	it('plans exactly the upgrades waiting in each side deck', () => {
+		for (const entry of entries) {
+			const planned = Object.fromEntries(
+				[...plannedCopies(entry)].map(([code, copies]) => [code, copies.length])
+			);
+			expect(planned, entry.slug).toEqual(entry.primary.sideSlots);
+		}
+	});
+
+	it('never overlaps, even in the upgrades waiting in the side decks', () => {
+		const decks = entries.map((entry) =>
+			linkedAhdbDeckToDeck({ deck: entry.primary }, resolver, tabooLists)
+		);
+		const overlaps = deckUtility.findDeckOverlaps(decks, { includeSideDeck: true });
+		expect(overlaps.map((overlap) => overlap.card.name)).toEqual([]);
 	});
 });
 

@@ -118,6 +118,10 @@ interface SeriesJson {
 		 */
 		slug: string;
 		/**
+		 * Display name, for when the published name cannot be cleaned up on its own.
+		 */
+		name?: string;
+		/**
 		 * Hand-picked excerpt of the deck's own description, surfaced as
 		 * arkham.build's meta.intro_md so listings show what the deck is about.
 		 */
@@ -319,7 +323,7 @@ const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 		// ArkhamDB has no notion of series, so authors append it to the deck
 		// name ("Blood Money | Chapter 2 Starter Guide"); here the series is
 		// shown on its own, so the suffix goes.
-		const name = published.name.replace(/\s*\|[^|]*$/, '').trim();
+		const name = d.name ?? published.name.replace(/\s*\|[^|]*$/, '').trim();
 		const decks = files.map((deck) => {
 			const named = {
 				...deck,
