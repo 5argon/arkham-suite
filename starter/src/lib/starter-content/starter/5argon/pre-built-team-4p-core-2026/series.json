@@ -2,7 +2,7 @@
 	"slug": "pre-built-team-4p-core-2026",
 	"order": 1,
 	"name": "Pre-Built Team for 4P Core 2026",
-	"description": "A set of 4 Core 2026 investigator decks built together, taking every advantage of the cards donated from the one missing Core investigator stated in the team name. They are automatically compatible with 2P or 3P games as well, as long as that one investigator stays missing.",
+	"description": "Sets of 4 Core 2026 investigator decks built together, each taking every advantage of the cards donated from the one missing Core investigator stated in the team name. They are automatically compatible with 2P or 3P games as well, as long as that one investigator stays missing.",
 	"iconCardCode": "12088",
 	"decks": [
 		{
@@ -88,6 +88,90 @@
 				}
 			],
 			"upgradePlan": "ChISBTEyMDg4GgUxMjA2OTACOAIKEhIFMTIwODgaBTEyMDY5MAI4BAoSEgUxMjA3OBoFMTIwODIwATgFChISBTEyMDc4GgUxMjA4MjABOAYKEhIFMTIwODAaBTEyMDg1MAM4CQoSEgUxMjA5MRoFMTIwODUwAzgMChISBTEyMDk0GgUxMjA4NDACOA4KEhIFMTIwOTQaBTEyMDg0MAI4EBJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAxNBABKgkKBTEyMDE1EAEqCQoFMTIwNTkQAioJCgUxMjA2MBACKgkKBTEyMDYxEAEqCQoFMTIwNjIQAioJCgUxMjA2NBACKgkKBTEyMDY2EAIqCQoFMTIwNzQQASoJCgUxMjA3NRACKgkKBTEyMDc2EAEqCQoFMTIwNzgQAioJCgUxMjA4MBABKgkKBTEyMDgxEAIqCQoFMTIwODgQAioJCgUxMjA4ORACKgkKBTEyMDkwEAIqCQoFMTIwOTEQAioJCgUxMjA5NBACKgkKBTAxMDAwEAEyCQoFMTIwNjkQAjIJCgUxMjA4MhACMgkKBTEyMDgzEAIyCQoFMTIwODQQAjIJCgUxMjA4NRAC"
+		},
+		{
+			"id": 66104,
+			"slug": "no-joe-1",
+			"introMd": "[Daniela](/card/12001) gets the full set of [M1911](/card/12019), [Machete](/card/12020), and [Meat Cleaver](/card/12077). With 2x [Right Tool for the Job](/card/12023) too, surely you can find a 2-damage weapon as well as [Daniela's Wrench](/card/12002).",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-1/4p-no-joe-daniela.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66104.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66104.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66104.19xp.json"
+				}
+			],
+			"upgradePlan": "CgsaBTEyMDk1MAM4AwoSEgUxMjAxNhoFMTIwMjcwAjgFChISBTEyMDE2GgUxMjAyNzACOAcKEhIFMTIwMjAaBTEyMDI4MAM4CgoSEgUxMjAyMBoFMTIwMjkwBTgPChISBTEyMDIxGgUxMjAyNjABOBAKEhIFMTIwMjEaBTEyMDI2MAE4EQoSEgUxMjAxNxoFMTIwMjgwAzgUEkoaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoYCgQIARADEgQSABoAGgoIARABIAEoATABKgkKBTEyMDAyEAEqCQoFMTIwMDMQASoJCgUxMjAxNhACKgkKBTEyMDE3EAIqCQoFMTIwMTgQAioJCgUxMjAxORACKgkKBTEyMDIwEAIqCQoFMTIwMjEQAioJCgUxMjAyMhACKgkKBTEyMDIzEAIqCQoFMTIwMjQQAioJCgUxMjAyNRACKgkKBTEyMDczEAIqCQoFMTIwNzUQASoJCgUxMjA3NhABKgkKBTEyMDc3EAIqCQoFMTIwODkQAioJCgUxMjA5MhACKgkKBTAxMDAwEAEyCQoFMTIwMjYQAjIJCgUxMjAyNxACMgkKBTEyMDI4EAIyCQoFMTIwMjkQATIJCgUxMjA5NRAB"
+		},
+		{
+			"id": 66105,
+			"slug": "no-joe-2",
+			"introMd": "[Trish](/card/12007) took [Dorothy Simmons](/card/12030) and [Laboratory Assistant](/card/12032), and gave up [Olivier Bishop](/card/12046) for Dexter. Stack up Dorothy + [Magnifying Glass](/card/12034) + [Fingerprint Kit](/card/12031) and get that fat over-success.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-2/4p-no-joe-trish.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66105.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66105.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66105.19xp.json"
+				}
+			],
+			"upgradePlan": "CgsaBTEyMDU2MAM4AwoSEgUxMjA1MhoFMTIwNTQwAjgFCgsaBTEyMDU2MAM4CAoSEgUxMjA5NBoFMTIwNDEwAjgKChISBTEyMDk0GgUxMjA0MTACOAwKEhIFMTIwNTMaBTEyMDU3MAM4DwoSEgUxMjA1MxoFMTIwNTcwAzgSEkoaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoYCgQIARADEgQSABoAGgoIARABIAEoATABKgkKBTEyMDA4EAEqCQoFMTIwMDkQASoJCgUxMjAzMBACKgkKBTEyMDMxEAIqCQoFMTIwMzIQAioJCgUxMjAzNBACKgkKBTEyMDM2EAIqCQoFMTIwMzgQAioJCgUxMjAzORACKgkKBTEyMDQ0EAEqCQoFMTIwNDUQAioJCgUxMjA0NxABKgkKBTEyMDQ4EAEqCQoFMTIwNTAQAioJCgUxMjA1MhABKgkKBTEyMDUzEAIqCQoFMTIwODkQAioJCgUxMjA5MxACKgkKBTEyMDk0EAIqCQoFMDEwMDAQATIJCgUxMjA0MRACMgkKBTEyMDU0EAEyCQoFMTIwNTYQAjIJCgUxMjA1NxAC"
+		},
+		{
+			"id": 66106,
+			"slug": "no-joe-3",
+			"introMd": "This is a rather Rogue-ish [Dexter](/card/12010) that starts with just 1x [Cosmic Flame](/card/12059) because otherwise Isabelle would be too pitiful. It's intended to quickly fill the void with [Cosmic Flame (5)](/card/12071) alongside it.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-3/4p-no-joe-dexter.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66106.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66106.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66106.19xp.json"
+				}
+			],
+			"upgradePlan": "ChISBTEyMDU4GgUxMjA3MTAFOAUKEhIFMTIwNTIaBTEyMDU0MAI4BwoLGgUxMjA5NTADOAoKEhIFMTIwODgaBTEyMDcwMAM4DQoSEgUxMjA4OBoFMTIwNzAwAzgQEkoaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoYCgQIARADEgQSABoAGgoIARABIAEoATABKgkKBTEyMDExEAEqCQoFMTIwMTIQASoJCgUxMjA0NBABKgkKBTEyMDQ2EAIqCQoFMTIwNDcQASoJCgUxMjA0OBABKgkKBTEyMDQ5EAIqCQoFMTIwNTIQASoJCgUxMjA1OBABKgkKBTEyMDU5EAEqCQoFMTIwNjAQAioJCgUxMjA2MhACKgkKBTEyMDY0EAIqCQoFMTIwNjUQAioJCgUxMjA2NhACKgkKBTEyMDY3EAIqCQoFMTIwODgQAioJCgUxMjA4ORACKgkKBTEyMDkwEAIqCQoFMTIwOTEQAioJCgUwMTAwMBABMgkKBTEyMDU0EAEyCQoFMTIwNzAQAjIJCgUxMjA3MRABMgkKBTEyMDk1EAE%3D"
+		},
+		{
+			"id": 66107,
+			"slug": "no-joe-4",
+			"introMd": "[Lucky Charm](/card/12061) is a combo with [Aleksey Saburov](/card/12072), so [Isabelle](/card/12013) can continue doing it and heal out. The space in this deck is filled with all the neutral skills in the game as well as both Survivor skills.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-4/4p-no-joe-isabelle.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66107.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66107.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66107.19xp.json"
+				}
+			],
+			"upgradePlan": "ChISBTEyMDg2GgUxMjA4NTADOAMKEhIFMTIwODYaBTEyMDg1MAM4BgoSEgUxMjA3ORoFMTIwODMwAjgIChISBTEyMDc5GgUxMjA4MzACOAoKEhIFMTIwODAaBTEyMDY5MAI4DAoSEgUxMjA4MBoFMTIwNjkwAjgOChISBTEyMDk0GgUxMjA4NDACOBAKEhIFMTIwOTQaBTEyMDg0MAI4EhJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAxNBABKgkKBTEyMDE1EAEqCQoFMTIwNTkQASoJCgUxMjA2MRACKgkKBTEyMDcyEAIqCQoFMTIwNzQQASoJCgUxMjA3NRABKgkKBTEyMDc2EAEqCQoFMTIwNzgQAioJCgUxMjA3ORACKgkKBTEyMDgwEAIqCQoFMTIwODEQAioJCgUxMjA4NhACKgkKBTEyMDg5EAIqCQoFMTIwOTAQAioJCgUxMjA5MRACKgkKBTEyMDkyEAIqCQoFMTIwOTMQAioJCgUxMjA5NBACKgkKBTAxMDAwEAEyCQoFMTIwNjkQAjIJCgUxMjA4MxACMgkKBTEyMDg0EAIyCQoFMTIwODUQAg%3D%3D"
 		}
 	]
 }
