@@ -21,7 +21,8 @@
     ],
     "packageManager": "yarn@4.18.0",
     "resolutions": {
-        "esbuild": "0.27.3"
+        "esbuild": "0.27.3",
+        "svelte-marked/marked": "^18.1.2"
     },
     "devDependencies": {
         "typescript": "~6.0.3"

@@ -10,6 +10,7 @@
 	import { MarginFull, MarginText, PageLead } from '@5argon/arkham-life-ui';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import helpMd from '$lib/md/divider.md?raw';
+	import { markdownTokens } from '$lib/md/markdown-tokens';
 	import * as m from '$lib/paraglide/messages.js';
 </script>
 
@@ -36,6 +37,6 @@
 			listitem: MarkdownListItem,
 			link: MarkdownLink
 		}}
-		source={helpMd}
+		source={markdownTokens(helpMd)}
 	/>
 </MarginText>

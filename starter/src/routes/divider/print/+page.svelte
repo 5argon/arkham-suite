@@ -3,6 +3,7 @@
 
 	import MarkdownImage from '$lib/design/components/basic/MarkdownImage.svelte';
 	import helpMd from '$lib/md/divider-print.md?raw';
+	import { markdownTokens } from '$lib/md/markdown-tokens';
 	import { PageLead } from '@5argon/arkham-life-ui';
 </script>
 
@@ -12,4 +13,4 @@
 
 <PageLead title="The 3mm Divider : Printing" />
 
-<SvelteMarkdown renderers={{ image: MarkdownImage }} source={helpMd} />
+<SvelteMarkdown renderers={{ image: MarkdownImage }} source={markdownTokens(helpMd)} />

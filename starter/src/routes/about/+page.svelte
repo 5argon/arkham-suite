@@ -2,6 +2,7 @@
 	import SvelteMarkdown from 'svelte-marked';
 
 	import mdText from '$lib/md/about.md?raw';
+	import { markdownTokens } from '$lib/md/markdown-tokens';
 	import * as m from '$lib/paraglide/messages.js';
 </script>
 
@@ -10,4 +11,4 @@
 </svelte:head>
 
 <h1>{m.about_title()}</h1>
-<SvelteMarkdown source={mdText} />
+<SvelteMarkdown source={markdownTokens(mdText)} />

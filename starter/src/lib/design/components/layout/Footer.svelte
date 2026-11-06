@@ -3,6 +3,7 @@
 	import MarkdownLink from '$lib/design/components/basic/MarkdownLink.svelte';
 
 	import footerMd from '$lib/md/footer.md?raw';
+	import { markdownTokens } from '$lib/md/markdown-tokens';
 </script>
 
 <footer>
@@ -13,7 +14,7 @@
 			renderers={{
 				link: MarkdownLink
 			}}
-			source={footerMd}
+			source={markdownTokens(footerMd)}
 		/>
 	</div>
 </footer>
