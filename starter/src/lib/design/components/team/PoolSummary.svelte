@@ -18,7 +18,9 @@ can tell at a glance whether they own everything the team needs.
 	}
 	const { usages }: Prop = $props();
 
+	// The last usage stays after leaving, so the tooltip can animate out with its content.
 	let tooltipUsage = $state<PoolUsage | null>(null);
+	let tooltipVisible = $state(false);
 	let tooltipEl = $state<HTMLElement | null>(null);
 </script>
 
@@ -30,8 +32,9 @@ can tell at a glance whether they own everything the team needs.
 			onmouseenter={(ev) => {
 				tooltipUsage = usage;
 				tooltipEl = ev.currentTarget as HTMLElement;
+				tooltipVisible = true;
 			}}
-			onmouseleave={() => (tooltipUsage = null)}
+			onmouseleave={() => (tooltipVisible = false)}
 		>
 			<span class="text-2xl leading-none">
 				<ProductIcon product={usage.product} />
@@ -43,7 +46,7 @@ can tell at a glance whether they own everything the team needs.
 	{/each}
 </div>
 
-<HoverTooltip visible={tooltipUsage !== null} referenceElement={tooltipEl}>
+<HoverTooltip visible={tooltipVisible} referenceElement={tooltipEl}>
 	{#if tooltipUsage}
 		<div class="text-primary-900 dark:text-primary-100 flex items-center gap-2">
 			<ProductIcon product={tooltipUsage.product} />

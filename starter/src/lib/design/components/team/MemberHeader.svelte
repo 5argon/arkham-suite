@@ -38,8 +38,10 @@ at a glance. Shared by the deck areas and the team banner.
 	}
 	const { investigator, mainCount, classCounts, trailing, notableCards }: Prop = $props();
 
+	// The last card stays after leaving, so the tooltip can animate out.
 	let tooltipCard = $state<Card | null>(null);
 	let tooltipEl = $state<HTMLElement | null>(null);
+	let tooltipVisible = $state(false);
 
 	const deckSize = $derived(investigator.deckRequirements?.size ?? 30);
 	const investigatorClass = $derived(investigator.cardClass?.class1 ?? CardClass.Neutral);
@@ -143,16 +145,15 @@ at a glance. Shared by the deck areas and the team banner.
 				onmouseenter={(ev) => {
 					tooltipCard = card;
 					tooltipEl = ev.currentTarget;
+					tooltipVisible = true;
 				}}
-				onmouseleave={() => (tooltipCard = null)}
+				onmouseleave={() => (tooltipVisible = false)}
 			>
 				<CardSquare {card} small />
 			</div>
 		{/each}
 	</div>
-	{#if tooltipCard}
-		<CardLineHoverTooltip card={tooltipCard} visible={true} referenceElement={tooltipEl} />
-	{/if}
+	<CardLineHoverTooltip card={tooltipCard} visible={tooltipVisible} referenceElement={tooltipEl} />
 {/if}
 
 <style>

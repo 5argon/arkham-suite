@@ -62,14 +62,17 @@ team page.
 	const dnd = new EvergreenDnd();
 
 	// Card name tooltip, same as the editor: tiny scans are hard to read.
+	// The last card stays after leaving, so the tooltip can animate out.
 	let tooltipCard = $state<Card | null>(null);
 	let tooltipEl = $state<HTMLElement | null>(null);
+	let tooltipVisible = $state(false);
 	function handleCardHover(card: Card, el: HTMLElement) {
 		tooltipCard = card;
 		tooltipEl = el;
+		tooltipVisible = true;
 	}
 	function handleCardHoverEnd() {
-		tooltipCard = null;
+		tooltipVisible = false;
 	}
 
 	const overlaps = $derived(teamOverlaps(team, pool));
@@ -239,9 +242,7 @@ team page.
 	</div>
 {/if}
 
-{#if tooltipCard}
-	<CardLineHoverTooltip card={tooltipCard} visible={true} referenceElement={tooltipEl} />
-{/if}
+<CardLineHoverTooltip card={tooltipCard} visible={tooltipVisible} referenceElement={tooltipEl} />
 
 <Modal
 	isOpen={openDeck !== null}

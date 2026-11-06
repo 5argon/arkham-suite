@@ -292,14 +292,17 @@ rules.ts, shared by drag-drop and the click picker.
 	);
 
 	// Card name tooltip: tiny scans are hard to read at this size.
+	// The last card stays after leaving, so the tooltip can animate out.
 	let tooltipCard = $state<Card | null>(null);
 	let tooltipEl = $state<HTMLElement | null>(null);
+	let tooltipVisible = $state(false);
 	function handleCardHover(card: Card, el: HTMLElement) {
 		tooltipCard = card;
 		tooltipEl = el;
+		tooltipVisible = true;
 	}
 	function handleCardHoverEnd() {
-		tooltipCard = null;
+		tooltipVisible = false;
 	}
 </script>
 
@@ -380,9 +383,7 @@ rules.ts, shared by drag-drop and the click picker.
 	</div>
 </div>
 
-{#if tooltipCard}
-	<CardLineHoverTooltip card={tooltipCard} visible={true} referenceElement={tooltipEl} />
-{/if}
+<CardLineHoverTooltip card={tooltipCard} visible={tooltipVisible} referenceElement={tooltipEl} />
 
 <StackActionModal
 	{team}
