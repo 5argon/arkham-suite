@@ -10,12 +10,14 @@ export const arkhamdbApiTaboos = [...arkhamdbApiPublic, 'taboos'];
 
 export const arkhamdbUrlPublishedDeck = [arkhamdbBaseUrl, 'decklist', 'view'];
 export const arkhamdbUrlPublicDeck = [arkhamdbBaseUrl, 'deck', 'view'];
+export const arkhamdbUrlCard = [arkhamdbBaseUrl, 'card'];
 
 const arkhamBuildApiPublic = ['https://api.arkham.build/v1/public'];
 export const arkhamBuildApiShare = [...arkhamBuildApiPublic, 'share'];
 export const arkhamBuildApiAdditionalMetadata = [...arkhamBuildApiPublic, 'additional_metadata'];
 export const arkhamBuildUrlShare = [arkhamBuildBaseUrl, 'share'];
 export const arkhamBuildUrlView = [arkhamBuildBaseUrl, 'deck', 'view'];
+export const arkhamBuildUrlCard = [arkhamBuildBaseUrl, 'card'];
 
 function joinPath(...s: string[]): string {
   return s.join('/');
@@ -23,6 +25,13 @@ function joinPath(...s: string[]): string {
 
 export function createArkhamDbCardUrl(cardId: string): string {
   return joinPath(...arkhamdbApiOneCard, cardId);
+}
+
+/**
+ * Reviews on ArkhamDB stay on the printing they were written on, so give it the original printing.
+ */
+export function createArkhamDbCardReviewsBrowserUrl(cardCode: string): string {
+  return `${joinPath(...arkhamdbUrlCard, cardCode)}#reviews-header`;
 }
 
 export function createArkhamDbPacksUrl(): string {
@@ -65,6 +74,10 @@ export function createArkhamDbPublicDeckBrowserUrl(deckId: string | number): str
 export function createArkhamBuildShareBrowserUrl(deckId: string | number): string {
   const stringDeckId = typeof deckId === 'number' ? deckId.toString() : deckId;
   return joinPath(...arkhamBuildUrlShare, stringDeckId);
+}
+
+export function createArkhamBuildCardBrowserUrl(cardCode: string): string {
+  return joinPath(...arkhamBuildUrlCard, cardCode);
 }
 
 export function createArkhamBuildViewBrowserUrl(deckId: string | number): string {

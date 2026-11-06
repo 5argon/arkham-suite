@@ -32,6 +32,11 @@ export const officialCurrentEnvironmentCatalog: CurrentEnvironmentCatalog = {
 export const currentEnvironmentEvergreenId = 'evergreen';
 
 /**
+ * The day Chapter Two was announced. What is said about its cards can't be older than this.
+ */
+export const chapterTwoAnnouncedDate = '2025-10-31';
+
+/**
  * One permanent point of the Current environment.
  */
 export interface CurrentEnvironmentVersion {
@@ -174,6 +179,21 @@ export function currentEnvironmentVersions(
     previous = products;
     return version;
   });
+}
+
+/**
+ * What an environment has beyond Evergreen products, as one slot per rotating expansion it can
+ * hold: the deckbuilding expansions, then the investigator expansions. A slot not filled yet is null.
+ */
+export function rotatingExpansionSlots(
+  products: readonly Product[],
+  catalog: CurrentEnvironmentCatalog = officialCurrentEnvironmentCatalog,
+): (Product | null)[] {
+  const slotsOf = (kind: readonly Product[]) => {
+    const filled = products.filter((product) => kind.includes(product));
+    return Array.from({ length: MOST_RECENT_COUNT }, (_, i) => filled[i] ?? null);
+  };
+  return [...slotsOf(catalog.deckbuildingExpansions), ...slotsOf(catalog.investigatorExpansions)];
 }
 
 /**
