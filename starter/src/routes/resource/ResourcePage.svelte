@@ -1,197 +1,200 @@
-<script>
+<script lang="ts">
 	import { InnerHeading, TextParagraph, ThumbnailCardButton } from '@5argon/arkham-life-ui';
+	import type { Snippet } from 'svelte';
+
+	import * as m from '$lib/paraglide/messages.js';
+
+	interface Prop {
+		/**
+		 * Shown between the starter contents and the reference materials.
+		 */
+		afterStarterContents?: Snippet;
+	}
+	const { afterStarterContents }: Prop = $props();
 </script>
 
-<InnerHeading title="Starter Contents"></InnerHeading>
+<InnerHeading title={m.resource_heading_starter_contents()}></InnerHeading>
 
-<TextParagraph>
-	Welcome to the game! These contents are easily built using just a few purchases. As the site's
-	name might suggest, I wanted to make it a priority that new players are not intimidated by
-	the sheer amount of player cards in the game.
-</TextParagraph>
+<TextParagraph>{m.resource_intro()}</TextParagraph>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="Pick up and play beginner-friendly decks, easily built using just a few purchases."
+		description={m.resource_starter_decks_description()}
 		imageUrl="image/resource/starter.webp"
 		onClick="/starter"
-		title="Starter Decks"
+		title={m.resource_starter_decks_title()}
 	/>
 	<ThumbnailCardButton
-		description="Ready-to-go teams of various player count with balanced member roles and card overlaps all resolved for you!"
+		description={m.resource_pre_built_teams_description()}
 		imageUrl="image/resource/team.webp"
 		onClick="/team"
-		title="Pre-Built Teams"
+		title={m.resource_pre_built_teams_title()}
 	/>
 	<ThumbnailCardButton
-		description="The world's first beginner-oriented full-team deckbuilder! Discuss together and easily allocate cards between decks."
+		description={m.resource_team_builder_description()}
 		imageUrl="image/resource/evergreen.webp"
 		onClick="/tool/team-builder"
-		title="Team Builder"
-	/>
-	<!-- <ThumbnailCardButton
-		description="Needed help making more sense out of the 'decks' you see when you first opened the Core Set 2026 box?"
-		imageUrl="image/resource/precon.webp"
-		onClick="/precon"
-		title="Precon In-Depth"
+		title={m.resource_team_builder_title()}
 	/>
 	<ThumbnailCardButton
-		description="Read beginner-friendly reviews about each individual card in the evergreen pool!"
-		imageUrl="image/resource/precon.webp"
+		description={m.resource_card_reviews_description()}
+		imageUrl="image/resource/review.webp"
 		onClick="/review"
-		title="Evergreen Card Reviews"
-	/> -->
+		title={m.resource_card_reviews_title()}
+	/>
 </div>
 
-<InnerHeading title="Reference Materials"></InnerHeading>
+{@render afterStarterContents?.()}
+
+<InnerHeading title={m.resource_heading_reference_materials()}></InnerHeading>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="View cards inside a particular product to help with purchasing decisions."
+		description={m.resource_player_cards_description()}
 		imageUrl="image/resource/player.webp"
 		onClick="/player"
-		title="Player Cards"
+		title={m.resource_player_cards_title()}
 	/>
 	<ThumbnailCardButton
-		description="Encounter set overviews, and quick setup references for each scenario."
+		description={m.resource_campaign_references_description()}
 		imageUrl="image/resource/campaign.webp"
 		onClick="/campaign"
-		title="Campaign References"
+		title={m.resource_campaign_references_title()}
 	/>
 	<ThumbnailCardButton
-		description="Conjure any card by name and line them up on this virtual table. Click on a card to view it in detail."
+		description={m.resource_card_table_description()}
 		imageUrl="image/resource/card.webp"
 		onClick="/tool/card"
-		title="Card Table"
+		title={m.resource_card_table_title()}
 	/>
 	<ThumbnailCardButton
-		description="Browse official Ultimatum, Boon, and Refraction cards to alter gameplay difficulty."
+		description={m.resource_ultimatums_and_boons_description()}
 		imageUrl="image/resource/ultimatum.webp"
 		onClick="/ultimatums-and-boons"
-		title="Ultimatums and Boons"
+		title={m.resource_ultimatums_and_boons_title()}
 	/>
 </div>
 
-<InnerHeading title="Deckbuilding Tools" />
+<InnerHeading title={m.resource_heading_deckbuilding_tools()} />
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="Query eligible investigators that could run combo cards you are interested in together in their deck."
+		description={m.resource_who_can_use_description()}
 		imageUrl="image/resource/who.webp"
 		onClick="/tool/who"
-		title="Who Can Use"
+		title={m.resource_who_can_use_title()}
 	/>
 	<ThumbnailCardButton
-		description="Plan out how you progress your deck throughout the campaign with automatic XP calculations in each step. "
+		description={m.resource_upgrade_planner_description()}
 		imageUrl="image/resource/upgrade.webp"
 		onClick="/tool/upgrade"
-		title="Upgrade Planner"
+		title={m.resource_upgrade_planner_title()}
 	/>
 	<ThumbnailCardButton
-		description="View decks from arkhamdb.com or arkham.build with this site's UI."
+		description={m.resource_deck_viewer_description()}
 		imageUrl="image/resource/deck.webp"
 		onClick="/deck/view"
-		title="Deck Viewer"
+		title={m.resource_deck_viewer_title()}
 	/>
 	<ThumbnailCardButton
-		description="Generate HTML code for card thumbnail tables."
+		description={m.resource_card_thumbnails_description()}
 		imageUrl="image/resource/thumbnails.webp"
 		onClick="/tool/thumbnails"
-		title="Card Thumbnails"
+		title={m.resource_card_thumbnails_title()}
 	/>
 	<ThumbnailCardButton
-		description="Take a look at an overview of all the usable cards when playing with limited card pool."
+		description={m.resource_limited_pool_explorer_description()}
 		imageUrl="image/resource/limited.webp"
 		onClick="/tool/limited"
-		title="Limited Pool Explorer"
+		title={m.resource_limited_pool_explorer_title()}
 	/>
 	<ThumbnailCardButton
-		description="Modern web-based deckbuilder. Just want to spread the word in case you haven't heard of it."
+		description={m.resource_arkham_build_description()}
 		imageUrl="image/resource/arkhambuild.webp"
 		onClick="https://arkham.build"
-		title="arkham.build"
+		title={m.resource_arkham_build_title()}
 	/>
 </div>
 
-<InnerHeading title="Play Group Tools" />
+<InnerHeading title={m.resource_heading_play_group_tools()} />
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="Collect all required cards of multiple decks into one freely sortable list."
+		description={m.resource_deck_gather_description()}
 		imageUrl="image/resource/gather.webp"
 		onClick="/tool/gather"
-		title="Deck Gather"
+		title={m.resource_deck_gather_title()}
 	/>
 	<ThumbnailCardButton
-		description="Identify common cards used between two campaigns. This might help moving cards around while running concurrent campaigns."
+		description={m.resource_campaign_overlaps_description()}
 		imageUrl="image/resource/campaign-overlaps.webp"
 		onClick="/tool/campaign-overlaps"
-		title="Campaign Overlaps"
+		title={m.resource_campaign_overlaps_title()}
 	/>
 	<ThumbnailCardButton
-		description="Import as many decks as you want, then view all possible 2, 3, or 4 player combinations sorted by the fewest overlaps."
+		description={m.resource_team_assembler_description()}
 		imageUrl="image/resource/assembler.webp"
 		onClick="/tool/assembler"
-		title="Team Assembler"
+		title={m.resource_team_assembler_title()}
 	/>
 </div>
 
-<InnerHeading title="Physical Customs" />
+<InnerHeading title={m.resource_heading_physical_customs()} />
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
-		description="Minimal-style dividers that are only 3mm wider than the cards. It has many unique quirks such as fitting in the new campaign box, supporting both orientations in one design, sleevable, and available in multiple languages."
+		description={m.resource_the_3mm_divider_description()}
 		imageUrl="image/resource/divider.webp"
 		onClick="/divider"
-		title="The 3mm Divider"
+		title={m.resource_the_3mm_divider_title()}
 	/>
 	<ThumbnailCardButton
-		description="Apply changes from official errata in a per-card basis by sliding a new card under it."
+		description={m.resource_errata_patch_cards_description()}
 		imageUrl="image/resource/errata.webp"
 		onClick="/errata"
-		title="Errata Patch Cards"
+		title={m.resource_errata_patch_cards_title()}
 	/>
 	<ThumbnailCardButton
-		description="Printable double sided reminders for various situations in mini card format."
+		description={m.resource_utility_mini_card_description()}
 		imageUrl="image/resource/utility.webp"
 		onClick="/utility-mini"
-		title="Utility Mini-Card"
+		title={m.resource_utility_mini_card_title()}
 	/>
 	<ThumbnailCardButton
-		description="Photocopier-friendly frame graphics that you can fill in the blank to make a proxy card."
+		description={m.resource_proxy_template_description()}
 		imageUrl="image/resource/proxy.webp"
 		onClick="/proxy"
-		title="Proxy Template"
+		title={m.resource_proxy_template_title()}
 	/>
 	<ThumbnailCardButton
-		description="Streamline printing custom content. Just want to spread the word in case you haven't heard of it."
+		description={m.resource_inexorable_fate_description()}
 		imageUrl="image/resource/inexorable-fate.webp"
 		onClick="https://inexorablefate.com"
-		title="Inexorable Fate"
+		title={m.resource_inexorable_fate_title()}
 	/>
 </div>
 
-<InnerHeading title="Campaign-Specific Customs" />
+<InnerHeading title={m.resource_heading_campaign_specific_customs()} />
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
 		description=""
 		imageUrl="image/resource/supply.webp"
 		onClick="/supply"
-		title="The Forgotten Age : Supply Cards"
+		title={m.resource_the_forgotten_age_supply_cards_title()}
 	/>
 	<ThumbnailCardButton
 		description=""
 		imageUrl="image/resource/eote.webp"
 		onClick="/eote"
-		title="Edge of the Earth : Prologue Scene"
+		title={m.resource_edge_of_the_earth_prologue_scene_title()}
 	/>
 	<ThumbnailCardButton
 		description=""
 		imageUrl="image/resource/tskdoc.webp"
 		onClick="/tsk-document"
-		title="The Scarlet Keys : Printable Documents"
+		title={m.resource_the_scarlet_keys_printable_documents_title()}
 	/>
 	<ThumbnailCardButton
-		description="SPOILER-HEAVY. Plan a Scarlet Keys playthrough backwards from your goals: pick constraints (achievements, keys, scenarios, narrative chains, endings) and get distinct, playable routes — or a proof they can't all be satisfied. For replays and achievement runs."
+		description={m.resource_the_scarlet_keys_route_solver_description()}
 		imageUrl="image/resource/tskdoc.webp"
 		onClick="/tool/tsk"
-		title="The Scarlet Keys : Route Solver"
+		title={m.resource_the_scarlet_keys_route_solver_title()}
 	/>
 </div>
