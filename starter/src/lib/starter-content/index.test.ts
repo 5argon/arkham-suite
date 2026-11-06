@@ -97,7 +97,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(80);
+		expect(versions).toHaveLength(84);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);

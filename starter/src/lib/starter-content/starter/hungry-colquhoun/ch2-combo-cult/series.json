@@ -38,6 +38,40 @@
 				}
 			],
 			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBCgsaBTEyMDk2MAM4AwoSEgUxMjA5NBoFMTIwODIwATgEChISBTEyMDk0GgUxMjA4MjABOAUKEhIFMTIwOTMaBTEyMDg0MAI4BwoSEgUxMjA5MxoFMTIwODQwAjgJChISBTEyMDYxGgU2MDU3MzACOAsKEhIFMTIwNjEaBTYwNTczMAI4DQoSEgU2MDU1OBoFMTIwODMwAjgPChISBTYwNTU4GgUxMjA4MzACOBEKEhIFMTIwNzIaBTEyMDY5MAI4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgUxMjA4MRoFNjA1ODIwAzgWChISBTEyMDgxGgU2MDU4MjADOBkKEhIFMTIwNzQaBTYwNTc0MAI4GwoSEgUxMjA3NBoFNjA1NzQwAjgdEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
+		},
+		{
+			"id": 66147,
+			"slug": "the-interceptor",
+			"introMd": "Did you know magicians can teleport? With [The Grapevine](/card/60374) Dexter gets efficiently to enemies and fries them with [Cosmic Flame](/card/12071), intercepting the bad guys before they cause mischief!",
+			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-combo-cult/the-interceptor/HRS9LZOaoAA9lt8.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66147.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66147.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOCBYUEgBChISBTEyMDU5GgUxMjA3MTAFOAUKEhIFNjAzNTkaBTYwMzc0MAI4BwoSEgU2MDM1ORoFNjAzNzQwAjgJChISBTEyMDU5GgUxMjA3MTAFOA4KCxoFNjA0NzgwBDgSChA4EkIKUG9zdC0xOCBYUEgBChISBTYwMzcwGgU2MDM3MzABOBMKEhIFNjAzNzAaBTYwMzczMAE4FAoSEgUxMjA5NBoFNjA0NzcwAzgXChISBTEyMDk0GgU2MDQ3NzADOBoKEhIFMTIwOTAaBTYwNDc2MAM4HRJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 66146,
+			"slug": "carolyns-top-student",
+			"introMd": "Here Trish takes horror (*gasp!*) to find clues with [Dreamer's Chronicle](/card/60255), which she readily recharges with [Prestidigitation](/card/12052).",
+			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-combo-cult/carolyns-top-student/HRS2MdjWEAQ7dbk.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66146.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66146.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwMzcwGgU2MDM3MzABOAEKEhIFNjAzNzAaBTYwMzczMAE4AgoLGgUxMjA5NTADOAUKEhIFNjAyNjIaBTYwMjcxMAE4BgoSEgU2MDI2MhoFNjAyNzEwATgHCgsaBTEyMDU2MAM4CgoSEgUxMjAzORoFNjAyNzUwAjgMChISBTEyMDM5GgU2MDI3NTACOA4KCxoFMTIwNTYwAzgRChISBTEyMDM0GgU2MDI3MDABOBIKEhIFMTIwMzQaBTYwMjcwMAE4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgU2MDI2ORoFNjAzODQwBTgYCgsaBTEyMDk2MAM4GxJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
 		}
 	]
 }
