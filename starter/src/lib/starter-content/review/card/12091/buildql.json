@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Tests [agility]",
+			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\""
+		},
+		{
+			"label": "Tests [agility], not Evade",
+			"query": "(text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\") & text !== \"<b>evade\""
+		}
+	]
+}

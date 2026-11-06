@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Succeed By",
+			"query": "(text = \"succeed by\" | text = \"successful by\") & text != \"succeed by 0\""
+		}
+	]
+}

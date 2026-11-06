@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "Uses [intellect]",
+			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\""
+		},
+		{
+			"label": "Success precision",
+			"query": "text = \"succeed more or less\" | ((text = \"after revealing chaos tokens\" | text = \"would succeed at a skill test\") & (text = \"you get 1 skill value\" | text = \"you get 3 skill value\"))"
+		},
+		{
+			"label": "Succeed By",
+			"query": "(text = \"succeed by\" | text = \"successful by\") & text != \"succeed by 0\""
+		},
+		{
+			"label": "Raise success",
+			"query": "(text = \"after revealing chaos tokens\" | text = \"would succeed at a skill test\") & text = \"you get skill value\""
+		}
+	]
+}

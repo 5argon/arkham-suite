@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "[survivor] Survivor asset or event",
+			"query": "faction = \"survivor\" & (type = \"asset\" | type = \"event\")"
+		},
+		{
+			"label": "Lv. 1~5 [survivor] Survivor asset or event",
+			"query": "faction = \"survivor\" & (type = \"asset\" | type = \"event\") & xp >= 1 & xp <= 5"
+		},
+		{
+			"label": "[survivor] Survivor asset",
+			"query": "faction = \"survivor\" & type = \"asset\""
+		},
+		{
+			"label": "[survivor] Survivor event",
+			"query": "faction = \"survivor\" & type = \"event\""
+		}
+	]
+}

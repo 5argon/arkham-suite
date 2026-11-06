@@ -34,6 +34,7 @@
 	} from '@5argon/arkham-kohaku';
 	import { getAllCards } from '$lib/card-data';
 	import { browser } from '$app/env';
+	import { resolve } from '$app/paths';
 	import { replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 
@@ -292,4 +293,11 @@
 		onSettingsApply={handleSettingsApply}
 		hideChecklistMode={fittingRoomMode}
 	/>
+	{#if data.hasChapterOneReviews}
+		<p class="text-primary-700 dark:text-primary-300 mt-6 text-right text-xs">
+			<a href={resolve('/review/chapter-one/[packCode]', { packCode: productToExploreRoute(product) })}>
+				{m.review_chapter_one_link()}
+			</a>
+		</p>
+	{/if}
 </MarginFull>

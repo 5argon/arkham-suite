@@ -1,0 +1,16 @@
+{
+	"presets": [
+		{
+			"label": "Use good stats",
+			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\" | text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
+		},
+		{
+			"label": "Evade assets",
+			"query": "text == \"<b>evade</b>\" & type = \"asset\""
+		},
+		{
+			"label": "Evade events",
+			"query": "text == \"<b>evade</b>\" & type = \"event\""
+		}
+	]
+}

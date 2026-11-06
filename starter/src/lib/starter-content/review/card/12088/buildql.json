@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Shroud reduction",
+			"query": "text = /-(\\d|x) shroud/ | text = \"reduce location's shroud\""
+		}
+	]
+}

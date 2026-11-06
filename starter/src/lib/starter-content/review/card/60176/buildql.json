@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "Fight with [combat]",
+			"query": "text = \"<b>fight</b> [combat]\""
+		},
+		{
+			"label": "Fight without [combat]",
+			"query": "text == \"<b>fight\" & text != \"<b>fight</b> [combat]\""
+		},
+		{
+			"label": "Succeed By",
+			"query": "(text = \"succeed by\" | text = \"successful by\") & text != \"succeed by 0\""
+		},
+		{
+			"label": "Raise success",
+			"query": "(text = \"after revealing chaos tokens\" | text = \"would succeed at a skill test\") & text = \"you get skill value\""
+		}
+	]
+}

@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Uses [combat]",
+			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
+		},
+		{
+			"label": "Attack that rewards its own defeat",
+			"query": "text = \"this attack defeats an enemy\""
+		}
+	]
+}

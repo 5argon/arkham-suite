@@ -1,0 +1,24 @@
+{
+	"presets": [
+		{
+			"label": "Use good stats",
+			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
+		},
+		{
+			"label": "0~1 cost assets",
+			"query": "cost >= 0 & cost <= 1 & type = \"asset\""
+		},
+		{
+			"label": "0~2 cost assets",
+			"query": "cost >= 0 & cost <= 2 & type = \"asset\""
+		},
+		{
+			"label": "Assets with uses",
+			"query": "text == \"uses (\" & type = \"asset\""
+		},
+		{
+			"label": "Fast assets",
+			"query": "text == \"fast.\" & type = \"asset\""
+		}
+	]
+}

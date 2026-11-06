@@ -1,0 +1,32 @@
+{
+	"presets": [
+		{
+			"label": "Use good stats",
+			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
+		},
+		{
+			"label": "Fight assets",
+			"query": "text == \"<b>fight</b>\" & type = \"asset\""
+		},
+		{
+			"label": "Fight events",
+			"query": "text == \"<b>fight</b>\" & type = \"event\""
+		},
+		{
+			"label": "Attacked",
+			"query": "text == \"attacks you\" | text = \"attack investigator\""
+		},
+		{
+			"label": "Takes damage",
+			"query": "text = \"takes damage\" | text = \"damage placed\""
+		},
+		{
+			"label": "Helps with damage",
+			"query": "hd = true | health >= 2"
+		},
+		{
+			"label": "Helps with horror",
+			"query": "hh = true | sanity >= 2"
+		}
+	]
+}

@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "[[Spell]] event",
+			"query": "tr = \"spell\" & type = \"event\""
+		},
+		{
+			"label": "Lv. 1~5 [[Spell]] event",
+			"query": "tr = \"spell\" & type = \"event\" & xp >= 1 & xp <= 5"
+		}
+	]
+}

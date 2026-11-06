@@ -1,0 +1,28 @@
+{
+	"presets": [
+		{
+			"label": "[[Spell]] or [[Ritual]] card",
+			"query": "tr = \"spell\" | tr = \"ritual\""
+		},
+		{
+			"label": "[[Spell]] asset",
+			"query": "tr = \"spell\" & type = \"asset\""
+		},
+		{
+			"label": "[[Spell]] event",
+			"query": "tr = \"spell\" & type = \"event\""
+		},
+		{
+			"label": "[[Ritual]] asset",
+			"query": "tr = \"ritual\" & type = \"asset\""
+		},
+		{
+			"label": "[[Ritual]] event",
+			"query": "tr = \"ritual\" & type = \"event\""
+		},
+		{
+			"label": "[[Spell]] or [[Ritual]] card costed exactly 1",
+			"query": "(tr = \"spell\" | tr = \"ritual\") & cost = 1"
+		}
+	]
+}

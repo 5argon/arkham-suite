@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Lv. 0~2 events",
+			"query": "type = \"event\" & xp >= 0 & xp <= 2"
+		},
+		{
+			"label": "Lv. 1~2 events",
+			"query": "type = \"event\" & xp >= 1 & xp <= 2"
+		}
+	]
+}

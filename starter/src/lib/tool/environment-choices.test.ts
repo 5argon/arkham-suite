@@ -7,7 +7,9 @@ import {
 	chapterTwoChoice,
 	environmentChoicePath,
 	environmentChoices,
+	environmentPointDetail,
 	environmentPointPages,
+	environmentTalkingPool,
 	matchingChoice,
 	publishedEnvironmentPoints,
 	releasedPoints,
@@ -169,6 +171,65 @@ describe('saturated catalog', () => {
 			investigatorB,
 			deckbuildingC
 		]);
+	});
+
+	describe('what a point in time has', () => {
+		const pointOf = (id: string) =>
+			environment.currentEnvironmentVersions('2099-01-01', catalog).find((p) => p.id === id)!;
+		const last = () => environment.currentEnvironmentVersions('2099-01-01', catalog).at(-1)!;
+		const hrefOf = (product: Product) =>
+			product === deckbuildingC ? undefined : `/review/${product}`;
+		const detailOf = (point: environment.CurrentEnvironmentVersion) =>
+			environmentPointDetail(point, getAllCards(), hrefOf, catalog);
+
+		it('fills the slots and highlights what began the point', () => {
+			const detail = detailOf(last());
+			expect(detail.slots.map((slot) => slot?.product)).toEqual([
+				deckbuildingC,
+				deckbuildingB,
+				investigatorB,
+				investigatorA
+			]);
+			expect(detail.defining).toEqual([deckbuildingC]);
+		});
+
+		it('shows what the newest product pushed out', () => {
+			expect(detailOf(last()).pushedOut).toEqual([
+				{ product: deckbuildingA, href: `/review/${deckbuildingA}` }
+			]);
+		});
+
+		it('leaves the slots empty and nothing highlighted at the Evergreen point', () => {
+			const detail = detailOf(pointOf('evergreen'));
+			expect(detail.slots).toEqual([null, null, null, null]);
+			expect(detail.defining).toEqual([]);
+			expect(detail.pushedOut).toEqual([]);
+			expect(detail.evergreen.map((entry) => entry.product)).toEqual([
+				Product.CoreSet2026,
+				Product.TommyMuldoon
+			]);
+		});
+
+		it('has no link to a product with no cards yet', () => {
+			expect(detailOf(last()).slots[0]?.href).toBeUndefined();
+		});
+
+		it('rosters the investigators of its products', () => {
+			const { roster } = detailOf(pointOf('evergreen'));
+			expect(roster.map((card) => card.code).sort()).toEqual(
+				['12001', '12004', '12007', '12010', '12013', '60151'].sort()
+			);
+		});
+
+		it('can talk about what was pushed out before it, but not what came after', () => {
+			const pool = environmentTalkingPool(last().id, catalog);
+			expect(pool).toContain(deckbuildingA);
+			expect(last().products).not.toContain(deckbuildingA);
+			const early = environmentTalkingPool('evergreen', catalog);
+			expect(early).toContain(Product.TommyMuldoon);
+			expect(early).not.toContain(deckbuildingA);
+			expect(environmentTalkingPool('nonsense', catalog)).toBeUndefined();
+		});
 	});
 });
 

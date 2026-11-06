@@ -1,0 +1,16 @@
+{
+	"presets": [
+		{
+			"label": "[[Weapon]]",
+			"query": "tr = \"weapon\""
+		},
+		{
+			"label": "[[Tool]] and not [[Weapon]]",
+			"query": "tr = \"tool\" & tr != \"weapon\""
+		},
+		{
+			"label": "Lv. 1~5 [[Weapon]] or [[Tool]]",
+			"query": "(tr = \"weapon\" | tr = \"tool\") & xp >= 1 & xp <= 5"
+		}
+	]
+}

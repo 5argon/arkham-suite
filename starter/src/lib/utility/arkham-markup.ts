@@ -76,6 +76,22 @@ export function parseArkhamDbText(text: string): string {
 		.trim();
 }
 
+/**
+ * Render a card's whole text, where each line is its own ability. Unlike {@link parseArkhamDbText} it
+ * keeps a token that isn't an icon, which in flavor text is an editor's word inside a quote.
+ */
+export function parseArkhamDbCardText(text: string): string {
+	return text
+		.replace(/\[\[([^\]]+)\]\]/g, '<b><i>$1</i></b>')
+		.replace(/\[[a-z_]+\]/g, (token) => {
+			const iconClass = inlineIconClass[token as ArkhamInlineIcon];
+			return iconClass ? `<span class="${iconClass}"></span>` : token;
+		})
+		.split('\n')
+		.map((line) => `<p>${line}</p>`)
+		.join('');
+}
+
 export function parseArkhamMarkup(text: string): string {
 	let parsed = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 	parsed = parsed.replace(/\*(.+?)\*/g, '<em>$1</em>');

@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Evade with [agility]",
+			"query": "text = \"<b>evade</b> [agility]\""
+		}
+	]
+}

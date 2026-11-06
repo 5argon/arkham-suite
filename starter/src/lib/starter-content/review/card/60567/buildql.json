@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Wants an enemy",
+			"query": "text = \"enemy enters\" | text = \"there is an enemy\" | text = \"choose an enemy at your location\""
+		}
+	]
+}

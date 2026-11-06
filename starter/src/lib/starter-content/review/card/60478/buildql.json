@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Arcane slot asset costed 2 or less",
+			"query": "slot = \"arcane\" & cost >= 0 & cost <= 2"
+		}
+	]
+}

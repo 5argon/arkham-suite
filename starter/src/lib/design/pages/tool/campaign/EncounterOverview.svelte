@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import {
 		campaignBoxImageUrl,
 		Checkbox,
@@ -25,9 +26,17 @@
 	interface Prop {
 		campaign: Campaign;
 		kohakuCampaign: KohakuCampaign;
+		/**
+		 * Right under the title.
+		 */
+		children?: Snippet;
+		/**
+		 * Puts away everything under `children` while keeping what's been chosen in it.
+		 */
+		hideContent?: boolean;
 	}
 
-	const { campaign, kohakuCampaign }: Prop = $props();
+	const { campaign, kohakuCampaign, children, hideContent = false }: Prop = $props();
 
 	const MATRIX_TAB = 0;
 	const SETUP_TAB = 1;
@@ -119,6 +128,9 @@
 
 <PageLead image={campaignImage} title={campaignNameText} />
 
+{@render children?.()}
+
+<div class:hidden={hideContent}>
 <div class="my-4 flex gap-4">
 	<Checkbox bind:checked={showSetCount} label="Show Set Count" />
 	<Checkbox bind:checked={showName} label="Show Name" />
@@ -200,4 +212,5 @@
 			</div>
 		{/if}
 	</div>
+</div>
 </div>

@@ -1,0 +1,764 @@
+{
+	"title": "Core Set 2026",
+	"order": 1,
+	"groups": [
+		{
+			"title": "Seeker Weeks",
+			"products": [
+				"core_2026"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Joe Diamond: Still Seeking…",
+					"date": "2025-11-03",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/joe-diamond-still-seeking/"
+					},
+					"cards": [
+						{
+							"code": "12004"
+						}
+					]
+				},
+				{
+					"by": "ancient-evils",
+					"title": "Core 2026: Previewing two Seeker cards!",
+					"date": "2025-11-04",
+					"media": {
+						"url": "https://derbk.com/ancientevils/core-2026-previewing-two-seeker-cards/"
+					},
+					"cards": [
+						{
+							"code": "12030"
+						},
+						{
+							"code": "12036"
+						}
+					]
+				},
+				{
+					"by": "arkham-build",
+					"title": "Core Set 2026 card reveal",
+					"date": "2025-11-05",
+					"media": {
+						"url": "https://arkham.build/blog/core-2026-reveal"
+					},
+					"cards": [
+						{
+							"code": "12031"
+						},
+						{
+							"code": "12098"
+						}
+					]
+				},
+				{
+					"by": "quick-learner",
+					"title": "Let's Go Back to the Library! (Arkham Horror Core Set 2026 Preview)",
+					"date": "2025-11-06",
+					"media": {
+						"youtube": "Qvum4pDaMRw"
+					},
+					"cards": [
+						{
+							"code": "12042",
+							"start": "0:55"
+						},
+						{
+							"code": "12040",
+							"start": "2:31"
+						}
+					]
+				},
+				{
+					"by": "arkham-horror-memes",
+					"title": "Seeker preview post",
+					"date": "2025-11-10",
+					"media": {
+						"url": "https://www.instagram.com/arkhamhorrormemes/"
+					},
+					"cards": [
+						{
+							"code": "12032"
+						},
+						{
+							"code": "12043"
+						}
+					]
+				},
+				{
+					"by": "mythos-busters",
+					"title": "Seeker preview stream",
+					"date": "2025-11-11",
+					"media": {
+						"twitch": "2616142019"
+					},
+					"cards": [
+						{
+							"code": "12037"
+						}
+					]
+				},
+				{
+					"by": "drawn-to-the-flame",
+					"title": "Seeker preview episode",
+					"date": "2025-11-12",
+					"media": {
+						"url": "https://www.podbean.com/ew/pb-5bvtd-19b9a8c",
+						"as": "audio"
+					},
+					"cards": [
+						{
+							"code": "12093"
+						},
+						{
+							"code": "12088"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "The Private Investigator",
+					"date": "2025-11-13",
+					"official": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/the-private-investigator/"
+					},
+					"cards": [
+						{
+							"code": "12004"
+						},
+						{
+							"code": "12039"
+						},
+						{
+							"code": "12038"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Survivor Weeks",
+			"products": [
+				"core_2026"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Isabelle Barnes: The Ultimate Survivor",
+					"date": "2025-11-17",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/survivor-card-reveal-isabelle-barnes/"
+					},
+					"cards": [
+						{
+							"code": "12013"
+						}
+					]
+				},
+				{
+					"by": "the-restricted-collection",
+					"title": "AH.058 - Survivor Spoilers!",
+					"date": "2025-11-18",
+					"media": {
+						"url": "https://therestrictedcollection.podbean.com/e/ah058-survivor-spoilers/",
+						"as": "audio"
+					},
+					"cards": [
+						{
+							"code": "12079"
+						},
+						{
+							"code": "12080"
+						}
+					]
+				},
+				{
+					"by": "until-the-end-of-time",
+					"title": "Jumpsuit - Voice of the Messenger - Official Chapter 2 Core Set preview card",
+					"date": "2025-11-19",
+					"media": {
+						"youtube": "h8FT8WQnMy8"
+					},
+					"cards": [
+						{
+							"code": "12075"
+						}
+					]
+				},
+				{
+					"by": "until-the-end-of-time",
+					"title": "Timely Intervention - Voice of the Messenger - Official Chapter 2 Core Set preview card",
+					"date": "2025-11-19",
+					"media": {
+						"youtube": "ugvwFiSQUk4"
+					},
+					"cards": [
+						{
+							"code": "12081"
+						}
+					]
+				},
+				{
+					"by": "playing-board-games",
+					"title": "We have THREE cards to reveal for Arkham's new core set coming out in 2026!",
+					"date": "2025-11-20",
+					"media": {
+						"youtube": "WtlQtJ3mrwI"
+					},
+					"cards": [
+						{
+							"code": "12076",
+							"start": "0:27"
+						},
+						{
+							"code": "12077",
+							"start": "5:17"
+						},
+						{
+							"code": "12085",
+							"start": "9:28"
+						}
+					]
+				},
+				{
+					"by": "drawn-to-the-flame",
+					"title": "Survivor preview episode",
+					"date": "2025-11-24",
+					"media": {
+						"url": "https://www.podbean.com/ew/pb-y3m9p-19ce3e3",
+						"as": "audio"
+					},
+					"cards": [
+						{
+							"code": "12083"
+						},
+						{
+							"code": "12099"
+						}
+					]
+				},
+				{
+					"by": "rolling-dice-and-taking-names",
+					"title": "Arkham Horror LCG New Core Set Card Reveals",
+					"date": "2025-11-25",
+					"media": {
+						"youtube": "j70iS-k-6_A"
+					},
+					"cards": [
+						{
+							"code": "12084"
+						},
+						{
+							"code": "12086"
+						}
+					]
+				},
+				{
+					"by": "tengo-un-plan",
+					"title": "On a lucky streak",
+					"date": "2025-11-26",
+					"language": "es",
+					"media": {
+						"url": "https://ko-fi.com/post/On-a-lucky-streak-I2I41P59NJ"
+					},
+					"cards": [
+						{
+							"code": "12082"
+						}
+					]
+				},
+				{
+					"by": "tengo-un-plan",
+					"title": "Hat in hand",
+					"date": "2025-11-26",
+					"language": "es",
+					"media": {
+						"url": "https://ko-fi.com/post/Hat-in-hand-M4M81P58DL"
+					},
+					"cards": [
+						{
+							"code": "12087"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "The Returned",
+					"date": "2025-12-04",
+					"official": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/the-returned/"
+					},
+					"cards": [
+						{
+							"code": "12013"
+						},
+						{
+							"code": "12015"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Guardian Weeks",
+			"products": [
+				"core_2026"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Daniela Reyes: Always Has Her Guard Up",
+					"date": "2025-12-08",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/guardian-card-reveal-daniela-reyes/"
+					},
+					"cards": [
+						{
+							"code": "12001"
+						}
+					]
+				},
+				{
+					"by": "the-whisperer-in-darkness",
+					"title": "Arkham Horror LCG Core Set 2026 Spoilers",
+					"date": "2025-12-09",
+					"media": {
+						"youtube": "jvsvWAcOx4Y"
+					},
+					"cards": [
+						{
+							"code": "12029"
+						},
+						{
+							"code": "12104"
+						}
+					]
+				},
+				{
+					"by": "the-barnaby-files",
+					"title": "Enduring Sledge: Analyzing two NEW cards from Arkham Horror’s New Core Set",
+					"date": "2025-12-10",
+					"media": {
+						"url": "https://barnabyfiles.wordpress.com/2025/12/10/enduring-sledge-analyzing-two-new-cards-from-arkham-horrors-new-core-set/"
+					},
+					"cards": [
+						{
+							"code": "12017"
+						},
+						{
+							"code": "12028"
+						}
+					]
+				},
+				{
+					"by": "amber-autumn-faebrooke",
+					"title": "i get to preview some new core guardian cards",
+					"date": "2025-12-11",
+					"media": {
+						"youtube": "GM0X83bIZnU"
+					},
+					"cards": [
+						{
+							"code": "12026"
+						},
+						{
+							"code": "12024"
+						}
+					]
+				},
+				{
+					"by": "los-archivos-de-arkham",
+					"title": "Arkham Horror LCG - Capítulo 2 - Card reveal",
+					"date": "2025-12-13",
+					"language": "es",
+					"media": {
+						"youtube": "Q4h_N_mpqZQ"
+					},
+					"cards": [
+						{
+							"code": "12019"
+						},
+						{
+							"code": "12090"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Watch It Played",
+						"url": "https://www.youtube.com/@WatchItPlayed"
+					},
+					"title": "Two Card Reveals For The Arkham Horror The Card Game Chapter Two Core Box",
+					"date": "2025-12-15",
+					"media": {
+						"youtube": "So8Fs50CSS4"
+					},
+					"cards": [
+						{
+							"code": "12023"
+						},
+						{
+							"code": "12025"
+						}
+					]
+				},
+				{
+					"by": "quick-learner",
+					"title": "Two More Cards in the New 2026 Core Set! (Arkham Horror Previews)",
+					"date": "2025-12-17",
+					"media": {
+						"youtube": "bSDl3ALTu7U"
+					},
+					"cards": [
+						{
+							"code": "12094"
+						},
+						{
+							"code": "12018",
+							"start": "2:29"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "The Mechanic",
+					"date": "2025-12-18",
+					"official": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/the-mechanic/"
+					},
+					"cards": [
+						{
+							"code": "12001"
+						},
+						{
+							"code": "12020"
+						},
+						{
+							"code": "12022"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Rogue Weeks",
+			"products": [
+				"core_2026"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Trish Scarborough: From undercover to on the run",
+					"date": "2026-01-05",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/rogue-card-reveal-trish-scarborough/"
+					},
+					"cards": [
+						{
+							"code": "12007"
+						}
+					]
+				},
+				{
+					"by": "horreur-a-arkham",
+					"title": "[News] Preview officielle de trois cartes de la nouvelle boîte de base [Horreur à Arkham JCE]",
+					"date": "2026-01-06",
+					"language": "fr",
+					"media": {
+						"youtube": "XELj3CdxeMU"
+					},
+					"cards": [
+						{
+							"code": "12044"
+						},
+						{
+							"code": "12049"
+						},
+						{
+							"code": "12055"
+						}
+					]
+				},
+				{
+					"by": "tatort-arkham",
+					"title": "Zwei Karten aus dem neuen Grundspiel (Karten-Premiere | New Core Set Preview Season)",
+					"date": "2026-01-07",
+					"language": "de",
+					"media": {
+						"youtube": "3u3qQaj40qY"
+					},
+					"cards": [
+						{
+							"code": "12053"
+						},
+						{
+							"code": "12057"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Bradley Galbraith",
+						"url": "https://www.youtube.com/@BradleyGalbraith"
+					},
+					"title": "Arkham Horror The Card Game: Sticky Fingers Preview #arkhamhorror #arkhamhorrorlcg",
+					"date": "2026-01-08",
+					"media": {
+						"youtube": "5qXYRvh6ZEQ"
+					},
+					"cards": [
+						{
+							"code": "12048"
+						},
+						{
+							"code": "12054"
+						}
+					]
+				},
+				{
+					"by": "northern-lights-over-arkham",
+					"title": "Arkham Horror LCG Preston Reveals Two New Chapter 2 Rogue Cards!",
+					"date": "2026-01-09",
+					"media": {
+						"youtube": "RGr3PNa39WU"
+					},
+					"cards": [
+						{
+							"code": "12056"
+						},
+						{
+							"code": "12051"
+						}
+					]
+				},
+				{
+					"by": "little-geek",
+					"title": "Обзор новой Базы \"Arkham Horror The Card Game\" | Spoiler season",
+					"date": "2026-01-12",
+					"language": "ru",
+					"media": {
+						"youtube": "LIjtrtvmjNw"
+					},
+					"cards": [
+						{
+							"code": "12052"
+						},
+						{
+							"code": "12050"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Will.I.Game",
+						"url": "https://www.instagram.com/will.i.game/"
+					},
+					"title": "Rogue preview reel",
+					"date": "2026-01-14",
+					"media": {
+						"url": "https://www.instagram.com/reels/DTdeMdfDBCK/",
+						"as": "video"
+					},
+					"cards": [
+						{
+							"code": "12047"
+						},
+						{
+							"code": "12103"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "The Former Spy",
+					"date": "2026-01-15",
+					"official": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/the-former-spy/"
+					},
+					"cards": [
+						{
+							"code": "12007"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Mystic Weeks",
+			"products": [
+				"core_2026"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Dexter Drake: The Cost of True Magic",
+					"date": "2026-01-19",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/mystic-card-reveal-dexter-drake/"
+					},
+					"cards": [
+						{
+							"code": "12010"
+						}
+					]
+				},
+				{
+					"by": "arkham-horror-lcg-ru",
+					"title": "Opening Mystic Preview Weeks with Two New Cards from Arkham Horror Core Set 2026",
+					"date": "2026-01-20",
+					"language": "ru",
+					"media": {
+						"youtube": "4DP-DWonbwY"
+					},
+					"cards": [
+						{
+							"code": "12060"
+						},
+						{
+							"code": "12066"
+						}
+					]
+				},
+				{
+					"by": "discipulos-de-armitage",
+					"title": "¡OFICIAL! Nuevas cartas de MÍSTICO: Spoiler Arkham Horror LCG (Capítulo 2)",
+					"date": "2026-01-21",
+					"language": "es",
+					"media": {
+						"youtube": "GR8S63-eRIk"
+					},
+					"cards": [
+						{
+							"code": "12061"
+						},
+						{
+							"code": "12068"
+						}
+					]
+				},
+				{
+					"by": "valentin1331",
+					"title": "Mystic preview in a deck guide",
+					"date": "2026-01-22",
+					"media": {
+						"url": "https://arkham.build/deck/view/mythYWGvtWuSfhh?tab=notes"
+					},
+					"cards": []
+				},
+				{
+					"guest": {
+						"name": "Arkham Chronicle",
+						"url": "https://www.youtube.com/@ArkhamChronicle"
+					},
+					"title": "[COMPETITION CLOSED] Guess the Spoiler Card 2026 and NAME YOUR PRIZE - Barkham Horror, Scarlet Keys",
+					"date": "2026-01-23",
+					"media": {
+						"youtube": "Q0Dx-eJwcSI"
+					},
+					"cards": [
+						{
+							"code": "12064"
+						},
+						{
+							"code": "12091"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Arkham Chronicle",
+						"url": "https://www.youtube.com/@ArkhamChronicle"
+					},
+					"title": "The spoiler competition answer",
+					"date": "2026-01-26",
+					"media": {
+						"url": "https://www.youtube.com/post/Ugkx3wKgCl0KCTs2k7b1NZsJZuJAkzUtjUL3"
+					},
+					"cards": [
+						{
+							"code": "12091"
+						}
+					]
+				},
+				{
+					"by": "mythos-busters",
+					"title": "Mystic preview stream",
+					"date": "2026-01-26",
+					"media": {
+						"twitch": "2681295696"
+					},
+					"cards": [
+						{
+							"code": "12062"
+						},
+						{
+							"code": "12069"
+						}
+					]
+				},
+				{
+					"by": "faza-mitow",
+					"title": "Odcinek specjalny - Odsłona nowych kart do nowej podstawki Horroru w Arkham LCG",
+					"date": "2026-01-27",
+					"language": "pl",
+					"media": {
+						"youtube": "EFzauMkd86k"
+					},
+					"cards": [
+						{
+							"code": "12067"
+						},
+						{
+							"code": "12063"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "The Magician",
+					"date": "2026-01-29",
+					"official": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/the-magician/"
+					},
+					"cards": [
+						{
+							"code": "12010"
+						}
+					]
+				}
+			]
+		}
+	]
+}

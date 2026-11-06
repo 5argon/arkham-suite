@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Use good stats",
+			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\" | text = \"add [willpower] to [agility]\" | text = \"add [agility] to [willpower]\""
+		}
+	]
+}

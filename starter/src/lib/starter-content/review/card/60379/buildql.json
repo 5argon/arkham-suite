@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Gain resource",
+			"query": "text = \"gain resource\""
+		},
+		{
+			"label": "Adds one skill to another",
+			"query": "text == \"add your [\""
+		}
+	]
+}

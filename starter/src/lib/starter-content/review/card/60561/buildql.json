@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Event costed 1 or more",
+			"query": "type = \"event\" & cost >= 1"
+		},
+		{
+			"label": "Fast event costed 1 or more",
+			"query": "type = \"event\" & text == \"fast.\" & cost >= 1"
+		}
+	]
+}

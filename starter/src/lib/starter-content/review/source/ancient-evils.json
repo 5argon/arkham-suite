@@ -1,0 +1,3378 @@
+[
+	{
+		"by": "ancient-evils",
+		"title": "Children of Blood: Encounter Sets",
+		"date": "2026-11-05",
+		"media": {
+			"url": "https://derbk.com/ancientevils/children-of-blood-encounter-sets/"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Updating the Chapter 2 Investigator Expansion Reviews",
+		"date": "2026-10-22",
+		"media": {
+			"url": "https://derbk.com/ancientevils/updating-the-chapter-2-investigator-expansion-reviews/"
+		},
+		"cards": [
+			{
+				"code": "12018",
+				"text": "Logan Hastings: “Excellent, Staple”"
+			},
+			{
+				"code": "12019",
+				"text": "M1911: “Excellent to Good, Staple”"
+			},
+			{
+				"code": "12020",
+				"text": "Machete: “Excellent to Good, Staple”"
+			},
+			{
+				"code": "12021",
+				"text": "Resilience: “Okay”"
+			},
+			{
+				"code": "12024",
+				"text": "Scene of the Crime: “Good to Excellent, Staple”"
+			},
+			{
+				"code": "12027",
+				"text": "Bodyguard(2): “Good to Excellent”"
+			},
+			{
+				"code": "12029",
+				"text": "Winchester Model 12: “Good”"
+			},
+			{
+				"code": "12033",
+				"text": "Local Map: “Okay to Good”"
+			},
+			{
+				"code": "12036",
+				"text": "Gather Intel: “Excellent”"
+			},
+			{
+				"code": "12037",
+				"text": "Through the Cracks(0): “Bad to Okay”"
+			},
+			{
+				"code": "12040",
+				"text": "Mysterious Grimoire: “Good to Excellent”"
+			},
+			{
+				"code": "12051",
+				"text": "Paint the Town Red: “Bad to Okay”"
+			},
+			{
+				"code": "12060",
+				"text": "Jim Culver(0): “Excellent, Staple”"
+			},
+			{
+				"code": "12061",
+				"text": "Lucky Charm: “Good”"
+			},
+			{
+				"code": "12072",
+				"text": "Aleksey Saburov: “Good”"
+			},
+			{
+				"code": "12080",
+				"text": "Slippery: “Okay to Good”"
+			},
+			{
+				"code": "12088",
+				"text": "Hand-Crank Flashlight: “Okay to Good”"
+			},
+			{
+				"code": "12087",
+				"text": "Fedora: “Bad to Okay”"
+			},
+			{
+				"code": "12086",
+				"text": "Broken Bottle: “Okay”"
+			},
+			{
+				"code": "60156",
+				"text": "Police Dog(0): “Okay”"
+			},
+			{
+				"code": "60157",
+				"text": "Rookie Cop: “Good”"
+			},
+			{
+				"code": "60158",
+				"text": "Service Revolver: “Excellent”"
+			},
+			{
+				"code": "60160",
+				"text": "Make Em Sing: “Okay”"
+			},
+			{
+				"code": "60163",
+				"text": "Iron Sights: “Okay to Bad”"
+			},
+			{
+				"code": "60170",
+				"text": "Police Dog(1): “Good”"
+			},
+			{
+				"code": "60171",
+				"text": "M1911(2): “Good to Excellent”"
+			},
+			{
+				"code": "60181",
+				"text": "Protective Vest(4): “Good to Excellent”"
+			},
+			{
+				"code": "60182",
+				"text": "Thompson SMG: “Good to Excellent”"
+			},
+			{
+				"code": "60255",
+				"text": "Dreamer’s Chronicle: “Good”"
+			},
+			{
+				"code": "60266",
+				"text": "Insidious Truths: “Okay”"
+			},
+			{
+				"code": "60268",
+				"text": "Establish Motive: “Good to Excellent”"
+			},
+			{
+				"code": "60359",
+				"text": "The Grapevine(0): “Good”"
+			},
+			{
+				"code": "60360",
+				"text": "Extravagant Ring: “Good to Excellent”"
+			},
+			{
+				"code": "60364",
+				"text": "Clean Sweep: “Okay”"
+			},
+			{
+				"code": "60365",
+				"text": "Pay Your Dues: “Good”"
+			},
+			{
+				"code": "60369",
+				"text": "Easy Street: No change to"
+			},
+			{
+				"code": "60375",
+				"text": "Marcus Sengstacke(2): “Okay to Good”"
+			},
+			{
+				"code": "60376",
+				"text": "Clean Sweep(2): “Good”"
+			},
+			{
+				"code": "60383",
+				"text": "Contingency: “Bad to Okay”"
+			},
+			{
+				"code": "60456",
+				"text": "Offering Bowl: “Good”"
+			},
+			{
+				"code": "60457",
+				"text": "Bloodstone: “Excellent, Staple”"
+			},
+			{
+				"code": "60464",
+				"text": "Infuse Life: “Okay”"
+			},
+			{
+				"code": "60470",
+				"text": "Ceremonial Robes: “Excellent to Good, Staple”"
+			},
+			{
+				"code": "60473",
+				"text": "Retribution(2): “Good to Excellent”"
+			},
+			{
+				"code": "60557",
+				"text": "Loner: “Excellent, Staple”"
+			},
+			{
+				"code": "60559",
+				"text": "Pocketknife: “Okay”"
+			},
+			{
+				"code": "60568",
+				"text": "Do-Or-Die: “Excellent, Staple”"
+			},
+			{
+				"code": "60570",
+				"text": "Extra Rations: “Good to Excellent”"
+			},
+			{
+				"code": "60580",
+				"text": "Longbow: “Excellent to Good”"
+			},
+			{
+				"code": "60582",
+				"text": "Timely Intervention(3): “Good”"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: Tierlists, Wrap-Up and a Word on Chapter 2",
+		"date": "2026-10-12",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-tierlists-wrap-up-and-a-word-on-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"notz",
+			"dwl",
+			"ptc",
+			"tfa",
+			"tcu",
+			"tdea",
+			"tdeb",
+			"tic",
+			"eote",
+			"tsk",
+			"fhv",
+			"tdc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Drowned City",
+		"date": "2026-10-08",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-drowned-city/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tdc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Feast of Hemlock Vale",
+		"date": "2026-10-08",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-feast-of-hemlock-vale/"
+		},
+		"cards": [],
+		"campaigns": [
+			"fhv"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Scarlet Keys",
+		"date": "2026-10-05",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-scarlet-keys/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tsk"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: Edge of the Earth",
+		"date": "2026-10-05",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-edge-of-the-earth/"
+		},
+		"cards": [],
+		"campaigns": [
+			"eote"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Innsmouth Conspiracy",
+		"date": "2026-10-02",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-innsmouth-conspiracy/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tic"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Dream-Eaters",
+		"date": "2026-10-02",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-dream-eaters/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tdea",
+			"tdeb"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Circle Undone",
+		"date": "2026-09-28",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-circle-undone/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tcu"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: Forgotten Age",
+		"date": "2026-09-28",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-forgotten-age/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tfa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Path to Carcosa",
+		"date": "2026-09-24",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-path-to-carcosa/"
+		},
+		"cards": [],
+		"campaigns": [
+			"ptc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: The Dunwich Legacy",
+		"date": "2026-09-24",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-the-dunwich-legacy/"
+		},
+		"cards": [],
+		"campaigns": [
+			"dwl"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Compendium: Night of the Zealot",
+		"date": "2026-09-24",
+		"media": {
+			"url": "https://derbk.com/ancientevils/campaign-compendium-night-of-the-zealot/"
+		},
+		"cards": [],
+		"campaigns": [
+			"notz"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Children of Blood in Numbers",
+		"date": "2026-09-22",
+		"media": {
+			"url": "https://derbk.com/ancientevils/children-of-blood-in-numbers/"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Brethren of Ash in Numbers",
+		"date": "2026-09-22",
+		"media": {
+			"url": "https://derbk.com/ancientevils/brethren-of-ash-in-numbers/"
+		},
+		"cards": [],
+		"campaigns": [
+			"boa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: Brethren of Ash",
+		"date": "2026-09-22",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-set-2026/"
+		},
+		"cards": [],
+		"campaigns": [
+			"boa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Children of Blood: First Impressions (feat. Tommy and Marie)",
+		"date": "2026-09-10",
+		"media": {
+			"url": "https://derbk.com/ancientevils/children-of-blood-first-impressions-feat-tommy-and-marie/"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Eight Things I Don’t Like About Chapter Two",
+		"date": "2026-08-24",
+		"media": {
+			"url": "https://derbk.com/ancientevils/eight-things-i-dont-like-about-chapter-two/"
+		},
+		"cards": [
+			{
+				"code": "12060",
+				"text": "This one is not really a complaint"
+			},
+			{
+				"code": "12087",
+				"text": "Introducing a new equipment slot"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Comprehensive Investigator Review and Tierlist for Chapter 2",
+		"date": "2026-07-28",
+		"media": {
+			"url": "https://derbk.com/ancientevils/comprehensive-investigator-review-and-tierlist-for-chapter-2/"
+		},
+		"cards": [
+			{
+				"code": "12001",
+				"text": "Daniela Reyes:"
+			},
+			{
+				"code": "60151",
+				"text": "Tommy Muldoon:"
+			},
+			{
+				"code": "12004",
+				"text": "Joe Diamond:"
+			},
+			{
+				"code": "60251",
+				"text": "Carolyn Fern:"
+			},
+			{
+				"code": "12007",
+				"text": "Trish Scarborough:"
+			},
+			{
+				"code": "60351",
+				"text": "André Patel:"
+			},
+			{
+				"code": "12010",
+				"text": "Dexter Drake:"
+			},
+			{
+				"code": "60451",
+				"text": "Marie Lambeau:"
+			},
+			{
+				"code": "12013",
+				"text": "Isabelle Barnes:"
+			},
+			{
+				"code": "60551",
+				"text": "Miguel de la Cruz:"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Dunwich Legacy in Chapter 2",
+		"date": "2026-04-30",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-dunwich-legacy-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"dwl"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Path to Carcosa in Chapter 2",
+		"date": "2026-04-29",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-path-to-carcosa-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"ptc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Forgotten Age in Chapter 2",
+		"date": "2026-04-26",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-forgotten-age-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tfa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Circle Undone in Chapter 2",
+		"date": "2026-04-24",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-circle-undone-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tcu"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Dream-Eaters in Chapter 2",
+		"date": "2026-04-23",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-dream-eaters-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tdea",
+			"tdeb"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Innsmouth Conspiracy in Chapter 2",
+		"date": "2026-04-22",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-innsmouth-conspiracy-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tic"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Edge of the Earth in Chapter 2",
+		"date": "2026-04-22",
+		"media": {
+			"url": "https://derbk.com/ancientevils/edge-of-the-earth-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"eote"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Scarlet Keys in Chapter 2",
+		"date": "2026-04-21",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-scarlet-keys-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tsk"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Feast of Hemlock Vale in Chapter 2",
+		"date": "2026-04-21",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-feast-of-hemlock-vale-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"fhv"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Drowned City in Chapter 2",
+		"date": "2026-04-21",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-drowned-city-in-chapter-2/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tdc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Better Replacements: Playing Chapter 1 Campaigns without the Chapter 1 Core",
+		"date": "2026-04-21",
+		"media": {
+			"url": "https://derbk.com/ancientevils/better-replacements-playing-chapter-1-campaigns-without-the-chapter-1-core/"
+		},
+		"cards": [],
+		"campaigns": [
+			"notz",
+			"dwl",
+			"ptc",
+			"tfa",
+			"tcu",
+			"tdea",
+			"tdeb",
+			"tic",
+			"eote",
+			"tsk",
+			"fhv",
+			"tdc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Expansion Review: The Evergreen Investigators",
+		"date": "2026-03-28",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-expansion-review-the-evergreen-investigators/"
+		},
+		"cards": [
+			{
+				"code": "60151",
+				"text": "Guardian: Tommy Muldoon"
+			},
+			{
+				"code": "60251",
+				"text": "Seeker: Carolyn Fern"
+			},
+			{
+				"code": "60351",
+				"text": "Rogue: André Patel"
+			},
+			{
+				"code": "60451",
+				"text": "Mystic: Marie Lambeau"
+			},
+			{
+				"code": "60551",
+				"text": "Survivor: Miguel De La Cruz"
+			},
+			{
+				"code": "60156",
+				"text": "Police Dog: Okay to Bad"
+			},
+			{
+				"code": "60157",
+				"text": "Rookie Cop: Good to Okay"
+			},
+			{
+				"code": "60158",
+				"text": "Service Revolver: Good to Excellent"
+			},
+			{
+				"code": "60159",
+				"text": "Protective Vest: Okay"
+			},
+			{
+				"code": "60160",
+				"text": "Make Em Sing: Good"
+			},
+			{
+				"code": "60161",
+				"text": "Bounty: Excellent, Staple"
+			},
+			{
+				"code": "60162",
+				"text": "Custom Grip: Okay"
+			},
+			{
+				"code": "60163",
+				"text": "Iron Sights: Bad"
+			},
+			{
+				"code": "60164",
+				"text": "Physical Fitness: Okay"
+			},
+			{
+				"code": "60165",
+				"text": "Restrained: Good to Excellent"
+			},
+			{
+				"code": "60166",
+				"text": "Stakeout: Okay"
+			},
+			{
+				"code": "60167",
+				"text": "Adapt and Overcome: Okay"
+			},
+			{
+				"code": "60168",
+				"text": "Armed to the Teeth: Good"
+			},
+			{
+				"code": "60170",
+				"text": "Police Dog(1): Good to Excellent"
+			},
+			{
+				"code": "60171",
+				"text": "M1911(2): Good to Excellent, Staple"
+			},
+			{
+				"code": "60172",
+				"text": "Extended Barrel(1): Excellent"
+			},
+			{
+				"code": "60173",
+				"text": "On The Beat(1): Good to Excellent"
+			},
+			{
+				"code": "60174",
+				"text": "Physical Fitness(2): Good"
+			},
+			{
+				"code": "60175",
+				"text": "Stock Ammo Reload(2): Excellent, Staple"
+			},
+			{
+				"code": "60176",
+				"text": "Vicious Blow(2): Excellent, Staple"
+			},
+			{
+				"code": "60177",
+				"text": "Detective Sherman(3): Good to Excellent"
+			},
+			{
+				"code": "60178",
+				"text": "Endurance(3): Okay"
+			},
+			{
+				"code": "60179",
+				"text": "Stakeout(3): Good"
+			},
+			{
+				"code": "60180",
+				"text": "Indomitable(3): Okay"
+			},
+			{
+				"code": "60181",
+				"text": "Protective Vest(4): Good"
+			},
+			{
+				"code": "60182",
+				"text": "Thompson Submachine Gun(4): Good"
+			},
+			{
+				"code": "60255",
+				"text": "Dreamer’s Chronicle: Good to Excellent"
+			},
+			{
+				"code": "60256",
+				"text": "Occult Records: Excellent to Good"
+			},
+			{
+				"code": "60257",
+				"text": "Private Practice: Okay"
+			},
+			{
+				"code": "60258",
+				"text": "Psychology Student: Excellent to Good"
+			},
+			{
+				"code": "60260",
+				"text": "University Archivist: Good"
+			},
+			{
+				"code": "60261",
+				"text": "Caustic Reaction: Okay"
+			},
+			{
+				"code": "60262",
+				"text": "Unflappable: Bad"
+			},
+			{
+				"code": "60263",
+				"text": "Preposterous Sketches: Okay to Good"
+			},
+			{
+				"code": "60264",
+				"text": "Psychoanalysis: Good to Okay"
+			},
+			{
+				"code": "60265",
+				"text": "De-Escalate: Okay"
+			},
+			{
+				"code": "60266",
+				"text": "Insidious Truths: Okay to Good"
+			},
+			{
+				"code": "60268",
+				"text": "Establish Motive: Good"
+			},
+			{
+				"code": "60269",
+				"text": "Literary Analysis: Excellent, Staple"
+			},
+			{
+				"code": "60270",
+				"text": "Magnifying Glass(1): Good"
+			},
+			{
+				"code": "60271",
+				"text": "Unflappable(1): Okay"
+			},
+			{
+				"code": "60272",
+				"text": "Typewriter(2): Good to Excellent"
+			},
+			{
+				"code": "60273",
+				"text": "Caustic Reaction(2): Good to Excellent"
+			},
+			{
+				"code": "60274",
+				"text": "Hypnotize(2): Excellent to Good"
+			},
+			{
+				"code": "60275",
+				"text": "Deduction(2): Excellent, Staple"
+			},
+			{
+				"code": "60276",
+				"text": "Autopsy Report(3): Good to Excellent"
+			},
+			{
+				"code": "60277",
+				"text": "Sharp Rhetoric(3): Good to Excellent"
+			},
+			{
+				"code": "60278",
+				"text": "Psychoanalysis(3): Good to Excellent, with heavy player scaling"
+			},
+			{
+				"code": "60282",
+				"text": "Commune with the Cosmos(5): Good"
+			},
+			{
+				"code": "60357",
+				"text": "Center Stage: Good to Okay"
+			},
+			{
+				"code": "60358",
+				"text": "Fame: Bad"
+			},
+			{
+				"code": "60359",
+				"text": "The Grapevine: Okay"
+			},
+			{
+				"code": "60360",
+				"text": "Extravagant Ring: Good to Okay"
+			},
+			{
+				"code": "60361",
+				"text": "Lockpicks: Okay"
+			},
+			{
+				"code": "60362",
+				"text": "Marcus Sengstacke: Bad"
+			},
+			{
+				"code": "60363",
+				"text": "Polished Cane: Excellent to Good"
+			},
+			{
+				"code": "60364",
+				"text": "Clean Sweep: Okay to Bad"
+			},
+			{
+				"code": "60365",
+				"text": "Pay Your Dues: Good to Excellent"
+			},
+			{
+				"code": "60366",
+				"text": "Quick Exit: Okay to Good"
+			},
+			{
+				"code": "60367",
+				"text": "A Sudden Fall: Okay"
+			},
+			{
+				"code": "60368",
+				"text": "Right Under Their Noses: Okay to Good"
+			},
+			{
+				"code": "60369",
+				"text": "Easy Street: Excellent to Good"
+			},
+			{
+				"code": "60370",
+				"text": "Out the Door: Excellent, Staple"
+			},
+			{
+				"code": "60371",
+				"text": "Watch This: Excellent, Staple"
+			},
+			{
+				"code": "60372",
+				"text": "Lockpicks(1): Excellent, Staple"
+			},
+			{
+				"code": "60373",
+				"text": "Out the Door(1): Excellent, Staple"
+			},
+			{
+				"code": "60374",
+				"text": "The Grapevine(2): Good"
+			},
+			{
+				"code": "60375",
+				"text": "Marcus Sengstacke(2): Good"
+			},
+			{
+				"code": "60376",
+				"text": "Clean Sweep(2): Okay to Good"
+			},
+			{
+				"code": "60377",
+				"text": "Quick Exit(2): Good to Excellent"
+			},
+			{
+				"code": "60378",
+				"text": "A Sudden Fall(2): Good to Excellent"
+			},
+			{
+				"code": "60379",
+				"text": "The Black Fan(3Ex): Good to Excellent"
+			},
+			{
+				"code": "60380",
+				"text": "Silver Tongue(3): Okay"
+			},
+			{
+				"code": "60381",
+				"text": "Well Connected(3): Excellent"
+			},
+			{
+				"code": "60382",
+				"text": "Right Under Their Noses(3): Good to Excellent"
+			},
+			{
+				"code": "60383",
+				"text": "Contingency(3): Bad"
+			},
+			{
+				"code": "60384",
+				"text": "The Red Clock(5Ex): Good"
+			},
+			{
+				"code": "60455",
+				"text": "Arcane Initiate: Excellent, Staple"
+			},
+			{
+				"code": "60456",
+				"text": "Offering Bowl: Good to Excellent, Staple"
+			},
+			{
+				"code": "60457",
+				"text": "Bloodstone: Good to Excellent"
+			},
+			{
+				"code": "60458",
+				"text": "Sacrificial Doll: Okay to Bad"
+			},
+			{
+				"code": "60461",
+				"text": "Shadowmeld: Excellent, Staple"
+			},
+			{
+				"code": "60462",
+				"text": "Consume Life: Okay to Bad"
+			},
+			{
+				"code": "60463",
+				"text": "Favor of Baalshandor: Good"
+			},
+			{
+				"code": "60464",
+				"text": "Infuse Life: Okay to Good"
+			},
+			{
+				"code": "60465",
+				"text": "Mirror Form: Good to Excellent"
+			},
+			{
+				"code": "60466",
+				"text": "Spiritual Charm: Okay to Good"
+			},
+			{
+				"code": "60467",
+				"text": "Blood Curse: Excellent, Staple"
+			},
+			{
+				"code": "60468",
+				"text": "Cosmic Guidance: Okay"
+			},
+			{
+				"code": "60469",
+				"text": "Torrent of Power: Good"
+			},
+			{
+				"code": "60470",
+				"text": "Ceremonial Robes(1): Good to Excellent"
+			},
+			{
+				"code": "60471",
+				"text": "Eldritch Whispers(1): Good"
+			},
+			{
+				"code": "60472",
+				"text": "Blood Ward(2): Okay to Good"
+			},
+			{
+				"code": "60473",
+				"text": "Retribution(2): Good"
+			},
+			{
+				"code": "60474",
+				"text": "Dread Curse of Azathoth(3Ex): Good"
+			},
+			{
+				"code": "60475",
+				"text": "Ritual Dagger(3): Good"
+			},
+			{
+				"code": "60476",
+				"text": "Spiritual Intuition(3): Good"
+			},
+			{
+				"code": "60477",
+				"text": "Blood Curse(3): Excellent, Staple"
+			},
+			{
+				"code": "60478",
+				"text": "Arcane Experience(4): Good"
+			},
+			{
+				"code": "60479",
+				"text": "Jim Culver(4): Excellent"
+			},
+			{
+				"code": "60480",
+				"text": "Ultimate Sacrifice(4): Good? Question Mark?"
+			},
+			{
+				"code": "60481",
+				"text": "Second Sight(5): Good to Okay"
+			},
+			{
+				"code": "60482",
+				"text": "Shadowmeld(5): Good"
+			},
+			{
+				"code": "60483",
+				"text": "Bend Blood(5): Okay to Bad"
+			},
+			{
+				"code": "60555",
+				"text": "Daniel Jameson: Excellent, Staple"
+			},
+			{
+				"code": "60556",
+				"text": "Hunting Dog: Bad to Okay"
+			},
+			{
+				"code": "60557",
+				"text": "Loner: Excellent to Good, Staple"
+			},
+			{
+				"code": "60558",
+				"text": "Old Compass: Good to Excellent, Staple"
+			},
+			{
+				"code": "60559",
+				"text": "Pocketknife: Okay"
+			},
+			{
+				"code": "60560",
+				"text": "Rabbit’s Foot: Good"
+			},
+			{
+				"code": "60561",
+				"text": "Same Old Thing: Okay"
+			},
+			{
+				"code": "60562",
+				"text": "Decoy Trap: Okay"
+			},
+			{
+				"code": "60563",
+				"text": "Glassing: Excellent to Good"
+			},
+			{
+				"code": "60564",
+				"text": "Guerilla Tactics: Good to Excellent"
+			},
+			{
+				"code": "60565",
+				"text": "Hidden Shelter: Okay"
+			},
+			{
+				"code": "60566",
+				"text": "Lie in Wait: Excellent to Good"
+			},
+			{
+				"code": "60567",
+				"text": "Stalk Prey: Okay"
+			},
+			{
+				"code": "60568",
+				"text": "Do-Or-Die: Good to Excellent"
+			},
+			{
+				"code": "60569",
+				"text": "On The Brink: Okay to Bad"
+			},
+			{
+				"code": "60570",
+				"text": "Extra Rations(1): Excellent"
+			},
+			{
+				"code": "60571",
+				"text": "Field Dressing(1): Good to Okay"
+			},
+			{
+				"code": "60572",
+				"text": "Rough(1): Good to Okay"
+			},
+			{
+				"code": "60573",
+				"text": "Canteen(2): Excellent"
+			},
+			{
+				"code": "60574",
+				"text": "Hunter’s Instinct(2): Good"
+			},
+			{
+				"code": "60575",
+				"text": "Winchester Model 52(2): Okay"
+			},
+			{
+				"code": "60576",
+				"text": "Guerilla Tactics(2): Excellent to Good"
+			},
+			{
+				"code": "60577",
+				"text": "Respite(2): Good"
+			},
+			{
+				"code": "60578",
+				"text": "Rope Trap(2): Okay to Bad"
+			},
+			{
+				"code": "60579",
+				"text": "Levelheaded(3): Okay"
+			},
+			{
+				"code": "60580",
+				"text": "Longbow(3): Good"
+			},
+			{
+				"code": "60581",
+				"text": "Makeshift Bomb(3): Okay"
+			},
+			{
+				"code": "60582",
+				"text": "Timely Intervention(3): Excellent to Good"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Decks Spoiler Roundup #6",
+		"date": "2026-03-27",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-decks-spoiler-roundup-6/"
+		},
+		"cards": [
+			{
+				"code": "60555",
+				"text": "This is a very good"
+			},
+			{
+				"code": "60557",
+				"text": "Putting a card like this"
+			},
+			{
+				"code": "60558",
+				"text": "An alternative for basic investigation"
+			},
+			{
+				"code": "60559",
+				"text": "If you are using events"
+			},
+			{
+				"code": "60560",
+				"text": "Yep, that’s been one of"
+			},
+			{
+				"code": "60562",
+				"text": "I really like this cycle"
+			},
+			{
+				"code": "60567",
+				"text": "The encounter sets from the"
+			},
+			{
+				"code": "60568",
+				"text": "Oh wow, i did not expect"
+			},
+			{
+				"code": "60569",
+				"text": "I mean… it’s not great"
+			},
+			{
+				"code": "60570",
+				"text": "It’s not a strict upgrade"
+			},
+			{
+				"code": "60571",
+				"text": "Speaking of options… If Bandages"
+			},
+			{
+				"code": "60572",
+				"text": "It’s another way to upgrade"
+			},
+			{
+				"code": "60573",
+				"text": "Oh wow, this is really"
+			},
+			{
+				"code": "60574",
+				"text": "(Note: this card is getting"
+			},
+			{
+				"code": "60575",
+				"text": "It can’t be overstated how"
+			},
+			{
+				"code": "60576",
+				"text": "“The value of this card"
+			},
+			{
+				"code": "60577",
+				"text": "I am very interested in"
+			},
+			{
+				"code": "60578",
+				"text": "I am very unimpressed, this"
+			},
+			{
+				"code": "60579",
+				"text": "Has the same question behind"
+			},
+			{
+				"code": "60580",
+				"text": "Ooooh, they put Ornate Bow"
+			},
+			{
+				"code": "60581",
+				"text": "Make it Forced, you cowards!"
+			},
+			{
+				"code": "60582",
+				"text": "Oh wow, that’s a lot"
+			},
+			{
+				"code": "60554",
+				"text": "As far as weakness enemies"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: Night of the Zealot",
+		"date": "2026-03-26",
+		"media": {
+			"url": "https://derbk.com/ancientevils/welcome/core/"
+		},
+		"cards": [],
+		"campaigns": [
+			"notz"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "The Encounter Set Substitution Table",
+		"date": "2026-03-25",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-encounter-set-substitution-table/"
+		},
+		"cards": [],
+		"campaigns": [
+			"notz",
+			"dwl",
+			"ptc",
+			"tfa",
+			"tcu",
+			"tdea",
+			"tdeb",
+			"tic",
+			"eote",
+			"tsk",
+			"fhv",
+			"tdc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "A first look at the new encounter sets",
+		"date": "2026-03-24",
+		"media": {
+			"url": "https://derbk.com/ancientevils/a-first-look-at-the-new-encounter-sets/"
+		},
+		"cards": [],
+		"campaigns": [
+			"boa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Brethren of Ash: Initial thoughts",
+		"date": "2026-03-23",
+		"media": {
+			"url": "https://derbk.com/ancientevils/brethren-of-ash-initial-thoughts/"
+		},
+		"cards": [],
+		"campaigns": [
+			"boa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Brethren of Ash : Spreading Flames – Blind(ish) Play",
+		"date": "2026-03-21",
+		"media": {
+			"url": "https://derbk.com/ancientevils/brethren-of-ash-spreading-flames-blindish-play/"
+		},
+		"cards": [],
+		"campaigns": [
+			"boa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Decks Spoiler Roundup #5",
+		"date": "2026-03-20",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-decks-spoiler-roundup-5/"
+		},
+		"cards": [
+			{
+				"code": "60455",
+				"text": "Now that’s a reprint i"
+			},
+			{
+				"code": "60456",
+				"text": "At 5 resources for an"
+			},
+			{
+				"code": "60457",
+				"text": "This is a mirrored version"
+			},
+			{
+				"code": "60458",
+				"text": "Kinda weird and i am"
+			},
+			{
+				"code": "12062",
+				"text": "Second Sight(0) is reprinted in"
+			},
+			{
+				"code": "60481",
+				"text": "Second Sight(0) is reprinted in"
+			},
+			{
+				"code": "60461",
+				"text": "We’ve seen Shadowmeld(0) already as"
+			},
+			{
+				"code": "60482",
+				"text": "We’ve seen Shadowmeld(0) already as"
+			},
+			{
+				"code": "60463",
+				"text": "There’s some limitations here, not"
+			},
+			{
+				"code": "60465",
+				"text": "This card has Dexter Drake"
+			},
+			{
+				"code": "60468",
+				"text": "Meh. It’s fine, i suppose."
+			},
+			{
+				"code": "60470",
+				"text": "Very good! Repay the one"
+			},
+			{
+				"code": "60471",
+				"text": "I mean… this isn’t enough"
+			},
+			{
+				"code": "60472",
+				"text": "It’s a solid card, but"
+			},
+			{
+				"code": "60473",
+				"text": "Yeah, this doesn’t say non-Elite."
+			},
+			{
+				"code": "60476",
+				"text": "Yeah, i could see this"
+			},
+			{
+				"code": "60475",
+				"text": "Make no mistake, this effect"
+			},
+			{
+				"code": "60474",
+				"text": "I can get behind the"
+			},
+			{
+				"code": "60478",
+				"text": "Yeah, sure. This will see"
+			},
+			{
+				"code": "60479",
+				"text": "4xp is not a small"
+			},
+			{
+				"code": "60480",
+				"text": "Okay, that’s hilarious. This is"
+			},
+			{
+				"code": "60454",
+				"text": "Seems fine, i don’t mind"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Decks Spoiler Roundup #4",
+		"date": "2026-03-14",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-decks-spoiler-roundup-4/"
+		},
+		"cards": [
+			{
+				"code": "60358",
+				"text": "This is bad. It’s the"
+			},
+			{
+				"code": "60360",
+				"text": "This is cute. Turning successes"
+			},
+			{
+				"code": "60361",
+				"text": "This makes sense to reprint,"
+			},
+			{
+				"code": "60372",
+				"text": "This makes sense to reprint,"
+			},
+			{
+				"code": "60364",
+				"text": "There’s a bunch of events"
+			},
+			{
+				"code": "60376",
+				"text": "There’s a bunch of events"
+			},
+			{
+				"code": "60365",
+				"text": "Solid, possibly even good! Disabling"
+			},
+			{
+				"code": "60366",
+				"text": "Keeping an enemy down for"
+			},
+			{
+				"code": "60377",
+				"text": "Keeping an enemy down for"
+			},
+			{
+				"code": "60367",
+				"text": "And another one of these,"
+			},
+			{
+				"code": "60378",
+				"text": "And another one of these,"
+			},
+			{
+				"code": "60368",
+				"text": "Yet another 2 cost event"
+			},
+			{
+				"code": "60382",
+				"text": "Yet another 2 cost event"
+			},
+			{
+				"code": "60369",
+				"text": "Oh, this is just straight"
+			},
+			{
+				"code": "60370",
+				"text": "Better “Watch This”? Hell yeah,"
+			},
+			{
+				"code": "60373",
+				"text": "Better “Watch This”? Hell yeah,"
+			},
+			{
+				"code": "60371",
+				"text": "But what if we didn’t"
+			},
+			{
+				"code": "60375",
+				"text": "The level 0 version ranks"
+			},
+			{
+				"code": "60379",
+				"text": "Going to bundle these together"
+			},
+			{
+				"code": "60381",
+				"text": "Going to bundle these together"
+			},
+			{
+				"code": "60380",
+				"text": "I think Silver Tongue is"
+			},
+			{
+				"code": "60383",
+				"text": "Hm. It’s kinda like that"
+			},
+			{
+				"code": "60356",
+				"text": "This is potentially very brutal."
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Decks Spoiler Roundup #3",
+		"date": "2026-03-06",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-decks-spoiler-roundup-3/"
+		},
+		"cards": [
+			{
+				"code": "60256",
+				"text": "I like this. A bit"
+			},
+			{
+				"code": "60260",
+				"text": "The University Archivist is a"
+			},
+			{
+				"code": "60261",
+				"text": "The level 0 is fine."
+			},
+			{
+				"code": "60273",
+				"text": "The level 0 is fine."
+			},
+			{
+				"code": "60262",
+				"text": "The level 0 is pretty"
+			},
+			{
+				"code": "60271",
+				"text": "The level 0 is pretty"
+			},
+			{
+				"code": "60263",
+				"text": "Yet another 2 cost event."
+			},
+			{
+				"code": "60264",
+				"text": "And even more 2 cost"
+			},
+			{
+				"code": "60278",
+				"text": "And even more 2 cost"
+			},
+			{
+				"code": "60265",
+				"text": "Sure. While it will only"
+			},
+			{
+				"code": "60266",
+				"text": "While your Seeker likely will"
+			},
+			{
+				"code": "12039",
+				"text": "Deduction needs no introduction, both"
+			},
+			{
+				"code": "60275",
+				"text": "Deduction needs no introduction, both"
+			},
+			{
+				"code": "60268",
+				"text": "This is quite good… as"
+			},
+			{
+				"code": "60269",
+				"text": "Another very good skill… as"
+			},
+			{
+				"code": "60270",
+				"text": "Saves you a resource over"
+			},
+			{
+				"code": "60272",
+				"text": "Seems fine to me. Comparable"
+			},
+			{
+				"code": "60274",
+				"text": "Are you ready for yet"
+			},
+			{
+				"code": "60276",
+				"text": "This is about as close"
+			},
+			{
+				"code": "60277",
+				"text": "I mean, this is pretty"
+			},
+			{
+				"code": "60282",
+				"text": "Okay, wow. It’s 5xp, it’s"
+			},
+			{
+				"code": "60254",
+				"text": "I am not a huge fan"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Decks Spoiler Roundup #2",
+		"date": "2026-02-27",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-decks-spoiler-roundup-2/"
+		},
+		"cards": [
+			{
+				"code": "60156",
+				"text": "Police Dog comes in and"
+			},
+			{
+				"code": "60170",
+				"text": "Police Dog comes in and"
+			},
+			{
+				"code": "60157",
+				"text": "And here’s another ally that"
+			},
+			{
+				"code": "60160",
+				"text": "Another card that helps you"
+			},
+			{
+				"code": "60161",
+				"text": "The fuck are you wearing,"
+			},
+			{
+				"code": "60162",
+				"text": "For the most part, this"
+			},
+			{
+				"code": "60164",
+				"text": "The biggest problem with healing"
+			},
+			{
+				"code": "60174",
+				"text": "The biggest problem with healing"
+			},
+			{
+				"code": "60165",
+				"text": "Chaining Deep Ones to radiators"
+			},
+			{
+				"code": "60166",
+				"text": "The card is interesting in"
+			},
+			{
+				"code": "60179",
+				"text": "The card is interesting in"
+			},
+			{
+				"code": "60167",
+				"text": "The game text on the"
+			},
+			{
+				"code": "60168",
+				"text": "I have played Crack Shot"
+			},
+			{
+				"code": "12019",
+				"text": "I already sang the praises"
+			},
+			{
+				"code": "60171",
+				"text": "I already sang the praises"
+			},
+			{
+				"code": "60172",
+				"text": "It’s a slightly tuned down"
+			},
+			{
+				"code": "60173",
+				"text": "That +3 skill bonus is"
+			},
+			{
+				"code": "60175",
+				"text": "5 ammo is a lot to"
+			},
+			{
+				"code": "60176",
+				"text": "Hey, it’s good old Vicious"
+			},
+			{
+				"code": "60177",
+				"text": "So many Ally cards in"
+			},
+			{
+				"code": "60178",
+				"text": "Oh, there’s a lot to"
+			},
+			{
+				"code": "60180",
+				"text": "I have never been one"
+			},
+			{
+				"code": "60181",
+				"text": "There is a bit of a"
+			},
+			{
+				"code": "60182",
+				"text": "Our big gun of the"
+			},
+			{
+				"code": "60259",
+				"text": "So we are still doing"
+			},
+			{
+				"code": "60279",
+				"text": "So we are still doing"
+			},
+			{
+				"code": "60280",
+				"text": "So we are still doing"
+			},
+			{
+				"code": "60281",
+				"text": "So we are still doing"
+			},
+			{
+				"code": "60359",
+				"text": "Not bad at all. What"
+			},
+			{
+				"code": "60374",
+				"text": "Not bad at all. What"
+			},
+			{
+				"code": "60384",
+				"text": "Out of all the rogue"
+			},
+			{
+				"code": "60462",
+				"text": "Nah, I’m not paying 3"
+			},
+			{
+				"code": "60467",
+				"text": "Between Soul Link and Blood"
+			},
+			{
+				"code": "60477",
+				"text": "Between Soul Link and Blood"
+			},
+			{
+				"code": "60469",
+				"text": "This is less great though."
+			},
+			{
+				"code": "60483",
+				"text": "I don’t think this packs"
+			},
+			{
+				"code": "60556",
+				"text": "I feel like the ally"
+			},
+			{
+				"code": "60561",
+				"text": "Schoffner’s Catalogue for events… except"
+			},
+			{
+				"code": "60563",
+				"text": "Like its fighty cousin, the"
+			},
+			{
+				"code": "60154",
+				"text": "Asks for a double action"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Expansion Review: The 2026 Core Set",
+		"date": "2026-02-18",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-expansion-review-the-2026-core-set/"
+		},
+		"cards": [
+			{
+				"code": "12001",
+				"text": "Daniela Reyes: The primary Guardian,"
+			},
+			{
+				"code": "12004",
+				"text": "Joe Diamond: Seeker first, Guardian"
+			},
+			{
+				"code": "12007",
+				"text": "Trish Scarborough: Rogue with Seeker."
+			},
+			{
+				"code": "12010",
+				"text": "Dexter Drake: Mystic 0-5, Rogue"
+			},
+			{
+				"code": "12013",
+				"text": "Isabelle Barnes: Finally, our Survivor"
+			},
+			{
+				"code": "12016",
+				"text": "Bodyguard: Okay to Bad"
+			},
+			{
+				"code": "12017",
+				"text": "Endurance: Okay"
+			},
+			{
+				"code": "12018",
+				"text": "Logan Hastings: Good to Excellent, Staple"
+			},
+			{
+				"code": "12019",
+				"text": "M1911: Excellent, Staple"
+			},
+			{
+				"code": "12020",
+				"text": "Machete: Good to Excellent"
+			},
+			{
+				"code": "12021",
+				"text": "Resilience: Okay to Bad"
+			},
+			{
+				"code": "12022",
+				"text": "Lesson Learned: Okay"
+			},
+			{
+				"code": "12023",
+				"text": "Right Tool for the Job: Good"
+			},
+			{
+				"code": "12024",
+				"text": "Scene of the Crime: Good to Excellent"
+			},
+			{
+				"code": "12025",
+				"text": "Vicious Blow: Excellent, Staple"
+			},
+			{
+				"code": "12026",
+				"text": "Counterattack(1): Excellent, Staple"
+			},
+			{
+				"code": "12027",
+				"text": "Bodyguard(2): Good to Excellent, Staple"
+			},
+			{
+				"code": "12028",
+				"text": "Sledgehammer(3): Okay"
+			},
+			{
+				"code": "12029",
+				"text": "Winchester Model 12(5): Good to Excellent"
+			},
+			{
+				"code": "12030",
+				"text": "Dorothy Simmons: Excellent, Staple"
+			},
+			{
+				"code": "12031",
+				"text": "Fingerprint Kit: Good"
+			},
+			{
+				"code": "12032",
+				"text": "Laboratory Assistant: Excellent, Staple"
+			},
+			{
+				"code": "12033",
+				"text": "Local Map: Okay"
+			},
+			{
+				"code": "12034",
+				"text": "Magnifying Glass: Excellent, Staple"
+			},
+			{
+				"code": "12035",
+				"text": "Sharp Rethoric: Good"
+			},
+			{
+				"code": "12036",
+				"text": "Gather Intel: Excellent, Staple"
+			},
+			{
+				"code": "12037",
+				"text": "Through the Cracks: Bad"
+			},
+			{
+				"code": "12038",
+				"text": "Working a Hunch: Good"
+			},
+			{
+				"code": "12039",
+				"text": "Deduction: Excellent, Staple"
+			},
+			{
+				"code": "12040",
+				"text": "Mysterious Grimoire(2): Good"
+			},
+			{
+				"code": "12041",
+				"text": "Through the Cracks(2): Okay"
+			},
+			{
+				"code": "12042",
+				"text": "Studious(3): Good to Excellent"
+			},
+			{
+				"code": "12043",
+				"text": "Unbridled Knowledge(5): Good"
+			},
+			{
+				"code": "12044",
+				"text": "Lucky Cigarette Case: Excellent, Staple"
+			},
+			{
+				"code": "12045",
+				"text": "M1903 Hammerless: Okay"
+			},
+			{
+				"code": "12046",
+				"text": "Olivier Bishop: Excellent, Staple"
+			},
+			{
+				"code": "12047",
+				"text": "Silver Tongue: Okay"
+			},
+			{
+				"code": "12048",
+				"text": "Sticky Fingers: Good"
+			},
+			{
+				"code": "12049",
+				"text": "Thieves Kit: Good to Excellent"
+			},
+			{
+				"code": "12050",
+				"text": "Breaking and Entering: Excellent to Good"
+			},
+			{
+				"code": "12051",
+				"text": "Paint the Town Red: Bad"
+			},
+			{
+				"code": "12052",
+				"text": "Prestidigitation: Excellent to Good"
+			},
+			{
+				"code": "12053",
+				"text": "Out of Sight: Bad"
+			},
+			{
+				"code": "12055",
+				"text": "Decisive Strike: Good"
+			},
+			{
+				"code": "12056",
+				"text": "Another Day, Another Dollar(3): Good"
+			},
+			{
+				"code": "12057",
+				"text": "Out of Sight(3): Okay"
+			},
+			{
+				"code": "12058",
+				"text": "Cloak of Resonance: Good to Excellent"
+			},
+			{
+				"code": "12059",
+				"text": "Cosmic Flame: Excellent, Staple"
+			},
+			{
+				"code": "12060",
+				"text": "Jim Culver: Good to Excellent"
+			},
+			{
+				"code": "12061",
+				"text": "Lucky Charm: Good"
+			},
+			{
+				"code": "12062",
+				"text": "Second Sight: Excellent, Staple"
+			},
+			{
+				"code": "12063",
+				"text": "Spiritual Intuition: Okay to Good"
+			},
+			{
+				"code": "12064",
+				"text": "Premonition: Good"
+			},
+			{
+				"code": "12065",
+				"text": "Ward of Protection: Excellent, Staple"
+			},
+			{
+				"code": "12066",
+				"text": "Will of the Cosmos: Good to Excellent"
+			},
+			{
+				"code": "12067",
+				"text": "Soul Link: Excellent, Staple"
+			},
+			{
+				"code": "12068",
+				"text": "Mask of Silenus(1): Good"
+			},
+			{
+				"code": "12069",
+				"text": "Fearless(2): Excellent"
+			},
+			{
+				"code": "12070",
+				"text": "Augur of Elokoss(3): Good to Okay"
+			},
+			{
+				"code": "12071",
+				"text": "Cosmic Flame(5): Excellent"
+			},
+			{
+				"code": "12072",
+				"text": "Aleksey Saburov: Good to Excellent"
+			},
+			{
+				"code": "12073",
+				"text": "Bandages: Excellent, Staple"
+			},
+			{
+				"code": "12074",
+				"text": "Hunter’s Instinct: Excellent, Staple"
+			},
+			{
+				"code": "12075",
+				"text": "Jumpsuit: Good"
+			},
+			{
+				"code": "12076",
+				"text": "Levelheaded: Good"
+			},
+			{
+				"code": "12077",
+				"text": "Meat Cleaver: Good to Excellent"
+			},
+			{
+				"code": "12078",
+				"text": "Look What I Found: Excellent, Staple"
+			},
+			{
+				"code": "12079",
+				"text": "Shove Off: Okay to Bad"
+			},
+			{
+				"code": "12080",
+				"text": "Slippery: Okay"
+			},
+			{
+				"code": "12081",
+				"text": "Timely Intervention: Excellent, Staple"
+			},
+			{
+				"code": "12082",
+				"text": "Scrape By(1): Excellent, Staple"
+			},
+			{
+				"code": "12083",
+				"text": "Old Compass(2): Excellent to Good"
+			},
+			{
+				"code": "12084",
+				"text": "On the Brink: Bad to Okay"
+			},
+			{
+				"code": "12088",
+				"text": "Hand-Crank Flashlight: Okay"
+			},
+			{
+				"code": "12087",
+				"text": "Fedora: Bad"
+			},
+			{
+				"code": "12089",
+				"text": "Emergency Cache: Good, Staple"
+			},
+			{
+				"code": "12086",
+				"text": "Broken Bottle: Okay to Bad"
+			},
+			{
+				"code": "12091",
+				"text": "Manual Dexterity: Excellent, Staple"
+			},
+			{
+				"code": "12093",
+				"text": "Perception: Excellent, Staple"
+			},
+			{
+				"code": "12094",
+				"text": "Unexpected Courage: Excellent to Good, Staple"
+			},
+			{
+				"code": "12096",
+				"text": "Relic Hunter: Excellent, Staple"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Decks Spoiler Roundup #1",
+		"date": "2026-02-13",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-decks-spoiler-roundup-1/"
+		},
+		"cards": [
+			{
+				"code": "60151",
+				"text": "Tommy is our Firearm specialist"
+			},
+			{
+				"code": "60152",
+				"text": "Tommy is our Firearm specialist"
+			},
+			{
+				"code": "60153",
+				"text": "Tommy is our Firearm specialist"
+			},
+			{
+				"code": "60251",
+				"text": "Speaking of individual power… someone"
+			},
+			{
+				"code": "60252",
+				"text": "Speaking of individual power… someone"
+			},
+			{
+				"code": "60253",
+				"text": "Speaking of individual power… someone"
+			},
+			{
+				"code": "60351",
+				"text": "When i get extra actions,"
+			},
+			{
+				"code": "60352",
+				"text": "When i get extra actions,"
+			},
+			{
+				"code": "60353",
+				"text": "When i get extra actions,"
+			},
+			{
+				"code": "60354",
+				"text": "When i get extra actions,"
+			},
+			{
+				"code": "60355",
+				"text": "When i get extra actions,"
+			},
+			{
+				"code": "60451",
+				"text": "Marie Lambeau goes for both"
+			},
+			{
+				"code": "60452",
+				"text": "Marie Lambeau goes for both"
+			},
+			{
+				"code": "60453",
+				"text": "Marie Lambeau goes for both"
+			},
+			{
+				"code": "60551",
+				"text": "First i went out of"
+			},
+			{
+				"code": "60552",
+				"text": "First i went out of"
+			},
+			{
+				"code": "60553",
+				"text": "First i went out of"
+			},
+			{
+				"code": "60158",
+				"text": "At first glance, this is"
+			},
+			{
+				"code": "60159",
+				"text": "It’s a bit pricey, but"
+			},
+			{
+				"code": "60163",
+				"text": "This however is pretty bad,"
+			},
+			{
+				"code": "60255",
+				"text": "If you are Carolyn, then"
+			},
+			{
+				"code": "60258",
+				"text": "This guy is good. Very"
+			},
+			{
+				"code": "60257",
+				"text": "I don’t know. It’s fine,"
+			},
+			{
+				"code": "60357",
+				"text": "This works well enough to"
+			},
+			{
+				"code": "60362",
+				"text": "Sorry, but this is simply"
+			},
+			{
+				"code": "60363",
+				"text": "Thankfully, this is pretty good"
+			},
+			{
+				"code": "60461",
+				"text": "Very good! Much better than"
+			},
+			{
+				"code": "60464",
+				"text": "Meeeh. I mean, in the"
+			},
+			{
+				"code": "60466",
+				"text": "Here’s something that helps with"
+			},
+			{
+				"code": "60564",
+				"text": "This is such a fun"
+			},
+			{
+				"code": "60565",
+				"text": "This is a bit too scenario"
+			},
+			{
+				"code": "60566",
+				"text": "And just in case you"
+			},
+			{
+				"code": "60154",
+				"text": "There’s some things still obscured"
+			},
+			{
+				"code": "60254",
+				"text": "There’s some things still obscured"
+			},
+			{
+				"code": "60356",
+				"text": "There’s some things still obscured"
+			},
+			{
+				"code": "60454",
+				"text": "There’s some things still obscured"
+			},
+			{
+				"code": "60554",
+				"text": "There’s some things still obscured"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Top 10: The most game-changing cards from the Core 2026",
+		"date": "2026-01-31",
+		"media": {
+			"url": "https://derbk.com/ancientevils/top-10-the-most-game-changing-cards-from-the-core-2026/"
+		},
+		"cards": [
+			{
+				"code": "12062",
+				"text": "#10: Second Sight. Similar"
+			},
+			{
+				"code": "12055",
+				"text": "#9: Decisive Strike. Rogue"
+			},
+			{
+				"code": "12052",
+				"text": "#8: Prestidigitation. A fun"
+			},
+			{
+				"code": "12046",
+				"text": "#7: Olivier Bishop. I"
+			},
+			{
+				"code": "12066",
+				"text": "#6: Will of the Cosmos."
+			},
+			{
+				"code": "12036",
+				"text": "#5: Gather Intel. Even"
+			},
+			{
+				"code": "12059",
+				"text": "#4: Cosmic Flame. Even"
+			},
+			{
+				"code": "12071",
+				"text": "#4: Cosmic Flame. Even"
+			},
+			{
+				"code": "12060",
+				"text": "#3: Jim Culver. I’ll"
+			},
+			{
+				"code": "12019",
+				"text": "#2: M1911. Oh, i"
+			},
+			{
+				"code": "12074",
+				"text": "#1: Hunter’s Instinct. So,"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Early Mystic Impressions",
+		"date": "2026-01-30",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-early-mystic-impressions/"
+		},
+		"cards": [
+			{
+				"code": "12010",
+				"text": "In chapter 1, Dexter"
+			},
+			{
+				"code": "12058",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12059",
+				"text": "Individually, these are just"
+			},
+			{
+				"code": "12060",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12061",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12062",
+				"text": "Individually, these are just"
+			},
+			{
+				"code": "12064",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12065",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12066",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12067",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12068",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12069",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12070",
+				"text": "In terms of mechanics,"
+			},
+			{
+				"code": "12071",
+				"text": "Individually, these are just"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #11 (+extras)",
+		"date": "2026-01-29",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-11-extras/"
+		},
+		"cards": [
+			{
+				"code": "12010",
+				"text": "What the hell, Dexter is"
+			},
+			{
+				"code": "12011",
+				"text": "What the hell, Dexter is"
+			},
+			{
+				"code": "12012",
+				"text": "What the hell, Dexter is"
+			},
+			{
+				"code": "12062",
+				"text": "The investigation counterpart to Cosmic"
+			},
+			{
+				"code": "12067",
+				"text": "Three wild icons on a"
+			},
+			{
+				"code": "12063",
+				"text": "Speaking of the Spell trait…"
+			},
+			{
+				"code": "12069",
+				"text": "Seeing Fearless isn’t a huge"
+			},
+			{
+				"code": "12071",
+				"text": "Again, very good! 5xp is"
+			},
+			{
+				"code": "12095",
+				"text": "These two bad boys are"
+			},
+			{
+				"code": "12096",
+				"text": "These two bad boys are"
+			},
+			{
+				"code": "12100",
+				"text": "This is somewhat of my"
+			},
+			{
+				"code": "12101",
+				"text": "These two i am much"
+			},
+			{
+				"code": "12097",
+				"text": "These two i am much"
+			},
+			{
+				"code": "60151",
+				"text": "Looks like we are getting"
+			},
+			{
+				"code": "60251",
+				"text": "Carolyn changed classes from Guardian"
+			},
+			{
+				"code": "60351",
+				"text": "Extra actions, you say? I"
+			},
+			{
+				"code": "60451",
+				"text": "This doesn’t necessarily read like"
+			},
+			{
+				"code": "60551",
+				"text": "Traps are a funky theme."
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #10",
+		"date": "2026-01-23",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-10/"
+		},
+		"cards": [
+			{
+				"code": "12010",
+				"text": "We’ve learned from an Asmodee"
+			},
+			{
+				"code": "12060",
+				"text": "Oh wow, that’s big in"
+			},
+			{
+				"code": "12061",
+				"text": "I am starting to get"
+			},
+			{
+				"code": "12064",
+				"text": "Woah, guess we aren’t shying"
+			},
+			{
+				"code": "12066",
+				"text": "Will of the Cosmos is very"
+			},
+			{
+				"code": "12068",
+				"text": "Spending 3 resources on an"
+			},
+			{
+				"code": "12070",
+				"text": "And there’s your first payoff"
+			},
+			{
+				"code": "12102",
+				"text": "Looks like the first two"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Early Rogue Impressions",
+		"date": "2026-01-16",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-early-rogue-impressions/"
+		},
+		"cards": [
+			{
+				"code": "12007",
+				"text": "Ms. Scarborough puts evasion"
+			},
+			{
+				"code": "12044",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12046",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12047",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12048",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12050",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12051",
+				"text": "On the low end, we"
+			},
+			{
+				"code": "12052",
+				"text": "The outliers on the"
+			},
+			{
+				"code": "12053",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12054",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12055",
+				"text": "The Old Core stranded"
+			},
+			{
+				"code": "12057",
+				"text": "The Old Core stranded"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #9",
+		"date": "2026-01-15",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-9/"
+		},
+		"cards": [
+			{
+				"code": "12007",
+				"text": "Very strong signature, but also"
+			},
+			{
+				"code": "12008",
+				"text": "Very strong signature, but also"
+			},
+			{
+				"code": "12009",
+				"text": "Very strong signature, but also"
+			},
+			{
+				"code": "12047",
+				"text": "Pretty much as expected. I"
+			},
+			{
+				"code": "12050",
+				"text": "Just a fantastic card that"
+			},
+			{
+				"code": "12052",
+				"text": "Fantastic card. I am a"
+			},
+			{
+				"code": "12103",
+				"text": "Sure, that seems in line"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #8",
+		"date": "2026-01-09",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-8/"
+		},
+		"cards": [
+			{
+				"code": "12007",
+				"text": "I already talked about Trish"
+			},
+			{
+				"code": "12044",
+				"text": "What a start into Rogue"
+			},
+			{
+				"code": "12048",
+				"text": "If evasion is a huge"
+			},
+			{
+				"code": "12054",
+				"text": "If evasion is a huge"
+			},
+			{
+				"code": "12049",
+				"text": "Another great card from Chapter"
+			},
+			{
+				"code": "12051",
+				"text": "Fetching out an enemy and"
+			},
+			{
+				"code": "12053",
+				"text": "While there are agility icons"
+			},
+			{
+				"code": "12057",
+				"text": "While there are agility icons"
+			},
+			{
+				"code": "12055",
+				"text": "This i like a lot however!"
+			},
+			{
+				"code": "12056",
+				"text": "We are getting so much"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #7",
+		"date": "2025-12-19",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-7/"
+		},
+		"cards": [
+			{
+				"code": "12001",
+				"text": "Here’s Daniela with her full"
+			},
+			{
+				"code": "12002",
+				"text": "Here’s Daniela with her full"
+			},
+			{
+				"code": "12003",
+				"text": "Here’s Daniela with her full"
+			},
+			{
+				"code": "12018",
+				"text": "Stellar card. Guardian notably had"
+			},
+			{
+				"code": "12022",
+				"text": "A card for a clue."
+			},
+			{
+				"code": "12020",
+				"text": "Oh, i was hoping for"
+			},
+			{
+				"code": "12023",
+				"text": "Not bad at all. I like"
+			},
+			{
+				"code": "12025",
+				"text": "A signature staple of the"
+			},
+			{
+				"code": "12027",
+				"text": "I meaaaan… it’s better than"
+			},
+			{
+				"code": "12094",
+				"text": "An important card to have"
+			},
+			{
+				"code": "12010",
+				"text": "Dexter: Compared to his chapter"
+			},
+			{
+				"code": "12007",
+				"text": "Trish: I mean… i guess"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Early Guardian Impressions",
+		"date": "2025-12-19",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-early-guardian-impressions/"
+		},
+		"cards": [
+			{
+				"code": "12001",
+				"text": "Daniela Reyes serves a"
+			},
+			{
+				"code": "12016",
+				"text": "I have a bone to"
+			},
+			{
+				"code": "12018",
+				"text": "Not going to lie"
+			},
+			{
+				"code": "12019",
+				"text": "So, this isn’t purely"
+			},
+			{
+				"code": "12020",
+				"text": "So, this isn’t purely"
+			},
+			{
+				"code": "12021",
+				"text": "Not going to lie"
+			},
+			{
+				"code": "12025",
+				"text": "I have a bone to"
+			},
+			{
+				"code": "12026",
+				"text": "I have a bone to"
+			},
+			{
+				"code": "12027",
+				"text": "I have a bone to"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #6",
+		"date": "2025-12-13",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-6/"
+		},
+		"cards": [
+			{
+				"code": "12001",
+				"text": "I mean… not much of"
+			},
+			{
+				"code": "12017",
+				"text": "We’ve gotten a glimpse at"
+			},
+			{
+				"code": "12019",
+				"text": "Yeah, good riddance to the"
+			},
+			{
+				"code": "12024",
+				"text": "A tried and true classic"
+			},
+			{
+				"code": "12026",
+				"text": "It’s a card for a damage"
+			},
+			{
+				"code": "12028",
+				"text": "We get both a highlevel"
+			},
+			{
+				"code": "12029",
+				"text": "The top end Guardian gun"
+			},
+			{
+				"code": "12090",
+				"text": "I mean, what do you"
+			},
+			{
+				"code": "12104",
+				"text": "This man however is having"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Early Survivor Impressions",
+		"date": "2025-12-05",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-early-survivor-impressions/"
+		},
+		"cards": [
+			{
+				"code": "12013",
+				"text": "Isabelle Barnes in all"
+			},
+			{
+				"code": "12014",
+				"text": "Isabelle Barnes in all"
+			},
+			{
+				"code": "12015",
+				"text": "Isabelle Barnes in all"
+			},
+			{
+				"code": "12072",
+				"text": "For the Seeker first"
+			},
+			{
+				"code": "12073",
+				"text": "The other two cards"
+			},
+			{
+				"code": "12074",
+				"text": "The main themes of"
+			},
+			{
+				"code": "12075",
+				"text": "The main themes of"
+			},
+			{
+				"code": "12077",
+				"text": "Survivors are flexible and"
+			},
+			{
+				"code": "12078",
+				"text": "The other two cards"
+			},
+			{
+				"code": "12080",
+				"text": "The main themes of"
+			},
+			{
+				"code": "12081",
+				"text": "The main themes of"
+			},
+			{
+				"code": "12082",
+				"text": "The main themes of"
+			},
+			{
+				"code": "12083",
+				"text": "The other two cards"
+			},
+			{
+				"code": "12084",
+				"text": "The main themes of"
+			},
+			{
+				"code": "12085",
+				"text": "Survivors are flexible and"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #5 (+extras)",
+		"date": "2025-11-26",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-5-extras/"
+		},
+		"cards": [
+			{
+				"code": "12001",
+				"text": "The spanish leak partially reveals"
+			},
+			{
+				"code": "12002",
+				"text": "Daniela’s Wrench – Asset"
+			},
+			{
+				"code": "12017",
+				"text": "The other so far unrevealed"
+			},
+			{
+				"code": "12007",
+				"text": "Hey, that’s Trish’s front. With"
+			},
+			{
+				"code": "12082",
+				"text": "That… is just very good."
+			},
+			{
+				"code": "12083",
+				"text": "This is a lot better"
+			},
+			{
+				"code": "12084",
+				"text": "Eh, this is one of"
+			},
+			{
+				"code": "12086",
+				"text": "We got a new Flashlight"
+			},
+			{
+				"code": "12087",
+				"text": "Imagine us getting a headwear"
+			},
+			{
+				"code": "12099",
+				"text": "Ooooh, i very much approve"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #4",
+		"date": "2025-11-21",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-4/"
+		},
+		"cards": [
+			{
+				"code": "12013",
+				"text": "Izzie is our new Survivor-Mystic,"
+			},
+			{
+				"code": "12075",
+				"text": "That’s pretty great. Recursion if"
+			},
+			{
+				"code": "12076",
+				"text": "That’s the second of this"
+			},
+			{
+				"code": "12077",
+				"text": "Looks like the Meat Cleaver’s"
+			},
+			{
+				"code": "12085",
+				"text": "Looks like the Meat Cleaver’s"
+			},
+			{
+				"code": "12079",
+				"text": "The ability to weaponize a"
+			},
+			{
+				"code": "12080",
+				"text": "I like this a lot more."
+			},
+			{
+				"code": "12081",
+				"text": "Looks like Lucky! is a"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Early Seeker impressions",
+		"date": "2025-11-14",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-early-seeker-impressions/"
+		},
+		"cards": [
+			{
+				"code": "12004",
+				"text": "It doesn’t get much"
+			},
+			{
+				"code": "12030",
+				"text": "At level 0 we have"
+			},
+			{
+				"code": "12031",
+				"text": "The level 0 deck"
+			},
+			{
+				"code": "12032",
+				"text": "At level 0 we have"
+			},
+			{
+				"code": "12033",
+				"text": "The level 0 deck"
+			},
+			{
+				"code": "12035",
+				"text": "While the cards are"
+			},
+			{
+				"code": "12036",
+				"text": "There are mostly three"
+			},
+			{
+				"code": "12037",
+				"text": "The one card that"
+			},
+			{
+				"code": "12038",
+				"text": "There are mostly three"
+			},
+			{
+				"code": "12039",
+				"text": "There are mostly three"
+			},
+			{
+				"code": "12040",
+				"text": "The level 0 deck"
+			},
+			{
+				"code": "12041",
+				"text": "The one card that"
+			},
+			{
+				"code": "12042",
+				"text": "There are mostly three"
+			},
+			{
+				"code": "12043",
+				"text": "There are mostly three"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #3",
+		"date": "2025-11-13",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-3/"
+		},
+		"cards": [
+			{
+				"code": "12004",
+				"text": "And there he is, our"
+			},
+			{
+				"code": "12005",
+				"text": "And there he is, our"
+			},
+			{
+				"code": "12006",
+				"text": "And there he is, our"
+			},
+			{
+				"code": "12032",
+				"text": "It’s Lab Ass! God, i"
+			},
+			{
+				"code": "12037",
+				"text": "Seekers do need ways to"
+			},
+			{
+				"code": "12041",
+				"text": "Seekers do need ways to"
+			},
+			{
+				"code": "12038",
+				"text": "I’ve never been a huge"
+			},
+			{
+				"code": "12039",
+				"text": "The other classic piece of"
+			},
+			{
+				"code": "12043",
+				"text": "An obviously powerful effect for"
+			},
+			{
+				"code": "12088",
+				"text": "Hey, new Flashlight… kind of."
+			},
+			{
+				"code": "12093",
+				"text": "Right, we don’t call these"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #2",
+		"date": "2025-11-07",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-2/"
+		},
+		"cards": [
+			{
+				"code": "12004",
+				"text": "In previous spoiler seasons, FFG"
+			},
+			{
+				"code": "12030",
+				"text": "I talked about her in"
+			},
+			{
+				"code": "12031",
+				"text": "This is a card that"
+			},
+			{
+				"code": "12036",
+				"text": "The other of my reveals,"
+			},
+			{
+				"code": "12040",
+				"text": "I assume this is our"
+			},
+			{
+				"code": "12042",
+				"text": "I like Studious a lot."
+			},
+			{
+				"code": "12098",
+				"text": "Hey, that’s not a Seeker"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Core 2026: Spoiler Roundup #1",
+		"date": "2025-11-01",
+		"media": {
+			"url": "https://derbk.com/ancientevils/core-2026-spoiler-roundup-1/"
+		},
+		"cards": [
+			{
+				"code": "12016",
+				"text": "We are starting on the"
+			},
+			{
+				"code": "12021",
+				"text": "This is a lot better."
+			},
+			{
+				"code": "12034",
+				"text": "Magnifying Glass stays in the"
+			},
+			{
+				"code": "12035",
+				"text": "Oh, this is really good."
+			},
+			{
+				"code": "12033",
+				"text": "And here’s one of those"
+			},
+			{
+				"code": "12045",
+				"text": "The whole “evade, then shoot”"
+			},
+			{
+				"code": "12046",
+				"text": "This guy is insane, as"
+			},
+			{
+				"code": "12065",
+				"text": "Yeah, that makes a lot"
+			},
+			{
+				"code": "12058",
+				"text": "Agnes Baker might not be"
+			},
+			{
+				"code": "12059",
+				"text": "And here’s the first look"
+			},
+			{
+				"code": "12072",
+				"text": "Unlimited soak for health and"
+			},
+			{
+				"code": "12074",
+				"text": "A single card that recurs"
+			},
+			{
+				"code": "12089",
+				"text": "Ha. Sure, no need to"
+			},
+			{
+				"code": "12181",
+				"text": "Well, Reward cards then. I"
+			}
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Drowned City",
+		"date": "2025-08-29",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-drowned-city/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tdc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Scarlet Keys",
+		"date": "2025-08-01",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-scarlet-keys/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tsk"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Feast of Hemlock Vale",
+		"date": "2024-06-26",
+		"media": {
+			"url": "https://derbk.com/ancientevils/the-feast-of-hemlock-vale/"
+		},
+		"cards": [],
+		"campaigns": [
+			"fhv"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Dunwich Legacy",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/dunwich/"
+		},
+		"cards": [],
+		"campaigns": [
+			"dwl"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Path to Carcosa",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/carcosa/"
+		},
+		"cards": [],
+		"campaigns": [
+			"ptc"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Forgotten Age",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/forgotten-age/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tfa"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Circle Undone",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/circle-undone/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tcu"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Dream-Eaters",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/dream-eaters/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tdea",
+			"tdeb"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: The Innsmouth Conspiracy",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/innsmouth/"
+		},
+		"cards": [],
+		"campaigns": [
+			"tic"
+		]
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Campaign Hub: Edge of the Earth",
+		"date": "2024-05-03",
+		"media": {
+			"url": "https://derbk.com/ancientevils/edge-of-the-earth/"
+		},
+		"cards": [],
+		"campaigns": [
+			"eote"
+		]
+	}
+]

@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Uses [willpower]",
+			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
+		},
+		{
+			"label": "Uses [agility]",
+			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
+		}
+	]
+}

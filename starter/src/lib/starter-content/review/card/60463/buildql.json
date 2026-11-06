@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "[[Spell]] or [[Ritual]] asset",
+			"query": "(tr = \"spell\" | tr = \"ritual\") & type = \"asset\""
+		},
+		{
+			"label": "[[Ritual]] asset",
+			"query": "tr = \"ritual\" & type = \"asset\""
+		},
+		{
+			"label": "[[Spell]] or [[Ritual]] asset costed 3 or more",
+			"query": "(tr = \"spell\" | tr = \"ritual\") & type = \"asset\" & cost >= 3"
+		},
+		{
+			"label": "[[Spell]] or [[Ritual]] asset costed exactly 3",
+			"query": "(tr = \"spell\" | tr = \"ritual\") & type = \"asset\" & cost = 3"
+		}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"presets": [
+		{
+			"label": "[[Firearm]] card",
+			"query": "tr = \"firearm\""
+		},
+		{
+			"label": "[[Upgrade]] card",
+			"query": "tr = \"upgrade\""
+		},
+		{
+			"label": "Two-handed [[Firearm]]",
+			"query": "tr = \"firearm\" & slot == \"hand x2\""
+		}
+	]
+}

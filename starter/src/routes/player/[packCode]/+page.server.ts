@@ -12,6 +12,7 @@ import {
 	productReturnTo
 } from '@5argon/arkham-kohaku';
 import { u as stringUtils } from '@5argon/arkham-string';
+import { chapterOneReviewProducts } from '$lib/server/chapter-one-reviews';
 import { productToExploreRoute } from '$lib/utility/product';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -38,6 +39,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 	return {
 		product: product,
+		hasChapterOneReviews: chapterOneReviewProducts().includes(product),
 		backName: stringUtils.productName(product)
 	};
 };

@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Tests [combat]",
+			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\""
+		},
+		{
+			"label": "Tests [combat], not Fight",
+			"query": "(text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\") & text !== \"<b>fight\""
+		}
+	]
+}

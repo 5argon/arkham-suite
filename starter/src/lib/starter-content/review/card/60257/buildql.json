@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Heals horror",
+			"query": "hh = true"
+		}
+	]
+}

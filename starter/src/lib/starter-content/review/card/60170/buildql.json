@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "Fight assets",
+			"query": "text == \"<b>fight</b>\" & type = \"asset\""
+		},
+		{
+			"label": "Investigate assets",
+			"query": "text == \"<b>investigate</b>\" & type = \"asset\""
+		},
+		{
+			"label": "Fight events",
+			"query": "text == \"<b>fight</b>\" & type = \"event\""
+		},
+		{
+			"label": "Investigate events",
+			"query": "text == \"<b>investigate</b>\" & type = \"event\""
+		}
+	]
+}

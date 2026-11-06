@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "Tests [agility]",
+			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\""
+		},
+		{
+			"label": "Tests without [agility]",
+			"query": "(text == \"<b>fight\" | text == \"<b>investigate\" | text == \"<b>evade\" | text == \"<b>parley\" | text == \"test [\") & text !== \"[agility]\""
+		},
+		{
+			"label": "Fast card costed 1 or more",
+			"query": "text == \"fast.\" & cost >= 1 & text !== \"play after\" & text !== \"play when\""
+		},
+		{
+			"label": "Fast card costed 2 or more",
+			"query": "text == \"fast.\" & cost >= 2 & text !== \"play after\" & text !== \"play when\""
+		}
+	]
+}

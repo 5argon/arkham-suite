@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Fight with [combat]",
+			"query": "text = \"<b>fight</b> [combat]\""
+		},
+		{
+			"label": "Fight without [combat]",
+			"query": "text == \"<b>fight\" & text != \"<b>fight</b> [combat]\""
+		}
+	]
+}

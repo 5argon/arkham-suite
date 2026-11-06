@@ -1,0 +1,24 @@
+{
+	"presets": [
+		{
+			"label": "Use good stats",
+			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\" | text = \"add [combat] to [agility]\" | text = \"add [agility] to [combat]\""
+		},
+		{
+			"label": "Helps with damage",
+			"query": "hd = true | health >= 2"
+		},
+		{
+			"label": "Heals horror",
+			"query": "hh = true"
+		},
+		{
+			"label": "Skill cards",
+			"query": "type = \"skill\""
+		},
+		{
+			"label": "Lv. 1~5 skill cards",
+			"query": "type = \"skill\" & xp >= 1 & xp <= 5"
+		}
+	]
+}

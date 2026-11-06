@@ -3,6 +3,7 @@ import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { Campaign as KohakuCampaign } from '@5argon/arkham-kohaku';
 import { loadCampaign } from '$lib/campaign/load-campaign';
+import { campaignReviews } from '$lib/server/reviews';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const campaignCode = params.campaignCode;
@@ -42,6 +43,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	return {
 		kohakuCampaign: kohakuCampaign,
 		backName: stringUtils.campaignName(kohakuCampaign),
-		campaignData: campaignData
+		campaignData: campaignData,
+		reviews: campaignReviews(kohakuCampaign)
 	};
 };

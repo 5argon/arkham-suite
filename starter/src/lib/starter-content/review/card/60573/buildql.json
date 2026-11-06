@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Benefits from healing horror",
+			"query": "text = \"after you heal horror\""
+		}
+	]
+}

@@ -44,6 +44,10 @@ Add additional card graphics to the `download` result, whether it's English or o
 
 Then it modifies `cards.json` for our purpose. Currently, we read some specific string and remember them as new fields. After that, text are removed to minimize size, since both arkham-starter.com and arkham.life will not ever need to render card's text.
 
+### `card-text`
+
+Writes the full text of the cards Card Reviews covers to `starter/src/lib/server/data/card-text.json`, read from the `pack` folder before anything is stripped. Run with `yarn card-text` whenever `pack` is refreshed. A test in `starter` fails if a reviewable card has no entry, so add a new product's pack code to `reviewPacks` in the script.
+
 ### `process`
 
 Make variations of card graphics from `true` folder.

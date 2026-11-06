@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Lv. 0 events",
+			"query": "type = \"event\" & xp = 0"
+		}
+	]
+}

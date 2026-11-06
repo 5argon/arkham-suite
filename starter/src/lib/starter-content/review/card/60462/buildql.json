@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "[[Ally]] with 2+ health",
+			"query": "tr = \"ally\" & health >= 2"
+		},
+		{
+			"label": "Defeat support",
+			"query": "text = \"you defeat an enemy\" | text = \"enemy is defeated\""
+		}
+	]
+}

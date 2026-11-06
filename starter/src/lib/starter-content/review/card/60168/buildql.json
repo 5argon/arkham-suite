@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "[[Item]] asset testing [willpower] / [combat] / [agility]",
+			"query": "tr = \"item\" & type = \"asset\" & (text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\")"
+		},
+		{
+			"label": "[[Item]] asset testing [combat]",
+			"query": "tr = \"item\" & type = \"asset\" & (text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\")"
+		},
+		{
+			"label": "[[Item]] asset testing [agility]",
+			"query": "tr = \"item\" & type = \"asset\" & (text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\")"
+		},
+		{
+			"label": "[[Item]] asset testing [willpower]",
+			"query": "tr = \"item\" & type = \"asset\" & (text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\")"
+		}
+	]
+}

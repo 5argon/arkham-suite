@@ -3,15 +3,9 @@
 A centered row of product graphic buttons, wrapping as needed.
 -->
 <script lang="ts">
-	import { GraphicButton, productImageUrl } from '@5argon/arkham-life-ui';
-	import { ProductIcon } from '@5argon/arkham-icon';
-	import {
-		color,
-		Product,
-		productDeckbuildingExpansions,
-		productInvestigatorDeck
-	} from '@5argon/arkham-kohaku';
-	import { m as stringMessages, u as stringUtils } from '@5argon/arkham-string';
+	import { ProductButton } from '@5argon/arkham-life-ui';
+	import type { Product } from '@5argon/arkham-kohaku';
+	import type { Snippet } from 'svelte';
 
 	interface Prop {
 		products: Product[];
@@ -24,36 +18,27 @@ A centered row of product graphic buttons, wrapping as needed.
 		 */
 		active?: (product: Product) => boolean;
 		locked?: (product: Product) => boolean;
+		/**
+		 * Shown under each tile.
+		 */
+		caption?: Snippet<[Product]>;
 	}
-	const { products, onClick, active, locked }: Prop = $props();
-
-	function subtext(product: Product): string | undefined {
-		if (product === Product.CoreSet2026) {
-			return undefined;
-		}
-		if (productInvestigatorDeck.includes(product)) {
-			return stringMessages.productTypeInvestigatorDeck();
-		}
-		return productDeckbuildingExpansions.includes(product)
-			? stringMessages.productTypeDeckbuildingExpansion()
-			: stringMessages.productTypeInvestigatorExpansion();
-	}
+	const { products, onClick, active, locked, caption }: Prop = $props();
 </script>
 
 <div class="product-tiles">
 	{#each products as product (product)}
-		<GraphicButton
-			small
-			locked={locked?.(product)}
-			text={stringUtils.productName(product)}
-			subtext={subtext(product)}
-			graphic={productImageUrl(product)}
-			accentColor={color.getColor(color.productToColors(product), 950, false)}
-			active={active?.(product)}
-			onClick={onClick(product)}
-		>
-			<ProductIcon {product} />
-		</GraphicButton>
+		<div class="tile">
+			<ProductButton
+				active={active?.(product)}
+				locked={locked?.(product)}
+				onClick={onClick(product)}
+				{product}
+			/>
+			{#if caption}
+				{@render caption(product)}
+			{/if}
+		</div>
 	{/each}
 </div>
 
@@ -67,5 +52,11 @@ A centered row of product graphic buttons, wrapping as needed.
 		justify-content: center;
 		max-width: 764px;
 		margin-inline: auto;
+	}
+
+	.tile {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

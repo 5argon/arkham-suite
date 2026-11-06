@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Uses [agility]",
+			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
+		},
+		{
+			"label": "Benefits from failing",
+			"query": "text == \"[reaction] after you fail\" | text == \"play after you fail\" | text = \"attempt again\" | text == \"if this test fails\" | text == \"if you fail, return\""
+		}
+	]
+}

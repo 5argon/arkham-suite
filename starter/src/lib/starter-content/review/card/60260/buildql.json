@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "[[Tome]] asset",
+			"query": "tr = \"tome\" & type = \"asset\""
+		},
+		{
+			"label": "Lv. 1~5 [[Tome]] asset",
+			"query": "tr = \"tome\" & type = \"asset\" & xp >= 1 & xp <= 5"
+		}
+	]
+}

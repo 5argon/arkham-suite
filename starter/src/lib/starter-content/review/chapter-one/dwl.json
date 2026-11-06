@@ -1,0 +1,32 @@
+[
+	{
+		"by": "playing-board-games",
+		"title": "Rating The Dunwich Legacy cards 6 years later! (Arkham Horror: The Card Game)",
+		"date": "2023-01-08",
+		"media": {
+			"youtube": "fl_5X7ZjTA4"
+		},
+		"covers": "all"
+	},
+	{
+		"by": "ancient-evils",
+		"title": "Investigator Expansion Review: Dunwich",
+		"date": "2022-09-18",
+		"media": {
+			"url": "https://derbk.com/ancientevils/investigator-expansion-review-dunwich/"
+		},
+		"covers": "all"
+	},
+	{
+		"guest": {
+			"name": "Fantasy Flight Games"
+		},
+		"title": "Reliving the Legacy",
+		"date": "2021-11-18",
+		"official": true,
+		"media": {
+			"url": "https://web.archive.org/web/20240204123201/https://www.fantasyflightgames.com/en/news/2021/11/18/reliving-the-legacy/"
+		},
+		"covers": "investigators"
+	}
+]

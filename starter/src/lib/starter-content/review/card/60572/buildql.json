@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Tests [combat]",
+			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\""
+		},
+		{
+			"label": "Take damage",
+			"query": "(text = \"take damage\" | text = \"deal damage investigator\") & text != \"after you take\" & text !== \"takes 1 or more\""
+		}
+	]
+}

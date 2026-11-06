@@ -1,0 +1,83 @@
+[
+	{
+		"guest": {
+			"name": "Fantasy Flight Games"
+		},
+		"title": "Arkham Horror: The Card Game – Evergreen Investigators",
+		"date": "2026-02-24",
+		"official": true,
+		"media": {
+			"youtube": "9NDhW6bPStE"
+		},
+		"cards": [
+			{
+				"code": "60162",
+				"start": "14:16"
+			},
+			{
+				"code": "60182",
+				"start": "14:16"
+			},
+			{
+				"code": "60259",
+				"start": "17:38"
+			},
+			{
+				"code": "60279",
+				"start": "17:38"
+			},
+			{
+				"code": "60280",
+				"start": "17:38"
+			},
+			{
+				"code": "60281",
+				"start": "17:38"
+			},
+			{
+				"code": "60359",
+				"start": "22:36"
+			},
+			{
+				"code": "60374",
+				"start": "22:36"
+			},
+			{
+				"code": "60384",
+				"start": "22:36"
+			},
+			{
+				"code": "60462",
+				"start": "27:28"
+			},
+			{
+				"code": "60469",
+				"start": "27:28"
+			},
+			{
+				"code": "60467",
+				"start": "27:28"
+			},
+			{
+				"code": "60477",
+				"start": "27:28"
+			},
+			{
+				"code": "60483",
+				"start": "27:28"
+			},
+			{
+				"code": "60563",
+				"start": "37:16"
+			},
+			{
+				"code": "60556",
+				"start": "37:16"
+			},
+			{
+				"code": "60561",
+				"start": "37:16"
+			}
+		]
+	}
+]

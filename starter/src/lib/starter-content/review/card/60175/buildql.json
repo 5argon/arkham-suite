@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "[[Firearm]] with ammo",
+			"query": "tr = \"firearm\" & text = \"uses ammo\""
+		},
+		{
+			"label": "Lv. 1~5 [[Firearm]] with ammo",
+			"query": "tr = \"firearm\" & text = \"uses ammo\" & xp >= 1 & xp <= 5"
+		}
+	]
+}

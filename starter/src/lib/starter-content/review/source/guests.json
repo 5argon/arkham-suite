@@ -1,0 +1,155 @@
+[
+	{
+		"guest": {
+			"name": "Optimal Play",
+			"url": "https://www.youtube.com/@OptimalPlay"
+		},
+		"title": "Children of Blood Review - Our post campaign thoughts on the new Arkham Horror box",
+		"date": "2026-10-24",
+		"media": {
+			"youtube": "QRBCGtjJ6ig"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "GG",
+			"url": "https://www.youtube.com/@GenjiGamer"
+		},
+		"title": "GG Reviews Arkham Horror LCG The Children of Blood",
+		"date": "2026-09-09",
+		"media": {
+			"youtube": "-nHwnTsYQcw"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "The Dice Tower",
+			"url": "https://www.youtube.com/@thedicetower"
+		},
+		"title": "Arkham Horror LCG: Children of Blood Expansion Review",
+		"date": "2026-09-01",
+		"media": {
+			"youtube": "n6gBi3b8zcM"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "GG",
+			"url": "https://www.youtube.com/@GenjiGamer"
+		},
+		"title": "GG Unboxing Children of Blood and First Impressions",
+		"date": "2026-08-14",
+		"media": {
+			"youtube": "LNrB5qoyypY"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "byTravis",
+			"url": "https://www.youtube.com/@byTravis"
+		},
+		"title": "Children of Blood Expansion for Arkham Horror LCG - What's In The Box?",
+		"date": "2026-08-13",
+		"media": {
+			"youtube": "y85PyeegyjI"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "One Stop Co-op Shop",
+			"url": "https://www.youtube.com/@OneStopCoopShop"
+		},
+		"title": "Arkham Horror TCG: Children of Blood play and review - One Stop Co-Op Shop",
+		"date": "2026-08-09",
+		"media": {
+			"youtube": "u3Ebc0Rdu2Q"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "Private Pook Games",
+			"url": "https://www.youtube.com/@privatepookgames"
+		},
+		"title": "ARKHAM HORROR: CHILDREN OF BLOOD Review -- Arkham's Next Chapter Has Officially Won Me Over!",
+		"date": "2026-08-03",
+		"media": {
+			"youtube": "_X2lSO3nL6I"
+		},
+		"cards": [],
+		"campaigns": [
+			"cob"
+		]
+	},
+	{
+		"guest": {
+			"name": "One Stop Co-op Shop",
+			"url": "https://www.youtube.com/@OneStopCoopShop"
+		},
+		"title": "Arkham Horror investigator decks review (review copy provided)",
+		"date": "2026-05-02",
+		"media": {
+			"youtube": "FlXe2CrmXKU"
+		},
+		"cards": [
+			{
+				"code": "60151",
+				"start": "1:08"
+			},
+			{
+				"code": "60251",
+				"start": "2:49"
+			},
+			{
+				"code": "60551",
+				"start": "4:21"
+			},
+			{
+				"code": "60451",
+				"start": "5:52"
+			},
+			{
+				"code": "60351",
+				"start": "6:58"
+			}
+		]
+	},
+	{
+		"guest": {
+			"name": "Private Pook Games",
+			"url": "https://www.youtube.com/@privatepookgames"
+		},
+		"title": "Arkham Horror: the Card Game CHAPTER TWO REVIEW",
+		"date": "2026-04-03",
+		"media": {
+			"youtube": "pWBm6UL3L68"
+		},
+		"cards": [],
+		"campaigns": [
+			"boa"
+		]
+	}
+]

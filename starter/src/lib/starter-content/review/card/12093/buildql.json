@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Tests [intellect]",
+			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\""
+		},
+		{
+			"label": "Tests [intellect], not Investigate",
+			"query": "(text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\") & text !== \"<b>investigate\""
+		}
+	]
+}

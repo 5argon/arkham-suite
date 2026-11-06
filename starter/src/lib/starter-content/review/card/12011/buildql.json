@@ -1,0 +1,28 @@
+{
+	"presets": [
+		{
+			"label": "[[Spell]] asset",
+			"query": "tr = \"spell\" & type = \"asset\""
+		},
+		{
+			"label": "[[Item]] asset",
+			"query": "tr = \"item\" & type = \"asset\""
+		},
+		{
+			"label": "[[Spell]] or [[Item]] asset",
+			"query": "(tr = \"spell\" | tr = \"item\") & type = \"asset\""
+		},
+		{
+			"label": "[[Spell]] or [[Item]] asset costed 2 or more",
+			"query": "(tr = \"spell\" | tr = \"item\") & type = \"asset\" & cost >= 2"
+		},
+		{
+			"label": "[[Spell]] or [[Item]] asset costed exactly 2",
+			"query": "(tr = \"spell\" | tr = \"item\") & type = \"asset\" & cost = 2"
+		},
+		{
+			"label": "Lv. 1~5 [[Spell]] or [[Item]] asset",
+			"query": "(tr = \"spell\" | tr = \"item\") & type = \"asset\" & xp >= 1 & xp <= 5"
+		}
+	]
+}

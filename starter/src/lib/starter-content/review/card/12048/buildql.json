@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "Evade assets",
+			"query": "text == \"<b>evade</b>\" & type = \"asset\""
+		},
+		{
+			"label": "Evade events",
+			"query": "text == \"<b>evade</b>\" & type = \"event\""
+		}
+	]
+}

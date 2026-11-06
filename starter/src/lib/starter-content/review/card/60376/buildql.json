@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Tests [intellect]",
+			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\""
+		}
+	]
+}

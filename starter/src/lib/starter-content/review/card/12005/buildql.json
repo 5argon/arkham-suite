@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Draws cards",
+			"query": "((text = \"draw card\" | text = \"draw of them\") & text !== \"draw the top card of the encounter deck\") | ((text == \"draw it\" | text == \"draws it\") & text != \"encounter deck\")"
+		}
+	]
+}

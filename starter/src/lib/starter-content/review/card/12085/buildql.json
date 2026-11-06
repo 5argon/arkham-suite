@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Defeat support",
+			"query": "text = \"you defeat an enemy\" | text = \"enemy is defeated\""
+		}
+	]
+}

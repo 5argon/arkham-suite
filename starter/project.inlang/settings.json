@@ -23,6 +23,7 @@
 			"./messages/explore/{languageTag}.json",
 			"./messages/proxy/{languageTag}.json",
 			"./messages/resource/{languageTag}.json",
+			"./messages/review/{languageTag}.json",
 			"./messages/starter_decks/{languageTag}.json",
 			"./messages/team/{languageTag}.json",
 			"./messages/supply/{languageTag}.json",

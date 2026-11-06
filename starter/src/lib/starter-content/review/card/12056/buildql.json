@@ -1,0 +1,28 @@
+{
+	"presets": [
+		{
+			"label": "Asset costed 1~2",
+			"query": "type = \"asset\" & cost >= 1 & cost <= 2"
+		},
+		{
+			"label": "Asset costed 3 or more",
+			"query": "type = \"asset\" & cost >= 3"
+		},
+		{
+			"label": "Asset costed 4 or more",
+			"query": "type = \"asset\" & cost >= 4"
+		},
+		{
+			"label": "Event costed 1~2",
+			"query": "type = \"event\" & cost >= 1 & cost <= 2"
+		},
+		{
+			"label": "Event costed 3 or more",
+			"query": "type = \"event\" & cost >= 3"
+		},
+		{
+			"label": "Event costed 4 or more",
+			"query": "type = \"event\" & cost >= 4"
+		}
+	]
+}

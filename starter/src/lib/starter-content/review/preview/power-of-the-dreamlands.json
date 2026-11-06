@@ -1,0 +1,35 @@
+{
+	"title": "Power of the Dreamlands",
+	"order": 3,
+	"groups": [
+		{
+			"title": "Announcement",
+			"products": [
+				"potd"
+			],
+			"sources": [
+				{
+					"by": "playing-board-games",
+					"title": "A new expansion was announced for Arkham Horror: The Card Game!",
+					"date": "2026-11-04",
+					"environment": "potd",
+					"media": {
+						"youtube": "IOPtLm0VlGA"
+					},
+					"cards": [
+						{
+							"name": "Celestial Gift",
+							"type": "skill",
+							"class": "mystic"
+						},
+						{
+							"name": "Guiding Light",
+							"type": "skill",
+							"class": "survivor"
+						}
+					]
+				}
+			]
+		}
+	]
+}

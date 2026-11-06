@@ -1,0 +1,16 @@
+{
+	"presets": [
+		{
+			"label": "Use good stats",
+			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\" | text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
+		},
+		{
+			"label": "Investigate assets",
+			"query": "text == \"<b>investigate</b>\" & type = \"asset\""
+		},
+		{
+			"label": "Investigate events",
+			"query": "text == \"<b>investigate</b>\" & type = \"event\""
+		}
+	]
+}

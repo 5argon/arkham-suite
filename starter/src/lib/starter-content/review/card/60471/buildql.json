@@ -1,0 +1,24 @@
+{
+	"presets": [
+		{
+			"label": "Tests [willpower]",
+			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\""
+		},
+		{
+			"label": "Assets with charges or secrets",
+			"query": "text = \"uses charges\" | text = \"uses secrets\""
+		},
+		{
+			"label": "Forces a symbol token",
+			"query": "text = \"until symbol token is revealed\""
+		},
+		{
+			"label": "Resolves a sealed token instead",
+			"query": "text = \"as if it were just revealed\""
+		},
+		{
+			"label": "Reveals more or redraws chaos tokens",
+			"query": "text = \"reveal additional token\" | text = \"reveal chaos tokens instead\" | (text = \"cancel token\" & text = \"reveal\")"
+		}
+	]
+}

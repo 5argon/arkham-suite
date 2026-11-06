@@ -1,4 +1,5 @@
-import { type Card, environment, Product } from '@5argon/arkham-kohaku';
+import { type Card, card as cardUtils, environment, Product } from '@5argon/arkham-kohaku';
+import type { EnvironmentDetail, EnvironmentProduct } from '@5argon/arkham-life-ui';
 import { u as stringUtils } from '@5argon/arkham-string';
 
 import * as m from '$lib/paraglide/messages.js';
@@ -79,6 +80,49 @@ export function releasedPoints(
 	return points.filter((point) => released.has(point.id));
 }
 
+/**
+ * What can be talked about from a point in time: what it has, and what was pushed out before it,
+ * which someone looking back from there still has something to say about. What only came out later
+ * is not included. Undefined for a point that doesn't exist.
+ */
+export function environmentTalkingPool(
+	id: string,
+	catalog: Catalog = officialCurrentEnvironmentCatalog
+): Product[] | undefined {
+	const points = currentEnvironmentVersions(anyRelease, catalog);
+	const index = points.findIndex((point) => point.id === id);
+	if (index < 0) return undefined;
+	return [...new Set(points.slice(0, index + 1).flatMap((point) => point.products))];
+}
+
+/**
+ * What's in a point in time, to explain its slots.
+ *
+ * @param cards Where its investigators come from.
+ * @param hrefOf Where the cards of a product can be seen, when they can.
+ */
+export function environmentPointDetail(
+	point: Point,
+	cards: readonly Card[],
+	hrefOf: (product: Product) => string | undefined,
+	catalog: Catalog = officialCurrentEnvironmentCatalog
+): EnvironmentDetail {
+	const entry = (product: Product): EnvironmentProduct => ({ product, href: hrefOf(product) });
+	return {
+		slots: environment
+			.rotatingExpansionSlots(point.products, catalog)
+			.map((product) => product && entry(product)),
+		defining: point.id === currentEnvironmentEvergreenId ? [] : point.rotatedIn,
+		pushedOut: point.rotatedOut.map(entry),
+		evergreen: point.products.filter((p) => catalog.evergreen.includes(p)).map(entry),
+		roster: point.products.flatMap((product) =>
+			cards
+				.filter((card) => card.product === product)
+				.filter(cardUtils.deckbuildingInvestigatorCardsFilter)
+		)
+	};
+}
+
 export function environmentPointTitle(point: Point): string {
 	return point.id === currentEnvironmentEvergreenId
 		? m.common_evergreen_products()
@@ -108,14 +152,12 @@ export function environmentChoices(
 		},
 		...publishedEnvironmentPoints(asOf, cards, catalog)
 			.filter((point) => point.products.some((p) => !catalog.evergreen.includes(p)))
-			.map(
-				(point): EnvironmentChoice => ({
-					kind: 'current',
-					id: point.id,
-					product: point.rotatedIn[0],
-					products: withoutCore(point.products)
-				})
-			)
+			.map((point): EnvironmentChoice => ({
+				kind: 'current',
+				id: point.id,
+				product: point.rotatedIn[0],
+				products: withoutCore(point.products)
+			}))
 	];
 }
 

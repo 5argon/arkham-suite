@@ -1,0 +1,909 @@
+{
+	"title": "Investigator Decks",
+	"order": 2,
+	"groups": [
+		{
+			"title": "FFG Posts",
+			"products": [
+				"tom",
+				"car",
+				"and",
+				"mar",
+				"mig"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "Ever Investigating",
+					"date": "2026-02-12",
+					"official": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/ever-investigating/"
+					},
+					"cards": [
+						{
+							"code": "60151"
+						},
+						{
+							"code": "60251"
+						},
+						{
+							"code": "60351"
+						},
+						{
+							"code": "60451"
+						},
+						{
+							"code": "60551"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "Arkham Horror: The Card Game – Evergreen Investigators",
+					"date": "2026-02-24",
+					"official": true,
+					"media": {
+						"youtube": "9NDhW6bPStE"
+					},
+					"cards": [
+						{
+							"code": "60162"
+						},
+						{
+							"code": "60182"
+						},
+						{
+							"code": "60259"
+						},
+						{
+							"code": "60279"
+						},
+						{
+							"code": "60280"
+						},
+						{
+							"code": "60281"
+						},
+						{
+							"code": "60359"
+						},
+						{
+							"code": "60374"
+						},
+						{
+							"code": "60384"
+						},
+						{
+							"code": "60462"
+						},
+						{
+							"code": "60469"
+						},
+						{
+							"code": "60467"
+						},
+						{
+							"code": "60477"
+						},
+						{
+							"code": "60483"
+						},
+						{
+							"code": "60563"
+						},
+						{
+							"code": "60556"
+						},
+						{
+							"code": "60561"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Guardian Previews",
+			"products": [
+				"tom"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Guardian Investigator Reveal Week",
+					"date": "2026-02-23",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/guardian-investigator-reveal-week/"
+					},
+					"cards": [
+						{
+							"code": "60154"
+						}
+					]
+				},
+				{
+					"by": "the-whisperer-in-darkness",
+					"title": "Tommy Muldoon Investigator Deck - Spoiler No. 1",
+					"date": "2026-02-23",
+					"media": {
+						"youtube": "_2WYbQ8cJnM"
+					},
+					"cards": [
+						{
+							"code": "60176"
+						}
+					]
+				},
+				{
+					"by": "the-whisperer-in-darkness",
+					"title": "Tommy Muldoon Investigator Deck - Spoiler No. 2",
+					"date": "2026-02-23",
+					"media": {
+						"youtube": "OzjqDK8GF8U"
+					},
+					"cards": [
+						{
+							"code": "60175"
+						}
+					]
+				},
+				{
+					"by": "the-whisperer-in-darkness",
+					"title": "Tommy Muldoon Investigator Deck - Spoiler No. 3",
+					"date": "2026-02-23",
+					"media": {
+						"youtube": "0fwQGSP0aaA"
+					},
+					"cards": [
+						{
+							"code": "60180"
+						}
+					]
+				},
+				{
+					"by": "the-whisperer-in-darkness",
+					"title": "Tommy Muldoon Investigator Deck - Spoiler No. 4",
+					"date": "2026-02-23",
+					"media": {
+						"youtube": "JkBCL07w9R0"
+					},
+					"cards": [
+						{
+							"code": "60173"
+						}
+					]
+				},
+				{
+					"by": "valentin1331",
+					"title": "Guardian preview in a deck guide",
+					"date": "2026-02-24",
+					"media": {
+						"url": "https://arkham.build/share/n8YGroV5GfCjtX1"
+					},
+					"cards": [
+						{
+							"code": "60156"
+						},
+						{
+							"code": "60170"
+						},
+						{
+							"code": "60164"
+						},
+						{
+							"code": "60174"
+						},
+						{
+							"code": "60161"
+						}
+					]
+				},
+				{
+					"by": "arkham-horror-memes",
+					"title": "Guardian preview post",
+					"date": "2026-02-25",
+					"media": {
+						"url": "https://www.instagram.com/arkhamhorrormemes"
+					},
+					"cards": [
+						{
+							"code": "60160"
+						},
+						{
+							"code": "60167"
+						},
+						{
+							"code": "60168"
+						},
+						{
+							"code": "12019"
+						},
+						{
+							"code": "60171"
+						}
+					]
+				},
+				{
+					"by": "quick-learner",
+					"title": "Four New Cards From The New Tommy Muldoon Deck! (Arkham Horror Previews)",
+					"date": "2026-02-26",
+					"media": {
+						"youtube": "HqvPPCPV22g"
+					},
+					"cards": [
+						{
+							"code": "60159",
+							"start": "0:57"
+						},
+						{
+							"code": "60181",
+							"start": "0:57"
+						},
+						{
+							"code": "60178",
+							"start": "6:01"
+						},
+						{
+							"code": "60157",
+							"start": "13:26"
+						},
+						{
+							"code": "60177",
+							"start": "17:00"
+						}
+					]
+				},
+				{
+					"by": "los-archivos-de-arkham",
+					"title": "Guardian preview stream",
+					"date": "2026-02-27",
+					"language": "es",
+					"media": {
+						"twitch": "2709404253"
+					},
+					"cards": [
+						{
+							"code": "60165"
+						},
+						{
+							"code": "60166"
+						},
+						{
+							"code": "60179"
+						},
+						{
+							"code": "60172"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Seeker Previews",
+			"products": [
+				"car"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Seeker Investigator Reveal Week",
+					"date": "2026-03-02",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/seeker-investigator-reveal-week/"
+					},
+					"cards": [
+						{
+							"code": "60254"
+						}
+					]
+				},
+				{
+					"by": "little-geek",
+					"title": "Обзор новых сыщиков \"Arkham Horror The Card Game\" | Spoiler season",
+					"date": "2026-03-02",
+					"language": "ru",
+					"media": {
+						"youtube": "AnI8TBrZnX8"
+					},
+					"cards": [
+						{
+							"code": "60260"
+						},
+						{
+							"code": "60263"
+						},
+						{
+							"code": "60261"
+						},
+						{
+							"code": "60273"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Arkham Sealed",
+						"url": "https://www.arkhamsealed.com"
+					},
+					"title": "Seeker card preview",
+					"date": "2026-03-03",
+					"media": {
+						"url": "https://www.arkhamsealed.com/card-preview"
+					},
+					"cards": []
+				},
+				{
+					"by": "horreur-a-arkham",
+					"title": "[News] Preview officielle de 4 cartes du deck Carolyn Fern [Horreur à Arkham JCE]",
+					"date": "2026-03-04",
+					"language": "fr",
+					"media": {
+						"youtube": "MrdsafUmIvw"
+					},
+					"cards": [
+						{
+							"code": "60270"
+						},
+						{
+							"code": "60268"
+						},
+						{
+							"code": "60266"
+						},
+						{
+							"code": "60269"
+						}
+					]
+				},
+				{
+					"by": "faza-mitow",
+					"title": "Odcinek specjalny - Odsłona nowych kart do nowej talii podstawowej poszukiwacza Horroru w Arkham LCG",
+					"date": "2026-03-05",
+					"language": "pl",
+					"media": {
+						"youtube": "YoEifAUB0-I"
+					},
+					"cards": [
+						{
+							"code": "60276"
+						},
+						{
+							"code": "60282"
+						},
+						{
+							"code": "60277"
+						},
+						{
+							"code": "60272"
+						}
+					]
+				},
+				{
+					"by": "ancient-evils",
+					"title": "Revealing 4.5 Cards from the Carolyn Fern Investigator Deck",
+					"date": "2026-03-06",
+					"media": {
+						"url": "https://derbk.com/ancientevils/revealing-4-5-cards-from-the-carolyn-fern-investigator-deck/"
+					},
+					"cards": [
+						{
+							"code": "12039"
+						},
+						{
+							"code": "60275"
+						},
+						{
+							"code": "60265"
+						},
+						{
+							"code": "60256"
+						},
+						{
+							"code": "60274"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Rogue Previews",
+			"products": [
+				"and"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Rogue Investigator Reveal Week",
+					"date": "2026-03-09",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/rogue-investigator-reveal-week/"
+					},
+					"cards": [
+						{
+							"code": "60356"
+						}
+					]
+				},
+				{
+					"by": "the-restricted-collection",
+					"title": "AH.075 - Spoiling Rogue Cards!",
+					"date": "2026-03-09",
+					"media": {
+						"url": "https://therestrictedcollection.podbean.com/e/ah075-spoiling-rogue-cards/",
+						"as": "audio"
+					},
+					"cards": [
+						{
+							"code": "60358"
+						},
+						{
+							"code": "60360"
+						},
+						{
+							"code": "60369"
+						},
+						{
+							"code": "60383"
+						}
+					]
+				},
+				{
+					"by": "mythos-busters",
+					"title": "Rogue preview stream",
+					"date": "2026-03-10",
+					"media": {
+						"twitch": "2719274023"
+					},
+					"cards": [
+						{
+							"code": "60361"
+						},
+						{
+							"code": "60372"
+						},
+						{
+							"code": "60366"
+						},
+						{
+							"code": "60377"
+						}
+					]
+				},
+				{
+					"by": "until-the-end-of-time",
+					"title": "Voice of the Messenger: Revealing four cards from the André Patel deck with Will.i.Game",
+					"date": "2026-03-11",
+					"media": {
+						"youtube": "HSIY-zqL-wU"
+					},
+					"cards": [
+						{
+							"code": "60364"
+						},
+						{
+							"code": "60376"
+						},
+						{
+							"code": "60375"
+						},
+						{
+							"code": "60365"
+						}
+					]
+				},
+				{
+					"by": "until-the-end-of-time",
+					"title": "Voice of the Messenger: Revealing four cards from the André Patel deck with Will.i.Game (Part 2)",
+					"date": "2026-03-11",
+					"media": {
+						"youtube": "Jb6eP2E3Mqw"
+					},
+					"cards": [
+						{
+							"code": "60364"
+						},
+						{
+							"code": "60376"
+						},
+						{
+							"code": "60375"
+						},
+						{
+							"code": "60365"
+						}
+					]
+				},
+				{
+					"by": "until-the-end-of-time",
+					"title": "Card of the day on the Mythos Busters Discord",
+					"date": "2026-03-11",
+					"media": {
+						"discord": true
+					},
+					"cards": []
+				},
+				{
+					"by": "arkham-horror-lcg-ru",
+					"title": "Анонс карт одиночных сыщиков",
+					"date": "2026-03-12",
+					"language": "ru",
+					"media": {
+						"youtube": "nUXATf_aIrI"
+					},
+					"cards": [
+						{
+							"code": "60367"
+						},
+						{
+							"code": "60378"
+						},
+						{
+							"code": "60370"
+						},
+						{
+							"code": "60373"
+						}
+					]
+				},
+				{
+					"by": "playing-board-games",
+					"title": "We have four Rogue cards to reveal for all of you today! (ARKHAM HORROR: THE CARD GAME)",
+					"date": "2026-03-13",
+					"media": {
+						"youtube": "mxqin0sXCYU"
+					},
+					"cards": [
+						{
+							"code": "60371",
+							"start": "4:27"
+						},
+						{
+							"code": "60380",
+							"start": "0:24"
+						},
+						{
+							"code": "60381",
+							"start": "6:17"
+						},
+						{
+							"code": "60379",
+							"start": "8:46"
+						}
+					]
+				},
+				{
+					"by": "los-archivos-de-arkham",
+					"title": "Rogue preview stream",
+					"date": "2026-03-14",
+					"language": "es",
+					"media": {
+						"twitch": "2722199275"
+					},
+					"cards": [
+						{
+							"code": "60368"
+						},
+						{
+							"code": "60382"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Mystic Previews",
+			"products": [
+				"mar"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Mystic Investigator Reveal Week",
+					"date": "2026-03-16",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/mystic-investigator-reveal-week/"
+					},
+					"cards": [
+						{
+							"code": "60454"
+						}
+					]
+				},
+				{
+					"by": "arkham-build",
+					"title": "Investigator Decks card reveal",
+					"date": "2026-03-16",
+					"media": {
+						"url": "https://arkham.build/blog/investigator-2026-reveal"
+					},
+					"cards": [
+						{
+							"code": "60455"
+						},
+						{
+							"code": "60456"
+						},
+						{
+							"code": "60457"
+						},
+						{
+							"code": "60468"
+						}
+					]
+				},
+				{
+					"by": "amber-autumn-faebrooke",
+					"title": "watch my mystic card reveals from the marie deck or else",
+					"date": "2026-03-17",
+					"media": {
+						"youtube": "cmgiebC3dXI"
+					},
+					"cards": [
+						{
+							"code": "60458"
+						},
+						{
+							"code": "12062"
+						},
+						{
+							"code": "60481"
+						},
+						{
+							"code": "60482"
+						}
+					]
+				},
+				{
+					"by": "northern-lights-over-arkham",
+					"title": "Arkham Horror LCG Marie Lambeau Reveals Four New Cards From Her Starter Deck!",
+					"date": "2026-03-18",
+					"media": {
+						"youtube": "Be0vks6qtOg"
+					},
+					"cards": [
+						{
+							"code": "60465"
+						},
+						{
+							"code": "60463"
+						},
+						{
+							"code": "60479"
+						},
+						{
+							"code": "60480"
+						}
+					]
+				},
+				{
+					"by": "discipulos-de-armitage",
+					"title": "¡EXCLUSIVA! Arkham Horror LCG: 4 nuevas cartas de Místico que vendrán con Marie Lambeau.",
+					"date": "2026-03-19",
+					"language": "es",
+					"media": {
+						"youtube": "pCotKpc2tOw"
+					},
+					"cards": [
+						{
+							"code": "60471"
+						},
+						{
+							"code": "60470"
+						},
+						{
+							"code": "60472"
+						},
+						{
+							"code": "60473"
+						}
+					]
+				},
+				{
+					"guest": {
+						"name": "Tantrum House",
+						"url": "https://www.youtube.com/@TantrumHouse"
+					},
+					"title": "NEW Arkham Horror cards coming soon! #arkhamhorror",
+					"date": "2026-03-20",
+					"media": {
+						"youtube": "UGiof4KEUYE"
+					},
+					"cards": [
+						{
+							"code": "60476"
+						},
+						{
+							"code": "60475"
+						},
+						{
+							"code": "60474"
+						},
+						{
+							"code": "60478"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Survivor Previews",
+			"products": [
+				"mig"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "ArkhamHorror.com"
+					},
+					"title": "Survivor Investigator Reveal Week",
+					"date": "2026-03-23",
+					"official": true,
+					"media": {
+						"url": "https://www.arkhamhorror.com/news/survivor-investigator-reveal-week/"
+					},
+					"cards": [
+						{
+							"code": "60554"
+						}
+					]
+				},
+				{
+					"by": "rolling-dice-and-taking-names",
+					"title": "Survivor card reveals - Arkham Horror Card Game",
+					"date": "2026-03-23",
+					"media": {
+						"youtube": "6knXO59Oans"
+					},
+					"cards": [
+						{
+							"code": "60577"
+						},
+						{
+							"code": "60562"
+						},
+						{
+							"code": "60567"
+						},
+						{
+							"code": "60578"
+						}
+					]
+				},
+				{
+					"by": "tatort-arkham",
+					"title": "Vier Karten aus dem Miguel de la Cruz Ermittlerdeck (Karten-Premiere | Evergreen Deck Preview)",
+					"date": "2026-03-24",
+					"language": "de",
+					"media": {
+						"youtube": "epioD7tnjoo"
+					},
+					"cards": [
+						{
+							"code": "60568"
+						},
+						{
+							"code": "60569"
+						},
+						{
+							"code": "60571"
+						},
+						{
+							"code": "60570"
+						}
+					]
+				},
+				{
+					"by": "the-barnaby-files",
+					"title": "Starting Survivors Strong: Previewing four NEW cards from the Arkham Horror Evergreen Survivor pack",
+					"date": "2026-03-25",
+					"media": {
+						"url": "https://barnabyfiles.wordpress.com/2026/03/25/starting-survivors-strong-previewing-four-new-cards-from-the-arkham-horror-evergreen-survivor-pack/"
+					},
+					"cards": [
+						{
+							"code": "60572"
+						},
+						{
+							"code": "60573"
+						},
+						{
+							"code": "60574"
+						},
+						{
+							"code": "60575"
+						}
+					]
+				},
+				{
+					"by": "tengo-un-plan",
+					"title": "Survivor preview on X",
+					"date": "2026-03-26",
+					"language": "es",
+					"media": {
+						"url": "https://x.com/tengounplanah/status/2037122392573829313"
+					},
+					"cards": []
+				},
+				{
+					"by": "tengo-un-plan",
+					"title": "Survivor preview on Instagram",
+					"date": "2026-03-26",
+					"language": "es",
+					"media": {
+						"url": "https://www.instagram.com/p/DWWa6L1jKj3/"
+					},
+					"cards": []
+				},
+				{
+					"by": "tengo-un-plan",
+					"title": "Survivor preview on their Discord server",
+					"date": "2026-03-26",
+					"language": "es",
+					"media": {
+						"discord": true
+					},
+					"cards": []
+				},
+				{
+					"by": "tengo-un-plan",
+					"title": "Loner: the best Survivor movement card to date",
+					"date": "2026-03-26",
+					"language": "es",
+					"media": {
+						"url": "https://ko-fi.com/post/Loner-the-best-Survivor-movement-card-to-date-T6T21WNLFL"
+					},
+					"cards": [
+						{
+							"code": "60557"
+						}
+					]
+				},
+				{
+					"by": "drawn-to-the-flame",
+					"title": "Episode 371: Visions of Futures Past XXX",
+					"date": "2026-03-27",
+					"media": {
+						"url": "https://drawntotheflame.podbean.com/e/episode-371-visions-of-futures-past-xxx/",
+						"as": "audio"
+					},
+					"cards": [
+						{
+							"code": "60580"
+						},
+						{
+							"code": "60559"
+						},
+						{
+							"code": "60560"
+						},
+						{
+							"code": "60579"
+						},
+						{
+							"code": "60582"
+						},
+						{
+							"code": "60581"
+						}
+					]
+				}
+			]
+		}
+	]
+}

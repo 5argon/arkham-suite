@@ -1,0 +1,24 @@
+{
+	"presets": [
+		{
+			"label": "Fight cards",
+			"query": "text == \"<b>fight\""
+		},
+		{
+			"label": "Evade cards",
+			"query": "text == \"<b>evade\""
+		},
+		{
+			"label": "Fight with [agility]",
+			"query": "text = \"<b>fight</b> [agility]\""
+		},
+		{
+			"label": "Evade with [combat]",
+			"query": "text = \"<b>evade</b> [combat]\""
+		},
+		{
+			"label": "Fight / Evade without [combat] or [agility]",
+			"query": "(text == \"<b>fight\" | text == \"<b>evade\") & text != \"<b>fight</b> [combat]\" & text != \"<b>fight</b> [agility]\" & text != \"<b>evade</b> [combat]\" & text != \"<b>evade</b> [agility]\""
+		}
+	]
+}

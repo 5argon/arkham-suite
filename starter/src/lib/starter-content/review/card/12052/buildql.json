@@ -1,0 +1,20 @@
+{
+	"presets": [
+		{
+			"label": "[[Item]] with uses",
+			"query": "tr = \"item\" & text == \"uses (\""
+		},
+		{
+			"label": "[[Item]] that spends uses without exhausting",
+			"query": "tr = \"item\" & text == \"uses (\" & text == \"spend\" & text !== \"and exhaust\" & text != \"exhaust and spend\""
+		},
+		{
+			"label": "[[Item]] costed 2 or more",
+			"query": "tr = \"item\" & cost >= 2"
+		},
+		{
+			"label": "[[Item]] costed exactly 2",
+			"query": "tr = \"item\" & cost = 2"
+		}
+	]
+}

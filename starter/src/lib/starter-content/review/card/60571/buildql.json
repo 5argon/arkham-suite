@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "[[Ally]] with 2+ health",
+			"query": "tr = \"ally\" & health >= 2"
+		},
+		{
+			"label": "Attack that rewards its own defeat",
+			"query": "text = \"this attack defeats an enemy\""
+		}
+	]
+}

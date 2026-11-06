@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Lv. 0~3 [[Relic]] or [[Charm]] asset you can't take yet",
+			"query": "(tr = \"relic\" | tr = \"charm\") & type = \"asset\" & xp >= 0 & xp <= 3 & ia != \"{ia}\""
+		}
+	]
+}

@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Benefits from taking damage",
+			"query": "text == \"[reaction] after you take damage\" | text == \"takes 1 or more damage\" | text = \"damage is placed on\""
+		}
+	]
+}

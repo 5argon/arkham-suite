@@ -1,0 +1,16 @@
+{
+	"presets": [
+		{
+			"label": "[[Spell]] or [[Charm]] asset",
+			"query": "(tr = \"spell\" | tr = \"charm\") & type = \"asset\""
+		},
+		{
+			"label": "[[Charm]] asset",
+			"query": "tr = \"charm\" & type = \"asset\""
+		},
+		{
+			"label": "Lv. 1~5 [[Spell]] or [[Charm]] asset",
+			"query": "(tr = \"spell\" | tr = \"charm\") & type = \"asset\" & xp >= 1 & xp <= 5"
+		}
+	]
+}
