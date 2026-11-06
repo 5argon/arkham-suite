@@ -27,6 +27,7 @@ import {
 const tagsBySeries = {
 	'ch2-combo-cult': 'starter beginner hc-ch2-combo-cult',
 	'ch2-core-only': 'starter beginner hc-ch2-core-only',
+	'four-good-decks': 'starter beginner quick-learner-four-good-decks',
 	'ch2-quickie': 'starter beginner hc-ch2-quickie',
 	'ch2-starter-guide': 'starter beginner hc-ch2-starter-guide',
 	'ch2-starters-revisited': 'starter beginner hc-ch2-starters-revisited',
@@ -96,7 +97,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(76);
+		expect(versions).toHaveLength(80);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
@@ -108,7 +109,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(642);
+		expect(members).toHaveLength(646);
 		for (const { team, deck, source } of members) {
 			const series = source?.series.slug as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();
@@ -342,6 +343,7 @@ describe('pre-built team tags', () => {
 		return anyPair ? [] : ['Non-Adjacent Core'];
 	}
 
+	// A series with only one team has no tag for it.
 	it('tags every team with its series, Core Set and Investigator Deck mix, and core adjacency', () => {
 		for (const team of allPrebuiltTeams()) {
 			const series = Object.entries(seriesTags).find(([prefix]) => team.slug.startsWith(prefix));
@@ -349,7 +351,7 @@ describe('pre-built team tags', () => {
 				(member) => resolver.resolve(member.deck.investigator_code).product === Product.CoreSet2026
 			).length;
 			expect(team.tags, team.slug).toEqual([
-				series?.[1],
+				...(series ? [series[1]] : []),
 				`${core}C+${team.members.length - core}ID`,
 				...adjacencyTag(team)
 			]);
@@ -420,6 +422,39 @@ describe('Cross Series pre-built teams', () => {
 				}
 			}
 		}
+	});
+});
+
+describe('Quick Learner', () => {
+	const resolver = new CardResolver(getAllCards());
+	const tabooLists = loadAllTabooLists();
+	const series = starterSeries('quick-learner', 'four-good-decks')!;
+	const teams = prebuiltTeamsOf('quick-learner');
+
+	it('has one 4 player team, with no copy of any card over the Core Set', () => {
+		expect(teams.map((team) => team.members.length)).toEqual([4]);
+		const decks = series.entries.map((entry) =>
+			linkedAhdbDeckToDeck({ deck: entry.primary }, resolver, tabooLists)
+		);
+		expect(deckUtility.findDeckOverlaps(decks).map((overlap) => overlap.card.name)).toEqual([]);
+	});
+
+	it('only offers the 0 XP decks shared in the video', () => {
+		for (const entry of series.entries) {
+			expect(
+				entry.versions.map((version) => version.breakpoint),
+				entry.slug
+			).toEqual([0]);
+			expect(entry.upgradePlan, entry.slug).toBeUndefined();
+		}
+	});
+
+	it('credits the video on every deck guide and the team guide', () => {
+		const guides = [
+			...series.entries.map((entry) => entry.primary.description_md ?? ''),
+			teams[0].guideMd
+		];
+		for (const guide of guides) expect(guide).toContain(series.sourceUrl);
 	});
 });
 

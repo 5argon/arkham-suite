@@ -1,0 +1,40 @@
+{
+	"slug": "quick-learner-no-isabelle-4p-daniela-joe-trish-dexter",
+	"name": "Quick Learner No Isabelle - 4P : Daniela, Joe, Trish, Dexter",
+	"authorSlug": "quick-learner",
+	"description": "I recently ran through the new core with a four-player group... and fixed up the preconstructed decks to something much more playable! Here's my recommendations if you have a full set of players and you've just picked up the core set box!",
+	"tags": [
+		"4C+0ID",
+		"Adjacent Core"
+	],
+	"decks": [
+		{
+			"source": {
+				"author": "quick-learner",
+				"series": "four-good-decks",
+				"slug": "daniela-reyes-core-2026"
+			}
+		},
+		{
+			"source": {
+				"author": "quick-learner",
+				"series": "four-good-decks",
+				"slug": "joe-diamond-core-2026"
+			}
+		},
+		{
+			"source": {
+				"author": "quick-learner",
+				"series": "four-good-decks",
+				"slug": "trish-scarborough-core-2026"
+			}
+		},
+		{
+			"source": {
+				"author": "quick-learner",
+				"series": "four-good-decks",
+				"slug": "dexter-drake-core-2026"
+			}
+		}
+	]
+}

@@ -25,7 +25,11 @@
 		starterDeckHref,
 		toCore2026Code
 	} from '$lib/starter-content';
-	import { deckForExport, starterDeckDescription, starterDeckJsonLd } from '$lib/starter-content/seo';
+	import {
+		deckForExport,
+		starterDeckDescription,
+		starterDeckJsonLd
+	} from '$lib/starter-content/seo';
 	import { protoStringRestore } from '$lib/tool/script/export/proto-string-restore';
 	import { starterTeam } from '$lib/tool/starter/team-cart.svelte';
 
@@ -97,7 +101,7 @@
 <OpenGraph
 	description={starterDeckDescription(entry)}
 	image={entry.bannerUrl ?? 'image/resource/starter.webp'}
-	title={m.starter_decks_deck_title({ deck: entry.primary.name, author: author.name })}
+	title={m.starter_decks_deck_title({ deck: entry.primary.name })}
 	url={starterDeckHref(entry)}
 	canonical
 	author={author.name}
@@ -111,7 +115,7 @@
 		<p class="text-primary-800 dark:text-primary-200 text-center text-sm">
 			<a
 				class="inline-flex items-center gap-1.5 align-middle font-semibold hover:underline"
-				href={resolve('/starter/[author]', { author: author.slug })}
+				href={resolve('/member/[author]', { author: author.slug })}
 			>
 				{#if author.avatarCard}
 					<CardCircle card={author.avatarCard} />
@@ -154,9 +158,17 @@
 		</div>
 	</div>
 	<p class="text-primary-700 dark:text-primary-300 mb-4 text-center text-sm">
-		{author.siteOwner
-			? m.starter_decks_arkhamdb_note_own()
-			: m.starter_decks_arkhamdb_note({ author: author.name })}
+		{#if entry.series.sourceUrl}
+			{m.starter_decks_source_note_before({ author: author.name })}
+			<a class="underline" href={entry.series.sourceUrl} rel="noopener" target="_blank"
+				>{m.starter_decks_source_note_link()}</a
+			>,
+			{m.starter_decks_source_note_after()}
+		{:else if author.siteOwner}
+			{m.starter_decks_arkhamdb_note_own()}
+		{:else}
+			{m.starter_decks_arkhamdb_note({ author: author.name })}
+		{/if}
 	</p>
 </MarginText>
 

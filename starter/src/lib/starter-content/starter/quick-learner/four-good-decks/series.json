@@ -1,0 +1,50 @@
+{
+	"slug": "four-good-decks",
+	"order": 1,
+	"name": "Four Good Decks with Just the Core",
+	"description": "I recently ran through the new core with a four-player group... and fixed up the preconstructed decks to something much more playable! Here's my recommendations if you have a full set of players and you've just picked up the core set box!",
+	"iconCardCode": "12002",
+	"sourceUrl": "https://www.youtube.com/watch?v=Pu0g5BBXvYk",
+	"decks": [
+		{
+			"id": "fmg0mmSfFrdNpoB",
+			"slug": "daniela-reyes-core-2026",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "fmg0mmSfFrdNpoB.json"
+				}
+			]
+		},
+		{
+			"id": "Hxf0EnE9F1Jw9iL",
+			"slug": "joe-diamond-core-2026",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "Hxf0EnE9F1Jw9iL.json"
+				}
+			]
+		},
+		{
+			"id": "efRfWCH9nwyGdtj",
+			"slug": "trish-scarborough-core-2026",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "efRfWCH9nwyGdtj.json"
+				}
+			]
+		},
+		{
+			"id": "Gsfe6NPD6pePDvf",
+			"slug": "dexter-drake-core-2026",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "Gsfe6NPD6pePDvf.json"
+				}
+			]
+		}
+	]
+}

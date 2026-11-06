@@ -79,6 +79,8 @@ describe('starter deck rules', () => {
 
 	it(`executes its main idea within ${MAX_REQUIRED_XP} XP`, () => {
 		for (const entry of entries) {
+			// A deck shared with no upgrades has no main idea left to reach.
+			if (entry.versions.length === 1) continue;
 			// Builds past this point are allowed, for nice-to-have cards.
 			const upgraded = entry.versions.filter(
 				({ breakpoint }) => breakpoint > 0 && breakpoint <= MAX_REQUIRED_XP
@@ -90,7 +92,9 @@ describe('starter deck rules', () => {
 	it('spends no more XP than each build says', () => {
 		for (const entry of entries) {
 			for (const { breakpoint, deck } of entry.versions) {
-				const xp = deckUtility.calculateDeckXp(linkedAhdbDeckToDeck({ deck }, resolver, tabooLists));
+				const xp = deckUtility.calculateDeckXp(
+					linkedAhdbDeckToDeck({ deck }, resolver, tabooLists)
+				);
 				expect(xp, `${nameOf(entry)} at ${breakpoint}`).toBeLessThanOrEqual(breakpoint);
 			}
 		}
