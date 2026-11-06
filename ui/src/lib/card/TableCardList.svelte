@@ -29,6 +29,10 @@
 		 */
 		onClick?: (card: Card, item: CardItem) => void;
 		/**
+		 * Makes each row a link, instead of something to click on.
+		 */
+		cardHref?: (item: CardItem) => string;
+		/**
 		 * If true, do not render quantity counters
 		 */
 		hideQuantity?: boolean;
@@ -52,6 +56,7 @@
 		afterRenders,
 		groups,
 		onClick,
+		cardHref,
 		hideQuantity,
 		hideCardTypeIcon,
 		meta,
@@ -61,6 +66,18 @@
 </script>
 
 <div class:overflow-x-auto={cardLineOverflow}>
+	<!-- A table row can't be a link, so each cell is, with only the card line taking keyboard focus. -->
+	{#snippet linked(item: CardItem, focusable: boolean, content: Snippet)}
+		{#if cardHref}
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+			<a class="block" href={cardHref(item)} tabindex={focusable ? undefined : -1}>
+				{@render content()}
+			</a>
+		{:else}
+			{@render content()}
+		{/if}
+	{/snippet}
+
 	{#snippet renderGroup(
 		group: RecursivelyGroupedCardItem,
 		layer: number,
@@ -93,7 +110,7 @@
 								}
 							}
 						: undefined}
-					class={onClick ? 'hover:bg-primary-500/10 cursor-pointer transition-colors' : ''}
+					class={onClick || cardHref ? 'hover:bg-primary-500/10 cursor-pointer transition-colors' : ''}
 				>
 					{#if beforeRenders}
 						{#each beforeRenders as render, i (i)}
@@ -103,20 +120,26 @@
 						{/each}
 					{/if}
 					<td>
-						<CardLine
-							card={item.card}
-							quantity={item.quantity}
-							quantityColor={item.quantityColor}
-							greyedOutQuantity={item.greyedOutQuantity}
-							{hideCardTypeIcon}
-							{hideQuantity}
-							{meta}
-						/>
+						{#snippet line()}
+							<CardLine
+								card={item.card}
+								quantity={item.quantity}
+								quantityColor={item.quantityColor}
+								greyedOutQuantity={item.greyedOutQuantity}
+								{hideCardTypeIcon}
+								{hideQuantity}
+								{meta}
+							/>
+						{/snippet}
+						{@render linked(item, true, line)}
 					</td>
 					{#if afterRenders}
 						{#each afterRenders as render, i (i)}
 							<td class="pl-2" class:sticky-right={cardLineOverflow}>
-								{@render render(item)}
+								{#snippet after()}
+									{@render render(item)}
+								{/snippet}
+								{@render linked(item, false, after)}
 							</td>
 						{/each}
 					{/if}

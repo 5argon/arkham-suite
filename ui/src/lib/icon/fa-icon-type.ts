@@ -96,5 +96,13 @@ export enum FaIconType {
 	Map,
 
 	Randomize,
-	Magnify
+	Magnify,
+
+	// What a piece of content about a card is
+	Video,
+	Audio,
+	Article,
+	Written,
+	Clock,
+	Calendar
 }

@@ -11,7 +11,7 @@ layers as a rounded square, for icons that should read as a thing rather than a 
 	import clsx from 'clsx';
 
 	interface Prop {
-		card: Card;
+		card: Pick<Card, 'code' | 'name' | 'cardClass'>;
 		greyedOut?: boolean;
 		/**
 		 * Default `circle`.

@@ -8,6 +8,7 @@ Fixed size vertical card designed to be in a flex.
 	import { card as cardUtility } from '@5argon/arkham-kohaku';
 	import { getCardColorClass } from './coloring.js';
 	import clsx from 'clsx';
+	import type { Snippet } from 'svelte';
 	import LevelPips from './LevelPips.svelte';
 	import CardSetInfo from './CardSetInfo.svelte';
 	import CardStrip from './CardStrip.svelte';
@@ -56,6 +57,11 @@ Fixed size vertical card designed to be in a flex.
 		 * If true, always show 1 quantity (ignore the quantity prop)
 		 */
 		hideQuantity?: boolean;
+
+		/**
+		 * Below everything else under the card. Needs `showCardName`.
+		 */
+		footer?: Snippet;
 	}
 
 	const {
@@ -69,7 +75,8 @@ Fixed size vertical card designed to be in a flex.
 		owner,
 		labels,
 		metaDisplay,
-		hideQuantity
+		hideQuantity,
+		footer
 	}: Prop = $props();
 	const fullSmallImagePath = $derived(getCardImagePath(card.code, 'full-small', languageCode));
 	const backSmallImagePath = $derived(getCardBackImagePath(card, 'full-small', languageCode));
@@ -217,6 +224,7 @@ Fixed size vertical card designed to be in a flex.
 					{/if}
 				</span>
 			{/if}
+			{@render footer?.()}
 		</div>
 	{/if}
 </div>

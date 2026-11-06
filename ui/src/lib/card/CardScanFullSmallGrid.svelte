@@ -11,6 +11,7 @@ CSS flex of vertical cards, with optional grouping.
 	import { noMoreGroup, getCardItemKey } from './card-item.js';
 	import type { Card } from '@5argon/arkham-kohaku';
 	import { BorderedContainer } from '../container/index.js';
+	import type { Snippet } from 'svelte';
 	import { SvelteMap } from 'svelte/reactivity';
 
 	interface Prop {
@@ -21,11 +22,20 @@ CSS flex of vertical cards, with optional grouping.
 		 */
 		showCardName?: boolean;
 		onClick?: (card: Card, item: CardItem) => void;
+		/**
+		 * Makes each card a link, instead of something to click on.
+		 */
+		cardHref?: (item: CardItem) => string;
+		/**
+		 * Shown under each card's name.
+		 */
+		cardFooter?: Snippet<[CardItem]>;
 		languageCode?: string;
 		hideQuantity?: boolean;
 	}
 
-	const { groups, showCardName, onClick, languageCode, hideQuantity }: Prop = $props();
+	const { groups, showCardName, onClick, cardHref, cardFooter, languageCode, hideQuantity }: Prop =
+		$props();
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
 
@@ -88,32 +98,52 @@ CSS flex of vertical cards, with optional grouping.
 	}
 </script>
 
+{#snippet cardScan(item: CardItem)}
+	{#snippet footer()}
+		{@render cardFooter?.(item)}
+	{/snippet}
+	<CardScanFullSmall
+		card={item.card}
+		{showCardName}
+		quantity={item.quantity}
+		{maxQuantity}
+		greyedOutQuantity={item.greyedOutQuantity}
+		owner={item.owner}
+		labels={item.labels}
+		metaDisplay={item.metaDisplay}
+		{hideQuantity}
+		footer={cardFooter ? footer : undefined}
+	/>
+{/snippet}
+
 {#snippet cardRender(item: CardItem, animIndex: number)}
-	<div
-		role="button"
-		in:fade={{ duration: 80, delay: animIndex * 20 }}
-		tabindex="0"
-		onclick={() => handleCardClick(item.card, item)}
-		onkeydown={(e) => {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				handleCardClick(item.card, item);
-			}
-		}}
-		class="cursor-pointer transition-all hover:brightness-110"
-	>
-		<CardScanFullSmall
-			card={item.card}
-			{showCardName}
-			quantity={item.quantity}
-			{maxQuantity}
-			greyedOutQuantity={item.greyedOutQuantity}
-			owner={item.owner}
-			labels={item.labels}
-			metaDisplay={item.metaDisplay}
-			{hideQuantity}
-		/>
-	</div>
+	{#if cardHref}
+		<!-- eslint-disable svelte/no-navigation-without-resolve -->
+		<a
+			in:fade={{ duration: 80, delay: animIndex * 20 }}
+			href={cardHref(item)}
+			class="block cursor-pointer transition-all hover:brightness-110"
+		>
+			{@render cardScan(item)}
+		</a>
+		<!-- eslint-enable svelte/no-navigation-without-resolve -->
+	{:else}
+		<div
+			role="button"
+			in:fade={{ duration: 80, delay: animIndex * 20 }}
+			tabindex="0"
+			onclick={() => handleCardClick(item.card, item)}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					handleCardClick(item.card, item);
+				}
+			}}
+			class="cursor-pointer transition-all hover:brightness-110"
+		>
+			{@render cardScan(item)}
+		</div>
+	{/if}
 {/snippet}
 
 {#snippet renderNestedGroupsAndCards(group: RecursivelyGroupedCardItem, layer: number)}

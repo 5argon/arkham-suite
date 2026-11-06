@@ -24,6 +24,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 	import * as m from '../paraglide/messages.js';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import FormRow from '../form/FormRow.svelte';
+	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
 
 	interface Prop {
@@ -54,6 +55,14 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		 * Use this to mirror state to the URL, storage, or analytics.
 		 */
 		onSettingsApply?: (settings: GroupingSortingSettings) => void;
+		/**
+		 * Makes each card a link instead of magnifying it, except in checklist mode.
+		 */
+		cardHref?: (item: CardItem) => string;
+		/**
+		 * Shown with each card, in every view.
+		 */
+		cardFooter?: Snippet<[CardItem]>;
 	}
 
 	const {
@@ -65,7 +74,9 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		hideQuantity = false,
 		defaultViewMode = 'scans',
 		hideIconsView = false,
-		onSettingsApply
+		onSettingsApply,
+		cardHref,
+		cardFooter
 	}: Prop = $props();
 
 	type DisplayMode = 'icons' | 'scans' | 'list';
@@ -216,6 +227,8 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				groups={displayGroups}
 				{languageCode}
 				onClick={checklistMode ? handleIconsOrListClick : undefined}
+				cardHref={checklistMode ? undefined : cardHref}
+				{cardFooter}
 			/>
 		</div>
 	{:else if displayMode === 'scans'}
@@ -224,6 +237,8 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				groups={displayGroups}
 				{languageCode}
 				onClick={checklistMode ? handleScansClick : undefined}
+				cardHref={checklistMode ? undefined : cardHref}
+				{cardFooter}
 				showCardName
 				{hideQuantity}
 			/>
@@ -234,6 +249,8 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				groups={displayGroups}
 				{languageCode}
 				onClick={checklistMode ? handleIconsOrListClick : undefined}
+				cardHref={checklistMode ? undefined : cardHref}
+				{cardFooter}
 				{hideQuantity}
 			/>
 		</div>

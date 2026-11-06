@@ -18,12 +18,14 @@ Clicking the overlay or pressing Escape closes the modal.
 
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape' && isShowing) {
+			// Before it reaches a modal this one was opened from, which should stay open.
+			event.stopPropagation();
 			onClose();
 		}
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window onkeydowncapture={handleKeydown} />
 
 {#if isShowing}
 	<div

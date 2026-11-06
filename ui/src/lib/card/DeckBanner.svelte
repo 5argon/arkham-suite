@@ -416,15 +416,13 @@ Block element with fixed height that display some overall information about the 
 	{/if}
 </div>
 
-{#if tooltip.data}
-	<CardLineHoverTooltip
-		card={tooltip.data}
-		{localizationResolver}
-		{languageCode}
-		visible={tooltip.visible}
-		referenceElement={tooltip.referenceElement}
-	/>
-{/if}
+<CardLineHoverTooltip
+	card={tooltip.data}
+	{localizationResolver}
+	{languageCode}
+	visible={tooltip.visible}
+	referenceElement={tooltip.referenceElement}
+/>
 
 <style>
 	/* Excerpt block: keep the markdown compact inside the banner. */

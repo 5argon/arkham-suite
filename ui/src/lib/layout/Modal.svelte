@@ -52,6 +52,8 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (!disableOverlayClose && e.key === 'Escape') {
+			// A modal opened from inside another closes on its own.
+			e.stopPropagation();
 			onClose();
 		}
 	}

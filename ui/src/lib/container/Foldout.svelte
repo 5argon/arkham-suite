@@ -24,6 +24,11 @@ padding of its own.
 		 */
 		keepMounted?: boolean;
 		/**
+		 * Only folds where space is short: from the `md` breakpoint up it's always open, with no header
+		 * or frame. The content is always mounted.
+		 */
+		openOnDesktop?: boolean;
+		/**
 		 * Rendered at the right end of the header.
 		 */
 		right?: Snippet;
@@ -35,17 +40,25 @@ padding of its own.
 		expanded = $bindable(false),
 		onToggle,
 		keepMounted = false,
+		openOnDesktop = false,
 		right,
 		children
 	}: Prop = $props();
 </script>
 
 <div
-	class="border-primary-300 dark:border-primary-700 my-1 overflow-hidden rounded-lg border bg-white/50 dark:bg-black/30"
+	class={clsx(
+		'border-primary-300 dark:border-primary-700 my-1 overflow-hidden rounded-lg border bg-white/50 dark:bg-black/30',
+		openOnDesktop &&
+			'md:my-0 md:overflow-visible md:rounded-none md:border-0 md:bg-transparent md:dark:bg-transparent'
+	)}
 >
 	<button
 		type="button"
-		class="text-primary-900 dark:text-primary-100 hover:bg-primary-100 dark:hover:bg-primary-800 flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left"
+		class={clsx(
+			'text-primary-900 dark:text-primary-100 hover:bg-primary-100 dark:hover:bg-primary-800 flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left',
+			openOnDesktop && 'md:hidden'
+		)}
 		aria-expanded={expanded}
 		onclick={() => {
 			expanded = !expanded;
@@ -62,8 +75,14 @@ padding of its own.
 			{@render right()}
 		{/if}
 	</button>
-	{#if expanded || keepMounted}
-		<div class={clsx('border-primary-200 dark:border-primary-700 border-t', !expanded && 'hidden')}>
+	{#if expanded || keepMounted || openOnDesktop}
+		<div
+			class={clsx(
+				'border-primary-200 dark:border-primary-700 border-t',
+				!expanded && 'hidden',
+				openOnDesktop && 'md:block md:border-t-0'
+			)}
+		>
 			{@render children()}
 		</div>
 	{/if}

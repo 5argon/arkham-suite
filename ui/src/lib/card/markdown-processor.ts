@@ -24,6 +24,18 @@ export function cleanArkhamdbMarkdown(content: string): string {
  * Process markdown into HTML with colored card links
  */
 export function markdownToHtml(markdown: string, cardResolver?: CardResolver): string {
+	// Icon spans like <span class="icon-willpower"></span> are preserved
+	// and rendered via webfont CSS (icons-icon.css)
+	return DOMPurify.sanitize(markdownToTrustedHtml(markdown, cardResolver), {
+		ADD_ATTR: ['data-card-code']
+	});
+}
+
+/**
+ * Process markdown into HTML without sanitizing it, which needs a DOM. Only for markdown this site
+ * wrote itself, so a page can have it ready when it is built.
+ */
+export function markdownToTrustedHtml(markdown: string, cardResolver?: CardResolver): string {
 	// Clean invalid markdown formatting
 	let cleanedMarkdown = cleanArkhamdbMarkdown(markdown);
 
@@ -56,13 +68,7 @@ export function markdownToHtml(markdown: string, cardResolver?: CardResolver): s
 		async: false
 	});
 
-	const html = marked.parse(cleanedMarkdown) as string;
-
-	// Step 3: Sanitize HTML
-	// Note: Icon spans like <span class="icon-willpower"></span> are preserved
-	// and rendered via webfont CSS (icons-icon.css)
-	const clean = DOMPurify.sanitize(html, { ADD_ATTR: ['data-card-code'] });
-	return clean;
+	return marked.parse(cleanedMarkdown) as string;
 }
 
 /**

@@ -20,7 +20,8 @@
 			"types": "./src/lib/index.ts",
 			"svelte": "./src/lib/index.ts",
 			"default": "./src/lib/index.ts"
-		}
+		},
+		"./markdown": "./src/lib/card/markdown-processor.ts"
 	},
 	"main": "./src/lib/index.ts",
 	"peerDependencies": {

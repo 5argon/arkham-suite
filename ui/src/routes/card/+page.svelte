@@ -17,6 +17,7 @@
 		'DeckDisplayList',
 		'DeckBanner',
 		'DeckDisplay',
-		'ImportDecksModal'
+		'ImportDecksModal',
+		'ReviewRow'
 	]}
 />

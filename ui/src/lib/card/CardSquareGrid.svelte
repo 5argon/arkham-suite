@@ -12,6 +12,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 	import type { Card, LocalizationResolver } from '@5argon/arkham-kohaku';
 	import { BorderedContainer } from '../container/index.js';
 	import { createTooltipState } from '../utility/tooltip-state.svelte.js';
+	import type { Snippet } from 'svelte';
 
 	interface Prop {
 		groups: RecursivelyGroupedCardItem[];
@@ -19,9 +20,25 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 		localizationResolver?: LocalizationResolver;
 		languageCode?: string;
 		onClick?: (card: Card, item: CardItem) => void;
+		/**
+		 * Makes each card a link, instead of something to click on.
+		 */
+		cardHref?: (item: CardItem) => string;
+		/**
+		 * Shown under each card.
+		 */
+		cardFooter?: Snippet<[CardItem]>;
 	}
 
-	const { groups, showQuantity, localizationResolver, languageCode, onClick }: Prop = $props();
+	const {
+		groups,
+		showQuantity,
+		localizationResolver,
+		languageCode,
+		onClick,
+		cardHref,
+		cardFooter
+	}: Prop = $props();
 	const tooltip = createTooltipState<{ card: Card; quantity: number }>();
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
@@ -41,27 +58,49 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 	}
 </script>
 
+{#snippet cardSquare(item: CardItem)}
+	<CardSquare
+		card={item.card}
+		greyedOut={item.greyedOutQuantity !== undefined && item.greyedOutQuantity >= item.quantity}
+	/>
+{/snippet}
+
 {#snippet cardRender(item: CardItem)}
 	<div>
-		<div
-			role="button"
-			tabindex="0"
-			onmouseenter={(e) => tooltip.show({ card: item.card, quantity: item.quantity }, e)}
-			onmouseleave={tooltip.hide}
-			onclick={() => handleCardClick(item.card, item)}
-			onkeydown={(e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					handleCardClick(item.card, item);
-				}
-			}}
-			class="cursor-pointer hover:brightness-120"
-		>
-			<CardSquare
-				card={item.card}
-				greyedOut={item.greyedOutQuantity !== undefined && item.greyedOutQuantity >= item.quantity}
-			/>
-		</div>
+		{#if cardHref}
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
+			<a
+				href={cardHref(item)}
+				onmouseenter={(e) => tooltip.show({ card: item.card, quantity: item.quantity }, e)}
+				onmouseleave={tooltip.hide}
+				class="block cursor-pointer hover:brightness-120"
+			>
+				{@render cardSquare(item)}
+			</a>
+			<!-- eslint-enable svelte/no-navigation-without-resolve -->
+		{:else}
+			<div
+				role="button"
+				tabindex="0"
+				onmouseenter={(e) => tooltip.show({ card: item.card, quantity: item.quantity }, e)}
+				onmouseleave={tooltip.hide}
+				onclick={() => handleCardClick(item.card, item)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						handleCardClick(item.card, item);
+					}
+				}}
+				class="cursor-pointer hover:brightness-120"
+			>
+				{@render cardSquare(item)}
+			</div>
+		{/if}
+		{#if cardFooter}
+			<div class="flex min-h-4 justify-center">
+				{@render cardFooter(item)}
+			</div>
+		{/if}
 	</div>
 {/snippet}
 
@@ -135,16 +174,14 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 	{/each}
 </div>
 
-{#if tooltip.data}
-	<CardLineHoverTooltip
-		card={tooltip.data.card}
-		quantity={showQuantity ? tooltip.data.quantity : undefined}
-		{localizationResolver}
-		{languageCode}
-		visible={tooltip.visible}
-		referenceElement={tooltip.referenceElement}
-	/>
-{/if}
+<CardLineHoverTooltip
+	card={tooltip.data?.card}
+	quantity={showQuantity ? tooltip.data?.quantity : undefined}
+	{localizationResolver}
+	{languageCode}
+	visible={tooltip.visible}
+	referenceElement={tooltip.referenceElement}
+/>
 
 <CardMagnifiedModal
 	card={magnifiedCard}

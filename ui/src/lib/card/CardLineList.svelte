@@ -5,6 +5,7 @@ Display cards as a table list with extra info.
 <script lang="ts">
 	import type { CardItem, RecursivelyGroupedCardItem } from './card-item.js';
 	import type { Card } from '@5argon/arkham-kohaku';
+	import type { Snippet } from 'svelte';
 	import TableCardList from './TableCardList.svelte';
 	import CardExtraInfo from './CardExtraInfo.svelte';
 	import CardMagnifiedModal from './CardMagnifiedModal.svelte';
@@ -14,11 +15,19 @@ Display cards as a table list with extra info.
 	interface Prop {
 		groups: RecursivelyGroupedCardItem[];
 		onClick?: (card: Card, item: CardItem) => void;
+		/**
+		 * Makes each row a link, instead of something to click on.
+		 */
+		cardHref?: (item: CardItem) => string;
+		/**
+		 * Shown at the end of each row.
+		 */
+		cardFooter?: Snippet<[CardItem]>;
 		languageCode?: string;
 		hideQuantity?: boolean;
 	}
 
-	const { groups, onClick, languageCode, hideQuantity }: Prop = $props();
+	const { groups, onClick, cardHref, cardFooter, languageCode, hideQuantity }: Prop = $props();
 
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
@@ -56,8 +65,11 @@ Display cards as a table list with extra info.
 <BorderedContainer>
 	<TableCardList
 		{groups}
-		afterRenders={[cardDetail, ownerAndLabels]}
-		onClick={handleCardClick}
+		afterRenders={cardFooter
+			? [cardDetail, ownerAndLabels, cardFooter]
+			: [cardDetail, ownerAndLabels]}
+		onClick={cardHref ? undefined : handleCardClick}
+		{cardHref}
 		{hideQuantity}
 		cardLineOverflow
 	/>

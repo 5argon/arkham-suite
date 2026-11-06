@@ -100,7 +100,9 @@ Inline rectangle representing a card. Its height is 1 em.
 	</div>
 {/snippet}
 
-<div class={clsx(small ? 'border-l-2' : 'border-l-4', borderColorClass, greyedOut ? 'opacity-20': '')}>
+<div
+	class={clsx(small ? 'border-l-2' : 'border-l-4', borderColorClass, greyedOut ? 'opacity-20' : '')}
+>
 	<div class={clsx('border-wrapper', borderAccentClass)}>
 		<div class="border-inner relative">
 			{@render inside()}

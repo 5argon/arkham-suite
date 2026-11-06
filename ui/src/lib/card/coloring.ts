@@ -1,6 +1,6 @@
 import { cardClass, CardClass, type Card, type ClassSlots } from '@5argon/arkham-kohaku';
 
-export function getCardColorClass(card: Card): string {
+export function getCardColorClass(card: Pick<Card, 'cardClass'>): string {
 	let textColorClass: string;
 	if (card.cardClass === undefined) {
 		textColorClass = 'text-neutral-700 dark:text-neutral-300';

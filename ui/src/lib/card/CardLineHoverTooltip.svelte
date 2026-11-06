@@ -2,6 +2,7 @@
 @component
 A tooltip that displays a CardLine with hideStrip and no quantity inside a rounded frame.
 Uses Floating UI for robust positioning that works correctly with browser zoom.
+Keep it mounted and switch `visible`, keeping the last card after hiding, so it animates in and out.
 -->
 <script lang="ts">
 	import type { Card, LocalizationResolver } from '@5argon/arkham-kohaku';
@@ -9,7 +10,7 @@ Uses Floating UI for robust positioning that works correctly with browser zoom.
 	import { HoverTooltip } from '../container';
 
 	interface Prop {
-		card: Card;
+		card?: Card | null;
 		quantity?: number;
 		localizationResolver?: LocalizationResolver;
 		languageCode?: string;
@@ -21,5 +22,7 @@ Uses Floating UI for robust positioning that works correctly with browser zoom.
 </script>
 
 <HoverTooltip {visible} {referenceElement}>
-	<CardLine {card} {localizationResolver} {languageCode} {quantity} hideStrip noReserveCardTypeIcon />
+	{#if card}
+		<CardLine {card} {localizationResolver} {languageCode} {quantity} hideStrip noReserveCardTypeIcon />
+	{/if}
 </HoverTooltip>
