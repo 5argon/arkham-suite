@@ -40,11 +40,12 @@ describe('back routes', () => {
 
 	it('only leaves home without a parent, and every parent is a page needing no data to name', () => {
 		for (const [route, entry] of Object.entries(backRoutes)) {
+			const parentRoute = entry!.parent;
 			if (route === '/') {
-				expect(entry?.parent).toBeNull();
+				expect(parentRoute).toBeNull();
 				continue;
 			}
-			const parent = backRoutes[entry!.parent!];
+			const parent = backRoutes[parentRoute!];
 			expect(parent, route).toBeDefined();
 			expect(parent!.label({}), route).toMatch(/\S/);
 		}

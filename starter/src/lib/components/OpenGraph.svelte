@@ -14,6 +14,10 @@
 		 * `url` is exactly their own path.
 		 */
 		canonical?: boolean;
+		/**
+		 * For a page with nothing worth finding yet.
+		 */
+		noindex?: boolean;
 		author?: string;
 		/**
 		 * schema.org structured data.
@@ -21,7 +25,8 @@
 		jsonLd?: object;
 	}
 
-	let { title, description, image, url, canonical = false, author, jsonLd }: Props = $props();
+	let { title, description, image, url, canonical = false, noindex = false, author, jsonLd }: Props =
+		$props();
 
 	const fullUrl = $derived(url ? `${siteOrigin}${url}` : siteOrigin);
 	const fullImageUrl = $derived(/^https?:/.test(image) ? image : siteUrl(image));
@@ -30,13 +35,16 @@
 </script>
 
 <svelte:head>
-	<title>{title} | Arkham Starter</title>
+	<title>{title} | arkham-starter.com</title>
 	<meta content={description} name="description" />
 	{#if author}
 		<meta content={author} name="author" />
 	{/if}
 	{#if canonical}
 		<link href={fullUrl} rel="canonical" />
+	{/if}
+	{#if noindex}
+		<meta content="noindex" name="robots" />
 	{/if}
 	{#if jsonLdText}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags, no-useless-escape -->
@@ -45,7 +53,7 @@
 
 	<!-- Open Graph / Facebook -->
 	<meta content="website" property="og:type" />
-	<meta content="Arkham Starter" property="og:site_name" />
+	<meta content="arkham-starter.com" property="og:site_name" />
 	<meta content={fullUrl} property="og:url" />
 	<meta content={title} property="og:title" />
 	<meta content={description} property="og:description" />

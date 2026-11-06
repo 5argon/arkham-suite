@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 
-import { starterAuthors, starterSeries, starterSeriesOf } from '$lib/starter-content';
+import { contributorHref, starterAuthors, starterSeries, starterSeriesOf } from '$lib/starter-content';
 
 import type { EntryGenerator, PageLoad } from './$types';
 
@@ -11,7 +11,7 @@ import type { EntryGenerator, PageLoad } from './$types';
 export const load: PageLoad = ({ params }) => {
 	const series = starterSeries(params.author, params.series);
 	if (series === undefined) error(404, 'Not found');
-	redirect(308, `/starter/${series.author.slug}#${series.slug}`);
+	redirect(308, `${contributorHref(series.author)}#${series.slug}`);
 };
 
 export const entries: EntryGenerator = () =>

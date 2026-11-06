@@ -29,7 +29,7 @@
 			<li>
 				<a
 					class="bg-primary-200 dark:bg-primary-900 hover:bg-primary-300 dark:hover:bg-primary-800 flex items-center gap-3 rounded-md px-2 py-1.5"
-					href={resolve('/starter/[author]', { author: author.slug })}
+					href={resolve('/member/[author]', { author: author.slug })}
 				>
 					{#if author.avatarCard}
 						<CardCircle card={author.avatarCard} size="md" />

@@ -63,7 +63,7 @@
 </script>
 
 <svelte:head>
-	<title>Deck Viewer - Arkham Starter</title>
+	<title>Deck Viewer | arkham-starter.com</title>
 </svelte:head>
 
 <MarginFull>

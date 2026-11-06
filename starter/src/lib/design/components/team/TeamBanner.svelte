@@ -95,7 +95,7 @@ listing.
 				{#if authorSlug}
 					<a
 						class="text-primary-700 dark:text-primary-300 inline-flex items-center gap-1.5 text-sm hover:underline"
-						href={resolve('/starter/[author]', { author: authorSlug })}
+						href={resolve('/member/[author]', { author: authorSlug })}
 					>
 						{@render byAuthor()}
 					</a>

@@ -3,22 +3,23 @@
 	import {
 		Button,
 		CardCircle,
-		FaIconType,
 		Foldout,
 		MarginFull,
 		MarginText,
 		PageLead,
 		SectionSeparator,
-		Tabs,
-		TextParagraph
+		Tabs
 	} from '@5argon/arkham-life-ui';
 	import { tick } from 'svelte';
 
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
+	import ContributorIntro from '$lib/design/pages/contributor/ContributorIntro.svelte';
 	import StarterFilter from '$lib/design/pages/starter/StarterFilter.svelte';
 	import StarterSeriesSection from '$lib/design/pages/starter/StarterSeriesSection.svelte';
+	import StarterTeamBar from '$lib/design/pages/starter/StarterTeamBar.svelte';
 	import PrebuiltTeamList from '$lib/design/pages/team/PrebuiltTeamList.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import { reviewerHref } from '$lib/review/paths';
 	import { contributorHref } from '$lib/starter-content';
 	import { contributorJsonLd } from '$lib/starter-content/seo';
 	import {
@@ -28,14 +29,8 @@
 		teamMatches
 	} from '$lib/tool/starter/filter';
 
-	/**
-	 * The capture group makes split() place each URL at an odd index.
-	 */
-	const profileUrl = /(https?:\/\/[^\s)]+)/;
-
 	const { data } = $props();
 	const teams = $derived(data.teams);
-	// Contributors may have no decks or teams, like someone who only writes reviews.
 	const hasDecks = $derived(data.series.length > 0 || teams.length > 0);
 	const title = $derived(
 		hasDecks
@@ -67,9 +62,10 @@
 		capture: () => [...activeTags],
 		restore: (value) => (activeTags = value)
 	});
-	let tab = $state(0);
+	const tabIds = ['decks', 'teams'] as const;
+	let tab = $state<'decks' | 'teams'>('decks');
 	snapshot({
-		id: 'starter-author-tab',
+		id: 'member-tab',
 		capture: () => tab,
 		restore: (value) => (tab = value)
 	});
@@ -79,16 +75,16 @@
 	 * the anchor only exists after switching back.
 	 */
 	async function jumpToSeries(event: MouseEvent, slug: string) {
-		if (tab === 0) return;
+		if (tab === 'decks') return;
 		event.preventDefault();
-		tab = 0;
+		tab = 'decks';
 		await tick();
 		document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth' });
 	}
 </script>
 
 <OpenGraph
-	description={data.author.profile ?? fallbackDescription}
+	description={fallbackDescription}
 	image="image/resource/starter.webp"
 	{title}
 	url={contributorHref(data.author)}
@@ -97,35 +93,25 @@
 	jsonLd={contributorJsonLd(data.author)}
 />
 
+{#if hasDecks}
+	<MarginText>
+		<div class="mt-4">
+			<StarterTeamBar />
+		</div>
+	</MarginText>
+{/if}
+
 <PageLead {title} />
 
 <MarginText>
-	{#if data.author.avatarCard}
-		<div class="mb-3 flex justify-center">
-			<CardCircle card={data.author.avatarCard} size="xl" />
-		</div>
-	{/if}
-	{#if data.author.profile}
-		<TextParagraph>
-			{#each data.author.profile.split(profileUrl) as part, i (i)}
-				{#if i % 2 === 1}
-					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-					<a href={part} rel="noopener noreferrer" target="_blank">{part}</a>
-				{:else}
-					{part}
-				{/if}
-			{/each}
-		</TextParagraph>
-	{/if}
-	<div class="mb-4 flex flex-wrap justify-center gap-2">
-		{#if data.author.arkhamdbUrl}
+	<ContributorIntro person={data.author}>
+		{#if data.hasReviews}
 			<Button
-				icon={FaIconType.ExternalLink}
-				label={m.starter_decks_author_profile()}
-				onClick={data.author.arkhamdbUrl}
+				label={m.review_member_reviews({ name: data.author.name })}
+				onClick={reviewerHref(data.author.slug)}
 			/>
 		{/if}
-	</div>
+	</ContributorIntro>
 	{#if hasDecks}
 		<SectionSeparator title={m.starter_decks_series_heading()} />
 		<ul class="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
@@ -157,18 +143,22 @@
 		<div class="mt-4">
 			<Tabs
 				direction="horizontal"
-				activeTabIndex={tab}
-				onTabChange={(index) => (tab = index)}
-				tabs={[
-					{ label: m.starter_decks_tab_decks({ count: deckCount }) },
-					{ label: m.starter_decks_tab_teams({ count: taggedTeamCount }) }
-				]}
+				activeTabIndex={tabIds.indexOf(tab)}
+				onTabChange={(index) => (tab = tabIds[index])}
+				tabs={tabIds.map((id) => ({
+					label:
+						id === 'decks'
+							? m.starter_decks_tab_decks({ count: deckCount })
+							: m.starter_decks_tab_teams({ count: taggedTeamCount })
+				}))}
 			/>
 		</div>
 	</MarginFull>
+{/if}
+{#if hasDecks}
 	<!-- Both stay mounted: the tab labels count what each filter matches. -->
 	<MarginText>
-		<div class="mt-4" class:hidden={tab !== 0}>
+		<div class="mt-4" class:hidden={tab !== 'decks'}>
 			<Foldout title={m.starter_decks_filter()} keepMounted>
 				<div class="p-3">
 					<StarterFilter
@@ -181,7 +171,7 @@
 				</div>
 			</Foldout>
 		</div>
-		<div class="mt-4" class:hidden={tab !== 1}>
+		<div class="mt-4" class:hidden={tab !== 'teams'}>
 			<Foldout title={m.starter_decks_filter()} keepMounted>
 				<div class="p-3">
 					<StarterFilter
@@ -196,23 +186,23 @@
 			</Foldout>
 		</div>
 	</MarginText>
-	<MarginFull>
-		{#if tab === 0}
-			<div class="mt-4">
-				{#each data.series as series (series.slug)}
-					<div class="mb-8">
-						<StarterSeriesSection
-							{series}
-							filter={deckFilter}
-							onRemoveFilter={() => deckFilterPanel?.reset()}
-						/>
-					</div>
-				{/each}
-			</div>
-		{:else}
-			<div class="mt-4">
-				<PrebuiltTeamList entries={visibleTeams} filter={teamFilter} bind:activeTags />
-			</div>
-		{/if}
-	</MarginFull>
 {/if}
+<MarginFull>
+	{#if tab === 'decks' && hasDecks}
+		<div class="mt-4">
+			{#each data.series as series (series.slug)}
+				<div class="mb-8">
+					<StarterSeriesSection
+						{series}
+						filter={deckFilter}
+						onRemoveFilter={() => deckFilterPanel?.reset()}
+					/>
+				</div>
+			{/each}
+		</div>
+	{:else if tab === 'teams' && hasDecks}
+		<div class="mt-4">
+			<PrebuiltTeamList entries={visibleTeams} filter={teamFilter} bind:activeTags />
+		</div>
+	{/if}
+</MarginFull>

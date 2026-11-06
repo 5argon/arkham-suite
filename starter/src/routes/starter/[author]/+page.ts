@@ -1,18 +1,17 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 
-import { allContributors, contributor, starterSeriesOf } from '$lib/starter-content';
+import { allContributors, contributor, contributorHref } from '$lib/starter-content';
 
 import type { EntryGenerator, PageLoad } from './$types';
 
-export const load: PageLoad = ({ params, data }) => {
-	const author = contributor(params.author);
-	if (author === undefined) error(404, 'Not found');
-	return { ...data, author, series: starterSeriesOf(author.slug) };
+/**
+ * Where someone's page used to be, kept working for links already out there.
+ */
+export const load: PageLoad = ({ params }) => {
+	const person = contributor(params.author);
+	if (person === undefined) error(404, 'Not found');
+	redirect(308, contributorHref(person));
 };
 
-/**
- * Nothing links here from a crawlable anchor on the front page, so the
- * prerenderer is told every contributor explicitly.
- */
 export const entries: EntryGenerator = () =>
 	allContributors().map((person) => ({ author: person.slug }));

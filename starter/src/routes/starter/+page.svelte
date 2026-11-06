@@ -65,6 +65,7 @@
 	image="image/resource/starter.webp"
 	title={m.starter_decks_title()}
 	url="/starter"
+	canonical
 />
 
 <svelte:head>

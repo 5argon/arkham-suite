@@ -19,8 +19,19 @@ export interface Contributor {
 	 */
 	avatarCard?: Card;
 	/**
-	 * Their own words, plain text with bare URLs. Also the page's meta
-	 * description.
+	 * Image for the avatar, for someone whose picture isn't a card.
+	 */
+	avatarUrl?: string;
+	/**
+	 * Where they publish.
+	 */
+	url?: string;
+	/**
+	 * A creator we only link to, who didn't sign up to be on this site.
+	 */
+	external?: boolean;
+	/**
+	 * Their own words, plain text with bare URLs.
 	 */
 	profile?: string;
 	/**
@@ -34,6 +45,9 @@ interface ContributorJson {
 	arkhamdbUserId?: number;
 	arkhamdbUrl?: string;
 	avatarCardCode?: string;
+	avatarUrl?: string;
+	url?: string;
+	external?: boolean;
 	profile?: string;
 	siteOwner?: boolean;
 }
@@ -58,7 +72,7 @@ export interface StarterDeckVersion {
  * breakpoints, plus an optional Upgrade Planner plan between them.
  */
 export interface StarterDeckEntry {
-	id: number;
+	id: number | string;
 	slug: string;
 	/**
 	 * Ascending by breakpoint. The lowest version carries the next one's
@@ -89,6 +103,10 @@ export interface StarterSeries {
 	name: string;
 	description: string;
 	/**
+	 * Where the author shared this series, when it isn't ArkhamDB.
+	 */
+	sourceUrl?: string;
+	/**
 	 * Card whose square art represents the series, in a rounded square.
 	 */
 	iconCard?: Card;
@@ -107,12 +125,14 @@ interface SeriesJson {
 	order: number;
 	name: string;
 	description: string;
+	sourceUrl?: string;
 	iconCardCode?: string;
 	decks: {
 		/**
-		 * Id of the version the author listed, one of `versions`.
+		 * Id of the version the author listed, one of `versions`. An ArkhamDB
+		 * decklist number, or an arkham.build share id.
 		 */
-		id: number;
+		id: number | string;
 		/**
 		 * Hand-assigned URL slug, e.g. "hurting-for-clues".
 		 */
@@ -240,7 +260,7 @@ export function withRemovedCards(higher: AhdbDeck, lower: AhdbDeck): AhdbDeck {
  * the 0 XP one. Lower builds saved elsewhere often have working titles like
  * "(0XP)", and readers should be sent to the published listing.
  */
-export function publishedVersion(files: AhdbDeck[], id: number, owner: string): AhdbDeck {
+export function publishedVersion(files: AhdbDeck[], id: number | string, owner: string): AhdbDeck {
 	const published = files.find((deck) => deck.id === id);
 	if (published === undefined) throw new Error(`Starter deck not published: ${owner}`);
 	return published;
@@ -305,6 +325,7 @@ const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 		slug: json.slug,
 		name: json.name,
 		description: json.description,
+		sourceUrl: json.sourceUrl,
 		iconCard: iconCard(json.iconCardCode, path),
 		author,
 		entries: []
@@ -442,7 +463,7 @@ export function prebuiltTeamHref(team: PrebuiltTeam): string {
 }
 
 export function contributorHref(person: Contributor): string {
-	return `/starter/${person.slug}`;
+	return `/member/${person.slug}`;
 }
 
 export function starterSeriesHref(series: Pick<StarterSeries, 'slug' | 'author'>): string {
@@ -493,7 +514,9 @@ export function allStarterDecks(): StarterDeckEntry[] {
  */
 export function sortByInvestigator(entries: StarterDeckEntry[]): StarterDeckEntry[] {
 	return [...entries].sort(
-		(a, b) => a.primary.investigator_code.localeCompare(b.primary.investigator_code) || a.id - b.id
+		(a, b) =>
+			a.primary.investigator_code.localeCompare(b.primary.investigator_code) ||
+			String(a.id).localeCompare(String(b.id), undefined, { numeric: true })
 	);
 }
 

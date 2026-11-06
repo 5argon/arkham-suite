@@ -63,10 +63,40 @@ export const backRoutes = {
 	'/precon': { label: () => m.common_back_to_precon(), parent: '/' },
 	'/precon/[name]': { label: () => m.common_back_to_the_precon(), parent: '/precon' },
 	'/proxy': { label: () => m.common_back_to_proxy(), parent: '/' },
+	'/review': { label: () => m.common_back_to_reviews(), parent: '/' },
+	'/review/[packCode]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/review'
+	},
+	'/review/card/[code]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/review'
+	},
+	'/review/chapter-one/[packCode]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/player'
+	},
+	'/review/chapter-one/card/[code]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/player'
+	},
+	'/review/reviewers': { label: () => m.common_back_to_reviewers(), parent: '/review' },
+	'/review/reviewers/[author]': {
+		label: ({ author }) => m.common_back_to({ name: author!.name }),
+		parent: '/review/reviewers'
+	},
+	'/review/preview-season': {
+		label: () => m.common_back_to_preview_season(),
+		parent: '/review'
+	},
+	'/review/preview-season/[packCode]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/review/preview-season'
+	},
 	'/starter': { label: () => m.common_back_to_starter(), parent: '/' },
 	'/starter/authors': { label: () => m.common_back_to_starter_authors(), parent: '/starter' },
-	'/starter/[author]': {
-		label: ({ author }) => m.common_back_to_author({ name: author!.name }),
+	'/member/[author]': {
+		label: ({ author }) => m.common_back_to({ name: author!.name }),
 		parent: '/starter'
 	},
 	'/starter/[author]/[series]/[deck]': {

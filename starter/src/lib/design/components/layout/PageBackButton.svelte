@@ -25,10 +25,10 @@ Pages are named in `$lib/navigation/back-routes`.
 
 	const route = $derived(backRoutes[page.route.id ?? '']);
 	const target: Target | null = $derived.by(() => {
-		if (route?.parent === null) return null;
+		const parent = route === undefined ? '/' : route.parent;
+		if (parent === null) return null;
 		if (cameFrom !== null) return cameFrom;
-		const href = route?.parent ?? '/';
-		return { href, label: backRoutes[href]!.label({}) };
+		return { href: parent, label: backRoutes[parent]!.label({}) };
 	});
 
 	beforeNavigate(({ from, to, type, cancel }) => {

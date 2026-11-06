@@ -36,6 +36,7 @@
 <OpenGraph
 	description={team.description}
 	image="image/resource/team.webp"
+	noindex
 	title={team.name}
 	url={prebuiltTeamHref(team)}
 />

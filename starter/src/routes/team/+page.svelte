@@ -68,6 +68,7 @@
 	image="image/resource/team.webp"
 	title={m.team_title()}
 	url="/team"
+	canonical
 />
 
 <svelte:head>
