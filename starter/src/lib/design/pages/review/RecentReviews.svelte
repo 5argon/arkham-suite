@@ -9,7 +9,7 @@ and something covering many cards is still one review.
 	import clsx from 'clsx';
 
 	import * as m from '$lib/paraglide/messages.js';
-	import { recentListLimit } from '$lib/review/recent';
+	import { balancedRecentCounts, recentListLimit } from '$lib/review/recent';
 	import type { RecentReviewRow } from '$lib/server/reviews';
 
 	import RecentReviewItem from './RecentReviewItem.svelte';
@@ -23,7 +23,6 @@ and something covering many cards is still one review.
 	}
 	const { rows, productName }: Prop = $props();
 
-	const shownCount = 5;
 	const groups = $derived(
 		[
 			{
@@ -44,6 +43,8 @@ and something covering many cards is still one review.
 			}
 		].filter((group) => group.rows.length > 0)
 	);
+	// Side by side, the list with taller rows shows fewer so the two end about level.
+	const shownCounts = $derived(balancedRecentCounts(groups.map((group) => group.rows)));
 	let openId = $state<string | null>(null);
 </script>
 
@@ -57,8 +58,9 @@ and something covering many cards is still one review.
 
 {#if groups.length > 0}
 	<div class={clsx('my-4 grid grid-cols-1 gap-4', groups.length > 1 && 'md:grid-cols-2')}>
-		{#each groups as group (group.id)}
+		{#each groups as group, i (group.id)}
 			{@const listed = group.rows.slice(0, recentListLimit)}
+			{@const shownCount = shownCounts[i]}
 			<section class="min-w-0">
 				<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">{group.title}</h2>
 				{@render list(group.rows.slice(0, shownCount))}
