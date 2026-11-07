@@ -27,7 +27,7 @@ Each file is a list. A source can talk about any number of cards, and anything t
 
 ## `card/<code>/`: hand-written reviews
 
-Each review is one markdown file named by its id, like `card/12073/5argon-bandages.md`, starting with its details as YAML front matter. The rest is the review, in the same format as a deck guide. The id is what its link ends with, so don't rename a published one.
+Each review is one markdown file, like `card/12073/5argon.md`, starting with its details as YAML front matter. The rest is the review, in the same format as a deck guide. The file can be named anything; the author's name is easiest. Its link comes from `by` and `environment`, like `/review/card/12073#5argon-evergreen`, so looking at the card again from a later point is a new file, like `5argon-later.md`, with that point as its `environment`, and both stay. A test fails when two reviews of one card have the same author and point. Changing `by` or `environment` of a published one changes its link.
 
 ```md
 ---

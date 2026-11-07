@@ -337,7 +337,8 @@ describe('written review files', () => {
 				'---\nby: 5argon\ndate: 2026-11-04\nenvironment: evergreen\n---\n\nText.\n'
 			)
 		).toEqual({
-			id: 'me',
+			id: '5argon-evergreen',
+			fileName: 'me',
 			by: '5argon',
 			date: '2026-11-04',
 			environment: 'evergreen',
@@ -345,9 +346,13 @@ describe('written review files', () => {
 		});
 	});
 
-	it('reads a guest', () => {
-		const review = parseWrittenReview('me', '---\nguest:\n  name: Someone\n---\nText.');
-		expect(review.guest).toEqual({ name: 'Someone' });
+	it('reads a guest, naming the review after them', () => {
+		const review = parseWrittenReview(
+			'me',
+			'---\nguest:\n  name: Some One\nenvironment: evergreen\n---\nText.'
+		);
+		expect(review.guest).toEqual({ name: 'Some One' });
+		expect(review.id).toBe('some-one-evergreen');
 	});
 
 	it('leaves a file without any as text, for the checks to catch', () => {

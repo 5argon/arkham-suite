@@ -39,11 +39,7 @@ import {
 	reviewProductHref
 } from '$lib/review/paths';
 import { recentListLimit } from '$lib/review/recent';
-import {
-	allContributors,
-	contributor,
-	toCore2026Code
-} from '$lib/starter-content';
+import { allContributors, contributor, toCore2026Code } from '$lib/starter-content';
 import {
 	environmentPointDetail,
 	environmentPointTitle,
@@ -85,9 +81,14 @@ interface CreditJson {
 
 interface WrittenReview extends CreditJson {
 	/**
-	 * The name of its file, unique among what's said about the card. The page links to it as `#id`.
+	 * Who wrote it and the point in time it speaks about, like `5argon-evergreen`, unique among what's
+	 * said about the card. The page links to it as `#id`, and the card is already in the link.
 	 */
 	id: string;
+	/**
+	 * The name of its file without `.md`. It can be anything, and only says which file a problem is in.
+	 */
+	fileName: string;
 	/**
 	 * When it came out.
 	 */
@@ -503,12 +504,28 @@ function compileWrittenEntry(review: WrittenReview): ReviewEntry {
 }
 
 /**
- * Reads a review's file, which starts with its details as YAML front matter.
+ * Reads a review's file, which starts with its details as YAML front matter. Its id comes from who
+ * wrote it and the point in time it speaks about, so the file can be named anything.
  */
-export function parseWrittenReview(id: string, file: string): WrittenReview {
+export function parseWrittenReview(fileName: string, file: string): WrittenReview {
 	const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(file);
-	const details = match === null ? {} : parseYaml(match[1]);
-	return { ...details, id, body: match === null ? file : file.slice(match[0].length) };
+	const details: Partial<WrittenReview> = match === null ? {} : parseYaml(match[1]);
+	const author =
+		details.by ??
+		details.guest?.name
+			?.toLowerCase()
+			.replace(/[^a-z0-9]+/g, '-')
+			.replace(/^-|-$/g, '');
+	const id =
+		author !== undefined && details.environment !== undefined
+			? `${author}-${details.environment}`
+			: fileName;
+	return {
+		...details,
+		id,
+		fileName,
+		body: match === null ? file : file.slice(match[0].length)
+	} as WrittenReview;
 }
 
 const writtenReviews = new Map<string, WrittenReview[]>();
@@ -638,7 +655,10 @@ function countsOf(code: string): ReviewCountsData {
 export function campaignReviews(campaign: CampaignEnum): ReviewRowData[] {
 	return sources
 		.filter((source) => source.campaigns?.includes(campaign))
-		.map((source) => ({ ...slimEntry(sourceEntry(source, undefined, false)), environment: undefined }));
+		.map((source) => ({
+			...slimEntry(sourceEntry(source, undefined, false)),
+			environment: undefined
+		}));
 }
 
 /**
@@ -1131,7 +1151,9 @@ export function reviewerSummaries(): ReviewerSummary[] {
 		});
 	}
 	const total = ({ counts }: ReviewerSummary) => counts.written + counts.external;
-	return summaries.sort((a, b) => total(b) - total(a) || a.person.name.localeCompare(b.person.name));
+	return summaries.sort(
+		(a, b) => total(b) - total(a) || a.person.name.localeCompare(b.person.name)
+	);
 }
 
 /**
@@ -1140,8 +1162,13 @@ export function reviewerSummaries(): ReviewerSummary[] {
  */
 export function reviewLastModified(path: string): string | undefined {
 	const code = /^\/review\/card\/(\w+)$/.exec(path)?.[1];
-	const written = (entriesByCard.get(code ?? '') ?? []).filter((entry) => entry.parts !== undefined);
-	return written.map((entry) => entry.date ?? '').sort().at(-1);
+	const written = (entriesByCard.get(code ?? '') ?? []).filter(
+		(entry) => entry.parts !== undefined
+	);
+	return written
+		.map((entry) => entry.date ?? '')
+		.sort()
+		.at(-1);
 }
 
 export function reviewSitemapPaths(): string[] {
@@ -1196,11 +1223,7 @@ function subsectionProblems(review: WrittenReview, code: string, where: string):
 /**
  * What's wrong with talking about this card at this point in time.
  */
-function subjectProblems(
-	code: string,
-	environmentId: string | undefined,
-	where: string
-): string[] {
+function subjectProblems(code: string, environmentId: string | undefined, where: string): string[] {
 	const problems: string[] = [];
 	const card = cardByCode.get(code);
 	if (card === undefined || !reviewableCodes.has(code)) {
@@ -1309,8 +1332,15 @@ export function sourceProblems(source: SourceJson, preview: boolean): string[] {
 export function reviewProblems(): string[] {
 	const problems: string[] = [];
 	for (const [code, reviews] of writtenByCard()) {
+		const ids = new Set<string>();
 		for (const review of reviews) {
-			const where = `${code}/${review.id}`;
+			const where = `${code}/${review.fileName}.md`;
+			if (ids.has(review.id)) {
+				problems.push(
+					`${where}: another review of this card is by the same person at the same point`
+				);
+			}
+			ids.add(review.id);
 			problems.push(...creditProblems(review, where));
 			problems.push(...dateProblems(review.date, where));
 			if (review.originalUrl !== undefined && !/^https:\/\/\S+$/.test(review.originalUrl)) {
