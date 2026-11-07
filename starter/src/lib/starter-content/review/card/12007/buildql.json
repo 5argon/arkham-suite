@@ -13,6 +13,10 @@
 		"gain-resource",
 		"draws-cards",
 		"evade-assets",
-		"evade-events"
+		"evade-events",
+		{
+			"label": "Evade payoff",
+			"query": "text ? [\"after you evade\", \"successfully evade\", \"while evading\", \"successful during an evasion\", \"is evaded\", \"attempt to evade\"]"
+		}
 	]
 }

@@ -14,6 +14,10 @@
 		"gain-resource",
 		"draws-cards",
 		"investigate-assets",
-		"investigate-events"
+		"investigate-events",
+		{
+			"label": "Investigate payoff",
+			"query": "text ? [\"after you investigate\", \"successfully investigate\", \"successful while investigating\", \"successful during an investigation\"]"
+		}
 	]
 }
