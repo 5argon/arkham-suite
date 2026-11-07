@@ -583,9 +583,11 @@ describe('recent reviews', () => {
 	});
 
 	it('counts something covering many cards as one review', () => {
-		const titles = recentReviews().map((row) => row.entry.title);
-		const core = titles.filter((t) => t === 'Investigator Expansion Review: The 2026 Core Set');
-		expect(core).toHaveLength(1);
+		// A video or article elsewhere is listed once, though many speak about several cards.
+		const external = recentReviews().filter((row) => row.href === undefined);
+		const titles = external.map((row) => `${row.entry.title} ${row.entry.dateLabel}`);
+		expect(titles.length).toBeGreaterThan(0);
+		expect(new Set(titles).size).toBe(titles.length);
 		expect(new Set(recentReviews().map((row) => row.key)).size).toBe(recentReviews().length);
 	});
 
