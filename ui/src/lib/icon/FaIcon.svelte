@@ -90,7 +90,13 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Achievement]: 'fa-trophy',
 		[FaIconType.AchievementManual]: 'fa-pencil',
 		[FaIconType.AchievementInferred]: 'fa-gears',
-		[FaIconType.Map]: 'fa-map-location-dot'
+		[FaIconType.Map]: 'fa-map-location-dot',
+		[FaIconType.GoodStats]: 'fa-dumbbell',
+		[FaIconType.DoubleCommit]: 'fa-clone',
+		[FaIconType.Health]: 'fa-heart',
+		[FaIconType.Sanity]: 'fa-brain',
+		[FaIconType.Resource]: 'fa-coins',
+		[FaIconType.DrawCards]: 'fa-cards'
 	};
 </script>
 

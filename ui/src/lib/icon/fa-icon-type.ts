@@ -104,5 +104,13 @@ export enum FaIconType {
 	Article,
 	Written,
 	Clock,
-	Calendar
+	Calendar,
+
+	// What a search for cards looks for
+	GoodStats,
+	DoubleCommit,
+	Health,
+	Sanity,
+	Resource,
+	DrawCards
 }

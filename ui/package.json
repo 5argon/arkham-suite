@@ -21,7 +21,8 @@
 			"svelte": "./src/lib/index.ts",
 			"default": "./src/lib/index.ts"
 		},
-		"./markdown": "./src/lib/card/markdown-processor.ts"
+		"./markdown": "./src/lib/card/markdown-processor.ts",
+		"./icon-type": "./src/lib/icon/fa-icon-type.ts"
 	},
 	"main": "./src/lib/index.ts",
 	"peerDependencies": {
