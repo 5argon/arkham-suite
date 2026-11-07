@@ -293,9 +293,15 @@ describe('how pages show up in search', () => {
 			markdownToTrustedHtml('# Plain\n\n## [Marie Lambeau](/card/60451)\n\n#### Deep'),
 			'r'
 		);
-		expect(parts[0]).toMatchObject({ kind: 'text', html: expect.stringContaining('<h3>Plain</h3>') });
+		expect(parts[0]).toMatchObject({
+			kind: 'text',
+			html: expect.stringContaining('<h3>Plain</h3>')
+		});
 		expect(parts[1]).toMatchObject({ kind: 'cards', level: 3 });
-		expect(parts[2]).toMatchObject({ kind: 'text', html: expect.stringContaining('<h4>Deep</h4>') });
+		expect(parts[2]).toMatchObject({
+			kind: 'text',
+			html: expect.stringContaining('<h4>Deep</h4>')
+		});
 	});
 
 	it('says the same thing whoever reviewed the card', () => {
@@ -326,7 +332,10 @@ describe('how pages show up in search', () => {
 describe('written review files', () => {
 	it('reads the details from the front matter and the rest as the review', () => {
 		expect(
-			parseWrittenReview('me', '---\nby: 5argon\ndate: 2026-11-04\nenvironment: evergreen\n---\n\nText.\n')
+			parseWrittenReview(
+				'me',
+				'---\nby: 5argon\ndate: 2026-11-04\nenvironment: evergreen\n---\n\nText.\n'
+			)
 		).toEqual({
 			id: 'me',
 			by: '5argon',
@@ -435,8 +444,9 @@ describe('card subsections', () => {
 	});
 
 	it("collects onto that card's page, linking right to it", () => {
-		const [insight] = reviewCardPage('12013')?.insights ?? [];
-		expect(insight.card.code).toBe('12073');
+		const insight = reviewCardPage('12013')?.insights.find((i) => i.card.code === '12073');
+		expect(insight).toBeDefined();
+		if (insight === undefined) return;
 		expect(insight.href).toMatch(/^\/review\/card\/12073#5argon-[a-z-]+-12013$/);
 		expect(insight.entry.person.name).toBe('5argon');
 		expect(insight.entry.environment?.label).toBe('Evergreen');
@@ -446,7 +456,9 @@ describe('card subsections', () => {
 	it('keeps the anchor in the review it links to', () => {
 		const page = reviewCardPage('12073');
 		const review = page?.entries.find((e) => e.parts !== undefined);
-		const isabelle = review?.parts?.find((part) => part.kind === 'cards' && part.codes.includes('12013'));
+		const isabelle = review?.parts?.find(
+			(part) => part.kind === 'cards' && part.codes.includes('12013')
+		);
 		expect(isabelle).toEqual({
 			kind: 'cards',
 			anchor: expect.stringMatching(/^5argon-[a-z-]+-12013$/),
@@ -454,7 +466,9 @@ describe('card subsections', () => {
 			codes: ['12013'],
 			title: undefined
 		});
-		expect(review?.id && isabelle?.kind === 'cards' && isabelle.anchor.startsWith(review.id)).toBe(true);
+		expect(review?.id && isabelle?.kind === 'cards' && isabelle.anchor.startsWith(review.id)).toBe(
+			true
+		);
 		expect(page?.mentioned['12013']?.name).toBe('Isabelle Barnes');
 	});
 
@@ -487,7 +501,14 @@ describe('campaign reviews', () => {
 	it('needs to say what it speaks about', () => {
 		const problems = (overrides: Partial<SourceJson>) =>
 			sourceProblems(
-				{ title: 't', date: '2026-01-01', by: 'quick-learner', media: { youtube: 'x' }, cards: [], ...overrides },
+				{
+					title: 't',
+					date: '2026-01-01',
+					by: 'quick-learner',
+					media: { youtube: 'x' },
+					cards: [],
+					...overrides
+				},
 				false
 			);
 		expect(problems({}).join()).toMatch(/which cards or campaigns/);
