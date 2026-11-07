@@ -104,9 +104,7 @@
 			"youtube": "-2zDFqlEWiw"
 		},
 		"cards": [],
-		"campaigns": [
-			"cob"
-		]
+		"campaigns": ["cob"]
 	},
 	{
 		"by": "quick-learner",
@@ -173,9 +171,7 @@
 			"youtube": "346simW5rUU"
 		},
 		"cards": [],
-		"campaigns": [
-			"cob"
-		]
+		"campaigns": ["cob"]
 	},
 	{
 		"by": "quick-learner",
@@ -470,7 +466,8 @@
 				"start": "30:25"
 			},
 			{
-				"code": "12062"
+				"code": "12062",
+				"start": "33:08"
 			},
 			{
 				"code": "60451",
@@ -504,13 +501,16 @@
 				"start": "9:23"
 			},
 			{
-				"code": "60461"
+				"code": "60461",
+				"start": "37:08"
 			},
 			{
-				"code": "60462"
+				"code": "60462",
+				"start": "24:54"
 			},
 			{
-				"code": "60463"
+				"code": "60463",
+				"start": "16:10"
 			},
 			{
 				"code": "60464",
@@ -548,7 +548,8 @@
 				"start": "22:21"
 			},
 			{
-				"code": "60473"
+				"code": "60473",
+				"start": "23:29"
 			},
 			{
 				"code": "60474",
@@ -578,10 +579,12 @@
 				"start": "49:09"
 			},
 			{
-				"code": "60481"
+				"code": "60481",
+				"start": "34:32"
 			},
 			{
-				"code": "60482"
+				"code": "60482",
+				"start": "37:57"
 			},
 			{
 				"code": "60483",
