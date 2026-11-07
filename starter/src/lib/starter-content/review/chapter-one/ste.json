@@ -1,5 +1,41 @@
 [
 	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Pax! (Arkham Horror Game Discussion)",
+		"date": "2026-10-16",
+		"media": {
+			"youtube": "2fk-26Bfbug"
+		},
+		"cards": [
+			{
+				"code": "60505",
+				"start": "52:00"
+			},
+			{
+				"code": "60522",
+				"start": "52:00"
+			}
+		]
+	},
+	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Fylion! (Arkham Horror Game Discussion)",
+		"date": "2026-10-09",
+		"media": {
+			"youtube": "RJvpRR0fw6Y"
+		},
+		"cards": [
+			{
+				"code": "60508",
+				"start": "10:43"
+			},
+			{
+				"code": "60527",
+				"start": "10:43"
+			}
+		]
+	},
+	{
 		"by": "ancient-evils",
 		"title": "Investigator Expansion Review: Investigator Starter Decks",
 		"date": "2022-09-18",

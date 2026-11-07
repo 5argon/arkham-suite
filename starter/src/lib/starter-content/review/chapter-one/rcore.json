@@ -1,5 +1,53 @@
 [
 	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Fylion! (Arkham Horror Game Discussion)",
+		"date": "2026-10-09",
+		"media": {
+			"youtube": "RJvpRR0fw6Y"
+		},
+		"cards": [
+			{
+				"code": "01689",
+				"start": "7:39"
+			},
+			{
+				"code": "01536",
+				"start": "26:30"
+			},
+			{
+				"code": "01580",
+				"start": "35:33"
+			},
+			{
+				"code": "01584",
+				"start": "35:33"
+			},
+			{
+				"code": "01551",
+				"start": "39:31"
+			}
+		]
+	},
+	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Justin! (Arkham Horror Game Discussion)",
+		"date": "2026-10-02",
+		"media": {
+			"youtube": "_9JX6gLEXxo"
+		},
+		"cards": [
+			{
+				"code": "01541",
+				"start": "16:25"
+			},
+			{
+				"code": "01560",
+				"start": "26:00"
+			}
+		]
+	},
+	{
 		"by": "ancient-evils",
 		"title": "Investigator Expansion Review: The Core",
 		"date": "2023-12-10",

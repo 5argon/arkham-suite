@@ -1,5 +1,37 @@
 [
 	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Fylion! (Arkham Horror Game Discussion)",
+		"date": "2026-10-09",
+		"media": {
+			"youtube": "RJvpRR0fw6Y"
+		},
+		"cards": [
+			{
+				"code": "60329",
+				"start": "39:31"
+			}
+		]
+	},
+	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Justin! (Arkham Horror Game Discussion)",
+		"date": "2026-10-02",
+		"media": {
+			"youtube": "_9JX6gLEXxo"
+		},
+		"cards": [
+			{
+				"code": "60306",
+				"start": "4:48"
+			},
+			{
+				"code": "60321",
+				"start": "4:48"
+			}
+		]
+	},
+	{
 		"by": "ancient-evils",
 		"title": "Anything You Can Do, Better - A Winifred Primer",
 		"date": "2024-01-24",

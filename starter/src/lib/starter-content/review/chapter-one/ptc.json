@@ -1,5 +1,45 @@
 [
 	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Fylion! (Arkham Horror Game Discussion)",
+		"date": "2026-10-09",
+		"media": {
+			"youtube": "RJvpRR0fw6Y"
+		},
+		"cards": [
+			{
+				"code": "03263",
+				"start": "21:47"
+			},
+			{
+				"code": "03271",
+				"start": "30:46"
+			}
+		]
+	},
+	{
+		"by": "quick-learner",
+		"title": "Should You Upgrade This Card? Let's Ask Justin! (Arkham Horror Game Discussion)",
+		"date": "2026-10-02",
+		"media": {
+			"youtube": "_9JX6gLEXxo"
+		},
+		"cards": [
+			{
+				"code": "03270",
+				"start": "10:13"
+			},
+			{
+				"code": "03023",
+				"start": "19:14"
+			},
+			{
+				"code": "03232",
+				"start": "35:47"
+			}
+		]
+	},
+	{
 		"by": "playing-board-games",
 		"title": "Rating The Path To Carcosa cards 6ish years later! (Arkham Horror: The Card Game)",
 		"date": "2023-04-23",
