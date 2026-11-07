@@ -32,7 +32,9 @@ nothing.
 </script>
 
 {#if kinds.length > 0}
-	<span class="text-primary-800 dark:text-primary-200 inline-flex items-center gap-2 text-xs">
+	<span
+		class="text-primary-800 dark:text-primary-200 inline-flex flex-wrap items-center justify-center gap-x-2 text-xs"
+	>
 		{#each kinds as kind (kind.id)}
 			<span class="inline-flex items-center gap-1" title={kind.title}>
 				<FaIcon icon={kind.icon} />

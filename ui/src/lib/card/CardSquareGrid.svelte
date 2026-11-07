@@ -97,7 +97,9 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 			</div>
 		{/if}
 		{#if cardFooter}
-			<div class="flex min-h-4 justify-center">
+			<!-- Takes the square's width without adding to it, so a long footer wraps instead of
+			 stretching the square. -->
+			<div class="flex min-h-4 w-0 min-w-full justify-center">
 				{@render cardFooter(item)}
 			</div>
 		{/if}
