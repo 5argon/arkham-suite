@@ -1,16 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [intellect]",
-			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\""
-		},
-		{
-			"label": "Uses [willpower]",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
-		},
-		{
-			"label": "Investigate / Parley +2 [intellect] / [willpower]",
-			"query": "text = \"<b>investigate</b> [intellect]\" | text = \"<b>investigate</b> [willpower]\" | (text == \"<b>parley\" & (text == \"[intellect]\" | text == \"[willpower]\"))"
-		}
-	]
+	"presets": ["uses-willpower", "uses-intellect", "investigate-parley-plus-2-intellect-willpower"]
 }

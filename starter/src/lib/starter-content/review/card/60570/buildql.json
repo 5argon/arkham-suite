@@ -1,8 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "[[Ally]] with 2+ health",
-			"query": "tr = \"ally\" & health >= 2"
-		}
-	]
+	"presets": ["ally-with-2-plus-health"]
 }

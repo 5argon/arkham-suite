@@ -1,8 +1,9 @@
 {
 	"presets": [
+		"uses-combat",
 		{
-			"label": "Uses [combat]",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
+			"label": "Take non-direct damage",
+			"query": "((text = \"take damage\" & text != \"after you take\") | text = \"deal damage investigator\") & text !== \"direct damage\""
 		}
 	]
 }

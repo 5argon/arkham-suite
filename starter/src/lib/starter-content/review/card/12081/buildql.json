@@ -1,0 +1,3 @@
+{
+	"presets": ["tests-willpower", "tests-agility"]
+}

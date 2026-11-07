@@ -7,7 +7,16 @@ import { service } from '@5argon/arkham-kohaku';
  */
 
 export type BuildQlTokenKind =
-	'field' | 'operator' | 'string' | 'regex' | 'number' | 'keyword' | 'paren' | 'space' | 'other';
+	| 'field'
+	| 'operator'
+	| 'string'
+	| 'regex'
+	| 'number'
+	| 'keyword'
+	| 'paren'
+	| 'list'
+	| 'space'
+	| 'other';
 
 export interface BuildQlToken {
 	kind: BuildQlTokenKind;
@@ -30,6 +39,14 @@ export interface BuildQlField {
 	 * true-or-false fields and codes, where the two are the same in practice.
 	 */
 	match?: 'fuzzy' | 'exact' | 'pattern';
+	/**
+	 * Compared with `!=`, `!==` or a negated list, which finds the cards that don't match.
+	 */
+	negated?: boolean;
+	/**
+	 * Compared with a list, `?` or `??`, which matches any of it, or with `!?` or `!??`, none of it.
+	 */
+	list?: boolean;
 	/**
 	 * The operator it was first used with, for a field listed once for each way it's compared.
 	 */
@@ -136,7 +153,19 @@ const fieldByAlias = new Map<string, string>(
  */
 const abbreviations: Record<string, string> = { xp: 'XP', id: 'ID' };
 
+/**
+ * Fields read out differently from their name: on a player card the skill fields count its icons.
+ */
+const names: Record<string, string> = {
+	willpower: 'Willpower icon',
+	intellect: 'Intellect icon',
+	combat: 'Combat icon',
+	agility: 'Agility icon',
+	wild: 'Wild icon'
+};
+
 function displayName(field: string): string {
+	if (names[field] !== undefined) return names[field];
 	return field
 		.split('_')
 		.map((word) => abbreviations[word] ?? word.charAt(0).toUpperCase() + word.slice(1))
@@ -170,7 +199,8 @@ export function tokenizeBuildQl(query: string): BuildQlToken[] {
 		const regexAllowed =
 			previous === undefined ||
 			previous.kind === 'operator' ||
-			(previous.kind === 'paren' && previous.text === '(');
+			(previous.kind === 'paren' && previous.text === '(') ||
+			(previous.kind === 'list' && previous.text !== ']');
 		const regex = /^\/(?:[^/\\]|\\.)+\//.exec(rest);
 		if (regex && regexAllowed) {
 			take('regex', regex[0]);
@@ -183,6 +213,10 @@ export function tokenizeBuildQl(query: string): BuildQlToken[] {
 		}
 		if (rest[0] === '(' || rest[0] === ')') {
 			take('paren', rest[0]);
+			continue;
+		}
+		if (rest[0] === '[' || rest[0] === ']' || rest[0] === ',') {
+			take('list', rest[0]);
 			continue;
 		}
 		const number = /^\d+(?:\.\d+)?/.exec(rest);
@@ -210,7 +244,7 @@ export function tokenizeBuildQl(query: string): BuildQlToken[] {
 
 /**
  * The fields a query uses, in the order they first appear. A text or string field is listed once
- * for each way it's compared, fuzzy or exact.
+ * for each way it's compared, fuzzy, exact or a pattern, and matching or not.
  */
 export function fieldsOf(tokens: BuildQlToken[]): BuildQlField[] {
 	const fields: BuildQlField[] = [];
@@ -231,11 +265,22 @@ export function fieldsOf(tokens: BuildQlToken[]): BuildQlField[] {
 					: operator && exactOperators.includes(operator)
 						? 'exact'
 						: undefined;
-		if (fields.some((f) => f.alias === alias && f.match === match)) return;
+		const negated = match !== undefined && operator!.startsWith('!');
+		const list = match !== undefined && operator!.includes('?');
+		if (
+			fields.some(
+				(f) =>
+					f.alias === alias && f.match === match && !!f.negated === negated && !!f.list === list
+			)
+		) {
+			return;
+		}
 		fields.push({
 			alias,
 			name: displayName(field),
-			...(match && { match, operator })
+			...(match && { match, operator }),
+			...(negated && { negated }),
+			...(list && { list })
 		});
 	});
 	return fields;
@@ -336,4 +381,78 @@ export function unknownWords(tokens: BuildQlToken[]): string[] {
 export function buildQlSearchUrl(query: string): string {
 	const params = new URLSearchParams({ q: query, card_type: 'player' });
 	return `${service.arkhamBuildBaseUrl}/search?${params}`;
+}
+
+interface ChainNode {
+	joiner?: '&' | '|';
+	children?: ChainNode[];
+	/**
+	 * A comparison of a field with a single string, like `text = "draw"`. A regex stays on its own,
+	 * so the legend can still call it a pattern.
+	 */
+	comparison?: { field: string; operator: string };
+}
+
+/**
+ * Comparisons a list would say in one: two of a field with `=` or `==` joined by `|`, which
+ * `?` or `??` does, or with `!=` or `!==` joined by `&`, which `!?` or `!??` does. Each is given
+ * as the field and the operator, like `text =`.
+ */
+export function chainedComparisons(tokens: BuildQlToken[]): string[] {
+	const meaningful = tokens.filter((token) => token.kind !== 'space');
+	let i = 0;
+	const found: string[] = [];
+	const joined = (joiner: '&' | '|', next: () => ChainNode): ChainNode => {
+		const children = [next()];
+		while (meaningful[i]?.text === joiner) {
+			i++;
+			children.push(next());
+		}
+		return children.length === 1 ? children[0] : { joiner, children };
+	};
+	const orExpr = (): ChainNode => joined('|', andExpr);
+	const andExpr = (): ChainNode => joined('&', unary);
+	const unary = (): ChainNode => {
+		if (meaningful[i]?.text === '(') {
+			i++;
+			const inner = orExpr();
+			i++;
+			return inner;
+		}
+		const start = i;
+		let depth = 0;
+		while (i < meaningful.length) {
+			const text = meaningful[i].text;
+			if (text === '[') depth++;
+			if (text === ']') depth--;
+			if (depth === 0 && (text === '&' || text === '|' || text === ')')) break;
+			i++;
+		}
+		const [field, operator, value, ...rest] = meaningful.slice(start, i);
+		const single =
+			field?.kind === 'field' &&
+			operator?.kind === 'operator' &&
+			value?.kind === 'string' &&
+			rest.length === 0;
+		return single ? { comparison: { field: field.text, operator: operator.text } } : {};
+	};
+	const visit = (node: ChainNode) => {
+		if (!node.children) return;
+		const wanted = node.joiner === '|' ? ['=', '=='] : ['!=', '!=='];
+		const counts = new Map<string, number>();
+		for (const child of node.children) {
+			if (child.comparison && wanted.includes(child.comparison.operator)) {
+				const key = `${child.comparison.field} ${child.comparison.operator}`;
+				counts.set(key, (counts.get(key) ?? 0) + 1);
+			}
+			visit(child);
+		}
+		for (const [key, count] of counts) if (count > 1) found.push(key);
+	};
+	try {
+		visit(orExpr());
+	} catch {
+		return [];
+	}
+	return found;
 }

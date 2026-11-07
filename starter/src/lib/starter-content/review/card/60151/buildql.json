@@ -2,7 +2,17 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\" | text = \"add [willpower] to [intellect]\" | text = \"add [intellect] to [willpower]\""
-		}
+			"query": "text ? [\"([combat]\", \"[combat])\", \"add [combat]\", \"add [willpower] to [intellect]\", \"add [intellect] to [willpower]\"] | text == \"test [combat]\"",
+			"icon": "GoodStats"
+		},
+		{
+			"label": "Double commit for [willpower] / [intellect] / [combat]",
+			"query": "(willpower + wild >= 2 | intellect + wild >= 2 | combat + wild >= 2) & type !== \"investigator\"",
+			"icon": "DoubleCommit",
+			"level": [0, 0]
+		},
+		"helps-with-horror",
+		"gain-resource",
+		"draws-cards"
 	]
 }

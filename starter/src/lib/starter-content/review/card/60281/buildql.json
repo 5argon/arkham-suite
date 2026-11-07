@@ -1,8 +1,7 @@
 {
 	"presets": [
-		{
-			"label": "Benefits from taking horror",
-			"query": "text = \"after you take horror\" | text = \"horror is placed on\""
-		}
+		"benefits-from-taking-horror",
+		"benefits-from-horror-placed-on-it",
+		"benefits-from-being-defeated"
 	]
 }

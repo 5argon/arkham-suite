@@ -1,8 +1,7 @@
 {
 	"presets": [
 		{
-			"label": "[[Ally]] with 2+ sanity",
-			"query": "tr = \"ally\" & sanity >= 2",
+			"preset": "ally-with-2-plus-sanity",
 			"all": true
 		}
 	]

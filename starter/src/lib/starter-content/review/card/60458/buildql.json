@@ -2,7 +2,9 @@
 	"presets": [
 		{
 			"label": "Checks for a symbol token",
-			"query": "text = \"symbol token\" | text = \"token with a symbol\""
-		}
+			"query": "text ? [\"symbol token\", \"token with a symbol\"]"
+		},
+		"benefits-from-damage-placed-on-it",
+		"benefits-from-being-defeated"
 	]
 }

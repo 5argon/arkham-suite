@@ -2,19 +2,20 @@
 	"presets": [
 		{
 			"label": "[[Spell]] or [[Ritual]] asset",
-			"query": "(tr = \"spell\" | tr = \"ritual\") & type = \"asset\""
+			"query": "tr ?? [\"spell\", \"ritual\"] & type == \"asset\""
+		},
+		"ritual-asset",
+		{
+			"label": "[[Spell]] or [[Ritual]] asset",
+			"query": "tr ?? [\"spell\", \"ritual\"] & type == \"asset\"",
+			"cost": [3, null]
 		},
 		{
-			"label": "[[Ritual]] asset",
-			"query": "tr = \"ritual\" & type = \"asset\""
+			"label": "[[Spell]] or [[Ritual]] asset",
+			"query": "tr ?? [\"spell\", \"ritual\"] & type == \"asset\"",
+			"cost": [3, 3]
 		},
-		{
-			"label": "[[Spell]] or [[Ritual]] asset costed 3 or more",
-			"query": "(tr = \"spell\" | tr = \"ritual\") & type = \"asset\" & cost >= 3"
-		},
-		{
-			"label": "[[Spell]] or [[Ritual]] asset costed exactly 3",
-			"query": "(tr = \"spell\" | tr = \"ritual\") & type = \"asset\" & cost = 3"
-		}
+		"benefits-from-damage-placed-on-it",
+		"benefits-from-being-defeated"
 	]
 }

@@ -1,12 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Benefits from failing",
-			"query": "text == \"[reaction] after you fail\" | text == \"play after you fail\" | text = \"attempt again\" | text == \"if this test fails\" | text == \"if you fail, return\""
-		},
-		{
-			"label": "Shroud reduction",
-			"query": "text = /-(\\d|x) shroud/ | text = \"reduce location's shroud\""
-		}
-	]
+	"presets": ["shroud-reduction", "benefits-from-failing-an-investigation"]
 }

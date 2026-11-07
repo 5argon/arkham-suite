@@ -1,0 +1,293 @@
+{
+	"asset": {
+		"label": "Asset",
+		"query": "type == \"asset\""
+	},
+	"event": {
+		"label": "Event",
+		"query": "type == \"event\""
+	},
+	"skill": {
+		"label": "Skill",
+		"query": "type == \"skill\""
+	},
+	"fast-card": {
+		"label": "Fast card",
+		"query": "text == \"fast.\" & text !?? [\"play after\", \"play when\"]"
+	},
+	"weapon": {
+		"label": "[[Weapon]]",
+		"query": "tr == \"weapon\""
+	},
+	"weapon-or-tool": {
+		"label": "[[Weapon]] or [[Tool]]",
+		"query": "tr ?? [\"weapon\", \"tool\"]"
+	},
+	"tool-and-not-weapon": {
+		"label": "[[Tool]] and not [[Weapon]]",
+		"query": "tr == \"tool\" & tr !== \"weapon\""
+	},
+	"firearm-card": {
+		"label": "[[Firearm]] card",
+		"query": "tr == \"firearm\""
+	},
+	"firearm-asset": {
+		"label": "[[Firearm]] asset",
+		"query": "tr == \"firearm\" & type == \"asset\""
+	},
+	"spell-asset": {
+		"label": "[[Spell]] asset",
+		"query": "tr == \"spell\" & type == \"asset\""
+	},
+	"spell-event": {
+		"label": "[[Spell]] event",
+		"query": "tr == \"spell\" & type == \"event\""
+	},
+	"spell-ritual-plus-2-willpower-combat": {
+		"label": "[[Spell]] / [[Ritual]] +2 [willpower] / [combat]",
+		"query": "tr ?? [\"spell\", \"ritual\"] & (text ? [\"([willpower]\", \"[willpower])\", \"([combat]\", \"[combat])\"] | text ?? [\"test [willpower]\", \"test [combat]\"])"
+	},
+	"ritual-asset": {
+		"label": "[[Ritual]] asset",
+		"query": "tr == \"ritual\" & type == \"asset\""
+	},
+	"tome-with-secrets": {
+		"label": "[[Tome]] with secrets",
+		"query": "tr == \"tome\" & text = \"uses secrets\""
+	},
+	"upgrade-card": {
+		"label": "[[Upgrade]] card",
+		"query": "tr == \"upgrade\""
+	},
+	"uses-willpower": {
+		"label": "Uses [willpower]",
+		"query": "text ? [\"([willpower]\", \"[willpower])\", \"add [willpower]\"] | text == \"test [willpower]\""
+	},
+	"uses-intellect": {
+		"label": "Uses [intellect]",
+		"query": "text ? [\"([intellect]\", \"[intellect])\", \"add [intellect]\"] | text == \"test [intellect]\""
+	},
+	"uses-combat": {
+		"label": "Uses [combat]",
+		"query": "text ? [\"([combat]\", \"[combat])\", \"add [combat]\"] | text == \"test [combat]\""
+	},
+	"uses-agility": {
+		"label": "Uses [agility]",
+		"query": "text ? [\"([agility]\", \"[agility])\", \"add [agility]\"] | text == \"test [agility]\""
+	},
+	"tests-willpower": {
+		"label": "Tests [willpower]",
+		"query": "text ? [\"([willpower]\", \"[willpower])\"] | text == \"test [willpower]\""
+	},
+	"tests-intellect": {
+		"label": "Tests [intellect]",
+		"query": "text ? [\"([intellect]\", \"[intellect])\"] | text == \"test [intellect]\""
+	},
+	"tests-intellect-not-investigate": {
+		"label": "Tests [intellect], not Investigate",
+		"query": "(text ? [\"([intellect]\", \"[intellect])\"] | text == \"test [intellect]\") & text !== \"<b>investigate\""
+	},
+	"tests-combat": {
+		"label": "Tests [combat]",
+		"query": "text ? [\"([combat]\", \"[combat])\"] | text == \"test [combat]\""
+	},
+	"tests-agility": {
+		"label": "Tests [agility]",
+		"query": "text ? [\"([agility]\", \"[agility])\"] | text == \"test [agility]\""
+	},
+	"tests-agility-not-evade": {
+		"label": "Tests [agility], not Evade",
+		"query": "(text ? [\"([agility]\", \"[agility])\"] | text == \"test [agility]\") & text !== \"<b>evade\""
+	},
+	"tests-without-agility": {
+		"label": "Tests without [agility]",
+		"query": "text ?? [\"<b>fight\", \"<b>investigate\", \"<b>evade\", \"<b>parley\", \"test [\"] & text !== \"[agility]\""
+	},
+	"double-commit-for-intellect-agility": {
+		"label": "Double commit for [intellect] / [agility]",
+		"query": "(intellect + wild >= 2 | agility + wild >= 2) & type !== \"investigator\"",
+		"icon": "DoubleCommit"
+	},
+	"double-commit-for-willpower-intellect-agility": {
+		"label": "Double commit for [willpower] / [intellect] / [agility]",
+		"query": "(willpower + wild >= 2 | intellect + wild >= 2 | agility + wild >= 2) & type !== \"investigator\"",
+		"icon": "DoubleCommit"
+	},
+	"double-commit-for-willpower-combat-agility": {
+		"label": "Double commit for [willpower] / [combat] / [agility]",
+		"query": "(willpower + wild >= 2 | combat + wild >= 2 | agility + wild >= 2) & type !== \"investigator\"",
+		"icon": "DoubleCommit"
+	},
+	"fight-with-combat": {
+		"label": "Fight with [combat]",
+		"query": "text = \"<b>fight</b> [combat]\""
+	},
+	"fight-without-combat": {
+		"label": "Fight without [combat]",
+		"query": "text == \"<b>fight\" & text != \"<b>fight</b> [combat]\""
+	},
+	"fight-assets": {
+		"label": "Fight assets",
+		"query": "text == \"<b>fight</b>\" & type == \"asset\""
+	},
+	"fight-events": {
+		"label": "Fight events",
+		"query": "text == \"<b>fight</b>\" & type == \"event\""
+	},
+	"fight-evade-plus-2-combat-agility": {
+		"label": "Fight / Evade +2 [combat] / [agility]",
+		"query": "text ? [\"<b>fight</b> [combat]\", \"<b>fight</b> [agility]\", \"<b>evade</b> [combat]\", \"<b>evade</b> [agility]\"]"
+	},
+	"investigate-with-intellect": {
+		"label": "Investigate with [intellect]",
+		"query": "text = \"<b>investigate</b> [intellect]\""
+	},
+	"investigate-without-intellect": {
+		"label": "Investigate without [intellect]",
+		"query": "text == \"<b>investigate\" & text != \"<b>investigate</b> [intellect]\""
+	},
+	"investigate-assets": {
+		"label": "Investigate assets",
+		"query": "text == \"<b>investigate</b>\" & type == \"asset\""
+	},
+	"investigate-events": {
+		"label": "Investigate events",
+		"query": "text == \"<b>investigate</b>\" & type == \"event\""
+	},
+	"investigate-parley-plus-2-intellect-willpower": {
+		"label": "Investigate / Parley +2 [intellect] / [willpower]",
+		"query": "text ? [\"<b>investigate</b> [intellect]\", \"<b>investigate</b> [willpower]\"] | (text == \"<b>parley\" & text ?? [\"[intellect]\", \"[willpower]\"])"
+	},
+	"shroud-reduction": {
+		"label": "Shroud reduction",
+		"query": "text = /-(\\d|x) shroud/ | text = \"reduce location's shroud\""
+	},
+	"evade-assets": {
+		"label": "Evade assets",
+		"query": "text == \"<b>evade</b>\" & type == \"asset\""
+	},
+	"evade-events": {
+		"label": "Evade events",
+		"query": "text == \"<b>evade</b>\" & type == \"event\""
+	},
+	"evade-parley-plus-2-intellect-agility": {
+		"label": "Evade / Parley +2 [intellect] / [agility]",
+		"query": "text ? [\"<b>evade</b> [intellect]\", \"<b>evade</b> [agility]\"] | (text == \"<b>parley\" & text ?? [\"[intellect]\", \"[agility]\"])"
+	},
+	"succeed-by": {
+		"label": "Succeed By",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\""
+	},
+	"succeed-by-willpower": {
+		"label": "Succeed By on [willpower] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text ? [\"([willpower]\", \"[willpower])\", \"succeed at a skill test\"] | text == \"test [willpower]\" | (type == \"skill\" & (willpower >= 1 | wild >= 1)))"
+	},
+	"succeed-by-intellect": {
+		"label": "Succeed By on [intellect] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text ? [\"([intellect]\", \"[intellect])\", \"succeed at a skill test\", \"successfully investigate\"] | text == \"test [intellect]\" | (type == \"skill\" & (intellect >= 1 | wild >= 1)))"
+	},
+	"succeed-by-combat": {
+		"label": "Succeed By on [combat] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text ? [\"([combat]\", \"[combat])\", \"succeed at a skill test\"] | text == \"test [combat]\" | (type == \"skill\" & (combat >= 1 | wild >= 1)))"
+	},
+	"succeed-by-agility": {
+		"label": "Succeed By on [agility] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text ? [\"([agility]\", \"[agility])\", \"succeed at a skill test\", \"successfully evade\"] | text == \"test [agility]\" | (type == \"skill\" & (agility >= 1 | wild >= 1)))"
+	},
+	"succeed-by-support-intellect": {
+		"label": "Succeed By support on [intellect] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text ? [\"succeed at a skill test\", \"successfully investigate\"] | (type == \"skill\" & (intellect >= 1 | wild >= 1)))"
+	},
+	"succeed-by-support-combat": {
+		"label": "Succeed By support on [combat] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text = \"succeed at a skill test\" | (type == \"skill\" & (combat >= 1 | wild >= 1)))"
+	},
+	"succeed-by-support-agility": {
+		"label": "Succeed By support on [agility] tests",
+		"query": "text ? [\"succeed by\", \"successful by\"] & text != \"succeed by 0\" & (text ? [\"succeed at a skill test\", \"successfully evade\"] | (type == \"skill\" & (agility >= 1 | wild >= 1)))"
+	},
+	"raise-success": {
+		"label": "Raise success",
+		"query": "text ? [\"after revealing chaos tokens\", \"would succeed at a skill test\"] & text = \"you get skill value\""
+	},
+	"benefits-from-failing": {
+		"label": "Benefits from failing",
+		"query": "text ?? [\"[reaction] after you fail\", \"play after you fail\", \"if this test fails\", \"if you fail, return\"] | text = \"attempt again\""
+	},
+	"benefits-from-failing-an-investigation": {
+		"label": "Benefits from failing an investigation",
+		"query": "text ?? [\"[reaction] after you fail a skill test\", \"if this test fails\"] | (text == \"play after you fail\" & text == \"while investigating\")"
+	},
+	"benefits-from-failing-an-evasion": {
+		"label": "Benefits from failing an evasion",
+		"query": "text ?? [\"[reaction] after you fail a skill test\", \"if this test fails\", \"after you fail an attack or evasion\"]"
+	},
+	"wants-an-enemy": {
+		"label": "Wants an enemy",
+		"query": "text ? [\"enemy enters\", \"there is an enemy\", \"choose an enemy at your location\"]"
+	},
+	"defeat-support": {
+		"label": "Defeat support",
+		"query": "text ? [\"you defeat an enemy\", \"enemy is defeated\"]"
+	},
+	"attack-that-rewards-its-own-defeat": {
+		"label": "Attack that rewards its own defeat",
+		"query": "text = \"this attack defeats an enemy\""
+	},
+	"take-damage-or-horror": {
+		"label": "Take damage or horror",
+		"query": "text ? [\"take damage\", \"take horror\", \"deal damage investigator\", \"deal horror investigator\"] & text != \"after you take\" & text !== \"takes 1 or more\""
+	},
+	"benefits-from-taking-damage": {
+		"label": "Benefits from taking damage",
+		"query": "text ?? [\"[reaction] after you take damage\", \"takes 1 or more damage\"] | text = \"damage is placed on\""
+	},
+	"benefits-from-damage-placed-on-it": {
+		"label": "Benefits from damage placed on it",
+		"query": "text = \"damage is placed on\""
+	},
+	"benefits-from-taking-horror": {
+		"label": "Benefits from taking horror",
+		"query": "text = \"after you take horror\""
+	},
+	"benefits-from-horror-placed-on-it": {
+		"label": "Benefits from horror placed on it",
+		"query": "text = \"horror is placed on\""
+	},
+	"benefits-from-being-defeated": {
+		"label": "Benefits from being defeated",
+		"query": "text = \"when is defeated\""
+	},
+	"helps-with-damage": {
+		"label": "Helps with damage",
+		"query": "hd = true | health >= 2",
+		"icon": "Health"
+	},
+	"helps-with-horror": {
+		"label": "Helps with horror",
+		"query": "hh = true | sanity >= 2",
+		"icon": "Sanity"
+	},
+	"heals-horror": {
+		"label": "Heals horror",
+		"query": "hh = true"
+	},
+	"ally-with-2-plus-health": {
+		"label": "[[Ally]] with 2+ health",
+		"query": "tr == \"ally\" & health >= 2"
+	},
+	"ally-with-2-plus-sanity": {
+		"label": "[[Ally]] with 2+ sanity",
+		"query": "tr == \"ally\" & sanity >= 2"
+	},
+	"gain-resource": {
+		"label": "Gain resource",
+		"query": "text = \"gain resource\"",
+		"icon": "Resource"
+	},
+	"draws-cards": {
+		"label": "Draws cards",
+		"query": "(text ? [\"draw card\", \"draw of them\"] & text !== \"draw the top card of the encounter deck\") | (text ?? [\"draw it\", \"draws it\"] & text != \"encounter deck\")",
+		"icon": "DrawCards"
+	}
+}

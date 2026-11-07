@@ -2,31 +2,28 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
+			"query": "text ? [\"([combat]\", \"[combat])\", \"add [combat]\"] | text == \"test [combat]\"",
+			"icon": "GoodStats"
 		},
 		{
-			"label": "Fight assets",
-			"query": "text == \"<b>fight</b>\" & type = \"asset\""
+			"label": "Double commit for [willpower] / [combat]",
+			"query": "(willpower + wild >= 2 | combat + wild >= 2) & type !== \"investigator\"",
+			"icon": "DoubleCommit",
+			"level": [0, 0]
 		},
-		{
-			"label": "Fight events",
-			"query": "text == \"<b>fight</b>\" & type = \"event\""
-		},
+		"helps-with-damage",
+		"helps-with-horror",
+		"gain-resource",
+		"draws-cards",
+		"fight-assets",
+		"fight-events",
 		{
 			"label": "Attacked",
 			"query": "text == \"attacks you\" | text = \"attack investigator\""
 		},
 		{
 			"label": "Takes damage",
-			"query": "text = \"takes damage\" | text = \"damage placed\""
-		},
-		{
-			"label": "Helps with damage",
-			"query": "hd = true | health >= 2"
-		},
-		{
-			"label": "Helps with horror",
-			"query": "hh = true | sanity >= 2"
+			"query": "text ? [\"takes damage\", \"damage placed\"]"
 		}
 	]
 }

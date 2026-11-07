@@ -1,12 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [willpower]",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
-		},
-		{
-			"label": "Take damage or horror",
-			"query": "(text = \"take damage\" | text = \"take horror\" | text = \"deal damage investigator\" | text = \"deal horror investigator\") & text != \"after you take\" & text !== \"takes 1 or more\""
-		}
-	]
+	"presets": ["uses-willpower", "take-damage-or-horror"]
 }

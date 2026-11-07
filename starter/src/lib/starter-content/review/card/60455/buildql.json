@@ -2,23 +2,18 @@
 	"presets": [
 		{
 			"label": "[[Spell]] card",
-			"query": "tr = \"spell\""
+			"query": "tr == \"spell\""
 		},
-		{
-			"label": "[[Spell]] asset",
-			"query": "tr = \"spell\" & type = \"asset\""
-		},
-		{
-			"label": "[[Spell]] event",
-			"query": "tr = \"spell\" & type = \"event\""
-		},
+		"spell-asset",
+		"spell-event",
 		{
 			"label": "[[Spell]] skill",
-			"query": "tr = \"spell\" & type = \"skill\""
+			"query": "tr == \"spell\" & type == \"skill\""
 		},
 		{
-			"label": "Lv. 1~5 [[Spell]] card",
-			"query": "tr = \"spell\" & xp >= 1 & xp <= 5"
+			"label": "[[Spell]] card",
+			"query": "tr == \"spell\"",
+			"level": [1, 5]
 		}
 	]
 }

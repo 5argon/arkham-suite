@@ -1,12 +1,8 @@
 {
 	"presets": [
-		{
-			"label": "[[Ally]] with 2+ sanity",
-			"query": "tr = \"ally\" & sanity >= 2"
-		},
-		{
-			"label": "Benefits from taking horror",
-			"query": "text = \"after you take horror\" | text = \"horror is placed on\""
-		}
+		"benefits-from-taking-horror",
+		"benefits-from-horror-placed-on-it",
+		"benefits-from-being-defeated",
+		"ally-with-2-plus-sanity"
 	]
 }

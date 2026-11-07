@@ -1,20 +1,8 @@
 {
 	"presets": [
-		{
-			"label": "Investigate with [intellect]",
-			"query": "text = \"<b>investigate</b> [intellect]\""
-		},
-		{
-			"label": "Investigate without [intellect]",
-			"query": "text == \"<b>investigate\" & text != \"<b>investigate</b> [intellect]\""
-		},
-		{
-			"label": "Succeed By",
-			"query": "(text = \"succeed by\" | text = \"successful by\") & text != \"succeed by 0\""
-		},
-		{
-			"label": "Raise success",
-			"query": "(text = \"after revealing chaos tokens\" | text = \"would succeed at a skill test\") & text = \"you get skill value\""
-		}
+		"investigate-with-intellect",
+		"investigate-without-intellect",
+		"succeed-by-intellect",
+		"raise-success"
 	]
 }

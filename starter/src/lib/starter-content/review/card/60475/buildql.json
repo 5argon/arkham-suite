@@ -1,12 +1,11 @@
 {
 	"presets": [
+		"spell-event",
 		{
-			"label": "[[Spell]] event",
-			"query": "tr = \"spell\" & type = \"event\""
+			"preset": "spell-event",
+			"level": [1, 5]
 		},
-		{
-			"label": "Lv. 1~5 [[Spell]] event",
-			"query": "tr = \"spell\" & type = \"event\" & xp >= 1 & xp <= 5"
-		}
+		"benefits-from-damage-placed-on-it",
+		"benefits-from-being-defeated"
 	]
 }

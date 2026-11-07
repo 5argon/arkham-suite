@@ -1,0 +1,7 @@
+{
+	"presets": [
+		"benefits-from-damage-placed-on-it",
+		"benefits-from-horror-placed-on-it",
+		"benefits-from-being-defeated"
+	]
+}

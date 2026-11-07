@@ -1,8 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Tests [combat]",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\""
-		}
-	]
+	"presets": ["tests-combat"]
 }

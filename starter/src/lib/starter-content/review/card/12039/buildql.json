@@ -1,12 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Investigate with [intellect]",
-			"query": "text = \"<b>investigate</b> [intellect]\""
-		},
-		{
-			"label": "Investigate without [intellect]",
-			"query": "text == \"<b>investigate\" & text != \"<b>investigate</b> [intellect]\""
-		}
-	]
+	"presets": ["investigate-with-intellect", "investigate-without-intellect"]
 }

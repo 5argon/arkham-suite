@@ -1,16 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [combat]",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
-		},
-		{
-			"label": "Uses [agility]",
-			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
-		},
-		{
-			"label": "Fight / Evade +2 [combat] / [agility]",
-			"query": "text = \"<b>fight</b> [combat]\" | text = \"<b>fight</b> [agility]\" | text = \"<b>evade</b> [combat]\" | text = \"<b>evade</b> [agility]\""
-		}
-	]
+	"presets": ["uses-combat", "uses-agility", "fight-evade-plus-2-combat-agility"]
 }

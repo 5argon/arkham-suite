@@ -60,19 +60,42 @@ Searches on arkham.build made for one card, shown on its page under "BuildQL Pre
 ```json
 {
 	"presets": [
-		{ "label": "[[Weapon]]", "query": "tr = \"weapon\"" },
-		{ "label": "[[Tool]] and not [[Weapon]]", "query": "tr = \"tool\" & tr != \"weapon\"" }
+		"weapon",
+		"tool-and-not-weapon",
+		{ "label": "[[Firearm]] with ammo", "query": "tr == \"firearm\" & text = \"uses ammo\"" }
 	]
 }
 ```
 
-Hovering a square shows the investigator and the whole query. On a page for one investigator only, `"all": true` on a preset adds the search without them as a second button, for a card that helps others too; the two read "(Usable)" and "(All)". To use the investigator in the query yourself, write `{ia}` where their code goes, like `ia != "{ia}"` for cards they can't take yet. Then the query isn't limited to what they can take, and there's no square without an investigator. A label can show icons and traits the same way card text does, like `"Uses [agility]"` or `"[[Ally]] with 2+ health"`. The query language is at https://github.com/arkham-build/arkham.build/blob/main/frontend/src/store/lib/buildql/buildql.md. A test catches a word that isn't a field, unbalanced parentheses, and comparing two fields of different types.
+A preset on more than one card is written once in `buildql-presets.json`, next to the card folders, and a card names it by its key. So the same search reads the same everywhere, and fixing it fixes every page. A preset only one card has is written out right there. A test fails when a key isn't in `buildql-presets.json`, when a shared preset isn't used, when a card writes out a shared preset or one with a shared label, and when two cards write out the same preset, which then belongs with the shared ones.
+
+`buildql-presets.json` is in order by theme, not by name: card kinds and traits, then stats and tests, actions, succeeding and failing, enemies, damage and horror, and resources. Shared presets on a card come in that same order, so related ones sit together, like "Benefits from taking horror", "Benefits from horror placed on it" and "Benefits from being defeated". A test fails when they don't. A new shared preset goes next to the ones it belongs with. A preset written out on one card can go anywhere among them, wherever it reads best.
+
+A preset can have an `icon`, a `FaIconType` name shown before its label, like `"icon": "Health"`. Icons mark the searches every investigator's page has, which come first on it in this order: "Use good stats" (`GoodStats`), "Lv. 0 double commit for …" (`DoubleCommit`), "Helps with damage" (`Health`) and "Helps with horror" (`Sanity`) for an investigator with 5 or 6 of it, or whose play leans on it (Daniela both since she's attacked a lot, Isabelle both for her ability, Carolyn horror, Marie damage), "Gain resource" (`Resource`) and "Draws cards" (`DrawCards`). A preset with an icon comes before those without on any card, and a test fails when it doesn't or when the name isn't a `FaIconType`.
+
+To narrow a preset down to some levels or costs, give its use a range instead of writing it into the query, so every label words it the same way. A shared preset's label is written singular and on its own, like "Asset", "Event" or "[[Spell]] event".
+
+| Use | Label | Added to the query |
+| --- | --- | --- |
+| `{ "preset": "event", "level": [0, 0] }` | Lv. 0 event | `xp = 0` |
+| `{ "preset": "spell-event", "level": [1, 5] }` | Lv. 1~5 [[Spell]] event | `xp >= 1 & xp <= 5` |
+| `{ "preset": "asset", "cost": [2, 2] }` | Asset costed exactly 2 | `cost = 2` |
+| `{ "preset": "asset", "cost": [3, null] }` | Asset costed 3 or more | `cost >= 3` |
+| `{ "preset": "asset", "cost": [0, 2] }` | Asset costed 2 or less | `cost >= 0 & cost <= 2`, which leaves out X costs |
+| `{ "preset": "asset", "cost": [1, 2] }` | Asset costed 1~2 | `cost >= 1 & cost <= 2` |
+| `{ "preset": "event", "level": [0, 0], "doubleCommit": true }` | Lv. 0 event for a double commit | `xp = 0 & (willpower + wild >= 2 \| intellect + wild >= 2 \| combat + wild >= 2 \| agility + wild >= 2)`, a card giving 2 or more icons to a test of one skill |
+
+A preset written out on one card takes `level` and `cost` too. A range never goes into `buildql-presets.json`, and a test fails on a query that compares `xp`, `level` or `cost` itself.
+
+Hovering a square shows the investigator and the whole query. On a page for one investigator only, `"all": true` on a preset adds the search without them as a second button, for a card that helps others too; the two read "(Usable)" and "(All)". For a shared preset, write `{ "preset": "<key>", "all": true }`. To use the investigator in the query yourself, write `{ia}` where their code goes, like `ia != "{ia}"` for cards they can't take yet. Then the query isn't limited to what they can take, and there's no square without an investigator. A label can show icons and traits the same way card text does, like `"Uses [agility]"` or `"[[Ally]] with 2+ health"`. The query language is at https://github.com/arkham-build/arkham.build/blob/main/frontend/src/store/lib/buildql/buildql.md. A test catches a word that isn't a field, unbalanced parentheses, and comparing two fields of different types.
 
 ### Writing a query
 
 Queries search the raw ArkhamDB text, ignoring case: icons are `[agility]`, traits `[[Tome]]`, keywords `<b>Fight</b>`.
 
 - `text = "a b"` is fuzzy: the words in order, up to 20 characters apart, and a word can be part of a longer one. `text == "a b"` is that exact text.
+- Several options of one field go in a list: `text ? ["a", "b"]` matches any of them fuzzily and `text ?? ["a", "b"]` exactly, and `text !? [...]` / `text !?? [...]` match none of them. A test fails on the same comparison chained instead, like `text = "a" | text = "b"` or `text != "a" & text != "b"`. A regex stays on its own.
+- A trait, the type and a faction are each a whole word, so compare them with `==` and `!==`: `tr == "tome"`, `type == "asset"`, `faction == "survivor"`. With `=` a trait would also find a longer one with it inside, like "Ritual Site" for "ritual", and the tooltip would call it fuzzy. A test catches it. A slot is the exception: `slot = "hand"` finds "Hand" and "Hand x2", and `slot == "hand x2"` only two-handed ones.
 - A word inside a longer one is the usual trap: "as" in "fast" and "has", "less" in "bless", "fail" in "[auto_fail]", "take" in "takes", "exhaust" in "exhausted", "discard" in "discarding". Use `==` or a longer phrase.
 - The 20 characters run out when a card's name sits between the words, as in "Secrets on Typewriter may be spent as if". Split it into two terms joined with `&`.
 - `!=` and `!==` leave out the whole card if the text appears anywhere on it, even in another ability.
@@ -82,11 +105,11 @@ Queries search the raw ArkhamDB text, ignoring case: icons are `[agility]`, trai
 Patterns that worked:
 
 - An action using a stat: `text = "<b>fight</b> [combat]"`, which also finds "Fight ([combat] or [agility])". A Parley card that tests a stat: `text == "<b>parley" & text == "[intellect]"`.
-- Being tested on a stat: `text = "([agility]" | text = "[agility])" | text == "test [agility]"`. Chapter 2 puts the stat an action tests in parentheses, as in "<b>Fight</b> ([combat]). Add your [willpower] to your [combat]", and only a plain test like "Test [willpower] (5)" goes without.
+- Being tested on a stat: `text ? ["([agility]", "[agility])"] | text == "test [agility]"`. Chapter 2 puts the stat an action tests in parentheses, as in "<b>Fight</b> ([combat]). Add your [willpower] to your [combat]", and only a plain test like "Test [willpower] (5)" goes without.
 - Using a stat at all adds `text = "add [agility]"`, for a card that adds it to another stat's test, like Lockpicks.
 - Healing: the tags `hd = true` and `hh = true`, kept by ArkhamDB, rather than the text.
-- Weaknesses stay in by default, since one can be worth knowing about. `subtype != "weakness"` leaves out both kinds when a preset needs it.
-- Preset on the card that helps, finding what it helps, like Stock Ammo Reload's `tr = "firearm" & text = "uses ammo"`.
+- Weaknesses stay in by default, since one can be worth knowing about. `subtype != "weakness"` (fuzzy on purpose) leaves out both kinds when a preset needs it.
+- Preset on the card that helps, finding what it helps, like Stock Ammo Reload's `tr == "firearm" & text = "uses ammo"`.
 
 Check a query against the card text before adding it, in `src/lib/server/data/card-text.json`. That file has Chapter 1 cards too, but every search is locked to `ch = 2`, so only the Chapter 2 packs count (`core_2026`, `tom`, `car`, `and`, `mar`, `mig`, `cob`). Leave out a term that only finds Chapter 1 wording: it makes the query longer for a newcomer to read and finds nothing.
 

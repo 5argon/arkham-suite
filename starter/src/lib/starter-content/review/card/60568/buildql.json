@@ -2,19 +2,25 @@
 	"presets": [
 		{
 			"label": "[survivor] Survivor asset or event",
-			"query": "faction = \"survivor\" & (type = \"asset\" | type = \"event\")"
+			"query": "faction == \"survivor\" & type ?? [\"asset\", \"event\"]"
 		},
 		{
-			"label": "Lv. 1~5 [survivor] Survivor asset or event",
-			"query": "faction = \"survivor\" & (type = \"asset\" | type = \"event\") & xp >= 1 & xp <= 5"
+			"label": "[survivor] Survivor asset or event",
+			"query": "faction == \"survivor\" & type ?? [\"asset\", \"event\"]",
+			"doubleCommit": true
+		},
+		{
+			"label": "[survivor] Survivor asset or event",
+			"query": "faction == \"survivor\" & type ?? [\"asset\", \"event\"]",
+			"level": [1, 5]
 		},
 		{
 			"label": "[survivor] Survivor asset",
-			"query": "faction = \"survivor\" & type = \"asset\""
+			"query": "faction == \"survivor\" & type == \"asset\""
 		},
 		{
 			"label": "[survivor] Survivor event",
-			"query": "faction = \"survivor\" & type = \"event\""
+			"query": "faction == \"survivor\" & type == \"event\""
 		}
 	]
 }

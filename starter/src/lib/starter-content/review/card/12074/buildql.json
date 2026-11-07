@@ -1,8 +1,13 @@
 {
 	"presets": [
 		{
-			"label": "Lv. 0 events",
-			"query": "type = \"event\" & xp = 0"
+			"preset": "event",
+			"level": [0, 0]
+		},
+		{
+			"preset": "event",
+			"level": [0, 0],
+			"doubleCommit": true
 		}
 	]
 }

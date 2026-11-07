@@ -1,16 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [intellect]",
-			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\""
-		},
-		{
-			"label": "Uses [agility]",
-			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
-		},
-		{
-			"label": "Evade / Parley +2 [intellect] / [agility]",
-			"query": "text = \"<b>evade</b> [intellect]\" | text = \"<b>evade</b> [agility]\" | (text == \"<b>parley\" & (text == \"[intellect]\" | text == \"[agility]\"))"
-		}
-	]
+	"presets": ["uses-intellect", "uses-agility", "evade-parley-plus-2-intellect-agility"]
 }

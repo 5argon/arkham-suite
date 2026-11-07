@@ -2,7 +2,7 @@
 	"presets": [
 		{
 			"label": "Cards that discard themselves",
-			"query": "text == \"discard it\" | text == \"discard this card\" | text == \"discard {name}\""
+			"query": "text ?? [\"discard it\", \"discard this card\", \"discard {name}\"]"
 		}
 	]
 }

@@ -1,16 +1,14 @@
 {
 	"presets": [
+		"weapon",
 		{
-			"label": "[[Weapon]]",
-			"query": "tr = \"weapon\""
+			"preset": "weapon-or-tool",
+			"level": [1, 5]
 		},
 		{
-			"label": "[[Tool]] and not [[Weapon]]",
-			"query": "tr = \"tool\" & tr != \"weapon\""
+			"preset": "weapon-or-tool",
+			"doubleCommit": true
 		},
-		{
-			"label": "Lv. 1~5 [[Weapon]] or [[Tool]]",
-			"query": "(tr = \"weapon\" | tr = \"tool\") & xp >= 1 & xp <= 5"
-		}
+		"tool-and-not-weapon"
 	]
 }

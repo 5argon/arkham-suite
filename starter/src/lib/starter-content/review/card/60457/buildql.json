@@ -1,8 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [willpower]",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
-		}
-	]
+	"presets": ["uses-willpower"]
 }

@@ -2,23 +2,25 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\" | text = \"add [combat] to [agility]\" | text = \"add [agility] to [combat]\""
+			"query": "text ? [\"([willpower]\", \"[willpower])\", \"add [willpower]\", \"add [combat] to [agility]\", \"add [agility] to [combat]\"] | text == \"test [willpower]\"",
+			"icon": "GoodStats"
 		},
 		{
-			"label": "Helps with damage",
-			"query": "hd = true | health >= 2"
+			"preset": "double-commit-for-willpower-combat-agility",
+			"level": [0, 0]
 		},
-		{
-			"label": "Heals horror",
-			"query": "hh = true"
-		},
+		"helps-with-damage",
+		"helps-with-horror",
+		"gain-resource",
+		"draws-cards",
 		{
 			"label": "Skill cards",
-			"query": "type = \"skill\""
+			"query": "type == \"skill\""
 		},
 		{
-			"label": "Lv. 1~5 skill cards",
-			"query": "type = \"skill\" & xp >= 1 & xp <= 5"
-		}
+			"preset": "skill",
+			"level": [1, 5]
+		},
+		"heals-horror"
 	]
 }

@@ -2,15 +2,11 @@
 	"presets": [
 		{
 			"label": "Tests [willpower] / [combat] / [agility]",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\""
+			"query": "text ? [\"([willpower]\", \"[willpower])\", \"([combat]\", \"[combat])\", \"([agility]\", \"[agility])\"] | text ?? [\"test [willpower]\", \"test [combat]\", \"test [agility]\"]"
 		},
-		{
-			"label": "Succeed By",
-			"query": "(text = \"succeed by\" | text = \"successful by\") & text != \"succeed by 0\""
-		},
-		{
-			"label": "Raise success",
-			"query": "(text = \"after revealing chaos tokens\" | text = \"would succeed at a skill test\") & text = \"you get skill value\""
-		}
+		"succeed-by-willpower",
+		"succeed-by-combat",
+		"succeed-by-agility",
+		"raise-success"
 	]
 }

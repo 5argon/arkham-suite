@@ -57,6 +57,19 @@ named by what they find instead. Hovering shows the investigator and the query i
 	const asButtons = $derived(topics.every((topic) => topic.searches.length === 1));
 </script>
 
+<!-- An icon keeps a column of its own, so a label that wraps stays lined up. -->
+{#snippet topicLabel(topic: BuildQlTopic)}
+	<span class="flex min-w-0 items-baseline gap-2">
+		{#if topic.icon}
+			<span class="text-primary-600 dark:text-primary-300 w-5 shrink-0 text-center">
+				<FaIcon icon={FaIconType[topic.icon as keyof typeof FaIconType]} />
+			</span>
+		{/if}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		<span class="min-w-0">{@html parseArkhamDbText(topic.label)}</span>
+	</span>
+{/snippet}
+
 {#snippet searchLink(topic: BuildQlTopic, search: BuildQlSearch, asButton: boolean)}
 	<!-- eslint-disable svelte/no-navigation-without-resolve -->
 	<a
@@ -75,8 +88,7 @@ named by what they find instead. Hovering shows the investigator and the query i
 		target="_blank"
 	>
 		{#if asButton}
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			<span class="min-w-0 flex-1">{@html parseArkhamDbText(topic.label)}</span>
+			<span class="min-w-0 flex-1">{@render topicLabel(topic)}</span>
 			<FaIcon icon={FaIconType.ExternalLink} />
 		{:else if search.card}
 			<CardSquare card={search.card} />
@@ -102,8 +114,7 @@ named by what they find instead. Hovering shows the investigator and the query i
 		{#each topics as topic (topic.label)}
 			<div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
 				<span class="text-primary-900 dark:text-primary-100 sm:w-64 sm:shrink-0">
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					{@html parseArkhamDbText(topic.label)}
+					{@render topicLabel(topic)}
 				</span>
 				<div class="flex flex-col gap-1.5">
 					{#each rowsOf(topic.searches) as row, i (i)}

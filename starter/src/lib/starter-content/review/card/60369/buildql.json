@@ -1,8 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Gain resource",
-			"query": "text = \"gain resource\""
-		}
-	]
+	"presets": ["gain-resource"]
 }

@@ -1,0 +1,9 @@
+{
+	"presets": [
+		"event",
+		{
+			"preset": "event",
+			"cost": [0, 0]
+		}
+	]
+}

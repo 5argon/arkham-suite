@@ -1,12 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Tests [willpower]",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\""
-		},
-		{
-			"label": "Tests [combat]",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\""
-		}
-	]
+	"presets": ["tests-willpower", "tests-combat"]
 }

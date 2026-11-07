@@ -1,12 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "[[Firearm]] card",
-			"query": "tr = \"firearm\""
-		},
-		{
-			"label": "[[Upgrade]] card",
-			"query": "tr = \"upgrade\""
-		}
-	]
+	"presets": ["firearm-card", "upgrade-card"]
 }

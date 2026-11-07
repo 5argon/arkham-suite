@@ -2,27 +2,19 @@
 	"presets": [
 		{
 			"label": "[[Spell]] or [[Ritual]] card",
-			"query": "tr = \"spell\" | tr = \"ritual\""
+			"query": "tr ?? [\"spell\", \"ritual\"]"
 		},
-		{
-			"label": "[[Spell]] asset",
-			"query": "tr = \"spell\" & type = \"asset\""
-		},
-		{
-			"label": "[[Spell]] event",
-			"query": "tr = \"spell\" & type = \"event\""
-		},
-		{
-			"label": "[[Ritual]] asset",
-			"query": "tr = \"ritual\" & type = \"asset\""
-		},
+		"spell-asset",
+		"spell-event",
+		"ritual-asset",
 		{
 			"label": "[[Ritual]] event",
-			"query": "tr = \"ritual\" & type = \"event\""
+			"query": "tr == \"ritual\" & type == \"event\""
 		},
 		{
-			"label": "[[Spell]] or [[Ritual]] card costed exactly 1",
-			"query": "(tr = \"spell\" | tr = \"ritual\") & cost = 1"
+			"label": "[[Spell]] or [[Ritual]] card",
+			"query": "tr ?? [\"spell\", \"ritual\"]",
+			"cost": [1, 1]
 		}
 	]
 }

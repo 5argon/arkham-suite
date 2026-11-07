@@ -2,7 +2,23 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\" | text = \"add [willpower] to [combat]\" | text = \"add [combat] to [willpower]\""
+			"query": "text ? [\"([agility]\", \"[agility])\", \"add [agility]\", \"add [willpower] to [combat]\", \"add [combat] to [willpower]\"] | text == \"test [agility]\"",
+			"icon": "GoodStats"
+		},
+		{
+			"preset": "double-commit-for-willpower-combat-agility",
+			"level": [0, 0]
+		},
+		"gain-resource",
+		"draws-cards",
+		{
+			"label": "Non-Fast event",
+			"query": "type == \"event\" & text !== \"fast.\""
+		},
+		{
+			"label": "Non-Fast event",
+			"query": "type == \"event\" & text !== \"fast.\"",
+			"cost": [0, 0]
 		}
 	]
 }

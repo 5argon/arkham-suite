@@ -6,7 +6,12 @@ to a line.
 -->
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { type BuildQlTokenKind, fieldsOf, tokenizeBuildQl } from '$lib/review/buildql';
+	import {
+		type BuildQlField,
+		type BuildQlTokenKind,
+		fieldsOf,
+		tokenizeBuildQl
+	} from '$lib/review/buildql';
 	import { buildQlLines } from '$lib/review/buildql-lines';
 
 	interface Prop {
@@ -24,6 +29,27 @@ to a line.
 	const prefix = $derived(tokenizeBuildQl(prefixText));
 	const tokens = $derived(tokenizeBuildQl(query));
 	const fields = $derived(fieldsOf([...prefix, ...tokens]));
+	/**
+	 * The chapter and investigator every search starts with get the first row to themselves.
+	 */
+	const prefixCount = $derived(fieldsOf(prefix).length);
+	/**
+	 * Whether a field is the second of its row on wider screens, which keeps some room from the first.
+	 */
+	const isSecond = (i: number) => (i < prefixCount ? i : i - prefixCount) % 2 === 1;
+
+	/**
+	 * How a field is compared, and whether it finds the cards that don't match.
+	 */
+	function matchText({ match, negated, list }: BuildQlField): string {
+		if (list && match === 'fuzzy') {
+			return negated ? m.review_buildql_fuzzy_none() : m.review_buildql_fuzzy_any();
+		}
+		if (list) return negated ? m.review_buildql_exact_none() : m.review_buildql_exact_any();
+		if (match === 'fuzzy') return negated ? m.review_buildql_fuzzy_not() : m.review_buildql_fuzzy();
+		if (match === 'exact') return negated ? m.review_buildql_exact_not() : m.review_buildql_exact();
+		return negated ? m.review_buildql_pattern_not() : m.review_buildql_pattern();
+	}
 	const lines = $derived(buildQlLines(tokens));
 
 	const colors: Record<BuildQlTokenKind, string> = {
@@ -34,6 +60,7 @@ to a line.
 		number: 'text-amber-700 dark:text-amber-300',
 		keyword: 'text-violet-700 dark:text-violet-300',
 		paren: 'text-neutral-500 dark:text-neutral-400',
+		list: 'text-neutral-500 dark:text-neutral-400',
 		space: '',
 		other: ''
 	};
@@ -55,33 +82,29 @@ to a line.
 		</code>
 	{/each}
 	{#if fields.length > 0}
-		<table class="mt-2 text-xs">
-			<tbody>
-				{#each fields as field (`${field.alias}-${field.match}`)}
-					<tr>
-						<td class="pr-3 font-mono whitespace-nowrap">
-							<span class={colors.field}>{field.alias}</span>
-							{#if field.operator}<span class={colors.operator}> {field.operator}</span>{/if}
-						</td>
-						<td class="text-primary-900 dark:text-primary-100">
-							{field.name}
-							{#if field.match === 'fuzzy'}
-								<span class="text-primary-700 dark:text-primary-300"
-									>({m.review_buildql_fuzzy()})</span
-								>
-							{:else if field.match === 'exact'}
-								<span class="text-primary-700 dark:text-primary-300"
-									>({m.review_buildql_exact()})</span
-								>
-							{:else if field.match === 'pattern'}
-								<span class="text-primary-700 dark:text-primary-300"
-									>({m.review_buildql_pattern()})</span
-								>
-							{/if}
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
+		<!-- Two fields to a row on wider screens. Each column is as wide as its longest entry, so the
+		 pairs line up. -->
+		<dl
+			class="mt-2 grid grid-cols-[max-content_max-content] gap-x-3 gap-y-0.5 text-xs sm:grid-cols-[max-content_max-content_max-content_max-content]"
+		>
+			{#each fields as field, i (`${field.alias}-${field.match}-${field.negated}-${field.list}`)}
+				<dt
+					class={[
+						'font-mono whitespace-nowrap',
+						i === prefixCount && 'sm:col-start-1',
+						isSecond(i) && 'sm:pl-4'
+					]}
+				>
+					<span class={colors.field}>{field.alias}</span>
+					{#if field.operator}<span class={colors.operator}> {field.operator}</span>{/if}
+				</dt>
+				<dd class="text-primary-900 dark:text-primary-100">
+					{field.name}
+					{#if field.match}
+						<span class="text-primary-700 dark:text-primary-300">({matchText(field)})</span>
+					{/if}
+				</dd>
+			{/each}
+		</dl>
 	{/if}
 </div>

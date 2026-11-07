@@ -1,8 +1,9 @@
 {
 	"presets": [
 		{
-			"label": "Lv. 0~3 [[Relic]] or [[Charm]] asset you can't take yet",
-			"query": "(tr = \"relic\" | tr = \"charm\") & type = \"asset\" & xp >= 0 & xp <= 3 & ia != \"{ia}\""
+			"label": "[[Relic]] or [[Charm]] asset you can't normally take",
+			"query": "tr ?? [\"relic\", \"charm\"] & type == \"asset\" & ia != \"{ia}\"",
+			"level": [0, 3]
 		}
 	]
 }

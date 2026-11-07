@@ -2,15 +2,17 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\" | text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
+			"query": "text ? [\"([intellect]\", \"[intellect])\", \"add [intellect]\", \"([agility]\", \"[agility])\", \"add [agility]\"] | text ?? [\"test [intellect]\", \"test [agility]\"]",
+			"icon": "GoodStats"
 		},
 		{
-			"label": "Evade assets",
-			"query": "text == \"<b>evade</b>\" & type = \"asset\""
+			"preset": "double-commit-for-intellect-agility",
+			"level": [0, 0]
 		},
-		{
-			"label": "Evade events",
-			"query": "text == \"<b>evade</b>\" & type = \"event\""
-		}
+		"helps-with-horror",
+		"gain-resource",
+		"draws-cards",
+		"evade-assets",
+		"evade-events"
 	]
 }

@@ -1,8 +1,15 @@
 {
 	"presets": [
 		{
-			"label": "Benefits from taking horror",
-			"query": "text = \"after you take horror\" | text = \"horror is placed on\""
-		}
+			"label": "Commit to [intellect] tests",
+			"query": "(intellect >= 1 | wild >= 1) & type !== \"investigator\""
+		},
+		{
+			"label": "Commit an asset or event to [intellect] tests",
+			"query": "(intellect >= 1 | wild >= 1) & type ?? [\"asset\", \"event\"]"
+		},
+		"benefits-from-taking-horror",
+		"benefits-from-horror-placed-on-it",
+		"benefits-from-being-defeated"
 	]
 }

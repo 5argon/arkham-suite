@@ -1,16 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [willpower]",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
-		},
-		{
-			"label": "Uses [combat]",
-			"query": "text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
-		},
-		{
-			"label": "[[Spell]] / [[Ritual]] +2 [willpower] / [combat]",
-			"query": "(tr = \"spell\" | tr = \"ritual\") & (text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\")"
-		}
-	]
+	"presets": ["spell-ritual-plus-2-willpower-combat", "uses-willpower", "uses-combat"]
 }

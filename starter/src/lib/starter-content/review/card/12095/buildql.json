@@ -1,0 +1,12 @@
+{
+	"presets": [
+		{
+			"label": "[[Ally]]",
+			"query": "tr == \"ally\""
+		},
+		{
+			"label": "Non-unique [[Ally]]",
+			"query": "tr == \"ally\" & unique = false"
+		}
+	]
+}

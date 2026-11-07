@@ -2,15 +2,18 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\" | text = \"([combat]\" | text = \"[combat])\" | text == \"test [combat]\" | text = \"add [combat]\""
+			"query": "text ? [\"([intellect]\", \"[intellect])\", \"add [intellect]\", \"([combat]\", \"[combat])\", \"add [combat]\"] | text ?? [\"test [intellect]\", \"test [combat]\"]",
+			"icon": "GoodStats"
 		},
 		{
-			"label": "Investigate assets",
-			"query": "text == \"<b>investigate</b>\" & type = \"asset\""
+			"label": "Double commit for [intellect] / [combat]",
+			"query": "(intellect + wild >= 2 | combat + wild >= 2) & type !== \"investigator\"",
+			"icon": "DoubleCommit",
+			"level": [0, 0]
 		},
-		{
-			"label": "Investigate events",
-			"query": "text == \"<b>investigate</b>\" & type = \"event\""
-		}
+		"gain-resource",
+		"draws-cards",
+		"investigate-assets",
+		"investigate-events"
 	]
 }

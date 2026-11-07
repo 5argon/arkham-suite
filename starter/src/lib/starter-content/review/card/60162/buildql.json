@@ -1,12 +1,9 @@
 {
 	"presets": [
+		"firearm-asset",
 		{
-			"label": "[[Firearm]] asset",
-			"query": "tr = \"firearm\" & type = \"asset\""
-		},
-		{
-			"label": "Lv. 1~5 [[Firearm]] asset",
-			"query": "tr = \"firearm\" & type = \"asset\" & xp >= 1 & xp <= 5"
+			"preset": "firearm-asset",
+			"level": [1, 5]
 		}
 	]
 }

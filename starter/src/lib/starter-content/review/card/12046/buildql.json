@@ -1,8 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "Uses [agility]",
-			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
-		}
-	]
+	"presets": ["uses-agility"]
 }

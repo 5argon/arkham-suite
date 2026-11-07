@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Cares which token is revealed",
+			"query": "text ? [\"if you reveal token\", \"token is revealed\", \"with a symbol\"]"
+		}
+	]
+}

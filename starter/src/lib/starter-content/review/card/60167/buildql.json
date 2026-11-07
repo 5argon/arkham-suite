@@ -18,7 +18,7 @@
 		},
 		{
 			"label": "Fight / Evade without [combat] or [agility]",
-			"query": "(text == \"<b>fight\" | text == \"<b>evade\") & text != \"<b>fight</b> [combat]\" & text != \"<b>fight</b> [agility]\" & text != \"<b>evade</b> [combat]\" & text != \"<b>evade</b> [agility]\""
+			"query": "text ?? [\"<b>fight\", \"<b>evade\"] & text !? [\"<b>fight</b> [combat]\", \"<b>fight</b> [agility]\", \"<b>evade</b> [combat]\", \"<b>evade</b> [agility]\"]"
 		}
 	]
 }

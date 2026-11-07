@@ -1,0 +1,8 @@
+{
+	"presets": [
+		{
+			"label": "Accessory slot asset",
+			"query": "slot == \"accessory\""
+		}
+	]
+}

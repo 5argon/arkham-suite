@@ -1,0 +1,9 @@
+{
+	"presets": [
+		{
+			"label": "Benefits from damage or horror placed on it",
+			"query": "text ? [\"damage is placed on\", \"horror is placed on\"]"
+		},
+		"benefits-from-being-defeated"
+	]
+}

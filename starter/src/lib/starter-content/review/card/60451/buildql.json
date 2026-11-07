@@ -2,7 +2,19 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\" | text = \"([intellect]\" | text = \"[intellect])\" | text == \"test [intellect]\" | text = \"add [intellect]\""
+			"query": "text ? [\"([willpower]\", \"[willpower])\", \"add [willpower]\", \"([intellect]\", \"[intellect])\", \"add [intellect]\"] | text ?? [\"test [willpower]\", \"test [intellect]\"]",
+			"icon": "GoodStats"
+		},
+		{
+			"preset": "double-commit-for-willpower-intellect-agility",
+			"level": [0, 0]
+		},
+		"helps-with-damage",
+		"gain-resource",
+		"draws-cards",
+		{
+			"label": "Heals damage",
+			"query": "hd = true"
 		}
 	]
 }

@@ -1,8 +1,3 @@
 {
-	"presets": [
-		{
-			"label": "[[Tome]] with secrets",
-			"query": "tr = \"tome\" & text = \"uses secrets\""
-		}
-	]
+	"presets": ["tome-with-secrets"]
 }

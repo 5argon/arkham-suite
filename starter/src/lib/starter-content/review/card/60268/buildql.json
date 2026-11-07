@@ -2,11 +2,12 @@
 	"presets": [
 		{
 			"label": "[[Insight]] event",
-			"query": "tr = \"insight\" & type = \"event\""
+			"query": "tr == \"insight\" & type == \"event\""
 		},
 		{
-			"label": "Lv. 1~5 [[Insight]] event",
-			"query": "tr = \"insight\" & type = \"event\" & xp >= 1 & xp <= 5"
+			"label": "[[Insight]] event",
+			"query": "tr == \"insight\" & type == \"event\"",
+			"level": [1, 5]
 		}
 	]
 }

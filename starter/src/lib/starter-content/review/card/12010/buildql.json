@@ -2,23 +2,33 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([willpower]\" | text = \"[willpower])\" | text == \"test [willpower]\" | text = \"add [willpower]\""
+			"query": "text ? [\"([willpower]\", \"[willpower])\", \"add [willpower]\"] | text == \"test [willpower]\"",
+			"icon": "GoodStats"
 		},
 		{
-			"label": "0~1 cost assets",
-			"query": "cost >= 0 & cost <= 1 & type = \"asset\""
+			"label": "Double commit for [willpower] / [agility]",
+			"query": "(willpower + wild >= 2 | agility + wild >= 2) & type !== \"investigator\"",
+			"icon": "DoubleCommit",
+			"level": [0, 0]
+		},
+		"helps-with-damage",
+		"gain-resource",
+		"draws-cards",
+		{
+			"preset": "asset",
+			"cost": [0, 1]
 		},
 		{
-			"label": "0~2 cost assets",
-			"query": "cost >= 0 & cost <= 2 & type = \"asset\""
+			"preset": "asset",
+			"cost": [0, 2]
 		},
 		{
 			"label": "Assets with uses",
-			"query": "text == \"uses (\" & type = \"asset\""
+			"query": "text == \"uses (\" & type == \"asset\""
 		},
 		{
 			"label": "Fast assets",
-			"query": "text == \"fast.\" & type = \"asset\""
+			"query": "text == \"fast.\" & type == \"asset\""
 		}
 	]
 }

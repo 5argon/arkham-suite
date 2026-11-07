@@ -1,16 +1,17 @@
 {
 	"presets": [
 		{
-			"label": "Lv. 0 event or skill",
-			"query": "(type = \"event\" | type = \"skill\") & xp = 0"
+			"label": "Event or skill",
+			"query": "type ?? [\"event\", \"skill\"]",
+			"level": [0, 0]
 		},
 		{
-			"label": "Lv. 0 event",
-			"query": "type = \"event\" & xp = 0"
+			"preset": "event",
+			"level": [0, 0]
 		},
 		{
-			"label": "Lv. 0 skill",
-			"query": "type = \"skill\" & xp = 0"
+			"preset": "skill",
+			"level": [0, 0]
 		}
 	]
 }

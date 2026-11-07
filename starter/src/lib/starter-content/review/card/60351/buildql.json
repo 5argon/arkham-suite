@@ -2,15 +2,16 @@
 	"presets": [
 		{
 			"label": "Use good stats",
-			"query": "text = \"([agility]\" | text = \"[agility])\" | text == \"test [agility]\" | text = \"add [agility]\""
+			"query": "text ? [\"([agility]\", \"[agility])\", \"add [agility]\"] | text == \"test [agility]\"",
+			"icon": "GoodStats"
 		},
 		{
-			"label": "Succeed By",
-			"query": "(text = \"succeed by\" | text = \"successful by\") & text != \"succeed by 0\""
+			"preset": "double-commit-for-intellect-agility",
+			"level": [0, 0]
 		},
-		{
-			"label": "Raise success",
-			"query": "(text = \"after revealing chaos tokens\" | text = \"would succeed at a skill test\") & text = \"you get skill value\""
-		}
+		"gain-resource",
+		"draws-cards",
+		"succeed-by",
+		"raise-success"
 	]
 }
