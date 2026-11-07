@@ -17,7 +17,7 @@ You can also see extra features like sub-heading being card name. That affects h
 
   If you say a card is the best at something or the best on some investigator, it is already implied that it is the best or worst among the cards in the pinned environment. You don't have to keep repeating the "ifs" or saying "this is a Chapter 2 review" for fear of getting comments like "why not use this or that obviously better card instead", and you don't have to feel obligated to update the review whenever the environment shifts.
 
-  It also adds excitement to the prose. You can see an interesting phenomenon on arkhamdb.com in the reviews of new Core Set 2026 cards. Completely new players with zero knowledge of the game don't come there to talk excitedly about them, while veterans players can't help comparing them with 2000+ previous cards and end up thinking there is nothing else say.
+  It also adds excitement to the prose. You can see an interesting phenomenon on arkhamdb.com in the reviews of new Core Set 2026 cards. Completely new players with zero knowledge of the game don't come there to talk excitedly about them, while veterans players can't help comparing them with 2000+ previous cards and end up thinking there is nothing else to say.
 
   On this site, where beginners are the audience by default, I think that makes writing an article within the environment pretty fun!
 
