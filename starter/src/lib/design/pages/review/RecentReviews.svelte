@@ -16,20 +16,30 @@ and something covering many cards is still one review.
 
 	interface Prop {
 		rows: RecentReviewRow[];
+		/**
+		 * The product the rows are about, named after each heading, on a product's own page.
+		 */
+		productName?: string;
 	}
-	const { rows }: Prop = $props();
+	const { rows, productName }: Prop = $props();
 
 	const shownCount = 5;
 	const groups = $derived(
 		[
 			{
 				id: 'written',
-				title: m.review_recent_written(),
+				title:
+					productName === undefined
+						? m.review_recent_written()
+						: m.review_recent_written_product({ product: productName }),
 				rows: rows.filter((row) => row.href !== undefined)
 			},
 			{
 				id: 'external',
-				title: m.review_recent_external(),
+				title:
+					productName === undefined
+						? m.review_recent_external()
+						: m.review_recent_external_product({ product: productName }),
 				rows: rows.filter((row) => row.href === undefined)
 			}
 		].filter((group) => group.rows.length > 0)

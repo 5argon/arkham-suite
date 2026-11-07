@@ -16,6 +16,8 @@
 	"review_home_latest": "Latest Card Review",
 	"review_recent_written": "Recent on This Site",
 	"review_recent_external": "Recent External Reviews",
+	"review_recent_written_product": "Recent on This Site ({product})",
+	"review_recent_external_product": "Recent External Reviews ({product})",
 	"review_recent_all": "See the latest {count}",
 	"review_recent_covers": "Covers {count} cards",
 	"review_users": "Users",

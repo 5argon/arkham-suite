@@ -76,7 +76,7 @@
 {/snippet}
 
 <MarginFull>
-	<RecentReviews rows={data.recents} />
+	<RecentReviews productName={data.backName} rows={data.recents} />
 	<div class="mb-4">
 		<Checkbox bind:checked={onlyInternal} label={m.review_only_internal()} />
 	</div>
