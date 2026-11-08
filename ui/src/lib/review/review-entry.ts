@@ -113,6 +113,10 @@ export type WrittenReviewPart =
 			level: 1 | 2 | 3 | 4 | 5 | 6;
 			codes: string[];
 			/**
+			 * The review page of each card that has one, other than the card under review.
+			 */
+			hrefs?: Record<string, string>;
+			/**
 			 * What the heading says, when that's more than the names of the cards.
 			 */
 			title?: string;

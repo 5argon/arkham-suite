@@ -442,11 +442,12 @@ function plainTextOf(html: string): string {
  */
 export function compileCardSubsections(
 	html: string,
-	reviewId: string
+	reviewId: string,
+	cardHref: (code: string) => string | undefined = () => undefined
 ): { parts: WrittenReviewPart[]; subsections: CardSubsection[] } {
 	const parts: WrittenReviewPart[] = [];
 	const subsections: CardSubsection[] = [];
-	const cardLink = /<span class="card-link[^"]*" data-card-code="(\w+)">.*?<\/span>/gs;
+	const cardLink = /<(span|a) class="card-link[^"]*" data-card-code="(\w+)"[^>]*>.*?<\/\1>/gs;
 	const addText = (text: string) => {
 		for (const segment of splitTimingDiagrams(text)) {
 			parts.push(
@@ -463,7 +464,7 @@ export function compileCardSubsections(
 	for (const heading of html.matchAll(/<h([1-6])>(.*?)<\/h\1>/gs)) {
 		const inner = heading[2];
 		const codes = [
-			...new Set([...inner.matchAll(cardLink)].map((link) => toCore2026Code(link[1])))
+			...new Set([...inner.matchAll(cardLink)].map((link) => toCore2026Code(link[2])))
 		].filter((code) => cardByCode.has(code));
 		if (codes.length === 0) continue;
 		addText(html.slice(end, heading.index));
@@ -471,11 +472,18 @@ export function compileCardSubsections(
 		const anchor = `${reviewId}-${codes[0]}`;
 		const hasWords = /[\p{L}\p{N}]/u.test(plainTextOf(inner.replace(cardLink, '')));
 		const title = hasWords ? plainTextOf(inner) : undefined;
+		const hrefs = Object.fromEntries(
+			codes.flatMap((code) => {
+				const href = cardHref(code);
+				return href === undefined ? [] : [[code, href]];
+			})
+		);
 		parts.push({
 			kind: 'cards',
 			anchor,
 			level: level(Number(heading[1])),
 			codes,
+			...(Object.keys(hrefs).length > 0 && { hrefs }),
 			title
 		});
 		for (const code of codes) subsections.push({ code, anchor, title });
@@ -499,6 +507,13 @@ function writtenEntry(review: WrittenReview): ReviewEntry {
 }
 
 function compileWrittenEntry(review: WrittenReview): ReviewEntry {
+	// A card mentioned goes to its own review page, except the card under review, which is already here.
+	const cardHref = (code: string) => {
+		const page = toCore2026Code(code);
+		return reviewableCodes.has(code) && page !== reviewedCode.get(review)
+			? reviewCardHref(page)
+			: undefined;
+	};
 	return {
 		id: review.id,
 		medium: 'text',
@@ -509,8 +524,9 @@ function compileWrittenEntry(review: WrittenReview): ReviewEntry {
 		environmentDate: knownPoints.find((p) => p.id === review.environment)?.date,
 		originalUrl: review.originalUrl,
 		...compileCardSubsections(
-			markdownToTrustedHtml(expandRuleDirectives(review.body), createCardResolver()),
-			review.id
+			markdownToTrustedHtml(expandRuleDirectives(review.body), createCardResolver(), { cardHref }),
+			review.id,
+			cardHref
 		)
 	};
 }
@@ -541,10 +557,16 @@ export function parseWrittenReview(fileName: string, file: string): WrittenRevie
 }
 
 const writtenReviews = new Map<string, WrittenReview[]>();
+/**
+ * The card each written review is about.
+ */
+const reviewedCode = new Map<WrittenReview, string>();
 for (const [path, file] of Object.entries(writtenFiles)) {
 	const [code, name] = path.split('/').slice(-2);
 	const reviews = writtenReviews.get(code) ?? [];
-	reviews.push(parseWrittenReview(name.replace(/\.md$/, ''), file));
+	const review = parseWrittenReview(name.replace(/\.md$/, ''), file);
+	reviews.push(review);
+	reviewedCode.set(review, code);
 	writtenReviews.set(code, reviews);
 }
 

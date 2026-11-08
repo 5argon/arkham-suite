@@ -3,7 +3,7 @@
 Anything with card links in it, which are elements with the `card-link` class and a
 `data-card-code`. Hovering one shows a CardScanFullSmall tooltip, with the card's text beside it
 when there is any (and a CardLine instead of the scan on narrow screens); clicking it opens a
-CardMagnifiedModal.
+CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
 -->
 <script lang="ts">
 	import { type Card } from '@5argon/arkham-kohaku';
@@ -73,6 +73,7 @@ CardMagnifiedModal.
 		const card = linkedCard(cardLink);
 		if (!card) return;
 		tooltipVisible = false;
+		if (cardLink instanceof HTMLAnchorElement && cardLink.href !== '') return;
 		magnifiedCard = card;
 		isModalShowing = true;
 	}

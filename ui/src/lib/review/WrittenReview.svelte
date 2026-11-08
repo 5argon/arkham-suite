@@ -30,6 +30,9 @@ certain cards is their card lines in a divider.
 	}
 	const { entry, parts, resolveCard, resolveText }: Prop = $props();
 
+	const cardLineLinkClass =
+		'card-link hover:bg-primary-300/30 dark:hover:bg-primary-800/60 max-w-full cursor-pointer rounded-sm';
+
 	function siteOf(url: string): string {
 		return new URL(url).hostname.replace(/^www\./, '');
 	}
@@ -99,12 +102,14 @@ certain cards is their card lines in a divider.
 						<span class="mb-0.5 flex flex-col items-start">
 							{#each part.codes as code (code)}
 								{@const card = resolveCard(code)}
-								{#if card}
-									<button
-										class="card-link hover:bg-primary-300/30 dark:hover:bg-primary-800/60 max-w-full cursor-pointer rounded-sm"
-										data-card-code={code}
-										type="button"
-									>
+								{@const href = part.hrefs?.[code]}
+								{#if card && href}
+									<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+									<a class={cardLineLinkClass} data-card-code={code} {href}>
+										<CardLine {card} hideQuantity />
+									</a>
+								{:else if card}
+									<button class={cardLineLinkClass} data-card-code={code} type="button">
 										<CardLine {card} hideQuantity />
 									</button>
 								{/if}

@@ -40,11 +40,23 @@ export function markdownToHtml(markdown: string, cardResolver?: CardResolver): s
 	});
 }
 
+export interface MarkdownOptions {
+	/**
+	 * Where a card link goes when clicked, for cards with a page of their own. The rest open the card
+	 * magnified in place.
+	 */
+	cardHref?: (code: string) => string | undefined;
+}
+
 /**
  * Process markdown into HTML without sanitizing it, which needs a DOM. Only for markdown this site
  * wrote itself, so a page can have it ready when it is built.
  */
-export function markdownToTrustedHtml(markdown: string, cardResolver?: CardResolver): string {
+export function markdownToTrustedHtml(
+	markdown: string,
+	cardResolver?: CardResolver,
+	options: MarkdownOptions = {}
+): string {
 	// Clean invalid markdown formatting
 	let cleanedMarkdown = expandTimingDirectives(cleanArkhamdbMarkdown(markdown));
 
@@ -53,18 +65,21 @@ export function markdownToTrustedHtml(markdown: string, cardResolver?: CardResol
 	cleanedMarkdown = cleanedMarkdown.replace(
 		/\[([^\]]+)\]\(\/card\/(\d+)\)/g,
 		(match, cardName, cardCode) => {
+			const href = options.cardHref?.(cardCode);
+			const tag = href === undefined ? 'span' : 'a';
+			const hrefAttribute = href === undefined ? '' : ` href="${href}"`;
 			if (cardResolver) {
 				try {
 					const card = cardResolver.resolve(cardCode);
 					if (card.cardClass) {
 						const colorClass = getCardColorClass(card);
-						return `<span class="card-link ${colorClass}" data-card-code="${cardCode}">${cardName}</span>`;
+						return `<${tag} class="card-link ${colorClass}" data-card-code="${cardCode}"${hrefAttribute}>${cardName}</${tag}>`;
 					}
 				} catch {
 					// If card not found, just return the name
 				}
 			}
-			return `<span class="card-link" data-card-code="${cardCode}">${cardName}</span>`;
+			return `<${tag} class="card-link" data-card-code="${cardCode}"${hrefAttribute}>${cardName}</${tag}>`;
 		}
 	);
 

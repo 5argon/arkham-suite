@@ -92,15 +92,15 @@
 	@apply text-primary-100;
 }
 
-.description-content a {
+.description-content a:not(.card-link) {
 	@apply text-secondary-600;
 }
 
-.dark .description-content a {
+.dark .description-content a:not(.card-link) {
 	@apply text-secondary-400;
 }
 
-.description-content a:hover {
+.description-content a:not(.card-link):hover {
 	@apply underline;
 }
 

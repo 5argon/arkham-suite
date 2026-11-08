@@ -469,12 +469,22 @@ describe('card subsections', () => {
 			anchor: expect.stringMatching(/^5argon-[a-z-]+-12013$/),
 			level: 3,
 			codes: ['12013'],
+			hrefs: { '12013': '/review/card/12013' },
 			title: undefined
 		});
 		expect(review?.id && isabelle?.kind === 'cards' && isabelle.anchor.startsWith(review.id)).toBe(
 			true
 		);
 		expect(page?.mentioned['12013']?.name).toBe('Isabelle Barnes');
+	});
+
+	it('links mentioned cards to their review pages, but not the card under review', () => {
+		const review = reviewCardPage('12073')?.entries.find((e) => e.parts !== undefined);
+		const html = review?.parts?.map((part) => (part.kind === 'text' ? part.html : '')).join('');
+		expect(html).toContain('<a class="card-link');
+		expect(html).toContain('data-card-code="12015" href="/review/card/12015"');
+		expect(html).toContain('<span class="card-link');
+		expect(html).not.toContain('href="/review/card/12073"');
 	});
 
 	it("doesn't count as a review of that card, but its page can still be found", () => {
