@@ -45,13 +45,8 @@
 	"tool_gather_page_title": "arkham-starter.com | Tool | Deck Gather",
 	"tool_gather_all_cards": [
 		{
-			"declarations": [
-				"input count",
-				"local countPlural = count: plural"
-			],
-			"selectors": [
-				"countPlural"
-			],
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
 			"match": {
 				"countPlural=one": "All ({count} Card)",
 				"countPlural=other": "All ({count} Cards)"
@@ -60,13 +55,8 @@
 	],
 	"tool_gather_overlaps_only": [
 		{
-			"declarations": [
-				"input count",
-				"local countPlural = count: plural"
-			],
-			"selectors": [
-				"countPlural"
-			],
+			"declarations": ["input count", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
 			"match": {
 				"countPlural=one": "Overlap Only ({count} Card)",
 				"countPlural=other": "Overlaps Only ({count} Cards)"
@@ -127,6 +117,13 @@
 	"tool_evergreen_team_export": "Download All JSON",
 	"tool_evergreen_team_export_help": "You can import these JSON into the recommended full-fledged deckbuilder: arkham.build. (Inside \"...\" menu, \"Import from JSON files\".) You can then sync to arkhamdb.com as well from there.",
 	"tool_evergreen_team_download_json": "Download JSON",
+	"tool_download_side_deck": "Side Deck",
+	"tool_download_side_keep": "Keep as Shown",
+	"tool_download_side_no_zero_xp": "Remove 0 XP Cards",
+	"tool_download_side_none": "Remove All",
+	"tool_download_side_keep_help": "The side deck as shown, with everything still to gather for the upgrades.",
+	"tool_download_side_no_zero_xp_help": "Leaves out the 0 XP cards in the side deck, like the ones an upgrade took out, so other tools don't count them as overlaps.",
+	"tool_download_side_none_help": "No side deck, for playing this version on its own without upgrading further.",
 	"tool_evergreen_team_download_all": "Download All",
 	"tool_evergreen_team_deck_name": "{investigator} — {team}",
 	"tool_evergreen_team_deck_description": "View Team: {url}",
