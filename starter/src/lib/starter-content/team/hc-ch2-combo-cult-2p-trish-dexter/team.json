@@ -1,0 +1,30 @@
+{
+	"slug": "hc-ch2-combo-cult-2p-trish-dexter",
+	"name": "HC Ch2 Combo Cult - 2P : Trish, Dexter",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Combo Cult starter decks series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"tags": ["HC Ch2 Combo Cult", "2C+0ID", "Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "carolyns-top-student"
+			},
+			"changes": [
+				{
+					"remove": "60370",
+					"add": "60268",
+					"copies": 2
+				}
+			]
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "the-interceptor"
+			}
+		}
+	]
+}

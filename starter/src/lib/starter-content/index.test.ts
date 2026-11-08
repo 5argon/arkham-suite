@@ -109,7 +109,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(646);
+		expect(members).toHaveLength(657);
 		for (const { team, deck, source } of members) {
 			const series = source?.series.slug as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();
@@ -307,6 +307,7 @@ describe('Chapter 2 Starter Guide pre-built teams', () => {
 describe('pre-built team tags', () => {
 	const resolver = new CardResolver(getAllCards());
 	const seriesTags = {
+		'hc-ch2-combo-cult-': 'HC Ch2 Combo Cult',
 		'hc-ch2-core-only-': 'HC Chapter 2 Core Only',
 		'hc-ch2-quickie-': 'HC Quickie',
 		'hc-ch2-starter-guide-': 'HC Chapter 2 Starter Guide',

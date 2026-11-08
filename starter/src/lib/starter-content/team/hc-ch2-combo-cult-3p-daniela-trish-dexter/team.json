@@ -1,0 +1,37 @@
+{
+	"slug": "hc-ch2-combo-cult-3p-daniela-trish-dexter",
+	"name": "HC Ch2 Combo Cult - 3P : Daniela, Trish, Dexter",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Combo Cult starter decks series, with any overlaps resolved for your convenience by arkham-starter.com's editor.",
+	"tags": ["HC Ch2 Combo Cult", "3C+0ID"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "dragged-across-concrete"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "carolyns-top-student"
+			},
+			"changes": [
+				{
+					"remove": "60370",
+					"add": "60268",
+					"copies": 2
+				}
+			]
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "the-interceptor"
+			}
+		}
+	]
+}
