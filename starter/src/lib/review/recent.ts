@@ -31,18 +31,26 @@ export function recentRowHeight(row: RecentRowShape): number {
 }
 
 /**
- * How many rows each list side by side shows at first, so they end about as tall: the taller one
- * shows fewer, never under `least`, and neither more than `most`.
+ * How many rows each list side by side shows at first, so they end about as tall: a list is cut
+ * short to match another that is full, never under `least` and never over `most`. It may still end
+ * up to `fence` times as tall as that one, so a list of big rows doesn't shrink to almost nothing.
+ * Next to a list with fewer than `most` rows, which can't fill its side anyway, it shows them all.
  */
-export function balancedRecentCounts(lists: RecentRowShape[][], most = 5, least = 2): number[] {
+export function balancedRecentCounts(
+	lists: RecentRowShape[][],
+	most = 5,
+	least = 3,
+	fence = 1.35
+): number[] {
 	const firsts = lists.map((rows) => Math.min(most, rows.length));
-	if (lists.length < 2) return firsts;
 	const heightOf = (rows: RecentRowShape[], count: number) =>
 		rows.slice(0, count).reduce((sum, row) => sum + recentRowHeight(row), 0);
-	const target = Math.min(...lists.map((rows, i) => heightOf(rows, firsts[i])));
 	return lists.map((rows, i) => {
+		const others = lists.filter((other, j) => j !== i && other.length >= most);
+		if (others.length === 0) return firsts[i];
+		const target = Math.min(...others.map((other) => heightOf(other, most)));
 		let count = Math.min(least, firsts[i]);
-		while (count < firsts[i] && heightOf(rows, count + 1) <= target * 1.15) count++;
+		while (count < firsts[i] && heightOf(rows, count + 1) <= target * fence) count++;
 		return count;
 	});
 }

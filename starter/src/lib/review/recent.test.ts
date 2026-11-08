@@ -16,7 +16,7 @@ describe('recent lists side by side', () => {
 		const [l, r] = balancedRecentCounts([left, right]);
 		expect(l).toBe(5);
 		expect(r).toBeLessThan(5);
-		expect(r).toBeGreaterThanOrEqual(2);
+		expect(r).toBeGreaterThanOrEqual(3);
 	});
 
 	it('shows up to five of a list on its own, or of lists alike', () => {
@@ -24,7 +24,11 @@ describe('recent lists side by side', () => {
 		expect(balancedRecentCounts([Array(9).fill(written), Array(9).fill(written)])).toEqual([5, 5]);
 	});
 
-	it('never shows fewer than two', () => {
-		expect(balancedRecentCounts([[written], Array(6).fill(bigVideo)])).toEqual([1, 2]);
+	it('never shows fewer than three', () => {
+		expect(balancedRecentCounts([Array(5).fill(written), Array(6).fill(bigVideo)])).toEqual([5, 3]);
+	});
+
+	it('shows all it can next to a list too short to fill its side', () => {
+		expect(balancedRecentCounts([[written], Array(6).fill(bigVideo)])).toEqual([1, 5]);
 	});
 });
