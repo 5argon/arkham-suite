@@ -96,7 +96,8 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Health]: 'fa-heart',
 		[FaIconType.Sanity]: 'fa-brain',
 		[FaIconType.Resource]: 'fa-coins',
-		[FaIconType.DrawCards]: 'fa-cards'
+		[FaIconType.DrawCards]: 'fa-cards',
+		[FaIconType.RuleReference]: 'fa-book'
 	};
 </script>
 

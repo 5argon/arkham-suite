@@ -112,5 +112,6 @@ export enum FaIconType {
 	Health,
 	Sanity,
 	Resource,
-	DrawCards
+	DrawCards,
+	RuleReference
 }

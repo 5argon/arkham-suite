@@ -17,7 +17,8 @@
 			"./messages/form/{languageTag}.json",
 			"./messages/layout/{languageTag}.json",
 			"./messages/navigation/{languageTag}.json",
-			"./messages/typography/{languageTag}.json"
+			"./messages/typography/{languageTag}.json",
+			"./messages/rule/{languageTag}.json"
 		]
 	},
 	"sourceLanguageTag": "en",

@@ -230,3 +230,56 @@
 	font-size: 0.8em;
 	opacity: 0.8;
 }
+
+/* A snippet of the rules: smaller and tighter than the text around it, so it reads as a reference
+   rather than part of the writing. In a review every quote is one; elsewhere only those the rule
+   directive made, which start with the rule's title. */
+.rule-snippets blockquote,
+.description-content blockquote:has(> .rule-title) {
+	@apply border-primary-400 bg-primary-100/50 my-3 rounded-r-md border-l-4 px-3 py-2 text-xs not-italic;
+}
+
+.dark .rule-snippets blockquote,
+.dark .description-content blockquote:has(> .rule-title) {
+	@apply border-primary-600 bg-primary-900/40;
+}
+
+.rule-snippets blockquote :is(h1, h2, h3, h4, h5, h6),
+.description-content blockquote .rule-title {
+	@apply mt-0 mb-1 text-sm font-bold;
+}
+
+.description-content blockquote .rule-title a {
+	@apply text-primary-900 no-underline;
+}
+
+.dark .description-content blockquote .rule-title a {
+	@apply text-primary-100;
+}
+
+.description-content blockquote .rule-title .fa-book {
+	@apply text-primary-500 mr-1;
+}
+
+.dark .description-content blockquote .rule-title .fa-book {
+	@apply text-primary-400;
+}
+
+.description-content blockquote .rule-title a:hover {
+	@apply underline;
+}
+
+.rule-snippets blockquote :is(p, ul, ol),
+.description-content blockquote:has(> .rule-title) :is(p, ul, ol) {
+	@apply mb-1 text-xs;
+}
+
+.rule-snippets blockquote li,
+.description-content blockquote:has(> .rule-title) li {
+	@apply mb-0.5;
+}
+
+.rule-snippets blockquote > :last-child,
+.description-content blockquote:has(> .rule-title) > :last-child {
+	@apply mb-0;
+}

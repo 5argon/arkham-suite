@@ -13,6 +13,7 @@
 		"test": "vitest",
 		"deck-process": "deno run --allow-read --allow-write --allow-net ./deno/deck-process.ts ./src/lib/data/decks.csv",
 		"download-cards": "tsx scripts/download-cards.ts",
+		"download-grimoire": "tsx scripts/download-grimoire.ts",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",

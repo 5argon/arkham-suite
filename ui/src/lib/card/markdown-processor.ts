@@ -2,6 +2,15 @@ import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 import type { CardResolver } from '@5argon/arkham-kohaku';
 import { getCardColorClass } from './coloring.js';
+import { expandTimingDirectives, stripTimingDirectives } from '../rules/timing.js';
+
+export {
+	parseTiming,
+	splitTimingDiagrams,
+	timingDirectiveProblems,
+	type TimingSegment,
+	type TimingSpec
+} from '../rules/timing.js';
 
 /**
  * Fix invalid markdown from valentin1331 template (spacing around center tags)
@@ -37,7 +46,7 @@ export function markdownToHtml(markdown: string, cardResolver?: CardResolver): s
  */
 export function markdownToTrustedHtml(markdown: string, cardResolver?: CardResolver): string {
 	// Clean invalid markdown formatting
-	let cleanedMarkdown = cleanArkhamdbMarkdown(markdown);
+	let cleanedMarkdown = expandTimingDirectives(cleanArkhamdbMarkdown(markdown));
 
 	// Step 1: Replace card links [Card Name](/card/12345) BEFORE parsing markdown
 	// This way the colored spans are in the markdown, and marked.parse() will preserve them
@@ -76,7 +85,7 @@ export function markdownToTrustedHtml(markdown: string, cardResolver?: CardResol
  */
 export function markdownToPlainText(markdown: string): string {
 	// Clean invalid markdown formatting first
-	const cleaned = cleanArkhamdbMarkdown(markdown);
+	const cleaned = stripTimingDirectives(cleanArkhamdbMarkdown(markdown));
 	
 	// Convert markdown to HTML
 	marked.setOptions({

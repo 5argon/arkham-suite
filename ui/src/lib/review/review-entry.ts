@@ -1,5 +1,7 @@
 import type { Card, Product } from '@5argon/arkham-kohaku';
 
+import type { TimingSpec } from '../rules/timing.js';
+
 /**
  * What a small picture of a card needs, so a long list of rows doesn't carry whole cards.
  */
@@ -96,10 +98,12 @@ export interface CardTextHtml {
 }
 
 /**
- * A piece of a review written for this site: text, or the heading of a part about certain cards.
+ * A piece of a review written for this site: text, a timing diagram, or the heading of a part about
+ * certain cards.
  */
 export type WrittenReviewPart =
 	| { kind: 'text'; html: string }
+	| { kind: 'timing'; timing: TimingSpec }
 	| {
 			kind: 'cards';
 			/**

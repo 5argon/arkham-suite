@@ -10,7 +10,7 @@ You can also see extra features like sub-heading being card name. That affects h
 
 # More explanations
 
-- You want to "give a talk" about a single card, as if every card were an investigator card with infinite depth, so much so that you feel it'd look out of place on arkhamdb.com. You might have watched tier lists and reviews of some cards on YouTube channels. This site fits that style of lengthy talk.
+- You want to "give a talk" about a single card, as if every card were an investigator card with infinite depth, so much so that you feel it'd look out of place on arkhamdb.com. Talk as if the game's brand new, just came out in 2026. Yes, you can be excited about Vicious Blow again here without sounding pretentious.
 - You can state the obvious, which might not be obvious to beginners. You don't have to worry about whether something is technical enough to be worth stating. For example, the fact that there's a player window after an enemy has moved, or that you can have 2 copies of a card with a reaction trigger and trigger them at the same time, or that an AoO occurs before you move to a new location, can be stated repeatedly for beginners.
 - You can confidently say what others have already said. Each review is standalone. Think of it as an article on your personal website. You are not building the page on top of others' comments. You don't need to say "no one has mentioned this yet", as is commonly seen on arkhamdb.com.
 - It is Chapter 2 only by default, and moreover, each review must be pinned to a point in time of the Current Environment.
@@ -39,4 +39,14 @@ This site is fully static and there is no input form. If you are interested in h
 - File name format example: `5argon-the-grapevine-2.md` (name, card name, card level if needed for disambiguation)
 - I recommend using the arkham.build deck description editor, which can add colored card links by pressing `Tab` and choose the style of "Paragraph (Colored)". Then copying the text into an `.md` file before sending it to me. Just create a dummy deck to use as your writing pad. It supports automatically saving unfinished writings too, even if your browser crashed without pressing Save!
 - The `#` Markdown heading syntax gets special handling. If the heading contains a card link (e.g. `# [Izzie](/card/12013)`), it is rendered as a good-looking subsection with the text inside `[]` not mattering anymore. For example, "Lesson Learned" has a subsection specifically about "Daniela Reyes", so I put a link to the investigator card in the `#` heading. Unlike a card mentioned outside of `#`, this creates networks of review linking. When someone visits the Daniela Reyes card review page, they will see a link to "Lesson Learned" and all other cards mentioning it.
+- You don't have to copy rules into your review. Put a rule from the Grimoire (the rules reference, also on https://arkham.build/rules) on a line of its own by its number, and the site quotes it in a small box with a link to it. The number is at the end of the rule's link on arkham.build, like `https://arkham.build/rules#grimoire-entry-1.098` for "Move".
+  - `{{rule 1.098}}` quotes the whole rule.
+  - `{{rule 1.098 "enter the new location"}}` quotes only the lines with those words. Add more `"phrases"` for more lines.
+  - `{{rule 3.140 4}}` quotes only item 4 of a numbered list.
+  - Please only use `>` for quoting rules. A review shows every `>` quote as a rule.
+- You can also show one of the 5 timing diagrams (the 4 phases and the skill test) with a step highlighted. Put the step's number from the Grimoire on a line of its own. See my review of "Gather Intel" for one.
+  - `{{timing 3.320}}` shows the Enemy phase with step 3.2 (hunter and patrol enemies move) highlighted.
+  - `{{timing after 3.320}}` highlights the player window after step 3.2 instead. `before 3.330` points at the same one.
+  - Put several together to highlight more, like `{{timing 3.320 after 3.320}}`.
+  - Steps are numbered `3.110` to `3.460` for the 4 phases (step 1.1 to 4.6) and `4.001` to `4.008` for the skill test (step 1 to 8). `{{timing 3.100}}` to `{{timing 3.400}}` shows a phase with nothing highlighted.
 - I don't mind about also having your review existing elsewhere as well (arkhamdb.com, your personal blog, your video channel, etc.) you are free to provide a link towards your original source. This link will have special rendering UI in the site. This might be good if you wanted more eyes (especially beginner's eyes) towards your work.

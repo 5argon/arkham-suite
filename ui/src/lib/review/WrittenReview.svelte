@@ -12,6 +12,7 @@ certain cards is their card lines in a divider.
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import * as m from '../paraglide/messages.js';
+	import TimingDiagram from '../rules/TimingDiagram.svelte';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
 	import EnvironmentPoint from './EnvironmentPoint.svelte';
 	import PersonAvatar from './PersonAvatar.svelte';
@@ -85,10 +86,13 @@ certain cards is their card lines in a divider.
 	<CardLinkArea {resolveCard} {resolveText}>
 		{#each parts as part, i (i)}
 			{#if part.kind === 'text'}
-				<div class="prose dark:prose-invert description-content max-w-none">
+				<!-- Quotes in a review are only ever rules. -->
+				<div class="prose dark:prose-invert description-content rule-snippets max-w-none">
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html part.html}
 				</div>
+			{:else if part.kind === 'timing'}
+				<TimingDiagram timing={part.timing} />
 			{:else}
 				<div class="mt-4 mb-2">
 					<SectionSeparator id={part.anchor} inner level={part.level}>

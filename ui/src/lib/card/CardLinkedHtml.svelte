@@ -6,6 +6,8 @@ HTML with card links in it, made by the markdown processor. See CardLinkArea for
 	import { type Card } from '@5argon/arkham-kohaku';
 	import './deck-description.css';
 	import CardLinkArea from './CardLinkArea.svelte';
+	import TimingDiagram from '../rules/TimingDiagram.svelte';
+	import { splitTimingDiagrams } from '../rules/timing.js';
 	import type { CardTextHtml } from '../review/review-entry.js';
 
 	interface Prop {
@@ -18,11 +20,20 @@ HTML with card links in it, made by the markdown processor. See CardLinkArea for
 	}
 
 	const { html, resolveCard, resolveText }: Prop = $props();
+
+	// Timing diagrams are drawn by a component, between the pieces of HTML around them.
+	const segments = $derived(splitTimingDiagrams(html));
 </script>
 
 <CardLinkArea {resolveCard} {resolveText}>
-	<div class="prose dark:prose-invert description-content max-w-none">
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html html}
-	</div>
+	{#each segments as segment, i (i)}
+		{#if segment.kind === 'html'}
+			<div class="prose dark:prose-invert description-content max-w-none">
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html segment.html}
+			</div>
+		{:else}
+			<TimingDiagram timing={segment.timing} />
+		{/if}
+	{/each}
 </CardLinkArea>

@@ -25,7 +25,11 @@ import type {
 	TemporaryCard,
 	WrittenReviewPart
 } from '@5argon/arkham-life-ui';
-import { markdownToTrustedHtml } from '@5argon/arkham-life-ui/markdown';
+import {
+	markdownToTrustedHtml,
+	splitTimingDiagrams,
+	timingDirectiveProblems
+} from '@5argon/arkham-life-ui/markdown';
 import { u as stringUtils } from '@5argon/arkham-string';
 import { parse as parseYaml } from 'yaml';
 
@@ -48,6 +52,7 @@ import {
 import { productToExploreRoute } from '$lib/utility/product';
 
 import { cardTextHtml, firstPrintingOf, hasCardText, hoverTextOf } from './card-text';
+import { expandRuleDirectives, ruleDirectiveProblems } from './rules';
 import {
 	buildQlProblems,
 	type BuildQlTopic,
@@ -443,7 +448,13 @@ export function compileCardSubsections(
 	const subsections: CardSubsection[] = [];
 	const cardLink = /<span class="card-link[^"]*" data-card-code="(\w+)">.*?<\/span>/gs;
 	const addText = (text: string) => {
-		if (text.trim() !== '') parts.push({ kind: 'text', html: belowPageHeadings(text) });
+		for (const segment of splitTimingDiagrams(text)) {
+			parts.push(
+				segment.kind === 'html'
+					? { kind: 'text', html: belowPageHeadings(segment.html) }
+					: { kind: 'timing', timing: segment.timing }
+			);
+		}
 	};
 	let end = 0;
 	// The page has its own title and sections, so what's written starts below those.
@@ -497,7 +508,10 @@ function compileWrittenEntry(review: WrittenReview): ReviewEntry {
 		dateLabel: dateLabel(review.date),
 		environmentDate: knownPoints.find((p) => p.id === review.environment)?.date,
 		originalUrl: review.originalUrl,
-		...compileCardSubsections(markdownToTrustedHtml(review.body, createCardResolver()), review.id)
+		...compileCardSubsections(
+			markdownToTrustedHtml(expandRuleDirectives(review.body), createCardResolver()),
+			review.id
+		)
 	};
 }
 
@@ -708,7 +722,9 @@ function cardsMentionedIn(entries: ReviewEntry[]): Record<string, Card> {
 		const codes =
 			part.kind === 'cards'
 				? part.codes
-				: [...part.html.matchAll(/data-card-code="(\w+)"/g)].map((match) => match[1]);
+				: part.kind === 'text'
+					? [...part.html.matchAll(/data-card-code="(\w+)"/g)].map((match) => match[1])
+					: [];
 		for (const code of codes) {
 			const card = cardByCode.get(code);
 			if (card !== undefined) mentioned[code] = slimCard(card);
@@ -1307,6 +1323,12 @@ export function reviewProblems(): string[] {
 			problems.push(...subsectionProblems(review, code, where));
 			for (const match of review.body.matchAll(/\]\(\/card\/(\w+)\)/g)) {
 				if (!cardByCode.has(match[1])) problems.push(`${where}: links to unknown card ${match[1]}`);
+			}
+			for (const problem of [
+				...ruleDirectiveProblems(review.body),
+				...timingDirectiveProblems(review.body)
+			]) {
+				problems.push(`${where}: ${problem}`);
 			}
 		}
 	}
