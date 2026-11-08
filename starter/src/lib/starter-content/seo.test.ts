@@ -24,6 +24,15 @@ import {
 
 const staticDir = resolve(import.meta.dirname, '../../../static');
 
+/**
+ * Images from arkham.build, its card thumbnails and what authors upload there, stay linked.
+ */
+function isLinkedImage(url: string): boolean {
+	if (!url.startsWith('https://')) return false;
+	const { host } = new URL(url);
+	return host === 'assets.arkham.build' || host.endsWith('.arkham-build-uploads.com');
+}
+
 describe('introPlainText', () => {
 	it('keeps card link text and names game icons', () => {
 		expect(
@@ -83,7 +92,7 @@ describe('starter deck meta', () => {
 			].map((match) => match[1]);
 			if (entry.bannerUrl !== undefined) images.push(entry.bannerUrl);
 			for (const image of images) {
-				if (image.startsWith('https://assets.arkham.build/')) continue;
+				if (isLinkedImage(image)) continue;
 				expect(image.startsWith(folder), `${entry.slug}: ${image}`).toBe(true);
 				expect(existsSync(`${staticDir}${image}`), image).toBe(true);
 				used.add(image);
@@ -111,7 +120,7 @@ describe('starter deck meta', () => {
 				expect(JSON.stringify(exported), entry.slug).not.toMatch(
 					/(?<!arkham-starter\.com)\/image\/starter\//
 				);
-				if (entry.bannerUrl === undefined) continue;
+				if (entry.bannerUrl === undefined || isLinkedImage(entry.bannerUrl)) continue;
 				expect(exported.description_md, entry.slug).toContain(siteUrl('image/starter/'));
 				expect(JSON.parse(exported.meta ?? '{}').banner_url, entry.slug).toMatch(/^https:/);
 			}

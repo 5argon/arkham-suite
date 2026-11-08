@@ -1,5 +1,5 @@
 <h2 style="color:rgb(186, 129, 242);"><span class="icon-mystic"></span> 
-</span> <strong>The Interceptor</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-combo-cult/the-interceptor/HRS9LZOaoAA9lt8.webp">
+</span> <strong>The Interceptor</strong> <span class="icon-mystic"></span>  </span><br/><br/><img src="https://hungrycolquhoun.arkham-build-uploads.com/Dexter_banner_CC.png">
 </style><hr/></h2>
 
 > In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos. Did you know magicians can teleport? With [The Grapevine](/card/60374) Dexter gets efficiently to enemies and fries them with [Cosmic Flame](/card/12071), intercepting the bad guys before they cause mischief!
@@ -50,14 +50,14 @@
 
 - <strong><ins>Staples</ins>:</strong> Dexter's signature ["For my next trick..."](/card/12011) is superb as always, allowing you to do a full deck search for key assets. [Out the Door](/card/60370) is free cash, while it's left unupgraded here it's still useful alongside ["Watch this!"](/card/60371). [Arcane Initiate](/card/60455) allows you to find spells early on (including "For my next trick..."), with [Jim Culver](/card/12060) replacing your Initiates when they've exceeded their usefulness. [Ward of Protection](/card/12065) is excellent support vs. the encounter deck as always. While there's no [Lucky Cigarette Case](/card/12044) here for card draw, the inclusion of Jim, the Initiates and [The Grapevine](/card/60374) all help to churn your deck.
 
-<sub><strong style="color:rgb(186, 129, 242);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons!</sub>
+<sub><strong style="color:rgb(186, 129, 242);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons! A big thanks to fffelice for also arranging image hosting, like a true gentleman!</sub>
 <HR/>
 
 <h2 style="color:rgb(186, 129, 242);"><strong>Starting deck and planned progression</strong></h2>
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/NZdA5nvXE1NXsHj"><strong>link here</strong></a>):
 
-<img src="/image/starter/hungry-colquhoun/ch2-combo-cult/the-interceptor/HRWqLlgaQAA4VpS.webp"/>
+<img src="https://hungrycolquhoun.arkham-build-uploads.com/Dexter_0XP_CC.png"/>
 <br/>
 <strong style="color:rgb(186, 129, 242);">A recommended order of purchases/upgrades is:</strong>
 

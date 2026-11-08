@@ -11,14 +11,15 @@ import sharp from 'sharp';
  *
  * Each guide owns its images, at
  * static/image/starter/{author}/{series}/{deck}/{original name}.webp
- * Card thumbnails from arkham.build stay linked. Running it again only picks up
- * what is still external.
+ * Images on arkham.build, its card thumbnails and what authors upload there,
+ * stay linked. Running it again only picks up what is still external.
  */
 
 const STARTER_ROOT = path.resolve(import.meta.dirname, '..');
 const CONTENT_DIR = path.join(STARTER_ROOT, 'src/lib/starter-content/starter');
 const STATIC_DIR = path.join(STARTER_ROOT, 'static');
-const KEPT_HOSTS = new Set(['assets.arkham.build']);
+const isKeptHost = (host: string) =>
+	host === 'assets.arkham.build' || host.endsWith('.arkham-build-uploads.com');
 const OWN_IMAGES = 'https://arkham-starter.com/image/starter/';
 const IMAGE_URL = /(?:src=["']|!\[[^\]]*\]\()(https?:\/\/[^"')\s]+)/g;
 
@@ -28,7 +29,7 @@ interface SeriesJson {
 
 function externalImages(guide: string): string[] {
 	const urls = [...guide.matchAll(IMAGE_URL)].map((match) => match[1]);
-	return [...new Set(urls)].filter((url) => !KEPT_HOSTS.has(new URL(url).host));
+	return [...new Set(urls)].filter((url) => !isKeptHost(new URL(url).host));
 }
 
 async function localize(url: string, folder: string): Promise<string> {

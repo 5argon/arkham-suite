@@ -1,5 +1,5 @@
 <h2 style="color:rgb(92, 180, 253);"><span class="icon-guardian"></span> 
- <strong>Dragged Across Concrete</strong> <span class="icon-guardian"></span> <br/><br/><img src="/image/starter/hungry-colquhoun/ch2-combo-cult/dragged-across-concrete/HRTsAgJbIAAuJh6.webp"/></style><hr/></h2>
+ <strong>Dragged Across Concrete</strong> <span class="icon-guardian"></span> <br/><br/><img src="https://hungrycolquhoun.arkham-build-uploads.com/Daniela_banner_CC.png"/></style><hr/></h2>
 
 > In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos. Here Daniela drags enemies kicking and screaming into [Lie in Wait](/card/60566) or [Rope Trap](/card/60578), getting <span class="icon-reaction"></span> attacks with her ability and a [Service Revolver](/card/60158) for up to 6 attacks in a round rather than the usual 5. For soaking attacks, [Bodyguard](/card/12027) takes a bullet or a tentacle for you and dishes out auto-damage.
 
@@ -9,9 +9,9 @@
 
 <h2 style="color:rgb(92, 180, 253);"><strong>Series Decks</strong></h2>
 
-| &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp; |           &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp;           | &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp; | &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp; | &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp; |
-| :------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
-|                                     <strong>Joe</strong>                                     | <strong><a href="https://arkhamdb.com/decklist/view/66008/the-combo-queen-ch2-combo-cult-1.0">Izzie</a></strong> |                                   <strong>Daniela</strong>                                    |                                   <strong>Trish</strong>                                    |                                   <strong>Dexter</strong>                                    |
+| &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp; |           &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp;           | &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp; |              &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp;               |           &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp;            |
+| :------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
+|                                     <strong>Joe</strong>                                     | <strong><a href="https://arkhamdb.com/decklist/view/66008/the-combo-queen-ch2-combo-cult-1.0">Izzie</a></strong> |                                   <strong>Daniela</strong>                                    | <strong><a href="https://arkhamdb.com/decklist/view/66146/carolyn-s-top-student-ch2-combo-cult-1.0">Trish</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/66147/the-interceptor-ch2-combo-cult-1.0">Dexter</a></strong> |
 
 <hr/>
 
@@ -49,14 +49,14 @@
 
 - <strong><ins>Staples</ins>:</strong> [Bounty](/card/60161), [Emergency Cache](/card/12089) and [Logan Hastings](/card/12018) are all resource economy, with Logan providing a +1 <span class="icon-combat"></span> boost as well. [Stalk Prey](/card/60567) and [Overpower](/card/12092) provide card draw, with the former also providing a clue. For card draw otherwise, consider drawing cards during downtime (it's not like Daniela will be investigating high shroud locations!). [Scrape By](/card/12082) is in the deck because it's undeniably awesome for passing all sorts of tests (including basic investigates), while [upgraded Vicious Blow](/card/60176) pumps max damage per turn.
 
-<sub><strong style="color:rgb(92, 180, 253);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons!</sub>
+<sub><strong style="color:rgb(92, 180, 253);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons! A big thanks to fffelice for also arranging image hosting, like a true gentleman!</sub>
 <HR/>
 
 <h2 style="color:rgb(92, 180, 253);"><strong>Starting deck and planned progression</strong></h2>
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/w2XKPNMlFZL52HB"><strong>link here</strong></a>):
 
-<img src="/image/starter/hungry-colquhoun/ch2-combo-cult/dragged-across-concrete/HRWuK_aakAArYrI.webp"/>
+<img src="https://hungrycolquhoun.arkham-build-uploads.com/Daniela_0XP_CC.png"/>
 
 <strong style="color:rgb(92, 180, 253);">A recommended order of purchases/upgrades is:</strong>
 

@@ -1,5 +1,5 @@
 <h2 style="color:rgb(72, 177, 79);"><span class="icon-rogue"></span> 
-</span> <strong>Carolyn's Top Student</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="/image/starter/hungry-colquhoun/ch2-combo-cult/carolyns-top-student/HRS2MdjWEAQ7dbk.webp"/>
+</span> <strong>Carolyn's Top Student</strong> <span class="icon-rogue"></span>  </span><br/><br/><img src="https://hungrycolquhoun.arkham-build-uploads.com/Trish_banner_CC.png"/>
 </style><hr/></h2>
 
 > In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos. Here Trish takes horror (_gasp!_) to find clues with [Dreamer's Chronicle](/card/60255), which she readily recharges with [Prestidigitation](/card/12052).
@@ -48,7 +48,7 @@
 
 - <strong><ins>Staples</ins>:</strong> [Out the Door](/card/60373) and [Emergency Cache](/card/12089) provide resources, while [Olivier Bishop](/card/12046) provides <span class="icon-fast"></span> movement and a +1 <span class="icon-agility"></span> boost (assisting your evades, which get you back to clue-finding faster). [Deduction](/card/60275) and [Working a Hunch](/card/12038) give even more clues, while [Another Day, Another Dollar](/card/12056) gives action-free money. [Polished Cane](/card/60363) can make short work of [Black Chamber Operative](/card/12009), and generally I think it's a huge value-add for Rogue decks. In a single card it makes exhausting enemies even easier, while allowing for chip damage on bosses.
 
-<sub><strong style="color:rgb(72, 177, 79);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons!</sub>
+<sub><strong style="color:rgb(72, 177, 79);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons! A big thanks to fffelice for also arranging image hosting, like a true gentleman!</sub>
 
 <hr/>
 
@@ -58,7 +58,7 @@ In terms of side deck, upgraded [Silver Tongue](/card/60380) is a possibility (d
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/NfjUfYQh6G1TEQ3"><strong>link here</strong></a>):
 
-<img src="/image/starter/hungry-colquhoun/ch2-combo-cult/carolyns-top-student/HSZ8BQbXoAEvin0.webp"/>
+<img src="https://hungrycolquhoun.arkham-build-uploads.com/Trish_0XP_CC.png"/>
 
 <strong style="color:rgb(72, 177, 79);">A recommended order of purchases/upgrades is:</strong>
 

@@ -1,5 +1,5 @@
 <h2 style="color:rgb(238, 74, 83);"><span class="icon-survivor"></span> 
- <strong>The Combo Queen</strong> <span class="icon-survivor"></span> <br/> <br/><img src="/image/starter/hungry-colquhoun/ch2-combo-cult/the-combo-queen/HRSwbI_b0AAfl-K.webp"/>
+ <strong>The Combo Queen</strong> <span class="icon-survivor"></span> <br/> <br/><img src="https://hungrycolquhoun.arkham-build-uploads.com/Izzie_banner_CC.png"/>
 </style><hr/></h2>
 
 > In this mini-series I'm delving deeper in the Ch2 card pool for interesting combos. Why have one combo, when you can have four?! Here Izzie uses [Old Compass](/card/12083) and [Rabbit's Foot](/card/60560) as fail tech, getting clues off 4 shroud locations with ["Look what I found!"](/card/12078). She gets testless clues with [Will of the Cosmos](/card/12066), and places the doom on self-discarding [Hunter's Instinct](/card/12074) or [Same Old Thing](/card/60561). She heals horror and damage with [Consume Life](/card/60462) kills paired to [Cosmic Guidance](/card/60468) and [Fearless](/card/12069). Lastly, through double-dipping [Do-or-Die](/card/60568) with her ability then Izzie trivially recurs the ever-powerful [Scrape By](/card/12082). How I got this all into one deck I'll never know!
@@ -10,9 +10,9 @@
 
 <h2 style="color:rgb(238, 74, 83);"><strong>Series Decks</strong></h2>
 
-| &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp; | &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp; |               &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp;                | &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp; | &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp; |
-| :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
-|                                     <strong>Joe</strong>                                     |                                    <strong>Izzie</strong>                                    | <strong><a href="https://arkhamdb.com/decklist/view/66007/dragged-across-concrete-ch2-combo-cult-1.0">Daniela</a></strong> |                                   <strong>Trish</strong>                                    |                                   <strong>Dexter</strong>                                    |
+| &nbsp;&nbsp;<strong style="color:rgb(239, 163, 69);"><ins>Seeker</ins></strong> &nbsp;&nbsp; | &nbsp;&nbsp;<strong style="color:rgb(238, 74, 83);"><ins>Survivor</ins></strong>&nbsp;&nbsp; |               &nbsp;&nbsp;<strong style="color:rgb(92, 180, 253);"><ins>Guardian</ins></strong>&nbsp;&nbsp;                |              &nbsp;&nbsp; <strong style="color:rgb(72, 177, 79);"><ins>Rogue</ins></strong> &nbsp;&nbsp;               |           &nbsp;&nbsp;<strong style="color:rgb(186, 129, 242);"><ins>Mystic</ins></strong>&nbsp;&nbsp;            |
+| :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
+|                                     <strong>Joe</strong>                                     |                                    <strong>Izzie</strong>                                    | <strong><a href="https://arkhamdb.com/decklist/view/66007/dragged-across-concrete-ch2-combo-cult-1.0">Daniela</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/66146/carolyn-s-top-student-ch2-combo-cult-1.0">Trish</a></strong> | <strong><a href="https://arkhamdb.com/decklist/view/66147/the-interceptor-ch2-combo-cult-1.0">Dexter</a></strong> |
 
 <hr/>
 
@@ -50,7 +50,7 @@
 
 - <strong><ins>Staples</ins>:</strong> [Timely Intervention](/card/12081) is great by itself (especially for evades), but also allows you to sometimes fiddle [Old Compass](/card/12083) tests and increase the effective range of ["Look what I found!"](/card/12078). A single copy of [Aleksey Saburov](/card/12072) is included as a panic button - dialled down from two copies in the level 0 deck where he's more essential. Given he's unique, second copies are a bit of a dead card, and you also only play him if you need him as 3 resources is a little steep - his swap to [Fearless](/card/12069) is the final planned upgrade as Fearless is also a little situational. [E-Cache](/card/12089) is E-cache, with [Hunter's Instinct](/card/12074) you can re-use it if needed (but generally the deck is pretty cheap, as [Same Old Thing](/card/60561) covers event costs).
 
-<sub><strong style="color:rgb(238, 74, 83);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons!</sub>
+<sub><strong style="color:rgb(238, 74, 83);">Thank you</strong>: [5argon](https://arkhamdb.com/user/profile/61394/5argon) and [their thumbnail tool](https://arkham-starter.com/tool/thumbnails); [Valentin1331](https://arkhamdb.com/user/profile/42890/Valentin1331) for his support over the years; the community creators of [Arkham.Build](https://www.patreon.com/c/arkhambuild/) ([Felix](https://spoettel.dev/)), [Arkham Cards](https://www.patreon.com/c/arkhamcards/) ([zzorba](https://www.reddit.com/user/zzorba/)) and [ArkhamDB](https://www.patreon.com/c/kamalisk/) ([kamalisk](https://www.reddit.com/user/kamalisk/)) - linking their Patreons! A big thanks to fffelice for also arranging image hosting, like a true gentleman!</sub>
 
 <hr/>
 
@@ -60,7 +60,7 @@ I did think about [Ward of Protection](/card/12065) in the starting deck, but yo
 
 0 XP starting deck is below (and <a href="https://arkham.build/deck/view/OqbZzMP0XjoPAaV"><strong>link here</strong></a>):
 
-<img src="/image/starter/hungry-colquhoun/ch2-combo-cult/the-combo-queen/HRWrnBMaIAEmya1.webp"/>
+<img src="https://hungrycolquhoun.arkham-build-uploads.com/Izzie_0XP_CC.png"/>
 
 <strong style="color:rgb(238, 74, 83);">A recommended order of purchases/upgrades is:</strong>
 
