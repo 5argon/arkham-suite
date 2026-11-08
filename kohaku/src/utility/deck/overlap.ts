@@ -6,13 +6,13 @@ import { isRandomBasicWeakness } from '../card/util.js';
  * A card whose copies across a group of decks exceed what is available.
  */
 export interface QuantityOverlap {
-	code: string;
-	used: number;
-	available: number;
-	/**
-	 * Copies in each deck, by the deck's position in the input.
-	 */
-	perDeck: number[];
+  code: string;
+  used: number;
+  available: number;
+  /**
+   * Copies in each deck, by the deck's position in the input.
+   */
+  perDeck: number[];
 }
 
 /**
@@ -26,45 +26,45 @@ export interface QuantityOverlap {
  * card out entirely.
  */
 export function findQuantityOverlaps(
-	decks: Iterable<readonly [string, number]>[],
-	availableOf: (code: string) => number | undefined
+  decks: Iterable<readonly [string, number]>[],
+  availableOf: (code: string) => number | undefined
 ): QuantityOverlap[] {
-	const perCode = new Map<string, number[]>();
-	decks.forEach((deck, deckIndex) => {
-		for (const [code, quantity] of deck) {
-			let perDeck = perCode.get(code);
-			if (perDeck === undefined) {
-				perDeck = decks.map(() => 0);
-				perCode.set(code, perDeck);
-			}
-			perDeck[deckIndex] += quantity;
-		}
-	});
+  const perCode = new Map<string, number[]>();
+  decks.forEach((deck, deckIndex) => {
+    for (const [code, quantity] of deck) {
+      let perDeck = perCode.get(code);
+      if (perDeck === undefined) {
+        perDeck = decks.map(() => 0);
+        perCode.set(code, perDeck);
+      }
+      perDeck[deckIndex] += quantity;
+    }
+  });
 
-	const overlaps: QuantityOverlap[] = [];
-	for (const [code, perDeck] of perCode) {
-		const available = availableOf(code);
-		if (available === undefined) continue;
-		const used = perDeck.reduce((sum, quantity) => sum + quantity, 0);
-		if (used > available) overlaps.push({ code, used, available, perDeck });
-	}
-	return overlaps;
+  const overlaps: QuantityOverlap[] = [];
+  for (const [code, perDeck] of perCode) {
+    const available = availableOf(code);
+    if (available === undefined) continue;
+    const used = perDeck.reduce((sum, quantity) => sum + quantity, 0);
+    if (used > available) overlaps.push({ code, used, available, perDeck });
+  }
+  return overlaps;
 }
 
 export interface DeckOverlapInfo {
-	cardCode: string;
-	card: Card;
-	totalQuantity: number;
-	cardLimit: number;
-	/**
-	 * Map of deck ID to quantity of this card in that deck
-	 */
-	deckQuantities: Map<string | number, number>;
+  cardCode: string;
+  card: Card;
+  totalQuantity: number;
+  cardLimit: number;
+  /**
+   * Map of deck ID to quantity of this card in that deck
+   */
+  deckQuantities: Map<string | number, number>;
 }
 
 export interface DeckCombinationOverlap {
-	decks: Deck[];
-	overlaps: DeckOverlapInfo[];
+  decks: Deck[];
+  overlaps: DeckOverlapInfo[];
 }
 
 /**
@@ -74,42 +74,44 @@ export interface DeckCombinationOverlap {
  * never counted.
  *
  * @param decks - Array of decks to check for overlaps
- * @param options.includeSideDeck - Count side deck copies too (default: main deck only)
+ * @param options.excludeSideDeck - Count only main decks. Side decks count by
+ * default, since their copies (like the ones a starter deck's upgrades need)
+ * have to be gathered too.
  * @returns Array of overlap information for cards that exceed limits
  */
 export function findDeckOverlaps(
-	decks: Deck[],
-	options: { includeSideDeck?: boolean } = {}
+  decks: Deck[],
+  options: { excludeSideDeck?: boolean } = {}
 ): DeckOverlapInfo[] {
-	const cards = new Map<string, Card>();
-	const counted = decks.map((deck) => {
-		const zones = options.includeSideDeck ? [...deck.mainDeck, ...deck.sideDeck] : deck.mainDeck;
-		return zones.map((cq): [string, number] => {
-			cards.set(cq.card.code, cq.card);
-			return [cq.card.code, cq.quantity];
-		});
-	});
+  const cards = new Map<string, Card>();
+  const counted = decks.map((deck) => {
+    const zones = options.excludeSideDeck ? deck.mainDeck : [...deck.mainDeck, ...deck.sideDeck];
+    return zones.map((cq): [string, number] => {
+      cards.set(cq.card.code, cq.card);
+      return [cq.card.code, cq.quantity];
+    });
+  });
 
-	return findQuantityOverlaps(counted, (code) => {
-		const card = cards.get(code);
-		if (card === undefined || isRandomBasicWeakness(card) || card.quantity <= 0) return undefined;
-		return card.quantity;
-	}).map((overlap) => {
-		const deckQuantities = new Map<string | number, number>();
-		overlap.perDeck.forEach((quantity, deckIndex) => {
-			if (quantity === 0) return;
-			const id = decks[deckIndex].id;
-			deckQuantities.set(id, (deckQuantities.get(id) ?? 0) + quantity);
-		});
-		const card = cards.get(overlap.code)!;
-		return {
-			cardCode: overlap.code,
-			card,
-			totalQuantity: overlap.used,
-			cardLimit: overlap.available,
-			deckQuantities
-		};
-	});
+  return findQuantityOverlaps(counted, (code) => {
+    const card = cards.get(code);
+    if (card === undefined || isRandomBasicWeakness(card) || card.quantity <= 0) return undefined;
+    return card.quantity;
+  }).map((overlap) => {
+    const deckQuantities = new Map<string | number, number>();
+    overlap.perDeck.forEach((quantity, deckIndex) => {
+      if (quantity === 0) return;
+      const id = decks[deckIndex].id;
+      deckQuantities.set(id, (deckQuantities.get(id) ?? 0) + quantity);
+    });
+    const card = cards.get(overlap.code)!;
+    return {
+      cardCode: overlap.code,
+      card,
+      totalQuantity: overlap.used,
+      cardLimit: overlap.available,
+      deckQuantities,
+    };
+  });
 }
 
 /**
@@ -119,23 +121,23 @@ export function findDeckOverlaps(
  * @returns Array of deck combinations
  */
 export function generateDeckCombinations(decks: Deck[], size: number): Deck[][] {
-	const combinations: Deck[][] = [];
+  const combinations: Deck[][] = [];
 
-	function combine(start: number, current: Deck[]) {
-		if (current.length === size) {
-			combinations.push([...current]);
-			return;
-		}
+  function combine(start: number, current: Deck[]) {
+    if (current.length === size) {
+      combinations.push([...current]);
+      return;
+    }
 
-		for (let i = start; i < decks.length; i++) {
-			current.push(decks[i]);
-			combine(i + 1, current);
-			current.pop();
-		}
-	}
+    for (let i = start; i < decks.length; i++) {
+      current.push(decks[i]);
+      combine(i + 1, current);
+      current.pop();
+    }
+  }
 
-	combine(0, []);
-	return combinations;
+  combine(0, []);
+  return combinations;
 }
 
 /**
@@ -143,32 +145,38 @@ export function generateDeckCombinations(decks: Deck[], size: number): Deck[][] 
  * cards: 8 copies of a card limited to 4 counts as 4.
  */
 function excessCopies(overlaps: DeckOverlapInfo[]): number {
-	return overlaps.reduce((sum, overlap) => sum + overlap.totalQuantity - overlap.cardLimit, 0);
+  return overlaps.reduce((sum, overlap) => sum + overlap.totalQuantity - overlap.cardLimit, 0);
 }
 
 /**
  * Find overlaps for all possible combinations of decks of a given size
  * @param decks - Array of all available decks
  * @param teamSize - Size of each team (2, 3, or 4)
+ * @param options.excludeSideDeck - Count only main decks (side decks count by
+ * default, see {@link findDeckOverlaps})
  * @returns Array of combinations with their overlaps, sorted by fewest overlaps
  * first, then by fewest copies beyond what is available
  */
-export function findTeamOverlaps(decks: Deck[], teamSize: number): DeckCombinationOverlap[] {
-	const combinations = generateDeckCombinations(decks, teamSize);
-	const results: DeckCombinationOverlap[] = [];
+export function findTeamOverlaps(
+  decks: Deck[],
+  teamSize: number,
+  options: { excludeSideDeck?: boolean } = {}
+): DeckCombinationOverlap[] {
+  const combinations = generateDeckCombinations(decks, teamSize);
+  const results: DeckCombinationOverlap[] = [];
 
-	for (const combo of combinations) {
-		const overlaps = findDeckOverlaps(combo);
-		results.push({
-			decks: combo,
-			overlaps: overlaps
-		});
-	}
+  for (const combo of combinations) {
+    const overlaps = findDeckOverlaps(combo, options);
+    results.push({
+      decks: combo,
+      overlaps: overlaps,
+    });
+  }
 
-	results.sort(
-		(a, b) =>
-			a.overlaps.length - b.overlaps.length || excessCopies(a.overlaps) - excessCopies(b.overlaps)
-	);
+  results.sort(
+    (a, b) =>
+      a.overlaps.length - b.overlaps.length || excessCopies(a.overlaps) - excessCopies(b.overlaps)
+  );
 
-	return results;
+  return results;
 }

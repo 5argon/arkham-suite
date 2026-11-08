@@ -503,7 +503,7 @@ describe('HC Quickie', () => {
 		const decks = entries.map((entry) =>
 			linkedAhdbDeckToDeck({ deck: entry.primary }, resolver, tabooLists)
 		);
-		const overlaps = deckUtility.findDeckOverlaps(decks, { includeSideDeck: true });
+		const overlaps = deckUtility.findDeckOverlaps(decks);
 		expect(overlaps.map((overlap) => overlap.card.name)).toEqual([]);
 	});
 });
@@ -545,7 +545,7 @@ describe('5argon pre-built teams', () => {
 			const decks = ofLineup(lineup, 4)[0].members.map(({ deck }) =>
 				linkedAhdbDeckToDeck({ deck }, resolver, tabooLists)
 			);
-			const overlaps = deckUtility.findDeckOverlaps(decks, { includeSideDeck: true });
+			const overlaps = deckUtility.findDeckOverlaps(decks);
 			expect(
 				overlaps.map((overlap) => overlap.card.name),
 				lineup

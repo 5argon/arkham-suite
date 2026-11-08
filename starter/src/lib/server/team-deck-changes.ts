@@ -73,7 +73,9 @@ export function overlapTable(members: readonly OverlapTableMember[]): string {
 	const investigators = members.map(({ source }) => resolver.resolve(source.investigator_code));
 	const mainChanges = members.map(({ changes }) => changes.filter((change) => !change.side));
 
-	const codes = new Set(deckUtils.findDeckOverlaps(decks).map((overlap) => overlap.cardCode));
+	const codes = new Set(
+		deckUtils.findDeckOverlaps(decks, { excludeSideDeck: true }).map((overlap) => overlap.cardCode)
+	);
 	for (const changes of mainChanges) {
 		for (const { remove } of changes) if (remove !== undefined) codes.add(remove);
 	}

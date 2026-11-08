@@ -35,15 +35,37 @@ describe('findDeckOverlaps', () => {
 		(cq) => cq.card.quantity > 0 && !deck.mainDeck.some((main) => main.card.code === cq.card.code)
 	)!;
 
-	it('counts only main decks by default', () => {
-		const codes = deckUtils.findDeckOverlaps([deck, deck]).map((o) => o.cardCode);
-		expect(codes).not.toContain(sideOnly.card.code);
-	});
-
-	it('counts side decks when asked', () => {
+	it('counts side decks by default', () => {
 		const overlap = deckUtils
-			.findDeckOverlaps([deck, deck], { includeSideDeck: true })
+			.findDeckOverlaps([deck, deck])
 			.find((o) => o.cardCode === sideOnly.card.code);
 		expect(overlap?.totalQuantity).toBe(sideOnly.quantity * 2);
+	});
+
+	it('counts only main decks when asked', () => {
+		const codes = deckUtils
+			.findDeckOverlaps([deck, deck], { excludeSideDeck: true })
+			.map((o) => o.cardCode);
+		expect(codes).not.toContain(sideOnly.card.code);
+	});
+});
+
+describe('findTeamOverlaps', () => {
+	const resolver = new CardResolver(getAllCards(), null);
+	// Both upgrade into 2 Scrape By, which their 0 XP builds keep in the side deck to gather.
+	const decks = ['dragged-across-concrete', 'the-combo-queen'].map((slug) => {
+		const entry = starterDeck('hungry-colquhoun', 'ch2-combo-cult', slug)!;
+		return linkedAhdbDeckToDeck({ deck: entry.primary }, resolver, loadAllTabooLists());
+	});
+	const scrapeBy = '12082';
+
+	it('counts side decks by default, as the team assembler does', () => {
+		const [team] = deckUtils.findTeamOverlaps(decks, 2);
+		expect(team.overlaps.find((o) => o.cardCode === scrapeBy)?.totalQuantity).toBe(4);
+	});
+
+	it('counts only main decks when asked', () => {
+		const [team] = deckUtils.findTeamOverlaps(decks, 2, { excludeSideDeck: true });
+		expect(team.overlaps.map((o) => o.cardCode)).not.toContain(scrapeBy);
 	});
 });

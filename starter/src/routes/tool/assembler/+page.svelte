@@ -54,6 +54,7 @@
 	let activeTeamSize = $state<2 | 3 | 4>(2);
 	let useScanView = $state(false);
 	let zeroOverlapOnly = $state(false);
+	let excludeSideDecks = $state(false);
 	let uniqueClassesOnly = $state(false);
 	let deckModalDeck = $state<Deck | null>(null);
 
@@ -165,20 +166,27 @@
 		});
 	});
 
-	// Generate all combinations for each team size
+	// Generate all combinations for each team size. Side decks count unless left out: a starter
+	// deck keeps the copies its upgrades need there, and those have to be gathered too.
 	const twoPlayerCombinations = $derived.by(() => {
 		if (decksForOverlapDetection.length < 2) return [];
-		return deckUtility.findTeamOverlaps(decksForOverlapDetection, 2);
+		return deckUtility.findTeamOverlaps(decksForOverlapDetection, 2, {
+			excludeSideDeck: excludeSideDecks
+		});
 	});
 
 	const threePlayerCombinations = $derived.by(() => {
 		if (decksForOverlapDetection.length < 3) return [];
-		return deckUtility.findTeamOverlaps(decksForOverlapDetection, 3);
+		return deckUtility.findTeamOverlaps(decksForOverlapDetection, 3, {
+			excludeSideDeck: excludeSideDecks
+		});
 	});
 
 	const fourPlayerCombinations = $derived.by(() => {
 		if (decksForOverlapDetection.length < 4) return [];
-		return deckUtility.findTeamOverlaps(decksForOverlapDetection, 4);
+		return deckUtility.findTeamOverlaps(decksForOverlapDetection, 4, {
+			excludeSideDeck: excludeSideDecks
+		});
 	});
 
 	// Convert overlaps to CardItems for display
@@ -189,21 +197,38 @@
 		const items: CardItem[] = [];
 
 		combo.overlaps.forEach((overlap, overlapIndex) => {
-			// Create a separate CardItem for each deck that uses this overlapping card
+			// A separate CardItem for each deck that uses this overlapping card, and one more for
+			// the copies in its side deck, marked as such.
+			const total = {
+				text: `${overlap.totalQuantity}/${overlap.cardLimit}`,
+				color: CardClass.Survivor
+			};
 			overlap.deckQuantities.forEach((quantity, deckId) => {
 				const deck = combo.decks.find((d) => d.id === deckId);
-				if (deck) {
+				if (!deck) return;
+				const copiesIn = (zone: Deck['mainDeck']) =>
+					zone
+						.filter((cq) => cq.card.code === overlap.cardCode)
+						.reduce((sum, cq) => sum + cq.quantity, 0);
+				const side = excludeSideDecks ? 0 : Math.min(quantity, copiesIn(deck.sideDeck));
+				const main = quantity - side;
+				const base = `overlap-${overlapIndex}-${overlap.cardCode}-${deckId}`;
+				if (main > 0) {
 					items.push({
 						card: overlap.card,
-						quantity: quantity, // Individual deck's quantity
-						id: `overlap-${overlapIndex}-${overlap.cardCode}-${deckId}`,
+						quantity: main,
+						id: base,
 						owner: deck.investigator,
-						labels: [
-							{
-								text: `${overlap.totalQuantity}/${overlap.cardLimit}`,
-								color: CardClass.Survivor
-							}
-						]
+						labels: [total]
+					});
+				}
+				if (side > 0) {
+					items.push({
+						card: overlap.card,
+						quantity: side,
+						id: `${base}-side`,
+						owner: deck.investigator,
+						labels: [{ text: 'Side', color: CardClass.Survivor }, total]
 					});
 				}
 			});
@@ -320,6 +345,7 @@
 					/>
 					<Button label="Clear All" icon={FaIconType.Delete} onClick={handleClearDecks} />
 					<Checkbox label="Zero Overlap Only" bind:checked={zeroOverlapOnly} />
+					<Checkbox label="Exclude Side Decks" bind:checked={excludeSideDecks} />
 					<Checkbox
 						label={m.tool_assembler_unique_investigator_classes()}
 						bind:checked={uniqueClassesOnly}

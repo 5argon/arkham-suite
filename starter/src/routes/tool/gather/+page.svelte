@@ -190,7 +190,7 @@
 
 	const overlaps = $derived.by(() => {
 		const deckOverlaps = deckUtility.findDeckOverlaps(decksForOverlapDetection, {
-			includeSideDeck: !excludeSideDecks
+			excludeSideDeck: excludeSideDecks
 		});
 		return deckOverlaps.map((overlap) => ({
 			cardCode: overlap.cardCode,
