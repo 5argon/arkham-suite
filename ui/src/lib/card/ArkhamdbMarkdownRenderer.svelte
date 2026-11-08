@@ -7,13 +7,18 @@ Hovering a card link shows a CardScanFullSmall tooltip; clicking it opens a Card
 	import { type CardResolver, type Card } from '@5argon/arkham-kohaku';
 	import { markdownToHtml } from './markdown-processor.js';
 	import CardLinkedHtml from './CardLinkedHtml.svelte';
+	import type { CardTextHtml } from '../review/review-entry.js';
 
 	interface Prop {
 		descriptionMd: string;
 		cardResolver?: CardResolver;
+		/**
+		 * The text of a linked card, shown when hovering it, when the page has it.
+		 */
+		resolveText?: (code: string) => CardTextHtml | undefined;
 	}
 
-	const { descriptionMd, cardResolver }: Prop = $props();
+	const { descriptionMd, cardResolver, resolveText }: Prop = $props();
 
 	const processedHtml = $derived(markdownToHtml(descriptionMd, cardResolver));
 
@@ -26,4 +31,4 @@ Hovering a card link shows a CardScanFullSmall tooltip; clicking it opens a Card
 	}
 </script>
 
-<CardLinkedHtml html={processedHtml} {resolveCard} />
+<CardLinkedHtml html={processedHtml} {resolveCard} {resolveText} />

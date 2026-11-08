@@ -3,14 +3,19 @@
 	import Button from '../button/Button.svelte';
 	import * as m from '../paraglide/messages.js';
 	import ArkhamdbMarkdownRenderer from './ArkhamdbMarkdownRenderer.svelte';
+	import type { CardTextHtml } from '../review/review-entry.js';
 
 	interface Prop {
 		descriptionMd: string;
 		cardResolver?: CardResolver;
+		/**
+		 * The text of a linked card, shown when hovering it, when the page has it.
+		 */
+		resolveText?: (code: string) => CardTextHtml | undefined;
 		onClose: () => void;
 	}
 
-	const { descriptionMd, cardResolver, onClose }: Prop = $props();
+	const { descriptionMd, cardResolver, resolveText, onClose }: Prop = $props();
 </script>
 
 <div class="flex h-full flex-col">
@@ -26,6 +31,6 @@
 
 	<!-- Description content -->
 	<div class="flex-1 overflow-y-auto p-6 bg-primary-50/40 dark:bg-primary-950/40">
-		<ArkhamdbMarkdownRenderer {descriptionMd} {cardResolver} />
+		<ArkhamdbMarkdownRenderer {descriptionMd} {cardResolver} {resolveText} />
 	</div>
 </div>

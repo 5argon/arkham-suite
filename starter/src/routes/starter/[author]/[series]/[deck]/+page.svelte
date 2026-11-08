@@ -35,6 +35,7 @@
 
 	const { data } = $props();
 	const resolver = createCardResolver();
+	const resolveText = (code: string) => data.mentionedText[code];
 	const tabooLists = loadAllTabooLists();
 	const entry = $derived(data.entry);
 	const author = $derived(entry.series.author);
@@ -185,6 +186,7 @@
 	     swap the lists beneath them. -->
 	<DeckDisplay
 		cardResolver={resolver}
+		{resolveText}
 		deck={versions[0].deck}
 		mode="decklist"
 		byline={starterByline(entry.series)}

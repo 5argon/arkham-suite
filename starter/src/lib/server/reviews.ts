@@ -45,9 +45,9 @@ import {
 	environmentPointTitle,
 	environmentTalkingPool
 } from '$lib/tool/environment-choices';
-import { parseArkhamDbCardText } from '$lib/utility/arkham-markup';
 import { productToExploreRoute } from '$lib/utility/product';
 
+import { cardTextHtml, firstPrintingOf, hasCardText, hoverTextOf } from './card-text';
 import {
 	buildQlProblems,
 	type BuildQlTopic,
@@ -56,7 +56,6 @@ import {
 	type CardUsers,
 	slimCard
 } from './card-users';
-import cardTextData from './data/card-text.json';
 
 /**
  * Everything said about a card, only loaded on the server so no browser downloads it all: each page
@@ -214,7 +213,6 @@ const reviewableCards = allCards.filter(
 );
 const reviewableCodes = new Set(reviewableCards.map((card) => card.code));
 const knownPoints = environment.currentEnvironmentVersions('9999-12-31');
-const cardText: Record<string, Record<string, string> | undefined> = cardTextData;
 
 function thumb(card: Card): CardThumb {
 	return { code: card.code, name: card.name, cardClass: card.cardClass };
@@ -702,50 +700,6 @@ export function reviewProductCards(product: Product): ReviewProductCard[] {
  */
 export function reviewCardCodes(): string[] {
 	return [...new Set(reviewableCards.map((card) => toCore2026Code(card.code)))];
-}
-
-/**
- * What's said about a reprint elsewhere is usually on its first printing.
- */
-export function firstPrintingOf(code: string): string {
-	return cardText[code]?.original ?? code;
-}
-
-export function cardTextHtml(code: string): CardTextHtml {
-	const text = cardText[code] ?? {};
-	const html = (field: string) => text[field] && parseArkhamDbCardText(text[field]);
-	const hasBack = text.back_text !== undefined || text.back_flavor !== undefined;
-	return {
-		front: {
-			traits: text.traits,
-			text: html('text'),
-			flavor: html('flavor'),
-			customization: html('customization_text')
-		},
-		back: hasBack ? { text: html('back_text'), flavor: html('back_flavor') } : undefined
-	};
-}
-
-/**
- * Only cards with text data, without flavor. An investigator keeps just its front.
- */
-function hoverTextOf(cards: Record<string, Card>): Record<string, CardTextHtml> {
-	const texts: Record<string, CardTextHtml> = {};
-	for (const [code, card] of Object.entries(cards)) {
-		if (cardText[code] === undefined) continue;
-		const text = cardTextHtml(code);
-		if (text.front.text === undefined && text.back?.text === undefined) continue;
-		const front = {
-			traits: text.front.traits,
-			text: text.front.text,
-			customization: text.front.customization
-		};
-		texts[code] =
-			card.cardType === CardType.Investigator || text.back?.text === undefined
-				? { front }
-				: { front, back: { text: text.back.text } };
-	}
-	return texts;
 }
 
 function cardsMentionedIn(entries: ReviewEntry[]): Record<string, Card> {
@@ -1379,5 +1333,5 @@ export function reviewProblems(): string[] {
  * Cards with a page that have no text to show, because the text file needs regenerating.
  */
 export function cardsMissingText(): string[] {
-	return reviewCardCodes().filter((code) => cardText[code] === undefined);
+	return reviewCardCodes().filter((code) => !hasCardText(code));
 }

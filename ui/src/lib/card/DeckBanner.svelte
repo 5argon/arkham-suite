@@ -3,6 +3,7 @@
 Block element with fixed height that display some overall information about the deck.
 -->
 <script lang="ts">
+	import type { CardTextHtml } from '../review/review-entry.js';
 	import {
 		Product,
 		type Card,
@@ -52,6 +53,10 @@ Block element with fixed height that display some overall information about the 
 		onClick?: (() => void) | string;
 
 		cardResolver: CardResolver;
+		/**
+		 * The text of a linked card, shown when hovering it, when the page has it.
+		 */
+		resolveText?: (code: string) => CardTextHtml | undefined;
 
 		localizationResolver?: LocalizationResolver;
 		languageCode?: string;
@@ -100,6 +105,7 @@ Block element with fixed height that display some overall information about the 
 		mode,
 		onClick,
 		cardResolver,
+		resolveText,
 		byline,
 		highlightStatsAtLeast,
 		dimStatsAtMost,
@@ -374,6 +380,7 @@ Block element with fixed height that display some overall information about the 
 						<ArkhamdbMarkdownRenderer
 							descriptionMd={deckLatestForwarded.meta.introMd}
 							{cardResolver}
+							{resolveText}
 						/>
 					</div>
 				{/if}

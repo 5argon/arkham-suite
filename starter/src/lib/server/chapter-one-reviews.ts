@@ -13,10 +13,9 @@ import type { CardTextHtml, ReviewCountsData, ReviewRowData } from '@5argon/arkh
 import { getAllCards } from '$lib/card-data';
 import { productToExploreRoute } from '$lib/utility/product';
 
+import { cardTextHtml, firstPrintingOf } from './card-text';
 import {
-	cardTextHtml,
 	dateLabel,
-	firstPrintingOf,
 	mediumOf,
 	personOf,
 	reviewerSummaries,
@@ -70,7 +69,9 @@ const cardByCode = new Map(allCards.map((card) => [card.code, card]));
 const languageNames = new Intl.DisplayNames(['en'], { type: 'language' });
 
 function sourcesOf(product: Product): ChapterOneJson[] {
-	return files[`../starter-content/review/chapter-one/${productToExploreRoute(product)}.json`] ?? [];
+	return (
+		files[`../starter-content/review/chapter-one/${productToExploreRoute(product)}.json`] ?? []
+	);
 }
 
 function playerCardsOf(product: Product): Card[] {

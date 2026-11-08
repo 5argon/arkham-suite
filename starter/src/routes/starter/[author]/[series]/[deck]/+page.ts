@@ -4,10 +4,11 @@ import { allStarterDecks, starterDeck } from '$lib/starter-content';
 
 import type { EntryGenerator, PageLoad } from './$types';
 
-export const load: PageLoad = ({ params }) => {
+// The card text shown on hover comes from the server load, so it stays out of the bundle.
+export const load: PageLoad = ({ params, data }) => {
 	const entry = starterDeck(params.author, params.series, params.deck);
 	if (entry === undefined) error(404, 'Not found');
-	return { entry };
+	return { ...data, entry };
 };
 
 export const entries: EntryGenerator = () =>

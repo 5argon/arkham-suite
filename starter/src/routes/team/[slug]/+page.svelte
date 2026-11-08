@@ -72,7 +72,11 @@
 	<div class="mt-6">
 		<SectionSeparator title={m.team_guide()} />
 		{#if mounted}
-			<ArkhamdbMarkdownRenderer descriptionMd={team.guideMd} cardResolver={resolver} />
+			<ArkhamdbMarkdownRenderer
+				descriptionMd={team.guideMd}
+				cardResolver={resolver}
+				resolveText={(code) => data.mentionedText[code]}
+			/>
 		{/if}
 	</div>
 </MarginText>

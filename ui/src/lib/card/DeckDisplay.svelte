@@ -3,6 +3,7 @@
 Complete deck display with banner, investigator cards, list view, and grid view.
 -->
 <script lang="ts">
+	import type { CardTextHtml } from '../review/review-entry.js';
 	import type { Snippet } from 'svelte';
 	import {
 		type Deck,
@@ -47,6 +48,10 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	interface Prop {
 		deck: Deck;
 		cardResolver: CardResolver;
+		/**
+		 * The text of a linked card, shown when hovering it, when the page has it.
+		 */
+		resolveText?: (code: string) => CardTextHtml | undefined;
 		localizationResolver?: LocalizationResolver;
 		languageCode?: string;
 		mode?: 'campaign' | 'decklist';
@@ -92,6 +97,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	let {
 		deck,
 		cardResolver,
+		resolveText,
 		localizationResolver,
 		languageCode,
 		mode = 'decklist',
@@ -263,6 +269,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		<div class="shrink-0">
 			<DeckBanner
 				{cardResolver}
+				{resolveText}
 				{deck}
 				{mode}
 				{localizationResolver}
@@ -390,6 +397,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 			<DeckDescriptionReader
 				descriptionMd={deckLatestForwarded.descriptionMd}
 				{cardResolver}
+				{resolveText}
 				onClose={() => {
 					showDescriptionReader = false;
 				}}
