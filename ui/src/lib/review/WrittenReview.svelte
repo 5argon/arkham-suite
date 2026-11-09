@@ -75,7 +75,7 @@ certain cards is their card lines in a divider.
 				<EnvironmentPoint environment={entry.environment} />
 			{/if}
 			{#if entry.dateLabel}
-				<ReviewDate date={entry.dateLabel} />
+				<ReviewDate date={entry.dateLabel} updated={entry.updatedLabel} />
 			{/if}
 			{#if onBackToContents}
 				{@render backToContents(onBackToContents)}

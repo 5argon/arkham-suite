@@ -94,9 +94,13 @@ interface WrittenReview extends CreditJson {
 	 */
 	fileName: string;
 	/**
-	 * When it came out.
+	 * When it came out, which is what orders the latest.
 	 */
 	date: string;
+	/**
+	 * When it was last changed, shown beside `date` on the review itself.
+	 */
+	updated?: string;
 	/**
 	 * The point in time it speaks about: an id of the Current environment.
 	 */
@@ -521,6 +525,7 @@ function compileWrittenEntry(review: WrittenReview): ReviewEntry {
 		environment: environmentDisplay(review.environment),
 		date: review.date,
 		dateLabel: dateLabel(review.date),
+		updatedLabel: review.updated === undefined ? undefined : dateLabel(review.updated),
 		environmentDate: knownPoints.find((p) => p.id === review.environment)?.date,
 		originalUrl: review.originalUrl,
 		...compileCardSubsections(
@@ -625,7 +630,14 @@ for (const entries of entriesByCard.values()) {
  * What a list needs of an entry, without what it takes to show it.
  */
 function slimEntry(entry: ReviewEntry): ReviewRowData {
-	const leaveOut = ['parts', 'subsections', 'date', 'environmentDate', 'originalUrl'];
+	const leaveOut = [
+		'parts',
+		'subsections',
+		'date',
+		'updatedLabel',
+		'environmentDate',
+		'originalUrl'
+	];
 	// Fields left unset still cost their name on the page, hundreds of times on a reviewer's.
 	return Object.fromEntries(
 		Object.entries(entry).filter(([key, value]) => value !== undefined && !leaveOut.includes(key))
@@ -1335,6 +1347,13 @@ export function reviewProblems(): string[] {
 			ids.add(review.id);
 			problems.push(...creditProblems(review, where));
 			problems.push(...dateProblems(review.date, where));
+			if (review.updated !== undefined) {
+				const updatedProblems = dateProblems(review.updated, `${where} updated`);
+				problems.push(...updatedProblems);
+				if (updatedProblems.length === 0 && review.updated <= review.date) {
+					problems.push(`${where}: updated must be after date`);
+				}
+			}
 			if (review.originalUrl !== undefined && !/^https:\/\/\S+$/.test(review.originalUrl)) {
 				problems.push(`${where}: originalUrl must be a full https address`);
 			}

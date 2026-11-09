@@ -346,6 +346,14 @@ describe('written review files', () => {
 		});
 	});
 
+	it('reads when it was last changed, keeping when it came out', () => {
+		const review = parseWrittenReview(
+			'5argon',
+			'---\nby: 5argon\ndate: 2026-11-04\nupdated: 2026-11-10\nenvironment: evergreen\n---\nText.'
+		);
+		expect(review).toMatchObject({ date: '2026-11-04', updated: '2026-11-10' });
+	});
+
 	it('reads a guest, naming the review after them', () => {
 		const review = parseWrittenReview(
 			'me',

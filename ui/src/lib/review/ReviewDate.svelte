@@ -1,6 +1,7 @@
 <!--
 @component
-When something came out, which is not the same as the point in time it speaks about.
+When something came out, which is not the same as the point in time it speaks about, and when it was
+last changed if it has been.
 -->
 <script lang="ts">
 	import FaIcon from '../icon/FaIcon.svelte';
@@ -9,8 +10,9 @@ When something came out, which is not the same as the point in time it speaks ab
 
 	interface Prop {
 		date: string;
+		updated?: string;
 	}
-	const { date }: Prop = $props();
+	const { date, updated }: Prop = $props();
 </script>
 
 <span
@@ -19,4 +21,5 @@ When something came out, which is not the same as the point in time it speaks ab
 >
 	<FaIcon icon={FaIconType.Calendar} />
 	{date}
+	{#if updated}{m.card_review_updated({ date: updated })}{/if}
 </span>

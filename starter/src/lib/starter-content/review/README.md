@@ -39,6 +39,8 @@ environment: evergreen
 The review starts here.
 ```
 
+`updated` is when it was last changed, like `updated: 2026-11-10`, shown beside `date` on the review as "Nov 4, 2026 (Updated: Nov 10, 2026)". Only `date` decides what's latest, so an update doesn't bring a review back to the top. A test fails when `updated` isn't after `date`.
+
 `originalUrl` is where the same review was first published, like `https://arkhamdb.com/card/12070#review-5992`, a blog post or a video. It shows as a link at the top of the review. The text is the author's own: bring it over word for word. Someone appearing once uses `guest` instead of `by`, with `name` and optionally `url` and `avatarUrl` under it. A review has no title: the card and its author are enough, and a subsection heading is how to say what a part is about.
 
 A heading of any level with a link to a card in it is a subsection about that card, usually an investigator. It shows as that card's card line in a divider instead of as text:

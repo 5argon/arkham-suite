@@ -141,6 +141,10 @@ export interface ReviewRowData {
 	 * When it came out.
 	 */
 	dateLabel?: string;
+	/**
+	 * When it was last changed, shown only on the review itself.
+	 */
+	updatedLabel?: string;
 	preview?: boolean;
 	official?: boolean;
 	/**
