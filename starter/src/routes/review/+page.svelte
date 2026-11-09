@@ -4,6 +4,7 @@
 
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import ReviewProductSelector from '$lib/design/pages/review/ReviewProductSelector.svelte';
+	import ReviewSubmissionModal from '$lib/design/pages/review/ReviewSubmissionModal.svelte';
 	import WhatsCardReviewModal from '$lib/design/pages/review/WhatsCardReviewModal.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { reviewProductHref } from '$lib/review/paths';
@@ -15,6 +16,7 @@
 
 	const href = (product: Product) => reviewProductHref(productToExploreRoute(product));
 	let showWhatsCardReview = $state(false);
+	let showSubmission = $state(false);
 </script>
 
 <OpenGraph
@@ -39,9 +41,11 @@
 			label={m.review_whats_button()}
 			onClick={() => (showWhatsCardReview = true)}
 		/>
+		<Button label={m.review_submission_button()} onClick={() => (showSubmission = true)} />
 		<Button label={m.review_preview_season_button()} onClick="/review/preview-season" />
 		<Button label={m.review_reviewers_button()} onClick="/review/reviewers" />
 	</div>
 </ReviewProductSelector>
 
 <WhatsCardReviewModal isOpen={showWhatsCardReview} onClose={() => (showWhatsCardReview = false)} />
+<ReviewSubmissionModal isOpen={showSubmission} onClose={() => (showSubmission = false)} />

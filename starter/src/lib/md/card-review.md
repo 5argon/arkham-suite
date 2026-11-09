@@ -4,15 +4,16 @@ In short, they work more like the medium- to long-form card reviews written in b
 
 # Examples
 
-Please find my reviews for "Paint the Town Red", "Lesson Learned", "Bandages", "Right Tool for the Job" to see what I'm going for.
+Please find my example reviews for "Scrape By", "Gather Intel", "Paint the Town Red", "Lesson Learned", "Bandages", "Right Tool for the Job" to see what I'm going for.
 
-You can also see extra features like Interactions, which are sub-headings named after a card. They affect how the site is compiled and form a rich network of cross-linking reviews. (e.g. If Bandages has an Interaction with Isabelle Barnes, the Isabelle Barnes card review page now knows about Bandages and every other card with an Interaction with her.) How to write one is outlined in the section about submitting your reviews below.
+You can also see extra features like Interactions, which are sub-headings named after a card. They affect how the site is compiled and form a rich network of cross-linking reviews. (e.g. If Bandages has an Interaction with Isabelle Barnes, the Isabelle Barnes card review page now knows about Bandages and every other card with an Interaction with her.) How to write one is in Review Submission.
 
 # More explanations
 
-- You want to "give a talk" about a single card, as if every card were an investigator card with infinite depth, so much so that you feel it'd look out of place on arkhamdb.com. Talk as if the game's brand new, just came out in 2026. Yes, you can be excited about Vicious Blow again here without sounding pretentious.
+- You want to "give a talk" about a single card, as if every card were an investigator card with infinite depth, so much so that you feel it'd look out of place on arkhamdb.com.
+- Talk as if the game's brand new, just came out in 2026. You can and should be excited about Vicious Blow again here.
 - You can state the obvious, which might not be obvious to beginners. You don't have to worry about whether something is technical enough to be worth stating. For example, the fact that there's a player window after an enemy has moved, or that you can have 2 copies of a card with a reaction trigger and trigger them at the same time, or that an AoO occurs before you move to a new location, can be stated repeatedly for beginners.
-- You can confidently say what others have already said. Each review is standalone. Think of it as an article on your personal website. You are not building the page on top of others' comments. You don't need to say "no one has mentioned this yet", as is commonly seen on arkhamdb.com.
+- You can confidently say what others have already said if you want. You don't need to say "no one has mentioned this yet", as is commonly seen on arkhamdb.com. Though, you can definitely refer to the other reviews in order to add to them, or say that some part was already well-explained by someone.
 - It is Chapter 2 only by default, and moreover, each review must be pinned to a point in time of the Current Environment.
 
   If you say a card is the best at something or the best on some investigator, it is already implied that it is the best or worst among the cards in the pinned environment. You don't have to keep repeating the "ifs" or saying "this is a Chapter 2 review" for fear of getting comments like "why not use this or that obviously better card instead", and you don't have to feel obligated to update the review whenever the environment shifts.
@@ -34,19 +35,4 @@ This is a niche site. These styles of review are better served on arkhamdb.com:
 
 # Interested to submit a review?
 
-This site is fully static and there is no input form. If you are interested in having your lengthy ramblings about one card here, you can write your review in the same format as a deck's description, as an `.md` file. Then send it to me as an attachment on Discord (`5argon`) or by e-mail (`pyasry@gmail.com`, please put something like "arkham-starter.com card review submission" in the subject so it is easier to notice), so I can add it and rebuild the site with the new review.
-
-- File name format example: `5argon-the-grapevine-2.md` (name, card name, card level if needed for disambiguation)
-- I recommend using the arkham.build deck description editor, which can add colored card links by pressing `Tab` and choose the style of "Paragraph (Colored)". Then copying the text into an `.md` file before sending it to me. Just create a dummy deck to use as your writing pad. It supports automatically saving unfinished writings too, even if your browser crashed without pressing Save!
-- The `#` Markdown heading syntax gets special handling. If the heading contains a card link (e.g. `# [Izzie](/card/12013)`), it becomes an **Interaction**: a good-looking subsection about that card, where the text inside `[]` no longer matters. For example, "Lesson Learned" has an Interaction with "Daniela Reyes", so I put a link to the investigator card in the `#` heading. Unlike a card mentioned outside of `#`, an Interaction creates a network of review links. When someone visits the Daniela Reyes card review page, they will see a link to "Lesson Learned" and every other card with an Interaction with her. Each review's Interactions are also listed under it in "Reviews on This Site", so readers can jump straight to one.
-- You don't have to copy rules into your review. Put a rule from the Grimoire (the rules reference, also on https://arkham.build/rules) on a line of its own by its number, and the site quotes it in a small box with a link to it. The number is at the end of the rule's link on arkham.build, like `https://arkham.build/rules#grimoire-entry-1.098` for "Move".
-  - `{{rule 1.098}}` quotes the whole rule.
-  - `{{rule 1.098 "enter the new location"}}` quotes only the lines with those words. Add more `"phrases"` for more lines. Write a `"` inside a phrase as `\"`, like `{{rule 1.083 "the word \"would\" changes"}}`.
-  - `{{rule 3.140 4}}` quotes only item 4 of a numbered list.
-  - Please only use `>` for quoting rules. A review shows every `>` quote as a rule.
-- You can also show one of the 5 timing diagrams (the 4 phases and the skill test) with a step highlighted. Put the step's number from the Grimoire on a line of its own. See my review of "Gather Intel" for one.
-  - `{{timing 3.320}}` shows the Enemy phase with step 3.2 (hunter and patrol enemies move) highlighted.
-  - `{{timing after 3.320}}` highlights the player window after step 3.2 instead. `before 3.330` points at the same one.
-  - Put several together to highlight more, like `{{timing 3.320 after 3.320}}`.
-  - Steps are numbered `3.110` to `3.460` for the 4 phases (step 1.1 to 4.6) and `4.001` to `4.008` for the skill test (step 1 to 8). `{{timing 3.100}}` to `{{timing 3.400}}` shows a phase with nothing highlighted.
-- I don't mind about also having your review existing elsewhere as well (arkhamdb.com, your personal blog, your video channel, etc.) you are free to provide a link towards your original source. This link will have special rendering UI in the site. This might be good if you wanted more eyes (especially beginner's eyes) towards your work.
+Press Review Submission for how to send one and what a review can do.

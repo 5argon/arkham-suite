@@ -17,7 +17,10 @@ A picture and a page of markdown, explaining something a button on a page offers
 		isOpen: boolean;
 		onClose: () => void;
 		title: string;
-		image: string;
+		/**
+		 * A picture above the words, if it has one.
+		 */
+		image?: string;
 		source: string;
 	}
 	const { isOpen, onClose, title, image, source }: Prop = $props();
@@ -25,7 +28,9 @@ A picture and a page of markdown, explaining something a button on a page offers
 
 <Modal {isOpen} {onClose} maxWidth="lg" {title}>
 	<div class="flex flex-col items-center gap-4">
-		<img alt={title} class="w-full max-w-[500px] rounded" src={image} />
+		{#if image}
+			<img alt={title} class="w-full max-w-[500px] rounded" src={image} />
+		{/if}
 		<div class="w-full">
 			<SvelteMarkdown
 				renderers={{
