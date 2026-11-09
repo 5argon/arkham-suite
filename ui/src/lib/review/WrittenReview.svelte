@@ -8,6 +8,7 @@ certain cards is their card lines in a divider.
 
 	import '../card/deck-description.css';
 	import CardLine from '../card/CardLine.svelte';
+	import Button from '../button/Button.svelte';
 	import CardLinkArea from '../card/CardLinkArea.svelte';
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
@@ -27,8 +28,12 @@ certain cards is their card lines in a divider.
 		 * The text of a linked card, shown when hovering it.
 		 */
 		resolveText?: (code: string) => CardTextHtml | undefined;
+		/**
+		 * Goes back up to the page's list of reviews, from the heading of each part about certain cards.
+		 */
+		onBackToContents?: () => void;
 	}
-	const { entry, parts, resolveCard, resolveText }: Prop = $props();
+	const { entry, parts, resolveCard, resolveText, onBackToContents }: Prop = $props();
 
 	const cardLineLinkClass =
 		'card-link hover:bg-primary-300/30 dark:hover:bg-primary-800/60 max-w-full cursor-pointer rounded-sm';
@@ -42,9 +47,13 @@ certain cards is their card lines in a divider.
 	}
 </script>
 
+{#snippet backToContents(onClick: () => void)}
+	<Button hideLabel icon={FaIconType.ArrowUp} label={m.card_review_back_to_contents()} {onClick} />
+{/snippet}
+
 <article class="[&_[id]]:scroll-mt-4">
 	<header class="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-		<span class="flex min-w-0 flex-1 basis-48 items-center gap-2">
+		<span class="flex min-w-0 flex-1 basis-24 items-center gap-2">
 			<PersonAvatar person={entry.person} size="sm" />
 			{#if entry.person.href}
 				<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -67,6 +76,9 @@ certain cards is their card lines in a divider.
 			{/if}
 			{#if entry.dateLabel}
 				<ReviewDate date={entry.dateLabel} />
+			{/if}
+			{#if onBackToContents}
+				{@render backToContents(onBackToContents)}
 			{/if}
 		</span>
 	</header>
@@ -99,23 +111,28 @@ certain cards is their card lines in a divider.
 			{:else}
 				<div class="mt-4 mb-2">
 					<SectionSeparator id={part.anchor} inner level={part.level}>
-						<span class="mb-0.5 flex flex-col items-start">
-							{#each part.codes as code (code)}
-								{@const card = resolveCard(code)}
-								{@const href = part.hrefs?.[code]}
-								{#if card && href}
-									<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-									<a class={cardLineLinkClass} data-card-code={code} {href}>
-										<CardLine {card} hideQuantity />
-									</a>
-								{:else if card}
-									<button class={cardLineLinkClass} data-card-code={code} type="button">
-										<CardLine {card} hideQuantity />
-									</button>
+						<span class="flex items-end gap-2">
+							<span class="mb-0.5 flex min-w-0 flex-1 flex-col items-start">
+								{#each part.codes as code (code)}
+									{@const card = resolveCard(code)}
+									{@const href = part.hrefs?.[code]}
+									{#if card && href}
+										<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+										<a class={cardLineLinkClass} data-card-code={code} {href}>
+											<CardLine {card} hideQuantity />
+										</a>
+									{:else if card}
+										<button class={cardLineLinkClass} data-card-code={code} type="button">
+											<CardLine {card} hideQuantity />
+										</button>
+									{/if}
+								{/each}
+								{#if part.title}
+									<span class="font-semibold">{part.title}</span>
 								{/if}
-							{/each}
-							{#if part.title}
-								<span class="font-semibold">{part.title}</span>
+							</span>
+							{#if onBackToContents}
+								<span class="mb-1 shrink-0">{@render backToContents(onBackToContents)}</span>
 							{/if}
 						</span>
 					</SectionSeparator>

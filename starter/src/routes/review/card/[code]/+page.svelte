@@ -10,7 +10,8 @@
 		ReviewList,
 		ReviewRow,
 		TextParagraph,
-		WrittenReview
+		WrittenReview,
+		type WrittenReviewPart
 	} from '@5argon/arkham-life-ui';
 
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
@@ -43,6 +44,14 @@
 		document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 		// eslint-disable-next-line svelte/no-navigation-without-resolve
 		replaceState(`#${id}`, page.state);
+	}
+
+	type CardsPart = Extract<WrittenReviewPart, { kind: 'cards' }>;
+	/**
+	 * The parts of a review about certain cards, for the contents to list under it.
+	 */
+	function subsectionsOf(entry: (typeof written)[number]): CardsPart[] {
+		return (entry.parts ?? []).filter((part): part is CardsPart => part.kind === 'cards');
 	}
 
 	const resolveCard = (code: string) => data.mentioned[code];
@@ -151,11 +160,53 @@
 					</h2>
 					<ReviewList>
 						{#each written as entry (entry.id)}
+							{@const subsections = subsectionsOf(entry)}
+							{@const topLevel = Math.min(...subsections.map((part) => part.level))}
 							<ReviewRow
 								{entry}
 								href="#{entry.id}"
 								onLinkClick={(event) => jumpTo(entry.id, event)}
-							/>
+							>
+								{#snippet below()}
+									{#if subsections.length > 0}
+										<div class="mt-1 mb-0.5 ml-1 flex items-start gap-2">
+											<span
+												class="text-primary-700 dark:text-primary-300 shrink-0 pt-1 text-[0.65rem] font-semibold"
+											>
+												{m.review_contents_interactions()}
+											</span>
+											<!-- Each part about certain cards, nested as the headings are. -->
+											<ul
+												class="border-primary-300 dark:border-primary-700 flex min-w-0 flex-col gap-0.5 border-l pl-2"
+											>
+												{#each subsections as part (part.anchor)}
+													<li style:padding-left="{(part.level - topLevel) * 0.75}rem">
+														<a
+															class="hover:bg-primary-300/30 dark:hover:bg-primary-800/60 relative z-10 flex max-w-full flex-col items-start rounded-sm"
+															href="#{part.anchor}"
+															onclick={(event) => jumpTo(part.anchor, event)}
+														>
+															{#each part.codes as code (code)}
+																{@const linked = resolveCard(code)}
+																{#if linked}
+																	<CardLine card={linked} hideIcons hideQuantity />
+																{/if}
+															{/each}
+															{#if part.title}
+																<span
+																	class="text-primary-800 dark:text-primary-200 px-1 text-xs font-semibold"
+																>
+																	{part.title}
+																</span>
+															{/if}
+														</a>
+													</li>
+												{/each}
+											</ul>
+										</div>
+									{/if}
+								{/snippet}
+							</ReviewRow>
 						{/each}
 					</ReviewList>
 				</section>
@@ -181,7 +232,13 @@
 
 			{#each written as entry (entry.id)}
 				<div id={entry.id} class="scroll-mt-4">
-					<WrittenReview {entry} parts={entry.parts ?? []} {resolveCard} {resolveText} />
+					<WrittenReview
+						{entry}
+						onBackToContents={() => jumpTo(contentsId)}
+						parts={entry.parts ?? []}
+						{resolveCard}
+						{resolveText}
+					/>
 					<div class="mt-2 flex justify-end">
 						<Button
 							icon={FaIconType.ArrowUp}

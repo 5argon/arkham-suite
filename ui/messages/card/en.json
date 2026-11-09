@@ -51,6 +51,7 @@
 	"card_temporary_line_help": "Revealed, but not in the card data yet.",
 	"card_review_date": "Came out on {date}",
 	"card_review_originally_on": "Originally reviewed on {site}",
+	"card_review_back_to_contents": "Back to the list of reviews",
 	"card_review_preview": "Preview Season",
 	"card_review_official": "Official",
 	"card_review_humor": "Just for fun",

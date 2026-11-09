@@ -39,6 +39,7 @@
 	"review_section_campaign": "Campaign Reviews ({count})",
 	"review_campaign_close": "Close Campaign Reviews",
 	"review_section_written": "Reviews on This Site",
+	"review_contents_interactions": "Interactions :",
 	"review_section_insights": "{name} in Reviews of Other Cards",
 	"review_back_to_contents": "Back to the list of reviews",
 	"review_empty": "No reviews yet.",
