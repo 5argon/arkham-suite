@@ -29,6 +29,12 @@ describe('rule directives', () => {
 		expect(quote).not.toContain('5. ');
 	});
 
+	it('takes \\" as a double quote inside a phrase', () => {
+		const directive = String.raw`{{rule 1.083 "uses the word \"would\" changes"}}`;
+		expect(ruleDirectiveProblems(directive)).toEqual([]);
+		expect(expandRuleDirectives(directive)).toContain('> - If a replacement effect');
+	});
+
 	it('turns the Grimoire icons into icon spans', () => {
 		expect(expandRuleDirectives('{{rule 4.004 "elder_sign] symbol"}}')).toContain(
 			'<span class="icon-elder_sign"></span>'

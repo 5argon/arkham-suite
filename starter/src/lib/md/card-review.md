@@ -41,7 +41,7 @@ This site is fully static and there is no input form. If you are interested in h
 - The `#` Markdown heading syntax gets special handling. If the heading contains a card link (e.g. `# [Izzie](/card/12013)`), it is rendered as a good-looking subsection with the text inside `[]` not mattering anymore. For example, "Lesson Learned" has a subsection specifically about "Daniela Reyes", so I put a link to the investigator card in the `#` heading. Unlike a card mentioned outside of `#`, this creates networks of review linking. When someone visits the Daniela Reyes card review page, they will see a link to "Lesson Learned" and all other cards mentioning it.
 - You don't have to copy rules into your review. Put a rule from the Grimoire (the rules reference, also on https://arkham.build/rules) on a line of its own by its number, and the site quotes it in a small box with a link to it. The number is at the end of the rule's link on arkham.build, like `https://arkham.build/rules#grimoire-entry-1.098` for "Move".
   - `{{rule 1.098}}` quotes the whole rule.
-  - `{{rule 1.098 "enter the new location"}}` quotes only the lines with those words. Add more `"phrases"` for more lines.
+  - `{{rule 1.098 "enter the new location"}}` quotes only the lines with those words. Add more `"phrases"` for more lines. Write a `"` inside a phrase as `\"`, like `{{rule 1.083 "the word \"would\" changes"}}`.
   - `{{rule 3.140 4}}` quotes only item 4 of a numbered list.
   - Please only use `>` for quoting rules. A review shows every `>` quote as a rule.
 - You can also show one of the 5 timing diagrams (the 4 phases and the skill test) with a step highlighted. Put the step's number from the Grimoire on a line of its own. See my review of "Gather Intel" for one.

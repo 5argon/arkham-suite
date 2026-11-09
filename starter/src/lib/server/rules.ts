@@ -5,6 +5,7 @@
  * ```
  * {{rule 1.098}}                              the whole entry
  * {{rule 1.098 "enter the new location"}}     only the lines saying that, as many phrases as wanted
+ * {{rule 1.083 "the word \"would\" changes"}} a " inside a phrase is written \"
  * {{rule 3.140 4}}                            only numbered item 4, with what's under it
  * ```
  *
@@ -23,13 +24,14 @@ interface RuleQuote {
 }
 
 function parseRule(args: string): RuleQuote | string {
-	const words = [...args.matchAll(/"([^"]*)"|(\S+)/g)];
+	// A phrase is in double quotes, with \" for a double quote inside it.
+	const words = [...args.matchAll(/"((?:[^"\\]|\\.)*)"|(\S+)/g)];
 	const id = words.shift()?.[2];
 	if (id === undefined) return 'say which rule, like {{rule 1.098}}';
 	if (grimoire[id] === undefined) return `${id} is not in the Grimoire`;
 	const quote: RuleQuote = { id, numbers: [], phrases: [] };
 	for (const [, phrase, word] of words) {
-		if (phrase !== undefined) quote.phrases.push(phrase);
+		if (phrase !== undefined) quote.phrases.push(phrase.replace(/\\(.)/g, '$1'));
 		else if (/^\d+$/.test(word)) quote.numbers.push(Number(word));
 		else return `${word} should be a number of a numbered item, or a "phrase" in quotes`;
 	}
