@@ -1,3 +1,14 @@
 {
-	"presets": ["benefits-from-horror-placed-on-it", "benefits-from-being-defeated"]
+	"presets": [
+		{
+			"label": "Benefits from succeeding",
+			"query": "text ?? [\"if you succeed,\", \"if you succeed and\", \"if this test succeeds\", \"is successful,\", \"is successful while\", \"is successful during\", \"successfully evade\"]"
+		},
+		{
+			"label": "Benefits from succeeding, no Succeed By",
+			"query": "text ? [\"if you succeed\", \"if this test succeeds\", \"is successful\", \"successfully evade\"] & text !? [\"succeed by\", \"successful by\"]"
+		},
+		"benefits-from-horror-placed-on-it",
+		"benefits-from-being-defeated"
+	]
 }
