@@ -161,7 +161,6 @@
 					<ReviewList>
 						{#each written as entry (entry.id)}
 							{@const subsections = subsectionsOf(entry)}
-							{@const topLevel = Math.min(...subsections.map((part) => part.level))}
 							<ReviewRow
 								{entry}
 								href="#{entry.id}"
@@ -175,12 +174,12 @@
 											>
 												{m.review_contents_interactions()}
 											</span>
-											<!-- Each part about certain cards, nested as the headings are. -->
+											<!-- Each part about certain cards, in order, at one level whatever heading the author used. -->
 											<ul
 												class="border-primary-300 dark:border-primary-700 flex min-w-0 flex-col gap-0.5 border-l pl-2"
 											>
 												{#each subsections as part (part.anchor)}
-													<li style:padding-left="{(part.level - topLevel) * 0.75}rem">
+													<li>
 														<a
 															class="hover:bg-primary-300/30 dark:hover:bg-primary-800/60 relative z-10 flex max-w-full flex-col items-start rounded-sm"
 															href="#{part.anchor}"

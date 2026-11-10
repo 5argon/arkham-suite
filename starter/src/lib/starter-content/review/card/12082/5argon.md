@@ -4,7 +4,7 @@ date: 2026-11-08
 environment: evergreen
 ---
 
-Yep, you read that right. This card is equivalent to testing at a skill value higher than any minus in the bag, so the only thing that can fail you is <span class="icon-auto_fail"></span>. Except you didn't invest any commits to reach that skill value, and since it's reactive, you get to keep [<span class="fg-survivor">Scrape By</span>](/card/12082) ready in hand.
+Yep, you read that right. This card is equivalent to testing at a skill value higher than any minus in the bag, so the only thing that can fail you is <span class="icon-auto_fail"></span>. Except you didn't invest any commits to reach that skill value, and since it's reactive, you get to keep [<span class="fg-survivor">Scrape By</span>](/card/12082) ready in hand. If you see an <span class="icon-auto_fail"></span>? Just don't play it.
 
 Maybe you do need to look at the token to see whether you take horror, but even if the horror were forced 100% of the time, this card would still be super strong.
 
