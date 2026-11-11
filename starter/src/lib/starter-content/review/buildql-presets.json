@@ -63,6 +63,14 @@
 		"label": "[[Insight]] event",
 		"query": "tr == \"insight\" & type == \"event\""
 	},
+	"tactic-event": {
+		"label": "[[Tactic]] event",
+		"query": "tr == \"tactic\" & type == \"event\""
+	},
+	"trick-event": {
+		"label": "[[Trick]] event",
+		"query": "tr == \"trick\" & type == \"event\""
+	},
 	"uses-willpower": {
 		"label": "Uses [willpower]",
 		"query": "text ? [\"([willpower]\", \"[willpower])\", \"add [willpower]\"] | text == \"test [willpower]\""

@@ -1,17 +1,15 @@
 {
 	"presets": [
 		"insight-event",
+		"tactic-event",
+		"trick-event",
 		{
-			"label": "[[Tactic]] event",
-			"query": "tr == \"tactic\" & type == \"event\""
+			"label": "[[Insight]] / [[Tactic]] / [[Trick]] event",
+			"query": "type == \"event\" & tr ?? [\"insight\", \"tactic\", \"trick\"]"
 		},
 		{
-			"label": "[[Trick]] event",
-			"query": "tr == \"trick\" & type == \"event\""
-		},
-		{
-			"label": "Card with 2+ of [[Insight]] / [[Tactic]] / [[Trick]]",
-			"query": "(tr == \"insight\" & tr ?? [\"tactic\", \"trick\"]) | (tr == \"tactic\" & tr == \"trick\")"
+			"label": "Event with 2 of [[Insight]] / [[Tactic]] / [[Trick]]",
+			"query": "type == \"event\" & ((tr == \"insight\" & tr == \"tactic\") | (tr == \"insight\" & tr == \"trick\") | (tr == \"tactic\" & tr == \"trick\"))"
 		}
 	]
 }
