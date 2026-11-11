@@ -15,4 +15,4 @@
 	url="/player"
 />
 
-<ExpansionSpread rotatingProducts={data.rotatingProducts} />
+<ExpansionSpread hasRewardCards={data.hasRewardCards} rotatingProducts={data.rotatingProducts} />

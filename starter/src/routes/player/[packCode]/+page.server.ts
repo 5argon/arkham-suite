@@ -13,10 +13,19 @@ import {
 } from '@5argon/arkham-kohaku';
 import { u as stringUtils } from '@5argon/arkham-string';
 import { chapterOneReviewProducts } from '$lib/server/chapter-one-reviews';
+import * as m from '$lib/paraglide/messages.js';
 import { productToExploreRoute } from '$lib/utility/product';
+import { rewardRoute } from '$lib/utility/reward';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const urlPackCode = params.packCode;
+	if (urlPackCode === rewardRoute) {
+		return {
+			product: undefined,
+			hasChapterOneReviews: false,
+			backName: m.common_reward_cards()
+		};
+	}
 	const supportedProducts: Product[] = [
 		...productCoreSetsChapterOne,
 		...productCoreSetsChapterTwo,

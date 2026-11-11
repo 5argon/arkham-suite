@@ -33,6 +33,14 @@ const reviewPacks = new Set([
   "eoep", "tskp", "fhvp", "tdcp",
 ])
 
+/**
+ * Reward cards come from campaign and scenario packs too, and Card Reviews covers them all. Same test
+ * as kohaku's `reward` field.
+ */
+function isReward(card: PackCard): boolean {
+  return typeof card.text === "string" && card.text.includes("Reward.")
+}
+
 const textFields = ["traits", "text", "flavor", "back_text", "back_flavor", "customization_text"]
 
 async function collectJsonFiles(dir: string): Promise<string[]> {
@@ -72,8 +80,8 @@ function originalOf(card: PackCard): PackCard {
 
 const output: Record<string, Record<string, string>> = {}
 for (const card of allCards) {
-  if (!reviewPacks.has(card.pack_code)) continue
   const full = resolved(card)
+  if (!reviewPacks.has(card.pack_code) && !(isReward(full) && card.hidden !== true)) continue
   if (full.faction_code === "mythos") continue
   const fields: Record<string, string> = {}
   for (const field of textFields) {

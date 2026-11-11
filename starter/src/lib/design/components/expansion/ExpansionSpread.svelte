@@ -20,8 +20,10 @@
 	} from '@5argon/arkham-kohaku';
 	import { m, u } from '@5argon/arkham-string';
 	import ProductTiles from '$lib/design/components/product/ProductTiles.svelte';
+	import RewardSetButton from '$lib/design/components/product/RewardSetButton.svelte';
 	import * as siteMessages from '$lib/paraglide/messages.js';
 	import { productToExploreRoute } from '$lib/utility/product';
+	import { rewardRoute } from '$lib/utility/reward';
 	import { ProductIcon } from '@5argon/arkham-icon';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
@@ -31,8 +33,12 @@
 		 * Chapter Two rotating products that have cards to show.
 		 */
 		rotatingProducts: Product[];
+		/**
+		 * Shows the Reward cards tile.
+		 */
+		hasRewardCards: boolean;
 	}
-	const { rotatingProducts }: Prop = $props();
+	const { rotatingProducts, hasRewardCards }: Prop = $props();
 
 	let innerWidth = $state(0);
 	let isLargeScreen = $derived(innerWidth >= 1024); // lg breakpoint
@@ -96,6 +102,13 @@
 		products={rotatingProducts}
 		onClick={(product) => '/player/' + productToExploreRoute(product)}
 	/>
+{/if}
+
+{#if hasRewardCards}
+	<SectionSeparator inner title={m.playerCategoryReward()} />
+	<div class="flex gap-1">
+		<RewardSetButton onClick={'/player/' + rewardRoute} />
+	</div>
 {/if}
 
 <SectionSeparator title="Chapter One" />

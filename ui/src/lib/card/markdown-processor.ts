@@ -63,7 +63,7 @@ export function markdownToTrustedHtml(
 	// Step 1: Replace card links [Card Name](/card/12345) BEFORE parsing markdown
 	// This way the colored spans are in the markdown, and marked.parse() will preserve them
 	cleanedMarkdown = cleanedMarkdown.replace(
-		/\[([^\]]+)\]\(\/card\/(\d+)\)/g,
+		/\[([^\]]+)\]\(\/card\/(\w+)\)/g,
 		(match, cardName, cardCode) => {
 			const href = options.cardHref?.(cardCode);
 			const tag = href === undefined ? 'span' : 'a';

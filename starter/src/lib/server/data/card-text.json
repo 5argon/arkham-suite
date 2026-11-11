@@ -3139,6 +3139,10 @@
 		"traits": "Fortune.",
 		"text": "Max 1 committed per skill test.\nYou may commit Timely Intervention from your hand after revealing chaos tokens during a skill test you are performing."
 	},
+	"73059": {
+		"traits": "Ally. Detective.",
+		"text": "Reward.\n[reaction] After you play an event during your turn, exhaust Aziza Steer. If that event was ...\n- ...an [[Insight]] event: Discover 1 clue at your location.\n- ...a [[Tactic]] event: Deal 1 damage to an enemy at your location.\n- ...a [[Trick]] event: Gain 2 resources."
+	},
 	"01501": {
 		"traits": "Agency. Detective.",
 		"text": "[reaction] After you defeat an enemy: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each clue on your location.",
@@ -8161,5 +8165,9 @@
 		"traits": "Construct. Scion.",
 		"text": "Cannot be chosen as a starting investigator.\nYou cannot add, remove, or upgrade cards from your deck.\nYou get +2 skill value while resolving abilities on [[Spell]] cards.\n<b>Forced</b> - When you are defeated: You are <b>killed</b>.\n[elder_sign] effect: +0. Draw 1 card.",
 		"flavor": "You always wanted to be human."
+	},
+	"13093a": {
+		"traits": "Condition. Blight.",
+		"text": "Permanent. Reward.\nChosen of Zburamoarte begins the game <i>(Fighting the Hunger)</i> side faceup.\n<b>Forced</b> - When the game begins: Add 5 [blood] tokens to the chaos bag for the duration of the game.\nEach investigator treats each [blood] token revealed during a skill test as \"-1. Reveal another token. After this test resolves, flip the Chosen of Zburamoarte asset, <i>(Compelled to Feed)</i> side faceup, and seal this token on it.\""
 	}
 }

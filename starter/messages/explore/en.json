@@ -8,5 +8,6 @@
 	"explore_env_title": "Player Cards by Environment",
 	"explore_env_description": "View every player card usable together in each environment. Evergreen Products stay in print and never rotate out, while each newer Current Environment changes with the rotating products released.",
 	"explore_env_point_description": "Every player card usable in this environment, all pooled together.",
-	"explore_env_since": "Since {date}"
+	"explore_env_since": "Since {date}",
+	"explore_reward_description": "Every Reward card from every product, in the order they came out."
 }

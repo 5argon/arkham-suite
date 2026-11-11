@@ -14,19 +14,24 @@
 		ReviewCounts,
 		searchParamsToSettings
 	} from '@5argon/arkham-life-ui';
-	import { u as stringUtils } from '@5argon/arkham-string';
 
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import RecentReviews from '$lib/design/pages/review/RecentReviews.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { reviewCardHref, reviewProductHref } from '$lib/review/paths';
 	import { productToExploreRoute } from '$lib/utility/product';
+	import { rewardImageUrl, rewardRoute } from '$lib/utility/reward';
 
 	import type { PageProps } from './$types';
 
 	const { data }: PageProps = $props();
+	/**
+	 * Undefined for the Reward cards, which come from many products.
+	 */
 	const product = $derived(data.product);
-	const title = $derived(stringUtils.productName(product));
+	const title = $derived(data.backName);
+	const image = $derived(product === undefined ? rewardImageUrl : productImageUrl(product));
+	const route = $derived(product === undefined ? rewardRoute : productToExploreRoute(product));
 
 	let onlyInternal = $state(false);
 	snapshot({
@@ -60,13 +65,13 @@
 
 <OpenGraph
 	description={m.review_product_seo_description({ name: title })}
-	image={productImageUrl(product)}
+	{image}
 	title={m.review_product_seo_title({ name: title })}
-	url={reviewProductHref(productToExploreRoute(product))}
+	url={reviewProductHref(route)}
 	canonical
 />
 
-<PageLead description={m.review_product_description()} image={productImageUrl(product)} {title} />
+<PageLead description={m.review_product_description()} {image} {title} />
 
 {#snippet cardFooter(item: CardItem)}
 	{@const counts = countsOf.get(item.card.code)}

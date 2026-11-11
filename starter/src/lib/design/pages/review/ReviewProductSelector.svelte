@@ -2,8 +2,9 @@
 @component
 Picks a Chapter 2 product, narrowed down by the environment selector, showing how much there is to
 see in each. A product still in preview season has no environment yet, so only Entire Chapter 2
-shows it. Recent reviews follow the same choice, by the products of the cards they speak about. A
-page with this gives it its own `snapshotId`.
+shows it. The Reward cards tile, when given, shows whatever is picked. Recent reviews follow the
+same choice, by the products of the cards they speak about. A page with this gives it its own
+`snapshotId`.
 -->
 <script lang="ts">
 	import { snapshot } from '$app/navigation';
@@ -19,8 +20,9 @@ page with this gives it its own `snapshotId`.
 	import EnvironmentChoiceSelector from '$lib/design/components/product/EnvironmentChoiceSelector.svelte';
 	import RecentReviews from '$lib/design/pages/review/RecentReviews.svelte';
 	import ProductTiles from '$lib/design/components/product/ProductTiles.svelte';
+	import RewardSetButton from '$lib/design/components/product/RewardSetButton.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import type { RecentReviewRow } from '$lib/server/reviews';
+	import type { RecentReviewRow, RewardReviewSummary } from '$lib/server/reviews';
 	import {
 		chapterTwoChoice,
 		type EnvironmentChoice,
@@ -33,11 +35,24 @@ page with this gives it its own `snapshotId`.
 		snapshotId: string;
 		recents?: RecentReviewRow[];
 		/**
+		 * Every Reward card as one more tile, linking to `rewardHref`.
+		 */
+		reward?: RewardReviewSummary;
+		rewardHref?: string;
+		/**
 		 * Between the selector and the products.
 		 */
 		children?: Snippet;
 	}
-	const { summaries, href, snapshotId, recents = [], children }: Prop = $props();
+	const {
+		summaries,
+		href,
+		snapshotId,
+		recents = [],
+		reward,
+		rewardHref,
+		children
+	}: Prop = $props();
 
 	const initial = untrack(() => summaries);
 	const cards = initial.map(({ product }) => ({ product }));
@@ -61,7 +76,7 @@ page with this gives it its own `snapshotId`.
 		recents
 			.map((row) => ({
 				...row,
-				cards: row.cards.filter((card) => card.products.some(inPicked))
+				cards: row.cards.filter((card) => card.reward || card.products.some(inPicked))
 			}))
 			.filter((row) => row.cards.length > 0)
 	);
@@ -107,4 +122,14 @@ page with this gives it its own `snapshotId`.
 {#if rotating.length > 0}
 	<SectionSeparator inner title={m.common_rotating_expansions()} />
 	<ProductTiles {caption} onClick={href} products={rotating} />
+{/if}
+
+{#if reward !== undefined && rewardHref !== undefined}
+	<SectionSeparator inner title={stringMessages.playerCategoryReward()} />
+	<div class="flex flex-col items-center">
+		<RewardSetButton onClick={rewardHref} />
+		<span class="min-h-5">
+			<ReviewCounts counts={reward.counts} />
+		</span>
+	</div>
 {/if}

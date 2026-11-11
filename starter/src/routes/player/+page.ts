@@ -10,7 +10,8 @@ export const load: PageLoad<ExploreData> = ({ data }) => {
 	}
 	const ret: ExploreData = {
 		q: q,
-		rotatingProducts: data.rotatingProducts
+		rotatingProducts: data.rotatingProducts,
+		hasRewardCards: data.hasRewardCards
 	};
 	return ret;
 };
@@ -18,4 +19,5 @@ export const load: PageLoad<ExploreData> = ({ data }) => {
 export interface ExploreData {
 	q: string;
 	rotatingProducts: Product[];
+	hasRewardCards: boolean;
 }

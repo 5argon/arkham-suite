@@ -23,8 +23,8 @@
 	} from '@5argon/arkham-life-ui';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import { productToExploreRoute } from '$lib/utility/product';
+	import { rewardCards, rewardImageUrl, rewardRoute } from '$lib/utility/reward';
 	import * as m from '$lib/paraglide/messages.js';
-	import { u as stringUtils } from '@5argon/arkham-string';
 	import {
 		card as cardUtils,
 		type Card,
@@ -42,7 +42,13 @@
 	import { SvelteMap } from 'svelte/reactivity';
 
 	const { data }: PageProps = $props();
+	/**
+	 * Undefined for the Reward cards, which come from many products.
+	 */
 	const product = $derived(data.product);
+	const title = $derived(data.backName);
+	const image = $derived(product === undefined ? rewardImageUrl : productImageUrl(product));
+	const route = $derived(product === undefined ? rewardRoute : productToExploreRoute(product));
 
 	// Wanted to still prerender this page, so we read URL parameters now and accept 1 frame late update.
 	const initialSettings: GroupingSortingSettings = browser
@@ -57,6 +63,7 @@
 
 	const allCards = getAllCards();
 	const productCards = $derived.by(() => {
+		if (product === undefined) return rewardCards(allCards);
 		const filtered = allCards.filter(
 			(card) => cardUtils.playerCardsNonCampaignFilter(card) && card.product === product
 		);
@@ -222,13 +229,19 @@
 </script>
 
 <OpenGraph
-	description={`Explore player cards from ${stringUtils.productName(product)}.`}
-	image={productImageUrl(product)}
-	title={stringUtils.productName(product)}
-	url={`/player/${productToExploreRoute(product)}`}
+	description={product === undefined
+		? m.explore_reward_description()
+		: `Explore player cards from ${title}.`}
+	{image}
+	{title}
+	url={`/player/${route}`}
 />
 
-<PageLead image={productImageUrl(product)} title={stringUtils.productName(product)} />
+<PageLead
+	description={product === undefined ? m.explore_reward_description() : undefined}
+	{image}
+	{title}
+/>
 
 <MarginFull>
 	<div class="mb-4 flex gap-4">
@@ -247,12 +260,14 @@
 				This might help you make a more informed purchase decision based on existing investigators
 				in your collection.
 			</HelpParagraph>
-			<FormLabelWithHelp label="From This Expansion">
-				<CardSquareGrid
-					groups={investigatorGroups}
-					onClick={(item) => handleInvestigatorClick(item.code)}
-				/>
-			</FormLabelWithHelp>
+			{#if investigatorsInThisBox.length > 0}
+				<FormLabelWithHelp label="From This Expansion">
+					<CardSquareGrid
+						groups={investigatorGroups}
+						onClick={(item) => handleInvestigatorClick(item.code)}
+					/>
+				</FormLabelWithHelp>
+			{/if}
 			<CardFormMultiple
 				label="Search All Investigators"
 				cards={allInvestigatorCards}
@@ -295,7 +310,7 @@
 	/>
 	{#if data.hasChapterOneReviews}
 		<p class="text-primary-700 dark:text-primary-300 mt-6 text-right text-xs">
-			<a href={resolve('/review/chapter-one/[packCode]', { packCode: productToExploreRoute(product) })}>
+			<a href={resolve('/review/chapter-one/[packCode]', { packCode: route })}>
 				{m.review_chapter_one_link()}
 			</a>
 		</p>

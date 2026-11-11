@@ -50,6 +50,7 @@ import {
 	environmentTalkingPool
 } from '$lib/tool/environment-choices';
 import { productToExploreRoute } from '$lib/utility/product';
+import { isRewardCard, rewardCards, rewardRoute } from '$lib/utility/reward';
 
 import { cardTextHtml, firstPrintingOf, hasCardText, hoverTextOf } from './card-text';
 import { expandRuleDirectives, ruleDirectiveProblems } from './rules';
@@ -217,8 +218,13 @@ export const reviewProducts: readonly Product[] = [
 const allCards = getAllCards();
 const cardByCode = new Map(allCards.map((card) => [card.code, card]));
 const slimOf = (card: Card | undefined) => card && slimCard(card);
+/**
+ * Cards of the review products, and every Reward card wherever it's from.
+ */
 const reviewableCards = allCards.filter(
-	(card) => cardUtils.playerCardsNonCampaignFilter(card) && reviewProducts.includes(card.product)
+	(card) =>
+		(cardUtils.playerCardsNonCampaignFilter(card) && reviewProducts.includes(card.product)) ||
+		isRewardCard(card)
 );
 const reviewableCodes = new Set(reviewableCards.map((card) => card.code));
 const knownPoints = environment.currentEnvironmentVersions('9999-12-31');
@@ -267,7 +273,8 @@ export function personOf(credit: CreditJson): ReviewPerson {
 }
 
 function reviewProductPageHref(product: Product): string | undefined {
-	return reviewableCards.some((card) => card.product === product)
+	return reviewProducts.includes(product) &&
+		reviewableCards.some((card) => card.product === product)
 		? reviewProductHref(productToExploreRoute(product))
 		: undefined;
 }
@@ -714,14 +721,31 @@ export function reviewProductSummaries(): { product: Product; counts: ReviewCoun
 	return reviewProducts.flatMap((product) => {
 		const cards = reviewableCards.filter((card) => card.product === product);
 		if (cards.length === 0) return [];
-		const counts: ReviewCountsData = { written: 0, external: 0 };
-		for (const card of cards) {
-			const own = countsOf(toCore2026Code(card.code));
-			counts.written += own.written;
-			counts.external += own.external;
-		}
-		return [{ product, counts }];
+		return [{ product, counts: totalCountsOf(cards) }];
 	});
+}
+
+function totalCountsOf(cards: Card[]): ReviewCountsData {
+	const counts: ReviewCountsData = { written: 0, external: 0 };
+	for (const card of cards) {
+		const own = countsOf(toCore2026Code(card.code));
+		counts.written += own.written;
+		counts.external += own.external;
+	}
+	return counts;
+}
+
+export interface RewardReviewSummary {
+	counts: ReviewCountsData;
+}
+
+/**
+ * How much there is to see over every Reward card, absent while there are none.
+ */
+export function rewardReviewSummary(): RewardReviewSummary | undefined {
+	const cards = rewardCards(reviewableCards);
+	if (cards.length === 0) return undefined;
+	return { counts: totalCountsOf(cards) };
 }
 
 export interface ReviewProductCard {
@@ -737,10 +761,19 @@ export function reviewProductCards(product: Product): ReviewProductCard[] {
 	return reviewableCards
 		.filter((card) => card.product === product)
 		.sort((a, b) => sorter('position', a, b))
-		.map((card) => {
-			const code = toCore2026Code(card.code);
-			return { card, code, counts: countsOf(code) };
-		});
+		.map(reviewProductCard);
+}
+
+/**
+ * Every Reward card, in the order their products came out.
+ */
+export function rewardReviewCards(): ReviewProductCard[] {
+	return rewardCards(reviewableCards).map(reviewProductCard);
+}
+
+function reviewProductCard(card: Card): ReviewProductCard {
+	const code = toCore2026Code(card.code);
+	return { card, code, counts: countsOf(code) };
 }
 
 /**
@@ -826,16 +859,22 @@ function reviewCardSeo(card: Card, entries: ReviewEntry[]): ReviewCardSeo {
 	const name = distinctCardName(card);
 	const title = m.review_card_seo_title({ name });
 	const product = productsOfPage.get(card.code)?.[0] ?? card.product;
+	// A Reward card from a campaign or scenario has no product page, only the Reward one.
+	const ownProduct = reviewProducts.includes(product);
 	const url = siteOrigin + reviewCardHref(card.code);
-	const image = siteUrl(`image/product/${product}.webp`);
+	const image = siteUrl(
+		ownProduct ? `image/product/${product}.webp` : 'image/resource/review.webp'
+	);
 	const breadcrumb = {
 		'@type': 'BreadcrumbList',
 		itemListElement: [
 			{ name: m.review_title(), path: '/review' },
-			{
-				name: stringUtils.productName(product),
-				path: reviewProductHref(productToExploreRoute(product))
-			},
+			ownProduct
+				? {
+						name: stringUtils.productName(product),
+						path: reviewProductHref(productToExploreRoute(product))
+					}
+				: { name: m.common_reward_cards(), path: reviewProductHref(rewardRoute) },
 			{ name: card.name, path: reviewCardHref(card.code) }
 		].map((item, index) => ({
 			'@type': 'ListItem',
@@ -951,6 +990,10 @@ for (const card of reviewableCards) {
 	productsOfPage.set(code, products);
 }
 
+const rewardPageCodes = new Set(
+	reviewableCards.filter(isRewardCard).map((card) => toCore2026Code(card.code))
+);
+
 /**
  * Past this many cards, a recent review only says how many it covers.
  */
@@ -959,6 +1002,10 @@ const recentCardLineLimit = 4;
 export interface RecentReviewCard {
 	code: string;
 	products: Product[];
+	/**
+	 * Shown whichever environment is picked, like the Reward cards tile.
+	 */
+	reward: boolean;
 	/**
 	 * Only for what covers few enough cards to list them.
 	 */
@@ -975,13 +1022,23 @@ export interface RecentReviewRow {
 	cards: RecentReviewCard[];
 }
 
-function recentCards(codes: string[], product: Product | undefined): RecentReviewCard[] {
+/**
+ * What a list of recent reviews is about: a product, or every Reward card.
+ */
+export type RecentReviewScope = Product | typeof rewardRoute;
+
+function recentCards(codes: string[], scope: RecentReviewScope | undefined): RecentReviewCard[] {
 	const inScope = codes.filter(
-		(code) => product === undefined || productsOfPage.get(code)?.includes(product)
+		(code) =>
+			scope === undefined ||
+			(scope === rewardRoute
+				? rewardPageCodes.has(code)
+				: productsOfPage.get(code)?.includes(scope))
 	);
 	return inScope.map((code) => ({
 		code,
 		products: productsOfPage.get(code) ?? [],
+		reward: rewardPageCodes.has(code),
 		card: inScope.length <= recentCardLineLimit ? slimOf(cardByCode.get(code)) : undefined
 	}));
 }
@@ -1014,10 +1071,12 @@ function latestOfEachKind(rows: RecentReviewRow[]): RecentReviewRow[] {
 	return rows.filter((row) => written.includes(row) || external.includes(row));
 }
 
-function writtenRows(product: Product | undefined): { date: string; row: RecentReviewRow }[] {
+function writtenRows(
+	scope: RecentReviewScope | undefined
+): { date: string; row: RecentReviewRow }[] {
 	const rows: { date: string; row: RecentReviewRow }[] = [];
 	for (const [code, reviews] of writtenByCard()) {
-		const cards = recentCards([code], product);
+		const cards = recentCards([code], scope);
 		if (cards.length === 0) continue;
 		for (const review of reviews) {
 			rows.push({
@@ -1045,16 +1104,17 @@ export function writtenReviewRows(): RecentReviewRow[] {
 
 /**
  * Everything said, newest first, written here or elsewhere, one row each however many cards it covers.
- * With a product, only what speaks about its cards. Official posts stay on the Preview Season pages.
+ * With a product or the Reward cards, only what speaks about those cards. Official posts stay on the
+ * Preview Season pages.
  */
-export function recentReviews(product?: Product): RecentReviewRow[] {
-	const rows = writtenRows(product);
+export function recentReviews(scope?: RecentReviewScope): RecentReviewRow[] {
+	const rows = writtenRows(scope);
 	const addSource = (source: SourceJson, preview: boolean) => {
 		if (source.official) return;
 		const known = knownCards(source);
 		const cards = recentCards(
 			known.map((on) => on.code),
-			product
+			scope
 		);
 		if (cards.length === 0) return;
 		rows.push({
@@ -1070,7 +1130,7 @@ export function recentReviews(product?: Product): RecentReviewRow[] {
 	for (const source of sources) addSource(source, false);
 	for (const source of previews) addSource(source, true);
 	const newest = rows.sort((a, b) => b.date.localeCompare(a.date)).map(({ row }) => row);
-	return product === undefined ? amongLatestOfAnyProduct(newest) : latestOfEachKind(newest);
+	return scope === undefined ? amongLatestOfAnyProduct(newest) : latestOfEachKind(newest);
 }
 
 export interface ContributorReviewRow {
@@ -1190,6 +1250,7 @@ export function reviewSitemapPaths(): string[] {
 		...reviewProductSummaries().map(({ product }) =>
 			reviewProductHref(productToExploreRoute(product))
 		),
+		...(rewardReviewSummary() === undefined ? [] : [reviewProductHref(rewardRoute)]),
 		...reviewerSummaries().map(({ slug }) => reviewerHref(slug))
 	];
 }
@@ -1217,7 +1278,7 @@ function subsectionProblems(review: WrittenReview, code: string, where: string):
 		if (about === code || card === undefined || !reviewableCodes.has(about)) continue;
 		if (seen.has(about)) problems.push(`${where}: two headings link to ${card.name}`);
 		seen.add(about);
-		if (pool !== undefined && !pool.includes(card.product)) {
+		if (pool !== undefined && !pool.includes(card.product) && !isRewardCard(card)) {
 			problems.push(`${where}: ${card.name} isn't out yet at environment ${review.environment}`);
 		}
 	}
@@ -1240,7 +1301,8 @@ function subjectProblems(code: string, environmentId: string | undefined, where:
 	if (environmentId !== undefined && pool === undefined) {
 		problems.push(`${where}: unknown environment ${environmentId}`);
 	}
-	if (pool !== undefined && !pool.includes(card.product)) {
+	// "Reward cards may be used regardless of release date." (Grimoire 12.001)
+	if (pool !== undefined && !pool.includes(card.product) && !isRewardCard(card)) {
 		problems.push(`${where}: ${card.name} isn't out yet at environment ${environmentId}`);
 	}
 	return problems;

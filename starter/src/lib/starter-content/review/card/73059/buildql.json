@@ -1,0 +1,17 @@
+{
+	"presets": [
+		"insight-event",
+		{
+			"label": "[[Tactic]] event",
+			"query": "tr == \"tactic\" & type == \"event\""
+		},
+		{
+			"label": "[[Trick]] event",
+			"query": "tr == \"trick\" & type == \"event\""
+		},
+		{
+			"label": "Card with 2+ of [[Insight]] / [[Tactic]] / [[Trick]]",
+			"query": "(tr == \"insight\" & tr ?? [\"tactic\", \"trick\"]) | (tr == \"tactic\" & tr == \"trick\")"
+		}
+	]
+}

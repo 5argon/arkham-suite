@@ -9,6 +9,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { reviewProductHref } from '$lib/review/paths';
 	import { productToExploreRoute } from '$lib/utility/product';
+	import { rewardRoute } from '$lib/utility/reward';
 
 	import type { PageProps } from './$types';
 
@@ -32,6 +33,8 @@
 <ReviewProductSelector
 	{href}
 	recents={data.recents}
+	reward={data.reward}
+	rewardHref={reviewProductHref(rewardRoute)}
 	snapshotId="review-environment"
 	summaries={data.summaries}
 >

@@ -59,6 +59,10 @@
 		"label": "[[Upgrade]] card",
 		"query": "tr == \"upgrade\""
 	},
+	"insight-event": {
+		"label": "[[Insight]] event",
+		"query": "tr == \"insight\" & type == \"event\""
+	},
 	"uses-willpower": {
 		"label": "Uses [willpower]",
 		"query": "text ? [\"([willpower]\", \"[willpower])\", \"add [willpower]\"] | text == \"test [willpower]\""

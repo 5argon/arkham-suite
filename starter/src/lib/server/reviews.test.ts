@@ -27,6 +27,8 @@ import {
 	reviewProductSummaries,
 	reviewsBy,
 	reviewSitemapPaths,
+	rewardReviewCards,
+	rewardReviewSummary,
 	type SourceJson,
 	sourceProblems,
 	sourceUrl,
@@ -248,6 +250,34 @@ describe('pages', () => {
 			const cards = reviewProductCards(product);
 			expect(counts.written, product).toBe(cards.reduce((sum, c) => sum + c.counts.written, 0));
 			expect(counts.external, product).toBe(cards.reduce((sum, c) => sum + c.counts.external, 0));
+		}
+	});
+
+	it('puts every Reward card together, wherever it is from, by when its product came out', () => {
+		const rewards = rewardReviewCards();
+		expect(rewards.map(({ card }) => card.code)).toEqual(['12181', '13093a', '73059']);
+		for (const { code } of rewards) expect(reviewCardCodes(), code).toContain(code);
+		const summary = rewardReviewSummary();
+		expect(summary?.counts.written).toBe(rewards.reduce((sum, c) => sum + c.counts.written, 0));
+		expect(summary?.counts.external).toBe(rewards.reduce((sum, c) => sum + c.counts.external, 0));
+		expect(reviewSitemapPaths()).toContain('/review/reward');
+	});
+
+	it('leaves out the back face of a double-sided Reward card', () => {
+		expect(reviewCardCodes()).not.toContain('13093b');
+	});
+
+	it('leads a Reward card with no product page back to the Reward cards', () => {
+		const seo = reviewCardPage('73059')?.seo;
+		expect(JSON.stringify(seo?.jsonLd)).toContain(
+			'"item":"https://arkham-starter.com/review/reward"'
+		);
+		expect(seo?.image).toMatch(/review\.webp$/);
+	});
+
+	it('has only what speaks about Reward cards on their page, shown whatever environment is picked', () => {
+		for (const row of recentReviews('reward')) {
+			for (const card of row.cards) expect(card.reward, row.key).toBe(true);
 		}
 	});
 });

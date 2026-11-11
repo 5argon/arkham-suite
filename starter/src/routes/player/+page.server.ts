@@ -1,6 +1,7 @@
 import { productChapterTwoInvestigatorExpansions, productDeckbuildingExpansions } from '@5argon/arkham-kohaku';
 
 import { getAllCards } from '$lib/card-data';
+import { isRewardCard } from '$lib/utility/reward';
 
 import type { PageServerLoad } from './$types';
 
@@ -9,11 +10,13 @@ import type { PageServerLoad } from './$types';
  * whole card data along.
  */
 export const load: PageServerLoad = () => {
-	const available = new Set(getAllCards().map((card) => card.product));
+	const allCards = getAllCards();
+	const available = new Set(allCards.map((card) => card.product));
 	return {
 		rotatingProducts: [
 			...productChapterTwoInvestigatorExpansions,
 			...productDeckbuildingExpansions
-		].filter((product) => available.has(product))
+		].filter((product) => available.has(product)),
+		hasRewardCards: allCards.some(isRewardCard)
 	};
 };

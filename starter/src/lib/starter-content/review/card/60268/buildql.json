@@ -1,13 +1,6 @@
 {
 	"presets": [
-		{
-			"label": "[[Insight]] event",
-			"query": "tr == \"insight\" & type == \"event\""
-		},
-		{
-			"label": "[[Insight]] event",
-			"query": "tr == \"insight\" & type == \"event\"",
-			"level": [1, 5]
-		}
+		"insight-event",
+		{ "preset": "insight-event", "level": [1, 5] }
 	]
 }
