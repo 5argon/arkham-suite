@@ -141,6 +141,20 @@
 	},
 	{
 		"by": "playing-board-games",
+		"title": "The new Arkham standalone TRACES TO NOWHERE has been announced!",
+		"date": "2026-09-06",
+		"media": {
+			"youtube": "1so0qRv-TWg"
+		},
+		"cards": [
+			{
+				"code": "73059",
+				"start": "9:07"
+			}
+		]
+	},
+	{
+		"by": "playing-board-games",
 		"title": "My thoughts and spoiler-free review of CHILDREN OF BLOOD after the blind play (ARKHAM HORROR)",
 		"date": "2026-08-23",
 		"media": {
@@ -176,16 +190,48 @@
 				"start": "0:50"
 			},
 			{
+				"code": "60352",
+				"start": "2:04"
+			},
+			{
+				"code": "60353",
+				"start": "2:04"
+			},
+			{
+				"code": "60354",
+				"start": "2:04"
+			},
+			{
+				"code": "60355",
+				"start": "2:53"
+			},
+			{
+				"code": "60381",
+				"start": "3:54"
+			},
+			{
 				"code": "60551",
 				"start": "5:02"
 			},
 			{
+				"code": "60552",
+				"start": "7:04"
+			},
+			{
+				"code": "60553",
+				"start": "8:11"
+			},
+			{
 				"code": "60580",
-				"start": "12:21"
+				"start": "11:38"
 			},
 			{
 				"code": "60555",
 				"start": "12:25"
+			},
+			{
+				"code": "12074",
+				"start": "13:27"
 			},
 			{
 				"code": "60574",
@@ -197,19 +243,31 @@
 			},
 			{
 				"code": "60563",
-				"start": "15:51"
+				"start": "16:11"
+			},
+			{
+				"code": "60564",
+				"start": "17:05"
 			},
 			{
 				"code": "60576",
-				"start": "13:52"
+				"start": "17:05"
 			},
 			{
 				"code": "60565",
 				"start": "17:53"
 			},
 			{
+				"code": "12081",
+				"start": "18:34"
+			},
+			{
+				"code": "60582",
+				"start": "18:34"
+			},
+			{
 				"code": "60363",
-				"start": "25:38"
+				"start": "19:20"
 			},
 			{
 				"code": "12046",
@@ -217,11 +275,15 @@
 			},
 			{
 				"code": "60374",
-				"start": "23:28"
+				"start": "23:24"
+			},
+			{
+				"code": "60367",
+				"start": "25:31"
 			},
 			{
 				"code": "60378",
-				"start": "27:35"
+				"start": "25:31"
 			},
 			{
 				"code": "60366",
@@ -229,11 +291,11 @@
 			},
 			{
 				"code": "60382",
-				"start": "27:00"
+				"start": "26:54"
 			},
 			{
 				"code": "60373",
-				"start": "26:26"
+				"start": "28:08"
 			}
 		]
 	},
@@ -353,7 +415,12 @@
 		"media": {
 			"youtube": "iDogbEoPbs0"
 		},
-		"cards": [],
+		"cards": [
+			{
+				"code": "13093a",
+				"start": "10:40"
+			}
+		],
 		"campaigns": [
 			"cob"
 		]

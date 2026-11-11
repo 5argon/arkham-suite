@@ -184,6 +184,20 @@
 	},
 	{
 		"by": "quick-learner",
+		"title": "A New Standalone Announcement: Traces To Nowhere!",
+		"date": "2026-09-03",
+		"media": {
+			"youtube": "A37V3U4MdMg"
+		},
+		"cards": [
+			{
+				"code": "73059",
+				"start": "9:48"
+			}
+		]
+	},
+	{
+		"by": "quick-learner",
 		"title": "This Card Is An Unfortunate Accident (Arkham Horror the Card Game)",
 		"date": "2026-08-30",
 		"media": {
@@ -273,7 +287,12 @@
 		"media": {
 			"youtube": "346simW5rUU"
 		},
-		"cards": [],
+		"cards": [
+			{
+				"code": "13093a",
+				"start": "11:33"
+			}
+		],
 		"campaigns": ["cob"]
 	},
 	{
