@@ -10,7 +10,7 @@ import {
 } from '@5argon/arkham-kohaku';
 import type { CardTextHtml, ReviewCountsData, ReviewRowData } from '@5argon/arkham-life-ui';
 
-import { getAllCards } from '$lib/card-data';
+import { backLinkOf, getAllCards } from '$lib/card-data';
 import { productToExploreRoute } from '$lib/utility/product';
 
 import { cardTextHtml, firstPrintingOf } from './card-text';
@@ -182,7 +182,7 @@ export function chapterOneCardPage(code: string): ChapterOneCardPage | undefined
 	const entries = entriesByCard.get(code);
 	if (card === undefined || entries === undefined) return undefined;
 	return {
-		card,
+		card: { ...card, backImageCode: card.backImageCode ?? backLinkOf(code) },
 		text: cardTextHtml(code),
 		entries: entries.map(({ entry }) => entry),
 		arkhamBuildUrl: service.createArkhamBuildCardBrowserUrl(code),

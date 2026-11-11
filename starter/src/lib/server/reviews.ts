@@ -33,7 +33,7 @@ import {
 import { u as stringUtils } from '@5argon/arkham-string';
 import { parse as parseYaml } from 'yaml';
 
-import { createCardResolver, getAllCards } from '$lib/card-data';
+import { backLinkOf, createCardResolver, getAllCards } from '$lib/card-data';
 import { siteOrigin, siteUrl } from '$lib/const';
 import * as m from '$lib/paraglide/messages.js';
 import {
@@ -910,7 +910,8 @@ export function reviewCardPage(code: string): ReviewCardPage | undefined {
 	const mentioned = cardsMentionedIn(entries);
 	return {
 		seo: reviewCardSeo(card, entries),
-		card: slimCard(card),
+		// The back of a card whose other side ArkhamDB lists as a card of its own shows like any other.
+		card: { ...slimCard(card), backImageCode: card.backImageCode ?? backLinkOf(code) },
 		text: cardTextHtml(code),
 		entries,
 		mentioned,

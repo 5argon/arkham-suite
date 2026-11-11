@@ -88,6 +88,13 @@ for (const card of allCards) {
     const value = full[field]
     if (typeof value === "string" && value.length > 0) fields[field] = value
   }
+  // A back that ArkhamDB lists as a card of its own reads as this card's back.
+  const back = typeof full.back_link === "string" ? byCode.get(full.back_link) : undefined
+  if (back !== undefined && fields.back_text === undefined) {
+    const backFull = resolved(back)
+    if (typeof backFull.text === "string" && backFull.text.length > 0) fields.back_text = backFull.text
+    if (typeof backFull.flavor === "string" && backFull.flavor.length > 0) fields.back_flavor = backFull.flavor
+  }
   const original = originalOf(card)
   if (original.code !== card.code) fields.original = original.code
   output[card.code] = fields
