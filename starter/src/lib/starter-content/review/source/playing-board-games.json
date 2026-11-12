@@ -491,6 +491,112 @@
 	},
 	{
 		"by": "playing-board-games",
+		"title": "What Makes An Arkham Horror Card Good? | Understanding Arkham",
+		"date": "2026-03-22",
+		"media": {
+			"youtube": "ac2Ykn09oa8"
+		},
+		"cards": [
+			{
+				"code": "12039",
+				"start": "6:10"
+			},
+			{
+				"code": "12025",
+				"start": "6:10"
+			},
+			{
+				"code": "12031",
+				"start": "8:42"
+			},
+			{
+				"code": "12019",
+				"start": "8:57"
+			},
+			{
+				"code": "12018",
+				"start": "12:57"
+			},
+			{
+				"code": "12034",
+				"start": "12:57"
+			},
+			{
+				"code": "12050",
+				"start": "17:08"
+			},
+			{
+				"code": "12064",
+				"start": "18:16"
+			},
+			{
+				"code": "12074",
+				"start": "22:16"
+			},
+			{
+				"code": "12007",
+				"start": "25:02"
+			},
+			{
+				"code": "12033",
+				"start": "38:27"
+			},
+			{
+				"code": "12049",
+				"start": "41:30"
+			},
+			{
+				"code": "12016",
+				"start": "43:32"
+			},
+			{
+				"code": "12032",
+				"start": "48:25"
+			},
+			{
+				"code": "12073",
+				"start": "50:58"
+			},
+			{
+				"code": "12021",
+				"start": "53:09"
+			},
+			{
+				"code": "12035",
+				"start": "56:08"
+			},
+			{
+				"code": "12042",
+				"start": "57:13"
+			},
+			{
+				"code": "12079",
+				"start": "59:05"
+			},
+			{
+				"code": "12051",
+				"start": "60:46"
+			},
+			{
+				"code": "12082",
+				"start": "64:17"
+			},
+			{
+				"code": "12065",
+				"start": "67:02"
+			},
+			{
+				"code": "12084",
+				"start": "69:11"
+			},
+			{
+				"code": "12081",
+				"start": "72:06"
+			}
+		]
+	},
+	{
+		"by": "playing-board-games",
 		"title": "We check out the cards in the Tommy Muldoon and Carolyn Fern Starter Decks!",
 		"date": "2026-03-15",
 		"media": {
@@ -957,6 +1063,64 @@
 			{
 				"code": "12064",
 				"start": "25:17"
+			}
+		]
+	},
+	{
+		"by": "playing-board-games",
+		"title": "How impactful will the Core 2026 Survivor cards be? | The Arkham Horror \"Podcast\"",
+		"date": "2026-01-20",
+		"media": {
+			"youtube": "9ASTYhs53-o"
+		},
+		"cards": [
+			{
+				"code": "12077",
+				"start": "40:51"
+			},
+			{
+				"code": "12085",
+				"start": "40:51"
+			},
+			{
+				"code": "12083",
+				"start": "43:18"
+			},
+			{
+				"code": "12072",
+				"start": "46:09"
+			},
+			{
+				"code": "12075",
+				"start": "50:08"
+			},
+			{
+				"code": "12074",
+				"start": "54:47"
+			},
+			{
+				"code": "12076",
+				"start": "58:50"
+			},
+			{
+				"code": "12079",
+				"start": "60:48"
+			},
+			{
+				"code": "12082",
+				"start": "62:59"
+			},
+			{
+				"code": "12084",
+				"start": "66:28"
+			},
+			{
+				"code": "12080",
+				"start": "68:28"
+			},
+			{
+				"code": "12081",
+				"start": "70:58"
 			}
 		]
 	},
