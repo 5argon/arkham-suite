@@ -37,17 +37,22 @@ The second column of DeckBanner showing XP, deck utilization, interesting cards,
 </script>
 
 <div class="flex flex-col items-center gap-1 @min-[500px]:basis-60">
-	<div class="flex items-center">
-		{#if deckXp > 0}
-			<div
-				class="bg-primary-100 text-primary-900 mr-1 flex flex-col items-center justify-center rounded p-1 text-sm"
-			>
-				<span class="text-[0.5rem] leading-none">XP</span><span class="leading-none">{deckXp}</span>
-			</div>
-		{/if}
-		<DeckUtilization {deck} {allowSideDeck} />
+	<!-- The environment keeps to the right; the icons center in what's left. -->
+	<div class="flex w-full items-center">
+		<div class="flex min-w-0 flex-1 items-center justify-center">
+			{#if deckXp > 0}
+				<div
+					class="bg-primary-100 text-primary-900 mr-1 flex flex-col items-center justify-center rounded p-1 text-sm"
+				>
+					<span class="text-[0.5rem] leading-none">XP</span><span class="leading-none"
+						>{deckXp}</span
+					>
+				</div>
+			{/if}
+			<DeckUtilization {deck} {allowSideDeck} />
+		</div>
 		{#if environment}
-			<span class="ml-2"><EnvironmentPoint {environment} subject="deck" /></span>
+			<span class="ml-2 shrink-0"><EnvironmentPoint {environment} subject="deck" /></span>
 		{/if}
 	</div>
 	<div class="flex justify-center gap-1">
