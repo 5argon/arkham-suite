@@ -9,16 +9,22 @@ The second column of DeckBanner showing XP, deck utilization, interesting cards,
 	import CardSquare from './CardSquare.svelte';
 	import CardStrip from './CardStrip.svelte';
 	import DeckUtilization from './DeckUtilization.svelte';
+	import EnvironmentPoint from '../environment/EnvironmentPoint.svelte';
+	import type { EnvironmentDisplay } from '../environment/environment.js';
 	import { findLeftSideSplashes } from './DeckSpecificInformation.svelte';
 
 	interface Prop {
 		deck: Deck;
 		allowSideDeck?: boolean;
+		/**
+		 * The point in time the deck is based on, shown after the cards it uses.
+		 */
+		environment?: EnvironmentDisplay;
 		onCardHover?: (card: Card, event: MouseEvent) => void;
 		onCardLeave?: () => void;
 	}
 
-	const { deck, allowSideDeck = false, onCardHover, onCardLeave }: Prop = $props();
+	const { deck, allowSideDeck = false, environment, onCardHover, onCardLeave }: Prop = $props();
 
 	const deckXp = $derived(calculateDeckXp(deck));
 	const visibleOnLeftSide = $derived(findLeftSideSplashes(deck).visibleCards.map((x) => x.code));
@@ -36,12 +42,13 @@ The second column of DeckBanner showing XP, deck utilization, interesting cards,
 			<div
 				class="bg-primary-100 text-primary-900 mr-1 flex flex-col items-center justify-center rounded p-1 text-sm"
 			>
-				<span class="text-[0.5rem] leading-none">XP</span><span class="leading-none"
-					>{deckXp}</span
-				>
+				<span class="text-[0.5rem] leading-none">XP</span><span class="leading-none">{deckXp}</span>
 			</div>
 		{/if}
 		<DeckUtilization {deck} {allowSideDeck} />
+		{#if environment}
+			<span class="ml-2"><EnvironmentPoint {environment} subject="deck" /></span>
+		{/if}
 	</div>
 	<div class="flex justify-center gap-1">
 		{#each interestingCards as card, i (i)}

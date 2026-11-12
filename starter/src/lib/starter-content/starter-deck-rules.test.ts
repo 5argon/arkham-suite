@@ -10,6 +10,7 @@ import { describe, expect, it } from 'vitest';
 
 import { getAllCards, loadAllTabooLists } from '../card-data';
 import { allStarterDecks, type StarterDeckEntry } from '.';
+import { environmentPointProducts } from './environment';
 
 /**
  * The rules a starter deck must meet, written out for readers in lib/md/starter-deck.md. Holding up
@@ -47,6 +48,14 @@ describe('starter deck rules', () => {
 		for (const entry of entries) {
 			const fitting = environment.currentEnvironmentVersionsWith(productsOf(entry), '9999-12-31');
 			expect(fitting.length, nameOf(entry)).toBeGreaterThan(0);
+		}
+	});
+
+	it('only uses products of the environment it says it is based on', () => {
+		for (const entry of entries) {
+			const allowed = environmentPointProducts(entry.environment);
+			const outside = productsOf(entry).filter((product) => !allowed.includes(product));
+			expect(outside, nameOf(entry)).toEqual([]);
 		}
 	});
 

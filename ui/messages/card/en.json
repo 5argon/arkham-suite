@@ -41,6 +41,8 @@
 	"card_deck_utilization_title": "Products Used",
 	"card_environment_title": "The Environment This Review Is Based On",
 	"card_environment_intro": "A review depends on which cards were out when it was written. An environment is the Evergreen Products plus the 2 latest deckbuilding expansions and 2 latest investigator expansions.",
+	"card_environment_title_deck": "The Environment This Deck Is Based On",
+	"card_environment_intro_deck": "A deck depends on which cards were out when it was built. An environment is the Evergreen Products plus the 2 latest deckbuilding expansions and 2 latest investigator expansions.",
 	"card_environment_since": "Since {date}",
 	"card_environment_rotating": "Rotating Expansions",
 	"card_environment_defining": "New in this environment",

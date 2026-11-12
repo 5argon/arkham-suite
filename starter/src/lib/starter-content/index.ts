@@ -5,6 +5,8 @@ import { getAllCards } from '../card-data';
 import type { TeamDisplay } from '../tool/evergreen-team/team-display';
 import type { DeckChange } from '../tool/starter/deck-changes';
 
+import { isEnvironmentPoint } from './environment';
+
 /**
  * Someone credited on the site, shared by everything they make. One file per
  * person under contributor/, named by slug.
@@ -73,6 +75,10 @@ export interface StarterDeckVersion {
  */
 export interface StarterDeckEntry {
 	id: number | string;
+	/**
+	 * Id of the point of the Current environment the deck is based on, like `evergreen`.
+	 */
+	environment: string;
 	slug: string;
 	/**
 	 * Ascending by breakpoint. The lowest version carries the next one's
@@ -137,6 +143,10 @@ interface SeriesJson {
 		 * Hand-assigned URL slug, e.g. "hurting-for-clues".
 		 */
 		slug: string;
+		/**
+		 * Id of the point of the Current environment the deck is based on, like `evergreen`.
+		 */
+		environment: string;
 		/**
 		 * Display name, for when the published name cannot be cleaned up on its own.
 		 */
@@ -339,6 +349,9 @@ const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 		});
 		const owner = `${path} ${d.slug}`;
 		const published = publishedVersion(files, d.id, owner);
+		if (!isEnvironmentPoint(d.environment)) {
+			throw new Error(`Starter deck has unknown environment ${d.environment}: ${owner}`);
+		}
 		const guide = guideFiles[`${guideDir}${d.slug}.md`];
 		if (guide === undefined) throw new Error(`Starter deck guide missing: ${owner}`);
 		// ArkhamDB has no notion of series, so authors append it to the deck
@@ -368,6 +381,7 @@ const series: StarterSeries[] = seriesFilesInOrder.map(([path, json]) => {
 		}));
 		return {
 			id: d.id,
+			environment: d.environment,
 			slug: d.slug,
 			versions,
 			primary: versions[0].deck,

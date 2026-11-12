@@ -8,6 +8,7 @@
 		{
 			"id": 64388,
 			"slug": "living-her-bast-life",
+			"environment": "evergreen",
 			"introMd": "Here Carolyn uses [Scroll of the Pharaohs (Words of Bast)](/card/60279) to manipulate the encounter deck, with [Occult Records](/card/60256) healing off the horror for a <span class=\"icon-free\"></span> clue. I guess the best way to manage enemies is not to draw them!",
 			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-starters-revisited/living-her-bast-life/HLucbhAXsAAZd_0.webp",
 			"versions": [
@@ -25,6 +26,7 @@
 		{
 			"id": 64389,
 			"slug": "tommy-squared",
+			"environment": "evergreen",
 			"introMd": "Here, Tommy uses the [Thompson Submachine Gun](/card/60182) as a <strong><ins>big</ins></strong> gun. With it and upgraded [Vicious Blow](/card/60176), you can deal up to 16 damage in a turn - toasty!",
 			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-starters-revisited/tommy-squared/HLzpfohXYAACS0b.webp",
 			"versions": [
@@ -42,6 +44,7 @@
 		{
 			"id": 64502,
 			"slug": "marie-poppin-cultists",
+			"environment": "evergreen",
 			"introMd": "Here Marie be poppin' cultists with [Cosmic Flame](/card/12071) and [Consume Life](/card/60462), which she can easily find with [Jim Culver](/card/60479), [Arcane Initiate](/card/60455) and her ability.",
 			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-starters-revisited/marie-poppin-cultists/HL-M4QQWUAAN4cH.webp",
 			"versions": [
@@ -59,6 +62,7 @@
 		{
 			"id": 64503,
 			"slug": "the-fatal-thespian",
+			"environment": "evergreen",
 			"introMd": "Here André can deal up to 9 damage in a turn by [bashing enemies' legs in](/card/60363), [pushing them off roofs](/card/60378) (twice) and [shooting them](/card/12045). Who knew show business was so cutthroat?!",
 			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-starters-revisited/the-fatal-thespian/HLz9shgWkAAmCNx.webp",
 			"versions": [
@@ -76,6 +80,7 @@
 		{
 			"id": 64750,
 			"slug": "disaster-artist",
+			"environment": "evergreen",
 			"introMd": "Here Miguel benefits from failure, with [Rabbit's Foot](/card/60560) for card draw, [Old Compass](/card/12083) and [Daniel Jameson](/card/60555) for do-overs, and [\"Look what I found!\"](/card/12078) for clues. If you're gonna fail, fail in style!",
 			"bannerUrl": "/image/starter/hungry-colquhoun/ch2-starters-revisited/disaster-artist/HLhZdQHWIAAUwPH.webp",
 			"versions": [

@@ -32,6 +32,7 @@ Block element with fixed height that display some overall information about the 
 	import { getCardImagePath } from '../utility/image';
 	import CardCircle from './CardCircle.svelte';
 	import type { BylineEntry } from './byline.js';
+	import type { EnvironmentDisplay } from '../environment/environment.js';
 	interface Prop {
 		/**
 		 * This deck supports an entire history chain stored within one variable.
@@ -97,6 +98,10 @@ Block element with fixed height that display some overall information about the 
 		 * `headerOnly`. The layout follows the banner's own width either way.
 		 */
 		fluid?: boolean;
+		/**
+		 * The point in time the deck is based on. Only shown on the full banner.
+		 */
+		environment?: EnvironmentDisplay;
 	}
 	const {
 		deck,
@@ -113,7 +118,8 @@ Block element with fixed height that display some overall information about the 
 		hideTitle = false,
 		smallSingleLine = false,
 		headerOnly = false,
-		fluid = false
+		fluid = false,
+		environment
 	}: Prop = $props();
 	const fullBanner = $derived(!headerOnly && !small);
 
@@ -361,6 +367,7 @@ Block element with fixed height that display some overall information about the 
 				<DeckBannerSecondColumn
 					deck={deckLatestForwarded}
 					{allowSideDeck}
+					{environment}
 					onCardHover={tooltip.show}
 					onCardLeave={tooltip.hide}
 				/>

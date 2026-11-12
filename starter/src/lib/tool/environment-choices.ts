@@ -1,8 +1,13 @@
-import { type Card, card as cardUtils, environment, Product } from '@5argon/arkham-kohaku';
-import type { EnvironmentDetail, EnvironmentProduct } from '@5argon/arkham-life-ui';
+import { type Card, card as cardUtils, environment, Product, strings } from '@5argon/arkham-kohaku';
+import type {
+	EnvironmentDetail,
+	EnvironmentDisplay,
+	EnvironmentProduct
+} from '@5argon/arkham-life-ui';
 import { u as stringUtils } from '@5argon/arkham-string';
 
 import * as m from '$lib/paraglide/messages.js';
+import { dateLabel } from '$lib/utility/date-label';
 import { productToExploreRoute } from '$lib/utility/product';
 
 const {
@@ -127,6 +132,29 @@ export function environmentPointTitle(point: Point): string {
 	return point.id === currentEnvironmentEvergreenId
 		? m.common_evergreen_products()
 		: m.common_environment_current({ name: stringUtils.productName(point.rotatedIn[0]) });
+}
+
+/**
+ * How a point shows on whatever is based on it: Evergreen by name, a later point by its rotating
+ * expansion slots, either one opening its details when pressed.
+ */
+export function environmentPointDisplay(
+	point: Point,
+	detail: EnvironmentDetail
+): EnvironmentDisplay {
+	return point.id === currentEnvironmentEvergreenId
+		? {
+				label: m.review_environment_evergreen(),
+				description: m.common_evergreen_products(),
+				detail
+			}
+		: {
+				slots: environment
+					.rotatingExpansionSlots(point.products)
+					.map((product) => product && strings.getConsolidatedProductAbbreviation(product)),
+				description: environmentPointTitle(point),
+				detail: { ...detail, since: dateLabel(point.date) }
+			};
 }
 
 export function environmentPointPath(id: string): string {

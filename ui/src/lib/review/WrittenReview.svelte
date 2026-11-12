@@ -15,7 +15,7 @@ certain cards is their card lines in a divider.
 	import * as m from '../paraglide/messages.js';
 	import TimingDiagram from '../rules/TimingDiagram.svelte';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
-	import EnvironmentPoint from './EnvironmentPoint.svelte';
+	import EnvironmentPoint from '../environment/EnvironmentPoint.svelte';
 	import PersonAvatar from './PersonAvatar.svelte';
 	import ReviewDate from './ReviewDate.svelte';
 	import type { CardTextHtml, ReviewRowData, WrittenReviewPart } from './review-entry.js';

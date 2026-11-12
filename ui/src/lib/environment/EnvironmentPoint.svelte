@@ -13,12 +13,16 @@ language and most visitors never open them.
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import type EnvironmentDetailModalComponent from './EnvironmentDetailModal.svelte';
-	import type { EnvironmentDisplay } from './review-entry.js';
+	import type { EnvironmentDisplay, EnvironmentSubject } from './environment.js';
 
 	interface Prop {
 		environment: EnvironmentDisplay;
+		/**
+		 * What is based on this point, which the details name.
+		 */
+		subject?: EnvironmentSubject;
 	}
-	const { environment }: Prop = $props();
+	const { environment, subject = 'review' }: Prop = $props();
 	const half = $derived((environment.slots?.length ?? 0) / 2);
 	const pointClass =
 		'text-primary-800 dark:text-primary-200 inline-flex items-center gap-1 text-xs whitespace-nowrap';
@@ -77,6 +81,7 @@ language and most visitors never open them.
 			isOpen={detailOpen}
 			onClose={() => (detailOpen = false)}
 			name={environment.description}
+			{subject}
 		/>
 	{/if}
 {:else}

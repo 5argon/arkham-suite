@@ -1,6 +1,6 @@
 <!--
 @component
-The point in time a review is based on, so it's clear what its four slots mean: the rotating
+The point in time a review or a deck is based on, so it's clear what its four slots mean: the rotating
 expansions filling them, with the one that began this point highlighted, what that pushed out, the
 Evergreen products that are always in, and a gallery of the investigators to choose from.
 -->
@@ -11,7 +11,7 @@ Evergreen products that are always in, and a gallery of the investigators to cho
 	import FlexibleCardDisplay from '../card/FlexibleCardDisplay.svelte';
 	import Modal from '../layout/Modal.svelte';
 	import * as m from '../paraglide/messages.js';
-	import type { EnvironmentDetail, EnvironmentProduct } from './review-entry.js';
+	import type { EnvironmentDetail, EnvironmentProduct, EnvironmentSubject } from './environment.js';
 
 	interface Prop {
 		isOpen: boolean;
@@ -21,8 +21,9 @@ Evergreen products that are always in, and a gallery of the investigators to cho
 		 */
 		name: string;
 		detail: EnvironmentDetail;
+		subject?: EnvironmentSubject;
 	}
-	const { isOpen, onClose, name, detail }: Prop = $props();
+	const { isOpen, onClose, name, detail, subject = 'review' }: Prop = $props();
 
 	const half = $derived(detail.slots.length / 2);
 	const noop = () => {};
@@ -39,7 +40,12 @@ Evergreen products that are always in, and a gallery of the investigators to cho
 	<h4 class="text-primary-900 dark:text-primary-100 mt-4 mb-1 text-sm font-semibold">{text}</h4>
 {/snippet}
 
-<Modal {isOpen} maxWidth="lg" {onClose} title={m.card_environment_title()}>
+<Modal
+	{isOpen}
+	maxWidth="lg"
+	{onClose}
+	title={subject === 'deck' ? m.card_environment_title_deck() : m.card_environment_title()}
+>
 	<p class="text-primary-900 dark:text-primary-100 font-semibold">{name}</p>
 	{#if detail.since}
 		<p class="text-primary-800 dark:text-primary-200 mb-1 text-xs">
@@ -47,7 +53,7 @@ Evergreen products that are always in, and a gallery of the investigators to cho
 		</p>
 	{/if}
 	<p class="text-primary-900 dark:text-primary-100 text-sm leading-snug">
-		{m.card_environment_intro()}
+		{subject === 'deck' ? m.card_environment_intro_deck() : m.card_environment_intro()}
 	</p>
 
 	{@render heading(m.card_environment_rotating())}

@@ -12,7 +12,7 @@ row without containing it, so the time point and the person on it can be pressed
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import * as m from '../paraglide/messages.js';
-	import EnvironmentPoint from './EnvironmentPoint.svelte';
+	import EnvironmentPoint from '../environment/EnvironmentPoint.svelte';
 	import PersonAvatar from './PersonAvatar.svelte';
 	import ReviewDate from './ReviewDate.svelte';
 	import type { ReviewRowData } from './review-entry.js';

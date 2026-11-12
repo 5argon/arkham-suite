@@ -11,6 +11,7 @@ height of the longest list.
 
 	import { createCardResolver, loadAllTabooLists } from '$lib/card-data';
 	import { starterByline, starterDeckHref, type StarterDeckEntry } from '$lib/starter-content';
+	import { deckEnvironmentDisplay } from '$lib/starter-content/environment';
 	import { deckCardMatches, type StarterFilterValue } from '$lib/tool/starter/filter';
 
 	import { cardMatchNotes } from './card-match-notes';
@@ -29,6 +30,7 @@ height of the longest list.
 			deck: linkedAhdbDeckToDeck({ deck: entry.primary }, resolver, tabooLists),
 			href: starterDeckHref(entry),
 			byline: starterByline(entry.series),
+			environment: deckEnvironmentDisplay(entry.environment),
 			matches: filter === undefined ? [] : cardMatchNotes(deckCardMatches(entry, filter), resolver)
 		}))
 	);
@@ -52,6 +54,7 @@ height of the longest list.
 				fluid
 				onClick={item.href}
 				byline={item.byline}
+				environment={item.environment}
 				highlightStatsAtLeast={4}
 				dimStatsAtMost={2}
 			/>

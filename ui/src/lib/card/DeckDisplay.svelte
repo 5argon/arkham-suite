@@ -24,6 +24,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 	import CardScanFullSmallGridInvestigator from './CardScanFullSmallGridInvestigator.svelte';
 	import type { CardItem, GroupingSortingSettings } from './card-item.js';
 	import type { BylineEntry } from './byline.js';
+	import type { EnvironmentDisplay } from '../environment/environment.js';
 	import SectionSeparator from '../typography/SectionSeparator.svelte';
 	import FlexibleCardDisplay from './FlexibleCardDisplay.svelte';
 	import Checkbox from '../form/Checkbox.svelte';
@@ -85,6 +86,10 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		 */
 		byline?: BylineEntry[];
 		/**
+		 * Passed to the banner: the point in time the deck is based on.
+		 */
+		environment?: EnvironmentDisplay;
+		/**
 		 * Passed to the banner: investigator stats at or above this value render emphasized.
 		 */
 		highlightStatsAtLeast?: number;
@@ -108,6 +113,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 		hideList = false,
 		hideHeader = false,
 		byline,
+		environment,
 		highlightStatsAtLeast,
 		dimStatsAtMost,
 		showExportView = $bindable(false),
@@ -275,6 +281,7 @@ Complete deck display with banner, investigator cards, list view, and grid view.
 				{localizationResolver}
 				{languageCode}
 				{byline}
+				{environment}
 				{highlightStatsAtLeast}
 				{dimStatsAtMost}
 			/>

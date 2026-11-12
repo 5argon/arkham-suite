@@ -4,12 +4,13 @@
 	import CardLine from '$lib/card/CardLine.svelte';
 	import TemporaryCardLine from '$lib/card/TemporaryCardLine.svelte';
 	import CardTextBlock from '$lib/review/CardTextBlock.svelte';
-	import EnvironmentPoint from '$lib/review/EnvironmentPoint.svelte';
+	import EnvironmentPoint from '$lib/environment/EnvironmentPoint.svelte';
 	import ReviewCounts from '$lib/review/ReviewCounts.svelte';
 	import ReviewList from '$lib/review/ReviewList.svelte';
 	import ReviewRow from '$lib/review/ReviewRow.svelte';
 	import WrittenReview from '$lib/review/WrittenReview.svelte';
-	import type { EnvironmentDisplay, ReviewRowData } from '$lib/review/review-entry';
+	import type { EnvironmentDisplay } from '$lib/environment/environment.js';
+	import type { ReviewRowData } from '$lib/review/review-entry.js';
 
 	import { allCards } from '../card-data';
 

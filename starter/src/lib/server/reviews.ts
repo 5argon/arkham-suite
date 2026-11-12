@@ -11,8 +11,7 @@ import {
 	productDeckbuildingExpansions,
 	productInvestigatorDeck,
 	service,
-	sorter,
-	strings
+	sorter
 } from '@5argon/arkham-kohaku';
 import type {
 	CardTextHtml,
@@ -46,9 +45,10 @@ import { recentListLimit } from '$lib/review/recent';
 import { allContributors, contributor, toCore2026Code } from '$lib/starter-content';
 import {
 	environmentPointDetail,
-	environmentPointTitle,
+	environmentPointDisplay,
 	environmentTalkingPool
 } from '$lib/tool/environment-choices';
+import { dateLabel } from '$lib/utility/date-label';
 import { productToExploreRoute } from '$lib/utility/product';
 import { isRewardCard, rewardCards, rewardRoute } from '$lib/utility/reward';
 
@@ -233,11 +233,7 @@ function thumb(card: Card): CardThumb {
 	return { code: card.code, name: card.name, cardClass: card.cardClass };
 }
 
-export function dateLabel(date: string): string {
-	return new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' }).format(
-		new Date(date)
-	);
-}
+export { dateLabel };
 
 const languageNames = new Intl.DisplayNames(['en'], { type: 'language' });
 
@@ -288,21 +284,7 @@ function environmentDisplay(id: string): EnvironmentDisplay {
 		knownPoints.find((p) => p.id === id) ??
 		knownPoints.find((p) => p.id === environment.currentEnvironmentEvergreenId)!;
 	const full = environmentPointDetail(point, reviewableCards, reviewProductPageHref);
-	const detail = { ...full, roster: full.roster.map(slimCard) };
-	const display: EnvironmentDisplay =
-		point.id === environment.currentEnvironmentEvergreenId
-			? {
-					label: m.review_environment_evergreen(),
-					description: m.common_evergreen_products(),
-					detail
-				}
-			: {
-					slots: environment
-						.rotatingExpansionSlots(point.products)
-						.map((product) => product && strings.getConsolidatedProductAbbreviation(product)),
-					description: environmentPointTitle(point),
-					detail: { ...detail, since: dateLabel(point.date) }
-				};
+	const display = environmentPointDisplay(point, { ...full, roster: full.roster.map(slimCard) });
 	displays.set(id, display);
 	return display;
 }

@@ -12,6 +12,7 @@ The definition of one "starter deck" actually consist of multiple decks and othe
 - Intro Markdown is required, so they can read excerpt of the description in the starter deck listing.
 - Guide Markdown is required: an editable copy of the published description at `guides/<slug>.md` beside `series.json`. The deck JSON stays a verbatim archive, so corrections like a moved image go in the guide.
 - Guide images are hosted here, so another site going away can't break them. After adding a guide, run `yarn localize-starter-images`: it copies each image into `static/image/starter/<author>/<series>/<deck>/` as WebP and points the guide and `bannerUrl` at the copy. Each guide owns its images, even when guides share one. Card thumbnails from arkham.build stay linked. A test fails if anything else is external.
+- Each deck names the point of the Current environment it is built in (`environment` in `series.json`, `evergreen` for now). The banner shows it, and a test fails if the deck uses products outside it.
 - "Series" is a new metadata specifying subfolder of one author's decks. This let user see other decks in the same series quickly, because they are likely using the same product pool. Author used to put series on the deck's name in arkhamDB, we should offer a new overridden name that removes all those suffixes.
 
 ## Implementation

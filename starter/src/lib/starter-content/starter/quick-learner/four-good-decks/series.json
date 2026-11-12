@@ -9,6 +9,8 @@
 		{
 			"id": "fmg0mmSfFrdNpoB",
 			"slug": "daniela-reyes-core-2026",
+			"environment": "evergreen",
+			"introMd": "One of the 4 decks in [Quick Learner's video](https://www.youtube.com/watch?v=Pu0g5BBXvYk&t=508).",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -19,6 +21,8 @@
 		{
 			"id": "Hxf0EnE9F1Jw9iL",
 			"slug": "joe-diamond-core-2026",
+			"environment": "evergreen",
+			"introMd": "One of the 4 decks in [Quick Learner's video](https://www.youtube.com/watch?v=Pu0g5BBXvYk&t=275).",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -29,6 +33,8 @@
 		{
 			"id": "efRfWCH9nwyGdtj",
 			"slug": "trish-scarborough-core-2026",
+			"environment": "evergreen",
+			"introMd": "One of the 4 decks in [Quick Learner's video](https://www.youtube.com/watch?v=Pu0g5BBXvYk&t=767).",
 			"versions": [
 				{
 					"breakpoint": 0,
@@ -39,6 +45,8 @@
 		{
 			"id": "Gsfe6NPD6pePDvf",
 			"slug": "dexter-drake-core-2026",
+			"environment": "evergreen",
+			"introMd": "One of the 4 decks in [Quick Learner's video](https://www.youtube.com/watch?v=Pu0g5BBXvYk&t=1025).",
 			"versions": [
 				{
 					"breakpoint": 0,

@@ -25,6 +25,7 @@
 		starterDeckHref,
 		toCore2026Code
 	} from '$lib/starter-content';
+	import { deckEnvironmentDisplay } from '$lib/starter-content/environment';
 	import {
 		deckForExport,
 		starterDeckDescription,
@@ -188,6 +189,7 @@
 		cardResolver={resolver}
 		{resolveText}
 		deck={versions[0].deck}
+		environment={deckEnvironmentDisplay(entry.environment)}
 		mode="decklist"
 		byline={starterByline(entry.series)}
 		beforeList={versionTabs}

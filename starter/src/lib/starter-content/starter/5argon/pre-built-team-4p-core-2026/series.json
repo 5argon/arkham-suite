@@ -8,6 +8,7 @@
 		{
 			"id": 66077,
 			"slug": "no-dexter-1",
+			"environment": "evergreen",
 			"introMd": "[Daniela](/card/12001) gets both [Logan Hastings](/card/12018) and [Aleksey Saburov](/card/12072) and will be the other [Charisma](/card/12095) user of this team. [Meat Cleaver](/card/12077) is a powerful asset that reaches the +2 <span class=\"icon-combat\"></span> range quickly, and for +1 damage, you can keep healing back if it's not a boss fight.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-1/4p-no-dexter-daniela.webp",
 			"versions": [
@@ -29,6 +30,7 @@
 		{
 			"id": 66078,
 			"slug": "no-dexter-2",
+			"environment": "evergreen",
 			"introMd": "[Joe](/card/12004) holds [Magnifying Glass](/card/12034) permanently, adding to his [Dorothy Simmons](/card/12030) for unlimited decent investigation. [Endurance](/card/12017) has the potential to be super good in the endgame, when he has too many resources from Dorothy, and suddenly Joe is evading at 6 <span class=\"icon-agility\"></span> by paying 2.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-2/4p-no-dexter-joe.webp",
 			"versions": [
@@ -50,6 +52,7 @@
 		{
 			"id": 66079,
 			"slug": "no-dexter-3",
+			"environment": "evergreen",
 			"introMd": "[Trish](/card/12007) is a [Prestidigitation](/card/12052) user with [Olivier Bishop](/card/12046) as her ally, of course, since she has the free evade. This allows discounting expensive hand assets like [Local Map](/card/12033) and [Fingerprint Kit](/card/12031), while returning much cheaper ***Item*** assets that have been used up.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-3/4p-no-dexter-trish.webp",
 			"versions": [
@@ -71,6 +74,7 @@
 		{
 			"id": 66080,
 			"slug": "no-dexter-4",
+			"environment": "evergreen",
 			"introMd": "[Isabelle](/card/12013) gets the full Mystic suite of 2x [Cosmic Flame](/card/12059) + 2x [Second Sight](/card/12062). She has the clue-cheating [Will of the Cosmos](/card/12066) technique (usually Dexter's thing) with [Premonition](/card/12064) and [Jumpsuit](/card/12075) to void away the doom.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-dexter-4/4p-no-dexter-isabelle.webp",
 			"versions": [
@@ -92,6 +96,7 @@
 		{
 			"id": 66104,
 			"slug": "no-joe-1",
+			"environment": "evergreen",
 			"introMd": "[Daniela](/card/12001) gets the full set of [M1911](/card/12019), [Machete](/card/12020), and [Meat Cleaver](/card/12077). With 2x [Right Tool for the Job](/card/12023) too, surely you can find a 2-damage weapon as well as [Daniela's Wrench](/card/12002).",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-1/4p-no-joe-daniela.webp",
 			"versions": [
@@ -113,6 +118,7 @@
 		{
 			"id": 66105,
 			"slug": "no-joe-2",
+			"environment": "evergreen",
 			"introMd": "[Trish](/card/12007) took [Dorothy Simmons](/card/12030) and [Laboratory Assistant](/card/12032), and gave up [Olivier Bishop](/card/12046) for Dexter. Stack up Dorothy + [Magnifying Glass](/card/12034) + [Fingerprint Kit](/card/12031) and get that fat over-success.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-2/4p-no-joe-trish.webp",
 			"versions": [
@@ -134,6 +140,7 @@
 		{
 			"id": 66106,
 			"slug": "no-joe-3",
+			"environment": "evergreen",
 			"introMd": "This is a rather Rogue-ish [Dexter](/card/12010) that starts with just 1x [Cosmic Flame](/card/12059) because otherwise Isabelle would be too pitiful. It's intended to quickly fill the void with [Cosmic Flame (5)](/card/12071) alongside it.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-3/4p-no-joe-dexter.webp",
 			"versions": [
@@ -155,6 +162,7 @@
 		{
 			"id": 66107,
 			"slug": "no-joe-4",
+			"environment": "evergreen",
 			"introMd": "[Lucky Charm](/card/12061) is a combo with [Aleksey Saburov](/card/12072), so [Isabelle](/card/12013) can continue doing it and heal out. The space in this deck is filled with all the neutral skills in the game as well as both Survivor skills.",
 			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-joe-4/4p-no-joe-isabelle.webp",
 			"versions": [
