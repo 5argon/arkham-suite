@@ -45,7 +45,6 @@
 	"card_environment_intro_deck": "A deck depends on which cards were out when it was built. An environment is the Evergreen Products plus the 2 latest deckbuilding expansions and 2 latest investigator expansions.",
 	"card_environment_since": "Since {date}",
 	"card_environment_rotating": "Rotating Expansions",
-	"card_environment_defining": "New in this environment",
 	"card_environment_pushed_out": "Pushed Out",
 	"card_environment_pushed_out_help": "The new product replaced this one. A review from this point can still talk about its cards.",
 	"card_environment_evergreen": "Evergreen Products",

@@ -1,7 +1,7 @@
 <!--
 @component
 The point in time a review or a deck is based on, so it's clear what its four slots mean: the rotating
-expansions filling them, with the one that began this point highlighted, what that pushed out, the
+expansions filling them, what the newest one pushed out, the
 Evergreen products that are always in, and a gallery of the investigators to choose from.
 -->
 <script lang="ts">
@@ -60,18 +60,7 @@ Evergreen products that are always in, and a gallery of the investigators to cho
 	<div class="tile-grid slot-grid">
 		{#each detail.slots as slot, i (i)}
 			{#if slot}
-				<div class="flex flex-col items-center">
-					{#if detail.defining.includes(slot.product)}
-						<div class="ring-secondary-500 dark:ring-secondary-300 rounded-sm ring-2">
-							{@render productButton(slot)}
-						</div>
-						<span class="text-secondary-800 dark:text-secondary-200 mt-0.5 text-xs font-semibold">
-							{m.card_environment_defining()}
-						</span>
-					{:else}
-						{@render productButton(slot)}
-					{/if}
-				</div>
+				{@render productButton(slot)}
 			{:else}
 				<div
 					class="border-primary-400 dark:border-primary-500 text-primary-700 dark:text-primary-300 flex h-[70px] w-[250px] items-center justify-center rounded-sm border-2 border-dashed text-xs"
