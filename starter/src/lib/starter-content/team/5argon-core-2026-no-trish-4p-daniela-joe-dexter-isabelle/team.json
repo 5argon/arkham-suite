@@ -1,0 +1,37 @@
+{
+	"slug": "5argon-core-2026-no-trish-4p-daniela-joe-dexter-isabelle",
+	"name": "No Trish - Pre-Built Team for 4P Core 2026 : Daniela, Joe, Dexter, Isabelle",
+	"authorSlug": "5argon",
+	"description": "This team is assembled from decks within 5argon's Pre-Built Team for 4P Core 2026 series.",
+	"tags": ["Pre-Built Team for 4P Core 2026", "4C+0ID", "Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "5argon",
+				"series": "pre-built-team-4p-core-2026",
+				"slug": "no-trish-1"
+			}
+		},
+		{
+			"source": {
+				"author": "5argon",
+				"series": "pre-built-team-4p-core-2026",
+				"slug": "no-trish-2"
+			}
+		},
+		{
+			"source": {
+				"author": "5argon",
+				"series": "pre-built-team-4p-core-2026",
+				"slug": "no-trish-3"
+			}
+		},
+		{
+			"source": {
+				"author": "5argon",
+				"series": "pre-built-team-4p-core-2026",
+				"slug": "no-trish-4"
+			}
+		}
+	]
+}

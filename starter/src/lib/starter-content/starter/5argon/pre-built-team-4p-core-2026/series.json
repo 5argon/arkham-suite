@@ -180,6 +180,94 @@
 				}
 			],
 			"upgradePlan": "ChISBTEyMDg2GgUxMjA4NTADOAMKEhIFMTIwODYaBTEyMDg1MAM4BgoSEgUxMjA3ORoFMTIwODMwAjgIChISBTEyMDc5GgUxMjA4MzACOAoKEhIFMTIwODAaBTEyMDY5MAI4DAoSEgUxMjA4MBoFMTIwNjkwAjgOChISBTEyMDk0GgUxMjA4NDACOBAKEhIFMTIwOTQaBTEyMDg0MAI4EhJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAxNBABKgkKBTEyMDE1EAEqCQoFMTIwNTkQASoJCgUxMjA2MRACKgkKBTEyMDcyEAIqCQoFMTIwNzQQASoJCgUxMjA3NRABKgkKBTEyMDc2EAEqCQoFMTIwNzgQAioJCgUxMjA3ORACKgkKBTEyMDgwEAIqCQoFMTIwODEQAioJCgUxMjA4NhACKgkKBTEyMDg5EAIqCQoFMTIwOTAQAioJCgUxMjA5MRACKgkKBTEyMDkyEAIqCQoFMTIwOTMQAioJCgUxMjA5NBACKgkKBTAxMDAwEAEyCQoFMTIwNjkQAjIJCgUxMjA4MxACMgkKBTEyMDg0EAIyCQoFMTIwODUQAg%3D%3D"
+		},
+		{
+			"id": 66239,
+			"slug": "no-trish-1",
+			"environment": "evergreen",
+			"introMd": "Since Isabelle is on [Jim Culver](/card/12060) with her full suite of spells, Daniela uses [Logan Hastings](/card/12018) + [Aleksey Saburov](/card/12072) in this deck, which will be better after [Charisma](/card/12095).",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-trish-1/4p-no-trish-daniela.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66239.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66239.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66239.19xp.json"
+				}
+			],
+			"upgradePlan": "CgsaBTEyMDk1MAM4AwoSEgUxMjAxNhoFMTIwMjcwAjgFChISBTEyMDg2GgUxMjA4MjABOAYKEhIFMTIwODYaBTEyMDgyMAE4BwoSEgUxMjAyMRoFMTIwMjgwAzgKChISBTEyMDIxGgUxMjAyOTAFOA8KEhIFMTIwMjMaBTEyMDI4MAM4EhJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAwMhABKgkKBTEyMDAzEAEqCQoFMTIwMTYQASoJCgUxMjAxNxABKgkKBTEyMDE4EAIqCQoFMTIwMTkQAioJCgUxMjAyMRACKgkKBTEyMDIyEAIqCQoFMTIwMjMQASoJCgUxMjAyNBACKgkKBTEyMDI1EAIqCQoFMTIwNzIQAioJCgUxMjA3MxABKgkKBTEyMDc0EAEqCQoFMTIwNzYQASoJCgUxMjA3NxACKgkKBTEyMDg2EAIqCQoFMTIwODkQAioJCgUxMjA5MBACKgkKBTEyMDkyEAIqCQoFMDEwMDAQATIJCgUxMjAyNxABMgkKBTEyMDI4EAIyCQoFMTIwMjkQATIJCgUxMjA4MhACMgkKBTEyMDk1EAE%3D"
+		},
+		{
+			"id": 66240,
+			"slug": "no-trish-2",
+			"environment": "evergreen",
+			"introMd": "Along with [Hand-Crank Flashlight](/card/12088), Joe gets all the Seeker hand assets in the game with the absence of Trish.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-trish-2/4p-no-trish-joe.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66240.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66240.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66240.19xp.json"
+				}
+			],
+			"upgradePlan": "ChISBTEyMDMzGgUxMjA0MTACOAIKEhIFMTIwMzMaBTEyMDQxMAI4BAoSEgUxMjAxNhoFMTIwMjcwAjgGCgsaBTEyMDQyMAM4CQoSEgUxMjAzOBoFMTIwMjYwATgKChISBTEyMDM4GgUxMjAyNjABOAsKCxoFMTIwOTUwAzgOCgsaBTEyMDQyMAM4ERJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAwNRABKgkKBTEyMDA2EAEqCQoFMTIwMTYQASoJCgUxMjAxNxABKgkKBTEyMDIwEAIqCQoFMTIwMjMQASoJCgUxMjAzMBACKgkKBTEyMDMxEAIqCQoFMTIwMzIQAioJCgUxMjAzMxACKgkKBTEyMDM0EAIqCQoFMTIwMzUQASoJCgUxMjAzNhACKgkKBTEyMDM4EAIqCQoFMTIwMzkQAioJCgUxMjA4OBACKgkKBTEyMDg5EAIqCQoFMTIwOTIQAioJCgUxMjA5MxACKgkKBTAxMDAwEAEyCQoFMTIwMjYQAjIJCgUxMjAyNxABMgkKBTEyMDQxEAIyCQoFMTIwNDIQAjIJCgUxMjA5NRAB"
+		},
+		{
+			"id": 66241,
+			"slug": "no-trish-3",
+			"environment": "evergreen",
+			"introMd": "Because cards are limited and all Rogue cards are free to use, it is tempting to give him the less optimal <span class=\"icon-agility\"></span> suite of [Thieves' Kit](/card/12049) + [M1903 Hammerless](/card/12045) + [Olivier Bishop](/card/12046) + [Sticky Fingers](/card/12048), and so [Isabelle Barnes](/card/12013) can have her full working suite of [Cosmic Flame](/card/12059) + [Second Sight](/card/12062).",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-trish-3/4p-no-trish-dexter.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66241.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66241.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66241.19xp.json"
+				}
+			],
+			"upgradePlan": "ChISBTEyMDQ1GgUxMjA3MTAFOAUKEhIFMTIwNDUaBTEyMDcxMAU4CgoSEgUxMjA0OBoFMTIwNTQwAjgMChISBTEyMDQ4GgUxMjA1NDACOA4KEhIFMTIwNjQaBTEyMDY4MAE4DxJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAxMRABKgkKBTEyMDEyEAEqCQoFMTIwNDQQAioJCgUxMjA0NRACKgkKBTEyMDQ2EAIqCQoFMTIwNDcQAioJCgUxMjA0OBACKgkKBTEyMDQ5EAIqCQoFMTIwNTIQAioJCgUxMjA1OBABKgkKBTEyMDY0EAEqCQoFMTIwNjUQAioJCgUxMjA2NhACKgkKBTEyMDY3EAIqCQoFMTIwODkQAioJCgUxMjA5MBACKgkKBTEyMDkxEAIqCQoFMTIwOTQQAioJCgUwMTAwMBABMgkKBTEyMDU0EAIyCQoFMTIwNjgQAjIJCgUxMjA3MRAC"
+		},
+		{
+			"id": 66242,
+			"slug": "no-trish-4",
+			"environment": "evergreen",
+			"introMd": "Isabelle gets a comfortable full set of 2x [Cosmic Flame](/card/12059) + 2x [Second Sight](/card/12062) + 2x [Jim Culver](/card/12060), along with the [Lucky Charm](/card/12061) + [Cloak of Resonance](/card/12058) damage-pinging technique.",
+			"bannerUrl": "/image/starter/5argon/pre-built-team-4p-core-2026/no-trish-4/4p-no-trish-isabelle.webp",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66242.json"
+				},
+				{
+					"breakpoint": 9,
+					"file": "66242.9xp.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66242.19xp.json"
+				}
+			],
+			"upgradePlan": "ChISBTEyMDc5GgUxMjA2OTACOAIKEhIFMTIwNzkaBTEyMDY5MAI4BAoSEgUxMjA3MxoFMTIwODMwAjgGChISBTEyMDc1GgUxMjA4MzACOAgKEhIFMTIwOTMaBTEyMDg0MAI4CgoSEgUxMjA5MxoFMTIwODQwAjgMChISBTEyMDU4GgUxMjA4NTADOA8KEhIFMTIwNjEaBTEyMDg1MAM4EhJKGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBWhwoVmlldyBhdCBhcmtoYW0tc3RhcnRlci5jb20pYAEaGAoECAEQAxIEEgAaABoKCAEQASABKAEwASoJCgUxMjAxNBABKgkKBTEyMDE1EAEqCQoFMTIwNTgQASoJCgUxMjA1ORACKgkKBTEyMDYwEAIqCQoFMTIwNjEQASoJCgUxMjA2MhACKgkKBTEyMDY0EAEqCQoFMTIwNzMQASoJCgUxMjA3NBABKgkKBTEyMDc1EAIqCQoFMTIwNzYQASoJCgUxMjA3OBACKgkKBTEyMDc5EAIqCQoFMTIwODAQAioJCgUxMjA4MRACKgkKBTEyMDg5EAIqCQoFMTIwOTEQAioJCgUxMjA5MxACKgkKBTEyMDk0EAIqCQoFMDEwMDAQATIJCgUxMjA2ORACMgkKBTEyMDgzEAIyCQoFMTIwODQQAjIJCgUxMjA4NRAC"
 		}
 	]
 }

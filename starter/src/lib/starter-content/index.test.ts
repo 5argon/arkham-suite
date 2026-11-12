@@ -97,7 +97,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(84);
+		expect(versions).toHaveLength(96);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
@@ -109,7 +109,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(657);
+		expect(members).toHaveLength(685);
 		for (const { team, deck, source } of members) {
 			const series = source?.series.slug as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();
@@ -314,7 +314,8 @@ describe('pre-built team tags', () => {
 		'hc-ch2-starters-revisited-': 'HC Ch2 Starters Revisited',
 		'hc-cross-series-': 'HC Cross Series',
 		'5argon-core-2026-no-dexter-': 'Pre-Built Team for 4P Core 2026',
-		'5argon-core-2026-no-joe-': 'Pre-Built Team for 4P Core 2026'
+		'5argon-core-2026-no-joe-': 'Pre-Built Team for 4P Core 2026',
+		'5argon-core-2026-no-trish-': 'Pre-Built Team for 4P Core 2026'
 	};
 
 	/**
@@ -513,12 +514,12 @@ describe('5argon pre-built teams', () => {
 	const resolver = new CardResolver(getAllCards());
 	const tabooLists = loadAllTabooLists();
 	const teams = prebuiltTeamsOf('5argon');
-	const lineups = ['no-dexter', 'no-joe'];
+	const lineups = ['no-dexter', 'no-joe', 'no-trish'];
 	const ofLineup = (lineup: string, size: number) =>
 		teams.filter((team) => team.slug.startsWith(`5argon-core-2026-${lineup}-${size}p-`));
 
 	it('has every roster of the 4 decks in each lineup', () => {
-		expect(teams).toHaveLength(22);
+		expect(teams).toHaveLength(33);
 		for (const lineup of lineups) {
 			expect(ofLineup(lineup, 4), lineup).toHaveLength(1);
 			expect(ofLineup(lineup, 3), lineup).toHaveLength(4);
@@ -599,6 +600,12 @@ describe('5argon pre-built teams', () => {
 			[0, 7, 17],
 			[0, 8, 18],
 			[0, 7, 16],
+			[0, 8, 18]
+		]);
+		expect(spentBy('no-trish')).toEqual([
+			[0, 7, 18],
+			[0, 9, 17],
+			[0, 5, 15],
 			[0, 8, 18]
 		]);
 	});
