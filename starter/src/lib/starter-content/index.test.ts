@@ -97,7 +97,7 @@ describe('starter deck export tags', () => {
 				series: entry.series.slug as keyof typeof tagsBySeries
 			}))
 		);
-		expect(versions).toHaveLength(96);
+		expect(versions).toHaveLength(98);
 		for (const { deck, series } of versions) {
 			expect(deck.tags, `${series}/${deck.id}`).toBe(tagsBySeries[series]);
 			expect(deck.tags?.split(/\s+/), `${series}/${deck.id}`).toHaveLength(3);
@@ -109,7 +109,7 @@ describe('starter deck export tags', () => {
 		const members = teams.flatMap((team) =>
 			team.members.map((member) => ({ team, deck: member.deck, source: member.source }))
 		);
-		expect(members).toHaveLength(685);
+		expect(members).toHaveLength(689);
 		for (const { team, deck, source } of members) {
 			const series = source?.series.slug as keyof typeof tagsBySeries | undefined;
 			expect(series, team.slug).toBeDefined();

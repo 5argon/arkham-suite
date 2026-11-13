@@ -76,6 +76,24 @@
 				}
 			],
 			"upgradePlan": "Cg1CCTDigJMxOSBYUEgBChISBTYwMzcwGgU2MDM3MzABOAEKEhIFNjAzNzAaBTYwMzczMAE4AgoLGgUxMjA5NTADOAUKEhIFNjAyNjIaBTYwMjcxMAE4BgoSEgU2MDI2MhoFNjAyNzEwATgHCgsaBTEyMDU2MAM4CgoSEgUxMjAzORoFNjAyNzUwAjgMChISBTEyMDM5GgU2MDI3NTACOA4KCxoFMTIwNTYwAzgRChISBTEyMDM0GgU2MDI3MDABOBIKEhIFMTIwMzQaBTYwMjcwMAE4EwoQOBNCClBvc3QtMTkgWFBIAQoSEgU2MDI2ORoFNjAzODQwBTgYCgsaBTEyMDk2MAM4GxJMGgJYUCoHCgPihpIQATINCgRDb3N0EgVUb3RhbDoGCAEQARgBQgIIAUgBUAFaHChWaWV3IGF0IGFya2hhbS1zdGFydGVyLmNvbSlgARoWCgIQAxIEEgAaABoKCAEQASABKAEwAQ%3D%3D"
+		},
+		{
+			"id": 66289,
+			"slug": "guns-dont-kill-people-books-do",
+			"environment": "evergreen",
+			"introMd": "Here Joe prioritizes <span class=\"icon-intellect\"></span> to enable both investigation and combat, fighting at an 8 test value for 3 damage with [Scroll of the Pharaohs](/card/60280) plus [Dorothy](/card/12030). Similarly, he uses [Insidious Truths](/card/60266) for another 8 value 3 damage fight action. Both Truths and Scroll make it easy to kill enemies and trigger [Autopsy Report](/card/60276), activating your <span class=\"icon-reaction\"></span> card draw.",
+			"bannerUrl": "https://hungrycolquhoun.arkham-build-uploads.com/Joe_banner_CC.png",
+			"versions": [
+				{
+					"breakpoint": 0,
+					"file": "66289.lv0.json"
+				},
+				{
+					"breakpoint": 19,
+					"file": "66289.json"
+				}
+			],
+			"upgradePlan": "Cg1CCTDigJMxOCBYUEgBChISBTYwMjU5GgU2MDI4MDAEOAQKEhIFNjAyNTkaBTYwMjgwMAQ4CAoSEgUxMjAxORoFNjAyNzYwAzgLChISBTEyMDE5GgU2MDI3NjADOA4KEhIFNjAyNjEaBTYwMjczMAI4EAoSEgU2MDI2MRoFNjAyNzMwAjgSChA4EkIKUG9zdC0xOCBYUEgBChISBTEyMDI1GgU2MDE3NjACOBQKEhIFMTIwMjUaBTYwMTc2MAI4FgoSEgUxMjAzORoFNjAyNzUwAjgYChISBTEyMDM5GgU2MDI3NTACOBoKCxoFMTIwNDIwAzgdEkwaAlhQKgcKA%2BKGkhABMg0KBENvc3QSBVRvdGFsOgYIARABGAFCAggBSAFQAVocKFZpZXcgYXQgYXJraGFtLXN0YXJ0ZXIuY29tKWABGhYKAhADEgQSABoAGgoIARABIAEoATAB"
 		}
 	]
 }

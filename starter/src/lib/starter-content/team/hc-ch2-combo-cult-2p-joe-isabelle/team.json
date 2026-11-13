@@ -1,0 +1,23 @@
+{
+	"slug": "hc-ch2-combo-cult-2p-joe-isabelle",
+	"name": "HC Ch2 Combo Cult - 2P : Joe, Isabelle",
+	"authorSlug": "hungry-colquhoun",
+	"description": "This team is assembled from decks within HungryColquhoun's Ch2 Combo Cult starter decks series.",
+	"tags": ["HC Ch2 Combo Cult", "2C+0ID", "Non-Adjacent Core"],
+	"decks": [
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "guns-dont-kill-people-books-do"
+			}
+		},
+		{
+			"source": {
+				"author": "hungry-colquhoun",
+				"series": "ch2-combo-cult",
+				"slug": "the-combo-queen"
+			}
+		}
+	]
+}
