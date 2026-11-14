@@ -42,11 +42,15 @@ function parseRule(args: string): RuleQuote | string {
  * The Grimoire's own markup turned into what the site's markdown understands.
  */
 function siteMarkup(text: string): string {
-	return text
-		.replace(/<img[^>]*>/g, '')
-		.replace(/\s*<small>.*?<\/small>/g, '')
-		.replace(/\[\[([^\]]+)\]\]/g, '<b><i>$1</i></b>')
-		.replace(/\[([a-z_]+)\](?!\()/g, '<span class="icon-$1"></span>');
+	return (
+		text
+			.replace(/<img[^>]*>/g, '')
+			// A few links say /cards/ where the rest say /card/, which is what becomes a card link.
+			.replace(/\]\(\/cards\/(\w+)\)/g, '](/card/$1)')
+			.replace(/\s*<small>.*?<\/small>/g, '')
+			.replace(/\[\[([^\]]+)\]\]/g, '<b><i>$1</i></b>')
+			.replace(/\[([a-z_]+)\](?!\()/g, '<span class="icon-$1"></span>')
+	);
 }
 
 const indentOf = (line: string) => line.length - line.trimStart().length;

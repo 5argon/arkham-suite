@@ -1,0 +1,15 @@
+---
+by: 5argon
+date: 2026-11-14
+environment: evergreen
+---
+
+I call this "does not ready" thing a "long exhaust". The effect is flexible and can save a lot of actions. It needs a team that is more prone to this kind of problem (e.g. not a very fight-leaning team), along with someone who has good <span class="icon-agility"></span> (it is a skill card, so it can be added to anyone's evasion). Survivors can do it on their own, with [<span class="fg-survivor">Timely Intervention</span>](/card/12081)'s <span class="icon-agility"></span><span class="icon-agility"></span> backing it up.
+
+The Evade action has a catch: if you are looking to get away, you must plan a Move action after it, otherwise the evasion only keeps you safe for this round. If you are a fighter looking to keep fighting next round without taking hits, evading as your final action is fine. But if you are a flex investigator who must invest a lot to evade, having to do the same thing again next turn is very costly. A common problem is that you have just one action left, maybe because an earlier evasion failed, or because you need to do other things now. This effect lets your evasion be your final action to prevent attacks, and you can still move away immediately next round.
+
+In a very dicey situation with 2 or more enemies, when you can only evade and can't fight, you end up having to evade both enemies perfectly again next round, because your last action must be a move. That becomes a major problem, and you can consider yourself pinned. You might have to resort to one evade and one move, taking an AoO, to manage your risk. [<span class="fg-survivor">Slippery</span>](/card/12080) can be a good fix. A card like [<span class="fg-seeker">Through the Cracks</span>](/card/12037) is priced so high for its built-in move and its built-in disengage from all other enemies.
+
+For the best effect, team up with a Rogue who takes this commit. They may have cards that take advantage of a long exhaust, like [<span class="fg-rogue">M1903 Hammerless</span>](/card/12045) or [<span class="fg-rogue">A Sudden Fall</span>](/card/60367) / [<span class="fg-rogue">A Sudden Fall (2)</span>](/card/60378). (Actually, you should deckbuild with them in mind.) A Guardian might be happy to come over and wait for the next round to use [<span class="fg-guardian">Scene of the Crime</span>](/card/12024), if they know they can move away afterward, for 2 clues without any test. (If enemy is ready they can still get clues testless, but they must deal with the enemy and those are tests.)
+
+Though it isn't rated very highly on the internet, I like this modular long exhaust effect a lot. Evasion can only be performed by the investigator engaged with the enemy, and juggling the engagement over to a proper evader is what makes you run out of actions to move away. [<span class="fg-survivor">Slippery</span>](/card/12080) lets your non-evader evade on their final action, so it's worth piling up commits for them to succeed, knowing the progress won't be undone in the Upkeep Phase.

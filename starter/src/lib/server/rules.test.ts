@@ -35,6 +35,12 @@ describe('rule directives', () => {
 		expect(expandRuleDirectives(directive)).toContain('> - If a replacement effect');
 	});
 
+	it('links a card the Grimoire writes as /cards/ like any other card', () => {
+		const quote = expandRuleDirectives('{{rule 1.097 "For example: Danny tests"}}');
+		expect(quote).toContain('[Timely Intervention](/card/12081)');
+		expect(quote).not.toContain('/cards/');
+	});
+
 	it('turns the Grimoire icons into icon spans', () => {
 		expect(expandRuleDirectives('{{rule 4.004 "elder_sign] symbol"}}')).toContain(
 			'<span class="icon-elder_sign"></span>'
