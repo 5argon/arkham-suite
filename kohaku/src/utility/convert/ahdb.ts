@@ -1248,7 +1248,9 @@ export function cycleCodeToProducts(cycleCode: string): Product[] {
         Product.JacquelineFine,
         Product.StellaClark,
       ];
+    // ArkhamCards wrote `investigator_ch2` in card pools before it switched to ArkhamDB's code.
     case 'investigator_decks_ch2':
+    case 'investigator_ch2':
       return [
         Product.TommyMuldoon,
         Product.CarolynFern,
@@ -1256,6 +1258,8 @@ export function cycleCodeToProducts(cycleCode: string): Product[] {
         Product.MarieLambeau,
         Product.MiguelDeLaCruz,
       ];
+    case 'scenario_packs_ch2':
+      return [Product.TracesToNowhere];
     case 'parallel':
       return [Product.ParallelInvestigators];
     default:
