@@ -84,6 +84,12 @@ export enum FaIconType {
 	ExternalLink,
 	Logout,
 
+	/** Widget depends on data from the "Extra" archive tab. */
+	WidgetRequiresExtra,
+
+	/** A log entry contributed by a standalone scenario played inside the campaign. */
+	StandaloneSource,
+
 	// Achievements
 	/** An earnable achievement (the marker/bullet). */
 	Achievement,
@@ -91,6 +97,8 @@ export enum FaIconType {
 	AchievementManual,
 	/** Achievement auto-derived from the recorded campaign log. */
 	AchievementInferred,
+	/** Achievement auto-derived, but only with the per-scenario "Extra" inputs (not the log alone). */
+	AchievementInferredExtra,
 
 	// World map (TSK solver map tool)
 	Map,
@@ -113,5 +121,12 @@ export enum FaIconType {
 	Sanity,
 	Resource,
 	DrawCards,
-	RuleReference
+	RuleReference,
+
+	// Campaign endings
+	EndingWin,
+	EndingBetterWin,
+	EndingLoss,
+	/** A special / rival-faction ending. */
+	EndingSpecial
 }
