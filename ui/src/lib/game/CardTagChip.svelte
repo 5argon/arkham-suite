@@ -9,7 +9,7 @@ Pass a URL string as `onClick` to render a real <a> anchor (so open-in-new-tab /
 work); pass a function to render a <button>. Mirrors the Button component's onClick contract.
 -->
 <script lang="ts" module>
-	export interface TagChipArg {
+	export interface CardTagChipArg {
 		/** The argument name, e.g. "value" or "action". */
 		key: string;
 		/** The already-formatted argument value, e.g. "1" or "fight". */
@@ -24,7 +24,7 @@ work); pass a function to render a <button>. Mirrors the Button component's onCl
 
 	interface Prop {
 		label: string;
-		args?: TagChipArg[];
+		args?: CardTagChipArg[];
 		icon?: FaIconType;
 		/** Use the secondary (purple) palette — e.g. compound archetypes / conditioned members. */
 		highlighted?: boolean;

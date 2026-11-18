@@ -11,7 +11,7 @@
 		MarginText,
 		PageLead,
 		SectionSeparator,
-		TagChip,
+		CardTagChip,
 		Tabs,
 		TextInput,
 		buildUrlForSettings,
@@ -357,7 +357,7 @@
 					{:else}
 						<div class="mt-3 flex flex-wrap gap-2">
 							{#each focusTags as tag (tag.type + JSON.stringify(tag))}
-								<TagChip
+								<CardTagChip
 									label={tagName(tag.type)}
 									args={tagArgPairs(tag)}
 									count={tagRepo.tagTypeCount(tag.type)}
@@ -374,7 +374,7 @@
 							</div>
 							<div class="mt-2 flex flex-wrap gap-2">
 								{#each focusCompounds as c (c)}
-									<TagChip
+									<CardTagChip
 										label={compoundTagName(c)}
 										count={tagRepo.compoundTagCount(c)}
 										highlighted
@@ -472,7 +472,7 @@
 				{/if}
 				<div class="flex flex-wrap gap-2">
 					{#each group.tags as t (t.type)}
-						<TagChip
+						<CardTagChip
 							label={t.label}
 							count={t.count}
 							icon={FaIconType.Tag}
@@ -490,7 +490,7 @@
 			<SectionSeparator title={m.tool_tag_browser_compound_tags()} />
 			<div class="flex flex-wrap gap-2">
 				{#each shownCompounds as c (c.type)}
-					<TagChip
+					<CardTagChip
 						label={c.label}
 						count={c.count}
 						highlighted
@@ -538,7 +538,7 @@
 			<SectionSeparator title={m.tool_tag_browser_in_compound()} inner />
 			<div class="mt-2 mb-4 flex flex-wrap gap-2">
 				{#each relatedCompounds as c (c.type)}
-					<TagChip
+					<CardTagChip
 						label={compoundTagName(c.type)}
 						count={tagRepo.compoundTagCount(c.type)}
 						highlighted
@@ -565,7 +565,7 @@
 		<SectionSeparator title={m.tool_tag_browser_members()} inner />
 		<div class="mt-2 mb-4 flex flex-wrap gap-2">
 			{#each compoundMembers as member (member.type + JSON.stringify(member.where ?? {}))}
-				<TagChip
+				<CardTagChip
 					label={member.label}
 					args={whereArgPairs(member.where)}
 					count={member.count}

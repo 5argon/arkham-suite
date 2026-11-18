@@ -1,6 +1,6 @@
 import { card as cardUtil, sorter, type Card, type Product } from '@5argon/arkham-kohaku';
 import { u as stringUtils } from '@5argon/arkham-string';
-import type { CardItem, TagChipArg } from '@5argon/arkham-life-ui';
+import type { CardItem, CardTagChipArg } from '@5argon/arkham-life-ui';
 import { createRepository, hydrate, tagName, type Tag, type HydratedCard } from '@5argon/arkham-tags';
 import rawCards from '@5argon/arkham-tags/cards.json';
 import { getAllCards } from '$lib/card-data';
@@ -108,7 +108,7 @@ export function formatArgValue(v: unknown): string {
  * it and the `dynamic` flag and show a single `value: dynamic` instead (e.g. "I've had
  * worse…" gains resources equal to damage/horror cancelled, not the literal -1).
  */
-export function tagArgPairs(tag: Tag): TagChipArg[] {
+export function tagArgPairs(tag: Tag): CardTagChipArg[] {
 	const args = tagArguments(tag);
 	const dynamic = args.dynamic === true;
 	const pairs = Object.entries(args)
@@ -119,7 +119,7 @@ export function tagArgPairs(tag: Tag): TagChipArg[] {
 }
 
 /** A compound member's `where` condition as {key, value} pairs for a rich tag chip. */
-export function whereArgPairs(where: Record<string, unknown> | undefined): TagChipArg[] {
+export function whereArgPairs(where: Record<string, unknown> | undefined): CardTagChipArg[] {
 	if (!where) return [];
 	return Object.entries(where).map(([key, v]) => ({ key, value: formatArgValue(v) }));
 }
