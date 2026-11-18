@@ -3,6 +3,7 @@
 	import FaIcon from '../icon/FaIcon.svelte';
 	import { FaIconType } from '../icon/fa-icon-type.js';
 	import { resolveLinkTarget } from './link-target.js';
+	import HoverTooltip from '../container/HoverTooltip.svelte';
 
 	interface Prop {
 		label: string;
@@ -13,7 +14,8 @@
 
 		/**
 		 * Rely on only {@link icon} for the graphic.
-		 * The {@link label} is always required, but it turns into a tooltip if {@link hideLabel} is true.
+		 * The {@link label} is always required, but it turns into a hover tooltip (and the accessible
+		 * name) if {@link hideLabel} is true.
 		 */
 		hideLabel?: boolean;
 
@@ -44,7 +46,22 @@
 	const link = $derived(resolveLinkTarget(onClick, newTab));
 	const { href, target, rel, clickHandler } = $derived(link);
 	const isLink = $derived(href !== undefined);
-	const hiddenLabelTitle = $derived(hideLabel ? label : undefined);
+	const hiddenLabel = $derived(hideLabel ? label : undefined);
+	const colorClass = $derived(
+		highlighted
+			? 'border-secondary-600 dark:border-secondary-500 bg-secondary-200 dark:bg-secondary-800'
+			: danger
+				? 'border-red-400 bg-red-200 dark:border-red-500 dark:bg-red-900'
+				: 'border-primary-400 dark:border-primary-500 bg-primary-100 dark:bg-primary-800'
+	);
+	let element: HTMLElement | null = $state(null);
+	let tooltipVisible = $state(false);
+	const showTooltip = () => {
+		if (hideLabel) tooltipVisible = true;
+	};
+	const hideTooltip = () => {
+		tooltipVisible = false;
+	};
 	const baseClasses =
 		'inline-flex cursor-pointer items-center justify-center space-x-2 rounded border py-1 shadow-md hover:brightness-105 active:brightness-100 dark:text-white dark:hover:brightness-110 dark:active:brightness-125 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100 disabled:active:brightness-100';
 </script>
@@ -66,107 +83,44 @@
 	</span>
 {/snippet}
 
-{#if highlighted}
-	{#if isLink}
-		<a
-			{href}
-			{target}
-			{rel}
-			title={hiddenLabelTitle}
-			aria-label={hiddenLabelTitle}
-			class={clsx(
-				baseClasses,
-				paddingClass,
-				'border-secondary-600 dark:border-secondary-500 bg-secondary-200 dark:bg-secondary-800'
-			)}
-		>
-			{@render insideButton()}
-		</a>
-	{:else}
-		<button
-			{type}
-			{form}
-			{disabled}
-			title={hiddenLabelTitle}
-			aria-label={hiddenLabelTitle}
-			onclick={() => {
-				clickHandler?.();
-			}}
-			class={clsx(
-				baseClasses,
-				paddingClass,
-				'border-secondary-600 dark:border-secondary-500 bg-secondary-200 dark:bg-secondary-800'
-			)}
-		>
-			{@render insideButton()}
-		</button>
-	{/if}
-{:else if danger}
-	{#if isLink}
-		<a
-			{href}
-			{target}
-			{rel}
-			title={hiddenLabelTitle}
-			aria-label={hiddenLabelTitle}
-			class={clsx(
-				baseClasses,
-				paddingClass,
-				'border-red-400 bg-red-200 dark:border-red-500 dark:bg-red-900'
-			)}
-		>
-			{@render insideButton()}
-		</a>
-	{:else}
-		<button
-			{type}
-			{form}
-			{disabled}
-			title={hiddenLabelTitle}
-			aria-label={hiddenLabelTitle}
-			onclick={() => {
-				clickHandler?.();
-			}}
-			class={clsx(
-				baseClasses,
-				paddingClass,
-				'border-red-400 bg-red-200 dark:border-red-500 dark:bg-red-900'
-			)}
-		>
-			{@render insideButton()}
-		</button>
-	{/if}
-{:else if isLink}
+{#if isLink}
 	<a
+		bind:this={element}
 		{href}
 		{target}
 		{rel}
-		title={hiddenLabelTitle}
-		aria-label={hiddenLabelTitle}
-		class={clsx(
-			baseClasses,
-			paddingClass,
-			'border-primary-400 dark:border-primary-500 bg-primary-100 dark:bg-primary-800'
-		)}
+		aria-label={hiddenLabel}
+		onmouseenter={showTooltip}
+		onmouseleave={hideTooltip}
+		onfocus={showTooltip}
+		onblur={hideTooltip}
+		class={clsx(baseClasses, paddingClass, colorClass)}
 	>
 		{@render insideButton()}
 	</a>
 {:else}
 	<button
+		bind:this={element}
 		{type}
 		{form}
 		{disabled}
-		title={hiddenLabelTitle}
-		aria-label={hiddenLabelTitle}
+		aria-label={hiddenLabel}
+		onmouseenter={showTooltip}
+		onmouseleave={hideTooltip}
+		onfocus={showTooltip}
+		onblur={hideTooltip}
 		onclick={() => {
+			hideTooltip();
 			clickHandler?.();
 		}}
-		class={clsx(
-			baseClasses,
-			paddingClass,
-			'border-primary-400 dark:border-primary-500 bg-primary-100 dark:bg-primary-800'
-		)}
+		class={clsx(baseClasses, paddingClass, colorClass)}
 	>
 		{@render insideButton()}
 	</button>
+{/if}
+
+{#if hideLabel}
+	<HoverTooltip visible={tooltipVisible} referenceElement={element}>
+		<span class="text-primary-900 dark:text-primary-100 text-sm whitespace-nowrap">{label}</span>
+	</HoverTooltip>
 {/if}
