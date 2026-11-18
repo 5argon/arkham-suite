@@ -78,16 +78,29 @@ export function tagLabel(tag: Tag): string {
 	return args ? `${tagName(tag.type)} · ${args}` : tagName(tag.type);
 }
 
-/** The search params that open a tag's view (optionally narrowed to a `where`). */
-export function tagViewParams(type: string, where?: Record<string, unknown>): Record<string, string | null> {
-	return {
-		tab: null,
-		pack: null,
-		focus: null,
-		tag: type,
-		compound: null,
-		where: where && Object.keys(where).length ? serializeWhere(where) : null
-	};
+/** The tag browser's front page. */
+export const tagBrowserHref = '/tool/tag-browser';
+
+/** A tag's page, optionally narrowed to the cards whose tag arguments match `where`. */
+export function tagHref(type: string, where?: Record<string, unknown>): string {
+	const path = `${tagBrowserHref}/tag/${encodeURIComponent(type)}`;
+	if (!where || Object.keys(where).length === 0) return path;
+	return `${path}?${new URLSearchParams({ where: serializeWhere(where) })}`;
+}
+
+/** A compound tag's page. */
+export function compoundHref(type: string): string {
+	return `${tagBrowserHref}/compound/${encodeURIComponent(type)}`;
+}
+
+/** A pack's page, by its URL code. */
+export function packHref(code: string): string {
+	return `${tagBrowserHref}/pack/${code}`;
+}
+
+/** A card's page. */
+export function cardHref(code: string): string {
+	return `${tagBrowserHref}/card/${code}`;
 }
 
 /** Format a single argument value for display (flattens nested arg objects like `range`). */
@@ -182,7 +195,7 @@ export function taggedPacks(): PackInfo[] {
 }
 
 /** Resolve a pack URL code (e.g. "dwl") back to its PackInfo, or undefined. */
-export function packByCode(code: string | null): PackInfo | undefined {
+export function packByCode(code: string | null | undefined): PackInfo | undefined {
 	if (!code) return undefined;
 	return taggedPacks().find((p) => p.code === code);
 }

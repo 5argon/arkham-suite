@@ -35,7 +35,6 @@
 	"tool_tag_browser_in_compound": "Appears in compound tags",
 	"tool_tag_browser_members": "Member tags",
 	"tool_tag_browser_cards": "Tagged cards",
-	"tool_tag_browser_back": "Back to all tags",
 	"tool_crop_title": "Crop Player Cards",
 	"tool_crop_page_title": "arkham-starter.com | Tool | Crop",
 	"tool_crop_result": "Result",
@@ -221,9 +220,6 @@
 	"tool_tag_browser_jump_placeholder": "Search by card name…",
 	"tool_tag_browser_prev": "Previous",
 	"tool_tag_browser_next": "Next",
-	"tool_tag_browser_back_to_pack": "Back to pack",
-	"tool_tag_browser_back_to_cards": "Back to cards",
-	"tool_tag_browser_back_to": "Back to",
 	"tool_tag_browser_not_tagged": "Not tagged yet.",
 	"tool_tag_browser_search_label": "Search tags",
 	"tool_tag_browser_search_placeholder": "e.g. resource, evade, heal, sanity"

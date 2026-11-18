@@ -115,6 +115,26 @@ export const backRoutes = {
 	'/tool/gather': { label: () => m.common_back_to_gather(), parent: '/' },
 	'/tool/limited': { label: () => m.common_back_to_limited(), parent: '/' },
 	'/tool/tag-browser': { label: () => m.common_back_to_tag_browser(), parent: '/' },
+	'/tool/tag-browser/cards': {
+		label: () => m.common_back_to_tag_browser_cards(),
+		parent: '/tool/tag-browser'
+	},
+	'/tool/tag-browser/card/[code]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/tool/tag-browser/cards'
+	},
+	'/tool/tag-browser/compound/[compound]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/tool/tag-browser'
+	},
+	'/tool/tag-browser/pack/[pack]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/tool/tag-browser/cards'
+	},
+	'/tool/tag-browser/tag/[tag]': {
+		label: ({ backName }) => m.common_back_to({ name: backName! }),
+		parent: '/tool/tag-browser'
+	},
 	'/tool/team-builder': { label: () => m.common_back_to_team_builder(), parent: '/' },
 	'/tool/team-builder/view': {
 		label: () => m.common_back_to_shared_team(),
