@@ -1,0 +1,6 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"settings_title": "Compile Settings",
+	"settings_page_title": "arkham.life | Compile Settings",
+	"settings_description": "Preferences that globally affects all compiled profile pages."
+}
