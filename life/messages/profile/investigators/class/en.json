@@ -1,0 +1,6 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"investigators_class_title": "{className} investigators – arkham.life",
+	"investigators_class_fallback_name": "Class",
+	"investigators_class_unknown": "Unknown investigator class."
+}
