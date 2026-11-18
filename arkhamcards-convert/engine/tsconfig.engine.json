@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"jsx": "react-jsx",
+		"experimentalDecorators": true,
+		"useDefineForClassFields": false
+	}
+}

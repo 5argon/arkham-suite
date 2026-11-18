@@ -1,0 +1,20 @@
+{
+	"name": "@5argon/arkhamcards-convert",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"description": "Development converter: ArkhamCards campaigns to arkham.life records.",
+	"scripts": {
+		"engine": "node engine/build.mjs",
+		"replay": "node replay.mjs"
+	},
+	"dependencies": {
+		"deep-equal": "2.2.2",
+		"lodash": "4.17.21",
+		"stable": "0.1.8",
+		"ttag": "1.7.25"
+	},
+	"devDependencies": {
+		"esbuild": "0.27.3"
+	}
+}
