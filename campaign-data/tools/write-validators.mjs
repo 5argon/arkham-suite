@@ -9,13 +9,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA = path.resolve(__dirname, '../data');
-const CUR = path.resolve(__dirname, '../curation');
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
-const exists = (p) => fs.existsSync(p);
+import { readJson, exists, DATA_DIR as DATA, CURATION_DIR as CUR } from './lib.mjs';
 
 const BASE_TO_RT = { notz: 'rtnotz', dwl: 'rtdwl', ptc: 'rtptc', tfa: 'rttfa', tcu: 'rttcu' };
 

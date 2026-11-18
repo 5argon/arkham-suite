@@ -5,7 +5,7 @@
 //   node write-inferences.mjs <workflow-output.json>
 //
 // Input: { classifications: [ { code, achievements:[{id,status,infer?,reason,question?}] } ] }
-// Preserves existing curation content (spoilers, sections, shared flags).
+// Preserves existing curation content (sections, shared flags).
 
 import fs from 'node:fs';
 import path from 'node:path';
