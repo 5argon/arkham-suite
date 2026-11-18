@@ -69,7 +69,7 @@
 {#snippet difficultyTokens(tokens: ChaosToken[] | undefined)}
 	{#if tokens !== undefined}
 		{#each tokens as gc, i (i)}
-			<ChaosTokenDisplay token={gc} hideLabel />
+			<ChaosTokenDisplay token={gc} hideLabel noColor sealed />
 		{/each}
 	{:else}
 		-
@@ -134,7 +134,7 @@
 			{#snippet chaosTokenContent()}
 				{#if setup.addChaosToken !== undefined}
 					{#each setup.addChaosToken as gc, i (i)}
-						<ChaosTokenDisplay token={gc} />
+						<ChaosTokenDisplay token={gc} noColor sealed />
 					{/each}
 				{:else if setup.addChaosTokenPerDifficulty !== undefined}
 					<div class="flex flex-wrap gap-x-2 gap-y-1">
