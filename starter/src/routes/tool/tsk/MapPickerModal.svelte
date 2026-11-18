@@ -15,13 +15,17 @@
 		onPick: (locationId: string) => void;
 	}
 	let { open, onClose, trajectory, untilStep, fromState, onPick }: Props = $props();
+
+	// A drag that starts on the map and ends on the backdrop still clicks the backdrop, so only a
+	// press that began on it closes the picker.
+	let pressedBackdrop = false;
 </script>
 
 <svelte:window onkeydown={open ? (e) => e.key === 'Escape' && onClose() : undefined} />
 
 {#if open}
 	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-	<div class="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4" onclick={onClose} role="presentation" {@attach lockPageScroll}>
+	<div class="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4" onpointerdown={(e) => (pressedBackdrop = e.target === e.currentTarget)} onclick={(e) => { if (pressedBackdrop && e.target === e.currentTarget) onClose(); pressedBackdrop = false; }} role="presentation" {@attach lockPageScroll}>
 		<div class="relative max-h-[92vh] w-full max-w-5xl overflow-auto rounded-lg bg-primary-50 p-4 shadow-2xl dark:bg-primary-950" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
 			<div class="mb-2 flex items-center justify-between">
 				<h3 class="font-heading text-lg text-primary-900 dark:text-primary-100">Choose a destination</h3>

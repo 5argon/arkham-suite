@@ -58,10 +58,19 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 		}
 	}
 
+	/** A drag that starts inside the dialog, like selecting text, and ends on the overlay still clicks
+	 *  the overlay, so only a press that began on it closes the modal. */
+	let pressedOverlay = false;
+
+	function handleOverlayPointerDown(e: PointerEvent) {
+		pressedOverlay = e.target === e.currentTarget;
+	}
+
 	function handleOverlayClick(e: MouseEvent) {
-		if (!disableOverlayClose && e.target === e.currentTarget) {
+		if (!disableOverlayClose && pressedOverlay && e.target === e.currentTarget) {
 			onClose();
 		}
+		pressedOverlay = false;
 	}
 </script>
 
@@ -71,6 +80,7 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
 		{@attach lockPageScroll}
 		transition:fade={{ duration: 200 }}
+		onpointerdown={handleOverlayPointerDown}
 		onclick={handleOverlayClick}
 		onkeydown={handleKeydown}
 		role="dialog"
