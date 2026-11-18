@@ -3,10 +3,11 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import { Button, MarginFull, MarginText, PageLead, SectionSeparator, TextParagraph } from '@5argon/arkham-life-ui';
-	import { evaluatePlan, simulatePlan, type Constraint, type PlanStep } from '@5argon/arkham-tsk-solver';
+	import { COTERIE_ATTEMPT_PREFIX, simulatePlan, type PlanStep } from '@5argon/arkham-tsk-solver';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
 	import AchievementsEarned from '../AchievementsEarned.svelte';
-	import GoalsChecklist from '../GoalsChecklist.svelte';
+	import ChaosTrail from '../ChaosTrail.svelte';
+	import FinaleInsights from '../FinaleInsights.svelte';
 	import PlanSummary from '../PlanSummary.svelte';
 	import StepDisplay from '../StepDisplay.svelte';
 	import StrategyLinks from '../StrategyLinks.svelte';
@@ -15,15 +16,16 @@
 
 	let revealed = $state(false);
 	let plan = $state<PlanStep[]>([]);
-	let constraints = $state<Constraint[]>([]);
 	let assertions = $state<string[]>([]);
+	let routeName = $state('');
+	let routeDescription = $state('');
 	let pending: string | null = null;
 	let copied = $state(false);
 	let valid = $state(true);
 
 	const trajectory = $derived(simulatePlan({ steps: $state.snapshot(plan) as PlanStep[], assertions: $state.snapshot(assertions) as string[] }));
-	const checks = $derived(evaluatePlan(trajectory, constraints));
-	const encoded = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], constraints, assertions: $state.snapshot(assertions) as string[] }));
+	const coterieAttempt = $derived(assertions.find((a) => a.startsWith(COTERIE_ATTEMPT_PREFIX))?.slice(COTERIE_ATTEMPT_PREFIX.length) ?? '');
+	const encoded = $derived(encodeState({ plan: $state.snapshot(plan) as PlanStep[], assertions: $state.snapshot(assertions) as string[], name: routeName || undefined, description: routeDescription || undefined }));
 
 	afterNavigate(() => {
 		const enc = new URLSearchParams(page.url.search).get('p');
@@ -45,8 +47,9 @@
 			return;
 		}
 		plan = st.plan;
-		constraints = st.constraints ?? [];
 		assertions = st.assertions ?? [];
+		routeName = st.name ?? '';
+		routeDescription = st.description ?? '';
 		valid = true;
 	}
 	function reveal() {
@@ -61,7 +64,7 @@
 </script>
 
 <OpenGraph
-	description="A shared Scarlet Keys campaign plan — view the route, state at each step, and which goals it meets."
+	description="A shared Scarlet Keys campaign plan — view the route, the state at each step, the achievements it earns, and how the Congress of the Keys ends."
 	image="image/resource/tskdoc.webp"
 	title="The Scarlet Keys : Shared Plan"
 	url="/tool/tsk/view"
@@ -96,6 +99,13 @@
 
 			<div class="mb-3"><StrategyLinks /></div>
 
+			{#if routeName || routeDescription}
+				<div class="mb-4 rounded-lg border border-primary-200 dark:border-primary-800 p-3">
+					{#if routeName}<div class="font-heading text-lg text-primary-900 dark:text-primary-100">{routeName}</div>{/if}
+					{#if routeDescription}<p class="mt-1 whitespace-pre-wrap text-sm text-primary-700 dark:text-primary-300">{routeDescription}</p>{/if}
+				</div>
+			{/if}
+
 			<PlanSummary {trajectory} />
 
 			<div class="mt-3"><TskMap {trajectory} /></div>
@@ -106,13 +116,15 @@
 				{/each}
 			</ol>
 
-			<SectionSeparator title="Achievements" />
-			<div class="mb-4"><AchievementsEarned {trajectory} {constraints} /></div>
+			<SectionSeparator title="Chaos Bag Trail" />
+			<p class="mb-2 text-xs italic text-primary-400">Every Trust / Deception act that tips the chaos bag, in play order — separate from the Foundation Trust / Cell Deception epilogue tallies.</p>
+			<div class="mb-4"><ChaosTrail {trajectory} /></div>
 
-			{#if checks.length}
-				<SectionSeparator title="Goals" />
-				<GoalsChecklist {checks} {constraints} />
-			{/if}
+			<SectionSeparator title="Achievements" />
+			<div class="mb-4"><AchievementsEarned {trajectory} /></div>
+
+			<SectionSeparator title="The Congress of the Keys" />
+			<div class="mb-4"><FinaleInsights {trajectory} attempt={coterieAttempt} /></div>
 		{/if}
 	</MarginText>
 {/if}
