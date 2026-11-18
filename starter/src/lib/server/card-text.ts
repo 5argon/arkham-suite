@@ -1,8 +1,8 @@
 import { type Card, CardType } from '@5argon/arkham-kohaku';
 import type { CardTextHtml } from '@5argon/arkham-life-ui';
+import { parseArkhamDbCardText } from '@5argon/arkham-life-ui/arkham-markup';
 
 import { getAllCards } from '$lib/card-data';
-import { parseArkhamDbCardText } from '$lib/utility/arkham-markup';
 
 import cardTextData from './data/card-text.json';
 

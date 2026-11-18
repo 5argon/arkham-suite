@@ -22,7 +22,8 @@
 			"default": "./src/lib/index.ts"
 		},
 		"./markdown": "./src/lib/card/markdown-processor.ts",
-		"./icon-type": "./src/lib/icon/fa-icon-type.ts"
+		"./icon-type": "./src/lib/icon/fa-icon-type.ts",
+		"./arkham-markup": "./src/lib/typography/arkham-markup.ts"
 	},
 	"main": "./src/lib/index.ts",
 	"peerDependencies": {

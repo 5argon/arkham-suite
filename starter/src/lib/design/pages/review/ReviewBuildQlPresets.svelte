@@ -6,10 +6,16 @@ search has only one way to run, like on an investigator's own page, they're a gr
 named by what they find instead. Hovering shows the investigator and the query it runs.
 -->
 <script lang="ts">
-	import { CardLine, CardSquare, FaIcon, FaIconType, HoverTooltip } from '@5argon/arkham-life-ui';
+	import {
+		CardLine,
+		CardSquare,
+		FaIcon,
+		FaIconType,
+		HoverTooltip,
+		parseArkhamDbText
+	} from '@5argon/arkham-life-ui';
 
 	import { buildQlSearchUrl } from '$lib/review/buildql';
-	import { parseArkhamDbText } from '$lib/utility/arkham-markup';
 	import type { BuildQlSearch, BuildQlTopic } from '$lib/server/card-users';
 
 	import BuildQlQuery from './BuildQlQuery.svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ExtraInfo } from '$lib/core/campaign';
-	import { parseArkhamMarkup } from '$lib/utility/arkham-markup';
+	import { parseArkhamMarkup } from '@5argon/arkham-life-ui';
 
 	let {
 		extraInfos,

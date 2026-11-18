@@ -5,7 +5,7 @@
 		type ScenarioSetupSub
 	} from '$lib/core/campaign';
 	import { getEncounterSetFlag } from '$lib/utility/encounter-set-flag';
-	import { parseArkhamMarkup } from '$lib/utility/arkham-markup';
+	import { parseArkhamMarkup } from '@5argon/arkham-life-ui';
 	import { ChaosTokenDisplay, FaIcon, FaIconType } from '@5argon/arkham-life-ui';
 	import { Campaign as KohakuCampaign, ChaosToken } from '@5argon/arkham-kohaku';
 

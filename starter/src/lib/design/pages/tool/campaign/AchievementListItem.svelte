@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { ResolvedAchievement } from '@5argon/arkham-campaign-data';
-	import { FaIcon, FaIconType } from '@5argon/arkham-life-ui';
-	import { parseArkhamDbText } from '$lib/utility/arkham-markup';
+	import { FaIcon, FaIconType, parseArkhamDbText } from '@5argon/arkham-life-ui';
 	import AchievementStatusIcon from './AchievementStatusIcon.svelte';
 
 	let { achievement }: { achievement: ResolvedAchievement } = $props();

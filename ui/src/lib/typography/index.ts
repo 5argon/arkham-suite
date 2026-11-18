@@ -7,4 +7,5 @@ export { default as HelpParagraph } from './HelpParagraph.svelte';
 export { default as TextParagraph } from './TextParagraph.svelte';
 export { default as LinkList } from './LinkList.svelte';
 export { default as SpoilerText } from './SpoilerText.svelte';
+export { parseArkhamMarkup, parseArkhamDbText, parseArkhamDbCardText } from './arkham-markup.js';
 export type { LinkItem } from './LinkList.svelte';

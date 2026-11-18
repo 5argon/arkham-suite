@@ -1,10 +1,10 @@
 import type { ArkhamInlineIcon } from '@5argon/arkham-kohaku';
 
 /**
- * Maps each inline icon token (as authored in scenario / campaign setup text)
+ * Maps each inline icon token (as authored in scenario / campaign / log text)
  * to its icon-font CSS class from `icons-icon.css`, which is loaded globally in
- * `app.html`. Keep this aligned with the `ArkhamInlineIcon` union so every icon
- * the data layer can emit is renderable here.
+ * each app's `app.html`. Keep this aligned with the `ArkhamInlineIcon` union so
+ * every icon the data layer can emit is renderable here.
  */
 const inlineIconClass: Record<ArkhamInlineIcon, string> = {
 	'[reaction]': 'icon-reaction',
@@ -51,15 +51,6 @@ const inlineIconPattern = new RegExp(
 );
 
 /**
- * Render campaign / scenario setup text into an HTML string for use with
- * `{@html}`. Supports `**bold**`, `*italic*`, the `2x → 2×` shorthand, and
- * inline Arkham icon tokens such as `[per_investigator]` or `[skull]`.
- *
- * This is the single source of truth for setup-reference text markup — route
- * every `what` / paragraph render through it so the supported syntax stays in
- * sync across the setup reference card.
- */
-/**
  * Render ArkhamDB-style card text (as found in campaign data such as
  * achievements) into an HTML string for use with `{@html}`. Keeps `<i>` / `<b>`,
  * renders `[[Trait]]` as bold italic like printed card text, and turns known
@@ -92,8 +83,16 @@ export function parseArkhamDbCardText(text: string): string {
 		.join('');
 }
 
+/**
+ * Render campaign / scenario / log text into an HTML string for use with
+ * `{@html}`. Supports `[[Trait]]` (bold+italic, the Arkham trait/keyword
+ * convention), `**bold**`, `*italic*`, the `2x → 2×` shorthand, and inline Arkham
+ * icon tokens such as `[per_investigator]` or `[skull]`.
+ */
 export function parseArkhamMarkup(text: string): string {
-	let parsed = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+	// `[[Trait]]` first, so its double brackets are consumed before single-bracket icons.
+	let parsed = text.replace(/\[\[(.+?)\]\]/g, '<strong><em>$1</em></strong>');
+	parsed = parsed.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 	parsed = parsed.replace(/\*(.+?)\*/g, '<em>$1</em>');
 	parsed = parsed.replace(/(\d+)x/g, '$1×');
 	parsed = parsed.replace(

@@ -1,10 +1,10 @@
 import { Campaign, CardClass, CardType, environment, Product } from '@5argon/arkham-kohaku';
 import { describe, expect, it } from 'vitest';
 
+import { parseArkhamDbCardText } from '@5argon/arkham-life-ui/arkham-markup';
 import { markdownToTrustedHtml } from '@5argon/arkham-life-ui/markdown';
 
 import { recentListLimit } from '$lib/review/recent';
-import { parseArkhamDbCardText } from '$lib/utility/arkham-markup';
 
 import cardTextData from './data/card-text.json';
 import {
