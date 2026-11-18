@@ -18,7 +18,7 @@ import {
 	logText,
 	optionById,
 } from './data/load.js';
-import type { CampaignLogEntry, FileCode, LogId } from './types.js';
+import type { CampaignLogEntry, FileCode, LogId, OptionId } from './types.js';
 
 export interface CatalogEntry {
 	id: string;
@@ -176,6 +176,89 @@ export function catalog(): SolverCatalog {
 	return _catalog;
 }
 
+/**
+ * For a scenario whose `scenario_version` decision gates resolutions (only Dogs
+ * of War in the base campaign), the selectable resolution option ids reachable in
+ * each version, keyed by version option id — e.g. `{ 'DOW.v1': ['DOW.R8','DOW.R3'], … }`.
+ * Returns `{}` when the file's versions don't gate resolutions (every resolution
+ * is reachable in every version, so a caller needs no filtering). Mirrors the
+ * gate `resolveFile`/`resolutionOffers` apply via `reachableInVersions`.
+ */
+export function resolutionGating(fileCode: FileCode): Record<OptionId, OptionId[]> {
+	const f = getFile(fileCode);
+	if (!f) return {};
+	const versionDec = f.decisions.find((d) => d.decisionType === 'scenario_version');
+	if (!versionDec?.gatesResolutions) return {};
+	const resDec = f.decisions.find((d) => d.decisionType === 'resolution');
+	if (!resDec) return {};
+	const out: Record<OptionId, OptionId[]> = {};
+	for (const v of versionDec.options) out[v.id] = [];
+	for (const o of resDec.options) {
+		if (!o.selectable || !o.reachableInVersions?.length) continue;
+		for (const v of o.reachableInVersions) (out[v] ??= []).push(o.id);
+	}
+	return out;
+}
+
+/**
+ * Every option in the campaign data that shifts the chaos-bag Tablet / Elder Thing balance — the
+ * authoritative list apps (e.g. arkham.life) need to tally "how many times the player tipped the bag."
+ *
+ * `trust` adds a Tablet and removes an Elder Thing; `deception` the reverse. `records` / `crossesOff`
+ * are the campaign-log entries the same option writes — when both are empty (`logDetectable` false) the
+ * shift leaves NO log trace and cannot be inferred from the Campaign Log alone.
+ *
+ * NOTE: this is Tablet/Elder Thing only. Special Delivery's `chaosTokenAdjust` is deliberately excluded —
+ * it replaces a NUMBER token with one a value higher (e.g. −3 → −2) and never touches Tablet/Elder Thing.
+ */
+export interface ChaosAdjustmentSource {
+	fileCode: FileCode;
+	fileTitle: string;
+	decisionId: string;
+	optionId: OptionId;
+	label: string;
+	kind: 'trust' | 'deception';
+	tabletDelta: number;
+	elderThingDelta: number;
+	records: LogId[];
+	crossesOff: LogId[];
+	/** True when a recorded / crossed-off log lets a consumer detect this shift from the Campaign Log. */
+	logDetectable: boolean;
+}
+
+let _chaosAdjustments: ChaosAdjustmentSource[] | null = null;
+export function chaosAdjustments(): ChaosAdjustmentSource[] {
+	if (_chaosAdjustments) return _chaosAdjustments;
+	const out: ChaosAdjustmentSource[] = [];
+	for (const f of loadLogic().files) {
+		const ef = getEnFile(f.fileCode);
+		for (const d of f.decisions) {
+			for (const o of d.options) {
+				const records = o.effects.filter((e) => e.type === 'record').map((e) => (e as { entryId: LogId }).entryId);
+				const crossesOff = o.effects.filter((e) => e.type === 'crossOff').map((e) => (e as { entryId: LogId }).entryId);
+				for (const e of o.effects) {
+					if (e.type !== 'trust' && e.type !== 'deception') continue;
+					out.push({
+						fileCode: f.fileCode,
+						fileTitle: fileTitle(f.fileCode),
+						decisionId: d.decisionId,
+						optionId: o.id,
+						label: ef?.decisions[d.decisionId]?.options[o.id]?.dropdownText ?? o.id,
+						kind: e.type,
+						tabletDelta: e.type === 'trust' ? 1 : -1,
+						elderThingDelta: e.type === 'trust' ? -1 : 1,
+						records,
+						crossesOff,
+						logDetectable: records.length > 0 || crossesOff.length > 0,
+					});
+				}
+			}
+		}
+	}
+	_chaosAdjustments = out;
+	return out;
+}
+
 /** Friendly display label for any raw id (location, key, character, file, log, achievement). */
 export function labelFor(id: string): string {
 	const en = loadEn();
@@ -191,4 +274,5 @@ export function labelFor(id: string): string {
 /** Reset memoized catalog (test isolation only). */
 export function _resetCatalog(): void {
 	_catalog = null;
+	_chaosAdjustments = null;
 }

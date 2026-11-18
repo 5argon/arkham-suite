@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { resolutionGating } from '../src/catalog.js';
 import { getFile } from '../src/data/load.js';
 import { resolutionOffers } from '../src/graph/model.js';
 import { initialState } from '../src/graph/state.js';
@@ -43,5 +44,23 @@ describe('resolution gating (requires + version)', () => {
 	it('choseOption persists across the plan via state.chosenOptions', () => {
 		const s = stateWith();
 		expect(s.chosenOptions.size).toBe(0);
+	});
+});
+
+describe('resolutionGating (catalog accessor)', () => {
+	it('maps each Dogs of War version to its reachable resolutions', () => {
+		const g = resolutionGating('38-N');
+		expect(g['DOW.v1']).toEqual(expect.arrayContaining(['DOW.R3', 'DOW.R8']));
+		expect(g['DOW.v2']).toEqual(expect.arrayContaining(['DOW.R2', 'DOW.R4']));
+		expect(g['DOW.v3']).toEqual(expect.arrayContaining(['DOW.R6', 'DOW.R7', 'DOW.R8']));
+		// v2-only resolutions never leak into the other versions.
+		expect(g['DOW.v1']).not.toContain('DOW.R2');
+		expect(g['DOW.v3']).not.toContain('DOW.R2');
+	});
+
+	it('returns {} for scenarios whose versions do not gate resolutions', () => {
+		expect(resolutionGating('33-K')).toEqual({}); // On Thin Ice — time levels only
+		expect(resolutionGating('59-Z')).toEqual({}); // Congress — versions, but non-gating
+		expect(resolutionGating('5-A')).toEqual({}); // Riddles and Rain — no versions at all
 	});
 });

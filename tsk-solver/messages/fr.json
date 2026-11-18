@@ -15,5 +15,6 @@
     "check_chaos_mix": "Final chaos bag: {tablet} Tablet / {elderThing} Elder Thing.",
     "check_chaos_overflow": "Needs at least {min} overflow XP — depends on your trust/defy choices at a full bag.",
     "problem_no_file": "No file {file} to play at {node}.",
-    "problem_version_locked": "{resolution} isn't reachable in {version}."
+    "problem_version_locked": "{resolution} isn't reachable in {version}.",
+    "problem_stop_needs_scenario": "Already stopped at {node} — play another scenario before you can stop there again."
 }

@@ -12,9 +12,10 @@
 import { getFile, getLocation, loadLogic, locationIds, locationName, metadata, optionById, optionText, sideStoryForLocation } from '../data/load.js';
 import { distance, isNodeUnlocked } from '../graph/graph.js';
 import { type ChosenOption, type GateViolation, playableFilesAt, type PlayableFile, resolveFile } from '../graph/model.js';
+import { CHAOS_CAP } from '../graph/effects.js';
 import { applyFile, bearerIsInvestigator, computeDeception, computeTrust, initialState, keysHeldByInvestigator, travelTo } from '../graph/state.js';
 import type { CampaignState, DecisionId, Effect, FileCode, KeyId, LocalizedString, LogicOption, MarkerSymbol, NodeId, OptionId } from '../types.js';
-import { predictFinale, type FinalePrediction } from './trial.js';
+import { finaleInsights, predictFinale, type FinaleInsights, type FinalePrediction } from './trial.js';
 
 // --- public types -----------------------------------------------------------
 
@@ -85,6 +86,8 @@ export interface PlanTrajectory {
 	keyRecoveryAvailable: boolean;
 	/** The finale predicted from the FINAL state (for the summary, even with no finale step). */
 	finale: FinalePrediction;
+	/** Full finale reasoning (votes, overthrow/join paths, epilogue tally lists) from the FINAL state. */
+	finaleDetail: FinaleInsights;
 }
 
 const ZETA_BOX = 20;
@@ -120,13 +123,35 @@ function gateProblem(fileCode: FileCode, g: GateViolation): StepProblem {
 		const version = g.version ? (optionById(fileCode, g.version)?.dropdownText ?? g.version) : '';
 		return { kind: 'requires_unmet', detail: loc('problem_version_locked', { resolution: optionText(fileCode, g.decisionId, g.option.id)?.dropdownText ?? g.option.id, version }) };
 	}
-	const enCond = optionText(fileCode, g.decisionId, g.option.id)?.condition;
-	return { kind: 'requires_unmet', detail: loc('problem_requires_unmet', { requires: enCond ?? g.option.id }) };
+	const en = optionText(fileCode, g.decisionId, g.option.id);
+	// Prefer the human-readable prerequisite; else the resolution's own label; never leak the raw option id.
+	return { kind: 'requires_unmet', detail: loc('problem_requires_unmet', { requires: en?.condition ?? en?.dropdownText ?? g.option.id }) };
 }
 
 function campaignResultOf(chosen: ChosenOption[]): 'win' | 'lose' | undefined {
 	for (const c of chosen) for (const e of c.option.effects) if (e.type === 'campaign') return e.result;
 	return undefined;
+}
+
+/** A real stop counts as a played "scenario" for the time-track / revisit rules (travel & no-file legs don't). */
+function isScenarioStep(s: SimStep): boolean {
+	return !s.travelOnly && (s.kind === 'scenario' || s.kind === 'prologue' || s.kind === 'finale');
+}
+
+/** Index of the most recent real stop at `node` among `steps` so far (−1 if none). */
+function lastStopIndex(steps: SimStep[], node: NodeId): number {
+	for (let i = steps.length - 1; i >= 0; i--) {
+		const s = steps[i]!;
+		if (s.location === node && !s.travelOnly && s.kind !== 'travel') return i;
+	}
+	return -1;
+}
+
+/** The re-stop allowance a stop's chosen options grant, if any — `afterScenario` is the strictest (most permissive wins). */
+function revisitGrant(chosen: ChosenOption[]): { afterScenario: boolean } | undefined {
+	let grant: { afterScenario: boolean } | undefined;
+	for (const c of chosen) for (const e of c.option.effects) if (e.type === 'allowRevisit') grant = { afterScenario: (grant?.afterScenario ?? true) && e.afterScenario };
+	return grant;
 }
 
 // --- the simulation ---------------------------------------------------------
@@ -188,8 +213,18 @@ export function simulatePlan(plan: Plan): PlanTrajectory {
 			({ state: after, firedReports } = travelTo(before, location, travelCost, ps.useTicket === true));
 		} else {
 			// Stop-lockout: a location may be stopped at once (the start hub is exempt — prologue + revisit).
+			// A few stops grant a re-stop allowance for their own location (the Rome / Bermuda rest branches,
+			// re-enterable only after another scenario; the Ybor City safehouse "couldn't get in" branch,
+			// re-enterable freely). Honour that grant instead of flagging an otherwise illegal revisit.
 			if (before.visitedStops.has(location) && location !== meta.startLocation) {
-				problems.push({ kind: 'stop_locked', detail: loc('problem_stop_locked', { node: locationName(location) }) });
+				const priorIdx = lastStopIndex(steps, location);
+				const grant = priorIdx >= 0 ? revisitGrant(steps[priorIdx]!.chosen) : undefined;
+				const scenarioSince = priorIdx >= 0 && steps.slice(priorIdx + 1).some(isScenarioStep);
+				const revisitAllowed = grant !== undefined && (!grant.afterScenario || scenarioSince);
+				if (!revisitAllowed) {
+					const detail = grant?.afterScenario ? loc('problem_stop_needs_scenario', { node: locationName(location) }) : loc('problem_stop_locked', { node: locationName(location) });
+					problems.push({ kind: 'stop_locked', detail });
+				}
 			}
 
 			if (pf.isSideStory) {
@@ -251,7 +286,64 @@ export function simulatePlan(plan: Plan): PlanTrajectory {
 		keyTheftRisk: theftRisk,
 		keyRecoveryAvailable: recoveryAvailable,
 		finale: predictFinale(state),
+		finaleDetail: finaleInsights(state),
 	};
+}
+
+// --- chaos-bag token trail --------------------------------------------------
+
+/**
+ * One Tablet/Elder Thing shift a plan makes, in play order — a Trust act (+Tablet / −Elder Thing) or a
+ * Deception act (the reverse). This is the CHAOS BAG Tablet/Elder Thing balance only; it is unrelated to
+ * the epilogue Foundation-Trust / Cell-Deception tallies (those are counted from specific recorded logs,
+ * not from these acts), and excludes Special Delivery's number-token bump (which never touches Tablet /
+ * Elder Thing). `overflowXp` is the XP gained when an add hits the full bag (4), in which case the
+ * matching `*Delta` is 0 (the token couldn't be added).
+ */
+export interface ChaosTokenEvent {
+	stepIndex: number;
+	fileCode: FileCode;
+	decisionId: DecisionId;
+	optionId: OptionId;
+	kind: 'trust' | 'deception';
+	tabletDelta: number;
+	elderThingDelta: number;
+	overflowXp: number;
+	/** Bag contents after this act. */
+	tablet: number;
+	elderThing: number;
+}
+
+/** The full ordered list of chaos-bag adjustments a plan makes (Trust/Deception acts + chosen-token adds). */
+export function chaosTokenTrail(trajectory: PlanTrajectory): ChaosTokenEvent[] {
+	let tablet = initialState().tablet;
+	let elderThing = initialState().elderThing;
+	const out: ChaosTokenEvent[] = [];
+	const apply = (dT: number, dE: number) => {
+		let xp = 0;
+		let t = tablet + dT;
+		if (dT > 0 && t > CHAOS_CAP) { xp += t - CHAOS_CAP; t = CHAOS_CAP; }
+		t = Math.max(0, t);
+		let e = elderThing + dE;
+		if (dE > 0 && e > CHAOS_CAP) { xp += e - CHAOS_CAP; e = CHAOS_CAP; }
+		e = Math.max(0, e);
+		const tabletDelta = t - tablet;
+		const elderThingDelta = e - elderThing;
+		tablet = t;
+		elderThing = e;
+		return { overflowXp: xp, tabletDelta, elderThingDelta };
+	};
+	trajectory.steps.forEach((step, stepIndex) => {
+		for (const c of step.chosen) {
+			for (const eff of c.option.effects) {
+				if (eff.type === 'trust' || eff.type === 'deception') {
+					const r = apply(eff.type === 'trust' ? 1 : -1, eff.type === 'trust' ? -1 : 1);
+					out.push({ stepIndex, fileCode: step.fileCode, decisionId: c.decisionId, optionId: c.option.id, kind: eff.type, ...r, tablet, elderThing });
+				}
+			}
+		}
+	});
+	return out;
 }
 
 // --- picker helpers (annotate, never hide — invalid steps are allowed) ------

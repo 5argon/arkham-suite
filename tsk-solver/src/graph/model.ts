@@ -75,6 +75,26 @@ export function selectableDecisions(fileCode: FileCode, location?: NodeId): Logi
 	return f.decisions.filter((d) => d.selectable && decisionAppliesAt(f, d.decisionId, location));
 }
 
+/**
+ * Like `selectableDecisions`, but drops decisions whose `appliesIf` fails against the state built from
+ * the player's current upstream choices — so a conditional decision (e.g. Cast a Light, which only
+ * happens if the cell collected every target) is hidden until its prerequisite choice is made.
+ */
+export function visibleSelectableDecisions(fileCode: FileCode, choices: Record<DecisionId, OptionId>, state: CampaignState, entryTime: number, location?: NodeId): LogicDecision[] {
+	const f = getFile(fileCode);
+	if (!f) return [];
+	let running: CampaignState = { ...state, timePassed: entryTime };
+	const out: LogicDecision[] = [];
+	for (const d of applicableDecisions(f)) {
+		if (!decisionAppliesAt(f, d.decisionId, location)) continue;
+		if (d.appliesIf && !evalCondition(d.appliesIf, running)) continue;
+		if (d.selectable) out.push(d);
+		const option = d.selectable ? pickSelectable(d, choices) : autoResolve(d, running);
+		if (option) running = thread(running, option);
+	}
+	return out;
+}
+
 /** True when a file has no player choices — the game resolves it entirely (e.g. The Safehouse). */
 export function isAutoFile(fileCode: FileCode): boolean {
 	const f = getFile(fileCode);
@@ -97,12 +117,31 @@ export function defaultOptionId(fileCode: FileCode, decisionId: DecisionId): Opt
 
 // --- choice resolution ------------------------------------------------------
 
+/**
+ * A non-fired sibling of an auto-resolved `conditional_outcome` decision: an outcome that *could*
+ * have happened at this stop, surfaced so the player sees what else was possible and under what
+ * condition (e.g. the conditions that would have kept Agent Quinn from vanishing). `conditionHolds`
+ * is whether its `conditionLogic` currently holds — the fired branch is the first that held, so a
+ * later sibling may also hold but lost the file-order tie-break. Render its prose from
+ * `optionText(...).condition`.
+ */
+export interface BranchAlternative {
+	option: LogicOption;
+	conditionHolds: boolean;
+}
+
 export interface ChosenOption {
 	decisionId: DecisionId;
 	decisionType: DecisionType;
 	option: LogicOption;
 	/** true => the player picked it; false => the game auto-resolved it from state. */
 	selectable: boolean;
+	/**
+	 * For an auto-resolved `conditional_outcome` only: the branches that did NOT fire, so the UI can
+	 * show "what else could have happened here, and when". Omitted for player choices (the player
+	 * already saw the alternatives as dropdown options) and for non-`conditional_outcome` decisions.
+	 */
+	alternatives?: BranchAlternative[];
 }
 
 /** An unmet derivable prerequisite on a chosen resolution option (a flaggable problem). */
@@ -172,6 +211,7 @@ export function resolveFile(file: LogicFile, choices: Record<DecisionId, OptionI
 
 	for (const d of applicableDecisions(file)) {
 		if (!decisionAppliesAt(file, d.decisionId, location)) continue;
+		if (d.appliesIf && !evalCondition(d.appliesIf, running)) continue; // decision gated off by an earlier choice
 		const option = d.selectable ? pickSelectable(d, choices) : autoResolve(d, running);
 		if (!option) continue;
 		if (d.decisionType === 'scenario_version') {
@@ -182,7 +222,15 @@ export function resolveFile(file: LogicFile, choices: Record<DecisionId, OptionI
 			if (option.requires && !evalCondition(option.requires, running)) gates.push({ decisionId: d.decisionId, option, reason: 'requires', requires: option.requires });
 			if (!reachableInVersion(option, gatesResolutions, version)) gates.push({ decisionId: d.decisionId, option, reason: 'version', version });
 		}
-		chosen.push({ decisionId: d.decisionId, decisionType: d.decisionType, option, selectable: d.selectable });
+		const co: ChosenOption = { decisionId: d.decisionId, decisionType: d.decisionType, option, selectable: d.selectable };
+		// For an auto-resolved outcome, surface the branches that did NOT fire (and whether each would
+		// hold now) so the player can see what else could have happened. Evaluated against `running` —
+		// the same pre-thread state `autoResolve` used to pick the fired branch.
+		if (!d.selectable && d.decisionType === 'conditional_outcome') {
+			const others = d.options.filter((o) => o.id !== option.id);
+			if (others.length) co.alternatives = others.map((o) => ({ option: o, conditionHolds: evalCondition(o.conditionLogic, running) }));
+		}
+		chosen.push(co);
 		running = thread(running, option);
 	}
 	return { chosen, gates };
@@ -209,6 +257,7 @@ export function resolutionOffers(fileCode: FileCode, choices: Record<DecisionId,
 	let resolution: LogicDecision | undefined;
 	for (const d of applicableDecisions(file)) {
 		if (!decisionAppliesAt(file, d.decisionId, location)) continue;
+		if (d.appliesIf && !evalCondition(d.appliesIf, running)) continue; // decision gated off by an earlier choice
 		if (d.decisionType === 'resolution') {
 			resolution = d;
 			continue; // evaluate against the state built from the upstream decisions
