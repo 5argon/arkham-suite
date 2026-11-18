@@ -67,20 +67,55 @@ export const chapterTwoSmallCampaigns: Campaign[] = [
   Campaign.ChildrenOfBlood,
 ];
 
+/**
+ * An individual official standalone scenario (the FFG "Side Scenarios" / Scenario Packs), one
+ * member PER SCENARIO: Guardians of the Abyss provides two. Enum VALUES are the campaign-data
+ * `side` catalogue scenario ids verbatim, so kohaku ↔ campaign-data join on identity.
+ */
 export enum StandaloneScenario {
-  CurseOfTheRougarou = 'cotr',
-  CarnevaleOfHorrors = 'coh',
-  TheLabyrinthsOfLunacy = 'lol',
-  GuardiansOfTheAbyss = 'guardians',
-  MurderAtTheExcelsiorHotel = 'hotel',
-  TheBlobThatAteEverything = 'blob',
-  TheBlobThatAteEverythingElse = 'blbe',
-  WarOfTheOuterGods = 'wog',
-  MachinationsThroughTime = 'mtt',
-  FortuneAndFolly = 'fof',
-  TheMidwinterGala = 'tmg',
+  CurseOfTheRougarou = 'curse_of_the_rougarou',
+  CarnevaleOfHorrors = 'carnevale_of_horrors',
+  TheLabyrinthsOfLunacy = 'in_the_labyrinths_of_lunacy',
+  // Guardians of the Abyss — two scenarios in one product.
+  GuardiansEternalSlumber = 'the_eternal_slumber',
+  GuardiansNightsUsurper = 'the_nights_usurper',
+  MurderAtTheExcelsiorHotel = 'murder_at_the_excelsior_hotel',
+  TheBlobThatAteEverything = 'blob_that_ate_everything',
+  TheBlobThatAteEverythingElse = 'blob_that_ate_everything_else',
+  WarOfTheOuterGods = 'war_of_the_outer_gods',
+  MachinationsThroughTime = 'machinations_through_time',
+  // Fortune and Folly — one scenario, two parts (canonical id = the `side` story entry).
+  FortuneAndFolly = 'fortune_and_folly_part_1',
+  TheMidwinterGala = 'the_midwinter_gala',
   FilmFatale = 'film_fatale',
   TracesToNowhere = 'traces_to_nowhere_pack',
+}
+
+/**
+ * Which standalone scenarios each standalone {@link Product} provides, in book
+ * order. Most packs provide one scenario; Guardians of the Abyss provides two.
+ */
+export const productToStandaloneScenarios: Partial<Record<Product, StandaloneScenario[]>> = {
+  [Product.CurseOfTheRougarou]: [StandaloneScenario.CurseOfTheRougarou],
+  [Product.CarnevaleOfHorrors]: [StandaloneScenario.CarnevaleOfHorrors],
+  [Product.TheLabyrinthsOfLunacy]: [StandaloneScenario.TheLabyrinthsOfLunacy],
+  [Product.GuardiansOfTheAbyss]: [
+    StandaloneScenario.GuardiansEternalSlumber,
+    StandaloneScenario.GuardiansNightsUsurper,
+  ],
+  [Product.MurderAtTheExcelsiorHotel]: [StandaloneScenario.MurderAtTheExcelsiorHotel],
+  [Product.TheBlobThatAteEverything]: [StandaloneScenario.TheBlobThatAteEverything],
+  [Product.TheBlobThatAteEverythingElse]: [StandaloneScenario.TheBlobThatAteEverythingElse],
+  [Product.WarOfTheOuterGods]: [StandaloneScenario.WarOfTheOuterGods],
+  [Product.MachinationsThroughTime]: [StandaloneScenario.MachinationsThroughTime],
+  [Product.FortuneAndFolly]: [StandaloneScenario.FortuneAndFolly],
+  [Product.TheMidwinterGala]: [StandaloneScenario.TheMidwinterGala],
+  [Product.FilmFatale]: [StandaloneScenario.FilmFatale],
+};
+
+/** Standalone scenarios a {@link Product} provides (empty for non-standalone products). */
+export function productStandaloneScenarios(product: Product): StandaloneScenario[] {
+  return productToStandaloneScenarios[product] ?? [];
 }
 
 /**
@@ -109,3 +144,11 @@ export const campaignToProductMap: Record<Campaign, Product> = {
   [Campaign.BrethrenOfAsh]: Product.CoreSet2026,
   [Campaign.ChildrenOfBlood]: Product.ChildrenOfBlood,
 };
+
+/** Every {@link Campaign} provided by any product in `products` (deduped). */
+export function campaignsForProducts(products: Iterable<Product>): Campaign[] {
+  const owned = new Set(products);
+  return (Object.entries(campaignToProductMap) as [Campaign, Product][])
+    .filter(([, p]) => owned.has(p))
+    .map(([campaign]) => campaign);
+}

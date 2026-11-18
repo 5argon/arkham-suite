@@ -183,9 +183,11 @@ export const productDeckbuildingExpansions: Product[] = [Product.PowerOfTheDream
  */
 export const productChapterTwoInvestigatorExpansions: Product[] = [];
 
+/** Standalone "Scenario Pack" products released in the Chapter Two era. */
 export const productChapterTwoScenarioPacks: Product[] = [Product.TracesToNowhere];
 
-export const productStandalone: Product[] = [
+/** Standalone "Scenario Pack" products released in the Chapter One era. */
+export const productStandaloneChapterOne: Product[] = [
   Product.CurseOfTheRougarou,
   Product.CarnevaleOfHorrors,
   Product.TheLabyrinthsOfLunacy,
@@ -198,7 +200,11 @@ export const productStandalone: Product[] = [
   Product.FortuneAndFolly,
   Product.TheMidwinterGala,
   Product.FilmFatale,
-  Product.TracesToNowhere,
+];
+
+export const productStandalone: Product[] = [
+  ...productStandaloneChapterOne,
+  ...productChapterTwoScenarioPacks,
 ];
 
 export const productOther: Product[] = [Product.ParallelInvestigators, Product.Promotional];

@@ -1,8 +1,10 @@
 import { EncounterSet } from './encounter-set.js';
 
 /**
- * Comprehensive enum of all scenarios in Arkham Horror: The Card Game.
- * This includes core campaign scenarios, return to campaigns, and standalone scenarios.
+ * Comprehensive enum of all CAMPAIGN scenarios in Arkham Horror: The Card Game —
+ * core campaign scenarios and their Return-To variants. Standalone "Scenario Pack"
+ * scenarios are NOT here; they live in {@link StandaloneScenario} (campaign.ts),
+ * since this enum's {@link scenarioData} carries a campaign-only index / set.
  */
 export enum Scenario {
   // Night of the Zealot
