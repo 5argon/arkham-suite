@@ -11,52 +11,22 @@
     "05048": "Missing Persons - Valentino Rivas",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "disappearance_at_the_twilight_estate": "Disappearance at the Twilight Estate",
+    "the_witching_hour": "The Witching Hour",
+    "at_deaths_doorstep": "At Death's Doorstep",
+    "the_price_of_progress": "The Price of Progress",
+    "the_secret_name": "The Secret Name",
+    "the_wages_of_sin": "The Wages of Sin",
+    "for_the_greater_good": "For the Greater Good",
+    "the_inner_circle": "The Inner Circle",
+    "union_and_disillusion": "Union and Disillusion",
+    "in_the_clutches_of_chaos": "In the Clutches of Chaos",
+    "twist_of_fate": "Twist of Fate",
+    "before_the_black_throne": "Before the Black Throne",
+    "tcu_epilogue": "Epilogue"
+  },
   "entries": {
-    "05046.on_gavriellas_trail": {
-      "text": "the investigators are on Gavriella’s trail."
-    },
-    "05047.on_jeromes_trail": {
-      "text": "the investigators are on Jerome’s trail."
-    },
-    "05049.on_pennys_trail": {
-      "text": "the investigators are on Penny's trail."
-    },
-    "05048.on_valentinos_trail": {
-      "text": "the investigators are on Valentino's trail."
-    },
-    "campaign_notes.investigators_escaped_the_spectral_realm": {
-      "text": "the investigators escaped the spectral realm."
-    },
-    "campaign_notes.learned_nothing_of_the_lodges_schemes": {
-      "text": "the investigators learned nothing of the Lodge’s schemes."
-    },
-    "campaign_notes.never_seen_again": {
-      "text": "the investigators are never seen or heard from again."
-    },
-    "campaign_notes.azathoth_devoured_the_universe": {
-      "text": "Azathoth devoured the universe.",
-      "spoiler": [
-        "Azathoth"
-      ]
-    },
-    "campaign_notes.lead_investigator_joins_pipers": {
-      "text": "#name# has joined the pipers of Azathoth.",
-      "spoiler": [
-        "the pipers of Azathoth"
-      ]
-    },
-    "campaign_notes.azathoth_slumbers": {
-      "text": "Azathoth slumbers… for now.",
-      "spoiler": [
-        "Azathoth"
-      ]
-    },
-    "campaign_notes.signed_the_black_book": {
-      "text": "the investigators signed the Black Book of Azathoth.",
-      "spoiler": [
-        "the Black Book of Azathoth"
-      ]
-    },
     "campaign_notes.pieces_of_evidence": {
       "text": "#X# pieces of evidence were left behind."
     },
@@ -111,8 +81,92 @@
     "campaign_notes.being_hunted": {
       "text": "you are being hunted."
     },
+    "campaign_notes.accepted_fate": {
+      "text": "you have accepted your fate."
+    },
+    "campaign_notes.rejected_fate": {
+      "text": "you have rejected your fate."
+    },
+    "campaign_notes.witches_spell_broken": {
+      "text": "the witches' spell was broken."
+    },
+    "campaign_notes.witches_spell_cast": {
+      "text": "the witches' spell was cast."
+    },
+    "mementos.mesmerizing_flute": {
+      "text": "Mesmerizing Flute"
+    },
+    "mementos.ritual_components": {
+      "text": "Ritual Components"
+    },
+    "mementos.scrap_of_torn_shadow": {
+      "text": "Scrap of Torn Shadow"
+    },
+    "05046.on_gavriellas_trail": {
+      "text": "the investigators are on Gavriella’s trail."
+    },
+    "05047.on_jeromes_trail": {
+      "text": "the investigators are on Jerome’s trail."
+    },
+    "05049.on_pennys_trail": {
+      "text": "the investigators are on Penny's trail."
+    },
+    "05048.on_valentinos_trail": {
+      "text": "the investigators are on Valentino's trail."
+    },
+    "campaign_notes.investigators_escaped_the_spectral_realm": {
+      "text": "the investigators escaped the spectral realm."
+    },
+    "campaign_notes.learned_nothing_of_the_lodges_schemes": {
+      "text": "the investigators learned nothing of the Lodge’s schemes."
+    },
+    "campaign_notes.never_seen_again": {
+      "text": "the investigators are never seen or heard from again."
+    },
+    "campaign_notes.josef_disappeared_into_the_mist": {
+      "text": "Josef disappeared into the mist."
+    },
+    "campaign_notes.enemies_of_the_lodge": {
+      "text": "the investigators are enemies of the Lodge."
+    },
+    "campaign_notes.rescued_josef": {
+      "text": "the investigators rescued Josef."
+    },
+    "campaign_notes.josef_is_alive": {
+      "text": "Josef is alive and well."
+    },
+    "campaign_notes.members_of_the_lodge": {
+      "text": "the investigators are members of the Lodge."
+    },
+    "campaign_notes.deceiving_the_lodge": {
+      "text": "the investigators are deceiving the Lodge."
+    },
+    "campaign_notes.told_lodge_about_coven": {
+      "text": "the investigators told the Lodge about the coven."
+    },
+    "campaign_notes.hid_knowledge_of_coven": {
+      "text": "the investigators hid their knowledge of the coven."
+    },
+    "mementos.gilmans_journal": {
+      "text": "Gilman's Journal"
+    },
+    "mementos.keziahs_formulae": {
+      "text": "Keziah's Formulae"
+    },
+    "mementos.worn_crucific": {
+      "text": "Worn Crucifix"
+    },
+    "campaign_notes.heretics_released": {
+      "text": "#X# heretics were unleashed unto Arkham."
+    },
+    "mementos.corn_husk_doll": {
+      "text": "Corn Husk Doll"
+    },
     "campaign_notes.survived_the_watchers_embrace": {
       "text": "the investigators survived the watcher’s embrace."
+    },
+    "mementos.wisp_of_spectral_mist": {
+      "text": "Wisp of Spectral Mist"
     },
     "campaign_notes.guardian_of_the_trap_emerged": {
       "text": "the guardian of the trap emerged."
@@ -122,6 +176,51 @@
     },
     "campaign_notes.guardian_of_the_trap_defeated": {
       "text": "the guardian of the trap emerged and was defeated."
+    },
+    "campaign_notes.kept_mementos_hidden": {
+      "text": "the investigators kept their mementos hidden."
+    },
+    "campaign_notes.inducted_into_the_inner_circle": {
+      "text": "the investigators were inducted into the Inner Circle."
+    },
+    "campaign_notes.sided_with_the_lodge": {
+      "text": "the investigators sided with the Lodge."
+    },
+    "campaign_notes.sided_with_the_coven": {
+      "text": "the investigators sided with the coven."
+    },
+    "05046.alive": {
+      "text": "Gavriella is alive."
+    },
+    "05047.alive": {
+      "text": "Jerome is alive."
+    },
+    "05049.alive": {
+      "text": "Penny is alive."
+    },
+    "05048.alive": {
+      "text": "Valentino is alive."
+    },
+    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
+      "text": "the true work of the Silver Twilight Lodge has begun."
+    },
+    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
+      "text": "Carl Sanford possesses the secrets of the universe."
+    },
+    "campaign_notes.anette_mason_is_possessed_by_evil": {
+      "text": "Anette Mason is possessed by evil."
+    },
+    "05046.dead": {
+      "text": "Gavriella Mizrah is dead."
+    },
+    "05047.dead": {
+      "text": "Jerome Davids is dead."
+    },
+    "05049.dead": {
+      "text": "Penny White is dead."
+    },
+    "05048.dead": {
+      "text": "Valentino Rivas is dead."
     },
     "campaign_notes.continued_alone": {
       "text": "the investigators continued alone."
@@ -147,140 +246,20 @@
     "campaign_notes.doom_draws_ever_closer": {
       "text": "doom draws ever closer."
     },
-    "mementos.gilmans_journal": {
-      "text": "Gilman's Journal"
-    },
-    "mementos.keziahs_formulae": {
-      "text": "Keziah's Formulae"
-    },
-    "mementos.worn_crucific": {
-      "text": "Worn Crucifix"
-    },
-    "mementos.wisp_of_spectral_mist": {
-      "text": "Wisp of Spectral Mist"
-    },
-    "mementos.mesmerizing_flute": {
-      "text": "Mesmerizing Flute"
-    },
-    "mementos.ritual_components": {
-      "text": "Ritual Components"
-    },
-    "mementos.scrap_of_torn_shadow": {
-      "text": "Scrap of Torn Shadow"
-    },
-    "mementos.corn_husk_doll": {
-      "text": "Corn Husk Doll"
-    },
-    "campaign_notes.kept_mementos_hidden": {
-      "text": "the investigators kept their mementos hidden."
-    },
-    "campaign_notes.inducted_into_the_inner_circle": {
-      "text": "the investigators were inducted into the Inner Circle."
-    },
-    "campaign_notes.josef_disappeared_into_the_mist": {
-      "text": "Josef disappeared into the mist."
-    },
-    "campaign_notes.enemies_of_the_lodge": {
-      "text": "the investigators are enemies of the Lodge."
-    },
-    "campaign_notes.rescued_josef": {
-      "text": "the investigators rescued Josef."
-    },
-    "campaign_notes.josef_is_alive": {
-      "text": "Josef is alive and well."
-    },
-    "campaign_notes.members_of_the_lodge": {
-      "text": "the investigators are members of the Lodge."
-    },
-    "campaign_notes.deceiving_the_lodge": {
-      "text": "the investigators are deceiving the Lodge."
-    },
-    "campaign_notes.told_lodge_about_coven": {
-      "text": "the investigators told the Lodge about the coven.",
-      "spoiler": [
-        "the coven"
-      ]
-    },
-    "campaign_notes.hid_knowledge_of_coven": {
-      "text": "the investigators hid their knowledge of the coven.",
-      "spoiler": [
-        "the coven"
-      ]
-    },
-    "campaign_notes.heretics_released": {
-      "text": "#X# heretics were unleashed unto Arkham."
-    },
-    "campaign_notes.accepted_fate": {
-      "text": "you have accepted your fate."
-    },
-    "campaign_notes.rejected_fate": {
-      "text": "you have rejected your fate."
-    },
-    "campaign_notes.witches_spell_broken": {
-      "text": "the witches' spell was broken.",
-      "spoiler": [
-        "witches'"
-      ]
-    },
-    "campaign_notes.witches_spell_cast": {
-      "text": "the witches' spell was cast.",
-      "spoiler": [
-        "witches'"
-      ]
-    },
     "campaign_notes.path_winds_before_you": {
       "text": "the path winds before you: #X#"
     },
-    "campaign_notes.sided_with_the_lodge": {
-      "text": "the investigators sided with the Lodge."
+    "campaign_notes.azathoth_devoured_the_universe": {
+      "text": "Azathoth devoured the universe."
     },
-    "campaign_notes.sided_with_the_coven": {
-      "text": "the investigators sided with the coven.",
-      "spoiler": [
-        "the coven"
-      ]
+    "campaign_notes.lead_investigator_joins_pipers": {
+      "text": "#name# has joined the pipers of Azathoth."
     },
-    "05046.alive": {
-      "text": "Gavriella is alive."
+    "campaign_notes.azathoth_slumbers": {
+      "text": "Azathoth slumbers… for now."
     },
-    "05047.alive": {
-      "text": "Jerome is alive."
-    },
-    "05049.alive": {
-      "text": "Penny is alive."
-    },
-    "05048.alive": {
-      "text": "Valentino is alive."
-    },
-    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": {
-      "text": "the true work of the Silver Twilight Lodge has begun.",
-      "spoiler": [
-        "true work"
-      ]
-    },
-    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": {
-      "text": "Carl Sanford possesses the secrets of the universe.",
-      "spoiler": [
-        "the secrets of the universe"
-      ]
-    },
-    "campaign_notes.anette_mason_is_possessed_by_evil": {
-      "text": "Anette Mason is possessed by evil.",
-      "spoiler": [
-        "possessed by evil"
-      ]
-    },
-    "05046.dead": {
-      "text": "Gavriella Mizrah is dead."
-    },
-    "05047.dead": {
-      "text": "Jerome Davids is dead."
-    },
-    "05049.dead": {
-      "text": "Penny White is dead."
-    },
-    "05048.dead": {
-      "text": "Valentino Rivas is dead."
+    "campaign_notes.signed_the_black_book": {
+      "text": "the investigators signed the Black Book of Azathoth."
     }
   },
   "achievements": {
@@ -347,6 +326,23 @@
     "circle_expertise": {
       "title": "Circle Expertise",
       "text": "Win <i>The Circle Undone</i> campaign on Expert difficulty."
+    }
+  },
+  "specialInteractions": {
+    "check_silver_twilight_investigator": {
+      "text": "Sanford recognizes a Lodge member."
+    },
+    "check_mystic_investigator": {
+      "text": "A mystic reads the ritual."
+    },
+    "under_arrest": {
+      "text": "Arrest Anette."
+    },
+    "learn_spells": {
+      "text": "Learn the spells of old."
+    },
+    "seize_control": {
+      "text": "Seize control of the Lodge."
     }
   }
 }

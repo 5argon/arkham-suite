@@ -8,6 +8,296 @@
     "return_to_curtain_call",
     "return_to_the_last_king"
   ],
+  "scenarioMeta": [
+    {
+      "id": "ptc_prologue",
+      "type": "interlude"
+    },
+    {
+      "id": "curtain_call",
+      "type": "other",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "the_last_king",
+      "type": "other",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution_resigned",
+        "no_resolution_defeated",
+        "R3"
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 3,
+            "-2": 2,
+            "-3": 1,
+            "-4": 1,
+            "skull": 3,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "return_to_curtain_call",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ]
+    },
+    {
+      "id": "return_to_the_last_king",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution_resigned",
+        "no_resolution_defeated",
+        "R3"
+      ]
+    },
+    {
+      "id": "ptc_interlude1",
+      "type": "interlude"
+    },
+    {
+      "id": "ptc_interlude1_reprint",
+      "type": "interlude"
+    },
+    {
+      "id": "echoes_of_the_past",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    {
+      "id": "the_unspeakable_oath",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R2",
+        "R3"
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 3,
+            "-2": 2,
+            "-3": 2,
+            "-4": 1,
+            "skull": 3,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      },
+      "choices": [
+        {
+          "id": "daniel_fate",
+          "options": [
+            "survived",
+            "possessed",
+            "neither"
+          ],
+          "control": "radio"
+        }
+      ]
+    },
+    {
+      "id": "ptc_interlude2",
+      "type": "interlude"
+    },
+    {
+      "id": "a_phantom_of_truth",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    {
+      "id": "the_pallid_mask",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2"
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "standard"
+        ],
+        "chaosBag": {
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 3,
+            "-2": 2,
+            "-3": 2,
+            "-4": 1,
+            "skull": 3,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "black_stars_rise",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "resolutionEffects": {
+        "no_resolution": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R3": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      }
+    },
+    {
+      "id": "dim_carcosa",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "resolutionEffects": {
+        "R4": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        },
+        "R5": {
+          "trauma": [
+            {
+              "insane": true,
+              "target": "all"
+            }
+          ],
+          "result": "lose"
+        }
+      },
+      "choices": [
+        {
+          "id": "hastur_version",
+          "options": [
+            "I",
+            "II",
+            "III"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ptc_epilogue",
+      "type": "epilogue"
+    }
+  ],
+  "startingChaosBag": {
+    "easy": {
+      "0": 3,
+      "+1": 2,
+      "-1": 3,
+      "-2": 2,
+      "skull": 3,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "standard": {
+      "0": 2,
+      "+1": 1,
+      "-1": 3,
+      "-2": 2,
+      "-3": 1,
+      "-4": 1,
+      "skull": 3,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "hard": {
+      "0": 3,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 1,
+      "-5": 1,
+      "skull": 3,
+      "auto_fail": 1,
+      "elder_sign": 1
+    },
+    "expert": {
+      "0": 1,
+      "-1": 2,
+      "-2": 2,
+      "-3": 2,
+      "-4": 2,
+      "-5": 1,
+      "-6": 1,
+      "-8": 1,
+      "skull": 3,
+      "auto_fail": 1,
+      "elder_sign": 1
+    }
+  },
   "sections": [
     {
       "id": "campaign_notes",
@@ -19,7 +309,29 @@
     },
     {
       "id": "vips_interviewed",
-      "type": "cards"
+      "type": "cards",
+      "items": [
+        {
+          "id": "03076a",
+          "code": "03076a"
+        },
+        {
+          "id": "03077",
+          "code": "03077"
+        },
+        {
+          "id": "03078",
+          "code": "03078"
+        },
+        {
+          "id": "03079",
+          "code": "03079"
+        },
+        {
+          "id": "03080",
+          "code": "03080"
+        }
+      ]
     },
     {
       "id": "vips_slain",
@@ -38,22 +350,24 @@
           "code": "03068b"
         },
         {
-          "id": "03067b",
-          "code": "03067b"
-        },
-        {
           "id": "03065b",
           "code": "03065b"
+        },
+        {
+          "id": "03067b",
+          "code": "03067b"
         }
       ]
     },
     {
       "id": "doubt",
-      "type": "count"
+      "type": "count",
+      "max": 9
     },
     {
       "id": "conviction",
-      "type": "count"
+      "type": "count",
+      "max": 9
     },
     {
       "id": "hidden",
@@ -67,6 +381,37 @@
       "section": "hidden",
       "kind": "note",
       "scenario": "campaign",
+      "hidden": true
+    },
+    {
+      "id": "stranger_is_on_to_you",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curtain_call"
+    },
+    {
+      "id": "tried_to_warn_police",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curtain_call"
+    },
+    {
+      "id": "police_are_suspicious",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curtain_call"
+    },
+    {
+      "id": "chose_not_to_warn_police",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "curtain_call"
+    },
+    {
+      "id": "cca_add_chaos_token",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "curtain_call",
       "hidden": true
     },
     {
@@ -116,44 +461,15 @@
       "id": "carcosa_merged",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "black_stars_rise"
-    },
-    {
-      "id": "stranger_is_on_to_you",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "curtain_call"
-    },
-    {
-      "id": "tried_to_warn_police",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "curtain_call"
-    },
-    {
-      "id": "police_are_suspicious",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "curtain_call"
-    },
-    {
-      "id": "chose_not_to_warn_police",
-      "section": "campaign_notes",
-      "kind": "note",
-      "scenario": "curtain_call"
-    },
-    {
-      "id": "cca_add_chaos_token",
-      "section": "hidden",
-      "kind": "note",
-      "scenario": "curtain_call",
-      "hidden": true
+      "scenario": "black_stars_rise",
+      "outcome": "loss"
     },
     {
       "id": "prevented_hasturs_escape",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "dim_carcosa"
+      "scenario": "dim_carcosa",
+      "outcome": "win"
     },
     {
       "id": "possessed",
@@ -178,7 +494,8 @@
       "id": "hastur_has_you",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "dim_carcosa"
+      "scenario": "dim_carcosa",
+      "outcome": "loss"
     },
     {
       "id": "took_onyx_clasp",
@@ -269,6 +586,12 @@
         "cards": {
           "mode": "choice"
         }
+      },
+      "repeatable": true,
+      "cardFilter": {
+        "types": [
+          "investigator"
+        ]
       }
     },
     {
@@ -314,27 +637,27 @@
         "constance": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03065b"
+          "item": "03076a"
         },
         "jordan": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03066b"
+          "item": "03077"
         },
         "haruko": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03067b"
+          "item": "03078"
         },
         "sebastien": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03068b"
+          "item": "03079"
         },
         "ashleigh": {
           "type": "sectionHas",
           "section": "vips_interviewed",
-          "item": "03069b"
+          "item": "03080"
         }
       },
       "scenario": "return_to_the_last_king"
@@ -358,6 +681,12 @@
       "type": "binary",
       "family": "ptc",
       "shared": true,
+      "infer": {
+        "type": "scenarioChoice",
+        "scenario": "the_unspeakable_oath",
+        "choice": "daniel_fate",
+        "is": "survived"
+      },
       "scenario": "return_to_the_unspeakable_oath"
     },
     {
@@ -464,6 +793,20 @@
         "type": "difficulty",
         "is": "expert"
       }
+    }
+  ],
+  "specialInteractions": [
+    {
+      "id": "check_lola_hayes",
+      "scenario": "ptc_prologue",
+      "match": {
+        "kind": "code",
+        "codes": [
+          "03006"
+        ]
+      },
+      "scope": "any",
+      "source": "extracted"
     }
   ],
   "validators": [

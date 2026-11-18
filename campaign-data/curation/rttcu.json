@@ -1,40 +1,40 @@
 {
   "code": "rttcu",
-  "_notes": "Verified all 8 spans are exact substrings of their entry texts. No sibling collisions: the four Azathoth-section entries (devoured/slumbers/joins-pipers/signed-black-book) remain distinct after blurring via their non-blurred remainders. No over-blur: visible NPC/faction names (Anette Mason, Carl Sanford, the coven, Silver Twilight Lodge) stay visible per front-loaded-setup rule; Azathoth blurred only in endgame outcome entries and not present in any section title. Under-blur check: genuine endgame/twist reveals (Keziah world domination, Anette/Sanford transformations, Azathoth final boss, Pipers/Black Book endgame, 'true work') are all blurred. No exotic roster sections needed (hidden/$input_value/missing-persons sections all 'notes' type, matching reference). Curation accepted unchanged.",
-  "spoilers": {
-    "campaign_notes.coven_of_keziah_holds_the_world_in_its_grasp": [
-      "Keziah holds the world in its grasp"
+  "outcomes": {
+    "_notes": "Inherited finale (before_the_black_throne) wins + the orig/RT Union & Disillusion rival-faction 'special' endings (Silver Twilight Lodge / Coven victories — mechanically result:win in ArkhamCards, treated as special: neither clear nor plain loss).",
+    "win": [
+      "campaign_notes.lead_investigator_joins_pipers"
     ],
-    "campaign_notes.anette_mason_is_possessed_by_evil": [
-      "possessed by evil"
+    "loss": [
+      "campaign_notes.azathoth_devoured_the_universe"
     ],
-    "campaign_notes.carl_sanford_possesses_the_secrets_of_the_universe": [
-      "the secrets of the universe"
+    "special": [
+      "campaign_notes.true_work_of_silver_twilight_lodge_has_begun",
+      "campaign_notes.coven_of_keziah_holds_the_world_in_its_grasp"
     ],
-    "campaign_notes.azathoth_devoured_the_universe": [
-      "Azathoth"
-    ],
-    "campaign_notes.lead_investigator_joins_pipers": [
-      "the pipers of Azathoth"
-    ],
-    "campaign_notes.azathoth_slumbers": [
-      "Azathoth"
-    ],
-    "campaign_notes.signed_the_black_book": [
-      "the Black Book of Azathoth"
-    ],
-    "campaign_notes.true_work_of_silver_twilight_lodge_has_begun": [
-      "the true work"
+    "betterWin": [
+      "campaign_notes.azathoth_slumbers",
+      "campaign_notes.signed_the_black_book"
     ]
   },
+  "_notes": "Verified all 8 spans are exact substrings of their entry texts. No sibling collisions: the four Azathoth-section entries (devoured/slumbers/joins-pipers/signed-black-book) remain distinct after blurring via their non-blurred remainders. No over-blur: visible NPC/faction names (Anette Mason, Carl Sanford, the coven, Silver Twilight Lodge) stay visible per front-loaded-setup rule; Azathoth blurred only in endgame outcome entries and not present in any section title. Under-blur check: genuine endgame/twist reveals (Keziah world domination, Anette/Sanford transformations, Azathoth final boss, Pipers/Black Book endgame, 'true work') are all blurred. No exotic roster sections needed (hidden/$input_value/missing-persons sections all 'notes' type, matching reference). Curation accepted unchanged.",
   "achievements": {
     "speak_the_words_aloud": {
       "requires": {
         "type": "allOf",
         "of": [
-          { "type": "log", "key": "campaign_notes.azathoth_slumbers" },
-          { "type": "log", "key": "mementos.strange_incantation" },
-          { "type": "log", "key": "mementos.bloody_tree_carvings" }
+          {
+            "type": "log",
+            "key": "campaign_notes.azathoth_slumbers"
+          },
+          {
+            "type": "log",
+            "key": "mementos.strange_incantation"
+          },
+          {
+            "type": "log",
+            "key": "mementos.bloody_tree_carvings"
+          }
         ]
       }
     },

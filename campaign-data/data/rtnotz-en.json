@@ -7,48 +7,38 @@
     "cultists_escaped": "Cultists Who Got Away",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "return_to_the_gathering": "Return to The Gathering",
+    "return_to_the_midnight_masks": "Return to The Midnight Masks",
+    "return_to_the_devourer_below": "Return to The Devourer Below"
+  },
   "entries": {
+    "campaign_notes.house_standing": {
+      "text": "your house is still standing."
+    },
     "campaign_notes.house_burned": {
       "text": "your house has burned to the ground."
     },
     "campaign_notes.ghoul_priest_alive": {
-      "text": "the Ghoul Priest is still alive.",
-      "spoiler": [
-        "the Ghoul Priest"
-      ]
+      "text": "the Ghoul Priest is still alive."
+    },
+    "campaign_notes.lita_finds_others": {
+      "text": "Lita was forced to find others to help her cause."
     },
     "campaign_notes.past_midnight": {
       "text": "it is past midnight."
     },
     "campaign_notes.arkham_succumbed": {
-      "text": "Arkham succumbed to Umôrdhoth’s terrible vengeance.",
-      "spoiler": [
-        "Umôrdhoth"
-      ]
+      "text": "Arkham succumbed to Umôrdhoth’s terrible vengeance."
     },
     "campaign_notes.ritual_broken": {
-      "text": "the ritual to summon Umôrdhoth was broken.",
-      "spoiler": [
-        "Umôrdhoth"
-      ]
+      "text": "the ritual to summon Umôrdhoth was broken."
     },
     "campaign_notes.umordhoth_repelled": {
-      "text": "the investigators repelled Umôrdhoth.",
-      "spoiler": [
-        "Umôrdhoth"
-      ]
+      "text": "the investigators repelled Umôrdhoth."
     },
     "campaign_notes.lita_sacrificed": {
-      "text": "the investigators sacrificed Lita Chantler to Umôrdhoth.",
-      "spoiler": [
-        "Umôrdhoth"
-      ]
-    },
-    "campaign_notes.house_standing": {
-      "text": "your house is still standing."
-    },
-    "campaign_notes.lita_finds_others": {
-      "text": "Lita was forced to find others to help her cause."
+      "text": "the investigators sacrificed Lita Chantler to Umôrdhoth."
     }
   },
   "achievements": {

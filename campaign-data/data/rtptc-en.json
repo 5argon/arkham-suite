@@ -10,19 +10,45 @@
     "conviction": "Conviction",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "ptc_prologue": "Prologue",
+    "curtain_call": "Curtain Call",
+    "the_last_king": "The Last King",
+    "return_to_curtain_call": "Return to Curtain Call",
+    "return_to_the_last_king": "Return to The Last King",
+    "ptc_interlude1": "Lunacy's Reward",
+    "ptc_interlude1_reprint": "Reality's Shadow",
+    "echoes_of_the_past": "Echoes of the Past",
+    "the_unspeakable_oath": "The Unspeakable Oath",
+    "ptc_interlude2": "Lost Soul",
+    "a_phantom_of_truth": "A Phantom of Truth",
+    "the_pallid_mask": "The Pallid Mask",
+    "black_stars_rise": "Black Stars Rise",
+    "dim_carcosa": "Dim Carcosa",
+    "ptc_epilogue": "Epilogue"
+  },
   "items": {
     "03066b": "Jordan Perry",
     "03069b": "Ashleigh Clarke",
     "03068b": "Sebastien Moreau",
-    "03067b": "Ishimaru Haruko",
-    "03065b": "Constance Dumaine"
+    "03065b": "Constance Dumaine",
+    "03067b": "Ishimaru Haruko"
   },
   "entries": {
+    "campaign_notes.stranger_is_on_to_you": {
+      "text": "the Stranger is on to you."
+    },
+    "campaign_notes.tried_to_warn_police": {
+      "text": "you tried to warn the police."
+    },
+    "campaign_notes.police_are_suspicious": {
+      "text": "the police are suspicious of you."
+    },
+    "campaign_notes.chose_not_to_warn_police": {
+      "text": "you chose not to go to the police."
+    },
     "campaign_notes.did_not_escape_gaze": {
-      "text": "you did not escape the gaze of the phantom.",
-      "spoiler": [
-        "the phantom"
-      ]
+      "text": "you did not escape the gaze of the phantom."
     },
     "campaign_notes.found_nigels_home": {
       "text": "you found Nigel's home."
@@ -40,61 +66,28 @@
       "text": "you opened the path above."
     },
     "campaign_notes.carcosa_merged": {
-      "text": "the realm of Carcosa merged with our own, and Hastur rules over them both.",
-      "spoiler": [
-        "Hastur"
-      ]
-    },
-    "campaign_notes.stranger_is_on_to_you": {
-      "text": "the Stranger is on to you."
-    },
-    "campaign_notes.tried_to_warn_police": {
-      "text": "you tried to warn the police."
-    },
-    "campaign_notes.police_are_suspicious": {
-      "text": "the police are suspicious of you."
-    },
-    "campaign_notes.chose_not_to_warn_police": {
-      "text": "you chose not to go to the police."
+      "text": "the realm of Carcosa merged with our own, and Hastur rules over them both."
     },
     "campaign_notes.prevented_hasturs_escape": {
-      "text": "the investigators prevented Hastur from escaping his prison.",
-      "spoiler": [
-        "Hastur"
-      ]
+      "text": "the investigators prevented Hastur from escaping his prison."
     },
     "campaign_notes.possessed": {
       "text": "#name# was possessed."
     },
     "campaign_notes.hastur_has_you": {
-      "text": "Hastur has you in his grasp.",
-      "spoiler": [
-        "Hastur"
-      ]
+      "text": "Hastur has you in his grasp."
     },
     "campaign_notes.took_onyx_clasp": {
-      "text": "you took the onyx clasp.",
-      "spoiler": [
-        "the onyx clasp"
-      ]
+      "text": "you took the onyx clasp."
     },
     "campaign_notes.destroyed_the_oathspeaker": {
-      "text": "you destroyed the oathspeaker.",
-      "spoiler": [
-        "the oathspeaker"
-      ]
+      "text": "you destroyed the oathspeaker."
     },
     "campaign_notes.left_onyx_clasp": {
-      "text": "you left the onyx clasp behind.",
-      "spoiler": [
-        "the onyx clasp"
-      ]
+      "text": "you left the onyx clasp behind."
     },
     "campaign_notes.followers_of_sign_found_way": {
-      "text": "the followers of the sign have found the way forward.",
-      "spoiler": [
-        "the followers of the sign"
-      ]
+      "text": "the followers of the sign have found the way forward."
     },
     "campaign_notes.ignored_daniels_warning": {
       "text": "you ignored Daniel’s warning."
@@ -130,10 +123,7 @@
       "text": "the investigators escaped the Asylum."
     },
     "campaign_notes.king_claimed_victims": {
-      "text": "the King claimed its victims.",
-      "spoiler": [
-        "the King"
-      ]
+      "text": "the King claimed its victims."
     }
   },
   "achievements": {
@@ -207,6 +197,24 @@
     "carcosa_expertise": {
       "title": "Carcosa Expertise",
       "text": "Win <i>The Path to Carcosa</i> campaign on Expert difficulty."
+    }
+  },
+  "specialInteractions": {
+    "check_lola_hayes": {
+      "text": "If Lola Hayes was chosen as an investigator for this campaign:"
+    }
+  },
+  "scenarioChoices": {
+    "the_unspeakable_oath.daniel_fate": {
+      "label": "Lost Soul — Daniel's fate",
+      "options": {
+        "survived": "If an investigator resigned with the asset version of Daniel Chesterfield under their control.",
+        "possessed": "If the enemy version of Daniel Chesterfield was in play when the scenario ended.",
+        "neither": "If neither of the above are true."
+      }
+    },
+    "dim_carcosa.hastur_version": {
+      "label": "Hastur version"
     }
   }
 }

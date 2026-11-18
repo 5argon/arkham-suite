@@ -1,41 +1,115 @@
 {
+  "scenarioMaxXp": {
+    "_notes": "Maximum Victory Points awardable per scenario (the reference 'Max' column for the Scenario XP Highscore), in the scenario's victory-display unit. Hand-curated from each scenario's victory points; 0 = nothing awarded, shown as a dash.",
+    "beyond_the_gates_of_sleep": 13,
+    "the_search_for_kadath": 18,
+    "dark_side_of_the_moon": 10,
+    "where_gods_dwell": 14
+  },
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario Succeed/Failed (curation judgement). Beyond the Gates: both R1 (saved by Randolph Carter / reached the path) and R2 (cats' tribute / parleyed Zoogs branch) advance you into the Dreamlands = win; no_resolution (defeated, never reached the path) = loss. Search for Kadath: R1 (reached Kadath, the search continues) = win; no_resolution_defeated = loss; no_resolution_resigned = neutral (a voluntary early exit). Dark Side of the Moon: R1 (escaped the moon, voyage onward) = win; no_resolution_defeated = loss. Where the Gods Dwell (single-sided; the interconnected verdict is the Epilogue matrix): the two non-defeat endings R1/R2 (dreamers awoke / escaped Nyarlathotep's grasp / banished Nyarlathotep — and the bittersweet stayed-forever / traveled-beneath collapse into these resolution ids too) = win; no_resolution_defeated (Nyarlathotep's invasion has begun) = loss. Matches the existing curation outcomes note: invasion = the sole loss, every other ending = a win.",
+    "beyond_the_gates_of_sleep": {
+      "R1": "win",
+      "R2": "win",
+      "no_resolution": "loss"
+    },
+    "the_search_for_kadath": {
+      "R1": "win",
+      "no_resolution_resigned": "neutral",
+      "no_resolution_defeated": "loss"
+    },
+    "dark_side_of_the_moon": {
+      "R1": "win",
+      "no_resolution_defeated": "loss"
+    },
+    "where_gods_dwell": {
+      "R1": "win",
+      "R2": "win",
+      "no_resolution_defeated": "loss"
+    }
+  },
   "code": "tdea",
-  "_notes": "Verified against tdea-en.draft.json and tdea-db.draft.json. All four spans are exact substrings of their entry texts. No sibling collisions: the two where_the_gods_dwell endgame notes stay distinguishable (\"escaped from ... grasp\" vs \"banished\"); possess_silver_key is the sole sibling for that reveal. The two black_cat_spoke_of_* (Nyarlathotep / Atlach-Nacha) are correctly left unblurred to avoid collapsing them to identical text. Randolph/Virgil/black-cat capture-and-relationship notes correctly left visible for name-based disambiguation. No exotic sections (only campaign_notes notes carry display text; evidence_of_kadath is count, hidden is hidden). db sections/types match reference. Curation accepted unchanged.",
-  "spoilers": {
-    "campaign_notes.nyarlathoteps_invasion_has_begun": [
-      "Nyarlathotep's"
+  "specialInteractions": {
+    "check_luke_robinson": {
+      "text": "Luke gets his own intro scene."
+    }
+  },
+  "outcomes": {
+    "_notes": "where_the_gods_dwell resolutions (verified against the step graph): R3 dreamers_awoke = win (four-part 'win the campaign'); R1 escaped-the-grasp + R2 banished-Nyarlathotep = wins (banished = the superior win, you beat the villain); R4 stayed-in-the-Dreamlands-forever + R5 traveled-beneath-the-monastery = special (bittersweet, did not wake); no_resolution_defeated nyarlathoteps_invasion_has_begun = loss. (Single-sided reading; the interconnected verdict is the epilogue matrix.)",
+    "win": [
+      "campaign_notes.dreamers_awoke",
+      "campaign_notes.dreamers_escaped_nyarlathoteps_grasp",
+      "campaign_notes.dreamers_banished_nyarlathotep"
     ],
-    "campaign_notes.possess_silver_key": [
-      "the Silver Key"
+    "special": [
+      "campaign_notes.dreamers_stayed_in_dreamlands_forever",
+      "campaign_notes.dreamers_traveled_beneath_the_monastery"
     ],
-    "campaign_notes.dreamers_escaped_nyarlathoteps_grasp": [
-      "Nyarlathotep's"
+    "loss": [
+      "campaign_notes.nyarlathoteps_invasion_has_begun"
     ],
-    "campaign_notes.dreamers_banished_nyarlathotep": [
-      "Nyarlathotep"
+    "betterWin": [
+      "campaign_notes.dreamers_banished_nyarlathotep"
     ]
   },
+  "_notes": "Verified against tdea-en.draft.json and tdea-db.draft.json. All four spans are exact substrings of their entry texts. No sibling collisions: the two where_the_gods_dwell endgame notes stay distinguishable (\"escaped from ... grasp\" vs \"banished\"); possess_silver_key is the sole sibling for that reveal. The two black_cat_spoke_of_* (Nyarlathotep / Atlach-Nacha) are correctly left unblurred to avoid collapsing them to identical text. Randolph/Virgil/black-cat capture-and-relationship notes correctly left visible for name-based disambiguation. No exotic sections (only campaign_notes notes carry display text; evidence_of_kadath is count, hidden is hidden). db sections/types match reference. Curation accepted unchanged.",
   "achievements": {
     "reunited": {
       "requires": {
         "type": "anyOf",
         "of": [
-          { "type": "allOf", "of": [
-            { "type": "log", "key": "campaign_notes.nyarlathoteps_invasion_has_begun" },
-            { "type": "log", "key": "campaign_notes.returned_to_reality" }
-          ] },
-          { "type": "allOf", "of": [
-            { "type": "log", "key": "campaign_notes.dreamers_awoke" },
-            { "type": "log", "key": "campaign_notes.returned_to_reality" }
-          ] },
-          { "type": "allOf", "of": [
-            { "type": "log", "key": "campaign_notes.dreamers_stayed_in_dreamlands_forever" },
-            { "type": "log", "key": "campaign_notes.still_in_the_dreamlands" }
-          ] },
-          { "type": "allOf", "of": [
-            { "type": "log", "key": "campaign_notes.dreamers_traveled_beneath_the_monastery" },
-            { "type": "log", "key": "campaign_notes.never_escaped" }
-          ] }
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.nyarlathoteps_invasion_has_begun"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.returned_to_reality"
+              }
+            ]
+          },
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.dreamers_awoke"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.returned_to_reality"
+              }
+            ]
+          },
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.dreamers_stayed_in_dreamlands_forever"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.still_in_the_dreamlands"
+              }
+            ]
+          },
+          {
+            "type": "allOf",
+            "of": [
+              {
+                "type": "log",
+                "key": "campaign_notes.dreamers_traveled_beneath_the_monastery"
+              },
+              {
+                "type": "log",
+                "key": "campaign_notes.never_escaped"
+              }
+            ]
+          }
         ]
       }
     },
@@ -92,16 +166,16 @@
       "scenario": "dark_side_of_the_moon"
     },
     "high_priest": {
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     "hidden_nylar": {
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     "final_form": {
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     "dont_tell": {
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     }
   },
   "validators": [
@@ -144,7 +218,7 @@
         "campaign_notes.dreamers_escaped_nyarlathoteps_grasp",
         "campaign_notes.dreamers_banished_nyarlathotep"
       ],
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "type": "mutuallyExclusive",
@@ -153,7 +227,7 @@
         "campaign_notes.dreamers_stayed_in_dreamlands_forever",
         "campaign_notes.dreamers_traveled_beneath_the_monastery"
       ],
-      "scenario": "where_the_gods_dwell"
+      "scenario": "where_gods_dwell"
     },
     {
       "type": "mutuallyExclusive",

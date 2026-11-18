@@ -5,6 +5,14 @@
     "campaign_notes": "Campaign Notes",
     "hidden": "Hidden"
   },
+  "scenarioNames": {
+    "cob_prologue": "Prologue",
+    "river_of_blood": "River of Blood",
+    "new_horizons": "New Horizons",
+    "friends_in_low_places": "Friends in Low Places",
+    "blood_money": "Blood Money",
+    "cob_epilogue": "Epilogue"
+  },
   "entries": {
     "campaign_notes.failed_to_stop_julia_stern": {
       "text": "the investigators failed to stop Julia Stern."
