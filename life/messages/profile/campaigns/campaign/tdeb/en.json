@@ -1,0 +1,42 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_tdeb_steps_band_heading": "Weaver doom band · per play",
+	"campaign_tdeb_steps_max": "Most Steps",
+	"campaign_tdeb_steps_avg": "Average",
+	"campaign_tdeb_steps_band": "{doom} doom ({range})",
+	"campaign_tdeb_steps_empty": "Play Waking Nightmare to start the Steps of the Bridge.",
+
+	"campaign_tdeb_waking_doctor_heading": "Dr. Maheswaran",
+	"campaign_tdeb_waking_randolph_heading": "Randolph's escape",
+	"campaign_tdeb_waking_joined": "Doctor joined",
+	"campaign_tdeb_waking_stayed": "Stayed with patients",
+	"campaign_tdeb_waking_alive": "Doctor alive",
+	"campaign_tdeb_waking_missing": "Doctor missing",
+	"campaign_tdeb_waking_unknown": "Fate unknown",
+	"campaign_tdeb_waking_escaped_alone": "Randolph escaped alone",
+	"campaign_tdeb_waking_escaped_with": "Randolph escaped with you",
+	"campaign_tdeb_waking_empty": "Play Waking Nightmare to record the doctor's fate.",
+
+	"campaign_tdeb_shapes_descent_heading": "Randolph's descent",
+	"campaign_tdeb_shapes_key_heading": "The Silver Key",
+	"campaign_tdeb_shapes_survived": "Randolph survived descent",
+	"campaign_tdeb_shapes_died": "Randolph died on descent",
+	"campaign_tdeb_shapes_key": "Silver Key obtained",
+	"campaign_tdeb_shapes_empty": "Play A Thousand Shapes of Horror to record the descent.",
+
+	"campaign_tdeb_pnr_found": "Found a way out",
+	"campaign_tdeb_pnr_empty": "Play Point of No Return to record the escape.",
+
+	"campaign_tdeb_weaver_victory_heading": "Victory",
+	"campaign_tdeb_weaver_defeat_heading": "Defeat",
+	"campaign_tdeb_weaver_details_heading": "Along the way",
+	"campaign_tdeb_weaver_returned": "Returned to reality",
+	"campaign_tdeb_weaver_never": "Never escaped",
+	"campaign_tdeb_weaver_still": "Still in Dreamlands",
+	"campaign_tdeb_weaver_completed": "Bridge completed",
+	"campaign_tdeb_weaver_destroyed": "Bridge destroyed",
+	"campaign_tdeb_weaver_trapped": "Trapped in the realm",
+	"campaign_tdeb_weaver_spider": "The Spider Queen",
+	"campaign_tdeb_weaver_empty": "Reach Weaver of the Cosmos to see your finale."
+}

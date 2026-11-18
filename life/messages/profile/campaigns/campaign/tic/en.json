@@ -1,0 +1,69 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_tic_mem_recovered": "Recovered {times}",
+	"campaign_tic_mem_not_yet": "Not recovered",
+	"campaign_tic_mem_distinct": "Memories recovered",
+	"campaign_tic_mem_all_label": "All 15 recovered",
+	"campaign_tic_mem_empty": "Play The Innsmouth Conspiracy to recover your memories.",
+
+	"campaign_tic_key_blue": "Key to Y'ha-nthlei",
+	"campaign_tic_key_red": "Map of Y'ha-nthlei",
+	"campaign_tic_key_green": "Guardian dispatched",
+	"campaign_tic_key_yellow": "Gateway recognizes you",
+	"campaign_tic_key_secured": "Secured {times}",
+	"campaign_tic_key_not_yet": "Not secured",
+	"campaign_tic_keys_reachable_label": "Secret ending set up",
+	"campaign_tic_keys_unreachable": "Secure all 4 obtainable keys for the seven-key secret ending.",
+	"campaign_tic_keys_empty": "Reach the late scenarios to earn the keys to Y'ha-nthlei.",
+
+	"campaign_tic_harper_succeeded": "Rescue succeeded",
+	"campaign_tic_harper_failed": "Rescue failed",
+	"campaign_tic_harper_accused": "Accused {times}",
+	"campaign_tic_harper_not_accused": "Not accused",
+	"campaign_tic_harper_suspect_heading": "Suspect accused",
+	"campaign_tic_harper_hideout_heading": "Hideout accused",
+	"campaign_tic_harper_empty": "Play The Vanishing of Elina Harper to track the investigation.",
+
+	"campaign_tic_pit_memories_heading": "Flashbacks recovered here",
+
+	"campaign_tic_itd_safe": "Made it to the vehicles",
+	"campaign_tic_itd_consumed": "Consumed by the tide",
+	"campaign_tic_itd_empty": "Play In Too Deep to record the escape.",
+
+	"campaign_tic_dr_terror_dead": "Terror slain",
+	"campaign_tic_dr_terror_alive": "Terror survived",
+	"campaign_tic_dr_tide": "Tide grew stronger",
+	"campaign_tic_dr_empty": "Play Devil Reef to record its outcome.",
+	"campaign_tic_equip_heading": "Equipment secured",
+	"campaign_tic_equip_secured": "Secured {times}",
+	"campaign_tic_equip_not_secured": "Not secured",
+	"campaign_tic_equip_full_build_label": "Full build (all three)",
+
+	"campaign_tic_hhg_before": "Before sunrise",
+	"campaign_tic_hhg_after": "After sunrise",
+	"campaign_tic_hhg_empty": "Play Horror in High Gear to record the chase.",
+
+	"campaign_tic_lif_key": "Got the key",
+	"campaign_tic_lif_map": "Got the map",
+	"campaign_tic_lif_suit": "Kept a Diving Suit",
+	"campaign_tic_lif_empty": "Play A Light in the Fog to record what you found.",
+
+	"campaign_tic_lod_slumbers": "Dagon still slumbers",
+	"campaign_tic_lod_awoke": "Dagon awakened",
+	"campaign_tic_lod_gatekeeper": "Gatekeeper defeated",
+	"campaign_tic_lod_ritual": "Ritual disrupted",
+	"campaign_tic_lod_empty": "Play The Lair of Dagon to record what stirred below.",
+
+	"campaign_tic_itm_flood_heading": "The flood",
+	"campaign_tic_itm_thwarted": "Plot thwarted",
+	"campaign_tic_itm_escaped": "Escaped Y'ha-nthlei",
+	"campaign_tic_itm_flood": "Flood has begun",
+	"campaign_tic_itm_flooded": "Earth flooded",
+	"campaign_tic_itm_harper_heading": "Agent Harper's mission",
+	"campaign_tic_itm_harper_complete": "Mission complete",
+	"campaign_tic_itm_riches_lost": "Riches lost forever",
+	"campaign_tic_itm_harper_cost": "Complete… at what cost",
+	"campaign_tic_itm_riches_destroyed": "Destroyed… at what cost",
+	"campaign_tic_itm_empty": "Reach Into the Maelstrom to see how it ends."
+}

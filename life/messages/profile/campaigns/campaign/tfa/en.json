@@ -1,0 +1,132 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"campaign_tfa_vengeance_max": "Most Yig's Fury",
+	"campaign_tfa_vengeance_min": "Least Yig's Fury",
+	"campaign_tfa_vengeance_lifetime": "Lifetime fury",
+	"campaign_tfa_vengeance_agenda": "Agenda {n}",
+	"campaign_tfa_vengeance_agenda_special": "Special (Yig seeded)",
+	"campaign_tfa_vengeance_refused": "Ichtaca refused (16+)",
+	"campaign_tfa_vengeance_agenda_heading": "Depths of Yoth start",
+	"campaign_tfa_vengeance_empty": "Record Yig's Fury in your plays to track Yig's wrath.",
+
+	"campaign_tfa_supplies_empty": "Record your expedition supplies to see what you pack.",
+	"campaign_tfa_supplies_took": "Took {times}",
+	"campaign_tfa_supplies_never": "Never packed",
+
+	"campaign_tfa_companions_empty": "Play The Forgotten Age to track your companions.",
+	"campaign_tfa_ichtaca_detail": "Trust {trust} · Bond {bond} · Wary {wary}",
+	"campaign_tfa_alejandro_detail": "Trust {trust} · Rescued {rescued} · Missing {missing}",
+	"campaign_tfa_companion_none": "No standing recorded",
+
+	"campaign_tfa_harbinger_eztli": "The Doom of Eztli",
+	"campaign_tfa_harbinger_hote": "Heart of the Elders",
+	"campaign_tfa_harbinger_final": "Final wound",
+	"campaign_tfa_harbinger_damage_heading": "Most damage dealt",
+	"campaign_tfa_harbinger_unharmed": "Left unharmed",
+	"campaign_tfa_harbinger_empty": "Record the Harbinger of Valusia's damage at The Doom of Eztli to trace the nemesis.",
+
+	"campaign_tfa_wilds_cleared": "Cleared the path",
+	"campaign_tfa_wilds_ichtaca_trust": "Earned Ichtaca's trust",
+	"campaign_tfa_wilds_ichtaca_wary": "Ichtaca is wary",
+	"campaign_tfa_wilds_alejandro_followed": "Alejandro followed",
+	"campaign_tfa_wilds_alejandro_remained": "Alejandro stayed at camp",
+	"campaign_tfa_wilds_empty": "Play The Untamed Wilds to track it.",
+
+	"campaign_tfa_eztli_investigators_relic": "You recovered the relic",
+	"campaign_tfa_eztli_alejandro_relic": "Alejandro recovered it",
+	"campaign_tfa_eztli_retries": "Most replays",
+	"campaign_tfa_eztli_empty": "Play The Doom of Eztli to track it.",
+
+	"campaign_tfa_threads_empty": "Play Threads of Fate to track the branch.",
+
+	"campaign_tfa_boundary_paths": "Most paths known",
+	"campaign_tfa_boundary_skip": "Skipped Heart of the Elders, Part 1",
+	"campaign_tfa_boundary_confidence": "Ichtaca has confidence",
+	"campaign_tfa_boundary_empty": "Play The Boundary Beyond to track the paths.",
+
+	"campaign_tfa_hote_ichtaca": "Consulted Ichtaca",
+	"campaign_tfa_hote_alejandro": "Consulted Alejandro",
+	"campaign_tfa_hote_journal": "Consulted the journal",
+	"campaign_tfa_hote_empty": "Play Heart of the Elders to track whom you consulted.",
+
+	"campaign_tfa_archives_cooperated": "Cooperated",
+	"campaign_tfa_archives_resisted": "Resisted captivity",
+	"campaign_tfa_archives_expunged": "Memories expunged",
+	"campaign_tfa_archives_empty": "Play The City of Archives to track the Yithian process.",
+
+	"campaign_tfa_yoth_depth_max": "Deepest reached",
+	"campaign_tfa_yoth_depth_min": "Shallowest",
+	"campaign_tfa_yoth_empty": "Play The Depths of Yoth to track how deep you descended.",
+
+	"campaign_tfa_aeons_mended": "Mended the tear",
+	"campaign_tfa_aeons_serpents": "Saved the serpents",
+	"campaign_tfa_aeons_yithians": "Saved the Yithians",
+	"campaign_tfa_aeons_unwoven": "Fabric of time unwoven",
+	"campaign_tfa_aeons_sealed": "Sealed the Relic forever",
+	"campaign_tfa_aeons_empty": "Reach the finale to tally its endings.",
+	"campaign_tfa_turn_back_time_empty": "Rewind time at Shattered Aeons and seal the Relic of Ages forever to record the true ending.",
+
+	"campaign_tfa_fury_meter_label": "Yig's Fury each expedition",
+	"campaign_tfa_fury_band_immunity": "Immunity (Fury 0)",
+	"campaign_tfa_fury_band_rising": "Rising",
+	"campaign_tfa_fury_band_refuse": "Ichtaca refuses (16+)",
+	"campaign_tfa_fury_band_bane": "Bane of Yig (25+)",
+	"campaign_tfa_fury_cell_tip": "Yig's Fury {fury} — {band} · Depths agenda: {agenda}",
+	"campaign_tfa_fury_legend_immunity": "0 · Don't Tread on Me",
+	"campaign_tfa_fury_legend_refuse": "16+ · Ichtaca refuses your plea",
+	"campaign_tfa_fury_legend_bane": "25+ · Bane of Yig",
+
+	"campaign_tfa_branch_label": "The three threads",
+	"campaign_tfa_branch_none": "not recorded",
+	"campaign_tfa_branch_tip": "{node}: {a} ×{ac} · {b} ×{bc}",
+	"campaign_tfa_branch_relic_node": "The Relic of Ages",
+	"campaign_tfa_branch_relic_a": "Alejandro",
+	"campaign_tfa_branch_relic_b": "Harlan",
+	"campaign_tfa_branch_ichtaca_node": "Ichtaca confronts you",
+	"campaign_tfa_branch_ichtaca_a": "Stopped her",
+	"campaign_tfa_branch_ichtaca_b": "Let her go",
+	"campaign_tfa_branch_bond_node": "Ichtaca's trust",
+	"campaign_tfa_branch_bond_a": "Bonded",
+	"campaign_tfa_branch_bond_b": "In the dark",
+	"campaign_tfa_branch_alejandro_node": "Alejandro's fate",
+	"campaign_tfa_branch_alejandro_a": "Rescued",
+	"campaign_tfa_branch_alejandro_b": "Missing",
+	"campaign_tfa_branch_path_forge": "Forged own path",
+	"campaign_tfa_branch_path_stay": "Stayed the course",
+	"campaign_tfa_branch_forge_tip": "Forged your own path ×{n} — unlocks the secret Turn Back Time finale",
+	"campaign_tfa_branch_path_stay_tip": "You never forged your own path (the gate to Turn Back Time)",
+
+	"campaign_tfa_archives_ladder_label": "The Yithian process",
+	"campaign_tfa_archives_tier_spectacular": "Spectacularly",
+	"campaign_tfa_archives_tier_backfired": "Backfired",
+	"campaign_tfa_archives_tier_successful": "Successful",
+	"campaign_tfa_archives_tier_perfected": "Perfected",
+	"campaign_tfa_archives_tip_spectacular": "Backfired spectacularly — 3 tasks, no reward ×{n}",
+	"campaign_tfa_archives_tip_backfired": "Process backfired — 4 tasks, +1 XP ×{n}",
+	"campaign_tfa_archives_tip_successful": "Process successful — 5 tasks, +2 XP · Alejandro's memories restored ×{n}",
+	"campaign_tfa_archives_tip_perfected": "Process perfected — 6 tasks, +4 XP ×{n}",
+	"campaign_tfa_archives_captivity_heading": "Captivity",
+	"campaign_tfa_archives_aftermath": "Suffered the Yithian aftermath",
+
+	"campaign_tfa_yoth_agenda_heading": "Started on agenda",
+
+	"campaign_tfa_poison_total": "Times poisoned",
+	"campaign_tfa_poison_by_investigator": "Whom Yig's venom struck",
+	"campaign_tfa_poison_empty": "Record who gained the Poisoned weakness to trace Yig's venom.",
+	"campaign_tfa_poisoned_gained": "Gained Poisoned",
+
+	"campaign_tfa_wilds_ichtaca_heading": "Ichtaca",
+	"campaign_tfa_wilds_alejandro_heading": "Alejandro",
+
+	"campaign_tfa_eztli_relic_heading": "The Relic",
+	"campaign_tfa_eztli_harbinger": "Harbinger wounded",
+
+	"campaign_tfa_hote_heading": "Whom you consulted",
+	"campaign_tfa_hote_nothing": "Consulted no one",
+
+	"campaign_tfa_aeons_heading": "The finale",
+	"campaign_tfa_aeons_turned": "Turned back time",
+
+	"campaign_tfa_supplies_light": "Traveled light"
+}
