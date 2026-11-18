@@ -1,8 +1,10 @@
 <!--
 @component
-Single line radio buttons styled as buttons.
+Radio buttons styled as a segmented control. Horizontal by default; pass `vertical` to stack them as
+full-width left-aligned rows (for long / wrapping labels).
 -->
 <script lang="ts" generics="T">
+	import type { Snippet } from 'svelte';
 	import FormLabelWithHelp from './FormLabelWithHelp.svelte';
 	import clsx from 'clsx';
 	import FormHelp from './FormHelp.svelte';
@@ -24,6 +26,8 @@ Single line radio buttons styled as buttons.
 		 * that opens a modal — better for mobile and multi-paragraph explanations.
 		 */
 		helpMd?: string;
+		/** Rich modal help as a snippet (e.g. an mdsvex doc); see FormLabelWithHelp. */
+		helpContent?: Snippet;
 
 		/**
 		 * Bindable.
@@ -35,8 +39,28 @@ Single line radio buttons styled as buttons.
 			label: string;
 			icon?: FaIconType;
 		}[];
+
+		/** Fired with the chosen value on click. */
+		onChange?: (value: T) => void;
+
+		/** Custom renderer for a choice's label (e.g. Arkham icon glyphs from `[skull]` markup). */
+		renderLabel?: Snippet<[string]>;
+
+		/** Stack the choices vertically as full-width, left-aligned rows (for long / wrapping labels). */
+		vertical?: boolean;
 	}
-	let { label, help, helpMd, selectedValue = $bindable(), choices, size }: Prop<T> = $props();
+	let {
+		label,
+		help,
+		helpMd,
+		helpContent,
+		selectedValue = $bindable(),
+		choices,
+		size,
+		onChange,
+		renderLabel,
+		vertical = false,
+	}: Prop<T> = $props();
 	const sizeClass = $derived(size === 'icon' ? 'w-2' : size === 'text' ? 'w-16' : '');
 </script>
 
@@ -46,14 +70,16 @@ Single line radio buttons styled as buttons.
 			type="button"
 			class={clsx(
 				'border-primary-800 dark:border-primary-300 border px-3 py-1 focus:outline-none cursor-pointer',
-				index === 0 ? 'rounded-l-md' : '',
-				index === choices.length - 1 ? 'rounded-r-md' : '',
+				vertical
+					? clsx('w-full text-left', index === 0 ? 'rounded-t-md' : '', index === choices.length - 1 ? 'rounded-b-md' : '', index > 0 ? '-mt-px' : '')
+					: clsx(index === 0 ? 'rounded-l-md' : '', index === choices.length - 1 ? 'rounded-r-md' : ''),
 				selectedValue === value
 					? 'bg-primary-600 dark:bg-primary-200  text-white dark:text-black'
 					: 'dark:bg-primary-800 hover:bg-primary-200 dark:hover:bg-primary-600 dark:text-white'
 			)}
-			onclick={(v) => {
+			onclick={() => {
 				selectedValue = value;
+				onChange?.(value);
 			}}
 		>
 			<span class="flex items-center gap-2">
@@ -61,8 +87,8 @@ Single line radio buttons styled as buttons.
 					<FaIcon duotone {icon} invertColor={selectedValue === value} />
 				{/if}
 				{#if size !== 'icon'}
-					<span class={clsx('inline-block', sizeClass)}>
-						{label}
+					<span class={clsx('inline-block', vertical ? '' : sizeClass)}>
+						{#if renderLabel}{@render renderLabel(label)}{:else}{label}{/if}
 					</span>
 				{/if}
 			</span>
@@ -70,8 +96,8 @@ Single line radio buttons styled as buttons.
 	</FormHelp>
 {/snippet}
 
-<FormLabelWithHelp disableClick {label} {help} {helpMd}>
-	<div class="flex flex-wrap">
+<FormLabelWithHelp disableClick {label} {help} {helpMd} {helpContent}>
+	<div class={vertical ? 'flex flex-col items-stretch' : 'flex flex-wrap'}>
 		{#each choices as { value, label, icon }, index (index)}
 			{@render eachButton(value, label, icon, index)}
 		{/each}

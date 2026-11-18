@@ -55,6 +55,6 @@
 	{placeholder}
 	oninput={handleInput}
 	{onblur}
-	class="border-primary-600 disabled:bg-primary-400 dark:disabled:bg-primary-600 bg-primary-200 disabled:text-primary-500 flex-1 rounded border-2 p-1 pr-8 {className ||
+	class="border-primary-600 disabled:bg-primary-400 dark:disabled:bg-primary-600 bg-primary-200 disabled:text-primary-500 w-full min-w-0 flex-1 rounded border-2 p-1 pr-8 {className ||
 		''}"
 />
