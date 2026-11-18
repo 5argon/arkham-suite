@@ -9,6 +9,7 @@
     "patch-cards": "deno run --allow-read --allow-write --allow-net ./scripts/patch.ts",
     "card-text": "deno run --allow-read --allow-write ./scripts/card-text.ts",
     "process": "deno run --allow-read --allow-write --allow-net ./scripts/process.ts",
-    "sync": "deno run --allow-read --allow-write --allow-run=rclone ./scripts/rclone-sync.ts"
+    "sync": "deno run --allow-read --allow-write --allow-run=rclone ./scripts/rclone-sync.ts",
+    "copy-cards": "deno run --allow-read --allow-write ./scripts/copy-cards.ts"
   }
 }

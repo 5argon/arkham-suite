@@ -79,9 +79,4 @@ console.log("Copying cards.json to r2 destination...")
 const cardsJsonSrc = path.join(pullsDirectory, pullsJson, pullsUtilsPlayerDatabase)
 await runRclone(["copyto", cardsJsonSrc, `${destination}/cards.json`])
 
-// Also copy cards.json locally to the starter package's static data folder
-console.log("Copying cards.json to starter/src/lib/data/...")
-const starterDataDir = path.join("..", "starter", "src", "lib", "data", pullsUtilsPlayerDatabase)
-await Deno.copyFile(cardsJsonSrc, starterDataDir)
-
-console.log("Done.")
+console.log("Done. (Run `yarn copy-cards` in cards-json to update the local starter/life copies.)")
