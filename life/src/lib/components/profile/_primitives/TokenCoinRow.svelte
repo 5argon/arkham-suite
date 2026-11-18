@@ -1,0 +1,32 @@
+<!-- @component A labelled row of chaos-token coins followed by ×count. -->
+<script lang="ts">
+	import type { ChaosToken } from '@5argon/arkham-kohaku';
+	import { ChaosTokenDisplay } from '@5argon/arkham-life-ui';
+
+	let {
+		token,
+		label,
+		count,
+		labelClass = 'w-28'
+	}: {
+		token: ChaosToken;
+		label: string;
+		count: number;
+		/** The label column's width, so rows line up. */
+		labelClass?: string;
+	} = $props();
+</script>
+
+<div class="flex items-center gap-3">
+	<span
+		class="text-primary-600 dark:text-primary-300 {labelClass} shrink-0 text-sm leading-tight font-semibold"
+	>
+		{label}
+	</span>
+	<div class="flex flex-wrap items-center gap-1">
+		{#each Array(count) as _, i (i)}
+			<span class="text-2xl"><ChaosTokenDisplay {token} hideLabel /></span>
+		{/each}
+		<span class="text-primary-500 ml-1 text-sm font-bold tabular-nums">×{count}</span>
+	</div>
+</div>

@@ -1,0 +1,8 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"profile_campaigns_played_title": "Recently Played",
+	"profile_campaigns_played_empty": "No Archived Campaigns yet.",
+	"profile_campaigns_played_draft_badge": "Draft",
+	"profile_campaigns_played_players": "{count}P",
+	"profile_campaigns_played_players_title": "{count}-player campaign"
+}
