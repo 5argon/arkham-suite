@@ -110,7 +110,7 @@ export enum Scenario {
   AThousandShapesOfHorror = 'a_thousand_shapes_of_horror',
   DarkSideOfTheMoon = 'dark_side_of_the_moon',
   PointOfNoReturn = 'point_of_no_return',
-  WhereTheGodsDwell = 'where_the_gods_dwell',
+  WhereTheGodsDwell = 'where_gods_dwell',
   WeaverOfTheCosmos = 'weaver_of_the_cosmos',
 
   // Edge of the Earth
@@ -942,7 +942,6 @@ const arkhamCardsScenarioIdOverrides: Partial<Record<Scenario, string | null>> =
   // ArkhamCards drops the leading "the" / uses the short id.
   [Scenario.TheEssexCountyExpress]: 'essex_county_express',
   [Scenario.ReturnToTheEssexCountyExpress]: 'return_to_essex_county_express',
-  [Scenario.WhereTheGodsDwell]: 'where_gods_dwell',
   [Scenario.TheUntamedWilds]: 'wilds',
   [Scenario.TheDoomOfEztli]: 'eztli',
   // ArkhamCards reuses the base id / keeps these single.
