@@ -5,9 +5,5 @@ export const variables = defineEnvVars({
 		public: true,
 		static: true,
 		description: 'Base URL of the card image CDN.'
-	},
-	DATABASE_URL: {
-		schema: (value) => value,
-		description: 'Postgres connection string for the server database.'
 	}
 });
