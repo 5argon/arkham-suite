@@ -215,6 +215,12 @@ export interface CardItem {
 	quantityColor?: CardClass;
 
 	/**
+	 * An arbitrary number to overlay on the card (e.g. a usage count), rendered as a small
+	 * badge by the icons and scans views when `showIconCount` is set.
+	 */
+	iconCount?: number;
+
+	/**
 	 * Owner card (typically an investigator card) associated with this card.
 	 */
 	owner?: Card;

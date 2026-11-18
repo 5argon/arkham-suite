@@ -28,6 +28,8 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 		 * Shown under each card.
 		 */
 		cardFooter?: Snippet<[CardItem]>;
+		/** Overlay each card's `iconCount` as a small badge (e.g. a usage count). */
+		showIconCount?: boolean;
 	}
 
 	const {
@@ -37,7 +39,8 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 		languageCode,
 		onClick,
 		cardHref,
-		cardFooter
+		cardFooter,
+		showIconCount
 	}: Prop = $props();
 	const tooltip = createTooltipState<{ card: Card; quantity: number }>();
 	let magnifiedCard = $state<Card | null>(null);
@@ -66,7 +69,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 {/snippet}
 
 {#snippet cardRender(item: CardItem)}
-	<div>
+	<div class={showIconCount ? 'flex flex-col items-center' : undefined}>
 		{#if cardHref}
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a
@@ -96,6 +99,18 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 				{@render cardSquare(item)}
 			</div>
 		{/if}
+		{#if showIconCount}
+			<!-- A reserved row for the count, so tiles with and without one are the same size. -->
+			<div class="mt-px flex h-4 w-full items-center justify-end">
+				{#if (item.iconCount ?? 0) > 0}
+					<span
+						class="bg-primary-100/90 dark:bg-primary-900/90 text-primary-700 dark:text-primary-200 min-w-[1rem] rounded px-1 text-center text-[10px] leading-4 font-bold tabular-nums"
+					>
+						{item.iconCount}
+					</span>
+				{/if}
+			</div>
+		{/if}
 		{#if cardFooter}
 			<!-- Takes the square's width without adding to it, so a long footer wraps instead of
 			 stretching the square. -->
@@ -118,7 +133,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 			</div>
 		{/if}
 	{/each}
-	<div class="flex flex-wrap gap-1">
+	<div class="flex flex-wrap gap-1{showIconCount ? ' -mb-2 lg:-mb-4' : ''}">
 		{#each group.items as item, i (noMoreGroup(item) ? getCardItemKey(item) : i)}
 			{#if noMoreGroup(item)}
 				{@render cardRender(item)}
@@ -158,7 +173,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 						{@render renderGroup(item, layer + 1, group.items.length === 1, groupIdx)}
 					{/if}
 				{/each}
-				<div class="flex flex-wrap gap-1">
+				<div class="flex flex-wrap gap-1{showIconCount ? ' -mb-2 lg:-mb-4' : ''}">
 					{#each group.items as item, i (noMoreGroup(item) ? getCardItemKey(item) : i)}
 						{#if noMoreGroup(item)}
 							{@render cardRender(item)}

@@ -32,10 +32,20 @@ CSS flex of vertical cards, with optional grouping.
 		cardFooter?: Snippet<[CardItem]>;
 		languageCode?: string;
 		hideQuantity?: boolean;
+		/** Overlay each card's `iconCount` as a small badge (e.g. a usage count). */
+		showIconCount?: boolean;
 	}
 
-	const { groups, showCardName, onClick, cardHref, cardFooter, languageCode, hideQuantity }: Prop =
-		$props();
+	const {
+		groups,
+		showCardName,
+		onClick,
+		cardHref,
+		cardFooter,
+		languageCode,
+		hideQuantity,
+		showIconCount
+	}: Prop = $props();
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
 
@@ -117,33 +127,37 @@ CSS flex of vertical cards, with optional grouping.
 {/snippet}
 
 {#snippet cardRender(item: CardItem, animIndex: number)}
-	{#if cardHref}
-		<!-- eslint-disable svelte/no-navigation-without-resolve -->
-		<a
-			in:fade={{ duration: 80, delay: animIndex * 20 }}
-			href={cardHref(item)}
-			class="block cursor-pointer transition-all hover:brightness-110"
-		>
-			{@render cardScan(item)}
-		</a>
-		<!-- eslint-enable svelte/no-navigation-without-resolve -->
-	{:else}
-		<div
-			role="button"
-			in:fade={{ duration: 80, delay: animIndex * 20 }}
-			tabindex="0"
-			onclick={() => handleCardClick(item.card, item)}
-			onkeydown={(e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					handleCardClick(item.card, item);
-				}
-			}}
-			class="cursor-pointer transition-all hover:brightness-110"
-		>
-			{@render cardScan(item)}
-		</div>
-	{/if}
+	<div class="relative" in:fade={{ duration: 80, delay: animIndex * 20 }}>
+		{#if cardHref}
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
+			<a href={cardHref(item)} class="block cursor-pointer transition-all hover:brightness-110">
+				{@render cardScan(item)}
+			</a>
+			<!-- eslint-enable svelte/no-navigation-without-resolve -->
+		{:else}
+			<div
+				role="button"
+				tabindex="0"
+				onclick={() => handleCardClick(item.card, item)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						handleCardClick(item.card, item);
+					}
+				}}
+				class="cursor-pointer transition-all hover:brightness-110"
+			>
+				{@render cardScan(item)}
+			</div>
+		{/if}
+		{#if showIconCount && (item.iconCount ?? 0) > 0}
+			<span
+				class="bg-primary-100/90 dark:bg-primary-900/90 text-primary-700 dark:text-primary-200 pointer-events-none absolute top-1 right-1 min-w-[1.25rem] rounded px-1 text-center text-xs leading-5 font-bold tabular-nums"
+			>
+				{item.iconCount}
+			</span>
+		{/if}
+	</div>
 {/snippet}
 
 {#snippet renderNestedGroupsAndCards(group: RecursivelyGroupedCardItem, layer: number)}

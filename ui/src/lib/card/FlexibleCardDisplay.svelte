@@ -50,6 +50,11 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		defaultViewMode?: 'icons' | 'scans' | 'list';
 
 		hideIconsView?: boolean;
+		/** Hide the view-mode selector (with a fixed `defaultViewMode`, locks the display to one mode). */
+		hideViewMode?: boolean;
+		hideGroupingSorting?: boolean;
+		/** Render each card's `iconCount` as a small badge in the icons and scans views. */
+		showIconCount?: boolean;
 		/**
 		 * Fired whenever the user applies new grouping/sorting from the modal.
 		 * Use this to mirror state to the URL, storage, or analytics.
@@ -74,6 +79,9 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		hideQuantity = false,
 		defaultViewMode = 'scans',
 		hideIconsView = false,
+		hideViewMode = false,
+		hideGroupingSorting = false,
+		showIconCount = false,
 		onSettingsApply,
 		cardHref,
 		cardFooter
@@ -192,33 +200,39 @@ Flexible card display with multiple rendering modes and checklist functionality.
 </script>
 
 <div class="space-y-4">
-	<FormRow>
-		<div in:fly={{ y: -10, duration: 200 }}>
-			<RadioButtons
-				label={m.form_view_mode()}
-				bind:selectedValue={displayMode}
-				choices={viewModeChoices}
-			/>
-		</div>
-		<div in:fly={{ y: -10, duration: 200, delay: 50 }}>
-			<Button
-				icon={FaIconType.GroupingSorting}
-				label={settingsDifferFromDefaults
-					? m.button_grouping_sorting() + ' *'
-					: m.button_grouping_sorting()}
-				onClick={() => (showGroupingSortingModal = true)}
-			/>
-		</div>
-		<div in:fly={{ y: -10, duration: 200, delay: 100 }}>
-			{#if !hideChecklistMode}
-				<Checkbox
-					label={m.form_checklist_mode()}
-					checked={checklistMode}
-					onChange={handleChecklistModeChange}
-				/>
+	{#if !hideViewMode || !hideGroupingSorting || !hideChecklistMode}
+		<FormRow>
+			{#if !hideViewMode}
+				<div in:fly={{ y: -10, duration: 200 }}>
+					<RadioButtons
+						label={m.form_view_mode()}
+						bind:selectedValue={displayMode}
+						choices={viewModeChoices}
+					/>
+				</div>
 			{/if}
-		</div>
-	</FormRow>
+			{#if !hideGroupingSorting}
+				<div in:fly={{ y: -10, duration: 200, delay: 50 }}>
+					<Button
+						icon={FaIconType.GroupingSorting}
+						label={settingsDifferFromDefaults
+							? m.button_grouping_sorting() + ' *'
+							: m.button_grouping_sorting()}
+						onClick={() => (showGroupingSortingModal = true)}
+					/>
+				</div>
+			{/if}
+			{#if !hideChecklistMode}
+				<div in:fly={{ y: -10, duration: 200, delay: 100 }}>
+					<Checkbox
+						label={m.form_checklist_mode()}
+						checked={checklistMode}
+						onChange={handleChecklistModeChange}
+					/>
+				</div>
+			{/if}
+		</FormRow>
+	{/if}
 
 	<!-- Display -->
 	{#if displayMode === 'icons'}
@@ -226,6 +240,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 			<CardSquareGrid
 				groups={displayGroups}
 				{languageCode}
+				{showIconCount}
 				onClick={checklistMode ? handleIconsOrListClick : undefined}
 				cardHref={checklistMode ? undefined : cardHref}
 				{cardFooter}
@@ -241,6 +256,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				{cardFooter}
 				showCardName
 				{hideQuantity}
+				{showIconCount}
 			/>
 		</div>
 	{:else if displayMode === 'list'}
