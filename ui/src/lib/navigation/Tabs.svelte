@@ -38,7 +38,7 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 </script>
 
 {#snippet centerLabel(label: string)}
-	<div class="text text-primary-950 dark:text-primary-50">{label}</div>
+	<div class="text text-primary-950 dark:text-primary-50 whitespace-nowrap">{label}</div>
 {/snippet}
 
 {#snippet singleTab(
@@ -50,7 +50,7 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 )}
 	<div
 		class:custom-hover-color={accentColor !== undefined}
-		class="group-hover:bg-primary-50/20 dark:group-hover:bg-primary-500/10 group-active:bg-secondary-200/50 dark:group-active:bg-secondary-400/20 relative mx-4 my-2 rounded"
+		class="group-hover:bg-primary-50/20 dark:group-hover:bg-primary-500/10 group-active:bg-secondary-200/50 dark:group-active:bg-secondary-400/20 relative mx-1 my-1 rounded sm:mx-4 sm:my-2"
 	>
 		{#if active}
 			<div
@@ -109,6 +109,7 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 	<div
 		role="group"
 		class="dark:bg-primary-950 dark:text-secondary-100 text-primary-700 bg-primary-200 flex items-center"
+		class:flex-wrap={direction === 'horizontal'}
 		class:vertical-flex={direction === 'vertical'}
 		class:horizontal-flex={direction === 'horizontal'}
 		style={`--light-accent-color: ${accentColor}`}
@@ -129,7 +130,8 @@ Just the tabs, it doesn't deal with showing or hiding the content.
 			<!-- Separator -->
 			{#if i !== tabs.length - 1}
 				{#if direction === 'horizontal'}
-					<div class="bg-primary-500/20 h-4 w-0.5"></div>
+					<!-- Narrow screens wrap the tabs onto more lines, where separators would dangle. -->
+					<div class="bg-primary-500/20 hidden h-4 w-0.5 sm:block"></div>
 				{:else}
 					<div class="bg-primary-500/20 h-0.5 w-5/6"></div>
 				{/if}
