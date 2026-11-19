@@ -11,10 +11,11 @@ export default campaignWidgets(
 		{ id: 'notzCoreOnly', label: m.framework_label_notz_core_only, nonLog: 'full' }
 	],
 	() => [
-		split('overview', 'notzGhoulPriest'),
+		split('overview', 'notzCoreOnly'),
 		split('scenarioXp', 'resolutionCoverage'),
-		split('notzGathering', 'notzMidnightMasks'),
-		split('notzDevourerBelow', 'notzCoreOnly'),
+		split('notzGathering', 'notzGhoulPriest'),
+		full('notzMidnightMasks'),
+		full('notzDevourerBelow'),
 		full('achievements')
 	]
 );
