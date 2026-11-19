@@ -27,7 +27,7 @@ export default campaignWidgets(
 		split('ptcLastKing', 'ptcEchoes'),
 		split('ptcUnspeakableOath', 'ptcLostSoul'),
 		split('ptcPhantom', 'ptcPallidMask'),
-		split('ptcBlackStarsRise', null),
+		full('ptcBlackStarsRise'),
 		full('ptcDimCarcosa'),
 		full('achievements')
 	]

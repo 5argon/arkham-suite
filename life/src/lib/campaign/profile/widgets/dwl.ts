@@ -21,7 +21,7 @@ export default campaignWidgets(
 		split('dwlMiskatonic', 'dwlEssex'),
 		full('dwlSacrifices'),
 		split('dwlUndimensioned', 'dwlAscendingHill'),
-		split('dwlFinale', null),
+		full('dwlFinale'),
 		full('achievements')
 	]
 );
