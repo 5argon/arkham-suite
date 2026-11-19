@@ -36,7 +36,7 @@ TDC "Alien Glyphs": the 26 runes as toggle tiles (rune art + meaning); a learned
 			onclick={() => toggle(g.key)}
 			aria-pressed={on}
 			class={[
-				'flex aspect-square flex-col items-center justify-center gap-1 rounded-lg border p-2 text-center transition',
+				'flex aspect-square flex-col items-center justify-center gap-1 rounded-lg border p-2 text-center',
 				on
 					? 'border-secondary-400 bg-secondary-500/20 text-black shadow-[0_0_10px] shadow-secondary-500/40 dark:text-white'
 					: 'border-primary-300 dark:border-primary-700 text-primary-500 dark:text-primary-400 hover:border-secondary-400 hover:text-black dark:hover:text-white',

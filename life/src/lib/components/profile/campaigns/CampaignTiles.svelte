@@ -23,7 +23,7 @@
 				<a
 					href="{profile?.base ?? ''}/campaigns/{c.slug}"
 					{style}
-					class="border-primary-200 dark:border-primary-700 bg-primary-50 dark:bg-primary-900 relative block h-18 overflow-hidden rounded-lg border shadow-sm transition hover:brightness-110"
+					class="border-primary-200 dark:border-primary-700 bg-primary-50 dark:bg-primary-900 relative block h-18 overflow-hidden rounded-lg border shadow-sm hover:brightness-110"
 				>
 					<div class="absolute inset-0">
 						<CampaignArt campaignCode={c.slug} banner />

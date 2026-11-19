@@ -89,7 +89,7 @@ uid so moving/deleting never mis-associates config inputs.
 	{:else}
 		<button
 			type="button"
-			class="border-primary-300 dark:border-primary-600 text-primary-500 hover:border-secondary-500 hover:text-secondary-600 dark:hover:text-secondary-400 flex w-full items-center justify-center gap-2 rounded border border-dashed px-3 py-4 text-sm transition"
+			class="border-primary-300 dark:border-primary-600 text-primary-500 hover:border-secondary-500 hover:text-secondary-600 dark:hover:text-secondary-400 flex w-full items-center justify-center gap-2 rounded border border-dashed px-3 py-4 text-sm"
 			onclick={() => (pickerTarget = { rowIndex, side })}
 		>
 			<FaIcon icon={FaIconType.Plus} />
@@ -105,7 +105,7 @@ uid so moving/deleting never mis-associates config inputs.
 			<button
 				type="button"
 				disabled={index === moveFrom || index === moveFrom + 1}
-				class="border-secondary-400 text-secondary-700 dark:text-secondary-300 hover:bg-secondary-500/10 disabled:border-primary-300 disabled:text-primary-400 dark:disabled:border-primary-600 flex w-full items-center justify-center gap-2 rounded border border-dashed py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50"
+				class="border-secondary-400 text-secondary-700 dark:text-secondary-300 hover:bg-secondary-500/10 disabled:border-primary-300 disabled:text-primary-400 dark:disabled:border-primary-600 flex w-full items-center justify-center gap-2 rounded border border-dashed py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50"
 				onclick={() => dropAt(index)}
 			>
 				{#if index === moveFrom || index === moveFrom + 1}
@@ -121,7 +121,7 @@ uid so moving/deleting never mis-associates config inputs.
 			<button
 				type="button"
 				aria-label={m.framework_add_row_here()}
-				class="text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400 hover:border-secondary-400 border-primary-200 dark:border-primary-700 flex items-center gap-1.5 rounded-full border border-dashed px-3 py-1 text-xs font-medium transition"
+				class="text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400 hover:border-secondary-400 border-primary-200 dark:border-primary-700 flex items-center gap-1.5 rounded-full border border-dashed px-3 py-1 text-xs font-medium"
 				onclick={() => (addGap = index)}
 			>
 				<FaIcon icon={FaIconType.Plus} />
@@ -214,7 +214,7 @@ uid so moving/deleting never mis-associates config inputs.
 	<div class="flex flex-col gap-2 pb-4">
 		<button
 			type="button"
-			class="border-primary-300 dark:border-primary-600 hover:border-secondary-500 dark:bg-primary-800 flex flex-col gap-0.5 rounded border px-3 py-2.5 text-left transition"
+			class="border-primary-300 dark:border-primary-600 hover:border-secondary-500 dark:bg-primary-800 flex flex-col gap-0.5 rounded border px-3 py-2.5 text-left"
 			onclick={() => addRow('full')}
 		>
 			<span class="font-medium text-black dark:text-white">{m.framework_full_width_row()}</span>
@@ -222,7 +222,7 @@ uid so moving/deleting never mis-associates config inputs.
 		</button>
 		<button
 			type="button"
-			class="border-primary-300 dark:border-primary-600 hover:border-secondary-500 dark:bg-primary-800 flex flex-col gap-0.5 rounded border px-3 py-2.5 text-left transition"
+			class="border-primary-300 dark:border-primary-600 hover:border-secondary-500 dark:bg-primary-800 flex flex-col gap-0.5 rounded border px-3 py-2.5 text-left"
 			onclick={() => addRow('split')}
 		>
 			<span class="font-medium text-black dark:text-white">{m.framework_split_row()}</span>

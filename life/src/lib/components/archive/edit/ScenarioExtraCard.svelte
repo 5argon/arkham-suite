@@ -87,7 +87,7 @@ while nothing is recorded (an empty form is not a form of zeros).
 <div class="border-primary-100 dark:border-primary-800 rounded border p-3">
 	<div class="mb-2 flex items-center justify-between gap-2">
 		<p
-			class="flex items-center gap-2 font-medium text-black transition-opacity dark:text-white"
+			class="flex items-center gap-2 font-medium text-black dark:text-white"
 			class:opacity-40={!touched}
 		>
 			{#if iconSet}

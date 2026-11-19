@@ -38,7 +38,7 @@ are glyph-only text, unsearchable in a dropdown).
 			aria-label={sealLabel(s.key)}
 			title={sealLabel(s.key)}
 			class={[
-				'flex h-24 w-20 cursor-pointer items-center justify-center rounded-lg border p-1 transition',
+				'flex h-24 w-20 cursor-pointer items-center justify-center rounded-lg border p-1',
 				on
 					? 'border-secondary-400 bg-secondary-500/15 shadow-[0_0_12px] shadow-secondary-500/40'
 					: 'border-primary-300 dark:border-primary-700 hover:border-secondary-400',
@@ -48,7 +48,7 @@ are glyph-only text, unsearchable in a dropdown).
 				<img
 					src={sealImg(s.key)}
 					alt={sealLabel(s.key)}
-					class={['h-20 w-16 object-contain transition', on ? '' : 'opacity-30 grayscale']}
+					class={['h-20 w-16 object-contain', on ? '' : 'opacity-30 grayscale']}
 					onerror={() => (artFailed = new Set([...artFailed, s.key]))}
 				/>
 			{:else}

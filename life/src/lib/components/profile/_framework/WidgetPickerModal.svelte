@@ -76,7 +76,7 @@ so they can be interleaved freely. Selecting an enabled widget fills the slot.
 				<button
 					type="button"
 					disabled={e.disabled}
-					class="border-primary-300 dark:border-primary-600 dark:bg-primary-800 enabled:hover:border-secondary-500 flex items-center justify-between gap-2 rounded border px-3 py-2 text-left text-sm transition disabled:cursor-not-allowed disabled:opacity-50"
+					class="border-primary-300 dark:border-primary-600 dark:bg-primary-800 enabled:hover:border-secondary-500 flex items-center justify-between gap-2 rounded border px-3 py-2 text-left text-sm disabled:cursor-not-allowed disabled:opacity-50"
 					onclick={() => choose(e.id, e.disabled)}
 				>
 					<span class="truncate font-medium text-black dark:text-white">{widgetLabel(e.id)}</span>

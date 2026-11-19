@@ -13,7 +13,7 @@
 
 <a {href} class="block">
 	<BorderedContainer>
-		<div class="flex items-center justify-between gap-3 p-3 transition hover:opacity-80">
+		<div class="flex items-center justify-between gap-3 p-3 hover:opacity-80">
 			<div class="flex min-w-0 items-center gap-2">
 				{#if icon}
 					<span class="text-primary-600 dark:text-primary-300 shrink-0 text-lg leading-none">

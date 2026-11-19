@@ -70,7 +70,7 @@ empty, as a visible blank to fill in.
 					onclick={() => (noteOpen = true)}
 					aria-label={m.framework_widget_note_label()}
 					title={m.framework_widget_note_label()}
-					class="bg-primary-100/90 dark:bg-primary-800/80 text-secondary-700 dark:text-secondary-200 hover:text-secondary-900 dark:hover:text-secondary-50 relative z-10 ml-auto shrink-0 cursor-pointer rounded-full p-1 leading-none transition"
+					class="bg-primary-100/90 dark:bg-primary-800/80 text-secondary-700 dark:text-secondary-200 hover:text-secondary-900 dark:hover:text-secondary-50 relative z-10 ml-auto shrink-0 cursor-pointer rounded-full p-1 leading-none"
 				>
 					<FaIcon icon={FaIconType.NoticeInfo} />
 				</button>

@@ -85,7 +85,7 @@ sharing one tooltip. Pass `tiles` (a grid or a flex row) or explicit `rows`.
 					src={image}
 					alt=""
 					onerror={() => (failed = { ...failed, [t.id]: true })}
-					class="h-full w-full {imgFit} transition {t.count > 0 ? '' : 'opacity-30 grayscale'}"
+					class="h-full w-full {imgFit} {t.count > 0 ? '' : 'opacity-30 grayscale'}"
 				/>
 			{:else}
 				<span
