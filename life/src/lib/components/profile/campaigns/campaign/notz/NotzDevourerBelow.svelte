@@ -1,4 +1,4 @@
-<!-- @component The Devourer Below: each ending and the resolution it is, from Umôrdhoth repelled down to Arkham succumbing. -->
+<!-- @component The Devourer Below: each ending and the resolution it is, from Umôrdhoth repelled down to Arkham succumbing, and what waited in its encounter deck. -->
 <script lang="ts">
 	import { NOTZ_UMORDHOTH_CODE, type CampaignNotz } from '$lib/campaign/campaigns/notz';
 	import type { EndingKind } from '$lib/campaign/outcomes/clear-status';
@@ -6,7 +6,8 @@
 	import {
 		CountWithBreakdown,
 		OutcomeFace,
-		SectionLabel
+		SectionLabel,
+		StatNumbers
 	} from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 	import ResolutionChips from '../ResolutionChips.svelte';
@@ -15,6 +16,7 @@
 	let { blob: notz, ctx }: CampaignWidgetProps<CampaignNotz> = $props();
 
 	const d = $derived(notz?.devourerBelow);
+	const cultists = $derived(d?.cultists);
 	const endings = $derived(
 		d
 			? [
@@ -58,7 +60,7 @@
 			<SectionLabel variant="heading" align="center"
 				>{m.campaign_notz_devourer_heading()}</SectionLabel
 			>
-			<div class="grid grid-cols-2 gap-x-6 gap-y-2">
+			<div class="mx-auto grid max-w-2xl grid-cols-2 gap-x-6 gap-y-2">
 				{#each endings as e (e.label)}
 					<div class="flex items-center gap-2 {e.tally.total > 0 ? '' : 'opacity-45'}">
 						<OutcomeFace kind={e.kind} label={e.label} reached={e.tally.total > 0} />
@@ -78,5 +80,20 @@
 				{/each}
 			</div>
 		</div>
+		<StatNumbers
+			rows={[
+				{
+					heading: m.campaign_notz_devourer_deck_heading(),
+					stats: [
+						{
+							tally: notz?.ghoulPriest.aliveInDevourerBelow,
+							label: m.campaign_notz_devourer_ghoul_alive()
+						},
+						{ value: cultists?.most, label: m.campaign_notz_devourer_most_cultists() },
+						{ value: cultists?.fewest, label: m.campaign_notz_devourer_fewest_cultists() }
+					]
+				}
+			]}
+		/>
 	{/snippet}
 </ScenarioInfo>

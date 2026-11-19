@@ -12,6 +12,12 @@ export const NOTZ_GHOUL_PRIEST_CODE = '01116';
 export const NOTZ_UMORDHOTH_CODE = '01157';
 
 const GHOUL_PRIEST_ALIVE = 'campaign_notes.ghoul_priest_alive';
+const DEVOURER_ENDINGS = [
+	'umordhoth_repelled',
+	'ritual_broken',
+	'lita_sacrificed',
+	'arkham_succumbed'
+] as const;
 
 export interface NotzCultist {
 	caught: Tally;
@@ -57,6 +63,11 @@ export interface CampaignNotz {
 		ritualBroken: Tally;
 		litaSacrificed: Tally;
 		arkhamSuccumbed: Tally;
+		/**
+		 * The cultists that got away from The Midnight Masks are shuffled into The Devourer Below's
+		 * encounter deck: the most and fewest of them in one play that reached the finale.
+		 */
+		cultists: { most: number; fewest: number } | null;
 	};
 	purist: {
 		/** Wins whose subject decks were all Core / Revised Core-only with a non-parallel investigator. */
@@ -68,6 +79,7 @@ export interface CampaignNotz {
 
 export const buildNotz = defineCampaignBuilder<CampaignNotz>('notz', (plays) => {
 	const reachedGathering = (p: Play) => p.has('house_standing') || p.has('house_burned');
+	const reachedDevourer = (p: Play) => DEVOURER_ENDINGS.some((note) => p.has(note));
 	const ghoulCrossed = (p: Play) => p.rec.recorded.crossedLogs?.has(GHOUL_PRIEST_ALIVE) ?? false;
 
 	const perCultist: Record<string, NotzCultist> = {};
@@ -78,6 +90,7 @@ export const buildNotz = defineCampaignBuilder<CampaignNotz>('notz', (plays) => 
 	const bestByTier: Record<string, number> = {};
 	let totalInterrogated = 0;
 	let totalEscaped = 0;
+	const devourerCultists: number[] = [];
 
 	const coreOnlyClears = emptyTally();
 	const investigators: Record<string, Tally> = {};
@@ -91,6 +104,7 @@ export const buildNotz = defineCampaignBuilder<CampaignNotz>('notz', (plays) => 
 		totalInterrogated += caught.size;
 		totalEscaped += gotAway.size;
 		bestByTier[p.tier] = Math.max(bestByTier[p.tier] ?? 0, caught.size);
+		if (reachedDevourer(p)) devourerCultists.push(gotAway.size);
 
 		// campaign-data marks `lita_sacrificed` with no win outcome, so `isCleared` would miss it.
 		if (!(p.has('umordhoth_repelled') || p.has('ritual_broken') || p.has('lita_sacrificed')))
@@ -132,12 +146,17 @@ export const buildNotz = defineCampaignBuilder<CampaignNotz>('notz', (plays) => 
 				.filter((tier) => bestByTier[tier] > 0)
 				.map((tier) => ({ tier, caught: bestByTier[tier] }))
 		},
-		devourerBelow: tallyNotes(plays, {
-			umordhothRepelled: 'umordhoth_repelled',
-			ritualBroken: 'ritual_broken',
-			litaSacrificed: 'lita_sacrificed',
-			arkhamSuccumbed: 'arkham_succumbed'
-		}),
+		devourerBelow: {
+			...tallyNotes(plays, {
+				umordhothRepelled: 'umordhoth_repelled',
+				ritualBroken: 'ritual_broken',
+				litaSacrificed: 'lita_sacrificed',
+				arkhamSuccumbed: 'arkham_succumbed'
+			}),
+			cultists: devourerCultists.length
+				? { most: Math.max(...devourerCultists), fewest: Math.min(...devourerCultists) }
+				: null
+		},
 		purist: {
 			coreOnlyClears,
 			investigators: Object.entries(investigators)

@@ -104,6 +104,12 @@ describe('buildNotz', () => {
 		expect(n.devourerBelow.litaSacrificed.total).toBe(0);
 	});
 
+	it('ranges the cultists that got away into The Devourer Below over plays that reached it', () => {
+		expect(n.devourerBelow.cultists).toEqual({ most: 1, fewest: 0 }); // A 1, B 0, C 0
+		const unfinished = rec({ logs: ['house_standing'], escaped: ['01137', '01138', '01139'] });
+		expect(buildNotz([unfinished])!.devourerBelow.cultists).toBeNull();
+	});
+
 	it('counts only WON, core-only clears in the purist feat (and their investigators)', () => {
 		// A: won + core-only ✓. B: won but not core-only ✗. C: core-only but lost ✗.
 		expect(n.purist.coreOnlyClears.total).toBe(1);

@@ -72,3 +72,4 @@
   - `fhv`: counts became `Tally`s; `fate`, `rachelExtra`, `simeonExtra`, `hemlockHouse` folded into `villagers`, `finalEvening`, `argument` and `scenarios`; `valeSummary` added.
   - `scenarios[].versions` gained Echoes of the Past (player count), Dim Carcosa (arrival doom), Before the Black Throne (path winds) and Fate of the Vale.
 - 59→60: `notz`: `gathering.ghoulPriestSlain` / `ghoulPriestSurvived` replaced by `ghoulPriest` (`defeatedInGathering`, `defeatedInMidnightMasks`, `aliveInDevourerBelow`).
+- 60→61: `notz`: `devourerBelow.cultists` added (`{most, fewest}` cultists that got away into The Devourer Below, or null).
