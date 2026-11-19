@@ -7,6 +7,9 @@ node_modules
 /.svelte-kit
 /build
 
+# Generated doc images: source lives in src/lib/docs/**, copied here by the doc-images Vite plugin
+/static/docs/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -16,9 +19,13 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.test
+.dev.vars
 
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 *storybook.log
+
+# Wrangler local runtime state
+.wrangler/

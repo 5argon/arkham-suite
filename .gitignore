@@ -2,3 +2,7 @@ node_modules
 tsconfig.tsbuildinfo
 deno.lock
 .yarn/install-state.gz
+
+# arkhamcards-convert output: build artifacts and converted personal campaign data
+arkhamcards-convert/out/
+arkhamcards-convert/engine/dist/
