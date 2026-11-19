@@ -4,6 +4,7 @@
 	import { FaIcon, FaIconType, parseArkhamMarkup } from '@5argon/arkham-life-ui';
 	import type { ProfileFamily } from '$lib/campaign/achievements/achievement-aggregate';
 	import { HoverTip, HoverTipState } from '$lib/components/profile/_primitives';
+	import { difficultyLabel } from '$lib/campaign/utils/difficulty';
 
 	let {
 		families,
@@ -15,16 +16,6 @@
 
 	const tip = new HoverTipState();
 </script>
-
-{#snippet hint(text: string, detail: string, cls: string)}
-	<span
-		role="img"
-		aria-label={detail}
-		class="cursor-default {cls}"
-		onmouseenter={(e) => tip.showText(detail, e)}
-		onmouseleave={tip.hide}>{text}</span
-	>
-{/snippet}
 
 {#if families.length}
 	<div class="space-y-5">
@@ -39,7 +30,22 @@
 				<ul class="space-y-2.5">
 					{#each fam.achievements as a (a.id)}
 						<li class="text-sm" class:opacity-45={!a.earned}>
-							<div class="flex items-center gap-2">
+							<div
+								role="note"
+								aria-label={a.earned
+									? m.campaign_achievements_earned_on({ tiers: a.earnedTiers.map(difficultyLabel).join(', ') })
+									: undefined}
+								class="flex w-fit cursor-default items-center gap-2"
+								onmouseenter={(e) =>
+									a.earned &&
+									tip.showText(
+										m.campaign_achievements_earned_on({
+											tiers: a.earnedTiers.map(difficultyLabel).join(', ')
+										}),
+										e
+									)}
+								onmouseleave={tip.hide}
+							>
 								<span
 									class={a.earned
 										? 'text-yellow-500 dark:text-yellow-400'
@@ -49,18 +55,9 @@
 								</span>
 								<span class="font-medium text-black dark:text-white">{a.title}</span>
 								{#if a.earnCount > 1}
-									{@render hint(
-										`×${a.earnCount}`,
-										m.campaign_achievements_earned_in_plays({ count: a.earnCount }),
-										'text-secondary-600 dark:text-secondary-400 text-xs font-semibold tabular-nums'
-									)}
-								{/if}
-								{#if a.earnedTiers.length}
-									{@render hint(
-										a.earnedTiers.map((t) => t[0]).join(''),
-										m.campaign_achievements_earned_on({ tiers: a.earnedTiers.join(', ') }),
-										'text-primary-400 text-[0.65rem] font-semibold tracking-wide uppercase'
-									)}
+									<span class="text-secondary-600 dark:text-secondary-400 text-xs font-semibold tabular-nums"
+										>×{a.earnCount}</span
+									>
 								{/if}
 							</div>
 							{#if a.text}

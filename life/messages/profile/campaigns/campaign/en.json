@@ -17,7 +17,7 @@
 			}
 		}
 	],
-	"campaign_achievements_earned_on": "Earned on: {tiers}",
+	"campaign_achievements_earned_on": "Earned on {tiers}",
 	"campaign_chips_total": "Total {count}",
 	"campaign_chips_total_breakdown": "Total {count} ({breakdown})",
 	"campaign_resolution_coverage_seen": "resolutions seen across your plays.",

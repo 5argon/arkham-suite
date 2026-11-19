@@ -25,7 +25,7 @@ describe('aggregateOfficialTiered', () => {
 		expect(earned.length).toBeGreaterThan(0); // at least dont_trust_her (infer log lita_finds_others)
 		for (const a of earned) {
 			expect(a.earnCount).toBe(2);
-			expect(a.earnedTiers).toEqual(['hard', 'standard']); // sorted, deduped
+			expect(a.earnedTiers).toEqual(['standard', 'hard']); // easiest first, deduped
 		}
 	});
 

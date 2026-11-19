@@ -278,7 +278,16 @@ and icon are on the widget frame.
 						aria-label="{a.title}{a.text ? ` — ${a.text}` : ''}"
 						class="flex cursor-default items-center gap-1.5 text-xs"
 						class:opacity-45={!a.earned}
-						onmouseenter={(e) => tip.showText(a.text ?? '', e)}
+						onmouseenter={(e) =>
+							tip.show(
+								a.text ?? '',
+								a.earned
+									? msg.campaign_achievements_earned_on({
+											tiers: a.earnedTiers.map(difficultyLabel).join(', ')
+										})
+									: '',
+								e
+							)}
 						onmouseleave={tip.hide}
 					>
 						<span

@@ -3,6 +3,7 @@
  * measure. A Return-to `shared` achievement, which campaign-data injects into the base campaign
  * under the same family and id, counts toward the base family.
  */
+import { byDifficulty } from '../utils/difficulty';
 import {
 	achievementsFor,
 	evaluateAchievement,
@@ -131,7 +132,7 @@ export function aggregateOfficialTiered(
 	const byFamily = new Map<string, AchievementTierStats[]>();
 	for (const e of byKey.values()) {
 		const { _tiers, ...stats } = e;
-		stats.earnedTiers = [..._tiers].sort();
+		stats.earnedTiers = byDifficulty([..._tiers]);
 		const arr = byFamily.get(stats.family);
 		if (arr) arr.push(stats);
 		else byFamily.set(stats.family, [stats]);

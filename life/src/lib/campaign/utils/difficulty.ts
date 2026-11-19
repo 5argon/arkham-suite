@@ -28,6 +28,11 @@ export function orderedDifficulties(byTier: Record<string, number>): string[] {
 	return [...known, ...extra];
 }
 
+/** Tier ids easiest to hardest, unknown ones last in their original order. */
+export function byDifficulty(tiers: string[]): string[] {
+	return orderedDifficulties(Object.fromEntries(tiers.map((t) => [t, 1])));
+}
+
 /** e.g. "Standard 4 times, Hard 1 time" — positive tiers only, each value rendered by `fmt`. */
 export function difficultyBreakdown(
 	byTier: Record<string, number>,
