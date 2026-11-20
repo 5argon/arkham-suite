@@ -183,6 +183,7 @@ Line break not allowed.
 			{#if card.researched === true}<FaIcon duotone icon={FaIconType.Researched} />{/if}
 			{#if card.fast === true}<FaIcon duotone icon={FaIconType.Fast} />{/if}
 			{#if card.starting === true}<FaIcon duotone icon={FaIconType.Starting} />{/if}
+			{#if card.dreaming !== undefined}<FaIcon duotone icon={FaIconType.Dreaming} />{/if}
 		</span>
 	{/if}
 </div>

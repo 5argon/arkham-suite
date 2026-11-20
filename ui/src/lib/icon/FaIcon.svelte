@@ -46,6 +46,7 @@ Render Font Awesome icons using webfont with Tailwind styling support.
 		[FaIconType.Researched]: 'fa-graduation-cap',
 		[FaIconType.Fast]: 'fa-bolt',
 		[FaIconType.Starting]: 'fa-hand-holding-star',
+		[FaIconType.Dreaming]: 'fa-crystal-ball',
 		[FaIconType.Ultimatum]: 'fa-galaxy',
 		[FaIconType.Boon]: 'fa-sparkles',
 		[FaIconType.GroupingSorting]: 'fa-sliders-h',

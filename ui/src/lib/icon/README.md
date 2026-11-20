@@ -29,7 +29,7 @@ A Svelte 5 component that renders Font Awesome icons as SVG with full Tailwind s
 
 An enum containing all available icon types:
 
-- **Card Properties**: `Customizable`, `Bonded`, `Exceptional`, `Permanent`, `Myriad`, `Weakness`, `AnyWeakness`, `InvestigatorRestriction`, `Investigator`
+- **Card Properties**: `Customizable`, `Bonded`, `Exceptional`, `Permanent`, `Myriad`, `Dreaming`, `Weakness`, `AnyWeakness`, `InvestigatorRestriction`, `Investigator`
 - **UI Controls**: `Plus`, `Minus`, `Delete`, `Expand`, `Collapse`, `Grip`
 - **Navigation**: `RightSingle`, `RightDouble`, `ArrowUp`, `ArrowDown`, `ArrowLeftBordered`, `ArrowRightBordered`, `FoldoutRight`, `FoldoutDown`
 - **Notifications**: `NoticeInfo`, `NoticeSuccess`, `NoticeError`

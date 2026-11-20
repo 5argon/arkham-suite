@@ -17,6 +17,7 @@ export enum FaIconType {
 	Researched,
 	Fast,
 	Starting,
+	Dreaming,
 
 	Ultimatum,
 	Boon,

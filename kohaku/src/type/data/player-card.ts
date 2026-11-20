@@ -51,6 +51,11 @@ export interface Card {
   sideDeckOptions?: DeckOption[];
   sideDeckRequirements?: DeckRequirements;
   doubleSided?: boolean;
+  /**
+   * The X of "Dreaming X.": how many dreams it enters play facedown with. A dreaming card has no
+   * cost, it can only be dreamed into play.
+   */
+  dreaming?: number;
   duplicates?: CardCode[];
   duplicateOf?: CardCode;
   encounterSet?: EncounterSet;
@@ -171,6 +176,14 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
               ? utility.ahdb.factionToCardClass(ahdbCard.faction3_code)
               : undefined,
           };
+
+    /**
+     * The keyword is its own line, so other text mentioning dreaming cards doesn't count.
+     */
+    function parseDreaming(text: string | undefined): number | undefined {
+      const match = text?.match(/(?:^|\n)Dreaming (\d+)\./);
+      return match ? parseInt(match[1]) : undefined;
+    }
 
     function convertCost(ahdbCard: AhdbCard): Cost | undefined {
       if (ahdbCard.cost === -2) {
@@ -314,6 +327,7 @@ export function ahdbCardToCard(ahdbCard: AhdbCard): Card {
       }),
       sideDeckRequirements: parseDeckRequirements(ahdbCard.side_deck_requirements),
       doubleSided: ahdbCard.double_sided,
+      dreaming: parseDreaming(ahdbCard.text),
       duplicates: ahdbCard.duplicated_by,
       duplicateOf: ahdbCard.duplicate_of_code,
       encounterSet: ahdbCard.encounter_code
