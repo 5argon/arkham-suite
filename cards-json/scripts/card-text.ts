@@ -1,9 +1,10 @@
 import { path } from "../mod.ts"
+import { readPreviewCards } from "./preview.ts"
 
 /**
  * cards.json has its text stripped to stay small, and the pack folder this reads is not in git. The
  * Card Reviews pages show full text, so this writes what they need to a file that is committed and
- * only ever read on the server.
+ * only ever read on the server. Preview cards are read too.
  */
 
 interface PackCard {
@@ -31,6 +32,7 @@ const reviewPacks = new Set([
   "tde", "tsh", "dsm", "pnr", "wgd", "woc",
   "tic", "itd", "def", "hhg", "lif", "lod", "itm",
   "eoep", "tskp", "fhvp", "tdcp",
+  "potd",
 ])
 
 /**
@@ -60,6 +62,8 @@ const allCards: PackCard[] = []
 for (const file of await collectJsonFiles(packDirectory)) {
   allCards.push(...JSON.parse(await Deno.readTextFile(file)) as PackCard[])
 }
+// pack.ts refuses preview cards the pack folder has by now, so these never stand in for real ones.
+for (const { cards } of await readPreviewCards()) allCards.push(...cards as PackCard[])
 const byCode = new Map(allCards.map((card) => [card.code, card]))
 
 /**

@@ -1,5 +1,6 @@
 import { path } from "../mod.ts"
 import { pullsDirectory, pullsJson, pullsUtilsPlayerDatabase } from "./constants.ts"
+import { previewConflicts, readPreviewCards } from "./preview.ts"
 
 interface Card {
   code: string
@@ -41,6 +42,18 @@ for (const file of jsonFiles) {
 }
 
 console.log(`Loaded ${allCards.length} cards`)
+
+// Cards revealed in previews go after the community's, unless the community has them by now.
+const previews = (await readPreviewCards()).flatMap(({ cards }) => cards)
+const conflicts = previewConflicts(previews, allCards as Parameters<typeof previewConflicts>[1])
+if (conflicts.length > 0) {
+  console.error("Preview cards clash with the pack folder:")
+  for (const conflict of conflicts) console.error("  " + conflict)
+  console.error("Run reconcile-preview.ts to hand them over, then run this again.")
+  Deno.exit(1)
+}
+allCards.push(...previews)
+console.log(`Added ${previews.length} preview cards`)
 
 // First pass: Create a map of all cards by code
 const cardMap = new Map<string, Card>()

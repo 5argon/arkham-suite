@@ -111,10 +111,14 @@ manualEdit(playerdb)
 
 // Reduce JSON size by clearing text fields (keep only important keywords)
 console.log("Clearing text fields to reduce JSON size...")
-const importantKeywords = ["Fast.", "Reward.", "Advanced.", "Researched."]
+// kohaku reads these back into fields of its own.
+const importantKeywords = ["Fast.", "Reward.", "Advanced.", "Researched.", "Starting."]
 const extractKeywords = (text: string | undefined) => {
   if (!text) return ""
   const found = importantKeywords.filter(keyword => text.includes(keyword))
+  // "Dreaming 3." is its own line, kept on a line of its own for kohaku to find.
+  const dreaming = text.match(/(?:^|\n)(Dreaming \d+\.)/)
+  if (dreaming) found.push("\n" + dreaming[1])
   return found.join(" ")
 }
 

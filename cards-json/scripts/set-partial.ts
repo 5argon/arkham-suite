@@ -7,8 +7,8 @@ import { path } from "../mod.ts"
  * Usage: deno run --allow-read --allow-write ./scripts/set-partial.ts <name> [<name> ...]
  *   where each <name> is a pack file like "core_2026.json".
  *
- * The script searches the `pack/` directory tree for a file whose basename
- * matches each <name> (case-insensitive). The `.json` suffix is optional.
+ * The script searches `preview/` and the `pack/` directory tree for a file whose
+ * basename matches each <name> (case-insensitive). The `.json` suffix is optional.
  *
  * Codes are written as strings to preserve leading zeros and non-numeric
  * suffixes (e.g. "01000", "12179b").
@@ -21,6 +21,9 @@ if (Deno.args.length === 0) {
 
 async function findPackFile(name: string): Promise<string | null> {
   const wanted = name.toLowerCase()
+  for await (const file of Deno.readDir("preview")) {
+    if (file.isFile && file.name.toLowerCase() === wanted) return path.join("preview", file.name)
+  }
   for await (const sub of Deno.readDir("pack")) {
     if (!sub.isDirectory) continue
     const subDir = path.join("pack", sub.name)
@@ -39,7 +42,7 @@ for (const arg of Deno.args) {
   const targetName = arg.toLowerCase().endsWith(".json") ? arg : `${arg}.json`
   const packPath = await findPackFile(targetName)
   if (!packPath) {
-    console.error(`Could not find ${targetName} under pack/.`)
+    console.error(`Could not find ${targetName} under preview/ or pack/.`)
     Deno.exit(1)
   }
 

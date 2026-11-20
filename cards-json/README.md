@@ -6,8 +6,17 @@ This `cards.json` is in the same format as stored in https://github.com/Kamalisk
 
 ## List of modifications
 
-- All `text` and `back_text` removed except some keywords, since site always show card images and will not render the card text.
+- All `text` and `back_text` removed except some keywords (Fast, Reward, Advanced, Researched, Starting, Dreaming X), since site always show card images and will not render the card text. kohaku reads those keywords back into fields.
 - The Scarlet Keys Upgrade Sheets are added after the last card of this expansion with card type "upgrade".
+
+## `preview/`: cards before the community has them
+
+When a preview article shows cards with their text, they can go on the site before the community types them into arkhamdb-json-data. Each file in `preview/` is a pack file in the same format as upstream's (`preview/potd.json`), with the cards typed in from the article, and their images go in `patch/en/<code>.png`.
+
+- Codes follow upstream's formula, cycle prefix + 3-digit set number (Core 2026 is 12xxx, Children of Blood 13xxx, so Power of the Dreamlands is guessed as 14xxx). The set number is printed bottom right of the card. `quantity` and `deck_limit` aren't on the card, so they're guesses too.
+- `merge-pack` adds them after the `pack` folder's cards, and `card-text` reads them too. `merge-pack` stops when the `pack` folder has any of them by now, by code or by name, level and type.
+- Then run `yarn reconcile-preview`. It lists each card the community has now, under which code, and every field that differs from what was typed in, since cards sometimes change before print. With `--write` it removes those cards from `preview/` and their images from `patch/`. A card whose code turned out different is recorded in `preview/aliases.json` (old to new, kept for good) and its code is replaced in `starter-content`, `md`, `tags` and `life`, folders named after it included. Nothing reads `aliases.json` yet: if a guessed code ever turns out wrong, links saved with it need it wired in.
+- A card renamed before print won't match. Give it the community's name in `preview/` and run it again.
 
 ## `partial.json`
 
@@ -19,7 +28,7 @@ The `process` command also accepts card codes directly as positional arguments, 
 
 ### `set-partial`
 
-Replaces the contents of `partial.json` with the union of all card codes contained in one or more pack JSON files under `pack/`. Run with `yarn set-partial core_2026.json` or `deno run --allow-read --allow-write ./scripts/set-partial.ts core_2026.json`. Multiple files can be passed separated by spaces, e.g. `yarn set-partial core_2026.json core_2026_encounter.json`, and their codes will be merged and de-duplicated. The `.json` suffix is optional and the lookup is case-insensitive; the script searches the `pack/` subdirectories for a matching file.
+Replaces the contents of `partial.json` with the union of all card codes contained in one or more pack JSON files under `preview/` or `pack/`. Run with `yarn set-partial core_2026.json` or `deno run --allow-read --allow-write ./scripts/set-partial.ts core_2026.json`. Multiple files can be passed separated by spaces, e.g. `yarn set-partial core_2026.json core_2026_encounter.json`, and their codes will be merged and de-duplicated. The `.json` suffix is optional and the lookup is case-insensitive; the script searches the `pack/` subdirectories for a matching file.
 
 ## Commands
 
@@ -31,6 +40,10 @@ This script handles the `duplicate_of` field specially:
 - First pass: collects all cards and tracks which ones have `duplicate_of`
 - Second pass: resolves `duplicate_of` by copying all fields from the target card, then overriding with the current card's fields
 - The `duplicate_of` field is kept in the resolved card
+
+### `reconcile-preview`
+
+Hands `preview/` cards over to the community's data. See `preview/` above.
 
 ### `download`
 
