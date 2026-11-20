@@ -117,9 +117,9 @@ Check a query against the card text before adding it, in `src/lib/server/data/ca
 
 ## `preview/*.json`: Preview Season
 
-What creators said from the review copies they got before the cards were sold, in the order it came out. Each file is one season, with sources grouped as they were on the schedule, and each group lists the `products` whose preview season it's part of. `"official": true` keeps a post off the card pages. `"media": { "discord": true }` credits what can't be linked to.
+What creators said from the review copies they got before the cards were sold, in the order it came out. Each file is one season, with sources grouped as they were on the schedule, and each group lists the `products` whose preview season it's part of. `"official": true` keeps a post off the card pages, unless it also has `"cardByCard": true` because it gives each card its own paragraph, like FFG's First Look articles. `"media": { "discord": true }` credits what can't be linked to.
 
-A card that's just been revealed isn't in the card data yet, so it's stated by hand instead of by `code`. A test asks for its `code` once the card data has it.
+A card that's just been revealed isn't in the card data yet, so it's stated by hand instead of by `code`. A test asks for its `code` once the card data has it. When an article shows the whole card, it can go in the card data ahead of the community instead (`cards-json/preview/`), and then it's listed by `code` like any other.
 
 ```json
 { "name": "Some New Card", "type": "asset", "class": "guardian", "level": 2 }

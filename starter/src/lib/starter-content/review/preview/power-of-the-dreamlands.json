@@ -29,6 +29,136 @@
 					]
 				}
 			]
+		},
+		{
+			"title": "First Look",
+			"products": [
+				"potd"
+			],
+			"sources": [
+				{
+					"guest": {
+						"name": "Fantasy Flight Games"
+					},
+					"title": "Power of the Dreamlands",
+					"date": "2026-11-19",
+					"official": true,
+					"cardByCard": true,
+					"media": {
+						"url": "https://www.fantasyflightgames.com/power-of-the-dreamlands/"
+					},
+					"cards": [
+						{
+							"code": "14071",
+							"text": "Call of the Dreamlands"
+						},
+						{
+							"code": "14003",
+							"text": "Knight’s Longsword"
+						},
+						{
+							"code": "14008",
+							"text": "Dream Mastery"
+						},
+						{
+							"code": "14013",
+							"text": "Somnium Shotcaster"
+						},
+						{
+							"code": "14002",
+							"text": "Knight of Celephaïs"
+						},
+						{
+							"code": "14011",
+							"text": "Oathsworn"
+						},
+						{
+							"code": "14016",
+							"text": "Grimoire of Ages"
+						},
+						{
+							"code": "14017",
+							"text": "Lunar Charts"
+						},
+						{
+							"code": "14026",
+							"text": "Light of Ilarnek"
+						},
+						{
+							"code": "14028",
+							"text": "Idol of Bokrug"
+						},
+						{
+							"code": "14021",
+							"text": "Oneiric Insight"
+						},
+						{
+							"code": "14030",
+							"text": "Dalkura"
+						},
+						{
+							"code": "14033",
+							"text": "Corsair’s Cache"
+						},
+						{
+							"code": "14034",
+							"text": "Double Team"
+						},
+						{
+							"code": "14040",
+							"text": "Blade of the Sky-Sea"
+						},
+						{
+							"code": "14042",
+							"text": "Boarding Party"
+						},
+						{
+							"code": "14043",
+							"text": "Enchanting Fife"
+						},
+						{
+							"code": "14048",
+							"text": "Veil of Thalarion"
+						},
+						{
+							"code": "14045",
+							"text": "Luke Robinson"
+						},
+						{
+							"code": "14052",
+							"text": "Sigil of Thalarion"
+						},
+						{
+							"code": "14054",
+							"text": "Lunar Sight"
+						},
+						{
+							"code": "14055",
+							"text": "Reality Fracture"
+						},
+						{
+							"code": "14057",
+							"text": "Explorer’s Sextant"
+						},
+						{
+							"code": "14060",
+							"text": "Dream Quest"
+						},
+						{
+							"code": "14061",
+							"text": "Dreams of Peace"
+						},
+						{
+							"code": "14067",
+							"text": "Lash of Ulthar"
+						},
+						{
+							"code": "14070",
+							"text": "Staff of Atal"
+						}
+					]
+				}
+			]
 		}
 	]
 }

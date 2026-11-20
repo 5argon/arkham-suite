@@ -639,6 +639,11 @@ describe('recent reviews', () => {
 		expect(new Set(recentReviews().map((row) => row.key)).size).toBe(recentReviews().length);
 	});
 
+	it('shows an official preview going card by card on those cards\' pages', () => {
+		const titles = reviewCardPage('14033')?.entries.map((entry) => entry.title);
+		expect(titles).toContain('Power of the Dreamlands');
+	});
+
 	it('leaves official posts to the Preview Season pages', () => {
 		expect(recentReviews().some((row) => row.entry.official)).toBe(false);
 	});

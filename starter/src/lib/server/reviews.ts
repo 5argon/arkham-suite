@@ -166,6 +166,10 @@ export interface SourceJson extends CreditJson {
 	 */
 	language?: string;
 	official?: boolean;
+	/**
+	 * An official preview that goes card by card, so it's on those cards' pages like any creator's.
+	 */
+	cardByCard?: boolean;
 	humor?: boolean;
 	media: MediaJson;
 	cards: SourceCardJson[];
@@ -606,9 +610,10 @@ for (const [code, reviews] of writtenByCard()) {
 for (const source of sources) {
 	for (const on of knownCards(source)) entriesOfCard(on.code).push(sourceEntry(source, on, false));
 }
-// Official posts recap many cards at once, so they stay on the timeline of preview season.
+// Official posts recap many cards at once, so they stay on the timeline of preview season, unless
+// they go card by card.
 for (const source of previews) {
-	if (source.official) continue;
+	if (source.official && source.cardByCard !== true) continue;
 	for (const on of knownCards(source)) entriesOfCard(on.code).push(sourceEntry(source, on, true));
 }
 for (const entries of entriesByCard.values()) {
