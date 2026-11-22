@@ -15,9 +15,12 @@
 	"campaign_tfa_supplies_never": "Never packed",
 
 	"campaign_tfa_companions_empty": "Play The Forgotten Age to track your companions.",
-	"campaign_tfa_ichtaca_detail": "Trust {trust} · Bond {bond} · Wary {wary}",
-	"campaign_tfa_alejandro_detail": "Trust {trust} · Rescued {rescued} · Missing {missing}",
-	"campaign_tfa_companion_none": "No standing recorded",
+	"campaign_tfa_companion_trust": "Earned trust",
+	"campaign_tfa_companion_bond": "Forged a bond",
+	"campaign_tfa_companion_wary": "Wary",
+	"campaign_tfa_companion_in_the_dark": "In the dark",
+	"campaign_tfa_companion_rescued": "Rescued",
+	"campaign_tfa_companion_missing": "Missing",
 
 	"campaign_tfa_harbinger_eztli": "The Doom of Eztli",
 	"campaign_tfa_harbinger_hote": "Heart of the Elders",
