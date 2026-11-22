@@ -268,5 +268,9 @@
 	"framework_product_group_other": "Other",
 	"framework_show_all": "Show all ({count})",
 	"framework_label_rewards_unlocked": "Rewards Unlocked",
-	"framework_label_standalone_reward": "Campaign Reward"
+	"framework_label_standalone_overview": "Overview",
+	"framework_label_standalone_reward": "Campaign Reward",
+	"framework_label_standalone_plays": "Plays",
+	"framework_label_standalone_deck_xp": "Deck Experience",
+	"framework_label_standalone_sources": "How It Was Played"
 }

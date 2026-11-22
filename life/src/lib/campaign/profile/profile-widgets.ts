@@ -1,7 +1,14 @@
 /** The widget catalogue: the shared widgets plus every campaign's own. */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { PaneId, ProfileRow } from './profile-settings';
-import { full, type CampaignWidgetModule, type WidgetDef } from './widget-def';
+import { rewardFor } from '../rewards/reward-defs';
+import {
+	full,
+	split,
+	type CampaignWidgetModule,
+	type StandaloneWidgetModule,
+	type WidgetDef
+} from './widget-def';
 import { SHARED_WIDGETS } from './widgets/shared';
 import boa from './widgets/boa';
 import cob from './widgets/cob';
@@ -17,6 +24,7 @@ import tdeb from './widgets/tdeb';
 import tfa from './widgets/tfa';
 import tic from './widgets/tic';
 import tsk from './widgets/tsk';
+import ttn from './widgets/standalone/ttn';
 
 export type { WidgetDef } from './widget-def';
 
@@ -37,9 +45,12 @@ const CAMPAIGN_MODULES: CampaignWidgetModule[] = [
 	cob
 ];
 
+const STANDALONE_MODULES: StandaloneWidgetModule[] = [ttn];
+
 export const WIDGET_CATALOGUE: WidgetDef[] = [
 	...SHARED_WIDGETS,
-	...CAMPAIGN_MODULES.flatMap((c) => c.widgets)
+	...CAMPAIGN_MODULES.flatMap((c) => c.widgets),
+	...STANDALONE_MODULES.flatMap((s) => s.widgets)
 ];
 
 export const WIDGET_BY_ID: Record<string, WidgetDef> = Object.fromEntries(
@@ -75,7 +86,7 @@ export function isDeckCategoryWidget(id: string): boolean {
 }
 
 export function sharedWidgetsForPane(pane: PaneId): WidgetDef[] {
-	return WIDGET_CATALOGUE.filter((w) => !w.campaign && w.panes.includes(pane));
+	return WIDGET_CATALOGUE.filter((w) => !w.campaign && !w.standalone && w.panes.includes(pane));
 }
 
 export function bespokeWidgetsForCampaign(slug: string): WidgetDef[] {
@@ -98,4 +109,52 @@ export function defaultCampaignLayout(slug: string): ProfileRow[] {
 	const mod = CAMPAIGN_MODULES.find((c) => c.slug === slug);
 	if (mod) return mod.layout();
 	return [full('overview'), full('scenarioXp'), full('resolutionCoverage'), full('achievements')];
+}
+
+/** A standalone page key's catalogue and scenario, when campaign-data knows both. */
+export function parseStandaloneKey(key: string): { catalogue: string; scenario: string } | null {
+	const dot = key.indexOf('.');
+	if (dot < 1) return null;
+	const catalogue = key.slice(0, dot);
+	const scenario = key.slice(dot + 1);
+	const known = getCampaignLog(catalogue)?.db.scenarioMeta?.some((m) => m.id === scenario);
+	return known ? { catalogue, scenario } : null;
+}
+
+export function isStandaloneKey(key: string): boolean {
+	return parseStandaloneKey(key) != null;
+}
+
+/** The reward card a standalone page's scenario grants, if any. */
+function standaloneHasReward(key: string): boolean {
+	const parsed = parseStandaloneKey(key);
+	const code = parsed && getCampaignLog(parsed.catalogue)?.db.code;
+	return !!parsed && !!code && rewardFor(code, parsed.scenario) != null;
+}
+
+export function bespokeWidgetsForStandalone(key: string): WidgetDef[] {
+	return STANDALONE_MODULES.find((s) => s.key === key)?.widgets ?? [];
+}
+
+/** Every widget a standalone page may hold: the applicable shared ones and its own. */
+export function standaloneDetailWidgetIds(key: string): string[] {
+	const shared = sharedWidgetsForPane('standaloneDetail').filter(
+		(w) => w.id !== 'standaloneReward' || standaloneHasReward(key)
+	);
+	return [...shared, ...bespokeWidgetsForStandalone(key)].map((w) => w.id);
+}
+
+export function defaultStandaloneLayout(key: string): ProfileRow[] {
+	const mod = STANDALONE_MODULES.find((s) => s.key === key);
+	if (mod) return mod.layout();
+	return standaloneHasReward(key)
+		? [
+				split('standaloneOverview', 'standaloneReward'),
+				split('standaloneSources', 'standaloneDeckXp'),
+				full('standalonePlays')
+			]
+		: [
+				split('standaloneOverview', 'standaloneSources'),
+				split('standalonePlays', 'standaloneDeckXp')
+			];
 }

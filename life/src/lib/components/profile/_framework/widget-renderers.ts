@@ -16,6 +16,7 @@ import tdeb from '../campaigns/campaign/tdeb';
 import tfa from '../campaigns/campaign/tfa';
 import tic from '../campaigns/campaign/tic';
 import tsk from '../campaigns/campaign/tsk';
+import ttn from '../standalones/standalone/ttn';
 
 /** Every catalogue widget's renderer, by widget id. */
 export const WIDGET_RENDERERS: Record<string, WidgetRenderer> = {
@@ -33,7 +34,8 @@ export const WIDGET_RENDERERS: Record<string, WidgetRenderer> = {
 	...fhv,
 	...tdc,
 	...boa,
-	...cob
+	...cob,
+	...ttn
 };
 
 /** Catalogue ids with no renderer; kept empty by a test. */

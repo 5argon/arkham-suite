@@ -1,10 +1,11 @@
-/** The `/standalones` profile section: every Standalone Archive (`doc.standalones`) folded per
- *  scenario, with scenario metadata from the record's catalogue in campaign-data. */
+/** The `/standalones` profile section: every standalone scenario the subject played, folded per
+ *  scenario: its Standalone Archives (`doc.standalones`) and the side stories played inside their
+ *  campaigns, with scenario metadata from the catalogue in campaign-data. */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { StandaloneRecord } from '$lib/database/document';
 import { RESERVED } from '$lib/campaign/records/recorded-state';
 import { deckExperience, xpRangeTier } from '$lib/campaign/utils/deck-experience';
-import { standaloneVerdict } from './standalone-clear';
+import { standaloneVerdict, type StandaloneVerdict } from './standalone-clear';
 import type { Tally } from '../utils/tally';
 
 export interface StandaloneArchiveStat {
@@ -18,8 +19,13 @@ export interface StandaloneArchiveStat {
 	victoryDisplay: boolean;
 	/** Has no win in Standalone Mode; won and lost stay 0. */
 	unwinnable: boolean;
+	/** Standalone Archives and side-story plays together. */
 	plays: number;
 	playsByTier: Record<string, number>;
+	/** Plays recorded as their own Standalone Archive. */
+	archivePlays: number;
+	/** Side-story plays inside a campaign, per campaign family, most first. */
+	insertions: { family: string; plays: number }[];
 	won: number;
 	lost: number;
 	/** Every first-choice resolution, in book order. */
@@ -30,15 +36,44 @@ export interface StandaloneArchiveStat {
 	/** Also holds the reward of an Experience scenario. Null when none was recorded. */
 	bestVictoryDisplay: number | null;
 	bestEarnedXp: number | null;
-	/** Deck XP tier (1–5) → plays whose highest-tier deck was in it. */
+	/** Deck XP tier (1–5) → Standalone Archives whose highest-tier deck was in it. */
 	xpTierPlays: Record<number, number>;
 	/** The lowest deck XP tier that won. */
 	bestWinTier: number | null;
+	/** Every play, newest first; undated plays last. */
+	history: StandalonePlay[];
+}
+
+/** One standalone play. */
+export interface StandalonePlay {
+	/** ms since epoch. */
+	date: number | null;
+	tier: string;
+	resolution: string | null;
+	/** Null when no resolution was recorded, or the scenario cannot be won. */
+	verdict: StandaloneVerdict | null;
+	/** One per deck. */
+	investigators: string[];
+	/** The campaign family it was played inside as a side story; null for a Standalone Archive. */
+	hostFamily: string | null;
+}
+
+/** A side story played inside a campaign, from that campaign's Extra tab. */
+export interface InsertedStandalonePlay {
+	scenario: string;
+	tier: string;
+	date: number | null;
+	resolution: string | null;
+	victoryDisplay: number | null;
+	investigators: string[];
+	hostFamily: string;
 }
 
 interface Acc {
 	plays: number;
 	playsByTier: Record<string, number>;
+	archivePlays: number;
+	insertions: Map<string, number>;
 	won: number;
 	lost: number;
 	tallies: Map<string, Tally>;
@@ -48,6 +83,7 @@ interface Acc {
 	bestWinTier: number | null;
 	source: 'pack' | 'campaign';
 	catalogueCode: string;
+	history: StandalonePlay[];
 }
 
 function numArg(record: StandaloneRecord, section: string, key: string): number | null {
@@ -70,20 +106,54 @@ function recordDeckTier(record: StandaloneRecord, xpByCode: Map<string, number>)
 	return best;
 }
 
-/** One aggregate per scenario played, most played first. `xpByCode` is each card's printed level. */
+/** Folds one play into its scenario's accumulator; returns its verdict. */
+function addPlay(
+	acc: Acc,
+	play: Omit<StandalonePlay, 'verdict'> & { victoryDisplay: number | null }
+): StandaloneVerdict | null {
+	const { tier, resolution } = play;
+	acc.plays += 1;
+	acc.playsByTier[tier] = (acc.playsByTier[tier] ?? 0) + 1;
+	const verdict = standaloneVerdict(resolution);
+	if (resolution) {
+		let t = acc.tallies.get(resolution);
+		if (!t) acc.tallies.set(resolution, (t = { total: 0, byTier: {} }));
+		t.total += 1;
+		t.byTier[tier] = (t.byTier[tier] ?? 0) + 1;
+	}
+	if (play.victoryDisplay != null)
+		acc.bestVictoryDisplay = Math.max(acc.bestVictoryDisplay ?? 0, play.victoryDisplay);
+	if (verdict === 'won') acc.won += 1;
+	else if (verdict === 'lost') acc.lost += 1;
+	acc.history.push({
+		date: play.date,
+		tier,
+		resolution,
+		verdict,
+		investigators: play.investigators,
+		hostFamily: play.hostFamily
+	});
+	return verdict;
+}
+
+/**
+ * One aggregate per scenario played, most played first. `xpByCode` is each card's printed level.
+ * `inserted` are side stories played inside campaigns; they have no deck XP tier of their own.
+ */
 export function buildStandaloneArchives(
 	records: StandaloneRecord[],
 	xpByCode: Map<string, number>,
+	inserted: readonly InsertedStandalonePlay[] = []
 ): StandaloneArchiveStat[] {
 	const byScenario = new Map<string, Acc>();
-	for (const rec of records) {
-		const scenario = rec.scenario;
-		if (!scenario) continue;
+	const accFor = (scenario: string, source: Acc['source'], catalogueCode: string): Acc => {
 		let acc = byScenario.get(scenario);
 		if (!acc) {
 			acc = {
 				plays: 0,
 				playsByTier: {},
+				archivePlays: 0,
+				insertions: new Map(),
 				won: 0,
 				lost: 0,
 				tallies: new Map(),
@@ -91,26 +161,28 @@ export function buildStandaloneArchives(
 				bestEarnedXp: null,
 				xpTierPlays: {},
 				bestWinTier: null,
-				source: rec.source,
-				catalogueCode: rec.campaignCode,
+				source,
+				catalogueCode,
+				history: []
 			};
 			byScenario.set(scenario, acc);
 		}
-		const tier = rec.difficulty ?? 'standard';
-		acc.plays += 1;
-		acc.playsByTier[tier] = (acc.playsByTier[tier] ?? 0) + 1;
+		return acc;
+	};
 
-		const resolution = strArg(rec, RESERVED.scenarioResolution, scenario);
-		const verdict = standaloneVerdict(resolution);
-		if (resolution) {
-			let t = acc.tallies.get(resolution);
-			if (!t) acc.tallies.set(resolution, (t = { total: 0, byTier: {} }));
-			t.total += 1;
-			t.byTier[tier] = (t.byTier[tier] ?? 0) + 1;
-		}
-
-		const vp = numArg(rec, RESERVED.scenarioXp, scenario);
-		if (vp != null) acc.bestVictoryDisplay = Math.max(acc.bestVictoryDisplay ?? 0, vp);
+	for (const rec of records) {
+		const scenario = rec.scenario;
+		if (!scenario) continue;
+		const acc = accFor(scenario, rec.source, rec.campaignCode);
+		acc.archivePlays += 1;
+		const verdict = addPlay(acc, {
+			date: rec.finishDate ?? null,
+			tier: rec.difficulty ?? 'standard',
+			resolution: strArg(rec, RESERVED.scenarioResolution, scenario) ?? null,
+			victoryDisplay: numArg(rec, RESERVED.scenarioXp, scenario),
+			investigators: rec.decks.map((d) => d.investigator.investigatorCode),
+			hostFamily: null
+		});
 		const earned = numArg(rec, RESERVED.standaloneEarnedXp, scenario);
 		if (earned != null) acc.bestEarnedXp = Math.max(acc.bestEarnedXp ?? 0, earned);
 
@@ -119,9 +191,12 @@ export function buildStandaloneArchives(
 			acc.xpTierPlays[deckTier] = (acc.xpTierPlays[deckTier] ?? 0) + 1;
 			if (verdict === 'won') acc.bestWinTier = acc.bestWinTier == null ? deckTier : Math.min(acc.bestWinTier, deckTier);
 		}
+	}
 
-		if (verdict === 'won') acc.won += 1;
-		else if (verdict === 'lost') acc.lost += 1;
+	for (const play of inserted) {
+		const acc = accFor(play.scenario, 'pack', 'side');
+		acc.insertions.set(play.hostFamily, (acc.insertions.get(play.hostFamily) ?? 0) + 1);
+		addPlay(acc, play);
 	}
 
 	const out: StandaloneArchiveStat[] = [];
@@ -143,6 +218,10 @@ export function buildStandaloneArchives(
 			unwinnable,
 			plays: acc.plays,
 			playsByTier: acc.playsByTier,
+			archivePlays: acc.archivePlays,
+			insertions: [...acc.insertions]
+				.map(([family, plays]) => ({ family, plays }))
+				.sort((a, b) => b.plays - a.plays || a.family.localeCompare(b.family)),
 			won: unwinnable ? 0 : acc.won,
 			lost: unwinnable ? 0 : acc.lost,
 			resolutions: all,
@@ -152,6 +231,9 @@ export function buildStandaloneArchives(
 			bestEarnedXp: acc.bestEarnedXp,
 			xpTierPlays: acc.xpTierPlays,
 			bestWinTier: unwinnable ? null : acc.bestWinTier,
+			history: acc.history
+				.map((h) => (unwinnable ? { ...h, verdict: null } : h))
+				.sort((a, b) => (b.date ?? -Infinity) - (a.date ?? -Infinity))
 		});
 	}
 	return out.sort((a, b) => b.plays - a.plays || a.name.localeCompare(b.name));

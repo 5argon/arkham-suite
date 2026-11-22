@@ -16,6 +16,7 @@ import type { StandaloneArchiveStat } from '$lib/campaign/outcomes/standalone-ar
 import type { TraumaTally } from '$lib/campaign/outcomes/trauma';
 import type { BespokeBlobs } from '$lib/campaign/campaigns/registry';
 import type { RewardUnlock } from '$lib/campaign/rewards/rewards';
+import type { StandaloneBlobs } from '$lib/campaign/standalones/registry';
 import type { ProfileSettings } from '$lib/campaign/profile/profile-settings';
 import type {
 	CampaignSpecialInteractions,
@@ -167,6 +168,8 @@ export interface LogsSegment {
 	scenarios: CampaignScenarios[];
 	standaloneUsage: CampaignStandaloneUsage[];
 	standalones: StandaloneArchiveStat[];
+	/** Bespoke standalone pages' aggregates, by page key. */
+	standaloneBespoke: StandaloneBlobs;
 	/** Every campaign reward card, unlocked or not. */
 	rewards: RewardUnlock[];
 	traumaTally: TraumaTally;

@@ -18,6 +18,8 @@ export interface WidgetDef {
 	primaryPane: PaneId;
 	/** Campaign slug of a campaign-specific widget. */
 	campaign?: string;
+	/** Page key (`side.ttn`) of a standalone-specific widget. */
+	standalone?: string;
 	/** The scenario a passport widget covers; its encounter icon joins the frame title. */
 	scenario?: string;
 	/** Only fits a full-width row. */
@@ -71,6 +73,36 @@ export function campaignWidgets(
 			panes: ['campaignDetail'],
 			primaryPane: 'campaignDetail',
 			campaign: slug
+		}))
+	};
+}
+
+export type StandaloneWidgetInput = Omit<
+	WidgetDef,
+	'panes' | 'primaryPane' | 'campaign' | 'standalone'
+>;
+
+export interface StandaloneWidgetModule {
+	key: string;
+	widgets: WidgetDef[];
+	/** The standalone page's default layout; fresh rows on every call. */
+	layout: () => ProfileRow[];
+}
+
+/** A standalone scenario's own widgets (offered only on its page) and its default page layout. */
+export function standaloneWidgets(
+	key: string,
+	widgets: StandaloneWidgetInput[],
+	layout: () => ProfileRow[]
+): StandaloneWidgetModule {
+	return {
+		key,
+		layout,
+		widgets: widgets.map((w) => ({
+			...w,
+			panes: ['standaloneDetail'],
+			primaryPane: 'standaloneDetail',
+			standalone: key
 		}))
 	};
 }

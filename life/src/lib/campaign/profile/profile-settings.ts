@@ -5,7 +5,13 @@
  */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import { Product } from '@5argon/arkham-kohaku';
-import { WIDGET_BY_ID, campaignDetailWidgetIds, isFullWidth } from './profile-widgets';
+import {
+	WIDGET_BY_ID,
+	campaignDetailWidgetIds,
+	isFullWidth,
+	isStandaloneKey,
+	standaloneDetailWidgetIds
+} from './profile-widgets';
 import { full, split } from './widget-def';
 
 const PRODUCT_VALUES = new Set<string>(Object.values(Product));
@@ -26,6 +32,7 @@ export type PaneId =
 	| 'home'
 	| 'campaignsHome'
 	| 'campaignDetail'
+	| 'standaloneDetail'
 	| 'cardsHome'
 	| 'cardClassDetail'
 	| 'cardsCore'
@@ -37,8 +44,8 @@ export type PaneId =
 	| 'investigatorsHome'
 	| 'investigatorClassDetail';
 
-/** Panes with one stored layout. Each campaign's detail page has its own instead. */
-export type SharedPaneId = Exclude<PaneId, 'campaignDetail'>;
+/** Panes with one stored layout. Each campaign's and standalone's detail page has its own instead. */
+export type SharedPaneId = Exclude<PaneId, 'campaignDetail' | 'standaloneDetail'>;
 export const SHARED_PANES: readonly SharedPaneId[] = [
 	'home',
 	'campaignsHome',
@@ -81,6 +88,8 @@ export interface ProfileSettings {
 	panes: Record<SharedPaneId, ProfileRow[]>;
 	/** Campaign detail layouts by campaign slug; a missing slug uses its default layout. */
 	campaigns: Record<string, ProfileRow[]>;
+	/** Standalone detail layouts by page key (`side.ttn`); a missing key uses its default layout. */
+	standalones: Record<string, ProfileRow[]>;
 	/** Hide everything that needs data beyond the campaign log. */
 	logOnly?: boolean;
 	/** Log-only mode for one campaign, by slug. */
@@ -159,6 +168,7 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
 	defaultArchiveDisplayInProfile: 'visible',
 	panes: freshDefaultPanes(),
 	campaigns: {},
+	standalones: {},
 	logOnly: false,
 	campaignLogOnly: {},
 	campaignCategoriesOnly: false,
@@ -166,14 +176,15 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
 	hideReturnToCampaigns: false
 };
 
-type Globals = Omit<ProfileSettings, 'v' | 'panes' | 'campaigns'>;
+type Globals = Omit<ProfileSettings, 'v' | 'panes' | 'campaigns' | 'standalones'>;
 
 function fresh(globals: Partial<Globals> = {}): ProfileSettings {
 	return {
 		...structuredClone(DEFAULT_PROFILE_SETTINGS),
 		...globals,
 		panes: freshDefaultPanes(),
-		campaigns: {}
+		campaigns: {},
+		standalones: {}
 	};
 }
 
@@ -239,6 +250,18 @@ function normalizeCampaigns(raw: unknown): Record<string, ProfileRow[]> {
 	return out;
 }
 
+function normalizeStandalones(raw: unknown): Record<string, ProfileRow[]> {
+	const out: Record<string, ProfileRow[]> = {};
+	if (!raw || typeof raw !== 'object') return out;
+	for (const [key, list] of Object.entries(raw as Record<string, unknown>)) {
+		if (!isStandaloneKey(key)) continue;
+		const allowed = new Set(standaloneDetailWidgetIds(key));
+		const rows = normalizeRows(list, (id) => allowed.has(id));
+		if (rows.length) out[key] = rows;
+	}
+	return out;
+}
+
 /** Parse and validate stored settings (a JSON string or an object). */
 export function resolveProfileSettings(
 	raw: string | null | undefined | ProfileSettings
@@ -276,10 +299,16 @@ export function resolveProfileSettings(
 			pane,
 			normalizeRows(p.panes?.[pane], (id) => {
 				const def = WIDGET_BY_ID[id];
-				return !!def && !def.campaign && def.panes.includes(pane);
+				return !!def && !def.campaign && !def.standalone && def.panes.includes(pane);
 			})
 		])
 	) as Record<SharedPaneId, ProfileRow[]>;
 
-	return { v: 4, ...globals, panes, campaigns: normalizeCampaigns(p.campaigns) };
+	return {
+		v: 4,
+		...globals,
+		panes,
+		campaigns: normalizeCampaigns(p.campaigns),
+		standalones: normalizeStandalones(p.standalones)
+	};
 }

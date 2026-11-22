@@ -1,4 +1,5 @@
 import type { ProfileFamilyAchievement } from '$lib/campaign/achievements/achievement-aggregate';
+import type { StandaloneArchiveStat } from '$lib/campaign/outcomes/standalone-archives';
 import type { CampaignScenarios } from '$lib/campaign/stats/scenario-stats';
 
 /** What a campaign widget knows about the slot it renders in. */
@@ -15,6 +16,8 @@ export interface WidgetContext {
 	logOnly: boolean;
 	/** The slot's widget options. */
 	config: Record<string, unknown>;
+	/** Set on a standalone page: that scenario's standalone plays. */
+	standalone: StandaloneArchiveStat | null;
 }
 
 /** The props every campaign widget receives: its campaign's aggregate and the slot context. */

@@ -4,6 +4,7 @@
 	import { WIDGET_BY_ID, isDeckCategoryWidget } from '$lib/campaign/profile/profile-widgets';
 	import type { WidgetDef } from '$lib/campaign/profile/widget-def';
 	import type { ProfilePayload } from '$lib/profile/profile-types';
+	import { standaloneKey } from '$lib/campaign/standalones/define';
 	import NonLogPlaceholder from '../_primitives/NonLogPlaceholder.svelte';
 	import WidgetFrame from '../_primitives/WidgetFrame.svelte';
 	import type { RenderContext } from './widget-renderer';
@@ -13,12 +14,15 @@
 		rows,
 		payload,
 		campaign = null,
+		standalone = null,
 		classFilter = null
 	}: {
 		rows: ProfileRow[];
 		payload: ProfilePayload;
 		/** Set on a campaign detail page. */
 		campaign?: { slug: string; family: string } | null;
+		/** Set on a standalone page: its page key (`side.ttn`). */
+		standalone?: string | null;
 		/** Set on a class detail page. */
 		classFilter?: string | null;
 	} = $props();
@@ -33,13 +37,25 @@
 	);
 	const scenarios = $derived(payload.scenarios.find((s) => s.family === family) ?? null);
 	const blob = $derived(
-		family ? ((payload.bespoke as Record<string, unknown>)[family] ?? null) : null
+		standalone
+			? ((payload.standaloneBespoke as Record<string, unknown> | undefined)?.[standalone] ?? null)
+			: family
+				? ((payload.bespoke as Record<string, unknown>)[family] ?? null)
+				: null
+	);
+	const standaloneStat = $derived(
+		standalone
+			? (payload.standalones.find(
+					(s) => standaloneKey(s.catalogueCode, s.scenario) === standalone
+				) ?? null)
+			: null
 	);
 
 	/** "Campaign categories only" drops deck-derived widgets and collapses rows that empty out. */
 	const visibleRows = $derived.by((): ProfileRow[] => {
 		if (!settings.campaignCategoriesOnly) return rows;
-		const keep = (slot: WidgetSlot | null) => (slot && !isDeckCategoryWidget(slot.id) ? slot : null);
+		const keep = (slot: WidgetSlot | null) =>
+			slot && !isDeckCategoryWidget(slot.id) ? slot : null;
 		return rows.flatMap((row): ProfileRow[] => {
 			if (row.kind === 'full') {
 				const slot = keep(row.slot);
@@ -71,7 +87,8 @@
 				scenarios,
 				achievements,
 				logOnly,
-				config: slot.config ?? {}
+				config: slot.config ?? {},
+				standalone: standaloneStat
 			},
 			slice: (list) => (family ? list.filter((x) => x.family === family) : list),
 			pick: (list) => (family ? (list.find((x) => x.family === family) ?? null) : null)

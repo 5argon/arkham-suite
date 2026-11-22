@@ -1,0 +1,15 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"standalone_ttn_culprit_title": "The Culprit",
+	"standalone_ttn_unmasked_heading": "Unmasked",
+	"standalone_ttn_endings_heading": "How the case ended",
+	"standalone_ttn_ending_saved_lina": "Lina Husserl saved",
+	"standalone_ttn_ending_stopped_eugene": "Eugene Peel stopped",
+	"standalone_ttn_ending_stopped_albrecht": "Albrecht Husserl stopped",
+	"standalone_ttn_ending_at_large": "The culprit is still at large",
+	"standalone_ttn_ending_failed": "Failed to solve the case",
+	"standalone_ttn_empty": "No ending logged yet.",
+	"standalone_ttn_note": "A culprit also counts as unmasked when an imported play recorded the interlude.",
+	"standalone_ttn_culprit_never": "Never unmasked",
+	"standalone_ttn_culprit_times": "Unmasked {times}"
+}

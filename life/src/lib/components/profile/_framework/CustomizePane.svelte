@@ -9,7 +9,17 @@
 	import { resolveProfileSettings, type PaneId } from '$lib/campaign/profile/profile-settings';
 	import PaneWidgetEditor from '$lib/components/profile/_framework/PaneWidgetEditor.svelte';
 
-	let { pane, campaign = null, title }: { pane: PaneId; campaign?: string | null; title: string } = $props();
+	let {
+		pane,
+		campaign = null,
+		standalone = null,
+		title
+	}: {
+		pane: PaneId;
+		campaign?: string | null;
+		standalone?: string | null;
+		title: string;
+	} = $props();
 
 	onMount(() => void ensureDatabaseLoaded());
 
@@ -53,8 +63,8 @@
 			<div class="p-8"><HelpParagraph>{m.framework_customize_loaded_forbidden()}</HelpParagraph></div>
 		</BorderedContainer>
 	{:else}
-		{#key `${pane}:${campaign ?? ''}`}
-			<PaneWidgetEditor bind:this={editor} {initialSettings} {pane} {campaign} />
+		{#key `${pane}:${campaign ?? ''}:${standalone ?? ''}`}
+			<PaneWidgetEditor bind:this={editor} {initialSettings} {pane} {campaign} {standalone} />
 		{/key}
 	{/if}
 </MarginFull>

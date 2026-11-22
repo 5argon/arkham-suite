@@ -1,5 +1,7 @@
 import { Product, type Campaign } from '@5argon/arkham-kohaku';
+import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import { mergeStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
+import type { RewardUnlock } from '$lib/campaign/rewards/rewards';
 import { cardByCode } from '$lib/card-data';
 import { trackedTierList } from '$lib/campaign/records/tracking';
 import {
@@ -43,6 +45,11 @@ import CampaignClearGrid from '../home/CampaignClearGrid.svelte';
 import CampaignsPlayedView from '../home/CampaignsPlayedView.svelte';
 import StandaloneUsageView from '../home/StandaloneUsageView.svelte';
 import RewardCards from '../rewards/RewardCards.svelte';
+import StandaloneDeckXp from '../standalones/StandaloneDeckXp.svelte';
+import StandaloneOverview from '../standalones/StandaloneOverview.svelte';
+import StandalonePlays from '../standalones/StandalonePlays.svelte';
+import StandaloneReward from '../standalones/StandaloneReward.svelte';
+import StandaloneSources from '../standalones/StandaloneSources.svelte';
 import InvestigatorInsightsView from '../investigators/InvestigatorInsightsView.svelte';
 import MostUsedInvestigatorsView from '../investigators/MostUsedInvestigatorsView.svelte';
 
@@ -209,6 +216,14 @@ export const SHARED_RENDERERS: Record<string, WidgetRenderer> = {
 			(r) => r.earned.total > 0 || owns(c.payload.settings.ownedProducts, r.code)
 		)
 	})),
+	standaloneSources: widget(StandaloneSources, (c) => ({ stat: c.ctx.standalone })),
+	standaloneOverview: widget(StandaloneOverview, (c) => ({ stat: c.ctx.standalone })),
+	standaloneReward: widget(StandaloneReward, (c) => ({ reward: pageReward(c) })),
+	standalonePlays: widget(StandalonePlays, (c) => ({
+		stat: c.ctx.standalone,
+		logOnly: c.ctx.logOnly
+	})),
+	standaloneDeckXp: widget(StandaloneDeckXp, (c) => ({ stat: c.ctx.standalone })),
 
 	cardInsights: widget(CardInsightsView, (c) => ({
 		cardUsage: c.payload.cardUsage,
@@ -273,4 +288,16 @@ export const SHARED_RENDERERS: Record<string, WidgetRenderer> = {
 function owns(ownedProducts: Product[] | null, code: string): boolean {
 	const product = cardByCode(code)?.product;
 	return ownedProducts == null || (product != null && ownedProducts.includes(product));
+}
+
+/** The reward card a standalone page's scenario grants, with the subject's unlocks of it. */
+function pageReward(c: RenderContext): RewardUnlock | null {
+	const stat = c.ctx.standalone;
+	const catalogue = stat && getCampaignLog(stat.catalogueCode)?.db.code;
+	if (!stat || !catalogue) return null;
+	return (
+		(c.payload.rewards ?? []).find(
+			(r) => r.catalogue === catalogue && r.scenario === stat.scenario
+		) ?? null
+	);
 }

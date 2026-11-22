@@ -91,6 +91,7 @@ function payload(): ProfilePayload {
 			},
 		],
 		standalones: [],
+		standaloneBespoke: {},
 		rewards: [],
 		traumaTally: {
 				killed: 0,
@@ -131,7 +132,7 @@ function payload(): ProfilePayload {
 			investigators: [{ code: '09004', count: 1, options: ['guardian · 30 cards'] }],
 		cardUsage: { '01087': 1 }, usedOnce: {}, specialistUsage: {}, insightDecks: [], eligibilityInsights: {}, totalDecks: 1, charismaTopDecks: [], relicTopDecks: [], customizableUsage: {},
 		playedCardCodes: ['01087'],
-		settings: { v: 4, ownedProducts: null, trackedTiers: [], trackedCampaignGroups: [], hideUntrackedDifficultyAchievements: true, defaultArchiveDisplayInProfile: 'visible', panes: {} as never, campaigns: {} },
+		settings: { v: 4, ownedProducts: null, trackedTiers: [], trackedCampaignGroups: [], hideUntrackedDifficultyAchievements: true, defaultArchiveDisplayInProfile: 'visible', panes: {} as never, campaigns: {}, standalones: {} },
 	};
 }
 

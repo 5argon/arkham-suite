@@ -1,5 +1,6 @@
 import type { Component } from 'svelte';
 import type { BespokeBlobs, BespokeFamily } from '$lib/campaign/campaigns/registry';
+import type { StandaloneBespokeKey, StandaloneBlobs } from '$lib/campaign/standalones/registry';
 import type { WidgetSlot } from '$lib/campaign/profile/profile-settings';
 import type { WidgetDef } from '$lib/campaign/profile/widget-def';
 import type { ProfilePayload } from '$lib/profile/profile-types';
@@ -66,6 +67,23 @@ export function campaignRenderers<F extends BespokeFamily>(
 				component: component as Component<object>,
 				props: (c) => ({ ...props, blob: c.blob as B | null, ctx: c.ctx }),
 				title: title && ((c) => title(c, c.blob as B | null))
+			};
+			return [id, renderer];
+		})
+	);
+}
+
+/** Renderers for one standalone page's own widgets, each given that page's aggregate and the slot context. */
+export function standaloneRenderers<K extends StandaloneBespokeKey>(
+	_key: K,
+	entries: Record<string, Component<CampaignWidgetProps<NonNullable<StandaloneBlobs[K]>>>>
+): Record<string, WidgetRenderer> {
+	type B = NonNullable<StandaloneBlobs[K]>;
+	return Object.fromEntries(
+		Object.entries(entries).map(([id, component]) => {
+			const renderer: WidgetRenderer = {
+				component: component as Component<object>,
+				props: (c) => ({ blob: c.blob as B | null, ctx: c.ctx })
 			};
 			return [id, renderer];
 		})

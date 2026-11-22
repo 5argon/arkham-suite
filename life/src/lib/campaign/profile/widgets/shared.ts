@@ -60,7 +60,6 @@ export const SHARED_WIDGETS: WidgetDef[] = [
 	def('scenarioXp', m.framework_label_scenario_xp, ['campaignDetail'], 'campaignDetail', { nonLog: 'full' }),
 	def('specialInteractions', m.framework_label_special_interactions, ['campaignDetail'], 'campaignDetail'),
 	def('standaloneUsage', m.framework_label_standalone_usage, ['home'], 'home'),
-	def('rewardsUnlocked', m.framework_label_rewards_unlocked, ['home', 'campaignsHome'], 'home'),
 
 	def('cardInsights', m.framework_label_card_insights, CARD_PAGES, 'cardsHome', wide),
 	def('favoriteCard', m.framework_label_favorite_card, ['home', ...CARD_PAGES], 'cardsHome', {
@@ -121,6 +120,43 @@ export const SHARED_WIDGETS: WidgetDef[] = [
 		config: topCount(5)
 	}),
 	// No Neutral variant: too few neutral investigators.
+	def('rewardsUnlocked', m.framework_label_rewards_unlocked, ['home', 'campaignsHome'], 'home'),
+	def(
+		'standaloneOverview',
+		m.framework_label_standalone_overview,
+		['standaloneDetail'],
+		'standaloneDetail'
+	),
+	def(
+		'standaloneReward',
+		m.framework_label_standalone_reward,
+		['standaloneDetail'],
+		'standaloneDetail'
+	),
+	def(
+		'standaloneSources',
+		m.framework_label_standalone_sources,
+		['standaloneDetail'],
+		'standaloneDetail'
+	),
+	def(
+		'standalonePlays',
+		m.framework_label_standalone_plays,
+		['standaloneDetail'],
+		'standaloneDetail',
+		{
+			nonLog: 'partial'
+		}
+	),
+	def(
+		'standaloneDeckXp',
+		m.framework_label_standalone_deck_xp,
+		['standaloneDetail'],
+		'standaloneDetail',
+		{
+			nonLog: 'full'
+		}
+	),
 	...PLAYER_CLASSES.filter((cls) => cls !== 'neutral').map((cls) =>
 		def(
 			`deckStats_${cls}`,

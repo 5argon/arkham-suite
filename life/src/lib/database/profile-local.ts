@@ -3,7 +3,11 @@
  * member, or a play group. Built in three cacheable segments (see profile-cache.ts) that
  * `assemblePayload` recombines.
  */
-import { achievementInferScope, getCampaignLog } from '@5argon/arkham-campaign-data';
+import {
+	achievementInferScope,
+	getCampaignLog,
+	standaloneScenarios
+} from '@5argon/arkham-campaign-data';
 import type { CardCode, DecodedMeta, Product } from '@5argon/arkham-kohaku';
 import { card as cardUtils, decodeMeta } from '@5argon/arkham-kohaku';
 import {
@@ -37,10 +41,16 @@ import { filterTrackedRecords, groupTracked, tierTracked } from '$lib/campaign/r
 import { buildCollections } from '$lib/campaign/stats/collections';
 import { buildScenarioStats } from '$lib/campaign/stats/scenario-stats';
 import { buildStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
-import { buildStandaloneArchives } from '$lib/campaign/outcomes/standalone-archives';
+import {
+	buildStandaloneArchives,
+	type InsertedStandalonePlay
+} from '$lib/campaign/outcomes/standalone-archives';
+import type { StandaloneEntry } from '$lib/campaign/records/recorded-state';
 import { buildTraumaTally, attributeTraumaInvestigators } from '$lib/campaign/outcomes/trauma';
 import { buildBespoke } from '$lib/campaign/campaigns/registry';
 import { buildRewards } from '$lib/campaign/rewards/rewards';
+import { standaloneKey } from '$lib/campaign/standalones/define';
+import { buildStandaloneBespoke } from '$lib/campaign/standalones/registry';
 import { isCoreOnlyCampaign } from '$lib/campaign/utils/deck-purity';
 import { familyOf } from '$lib/campaign/records/campaign-family';
 import { applyTskTierResolutionInference } from '$lib/campaign/campaigns/tsk/rules';
@@ -257,6 +267,57 @@ function subjectRecords(doc: DatabaseDocument, uids: Set<string> | null): Campai
 	return records;
 }
 
+/** A side story played inside a campaign, as a play of the `side` catalogue: its resolution and its
+ *  own Extra choices, at the host campaign's difficulty and finish date. */
+function sideStoryRecord(s: StandaloneEntry, host: CampaignRecord): CampaignRecord {
+	return {
+		campaignCode: 'side',
+		campaignId: host.campaignId,
+		recorded: {
+			difficulty: host.recorded.difficulty,
+			recordedLogs: new Set(),
+			crossedLogs: new Set(),
+			recordedSectionItems: {}
+		},
+		manual: new Set(),
+		scenarioResolutions: s.resolution ? { [s.standalone]: s.resolution } : {},
+		scenarioChoices: Object.fromEntries(
+			Object.entries(s.choices ?? {}).map(([id, value]) => [`${s.standalone}.${id}`, value])
+		),
+		finishDate: host.finishDate ?? null
+	};
+}
+
+/** The side stories played inside the subject's campaigns, each with its play record. */
+function insertedSideStories(
+	doc: DatabaseDocument,
+	records: CampaignRecord[]
+): { play: InsertedStandalonePlay; rec: CampaignRecord }[] {
+	const sideStories = new Set(standaloneScenarios().map((s) => s.scenario));
+	const decksById = new Map(doc.campaigns.map((c) => [c.id, c.decks]));
+	return records.flatMap((host) => {
+		const log = getCampaignLog(host.campaignCode);
+		if (!log) return [];
+		const investigators = (host.campaignId ? decksById.get(host.campaignId) : undefined)?.map(
+			(d) => d.investigator.investigatorCode
+		);
+		return (host.standalones ?? [])
+			.filter((s) => sideStories.has(s.standalone))
+			.map((s) => ({
+				play: {
+					scenario: s.standalone,
+					tier: host.recorded.difficulty ?? 'standard',
+					date: host.finishDate ?? null,
+					resolution: s.resolution ?? null,
+					victoryDisplay: s.victoryDisplay ?? null,
+					investigators: investigators ?? [],
+					hostFamily: familyOf(log)
+				},
+				rec: sideStoryRecord(s, host)
+			}));
+	});
+}
+
 /** Build achievements data (families / custom / coverage). */
 function buildAchievementsData(records: CampaignRecord[]): ProfileAchievementsData {
 	const byFamily = aggregateOfficialTiered(records);
@@ -369,6 +430,17 @@ function buildLogsSegment(doc: DatabaseDocument, scope: ProfileScope): LogsSegme
 	const trueSoloRecords = soloRecords.filter((r) => !r.multiHanded);
 	const clearGrid = (recs: CampaignRecord[]) =>
 		buildFullClearGrid(recs, ownedProducts, trackedGroups, mergeReturnTo, hideReturnTo);
+	const subjectStandalones = doc.standalones.filter((s) => campaignInSubject(s, scope.uids));
+	const inserted = insertedSideStories(doc, records);
+	const standalonePlays = [
+		...subjectStandalones.flatMap((s) => {
+			const log = getCampaignLog(s.campaignCode);
+			return log
+				? [{ key: standaloneKey(s.campaignCode, s.scenario), rec: recordFor(s, log, scope.uids) }]
+				: [];
+		}),
+		...inserted.map((i) => ({ key: standaloneKey('side', i.play.scenario), rec: i.rec }))
+	];
 	return {
 		achievements: records.length
 			? buildAchievementsData(records)
@@ -381,12 +453,14 @@ function buildLogsSegment(doc: DatabaseDocument, scope: ProfileScope): LogsSegme
 		collections: buildCollections(records, mergeReturnTo),
 		scenarios: buildScenarioStats(records, mergeReturnTo),
 		standaloneUsage: buildStandaloneUsage(records, mergeReturnTo),
-		// Standalone archives are not tier/group filtered.
+		// Standalone Archives are not tier/group filtered; side stories follow their campaign's.
 		standalones: buildStandaloneArchives(
-			doc.standalones.filter((s) => campaignInSubject(s, scope.uids)),
-			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0]))
+			subjectStandalones,
+			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0])),
+			inserted.map((i) => i.play)
 		),
-		rewards: buildRewards(records),
+		standaloneBespoke: buildStandaloneBespoke(standalonePlays),
+		rewards: buildRewards([...records, ...standalonePlays.map((p) => p.rec)]),
 		traumaTally: buildTraumaTally(records, mergeReturnTo),
 		bespoke: buildBespoke(records, { mergeReturnTo }),
 		specialInteractions: buildSpecialInteractions(records, mergeReturnTo)

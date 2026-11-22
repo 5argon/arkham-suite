@@ -79,7 +79,8 @@
 		return out;
 	});
 	const customizeHref = $derived(`${page.url.pathname.replace(/\/$/, '')}/customize`);
-	const isCustomizable = $derived(tail[0] !== 'standalones');
+	/** Every page but the standalones list. */
+	const isCustomizable = $derived(tail[0] !== 'standalones' || tail.length > 2);
 </script>
 
 <MarginFull>

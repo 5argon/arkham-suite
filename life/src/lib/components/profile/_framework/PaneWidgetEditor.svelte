@@ -1,4 +1,4 @@
-<!-- @component Edits one page's row layout: a shared pane, or a campaign's own detail page. -->
+<!-- @component Edits one page's row layout: a shared pane, or a campaign's or standalone's own detail page. -->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
@@ -12,7 +12,9 @@
 	import {
 		campaignDetailWidgetIds,
 		defaultCampaignLayout,
+		defaultStandaloneLayout,
 		sharedWidgetsForPane,
+		standaloneDetailWidgetIds,
 		WIDGET_BY_ID
 	} from '$lib/campaign/profile/profile-widgets';
 	import type { WidgetConfigOption } from '$lib/campaign/profile/widget-def';
@@ -29,21 +31,31 @@
 	let {
 		initialSettings,
 		pane,
-		campaign = null
+		campaign = null,
+		standalone = null
 	}: {
 		initialSettings: ProfileSettings;
 		pane: PaneId;
 		/** A campaign slug → edit that campaign's own detail-page layout. */
 		campaign?: string | null;
+		/** A standalone page key → edit that standalone's own page layout. */
+		standalone?: string | null;
 	} = $props();
+
+	function defaultRows() {
+		if (campaign != null) return defaultCampaignLayout(campaign);
+		if (standalone != null) return defaultStandaloneLayout(standalone);
+		return freshDefaultPanes()[pane as SharedPaneId];
+	}
 
 	let rows = $state<EditorRow[]>(
 		untrack(() =>
 			toEditorRows(
 				campaign != null
-					? (initialSettings.campaigns[campaign] ?? defaultCampaignLayout(campaign))
-					: (initialSettings.panes[pane as SharedPaneId] ??
-							freshDefaultPanes()[pane as SharedPaneId])
+					? (initialSettings.campaigns[campaign] ?? defaultRows())
+					: standalone != null
+						? (initialSettings.standalones?.[standalone] ?? defaultRows())
+						: (initialSettings.panes[pane as SharedPaneId] ?? defaultRows())
 			)
 		)
 	);
@@ -51,7 +63,9 @@
 	const allowedIds = $derived(
 		campaign != null
 			? campaignDetailWidgetIds(campaign)
-			: sharedWidgetsForPane(pane).map((w) => w.id)
+			: standalone != null
+				? standaloneDetailWidgetIds(standalone)
+				: sharedWidgetsForPane(pane).map((w) => w.id)
 	);
 
 	let campaignLogOnly = $state(
@@ -59,9 +73,7 @@
 	);
 
 	function resetActive() {
-		rows = toEditorRows(
-			campaign != null ? defaultCampaignLayout(campaign) : freshDefaultPanes()[pane as SharedPaneId]
-		);
+		rows = toEditorRows(defaultRows());
 	}
 
 	const payload = $derived.by((): string => {
@@ -73,11 +85,17 @@
 						campaigns: { ...initialSettings.campaigns, [campaign]: toStoredRows(rows) },
 						campaignLogOnly: { ...initialSettings.campaignLogOnly, [campaign]: campaignLogOnly }
 					}
-				: {
-						...initialSettings,
-						v: 4,
-						panes: { ...initialSettings.panes, [pane as SharedPaneId]: toStoredRows(rows) }
-					};
+				: standalone != null
+					? {
+							...initialSettings,
+							v: 4,
+							standalones: { ...initialSettings.standalones, [standalone]: toStoredRows(rows) }
+						}
+					: {
+							...initialSettings,
+							v: 4,
+							panes: { ...initialSettings.panes, [pane as SharedPaneId]: toStoredRows(rows) }
+						};
 		return JSON.stringify(next);
 	});
 

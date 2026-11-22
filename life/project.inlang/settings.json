@@ -48,7 +48,8 @@
 			"./messages/profile/cards/levels/{languageTag}.json",
 			"./messages/profile/investigators/{languageTag}.json",
 			"./messages/profile/investigators/class/{languageTag}.json",
-			"./messages/profile/standalones/{languageTag}.json"
+			"./messages/profile/standalones/{languageTag}.json",
+			"./messages/profile/standalones/standalone/ttn/{languageTag}.json"
 		]
 	},
 	"sourceLanguageTag": "en",
