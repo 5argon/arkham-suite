@@ -30,13 +30,15 @@ counter, or a filtered card picker. A `cards` choice with a bearer list gets one
 			? cardPoolFor(choice.cardFilter, getAllCards(), new Set(investigators.map((i) => i.code)))
 			: []
 	);
+	/** ArkhamCards' trait markup (`[[Lead]]`) shown as the plain trait name. */
+	const label = $derived(choice.label.replace(/\[\[([^\]]+)\]\]/g, '$1'));
 </script>
 
 {#snippet glyphLabel(text: string)}{@html parseArkhamMarkup(text)}{/snippet}
 
 {#if choice.control === 'cards' && bearerValue !== undefined}
 	<div class="max-w-md">
-		<p class="text-primary-600 dark:text-primary-300 mb-1 text-xs font-medium">{choice.label}</p>
+		<p class="text-primary-600 dark:text-primary-300 mb-1 text-xs font-medium">{label}</p>
 		<InvestigatorCardPicker
 			{investigators}
 			cards={pool}
@@ -48,7 +50,7 @@ counter, or a filtered card picker. A `cards` choice with a bearer list gets one
 {:else if choice.control === 'cards'}
 	<div class="max-w-md">
 		<CardFormMultiple
-			label={choice.label}
+			{label}
 			cards={pool}
 			selectedCodes={splitCodes(value) as CardCode[]}
 			onSelectionChange={(codes) => onChange(codes.join(','))}
@@ -58,7 +60,7 @@ counter, or a filtered card picker. A `cards` choice with a bearer list gets one
 {:else if choice.control === 'counter'}
 	<div class="w-28">
 		<NumberField
-			label={choice.label}
+			{label}
 			value={value === '' ? null : Number(value)}
 			min={choice.min ?? 0}
 			max={choice.max}
@@ -69,7 +71,7 @@ counter, or a filtered card picker. A `cards` choice with a bearer list gets one
 	<div class="max-w-xs">
 		<RadioButtons
 			vertical
-			label={choice.label}
+			{label}
 			selectedValue={value}
 			onChange={(v) => onChange(String(v))}
 			choices={[blank, ...choice.options]}
@@ -79,7 +81,7 @@ counter, or a filtered card picker. A `cards` choice with a bearer list gets one
 {:else}
 	<div class="max-w-xs">
 		<Dropdown
-			label={choice.label}
+			{label}
 			{value}
 			options={[blank, ...choice.options]}
 			onchange={(v) => onChange(v)}
