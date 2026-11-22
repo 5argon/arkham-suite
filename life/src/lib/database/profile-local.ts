@@ -46,6 +46,7 @@ import {
 	type InsertedStandalonePlay
 } from '$lib/campaign/outcomes/standalone-archives';
 import type { StandaloneEntry } from '$lib/campaign/records/recorded-state';
+import { standaloneResolvedEntries } from '$lib/campaign/outcomes/standalone-logs';
 import { buildTraumaTally, attributeTraumaInvestigators } from '$lib/campaign/outcomes/trauma';
 import { buildBespoke } from '$lib/campaign/campaigns/registry';
 import { buildRewards } from '$lib/campaign/rewards/rewards';
@@ -267,15 +268,17 @@ function subjectRecords(doc: DatabaseDocument, uids: Set<string> | null): Campai
 	return records;
 }
 
-/** A side story played inside a campaign, as a play of the `side` catalogue: its resolution and its
- *  own Extra choices, at the host campaign's difficulty and finish date. */
+/** A side story played inside a campaign, as a play of the `side` catalogue: its resolution, its own
+ *  Extra choices and the Campaign Notes it added to the host's log, at the host campaign's difficulty
+ *  and finish date. Two plays of one side story in a campaign share those notes. */
 function sideStoryRecord(s: StandaloneEntry, host: CampaignRecord): CampaignRecord {
+	const own = new Set(standaloneResolvedEntries('side', s.standalone).map((e) => e.key));
 	return {
 		campaignCode: 'side',
 		campaignId: host.campaignId,
 		recorded: {
 			difficulty: host.recorded.difficulty,
-			recordedLogs: new Set(),
+			recordedLogs: new Set([...(host.recorded.recordedLogs ?? [])].filter((k) => own.has(k))),
 			crossedLogs: new Set(),
 			recordedSectionItems: {}
 		},
