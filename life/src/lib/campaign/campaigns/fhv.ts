@@ -48,112 +48,71 @@ const SCHEDULABLE = (log?.db.scenarioMeta ?? [])
 	.filter((s) => s.choices?.some((c) => c.id === 'played_on'))
 	.map((s) => s.id);
 
-export interface FhvOutcomeGroup {
-	/** Names the group; the widget maps it to a heading. */
-	heading?: 'hybrid' | 'bear' | 'captives';
-	/** Full log keys. */
-	keys: string[];
-	/** Listed only once one of its outcomes is reached. */
-	onlyWhenHit?: boolean;
-}
-
-/** Each scenario passport's logged outcomes in groups, and the villagers it pictures. */
-export const FHV_PASSPORTS: Record<string, { villagers: string[]; groups: FhvOutcomeGroup[] }> = {
+/** Each scenario passport's logged outcomes (full log keys) and the villagers it pictures. */
+export const FHV_PASSPORTS: Record<string, { villagers: string[]; keys: string[] }> = {
 	written_in_rock: {
 		villagers: ['simeon', 'leah'],
-		groups: [
-			{
-				keys: [
-					'simeon.simeon_survived',
-					'leah.leah_and_simeon_were_reunited',
-					'leah.leah_saw_something_in_the_mine',
-					'simeon.simeon_disappeared',
-					'campaign_notes.survived_the_horrors_in_the_rock'
-				]
-			}
+		keys: [
+			'simeon.simeon_survived',
+			'leah.leah_and_simeon_were_reunited',
+			'leah.leah_saw_something_in_the_mine',
+			'simeon.simeon_disappeared',
+			'campaign_notes.survived_the_horrors_in_the_rock'
 		]
 	},
 	hemlock_house: {
 		villagers: ['william', 'judith'],
-		groups: [{ keys: ['hidden.found_little_sylvie'] }]
+		keys: ['hidden.found_little_sylvie']
 	},
 	the_silent_heath: {
 		villagers: ['leah'],
-		groups: [
-			{
-				keys: [
-					'campaign_notes.laid_the_pearl_family_to_rest',
-					'campaign_notes.remains_were_partially_recovered',
-					'campaign_notes.madame_pearls_diary_was_recovered',
-					'leah.searched_the_pearl_ruins'
-				]
-			}
+		keys: [
+			'campaign_notes.laid_the_pearl_family_to_rest',
+			'campaign_notes.remains_were_partially_recovered',
+			'campaign_notes.madame_pearls_diary_was_recovered',
+			'leah.searched_the_pearl_ruins'
 		]
 	},
 	the_lost_sister: {
 		villagers: ['theo', 'gideon'],
-		groups: [
-			{
-				keys: [
-					'campaign_notes.the_peters_family_was_reunited',
-					'campaign_notes.elizabeth_peters_was_saved',
-					'theo.theo_reconciled_with_helen',
-					'gideon.gideon_found_his_treasure'
-				]
-			}
+		keys: [
+			'campaign_notes.the_peters_family_was_reunited',
+			'campaign_notes.elizabeth_peters_was_saved',
+			'theo.theo_reconciled_with_helen',
+			'gideon.gideon_found_his_treasure'
 		]
 	},
 	the_thing_in_the_depths: {
 		villagers: ['judith'],
-		groups: [
-			{
-				keys: ['campaign_notes.thing_in_the_depths_was_defeated', 'judith.judith_shared_a_grudge']
-			},
-			{
-				heading: 'hybrid',
-				keys: [
-					'campaign_notes.chelydran_hybrid_lived',
-					'campaign_notes.chelydran_hybrid_perished',
-					'campaign_notes.chelydran_hybrid_devoured'
-				]
-			}
+		keys: [
+			'campaign_notes.thing_in_the_depths_was_defeated',
+			'judith.judith_shared_a_grudge',
+			'campaign_notes.chelydran_hybrid_lived',
+			'campaign_notes.chelydran_hybrid_perished',
+			'campaign_notes.chelydran_hybrid_devoured'
 		]
 	},
 	the_twisted_hollow: {
 		villagers: ['rachel'],
-		groups: [
-			{
-				keys: [
-					'campaign_notes.bertie_was_rescued',
-					'campaign_notes.bertie_was_lost_in_the_woods',
-					'campaign_notes.mother_rachel_showed_the_way',
-					'campaign_notes.lost_the_path',
-					'campaign_notes.the_bear_was_wounded'
-				]
-			},
-			{
-				heading: 'bear',
-				keys: [
-					'judith.judith_saved_your_ass',
-					'theo.theo_distracted_the_bear',
-					'rachel.mother_rachel_intervened'
-				],
-				onlyWhenHit: true
-			}
+		keys: [
+			'campaign_notes.bertie_was_rescued',
+			'campaign_notes.bertie_was_lost_in_the_woods',
+			'campaign_notes.mother_rachel_showed_the_way',
+			'campaign_notes.lost_the_path',
+			'campaign_notes.the_bear_was_wounded',
+			'judith.judith_saved_your_ass',
+			'theo.theo_distracted_the_bear',
+			'rachel.mother_rachel_intervened'
 		]
 	},
 	the_longest_night: {
 		villagers: [],
-		groups: [
-			{
-				heading: 'captives',
-				keys: [
-					'campaign_notes.captives_were_saved',
-					'campaign_notes.many_captives_were_lost',
-					'campaign_notes.all_the_captives_were_lost'
-				]
-			},
-			{ keys: ['campaign_notes.faced_the_night_alone', 'campaign_notes.dr_marquez_has_a_plan'] }
+		keys: [
+			'campaign_notes.captives_were_saved',
+			'campaign_notes.many_captives_were_lost',
+			'campaign_notes.all_the_captives_were_lost',
+			'campaign_notes.faced_the_night_alone',
+			'campaign_notes.dr_marquez_has_a_plan'
 		]
 	}
 };
@@ -309,15 +268,15 @@ export const buildFhv = defineCampaignBuilder<CampaignFhv>('fhv', (plays) => {
 		residents.filter(pred).length;
 
 	const scenarios: Record<string, Record<string, number>> = {};
-	for (const [id, { groups }] of Object.entries(FHV_PASSPORTS)) {
+	for (const [id, { keys }] of Object.entries(FHV_PASSPORTS)) {
 		const counts: Record<string, number> = (scenarios[id] = {});
-		for (const key of groups.flatMap((g) => g.keys)) {
+		for (const key of keys) {
 			const n = plays.filter((p) => p.has(key)).length;
 			if (n) counts[key] = n;
 		}
 	}
 	const reached = (scenario: string) => (p: Play) =>
-		FHV_PASSPORTS[scenario].groups.some((g) => g.keys.some((key) => p.has(key)));
+		FHV_PASSPORTS[scenario].keys.some((key) => p.has(key));
 	const hollow = reached('the_twisted_hollow');
 	const night = reached('the_longest_night');
 

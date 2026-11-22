@@ -8,6 +8,8 @@
 
 	let { blob: fhv }: CampaignWidgetProps<CampaignFhv> = $props();
 
+	const FHV_HELEN_CODE = '10703';
+
 	const dance = $derived(fhv?.dance);
 	const lit = (_: string, times: string) => m.campaign_fhv_dance_partner({ times });
 	const none = () => m.campaign_fhv_dance_never();
@@ -15,6 +17,9 @@
 		...fhvVillagerTiles(FHV_DANCERS, (v) => fhv?.villagers[v]?.danced, lit, none),
 		{
 			...fhvVillagerTiles(['helen'], () => dance?.helen, lit, none)[0],
+			// Helen has no portrait among the residents; her card art stands in.
+			image: undefined,
+			code: FHV_HELEN_CODE,
 			label: m.campaign_fhv_dance_helen_name()
 		}
 	]);

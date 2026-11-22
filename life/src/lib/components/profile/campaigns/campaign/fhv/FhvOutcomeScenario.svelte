@@ -1,12 +1,13 @@
-<!-- @component A scenario passport listing its logged outcomes, picturing the villagers it centres on. -->
+<!-- @component A scenario passport counting its logged outcomes under short labels, picturing the villagers it centres on. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { FHV_PASSPORTS, fhvVillagerName, type CampaignFhv } from '$lib/campaign/campaigns/fhv';
-	import { logText, portraitUrl } from '$lib/campaign/records/campaign-log-source';
+	import { portraitUrl } from '$lib/campaign/records/campaign-log-source';
 	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
-	import { OutcomeList, SectionLabel, type OutcomeItem } from '$lib/components/profile/_primitives';
+	import { StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 	import ScenarioInfo from '../ScenarioInfo.svelte';
+	import { FHV_SCENARIO_VIEWS } from './fhv-views';
 
 	let {
 		blob: fhv,
@@ -19,34 +20,16 @@
 		children?: Snippet;
 	} = $props();
 
-	const HEADINGS = {
-		hybrid: m.campaign_fhv_thing_hybrid_heading,
-		bear: m.campaign_fhv_hollow_bear_heading,
-		captives: m.campaign_fhv_ln_captives_heading
-	};
-	/** Hidden notes have no campaign-data text. */
-	const LABELS: Record<string, () => string> = {
-		'hidden.found_little_sylvie': m.campaign_fhv_house_sylvie
-	};
-
 	const scenario = $derived(ctx.scenario ?? '');
-	const passport = $derived(FHV_PASSPORTS[scenario] ?? { villagers: [], groups: [] });
+	const passport = $derived(FHV_PASSPORTS[scenario] ?? { villagers: [], keys: [] });
 	const counts = $derived(fhv?.scenarios[scenario] ?? {});
-	const groups = $derived(
-		passport.groups
-			.map((g, i) => ({
-				id: i,
-				heading: g.heading ? HEADINGS[g.heading]() : null,
-				onlyWhenHit: g.onlyWhenHit,
-				items: g.keys.map((key): OutcomeItem => ({
-					label: LABELS[key]?.() ?? logText('fhv', key),
-					hit: (counts[key] ?? 0) > 0,
-					count: counts[key] ?? 0
-				}))
-			}))
-			.filter((g) => !g.onlyWhenHit || g.items.some((i) => i.hit))
+	const rows = $derived(
+		(FHV_SCENARIO_VIEWS[scenario] ?? []).map((g) => ({
+			heading: g.heading?.(),
+			stats: g.stats.map((st) => ({ value: counts[st.key] ?? 0, label: st.label() }))
+		}))
 	);
-	const hit = $derived(groups.some((g) => g.items.some((i) => i.hit)));
+	const hit = $derived(rows.some((g) => g.stats.some((st) => st.value > 0)));
 	const headerCards = $derived(
 		passport.villagers.map((v) => ({
 			src: portraitUrl('fhv', v),
@@ -64,14 +47,7 @@
 >
 	{#snippet stats()}
 		{#if hit}
-			<div class="space-y-3">
-				{#each groups as g (g.id)}
-					<div>
-						{#if g.heading}<SectionLabel>{g.heading}</SectionLabel>{/if}
-						<OutcomeList items={g.items} />
-					</div>
-				{/each}
-			</div>
+			<StatNumbers {rows} />
 		{/if}
 		{@render children?.()}
 	{/snippet}
