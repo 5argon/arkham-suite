@@ -79,3 +79,24 @@ export function tallyPlays(plays: readonly Play[], pred: (p: Play) => boolean): 
 	for (const p of plays) if (pred(p)) bumpTally(t, p.tier);
 	return t;
 }
+
+/** An Extra answer read as a number; undefined when unanswered or not a number. */
+export function choiceNumber(p: Play, scenario: string, choiceId: string): number | undefined {
+	const raw = p.choice(scenario, choiceId);
+	const n = raw == null || raw === '' ? NaN : Number(raw);
+	return Number.isFinite(n) ? n : undefined;
+}
+
+/** How many plays ended on each value of a per-play number: `{ '5': Tally, '6': Tally }`. */
+export function tallyValues(
+	plays: readonly Play[],
+	value: (p: Play) => number | undefined
+): Record<string, Tally> {
+	const out: Record<string, Tally> = {};
+	for (const p of plays) {
+		const v = value(p);
+		if (v == null) continue;
+		bumpTally((out[v] ??= emptyTally()), p.tier);
+	}
+	return out;
+}

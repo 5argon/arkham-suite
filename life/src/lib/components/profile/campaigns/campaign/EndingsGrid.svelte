@@ -1,4 +1,4 @@
-<!-- @component A scenario's endings, one line each: its face, its name, the resolution it is and how many plays reached it. Unreached endings are dimmed. -->
+<!-- @component A scenario's endings, one line each: its face, its card when it has one, its name, the resolution it is and how many plays reached it. Unreached endings are dimmed. -->
 <script lang="ts" module>
 	import type { EndingKind } from '$lib/campaign/outcomes/clear-status';
 	import type { Tally } from '$lib/campaign/utils/tally';
@@ -8,11 +8,14 @@
 		label: string;
 		resolution: string;
 		tally: Tally;
+		/** Card art beside the name. */
+		code?: string;
 	}
 </script>
 
 <script lang="ts">
 	import {
+		CardThumb,
 		CountWithBreakdown,
 		OutcomeFace,
 		SectionLabel
@@ -25,10 +28,11 @@
 <div>
 	{#if heading}<SectionLabel variant="heading" align="center">{heading}</SectionLabel>{/if}
 	<div class="@container">
-		<div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-2 @md:grid-cols-2">
+		<div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-2 @2xl:grid-cols-2">
 			{#each endings as e (e.label)}
 				<div class="flex items-center gap-2 {e.tally.total > 0 ? '' : 'opacity-45'}">
 					<OutcomeFace kind={e.kind} label={e.label} reached={e.tally.total > 0} />
+					{#if e.code}<CardThumb code={e.code} size="h-8 w-8" objectTop />{/if}
 					<span class="min-w-0 flex-1 truncate text-sm text-black dark:text-white">{e.label}</span>
 					<ResolutionChips
 						ids={[e.resolution]}
