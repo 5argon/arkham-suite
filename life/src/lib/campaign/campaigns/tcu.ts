@@ -256,15 +256,17 @@ export const buildTcu = defineCampaignBuilder<CampaignTcu>('tcu', (plays) => {
 	});
 
 	const missingPersons = MISSING_PERSONS.map(({ code, trail }): TcuMissingPerson => {
+		// Each missing person's log section is a notes section named after their card.
+		const has = (p: Play, id: string) => p.has(`${code}.${id}`);
 		const fates = TCU_FATES.map((fate) => ({
 			fate,
-			plays: plays.filter((p) => p.items(code).has(fate)).length
+			plays: plays.filter((p) => has(p, fate)).length
 		})).filter((f) => f.plays);
 		const union = {
-			alive: plays.filter((p) => p.items(code).has('alive')).length,
-			dead: plays.filter((p) => p.items(code).has('dead')).length
+			alive: plays.filter((p) => has(p, 'alive')).length,
+			dead: plays.filter((p) => has(p, 'dead')).length
 		};
-		const trailed = plays.filter((p) => p.has(trail)).length;
+		const trailed = plays.filter((p) => has(p, trail)).length;
 		return {
 			code,
 			trail: trailed,
