@@ -133,6 +133,10 @@ export const SHARED_WIDGETS: WidgetDef[] = [
 		['standaloneDetail'],
 		'standaloneDetail'
 	),
+	def('standaloneEndings', m.framework_label_standalone_endings, ['standaloneDetail'], 'standaloneDetail'),
+	def('standaloneCards', m.framework_label_standalone_cards, ['standaloneDetail'], 'standaloneDetail'),
+	def('challengeAdvanced', m.framework_label_challenge_advanced, ['standaloneDetail'], 'standaloneDetail'),
+	def('challengeScore', m.framework_label_challenge_score, ['standaloneDetail'], 'standaloneDetail'),
 	def(
 		'standaloneSources',
 		m.framework_label_standalone_sources,

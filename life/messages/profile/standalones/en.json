@@ -39,5 +39,15 @@
 	"standalones_sources_archive": "As its own archive",
 	"standalones_sources_inserted": "Inside a campaign",
 	"standalones_sources_campaigns_heading": "Campaigns it was played inside",
-	"standalones_plays_inside": "Inside {campaign}"
+	"standalones_plays_inside": "Inside {campaign}",
+	"standalones_endings_empty": "No ending recorded yet.",
+	"standalones_cards_never": "Never earned",
+	"standalones_cards_times": "Earned {times}",
+	"standalones_cards_earned": "Earned",
+	"standalones_challenge_upgraded": "Upgraded",
+	"standalones_challenge_downgraded": "Downgraded",
+	"standalones_challenge_upgraded_forced": "Made advanced",
+	"standalones_challenge_downgraded_forced": "Lost its advanced version",
+	"standalones_challenge_unchanged": "Kept both as they were",
+	"standalones_challenge_score_empty": "No score recorded yet."
 }

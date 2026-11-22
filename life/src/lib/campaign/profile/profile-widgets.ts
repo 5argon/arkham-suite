@@ -1,10 +1,8 @@
 /** The widget catalogue: the shared widgets plus every campaign's own. */
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { PaneId, ProfileRow } from './profile-settings';
-import { rewardFor } from '../rewards/reward-defs';
 import {
 	full,
-	split,
 	type CampaignWidgetModule,
 	type StandaloneWidgetModule,
 	type WidgetDef
@@ -24,6 +22,8 @@ import tdeb from './widgets/tdeb';
 import tfa from './widgets/tfa';
 import tic from './widgets/tic';
 import tsk from './widgets/tsk';
+import { parseStandaloneKey, standaloneLayout, standaloneWidgetFits } from './widgets/standalone/layout';
+import side from './widgets/standalone/side';
 import ttn from './widgets/standalone/ttn';
 
 export type { WidgetDef } from './widget-def';
@@ -45,7 +45,7 @@ const CAMPAIGN_MODULES: CampaignWidgetModule[] = [
 	cob
 ];
 
-const STANDALONE_MODULES: StandaloneWidgetModule[] = [ttn];
+const STANDALONE_MODULES: StandaloneWidgetModule[] = [ttn, ...side];
 
 export const WIDGET_CATALOGUE: WidgetDef[] = [
 	...SHARED_WIDGETS,
@@ -111,25 +111,8 @@ export function defaultCampaignLayout(slug: string): ProfileRow[] {
 	return [full('overview'), full('scenarioXp'), full('resolutionCoverage'), full('achievements')];
 }
 
-/** A standalone page key's catalogue and scenario, when campaign-data knows both. */
-export function parseStandaloneKey(key: string): { catalogue: string; scenario: string } | null {
-	const dot = key.indexOf('.');
-	if (dot < 1) return null;
-	const catalogue = key.slice(0, dot);
-	const scenario = key.slice(dot + 1);
-	const known = getCampaignLog(catalogue)?.db.scenarioMeta?.some((m) => m.id === scenario);
-	return known ? { catalogue, scenario } : null;
-}
-
 export function isStandaloneKey(key: string): boolean {
 	return parseStandaloneKey(key) != null;
-}
-
-/** The reward card a standalone page's scenario grants, if any. */
-function standaloneHasReward(key: string): boolean {
-	const parsed = parseStandaloneKey(key);
-	const code = parsed && getCampaignLog(parsed.catalogue)?.db.code;
-	return !!parsed && !!code && rewardFor(code, parsed.scenario) != null;
 }
 
 export function bespokeWidgetsForStandalone(key: string): WidgetDef[] {
@@ -138,23 +121,14 @@ export function bespokeWidgetsForStandalone(key: string): WidgetDef[] {
 
 /** Every widget a standalone page may hold: the applicable shared ones and its own. */
 export function standaloneDetailWidgetIds(key: string): string[] {
-	const shared = sharedWidgetsForPane('standaloneDetail').filter(
-		(w) => w.id !== 'standaloneReward' || standaloneHasReward(key)
+	const shared = sharedWidgetsForPane('standaloneDetail').filter((w) =>
+		standaloneWidgetFits(w.id, key)
 	);
 	return [...shared, ...bespokeWidgetsForStandalone(key)].map((w) => w.id);
 }
 
 export function defaultStandaloneLayout(key: string): ProfileRow[] {
-	const mod = STANDALONE_MODULES.find((s) => s.key === key);
-	if (mod) return mod.layout();
-	return standaloneHasReward(key)
-		? [
-				split('standaloneOverview', 'standaloneReward'),
-				split('standaloneSources', 'standaloneDeckXp'),
-				full('standalonePlays')
-			]
-		: [
-				split('standaloneOverview', 'standaloneSources'),
-				split('standalonePlays', 'standaloneDeckXp')
-			];
+	return STANDALONE_MODULES.find((s) => s.key === key)?.layout() ?? standaloneLayout(key);
 }
+
+export { parseStandaloneKey };

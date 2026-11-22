@@ -1,6 +1,8 @@
 /** Per-standalone aggregates: the bespoke numbers of one standalone scenario's page. */
 import type { CampaignRecord } from '../records/campaign-record';
 import { readPlay, type Play } from '../records/play';
+import type { Tally } from '../utils/tally';
+import { tallyCards, tallyEndings, type StandaloneRules } from './rules';
 
 /** A standalone page's key: the catalogue it loads from (`side` for a Scenario Pack) and the scenario. */
 export function standaloneKey(catalogue: string, scenario: string): string {
@@ -34,4 +36,27 @@ export function defineStandaloneBuilder<T extends StandaloneBlobBase>(
 		if (!plays.length) return null;
 		return { key, plays: plays.length, ...build(plays) } as T;
 	};
+}
+
+/** A standalone page's shared numbers: each ending's plays and each earnable card's. */
+export interface StandalonePageBlob extends StandaloneBlobBase {
+	endings: Record<string, Tally>;
+	cards: Record<string, Tally>;
+}
+
+/** A page built from its rules, plus anything of its own. */
+export function defineStandalonePage<T extends object = object>(
+	rules: StandaloneRules,
+	own?: (plays: Play[]) => T
+): StandaloneBuilder<StandalonePageBlob & T> {
+	return defineStandaloneBuilder<StandalonePageBlob & T>(
+		'side',
+		rules.scenario,
+		(plays) =>
+			({
+				endings: tallyEndings(plays, rules),
+				cards: tallyCards(plays, rules),
+				...own?.(plays)
+			}) as Omit<StandalonePageBlob & T, keyof StandaloneBlobBase>
+	);
 }

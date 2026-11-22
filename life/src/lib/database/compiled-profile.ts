@@ -7,7 +7,7 @@
 import type { ProfilePayload, ProfileSubject } from '$lib/profile/profile-types';
 
 /** Bumped on every breaking change to the file's shape; see compiled-profile-versions.md. */
-export const COMPILED_PROFILE_VERSION = 63;
+export const COMPILED_PROFILE_VERSION = 64;
 
 /** The oldest format whose blob shapes the current widgets read. */
 const MIN_COMPILED_PROFILE_VERSION = 59;

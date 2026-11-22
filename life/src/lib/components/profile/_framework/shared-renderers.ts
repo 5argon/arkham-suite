@@ -2,6 +2,11 @@ import { Product, type Campaign } from '@5argon/arkham-kohaku';
 import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import { mergeStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
 import type { RewardUnlock } from '$lib/campaign/rewards/rewards';
+import { challengeFor } from '$lib/campaign/profile/widgets/standalone/layout';
+import { standaloneKey, type StandalonePageBlob } from '$lib/campaign/standalones/define';
+import type { StandaloneRules } from '$lib/campaign/standalones/rules';
+import { STANDALONE_RULES } from '$lib/campaign/standalones/rules-registry';
+import type { Challenge, ChallengeBlob } from '$lib/campaign/standalones/side/challenges';
 import { cardByCode } from '$lib/card-data';
 import { trackedTierList } from '$lib/campaign/records/tracking';
 import {
@@ -50,6 +55,11 @@ import StandaloneOverview from '../standalones/StandaloneOverview.svelte';
 import StandalonePlays from '../standalones/StandalonePlays.svelte';
 import StandaloneReward from '../standalones/StandaloneReward.svelte';
 import StandaloneSources from '../standalones/StandaloneSources.svelte';
+import StandaloneCards from '../standalones/StandaloneCards.svelte';
+import StandaloneEndings from '../standalones/StandaloneEndings.svelte';
+import ChallengeAdvanced from '../standalones/side/ChallengeAdvanced.svelte';
+import ChallengeScore from '../standalones/side/ChallengeScore.svelte';
+import { standaloneText } from '../standalones/side/text';
 import InvestigatorInsightsView from '../investigators/InvestigatorInsightsView.svelte';
 import MostUsedInvestigatorsView from '../investigators/MostUsedInvestigatorsView.svelte';
 
@@ -217,6 +227,29 @@ export const SHARED_RENDERERS: Record<string, WidgetRenderer> = {
 		)
 	})),
 	standaloneSources: widget(StandaloneSources, (c) => ({ stat: c.ctx.standalone })),
+	standaloneEndings: widget(StandaloneEndings, (c) => ({
+		rules: pageRules(c),
+		tallies: (c.blob as StandalonePageBlob | null)?.endings ?? null
+	})),
+	standaloneCards: widget(StandaloneCards, (c) => ({
+		rules: pageRules(c),
+		tallies: (c.blob as StandalonePageBlob | null)?.cards ?? null
+	})),
+	challengeAdvanced: widget(ChallengeAdvanced, (c) => ({
+		challenge: pageChallenge(c),
+		blob: c.blob as ChallengeBlob | null
+	})),
+	challengeScore: widget(
+		ChallengeScore,
+		(c) => ({
+			challenge: pageChallenge(c),
+			scores: (c.blob as ChallengeBlob | null)?.scores ?? null
+		}),
+		(c) => {
+			const prefix = pageChallenge(c)?.prefix;
+			return prefix ? standaloneText(`standalone_${prefix}_score_title`) : c.def.label();
+		}
+	),
 	standaloneOverview: widget(StandaloneOverview, (c) => ({ stat: c.ctx.standalone })),
 	standaloneReward: widget(StandaloneReward, (c) => ({ reward: pageReward(c) })),
 	standalonePlays: widget(StandalonePlays, (c) => ({
@@ -288,6 +321,22 @@ export const SHARED_RENDERERS: Record<string, WidgetRenderer> = {
 function owns(ownedProducts: Product[] | null, code: string): boolean {
 	const product = cardByCode(code)?.product;
 	return ownedProducts == null || (product != null && ownedProducts.includes(product));
+}
+
+/** The page's standalone key, from its scenario's plays. */
+function pageKey(c: RenderContext): string | null {
+	const stat = c.ctx.standalone;
+	return stat ? standaloneKey(stat.catalogueCode, stat.scenario) : null;
+}
+
+function pageRules(c: RenderContext): StandaloneRules | null {
+	const key = pageKey(c);
+	return key ? (STANDALONE_RULES[key] ?? null) : null;
+}
+
+function pageChallenge(c: RenderContext): Challenge | null {
+	const key = pageKey(c);
+	return key ? challengeFor(key) : null;
 }
 
 /** The reward card a standalone page's scenario grants, with the subject's unlocks of it. */

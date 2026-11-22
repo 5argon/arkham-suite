@@ -273,5 +273,9 @@
 	"framework_label_standalone_plays": "Plays",
 	"framework_label_standalone_deck_xp": "Deck Experience",
 	"framework_label_standalone_sources": "How It Was Played",
-	"framework_score_track_mark": "{at}+ {label}"
+	"framework_score_track_mark": "{at}+ {label}",
+	"framework_label_standalone_endings": "Endings",
+	"framework_label_standalone_cards": "Cards Earned",
+	"framework_label_challenge_advanced": "Advanced Cards",
+	"framework_label_challenge_score": "Score"
 }

@@ -6,7 +6,7 @@
 import type { CardsSegment, LogsSegment, MetaSegment } from '$lib/profile/profile-types';
 
 /** Bump when a builder's output changes, so a running session drops segments built by older code. */
-export const CACHE_VERSION = 133;
+export const CACHE_VERSION = 134;
 
 /** The cache key for the account-wide profile. */
 export const ACCOUNT_SUBJECT = '__account__';
