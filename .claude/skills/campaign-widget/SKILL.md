@@ -120,7 +120,7 @@ Import primitives from `$lib/components/profile/_primitives` (a barrel).
 | A table | `WidgetTable` | `columns` + a `row` snippet. Never a raw `<table>`. |
 | A first cell with a scenario icon and name | `ScenarioNameCell` (campaigns/campaign/) | |
 | Card rows with a trailing value | `CardLineList` | Trailing snippet: a count, a date, or a `CardStrip`. |
-| A wall of square tiles lit by count | `LitTileGrid` | A tile takes a card `code` (art + default label) or an `image`; hover `detail` via `tallyDetail` from `utils/difficulty.ts`. |
+| A wall of square tiles lit by count | `LitTileGrid` | A tile takes a card `code` (art + default label) or an `image`; hover `detail` via `tallyDetail` from `utils/difficulty.ts`. A tile with no image shows its name inside instead of below. It is a size container, so in a shrink-wrapped flex parent give its wrapper a width. |
 | A single card or portrait thumbnail | `CardThumb` | `code` or `src`; alt/title default to the card name. |
 | Full card scans with a count pill | `CardScanWall` | `items {card, count}[]`, `cols`, `dimUnused`, `badge` snippet. |
 | A link tile to a sub-page | `NavTile` | |
@@ -130,7 +130,9 @@ Import primitives from `$lib/components/profile/_primitives` (a barrel).
 | A footnote under the content | `WidgetNote` | |
 | "Nothing recorded yet" | `WidgetEmpty` (or the `empty` props above) | |
 | Resolution chips | `ResolutionChips` (campaigns/campaign/) | |
-| ●/○ story-fork outcomes | `OutcomeList` | |
+| A scenario's endings: face, name, resolution chip, ×count | `EndingsGrid` (campaigns/campaign/) | `endings {kind, label, resolution, tally}[]`, `heading`. One line per ending, unreached ones dimmed; two columns when the widget is wide. |
+| A campaign reward card in a passport | `RewardLine` | `code` + `tally`. The reward rules live in `campaign/rewards/reward-defs.ts` (`REWARDS`, `rewardFor`; `tallyReward` in `rewards.ts`); never re-derive one in a builder. |
+| ●/○ story-fork outcomes | `OutcomeList` | For a story read in order (a villager's trail). Counts of logged forks go in `StatNumbers` instead. |
 | A win/loss face | `OutcomeFace` | |
 | Chaos tokens | `ColoredChaosToken`, `TokenCoinRow` | |
 | Two-sided spines (PtC Doubt/Conviction, TCU Lodge/Coven) | `SignatureRunsTable`, `TwoSidedChain`, `TwoSidedSourceTable` (campaigns/campaign/) | |
@@ -139,6 +141,24 @@ Import primitives from `$lib/components/profile/_primitives` (a barrel).
 
 From `@5argon/arkham-life-ui`: `CardLine`, `CardStrip`, `EncounterSetIcon`, `FaIcon`,
 `parseArkhamMarkup`. Prefer a profile primitive when one fits.
+
+## Standalone pages
+
+A standalone scenario's page (`/standalones/pack/<scenario>` or `/standalones/campaign/<campaign>/<scenario>`)
+is a widget page too, keyed by `standaloneKey(catalogue, scenario)` (`side.ttn`).
+
+- Every standalone gets the shared `standaloneOverview`, `standaloneSources`, `standalonePlays`,
+  `standaloneDeckXp` and, when its scenario grants a reward, `standaloneReward`. They read
+  `ctx.standalone` (the scenario's `StandaloneArchiveStat`).
+- A page's plays are its Standalone Archives plus the side stories played inside campaigns. A side
+  story has only its resolution and its own Extra choices (no log notes), so a builder reads each
+  ending from the note or the resolution.
+- Bespoke numbers: a builder made with `defineStandaloneBuilder(catalogue, scenario, (plays) => …)` in
+  `life/src/lib/campaign/standalones/<id>.ts`, registered in `standalones/registry.ts`; widgets in
+  `campaign/profile/widgets/standalone/<id>.ts` (`standaloneWidgets(key, [...], layout)`), listed in
+  `profile-widgets.ts` `STANDALONE_MODULES`; renderers via `standaloneRenderers(key, {...})` in
+  `components/profile/standalones/standalone/<id>/index.ts`; strings in
+  `messages/profile/standalones/standalone/<id>/`. Components take the same `{ blob, ctx }`.
 
 ## Log-only mode
 
@@ -149,6 +169,13 @@ campaigns are listed in `profile-widgets.test.ts`.
 
 ## Conventions
 
+- Never label a number with a raw campaign-log sentence. Give each logged fork a short label and a
+  heading in a per-campaign table (`tdc/tdc-views.ts`, `fhv/fhv-views.ts`) and render `StatNumbers`;
+  `scenario-views.test.ts` checks the table only reads keys the precompute counts.
+- A finale's endings are a 2-column grid of `OutcomeFace` + label + `ResolutionChips` + ×count
+  (NotZ Devourer Below, BoA Queen of Ash, TDC Doom of Arkham).
+- Give a passport a header card (`headerCards`): the scenario's enemy, ally or artifact. Encounter
+  cards missing from `cards.json` (CoB) still have CDN art; pass `label` for their name.
 - `{#each}` blocks are keyed.
 - No `$effect` watchers for derived state; seed `$state` and do work in handlers.
 - Comments describe the code as it is and only say what the code cannot: a game rule, a data quirk,
@@ -163,3 +190,5 @@ campaigns are listed in `profile-widgets.test.ts`.
 - `node ../node_modules/.bin/vitest run` passes.
 - The widget reads precomputed fields; no raw `<table>`, hand-rolled tooltip, ad-hoc card `<img>`,
   hand-rolled label or empty state.
+- Look at the widget at phone width (393px), not only for sideways scrolling: header rows that
+  wrap, tile labels under count badges, lone tiles on a row of their own.
