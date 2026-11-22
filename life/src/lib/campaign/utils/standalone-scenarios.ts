@@ -15,6 +15,10 @@ import { getCampaignLog, playableScenarios } from '@5argon/arkham-campaign-data'
 
 const KOHAKU_SCENARIOS = new Set<string>(Object.values(Scenario));
 const STANDALONE_SCENARIOS = new Set<string>(Object.values(StandaloneScenario));
+/** campaign-data side-story ids that kohaku names differently. */
+const KOHAKU_STANDALONE_ALIAS: Record<string, StandaloneScenario> = {
+	ttn: StandaloneScenario.TracesToNowhere
+};
 
 /** The encounter set whose icon stands for a campaign or standalone scenario. */
 export function scenarioRepresentativeSet(id: string): EncounterSet | null {
@@ -25,8 +29,9 @@ export function scenarioRepresentativeSet(id: string): EncounterSet | null {
 			return null;
 		}
 	}
-	if (STANDALONE_SCENARIOS.has(id)) {
-		return standaloneScenarioRepresentativeSet[id as StandaloneScenario] ?? null;
+	const standalone = KOHAKU_STANDALONE_ALIAS[id] ?? id;
+	if (STANDALONE_SCENARIOS.has(standalone)) {
+		return standaloneScenarioRepresentativeSet[standalone as StandaloneScenario] ?? null;
 	}
 	return null;
 }

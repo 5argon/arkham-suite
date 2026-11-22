@@ -1,21 +1,12 @@
 <!-- @component A scenario's encounter-set icon at 1em, or a lettered chip when it has none. -->
 <script lang="ts" module>
-	import { getScenarioData, Scenario, type EncounterSet } from '@5argon/arkham-kohaku';
+	import type { EncounterSet } from '@5argon/arkham-kohaku';
+	import { scenarioRepresentativeSet as lookup } from '$lib/campaign/utils/standalone-scenarios';
 
-	const KOHAKU = new Set<string>(Object.values(Scenario));
-
-	function lookup(id: string): EncounterSet | null {
-		if (!KOHAKU.has(id)) return null;
-		try {
-			return getScenarioData(id as Scenario)?.representativeSet ?? null;
-		} catch {
-			return null;
-		}
-	}
-
-	/** A replay variant id (`fatal_mirage_2`) borrows its base scenario's icon. */
+	/** A replay variant (`fatal_mirage_2`) or a part (`the_doom_of_arkham_part_2`) borrows its base
+	 *  scenario's icon. */
 	export function scenarioIconSet(id: string): EncounterSet | null {
-		const base = id.replace(/_\d+$/, '');
+		const base = id.replace(/_(part_)?\d+$/, '');
 		return lookup(id) ?? (base !== id ? lookup(base) : null);
 	}
 </script>

@@ -114,7 +114,8 @@ sharing one tooltip. Pass `tiles` (a grid or a flex row) or explicit `rows`.
 				/>
 			{/if}
 		</div>
-		{#if showLabel}
+		<!-- A tile without an image already shows its name inside. -->
+		{#if showLabel && image && !failed[t.id]}
 			<span
 				class="line-clamp-2 w-full text-center text-[0.7rem] leading-tight break-words {t.count > 0
 					? 'text-black dark:text-white'

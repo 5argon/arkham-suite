@@ -244,12 +244,14 @@ and icon are on the widget frame.
 				/>
 			{/each}
 			{@render headerArt?.()}
-			<div class="min-w-0 flex-1 basis-40">
-				{#if location}
-					<div class="text-primary-500 text-xs">{location}</div>
-				{/if}
-				{@render headerMeta?.()}
-			</div>
+			{#if location || headerMeta}
+				<div class="min-w-0 flex-1 basis-40">
+					{#if location}
+						<div class="text-primary-500 text-xs">{location}</div>
+					{/if}
+					{@render headerMeta?.()}
+				</div>
+			{/if}
 			{#if showCorner}{@render cornerStats()}{/if}
 		</div>
 		{#if showResolutions || showVp}{@render coverageBlock()}{/if}
