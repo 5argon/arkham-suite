@@ -131,6 +131,7 @@ Import primitives from `$lib/components/profile/_primitives` (a barrel).
 | "Nothing recorded yet" | `WidgetEmpty` (or the `empty` props above) | |
 | Resolution chips | `ResolutionChips` (campaigns/campaign/) | |
 | A scenario's endings: face, name, resolution chip, ×count | `EndingsGrid` (campaigns/campaign/) | `endings {kind, label, resolution, tally}[]`, `heading`. One line per ending, unreached ones dimmed; two columns when the widget is wide. |
+| A score against thresholds (tasks, memories, bands) | `ScoreTrack` | `max`, `scores` (value → Tally, from `tallyValues`), `marks` with cards, `cellLabel`. |
 | A campaign reward card in a passport | `RewardLine` | `code` + `tally`. The reward rules live in `campaign/rewards/reward-defs.ts` (`REWARDS`, `rewardFor`; `tallyReward` in `rewards.ts`); never re-derive one in a builder. |
 | ●/○ story-fork outcomes | `OutcomeList` | For a story read in order (a villager's trail). Counts of logged forks go in `StatNumbers` instead. |
 | A win/loss face | `OutcomeFace` | |
@@ -153,6 +154,18 @@ is a widget page too, keyed by `standaloneKey(catalogue, scenario)` (`side.ttn`)
 - A page's plays are its Standalone Archives plus the side stories played inside campaigns. A side
   story has only its resolution and its own Extra choices (no log notes), so a builder reads each
   ending from the note or the resolution.
+- Most side stories declare their rules in `campaign/standalones/side/<family>.ts` and build with
+  `defineStandalonePage(rules, own?)`: `endings` (each with its resolutions, Campaign Notes, an
+  optional `when`, a face card) and `cards` (each earnable card with its `earned(play)` rule) feed the
+  shared `standaloneEndings` and `standaloneCards` widgets; labels are
+  `standalone_<prefix>_ending_<id>` in `messages/profile/standalones/standalone/side/`. Register the
+  rules in `rules-registry.ts` and the builder in `registry.ts`. The parallel-investigator challenges
+  are one `CHALLENGES` table feeding `challengeAdvanced` and `challengeScore`. Default rows come from
+  `standaloneLayout(key, { lead, halves })`, which pairs the widgets that fit so no row is half empty.
+  `side-pages.test.ts` checks every rule's resolutions, labels and card codes.
+- A side story's Extra questions live in campaign-data curation (`side.json`), with
+  `scenarioResolutionOutcomes` wherever a numbered resolution is not a win. An ArkhamCards import fills
+  a choose-one by matching ids; anything else needs a hook in `arkhamcards-convert/extras/side.mjs`.
 - Bespoke numbers: a builder made with `defineStandaloneBuilder(catalogue, scenario, (plays) => …)` in
   `life/src/lib/campaign/standalones/<id>.ts`, registered in `standalones/registry.ts`; widgets in
   `campaign/profile/widgets/standalone/<id>.ts` (`standaloneWidgets(key, [...], layout)`), listed in
