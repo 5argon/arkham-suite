@@ -42,7 +42,8 @@
     "legions_of_fire": "Legions of Fire",
     "when_the_world_screamed": "When the World Screamed",
     "film_fatale": "Film Fatale",
-    "the_turning_gear": "The Turning Gear"
+    "the_turning_gear": "The Turning Gear",
+    "ttn": "Traces to Nowhere"
   },
   "items": {
     "84028": "Alien Device",
@@ -286,6 +287,21 @@
     "campaign_notes.coterie_turning_gear": {
       "text": "the Coterie took posession of the Turning Gear"
     },
+    "campaign_notes.failed_to_solve_the_case": {
+      "text": "the investigators failed to solve the case."
+    },
+    "campaign_notes.saved_lina_husserl": {
+      "text": "the investigators saved Lina Husserl."
+    },
+    "campaign_notes.stopped_eugene_peel": {
+      "text": "the investigators stopped Eugene Peel."
+    },
+    "campaign_notes.stopped_albrecht_husserl": {
+      "text": "the investigators stopped Albrecht Husserl."
+    },
+    "campaign_notes.the_culprit_is_still_at_large": {
+      "text": "the culprit is still at large."
+    },
     "campaign_notes.fof_stashed": {
       "text": "Stashed: #name# (#X#)"
     },
@@ -348,6 +364,13 @@
   "scenarioChoices": {
     "fortune_and_folly_part_1.completed_tasks": {
       "label": "Completed Tasks"
+    },
+    "ttn.ask_control_aziza": {
+      "label": "Was the Aziza Steer story asset was under an investigator’s control when the scenario ended?",
+      "options": {
+        "yes": "Yes",
+        "no": "No"
+      }
     }
   }
 }

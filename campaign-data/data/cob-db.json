@@ -25,7 +25,13 @@
         "R1",
         "R2",
         "R3"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "win",
+        "R3": "loss"
+      }
     },
     {
       "id": "new_horizons",
@@ -37,7 +43,14 @@
         "R2",
         "R3",
         "R4"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "neutral",
+        "R2": "win",
+        "R3": "win",
+        "R4": "loss"
+      }
     },
     {
       "id": "friends_in_low_places",
@@ -51,6 +64,22 @@
         "no_resolution",
         "R1",
         "R2"
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "loss"
+      },
+      "choices": [
+        {
+          "id": "check_chosen_of_zburamoarte",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
       ]
     },
     {
@@ -198,7 +227,8 @@
       "id": "stopped_the_children_of_blood",
       "section": "campaign_notes",
       "kind": "note",
-      "scenario": "05_blood_money"
+      "scenario": "05_blood_money",
+      "outcome": "win"
     },
     {
       "id": "hard_or_expert",
@@ -310,6 +340,12 @@
       "id": "and_all_i_got",
       "type": "binary",
       "family": "cob",
+      "infer": {
+        "type": "scenarioChoice",
+        "scenario": "blood_money",
+        "choice": "check_chosen_of_zburamoarte",
+        "is": "yes"
+      },
       "scenario": "blood_money"
     },
     {

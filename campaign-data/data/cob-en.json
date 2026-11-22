@@ -128,5 +128,14 @@
         "expert": "Expert"
       }
     }
+  },
+  "scenarioChoices": {
+    "blood_money.check_chosen_of_zburamoarte": {
+      "label": "At least 1 investigator has The Blood Blight weakness in their deck",
+      "options": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
   }
 }

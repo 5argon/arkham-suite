@@ -58,6 +58,17 @@
         "label": "Completed Tasks",
         "_note": "Fortune and Folly Part II: 'Check the number of tasks on The Heist story card that were completed during this scenario.' (ArkhamCards fortune_and_folly_part_2.json step ask_completed_tasks, input type=counter, max=8). Each task beyond the minimum of 4 grants 1 bonus experience; not reconstructable from the final log, hence an Extra. Recorded on the standalone instance, for standalone-related widgets."
       }
+    ],
+    "ttn": [
+      {
+        "id": "ask_control_aziza",
+        "label": "Was the Aziza Steer story asset was under an investigator’s control when the scenario ended?",
+        "control": "radio",
+        "options": ["yes", "no"],
+        "optionLabels": { "yes": "Yes", "no": "No" },
+        "after": "victory",
+        "_note": "Traces to Nowhere Resolution 5 (read after each of R1–R4): a yes earns the Aziza Steer campaign reward card (73059). ArkhamCards ttn.json step ask_control_aziza, label copied verbatim including its doubled 'was'. Board state with no log entry, hence an Extra."
+      }
     ]
   },
   "outcomes": {

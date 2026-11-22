@@ -15,7 +15,15 @@
     "look_out_below": { "scenario": "blood_money" },
     "a_party_everyone_can_enjoy": { "scenario": "blood_money" },
     "if_you_cant_beat_them": { "scenario": "blood_money" },
-    "and_all_i_got": { "scenario": "blood_money" },
+    "and_all_i_got": {
+      "scenario": "blood_money",
+      "infer": {
+        "type": "scenarioChoice",
+        "scenario": "blood_money",
+        "choice": "check_chosen_of_zburamoarte",
+        "is": "yes"
+      }
+    },
     "dont_forget_your_ppe": {
       "infer": { "type": "chaosToken", "token": "blood", "max": 0 }
     },
@@ -78,5 +86,45 @@
         }
       }
     }
+  },
+  "outcomes": {
+    "_notes": "Proposed by tools/outcomes.mjs. failed_to_stop_the_children_of_blood is left out: Blood Money R2 records it and still wins the campaign, while no resolution records it and loses.",
+    "win": [
+      "campaign_notes.stopped_the_children_of_blood"
+    ]
+  },
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario Succeed/Failed. River of Blood R3: Julia escapes for good, a loss. New Horizons R1 leaves the facility with the search unfinished, a voluntary early exit like a resignation, so neutral; R4 is overwhelmed by the cult. Blood Money R2 fails to stop the Children of Blood (the campaign is still won), so the scenario is a loss; no resolution is each surviving investigator resigning.",
+    "river_of_blood": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win",
+      "R3": "loss"
+    },
+    "new_horizons": {
+      "no_resolution": "loss",
+      "R1": "neutral",
+      "R2": "win",
+      "R3": "win",
+      "R4": "loss"
+    },
+    "blood_money": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "loss"
+    }
+  },
+  "scenarioChoices": {
+    "blood_money": [
+      {
+        "id": "check_chosen_of_zburamoarte",
+        "label": "At least 1 investigator has The Blood Blight weakness in their deck",
+        "control": "radio",
+        "options": ["yes", "no"],
+        "optionLabels": { "yes": "Yes", "no": "No" },
+        "after": "victory",
+        "_note": "Blood Money R1 and R2 check ArkhamCards' has_card condition on The Blood Blight (13118) after the experience step; a yes earns the Chosen of Zburamoarte campaign reward card (13093a) and the And All I Got Were These Bloody Fangs achievement. The label is the branch text (05_blood_money.json check_chosen_of_zburamoarte) without its leading 'If'. Deck contents are not in the log, hence an Extra."
+      }
+    ]
   }
 }

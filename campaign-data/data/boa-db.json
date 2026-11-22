@@ -16,7 +16,11 @@
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win"
+      }
     },
     {
       "id": "smoke_and_mirrors",
@@ -25,7 +29,11 @@
       "resolutions": [
         "no_resolution",
         "R1"
-      ]
+      ],
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win"
+      }
     },
     {
       "id": "queen_of_ash",
@@ -56,6 +64,12 @@
           ],
           "result": "win"
         }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "win",
+        "R3": "win"
       }
     }
   ],

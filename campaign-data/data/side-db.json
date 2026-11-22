@@ -40,7 +40,8 @@
     "legions_of_fire",
     "when_the_world_screamed",
     "film_fatale",
-    "the_turning_gear"
+    "the_turning_gear",
+    "ttn"
   ],
   "scenarioMeta": [
     {
@@ -2240,6 +2241,95 @@
           }
         }
       }
+    },
+    {
+      "id": "ttn",
+      "type": "story",
+      "victoryDisplay": true,
+      "resolutions": [
+        "no_resolution",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "standaloneSetup": {
+        "difficulties": [
+          "easy",
+          "standard",
+          "hard",
+          "expert"
+        ],
+        "chaosBag": {
+          "easy": {
+            "0": 3,
+            "+1": 2,
+            "-1": 2,
+            "-2": 1,
+            "-3": 1,
+            "skull": 2,
+            "cultist": 2,
+            "tablet": 2,
+            "elder_thing": 1,
+            "auto_fail": 1,
+            "elder_sign": 1
+          },
+          "standard": {
+            "0": 2,
+            "+1": 1,
+            "-1": 2,
+            "-2": 2,
+            "-3": 1,
+            "-4": 1,
+            "skull": 2,
+            "cultist": 2,
+            "tablet": 2,
+            "elder_thing": 1,
+            "auto_fail": 1,
+            "elder_sign": 1
+          },
+          "hard": {
+            "0": 2,
+            "-1": 2,
+            "-2": 2,
+            "-3": 1,
+            "-4": 1,
+            "-5": 1,
+            "skull": 2,
+            "cultist": 2,
+            "tablet": 2,
+            "elder_thing": 1,
+            "auto_fail": 1,
+            "elder_sign": 1
+          },
+          "expert": {
+            "0": 1,
+            "-1": 1,
+            "-2": 2,
+            "-3": 2,
+            "-4": 1,
+            "-5": 1,
+            "-7": 1,
+            "skull": 2,
+            "cultist": 2,
+            "tablet": 2,
+            "elder_thing": 1,
+            "auto_fail": 1,
+            "elder_sign": 1
+          }
+        }
+      },
+      "choices": [
+        {
+          "id": "ask_control_aziza",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     }
   ],
   "sections": [
@@ -3085,6 +3175,141 @@
       "section": "campaign_notes",
       "kind": "note",
       "scenario": "the_turning_gear"
+    },
+    {
+      "id": "traces_to_nowhere_a",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_b",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_c",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_f",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_i",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_j",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_d_first",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_d",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_e",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_albrecht_is_the_culprit",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_g_first",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_g",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_h",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_lina_opened_the_door",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "traces_to_nowhere_eurgene_is_not_what_he_seems",
+      "section": "hidden",
+      "kind": "note",
+      "scenario": "ttn",
+      "hidden": true
+    },
+    {
+      "id": "failed_to_solve_the_case",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ttn"
+    },
+    {
+      "id": "saved_lina_husserl",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ttn"
+    },
+    {
+      "id": "stopped_eugene_peel",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ttn"
+    },
+    {
+      "id": "stopped_albrecht_husserl",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ttn"
+    },
+    {
+      "id": "the_culprit_is_still_at_large",
+      "section": "campaign_notes",
+      "kind": "note",
+      "scenario": "ttn"
     },
     {
       "id": "continue_fortune_and_folly_part_2",

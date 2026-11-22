@@ -58,5 +58,22 @@
       ],
       "scenario": "03_queen_of_ash"
     }
-  ]
+  ],
+  "scenarioResolutionOutcomes": {
+    "_notes": "Per-scenario Succeed/Failed. No resolution is each investigator resigned or defeated, a loss everywhere; every numbered resolution meets the objective. Queen of Ash R3 (flooding the ritual) kills each investigator who did not resign but still wins the campaign.",
+    "spreading_flames": {
+      "no_resolution": "loss",
+      "R1": "win"
+    },
+    "smoke_and_mirrors": {
+      "no_resolution": "loss",
+      "R1": "win"
+    },
+    "queen_of_ash": {
+      "no_resolution": "loss",
+      "R1": "win",
+      "R2": "win",
+      "R3": "win"
+    }
+  }
 }
