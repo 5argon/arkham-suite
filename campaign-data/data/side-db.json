@@ -104,7 +104,53 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "choices": [
+        {
+          "id": "choose_faction",
+          "options": [
+            "foundation",
+            "university",
+            "syndicate",
+            "lodge",
+            "locals"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "choose_one_guest",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "71017",
+              "71018",
+              "71019",
+              "71023",
+              "71024",
+              "71025",
+              "71029",
+              "71030",
+              "71031",
+              "71035",
+              "71036",
+              "71037",
+              "71041",
+              "71042",
+              "71043"
+            ]
+          },
+          "after": "resolution"
+        },
+        {
+          "id": "score",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 99,
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "curse_of_the_rougarou",
@@ -156,6 +202,12 @@
             "elder_sign": 1
           }
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "win",
+        "R3": "win",
+        "no_resolution": "loss"
       }
     },
     {
@@ -205,7 +257,42 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "choices": [
+        {
+          "id": "choose_masks",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "82025",
+              "82024",
+              "82023",
+              "82026"
+            ]
+          },
+          "after": "victory"
+        },
+        {
+          "id": "ask_innocent_revelers_saved",
+          "options": [
+            "none",
+            "one_or_two",
+            "three"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "ask_innocent_revelers_killed",
+          "options": [
+            "none",
+            "one_or_more"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "the_eternal_slumber",
@@ -304,6 +391,12 @@
             "elder_sign": 1
           }
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "win",
+        "R3": "win",
+        "no_resolution": "loss"
       }
     },
     {
@@ -353,7 +446,46 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "R3": "loss",
+        "no_resolution": "loss",
+        "no_resolution_defeated": "loss"
+      },
+      "choices": [
+        {
+          "id": "choose_inspector_monroe",
+          "options": [
+            "tell_truth",
+            "lie"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "check_police_on_your_side",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "choose_lead_assets",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "84028",
+              "84031",
+              "84034",
+              "84037",
+              "84040"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "blob_that_ate_everything",
@@ -401,7 +533,28 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "win",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "earn_assets",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "85029",
+              "85030",
+              "85031",
+              "85032"
+            ]
+          },
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "blob_that_ate_everything_else",
@@ -449,7 +602,31 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "win",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "earn_assets",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "85029",
+              "85030",
+              "85031",
+              "85032",
+              "89019",
+              "89020",
+              "89021"
+            ]
+          },
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "read_or_die",
@@ -527,7 +704,41 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_daisy_tomes",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 30,
+          "after": "resolution"
+        },
+        {
+          "id": "daisy_good_swap",
+          "options": [
+            "tote_bag",
+            "necronomicon",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "daisy_bad_swap",
+          "options": [
+            "necronomicon",
+            "tote_bag"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "all_or_nothing",
@@ -605,7 +816,46 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_act2_resources",
+          "options": [
+            "resources_10",
+            "resources_20",
+            "resources_30",
+            "resource_40",
+            "resource_50",
+            "resource_60"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "skids_good_swap",
+          "options": [
+            "tote_bag",
+            "necronomicon",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "skids_bad_swap",
+          "options": [
+            "necronomicon",
+            "tote_bag"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "bad_blood",
@@ -683,7 +933,41 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_agnes_memories",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 9,
+          "after": "resolution"
+        },
+        {
+          "id": "agnes_good_swap",
+          "options": [
+            "heirloom",
+            "dark_memory",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "agnes_bad_swap",
+          "options": [
+            "dark_memory",
+            "heirloom"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "by_the_book",
@@ -761,7 +1045,54 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution": "win"
+      },
+      "choices": [
+        {
+          "id": "ask_cultist_enemies",
+          "options": [
+            "0_3",
+            "4_5",
+            "6_7",
+            "8_9",
+            "10"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "ask_mr_grey",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "roland_good_swap",
+          "options": [
+            "gun",
+            "crime",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "roland_bad_swap",
+          "options": [
+            "necronomicon",
+            "tote_bag"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "red_tide_rising",
@@ -840,7 +1171,42 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution_resigned": "win",
+        "no_resolution_defeated": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_victory_cards",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 15,
+          "after": "resolution"
+        },
+        {
+          "id": "wendy_good_swap",
+          "options": [
+            "amulet",
+            "abandoned",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "wendy_bad_swap",
+          "options": [
+            "abandoned",
+            "amulet"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "laid_to_rest",
@@ -918,7 +1284,33 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "no_resolution_defeated": "loss"
+      },
+      "choices": [
+        {
+          "id": "jim_good_swap",
+          "options": [
+            "trumpet",
+            "final",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "jim_bad_swap",
+          "options": [
+            "final",
+            "trumpet"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "relics_of_the_past",
@@ -994,7 +1386,40 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution_defeated": "loss"
+      },
+      "choices": [
+        {
+          "id": "earn_jack_xp",
+          "options": [],
+          "control": "counter",
+          "min": 0,
+          "max": 4,
+          "after": "resolution"
+        },
+        {
+          "id": "jack_good_swap",
+          "options": [
+            "gun",
+            "crime",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "victory"
+        },
+        {
+          "id": "jack_bad_swap",
+          "options": [
+            "necronomicon",
+            "tote_bag"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "enthralling_encore",
@@ -1069,7 +1494,59 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "no_resolution_defeated": "loss"
+      },
+      "choices": [
+        {
+          "id": "choose_reward_card",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "01001",
+              "01002",
+              "01003",
+              "01004",
+              "01005",
+              "02001",
+              "02002",
+              "02003",
+              "02004",
+              "02005",
+              "03006",
+              "04004",
+              "08007"
+            ]
+          },
+          "after": "victory"
+        },
+        {
+          "id": "choose_punishment_card",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "01001",
+              "01002",
+              "01003",
+              "01004",
+              "01005",
+              "02001",
+              "02002",
+              "02003",
+              "02004",
+              "02005",
+              "03006",
+              "04004",
+              "08007"
+            ]
+          },
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "in_the_labyrinths_of_lunacy",
@@ -1114,7 +1591,33 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "loss",
+        "R2": "win",
+        "R3": "win",
+        "R4": "win"
+      },
+      "choices": [
+        {
+          "id": "ask_epic_multiplayer",
+          "options": [
+            "epic_multiplayer",
+            "single_group"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "ask_group",
+          "options": [
+            "group_a",
+            "group_b",
+            "group_c"
+          ],
+          "control": "radio"
+        }
+      ]
     },
     {
       "id": "war_of_the_outer_gods",
@@ -1224,7 +1727,29 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "win",
+        "R3": "win",
+        "R4": "win",
+        "R5": "loss",
+        "R6": "loss",
+        "R7": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_faction_in_lead",
+          "options": [
+            "red",
+            "blue",
+            "green"
+          ],
+          "control": "radio",
+          "after": "resolution"
+        }
+      ]
     },
     {
       "id": "meddling_of_meowlathotep",
@@ -1300,7 +1825,24 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "loss"
+      },
+      "choices": [
+        {
+          "id": "start_location",
+          "options": [
+            "slobbertown",
+            "snoutside",
+            "beasttown",
+            "tailside"
+          ],
+          "control": "radio"
+        }
+      ]
     },
     {
       "id": "machinations_through_time",
@@ -1378,7 +1920,57 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "no_resolution": "loss",
+        "R1": "win",
+        "R2": "loss",
+        "R3": "loss",
+        "R4": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_edwin_bennet_in_play",
+          "options": [
+            "asset",
+            "enemy",
+            "neither"
+          ],
+          "control": "radio",
+          "after": "resolution"
+        },
+        {
+          "id": "ask_assets_in_play",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "87014",
+              "87023",
+              "87032"
+            ]
+          },
+          "after": "resolution"
+        },
+        {
+          "id": "machination",
+          "options": [
+            "bitter_rivalry",
+            "redeem_a_former_colleague",
+            "uneasy_alliance"
+          ],
+          "control": "radio"
+        },
+        {
+          "id": "plot",
+          "options": [
+            "anomalies_in_spacetime",
+            "mob_troubles",
+            "unspeakable_abomination"
+          ],
+          "control": "radio"
+        }
+      ]
     },
     {
       "id": "consternation_on_the_constellation",
@@ -1747,13 +2339,37 @@
         "R2",
         "R3"
       ],
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "loss",
+        "R3": "loss",
+        "no_resolution": "loss"
+      },
       "choices": [
+        {
+          "id": "ask_skip_part_1",
+          "options": [
+            "skip",
+            "no"
+          ],
+          "control": "radio"
+        },
         {
           "id": "completed_tasks",
           "options": [],
           "control": "counter",
           "min": 0,
-          "max": 8
+          "max": 8,
+          "after": "victory"
+        },
+        {
+          "id": "ask_isamara_in_play",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "control": "radio",
+          "after": "victory"
         }
       ]
     },
@@ -2191,7 +2807,46 @@
             "elder_sign": 1
           }
         }
-      }
+      },
+      "resolutionOutcomes": {
+        "R1": "loss",
+        "R2": "win",
+        "R3": "win",
+        "R4": "win",
+        "no_resolution": "loss"
+      },
+      "choices": [
+        {
+          "id": "ask_which_props",
+          "options": [],
+          "control": "cards",
+          "cardFilter": {
+            "codes": [
+              "72005",
+              "72006",
+              "72007"
+            ]
+          }
+        },
+        {
+          "id": "ask_made_their_call_time",
+          "options": [
+            "cheat",
+            "no"
+          ],
+          "control": "radio",
+          "after": "resolution"
+        },
+        {
+          "id": "ask_andre_patel",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "control": "radio",
+          "after": "victory"
+        }
+      ]
     },
     {
       "id": "the_turning_gear",
@@ -2318,6 +2973,13 @@
             "elder_sign": 1
           }
         }
+      },
+      "resolutionOutcomes": {
+        "R1": "win",
+        "R2": "win",
+        "R3": "win",
+        "R4": "neutral",
+        "no_resolution": "loss"
       },
       "choices": [
         {

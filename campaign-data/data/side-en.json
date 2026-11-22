@@ -362,14 +362,312 @@
   },
   "achievements": {},
   "scenarioChoices": {
+    "fortune_and_folly_part_1.ask_skip_part_1": {
+      "label": "Would you like to skip the stakeout and jump straight to the heist?",
+      "options": {
+        "skip": "Yes",
+        "no": "No"
+      }
+    },
     "fortune_and_folly_part_1.completed_tasks": {
       "label": "Completed Tasks"
+    },
+    "fortune_and_folly_part_1.ask_isamara_in_play": {
+      "label": "Was Isamara Ordoñez in play at the end of the scenario?",
+      "options": {
+        "yes": "Yes",
+        "no": "No"
+      }
     },
     "ttn.ask_control_aziza": {
       "label": "Was the Aziza Steer story asset was under an investigator’s control when the scenario ended?",
       "options": {
         "yes": "Yes",
         "no": "No"
+      }
+    },
+    "murder_at_the_excelsior_hotel.choose_inspector_monroe": {
+      "label": "The Truth",
+      "options": {
+        "tell_truth": "Tell Sergeant Monroe the truth.",
+        "lie": "Lie about your involvement."
+      }
+    },
+    "murder_at_the_excelsior_hotel.check_police_on_your_side": {
+      "label": "The police are on your side",
+      "options": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "murder_at_the_excelsior_hotel.choose_lead_assets": {
+      "label": "Based on which two [[Lead]] assets are controlled by the players, a different result will occur."
+    },
+    "blob_that_ate_everything.earn_assets": {
+      "label": "For each of the following assets that are in play, any one investigator may choose to add that asset to their deck."
+    },
+    "blob_that_ate_everything_else.earn_assets": {
+      "label": "For each of the following assets that are in play, any one investigator may choose to add that asset to their deck."
+    },
+    "film_fatale.ask_which_props": {
+      "label": "Which [[Prop]] assets are in the victory display?"
+    },
+    "film_fatale.ask_made_their_call_time": {
+      "label": "Did \"the investigators make their call time\"?",
+      "options": {
+        "cheat": "Yes",
+        "no": "No"
+      }
+    },
+    "film_fatale.ask_andre_patel": {
+      "label": "Was the André Patel story asset under control of an investigator when the scenario ended?",
+      "options": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "the_midwinter_gala.choose_faction": {
+      "label": "The investigators must choose which faction requested their assistance.",
+      "options": {
+        "foundation": "The Foundation",
+        "university": "Miskatonic University",
+        "syndicate": "The Syndicate",
+        "lodge": "The Silver Twilight Lodge",
+        "locals": "Locals of Kingsport"
+      }
+    },
+    "the_midwinter_gala.choose_one_guest": {
+      "label": "Each investigator may choose one single-sided Guest asset under any investigator's control to add to their deck ignoring deckbuilding restrictions)."
+    },
+    "the_midwinter_gala.score": {
+      "label": "Score"
+    },
+    "carnevale_of_horrors.choose_masks": {
+      "label": "In player order, each investigator may choose one of the following Mask cards to add to their deck: Pantalone, Medico Della Peste, Bauta, Gilded Volto."
+    },
+    "carnevale_of_horrors.ask_innocent_revelers_saved": {
+      "label": "How many Innocent Revelers are underneath the act deck?",
+      "options": {
+        "none": "None",
+        "one_or_two": "One or two",
+        "three": "Three"
+      }
+    },
+    "carnevale_of_horrors.ask_innocent_revelers_killed": {
+      "label": "How many Innocent Revelers are underneath the agenda deck?",
+      "options": {
+        "none": "None",
+        "one_or_more": "One or more"
+      }
+    },
+    "read_or_die.ask_daisy_tomes": {
+      "label": "How many Tome assets did Daisy Walker have in play at the end of the scenario?"
+    },
+    "read_or_die.daisy_good_swap": {
+      "label": "Daisy Walker may either upgrade Daisy’s Tote Bag to its advanced version, or downgrade the advanced version of The Necronomicon (John Dee Translation) to its original version.",
+      "options": {
+        "tote_bag": "Upgrade Daisy's Tote Bag",
+        "necronomicon": "Downgrade The Necronomicon",
+        "neither": "No change"
+      }
+    },
+    "read_or_die.daisy_bad_swap": {
+      "label": "Daisy Walker must either upgrade The Necronomicon (John Dee Translation) to its advanced version, or downgrade the advanced version of Daisy’s Tote Bag to its original version",
+      "options": {
+        "necronomicon": "Upgrade The Necronomicon",
+        "tote_bag": "Downgrade Daisy's Tote Bag"
+      }
+    },
+    "all_or_nothing.ask_act2_resources": {
+      "label": "If the number of resources on Act 2a is (choose one)…",
+      "options": {
+        "resources_10": "10[per_investigator] or more",
+        "resources_20": "20[per_investigator] or more",
+        "resources_30": "30[per_investigator] or more",
+        "resource_40": "40[per_investigator] or more",
+        "resource_50": "50[per_investigator] or more",
+        "resource_60": "60[per_investigator] or more"
+      }
+    },
+    "all_or_nothing.skids_good_swap": {
+      "label": "“Skids” O’Toole may either upgrade On the Lam to its advanced version, or downgrade the advanced version of Hospital Debts to its original version.",
+      "options": {
+        "tote_bag": "Upgrade On the Lam",
+        "necronomicon": "Downgrade Hospital Debts",
+        "neither": "No change"
+      }
+    },
+    "all_or_nothing.skids_bad_swap": {
+      "label": "“Skids” O’Toole must either upgrade Hospital Debts to its advanced version, or downgrade the advanced version of On the Lam to its original version.",
+      "options": {
+        "necronomicon": "Upgrade Hospital Debts",
+        "tote_bag": "Downgrade On the Lam"
+      }
+    },
+    "bad_blood.ask_agnes_memories": {
+      "label": "How many memories did Agnes Baker collect by the end of the scenario?"
+    },
+    "bad_blood.agnes_good_swap": {
+      "label": "Agnes Baker may either upgrade Heirloom of Hyberborea to its advanced version, or downgrade the advanced version of Dark Memory to its original version.",
+      "options": {
+        "heirloom": "Upgrade Heirloom of Hyperborea",
+        "dark_memory": "Downgrade Dark Memory",
+        "neither": "No change"
+      }
+    },
+    "bad_blood.agnes_bad_swap": {
+      "label": "Agnes Baker must either upgrade Dark Memory to its advanced version, or downgrade the advanced version of Heirloom of Hyberborea to its original version",
+      "options": {
+        "dark_memory": "Upgrade Dark Memory",
+        "heirloom": "Downgrade Heirloom of Hyperborea"
+      }
+    },
+    "by_the_book.ask_cultist_enemies": {
+      "label": "If the number of Cultist enemies in the victory display is (choose one)…",
+      "options": {
+        "10": "10",
+        "0_3": "0–3",
+        "4_5": "4–5",
+        "6_7": "6–7",
+        "8_9": "8–9"
+      }
+    },
+    "by_the_book.ask_mr_grey": {
+      "label": "Is Mr. Grey in the victory display?",
+      "options": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "by_the_book.roland_good_swap": {
+      "label": "Roland Banks may either upgrade Roland's .38 Special to its advanced version, or downgrade the advanced version of Cover Up to its original version.",
+      "options": {
+        "gun": "Upgrade Roland's .38 Special",
+        "crime": "Downgrade Cover Up",
+        "neither": "No change"
+      }
+    },
+    "by_the_book.roland_bad_swap": {
+      "label": "Roland Banks either upgrade Cover Up to its advanced version, or downgrade the advanced version of Roland's .38 Special to its original version.",
+      "options": {
+        "necronomicon": "Upgrade Cover Up",
+        "tote_bag": "Downgrade Roland's .38 Special"
+      }
+    },
+    "red_tide_rising.ask_victory_cards": {
+      "label": "Cards in victory display"
+    },
+    "red_tide_rising.wendy_good_swap": {
+      "label": "She may either upgrade Wendy’s Amulet to its advanced version, or downgrade the advanced version of Abandoned and Alone to its original version.",
+      "options": {
+        "amulet": "Upgrade Wendy's Amulet",
+        "abandoned": "Downgrade Abandoned and Alone",
+        "neither": "No change"
+      }
+    },
+    "red_tide_rising.wendy_bad_swap": {
+      "label": "Wendy Adams must either upgrade Abandoned and Alone to its advanced version, or downgrade the advanced version of Wendy’s Amulet to its original version.",
+      "options": {
+        "abandoned": "Upgrade Abandoned and Alone",
+        "amulet": "Downgrade Wendy's Amulet"
+      }
+    },
+    "laid_to_rest.jim_good_swap": {
+      "label": "Jim Culver may either Jim’s Trumpet to its advanced version, or downgrade the advanced version of Final Rhapsody to its original version.",
+      "options": {
+        "trumpet": "Upgrade Jim's Trumpet",
+        "final": "Downgrade Final Rhapsody",
+        "neither": "No change"
+      }
+    },
+    "laid_to_rest.jim_bad_swap": {
+      "label": "Jim Culver must either upgrade Final Rhapsody to its advanced version, or downgrade the advanced version of Jim’s Trumpet to its original version.",
+      "options": {
+        "final": "Upgrade Final Rhapsody",
+        "trumpet": "Downgrade Jim's Trumpet"
+      }
+    },
+    "relics_of_the_past.earn_jack_xp": {
+      "label": "Victory display (Ancient assets only)"
+    },
+    "relics_of_the_past.jack_good_swap": {
+      "label": "Monterey Jack may either upgrade Trusty Bullwhip to its advanced version, or downgrade the advanced version of Buried Secrets to its original version.",
+      "options": {
+        "gun": "Upgrade Trusty Bullwhip",
+        "crime": "Downgrade Buried Secrets",
+        "neither": "No change"
+      }
+    },
+    "relics_of_the_past.jack_bad_swap": {
+      "label": "Monterey Jack must either upgrade Buried Secrets to its advanced version, or downgrade the advanced version of Trusty Bullwhip to its original version.",
+      "options": {
+        "necronomicon": "Upgrade Buried Secrets",
+        "tote_bag": "Downgrade Trusty Bullwhip"
+      }
+    },
+    "enthralling_encore.choose_reward_card": {
+      "label": "Upgrade signature card"
+    },
+    "enthralling_encore.choose_punishment_card": {
+      "label": "Upgrade siganture weakness"
+    },
+    "in_the_labyrinths_of_lunacy.ask_epic_multiplayer": {
+      "label": "Select how you would like to play this scenario:",
+      "options": {
+        "epic_multiplayer": "Epic Multiplayer",
+        "single_group": "Single Group"
+      }
+    },
+    "in_the_labyrinths_of_lunacy.ask_group": {
+      "label": "Which group's setup instruction do you want to read:",
+      "options": {
+        "group_a": "Group A",
+        "group_b": "Group B",
+        "group_c": "Group C"
+      }
+    },
+    "war_of_the_outer_gods.ask_faction_in_lead": {
+      "label": "Find the faction that is in the lead and proceed accordingly:",
+      "options": {
+        "red": "Red faction was in the lead",
+        "blue": "Blue faction was in the lead",
+        "green": "Green faction was in the lead"
+      }
+    },
+    "meddling_of_meowlathotep.start_location": {
+      "label": "The lead investigator must decide (choose one):",
+      "options": {
+        "slobbertown": "Follow the foul stench → Confront the barfy cat (Slobbertown)",
+        "snoutside": "Follow the foul stench → Follow the cat to its lair (Snoutside)",
+        "beasttown": "Follow the scent of bacon → Nope, food (Beasttown)",
+        "tailside": "Follow the scent of bacon → Oh yeah, investigating the Order (Tailside)"
+      }
+    },
+    "machinations_through_time.ask_edwin_bennet_in_play": {
+      "label": "Which of the following is in play (in any era)?",
+      "options": {
+        "asset": "Edwin Bennet asset",
+        "enemy": "Edwin Bennet enemy",
+        "neither": "Neither"
+      }
+    },
+    "machinations_through_time.ask_assets_in_play": {
+      "label": "Which of the following are in play?"
+    },
+    "machinations_through_time.machination": {
+      "label": "Machination",
+      "options": {
+        "bitter_rivalry": "A Bitter Rivalry",
+        "redeem_a_former_colleague": "Redeem a Former Colleague",
+        "uneasy_alliance": "Uneasy Alliance"
+      }
+    },
+    "machinations_through_time.plot": {
+      "label": "Plot",
+      "options": {
+        "anomalies_in_spacetime": "Anomalies in Spacetime",
+        "mob_troubles": "Mob Troubles",
+        "unspeakable_abomination": "Unspeakable Abomination"
       }
     }
   }
