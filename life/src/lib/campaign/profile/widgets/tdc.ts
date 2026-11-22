@@ -1,3 +1,4 @@
+import { scenarioName } from '$lib/campaign/records/campaign-log-source';
 import * as m from '$lib/paraglide/messages.js';
 import { campaignWidgets, full, split } from '../widget-def';
 
@@ -16,7 +17,13 @@ export default campaignWidgets(
 		{ id: 'tdcCourtOfAncients', scenario: 'court_of_the_ancients' },
 		{ id: 'tdcObsidianCanyons', scenario: 'obsidian_canyons' },
 		{ id: 'tdcSepulchre', scenario: 'sepulchre_of_the_sleeper', noteDoc: 'widget/tdc/sepulchre' },
-		{ id: 'tdcDoom', scenario: 'the_doom_of_arkham', fullWidth: true }
+		// Part II holds the finale's resolutions; the widget covers both parts.
+		{
+			id: 'tdcDoom',
+			scenario: 'the_doom_of_arkham_part_2',
+			label: () => scenarioName('tdc', 'the_doom_of_arkham'),
+			fullWidth: true
+		}
 	],
 	() => [
 		split('overview', 'tdcFold'),

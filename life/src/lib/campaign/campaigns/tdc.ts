@@ -40,6 +40,16 @@ export const TDC_ARTIFACTS: string[] = [
 	'clah_horror'
 ];
 
+/** Each artifact's story asset card. */
+export const TDC_ARTIFACT_CODES: Record<string, string> = {
+	barrier_node: '11552',
+	grisly_mask: '11582',
+	tidal_tablet: '11611',
+	shard: '11638',
+	obsidian_claw: '11672a',
+	clah_horror: '11688'
+};
+
 /** The Horror in Clay is earned during The Doom of Arkham itself, so it has no `hidden.kept_*`. */
 const CARRIED_ARTIFACTS = TDC_ARTIFACTS.filter((id) => id !== 'clah_horror');
 
@@ -92,10 +102,14 @@ export const TDC_OUTCOMES: Record<string, string[][]> = {
 			'campaign_notes.pilgrims_were_devoured',
 			'campaign_notes.exterminated_the_alien_parasites',
 			'artifacts_earned.grisly_mask'
-		]
+		],
+		// The scenario interlude read mid-scenario.
+		['hidden.tdc_lost_pilgrims', 'hidden.tdc_hive_mind']
 	],
 	the_grand_vault: [
-		['campaign_notes.the_inner_sanctum_was_unsealed', 'artifacts_earned.tidal_tablet']
+		['campaign_notes.the_inner_sanctum_was_unsealed', 'artifacts_earned.tidal_tablet'],
+		// The Vault Core scenario interlude was read.
+		['hidden.tdc_vault_core']
 	],
 	court_of_the_ancients: [['artifacts_earned.shard']],
 	obsidian_canyons: [['artifacts_earned.obsidian_claw', 'hidden.tdc_helped_with_the_ropes']],

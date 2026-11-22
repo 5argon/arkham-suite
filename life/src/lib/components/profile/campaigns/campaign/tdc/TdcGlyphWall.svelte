@@ -37,21 +37,24 @@
 </script>
 
 {#if tdc?.glyphs.everCollected}
-	<div class="space-y-2.5">
-		{#each rows as r (r.scenario)}
-			<div>
-				<SectionLabel>{r.label}</SectionLabel>
-				<IconTrack items={r.glyphs} size="0.75rem" cellWidth="2em" gap="0.25rem">
-					{#snippet icon(g)}
-						<span
-							class="flex h-[2em] w-[2em] items-center justify-center rounded border font-semibold {g.lit
-								? 'border-secondary-400 bg-secondary-100 text-secondary-700 dark:bg-secondary-900 dark:text-secondary-300'
-								: 'border-primary-200 text-primary-400 dark:border-primary-700'}">{g.letter}</span
-						>
-					{/snippet}
-				</IconTrack>
-			</div>
-		{/each}
+	<!-- The seven dive sites side by side where the row allows. -->
+	<div class="@container">
+		<div class="grid grid-cols-1 gap-x-6 gap-y-3 @xl:grid-cols-2 @4xl:grid-cols-4">
+			{#each rows as r (r.scenario)}
+				<div>
+					<SectionLabel>{r.label}</SectionLabel>
+					<IconTrack items={r.glyphs} size="0.95rem" cellWidth="2em" gap="0.25rem">
+						{#snippet icon(g)}
+							<span
+								class="flex h-[2em] w-[2em] items-center justify-center rounded border font-semibold {g.lit
+									? 'border-secondary-400 bg-secondary-100 text-secondary-700 dark:bg-secondary-900 dark:text-secondary-300'
+									: 'border-primary-200 text-primary-400 dark:border-primary-700'}">{g.letter}</span
+							>
+						{/snippet}
+					</IconTrack>
+				</div>
+			{/each}
+		</div>
 	</div>
 	<StatNumbers
 		rows={[

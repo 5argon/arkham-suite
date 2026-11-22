@@ -1,6 +1,6 @@
 <!-- @component The six eldritch artifacts, lit by plays that recovered each. -->
 <script lang="ts">
-	import { TDC_ARTIFACTS, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
+	import { TDC_ARTIFACT_CODES, TDC_ARTIFACTS, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
 	import { logText } from '$lib/campaign/records/campaign-log-source';
 	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
 	import {
@@ -20,6 +20,7 @@
 			const kept = tdc?.artifacts.kept[id] ?? 0;
 			return {
 				id,
+				code: TDC_ARTIFACT_CODES[id],
 				label: logText('tdc', `artifacts_earned.${id}`),
 				count,
 				detail: !count

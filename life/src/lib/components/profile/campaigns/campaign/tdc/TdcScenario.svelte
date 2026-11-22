@@ -1,39 +1,36 @@
-<!-- @component A TDC expedition scenario: its logged forks and the share of its glyphs ever decrypted. -->
+<!-- @component A TDC dive site: its logged forks under short labels, the artifact recovered there and its share of the glyphs. -->
 <script lang="ts">
 	import { TDC_GLYPHS_BY_SCENARIO, type CampaignTdc } from '$lib/campaign/campaigns/tdc';
 	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
-	import { OutcomeList, SectionLabel, StatNumbers } from '$lib/components/profile/_primitives';
+	import { StatNumbers, type Stat } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 	import ScenarioInfo from '../ScenarioInfo.svelte';
-	import { tdcOutcomeGroups } from './tdc-outcomes';
+	import { TDC_SCENARIO_VIEWS, type TdcStat } from './tdc-views';
 
 	let { blob: tdc, ctx }: CampaignWidgetProps<CampaignTdc> = $props();
 
 	const scenario = $derived(ctx.scenario ?? '');
-	const groups = $derived(tdcOutcomeGroups(tdc, scenario));
+	const view = $derived(TDC_SCENARIO_VIEWS[scenario]);
 	const glyphTotal = $derived(
 		TDC_GLYPHS_BY_SCENARIO.find((g) => g.scenario === scenario)?.ids.length ?? 0
 	);
 	const decrypted = $derived(tdc?.glyphs.byScenario[scenario] ?? 0);
-	const hasData = $derived(decrypted > 0 || groups.some((g) => g.outcomes.some((o) => o.plays)));
+
+	function stat(s: TdcStat): Stat {
+		if ('glyphs' in s)
+			return {
+				value: decrypted ? `${decrypted} / ${glyphTotal}` : 0,
+				label: m.campaign_tdc_scenario_glyphs_label()
+			};
+		return { value: tdc?.scenarios[scenario]?.[s.key] ?? 0, label: s.label() };
+	}
+	const rows = $derived(
+		(view?.groups ?? []).map((g) => ({ heading: g.heading?.(), stats: g.stats.map(stat) }))
+	);
 </script>
 
-<ScenarioInfo {ctx} showPlays empty={hasData ? null : m.campaign_tdc_scenario_empty()}>
+<ScenarioInfo {ctx} showPlays headerCards={view ? [{ ...view.header, objectTop: true }] : []}>
 	{#snippet stats()}
-		{#each groups as g, i (i)}
-			<div>
-				{#if g.heading}<SectionLabel>{g.heading}</SectionLabel>{/if}
-				<OutcomeList
-					items={g.outcomes.map((o) => ({ label: o.label, hit: o.plays > 0, count: o.plays }))}
-				/>
-			</div>
-		{/each}
-		{#if glyphTotal}
-			<StatNumbers
-				rows={[
-					[{ value: `${decrypted} / ${glyphTotal}`, label: m.campaign_tdc_scenario_glyphs_label() }]
-				]}
-			/>
-		{/if}
+		<StatNumbers empty={m.campaign_tdc_scenario_empty()} {rows} />
 	{/snippet}
 </ScenarioInfo>

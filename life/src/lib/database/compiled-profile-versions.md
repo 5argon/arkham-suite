@@ -73,3 +73,4 @@
   - `scenarios[].versions` gained Echoes of the Past (player count), Dim Carcosa (arrival doom), Before the Black Throne (path winds) and Fate of the Vale.
 - 59→60: `notz`: `gathering.ghoulPriestSlain` / `ghoulPriestSurvived` replaced by `ghoulPriest` (`defeatedInGathering`, `defeatedInMidnightMasks`, `aliveInDevourerBelow`).
 - 60→61: `notz`: `devourerBelow.cultists` added (`{most, fewest}` cultists that got away into The Devourer Below, or null).
+- 61→62: added the `boa` (Brethren of Ash) and `cob` (Children of Blood) blobs; `tdc.scenarios` also tallies the Apiary and Grand Vault scenario interludes (`hidden.tdc_lost_pilgrims`, `hidden.tdc_hive_mind`, `hidden.tdc_vault_core`); `tcu.missingPersons` now reads each person's notes section, so older files show it empty.
