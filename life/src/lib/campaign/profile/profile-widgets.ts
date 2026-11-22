@@ -3,6 +3,8 @@ import { getCampaignLog } from '@5argon/arkham-campaign-data';
 import type { PaneId, ProfileRow } from './profile-settings';
 import { full, type CampaignWidgetModule, type WidgetDef } from './widget-def';
 import { SHARED_WIDGETS } from './widgets/shared';
+import boa from './widgets/boa';
+import cob from './widgets/cob';
 import dwl from './widgets/dwl';
 import eote from './widgets/eote';
 import fhv from './widgets/fhv';
@@ -30,7 +32,9 @@ const CAMPAIGN_MODULES: CampaignWidgetModule[] = [
 	eote,
 	tsk,
 	fhv,
-	tdc
+	tdc,
+	boa,
+	cob
 ];
 
 export const WIDGET_CATALOGUE: WidgetDef[] = [

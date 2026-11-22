@@ -2,6 +2,8 @@ import { WIDGET_CATALOGUE, type WidgetDef } from '$lib/campaign/profile/profile-
 import * as m from '$lib/paraglide/messages.js';
 import { SHARED_RENDERERS } from './shared-renderers';
 import type { WidgetRenderer } from './widget-renderer';
+import boa from '../campaigns/campaign/boa';
+import cob from '../campaigns/campaign/cob';
 import dwl from '../campaigns/campaign/dwl';
 import eote from '../campaigns/campaign/eote';
 import fhv from '../campaigns/campaign/fhv';
@@ -29,7 +31,9 @@ export const WIDGET_RENDERERS: Record<string, WidgetRenderer> = {
 	...eote,
 	...tsk,
 	...fhv,
-	...tdc
+	...tdc,
+	...boa,
+	...cob
 };
 
 /** Catalogue ids with no renderer; kept empty by a test. */

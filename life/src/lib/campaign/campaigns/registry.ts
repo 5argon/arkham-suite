@@ -1,6 +1,8 @@
 /** Every per-campaign builder, keyed by the family whose plays it aggregates. */
 import type { CampaignRecord } from '../records/campaign-record';
 import type { BuildOptions } from './define';
+import { buildBoa } from './boa';
+import { buildCob } from './cob';
 import { buildDwl } from './dwl';
 import { buildEoe } from './eoe';
 import { buildFhv } from './fhv';
@@ -26,7 +28,9 @@ export const CAMPAIGN_BUILDERS = {
 	eoe: buildEoe,
 	tskc: buildTsk,
 	fhv: buildFhv,
-	tdc: buildTdc
+	tdc: buildTdc,
+	boa: buildBoa,
+	cob: buildCob
 } satisfies Record<string, (records: CampaignRecord[], opts?: BuildOptions) => object | null>;
 
 export type BespokeFamily = keyof typeof CAMPAIGN_BUILDERS;

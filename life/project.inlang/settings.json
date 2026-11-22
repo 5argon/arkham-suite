@@ -36,6 +36,8 @@
 			"./messages/profile/campaigns/campaign/tic/{languageTag}.json",
 			"./messages/profile/campaigns/campaign/fhv/{languageTag}.json",
 			"./messages/profile/campaigns/campaign/notz/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/boa/{languageTag}.json",
+			"./messages/profile/campaigns/campaign/cob/{languageTag}.json",
 			"./messages/profile/cards/{languageTag}.json",
 			"./messages/profile/cards/class/{languageTag}.json",
 			"./messages/profile/cards/core/{languageTag}.json",
