@@ -68,7 +68,10 @@ function toListItem(s: StandaloneRecord): ListStandalone {
 		source: s.source,
 		difficulty: s.difficulty,
 		finishDate: s.finishDate,
-		verdict: standaloneVerdict(resolution && firstString(resolution.args)),
+		verdict: standaloneVerdict(
+			resolution && firstString(resolution.args),
+			getCampaignLog(s.campaignCode)?.db.scenarioMeta?.find((m) => m.id === s.scenario)?.resolutionOutcomes
+		),
 		decks: s.decks.map((d) => ({ id: d.id, investigatorCode: d.investigator.investigatorCode }))
 	};
 }

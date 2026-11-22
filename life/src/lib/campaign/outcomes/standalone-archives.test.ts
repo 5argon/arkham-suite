@@ -56,8 +56,9 @@ describe('buildStandaloneArchives', () => {
 			{ family: 'dwl', plays: 2 },
 			{ family: 'ptc', plays: 1 }
 		]);
-		expect(stat.won).toBe(3);
-		expect(stat.lost).toBe(1);
+		// Curse of the Rougarou's Resolution 1 (it still haunts the bayou) is a curated loss.
+		expect(stat.won).toBe(1);
+		expect(stat.lost).toBe(3);
 		expect(stat.bestVictoryDisplay).toBe(7);
 		expect(stat.playsByTier).toEqual({ standard: 1, hard: 3 });
 	});

@@ -83,6 +83,8 @@ interface Acc {
 	bestWinTier: number | null;
 	source: 'pack' | 'campaign';
 	catalogueCode: string;
+	/** The scenario's curated resolution outcomes, when a numbered resolution is not always a win. */
+	outcomes?: Record<string, 'win' | 'loss' | 'neutral'>;
 	history: StandalonePlay[];
 }
 
@@ -114,7 +116,7 @@ function addPlay(
 	const { tier, resolution } = play;
 	acc.plays += 1;
 	acc.playsByTier[tier] = (acc.playsByTier[tier] ?? 0) + 1;
-	const verdict = standaloneVerdict(resolution);
+	const verdict = standaloneVerdict(resolution, acc.outcomes);
 	if (resolution) {
 		let t = acc.tallies.get(resolution);
 		if (!t) acc.tallies.set(resolution, (t = { total: 0, byTier: {} }));
@@ -163,6 +165,8 @@ export function buildStandaloneArchives(
 				bestWinTier: null,
 				source,
 				catalogueCode,
+				outcomes: getCampaignLog(catalogueCode)?.db.scenarioMeta?.find((m) => m.id === scenario)
+					?.resolutionOutcomes,
 				history: []
 			};
 			byScenario.set(scenario, acc);
