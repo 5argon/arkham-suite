@@ -1,5 +1,6 @@
 import { Product, type Campaign } from '@5argon/arkham-kohaku';
 import { mergeStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
+import { cardByCode } from '$lib/card-data';
 import { trackedTierList } from '$lib/campaign/records/tracking';
 import {
 	insightRows,
@@ -41,6 +42,7 @@ import CalendarTimeline from '../home/CalendarTimeline.svelte';
 import CampaignClearGrid from '../home/CampaignClearGrid.svelte';
 import CampaignsPlayedView from '../home/CampaignsPlayedView.svelte';
 import StandaloneUsageView from '../home/StandaloneUsageView.svelte';
+import RewardCards from '../rewards/RewardCards.svelte';
 import InvestigatorInsightsView from '../investigators/InvestigatorInsightsView.svelte';
 import MostUsedInvestigatorsView from '../investigators/MostUsedInvestigatorsView.svelte';
 
@@ -202,6 +204,11 @@ export const SHARED_RENDERERS: Record<string, WidgetRenderer> = {
 			: mergeStandaloneUsage(c.payload.standaloneUsage),
 		family: c.family
 	})),
+	rewardsUnlocked: widget(RewardCards, (c) => ({
+		rewards: (c.payload.rewards ?? []).filter(
+			(r) => r.earned.total > 0 || owns(c.payload.settings.ownedProducts, r.code)
+		)
+	})),
 
 	cardInsights: widget(CardInsightsView, (c) => ({
 		cardUsage: c.payload.cardUsage,
@@ -260,3 +267,10 @@ export const SHARED_RENDERERS: Record<string, WidgetRenderer> = {
 		config: c.slot.config
 	}))
 };
+
+/** Whether the subject owns the product a reward card comes in: a locked reward from a product they
+ *  don't own is not a gap to fill. `null` owns everything. */
+function owns(ownedProducts: Product[] | null, code: string): boolean {
+	const product = cardByCode(code)?.product;
+	return ownedProducts == null || (product != null && ownedProducts.includes(product));
+}

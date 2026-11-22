@@ -99,7 +99,7 @@ export function freshDefaultPanes(): Record<SharedPaneId, ProfileRow[]> {
 			full('clearGrid'),
 			split('campaignsPlayed', 'calendar'),
 			full('favoriteCard'),
-			split('standaloneUsage', null)
+			split('standaloneUsage', 'rewardsUnlocked')
 		],
 		campaignsHome: [
 			full('campaignTiles'),

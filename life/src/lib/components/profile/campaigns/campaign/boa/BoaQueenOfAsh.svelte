@@ -1,9 +1,10 @@
-<!-- @component Queen of Ash: each ending and the resolution it is, and what Smoke and Mirrors left waiting in the sewers. -->
+<!-- @component Queen of Ash: each ending and the resolution it is, what Smoke and Mirrors left waiting in the sewers, and the Collector reward card. -->
 <script lang="ts">
 	import { BOA_ELOKOSS_CODE, type CampaignBoa } from '$lib/campaign/campaigns/boa';
 	import type { EndingKind } from '$lib/campaign/outcomes/clear-status';
 	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
-	import { StatNumbers } from '$lib/components/profile/_primitives';
+	import { COLLECTOR_CODE } from '$lib/campaign/rewards/reward-defs';
+	import { RewardLine, StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 	import EndingsGrid from '../EndingsGrid.svelte';
 	import ScenarioInfo from '../ScenarioInfo.svelte';
@@ -63,5 +64,6 @@
 				}
 			]}
 		/>
+		<RewardLine code={COLLECTOR_CODE} tally={q?.collector} />
 	{/snippet}
 </ScenarioInfo>

@@ -3,6 +3,8 @@ import { orderedDifficulties } from '../utils/difficulty';
 import type { Tally } from '../utils/tally';
 import { bumpTally, emptyTally } from '../utils/tally';
 import { tallyNotes, tallyPlays, type Play } from '../records/play';
+import { rewardFor } from '../rewards/reward-defs';
+import { tallyReward } from '../rewards/rewards';
 import { defineCampaignBuilder } from './define';
 
 /**
@@ -86,8 +88,12 @@ export interface CampaignBoa {
 		ambushed: Tally;
 		/** 1 extra doom on the agenda: the search failed. */
 		extraDoom: Tally;
+		/** Resolutions 1–3 earn the Collector campaign reward card. */
+		collector: Tally;
 	};
 }
+
+const COLLECTOR = rewardFor('boa', 'queen_of_ash')!;
 
 const SMOKE_ENDINGS = ['discovered_the_cults_whereabouts', 'failed_in_their_search'];
 const QUEEN_ENDINGS = [
@@ -172,7 +178,8 @@ export const buildBoa = defineCampaignBuilder<CampaignBoa>('boa', (plays) => {
 			}),
 			headStart: tallyPlays(plays, (p) => reachedQueen(p) && p.has('scoured_arkham_for_answers')),
 			ambushed: tallyPlays(plays, (p) => reachedQueen(p) && p.has('stirred_up_trouble')),
-			extraDoom: tallyPlays(plays, (p) => reachedQueen(p) && p.has('failed_in_their_search'))
+			extraDoom: tallyPlays(plays, (p) => reachedQueen(p) && p.has('failed_in_their_search')),
+			collector: tallyReward(COLLECTOR, plays)
 		}
 	};
 });

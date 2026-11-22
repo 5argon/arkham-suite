@@ -7,7 +7,7 @@ export default campaignWidgets(
 		{ id: 'cobBlood', label: m.framework_label_cob_blood },
 		{ id: 'cobRiverOfBlood', scenario: 'river_of_blood' },
 		{ id: 'cobNewHorizons', scenario: 'new_horizons' },
-		{ id: 'cobBloodMoney', scenario: 'blood_money' }
+		{ id: 'cobBloodMoney', scenario: 'blood_money', nonLog: 'partial' }
 	],
 	() => [
 		split('overview', 'cobBlood'),

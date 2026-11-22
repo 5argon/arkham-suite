@@ -12,6 +12,8 @@ export { default as NonLogPlaceholder } from './NonLogPlaceholder.svelte';
 export { default as OutcomeFace } from './OutcomeFace.svelte';
 export { default as OutcomeList } from './OutcomeList.svelte';
 export { default as ProfilePane } from './ProfilePane.svelte';
+export { default as RewardLine } from './RewardLine.svelte';
+export { default as RewardTiers } from './RewardTiers.svelte';
 export { default as CappedList } from './CappedList.svelte';
 export { default as ScenarioSetIcon } from './ScenarioSetIcon.svelte';
 export { default as SectionLabel } from './SectionLabel.svelte';

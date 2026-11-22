@@ -266,5 +266,7 @@
 	"framework_product_group_decks": "Investigator Decks",
 	"framework_product_group_standalone": "Standalone",
 	"framework_product_group_other": "Other",
-	"framework_show_all": "Show all ({count})"
+	"framework_show_all": "Show all ({count})",
+	"framework_label_rewards_unlocked": "Rewards Unlocked",
+	"framework_label_standalone_reward": "Campaign Reward"
 }

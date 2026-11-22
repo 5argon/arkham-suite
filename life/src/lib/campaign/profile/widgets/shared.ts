@@ -60,6 +60,7 @@ export const SHARED_WIDGETS: WidgetDef[] = [
 	def('scenarioXp', m.framework_label_scenario_xp, ['campaignDetail'], 'campaignDetail', { nonLog: 'full' }),
 	def('specialInteractions', m.framework_label_special_interactions, ['campaignDetail'], 'campaignDetail'),
 	def('standaloneUsage', m.framework_label_standalone_usage, ['home'], 'home'),
+	def('rewardsUnlocked', m.framework_label_rewards_unlocked, ['home', 'campaignsHome'], 'home'),
 
 	def('cardInsights', m.framework_label_card_insights, CARD_PAGES, 'cardsHome', wide),
 	def('favoriteCard', m.framework_label_favorite_card, ['home', ...CARD_PAGES], 'cardsHome', {

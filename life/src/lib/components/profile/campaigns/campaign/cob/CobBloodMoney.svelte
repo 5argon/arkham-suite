@@ -1,4 +1,4 @@
-<!-- @component Blood Money: whether the Children of Blood were stopped, Priscilla Thomas walking away from the deal, and the epilogue read after it. -->
+<!-- @component Blood Money: whether the Children of Blood were stopped, Priscilla Thomas walking away from the deal, the epilogue read after it, and the Chosen of Zburamoarte reward card. -->
 <script lang="ts">
 	import {
 		COB_PRISCILLA_CODE,
@@ -6,7 +6,8 @@
 		type CampaignCob
 	} from '$lib/campaign/campaigns/cob';
 	import type { CampaignWidgetProps } from '$lib/components/profile/_framework/widget-context';
-	import { StatNumbers } from '$lib/components/profile/_primitives';
+	import { CHOSEN_OF_ZBURAMOARTE_CODE } from '$lib/campaign/rewards/reward-defs';
+	import { RewardLine, StatNumbers } from '$lib/components/profile/_primitives';
 	import * as m from '$lib/paraglide/messages.js';
 	import ScenarioInfo from '../ScenarioInfo.svelte';
 
@@ -63,5 +64,8 @@
 				}
 			]}
 		/>
+		{#if !ctx.logOnly}
+			<RewardLine code={CHOSEN_OF_ZBURAMOARTE_CODE} tally={b?.chosenOfZburamoarte} />
+		{/if}
 	{/snippet}
 </ScenarioInfo>

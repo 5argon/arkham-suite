@@ -40,6 +40,7 @@ import { buildStandaloneUsage } from '$lib/campaign/outcomes/standalone-usage';
 import { buildStandaloneArchives } from '$lib/campaign/outcomes/standalone-archives';
 import { buildTraumaTally, attributeTraumaInvestigators } from '$lib/campaign/outcomes/trauma';
 import { buildBespoke } from '$lib/campaign/campaigns/registry';
+import { buildRewards } from '$lib/campaign/rewards/rewards';
 import { isCoreOnlyCampaign } from '$lib/campaign/utils/deck-purity';
 import { familyOf } from '$lib/campaign/records/campaign-family';
 import { applyTskTierResolutionInference } from '$lib/campaign/campaigns/tsk/rules';
@@ -385,6 +386,7 @@ function buildLogsSegment(doc: DatabaseDocument, scope: ProfileScope): LogsSegme
 			doc.standalones.filter((s) => campaignInSubject(s, scope.uids)),
 			new Map(getAllCards().map((c) => [c.code, c.xp ?? 0]))
 		),
+		rewards: buildRewards(records),
 		traumaTally: buildTraumaTally(records, mergeReturnTo),
 		bespoke: buildBespoke(records, { mergeReturnTo }),
 		specialInteractions: buildSpecialInteractions(records, mergeReturnTo)

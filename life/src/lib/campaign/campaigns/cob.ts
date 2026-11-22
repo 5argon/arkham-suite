@@ -2,6 +2,8 @@
 import type { Tally } from '../utils/tally';
 import { extentOf, type Extent } from '../utils/tally';
 import { tallyNotes, tallyPlays, type Play } from '../records/play';
+import { rewardFor } from '../rewards/reward-defs';
+import { tallyReward } from '../rewards/rewards';
 import { defineCampaignBuilder } from './define';
 
 /** Julia Stern's River of Blood copy at Standard; each difficulty sets aside its own. */
@@ -11,6 +13,7 @@ export const COB_WILKES_CODE = '13084';
 export const COB_PRISCILLA_CODE = '13083';
 
 const BLOOD_TOKEN = 'blood';
+const CHOSEN = rewardFor('cob', 'blood_money')!;
 /** Read when Priscilla Thomas has 4 or more horror and walks away from the deal. */
 const PRISCILLA_WALKED_AWAY = 'hidden.priscilla_done';
 
@@ -36,6 +39,8 @@ export interface CampaignCob {
 		failedToStop: Tally;
 		/** Priscilla Thomas walked away from her deal with Wilkes. */
 		priscillaWalkedAway: Tally;
+		/** An investigator had The Blood Blight: the Chosen of Zburamoarte campaign reward card. */
+		chosenOfZburamoarte: Tally;
 	};
 	/** The epilogue read after Blood Money. */
 	epilogue: {
@@ -82,7 +87,8 @@ export const buildCob = defineCampaignBuilder<CampaignCob>('cob', (plays) => {
 				stopped: 'stopped_the_children_of_blood',
 				failedToStop: 'failed_to_stop_the_children_of_blood'
 			}),
-			priscillaWalkedAway: tallyPlays(plays, (p) => p.has(PRISCILLA_WALKED_AWAY))
+			priscillaWalkedAway: tallyPlays(plays, (p) => p.has(PRISCILLA_WALKED_AWAY)),
+			chosenOfZburamoarte: tallyReward(CHOSEN, plays)
 		},
 		epilogue: {
 			arkhamRecovers: tallyPlays(plays, recovers),

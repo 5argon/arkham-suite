@@ -91,6 +91,7 @@ function payload(): ProfilePayload {
 			},
 		],
 		standalones: [],
+		rewards: [],
 		traumaTally: {
 				killed: 0,
 				insane: 1,

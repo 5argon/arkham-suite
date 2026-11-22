@@ -21,5 +21,11 @@
 	"standalones_xp_range": "Deck XP range used",
 	"standalones_xp_tier": "Tier {tier}: {min}–{max} XP",
 	"standalones_no_decks": "No decks recorded.",
-	"standalones_best_win": "best win"
+	"standalones_best_win": "best win",
+	"standalones_reward_unlocked": "Unlocked",
+	"standalones_reward_locked": "Not unlocked yet",
+	"rewards_where": "{scenario} · {campaign}",
+	"rewards_where_pack": "{scenario} · Scenario Pack",
+	"rewards_tier": "{difficulty} ×{plays}",
+	"rewards_tier_first": "first {date}"
 }
