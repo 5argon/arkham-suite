@@ -392,7 +392,8 @@ function groupByCost<T>(items: CardItemWrapper<T>[]): GroupedResult<T>[] {
       items: costX.map((w) => w.item),
     });
 
-  const noCost = items.filter((w) => w.card.cost === undefined);
+  // A printed "-" cost is null in the data, and some cards leave it out instead.
+  const noCost = items.filter((w) => w.card.cost === undefined || w.card.cost === null);
   if (noCost.length > 0)
     groups.push({
       groupingKey: GroupingKey.CostNone,

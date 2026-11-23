@@ -1,6 +1,7 @@
 [
 	{
 		"code": "14002",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "guardian",
 		"health": 3,
@@ -20,6 +21,7 @@
 	},
 	{
 		"code": "14003",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "guardian",
 		"illustrator": "Tiziano Baracchi",
@@ -67,10 +69,11 @@
 		"text": "Attach to an [[Ally]] asset controlled by an investigator at your location.\nAttached asset gets +1 health and +1 sanity.\n[reaction] When attached asset would be defeated: Discard Oathsworn instead. Flip attached asset facedown and place 1 resource <i>(from the token pool)</i> on it, as a dream.",
 		"traits": "Upgrade. Dreamlands.",
 		"type_code": "event",
-		"xp": 5
+		"xp": 3
 	},
 	{
 		"code": "14013",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "guardian",
 		"illustrator": "Mauro Dal Bo",
@@ -88,6 +91,7 @@
 	},
 	{
 		"code": "14016",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "seeker",
 		"illustrator": "Billy Norrby",
@@ -105,6 +109,7 @@
 	},
 	{
 		"code": "14017",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "seeker",
 		"illustrator": "Pixoloid Studios",
@@ -139,6 +144,7 @@
 	},
 	{
 		"code": "14026",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "seeker",
 		"illustrator": "Anders Finér",
@@ -175,6 +181,7 @@
 	},
 	{
 		"code": "14030",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "rogue",
 		"health": 2,
@@ -196,6 +203,7 @@
 	},
 	{
 		"code": "14033",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "rogue",
 		"illustrator": "Tiziano Baracchi",
@@ -229,6 +237,7 @@
 	},
 	{
 		"code": "14040",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "rogue",
 		"illustrator": "Rob Laskey",
@@ -282,6 +291,7 @@
 	},
 	{
 		"code": "14045",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "mystic",
 		"health": 1,
@@ -339,6 +349,7 @@
 	},
 	{
 		"code": "14054",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "mystic",
 		"illustrator": "Christine Mitzuk",
@@ -357,6 +368,7 @@
 	},
 	{
 		"code": "14055",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "mystic",
 		"illustrator": "J.B. Casacop",
@@ -375,6 +387,7 @@
 	},
 	{
 		"code": "14057",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "survivor",
 		"illustrator": "Billy Norrby",
@@ -407,6 +420,7 @@
 	},
 	{
 		"code": "14061",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "survivor",
 		"illustrator": "Aleksander Karcz",
@@ -423,6 +437,7 @@
 	},
 	{
 		"code": "14067",
+		"cost": null,
 		"deck_limit": 2,
 		"faction_code": "survivor",
 		"illustrator": "Drazenka Kimpel",
