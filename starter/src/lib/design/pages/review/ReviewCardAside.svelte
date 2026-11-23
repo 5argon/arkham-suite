@@ -41,7 +41,7 @@ Stays in view while scrolling on a large screen.
 	{#if card.subname}
 		<p class="text-primary-800 dark:text-primary-200 text-sm italic">{card.subname}</p>
 	{/if}
-	<div class="mt-2 flex flex-col items-start gap-1">
+	<div class="mt-2 flex flex-col gap-1">
 		<Button
 			icon={FaIconType.ExternalLink}
 			label={m.review_open_arkham_build()}
