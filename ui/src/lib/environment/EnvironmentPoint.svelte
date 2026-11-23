@@ -46,9 +46,12 @@ language and most visitors never open them.
 			{#each environment.slots as slot, i (i)}
 				<span
 					class={clsx(
-						'-ml-px inline-flex h-4 w-8 items-center justify-center border text-[0.6rem] leading-none font-semibold uppercase first:ml-0',
+						'-ml-px inline-flex h-3.5 w-7 items-center justify-center border text-[0.5rem] leading-none font-semibold uppercase first:ml-0',
 						'border-primary-500 dark:border-primary-400',
 						i === half && 'ml-1',
+						// Each group of slots is one box, rounded only on its outer ends.
+						(i === 0 || i === half) && 'rounded-l-sm',
+						(i === half - 1 || i === environment.slots!.length - 1) && 'rounded-r-sm',
 						slot === null
 							? 'bg-primary-200/40 dark:bg-primary-900/40'
 							: 'bg-primary-600 dark:bg-primary-300 dark:text-primary-950 text-white'
