@@ -60,7 +60,8 @@ import {
 	buildQlTopics,
 	cardUsers,
 	type CardUsers,
-	slimCard
+	slimCard,
+	squareCard
 } from './card-users';
 
 /**
@@ -288,7 +289,14 @@ function environmentDisplay(id: string): EnvironmentDisplay {
 		knownPoints.find((p) => p.id === id) ??
 		knownPoints.find((p) => p.id === environment.currentEnvironmentEvergreenId)!;
 	const full = environmentPointDetail(point, reviewableCards, reviewProductPageHref);
-	const display = environmentPointDisplay(point, { ...full, roster: full.roster.map(slimCard) });
+	// Every point on a page sends its own roster, so each investigator carries only what their square,
+	// card line and scan need.
+	const roster = full.roster.map((card) => ({
+		...squareCard(card),
+		backImageCode: card.backImageCode,
+		doubleSided: card.doubleSided
+	}));
+	const display = environmentPointDisplay(point, { ...full, roster });
 	displays.set(id, display);
 	return display;
 }

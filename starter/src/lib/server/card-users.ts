@@ -291,7 +291,7 @@ export function slimCard(card: Card): Card {
 /**
  * All a card square and the card line shown when hovering it need.
  */
-function squareCard(card: Card): Card {
+export function squareCard(card: Card): Card {
 	const { code, name, subname, cardClass, cardType, product, position, xp } = card;
 	return compact({ code, name, subname, cardClass, cardType, product, position, xp } as Card, []);
 }
