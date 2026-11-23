@@ -2,12 +2,14 @@
 @component
 The back button of every page, rendered by the root layout. A beginner relies on this instead of the
 browser's: it follows where they came from and goes back through history, which restores what they
-picked and where they scrolled, while a plain link would start a fresh visit. Otherwise it leads to
-the page's parent, walking up to home, where it is the only page without one.
+picked and where they scrolled, while a plain link would start a fresh visit. Where they came from
+belongs to the history entry, so it survives a reload and comes back with the browser's back and
+forward buttons. Otherwise it leads to the page it belongs to, such as a card's pack page, or else the page's parent, walking up to home,
+where it is the only page without one.
 Pages are named in `$lib/navigation/back-routes`.
 -->
 <script lang="ts">
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate, snapshot } from '$app/navigation';
 	import { page } from '$app/state';
 	import { BackButton } from '@5argon/arkham-life-ui';
 
@@ -28,6 +30,8 @@ Pages are named in `$lib/navigation/back-routes`.
 		const parent = route === undefined ? '/' : route.parent;
 		if (parent === null) return null;
 		if (cameFrom !== null) return cameFrom;
+		const own = route?.ownParent?.(page.data);
+		if (own !== undefined) return own;
 		return { href: parent, label: backRoutes[parent]!.label({}) };
 	});
 
@@ -46,13 +50,22 @@ Pages are named in `$lib/navigation/back-routes`.
 				: null;
 	});
 
+	// No reset: a page's own `replaceState` drops this entry's snapshot and would reset it while they
+	// are still on the page. Fresh navigations set it below anyway.
+	snapshot({
+		id: 'page-back-button',
+		capture: () => cameFrom,
+		restore: (value) => {
+			cameFrom = value;
+		}
+	});
+
 	afterNavigate((navigation) => {
-		// Arriving with the browser's back button leaves the page they came from ahead in history,
-		// where going back would not return to it.
-		const previousIsBehind = navigation.type !== 'popstate' || navigation.delta === 1;
+		// Landing on a page and moving through history leave it to the snapshot of that entry.
+		if (navigation.type === 'enter' || navigation.type === 'popstate') return;
 		// The first navigation of a client-rendered page has a `from` with no url, despite its type.
 		const isSamePage = navigation.from?.url?.pathname === navigation.to?.url.pathname;
-		cameFrom = previousIsBehind && !isSamePage ? leaving : null;
+		cameFrom = isSamePage ? null : leaving;
 	});
 </script>
 

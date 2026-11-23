@@ -11,6 +11,10 @@ import * as m from '$lib/paraglide/messages.js';
 export interface BackLabelData {
 	author?: { name: string };
 	backName?: string;
+	/**
+	 * The page it belongs to, for a page whose parent depends on what it shows.
+	 */
+	backParent?: { href: string; name: string };
 	entry?: { primary: { name: string } };
 	team?: { name: string };
 }
@@ -26,7 +30,15 @@ interface BackRoute {
 	 * Must be a page whose label needs no data.
 	 */
 	parent: RouteId | null;
+	/**
+	 * Where its back button leads instead of `parent`, for a page that belongs to a page named after
+	 * what it shows, such as a card's pack page. So even arriving from a search, they go there.
+	 */
+	ownParent?: (data: BackLabelData) => { href: string; label: string } | undefined;
 }
+
+const ownBackParent = ({ backParent }: BackLabelData) =>
+	backParent && { href: backParent.href, label: m.common_back_to({ name: backParent.name }) };
 
 /**
  * Every page of the site. The test next to this file fails when a page is missing.
@@ -70,7 +82,8 @@ export const backRoutes = {
 	},
 	'/review/card/[code]': {
 		label: ({ backName }) => m.common_back_to({ name: backName! }),
-		parent: '/review'
+		parent: '/review',
+		ownParent: ownBackParent
 	},
 	'/review/chapter-one/[packCode]': {
 		label: ({ backName }) => m.common_back_to({ name: backName! }),
@@ -78,7 +91,8 @@ export const backRoutes = {
 	},
 	'/review/chapter-one/card/[code]': {
 		label: ({ backName }) => m.common_back_to({ name: backName! }),
-		parent: '/player'
+		parent: '/player',
+		ownParent: ownBackParent
 	},
 	'/review/reviewers': { label: () => m.common_back_to_reviewers(), parent: '/review' },
 	'/review/reviewers/[author]': {

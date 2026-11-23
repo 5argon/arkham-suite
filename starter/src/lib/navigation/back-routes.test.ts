@@ -22,6 +22,7 @@ const pageRoutes = filesIn(routesDirectory)
 const data = {
 	author: { name: 'Author' },
 	backName: 'Named Page',
+	backParent: { href: '/owner', name: 'Owner' },
 	entry: { primary: { name: 'Deck' } },
 	team: { name: 'Team' }
 };
@@ -35,6 +36,7 @@ describe('back routes', () => {
 	it('names every page', () => {
 		for (const [route, entry] of Object.entries(backRoutes)) {
 			expect(entry?.label(data), route).toMatch(/\S/);
+			if (entry?.ownParent) expect(entry.ownParent(data)?.label, route).toMatch(/Owner/);
 		}
 	});
 
