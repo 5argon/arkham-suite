@@ -4,9 +4,10 @@ const inputFile: string = "tool/selection.json";
 const svgFolder: string = "tool/svg";
 /**
  * Icons that are not in the ArkhamCards IcoMoon export, kept as standalone
- * SVGs. See the README in that folder for where each one comes from.
+ * SVGs: copied from arkham.build, or traced by hand until an icon project has
+ * them. See the README in each folder for where each one comes from.
  */
-const extraSvgFolder: string = "tool/svg-arkham-build";
+const extraSvgFolders: string[] = ["tool/svg-arkham-build", "tool/svg-traced"];
 const styleFile: string = "tool/style.css";
 const outputSvelteFolder: string = "src/lib/individual/svelte";
 const outputReactFolder: string = "src/lib/individual/react";
@@ -66,18 +67,20 @@ for (const outerIcon of allIcons) {
 const takenNames = new Set(
   [...componentNames.values()].map((n) => n.toLowerCase())
 );
-for await (const entry of Deno.readDir(extraSvgFolder)) {
-  if (!entry.isFile || !entry.name.endsWith(".svg")) continue;
-  const name = entry.name.slice(0, -".svg".length);
-  const componentName = makeIconComponentName(name);
-  if (takenNames.has(componentName.toLowerCase())) {
-    throw new Error(
-      `${extraSvgFolder}/${entry.name} collides with existing component ${componentName}`
-    );
+for (const extraSvgFolder of extraSvgFolders) {
+  for await (const entry of Deno.readDir(extraSvgFolder)) {
+    if (!entry.isFile || !entry.name.endsWith(".svg")) continue;
+    const name = entry.name.slice(0, -".svg".length);
+    const componentName = makeIconComponentName(name);
+    if (takenNames.has(componentName.toLowerCase())) {
+      throw new Error(
+        `${extraSvgFolder}/${entry.name} collides with existing component ${componentName}`
+      );
+    }
+    takenNames.add(componentName.toLowerCase());
+    const svg = await readSvg(`${extraSvgFolder}/${entry.name}`);
+    promises.push(generateSvelte(svg, getViewBoxWidth(svg), componentName));
   }
-  takenNames.add(componentName.toLowerCase());
-  const svg = await readSvg(`${extraSvgFolder}/${entry.name}`);
-  promises.push(generateSvelte(svg, getViewBoxWidth(svg), componentName));
 }
 await Promise.all(promises);
 console.log("Done");
