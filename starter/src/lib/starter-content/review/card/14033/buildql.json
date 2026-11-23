@@ -1,0 +1,7 @@
+{
+	"presets": [
+		"item-card",
+		{ "preset": "item-card", "cost": [3, null] },
+		{ "preset": "item-card", "cost": [4, null] }
+	]
+}

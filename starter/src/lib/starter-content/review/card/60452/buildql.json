@@ -1,9 +1,6 @@
 {
 	"presets": [
-		{
-			"label": "Assets with charges",
-			"query": "text = \"uses charges\""
-		},
+		"asset-with-charges",
 		{
 			"label": "Benefits from taking direct damage",
 			"query": "text ?? [\"[reaction] after you take damage\", \"takes 1 or more damage\"]"

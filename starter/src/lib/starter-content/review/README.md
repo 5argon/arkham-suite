@@ -85,6 +85,7 @@ To narrow a preset down to some levels or costs, give its use a range instead of
 | `{ "preset": "spell-event", "level": [1, 5] }` | Lv. 1~5 [[Spell]] event | `xp >= 1 & xp <= 5` |
 | `{ "preset": "asset", "cost": [2, 2] }` | Asset costed exactly 2 | `cost = 2` |
 | `{ "preset": "asset", "cost": [3, null] }` | Asset costed 3 or more | `cost >= 3` |
+| `{ "preset": "asset", "cost": [0, null] }` | Asset with cost | `cost >= 0`, which leaves out "-" and X costs, so dreaming cards too |
 | `{ "preset": "asset", "cost": [0, 2] }` | Asset costed 2 or less | `cost >= 0 & cost <= 2`, which leaves out X costs |
 | `{ "preset": "asset", "cost": [1, 2] }` | Asset costed 1~2 | `cost >= 1 & cost <= 2` |
 | `{ "preset": "event", "level": [0, 0], "doubleCommit": true }` | Lv. 0 event for a double commit | `xp = 0 & (willpower + wild >= 2 \| intellect + wild >= 2 \| combat + wild >= 2 \| agility + wild >= 2)`, a card giving 2 or more icons to a test of one skill |

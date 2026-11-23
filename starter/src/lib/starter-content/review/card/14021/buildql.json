@@ -1,0 +1,6 @@
+{
+	"presets": [
+		{ "preset": "asset", "level": [0, 0], "cost": [0, null] },
+		{ "preset": "asset", "level": [0, 0], "cost": [0, 0] }
+	]
+}

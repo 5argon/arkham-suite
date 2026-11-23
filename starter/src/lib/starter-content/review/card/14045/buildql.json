@@ -1,0 +1,9 @@
+{
+	"presets": [
+		"asset-with-charges",
+		{
+			"label": "[[Spell]] with a skill test",
+			"query": "tr == \"spell\" & text ?? [\"([willpower]\", \"([intellect]\", \"([combat]\", \"([agility]\", \"test [willpower]\", \"test [intellect]\", \"test [combat]\", \"test [agility]\"]"
+		}
+	]
+}

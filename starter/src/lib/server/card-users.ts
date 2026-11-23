@@ -212,7 +212,7 @@ function withRanges(
 			label = `${label} costed exactly ${from}`;
 			clauses.push(`cost = ${from}`);
 		} else if (to === null) {
-			label = `${label} costed ${from} or more`;
+			label = from === 0 ? `${label} with cost` : `${label} costed ${from} or more`;
 			clauses.push(`cost >= ${from}`);
 		} else {
 			label = `${label} costed ${from === 0 ? `${to} or less` : `${from}~${to}`}`;

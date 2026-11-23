@@ -1,0 +1,6 @@
+{
+	"presets": [
+		{ "label": "[[Dreamlands]] card", "query": "tr == \"dreamlands\"" },
+		{ "label": "[[Dreamlands]] card", "query": "tr == \"dreamlands\"", "cost": [0, null] }
+	]
+}

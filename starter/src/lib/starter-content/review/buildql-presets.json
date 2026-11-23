@@ -51,9 +51,25 @@
 		"label": "[[Ritual]] asset",
 		"query": "tr == \"ritual\" & type == \"asset\""
 	},
+	"asset-with-uses": {
+		"label": "Asset with Uses (X)",
+		"query": "type == \"asset\" & text = /uses \\((\\d|x) /"
+	},
+	"asset-with-charges": {
+		"label": "Asset with charges",
+		"query": "text = \"uses charges\""
+	},
+	"asset-with-secrets": {
+		"label": "Asset with secrets",
+		"query": "type == \"asset\" & text = \"uses secrets\""
+	},
 	"tome-with-secrets": {
 		"label": "[[Tome]] with secrets",
 		"query": "tr == \"tome\" & text = \"uses secrets\""
+	},
+	"item-card": {
+		"label": "[[Item]] card",
+		"query": "tr == \"item\""
 	},
 	"upgrade-card": {
 		"label": "[[Upgrade]] card",
