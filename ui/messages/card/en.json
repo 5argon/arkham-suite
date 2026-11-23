@@ -53,6 +53,7 @@
 	"card_review_date": "Came out on {date}",
 	"card_review_updated": "(Updated: {date})",
 	"card_review_originally_on": "Originally reviewed on {site}",
+	"card_review_before_reveal": "*Reviewed before seeing every card in {product}, the new product of this Current Environment.",
 	"card_review_back_to_contents": "Back to the list of reviews",
 	"card_review_preview": "Preview Season",
 	"card_review_official": "Official",

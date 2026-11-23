@@ -12,8 +12,10 @@ import {
 	compareEntries,
 	campaignReviews,
 	compileCardSubsections,
+	compileWrittenEntry,
 	parseWrittenReview,
 	type ReviewEntry,
+	previewProblems,
 	previewSeasonGroups,
 	previewSeasonSummaries,
 	recentReviews,
@@ -400,6 +402,42 @@ describe('written review files', () => {
 	});
 });
 
+describe('previews', () => {
+	const potd = Product.PowerOfTheDreamlands;
+	const review = (details: string) =>
+		parseWrittenReview('me', `---\nby: 5argon\n${details}\n---\nText.`);
+
+	it("marks the new product's slot and says so on the review, keeping the same link", () => {
+		const preview = review(`date: 2026-11-20\nenvironment: ${potd}\npreview: true`);
+		const entry = compileWrittenEntry(preview);
+		expect(preview.id).toBe(`5argon-${potd}`);
+		expect(entry.environment?.slots).toContain(`${potd}*`);
+		expect(entry.environment?.slots?.filter((slot) => slot?.endsWith('*'))).toHaveLength(1);
+		expect(entry.previewProductName).toBe('Power of the Dreamlands');
+
+		const after = compileWrittenEntry(review(`date: 2026-11-20\nenvironment: ${potd}`));
+		expect(after.environment?.slots).toContain(potd);
+		expect(after.environment?.slots?.some((slot) => slot?.endsWith('*'))).toBe(false);
+		expect(after.previewProductName).toBeUndefined();
+	});
+
+	it('only speaks about a point with new products, before they come out', () => {
+		const point = environment.currentEnvironmentVersions('9999-12-31').find((p) => p.id === potd)!;
+		const problemsOf = (details: string) => previewProblems(review(details)).join('\n');
+		expect(problemsOf(`date: 2026-11-20\nenvironment: ${potd}\npreview: true`)).toBe('');
+		expect(problemsOf(`date: 2026-11-20\nenvironment: ${potd}`)).toBe('');
+		expect(problemsOf(`date: 2026-11-20\nenvironment: ${potd}\npreview: false`)).toMatch(
+			/only ever true/
+		);
+		expect(problemsOf('date: 2026-11-20\nenvironment: evergreen\npreview: true')).toMatch(
+			/after Evergreen/
+		);
+		expect(problemsOf(`date: ${point.date}\nenvironment: ${potd}\npreview: true`)).toMatch(
+			/before its point begins/
+		);
+	});
+});
+
 describe('card subsections', () => {
 	const link = (code: string, name = 'A Card') =>
 		`<span class="card-link text-mystic" data-card-code="${code}">${name}</span>`;
@@ -639,7 +677,7 @@ describe('recent reviews', () => {
 		expect(new Set(recentReviews().map((row) => row.key)).size).toBe(recentReviews().length);
 	});
 
-	it('shows an official preview going card by card on those cards\' pages', () => {
+	it("shows an official preview going card by card on those cards' pages", () => {
 		const titles = reviewCardPage('14033')?.entries.map((entry) => entry.title);
 		expect(titles).toContain('Power of the Dreamlands');
 	});

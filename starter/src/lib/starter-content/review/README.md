@@ -41,6 +41,8 @@ The review starts here.
 
 `updated` is when it was last changed, like `updated: 2026-11-10`, shown beside `date` on the review as "Nov 4, 2026 (Updated: Nov 10, 2026)". Only `date` decides what's latest, so an update doesn't bring a review back to the top. A test fails when `updated` isn't after `date`.
 
+`preview: true` marks a review written before every card of the products that began its point was revealed. The slot of those products gets an asterisk, like "POTD*", and the review opens with a small note saying it was reviewed before seeing every card in that product. So the review itself doesn't need to say it's from preview season. Its link stays the same, and taking `preview` out later doesn't change it. A test fails on `preview` with an Evergreen point, or with a `date` on or after the point began.
+
 `originalUrl` is where the same review was first published, like `https://arkhamdb.com/card/12070#review-5992`, a blog post or a video. It shows as a link at the top of the review. The text is the author's own: bring it over word for word. Someone appearing once uses `guest` instead of `by`, with `name` and optionally `url` and `avatarUrl` under it. A review has no title: the card and its author are enough, and a subsection heading is how to say what a part is about.
 
 A heading of any level with a link to a card in it is a subsection about that card, usually an investigator. It shows as that card's card line in a divider instead of as text:

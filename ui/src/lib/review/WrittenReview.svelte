@@ -82,6 +82,14 @@ certain cards is their card lines in a divider.
 			{/if}
 		</span>
 	</header>
+	{#if entry.previewProductName}
+		<!-- The asterisk is the one on the new product's slot of the time point. -->
+		<p
+			class="border-primary-300 bg-primary-100/60 text-primary-800 dark:border-primary-700 dark:bg-primary-900/40 dark:text-primary-200 mb-3 rounded-md border px-3 py-1.5 text-xs"
+		>
+			{m.card_review_before_reveal({ product: entry.previewProductName })}
+		</p>
+	{/if}
 	{#if entry.originalUrl}
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
 		<a

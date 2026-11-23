@@ -113,6 +113,11 @@ export interface ReviewRowData {
 	 */
 	originalUrl?: string;
 	/**
+	 * The new products of its point, for a review written for this site before every card of them was
+	 * revealed. Shown only on the review itself.
+	 */
+	previewProductName?: string;
+	/**
 	 * It lives on another site, and this row opens it there in a new tab.
 	 */
 	externalHref?: string;

@@ -112,6 +112,10 @@ interface WrittenReview extends CreditJson {
 	 */
 	originalUrl?: string;
 	/**
+	 * Written before every card of the products that began its point was revealed.
+	 */
+	preview?: boolean;
+	/**
 	 * The markdown after the front matter, in the same format as a deck guide.
 	 */
 	body: string;
@@ -300,6 +304,32 @@ function environmentDisplay(id: string): EnvironmentDisplay {
 	displays.set(id, display);
 	return display;
 }
+
+const previewDisplays = new Map<string, EnvironmentDisplay>();
+
+/**
+ * A point as a preview shows it: each slot of the products that began it marked with an asterisk,
+ * since not every card of them had been seen.
+ */
+function previewEnvironmentDisplay(id: string): EnvironmentDisplay {
+	const known = previewDisplays.get(id);
+	if (known !== undefined) return known;
+	const display = environmentDisplay(id);
+	const defining = display.detail?.defining ?? [];
+	const marked: EnvironmentDisplay = {
+		...display,
+		slots: display.slots?.map((slot, i) => {
+			const product = display.detail?.slots[i]?.product;
+			return slot !== null && product !== undefined && defining.includes(product)
+				? `${slot}*`
+				: slot;
+		})
+	};
+	previewDisplays.set(id, marked);
+	return marked;
+}
+
+const productListFormat = new Intl.ListFormat('en');
 
 function sourceEnvironmentId(source: SourceJson): string {
 	return (
@@ -511,7 +541,7 @@ function writtenEntry(review: WrittenReview): ReviewEntry {
 	return entry;
 }
 
-function compileWrittenEntry(review: WrittenReview): ReviewEntry {
+export function compileWrittenEntry(review: WrittenReview): ReviewEntry {
 	// A card mentioned goes to its own review page, except the card under review, which is already here.
 	const cardHref = (code: string) => {
 		const page = toCore2026Code(code);
@@ -519,16 +549,23 @@ function compileWrittenEntry(review: WrittenReview): ReviewEntry {
 			? reviewCardHref(page)
 			: undefined;
 	};
+	const point = knownPoints.find((p) => p.id === review.environment);
+	const preview = review.preview === true && point !== undefined;
 	return {
 		id: review.id,
 		medium: 'text',
 		person: personOf(review),
-		environment: environmentDisplay(review.environment),
+		environment: preview
+			? previewEnvironmentDisplay(review.environment)
+			: environmentDisplay(review.environment),
 		date: review.date,
 		dateLabel: dateLabel(review.date),
 		updatedLabel: review.updated === undefined ? undefined : dateLabel(review.updated),
-		environmentDate: knownPoints.find((p) => p.id === review.environment)?.date,
+		environmentDate: point?.date,
 		originalUrl: review.originalUrl,
+		previewProductName: preview
+			? productListFormat.format(point.rotatedIn.map((product) => stringUtils.productName(product)))
+			: undefined,
 		...compileCardSubsections(
 			markdownToTrustedHtml(expandRuleDirectives(review.body), createCardResolver(), { cardHref }),
 			review.id,
@@ -638,7 +675,8 @@ function slimEntry(entry: ReviewEntry): ReviewRowData {
 		'date',
 		'updatedLabel',
 		'environmentDate',
-		'originalUrl'
+		'originalUrl',
+		'previewProductName'
 	];
 	// Fields left unset still cost their name on the page, hundreds of times on a reviewer's.
 	return Object.fromEntries(
@@ -1389,6 +1427,25 @@ export function sourceProblems(source: SourceJson, preview: boolean): string[] {
 }
 
 /**
+ * A preview speaks about a point with new products, before its products come out and every card of
+ * them is known.
+ */
+export function previewProblems(review: WrittenReview, where = review.fileName): string[] {
+	if (review.preview === undefined) return [];
+	if (review.preview !== true) return [`${where}: preview is only ever true, or left out`];
+	const point = knownPoints.find((p) => p.id === review.environment);
+	// An unknown point is already a problem of its own.
+	if (point === undefined) return [];
+	if (point.id === environment.currentEnvironmentEvergreenId) {
+		return [`${where}: a preview needs a point after Evergreen, which has new products`];
+	}
+	if (typeof review.date === 'string' && review.date >= point.date) {
+		return [`${where}: a preview comes before its point begins on ${point.date}`];
+	}
+	return [];
+}
+
+/**
  * Everything wrong with the content, for a test to fail on.
  */
 export function reviewProblems(): string[] {
@@ -1418,6 +1475,7 @@ export function reviewProblems(): string[] {
 			if (typeof review.environment !== 'string' || review.environment.length === 0) {
 				problems.push(`${where}: needs an environment`);
 			}
+			problems.push(...previewProblems(review, where));
 			problems.push(...subjectProblems(code, review.environment, where));
 			problems.push(...subsectionProblems(review, code, where));
 			for (const match of review.body.matchAll(/\]\(\/card\/(\w+)\)/g)) {
