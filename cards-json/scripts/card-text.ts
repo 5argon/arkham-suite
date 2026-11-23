@@ -3,8 +3,8 @@ import { readPreviewCards } from "./preview.ts"
 
 /**
  * cards.json has its text stripped to stay small, and the pack folder this reads is not in git. The
- * Card Reviews pages show full text, so this writes what they need to a file that is committed and
- * only ever read on the server. Preview cards are read too.
+ * Card Reviews pages and the player cards pages show full text, so this writes what they need to a
+ * file that is committed and only ever read on the server. Preview cards are read too.
  */
 
 interface PackCard {
@@ -34,6 +34,14 @@ const reviewPacks = new Set([
   "eoep", "tskp", "fhvp", "tdcp",
   "potd",
 ])
+
+/**
+ * Every player card, for the player cards pages, whatever pack it's in. Encounter cards have an
+ * encounter set.
+ */
+function isPlayerCard(card: PackCard): boolean {
+  return card.encounter_code === undefined
+}
 
 /**
  * Reward cards come from campaign and scenario packs too, and Card Reviews covers them all. Same test
@@ -85,7 +93,9 @@ function originalOf(card: PackCard): PackCard {
 const output: Record<string, Record<string, string>> = {}
 for (const card of allCards) {
   const full = resolved(card)
-  if (!reviewPacks.has(card.pack_code) && !(isReward(full) && card.hidden !== true)) continue
+  if (
+    !reviewPacks.has(card.pack_code) && !isPlayerCard(full) && !(isReward(full) && card.hidden !== true)
+  ) continue
   if (full.faction_code === "mythos") continue
   const fields: Record<string, string> = {}
   for (const field of textFields) {

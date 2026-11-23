@@ -1777,6 +1777,274 @@
 		"text": "Search the top 9 cards of your deck for a [[Dreamlands]] card and play it, reducing its cost or dreaming value by 1. Shuffle your deck.",
 		"flavor": "\"So that men walk through it as through a faery place, and feel greater joy and wonder than they ever afterward remember.\"\n<cite>H.P. Lovecraft, The Dream-Quest of Unknown Kadath</cite>"
 	},
+	"50001": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [combat] for this skill test."
+	},
+	"50002": {
+		"traits": "Tactic.",
+		"text": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location. This action does not provoke attacks of opportunity."
+	},
+	"50003": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [intellect] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test."
+	},
+	"50004": {
+		"traits": "Insight. Tactic.",
+		"text": "Attach to your location.\nNon-[[Elite]] enemies cannot move into or spawn at attached location. Each time a non-[[Elite]] enemy would spawn at attached location, spawn it at a connecting location instead, if able.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade."
+	},
+	"50005": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [combat] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test."
+	},
+	"50006": {
+		"traits": "Fortune.",
+		"text": "Gain 10 resources.",
+		"flavor": "\"I win again! Sorry sugar, it’s just not your night.\""
+	},
+	"50007": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [intellect] for this skill test."
+	},
+	"50008": {
+		"traits": "Spell.",
+		"text": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy in your location. Until the end of the phase, reduce the chosen enemy's damage and horror values by 1, and treat its printed text box as if it were blank (except for [[Traits]])."
+	},
+	"50009": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test."
+	},
+	"50010": {
+		"traits": "Item. Charm.",
+		"text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Search the top X cards of your deck for a card, draw it, and shuffle the remaining cards into your deck. X is the amount you failed by.",
+		"flavor": "They claimed it would bring me good luck. I wouldn’t say that’s true. But now I feel like it would be even worse luck to get rid of it."
+	},
+	"51001": {
+		"traits": "Item.",
+		"text": "You have 2 additional hand slots, which can only be used to hold [[Weapon]] assets.\nWhile you have [[Weapon]] assets held in 2 or more hand slots, you get +1 [willpower]."
+	},
+	"51002": {
+		"traits": "Item. Weapon. Melee.",
+		"text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack. If you perform this attack against an enemy engaged with another investigator, you deal +1 damage for this attack if you succeed, and no damage if you fail."
+	},
+	"51003": {
+		"traits": "Insight.",
+		"text": "Play only if there is a clue on your location.\nDraw 3 cards."
+	},
+	"51004": {
+		"traits": "Item. Science.",
+		"text": "Researched. Uses (3 supplies).\n[action] Spend 1 supply and exhaust Strange Solution: Choose an investigator at your location to gain 2 resources and draw 1 card."
+	},
+	"51005": {
+		"traits": "Supply. Illicit.",
+		"text": "Choose an asset controlled by an investigator at your location. Either (choose one):\n- Place 2 ammo or supply tokens on that asset and draw 1 card.\n- Double the number of ammo or supply tokens on that asset.",
+		"flavor": "It may not be legal, but it gets the job done"
+	},
+	"51006": {
+		"traits": "Trick.",
+		"text": "Fast. Play when an enemy enters your location.\nImmediately move to a connecting location. (The enemy still enters your previous location.)"
+	},
+	"51007": {
+		"traits": "Spell.",
+		"text": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed you discover 1 additional clue at this location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, after this test resolves lose all remaining actions and immediately end your turn."
+	},
+	"51008": {
+		"traits": "Spell.",
+		"text": "Uses (4 charges).\n[action] Spend 1 charge: Heal 2 horror from among investigators at your location.",
+		"flavor": "From the unreal lead me to the real\nFrom the darkness lead me to the light\nFrom the dead lead me to the immortal"
+	},
+	"51009": {
+		"traits": "Fortune.",
+		"text": "Fast. Play after you fail a skill test by 3 or less while attacking an enemy.\nDeal this attack's damage to any enemy at your location. If the attacked enemy is engaged with another investigator, this attack deals no damage to that investigator."
+	},
+	"51010": {
+		"traits": "Innate.",
+		"text": "Commit only to a skill test you are performing, and only if the difficulty of that test is higher than your base skill value.\nRise to the Occasion gets +X [wild] icons, where X is the difference between your base skill and this test's difficulty (to a maximum of +3 [wild] icons)."
+	},
+	"51011": {
+		"traits": "Pact. Mystery.",
+		"text": "<b>Revelation</b> - Draw the top card of your deck. If it is not a weakness, remove that card from the game. Then, search your deck, discard pile, hand, and all play areas for each other copy of that card you own, and remove them from the game, as well."
+	},
+	"52001": {
+		"traits": "Item. Weapon. Firearm.",
+		"text": "Uses (6 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You deal +1 damage for this attack.\n[fast] Spend 1 resource: Return .32 Colt to your hand."
+	},
+	"52002": {
+		"traits": "Tactic.",
+		"text": "Fast. Play when you activate the <b>Fight</b> ability on a [[Firearm]] asset.\nSpend 1 additional ammo token from that asset. When you reveal chaos tokens for this attack, reveal 1 additional chaos token. Choose one to resolve and ignore the other."
+	},
+	"52003": {
+		"traits": "Insight.",
+		"text": "For each clue you have (to a maximum of 3), either heal 2 horror from an investigator at your location or discard a [[Terror]] card at your location.",
+		"flavor": "\"I am the wisest man alive, for I know one thing, and that is that I know nothing.\"\n- Plato, <u>The Republic</u>"
+	},
+	"52004": {
+		"traits": "Spell.",
+		"text": "Researched. Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> If you succeed, you may put an asset with printed cost of X or lower into play from your hand. X is the amount you succeeded by."
+	},
+	"52005": {
+		"traits": "Talent.",
+		"text": "[fast] During your turn, exhaust Stealth: <b>Evade.</b> The chosen enemy gets -2 evade for this evasion attempt. If you successfully evade the enemy, disengage with it but do not exhaust it. Until the end of your turn, that enemy cannot engage you."
+	},
+	"52006": {
+		"traits": "Spell.",
+		"text": "Uses (3 charges). If Suggestion has no charges, discard it.\n[action] Exhaust Suggestion: <b>Evade.</b> Add your [willpower] value to your skill value for this evasion attempt. If you do not succeed by at least 2, remove 1 charge from Suggestion."
+	},
+	"52007": {
+		"traits": "Spell.",
+		"text": "Uses (4 charges).\n[action] Exhaust Alchemical Transmutation, spend 1 charge: Test [willpower] (0). For each point you succeed by, gain 1 resource (to a maximum of 4). If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, take 1 damage."
+	},
+	"52008": {
+		"traits": "Spell.",
+		"text": "<b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] for this attack. If you succeed, instead of its standard damage, this attack deals 3 damage to each enemy at the attacked enemy's location <i>(any additional damage is dealt to the attacked enemy)</i>. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] token is revealed during this attack, deal 2 damage to each investigator at the attacked enemy's location."
+	},
+	"52009": {
+		"traits": "Item. Tool.",
+		"text": "[action]: <b>Investigate.</b> Your location gets -1 shroud for this investigation.\n[action] Discard Lantern: Deal 1 damage to an enemy at your location (or remove Lantern from the game to deal 2 damage, instead). This action does not provoke attacks of opportunity."
+	},
+	"52010": {
+		"traits": "Item. Tool. Weapon. Melee.",
+		"text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack.\n[action] Discard Gravedigger's Shovel: Discover 1 clue at your location (or remove Gravedigger's Shovel from the game to discover 2 clues, instead).",
+		"flavor": "I knew I should have, but I couldn't stop digging."
+	},
+	"52011": {
+		"traits": "Madness. Pact.",
+		"text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] When you deal damage to an enemy in excess of its remaining health: Discard this card from your hand."
+	},
+	"52012": {
+		"traits": "Madness. Pact.",
+		"text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[reaction] After you successfully investigate a location with no clues on it: Discard this card from your hand."
+	},
+	"52013": {
+		"traits": "Madness. Pact.",
+		"text": "Campaign Mode only. Peril. Hidden.\n<b>Revelation</b> - Secretly add this card to your hand.\n<b>Forced</b> - When the game ends or you are eliminated, if this card is in your hand: You earn 2 fewer experience.\n[action]: <b>Evade.</b> Use only on an exhausted unengaged enemy at your location. If you succeed, discard this card from your hand."
+	},
+	"53001": {
+		"traits": "Spell. Spirit.",
+		"text": "As an additional cost to play Blood Eclipse, take 2 damage.\n<b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] and deal +2 damage for this attack."
+	},
+	"53002": {
+		"traits": "Item. Weapon. Melee.",
+		"text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack.\n[reaction] When an enemy attacks you during the enemy phase <i>(before resolving that attack)</i>, exhaust Survival Knife: <b>Fight.</b> This attack targets the attacking enemy. You get +2 [combat] and deal +1 damage for this attack."
+	},
+	"53003": {
+		"traits": "Insight.",
+		"text": "Place 2 secrets among assets controlled by investigators at your location (3 secrets instead if there is a clue at your location).",
+		"flavor": "\"How do you know I'm mad?\" said Alice. \"You must be,\" said the Cat, \"or you wouldn't have come here.\"\n - Lewis Carroll, <u>Alice's Adventures in Wonderland</u>"
+	},
+	"53004": {
+		"traits": "Item. Relic.",
+		"text": "Researched. Uses (X secrets). X is the number in parentheses next to \"you have identified the stone.\"\n[reaction] When you draw any number of cards, spend that many secrets: Move that many times."
+	},
+	"53005": {
+		"traits": "Item. Relic. Cursed.",
+		"text": "Uses (0 charges).\n[reaction] After an investigator, [[Ally]] asset, or enemy at your location is defeated: Place 1 resource <i>(from the token bank)</i> on Decorated Skull, as a charge.\n[action] Spend up to 3 charges: Draw that many cards and gain that many resources."
+	},
+	"53006": {
+		"traits": "Item. Weapon. Firearm. Illicit.",
+		"text": "Uses (5 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage.\n<b>Forced</b> - At the end of the round, if you triggered Colt Vest Pocket's \"[action]\" ability: Discard it."
+	},
+	"53007": {
+		"traits": "Spell.",
+		"text": "Uses (5 charges).\n[action] Spend 1 charge: <b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. You get +1 [willpower] for this evasion attempt. If you succeed, after evading the chosen enemy, you may move to a connecting location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, choose and discard a card from your hand."
+	},
+	"53008": {
+		"traits": "Item. Relic. Cursed.",
+		"text": "Seal ([skull], [cultist], [tablet], or [elder_thing]). Uses (3 charges). If The Chthonian Stone has no charges, return it to your hand.\n<b>Forced</b> - After you reveal an [auto_fail] symbol during a skill test: Remove 1 charge from The Chthonian Stone."
+	},
+	"53009": {
+		"traits": "Spell. Blessed.",
+		"text": "Choose and discard from play a non-weakness treachery that is not attached to an [[Elite]] enemy.",
+		"flavor": "We make our own fate."
+	},
+	"53010": {
+		"traits": "Talent.",
+		"text": "Exceptional. Permanent.\nYour investigator gains: \"<b>Deckbuilding Restrictions:</b> No assets that take up an ally slot.\"\n[reaction] When you play a [survivor] event, exhaust On Your Own: Reduce that event's cost by 2."
+	},
+	"53011": {
+		"traits": "Item.",
+		"text": "[reaction] After Backpack enters play: Search the top 12 cards of your deck for up to 3 non-weakness [[Item]] or [[Supply]] cards, and attach them facedown to Backpack. Shuffle your deck.\nCards attached to Backpack may be played as if they were in your hand. If there are no cards attached to Backpack, discard it."
+	},
+	"53012": {
+		"traits": "Curse. Flora.",
+		"text": "<b>Revelation</b> - Put Dendromorphosis into play in your threat area. It cannot leave play while it has no damage on it.\n[fast] Take 1 direct damage: Deal 1 damage to Dendromorphosis.\n<b>Card design by the Botanists at Arkham Nights 2018.</b>",
+		"flavor": "\"Plants!\""
+	},
+	"53013": {
+		"traits": "Pact.",
+		"text": "Campaign Mode only.\nWhen you become the bearer of this weakness, gain 2 experience.\n<b>Revelation</b> - Lose 5 resources. If you cannot, instead remove Offer You Cannot Refuse from your deck, search the collection for Fine Print, and place it in your discard pile."
+	},
+	"53014": {
+		"traits": "Pact.",
+		"text": "<b>Revelation</b> - Lose 7 resources. If you cannot, instead remove Fine Print from your deck, search the collection for Sell Your Soul, and place it in your discard pile.",
+		"flavor": "Your scarlet signature drips from its surface."
+	},
+	"53015": {
+		"traits": "Pact.",
+		"text": "<b>Revelation</b> - Lose 10 resources. If you cannot, your dark patron tears your consciousness from your body. You are driven <b>insane</b>.",
+		"flavor": "One way or another, the debt shall be repaid."
+	},
+	"54001": {
+		"traits": "Tarot.",
+		"text": "Each asset you control with health gets +1 health.\nEach asset you control with sanity gets +1 sanity.\n[reaction] When the game begins, if The Star • XVII is in your opening hand: Put it into play."
+	},
+	"54002": {
+		"traits": "Item. Relic. Occult. Blessed.",
+		"text": "Limit 1 per deck.\n[reaction] When you play a copy of Soothing Melody: Either change each \"2\" on it to a \"3,\" or shuffle it into your deck instead of discarding it.\n<b>Forced</b> - After Hallowed Mirror enters play: Search your bonded cards for 3 copies of Soothing Melody. Add 1 to your hand and shuffle the other 2 into your deck."
+	},
+	"54003": {
+		"traits": "Tarot.",
+		"text": "[fast] If you have 8 or more cards in your hand, exhaust The World • XXI: Draw 1 card.\n[reaction] When the game begins, if The World • XXI is in your opening hand: Put it into play."
+	},
+	"54004": {
+		"traits": "Item. Tome. Occult.",
+		"text": "Limit 1 per deck.\n[reaction] When you play a copy of Blood-Rite: Either change each \"2\" on it to a \"3,\" or shuffle it into your deck instead of discarding it.\n<b>Forced</b> - After Occult Lexicon enters play: Search your bonded cards for 3 copies of Blood-Rite. Add 1 to your hand and shuffle the other 2 into your deck."
+	},
+	"54005": {
+		"traits": "Tarot.",
+		"text": "[reaction] When you would succeed at a skill test: You get +1 skill value for this test. You may discard Knight of Swords to get +3 instead.\n[reaction] When the game begins, if Knight of Swords is in your opening hand: Put it into play."
+	},
+	"54006": {
+		"traits": "Condition.",
+		"text": "Limit 1 per investigator.\n[fast] Exhaust Well Connected: You get +1 skill value for this skill test for every 4 resources you have.\n[fast] Spend 2 resources: Ready Well Connected. (Limit once per round.)"
+	},
+	"54007": {
+		"traits": "Tarot.",
+		"text": "You have 1 additional arcane slot.\nYour arcane slots can be used to hold cards that take up accessory slots, and vice versa.\n[reaction] When the game begins, if The Hierophant • V is in your opening hand: Put it into play."
+	},
+	"54008": {
+		"traits": "Ritual. Talent.",
+		"text": "Fast.\nYou have 1 additional arcane slot, which can only be used to hold a [[Spell]] or [[Ritual]] asset.\n[reaction] After you activate an [action] ability on a [[Spell]] or [[Ritual]] asset, exhaust Sign Magick: Activate an [action] ability on a different [[Spell]] or [[Ritual]] asset you control <i>(without paying its [action] cost)</i>."
+	},
+	"54009": {
+		"traits": "Tarot.",
+		"text": "[reaction] When you draw a non-weakness encounter card, exhaust Nine of Rods: Cancel all of that card's effects and shuffle it into the encounter deck. Then, draw another card from the top of the encounter deck.\n[reaction] When the game begins, if Nine of Rods is in your opening hand: Put it into play."
+	},
+	"54010": {
+		"traits": "Spirit.",
+		"text": "Fast. Play only during your turn.\nUntil the end of your turn, set the base value of each of your skills to 5, or the base value of one of your skills to 7.",
+		"flavor": "You never really know what you are capable of until something is trying to eat you."
+	},
+	"54011": {
+		"traits": "Tarot.",
+		"text": "[reaction] When you play a card, exhaust The Fool • 0: Reduce that card's cost by 1.\n[reaction] When the game begins, if The Fool • 0 is in your opening hand: Put it into play."
+	},
+	"54012": {
+		"traits": "Item. Charm.",
+		"text": "You have 1 additional tarot slot.\nEach non-weakness [[Tarot]] asset in your hand or committed to a skill test gains [wild] [wild].\n[reaction] When the game begins, if Moon Pendant is in your opening hand: Put it into play."
+	},
+	"54013": {
+		"traits": "Blessed.",
+		"text": "Permanent. Limit 1 per investigator.\nBefore setting up each game, draw 3 random cards from the tarot deck and choose 1. Place the chosen card in front of you, in the upright position. Each other investigator ignores its effects. Shuffle the rest back into the tarot deck."
+	},
+	"54014": {
+		"traits": "Curse. Omen.",
+		"text": "Permanent.\nBefore setting up each game, draw a random card from the tarot deck and place the chosen card in front of you, in the reverse position. Each other investigator ignores its effects."
+	},
+	"54015": {
+		"traits": "Omen. Tarot.",
+		"text": "You cannot play assets other than The Devil • XV while it is in your hand.\nIf The Devil • XV is drawn in your opening hand during setup <i>(before or after taking a mulligan)</i>, you cannot replace it. It must stay in your opening hand."
+	},
 	"60101": {
 		"traits": "Criminal. Warden.",
 		"text": "[reaction] When you deal damage to an enemy by an event or a fight ability on an event: Deal 1 additional damage. (Limit once per phase.)\n[elder_sign] effect: +1. If this skill test is successful during an attack, return an event from your discard pile to your hand.",
@@ -3255,6 +3523,859 @@
 	"73059": {
 		"traits": "Ally. Detective.",
 		"text": "Reward.\n[reaction] After you play an event during your turn, exhaust Aziza Steer. If that event was ...\n- ...an [[Insight]] event: Discover 1 clue at your location.\n- ...a [[Tactic]] event: Deal 1 damage to an enemy at your location.\n- ...a [[Trick]] event: Gain 2 resources."
+	},
+	"89001": {
+		"traits": "Manifold.",
+		"text": "You begin the game with Ravenous <i>(Controlled Hunger)</i> in play.\nDuring each upkeep phase, draw 1 additional card and devour a non-weakness player card in your hand.\n[fast]: Devour a non-story card controlled by an investigator at your location. (Limit once per round.)\n[elder_sign] effect: +2. After this test ends, you may add a devoured card to its owner's hand.",
+		"back_text": "<b>Deck Size</b>: 50.\n<b>Deckbuilding Options</b>: Neutral cards level 0-5, cards from any class level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Ravenous, 3 copies of Regurgitation, 3 copies of Reality Acid, 2 random basic weaknesses.\n<b>Deckbuilding Restrictions:</b> No permanents except story and signature permanents.\n<b>Additional Requirements:</b> Your deck must include at least 7 cards from each class ([guardian], [seeker], [rogue], [mystic], and [survivor]).\n<b>Additional Upgrade Options:</b> After each scenario ends, separate each card you devoured <i>(beneath Ravenous and set-aside)</i> by class. Before the next scenario in this campaign, you may spend experience to purchase or upgrade 1 or more cards of any level from the class with the most devoured cards (if there is a tie, choose one)."
+	},
+	"89002": {
+		"traits": "Talent.",
+		"text": "Subject 5U-21 deck only. Permanent.\nEach time you devour a card, place it facedown beneath Ravenous. You get +1 to each of your skills for each card beneath Ravenous (max +5).\n<b>Forced</b> - If there are 5 or more cards beneath Ravenous: Flip it over.",
+		"back_text": "Subject 5U-21 deck only. Permanent.\nEach time you devour a card, set it aside, out of play. You get +1 to each of your skills for each card beneath Ravenous (max +5).\n<b>Forced</b> - At the end of your turn: Devour a non-story card beneath Ravenous or controlled by an investigator at your location. If there is nothing beneath Ravenous, flip it over."
+	},
+	"89003": {
+		"traits": "Power.",
+		"text": "Subject 5U-21 deck only.\nFast. Play only during your turn.\nIf Ravenous <i>(Uncontrolled Hunger)</i> is face up, flip it over. Choose and return up to 3 cards you devoured <i>(beneath Ravenous or set-aside)</i> to their owners' hands. For each card returned in this way, heal 1 damage or 1 horror."
+	},
+	"89004": {
+		"traits": "Power.",
+		"text": "<b>Revelation</b> - If Ravenous <i>(Controlled Hunger)</i> is face up, flip it over. You devour a random aspect of reality. Reveal a random chaos token from the chaos bag and consult Reality Acid reference card to determine what you devoured."
+	},
+	"89005": {
+		"text": "<b>Subject 5U-21 Devours...</b>\n<i>(If the chaos token revealed is not listed, or if the listed aspect cannot be devoured, reveal a new chaos token and consult the list again.)</i>\n- [elder_sign]: ...a non-[[Elite]] enemy or treachery, at your location and worth no victory points.\n- <b>+1</b>: ...the top card of each investigator's discard pile.\n- <b>0</b>: ...the top card of each investigator's deck.\n- <b>-1</b>: ...1 card at random from your hand.\n- <b>-2</b>: ...a non-story, non-weakness asset controlled by an investigator at your location.\n- <b>-3</b>: ...a player card attached to your location, or attached to an encounter card at your location.\n- <b>-4</b>: ...the top 2 cards of each investigator's deck.\n- <b>-5</b>: ...3 cards of your choice from your hand.",
+		"back_text": "- <b>-6</b>: ...all events from each investigator's hand.\n- <b>-7</b>: ...a non-story, non-weakness asset from each investigator's play area.\n- <b>-8</b>: ...a non-weakness signature card in any player's deck, hand, discard pile, or play area.\n- [skull]: ...1 card beneath Ravenous, at random.\n- [cultist]: ...each card committed to each skill test at your location <i>(after the test ends)</i>, until the end of the next investigation phase.\n- [tablet]: ...each event played by investigators at your location, until the end of the next investigation phase.\n- [elder_thing]: ...the player card at your location with the most evidence, supplies, ammo, charges, or secrets on it.\n- [auto_fail]: Reveal 3 more chaos tokens and resolve each of those devour effects."
+	},
+	"90001": {
+		"traits": "Miskatonic.",
+		"text": "You get +1 [willpower] and +1 sanity for each [[Tome]] asset you control.\n[fast]: One at a time, resolve an [action] ability on each [[Tome]] asset you control, ignoring their [action] cost. (Limit once per game.)\n[elder_sign] effect: +1. You may return a [[Tome]] asset from your discard pile to your hand.",
+		"flavor": "\"I can shut the book, but I can never unread its words.\"",
+		"back_text": "<b>Deck size</b>: 30.\n<b>Deckbuilding Options</b>: [[Tome]] cards level 0-5, Seeker cards ([seeker]) level 0-3, Neutral cards level 0-5, up to five other level 0 Guardian and/or Mystic cards ([guardian] and/or [mystic]).\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Daisy’s Tote Bag, The Necronomicon <i>(John Dee Translation)</i>, 1 random basic weakness.",
+		"back_flavor": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, fear. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held..."
+	},
+	"90002": {
+		"traits": "Item.",
+		"text": "Daisy Walker deck only. Advanced.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets.\n[reaction] When you play a [[Tome]] asset during your turn, exhaust Daisy's Tote Bag: That asset gains fast."
+	},
+	"90003": {
+		"traits": "Item. Tome.",
+		"text": "Advanced.\n<b>Revelation</b> - Put this card into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nWhile it is in play, treat each [elder_sign] you reveal on a chaos token as a [cultist], [tablet], and [elder_thing] <i>(resolve all three)</i>.\n[action]: Move 1 horror from this card to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it."
+	},
+	"90008": {
+		"traits": "Criminal.",
+		"text": "[fast] Spend up to 3 resources: Test a base skill value of 3 against a difficulty equal to the amount of resources just spent. If you succeed, gain twice the number of spent resources. Only [agility] and [wild] skill icons may be committed to this test. (Limit once per round.)\n[elder_sign] effect: +1. Choose a level 2 or less card in your discard pile. Add the chosen card to your hand.",
+		"back_text": "<b>Deck size</b>: 25.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, [[Fortune]] cards level 0-3, [[Gambit]] cards level 0-3, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.\n<b>Additional Options</b>: When you upgrade a [[Fortune]] or [[Gambit]] card, you may instead pay the full experience cost of the higher level version and leave the lower level version in your deck (it does not count towards your deck size or the number of copies of that card in your deck).",
+		"back_flavor": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. His cellmate, Brad Hollins, would rant and rave about the \"Old Ones\". Skids didn't give it much thought until the night he woke to the sight of his cellmate bursting into flames. When Skids was finally released, he returned to Arkham, looking for answers."
+	},
+	"90009": {
+		"traits": "Tactic.",
+		"text": "\"Skids\" O'Toole deck only. Advanced.\nFast. Play during any [fast] window.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you. At the end of the round, you may disengage from each engaged enemy and move up to 2 locations away."
+	},
+	"90010": {
+		"traits": "Task.",
+		"text": "Advanced. <b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[fast]: Move 1 resource from your resource pool to Hospital Debts. (Limit three times per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 9 resources on it: You earn 2 fewer experience for this scenario."
+	},
+	"90017": {
+		"traits": "Sorcerer.",
+		"text": "As an additional cost to play a [[Spell]] event, you may take 1 damage. If you do, reduce the cost to play that event by 2, and you may shuffle that event back into your deck instead of discarding it.\n[elder_sign] effect: +1. You may heal 1 damage.",
+		"flavor": "\"The magic is in my blood.\nCoursing through my veins.\nPumping through my heart.\"",
+		"back_text": "<b>Deck size</b>: 25.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, [[Spell]] cards level 0-3, [[Occult]] cards level 0-3, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.\n<b>Additional Options</b>: When you upgrade a [[Spell]] card, you may instead pay the full experience cost of the higher level version and leave the lower level version in your deck (it does not count towards your deck size or the number of copies of that card in your deck).",
+		"back_flavor": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\""
+	},
+	"90018": {
+		"traits": "Item. Relic.",
+		"text": "Agnes Baker deck only. Advanced.\nOnly damage and/or horror from player card effects can be assigned to Heirloom of Hyperborea.\n[reaction] After you play a [[Spell]] card: Draw 1 card."
+	},
+	"90019": {
+		"traits": "Spell.",
+		"text": "Advanced.\nPlace 1 doom on the current agenda. This effect can cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror."
+	},
+	"90024": {
+		"traits": "Agency. Detective.",
+		"text": "At deck creation, choose 3 different Directive assets to add to your deck.\n[fast]: Flip a Directive asset facedown <i>(ignoring its permanent keyword)</i>. (Limit once per game.)\n[elder_sign] effect: +2. Choose a Directive asset. You may ignore its regulation ability this round.",
+		"flavor": "\"If I stir up trouble, Sheriff, it will be because there's trouble to stir up.\"",
+		"back_text": "<b>Deck size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-3, [[Insight]] cards level 0-3, [[Tactic]] cards level 0-3, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.\n<b>Bonus Experience</b>: You begin the campaign with 5 additional experience (does not affect the number of weakneses you must take in Standalone Mode).",
+		"back_flavor": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, he was relieved to have guidelines to follow in any given situation. But lately, his Federal Agent's Handbook had been entirely unhelpful given the cases he'd been assigned. Try as he might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If he hadn't seen it with his own eyes, he would never have believed it... and there's no way his superiors would understand."
+	},
+	"90025": {
+		"text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot fight more than twice each round.\n[fast] During a skill test while investigating, evading, or parleying, exhaust this Directive: You get +2 skill value for this test for each enemy engaged with you."
+	},
+	"90026": {
+		"text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot play more than 2 cards each round.\n[reaction] When you play an [[Insight]] or [[Tactic]] event, exhaust this Directive: That event gains fast."
+	},
+	"90027": {
+		"text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot voluntarily assign damage or horror to [[Ally]] assets.\nYou have 1 additional ally slot."
+	},
+	"90028": {
+		"text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - When your location has 1 or more clues, you cannot commit cards to skill tests unless you have discovered a clue this round.\n[reaction] After you discover a clue, if an enemy is at your location, exhaust this Directive: Draw 1 card."
+	},
+	"90029": {
+		"text": "Roland Banks deck only. Permanent.\n<i>Regulation</i> - You cannot move more than twice each round.\nYou get +3 sanity."
+	},
+	"90030": {
+		"traits": "Item. Weapon. Firearm.",
+		"text": "Roland Banks deck only. Advanced. Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack (if there are 1 or more clues on your location, you get +4 [combat], instead). This attack deals +1 damage. If this attack defeats an enemy and there are no clues on your location, place 1 ammo on Roland's .38 Special."
+	},
+	"90031": {
+		"traits": "Task.",
+		"text": "Advanced.\n<b>Revelation</b> - Put Cover Up into play in your threat area, with 4 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma."
+	},
+	"90037": {
+		"traits": "Drifter. Blessed. Cursed.",
+		"text": "Add Tidal Memento to your deck.\n[reaction] After you successfully evade a non-[[Elite]] enemy: Seal either 1 [bless] or [curse] token from the chaos bag, or any [bless] or [curse] tokens revealed from the chaos bag during this test, on that enemy.\n[elder_sign] effect: +2. Search the chaos bag for up to 2 [bless] and/or [curse] tokens and reveal them, ignoring their effects.",
+		"flavor": "\"The little things are important. Grown-ups don't see that.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>[[Trait]] Choice</b>: At deck creation, choose [[Blessed]] or [[Cursed]], or choose both and gain +5 Deck Size.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Neutral cards level 0-5, cards of your chosen trait(s) 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
+		"back_flavor": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own."
+	},
+	"90038": {
+		"traits": "Item. Charm.",
+		"text": "Wendy Adams deck only. Permanent.\n[reaction] When an enemy would ready or doom would be placed on it, release a [bless] or [curse] token sealed on that enemy: Cancel that effect.\n[reaction] During a skill test you are performing, when a chaos token would be revealed from the chaos bag: Resolve a [bless] or [curse] token sealed on an enemy instead."
+	},
+	"90039": {
+		"traits": "Item. Relic.",
+		"text": "Wendy Adams deck only. Advanced.\nYou may play any event in your discard pile as if it were in your hand.\n<b>Forced</b> - After you play an event or discard an event from play: Place it on the bottom of your deck instead of in your discard pile."
+	},
+	"90040": {
+		"traits": "Madness.",
+		"text": "Advanced.\n<b>Revelation</b> - Remove all non-weakness cards in your discard pile from the game. If no cards were removed by this effect, shuffle this card back into your deck. Otherwise, take 3 direct horror.",
+		"flavor": "I don't need them. I don't need anyone."
+	},
+	"90046": {
+		"traits": "Drifter.",
+		"text": "You begin the game with Pete's Guitar in play.\n[reaction] When a card you own that is attached to a scenario card would be discarded: Add it to your hand instead. (Limit once per round.)\n[elder_sign] effect: +1. Choose a card you own attached to a scenario card. You may return the chosen card to your hand.",
+		"flavor": "\"C'mere, boy... We got work to do.\"",
+		"back_text": "<b>Deck size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-3, [[Improvised]] and [[Tactic]] cards level 0-4, Neutral cards level 0-5, up to 5 other Guardian cards ([guardian]) level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Duke, Wracked by Nightmares, 1 random basic weakness.",
+		"back_flavor": "At night, \"Ashcan\" Pete sleeps wherever his travels take him: in a field, on a train, or maybe, if he’s lucky, in a barn. He bunks with his loyal hound dog, Duke, on one side and his beat-up guitar on the other. And sometimes when Pete sleeps, he dreams. He dreams of haunted, tortured places and of horrible creatures. When he wakes up, he knows that someone needs his help, because his dreams are true. He could not say how long he has been on the road, living by his wits, but he can say for certain no place is too far to go to help someone in need. And as long as Pete can help people, he is not likely to stop wandering any time soon."
+	},
+	"90047": {
+		"traits": "Item. Instrument.",
+		"text": "\"Ashcan\" Pete deck only. Replacement.\n[fast] Exhaust Pete's Guitar: Choose a non-[[Elite]] enemy at your location or a connecting location. Move that enemy once in a direction of your choice. Then, if there are no enemies at your location, either heal 1 horror or gain 1 resource."
+	},
+	"90048": {
+		"traits": "Hardship.",
+		"text": "Replacement.\n<b>Revelation</b> - Put Hard Times into play in your threat area.\n<b>Forced</b> - After you draw 1 or more cards: Choose and discard that many cards from hand.\n[action][action]: Discard Hard Times."
+	},
+	"90049": {
+		"traits": "Performer. Cursed.",
+		"text": "[reaction] After you reveal 1 or more [skull] or [curse] tokens during a skill test you are performing: Replenish 1 charge on an asset you control. (Limit once per round.)\n[elder_sign] effect: +2. You may treat this token as if it were a [skull] or [curse] token instead.",
+		"flavor": "“I know I can make the dead dance.”",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-3, [[Spell]] and [[Cursed]] cards level 0-4, Neutral cards level 0-5, up to five other Survivor cards ([survivor]) level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Jim's Trumpet, Final Rhapsody, The Beyond, 1 random basic weakness.\n<b>Spirit Deck Size</b>: 10.\n<b>Spirit Deckbuilding Options</b>: 9 different [[Ally]] assets from any class level 0–2, Vengeful Shade.\n<b>Spirit Deck Instructions</b>: Shuffle the “spirit deck” separately from your deck and place it next to The Beyond asset, facedown. This deck may be upgraded separately using your unspent experience.",
+		"back_flavor": "Jazz has been nothing but trouble for Jim since the day he picked up his daddy’s trumpet. But the dead sure love it when he plays, so Jim has no intention of stopping."
+	},
+	"90050": {
+		"traits": "Item. Instrument. Relic.",
+		"text": "Jim Culver deck only. Advanced.\n[reaction] When a [skull] or [curse] token is revealed during a skill test you are performing, exhaust Jim's Trumpet: Heal 1 horror from each investigator and [[Ally]] asset at your location or a connecting location."
+	},
+	"90051": {
+		"traits": "Endtimes.",
+		"text": "Advanced.\n<b>Revelation</b> - Reveal 5 chaos tokens from the chaos bag. For each non-[elder_sign], non-[bless] symbol token revealed, take 1 damage and 1 horror.",
+		"flavor": "When the dead start talking about what scares them, that's when it's time to listen."
+	},
+	"90052": {
+		"traits": "Sanctum. Spectral.",
+		"text": "Jim Culver deck only. Permanent.\nEach attached spirit loses all printed traits and gains the [[Geist]] trait. When damage/horror would be placed on an attached spirit, it must be placed on Jim Culver, instead.\n<b>Forced</b> – When your turn begins: Attach the top card of the spirit deck to The Beyond, as a spirit. If 4 or more spirits are attached, flip this card and resolve its text.",
+		"back_text": "<b>Forced</b> – One at a time, choose each non-weakness spirit attached to The Beyond and reveal a random token from the chaos bag. If it is...\n- ... an [elder_sign] token: You may either heal 1 horror, or attach the top card of the spirit deck to The Beyond, as a spirit. <i>(Do not reveal tokens for the spirit you attach after resolving this effect.)</i>\n- ... an [auto_fail] token: Discard this spirit. Take 1 direct damage/horror.\n- ...a [skull] token: Discard this spirit. Heal 1 horror.\n- ...a [cultist], [elder_thing], [tablet], or [curse] token: You must either discard this spirit or take 1 direct damage.\n- ...any other token: Discard this spirit.\nFlip this card back to its asset side.\n<hr><b>Reminder:</b> <i>Spirits attached to The Beyond are in play but only retain their names and text boxes. Spirits do not take up slots and do not have health or sanity values. When a unique spirit is attached to The Beyond, any other asset that shares its name and is already in play is discarded. Spirits are always discarded to the</i> <b>bottom</b> <i>of the spirit deck.</i>"
+	},
+	"90053": {
+		"traits": "Monster. Geist.",
+		"text": "Hunter. <b>Prey</b> – Jim Culver only.\nYou may fight or evade this enemy while it is attached to The Beyond (as if it were engaged with you). If you succeed, discard it. If you fail, spawn it engaged with you.\n<b>Forced</b> – When you attach a spirit to The Beyond via its forced effect: Vengeful Shade attacks you <i>(even if it is not at your location)</i>."
+	},
+	"90059": {
+		"traits": "Believer. Hunter.",
+		"text": "[reaction] After you deal 1 or more damage to an enemy: Add 1 [bless] token to the chaos bag. (Limit once per phase.)\n[fast] Before you reveal chaos tokens during an attack, remove 3 [bless] tokens from the chaos bag: This attack deals +1 damage. (Limit once per round.)\n[elder_sign] effect: +1 for each [bless] token in the chaos bag.",
+		"flavor": "\"His work is not yet done.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-3, [[Blessed]] and [[Charm]] cards level 0-4, Neutral cards level 0-5, up to five other Mystic cards ([mystic]) level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Zoey's Cross, Smite the Wicked, 1 random basic weakness.",
+		"back_flavor": "Zoey had known that she was special ever since God spoke to her one night when she was six years old... the night that terrible fire took away her parents. He told her that He had chosen her from among all the people of the world to be His agent. She would protect the innocent and punish the wicked. Since then, He comes to her in times of trouble, offering guidance and comfort. Zoey now travels from city to city, taking work as a chef to support herself. When she isn’t working, she stalks the night, guided by the Lord’s voice. Wherever she finds wickedness, she strikes it down without remorse or hesitation."
+	},
+	"90060": {
+		"traits": "Item. Charm.",
+		"text": "Zoey Samaras deck only. Advanced.\n[reaction] After you engage an enemy, exhaust Zoey’s Cross and spend 1 resource: Deal 1 damage to that enemy.\n[fast] Remove 2 [bless] tokens from the chaos bag: Engage an enemy at your location."
+	},
+	"90061": {
+		"traits": "Task.",
+		"text": "Advanced. Attached enemy gets +2 fight and +2 health.\n<b>Revelation</b> - Discard cards from the top of the encounter deck until an enemy is discarded. Attach Smite the Wicked to that enemy and spawn it at the location farthest from you.\n<b>Forced</b> - When the game ends, if attached enemy is in play: Zoey Samaras suffers 1 mental trauma."
+	},
+	"90062": {
+		"traits": "Wayfarer.",
+		"text": "[reaction] After you discover the last clue at your location: Search the top X cards of your deck for a [[Charm]] or [[Relic]] asset and play it, reducing its cost by X. X is the printed shroud of your location. Shuffle your deck. (Limit once per round.)\n[elder_sign] effect: +1. Gain 1 resource for each [[Charm]] asset and each [[Relic]] asset you control.",
+		"flavor": "\"You call this archaeology?\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-3, [[Charm]] and [[Relic]] cards level 0-4, Neutral cards level 0-5, up to 5 other Seeker cards ([seeker]) level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Trusty Bullwhip, Buried Secrets, 1 random basic weakness.",
+		"back_flavor": "Young Jack traveled the world with his father’s archaeological expeditions. Now a globe-trotting treasure hunter and an accomplished archaeologist in his own right, “Monterey” follows in his father’s footsteps, securing the treasures of ancient civilizations and lost cultures. But after discovering a silver pendant with a familiar symbol on it, Monterey must explore his own past. Years ago, his father was found murdered with the very same sigil carved onto his forehead. The image has haunted Monterey’s dreams ever since. But he’s getting close. He won’t stop until he solves the mystery of his father’s murder... no matter what it takes."
+	},
+	"90063": {
+		"traits": "Item. Weapon. Melee.",
+		"text": "Fast. Monterey Jack deck only. Advanced.\n[action]: <b>Fight.</b> This attack uses [agility] instead of [combat]. You get +2 skill value for this attack. If this attack succeeds, you may exhaust Trusty Bullwhip to deal +1 damage for this attack and automatically evade the attacked enemy."
+	},
+	"90064": {
+		"traits": "Mystery.",
+		"text": "Advanced.\n<b>Revelation</b> - Put Buried Secrets into play in your threat area.\nIf your location can be investigated, you cannot move except by scenario card effects.\n[action][action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Buried Secrets."
+	},
+	"90078": {
+		"traits": "Reporter. Cursed.",
+		"text": "[reaction] When you would either place 1 of your clues on your location, or add 2 [curse] tokens to the chaos bag: Do the other instead. (This can still satisfy the cost of an ability.)\n[elder_sign] effect: +2 for each [curse] token revealed during this test. Draw 1 card for each [curse] token revealed during this test.",
+		"flavor": "\"Oh, come on, not <u>again</u>!\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-3, [[Cursed]] and [[Gambit]] cards level 0-4, Neutral cards level 0-5, up to five other Rogue cards ([rogue]) level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Search for the Truth, Rex's Curse, 1 random basic weakness.\n<b>Deckbuilding Restrictions</b>: No [[Fortune]] or [[Blessed]] cards (unless they are also [[Cursed]]).",
+		"back_flavor": "When disaster strikes, Rex Murphy is usually on hand, suffering the consequences. After spending a day with Rex, even the most hardened skeptic will concede that the man is cursed. Anytime he had a lead on a good story, something would go wrong, like that business in Innsmouth with the photographs that blew out to sea. His terrible fortune has more than once exposed him to gruesome beasts and occult conspiracies. To survive, Rex has developed an inquisitive mind, keeping one step ahead of the next disaster."
+	},
+	"90079": {
+		"traits": "Insight.",
+		"text": "Rex Murphy deck only. Advanced.\nFor each clue on Rex Murphy (to a maximum of 5) you may either:\n- Draw 1 card.\n- Place that clue on your location and return any card from your discard pile to your hand."
+	},
+	"90080": {
+		"traits": "Curse.",
+		"text": "Advanced.\n<b>Revelation</b> - Put Rex's Curse into play in your threat area.\n<b>Forced</b> - When you would succeed at a skill test: Reveal an additional chaos token. If this effect causes you to fail the test, shuffle Rex's Curse into your deck. (Limit once per test.)"
+	},
+	"90081": {
+		"traits": "Believer. Warden.",
+		"text": "[fast] During your turn: Seal a [bless] token on an investigator at your location with no [bless] token sealed on them. (Limit once per round.)\n[reaction] When an investigator would reveal a chaos token: Resolve the [bless] token sealed on them instead. Release that token.\n[elder_sign] effect: +1. Resolve Father Mateo's [fast] ability, ignoring its limit.",
+		"back_text": "<b>Deck Size:</b> 30.\n<b>Deckbuilding Options:</b> Mystic cards ([mystic]) level 0-3, [[Blessed]] cards level 0-5, Neutral cards level 0-5, up to 5 other cards with \"seal\" level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): The Codex of Ages, Serpents of Yig, 1 random basic weakness.\n",
+		"back_flavor": "Mateo Castile's life has not been easy since he became a priest. Recent decades in Mexico have been wracked with instability and conflict. Father Mateo struggled to balance his faith with the pragmatic concerns of preaching when the law told him he must not. But this is not what has assaulted Mateo's faith at its core. The nearby murders and kidnappings were not politically motivated, as he had suspected. A gruesome and horrid cult thrives at the heart of the brewing war. How, Mateo wonders, could a kind and loving God allow what he saw that night to exist?"
+	},
+	"90082": {
+		"traits": "Item. Relic. Tome. Blessed.",
+		"text": "Father Mateo deck only. Advanced. Seal ([elder_sign] or up to 3 [bless]).\nYou get +1 to each of your skills while there is a token sealed here.\n[reaction] When an investigator at your location would reveal a chaos token from the chaos bag: That investigator resolves a token sealed here instead, then releases that token. (Limit once per test.)"
+	},
+	"90083": {
+		"traits": "Humanoid. Monster. Serpent.",
+		"text": "Advanced. <b>Prey</b> - Father Mateo only. Hunter.\n<b>Revelation</b> - Search the chaos bag and all play areas for the [elder_sign] token and each [bless] token and seal them on Serpents of Yig."
+	},
+	"90084": {
+		"traits": "Drifter. Socialite.",
+		"text": "[reaction] After your turn begins: Play a [[Talent]] asset, reducing its cost by 1.\n[fast] Discard a [[Talent]] asset you control: Gain resources equal to that asset's printed cost. (Limit 5 resources per round.)\n[elder_sign] effect: +0. If you succeed, gain 3 resources.",
+		"flavor": "\"Oh honey, I'm making this up as I go along.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-3, Neutral cards level 0-5, up to 10 other non-permanent [[Talent]] cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Jenny's Twin .45s, Searching for Izzie, 1 random basic weakness.",
+		"back_flavor": "Jenny Barnes has spent the majority of her young life in pursuit of creature comforts, fine dining, and the latest fashions. That all changed when she received a letter from her sister, Isabelle. In this letter, Isabelle confessed that mysterious forces were aligning against her and that she feared she may fall victim to some paranormal threat. It was the last letter Jenny received from her beloved sister. Jenny has since returned to the States to track down and investigate all occult occurrences she can find. Hardly a wilting flower, she has proven herself a crack shot as well as a fearless and clever investigator of the unknown. Until Isabelle's disappearance is explained, Jenny will never relent in her search."
+	},
+	"90085": {
+		"traits": "Item. Weapon. Firearm.",
+		"text": "Jenny Barnes deck only. Advanced. Uses (X ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage.\n[reaction] After you defeat an enemy using the above ability, exhaust Jenny's Twin .45s: Gain resources equal to that enemy's printed health."
+	},
+	"90086": {
+		"traits": "Task.",
+		"text": "Advanced.\n<b>Revelation</b> - Attach Searching for Izzie to the location farthest from you. Attached location gets +2 shroud.\n[action][action]: <b>Investigate.</b> If you succeed, instead of discovering clues, discard Searching for Izzie.\n<b>Forced</b> - When the game ends, if Searching for Izzie is in play: You suffer 1 mental trauma."
+	},
+	"90087": {
+		"traits": "Performer.",
+		"text": "You begin the game in the Neutral role.\nYou can only play or commit Neutral cards or cards of your current role.\n<b>Forced</b> - When your turn begins: Switch your role ([guardian], [seeker], [rogue], [mystic], [survivor], or Neutral).\n[elder_sign] effect: +2. You may switch roles.",
+		"back_text": "<b>Deck size</b>: 40.\n<b>Class Choices</b>: At deck creation, choose 2 classes ([guardian], [seeker], [rogue], [mystic], or [survivor]).\n<b>Deckbuilding Options</b>: Neutral cards level 0-5, cards from your chosen classes level 0-4, cards from other classes level 0-1.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): 2 copies of Improvisation, 2 copies of Crisis of Identity, 1 random basic weakness.\n<b>Additional Requirements</b>: Your deck must include at least 6 cards from each class ([guardian], [seeker], [rogue], [mystic], and [survivor]).",
+		"back_flavor": "Lola had assumed that her days of performing <i>The King in Yellow</i> were behind her. Recently, however, she has heard a lone violin play the haunting melody from the show's last production. The music creeps into her mind in moments of silence and solitude, and she's compelled to visit the Ward Theatre one last time."
+	},
+	"90088": {
+		"traits": "Tactic. Improvised.",
+		"text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Guardian ([guardian]) card, you may either draw 1 card or immediately take a fight action.",
+		"flavor": "\"I'm done waiting in the wings.\""
+	},
+	"90089": {
+		"traits": "Insight. Improvised.",
+		"text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Seeker ([seeker]) card, you may either draw 1 card or immediately take an investigate action.",
+		"flavor": "\"I've learned a thing or two on stage.\""
+	},
+	"90090": {
+		"traits": "Trick. Improvised.",
+		"text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Rogue ([rogue]) card, you may either draw 1 card or immediately take an evade action.",
+		"flavor": "\"Trust me, honey, I'm lead material.\""
+	},
+	"90091": {
+		"traits": "Ritual. Improvised.",
+		"text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Mystic ([mystic]) card, you may either draw 1 card or remove 1 doom from a player card at your location.",
+		"flavor": "\"The trick is to only show them what you want them to see.\""
+	},
+	"90092": {
+		"traits": "Spirit. Improvised.",
+		"text": "Lola Hayes deck only. Replacement.\nFast. Play only during your turn.\nPlay a card from your hand, regardless of your current role <i>(paying its cost)</i>. If that card was a Survivor ([survivor]) card, you may either draw 1 card or heal 1 damage/horror.",
+		"flavor": "\"Come on, Lola, just make it to the final bow.\""
+	},
+	"90093": {
+		"traits": "Humanoid. Cultist.",
+		"text": "Lola Hayes deck only. Replacement. Peril.\nWhile Samuel Blake is in your hand, you cannot switch roles or play cards belonging to another role.\nWhile Samuel Blake is in play, as an additional cost for you to switch your role, you must take 1 horror."
+	},
+	"98001": {
+		"traits": "Drifter.",
+		"text": "You collect 1 additional resource during each upkeep phase.\n[elder_sign] effect: +1 for each resource you have.",
+		"flavor": "\"No more 'Miss Barnes' from you. My friends call me Jenny.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Neutral cards level 0-5, up to five other level 0 cards from any other class.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Jenny's Twin .45s, Searching for Izzie, 1 random basic weakness.",
+		"back_flavor": "Jenny Barnes never guessed that she would be returning to America so soon, or under such circumstances. Arkham, Massachusetts, is a far cry from Paris, but when her sister's regular correspondence became increasingly deranged before stopping entirely, Jenny could not shake the feeling that something terrible had happened to her. As Jenny begins the search for her sister, she quickly realizes that Isabelle is not the only girl in Arkham to have gone missing. How might the disappearances be connected? And why do the flyers for the local harvest festival depict the face on a medallion Jenny sent her sister?"
+	},
+	"98002": {
+		"traits": "Item. Relic.",
+		"text": "Jenny Barnes deck only. Replacement.\n[fast] Spend up to 3 resources and exhaust Green Man Medallion: Place those resources on it, as offerings.\n[reaction] When you resign or the game ends: For every 6 offerings on Green Man Medallion, reduce the experience cost of the next card you purchase before the next scenario by 1."
+	},
+	"98003": {
+		"traits": "Monster. Dark Young.",
+		"text": "Jenny Barnes deck only. Replacement.\n<b>Spawn</b> - Location farthest from you.\nJenny Barnes cannot gain resources via card effects.",
+		"flavor": "Thick limbs like wet branches yearned skyward, high above the platform. They swayed, whether in agony or exaltation Jenny could not tell. - Dave Gross, Hour of the Huntress"
+	},
+	"98004": {
+		"traits": "Agency. Detective.",
+		"text": "[reaction] After you defeat an enemy: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each clue on your location.",
+		"flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
+		"back_flavor": "Federal Agent Roland Banks has always done things by the book. It was the only way to avoid being dragged into the mire of corruption and quid pro quo that is government in Prohibition America. But when Agent Banks busts the wrong bootlegging operation in backwoods Virginia, his punishment is a bizarre assignment near Arkham, Massachusetts. It is clear from the outset of his investigation that Arkham keeps its secrets close, and Roland isn't going to break open this case if he sticks to SOP. But his agent's handbook has nothing to say regarding ancient myths and wrathful gods..."
+	},
+	"98005": {
+		"traits": "Insight.",
+		"text": "Roland Banks deck only. Replacement.\nFast. Play only during your turn.\nEither place 1 clue <i>(from the token bank)</i> on your location, or discover 1 clue at your location. Remove Mysteries Remain from the game."
+	},
+	"98006": {
+		"traits": "Madness.",
+		"text": "Roland Banks deck only. Replacement.\n<b>Revelation</b> - Place 2 of your clues on your location. If you cannot, place all of your clues on your location, take 1 horror, and shuffle The Dirge of Reason back into your deck.",
+		"flavor": "...was the music a part of the dream, or the dream a part of the music? - Graeme Davis, The Dirge of Reason"
+	},
+	"98007": {
+		"traits": "Miskatonic.",
+		"text": "Play with the top card of your deck revealed.\nOnce per round, you may play the top card of your deck as if it were in your hand, at -1 resource cost.\n<b>Forced</b> - After a weakness is revealed while on top of your deck: Draw it.\n[elder_sign] effect: +X. You may swap the top card of your deck with a card in your hand. X is the resource cost of the top card of your deck.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0, Mystic cards ([mystic]) level 1-5, Neutral cards level 0-5, up to 5 other Mystic cards ([mystic]) level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Livre d'Eibon, The Harbinger, 1 random basic weakness.",
+		"back_flavor": "Nobody believes him, and why should they? How could six stars vanish from sight all at once, never to reappear? Astronomer and Miskatonic University professor Norman Withers had all but given up on regaining his colleagues' esteem when a protege of the renowned Albert Einstein comes to speak on campus. The visiting physicist, with unsettling theories about the curvature of space-time, may hold the key to helping Norman explain the phenomenon of the vanishing stars..."
+	},
+	"98008": {
+		"traits": "Spell.",
+		"text": "Norman Withers deck only. Replacement.\n[action]: Reveal the top card of the encounter deck.\n[fast] Exhaust Split the Angle and discard the top card of your deck: Discard the top card of the encounter deck.",
+		"flavor": "...another spell, likewise rendered phonetically, for \"splitting the angle\" and walking through time in the flesh."
+	},
+	"98009": {
+		"traits": "Monster. Extradimensional. Tindalos.",
+		"text": "Norman Withers deck only. Replacement.\n<b>Prey</b> - Norman Withers.\nWhile Vengeful Hounds is engaged with you, you cannot draw or reveal cards via player card effects.",
+		"flavor": "\"On those rare occasions when a man escapes the Hounds, he doesn't always stay escaped. Sooner or later, they're apt to come after him.\" - Richard Lee Byers, Ire of the Void"
+	},
+	"98010": {
+		"traits": "Medic.",
+		"text": "[reaction] After one of your card effects heals horror from an investigator or [[Ally]] asset: The healed card's controller gains 1 resource.\n[elder_sign] effect: +1. You may heal 1 horror from an investigator or [[Ally]] asset at your location.",
+		"flavor": "The mind is fragile, but through understanding, we can protect it.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-3, Neutral cards level 0-5, cards that \"heal horror\" level 0-5, up to 15 other Seeker and/or Mystic cards level 0-1 ([seeker] and/or [mystic]).\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Hypnotic Therapy, Rational Thought, 1 random basic weakness.\n<b>Additional Restrictions</b>: No [[Weapon]] cards level 1-5.",
+		"back_flavor": "Visiting psychologist Carolyn Fern's newest patient is Josephine Ruggles, an heiress whose nightmares leave glyph-shaped wounds across her back. Miss Ruggles's case is unusual, even for an institution like Arkham Sanatorium. Her case takes an even stranger turn after she claims to have met Malachi - Carolyn's former patient whose treatment was cut short when he was brutally murdered - in her dreams. When Carolyn uses hypnotherapy to address Josephine's trauma, they find themselves both journeying to a strange place Josephine calls \"the Dreamlands.\""
+	},
+	"98011": {
+		"traits": "Ally. Creature. Dreamlands.",
+		"text": "Carolyn Fern deck only. Replacement.\nFoolishness enters play with 3 horror on him. Horror on him may be healed as if it were on Carolyn Fern. While Foolishness has no horror on him, you get +1 to all skills.",
+		"flavor": "\"Will we need to save you again?\" Foolishness flicked his tail back and forth. \"Perhaps. Perhaps I'll do the saving.\""
+	},
+	"98012": {
+		"traits": "Task. Dreamlands.",
+		"text": "Carolyn Fern deck only. Replacement.\n<b>Revelation</b> - Attach To Fight the Black Wind to the current agenda. Carolyn Fern takes 1 direct horror.\n<b>Forced</b> - At the end of the round, if any amount of horror was assigned to an investigator this round and it was not healed: Place 1 doom on attached agenda."
+	},
+	"98013": {
+		"traits": "Drifter.",
+		"text": "[reaction] After you reveal a chaos token during a skill test you are performing. Return a skill you committed to this test to your hand. (Limit once per round.)\n[elder_sign] effect: +0. You may commit a skill from your discard pile to this test. After this test ends, return that skill to your hand instead of discarding it.",
+		"flavor": "\"Leave your fears on the docks, lads.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Neutral cards level 0-5, [[Innate]] skills level 0-2.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Sea Change Harpoon, Silas's Net, Siren Call, 1 random basic weakness.",
+		"back_flavor": "Silas Marsh has always felt called to the sea. As a young lad, he left his family in fear-shadowed Innsmouth and made a name for himself sailing the seven seas. But after the death of his parents, the sea's call has only grown stronger. Silas has dreams - nightmares - of pointed teeth grinning, webbed hands reaching, and eyes glowing in the darkness of the ocean deeps. No one in his family is able to offer an explanation for his dreams, or at least, no one is willing. So when desperate librarian Abigail Foreman comes to Silas with questions of her own, he cannot turn her away. Her ancient and mysterious tome, the <u>Profesiae Profana</u>, points to a stellar event foretelling the end of the world, and painted in its margins are the very same creatures that haunt Silas's nightmares..."
+	},
+	"98014": {
+		"traits": "Innate. Developed.",
+		"text": "Silas Marsh deck only. Replacement.\nIf a chaos token with a negative modifier is revealed during this test, either draw 1 card or Nautical Prowess gains [wild][wild]."
+	},
+	"98015": {
+		"traits": "Curse.",
+		"text": "Silas Marsh deck only. Replacement.\nThis skill's icons subtract from your skill value instead of adding to it.\nIf this skill test fails, return this skill to your hand.\n<b>Forced</b> - If Dreams of the Deep is in your hand at the end of your turn: Reveal it and take 2 damage."
+	},
+	"98016": {
+		"traits": "Sorcerer. Veteran.",
+		"text": "[fast] During your turn, discard an asset you control: Play an asset with a different title from your hand, reducing its cost by 1. (Limit once per round.)\n[elder_sign] effect: +2. You may return an asset from your play area to your hand. Then, draw 1 card.",
+		"flavor": "\"Do you want to see true magic?\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Showmanship, Occult Scraps, 1 random basic weakness.",
+		"back_flavor": "For Dexter Drake, the magic of fairy tales and myth has been a lifelong fascination. The chance discovery of an old book page during the Great War opened Drake's eyes to the possibility that magic might truly exist. Years later, the promise of arcane tomes locked away in Miskatonic University's special collection draws the successful stage magician to the quiet town of Arkham. Lured to an auction of occult items, \"Drake the Great\" and his assistant, Molly Maxwell, find themselves targeted by the depraved servants of an otherwordly force of disease and corruption. To save Molly, Arkham, and perhaps the world from a horrific transformation, Drake needs more than his wits and quick hands. He must turn to real magic, even if it risks his mind, body, and spirit."
+	},
+	"98017": {
+		"traits": "Ally. Assistant.",
+		"text": "Dexter Drake deck only. Replacement.\n[fast] Exhaust Molly Maxwell and deal her 1 horror: Name any trait. One at a time, reveal cards from the top of your deck until an asset with the named trait is revealed. Draw that asset. Shuffle each other revealed card back into your deck."
+	},
+	"98018": {
+		"traits": "Curse. Pact.",
+		"text": "Dexter Drake deck only. Replacement.\n<b>Revelation</b> - Put Yaztaroth into play in your threat area.\nYou cannot play assets or put assets into play.\n[action][action]: Discard Yaztaroth."
+	},
+	"98019": {
+		"traits": "Clairvoyant.",
+		"text": "You choose the investigator order during the mythos phase.\n[reaction] When you look at 1 or more cards from the encounter deck: Look at 1 additional card and choose 1 non-[[Elite]] card among them. Either discard it, put it on top of the encounter deck, or place it facedown beneath Gloria Goldberg (max 3 cards beneath her).\n[elder_sign] effect: +1. Look at the top card of the encounter deck.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Secondary Class Choice</b>: At deck creation, choose Guardian ([guardian]), Seeker ([seeker]), or Rogue ([rogue]).\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Neutral cards level 0-5, up to 10 level 0-1 events and/or skills of your chosen secondary class.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): 3 copies of Psychic Sensitivity, 3 copies of Prophecy of the End (shuffled into the encounter deck), 1 random basic weakness.",
+		"back_flavor": "Nightmares and apocalyptic visions have plagued novelist Gloria Goldberg her entire life. Although she learned to exorcise her terrors onto the page, she has never revealed the inspiration for her weird tales, not even to fellow author Jamie Galbraith. One day, she is struck by a vision of Jamie begging her to help finish what he started. Moments later, she receives word of his sudden death. As Gloria reads Jamie's unfinished book, the story takes hold of her, and the words on the page begin to bleed into reality."
+	},
+	"98020": {
+		"traits": "Ally. Artist.",
+		"text": "Gloria Goldberg deck only. Replacement.\n[reaction] When an investigator fights, attempts to evade, or initiates a skill test on an encounter card, discard an encounter card that shares a [[Trait]] with that encounter card from beneath Gloria Goldberg: Reduce the difficulty of this skill test by 2."
+	},
+	"98021": {
+		"traits": "Endtimes.",
+		"text": "Gloria Goldberg deck only. Replacement.\n<b>Revelation</b> - Draw a random non-weakness encounter card from beneath Gloria Goldberg. That card gains peril, its effects cannot be canceled, and you get -2 to all skills while resolving its effects. If that card is an enemy, it immediately attacks you. If no card is drawn by this effect, shuffle this card back into your deck."
+	},
+	"99001": {
+		"traits": "Performer. Sorcerer.",
+		"text": "While you have 1 or more doom among cards you control, you may take an additional action during your turn, which can only be used to play [[Spell]] cards or activate [[Spell]] [action] abilities.\n[elder_sign] effect: +1. You may add 1 doom to or remove 1 doom from a card you control.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: [[Spell]] cards level 0-5, Mystic cards ([mystic]) level 0-3, Neutral cards level 0-5, [[Occult]] cards level 0, up to five other level 0 Seeker and/or Survivor cards ([seeker] and/or [survivor]).\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Mystifying Song, Baron Samedi, 1 random basic weakness.",
+		"back_flavor": "Marie Lambeau always had a voice to die for. People called her \"the Smoky Velvet.\" They said she was born to sing jazz, that she had the magic touch - and maybe they were right. After all, the songs she heard in her dreams ever since her Grand-Mère passed away were like nothing she'd ever heard before. The vocals sounded like no language spoken on Earth, the notes twisted and warped. Why her Grand-Mère had moved from New Orleans to Arkham, Marie would never know. People used to call her Grand-Mère a witch. Maybe there's more than just jazz in Marie's blood, after all..."
+	},
+	"99002": {
+		"traits": "Spell. Song.",
+		"text": "Marie Lambeau deck only.\nFast. Play when the agenda would advance by reaching its doom threshold.\nUntil the end of the phase, the agenda cannot advance by reaching its doom threshold. Remove Mystifying Song from the game."
+	},
+	"99003": {
+		"traits": "Avatar.",
+		"text": "<b>Revelation</b> - Put Baron Samedi into play. He cannot leave play while he has less than 3 doom on him.\n<b>Forced</b> - When any amount of damage is placed on an investigator in Baron Samedi's location: Place 1 additional damage on that investigator.\n[fast] Exhaust Baron Samedi: Place 1 doom on Baron Samedi. If he has 3 or more doom on him, discard him."
+	},
+	"01000": {
+		"text": "This is a placeholder random basic weakness\n You can replace it with a specific weakness using the Special tab or click the random button to replace it with a random weakness from your collection."
+	},
+	"01001": {
+		"traits": "Agency. Detective.",
+		"text": "[reaction] After you defeat an enemy: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each clue on your location.",
+		"flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It had worked, until now.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
+		"back_flavor": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, he was relieved to have guidelines to follow in any given situation. But lately, his Federal Agent's Handbook had been entirely unhelpful given the cases he'd been assigned. Try as he might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If he hadn't seen it with his own eyes, he would never have believed it... and there's no way his superiors would understand. Roland knew he would have to handle this one himself."
+	},
+	"01002": {
+		"traits": "Miskatonic.",
+		"text": "You may take an additional action during your turn, which can only be used on [[Tome]] [action] abilities.\n[elder_sign] effect: +0. If you succeed, draw 1 card for each [[Tome]] you control.",
+		"flavor": "\"I know of books so powerful, they can rewrite reality.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-5, Mystic cards ([mystic]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Daisy’s Tote Bag, The Necronomicon <i>(John Dee Translation)</i>, 1 random basic weakness.",
+		"back_flavor": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, fear. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held..."
+	},
+	"01003": {
+		"traits": "Criminal.",
+		"text": "[fast] During your turn, spend 2 resources: You may take an additional action this turn. (Limit once per turn.)\n[elder_sign] effect: +2. If you succeed, gain 2 resources.",
+		"flavor": "\"I didn't get out of the joint just to watch the world end.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Guardian cards ([guardian]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.",
+		"back_flavor": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for his mother's operation. His mother died of her illness during the second year of his sentence. His cellmate, Brad Hollins, told him there were worse fates than death. He ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures he'd had while dreaming. Skids didn't give it much thought until the night he woke to the sight of his cellmate bursting into flames. When Skids was finally released, he returned to Arkham, looking for answers."
+	},
+	"01004": {
+		"traits": "Sorcerer.",
+		"text": "[reaction] After 1 or more horror is placed on Agnes Baker: Deal 1 damage to an enemy at your location. (Limit once per phase.)\n[elder_sign] effect: +1 for each horror on Agnes Baker.",
+		"flavor": "\"I remember another life, one of sorcery and conquest.\"",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
+		"back_flavor": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became."
+	},
+	"01005": {
+		"traits": "Drifter.",
+		"text": "[reaction] When you reveal a chaos token, choose and discard 1 card from your hand: Cancel that chaos token and return it to the bag. Reveal a new chaos token. (Limit once per test/ability.)\n[elder_sign] effect: +0. If Wendy's Amulet is in play, you automatically succeed instead.",
+		"back_text": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
+		"back_flavor": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own."
+	},
+	"01006": {
+		"traits": "Item. Weapon. Firearm.",
+		"text": "Roland Banks deck only.\nUses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack (if there are 1 or more clues on your location, you get +3 [combat], instead). This attack deals +1 damage."
+	},
+	"01007": {
+		"traits": "Task.",
+		"text": "<b>Revelation</b> - Put Cover Up into play in your threat area, with 3 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma."
+	},
+	"01008": {
+		"traits": "Item.",
+		"text": "Daisy Walker deck only.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets."
+	},
+	"01009": {
+		"traits": "Item. Tome.",
+		"text": "<b>Revelation</b> - Put The Necronomicon into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nTreat each [elder_sign] you reveal on a chaos token as a [auto_fail].\n[action]: Move 1 horror from The Necronomicon to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it."
+	},
+	"01010": {
+		"traits": "Tactic.",
+		"text": "\"Skids\" O'Toole deck only.\nFast. Play after your turn begins.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you.",
+		"flavor": "I ain't going to the pen a second time."
+	},
+	"01011": {
+		"traits": "Task.",
+		"text": "<b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[fast]: Move 1 resource from your resource pool to Hospital Debts. (Limit twice per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 6 resources on it: You earn 2 fewer experience for this scenario."
+	},
+	"01012": {
+		"traits": "Item. Relic.",
+		"text": "Agnes Baker deck only.\n[reaction] After you play a [[Spell]] card: Draw 1 card.",
+		"flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking."
+	},
+	"01013": {
+		"traits": "Spell.",
+		"text": "Place 1 doom on the current agenda. This effect can cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror.",
+		"flavor": "No... not again!"
+	},
+	"01014": {
+		"traits": "Item. Relic.",
+		"text": "Wendy Adams deck only.\nYou may play the topmost event in your discard pile as if it were in your hand.\n<b>Forced</b> - After you play an event or discard an event from play: Place it on the bottom of your deck instead of in your discard pile."
+	},
+	"01015": {
+		"traits": "Madness.",
+		"text": "<b>Revelation</b> - Take 2 direct horror and remove all cards in your discard pile from the game.",
+		"flavor": "I don't need them. I don't need anyone."
+	},
+	"01016": {
+		"traits": "Item. Weapon. Firearm.",
+		"text": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack. This attack deals +1 damage."
+	},
+	"01017": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [combat] for this skill test."
+	},
+	"01018": {
+		"traits": "Ally. Police.",
+		"text": "You get +1 [combat].\n[fast] Discard Beat Cop: Deal 1 damage to an enemy at your location."
+	},
+	"01019": {
+		"traits": "Talent. Science.",
+		"text": "Uses (3 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage or horror from an investigator at your location."
+	},
+	"01020": {
+		"traits": "Item. Weapon. Melee.",
+		"text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack. If the attacked enemy is the only enemy engaged with you, this attack deals +1 damage.",
+		"flavor": "Cuts through vines, underbrush, and tentacles equally well."
+	},
+	"01021": {
+		"traits": "Ally. Creature.",
+		"text": "[reaction] When an enemy attack deals damage to Guard Dog: Deal 1 damage to the attacking enemy.",
+		"flavor": "Fiercely loyal, these trained canines make for perfect companions."
+	},
+	"01022": {
+		"traits": "Insight.",
+		"text": "Fast. Play after you defeat an enemy.\nDiscover 1 clue at your location.",
+		"flavor": "Just as I suspected!"
+	},
+	"01023": {
+		"traits": "Tactic.",
+		"text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack."
+	},
+	"01024": {
+		"traits": "Tactic.",
+		"text": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location."
+	},
+	"01025": {
+		"traits": "Practiced.",
+		"text": "If this skill test is successful during an attack, that attack deals +1 damage.",
+		"flavor": "With a sickening smack, he struck the abomination over and over... until at last, it stopped moving."
+	},
+	"01026": {
+		"traits": "Supply.",
+		"text": "Place 3 ammo tokens on a [[Firearm]] asset controlled by an investigator at your location.",
+		"flavor": "I've never met a beast that could outsmart a bullet."
+	},
+	"01027": {
+		"traits": "Item.",
+		"text": "You get +1 [willpower].\n[fast] While an investigator at your location is taking his or her turn, discard Police Badge: That investigator may take 2 additional actions this turn."
+	},
+	"01028": {
+		"traits": "Ally. Police.",
+		"text": "You get +1 [combat].\n[fast] Exhaust Beat Cop and deal 1 damage to it: Deal 1 damage to an enemy at your location."
+	},
+	"01029": {
+		"traits": "Item. Weapon. Firearm.",
+		"text": "Uses (2 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +3 [combat] for this attack. Instead of its standard damage, this attack deals 1 damage for each point you succeed by (to a minimum of 1, to a maximum of 5). If you fail and would damage another investigator, this attack deals 1 damage for each point you fail by (to a minimum of 1, to a maximum of 5)."
+	},
+	"01030": {
+		"traits": "Item. Tool.",
+		"text": "Fast.\nYou get +1 [intellect] while investigating.",
+		"flavor": "A lens into a world unseen can reveal things you wish it hadn't."
+	},
+	"01031": {
+		"traits": "Item. Tome.",
+		"text": "[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of his or her deck for a card, draws it, and shuffles the remaining cards into his or her deck."
+	},
+	"01032": {
+		"traits": "Ally. Miskatonic.",
+		"text": "[reaction] After Research Librarian enters play: Search your deck for a [[Tome]] asset and add it to your hand. Shuffle your deck.",
+		"flavor": "\"There have been problems at the Orne Library, as we both know, given poor Armitage's condition, and the other, unrelated... incident of a few years ago...\""
+	},
+	"01033": {
+		"traits": "Ally. Miskatonic.",
+		"text": "You get +1 [intellect].\n[reaction] After you successfully investigate: Gain 1 resource.",
+		"flavor": "\"While I truly believe that this nightmare is just a singular abomination, I must admit that I am exhilarated by the possibility that this is but one specimen of a new genus!\""
+	},
+	"01034": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [intellect] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test."
+	},
+	"01035": {
+		"traits": "Item. Tome.",
+		"text": "[action] Choose an investigator at your location and test [intellect] (2). If you succeed, heal 1 damage from that investigator. If you fail, deal 1 damage to that investigator."
+	},
+	"01036": {
+		"traits": "Insight.",
+		"text": "Fast. Play only during your turn.\nUntil the end of the round, you may use your [intellect] in place of your [combat] and [agility]."
+	},
+	"01037": {
+		"traits": "Insight.",
+		"text": "Fast. Play only during your turn.\nDiscover 1 clue at your location."
+	},
+	"01038": {
+		"traits": "Insight. Tactic.",
+		"text": "Attach to your location.\nNon-[[Elite]] enemies cannot move into attached location.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade."
+	},
+	"01039": {
+		"traits": "Practiced.",
+		"text": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+		"flavor": "I knew I had seen this symbol before. I must warn the others before it is too late!"
+	},
+	"01040": {
+		"traits": "Item. Tool.",
+		"text": "Fast.\nYou get +1 [intellect] while investigating.\n[fast] If there are no clues on your location: Return Magnifying Glass to your hand.",
+		"flavor": "A lens into a world unseen can reveal things you wish it hadn't."
+	},
+	"01041": {
+		"traits": "Item. Relic.",
+		"text": "[reaction] When a non-[[Elite]] enemy spawns at your location, discard Disc of Itzamna: Discard that enemy.",
+		"flavor": "Do they fear it because of what it will do to them? Or, do they fear it because of what it will do to you?"
+	},
+	"01042": {
+		"traits": "Item. Tome.",
+		"text": "[action] Exhaust Encyclopedia: Choose an investigator at your location. That investigator gets +2 to a skill of your choice until the end of the phase.",
+		"flavor": "It's supposed to be comprehensive, but the more I search through its pages, the more I realize we know nothing about the real truths of the cosmos."
+	},
+	"01043": {
+		"traits": "Insight.",
+		"text": "Fast. Play only during your turn.\nChoose an investigator at your location. That investigator draws 3 cards."
+	},
+	"01044": {
+		"traits": "Item. Weapon. Melee. Illicit.",
+		"text": "Fast.\n[action]: <b>Fight.</b> If you succeed by 2 or more, this attack deals +1 damage."
+	},
+	"01045": {
+		"traits": "Talent. Illicit.",
+		"text": "[action] Exhaust Burglary: <b>Investigate.</b> If you succeed, instead of discovering clues, gain 3 resources."
+	},
+	"01046": {
+		"traits": "Talent. Illicit.",
+		"text": "[reaction] After you evade an enemy, exhaust Pickpocketing: Draw 1 card."
+	},
+	"01047": {
+		"traits": "Item. Weapon. Firearm. Illicit.",
+		"text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If you succeed by 2 or more, this attack deals +1 damage."
+	},
+	"01048": {
+		"traits": "Ally. Criminal.",
+		"text": "You may take an additional action during your turn.",
+		"flavor": "\"I was born in Mississippi. Louisiana just sounded better.\""
+	},
+	"01049": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [combat] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test."
+	},
+	"01050": {
+		"traits": "Tactic.",
+		"text": "Fast. Play only during your turn.\nDisengage from each enemy engaged with you and move to a revealed location with no enemies."
+	},
+	"01051": {
+		"traits": "Tactic.",
+		"text": "<b>Fight.</b> This attack uses [agility] instead of [combat]. This attack deals +2 damage."
+	},
+	"01052": {
+		"traits": "Tactic.",
+		"text": "Deal 2 damage to an exhausted enemy at your location."
+	},
+	"01053": {
+		"traits": "Innate.",
+		"text": "Commit only to a skill test you are performing.\nIf you succeed by 3 or more, return Opportunist to your hand after this test instead of discarding it."
+	},
+	"01054": {
+		"traits": "Ally. Criminal.",
+		"text": "You may take an additional action during your turn.",
+		"flavor": "\"I was born in Mississippi. Louisiana just sounded better.\""
+	},
+	"01055": {
+		"traits": "Ally. Criminal.",
+		"text": "You get +1 [agility].\n[action] Exhaust Cat Burglar: Disengage from each enemy engaged with you and move to a connecting location. This action does not provoke attacks of opportunity."
+	},
+	"01056": {
+		"traits": "Fortune. Insight.",
+		"text": "Fast. Play after you reveal a chaos token with a negative modifier.\nSwitch that token's \"-\" to a \"+\"."
+	},
+	"01057": {
+		"traits": "Fortune.",
+		"text": "Gain 10 resources.",
+		"flavor": "\"I win again! Sorry sugar, it's just not your night.\""
+	},
+	"01058": {
+		"traits": "Talent.",
+		"text": "Uses (4 secrets). If Forbidden Knowledge has no secrets, discard it.\n[fast] Exhaust Forbidden Knowledge and take 1 horror: Move 1 secret from Forbidden Knowledge to your resource pool, as a resource."
+	},
+	"01059": {
+		"traits": "Item. Charm.",
+		"text": "You get +1 [willpower].",
+		"flavor": "Whether focused through a mundane trinket or a mystical artifact, there is real power in faith all the same."
+	},
+	"01060": {
+		"traits": "Spell.",
+		"text": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this attack, take 1 horror."
+	},
+	"01061": {
+		"traits": "Spell.",
+		"text": "Uses (3 charges).\n[action] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck or the encounter deck. Return them to the top of that deck in any order."
+	},
+	"01062": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [intellect] for this skill test."
+	},
+	"01063": {
+		"traits": "Ally. Sorcerer.",
+		"text": "<b>Forced</b> - After Arcane Initiate enters play: Place 1 doom on it.\n[fast] Exhaust Arcane Initiate: Search the top 3 cards of your deck for a [[Spell]] card and draw it. Shuffle your deck."
+	},
+	"01064": {
+		"traits": "Insight.",
+		"text": "Draw the top card of the encounter deck. Then, discover 2 clues at your location.",
+		"flavor": "\"We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far.\"\n-H. P. Lovecraft, \"The Call of Cthulhu\""
+	},
+	"01065": {
+		"traits": "Spell. Spirit.",
+		"text": "Fast. Play when you draw a non-weakness treachery card.\nCancel that card's revelation effect. Then, take 1 horror."
+	},
+	"01066": {
+		"traits": "Spell.",
+		"text": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn."
+	},
+	"01067": {
+		"traits": "Innate.",
+		"text": "If this skill test is successful, heal 1 horror.",
+		"flavor": "Only by standing firm against the darkness can we live to see the light of another day."
+	},
+	"01068": {
+		"traits": "Spell.",
+		"text": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy at your location. Treat the chosen enemy's printed text box as if it were blank (except for [[Traits]]) until the end of the phase."
+	},
+	"01069": {
+		"traits": "Spell.",
+		"text": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 2 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn and take 1 horror."
+	},
+	"01070": {
+		"traits": "Item. Tome.",
+		"text": "You have 1 additional arcane slot.\n[action] Exhaust Book of Shadows: Add 1 charge to a [[Spell]] asset you control."
+	},
+	"01071": {
+		"traits": "Item. Relic.",
+		"text": "Uses (4 charges). If Grotesque Statue has no charges, discard it.\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 2 chaos tokens instead of 1. Choose 1 of those tokens to resolve, and ignore the other."
+	},
+	"01072": {
+		"traits": "Item. Armor.",
+		"flavor": "The coat was not the most fashionable choice, but it did feel warm and reassuring in its bulk."
+	},
+	"01073": {
+		"traits": "Talent.",
+		"text": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and add it to your hand."
+	},
+	"01074": {
+		"traits": "Item. Weapon. Melee.",
+		"text": "[action]: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage. If a [skull] or [auto_fail] symbol is revealed during this attack, discard Baseball Bat after the attack resolves."
+	},
+	"01075": {
+		"traits": "Item. Charm.",
+		"text": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Draw 1 card.",
+		"flavor": "They claimed it would bring me good luck. I wouldn't say that's true. But now I feel like it would be even worse luck to get rid of it."
+	},
+	"01076": {
+		"traits": "Ally. Creature.",
+		"text": "[fast] Discard Stray Cat: Automatically evade a non-[[Elite]] enemy at your location.",
+		"flavor": "He never came if you called for him. It always seemed like he had his own agenda."
+	},
+	"01077": {
+		"traits": "Talent.",
+		"text": "[fast] Spend 1 resource: You get +1 [willpower] for this skill test.\n[fast] Spend 1 resource: You get +1 [agility] for this skill test."
+	},
+	"01078": {
+		"traits": "Tactic.",
+		"text": "<b>Evade.</b> Automatically evade all enemies at your location.",
+		"flavor": "That should buy us some time."
+	},
+	"01079": {
+		"traits": "Fortune.",
+		"text": "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location."
+	},
+	"01080": {
+		"traits": "Fortune.",
+		"text": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test."
+	},
+	"01081": {
+		"traits": "Innate.",
+		"text": "If this skill test is successful during an evasion attempt, the evading investigator may immediately disengage from each other enemy engaged with him or her, and may move to a connecting location."
+	},
+	"01082": {
+		"traits": "Ally.",
+		"text": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to another enemy at your location, instead. (You still take horror dealt by the attack.)",
+		"flavor": "\"Do not be frightened by what you see. Be frightened by what you cannot see.\""
+	},
+	"01083": {
+		"traits": "Fortune.",
+		"text": "Fast. Play after a non-weakness, non-[[Elite]] enemy at your location is evaded.\nShuffle that enemy into the encounter deck."
+	},
+	"01084": {
+		"traits": "Fortune.",
+		"text": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test. Draw 1 card."
+	},
+	"01085": {
+		"traits": "Spirit.",
+		"text": "Fast. Play only during your turn.\nUntil the end of your turn, do not reveal chaos tokens for any skill tests you perform."
+	},
+	"01086": {
+		"traits": "Item. Weapon. Melee.",
+		"text": "[action]: <b>Fight.</b> You get +1 [combat] for this attack.\n[action] Discard Knife: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage."
+	},
+	"01087": {
+		"traits": "Item. Tool.",
+		"text": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> Your location gets -2 shroud for this investigation."
+	},
+	"01088": {
+		"traits": "Supply.",
+		"text": "Gain 3 resources.",
+		"flavor": "You can never be too prepared."
+	},
+	"01089": {
+		"traits": "Innate.",
+		"text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+		"flavor": "Stay back! I'll handle this."
+	},
+	"01090": {
+		"traits": "Practiced.",
+		"text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+		"flavor": "At last, I've found it!"
+	},
+	"01091": {
+		"traits": "Practiced.",
+		"text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+		"flavor": "Die, you beast!"
+	},
+	"01092": {
+		"traits": "Innate.",
+		"text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+		"flavor": "Too easy."
+	},
+	"01093": {
+		"traits": "Innate.",
+		"text": "Max 1 committed per skill test.",
+		"flavor": "Sometimes, the most selfless acts can come from the strangest places"
+	},
+	"01094": {
+		"traits": "Item. Armor.",
+		"flavor": "Bullets are one thing... twelve-inch fangs quite another."
+	},
+	"01095": {
+		"traits": "Item. Relic.",
+		"flavor": "This has been in my family for generations. Take care of it, and it will take care of you."
+	},
+	"01096": {
+		"traits": "Madness.",
+		"text": "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
+		"flavor": "Wait... where am I? What was I doing?"
+	},
+	"01097": {
+		"traits": "Madness.",
+		"text": "<b>Revelation</b> - Discard all your resources.",
+		"flavor": "What was that noise?"
+	},
+	"01098": {
+		"traits": "Curse.",
+		"text": "<b>Revelation</b> - Add Haunted to your threat area.\nYou get -1 to each of your skills.\n[action][action]: Discard Haunted."
+	},
+	"01099": {
+		"traits": "Madness.",
+		"text": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct damage.\n[action][action]: Discard Psychosis."
+	},
+	"01100": {
+		"traits": "Madness.",
+		"text": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more damage: Take 1 direct horror.\n[action][action]: Discard Hypochondria."
+	},
+	"01101": {
+		"traits": "Humanoid. Criminal.",
+		"text": "<b>Prey</b> - Bearer only.\nHunter.\n[action] Spend 4 resources: <b>Parley.</b> Discard Mob Enforcer.",
+		"flavor": "You knew you shouldn't have borrowed money from the O'Bannion gang. It seems like they're always looking to collect at the worst times."
+	},
+	"01102": {
+		"traits": "Humanoid. Cultist. Silver Twilight.",
+		"text": "<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - After Silver Twilight Acolyte attacks: Place 1 doom on the current agenda.",
+		"flavor": "You'll never forget the day you learned the true secret of the Silver Twilight Lodge's inner circle. The truth is too terrible for the Lodge to let you live."
+	},
+	"01103": {
+		"traits": "Humanoid. Detective.",
+		"text": "<b>Prey</b> - Bearer only.\nHunter.\nWhile Stubborn Detective is at your location, treat your investigator as if his or her printed text box were blank (except for [[Traits]]).",
+		"flavor": "Despite everything, he still won't believe you had nothing to do with those murders."
 	},
 	"01501": {
 		"traits": "Agency. Detective.",
@@ -6306,6 +7427,46 @@
 		"traits": "Ally. Medic.",
 		"text": "[fast] Exhaust Dr. Shivani Maheswaran: Automatically evade an engaged Suspicious Orderly.\n[reaction] When an investigator reveals a [skull] or [cultist] symbol on an infestation token, remove Dr. Shivani Maheswaran from the game: Cancel that token and return it to the infestation bag."
 	},
+	"06110": {
+		"traits": "Tactic.",
+		"text": "Fast. Play when the \"draw encounter cards\" step of the mythos phase would begin.\nInstead of resolving that step, look at the top X cards of the encounter deck, where X is the number of investigators. Deal those cards among the investigators as you wish, dealing no more than 1 card to each investigator other than yourself. Then, one at a time, each investigator draws the card(s) dealt to them."
+	},
+	"06111": {
+		"traits": "Innate.",
+		"text": "Commit only to a skill test during an attack or evasion attempt against an enemy. That enemy gains retaliate and alert for the duration of this skill test. After this test ends, draw 1 card."
+	},
+	"06112": {
+		"traits": "Item. Tome. Charm.",
+		"text": "[action]: Search your bonded cards for Essence of the Dream and add it to your hand.\n[reaction] After you succeed by 3 or more during a skill test to which Essence of the Dream is committed: Record in your Campaign Log that \"you have interpreted the dreams.\""
+	},
+	"06113": {
+		"traits": "Practiced. Expert.",
+		"text": "Bonded (Dream Diary).\nWhen Essence of the Dream would enter your discard pile or be shuffled into your deck, instead set Essence of the Dream aside, out of play (with your bonded cards)."
+	},
+	"06114": {
+		"traits": "Tactic.",
+		"text": "<b>Investigate.</b> Choose an enemy at your location. You get +1 [intellect] for this investigation for each damage on the chosen enemy (to a maximum of +5 [intellect]). If you succeed, discover 1 additional clue at this location. This action does not provoke attacks of opportunity from the chosen enemy."
+	},
+	"06115": {
+		"traits": "Practiced.",
+		"text": "If this skill test is successful, reduce the difficulty of the next skill test you perform this phase by X, where X is the amount this skill test succeeded by (to a maximum of 3).",
+		"flavor": "You've never been content with the safe route."
+	},
+	"06116": {
+		"traits": "Item. Tome.",
+		"text": "Uses (4 secrets).\n[action] Spend 1 secret: Choose an investigator at your location. That investigator draws 3 cards, then discards 1 card from their hand.",
+		"flavor": "...so it was, and so shall it ever be."
+	},
+	"06117": {
+		"traits": "Spell.",
+		"text": "<b>Investigate.</b> Add your [willpower] value to your skill value for this investigation. You may ignore any effect or keyword on your location which would trigger during this investigation. If you succeed, discover 1 additional clue at this location.",
+		"flavor": "A grisly future is laid before you.\nDo you turn away? Or do you embrace it?"
+	},
+	"06118": {
+		"traits": "Ally. Wayfarer. Cursed.",
+		"text": "You get +1 [combat].\nJessica Hyde enters play with 2 damage on her.\n[reaction] After your turn ends: Heal 1 damage from Jessica Hyde.",
+		"flavor": "I warned you to stay away from me. Now we're both in this together."
+	},
 	"06155": {
 		"traits": "Ally. Police.",
 		"text": "Tetsuo Mori may be assigned damage and/or horror dealt to other investigators at your location.\n[reaction] When Tetsuo Mori is defeated: Choose an investigator at your location. That investigator searches either their discard pile or the top 9 cards of their deck for an [[Item]] asset and adds it to their hand. Shuffle their deck if it is searched."
@@ -8304,5 +9465,15 @@
 		"traits": "Condition. Blight.",
 		"text": "Permanent. Reward.\nChosen of Zburamoarte begins the game <i>(Fighting the Hunger)</i> side faceup.\n<b>Forced</b> - When the game begins: Add 5 [blood] tokens to the chaos bag for the duration of the game.\nEach investigator treats each [blood] token revealed during a skill test as \"-1. Reveal another token. After this test resolves, flip the Chosen of Zburamoarte asset, <i>(Compelled to Feed)</i> side faceup, and seal this token on it.\"",
 		"back_text": "Permanent. Reward.\nYou get +1 [combat], and +1 [agility].\nEach investigator treats each [blood] token revealed during a skill test as \"-1. Reveal another token. After this test resolves, seal this token on the Chosen of Zburamoarte asset.\"\n[fast] Exhaust this card and release 1 [blood] token sealed on it: Deal 1 damage to an enemy at your location and heal 1 damage. If there are no [blood] tokens sealed here, flip this card."
+	},
+	"89002b": {
+		"traits": "Flaw.",
+		"text": "Subject 5U-21 deck only. Permanent.\nEach time you devour a card, set it aside, out of play. You get +1 to each of your skills for each card beneath Ravenous (max +5).\n<b>Forced</b> - At the end of your turn: Devour a non-story card beneath Ravenous or controlled by an investigator at your location. If there is nothing beneath Ravenous, flip it over."
+	},
+	"89005b": {
+		"text": "- <b>-6</b>: ...all events from each investigator's hand.\n- <b>-7</b>: ...a non-story, non-weakness asset from each investigator's play area.\n- <b>-8</b>: ...a non-weakness signature card in any player's deck, hand, discard pile, or play area.\n- [skull]: ...1 card beneath Ravenous, at random.\n- [cultist]: ...each card committed to each skill test at your location <i>(after the test ends)</i>, until the end of the next investigation phase.\n- [tablet]: ...each event played by investigators at your location, until the end of the next investigation phase.\n- [elder_thing]: ...the player card at your location with the most evidence, supplies, ammo, charges, or secrets on it.\n- [auto_fail]: Reveal 3 more chaos tokens and resolve each of those devour effects."
+	},
+	"90052b": {
+		"text": "<b>Forced</b> – One at a time, choose each non-weakness spirit attached to The Beyond and reveal a random token from the chaos bag. If it is...\n- ... an [elder_sign] token: You may either heal 1 horror, or attach the top card of the spirit deck to The Beyond, as a spirit. <i>(Do not reveal tokens for the spirit you attach after resolving this effect.)</i>\n- ... an [auto_fail] token: Discard this spirit. Take 1 direct damage/horror.\n- ...a [skull] token: Discard this spirit. Heal 1 horror.\n- ...a [cultist], [elder_thing], [tablet], or [curse] token: You must either discard this spirit or take 1 direct damage.\n- ...any other token: Discard this spirit.\nFlip this card back to its asset side.\n<hr><b>Reminder:</b> <i>Spirits attached to The Beyond are in play but only retain their names and text boxes. Spirits do not take up slots and do not have health or sanity values. When a unique spirit is attached to The Beyond, any other asset that shares its name and is already in play is discarded. Spirits are always discarded to the</i> <b>bottom</b> <i>of the spirit deck.</i>"
 	}
 }
