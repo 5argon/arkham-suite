@@ -19,12 +19,15 @@ nothing.
 				id: 'written',
 				icon: FaIconType.Written,
 				count: counts.written,
+				colorClass: 'text-primary-800 dark:text-primary-200',
 				title: m.card_review_count_written({ count: counts.written })
 			},
 			{
 				id: 'external',
 				icon: FaIconType.ExternalLink,
 				count: counts.external,
+				// Fainter than what's written here, which is what this site is for.
+				colorClass: 'text-primary-400 dark:text-primary-500',
 				title: m.card_review_count_external({ count: counts.external })
 			}
 		].filter((kind) => kind.count > 0)
@@ -32,11 +35,9 @@ nothing.
 </script>
 
 {#if kinds.length > 0}
-	<span
-		class="text-primary-800 dark:text-primary-200 inline-flex flex-wrap items-center justify-center gap-x-2 text-xs"
-	>
+	<span class="inline-flex flex-wrap items-center justify-center gap-x-2 text-xs">
 		{#each kinds as kind (kind.id)}
-			<span class="inline-flex items-center gap-1" title={kind.title}>
+			<span class="inline-flex items-center gap-1 {kind.colorClass}" title={kind.title}>
 				<FaIcon icon={kind.icon} />
 				{kind.count}
 			</span>
