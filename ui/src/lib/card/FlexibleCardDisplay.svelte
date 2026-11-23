@@ -68,6 +68,10 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		 * Shown with each card, in every view.
 		 */
 		cardFooter?: Snippet<[CardItem]>;
+		/**
+		 * Shown beside a card's magnified picture, such as its text.
+		 */
+		magnifiedAside?: Snippet<[Card]>;
 	}
 
 	const {
@@ -84,7 +88,8 @@ Flexible card display with multiple rendering modes and checklist functionality.
 		showIconCount = false,
 		onSettingsApply,
 		cardHref,
-		cardFooter
+		cardFooter,
+		magnifiedAside
 	}: Prop = $props();
 
 	type DisplayMode = 'icons' | 'scans' | 'list';
@@ -244,6 +249,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				onClick={checklistMode ? handleIconsOrListClick : undefined}
 				cardHref={checklistMode ? undefined : cardHref}
 				{cardFooter}
+				{magnifiedAside}
 			/>
 		</div>
 	{:else if displayMode === 'scans'}
@@ -254,6 +260,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				onClick={checklistMode ? handleScansClick : undefined}
 				cardHref={checklistMode ? undefined : cardHref}
 				{cardFooter}
+				{magnifiedAside}
 				showCardName
 				{hideQuantity}
 				{showIconCount}
@@ -267,6 +274,7 @@ Flexible card display with multiple rendering modes and checklist functionality.
 				onClick={checklistMode ? handleIconsOrListClick : undefined}
 				cardHref={checklistMode ? undefined : cardHref}
 				{cardFooter}
+				{magnifiedAside}
 				{hideQuantity}
 			/>
 		</div>

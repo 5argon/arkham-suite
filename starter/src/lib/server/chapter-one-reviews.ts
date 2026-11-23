@@ -11,6 +11,7 @@ import {
 import type { CardTextHtml, ReviewCountsData, ReviewRowData } from '@5argon/arkham-life-ui';
 
 import { backLinkOf, getAllCards } from '$lib/card-data';
+import { chapterOneCardHref } from '$lib/review/paths';
 import { productToExploreRoute } from '$lib/utility/product';
 
 import { cardTextHtml, firstPrintingOf } from './card-text';
@@ -163,6 +164,17 @@ export function chapterOneProductCards(product: Product): ChapterOneProductCard[
 			card,
 			counts: { written: 0, external: entriesByCard.get(card.code)!.length }
 		}));
+}
+
+/**
+ * The page of older reviews of a card, absent for a card without any.
+ */
+export function chapterOneReviewLinkOf(
+	code: string
+): { href: string; counts: ReviewCountsData } | undefined {
+	const entries = entriesByCard.get(code);
+	if (entries === undefined) return undefined;
+	return { href: chapterOneCardHref(code), counts: { written: 0, external: entries.length } };
 }
 
 export function chapterOneCardCodes(): string[] {

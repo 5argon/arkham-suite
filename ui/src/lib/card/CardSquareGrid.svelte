@@ -28,6 +28,10 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 		 * Shown under each card.
 		 */
 		cardFooter?: Snippet<[CardItem]>;
+		/**
+		 * Shown beside a card's magnified picture, such as its text.
+		 */
+		magnifiedAside?: Snippet<[Card]>;
 		/** Overlay each card's `iconCount` as a small badge (e.g. a usage count). */
 		showIconCount?: boolean;
 	}
@@ -40,6 +44,7 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 		onClick,
 		cardHref,
 		cardFooter,
+		magnifiedAside,
 		showIconCount
 	}: Prop = $props();
 	const tooltip = createTooltipState<{ card: Card; quantity: number }>();
@@ -205,4 +210,5 @@ CSS flex of square card images with hover tooltips, with optional grouping.
 	isShowing={isModalShowing}
 	onClose={handleModalClose}
 	{languageCode}
+	aside={magnifiedAside}
 />

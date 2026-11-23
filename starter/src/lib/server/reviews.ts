@@ -790,6 +790,21 @@ export interface ReviewProductCard {
 	counts: ReviewCountsData;
 }
 
+export interface ReviewLink {
+	href: string;
+	counts: ReviewCountsData;
+}
+
+/**
+ * The review page of a card, a reprint going to the page of the card it reprints. Absent for a card
+ * without one.
+ */
+export function reviewLinkOf(code: string): ReviewLink | undefined {
+	const page = toCore2026Code(code);
+	if (!reviewableCodes.has(page)) return undefined;
+	return { href: reviewCardHref(page), counts: countsOf(page) };
+}
+
 export function reviewProductCards(product: Product): ReviewProductCard[] {
 	return reviewableCards
 		.filter((card) => card.product === product)

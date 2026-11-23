@@ -30,6 +30,10 @@ CSS flex of vertical cards, with optional grouping.
 		 * Shown under each card's name.
 		 */
 		cardFooter?: Snippet<[CardItem]>;
+		/**
+		 * Shown beside a card's magnified picture, such as its text.
+		 */
+		magnifiedAside?: Snippet<[Card]>;
 		languageCode?: string;
 		hideQuantity?: boolean;
 		/** Overlay each card's `iconCount` as a small badge (e.g. a usage count). */
@@ -42,6 +46,7 @@ CSS flex of vertical cards, with optional grouping.
 		onClick,
 		cardHref,
 		cardFooter,
+		magnifiedAside,
 		languageCode,
 		hideQuantity,
 		showIconCount
@@ -235,4 +240,5 @@ CSS flex of vertical cards, with optional grouping.
 	isShowing={isModalShowing}
 	onClose={handleModalClose}
 	{languageCode}
+	aside={magnifiedAside}
 />

@@ -23,11 +23,23 @@ Display cards as a table list with extra info.
 		 * Shown at the end of each row.
 		 */
 		cardFooter?: Snippet<[CardItem]>;
+		/**
+		 * Shown beside a card's magnified picture, such as its text.
+		 */
+		magnifiedAside?: Snippet<[Card]>;
 		languageCode?: string;
 		hideQuantity?: boolean;
 	}
 
-	const { groups, onClick, cardHref, cardFooter, languageCode, hideQuantity }: Prop = $props();
+	const {
+		groups,
+		onClick,
+		cardHref,
+		cardFooter,
+		magnifiedAside,
+		languageCode,
+		hideQuantity
+	}: Prop = $props();
 
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
@@ -80,4 +92,5 @@ Display cards as a table list with extra info.
 	isShowing={isModalShowing}
 	onClose={handleModalClose}
 	{languageCode}
+	aside={magnifiedAside}
 />

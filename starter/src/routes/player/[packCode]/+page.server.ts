@@ -13,6 +13,7 @@ import {
 } from '@5argon/arkham-kohaku';
 import { u as stringUtils } from '@5argon/arkham-string';
 import { chapterOneReviewProducts } from '$lib/server/chapter-one-reviews';
+import { playerCardDetails } from '$lib/server/player-card-details';
 import * as m from '$lib/paraglide/messages.js';
 import { productToExploreRoute } from '$lib/utility/product';
 import { rewardRoute } from '$lib/utility/reward';
@@ -23,6 +24,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		return {
 			product: undefined,
 			hasChapterOneReviews: false,
+			cardDetails: playerCardDetails(undefined),
 			backName: m.common_reward_cards()
 		};
 	}
@@ -49,6 +51,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	return {
 		product: product,
 		hasChapterOneReviews: chapterOneReviewProducts().includes(product),
+		cardDetails: playerCardDetails(product),
 		backName: stringUtils.productName(product)
 	};
 };

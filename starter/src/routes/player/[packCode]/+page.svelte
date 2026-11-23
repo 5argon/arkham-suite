@@ -22,6 +22,7 @@
 		type SelectedCardEntry
 	} from '@5argon/arkham-life-ui';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
+	import PlayerCardAside from '$lib/design/pages/player/PlayerCardAside.svelte';
 	import { productToExploreRoute } from '$lib/utility/product';
 	import { rewardCards, rewardImageUrl, rewardRoute } from '$lib/utility/reward';
 	import * as m from '$lib/paraglide/messages.js';
@@ -243,6 +244,13 @@
 	{title}
 />
 
+{#snippet magnifiedAside(card: Card)}
+	{@const detail = data.cardDetails[card.code]}
+	{#if detail}
+		<PlayerCardAside {detail} />
+	{/if}
+{/snippet}
+
 <MarginFull>
 	<div class="mb-4 flex gap-4">
 		<Button
@@ -307,6 +315,7 @@
 		{initialSettings}
 		onSettingsApply={handleSettingsApply}
 		hideChecklistMode={fittingRoomMode}
+		{magnifiedAside}
 	/>
 	{#if data.hasChapterOneReviews}
 		<p class="text-primary-700 dark:text-primary-300 mt-6 text-right text-xs">
