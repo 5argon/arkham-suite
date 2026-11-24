@@ -9,6 +9,17 @@
 			],
 			"sources": [
 				{
+					"by": "rite-of-seeking",
+					"title": "New Dreamlands Deckbuilding Expansion Gives Investigators New Cards to Beat Elekoss Over and Over and Over Again",
+					"date": "2026-11-01",
+					"environment": "potd",
+					"humor": true,
+					"media": {
+						"url": "https://riteofseeking.com/2026/11/01/new-dreamlands-deckbuilding-expansion-gives-investigators-new-cards-to-beat-elekoss-over-and-over-and-over-again/"
+					},
+					"cards": []
+				},
+				{
 					"by": "playing-board-games",
 					"title": "A new expansion was announced for Arkham Horror: The Card Game!",
 					"date": "2026-11-04",
@@ -157,6 +168,202 @@
 						{
 							"code": "14070",
 							"text": "Staff of Atal"
+						}
+					]
+				},
+				{
+					"by": "playing-board-games",
+					"title": "The First Look at Arkham Horror: The Card Game's Next Expansion! (Power of the Dreamlands)",
+					"date": "2026-11-20",
+					"environment": "potd",
+					"media": {
+						"youtube": "qkNBcHBX7wA"
+					},
+					"cards": [
+						{
+							"code": "14071",
+							"start": "4:14"
+						},
+						{
+							"code": "14003",
+							"start": "5:58"
+						},
+						{
+							"code": "14008",
+							"start": "10:00"
+						},
+						{
+							"code": "14013",
+							"start": "12:33"
+						},
+						{
+							"code": "14002",
+							"start": "15:10"
+						},
+						{
+							"code": "14011",
+							"start": "17:04"
+						},
+						{
+							"code": "14016",
+							"start": "21:19"
+						},
+						{
+							"code": "14017",
+							"start": "23:45"
+						},
+						{
+							"code": "14026",
+							"start": "25:29"
+						},
+						{
+							"code": "14028",
+							"start": "26:42"
+						},
+						{
+							"code": "14021",
+							"start": "28:48"
+						},
+						{
+							"code": "14030",
+							"start": "30:08"
+						},
+						{
+							"code": "14033",
+							"start": "31:35"
+						},
+						{
+							"code": "14034",
+							"start": "34:00"
+						},
+						{
+							"code": "14040",
+							"start": "36:17"
+						},
+						{
+							"code": "14042",
+							"start": "38:38"
+						},
+						{
+							"code": "14043",
+							"start": "40:51"
+						},
+						{
+							"code": "14048",
+							"start": "44:52"
+						},
+						{
+							"code": "14045",
+							"start": "47:33"
+						},
+						{
+							"code": "14054",
+							"start": "50:38"
+						},
+						{
+							"code": "14055",
+							"start": "52:31"
+						},
+						{
+							"code": "14052",
+							"start": "53:40"
+						},
+						{
+							"code": "14060",
+							"start": "55:07"
+						},
+						{
+							"code": "14057",
+							"start": "58:08"
+						},
+						{
+							"code": "14067",
+							"start": "59:03"
+						},
+						{
+							"code": "14070",
+							"start": "1:01:45"
+						},
+						{
+							"code": "14061",
+							"start": "1:04:05"
+						}
+					]
+				},
+				{
+					"by": "rite-of-seeking",
+					"title": "OPINION: Jokes on You, FFG. I Was Already Playing All My Cards Facedown.",
+					"date": "2026-11-20",
+					"environment": "potd",
+					"humor": true,
+					"media": {
+						"url": "https://riteofseeking.com/2026/11/20/opinion-jokes-on-you-ffg-i-was-already-playing-all-my-cards-facedown/"
+					},
+					"cards": []
+				},
+				{
+					"by": "rite-of-seeking",
+					"title": "Dexter Makes Luke Dream Forever — “Power of the Dreamlands” Deck Concept for Current",
+					"date": "2026-11-22",
+					"environment": "potd",
+					"media": {
+						"url": "https://riteofseeking.com/2026/11/22/dexter-makes-luke-dream-forever-power-of-the-dreamlands-deck-concept-for-current/"
+					},
+					"cards": [
+						{
+							"code": "14045",
+							"text": "the new Ally form of Luke Robinson"
+						},
+						{
+							"code": "12010",
+							"text": "Chapter 2 Dexter Drake is probably one of the biggest winners"
+						},
+						{
+							"code": "14071",
+							"text": "Particularly the neutral card Call of the Dreamlands"
+						},
+						{
+							"code": "14052",
+							"text": "With Sigil of Thalarion, if you have a card"
+						},
+						{
+							"code": "14054",
+							"text": "Let’s start with level 3 Lunar Sight and Reality Fracture"
+						},
+						{
+							"code": "14055",
+							"text": "Let’s start with level 3 Lunar Sight and Reality Fracture"
+						},
+						{
+							"code": "14048",
+							"text": "Veil of Thalarion is a huge support card that works perfectly"
+						},
+						{
+							"code": "14043",
+							"text": "Enchanting Fife also makes an investigator heal a horror"
+						},
+						{
+							"code": "14033",
+							"text": "that I want to highlight for Dexter is Corsair’s Cache"
+						},
+						{
+							"code": "12063",
+							"text": "Then, we can take Spiritual Intuition."
+						}
+					]
+				},
+				{
+					"by": "rite-of-seeking",
+					"title": "In 3 Rounds From Now, These Enemies Will Be Sorry They Messed With Me",
+					"date": "2026-11-23",
+					"environment": "potd",
+					"humor": true,
+					"media": {
+						"url": "https://riteofseeking.com/2026/11/23/in-3-rounds-from-now-these-enemies-will-be-sorry-they-messed-with-me/"
+					},
+					"cards": [
+						{
+							"code": "14003"
 						}
 					]
 				}
