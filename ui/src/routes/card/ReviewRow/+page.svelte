@@ -95,16 +95,6 @@
 			dateLabel: 'Nov 6, 2025'
 		},
 		{
-			id: 'joke',
-			medium: 'text',
-			person: { name: 'A Joker' },
-			title: 'A satirical piece',
-			humor: true,
-			environment: evergreen,
-			dateLabel: 'Oct 22, 2026',
-			externalHref: 'https://example.com'
-		},
-		{
 			id: 'official',
 			medium: 'text',
 			person: { name: 'The Publisher' },

@@ -73,7 +73,6 @@ row without containing it, so the time point and the person on it can be pressed
 {#snippet tags()}
 	{#if entry.preview}{@render tag(m.card_review_preview(), true)}{/if}
 	{#if entry.official}{@render tag(m.card_review_official())}{/if}
-	{#if entry.humor}{@render tag(m.card_review_humor())}{/if}
 	{#if entry.languageLabel}{@render tag(entry.languageLabel)}{/if}
 	{#if entry.startLabel}{@render tag(m.card_review_starts_at({ time: entry.startLabel }))}{/if}
 {/snippet}

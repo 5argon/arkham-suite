@@ -97,10 +97,6 @@ export interface ReviewRowData {
 	preview?: boolean;
 	official?: boolean;
 	/**
-	 * Satire or a joke, which a beginner shouldn't take as advice.
-	 */
-	humor?: boolean;
-	/**
 	 * Only when it isn't in English.
 	 */
 	languageLabel?: string;

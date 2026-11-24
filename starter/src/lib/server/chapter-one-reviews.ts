@@ -107,7 +107,6 @@ function entryOf(source: ChapterOneJson, on: ChapterOneCardJson): ReviewRowData 
 		dateLabel: source.date && dateLabel(source.date),
 		preview: source.preview,
 		official: source.official,
-		humor: source.humor,
 		languageLabel: source.language && languageNames.of(source.language),
 		startLabel: on.start,
 		externalHref: sourceUrl(source.media, on)

@@ -116,8 +116,7 @@
 			{
 				"code": "09001"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "ancient-evils",
@@ -158,8 +157,7 @@
 			{
 				"code": "09103"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -172,8 +170,7 @@
 			{
 				"code": "09015"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "ancient-evils",
@@ -233,8 +230,7 @@
 			{
 				"code": "09092"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -250,8 +246,7 @@
 			{
 				"code": "09099"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -264,8 +259,7 @@
 			{
 				"code": "09059"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -278,8 +272,7 @@
 			{
 				"code": "09001"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -292,8 +285,7 @@
 			{
 				"code": "09004"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -306,8 +298,7 @@
 			{
 				"code": "09011"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"by": "rite-of-seeking",
@@ -320,8 +311,7 @@
 			{
 				"code": "09008"
 			}
-		],
-		"humor": true
+		]
 	},
 	{
 		"guest": {
@@ -346,7 +336,6 @@
 			{
 				"code": "09008"
 			}
-		],
-		"humor": true
+		]
 	}
 ]

@@ -175,7 +175,6 @@ export interface SourceJson extends CreditJson {
 	 * An official preview that goes card by card, so it's on those cards' pages like any creator's.
 	 */
 	cardByCard?: boolean;
-	humor?: boolean;
 	media: MediaJson;
 	cards: SourceCardJson[];
 	/**
@@ -452,7 +451,6 @@ function sourceEntry(
 		dateLabel: dateLabel(source.date),
 		preview: preview || undefined,
 		official: source.official,
-		humor: source.humor,
 		languageLabel: source.language && languageNames.of(source.language),
 		startLabel: on?.start,
 		externalHref: sourceUrl(source.media, on)

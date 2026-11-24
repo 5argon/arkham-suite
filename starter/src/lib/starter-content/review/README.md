@@ -22,7 +22,7 @@ Each file is a list. A source can talk about any number of cards, and anything t
 - `media` is `{ "youtube": id }`, `{ "twitch": id }`, or `{ "url": page }` for anything else, adding `"as": "video"` or `"as": "audio"` when it isn't something to read. Everything opens on its own site in a new tab.
 - A video card can add `"start"`, and its link opens at that time. An article card can add `"text"`, the words to jump to on the page. Don't add the creator's verdict: readers should go and find out.
 - Something about a campaign adds `"campaigns": ["cob"]`, and is listed on that campaign's page behind a button. `"cards"` can be empty then, and it can be older than the Chapter 2 announcement. For a site with its own page per campaign, link that page rather than every article it lists. Something only about a whole product, like an unboxing of a box with no campaign, doesn't go on this site.
-- `"language": "es"` when it isn't in English, and `"humor": true` for satire.
+- `"language": "es"` when it isn't in English.
 - A roundup or any post going through many cards is one source, with each card's `text` jumping to its own paragraph. Cards sharing a paragraph share the `text`. It's separate from that creator's own preview of the card, since what it says differs.
 
 ## `card/<code>/`: hand-written reviews
