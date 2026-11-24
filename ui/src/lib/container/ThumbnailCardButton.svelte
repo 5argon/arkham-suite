@@ -1,9 +1,10 @@
 <!--
 @component
-A thumbnail card button using BorderedContainer with responsive image/text layout.
+A thumbnail card button with responsive image/text layout. The whole box, drawn like a
+BorderedContainer, is what's pressed.
 -->
 <script lang="ts">
-	import BorderedContainer from './BorderedContainer.svelte';
+	import clsx from 'clsx';
 	import { resolve } from '$app/paths';
 
 	interface Props {
@@ -26,40 +27,42 @@ A thumbnail card button using BorderedContainer with responsive image/text layou
 			(onClick.startsWith('http://') || onClick.startsWith('https://') || onClick.startsWith('//'))
 	);
 	const target = $derived(isExternalLink ? '_blank' : undefined);
+	const boxClass = clsx(
+		'group block w-full cursor-pointer rounded border p-2 lg:p-4 [--page-text-inset:0px]',
+		'border-primary-900/10 bg-primary-50/50 dark:border-primary-200/10 dark:bg-primary-950/10',
+		'hover:border-primary-400 hover:bg-primary-100 dark:hover:border-primary-500 dark:hover:bg-primary-900/60',
+		'active:bg-primary-200 dark:active:bg-primary-800/60',
+		'focus-visible:outline-secondary-500 focus-visible:outline-2 focus-visible:outline-offset-2'
+	);
 </script>
 
 {#snippet content()}
 	<div class="flex w-full flex-col gap-2 md:flex-row md:gap-4">
 		<!-- A thin strip of the picture, so a list of these stays short. -->
 		<div class="mx-auto h-20 w-full shrink-0 md:mx-0 md:w-48">
-			<img src={imageUrl} alt={title} class="h-full w-full rounded object-cover" />
+			<img
+				src={imageUrl}
+				alt={title}
+				class="h-full w-full rounded object-cover group-hover:brightness-110 group-active:brightness-95"
+			/>
 		</div>
 		<div class="flex flex-1 flex-col justify-center px-2 md:h-20 md:overflow-hidden md:px-0">
 			<div
-				class="text-secondary-700 dark:text-secondary-400 font-heading mb-1 text-xl font-semibold md:line-clamp-1"
+				class="text-secondary-700 dark:text-secondary-400 font-heading mb-0.5 text-lg font-semibold md:line-clamp-1 md:text-base"
 			>
 				{title}
 			</div>
-			<p class="text-sm text-black md:line-clamp-2 dark:text-white">{description}</p>
+			<p class="text-sm text-black md:line-clamp-3 md:text-xs dark:text-white">{description}</p>
 		</div>
 	</div>
 {/snippet}
 
-<BorderedContainer>
-	{#if isLink && typeof onClick === 'string'}
-		<a
-			href={onClick}
-			{target}
-			class="hover:bg-primary-300/10 dark:hover:bg-primary-800/10 block w-full rounded no-underline transition-colors duration-200"
-		>
-			{@render content()}
-		</a>
-	{:else}
-		<button
-			onclick={handleClick}
-			class="hover:bg-primary-300/10 dark:hover:bg-primary-800/10 w-full cursor-pointer rounded border-none bg-transparent p-0 text-left transition-colors duration-200"
-		>
-			{@render content()}
-		</button>
-	{/if}
-</BorderedContainer>
+{#if isLink && typeof onClick === 'string'}
+	<a href={onClick} {target} class={clsx(boxClass, 'no-underline')}>
+		{@render content()}
+	</a>
+{:else}
+	<button type="button" onclick={handleClick} class={clsx(boxClass, 'text-left')}>
+		{@render content()}
+	</button>
+{/if}
