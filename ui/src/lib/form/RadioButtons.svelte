@@ -1,7 +1,8 @@
 <!--
 @component
 Radio buttons styled as a segmented control. Horizontal by default; pass `vertical` to stack them as
-full-width left-aligned rows (for long / wrapping labels).
+full-width left-aligned rows (for long / wrapping labels). On a phone, choices with words are plain
+radios in a column instead, since a joined bar only reads as one when it fits on one line.
 -->
 <script lang="ts" generics="T">
 	import type { Snippet } from 'svelte';
@@ -61,21 +62,41 @@ full-width left-aligned rows (for long / wrapping labels).
 		renderLabel,
 		vertical = false,
 	}: Prop<T> = $props();
-	const sizeClass = $derived(size === 'icon' ? 'w-2' : size === 'text' ? 'w-16' : '');
+	// The same width for each only matters in the bar.
+	const sizeClass = $derived(size === 'text' ? 'sm:w-16' : '');
 </script>
 
 {#snippet eachButton(value: T, label: string, icon: FaIconType | undefined, index: number)}
+	{@const selected = selectedValue === value}
+	{@const first = index === 0}
+	{@const last = index === choices.length - 1}
 	<FormHelp direction="top" passThrough={size !== 'icon'} help={label}>
 		<button
 			type="button"
+			role="radio"
+			aria-checked={selected}
 			class={clsx(
-				'border-primary-800 dark:border-primary-300 border px-3 py-1 focus:outline-none cursor-pointer',
-				vertical
-					? clsx('w-full text-left', index === 0 ? 'rounded-t-md' : '', index === choices.length - 1 ? 'rounded-b-md' : '', index > 0 ? '-mt-px' : '')
-					: clsx(index === 0 ? 'rounded-l-md' : '', index === choices.length - 1 ? 'rounded-r-md' : ''),
-				selectedValue === value
-					? 'bg-primary-600 dark:bg-primary-200  text-white dark:text-black'
-					: 'dark:bg-primary-800 hover:bg-primary-200 dark:hover:bg-primary-600 dark:text-white'
+				'cursor-pointer focus:outline-none',
+				size === 'icon'
+					? clsx(
+							'border-primary-800 dark:border-primary-300 border px-3 py-1',
+							first && 'rounded-l-md',
+							last && 'rounded-r-md',
+							selected
+								? 'bg-primary-600 dark:bg-primary-200 text-white dark:text-black'
+								: 'dark:bg-primary-800 hover:bg-primary-200 dark:hover:bg-primary-600 dark:text-white'
+						)
+					: clsx(
+							// A plain radio on a phone, joined into one bar from sm up.
+							'flex items-center py-1 text-left dark:text-white',
+							'sm:border-primary-800 sm:dark:border-primary-300 sm:border sm:px-3',
+							vertical
+								? clsx('w-full', first && 'sm:rounded-t-md', last && 'sm:rounded-b-md', !first && 'sm:-mt-px')
+								: clsx(first && 'sm:rounded-l-md', last && 'sm:rounded-r-md'),
+							selected
+								? 'sm:bg-primary-600 sm:dark:bg-primary-200 sm:text-white sm:dark:text-black'
+								: 'sm:dark:bg-primary-800 sm:hover:bg-primary-200 sm:dark:hover:bg-primary-600'
+						)
 			)}
 			onclick={() => {
 				selectedValue = value;
@@ -83,8 +104,24 @@ full-width left-aligned rows (for long / wrapping labels).
 			}}
 		>
 			<span class="flex items-center gap-2">
+				{#if size !== 'icon'}
+					<span
+						class="border-primary-700 dark:border-primary-300 flex size-4 shrink-0 items-center justify-center rounded-full border-2 sm:hidden"
+						aria-hidden="true"
+					>
+						{#if selected}
+							<span class="bg-primary-700 dark:bg-primary-300 size-2 rounded-full"></span>
+						{/if}
+					</span>
+				{/if}
 				{#if icon}
-					<FaIcon duotone {icon} invertColor={selectedValue === value} />
+					{#if size === 'icon' || !selected}
+						<FaIcon duotone {icon} invertColor={selected} />
+					{:else}
+						<!-- Only the bar fills in the chosen one, so only the bar inverts its icon. -->
+						<span class="sm:hidden"><FaIcon duotone {icon} /></span>
+						<span class="hidden sm:inline"><FaIcon duotone {icon} invertColor /></span>
+					{/if}
 				{/if}
 				{#if size !== 'icon'}
 					<span class={clsx('inline-block', vertical ? '' : sizeClass)}>
@@ -97,7 +134,15 @@ full-width left-aligned rows (for long / wrapping labels).
 {/snippet}
 
 <FormLabelWithHelp disableClick {label} {help} {helpMd} {helpContent}>
-	<div class={vertical ? 'flex flex-col items-stretch' : 'flex flex-wrap'}>
+	<div
+		role="radiogroup"
+		aria-label={label}
+		class={size === 'icon'
+			? 'flex flex-wrap'
+			: vertical
+				? 'flex flex-col items-stretch'
+				: 'flex flex-col sm:flex-row sm:flex-wrap'}
+	>
 		{#each choices as { value, label, icon }, index (index)}
 			{@render eachButton(value, label, icon, index)}
 		{/each}
