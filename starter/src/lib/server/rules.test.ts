@@ -29,6 +29,12 @@ describe('rule directives', () => {
 		expect(quote).not.toContain('5. ');
 	});
 
+	it('finds a phrase across the bold of the Grimoire', () => {
+		const directive = '{{rule 1.034 "Some cards add additional costs"}}';
+		expect(ruleDirectiveProblems(directive)).toEqual([]);
+		expect(expandRuleDirectives(directive)).toContain('> Some cards add <b>additional costs</b>');
+	});
+
 	it('takes \\" as a double quote inside a phrase', () => {
 		const directive = String.raw`{{rule 1.083 "uses the word \"would\" changes"}}`;
 		expect(ruleDirectiveProblems(directive)).toEqual([]);

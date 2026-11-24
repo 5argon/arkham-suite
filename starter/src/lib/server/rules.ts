@@ -74,8 +74,9 @@ function quotedLines(quote: RuleQuote): { lines: string[]; problems: string[] } 
 		for (let i = at + 1; i < lines.length && indentOf(lines[i]) > 0; i++) picked.add(i);
 	}
 	for (const phrase of quote.phrases) {
+		// A phrase is the words as they read, without the Grimoire's bold and italics in between.
 		const found = lines.flatMap((line, i) =>
-			line.toLowerCase().includes(phrase.toLowerCase()) ? [i] : []
+			line.replace(/<[^>]+>/g, '').toLowerCase().includes(phrase.toLowerCase()) ? [i] : []
 		);
 		if (found.length === 0) problems.push(`${quote.id} doesn't say "${phrase}"`);
 		for (const i of found) picked.add(i);
