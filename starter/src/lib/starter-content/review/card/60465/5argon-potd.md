@@ -5,7 +5,9 @@ environment: potd
 preview: true
 ---
 
-[<span class="fg-mystic">Mirror Form</span>](/card/60465) would be able to put [<span class="fg-mystic">Reality Fracture</span>](/card/14055) and [<span class="fg-mystic">Lunar Sight</span>](/card/14054) into play without dreaming, since this wording skips the cost. Dreaming X is considered one of the cost to play the card.
+[<span class="fg-mystic">Mirror Form</span>](/card/60465) would be able to put [<span class="fg-mystic">Reality Fracture</span>](/card/14055) and [<span class="fg-mystic">Lunar Sight</span>](/card/14054) into play without dreaming, since this wording skips the cost. Dreaming X is an additional cost to play the card.
+
+{{rule 1.034 "Some cards add additional costs"}}
 
 {{rule 1.118 "The costs of a card being put into play are not paid."}}
 

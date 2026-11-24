@@ -5,7 +5,11 @@ environment: potd
 preview: true
 ---
 
-Dreaming X is one of the costs, as you might have expected. So [<span class="fg-rogue">Dalkura</span>](/card/14030) is the idea of a Dreamlands Rogue who can skip the dreaming part by paying resources.
+Dreaming X is an additional cost, as you might have expected.
+
+{{rule 1.034 "Some cards add additional costs"}}
+
+So [<span class="fg-rogue">Dalkura</span>](/card/14030) is the idea of a Dreamlands Rogue who can skip the dreaming part by paying resources.
 
 > **Reid B. (FFG):** Dreaming X is an alternate cost to play the card, so any time you play a card with dreaming X it goes into dreaming unless you're explicitly told to ignore that cost
 
