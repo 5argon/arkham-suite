@@ -16,8 +16,6 @@
 
 <PageLead description={m.common_home_description()} title={m.common_arkham_starter()}></PageLead>
 
-<ResourcePage>
-	{#snippet afterStarterContents()}
-		<HomeReviews rows={data.reviews} />
-	{/snippet}
-</ResourcePage>
+<HomeReviews rows={data.reviews} />
+
+<ResourcePage />

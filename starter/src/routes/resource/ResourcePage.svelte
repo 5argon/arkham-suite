@@ -1,16 +1,7 @@
 <script lang="ts">
 	import { InnerHeading, TextParagraph, ThumbnailCardButton } from '@5argon/arkham-life-ui';
-	import type { Snippet } from 'svelte';
 
 	import * as m from '$lib/paraglide/messages.js';
-
-	interface Prop {
-		/**
-		 * Shown between the starter contents and the reference materials.
-		 */
-		afterStarterContents?: Snippet;
-	}
-	const { afterStarterContents }: Prop = $props();
 </script>
 
 <InnerHeading title={m.resource_heading_starter_contents()}></InnerHeading>
@@ -43,8 +34,6 @@
 		title={m.resource_card_reviews_title()}
 	/>
 </div>
-
-{@render afterStarterContents?.()}
 
 <InnerHeading title={m.resource_heading_reference_materials()}></InnerHeading>
 
