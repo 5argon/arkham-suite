@@ -53,12 +53,13 @@ certain cards is their card lines in a divider.
 
 <article class="[&_[id]]:scroll-mt-4">
 	<header class="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-		<span class="flex min-w-0 flex-1 basis-24 items-center gap-2">
+		<!-- As wide as the name, so the time point and date go below a name they don't fit beside. -->
+		<span class="flex min-w-0 grow items-center gap-2">
 			<PersonAvatar person={entry.person} size="sm" />
 			{#if entry.person.href}
 				<!-- eslint-disable svelte/no-navigation-without-resolve -->
 				<a
-					class="text-primary-900 dark:text-primary-100 font-semibold"
+					class="text-primary-900 dark:text-primary-100 min-w-0 font-semibold wrap-anywhere"
 					href={entry.person.href}
 					rel={entry.person.href.startsWith('http') ? 'noopener' : undefined}
 					target={entry.person.href.startsWith('http') ? '_blank' : undefined}
@@ -67,7 +68,9 @@ certain cards is their card lines in a divider.
 				</a>
 				<!-- eslint-enable svelte/no-navigation-without-resolve -->
 			{:else}
-				<span class="text-primary-900 dark:text-primary-100 font-semibold">{entry.person.name}</span>
+				<span class="text-primary-900 dark:text-primary-100 min-w-0 font-semibold wrap-anywhere"
+					>{entry.person.name}</span
+				>
 			{/if}
 		</span>
 		<span class="ml-auto flex shrink-0 items-center gap-2">
