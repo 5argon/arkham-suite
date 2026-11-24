@@ -29,17 +29,18 @@ A thumbnail card button using BorderedContainer with responsive image/text layou
 </script>
 
 {#snippet content()}
-	<div class="flex w-full flex-col gap-4 md:flex-row">
-		<div class="mx-auto h-40 w-full flex-shrink-0 md:mx-0 md:h-32 md:w-62.5">
+	<div class="flex w-full flex-col gap-2 md:flex-row md:gap-4">
+		<!-- A thin strip of the picture, so a list of these stays short. -->
+		<div class="mx-auto h-20 w-full shrink-0 md:mx-0 md:w-48">
 			<img src={imageUrl} alt={title} class="h-full w-full rounded object-cover" />
 		</div>
-		<div class="flex flex-1 flex-col justify-center px-4 md:h-32 md:overflow-hidden">
+		<div class="flex flex-1 flex-col justify-center px-2 md:h-20 md:overflow-hidden md:px-0">
 			<div
-				class="text-secondary-700 dark:text-secondary-400 font-heading mb-2 text-xl font-semibold md:line-clamp-2"
+				class="text-secondary-700 dark:text-secondary-400 font-heading mb-1 text-xl font-semibold md:line-clamp-1"
 			>
 				{title}
 			</div>
-			<p class="text-sm text-black md:line-clamp-3 dark:text-white">{description}</p>
+			<p class="text-sm text-black md:line-clamp-2 dark:text-white">{description}</p>
 		</div>
 	</div>
 {/snippet}
