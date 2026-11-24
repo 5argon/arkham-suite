@@ -10,6 +10,12 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<ThumbnailCardButton
+		description={m.resource_card_reviews_description()}
+		imageUrl="image/resource/review.webp"
+		onClick="/review"
+		title={m.resource_card_reviews_title()}
+	/>
+	<ThumbnailCardButton
 		description={m.resource_starter_decks_description()}
 		imageUrl="image/resource/starter.webp"
 		onClick="/starter"
@@ -26,12 +32,6 @@
 		imageUrl="image/resource/evergreen.webp"
 		onClick="/tool/team-builder"
 		title={m.resource_team_builder_title()}
-	/>
-	<ThumbnailCardButton
-		description={m.resource_card_reviews_description()}
-		imageUrl="image/resource/review.webp"
-		onClick="/review"
-		title={m.resource_card_reviews_title()}
 	/>
 </div>
 
