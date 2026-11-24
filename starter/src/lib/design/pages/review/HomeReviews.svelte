@@ -1,15 +1,17 @@
 <!--
 @component
 One review written for this site picked for the visitor's day, next to the latest one. The pick
-never repeats the latest, and is only made in the browser where the visitor's day is known.
+never repeats the latest, and is only made in the browser where the visitor's day is known. The
+visitor can pick another at random.
 -->
 <script lang="ts">
-	import { ReviewList } from '@5argon/arkham-life-ui';
+	import { Button, FaIconType, ReviewList } from '@5argon/arkham-life-ui';
 	import clsx from 'clsx';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 
 	import * as m from '$lib/paraglide/messages.js';
 	import type { RecentReviewRow } from '$lib/server/reviews';
+	import { pickRandom } from '$lib/tool/starter/filter';
 
 	import RecentReviewItem from './RecentReviewItem.svelte';
 
@@ -39,14 +41,29 @@ never repeats the latest, and is only made in the browser where the visitor's da
 		return h >>> 0;
 	}
 
-	const random = $derived(
+	const todays = $derived(
 		today === null || pool.length === 0 ? undefined : pool[hash(today) % pool.length]
 	);
+	/**
+	 * Picked by the visitor instead of today's.
+	 */
+	let pickedKey = $state<string | null>(null);
+	const picked = $derived(
+		pickedKey === null ? undefined : pool.find((row) => row.key === pickedKey)
+	);
+	const random = $derived(picked ?? todays);
+
+	function pickAnother() {
+		pickedKey = pickRandom(pool, random ?? null)?.key ?? null;
+	}
 </script>
 
-{#snippet group(title: string, row: RecentReviewRow | undefined)}
+{#snippet group(title: string, row: RecentReviewRow | undefined, action?: Snippet)}
 	<section class="min-w-0">
-		<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">{title}</h2>
+		<div class="mb-2 flex items-center justify-between gap-2">
+			<h2 class="text-primary-900 dark:text-primary-100 px-(--page-text-inset) text-xl">{title}</h2>
+			{@render action?.()}
+		</div>
 		{#if row}
 			<ReviewList>
 				<RecentReviewItem {row} />
@@ -55,10 +72,23 @@ never repeats the latest, and is only made in the browser where the visitor's da
 	</section>
 {/snippet}
 
+{#snippet pickAnotherButton()}
+	<Button
+		hideLabel
+		icon={FaIconType.Randomize}
+		label={m.review_home_pick_another()}
+		onClick={pickAnother}
+	/>
+{/snippet}
+
 {#if latest}
 	<div class={clsx('my-4 grid grid-cols-1 gap-4', pool.length > 0 && 'md:grid-cols-2')}>
 		{#if pool.length > 0}
-			{@render group(m.review_home_random(), random)}
+			{@render group(
+				picked ? m.review_home_random_again() : m.review_home_random(),
+				random,
+				pickAnotherButton
+			)}
 		{/if}
 		{@render group(m.review_home_latest(), latest)}
 	</div>

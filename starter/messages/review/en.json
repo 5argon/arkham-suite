@@ -15,6 +15,8 @@
 	"review_card_description": "Older reviews of {name}.",
 	"review_section_chapter_two": "Chapter 2",
 	"review_home_random": "Today's Random Card Review",
+	"review_home_random_again": "Random Card Review",
+	"review_home_pick_another": "Pick Another Review",
 	"review_home_latest": "Latest Card Review",
 	"review_recent_written": "Recent on This Site",
 	"review_recent_external": "Recent External Reviews",
