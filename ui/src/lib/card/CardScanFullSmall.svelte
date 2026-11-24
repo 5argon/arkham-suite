@@ -113,11 +113,8 @@ Fixed size vertical card designed to be in a flex.
 
 	const isHorizontalCard = $derived(cardUtility.isHorizontalCard(card));
 
-	const verticalCardHeight = 168;
-	// Add padding for each quantity needed above 1.
-	const cardStackVerticalReserve = $derived(
-		verticalCardHeight + cardStackMaxPadding * (effectiveMaxQuantity - 1)
-	);
+	// Add padding for each quantity needed above 1, on top of the card's height in the CSS.
+	const cardStackExtraReserve = $derived(cardStackMaxPadding * (effectiveMaxQuantity - 1));
 	const localizedCard = $derived(
 		localizationResolver?.getLocalizedCard(card, languageCode) ?? card
 	);
@@ -170,7 +167,7 @@ Fixed size vertical card designed to be in a flex.
 {/snippet}
 
 <div class="fixed-outer-width">
-	<div style="height: {cardStackVerticalReserve}px; isolation: isolate;">
+	<div style="height: calc(var(--scan-height) + {cardStackExtraReserve}px); isolation: isolate;">
 		{#each Array(inverseIterationCount) as _, i (i)}
 			<!-- Cast shadow this copy if it just render a copy in previous iteration -->
 			{@const shadow = i - 1 >= inverseIterationCount - effectiveQuantity}
@@ -230,8 +227,14 @@ Fixed size vertical card designed to be in a flex.
 </div>
 
 <style>
+	/*
+	120px wide, or a little less when a phone could then fit 3 in a row: the 50px is the page's edge,
+	the box around the grid, the 2 gaps between the cards, and a nested group's inset.
+	*/
 	.fixed-outer-width {
-		width: 120px;
+		--scan-width: min(120px, calc((100vw - 50px) / 3));
+		--scan-height: calc(var(--scan-width) * 1.4);
+		width: var(--scan-width);
 	}
 
 	.name-below {
@@ -243,8 +246,8 @@ Fixed size vertical card designed to be in a flex.
 
 	/* Applying this to img will stretch graphics to this size. To the outer div prevent text below from expanding the item. */
 	.fixed-size-card {
-		width: 120px;
-		height: 168px;
+		width: var(--scan-width);
+		height: var(--scan-height);
 		border-radius: 6px;
 	}
 
@@ -254,12 +257,12 @@ Fixed size vertical card designed to be in a flex.
 		gap: 0;
 		align-items: center;
 		justify-content: center;
-		height: 168px;
+		height: var(--scan-height);
 	}
 
 	.horizontal-card {
-		width: 115px;
-		height: 82px;
+		width: calc(var(--scan-width) * 115 / 120);
+		height: calc(var(--scan-height) * 82 / 168);
 		border-radius: 6px;
 	}
 
