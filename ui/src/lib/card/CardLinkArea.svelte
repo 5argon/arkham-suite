@@ -4,11 +4,17 @@ Anything with card links in it, which are elements with the `card-link` class an
 `data-card-code`. Hovering one shows a CardScanFullSmall tooltip, with the card's text beside it
 when there is any (and a CardLine instead of the scan on narrow screens); clicking it opens a
 CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
+
+A touch can't hover, so tapping a link shows the same tooltip and keeps it open, with a button that
+does what clicking the link does. Tapping anywhere else closes it.
 -->
 <script lang="ts">
 	import { type Card } from '@5argon/arkham-kohaku';
 	import type { Snippet } from 'svelte';
 	import HoverTooltip from '../container/HoverTooltip.svelte';
+	import Button from '../button/Button.svelte';
+	import { FaIconType } from '../icon/fa-icon-type.js';
+	import * as m from '../paraglide/messages.js';
 	import CardScanFullSmall from './CardScanFullSmall.svelte';
 	import CardMagnifiedModal from './CardMagnifiedModal.svelte';
 	import CardLine from './CardLine.svelte';
@@ -26,10 +32,20 @@ CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
 
 	const { resolveCard, resolveText, children }: Prop = $props();
 
+	let area = $state<HTMLDivElement | null>(null);
 	let tooltipVisible = $state(false);
 	let tooltipReferenceElement = $state<HTMLElement | null>(null);
 	let hoveredCard = $state<Card | null>(null);
 	const hoveredText = $derived(hoveredCard ? resolveText?.(hoveredCard.code) : undefined);
+	/**
+	 * The link a touch tapped, whose tooltip stays open until tapping elsewhere.
+	 */
+	let tappedLink = $state<HTMLElement | null>(null);
+	const tappedHref = $derived(tappedLink ? hrefOf(tappedLink) : undefined);
+	/**
+	 * What pressed down last, since a click doesn't say whether it was a tap.
+	 */
+	let pressedBy: string | undefined;
 
 	let magnifiedCard = $state<Card | null>(null);
 	let isModalShowing = $state(false);
@@ -48,17 +64,43 @@ CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
 		return cardCode ? resolveCard?.(cardCode) : undefined;
 	}
 
-	function handleMouseOver(event: MouseEvent) {
-		const cardLink = getCardLinkAncestor(event.target);
-		if (!cardLink) return;
-		const card = linkedCard(cardLink);
-		if (!card) return;
+	/**
+	 * Where the link goes, as written so the site's router still handles it.
+	 */
+	function hrefOf(cardLink: HTMLElement): string | undefined {
+		if (!(cardLink instanceof HTMLAnchorElement)) return undefined;
+		const href = cardLink.getAttribute('href');
+		return href === null || href === '' ? undefined : href;
+	}
+
+	function showTooltip(cardLink: HTMLElement, card: Card) {
 		hoveredCard = card;
 		tooltipReferenceElement = cardLink;
 		tooltipVisible = true;
 	}
 
-	function handleMouseOut(event: MouseEvent) {
+	function closeTapped() {
+		tappedLink = null;
+		// The card stays, so the tooltip animates out with what it showed.
+		tooltipVisible = false;
+	}
+
+	function magnify(card: Card) {
+		magnifiedCard = card;
+		isModalShowing = true;
+	}
+
+	function handlePointerOver(event: PointerEvent) {
+		if (event.pointerType === 'touch' || tappedLink !== null) return;
+		const cardLink = getCardLinkAncestor(event.target);
+		if (!cardLink) return;
+		const card = linkedCard(cardLink);
+		if (!card) return;
+		showTooltip(cardLink, card);
+	}
+
+	function handlePointerOut(event: PointerEvent) {
+		if (event.pointerType === 'touch' || tappedLink !== null) return;
 		const cardLink = getCardLinkAncestor(event.target);
 		if (!cardLink) return;
 		const relatedTarget = event.relatedTarget as HTMLElement | null;
@@ -67,15 +109,40 @@ CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
 		tooltipVisible = false;
 	}
 
+	function handlePointerDown(event: PointerEvent) {
+		pressedBy = event.pointerType;
+	}
+
 	function handleClick(event: MouseEvent) {
+		const tapped = pressedBy === 'touch';
+		// A key press clicks too, with nothing pressed down before it.
+		pressedBy = undefined;
 		const cardLink = getCardLinkAncestor(event.target);
 		if (!cardLink) return;
 		const card = linkedCard(cardLink);
 		if (!card) return;
+		if (tapped) {
+			event.preventDefault();
+			if (cardLink === tappedLink) {
+				closeTapped();
+				return;
+			}
+			tappedLink = cardLink;
+			showTooltip(cardLink, card);
+			return;
+		}
 		tooltipVisible = false;
-		if (cardLink instanceof HTMLAnchorElement && cardLink.href !== '') return;
-		magnifiedCard = card;
-		isModalShowing = true;
+		if (hrefOf(cardLink) !== undefined) return;
+		magnify(card);
+	}
+
+	function handleDocumentPointerDown(event: PointerEvent) {
+		if (tappedLink === null) return;
+		const target = event.target as Element | null;
+		if (target?.closest?.('[data-card-link-tapped]')) return;
+		// Tapping a link here again is up to its click.
+		if (area?.contains(target) && getCardLinkAncestor(target)) return;
+		closeTapped();
 	}
 
 	function handleModalClose() {
@@ -84,15 +151,20 @@ CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
 	}
 
 	function handleBlur() {
+		if (tappedLink !== null) return;
 		// The card stays, so the tooltip animates out with what it showed.
 		tooltipVisible = false;
 	}
 </script>
 
+<svelte:document onpointerdown={handleDocumentPointerDown} />
+
 <div
-	onmouseover={handleMouseOver}
+	bind:this={area}
+	onpointerover={handlePointerOver}
 	onfocus={() => {}}
-	onmouseout={handleMouseOut}
+	onpointerout={handlePointerOut}
+	onpointerdown={handlePointerDown}
 	onblur={handleBlur}
 	onclick={handleClick}
 	role="presentation"
@@ -100,30 +172,59 @@ CardMagnifiedModal, unless the link is an `<a>` with somewhere to go.
 	{@render children()}
 </div>
 
-<HoverTooltip visible={tooltipVisible} referenceElement={tooltipReferenceElement}>
+{#snippet tappedAction(card: Card)}
+	<!-- Closes on the way out, since the next page can be this same one with other cards. -->
+	<div class="flex justify-end pt-2" onclick={closeTapped} role="presentation">
+		{#if tappedHref !== undefined}
+			<Button icon={FaIconType.RightSingle} label={m.card_link_go_to_card()} onClick={tappedHref} />
+		{:else}
+			<Button
+				icon={FaIconType.Magnify}
+				label={m.card_link_show_larger()}
+				onClick={() => magnify(card)}
+			/>
+		{/if}
+	</div>
+{/snippet}
+
+<HoverTooltip
+	visible={tooltipVisible}
+	referenceElement={tooltipReferenceElement}
+	interactive={tappedLink !== null}
+>
 	{#if hoveredCard}
-		{#if hoveredText}
-			<div class="flex max-w-[calc(100vw-1rem)] items-start gap-3 py-2">
-				<div class="hidden shrink-0 sm:block">
-					<CardScanFullSmall card={hoveredCard} />
-				</div>
-				<div class="w-72 max-w-full min-w-0">
-					<div class="mb-2 sm:hidden">
-						<CardLine card={hoveredCard} hideQuantity />
+		<div data-card-link-tapped={tappedLink !== null || undefined}>
+			{#if hoveredText}
+				<div class="flex max-w-[calc(100vw-1rem)] items-start gap-3 py-2">
+					<div class="hidden shrink-0 sm:block">
+						<CardScanFullSmall card={hoveredCard} />
 					</div>
-					<CardTextBlock side={hoveredText.front} />
-					{#if hoveredText.back}
-						<div class="border-t border-neutral-400 pt-2 dark:border-neutral-600">
-							<CardTextBlock side={hoveredText.back} />
+					<div class="w-72 max-w-full min-w-0">
+						<div class="mb-2 sm:hidden">
+							<CardLine card={hoveredCard} hideQuantity />
+						</div>
+						<CardTextBlock side={hoveredText.front} />
+						{#if hoveredText.back}
+							<div class="border-t border-neutral-400 pt-2 dark:border-neutral-600">
+								<CardTextBlock side={hoveredText.back} />
+							</div>
+						{/if}
+						{#if tappedLink !== null}
+							{@render tappedAction(hoveredCard)}
+						{/if}
+					</div>
+				</div>
+			{:else}
+				<div class="p-1">
+					<CardScanFullSmall card={hoveredCard} />
+					{#if tappedLink !== null}
+						<div class="pb-1">
+							{@render tappedAction(hoveredCard)}
 						</div>
 					{/if}
 				</div>
-			</div>
-		{:else}
-			<div class="p-1">
-				<CardScanFullSmall card={hoveredCard} />
-			</div>
-		{/if}
+			{/if}
+		</div>
 	{/if}
 </HoverTooltip>
 

@@ -61,5 +61,7 @@
 	"card_review_starts_at": "From {time}",
 	"card_review_count_written": "Reviews on this site: {count}",
 	"card_review_count_external": "External reviews: {count}",
-	"card_text_customization": "Customizable"
+	"card_text_customization": "Customizable",
+	"card_link_go_to_card": "Go to Card",
+	"card_link_show_larger": "Show Larger"
 }

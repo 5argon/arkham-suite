@@ -11,10 +11,14 @@ A generic tooltip that displays custom content inside a rounded frame with trans
 	interface Prop {
 		visible?: boolean;
 		referenceElement?: HTMLElement | null;
+		/**
+		 * It can be pressed, for one that stays open until closed rather than following a pointer.
+		 */
+		interactive?: boolean;
 		children?: Snippet;
 	}
 
-	const { visible = false, referenceElement, children }: Prop = $props();
+	const { visible = false, referenceElement, interactive = false, children }: Prop = $props();
 
 	let floatingElement: HTMLDivElement | null = $state(null);
 	let x = $state(0);
@@ -71,7 +75,8 @@ A generic tooltip that displays custom content inside a rounded frame with trans
 		bind:this={floatingElement}
 		use:portalToBody
 		class={clsx(
-			'pointer-events-none fixed z-50',
+			'fixed z-50',
+			!interactive && 'pointer-events-none',
 			'rounded-lg border border-neutral-400 bg-white/70 px-2 shadow-xl backdrop-blur-sm dark:border-neutral-600 dark:bg-black/70'
 		)}
 		style="left: {x}px; top: {y}px;"
