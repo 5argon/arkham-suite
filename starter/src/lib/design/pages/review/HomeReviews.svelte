@@ -46,7 +46,7 @@ never repeats the latest, and is only made in the browser where the visitor's da
 
 {#snippet group(title: string, row: RecentReviewRow | undefined)}
 	<section class="min-w-0">
-		<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">{title}</h2>
+		<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">{title}</h2>
 		{#if row}
 			<ReviewList>
 				<RecentReviewItem {row} />

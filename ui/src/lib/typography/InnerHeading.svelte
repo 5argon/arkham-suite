@@ -13,7 +13,7 @@ This will be in &lt;h2&gt;.
 	const { title, accentColor }: Props = $props();
 </script>
 
-<h2 class="text-secondary-900 dark:text-secondary-100 my-4 text-xl sm:text-3xl">
+<h2 class="text-secondary-900 dark:text-secondary-100 my-4 px-(--page-text-inset) text-xl sm:text-3xl">
 	{title}
 </h2>
 

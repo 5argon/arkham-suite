@@ -110,7 +110,7 @@ certain cards is their card lines in a divider.
 		{#each parts as part, i (i)}
 			{#if part.kind === 'text'}
 				<!-- Quotes in a review are only ever rules. -->
-				<div class="prose dark:prose-invert description-content rule-snippets max-w-none">
+				<div class="prose dark:prose-invert description-content rule-snippets max-w-none px-(--page-text-inset)">
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html part.html}
 				</div>

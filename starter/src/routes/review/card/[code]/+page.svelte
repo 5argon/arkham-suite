@@ -112,14 +112,14 @@
 
 			{#if data.users}
 				<section>
-					<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">{m.review_users()}</h2>
+					<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">{m.review_users()}</h2>
 					<ReviewCardUsers users={data.users} />
 				</section>
 			{/if}
 
 			{#if data.buildQl.length > 0}
 				<section>
-					<h2 class="text-primary-900 dark:text-primary-100 mb-2 flex items-center gap-2 text-xl">
+					<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) flex items-center gap-2 text-xl">
 						{m.review_buildql()}
 						<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 						<a
@@ -137,7 +137,7 @@
 
 			{#if external.length > 0}
 				<section>
-					<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">
+					<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">
 						{m.review_section_external()}
 					</h2>
 					{@render externalList(external.slice(0, shownCount))}
@@ -155,7 +155,7 @@
 
 			{#if written.length > 0}
 				<section id={contentsId} class="scroll-mt-4">
-					<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">
+					<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">
 						{m.review_section_written()}
 					</h2>
 					<ReviewList>
@@ -213,7 +213,7 @@
 
 			{#if data.insights.length > 0}
 				<section>
-					<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">
+					<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">
 						{m.review_section_insights({ name: card.name })}
 					</h2>
 					{@render insightList(data.insights.slice(0, shownCount))}

@@ -12,7 +12,7 @@ A standard text paragraph for normal content.
 	const { children }: Props = $props();
 </script>
 
-<p class="text-base text-secondary-900 dark:text-secondary-100 my-4">
+<p class="text-base text-secondary-900 dark:text-secondary-100 my-4 px-(--page-text-inset)">
 	{@render children()}
 </p>
 

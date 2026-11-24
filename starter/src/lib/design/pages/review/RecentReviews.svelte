@@ -62,7 +62,7 @@ and something covering many cards is still one review.
 			{@const listed = group.rows.slice(0, recentListLimit)}
 			{@const shownCount = shownCounts[i]}
 			<section class="min-w-0">
-				<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">{group.title}</h2>
+				<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">{group.title}</h2>
 				{@render list(group.rows.slice(0, shownCount))}
 				{#if group.rows.length > shownCount}
 					<div class="mt-2 flex justify-center">

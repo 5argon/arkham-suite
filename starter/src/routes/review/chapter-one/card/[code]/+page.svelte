@@ -29,7 +29,7 @@
 			text={data.text}
 		/>
 		<section class="min-w-0 flex-1">
-			<h2 class="text-primary-900 dark:text-primary-100 mb-2 text-xl">
+			<h2 class="text-primary-900 dark:text-primary-100 mb-2 px-(--page-text-inset) text-xl">
 				{m.review_chapter_one_section()}
 			</h2>
 			<ReviewList>

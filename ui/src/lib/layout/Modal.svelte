@@ -77,7 +77,7 @@ Generic modal with dark overlay that can be closed with Escape or clicking the o
 {#if isOpen}
 	<div
 		bind:this={modalElement}
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 [--page-text-inset:0px]"
 		{@attach lockPageScroll}
 		transition:fade={{ duration: 200 }}
 		onpointerdown={handleOverlayPointerDown}
